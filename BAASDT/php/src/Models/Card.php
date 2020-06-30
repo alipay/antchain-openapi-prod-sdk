@@ -1,0 +1,262 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\BAASDT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class Card extends Model {
+    protected $_name = [
+        'calStatus' => 'cal_status',
+        'cardId' => 'card_id',
+        'chargeTime' => 'charge_time',
+        'countOfMinUnit' => 'count_of_min_unit',
+        'createTime' => 'create_time',
+        'createTxHash' => 'create_tx_hash',
+        'desensitizedUid' => 'desensitized_uid',
+        'extInfo' => 'ext_info',
+        'minUnit' => 'min_unit',
+        'publicKey' => 'public_key',
+        'status' => 'status',
+        'uidPublicKey' => 'uid_public_key',
+        'validAfter' => 'valid_after',
+        'validBefore' => 'valid_before',
+        'validDays' => 'valid_days',
+        'value' => 'value',
+        'version' => 'version',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->calStatus) {
+            $res['cal_status'] = $this->calStatus;
+        }
+        if (null !== $this->cardId) {
+            $res['card_id'] = $this->cardId;
+        }
+        if (null !== $this->chargeTime) {
+            $res['charge_time'] = $this->chargeTime;
+        }
+        if (null !== $this->countOfMinUnit) {
+            $res['count_of_min_unit'] = $this->countOfMinUnit;
+        }
+        if (null !== $this->createTime) {
+            $res['create_time'] = $this->createTime;
+        }
+        if (null !== $this->createTxHash) {
+            $res['create_tx_hash'] = $this->createTxHash;
+        }
+        if (null !== $this->desensitizedUid) {
+            $res['desensitized_uid'] = $this->desensitizedUid;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->minUnit) {
+            $res['min_unit'] = $this->minUnit;
+        }
+        if (null !== $this->publicKey) {
+            $res['public_key'] = $this->publicKey;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->uidPublicKey) {
+            $res['uid_public_key'] = $this->uidPublicKey;
+        }
+        if (null !== $this->validAfter) {
+            $res['valid_after'] = $this->validAfter;
+        }
+        if (null !== $this->validBefore) {
+            $res['valid_before'] = $this->validBefore;
+        }
+        if (null !== $this->validDays) {
+            $res['valid_days'] = $this->validDays;
+        }
+        if (null !== $this->value) {
+            $res['value'] = $this->value;
+        }
+        if (null !== $this->version) {
+            $res['version'] = $this->version;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return Card
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['cal_status'])){
+            $model->calStatus = $map['cal_status'];
+        }
+        if(isset($map['card_id'])){
+            $model->cardId = $map['card_id'];
+        }
+        if(isset($map['charge_time'])){
+            $model->chargeTime = $map['charge_time'];
+        }
+        if(isset($map['count_of_min_unit'])){
+            $model->countOfMinUnit = $map['count_of_min_unit'];
+        }
+        if(isset($map['create_time'])){
+            $model->createTime = $map['create_time'];
+        }
+        if(isset($map['create_tx_hash'])){
+            $model->createTxHash = $map['create_tx_hash'];
+        }
+        if(isset($map['desensitized_uid'])){
+            $model->desensitizedUid = $map['desensitized_uid'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['min_unit'])){
+            $model->minUnit = $map['min_unit'];
+        }
+        if(isset($map['public_key'])){
+            $model->publicKey = $map['public_key'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['uid_public_key'])){
+            $model->uidPublicKey = $map['uid_public_key'];
+        }
+        if(isset($map['valid_after'])){
+            $model->validAfter = $map['valid_after'];
+        }
+        if(isset($map['valid_before'])){
+            $model->validBefore = $map['valid_before'];
+        }
+        if(isset($map['valid_days'])){
+            $model->validDays = $map['valid_days'];
+        }
+        if(isset($map['value'])){
+            $model->value = $map['value'];
+        }
+        if(isset($map['version'])){
+            $model->version = $map['version'];
+        }
+        return $model;
+    }
+    /**
+     * @example 0
+     * @description 计算理论上应该变为的状态
+     * @var integer
+     */
+    public $calStatus;
+
+    /**
+     * @example JFB120041613102200071
+     * @description 卡密ID
+     * @var string
+     */
+    public $cardId;
+
+    /**
+     * @example 1587014822623
+     * @description 充值时间
+     * @var integer
+     */
+    public $chargeTime;
+
+    /**
+     * @example 100
+     * @description 数量
+     * @var integer
+     */
+    public $countOfMinUnit;
+
+    /**
+     * @example 1587013822623
+     * @description 卡密创建时间
+     * @var integer
+     */
+    public $createTime;
+
+    /**
+     * @example 3dae198527e4303c2b187fe3946ec12017c15ae1e76614aaeeb30ad8c07c1c68
+     * @description 创建卡密时的交易hash
+     * @var string
+     */
+    public $createTxHash;
+
+    /**
+     * @example 149******92
+     * @description 脱敏手机信息
+     * @var string
+     */
+    public $desensitizedUid;
+
+    /**
+     * @example {"card_description":"AlipayPoints"}
+     * @description 附加信息
+     * @var string
+     */
+    public $extInfo;
+
+    /**
+     * @example 1
+     * @description 最小单位数量
+     * @var integer
+     */
+    public $minUnit;
+
+    /**
+     * @example 04fe488725194810b28f7741f4df60af5bb1011b6282ce0efd7456fba41725391ac8ba4ce794c6a3171b14251ccffb0a8b1f0dbe5038993c27c747ecd4a11692a4
+     * @description 公钥
+     * @var string
+     */
+    public $publicKey;
+
+    /**
+     * @example 1
+     * @description 状态
+     * @var integer
+     */
+    public $status;
+
+    /**
+     * @example 04f3bef4d273366bfb2182854707d2d8e71e059e2b6a7b5fc056a1e06b7f1ed673f7bfc6cbf22295e00dac35638379b5e4df39fc9d32acd2565144cc21b094de77
+     * @description 公钥信息
+     * @var string
+     */
+    public $uidPublicKey;
+
+    /**
+     * @example 1587013821641
+     * @description 卡密在该时间后有效
+     * @var integer
+     */
+    public $validAfter;
+
+    /**
+     * @example 1602604799000
+     * @description 卡密在该时间前有效
+     * @var integer
+     */
+    public $validBefore;
+
+    /**
+     * @example 180
+     * @description 有效天数
+     * @var integer
+     */
+    public $validDays;
+
+    /**
+     * @example 100
+     * @description 价值
+     * @var integer
+     */
+    public $value;
+
+    /**
+     * @example 0
+     * @description 卡密版本
+     * @var integer
+     */
+    public $version;
+
+}
