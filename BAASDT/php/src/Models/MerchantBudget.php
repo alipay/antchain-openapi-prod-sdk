@@ -56,37 +56,37 @@ class MerchantBudget extends Model {
         }
         return $model;
     }
+    // 预算库代码
     /**
      * @example 1234567
-     * @description 预算库代码
      * @var string
      */
     public $budgetCode;
 
+    // 预算库描述
     /**
      * @example budget
-     * @description 预算库描述
      * @var string
      */
     public $budgetDesc;
 
+    // 预算库截止时间
     /**
      * @example 2020-06-01-20:20:20
-     * @description 预算库截止时间
      * @var string
      */
     public $budgetEndTime;
 
+    // 预算库启用时间
     /**
      * @example 2020-06-01-20:20:20
-     * @description 预算库启用时间
      * @var string
      */
     public $budgetStartTime;
 
+    // 积分库代码
     /**
      * @example 1234546
-     * @description 积分库代码
      * @var string
      */
     public $pointLibCode;

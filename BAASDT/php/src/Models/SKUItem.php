@@ -63,44 +63,44 @@ class SKUItem extends Model {
         }
         return $model;
     }
+    // 集分宝销售费率
     /**
      * @example 0.006
-     * @description 集分宝销售费率
      * @var string
      */
     public $rate;
 
+    // 包含集分宝个数
     /**
      * @example 100
-     * @description 包含集分宝个数
      * @var integer
      */
     public $skuAmount;
 
+    // 商品ID
     /**
      * @example da0af02dea0918
-     * @description 商品ID
      * @var string
      */
     public $skuId;
 
+    // 商品名称
     /**
      * @example 区块链集分宝200
-     * @description 商品名称
      * @var string
      */
     public $skuName;
 
+    // 商品面值（单位：元）
     /**
      * @example 2.00
-     * @description 商品面值（单位：元）
      * @var string
      */
     public $skuPrice;
 
+    // 商品状态：0可用，1冻结，2下线
     /**
      * @example 0
-     * @description 商品状态：0可用，1冻结，2下线
      * @var integer
      */
     public $status;

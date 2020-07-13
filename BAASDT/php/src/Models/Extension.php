@@ -35,16 +35,16 @@ class Extension extends Model {
         }
         return $model;
     }
+    // key
     /**
      * @example 1
-     * @description key
      * @var integer
      */
     public $key;
 
+    // value
     /**
      * @example value
-     * @description value
      * @var string
      */
     public $value;

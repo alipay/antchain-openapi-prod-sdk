@@ -49,30 +49,30 @@ class Provision extends Model {
         }
         return $model;
     }
+    // 授信上限
     /**
      * @example 99999999.0000
-     * @description 授信上限
      * @var string
      */
     public $creditMax;
 
+    // 授信已使用
     /**
      * @example 0.0000
-     * @description 授信已使用
      * @var string
      */
     public $creditUsed;
 
+    // 币种
     /**
      * @example CNY
-     * @description 币种
      * @var string
      */
     public $currency;
 
+    // 余额
     /**
      * @example 99999999.0000
-     * @description 余额
      * @var string
      */
     public $debit;

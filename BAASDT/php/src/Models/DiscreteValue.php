@@ -42,23 +42,23 @@ class DiscreteValue extends Model {
         }
         return $model;
     }
+    // 序号
     /**
      * @example 1
-     * @description 序号
      * @var integer
      */
     public $sortId;
 
+    // 文本信息
     /**
      * @example 测试链1-人民币账户
-     * @description 文本信息
      * @var string
      */
     public $text;
 
+    // 文本值
     /**
      * @example chainID1-CNY
-     * @description 文本值
      * @var string
      */
     public $value;

@@ -63,30 +63,30 @@ class BlockReceipt extends Model {
         }
         return $model;
     }
+    // 使用的gas数量
     /**
      * @example 9640671
-     * @description 使用的gas数量
      * @var integer
      */
     public $gasUsed;
 
+    // 收据log信息
     /**
      * @example 
-     * @description 收据log信息
      * @var array
      */
     public $logs;
 
+    // 交易输出
     /**
      * @example 00
-     * @description 交易输出
      * @var string
      */
     public $output;
 
+    // 交易结果，0为成功
     /**
      * @example 0
-     * @description 交易结果，0为成功
      * @var integer
      */
     public $result;

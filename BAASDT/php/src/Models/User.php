@@ -63,44 +63,44 @@ class User extends Model {
         }
         return $model;
     }
+    // 用户分布式身份ID
     /**
      * @example did
-     * @description 用户分布式身份ID
      * @var string
      */
     public $did;
 
+    // 用户的链外身份ID
     /**
      * @example user01
-     * @description 用户的链外身份ID
      * @var string
      */
     public $localId;
 
+    // 用户公钥
     /**
      * @example 3280b948a7fa8525c0fbfd47d1df75d7a7ee9f3baedd6964565b42f461dd86732717c4bc4c8203ea2b9b1aeef7b148644babba3c0cd6927c4c0964919f590c6c
-     * @description 用户公钥
      * @var string
      */
     public $pk;
 
+    // 租户ID
     /**
      * @example GIUGUIYF
-     * @description 租户ID
      * @var string
      */
     public $tenantId;
 
+    // 用户ID
     /**
      * @example 331f9b0922f940f464d4b94b5628180408ac305b7fc72d3e40f5b7727d0702fb
-     * @description 用户ID
      * @var string
      */
     public $userId;
 
+    // 用户VC
     /**
      * @example vc
-     * @description 用户VC
      * @var string
      */
     public $vc;

@@ -11,6 +11,7 @@ class UserPrice extends Model {
         'ratio' => 'ratio',
         'snapshotTenantPrice' => 'snapshot_tenant_price',
         'userPriceType' => 'user_price_type',
+        'userPriceWithCommission' => 'user_price_with_commission',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,6 +27,9 @@ class UserPrice extends Model {
         }
         if (null !== $this->userPriceType) {
             $res['user_price_type'] = $this->userPriceType;
+        }
+        if (null !== $this->userPriceWithCommission) {
+            $res['user_price_with_commission'] = $this->userPriceWithCommission;
         }
         return $res;
     }
@@ -47,34 +51,44 @@ class UserPrice extends Model {
         if(isset($map['user_price_type'])){
             $model->userPriceType = $map['user_price_type'];
         }
+        if(isset($map['user_price_with_commission'])){
+            $model->userPriceWithCommission = $map['user_price_with_commission'];
+        }
         return $model;
     }
+    // 具体价格
     /**
      * @example 10.0000
-     * @description 具体价格
      * @var string
      */
     public $price;
 
+    // 相对比例
     /**
      * @example 1
-     * @description 相对比例
      * @var string
      */
     public $ratio;
 
+    // 对租户价格(需要和当前生效价格匹配)
     /**
      * @example 10.0000
-     * @description 对租户价格(需要和当前生效价格匹配)
      * @var string
      */
     public $snapshotTenantPrice;
 
+    // 价格类型(数值/比例)
     /**
      * @example 0 | 1
-     * @description 价格类型(数值/比例)
      * @var integer
      */
     public $userPriceType;
+
+    // 租户用户价格包括费率
+    /**
+     * @example 1.001
+     * @var string
+     */
+    public $userPriceWithCommission;
 
 }

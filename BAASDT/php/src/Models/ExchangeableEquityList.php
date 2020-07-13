@@ -154,121 +154,121 @@ class ExchangeableEquityList extends Model {
         }
         return $model;
     }
+    // 页面上数据在总数据中的结束位置（第几个数据）
     /**
      * @example 10
-     * @description 页面上数据在总数据中的结束位置（第几个数据）
      * @var integer
      */
     public $endRow;
 
+    // 权益信息列表
     /**
      * @example 
-     * @description 权益信息列表
      * @var array
      */
     public $equityList;
 
+    // 第一页页码
     /**
      * @example 1
-     * @description 第一页页码
      * @var integer
      */
     public $firstPage;
 
+    // 是否有下一页
     /**
      * @example true, false
-     * @description 是否有下一页
      * @var bool
      */
     public $hasNextPage;
 
+    // 是否有前一页
     /**
      * @example true, false
-     * @description 是否有前一页
      * @var bool
      */
     public $hasPreviousPage;
 
+    // 是否第一页
     /**
      * @example true, false
-     * @description 是否第一页
      * @var bool
      */
     public $isFirstPage;
 
+    // 是否最后一页
     /**
      * @example true, false
-     * @description 是否最后一页
      * @var bool
      */
     public $isLastPage;
 
+    // 最后一页页码
     /**
      * @example 2
-     * @description 最后一页页码
      * @var integer
      */
     public $lastPage;
 
+    // 下一页页码
     /**
      * @example 2
-     * @description 下一页页码
      * @var integer
      */
     public $nextPage;
 
+    // 排序规则
     /**
      * @example desc
-     * @description 排序规则
      * @var string
      */
     public $orderBy;
 
+    // 可兑换的权益总页数
     /**
      * @example 2
-     * @description 可兑换的权益总页数
      * @var integer
      */
     public $pages;
 
+    // 当前页码
     /**
      * @example 1
-     * @description 当前页码
      * @var integer
      */
     public $pageNumber;
 
+    // 页面大小
     /**
      * @example 10
-     * @description 页面大小
      * @var integer
      */
     public $pageSize;
 
+    // 前一页页码
     /**
      * @example 0
-     * @description 前一页页码
      * @var integer
      */
     public $prePage;
 
+    // 页面中实际数量
     /**
      * @example 10
-     * @description 页面中实际数量
      * @var integer
      */
     public $size;
 
+    // 页面上数据在总数据中的开始位置（第几个数据）
     /**
      * @example 1
-     * @description 页面上数据在总数据中的开始位置（第几个数据）
      * @var integer
      */
     public $startRow;
 
+    // 可兑换的权益总数
     /**
      * @example 15
-     * @description 可兑换的权益总数
      * @var integer
      */
     public $total;

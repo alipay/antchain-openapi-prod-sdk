@@ -98,79 +98,79 @@ class Merchant extends Model {
         }
         return $model;
     }
+    // 商户管理员ID
     /**
      * @example ed7b3acb718eef475454e973b8b
-     * @description 商户管理员ID
      * @var string
      */
     public $adminId;
 
+    // 商户描述
     /**
      * @example 商户描述
-     * @description 商户描述
      * @var string
      */
     public $description;
 
+    // 商户分布式身份ID
     /**
      * @example did:mychain:ct
-     * @description 商户分布式身份ID
      * @var string
      */
     public $did;
 
+    // 资金管理员ID
     /**
      * @example b7ecd55bde0481bfc8c972b7ef
-     * @description 资金管理员ID
      * @var string
      */
     public $fundManagerId;
 
+    // 是否可以发行资产
     /**
      * @example true, false
-     * @description 是否可以发行资产
      * @var bool
      */
     public $isAssetIssuer;
 
+    // 是否可以采购权益
     /**
      * @example true, false
-     * @description 是否可以采购权益
      * @var bool
      */
     public $isEquityConsumer;
 
+    // 是否可以发行权益
     /**
      * @example true, false
-     * @description 是否可以发行权益
      * @var bool
      */
     public $isEquityProvider;
 
+    // 商户的损益账户
     /**
      * @example 0.0050000000000000
-     * @description 商户的损益账户
      * @var string
      */
     public $profitLossBalance;
 
+    // 备付金数据
     /**
      * @example 
-     * @description 备付金数据
      * @var Provision
      */
     public $provision;
 
+    // 商户状态: 0可用, 1下线, 2冻结
     /**
      * @example 0 | 1 | 2
-     * @description 商户状态: 0可用, 1下线, 2冻结
      * @var integer
      */
     public $status;
 
+    // 租户ID
     /**
      * @example DBYG
-     * @description 租户ID
      * @var string
      */
     public $tenantId;

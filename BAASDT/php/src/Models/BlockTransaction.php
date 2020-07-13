@@ -139,100 +139,100 @@ class BlockTransaction extends Model {
         }
         return $model;
     }
+    // 交易信息
     /**
      * @example 05656e747279a2...
-     * @description 交易信息
      * @var string
      */
     public $data;
 
+    // 交易扩展信息
     /**
      * @example 
-     * @description 交易扩展信息
      * @var array
      */
     public $extension;
 
+    // 交易发起方
     /**
      * @example d3936015f0f4676a03a1bdea8b6fc24390f9f147853c5398e989dd30afae643b
-     * @description 交易发起方
      * @var string
      */
     public $from;
 
+    // 交易gas消耗
     /**
      * @example 1234
-     * @description 交易gas消耗
      * @var integer
      */
     public $gas;
 
+    // 分组id，暂时没用
     /**
      * @example 0000000000000000000000000000000000000000
-     * @description 分组id，暂时没用
      * @var string
      */
     public $groupId;
 
+    // 交易哈希
     /**
      * @example 7f73437ea59ff23cf1050d5511fe8d94ed5ec8eab8f9175f7f3ffcbb05b374ee
-     * @description 交易哈希
      * @var string
      */
     public $hash;
 
+    // 交易随机数
     /**
      * @example 13945910133563405517
-     * @description 交易随机数
      * @var string
      */
     public $nonce;
 
+    // 交易时间
     /**
      * @example 1583989453107
-     * @description 交易时间
      * @var integer
      */
     public $period;
 
+    // 交易签名
     /**
      * @example c75f573981b3a1fcadea90cd530f5802e0...
-     * @description 交易签名
      * @var array
      */
     public $signature;
 
+    // 交易时间戳
     /**
      * @example 1583989453107
-     * @description 交易时间戳
      * @var integer
      */
     public $timestamp;
 
+    // 交易接收方
     /**
      * @example f76abaaa47c23bd27d0e77bc625773df9776d2f273b569d1074d89643fb73feb
-     * @description 交易接收方
      * @var string
      */
     public $to;
 
+    // 2
     /**
      * @example 11
-     * @description 2
      * @var integer
      */
     public $type;
 
+    // 交易转账金额
     /**
      * @example 0
-     * @description 交易转账金额
      * @var integer
      */
     public $value;
 
+    // 2
     /**
      * @example 2
-     * @description 2
      * @var integer
      */
     public $version;

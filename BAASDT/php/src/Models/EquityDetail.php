@@ -84,65 +84,65 @@ class EquityDetail extends Model {
         }
         return $model;
     }
+    // 权益描述
     /**
      * @example description
-     * @description 权益描述
      * @var string
      */
     public $description;
 
+    // 权益描述图片OSS地址（分号;分隔）
     /**
      * @example OSS1;OSS2
-     * @description 权益描述图片OSS地址（分号;分隔）
      * @var string
      */
     public $descImages;
 
+    // 权益ID
     /**
      * @example 7f1be9108651f97513b5b59030f5b059e58a59d263ab426cbf26337f91642caa
-     * @description 权益ID
      * @var string
      */
     public $equityId;
 
+    // 权益名称
     /**
      * @example 权益1
-     * @description 权益名称
      * @var string
      */
     public $equityName;
 
+    // 权益类型
     /**
      * @example 0200050002
-     * @description 权益类型
      * @var string
      */
     public $equityType;
 
+    // 权益面值(元)
     /**
      * @example 20.00
-     * @description 权益面值(元)
      * @var string
      */
     public $equityValue;
 
+    // 权益主图片OSS地址（分号;分隔）
     /**
      * @example OSS1;OSS2
-     * @description 权益主图片OSS地址（分号;分隔）
      * @var string
      */
     public $images;
 
+    // 对客价(元)
     /**
      * @example 20.00
-     * @description 对客价(元)
      * @var string
      */
     public $price;
 
+    // 权益SKU
     /**
      * @example 20200407050700000000404
-     * @description 权益SKU
      * @var string
      */
     public $skuId;

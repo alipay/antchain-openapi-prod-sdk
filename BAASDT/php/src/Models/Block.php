@@ -35,16 +35,16 @@ class Block extends Model {
         }
         return $model;
     }
+    // 区块体
     /**
      * @example 
-     * @description 区块体
      * @var BlockBody
      */
     public $body;
 
+    // 区块头
     /**
      * @example 
-     * @description 区块头
      * @var BlockHeader
      */
     public $header;

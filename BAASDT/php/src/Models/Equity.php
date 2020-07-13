@@ -196,177 +196,177 @@ class Equity extends Model {
         }
         return $model;
     }
+    // 权益管理员ID
     /**
      * @example ed7b3acb718eef475454e973b8bac06c5feb1b7ea62f91bc8fab6a5e7cc3c061
-     * @description 权益管理员ID
      * @var string
      */
     public $adminId;
 
+    // 权益授权类型
     /**
      * @example 0
-     * @description 权益授权类型
      * @var integer
      */
     public $authType;
 
+    // 权益锚定币种
     /**
      * @example CNY
-     * @description 权益锚定币种
      * @var string
      */
     public $currency;
 
+    // 权益默认价格
     /**
      * @example 10.0000
-     * @description 权益默认价格
      * @var string
      */
     public $defaultPrice;
 
+    // 权益描述
     /**
      * @example FDCard
-     * @description 权益描述
      * @var string
      */
     public $description;
 
+    // 权益描述图片OSS地址 分号分隔
     /**
      * @example oss1;oss2
-     * @description 权益描述图片OSS地址 分号分隔
      * @var string
      */
     public $descImages;
 
+    // 权益附属信息
     /**
      * @example 
-     * @description 权益附属信息
      * @var EquityExtInfo
      */
     public $equityExtInfo;
 
+    // 权益ID
     /**
      * @example 146bfee42fbc8d05f6c26eebf12f8306ea0df1e48d61bc29ba9b523ed0a6e628
-     * @description 权益ID
      * @var string
      */
     public $equityId;
 
+    // 权益名称
     /**
      * @example FDCardtest
-     * @description 权益名称
      * @var string
      */
     public $equityName;
 
+    // 商品类型，详见数字商品公约https://tech.antfin.com/docs/2/163896
     /**
-     * @example 1
-     * @description 权益类型; 0积分,1卡券, 2实物
+     * @example 0100020001
      * @var string
      */
     public $equityType;
 
+    // 权益主图片OSS地址 分号;分隔
     /**
-     * @example oss://myexchange/1259371fc8f77d37aab22d949ea51f4982fea55dfb6d130facf32dd6d4257fa0.jpeg
-     * @description 权益主图片OSS地址 分号;分隔
+     * @example oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.jpeg
      * @var string
      */
     public $images;
 
+    // 是否为公开权益
     /**
      * @example true, false
-     * @description 是否为公开权益
      * @var bool
      */
     public $isPublic;
 
+    // 商户每日兑换上限
     /**
      * @example 100
-     * @description 商户每日兑换上限
      * @var integer
      */
     public $limitPerMerchantAndDay;
 
+    // 商户每月兑换上限
     /**
      * @example 1000
-     * @description 商户每月兑换上限
      * @var integer
      */
     public $limitPerMerchantAndMonth;
 
+    // 用户每日兑换上限
     /**
      * @example 10
-     * @description 用户每日兑换上限
      * @var integer
      */
     public $limitPerUserAndDay;
 
+    // 用户每月兑换上限
     /**
      * @example 100
-     * @description 用户每月兑换上限
      * @var integer
      */
     public $limitPerUserAndMonth;
 
+    // 附言
     /**
      * @example memo
-     * @description 附言
      * @var string
      */
     public $memo;
 
+    // 权益状态
     /**
      * @example 0
-     * @description 权益状态
      * @var integer
      */
     public $status;
 
+    // 租户ID
     /**
      * @example ZEJEZKUA
-     * @description 租户ID
      * @var string
      */
     public $tenantId;
 
+    // 权益库存
     /**
      * @example 1000000
-     * @description 权益库存
      * @var string
      */
     public $totalCount;
 
+    // 权益使用有效期右闭区间
     /**
      * @example 1612926693000
-     * @description 权益使用有效期右闭区间
      * @var integer
      */
     public $useValidNotAfter;
 
+    // 权益使用有效期左闭区间
     /**
      * @example 1581304293000
-     * @description 权益使用有效期左闭区间
      * @var integer
      */
     public $useValidNotBefore;
 
+    // 权益兑换有效期右闭区间
     /**
      * @example 1612926693000
-     * @description 权益兑换有效期右闭区间
      * @var integer
      */
     public $validNotAfter;
 
+    // 权益兑换有效期左闭区间
     /**
      * @example 1581304293000
-     * @description 权益兑换有效期左闭区间
      * @var integer
      */
     public $validNotBefore;
 
+    // 权益面值
     /**
      * @example 10.0000
-     * @description 权益面值
      * @var string
      */
     public $value;

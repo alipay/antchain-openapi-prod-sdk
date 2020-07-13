@@ -56,37 +56,37 @@ class DelegateRelationInfo extends Model {
         }
         return $model;
     }
+    // 被代理的租户ID
     /**
      * @example WAESRDTF
-     * @description 被代理的租户ID
      * @var string
      */
     public $delegatedTenantId;
 
+    // 扩展字段
     /**
      * @example extension
-     * @description 扩展字段
      * @var string
      */
     public $extension;
 
+    // 状态
     /**
      * @example true
-     * @description 状态
      * @var bool
      */
     public $status;
 
+    // 被授权的租户ID
     /**
      * @example OKIJUHYG
-     * @description 被授权的租户ID
      * @var string
      */
     public $tenantId;
 
+    // 更新时间
     /**
      * @example 20200327153541
-     * @description 更新时间
      * @var string
      */
     public $updateTime;

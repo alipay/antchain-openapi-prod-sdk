@@ -84,65 +84,65 @@ class Transaction extends Model {
         }
         return $model;
     }
+    // 交易数据，转换位十六进制
     /**
      * @example 05656e...5337d
-     * @description 交易数据，转换位十六进制
      * @var string
      */
     public $data;
 
+    // 卡密管理员链上ID，64位十六进制。
     /**
      * @example 288ca9e665e93dc47fb424412eb4614695ab139b8866f32b45242363a1a16fb4
-     * @description 卡密管理员链上ID，64位十六进制。
      * @var string
      */
     public $from;
 
+    // 交易hash，十六进制编码
     /**
      * @example 7f73437ea59ff23cf1050d5511fe8d94ed5ec8eab8f9175f7f3ffcbb05b374ee
-     * @description 交易hash，十六进制编码
      * @var string
      */
     public $hash;
 
+    // 交易随机数
     /**
      * @example 11066299148144480681
-     * @description 交易随机数
      * @var integer
      */
     public $nonce;
 
+    // 交易时间
     /**
      * @example 0
-     * @description 交易时间
      * @var integer
      */
     public $period;
 
+    // from账户对应的公钥，128位十六进制。
     /**
      * @example 0447ef0595c9949df2abd487c2b989ef7a70...26643c8db78f447a7
-     * @description from账户对应的公钥，128位十六进制。
      * @var string
      */
     public $publicKey;
 
+    // 交易签名，十六进制编码
     /**
      * @example c75f573981b3a1fcadea90cd530f5802e03276a8a9e9dd9b8eca8f00b83e398220a4ddbc530f37bcfd51d727394357807f3f7b70e525d9ce1a3aec59093e5ec801
-     * @description 交易签名，十六进制编码
      * @var string
      */
     public $signature;
 
+    // 交易时间戳
     /**
      * @example 1583989453110
-     * @description 交易时间戳
      * @var integer
      */
     public $timestamp;
 
+    // 交易目标地址，64位十六进制。
     /**
      * @example 471aa820085ecb3db37508fb0944590448522b5e3836c6abf39ad3540226aa62
-     * @description 交易目标地址，64位十六进制。
      * @var string
      */
     public $to;

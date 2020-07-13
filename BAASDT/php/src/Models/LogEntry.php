@@ -55,30 +55,30 @@ class LogEntry extends Model {
         }
         return $model;
     }
+    // 交易发起方
     /**
      * @example d3936015f0f4676a03a1bdea8b6fc24390f9f147853c5398e989dd30afae643b
-     * @description 交易发起方
      * @var string
      */
     public $from;
 
+    // log信息
     /**
      * @example 82067b2254223a302c225622...//可通过蚂蚁提供的区块日志解析工具分析交易内容
-     * @description log信息
      * @var string
      */
     public $logData;
 
+    // 交易接受方
     /**
      * @example f76abaaa47c23bd27d0e77bc625773df9776d2f273b569d1074d89643fb73feb
-     * @description 交易接受方
      * @var string
      */
     public $to;
 
+    // 交易topic
     /**
      * @example call_contract
-     * @description 交易topic
      * @var array
      */
     public $topics;

@@ -91,72 +91,72 @@ class BlockHeader extends Model {
         }
         return $model;
     }
+    // gas总消耗
     /**
      * @example 12743895
-     * @description gas总消耗
      * @var integer
      */
     public $gasUsed;
 
+    // 十六进制区块哈希值
     /**
      * @example 1344a095ae43e0dbb82e1986a5ab1357a5108d7bf9066f8e52f4b8bf1260a06f
-     * @description 十六进制区块哈希值
      * @var string
      */
     public $hash;
 
+    // log bloom
     /**
      * @example 000000000000000400000...
-     * @description log bloom
      * @var string
      */
     public $logBloom;
 
+    // 区块高度
     /**
      * @example 1920810
-     * @description 区块高度
      * @var integer
      */
     public $number;
 
+    // 十六进制区块父hash
     /**
      * @example daf5181a24e6e712988751bd9f808636bd5f291ec7cbef6193198b629d6452b0
-     * @description 十六进制区块父hash
      * @var string
      */
     public $parentHash;
 
+    // 交易单据树根
     /**
      * @example ac7ec491ed17d6995ce0a919b7be65e431ba4dc9072d485496207e1f83ed5779
-     * @description 交易单据树根
      * @var string
      */
     public $receiptRoot;
 
+    // 状态树根
     /**
      * @example ff0326e45d179e03cd0a077b8cc886935c69b60dde5d7b3961a84bbd4ce4e6be
-     * @description 状态树根
      * @var string
      */
     public $stateRoot;
 
+    // 区块时间戳
     /**
      * @example 1583202479879
-     * @description 区块时间戳
      * @var integer
      */
     public $timestamp;
 
+    // 十六进制交易merkle树根
     /**
      * @example 12c7314185b21e13cd5c873043214a8b51879a82698bc563aa97cb9a36705713
-     * @description 十六进制交易merkle树根
      * @var string
      */
     public $transactionRoot;
 
+    // 区块版本
     /**
      * @example 1125904201810178
-     * @description 区块版本
      * @var integer
      */
     public $version;

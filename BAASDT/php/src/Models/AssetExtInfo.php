@@ -49,30 +49,30 @@ class AssetExtInfo extends Model {
         }
         return $model;
     }
+    // 发放账户余额
     /**
      * @example 1000
-     * @description 发放账户余额
      * @var string
      */
     public $dispenseBalance;
 
+    // 发放账户归属租户ID
     /**
      * @example tenantid
-     * @description 发放账户归属租户ID
      * @var string
      */
     public $dispenseTenantId;
 
+    // 用户账户余额
     /**
      * @example 100
-     * @description 用户账户余额
      * @var string
      */
     public $userCreditBalance;
 
+    // 用户ID
     /**
      * @example user001
-     * @description 用户ID
      * @var string
      */
     public $userId;

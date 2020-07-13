@@ -56,37 +56,37 @@ class APIWhiteListInfo extends Model {
         }
         return $model;
     }
+    // 链ID
     /**
      * @example antdao
-     * @description 链ID
      * @var string
      */
     public $chainId;
 
+    // 扩展字段
     /**
      * @example extension
-     * @description 扩展字段
      * @var string
      */
     public $extension;
 
+    // 权限级别，暂时不用
     /**
      * @example 0
-     * @description 权限级别，暂时不用
      * @var integer
      */
     public $level;
 
+    // 租户ID
     /**
      * @example OKIJUHYG
-     * @description 租户ID
      * @var string
      */
     public $tenantId;
 
+    // 更新时间
     /**
      * @example 20200425204555
-     * @description 更新时间
      * @var string
      */
     public $updateTime;

@@ -147,134 +147,134 @@ class EInstruction extends Model {
         }
         return $model;
     }
+    // 资产ID
     /**
      * @example assetID
-     * @description 资产ID
      * @var string
      */
     public $assetId;
 
+    // 资产的汇率
     /**
      * @example 1
-     * @description 资产的汇率
      * @var string
      */
     public $assetRate;
 
+    // 资产扣减数量(单位:个)
     /**
      * @example 100
-     * @description 资产扣减数量(单位:个)
      * @var string
      */
     public $deductAssetAmount;
 
+    // 扣减商户备付金授信额(单位:元)
     /**
      * @example 100.0000
-     * @description 扣减商户备付金授信额(单位:元)
      * @var string
      */
     public $deductCreditAmount;
 
+    // 扣减商户备付金余额(单位:元)
     /**
      * @example 10.0000
-     * @description 扣减商户备付金余额(单位:元)
      * @var string
      */
     public $deductDebitAmount;
 
+    // 被扣减备付金的租户ID
     /**
      * @example id
-     * @description 被扣减备付金的租户ID
      * @var string
      */
     public $deductTenantId;
 
+    // 权益ID
     /**
      * @example equity
-     * @description 权益ID
      * @var string
      */
     public $equityId;
 
+    // 权益名称
     /**
      * @example card01
-     * @description 权益名称
      * @var string
      */
     public $equityName;
 
+    // 权益对用户价格(单位:元)
     /**
      * @example 10.0000
-     * @description 权益对用户价格(单位:元)
      * @var string
      */
     public $equityPrice;
 
+    // 权益面值(单位:元)
     /**
      * @example 10.0000
-     * @description 权益面值(单位:元)
      * @var string
      */
     public $equityValue;
 
+    // 附言Deliver/Complete/OutOfStore/WriteOff)
     /**
      * @example memo
-     * @description 附言Deliver/Complete/OutOfStore/WriteOff)
      * @var string
      */
     public $memo;
 
+    // 发起操作的租户ID
     /**
      * @example JHG
-     * @description 发起操作的租户ID
      * @var string
      */
     public $optTenantId;
 
+    // 业务交易ID
     /**
      * @example 1246354
-     * @description 业务交易ID
      * @var string
      */
     public $outTxId;
 
+    // 对换单流水状态：
+    // 0        // 权益兑换单创建
+    // 1        // 权益兑换单接单
+    // 2        // 权益兑换单发货
+    // 3        // 权益兑换单确认收货
+    // 4        // 权益兑换单缺货
+    // 5        // 权益兑换单核销
     /**
      * @example 1
-     * @description 对换单流水状态：
-0        // 权益兑换单创建
-1        // 权益兑换单接单
-2        // 权益兑换单发货
-3        // 权益兑换单确认收货
-4        // 权益兑换单缺货
-5        // 权益兑换单核销
      * @var integer
      */
     public $status;
 
+    // 权益归属租户ID
     /**
      * @example id
-     * @description 权益归属租户ID
      * @var string
      */
     public $tenantId;
 
+    // 交易时间戳
     /**
      * @example 123456
-     * @description 交易时间戳
      * @var integer
      */
     public $timeStamp;
 
+    // 兑换类型(商户身份/用户身份)
     /**
      * @example 0
-     * @description 兑换类型(商户身份/用户身份)
      * @var integer
      */
     public $type;
 
+    // 用户身份兑换/商户兑换的受益用户
     /**
      * @example userid
-     * @description 用户身份兑换/商户兑换的受益用户
      * @var string
      */
     public $userId;

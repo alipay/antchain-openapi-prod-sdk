@@ -112,93 +112,93 @@ class Asset extends Model {
         }
         return $model;
     }
+    // 资产管理员ID
     /**
      * @example f46857d8
-     * @description 资产管理员ID
      * @var string
      */
     public $adminId;
 
+    // 资产附属信息
     /**
      * @example 
-     * @description 资产附属信息
      * @var AssetExtInfo
      */
     public $assetExtInfo;
 
+    // 资产ID
     /**
      * @example CT::Asset001
-     * @description 资产ID
      * @var string
      */
     public $assetId;
 
+    // 资产名称
     /**
      * @example CTPoints
-     * @description 资产名称
      * @var string
      */
     public $assetName;
 
+    // 资产汇率
     /**
      * @example 1000.0000
-     * @description 资产汇率
      * @var string
      */
     public $assetRate;
 
+    // 币种
     /**
      * @example CNY
-     * @description 币种
      * @var string
      */
     public $currency;
 
+    // 发行账户余额
     /**
      * @example 0.000
-     * @description 发行账户余额
      * @var string
      */
     public $issueAccountBalance;
 
+    // 过期回收账户余额
     /**
      * @example 0.000
-     * @description 过期回收账户余额
      * @var string
      */
     public $overdueRecoveryAccountBalance;
 
+    // 支付收款账户余额
     /**
      * @example 0.000
-     * @description 支付收款账户余额
      * @var string
      */
     public $receivePaymentAccountBalance;
 
+    // 中继账户余额
     /**
      * @example 0.000
-     * @description 中继账户余额
      * @var string
      */
     public $relayAccountBalance;
 
+    // 资产状态
     /**
      * @example 0
-     * @description 资产状态
      * @var integer
      */
     public $status;
 
+    // 租户ID
     /**
      * @example ORE
-     * @description 租户ID
      * @var string
      */
     public $tenantId;
 
+    // 资产总发行量
     /**
      * @example 11111111.0000
-     * @description 资产总发行量
      * @var string
      */
     public $totalIssueBalance;

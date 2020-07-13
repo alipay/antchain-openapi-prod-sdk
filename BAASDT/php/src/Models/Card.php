@@ -140,121 +140,121 @@ class Card extends Model {
         }
         return $model;
     }
+    // 计算理论上应该变为的状态
     /**
      * @example 0
-     * @description 计算理论上应该变为的状态
      * @var integer
      */
     public $calStatus;
 
+    // 卡密ID
     /**
      * @example JFB120041613102200071
-     * @description 卡密ID
      * @var string
      */
     public $cardId;
 
+    // 充值时间
     /**
      * @example 1587014822623
-     * @description 充值时间
      * @var integer
      */
     public $chargeTime;
 
+    // 数量
     /**
      * @example 100
-     * @description 数量
      * @var integer
      */
     public $countOfMinUnit;
 
+    // 卡密创建时间
     /**
      * @example 1587013822623
-     * @description 卡密创建时间
      * @var integer
      */
     public $createTime;
 
+    // 创建卡密时的交易hash
     /**
      * @example 3dae198527e4303c2b187fe3946ec12017c15ae1e76614aaeeb30ad8c07c1c68
-     * @description 创建卡密时的交易hash
      * @var string
      */
     public $createTxHash;
 
+    // 脱敏手机信息
     /**
      * @example 149******92
-     * @description 脱敏手机信息
      * @var string
      */
     public $desensitizedUid;
 
+    // 附加信息
     /**
      * @example {"card_description":"AlipayPoints"}
-     * @description 附加信息
      * @var string
      */
     public $extInfo;
 
+    // 最小单位数量
     /**
      * @example 1
-     * @description 最小单位数量
      * @var integer
      */
     public $minUnit;
 
+    // 公钥
     /**
      * @example 04fe488725194810b28f7741f4df60af5bb1011b6282ce0efd7456fba41725391ac8ba4ce794c6a3171b14251ccffb0a8b1f0dbe5038993c27c747ecd4a11692a4
-     * @description 公钥
      * @var string
      */
     public $publicKey;
 
+    // 状态
     /**
      * @example 1
-     * @description 状态
      * @var integer
      */
     public $status;
 
+    // 公钥信息
     /**
      * @example 04f3bef4d273366bfb2182854707d2d8e71e059e2b6a7b5fc056a1e06b7f1ed673f7bfc6cbf22295e00dac35638379b5e4df39fc9d32acd2565144cc21b094de77
-     * @description 公钥信息
      * @var string
      */
     public $uidPublicKey;
 
+    // 卡密在该时间后有效
     /**
      * @example 1587013821641
-     * @description 卡密在该时间后有效
      * @var integer
      */
     public $validAfter;
 
+    // 卡密在该时间前有效
     /**
      * @example 1602604799000
-     * @description 卡密在该时间前有效
      * @var integer
      */
     public $validBefore;
 
+    // 有效天数
     /**
      * @example 180
-     * @description 有效天数
      * @var integer
      */
     public $validDays;
 
+    // 价值
     /**
      * @example 100
-     * @description 价值
      * @var integer
      */
     public $value;
 
+    // 卡密版本
     /**
      * @example 0
-     * @description 卡密版本
      * @var integer
      */
     public $version;

@@ -69,23 +69,23 @@ class BlockBody extends Model {
         }
         return $model;
     }
+    // 区块共识证明(HEX)
     /**
      * @example f8f2f8c9b841f8...
-     * @description 区块共识证明(HEX)
      * @var string
      */
     public $consensusProof;
 
+    // 区块中交易回执列表
     /**
      * @example 
-     * @description 区块中交易回执列表
      * @var array
      */
     public $receiptList;
 
+    // 区块中交易列表
     /**
      * @example 
-     * @description 区块中交易列表
      * @var array
      */
     public $transactionList;
