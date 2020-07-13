@@ -23,7 +23,7 @@ import os
 """
 setup module for antchain_baasdt.
 
-Created on 30/06/2020
+Created on 13/07/2020
 
 @author: Ant Chain SDK
 """
