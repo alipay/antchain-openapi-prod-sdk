@@ -12,9 +12,8 @@ class Config extends Model {
     protected $_default = [
         'accessKeyId' => '',
         'accessKeySecret' => '',
-        'authToken' => '',
+        'securityToken' => '',
         'protocol' => 'http',
-        'regionId' => '',
         'readTimeout' => '',
         'connectTimeout' => '',
         'httpProxy' => '',
@@ -25,8 +24,6 @@ class Config extends Model {
         'userAgent' => '',
         'socks5Proxy' => '',
         'socks5NetWork' => '',
-        'tenant' => '',
-        'workspace' => '',
     ];
     public function validate() {}
     public function toMap() {
@@ -37,14 +34,11 @@ class Config extends Model {
         if (null !== $this->accessKeySecret) {
             $res['accessKeySecret'] = $this->accessKeySecret;
         }
-        if (null !== $this->authToken) {
-            $res['authToken'] = $this->authToken;
+        if (null !== $this->securityToken) {
+            $res['securityToken'] = $this->securityToken;
         }
         if (null !== $this->protocol) {
             $res['protocol'] = $this->protocol;
-        }
-        if (null !== $this->regionId) {
-            $res['regionId'] = $this->regionId;
         }
         if (null !== $this->readTimeout) {
             $res['readTimeout'] = $this->readTimeout;
@@ -76,12 +70,6 @@ class Config extends Model {
         if (null !== $this->socks5NetWork) {
             $res['socks5NetWork'] = $this->socks5NetWork;
         }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
-        }
-        if (null !== $this->workspace) {
-            $res['workspace'] = $this->workspace;
-        }
         return $res;
     }
     /**
@@ -96,14 +84,11 @@ class Config extends Model {
         if(isset($map['accessKeySecret'])){
             $model->accessKeySecret = $map['accessKeySecret'];
         }
-        if(isset($map['authToken'])){
-            $model->authToken = $map['authToken'];
+        if(isset($map['securityToken'])){
+            $model->securityToken = $map['securityToken'];
         }
         if(isset($map['protocol'])){
             $model->protocol = $map['protocol'];
-        }
-        if(isset($map['regionId'])){
-            $model->regionId = $map['regionId'];
         }
         if(isset($map['readTimeout'])){
             $model->readTimeout = $map['readTimeout'];
@@ -135,12 +120,6 @@ class Config extends Model {
         if(isset($map['socks5NetWork'])){
             $model->socks5NetWork = $map['socks5NetWork'];
         }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
-        }
-        if(isset($map['workspace'])){
-            $model->workspace = $map['workspace'];
-        }
         return $model;
     }
     /**
@@ -156,10 +135,10 @@ class Config extends Model {
     public $accessKeySecret;
 
     /**
-     * @description auth token
+     * @description security token
      * @var string
      */
-    public $authToken;
+    public $securityToken;
 
     /**
      * @description http protocol
@@ -167,13 +146,6 @@ class Config extends Model {
      * @var string
      */
     public $protocol;
-
-    /**
-     * @description region id
-     * @example cn-hangzhou
-     * @var string
-     */
-    public $regionId;
 
     /**
      * @description read timeout
@@ -243,19 +215,5 @@ class Config extends Model {
      * @var string
      */
     public $socks5NetWork;
-
-    /**
-     * @description 当需要调用API操作指定租户的资源时， 需要提供目标租户的ID
-     * @example MYBKC1CN
-     * @var string
-     */
-    public $tenant;
-
-    /**
-     * @description 当需要调用API操作指定工作空间的资源时， 需要提供目标工作空间的ID
-     * @example Prod
-     * @var string
-     */
-    public $workspace;
 
 }

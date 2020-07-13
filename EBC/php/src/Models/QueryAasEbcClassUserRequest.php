@@ -5,8 +5,11 @@ namespace AntChain\EBC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class Class_ extends Model {
+class QueryAasEbcClassUserRequest extends Model {
     protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'regionName' => 'region_name',
         'classId' => 'class_id',
         'orgDid' => 'org_did',
     ];
@@ -16,6 +19,15 @@ class Class_ extends Model {
     }
     public function toMap() {
         $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->regionName) {
+            $res['region_name'] = $this->regionName;
+        }
         if (null !== $this->classId) {
             $res['class_id'] = $this->classId;
         }
@@ -26,10 +38,19 @@ class Class_ extends Model {
     }
     /**
      * @param array $map
-     * @return Class
+     * @return QueryAasEbcClassUserRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['region_name'])){
+            $model->regionName = $map['region_name'];
+        }
         if(isset($map['class_id'])){
             $model->classId = $map['class_id'];
         }
@@ -38,16 +59,29 @@ class Class_ extends Model {
         }
         return $model;
     }
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    /**
+     * @var string
+     */
+    public $regionName;
+
     // 班级id
     /**
-     * @example 0001
      * @var string
      */
     public $classId;
 
     // 企业did
     /**
-     * @example did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36	
      * @var string
      */
     public $orgDid;
