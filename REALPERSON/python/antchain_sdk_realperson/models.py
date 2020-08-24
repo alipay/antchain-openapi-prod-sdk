@@ -78,10 +78,12 @@ class Config(TeaModel):
         return self
 
 
-class QueryIRealpersonFacevrfServerRequest(TeaModel):
-    def __init__(self, auth_token=None, certify_id=None, extern_param=None, material_hash=None, outer_order_no=None,
-                 scene_id=None):
+class QueryDiRealpersonFacevrfServerRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, certify_id=None,
+                 extern_param=None, material_hash=None, outer_order_no=None, scene_id=None):
         self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
         self.certify_id = certify_id
         self.extern_param = extern_param
         self.material_hash = material_hash
@@ -94,6 +96,8 @@ class QueryIRealpersonFacevrfServerRequest(TeaModel):
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
         result['certify_id'] = self.certify_id
         result['extern_param'] = self.extern_param
         result['material_hash'] = self.material_hash
@@ -103,6 +107,8 @@ class QueryIRealpersonFacevrfServerRequest(TeaModel):
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
         self.certify_id = map.get('certify_id')
         self.extern_param = map.get('extern_param')
         self.material_hash = map.get('material_hash')
@@ -111,7 +117,7 @@ class QueryIRealpersonFacevrfServerRequest(TeaModel):
         return self
 
 
-class QueryIRealpersonFacevrfServerResponse(TeaModel):
+class QueryDiRealpersonFacevrfServerResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, identity_info=None, material_info=None,
                  material_matched=None, passed=None, reason=None):
         self.req_msg_id = req_msg_id
@@ -150,11 +156,14 @@ class QueryIRealpersonFacevrfServerResponse(TeaModel):
         return self
 
 
-class CreateIRealpersonFacevrfServerRequest(TeaModel):
-    def __init__(self, auth_token=None, biz_code=None, cert_name=None, cert_no=None, cert_type=None,
-                 extern_param=None, facial_picture_ref=None, identity_type=None, meta_info=None, outer_order_no=None,
-                 return_url=None, scene_id=None, user_id=None, user_ip=None, user_mobile=None):
+class CreateDiRealpersonFacevrfServerRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, biz_code=None, cert_name=None,
+                 cert_no=None, cert_type=None, extern_param=None, facial_picture_ref=None, identity_type=None,
+                 meta_info=None, outer_order_no=None, return_url=None, scene_id=None, user_id=None, user_ip=None,
+                 user_mobile=None):
         self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
         self.biz_code = biz_code
         self.cert_name = cert_name
         self.cert_no = cert_no
@@ -176,6 +185,8 @@ class CreateIRealpersonFacevrfServerRequest(TeaModel):
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
         result['biz_code'] = self.biz_code
         result['cert_name'] = self.cert_name
         result['cert_no'] = self.cert_no
@@ -194,6 +205,8 @@ class CreateIRealpersonFacevrfServerRequest(TeaModel):
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
         self.biz_code = map.get('biz_code')
         self.cert_name = map.get('cert_name')
         self.cert_no = map.get('cert_no')
@@ -211,7 +224,7 @@ class CreateIRealpersonFacevrfServerRequest(TeaModel):
         return self
 
 
-class CreateIRealpersonFacevrfServerResponse(TeaModel):
+class CreateDiRealpersonFacevrfServerResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, certify_id=None, certify_url=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -240,11 +253,13 @@ class CreateIRealpersonFacevrfServerResponse(TeaModel):
         return self
 
 
-class ExecIRealpersonFacevrfServerRequest(TeaModel):
-    def __init__(self, auth_token=None, cert_name=None, cert_no=None, cert_type=None, extern_param=None,
-                 facial_picture_auth=None, facial_picture_ref=None, identity_type=None, outer_order_no=None, scene_id=None,
-                 user_id=None, user_ip=None, user_mobile=None):
+class ExecDiRealpersonFacevrfServerRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_name=None, cert_no=None,
+                 cert_type=None, extern_param=None, facial_picture_auth=None, facial_picture_ref=None, identity_type=None,
+                 outer_order_no=None, scene_id=None, user_id=None, user_ip=None, user_mobile=None):
         self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
         self.cert_name = cert_name
         self.cert_no = cert_no
         self.cert_type = cert_type
@@ -264,6 +279,8 @@ class ExecIRealpersonFacevrfServerRequest(TeaModel):
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
         result['cert_name'] = self.cert_name
         result['cert_no'] = self.cert_no
         result['cert_type'] = self.cert_type
@@ -280,6 +297,8 @@ class ExecIRealpersonFacevrfServerRequest(TeaModel):
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
         self.cert_name = map.get('cert_name')
         self.cert_no = map.get('cert_no')
         self.cert_type = map.get('cert_type')
@@ -295,7 +314,7 @@ class ExecIRealpersonFacevrfServerRequest(TeaModel):
         return self
 
 
-class ExecIRealpersonFacevrfServerResponse(TeaModel):
+class ExecDiRealpersonFacevrfServerResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, certify_id=None, passed=None, reason=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -327,9 +346,11 @@ class ExecIRealpersonFacevrfServerResponse(TeaModel):
         return self
 
 
-class GetIRealpersonFacevrfEvidenceRequest(TeaModel):
-    def __init__(self, auth_token=None, certify_id=None):
+class GetDiRealpersonFacevrfEvidenceRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, certify_id=None):
         self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
         self.certify_id = certify_id
 
     def validate(self):
@@ -338,16 +359,20 @@ class GetIRealpersonFacevrfEvidenceRequest(TeaModel):
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
         result['certify_id'] = self.certify_id
         return result
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
         self.certify_id = map.get('certify_id')
         return self
 
 
-class GetIRealpersonFacevrfEvidenceResponse(TeaModel):
+class GetDiRealpersonFacevrfEvidenceResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, certify_id=None, onchain_id=None,
                  onchain_status=None, pdf_content=None, pdf_expired=None):
         self.req_msg_id = req_msg_id

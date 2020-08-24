@@ -167,7 +167,7 @@ class Client(object):
         user_agent = "TeaClient/1.0.0"
         return UtilClient.get_user_agent(user_agent)
 
-    def query_irealperson_facevrf_server(self, request):
+    def query_di_realperson_facevrf_server(self, request):
         """
         Description: 查询认证的结果和相关信息
         Summary: 认证查询
@@ -175,18 +175,18 @@ class Client(object):
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_irealperson_facevrf_server_ex(request, runtime)
+        return self.query_di_realperson_facevrf_server_ex(request, runtime)
 
-    def query_irealperson_facevrf_server_ex(self, request, runtime):
+    def query_di_realperson_facevrf_server_ex(self, request, runtime):
         """
         Description: 查询认证的结果和相关信息
         Summary: 认证查询
         """
         UtilClient.validate_model(request)
-        return realperson_models.QueryIRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return realperson_models.QueryDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_irealperson_facevrf_server(self, request):
+    def create_di_realperson_facevrf_server(self, request):
         """
         Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
         Summary: 认证创建
@@ -194,18 +194,18 @@ class Client(object):
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_irealperson_facevrf_server_ex(request, runtime)
+        return self.create_di_realperson_facevrf_server_ex(request, runtime)
 
-    def create_irealperson_facevrf_server_ex(self, request, runtime):
+    def create_di_realperson_facevrf_server_ex(self, request, runtime):
         """
         Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
         Summary: 认证创建
         """
         UtilClient.validate_model(request)
-        return realperson_models.CreateIRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return realperson_models.CreateDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def exec_irealperson_facevrf_server(self, request):
+    def exec_di_realperson_facevrf_server(self, request):
         """
         Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
         Summary: 纯服务端比对
@@ -213,18 +213,18 @@ class Client(object):
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.exec_irealperson_facevrf_server_ex(request, runtime)
+        return self.exec_di_realperson_facevrf_server_ex(request, runtime)
 
-    def exec_irealperson_facevrf_server_ex(self, request, runtime):
+    def exec_di_realperson_facevrf_server_ex(self, request, runtime):
         """
         Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
         Summary: 纯服务端比对
         """
         UtilClient.validate_model(request)
-        return realperson_models.ExecIRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return realperson_models.ExecDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def get_irealperson_facevrf_evidence(self, request):
+    def get_di_realperson_facevrf_evidence(self, request):
         """
         Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
         Summary: 商户获取司法链上刷脸存证和统一证据ID
@@ -232,13 +232,13 @@ class Client(object):
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.get_irealperson_facevrf_evidence_ex(request, runtime)
+        return self.get_di_realperson_facevrf_evidence_ex(request, runtime)
 
-    def get_irealperson_facevrf_evidence_ex(self, request, runtime):
+    def get_di_realperson_facevrf_evidence_ex(self, request, runtime):
         """
         Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
         Summary: 商户获取司法链上刷脸存证和统一证据ID
         """
         UtilClient.validate_model(request)
-        return realperson_models.GetIRealpersonFacevrfEvidenceResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return realperson_models.GetDiRealpersonFacevrfEvidenceResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
