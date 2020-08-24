@@ -11,7 +11,7 @@
   ],
   "releases": {
     "java": "com.alipay:realperson:0.0.1",
-    "go": "github.com/alipay/antchain-openapi-sdk-go/REALPERSON/client:v1.1.1",
+    "go": "github.com/antchain-openapi-sdk-go/REALPERSON/client:v1.1.1",
     "csharp": "AntChain.SDK.REALPERSON:0.0.1",
     "ts": "@antchain/realperson:^1.0.0",
     "php": "antchain/realperson:1.1.1",
