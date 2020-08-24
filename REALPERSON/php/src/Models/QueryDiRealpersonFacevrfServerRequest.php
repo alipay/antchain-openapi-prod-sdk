@@ -5,9 +5,11 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIRealpersonFacevrfServerRequest extends Model {
+class QueryDiRealpersonFacevrfServerRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'regionName' => 'region_name',
         'certifyId' => 'certify_id',
         'externParam' => 'extern_param',
         'materialHash' => 'material_hash',
@@ -19,6 +21,12 @@ class QueryIRealpersonFacevrfServerRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->regionName) {
+            $res['region_name'] = $this->regionName;
         }
         if (null !== $this->certifyId) {
             $res['certify_id'] = $this->certifyId;
@@ -39,12 +47,18 @@ class QueryIRealpersonFacevrfServerRequest extends Model {
     }
     /**
      * @param array $map
-     * @return QueryIRealpersonFacevrfServerRequest
+     * @return QueryDiRealpersonFacevrfServerRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['region_name'])){
+            $model->regionName = $map['region_name'];
         }
         if(isset($map['certify_id'])){
             $model->certifyId = $map['certify_id'];
@@ -67,6 +81,16 @@ class QueryIRealpersonFacevrfServerRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    /**
+     * @var string
+     */
+    public $regionName;
 
     // 实人认证唯一标识
     /**

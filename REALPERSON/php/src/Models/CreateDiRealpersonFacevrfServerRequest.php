@@ -5,9 +5,11 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateIRealpersonFacevrfServerRequest extends Model {
+class CreateDiRealpersonFacevrfServerRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'regionName' => 'region_name',
         'bizCode' => 'biz_code',
         'certName' => 'cert_name',
         'certNo' => 'cert_no',
@@ -28,6 +30,12 @@ class CreateIRealpersonFacevrfServerRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->regionName) {
+            $res['region_name'] = $this->regionName;
         }
         if (null !== $this->bizCode) {
             $res['biz_code'] = $this->bizCode;
@@ -75,12 +83,18 @@ class CreateIRealpersonFacevrfServerRequest extends Model {
     }
     /**
      * @param array $map
-     * @return CreateIRealpersonFacevrfServerRequest
+     * @return CreateDiRealpersonFacevrfServerRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['region_name'])){
+            $model->regionName = $map['region_name'];
         }
         if(isset($map['biz_code'])){
             $model->bizCode = $map['biz_code'];
@@ -130,6 +144,16 @@ class CreateIRealpersonFacevrfServerRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    /**
+     * @var string
+     */
+    public $regionName;
 
     // 认证模式码
     /**

@@ -5,7 +5,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetIRealpersonFacevrfEvidenceResponse extends Model {
+class GetDiRealpersonFacevrfEvidenceResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -47,7 +47,7 @@ class GetIRealpersonFacevrfEvidenceResponse extends Model {
     }
     /**
      * @param array $map
-     * @return GetIRealpersonFacevrfEvidenceResponse
+     * @return GetDiRealpersonFacevrfEvidenceResponse
      */
     public static function fromMap($map = []) {
         $model = new self();

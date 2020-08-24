@@ -14,14 +14,14 @@ use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
 
 use AntChain\REALPERSON\Models\Config;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\REALPERSON\Models\QueryIRealpersonFacevrfServerRequest;
-use AntChain\REALPERSON\Models\QueryIRealpersonFacevrfServerResponse;
-use AntChain\REALPERSON\Models\CreateIRealpersonFacevrfServerRequest;
-use AntChain\REALPERSON\Models\CreateIRealpersonFacevrfServerResponse;
-use AntChain\REALPERSON\Models\ExecIRealpersonFacevrfServerRequest;
-use AntChain\REALPERSON\Models\ExecIRealpersonFacevrfServerResponse;
-use AntChain\REALPERSON\Models\GetIRealpersonFacevrfEvidenceRequest;
-use AntChain\REALPERSON\Models\GetIRealpersonFacevrfEvidenceResponse;
+use AntChain\REALPERSON\Models\QueryDiRealpersonFacevrfServerRequest;
+use AntChain\REALPERSON\Models\QueryDiRealpersonFacevrfServerResponse;
+use AntChain\REALPERSON\Models\CreateDiRealpersonFacevrfServerRequest;
+use AntChain\REALPERSON\Models\CreateDiRealpersonFacevrfServerResponse;
+use AntChain\REALPERSON\Models\ExecDiRealpersonFacevrfServerRequest;
+use AntChain\REALPERSON\Models\ExecDiRealpersonFacevrfServerResponse;
+use AntChain\REALPERSON\Models\GetDiRealpersonFacevrfEvidenceRequest;
+use AntChain\REALPERSON\Models\GetDiRealpersonFacevrfEvidenceResponse;
 
 class Client {
     protected $_endpoint;
@@ -195,92 +195,92 @@ class Client {
     /**
      * Description: 查询认证的结果和相关信息
      * Summary: 认证查询
-     * @param QueryIRealpersonFacevrfServerRequest $request
-     * @return QueryIRealpersonFacevrfServerResponse
+     * @param QueryDiRealpersonFacevrfServerRequest $request
+     * @return QueryDiRealpersonFacevrfServerResponse
      */
-    public function queryIRealpersonFacevrfServer($request){
+    public function queryDiRealpersonFacevrfServer($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryIRealpersonFacevrfServerEx($request, $runtime);
+        return $this->queryDiRealpersonFacevrfServerEx($request, $runtime);
     }
 
     /**
      * Description: 查询认证的结果和相关信息
      * Summary: 认证查询
-     * @param QueryIRealpersonFacevrfServerRequest $request
+     * @param QueryDiRealpersonFacevrfServerRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryIRealpersonFacevrfServerResponse
+     * @return QueryDiRealpersonFacevrfServerResponse
      */
-    public function queryIRealpersonFacevrfServerEx($request, $runtime){
+    public function queryDiRealpersonFacevrfServerEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryIRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryDiRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
      * Summary: 认证创建
-     * @param CreateIRealpersonFacevrfServerRequest $request
-     * @return CreateIRealpersonFacevrfServerResponse
+     * @param CreateDiRealpersonFacevrfServerRequest $request
+     * @return CreateDiRealpersonFacevrfServerResponse
      */
-    public function createIRealpersonFacevrfServer($request){
+    public function createDiRealpersonFacevrfServer($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createIRealpersonFacevrfServerEx($request, $runtime);
+        return $this->createDiRealpersonFacevrfServerEx($request, $runtime);
     }
 
     /**
      * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
      * Summary: 认证创建
-     * @param CreateIRealpersonFacevrfServerRequest $request
+     * @param CreateDiRealpersonFacevrfServerRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateIRealpersonFacevrfServerResponse
+     * @return CreateDiRealpersonFacevrfServerResponse
      */
-    public function createIRealpersonFacevrfServerEx($request, $runtime){
+    public function createDiRealpersonFacevrfServerEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateIRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateDiRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
      * Summary: 纯服务端比对
-     * @param ExecIRealpersonFacevrfServerRequest $request
-     * @return ExecIRealpersonFacevrfServerResponse
+     * @param ExecDiRealpersonFacevrfServerRequest $request
+     * @return ExecDiRealpersonFacevrfServerResponse
      */
-    public function execIRealpersonFacevrfServer($request){
+    public function execDiRealpersonFacevrfServer($request){
         $runtime = new RuntimeOptions([]);
-        return $this->execIRealpersonFacevrfServerEx($request, $runtime);
+        return $this->execDiRealpersonFacevrfServerEx($request, $runtime);
     }
 
     /**
      * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
      * Summary: 纯服务端比对
-     * @param ExecIRealpersonFacevrfServerRequest $request
+     * @param ExecDiRealpersonFacevrfServerRequest $request
      * @param RuntimeOptions $runtime
-     * @return ExecIRealpersonFacevrfServerResponse
+     * @return ExecDiRealpersonFacevrfServerResponse
      */
-    public function execIRealpersonFacevrfServerEx($request, $runtime){
+    public function execDiRealpersonFacevrfServerEx($request, $runtime){
         Utils::validateModel($request);
-        return ExecIRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ExecDiRealpersonFacevrfServerResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
      * Summary: 商户获取司法链上刷脸存证和统一证据ID
-     * @param GetIRealpersonFacevrfEvidenceRequest $request
-     * @return GetIRealpersonFacevrfEvidenceResponse
+     * @param GetDiRealpersonFacevrfEvidenceRequest $request
+     * @return GetDiRealpersonFacevrfEvidenceResponse
      */
-    public function getIRealpersonFacevrfEvidence($request){
+    public function getDiRealpersonFacevrfEvidence($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getIRealpersonFacevrfEvidenceEx($request, $runtime);
+        return $this->getDiRealpersonFacevrfEvidenceEx($request, $runtime);
     }
 
     /**
      * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
      * Summary: 商户获取司法链上刷脸存证和统一证据ID
-     * @param GetIRealpersonFacevrfEvidenceRequest $request
+     * @param GetDiRealpersonFacevrfEvidenceRequest $request
      * @param RuntimeOptions $runtime
-     * @return GetIRealpersonFacevrfEvidenceResponse
+     * @return GetDiRealpersonFacevrfEvidenceResponse
      */
-    public function getIRealpersonFacevrfEvidenceEx($request, $runtime){
+    public function getDiRealpersonFacevrfEvidenceEx($request, $runtime){
         Utils::validateModel($request);
-        return GetIRealpersonFacevrfEvidenceResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetDiRealpersonFacevrfEvidenceResponse::fromMap($this->doRequest("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 }
