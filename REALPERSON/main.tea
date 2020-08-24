@@ -151,8 +151,10 @@ function getUserAgent(): string {
   return Util.getUserAgent(userAgent);
 }
 
-model QueryIRealpersonFacevrfServerRequest = {
+model QueryDiRealpersonFacevrfServerRequest = {
   authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
   // 实人认证唯一标识
   certifyId?: string(name='certify_id'),
   // 预留扩展业务参数
@@ -166,7 +168,7 @@ model QueryIRealpersonFacevrfServerRequest = {
   sceneId?: string(name='scene_id'),
 }
 
-model QueryIRealpersonFacevrfServerResponse = {
+model QueryDiRealpersonFacevrfServerResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
@@ -186,22 +188,24 @@ model QueryIRealpersonFacevrfServerResponse = {
  * Description: 查询认证的结果和相关信息
  * Summary: 认证查询
  */
-async function queryIRealpersonFacevrfServer(request: QueryIRealpersonFacevrfServerRequest): QueryIRealpersonFacevrfServerResponse {
+async function queryDiRealpersonFacevrfServer(request: QueryDiRealpersonFacevrfServerRequest): QueryDiRealpersonFacevrfServerResponse {
   var runtime = new Util.RuntimeOptions{};
-  return queryIRealpersonFacevrfServerEx(request, runtime);
+  return queryDiRealpersonFacevrfServerEx(request, runtime);
 }
 
 /**
  * Description: 查询认证的结果和相关信息
  * Summary: 认证查询
  */
-async function queryIRealpersonFacevrfServerEx(request: QueryIRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): QueryIRealpersonFacevrfServerResponse {
+async function queryDiRealpersonFacevrfServerEx(request: QueryDiRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): QueryDiRealpersonFacevrfServerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.facevrf.server.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
-model CreateIRealpersonFacevrfServerRequest = {
+model CreateDiRealpersonFacevrfServerRequest = {
   authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
   // 认证模式码
   bizCode?: string(name='biz_code'),
   // 真实姓名
@@ -233,7 +237,7 @@ model CreateIRealpersonFacevrfServerRequest = {
   userMobile?: string(name='user_mobile'),
 }
 
-model CreateIRealpersonFacevrfServerResponse = {
+model CreateDiRealpersonFacevrfServerResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
@@ -247,22 +251,24 @@ model CreateIRealpersonFacevrfServerResponse = {
  * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
  * Summary: 认证创建
  */
-async function createIRealpersonFacevrfServer(request: CreateIRealpersonFacevrfServerRequest): CreateIRealpersonFacevrfServerResponse {
+async function createDiRealpersonFacevrfServer(request: CreateDiRealpersonFacevrfServerRequest): CreateDiRealpersonFacevrfServerResponse {
   var runtime = new Util.RuntimeOptions{};
-  return createIRealpersonFacevrfServerEx(request, runtime);
+  return createDiRealpersonFacevrfServerEx(request, runtime);
 }
 
 /**
  * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
  * Summary: 认证创建
  */
-async function createIRealpersonFacevrfServerEx(request: CreateIRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): CreateIRealpersonFacevrfServerResponse {
+async function createDiRealpersonFacevrfServerEx(request: CreateDiRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): CreateDiRealpersonFacevrfServerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.facevrf.server.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
-model ExecIRealpersonFacevrfServerRequest = {
+model ExecDiRealpersonFacevrfServerRequest = {
   authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
   // 真实姓名
   certName?: string(name='cert_name'),
   // 证件号码
@@ -289,7 +295,7 @@ model ExecIRealpersonFacevrfServerRequest = {
   userMobile?: string(name='user_mobile'),
 }
 
-model ExecIRealpersonFacevrfServerResponse = {
+model ExecDiRealpersonFacevrfServerResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
@@ -305,27 +311,29 @@ model ExecIRealpersonFacevrfServerResponse = {
  * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
  * Summary: 纯服务端比对
  */
-async function execIRealpersonFacevrfServer(request: ExecIRealpersonFacevrfServerRequest): ExecIRealpersonFacevrfServerResponse {
+async function execDiRealpersonFacevrfServer(request: ExecDiRealpersonFacevrfServerRequest): ExecDiRealpersonFacevrfServerResponse {
   var runtime = new Util.RuntimeOptions{};
-  return execIRealpersonFacevrfServerEx(request, runtime);
+  return execDiRealpersonFacevrfServerEx(request, runtime);
 }
 
 /**
  * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
  * Summary: 纯服务端比对
  */
-async function execIRealpersonFacevrfServerEx(request: ExecIRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): ExecIRealpersonFacevrfServerResponse {
+async function execDiRealpersonFacevrfServerEx(request: ExecDiRealpersonFacevrfServerRequest, runtime: Util.RuntimeOptions): ExecDiRealpersonFacevrfServerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.facevrf.server.exec', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
-model GetIRealpersonFacevrfEvidenceRequest = {
+model GetDiRealpersonFacevrfEvidenceRequest = {
   authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
   // 某次刷脸的certifyId
   certifyId?: string(name='certify_id'),
 }
 
-model GetIRealpersonFacevrfEvidenceResponse = {
+model GetDiRealpersonFacevrfEvidenceResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
@@ -345,16 +353,16 @@ model GetIRealpersonFacevrfEvidenceResponse = {
  * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
  * Summary: 商户获取司法链上刷脸存证和统一证据ID
  */
-async function getIRealpersonFacevrfEvidence(request: GetIRealpersonFacevrfEvidenceRequest): GetIRealpersonFacevrfEvidenceResponse {
+async function getDiRealpersonFacevrfEvidence(request: GetDiRealpersonFacevrfEvidenceRequest): GetDiRealpersonFacevrfEvidenceResponse {
   var runtime = new Util.RuntimeOptions{};
-  return getIRealpersonFacevrfEvidenceEx(request, runtime);
+  return getDiRealpersonFacevrfEvidenceEx(request, runtime);
 }
 
 /**
  * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
  * Summary: 商户获取司法链上刷脸存证和统一证据ID
  */
-async function getIRealpersonFacevrfEvidenceEx(request: GetIRealpersonFacevrfEvidenceRequest, runtime: Util.RuntimeOptions): GetIRealpersonFacevrfEvidenceResponse {
+async function getDiRealpersonFacevrfEvidenceEx(request: GetDiRealpersonFacevrfEvidenceRequest, runtime: Util.RuntimeOptions): GetDiRealpersonFacevrfEvidenceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.facevrf.evidence.get', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
