@@ -1,0 +1,70 @@
+{
+  "scope": "antchain",
+  "name": "REALPERSON",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.alipay:realperson:0.0.1",
+    "go": "github.com/alipay/antchain-openapi-sdk-go/REALPERSON/client:v1.1.1",
+    "csharp": "AntChain.SDK.REALPERSON:0.0.1",
+    "ts": "@antchain/realperson:^1.0.0",
+    "php": "antchain/realperson:1.1.1",
+    "python": "antchain_sdk_realperson:1.1.1"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AlipayUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.alipay.realperson",
+    "packageInfo": {
+      "description": "Ant Chain REALPERSON SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.REALPERSON",
+    "packageInfo": {
+      "name": "realperson",
+      "title": "antchain-realperson",
+      "description": "Ant Chain REALPERSON SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.REALPERSON",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/realperson",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_realperson",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_realperson",
+      "desc": "Ant Chain REALPERSON SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
