@@ -120,8 +120,10 @@ func (s *Config) SetSocks5NetWork(v string) *Config {
 	return s
 }
 
-type QueryIRealpersonFacevrfServerRequest struct {
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+type QueryDiRealpersonFacevrfServerRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
 	// 实人认证唯一标识
 	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
 	// 预留扩展业务参数
@@ -135,45 +137,55 @@ type QueryIRealpersonFacevrfServerRequest struct {
 	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty"`
 }
 
-func (s QueryIRealpersonFacevrfServerRequest) String() string {
+func (s QueryDiRealpersonFacevrfServerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryIRealpersonFacevrfServerRequest) GoString() string {
+func (s QueryDiRealpersonFacevrfServerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetAuthToken(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetAuthToken(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetCertifyId(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetProductInstanceId(v string) *QueryDiRealpersonFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDiRealpersonFacevrfServerRequest) SetRegionName(v string) *QueryDiRealpersonFacevrfServerRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *QueryDiRealpersonFacevrfServerRequest) SetCertifyId(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.CertifyId = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetExternParam(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetExternParam(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.ExternParam = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetMaterialHash(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetMaterialHash(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.MaterialHash = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.OuterOrderNo = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerRequest) SetSceneId(v string) *QueryIRealpersonFacevrfServerRequest {
+func (s *QueryDiRealpersonFacevrfServerRequest) SetSceneId(v string) *QueryDiRealpersonFacevrfServerRequest {
 	s.SceneId = &v
 	return s
 }
 
-type QueryIRealpersonFacevrfServerResponse struct {
+type QueryDiRealpersonFacevrfServerResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -189,56 +201,58 @@ type QueryIRealpersonFacevrfServerResponse struct {
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
 }
 
-func (s QueryIRealpersonFacevrfServerResponse) String() string {
+func (s QueryDiRealpersonFacevrfServerResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryIRealpersonFacevrfServerResponse) GoString() string {
+func (s QueryDiRealpersonFacevrfServerResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetReqMsgId(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetReqMsgId(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetResultCode(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetResultCode(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetResultMsg(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetResultMsg(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetIdentityInfo(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetIdentityInfo(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.IdentityInfo = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetMaterialInfo(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetMaterialInfo(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.MaterialInfo = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetMaterialMatched(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetMaterialMatched(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.MaterialMatched = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetPassed(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetPassed(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.Passed = &v
 	return s
 }
 
-func (s *QueryIRealpersonFacevrfServerResponse) SetReason(v string) *QueryIRealpersonFacevrfServerResponse {
+func (s *QueryDiRealpersonFacevrfServerResponse) SetReason(v string) *QueryDiRealpersonFacevrfServerResponse {
 	s.Reason = &v
 	return s
 }
 
-type CreateIRealpersonFacevrfServerRequest struct {
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+type CreateDiRealpersonFacevrfServerRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
 	// 认证模式码
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
 	// 真实姓名
@@ -270,90 +284,100 @@ type CreateIRealpersonFacevrfServerRequest struct {
 	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
 }
 
-func (s CreateIRealpersonFacevrfServerRequest) String() string {
+func (s CreateDiRealpersonFacevrfServerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateIRealpersonFacevrfServerRequest) GoString() string {
+func (s CreateDiRealpersonFacevrfServerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetAuthToken(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetAuthToken(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetBizCode(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetProductInstanceId(v string) *CreateDiRealpersonFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDiRealpersonFacevrfServerRequest) SetRegionName(v string) *CreateDiRealpersonFacevrfServerRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *CreateDiRealpersonFacevrfServerRequest) SetBizCode(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.BizCode = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetCertName(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetCertName(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.CertName = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetCertNo(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetCertNo(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.CertNo = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetCertType(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetCertType(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.CertType = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetExternParam(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetExternParam(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.ExternParam = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetFacialPictureRef(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetFacialPictureRef(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.FacialPictureRef = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetIdentityType(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetIdentityType(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.IdentityType = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetMetaInfo(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetMetaInfo(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.MetaInfo = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.OuterOrderNo = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetReturnUrl(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetReturnUrl(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.ReturnUrl = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetSceneId(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetSceneId(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.SceneId = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetUserId(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetUserId(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.UserId = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetUserIp(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetUserIp(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.UserIp = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerRequest) SetUserMobile(v string) *CreateIRealpersonFacevrfServerRequest {
+func (s *CreateDiRealpersonFacevrfServerRequest) SetUserMobile(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.UserMobile = &v
 	return s
 }
 
-type CreateIRealpersonFacevrfServerResponse struct {
+type CreateDiRealpersonFacevrfServerResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -363,41 +387,43 @@ type CreateIRealpersonFacevrfServerResponse struct {
 	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
 }
 
-func (s CreateIRealpersonFacevrfServerResponse) String() string {
+func (s CreateDiRealpersonFacevrfServerResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateIRealpersonFacevrfServerResponse) GoString() string {
+func (s CreateDiRealpersonFacevrfServerResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateIRealpersonFacevrfServerResponse) SetReqMsgId(v string) *CreateIRealpersonFacevrfServerResponse {
+func (s *CreateDiRealpersonFacevrfServerResponse) SetReqMsgId(v string) *CreateDiRealpersonFacevrfServerResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerResponse) SetResultCode(v string) *CreateIRealpersonFacevrfServerResponse {
+func (s *CreateDiRealpersonFacevrfServerResponse) SetResultCode(v string) *CreateDiRealpersonFacevrfServerResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerResponse) SetResultMsg(v string) *CreateIRealpersonFacevrfServerResponse {
+func (s *CreateDiRealpersonFacevrfServerResponse) SetResultMsg(v string) *CreateDiRealpersonFacevrfServerResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerResponse) SetCertifyId(v string) *CreateIRealpersonFacevrfServerResponse {
+func (s *CreateDiRealpersonFacevrfServerResponse) SetCertifyId(v string) *CreateDiRealpersonFacevrfServerResponse {
 	s.CertifyId = &v
 	return s
 }
 
-func (s *CreateIRealpersonFacevrfServerResponse) SetCertifyUrl(v string) *CreateIRealpersonFacevrfServerResponse {
+func (s *CreateDiRealpersonFacevrfServerResponse) SetCertifyUrl(v string) *CreateDiRealpersonFacevrfServerResponse {
 	s.CertifyUrl = &v
 	return s
 }
 
-type ExecIRealpersonFacevrfServerRequest struct {
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+type ExecDiRealpersonFacevrfServerRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
 	// 真实姓名
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
 	// 证件号码
@@ -424,80 +450,90 @@ type ExecIRealpersonFacevrfServerRequest struct {
 	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
 }
 
-func (s ExecIRealpersonFacevrfServerRequest) String() string {
+func (s ExecDiRealpersonFacevrfServerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ExecIRealpersonFacevrfServerRequest) GoString() string {
+func (s ExecDiRealpersonFacevrfServerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetAuthToken(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetAuthToken(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetCertName(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetProductInstanceId(v string) *ExecDiRealpersonFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecDiRealpersonFacevrfServerRequest) SetRegionName(v string) *ExecDiRealpersonFacevrfServerRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *ExecDiRealpersonFacevrfServerRequest) SetCertName(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.CertName = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetCertNo(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetCertNo(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.CertNo = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetCertType(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetCertType(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.CertType = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetExternParam(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetExternParam(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.ExternParam = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetFacialPictureAuth(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetFacialPictureAuth(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.FacialPictureAuth = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetFacialPictureRef(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetFacialPictureRef(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.FacialPictureRef = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetIdentityType(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetIdentityType(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.IdentityType = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetOuterOrderNo(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.OuterOrderNo = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetSceneId(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetSceneId(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.SceneId = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetUserId(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetUserId(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.UserId = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetUserIp(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetUserIp(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.UserIp = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerRequest) SetUserMobile(v string) *ExecIRealpersonFacevrfServerRequest {
+func (s *ExecDiRealpersonFacevrfServerRequest) SetUserMobile(v string) *ExecDiRealpersonFacevrfServerRequest {
 	s.UserMobile = &v
 	return s
 }
 
-type ExecIRealpersonFacevrfServerResponse struct {
+type ExecDiRealpersonFacevrfServerResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -509,69 +545,81 @@ type ExecIRealpersonFacevrfServerResponse struct {
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
 }
 
-func (s ExecIRealpersonFacevrfServerResponse) String() string {
+func (s ExecDiRealpersonFacevrfServerResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ExecIRealpersonFacevrfServerResponse) GoString() string {
+func (s ExecDiRealpersonFacevrfServerResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetReqMsgId(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetReqMsgId(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetResultCode(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetResultCode(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetResultMsg(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetResultMsg(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetCertifyId(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetCertifyId(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.CertifyId = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetPassed(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetPassed(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.Passed = &v
 	return s
 }
 
-func (s *ExecIRealpersonFacevrfServerResponse) SetReason(v string) *ExecIRealpersonFacevrfServerResponse {
+func (s *ExecDiRealpersonFacevrfServerResponse) SetReason(v string) *ExecDiRealpersonFacevrfServerResponse {
 	s.Reason = &v
 	return s
 }
 
-type GetIRealpersonFacevrfEvidenceRequest struct {
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+type GetDiRealpersonFacevrfEvidenceRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
 	// 某次刷脸的certifyId
 	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
 }
 
-func (s GetIRealpersonFacevrfEvidenceRequest) String() string {
+func (s GetDiRealpersonFacevrfEvidenceRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetIRealpersonFacevrfEvidenceRequest) GoString() string {
+func (s GetDiRealpersonFacevrfEvidenceRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetIRealpersonFacevrfEvidenceRequest) SetAuthToken(v string) *GetIRealpersonFacevrfEvidenceRequest {
+func (s *GetDiRealpersonFacevrfEvidenceRequest) SetAuthToken(v string) *GetDiRealpersonFacevrfEvidenceRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceRequest) SetCertifyId(v string) *GetIRealpersonFacevrfEvidenceRequest {
+func (s *GetDiRealpersonFacevrfEvidenceRequest) SetProductInstanceId(v string) *GetDiRealpersonFacevrfEvidenceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDiRealpersonFacevrfEvidenceRequest) SetRegionName(v string) *GetDiRealpersonFacevrfEvidenceRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *GetDiRealpersonFacevrfEvidenceRequest) SetCertifyId(v string) *GetDiRealpersonFacevrfEvidenceRequest {
 	s.CertifyId = &v
 	return s
 }
 
-type GetIRealpersonFacevrfEvidenceResponse struct {
+type GetDiRealpersonFacevrfEvidenceResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -587,50 +635,50 @@ type GetIRealpersonFacevrfEvidenceResponse struct {
 	PdfExpired *bool `json:"pdf_expired,omitempty" xml:"pdf_expired,omitempty"`
 }
 
-func (s GetIRealpersonFacevrfEvidenceResponse) String() string {
+func (s GetDiRealpersonFacevrfEvidenceResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetIRealpersonFacevrfEvidenceResponse) GoString() string {
+func (s GetDiRealpersonFacevrfEvidenceResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetReqMsgId(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetReqMsgId(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetResultCode(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetResultCode(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetResultMsg(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetResultMsg(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetCertifyId(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetCertifyId(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.CertifyId = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetOnchainId(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetOnchainId(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.OnchainId = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetOnchainStatus(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetOnchainStatus(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.OnchainStatus = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetPdfContent(v string) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetPdfContent(v string) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.PdfContent = &v
 	return s
 }
 
-func (s *GetIRealpersonFacevrfEvidenceResponse) SetPdfExpired(v bool) *GetIRealpersonFacevrfEvidenceResponse {
+func (s *GetDiRealpersonFacevrfEvidenceResponse) SetPdfExpired(v bool) *GetDiRealpersonFacevrfEvidenceResponse {
 	s.PdfExpired = &v
 	return s
 }
@@ -808,10 +856,10 @@ func (client *Client) GetUserAgent() (_result *string) {
  * Description: 查询认证的结果和相关信息
  * Summary: 认证查询
  */
-func (client *Client) QueryIRealpersonFacevrfServer(request *QueryIRealpersonFacevrfServerRequest) (_result *QueryIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) QueryDiRealpersonFacevrfServer(request *QueryDiRealpersonFacevrfServerRequest) (_result *QueryDiRealpersonFacevrfServerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryIRealpersonFacevrfServerResponse{}
-	_body, _err := client.QueryIRealpersonFacevrfServerEx(request, runtime)
+	_result = &QueryDiRealpersonFacevrfServerResponse{}
+	_body, _err := client.QueryDiRealpersonFacevrfServerEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -823,12 +871,12 @@ func (client *Client) QueryIRealpersonFacevrfServer(request *QueryIRealpersonFac
  * Description: 查询认证的结果和相关信息
  * Summary: 认证查询
  */
-func (client *Client) QueryIRealpersonFacevrfServerEx(request *QueryIRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *QueryIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) QueryDiRealpersonFacevrfServerEx(request *QueryDiRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *QueryDiRealpersonFacevrfServerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryIRealpersonFacevrfServerResponse{}
+	_result = &QueryDiRealpersonFacevrfServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -841,10 +889,10 @@ func (client *Client) QueryIRealpersonFacevrfServerEx(request *QueryIRealpersonF
  * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
  * Summary: 认证创建
  */
-func (client *Client) CreateIRealpersonFacevrfServer(request *CreateIRealpersonFacevrfServerRequest) (_result *CreateIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) CreateDiRealpersonFacevrfServer(request *CreateDiRealpersonFacevrfServerRequest) (_result *CreateDiRealpersonFacevrfServerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateIRealpersonFacevrfServerResponse{}
-	_body, _err := client.CreateIRealpersonFacevrfServerEx(request, runtime)
+	_result = &CreateDiRealpersonFacevrfServerResponse{}
+	_body, _err := client.CreateDiRealpersonFacevrfServerEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -856,12 +904,12 @@ func (client *Client) CreateIRealpersonFacevrfServer(request *CreateIRealpersonF
  * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
  * Summary: 认证创建
  */
-func (client *Client) CreateIRealpersonFacevrfServerEx(request *CreateIRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *CreateIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) CreateDiRealpersonFacevrfServerEx(request *CreateDiRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *CreateDiRealpersonFacevrfServerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateIRealpersonFacevrfServerResponse{}
+	_result = &CreateDiRealpersonFacevrfServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -874,10 +922,10 @@ func (client *Client) CreateIRealpersonFacevrfServerEx(request *CreateIRealperso
  * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
  * Summary: 纯服务端比对
  */
-func (client *Client) ExecIRealpersonFacevrfServer(request *ExecIRealpersonFacevrfServerRequest) (_result *ExecIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) ExecDiRealpersonFacevrfServer(request *ExecDiRealpersonFacevrfServerRequest) (_result *ExecDiRealpersonFacevrfServerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &ExecIRealpersonFacevrfServerResponse{}
-	_body, _err := client.ExecIRealpersonFacevrfServerEx(request, runtime)
+	_result = &ExecDiRealpersonFacevrfServerResponse{}
+	_body, _err := client.ExecDiRealpersonFacevrfServerEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -889,12 +937,12 @@ func (client *Client) ExecIRealpersonFacevrfServer(request *ExecIRealpersonFacev
  * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
  * Summary: 纯服务端比对
  */
-func (client *Client) ExecIRealpersonFacevrfServerEx(request *ExecIRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *ExecIRealpersonFacevrfServerResponse, _err error) {
+func (client *Client) ExecDiRealpersonFacevrfServerEx(request *ExecDiRealpersonFacevrfServerRequest, runtime *util.RuntimeOptions) (_result *ExecDiRealpersonFacevrfServerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ExecIRealpersonFacevrfServerResponse{}
+	_result = &ExecDiRealpersonFacevrfServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -907,10 +955,10 @@ func (client *Client) ExecIRealpersonFacevrfServerEx(request *ExecIRealpersonFac
  * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
  * Summary: 商户获取司法链上刷脸存证和统一证据ID
  */
-func (client *Client) GetIRealpersonFacevrfEvidence(request *GetIRealpersonFacevrfEvidenceRequest) (_result *GetIRealpersonFacevrfEvidenceResponse, _err error) {
+func (client *Client) GetDiRealpersonFacevrfEvidence(request *GetDiRealpersonFacevrfEvidenceRequest) (_result *GetDiRealpersonFacevrfEvidenceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &GetIRealpersonFacevrfEvidenceResponse{}
-	_body, _err := client.GetIRealpersonFacevrfEvidenceEx(request, runtime)
+	_result = &GetDiRealpersonFacevrfEvidenceResponse{}
+	_body, _err := client.GetDiRealpersonFacevrfEvidenceEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -922,12 +970,12 @@ func (client *Client) GetIRealpersonFacevrfEvidence(request *GetIRealpersonFacev
  * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
  * Summary: 商户获取司法链上刷脸存证和统一证据ID
  */
-func (client *Client) GetIRealpersonFacevrfEvidenceEx(request *GetIRealpersonFacevrfEvidenceRequest, runtime *util.RuntimeOptions) (_result *GetIRealpersonFacevrfEvidenceResponse, _err error) {
+func (client *Client) GetDiRealpersonFacevrfEvidenceEx(request *GetDiRealpersonFacevrfEvidenceRequest, runtime *util.RuntimeOptions) (_result *GetDiRealpersonFacevrfEvidenceResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetIRealpersonFacevrfEvidenceResponse{}
+	_result = &GetDiRealpersonFacevrfEvidenceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.evidence.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
