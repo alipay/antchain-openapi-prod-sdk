@@ -1,4 +1,4 @@
-module github.com/alipay/antchain-openapi-sdk-go/REALPERSON
+module github.com/antchain-openapi-sdk-go/REALPERSON
 
 require (
 	github.com/antchain-openapi-sdk-go/antchain-util v0.0.1
