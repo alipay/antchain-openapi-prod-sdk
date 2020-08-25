@@ -12,20 +12,34 @@ import (
  * Model for initing client
  */
 type Config struct {
-	AccessKeyId     *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
+	// accesskey id
+	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
+	// accesskey secret
 	AccessKeySecret *string `json:"accessKeySecret,omitempty" xml:"accessKeySecret,omitempty"`
-	SecurityToken   *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
-	Protocol        *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
-	ReadTimeout     *int    `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
-	ConnectTimeout  *int    `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
-	HttpProxy       *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
-	HttpsProxy      *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
-	Endpoint        *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
-	NoProxy         *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
-	MaxIdleConns    *int    `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
-	UserAgent       *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
-	Socks5Proxy     *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
-	Socks5NetWork   *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
+	// security token
+	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
+	// http protocol
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// read timeout
+	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
+	// connect timeout
+	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
+	// http proxy
+	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
+	// https proxy
+	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
+	// endpoint
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
+	// proxy white list
+	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
+	// max idle conns
+	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
+	// user agent
+	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
+	// socks5 proxy
+	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
+	// socks5 network
+	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 }
 
 func (s Config) String() string {
@@ -110,6 +124,8 @@ func (s *Config) SetSocks5NetWork(v string) *Config {
 type Cert struct {
 	// 证书编号
 	CertCode *string `json:"cert_code,omitempty" xml:"cert_code,omitempty" maxLength:"64"`
+	// 证书描述
+	CertDescription *string `json:"cert_description,omitempty" xml:"cert_description,omitempty"`
 	// 时间周期结束时间
 	CertEndTime *string `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 证书id
@@ -120,6 +136,9 @@ type Cert struct {
 	CertNameEn *string `json:"cert_name_en,omitempty" xml:"cert_name_en,omitempty"`
 	// 首次发布时间
 	CertPublishTime *string `json:"cert_publish_time,omitempty" xml:"cert_publish_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 发布时间时区，默认UTC+8
+	//
+	CertPublishTimeZone *string `json:"cert_publish_time_zone,omitempty" xml:"cert_publish_time_zone,omitempty"`
 	// 时间周期开始时间
 	CertStartTime *string `json:"cert_start_time,omitempty" xml:"cert_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 1-有效
@@ -128,6 +147,8 @@ type Cert struct {
 	// 4-作废
 	// 5-其他
 	CertStatus *int64 `json:"cert_status,omitempty" xml:"cert_status,omitempty"`
+	// 证书概述
+	CertSummary *string `json:"cert_summary,omitempty" xml:"cert_summary,omitempty"`
 	// 实体证书图片url
 	CertUrl *string `json:"cert_url,omitempty" xml:"cert_url,omitempty" maxLength:"256"`
 	// 证书归属国家
@@ -180,6 +201,11 @@ func (s *Cert) SetCertCode(v string) *Cert {
 	return s
 }
 
+func (s *Cert) SetCertDescription(v string) *Cert {
+	s.CertDescription = &v
+	return s
+}
+
 func (s *Cert) SetCertEndTime(v string) *Cert {
 	s.CertEndTime = &v
 	return s
@@ -205,6 +231,11 @@ func (s *Cert) SetCertPublishTime(v string) *Cert {
 	return s
 }
 
+func (s *Cert) SetCertPublishTimeZone(v string) *Cert {
+	s.CertPublishTimeZone = &v
+	return s
+}
+
 func (s *Cert) SetCertStartTime(v string) *Cert {
 	s.CertStartTime = &v
 	return s
@@ -212,6 +243,11 @@ func (s *Cert) SetCertStartTime(v string) *Cert {
 
 func (s *Cert) SetCertStatus(v int64) *Cert {
 	s.CertStatus = &v
+	return s
+}
+
+func (s *Cert) SetCertSummary(v string) *Cert {
+	s.CertSummary = &v
 	return s
 }
 
@@ -316,6 +352,35 @@ func (s *OrgUser) SetOrgUserId(v string) *OrgUser {
 	return s
 }
 
+// 字段隐私属性描述
+type PrivacyDesc struct {
+	// 属性名称
+	//
+	AttributeName *string `json:"attribute_name,omitempty" xml:"attribute_name,omitempty" maxLength:"64"`
+	// 隐私等级：
+	// 1：数据可以全量明文查询
+	// 2：数据仅可以通过数据比较查询
+	PrivacyLevel *int64 `json:"privacy_level,omitempty" xml:"privacy_level,omitempty"`
+}
+
+func (s PrivacyDesc) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PrivacyDesc) GoString() string {
+	return s.String()
+}
+
+func (s *PrivacyDesc) SetAttributeName(v string) *PrivacyDesc {
+	s.AttributeName = &v
+	return s
+}
+
+func (s *PrivacyDesc) SetPrivacyLevel(v int64) *PrivacyDesc {
+	s.PrivacyLevel = &v
+	return s
+}
+
 // 班级
 type Class struct {
 	// 班级id
@@ -342,51 +407,59 @@ func (s *Class) SetOrgDid(v string) *Class {
 	return s
 }
 
-// 字段加密属性描述列表
-type AttributeDesc struct {
+// 字段托管属性描述
+type ProxyDesc struct {
 	// 属性名称
 	AttributeName *string `json:"attribute_name,omitempty" xml:"attribute_name,omitempty" maxLength:"64"`
 	// 是否托管
-	// 注：非托管的数据不支持被动消费，只支持主动消费，目前系统尚不支持主动消费
 	IsProxy *bool `json:"is_proxy,omitempty" xml:"is_proxy,omitempty"`
-	// 是否公开
-	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty"`
-	// 隐私等级
-	// 1级数据可以全量明文查询
-	// 2级数据仅可以通过数据比较查询
-	// 注：目前系统尚不支持隐私等级2的对比查询
-	PrivacyLevel *int64 `json:"privacy_level,omitempty" xml:"privacy_level,omitempty"`
 }
 
-func (s AttributeDesc) String() string {
+func (s ProxyDesc) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AttributeDesc) GoString() string {
+func (s ProxyDesc) GoString() string {
 	return s.String()
 }
 
-func (s *AttributeDesc) SetAttributeName(v string) *AttributeDesc {
+func (s *ProxyDesc) SetAttributeName(v string) *ProxyDesc {
 	s.AttributeName = &v
 	return s
 }
 
-func (s *AttributeDesc) SetIsProxy(v bool) *AttributeDesc {
+func (s *ProxyDesc) SetIsProxy(v bool) *ProxyDesc {
 	s.IsProxy = &v
 	return s
 }
 
-func (s *AttributeDesc) SetIsPublic(v bool) *AttributeDesc {
+// 字段公开属性描述列表
+type PublicDesc struct {
+	// 属性名称
+	AttributeName *string `json:"attribute_name,omitempty" xml:"attribute_name,omitempty" maxLength:"64"`
+	// 数据是否所有消费方可查询
+	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty"`
+}
+
+func (s PublicDesc) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublicDesc) GoString() string {
+	return s.String()
+}
+
+func (s *PublicDesc) SetAttributeName(v string) *PublicDesc {
+	s.AttributeName = &v
+	return s
+}
+
+func (s *PublicDesc) SetIsPublic(v bool) *PublicDesc {
 	s.IsPublic = &v
 	return s
 }
 
-func (s *AttributeDesc) SetPrivacyLevel(v int64) *AttributeDesc {
-	s.PrivacyLevel = &v
-	return s
-}
-
-type CreateAasEbcOrganizationRequest struct {
+type CreateBaasEbcOrganizationRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -396,40 +469,40 @@ type CreateAasEbcOrganizationRequest struct {
 	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"64"`
 }
 
-func (s CreateAasEbcOrganizationRequest) String() string {
+func (s CreateBaasEbcOrganizationRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationRequest) GoString() string {
+func (s CreateBaasEbcOrganizationRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationRequest) SetAuthToken(v string) *CreateAasEbcOrganizationRequest {
+func (s *CreateBaasEbcOrganizationRequest) SetAuthToken(v string) *CreateBaasEbcOrganizationRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationRequest) SetProductInstanceId(v string) *CreateAasEbcOrganizationRequest {
+func (s *CreateBaasEbcOrganizationRequest) SetProductInstanceId(v string) *CreateBaasEbcOrganizationRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationRequest) SetRegionName(v string) *CreateAasEbcOrganizationRequest {
+func (s *CreateBaasEbcOrganizationRequest) SetRegionName(v string) *CreateBaasEbcOrganizationRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationRequest) SetOrgCode(v string) *CreateAasEbcOrganizationRequest {
+func (s *CreateBaasEbcOrganizationRequest) SetOrgCode(v string) *CreateBaasEbcOrganizationRequest {
 	s.OrgCode = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationRequest) SetOrgName(v string) *CreateAasEbcOrganizationRequest {
+func (s *CreateBaasEbcOrganizationRequest) SetOrgName(v string) *CreateBaasEbcOrganizationRequest {
 	s.OrgName = &v
 	return s
 }
 
-type CreateAasEbcOrganizationResponse struct {
+type CreateBaasEbcOrganizationResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -437,46 +510,52 @@ type CreateAasEbcOrganizationResponse struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationResponse) String() string {
+func (s CreateBaasEbcOrganizationResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationResponse) GoString() string {
+func (s CreateBaasEbcOrganizationResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationResponse) SetReqMsgId(v string) *CreateAasEbcOrganizationResponse {
+func (s *CreateBaasEbcOrganizationResponse) SetReqMsgId(v string) *CreateBaasEbcOrganizationResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationResponse) SetResultCode(v string) *CreateAasEbcOrganizationResponse {
+func (s *CreateBaasEbcOrganizationResponse) SetResultCode(v string) *CreateBaasEbcOrganizationResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationResponse) SetResultMsg(v string) *CreateAasEbcOrganizationResponse {
+func (s *CreateBaasEbcOrganizationResponse) SetResultMsg(v string) *CreateBaasEbcOrganizationResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationResponse) SetOrgDid(v string) *CreateAasEbcOrganizationResponse {
+func (s *CreateBaasEbcOrganizationResponse) SetOrgDid(v string) *CreateBaasEbcOrganizationResponse {
 	s.OrgDid = &v
 	return s
 }
 
-type CreateAasEbcPersonRequest struct {
+type CreateBaasEbcPersonRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 加密属性描述列表
-	//
-	AttributeDescList []*AttributeDesc `json:"attribute_desc_list,omitempty" xml:"attribute_desc_list,omitempty" type:"Repeated"`
 	// 姓名
 	PersonName *string `json:"person_name,omitempty" xml:"person_name,omitempty" maxLength:"32"`
 	// 持有人主证件编号，无身份证的个人使用0000000000000000
 	// 请使用我们提供的公钥对数据进行加密
 	PrimaryIdNo *string `json:"primary_id_no,omitempty" xml:"primary_id_no,omitempty" maxLength:"1024"`
+	// 隐私属性描述列表
+	//
+	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
+	// 托管属性描述列表
+	//
+	ProxyDescList []*ProxyDesc `json:"proxy_desc_list,omitempty" xml:"proxy_desc_list,omitempty" type:"Repeated"`
+	// 公开属性描述列表
+	//
+	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
 	// 持有人辅助证件编号-1
 	// 请使用我们提供的公钥对数据进行加密
 	SecondIdNo1 *string `json:"second_id_no_1,omitempty" xml:"second_id_no_1,omitempty" maxLength:"1024"`
@@ -486,62 +565,79 @@ type CreateAasEbcPersonRequest struct {
 	// 持有人辅助证件编号-3
 	// 请使用我们提供的公钥对数据进行加密
 	SecondIdNo3 *string `json:"second_id_no_3,omitempty" xml:"second_id_no_3,omitempty" maxLength:"1024"`
+	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 }
 
-func (s CreateAasEbcPersonRequest) String() string {
+func (s CreateBaasEbcPersonRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcPersonRequest) GoString() string {
+func (s CreateBaasEbcPersonRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcPersonRequest) SetAuthToken(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetAuthToken(v string) *CreateBaasEbcPersonRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetProductInstanceId(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetProductInstanceId(v string) *CreateBaasEbcPersonRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetRegionName(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetRegionName(v string) *CreateBaasEbcPersonRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetAttributeDescList(v []*AttributeDesc) *CreateAasEbcPersonRequest {
-	s.AttributeDescList = v
-	return s
-}
-
-func (s *CreateAasEbcPersonRequest) SetPersonName(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetPersonName(v string) *CreateBaasEbcPersonRequest {
 	s.PersonName = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetPrimaryIdNo(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetPrimaryIdNo(v string) *CreateBaasEbcPersonRequest {
 	s.PrimaryIdNo = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetSecondIdNo1(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetPrivacyDescList(v []*PrivacyDesc) *CreateBaasEbcPersonRequest {
+	s.PrivacyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcPersonRequest) SetProxyDescList(v []*ProxyDesc) *CreateBaasEbcPersonRequest {
+	s.ProxyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcPersonRequest) SetPublicDescList(v []*PublicDesc) *CreateBaasEbcPersonRequest {
+	s.PublicDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcPersonRequest) SetSecondIdNo1(v string) *CreateBaasEbcPersonRequest {
 	s.SecondIdNo1 = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetSecondIdNo2(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetSecondIdNo2(v string) *CreateBaasEbcPersonRequest {
 	s.SecondIdNo2 = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonRequest) SetSecondIdNo3(v string) *CreateAasEbcPersonRequest {
+func (s *CreateBaasEbcPersonRequest) SetSecondIdNo3(v string) *CreateBaasEbcPersonRequest {
 	s.SecondIdNo3 = &v
 	return s
 }
 
-type CreateAasEbcPersonResponse struct {
+func (s *CreateBaasEbcPersonRequest) SetSecretKey(v string) *CreateBaasEbcPersonRequest {
+	s.SecretKey = &v
+	return s
+}
+
+type CreateBaasEbcPersonResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -549,35 +645,35 @@ type CreateAasEbcPersonResponse struct {
 	PersonDid *string `json:"person_did,omitempty" xml:"person_did,omitempty"`
 }
 
-func (s CreateAasEbcPersonResponse) String() string {
+func (s CreateBaasEbcPersonResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcPersonResponse) GoString() string {
+func (s CreateBaasEbcPersonResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcPersonResponse) SetReqMsgId(v string) *CreateAasEbcPersonResponse {
+func (s *CreateBaasEbcPersonResponse) SetReqMsgId(v string) *CreateBaasEbcPersonResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonResponse) SetResultCode(v string) *CreateAasEbcPersonResponse {
+func (s *CreateBaasEbcPersonResponse) SetResultCode(v string) *CreateBaasEbcPersonResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonResponse) SetResultMsg(v string) *CreateAasEbcPersonResponse {
+func (s *CreateBaasEbcPersonResponse) SetResultMsg(v string) *CreateBaasEbcPersonResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcPersonResponse) SetPersonDid(v string) *CreateAasEbcPersonResponse {
+func (s *CreateBaasEbcPersonResponse) SetPersonDid(v string) *CreateBaasEbcPersonResponse {
 	s.PersonDid = &v
 	return s
 }
 
-type CreateAasEbcOrganizationUserRequest struct {
+type CreateBaasEbcOrganizationUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -589,45 +685,45 @@ type CreateAasEbcOrganizationUserRequest struct {
 	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" maxLength:"64"`
 }
 
-func (s CreateAasEbcOrganizationUserRequest) String() string {
+func (s CreateBaasEbcOrganizationUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationUserRequest) GoString() string {
+func (s CreateBaasEbcOrganizationUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetAuthToken(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetAuthToken(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetProductInstanceId(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetProductInstanceId(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetRegionName(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetRegionName(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetOrgDid(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetOrgDid(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetPersonDid(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetPersonDid(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.PersonDid = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserRequest) SetUid(v string) *CreateAasEbcOrganizationUserRequest {
+func (s *CreateBaasEbcOrganizationUserRequest) SetUid(v string) *CreateBaasEbcOrganizationUserRequest {
 	s.Uid = &v
 	return s
 }
 
-type CreateAasEbcOrganizationUserResponse struct {
+type CreateBaasEbcOrganizationUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -635,35 +731,35 @@ type CreateAasEbcOrganizationUserResponse struct {
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationUserResponse) String() string {
+func (s CreateBaasEbcOrganizationUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationUserResponse) GoString() string {
+func (s CreateBaasEbcOrganizationUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationUserResponse) SetReqMsgId(v string) *CreateAasEbcOrganizationUserResponse {
+func (s *CreateBaasEbcOrganizationUserResponse) SetReqMsgId(v string) *CreateBaasEbcOrganizationUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserResponse) SetResultCode(v string) *CreateAasEbcOrganizationUserResponse {
+func (s *CreateBaasEbcOrganizationUserResponse) SetResultCode(v string) *CreateBaasEbcOrganizationUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserResponse) SetResultMsg(v string) *CreateAasEbcOrganizationUserResponse {
+func (s *CreateBaasEbcOrganizationUserResponse) SetResultMsg(v string) *CreateBaasEbcOrganizationUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationUserResponse) SetOrgUserId(v string) *CreateAasEbcOrganizationUserResponse {
+func (s *CreateBaasEbcOrganizationUserResponse) SetOrgUserId(v string) *CreateBaasEbcOrganizationUserResponse {
 	s.OrgUserId = &v
 	return s
 }
 
-type CancelAasEbcPersonRequest struct {
+type CancelBaasEbcPersonRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -671,64 +767,64 @@ type CancelAasEbcPersonRequest struct {
 	PersonDid *string `json:"person_did,omitempty" xml:"person_did,omitempty" maxLength:"128"`
 }
 
-func (s CancelAasEbcPersonRequest) String() string {
+func (s CancelBaasEbcPersonRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CancelAasEbcPersonRequest) GoString() string {
+func (s CancelBaasEbcPersonRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CancelAasEbcPersonRequest) SetAuthToken(v string) *CancelAasEbcPersonRequest {
+func (s *CancelBaasEbcPersonRequest) SetAuthToken(v string) *CancelBaasEbcPersonRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CancelAasEbcPersonRequest) SetProductInstanceId(v string) *CancelAasEbcPersonRequest {
+func (s *CancelBaasEbcPersonRequest) SetProductInstanceId(v string) *CancelBaasEbcPersonRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CancelAasEbcPersonRequest) SetRegionName(v string) *CancelAasEbcPersonRequest {
+func (s *CancelBaasEbcPersonRequest) SetRegionName(v string) *CancelBaasEbcPersonRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CancelAasEbcPersonRequest) SetPersonDid(v string) *CancelAasEbcPersonRequest {
+func (s *CancelBaasEbcPersonRequest) SetPersonDid(v string) *CancelBaasEbcPersonRequest {
 	s.PersonDid = &v
 	return s
 }
 
-type CancelAasEbcPersonResponse struct {
+type CancelBaasEbcPersonResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s CancelAasEbcPersonResponse) String() string {
+func (s CancelBaasEbcPersonResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CancelAasEbcPersonResponse) GoString() string {
+func (s CancelBaasEbcPersonResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CancelAasEbcPersonResponse) SetReqMsgId(v string) *CancelAasEbcPersonResponse {
+func (s *CancelBaasEbcPersonResponse) SetReqMsgId(v string) *CancelBaasEbcPersonResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CancelAasEbcPersonResponse) SetResultCode(v string) *CancelAasEbcPersonResponse {
+func (s *CancelBaasEbcPersonResponse) SetResultCode(v string) *CancelBaasEbcPersonResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CancelAasEbcPersonResponse) SetResultMsg(v string) *CancelAasEbcPersonResponse {
+func (s *CancelBaasEbcPersonResponse) SetResultMsg(v string) *CancelBaasEbcPersonResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type ResumeAasEbcPersonRequest struct {
+type ResumeBaasEbcPersonRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -736,70 +832,67 @@ type ResumeAasEbcPersonRequest struct {
 	PersonDid *string `json:"person_did,omitempty" xml:"person_did,omitempty" maxLength:"128"`
 }
 
-func (s ResumeAasEbcPersonRequest) String() string {
+func (s ResumeBaasEbcPersonRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ResumeAasEbcPersonRequest) GoString() string {
+func (s ResumeBaasEbcPersonRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ResumeAasEbcPersonRequest) SetAuthToken(v string) *ResumeAasEbcPersonRequest {
+func (s *ResumeBaasEbcPersonRequest) SetAuthToken(v string) *ResumeBaasEbcPersonRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ResumeAasEbcPersonRequest) SetProductInstanceId(v string) *ResumeAasEbcPersonRequest {
+func (s *ResumeBaasEbcPersonRequest) SetProductInstanceId(v string) *ResumeBaasEbcPersonRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ResumeAasEbcPersonRequest) SetRegionName(v string) *ResumeAasEbcPersonRequest {
+func (s *ResumeBaasEbcPersonRequest) SetRegionName(v string) *ResumeBaasEbcPersonRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *ResumeAasEbcPersonRequest) SetPersonDid(v string) *ResumeAasEbcPersonRequest {
+func (s *ResumeBaasEbcPersonRequest) SetPersonDid(v string) *ResumeBaasEbcPersonRequest {
 	s.PersonDid = &v
 	return s
 }
 
-type ResumeAasEbcPersonResponse struct {
+type ResumeBaasEbcPersonResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s ResumeAasEbcPersonResponse) String() string {
+func (s ResumeBaasEbcPersonResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ResumeAasEbcPersonResponse) GoString() string {
+func (s ResumeBaasEbcPersonResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ResumeAasEbcPersonResponse) SetReqMsgId(v string) *ResumeAasEbcPersonResponse {
+func (s *ResumeBaasEbcPersonResponse) SetReqMsgId(v string) *ResumeBaasEbcPersonResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ResumeAasEbcPersonResponse) SetResultCode(v string) *ResumeAasEbcPersonResponse {
+func (s *ResumeBaasEbcPersonResponse) SetResultCode(v string) *ResumeBaasEbcPersonResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ResumeAasEbcPersonResponse) SetResultMsg(v string) *ResumeAasEbcPersonResponse {
+func (s *ResumeBaasEbcPersonResponse) SetResultMsg(v string) *ResumeBaasEbcPersonResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type CreateAasEbcOrganizationClassRequest struct {
+type CreateBaasEbcOrganizationClassRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 加密属性描述列表
-	//
-	AttributeDescList []*AttributeDesc `json:"attribute_desc_list,omitempty" xml:"attribute_desc_list,omitempty" type:"Repeated"`
 	// 班级容量
 	Capacity *int64 `json:"capacity,omitempty" xml:"capacity,omitempty"`
 	// 结束时间
@@ -812,74 +905,100 @@ type CreateAasEbcOrganizationClassRequest struct {
 	ClassStatus *int64 `json:"class_status,omitempty" xml:"class_status,omitempty"`
 	// 企业id
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
+	// 隐私属性描述列表
+	//
+	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
+	// 托管属性描述列表
+	//
+	ProxyDescList []*ProxyDesc `json:"proxy_desc_list,omitempty" xml:"proxy_desc_list,omitempty" type:"Repeated"`
+	// 公开属性描述列表
+	//
+	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
+	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 	// 1线上、2线下、3混合
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationClassRequest) String() string {
+func (s CreateBaasEbcOrganizationClassRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationClassRequest) GoString() string {
+func (s CreateBaasEbcOrganizationClassRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetAuthToken(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetAuthToken(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetProductInstanceId(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetProductInstanceId(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetRegionName(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetRegionName(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetAttributeDescList(v []*AttributeDesc) *CreateAasEbcOrganizationClassRequest {
-	s.AttributeDescList = v
-	return s
-}
-
-func (s *CreateAasEbcOrganizationClassRequest) SetCapacity(v int64) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetCapacity(v int64) *CreateBaasEbcOrganizationClassRequest {
 	s.Capacity = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetClassEndTime(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetClassEndTime(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.ClassEndTime = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetClassName(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetClassName(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.ClassName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetClassStartTime(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetClassStartTime(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.ClassStartTime = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetClassStatus(v int64) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetClassStatus(v int64) *CreateBaasEbcOrganizationClassRequest {
 	s.ClassStatus = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetOrgDid(v string) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetOrgDid(v string) *CreateBaasEbcOrganizationClassRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassRequest) SetType(v int64) *CreateAasEbcOrganizationClassRequest {
+func (s *CreateBaasEbcOrganizationClassRequest) SetPrivacyDescList(v []*PrivacyDesc) *CreateBaasEbcOrganizationClassRequest {
+	s.PrivacyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationClassRequest) SetProxyDescList(v []*ProxyDesc) *CreateBaasEbcOrganizationClassRequest {
+	s.ProxyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationClassRequest) SetPublicDescList(v []*PublicDesc) *CreateBaasEbcOrganizationClassRequest {
+	s.PublicDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationClassRequest) SetSecretKey(v string) *CreateBaasEbcOrganizationClassRequest {
+	s.SecretKey = &v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationClassRequest) SetType(v int64) *CreateBaasEbcOrganizationClassRequest {
 	s.Type = &v
 	return s
 }
 
-type CreateAasEbcOrganizationClassResponse struct {
+type CreateBaasEbcOrganizationClassResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -887,41 +1006,38 @@ type CreateAasEbcOrganizationClassResponse struct {
 	ClassId *string `json:"class_id,omitempty" xml:"class_id,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationClassResponse) String() string {
+func (s CreateBaasEbcOrganizationClassResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationClassResponse) GoString() string {
+func (s CreateBaasEbcOrganizationClassResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationClassResponse) SetReqMsgId(v string) *CreateAasEbcOrganizationClassResponse {
+func (s *CreateBaasEbcOrganizationClassResponse) SetReqMsgId(v string) *CreateBaasEbcOrganizationClassResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassResponse) SetResultCode(v string) *CreateAasEbcOrganizationClassResponse {
+func (s *CreateBaasEbcOrganizationClassResponse) SetResultCode(v string) *CreateBaasEbcOrganizationClassResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassResponse) SetResultMsg(v string) *CreateAasEbcOrganizationClassResponse {
+func (s *CreateBaasEbcOrganizationClassResponse) SetResultMsg(v string) *CreateBaasEbcOrganizationClassResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationClassResponse) SetClassId(v string) *CreateAasEbcOrganizationClassResponse {
+func (s *CreateBaasEbcOrganizationClassResponse) SetClassId(v string) *CreateBaasEbcOrganizationClassResponse {
 	s.ClassId = &v
 	return s
 }
 
-type UpdateAasEbcOrganizationClassRequest struct {
+type UpdateBaasEbcOrganizationClassRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 加密属性描述列表
-	//
-	AttributeDescList []*AttributeDesc `json:"attribute_desc_list,omitempty" xml:"attribute_desc_list,omitempty" type:"Repeated"`
 	// 容量
 	Capacity *int64 `json:"capacity,omitempty" xml:"capacity,omitempty"`
 	// 结束时间
@@ -936,101 +1052,127 @@ type UpdateAasEbcOrganizationClassRequest struct {
 	ClassStatus *int64 `json:"class_status,omitempty" xml:"class_status,omitempty"`
 	// 企业did
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
+	// 隐私属性描述列表
+	//
+	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
+	// 托管属性描述列表
+	//
+	ProxyDescList []*ProxyDesc `json:"proxy_desc_list,omitempty" xml:"proxy_desc_list,omitempty" type:"Repeated"`
+	// 公开属性描述列表
+	//
+	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
+	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 }
 
-func (s UpdateAasEbcOrganizationClassRequest) String() string {
+func (s UpdateBaasEbcOrganizationClassRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcOrganizationClassRequest) GoString() string {
+func (s UpdateBaasEbcOrganizationClassRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetAuthToken(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetAuthToken(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetProductInstanceId(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetProductInstanceId(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetRegionName(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetRegionName(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetAttributeDescList(v []*AttributeDesc) *UpdateAasEbcOrganizationClassRequest {
-	s.AttributeDescList = v
-	return s
-}
-
-func (s *UpdateAasEbcOrganizationClassRequest) SetCapacity(v int64) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetCapacity(v int64) *UpdateBaasEbcOrganizationClassRequest {
 	s.Capacity = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetClassEndTime(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetClassEndTime(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.ClassEndTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetClassId(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetClassId(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.ClassId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetClassName(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetClassName(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.ClassName = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetClassStartTime(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetClassStartTime(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.ClassStartTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetClassStatus(v int64) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetClassStatus(v int64) *UpdateBaasEbcOrganizationClassRequest {
 	s.ClassStatus = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassRequest) SetOrgDid(v string) *UpdateAasEbcOrganizationClassRequest {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetOrgDid(v string) *UpdateBaasEbcOrganizationClassRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type UpdateAasEbcOrganizationClassResponse struct {
+func (s *UpdateBaasEbcOrganizationClassRequest) SetPrivacyDescList(v []*PrivacyDesc) *UpdateBaasEbcOrganizationClassRequest {
+	s.PrivacyDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcOrganizationClassRequest) SetProxyDescList(v []*ProxyDesc) *UpdateBaasEbcOrganizationClassRequest {
+	s.ProxyDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcOrganizationClassRequest) SetPublicDescList(v []*PublicDesc) *UpdateBaasEbcOrganizationClassRequest {
+	s.PublicDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcOrganizationClassRequest) SetSecretKey(v string) *UpdateBaasEbcOrganizationClassRequest {
+	s.SecretKey = &v
+	return s
+}
+
+type UpdateBaasEbcOrganizationClassResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateAasEbcOrganizationClassResponse) String() string {
+func (s UpdateBaasEbcOrganizationClassResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcOrganizationClassResponse) GoString() string {
+func (s UpdateBaasEbcOrganizationClassResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcOrganizationClassResponse) SetReqMsgId(v string) *UpdateAasEbcOrganizationClassResponse {
+func (s *UpdateBaasEbcOrganizationClassResponse) SetReqMsgId(v string) *UpdateBaasEbcOrganizationClassResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassResponse) SetResultCode(v string) *UpdateAasEbcOrganizationClassResponse {
+func (s *UpdateBaasEbcOrganizationClassResponse) SetResultCode(v string) *UpdateBaasEbcOrganizationClassResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationClassResponse) SetResultMsg(v string) *UpdateAasEbcOrganizationClassResponse {
+func (s *UpdateBaasEbcOrganizationClassResponse) SetResultMsg(v string) *UpdateBaasEbcOrganizationClassResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type AddAasEbcClassUserRequest struct {
+type AddBaasEbcClassUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1042,45 +1184,45 @@ type AddAasEbcClassUserRequest struct {
 	OrgUserList []*OrgUser `json:"org_user_list,omitempty" xml:"org_user_list,omitempty" type:"Repeated"`
 }
 
-func (s AddAasEbcClassUserRequest) String() string {
+func (s AddBaasEbcClassUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcClassUserRequest) GoString() string {
+func (s AddBaasEbcClassUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcClassUserRequest) SetAuthToken(v string) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetAuthToken(v string) *AddBaasEbcClassUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserRequest) SetProductInstanceId(v string) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetProductInstanceId(v string) *AddBaasEbcClassUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserRequest) SetRegionName(v string) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetRegionName(v string) *AddBaasEbcClassUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserRequest) SetClassId(v string) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetClassId(v string) *AddBaasEbcClassUserRequest {
 	s.ClassId = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserRequest) SetOrgDid(v string) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetOrgDid(v string) *AddBaasEbcClassUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserRequest) SetOrgUserList(v []*OrgUser) *AddAasEbcClassUserRequest {
+func (s *AddBaasEbcClassUserRequest) SetOrgUserList(v []*OrgUser) *AddBaasEbcClassUserRequest {
 	s.OrgUserList = v
 	return s
 }
 
-type AddAasEbcClassUserResponse struct {
+type AddBaasEbcClassUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1088,35 +1230,35 @@ type AddAasEbcClassUserResponse struct {
 	FailList []*OrgUser `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s AddAasEbcClassUserResponse) String() string {
+func (s AddBaasEbcClassUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcClassUserResponse) GoString() string {
+func (s AddBaasEbcClassUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcClassUserResponse) SetReqMsgId(v string) *AddAasEbcClassUserResponse {
+func (s *AddBaasEbcClassUserResponse) SetReqMsgId(v string) *AddBaasEbcClassUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserResponse) SetResultCode(v string) *AddAasEbcClassUserResponse {
+func (s *AddBaasEbcClassUserResponse) SetResultCode(v string) *AddBaasEbcClassUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserResponse) SetResultMsg(v string) *AddAasEbcClassUserResponse {
+func (s *AddBaasEbcClassUserResponse) SetResultMsg(v string) *AddBaasEbcClassUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *AddAasEbcClassUserResponse) SetFailList(v []*OrgUser) *AddAasEbcClassUserResponse {
+func (s *AddBaasEbcClassUserResponse) SetFailList(v []*OrgUser) *AddBaasEbcClassUserResponse {
 	s.FailList = v
 	return s
 }
 
-type DeleteAasEbcClassUserRequest struct {
+type DeleteBaasEbcClassUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1128,45 +1270,45 @@ type DeleteAasEbcClassUserRequest struct {
 	OrgUserList []*OrgUser `json:"org_user_list,omitempty" xml:"org_user_list,omitempty" type:"Repeated"`
 }
 
-func (s DeleteAasEbcClassUserRequest) String() string {
+func (s DeleteBaasEbcClassUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcClassUserRequest) GoString() string {
+func (s DeleteBaasEbcClassUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetAuthToken(v string) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetAuthToken(v string) *DeleteBaasEbcClassUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetProductInstanceId(v string) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetProductInstanceId(v string) *DeleteBaasEbcClassUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetRegionName(v string) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetRegionName(v string) *DeleteBaasEbcClassUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetClassId(v string) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetClassId(v string) *DeleteBaasEbcClassUserRequest {
 	s.ClassId = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetOrgDid(v string) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetOrgDid(v string) *DeleteBaasEbcClassUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserRequest) SetOrgUserList(v []*OrgUser) *DeleteAasEbcClassUserRequest {
+func (s *DeleteBaasEbcClassUserRequest) SetOrgUserList(v []*OrgUser) *DeleteBaasEbcClassUserRequest {
 	s.OrgUserList = v
 	return s
 }
 
-type DeleteAasEbcClassUserResponse struct {
+type DeleteBaasEbcClassUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1174,35 +1316,35 @@ type DeleteAasEbcClassUserResponse struct {
 	FailList []*OrgUser `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s DeleteAasEbcClassUserResponse) String() string {
+func (s DeleteBaasEbcClassUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcClassUserResponse) GoString() string {
+func (s DeleteBaasEbcClassUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcClassUserResponse) SetReqMsgId(v string) *DeleteAasEbcClassUserResponse {
+func (s *DeleteBaasEbcClassUserResponse) SetReqMsgId(v string) *DeleteBaasEbcClassUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserResponse) SetResultCode(v string) *DeleteAasEbcClassUserResponse {
+func (s *DeleteBaasEbcClassUserResponse) SetResultCode(v string) *DeleteBaasEbcClassUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserResponse) SetResultMsg(v string) *DeleteAasEbcClassUserResponse {
+func (s *DeleteBaasEbcClassUserResponse) SetResultMsg(v string) *DeleteBaasEbcClassUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *DeleteAasEbcClassUserResponse) SetFailList(v []*OrgUser) *DeleteAasEbcClassUserResponse {
+func (s *DeleteBaasEbcClassUserResponse) SetFailList(v []*OrgUser) *DeleteBaasEbcClassUserResponse {
 	s.FailList = v
 	return s
 }
 
-type QueryAasEbcOrganizationClassRequest struct {
+type QueryBaasEbcOrganizationClassRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1212,40 +1354,40 @@ type QueryAasEbcOrganizationClassRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
-func (s QueryAasEbcOrganizationClassRequest) String() string {
+func (s QueryBaasEbcOrganizationClassRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcOrganizationClassRequest) GoString() string {
+func (s QueryBaasEbcOrganizationClassRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcOrganizationClassRequest) SetAuthToken(v string) *QueryAasEbcOrganizationClassRequest {
+func (s *QueryBaasEbcOrganizationClassRequest) SetAuthToken(v string) *QueryBaasEbcOrganizationClassRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassRequest) SetProductInstanceId(v string) *QueryAasEbcOrganizationClassRequest {
+func (s *QueryBaasEbcOrganizationClassRequest) SetProductInstanceId(v string) *QueryBaasEbcOrganizationClassRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassRequest) SetRegionName(v string) *QueryAasEbcOrganizationClassRequest {
+func (s *QueryBaasEbcOrganizationClassRequest) SetRegionName(v string) *QueryBaasEbcOrganizationClassRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassRequest) SetClassId(v string) *QueryAasEbcOrganizationClassRequest {
+func (s *QueryBaasEbcOrganizationClassRequest) SetClassId(v string) *QueryBaasEbcOrganizationClassRequest {
 	s.ClassId = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassRequest) SetOrgDid(v string) *QueryAasEbcOrganizationClassRequest {
+func (s *QueryBaasEbcOrganizationClassRequest) SetOrgDid(v string) *QueryBaasEbcOrganizationClassRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type QueryAasEbcOrganizationClassResponse struct {
+type QueryBaasEbcOrganizationClassResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1265,65 +1407,65 @@ type QueryAasEbcOrganizationClassResponse struct {
 	UserNum *int64 `json:"user_num,omitempty" xml:"user_num,omitempty"`
 }
 
-func (s QueryAasEbcOrganizationClassResponse) String() string {
+func (s QueryBaasEbcOrganizationClassResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcOrganizationClassResponse) GoString() string {
+func (s QueryBaasEbcOrganizationClassResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetReqMsgId(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetReqMsgId(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetResultCode(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetResultCode(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetResultMsg(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetResultMsg(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetClassName(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetClassName(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.ClassName = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetClassStatus(v int64) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetClassStatus(v int64) *QueryBaasEbcOrganizationClassResponse {
 	s.ClassStatus = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetCreateTime(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetCreateTime(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.CreateTime = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetModifyTime(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetModifyTime(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.ModifyTime = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetPeriod(v int64) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetPeriod(v int64) *QueryBaasEbcOrganizationClassResponse {
 	s.Period = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetType(v string) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetType(v string) *QueryBaasEbcOrganizationClassResponse {
 	s.Type = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationClassResponse) SetUserNum(v int64) *QueryAasEbcOrganizationClassResponse {
+func (s *QueryBaasEbcOrganizationClassResponse) SetUserNum(v int64) *QueryBaasEbcOrganizationClassResponse {
 	s.UserNum = &v
 	return s
 }
 
-type QueryAasEbcClassUserRequest struct {
+type QueryBaasEbcClassUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1333,40 +1475,40 @@ type QueryAasEbcClassUserRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
-func (s QueryAasEbcClassUserRequest) String() string {
+func (s QueryBaasEbcClassUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcClassUserRequest) GoString() string {
+func (s QueryBaasEbcClassUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcClassUserRequest) SetAuthToken(v string) *QueryAasEbcClassUserRequest {
+func (s *QueryBaasEbcClassUserRequest) SetAuthToken(v string) *QueryBaasEbcClassUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserRequest) SetProductInstanceId(v string) *QueryAasEbcClassUserRequest {
+func (s *QueryBaasEbcClassUserRequest) SetProductInstanceId(v string) *QueryBaasEbcClassUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserRequest) SetRegionName(v string) *QueryAasEbcClassUserRequest {
+func (s *QueryBaasEbcClassUserRequest) SetRegionName(v string) *QueryBaasEbcClassUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserRequest) SetClassId(v string) *QueryAasEbcClassUserRequest {
+func (s *QueryBaasEbcClassUserRequest) SetClassId(v string) *QueryBaasEbcClassUserRequest {
 	s.ClassId = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserRequest) SetOrgDid(v string) *QueryAasEbcClassUserRequest {
+func (s *QueryBaasEbcClassUserRequest) SetOrgDid(v string) *QueryBaasEbcClassUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type QueryAasEbcClassUserResponse struct {
+type QueryBaasEbcClassUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1378,45 +1520,45 @@ type QueryAasEbcClassUserResponse struct {
 	UserNum *int64 `json:"user_num,omitempty" xml:"user_num,omitempty"`
 }
 
-func (s QueryAasEbcClassUserResponse) String() string {
+func (s QueryBaasEbcClassUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcClassUserResponse) GoString() string {
+func (s QueryBaasEbcClassUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcClassUserResponse) SetReqMsgId(v string) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetReqMsgId(v string) *QueryBaasEbcClassUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserResponse) SetResultCode(v string) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetResultCode(v string) *QueryBaasEbcClassUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserResponse) SetResultMsg(v string) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetResultMsg(v string) *QueryBaasEbcClassUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserResponse) SetClassName(v string) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetClassName(v string) *QueryBaasEbcClassUserResponse {
 	s.ClassName = &v
 	return s
 }
 
-func (s *QueryAasEbcClassUserResponse) SetOrgUserIdList(v []*string) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetOrgUserIdList(v []*string) *QueryBaasEbcClassUserResponse {
 	s.OrgUserIdList = v
 	return s
 }
 
-func (s *QueryAasEbcClassUserResponse) SetUserNum(v int64) *QueryAasEbcClassUserResponse {
+func (s *QueryBaasEbcClassUserResponse) SetUserNum(v int64) *QueryBaasEbcClassUserResponse {
 	s.UserNum = &v
 	return s
 }
 
-type CreateAasEbcOrganizationCourseRequest struct {
+type CreateBaasEbcOrganizationCourseRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1432,55 +1574,55 @@ type CreateAasEbcOrganizationCourseRequest struct {
 	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationCourseRequest) String() string {
+func (s CreateBaasEbcOrganizationCourseRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationCourseRequest) GoString() string {
+func (s CreateBaasEbcOrganizationCourseRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetAuthToken(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetAuthToken(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetProductInstanceId(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetProductInstanceId(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetRegionName(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetRegionName(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.CourseEndTime = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetCourseName(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseName(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.CourseName = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.CourseStartTime = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetOrgDid(v string) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetOrgDid(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseRequest) SetPeriod(v int64) *CreateAasEbcOrganizationCourseRequest {
+func (s *CreateBaasEbcOrganizationCourseRequest) SetPeriod(v int64) *CreateBaasEbcOrganizationCourseRequest {
 	s.Period = &v
 	return s
 }
 
-type CreateAasEbcOrganizationCourseResponse struct {
+type CreateBaasEbcOrganizationCourseResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1488,35 +1630,35 @@ type CreateAasEbcOrganizationCourseResponse struct {
 	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty"`
 }
 
-func (s CreateAasEbcOrganizationCourseResponse) String() string {
+func (s CreateBaasEbcOrganizationCourseResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcOrganizationCourseResponse) GoString() string {
+func (s CreateBaasEbcOrganizationCourseResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcOrganizationCourseResponse) SetReqMsgId(v string) *CreateAasEbcOrganizationCourseResponse {
+func (s *CreateBaasEbcOrganizationCourseResponse) SetReqMsgId(v string) *CreateBaasEbcOrganizationCourseResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseResponse) SetResultCode(v string) *CreateAasEbcOrganizationCourseResponse {
+func (s *CreateBaasEbcOrganizationCourseResponse) SetResultCode(v string) *CreateBaasEbcOrganizationCourseResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseResponse) SetResultMsg(v string) *CreateAasEbcOrganizationCourseResponse {
+func (s *CreateBaasEbcOrganizationCourseResponse) SetResultMsg(v string) *CreateBaasEbcOrganizationCourseResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcOrganizationCourseResponse) SetCourseId(v string) *CreateAasEbcOrganizationCourseResponse {
+func (s *CreateBaasEbcOrganizationCourseResponse) SetCourseId(v string) *CreateBaasEbcOrganizationCourseResponse {
 	s.CourseId = &v
 	return s
 }
 
-type UpdateAasEbcOrganizationCourseRequest struct {
+type UpdateBaasEbcOrganizationCourseRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1534,89 +1676,89 @@ type UpdateAasEbcOrganizationCourseRequest struct {
 	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
 }
 
-func (s UpdateAasEbcOrganizationCourseRequest) String() string {
+func (s UpdateBaasEbcOrganizationCourseRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcOrganizationCourseRequest) GoString() string {
+func (s UpdateBaasEbcOrganizationCourseRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetAuthToken(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetAuthToken(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetProductInstanceId(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetProductInstanceId(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetRegionName(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetRegionName(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseEndTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetCourseId(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseId(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetCourseName(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseName(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseName = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseStartTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetOrgDid(v string) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetOrgDid(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseRequest) SetPeriod(v int64) *UpdateAasEbcOrganizationCourseRequest {
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetPeriod(v int64) *UpdateBaasEbcOrganizationCourseRequest {
 	s.Period = &v
 	return s
 }
 
-type UpdateAasEbcOrganizationCourseResponse struct {
+type UpdateBaasEbcOrganizationCourseResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateAasEbcOrganizationCourseResponse) String() string {
+func (s UpdateBaasEbcOrganizationCourseResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcOrganizationCourseResponse) GoString() string {
+func (s UpdateBaasEbcOrganizationCourseResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcOrganizationCourseResponse) SetReqMsgId(v string) *UpdateAasEbcOrganizationCourseResponse {
+func (s *UpdateBaasEbcOrganizationCourseResponse) SetReqMsgId(v string) *UpdateBaasEbcOrganizationCourseResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseResponse) SetResultCode(v string) *UpdateAasEbcOrganizationCourseResponse {
+func (s *UpdateBaasEbcOrganizationCourseResponse) SetResultCode(v string) *UpdateBaasEbcOrganizationCourseResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcOrganizationCourseResponse) SetResultMsg(v string) *UpdateAasEbcOrganizationCourseResponse {
+func (s *UpdateBaasEbcOrganizationCourseResponse) SetResultMsg(v string) *UpdateBaasEbcOrganizationCourseResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type AddAasEbcCourseClassRequest struct {
+type AddBaasEbcCourseClassRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1628,45 +1770,45 @@ type AddAasEbcCourseClassRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
-func (s AddAasEbcCourseClassRequest) String() string {
+func (s AddBaasEbcCourseClassRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcCourseClassRequest) GoString() string {
+func (s AddBaasEbcCourseClassRequest) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcCourseClassRequest) SetAuthToken(v string) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetAuthToken(v string) *AddBaasEbcCourseClassRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassRequest) SetProductInstanceId(v string) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetProductInstanceId(v string) *AddBaasEbcCourseClassRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassRequest) SetRegionName(v string) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetRegionName(v string) *AddBaasEbcCourseClassRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassRequest) SetClassList(v []*Class) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetClassList(v []*Class) *AddBaasEbcCourseClassRequest {
 	s.ClassList = v
 	return s
 }
 
-func (s *AddAasEbcCourseClassRequest) SetCourseId(v string) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetCourseId(v string) *AddBaasEbcCourseClassRequest {
 	s.CourseId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassRequest) SetOrgDid(v string) *AddAasEbcCourseClassRequest {
+func (s *AddBaasEbcCourseClassRequest) SetOrgDid(v string) *AddBaasEbcCourseClassRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type AddAasEbcCourseClassResponse struct {
+type AddBaasEbcCourseClassResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1674,35 +1816,35 @@ type AddAasEbcCourseClassResponse struct {
 	FailList []*Class `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s AddAasEbcCourseClassResponse) String() string {
+func (s AddBaasEbcCourseClassResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcCourseClassResponse) GoString() string {
+func (s AddBaasEbcCourseClassResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcCourseClassResponse) SetReqMsgId(v string) *AddAasEbcCourseClassResponse {
+func (s *AddBaasEbcCourseClassResponse) SetReqMsgId(v string) *AddBaasEbcCourseClassResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassResponse) SetResultCode(v string) *AddAasEbcCourseClassResponse {
+func (s *AddBaasEbcCourseClassResponse) SetResultCode(v string) *AddBaasEbcCourseClassResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassResponse) SetResultMsg(v string) *AddAasEbcCourseClassResponse {
+func (s *AddBaasEbcCourseClassResponse) SetResultMsg(v string) *AddBaasEbcCourseClassResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *AddAasEbcCourseClassResponse) SetFailList(v []*Class) *AddAasEbcCourseClassResponse {
+func (s *AddBaasEbcCourseClassResponse) SetFailList(v []*Class) *AddBaasEbcCourseClassResponse {
 	s.FailList = v
 	return s
 }
 
-type AddAasEbcCourseUserRequest struct {
+type AddBaasEbcCourseUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1714,45 +1856,45 @@ type AddAasEbcCourseUserRequest struct {
 	OrgUserList []*OrgUser `json:"org_user_list,omitempty" xml:"org_user_list,omitempty" type:"Repeated"`
 }
 
-func (s AddAasEbcCourseUserRequest) String() string {
+func (s AddBaasEbcCourseUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcCourseUserRequest) GoString() string {
+func (s AddBaasEbcCourseUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcCourseUserRequest) SetAuthToken(v string) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetAuthToken(v string) *AddBaasEbcCourseUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserRequest) SetProductInstanceId(v string) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetProductInstanceId(v string) *AddBaasEbcCourseUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserRequest) SetRegionName(v string) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetRegionName(v string) *AddBaasEbcCourseUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserRequest) SetCourseId(v string) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetCourseId(v string) *AddBaasEbcCourseUserRequest {
 	s.CourseId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserRequest) SetOrgDid(v string) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetOrgDid(v string) *AddBaasEbcCourseUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserRequest) SetOrgUserList(v []*OrgUser) *AddAasEbcCourseUserRequest {
+func (s *AddBaasEbcCourseUserRequest) SetOrgUserList(v []*OrgUser) *AddBaasEbcCourseUserRequest {
 	s.OrgUserList = v
 	return s
 }
 
-type AddAasEbcCourseUserResponse struct {
+type AddBaasEbcCourseUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1760,35 +1902,35 @@ type AddAasEbcCourseUserResponse struct {
 	FailList []*OrgUser `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s AddAasEbcCourseUserResponse) String() string {
+func (s AddBaasEbcCourseUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddAasEbcCourseUserResponse) GoString() string {
+func (s AddBaasEbcCourseUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AddAasEbcCourseUserResponse) SetReqMsgId(v string) *AddAasEbcCourseUserResponse {
+func (s *AddBaasEbcCourseUserResponse) SetReqMsgId(v string) *AddBaasEbcCourseUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserResponse) SetResultCode(v string) *AddAasEbcCourseUserResponse {
+func (s *AddBaasEbcCourseUserResponse) SetResultCode(v string) *AddBaasEbcCourseUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserResponse) SetResultMsg(v string) *AddAasEbcCourseUserResponse {
+func (s *AddBaasEbcCourseUserResponse) SetResultMsg(v string) *AddBaasEbcCourseUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *AddAasEbcCourseUserResponse) SetFailList(v []*OrgUser) *AddAasEbcCourseUserResponse {
+func (s *AddBaasEbcCourseUserResponse) SetFailList(v []*OrgUser) *AddBaasEbcCourseUserResponse {
 	s.FailList = v
 	return s
 }
 
-type DeleteAasEbcCourseClassRequest struct {
+type DeleteBaasEbcCourseClassRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1800,45 +1942,45 @@ type DeleteAasEbcCourseClassRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
-func (s DeleteAasEbcCourseClassRequest) String() string {
+func (s DeleteBaasEbcCourseClassRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcCourseClassRequest) GoString() string {
+func (s DeleteBaasEbcCourseClassRequest) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetAuthToken(v string) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetAuthToken(v string) *DeleteBaasEbcCourseClassRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetProductInstanceId(v string) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetProductInstanceId(v string) *DeleteBaasEbcCourseClassRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetRegionName(v string) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetRegionName(v string) *DeleteBaasEbcCourseClassRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetClassList(v []*Class) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetClassList(v []*Class) *DeleteBaasEbcCourseClassRequest {
 	s.ClassList = v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetCourseId(v string) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetCourseId(v string) *DeleteBaasEbcCourseClassRequest {
 	s.CourseId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassRequest) SetOrgDid(v string) *DeleteAasEbcCourseClassRequest {
+func (s *DeleteBaasEbcCourseClassRequest) SetOrgDid(v string) *DeleteBaasEbcCourseClassRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type DeleteAasEbcCourseClassResponse struct {
+type DeleteBaasEbcCourseClassResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1846,35 +1988,35 @@ type DeleteAasEbcCourseClassResponse struct {
 	FailList []*Class `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s DeleteAasEbcCourseClassResponse) String() string {
+func (s DeleteBaasEbcCourseClassResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcCourseClassResponse) GoString() string {
+func (s DeleteBaasEbcCourseClassResponse) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcCourseClassResponse) SetReqMsgId(v string) *DeleteAasEbcCourseClassResponse {
+func (s *DeleteBaasEbcCourseClassResponse) SetReqMsgId(v string) *DeleteBaasEbcCourseClassResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassResponse) SetResultCode(v string) *DeleteAasEbcCourseClassResponse {
+func (s *DeleteBaasEbcCourseClassResponse) SetResultCode(v string) *DeleteBaasEbcCourseClassResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassResponse) SetResultMsg(v string) *DeleteAasEbcCourseClassResponse {
+func (s *DeleteBaasEbcCourseClassResponse) SetResultMsg(v string) *DeleteBaasEbcCourseClassResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseClassResponse) SetFailList(v []*Class) *DeleteAasEbcCourseClassResponse {
+func (s *DeleteBaasEbcCourseClassResponse) SetFailList(v []*Class) *DeleteBaasEbcCourseClassResponse {
 	s.FailList = v
 	return s
 }
 
-type DeleteAasEbcCourseUserRequest struct {
+type DeleteBaasEbcCourseUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -1886,45 +2028,45 @@ type DeleteAasEbcCourseUserRequest struct {
 	OrgUserList []*OrgUser `json:"org_user_list,omitempty" xml:"org_user_list,omitempty" type:"Repeated"`
 }
 
-func (s DeleteAasEbcCourseUserRequest) String() string {
+func (s DeleteBaasEbcCourseUserRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcCourseUserRequest) GoString() string {
+func (s DeleteBaasEbcCourseUserRequest) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetAuthToken(v string) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetAuthToken(v string) *DeleteBaasEbcCourseUserRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetProductInstanceId(v string) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetProductInstanceId(v string) *DeleteBaasEbcCourseUserRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetRegionName(v string) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetRegionName(v string) *DeleteBaasEbcCourseUserRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetCourseId(v string) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetCourseId(v string) *DeleteBaasEbcCourseUserRequest {
 	s.CourseId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetOrgDid(v string) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetOrgDid(v string) *DeleteBaasEbcCourseUserRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserRequest) SetOrgUserList(v []*OrgUser) *DeleteAasEbcCourseUserRequest {
+func (s *DeleteBaasEbcCourseUserRequest) SetOrgUserList(v []*OrgUser) *DeleteBaasEbcCourseUserRequest {
 	s.OrgUserList = v
 	return s
 }
 
-type DeleteAasEbcCourseUserResponse struct {
+type DeleteBaasEbcCourseUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -1932,42 +2074,42 @@ type DeleteAasEbcCourseUserResponse struct {
 	FailList []*OrgUser `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s DeleteAasEbcCourseUserResponse) String() string {
+func (s DeleteBaasEbcCourseUserResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeleteAasEbcCourseUserResponse) GoString() string {
+func (s DeleteBaasEbcCourseUserResponse) GoString() string {
 	return s.String()
 }
 
-func (s *DeleteAasEbcCourseUserResponse) SetReqMsgId(v string) *DeleteAasEbcCourseUserResponse {
+func (s *DeleteBaasEbcCourseUserResponse) SetReqMsgId(v string) *DeleteBaasEbcCourseUserResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserResponse) SetResultCode(v string) *DeleteAasEbcCourseUserResponse {
+func (s *DeleteBaasEbcCourseUserResponse) SetResultCode(v string) *DeleteBaasEbcCourseUserResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserResponse) SetResultMsg(v string) *DeleteAasEbcCourseUserResponse {
+func (s *DeleteBaasEbcCourseUserResponse) SetResultMsg(v string) *DeleteBaasEbcCourseUserResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *DeleteAasEbcCourseUserResponse) SetFailList(v []*OrgUser) *DeleteAasEbcCourseUserResponse {
+func (s *DeleteBaasEbcCourseUserResponse) SetFailList(v []*OrgUser) *DeleteBaasEbcCourseUserResponse {
 	s.FailList = v
 	return s
 }
 
-type CreateAasEbcUserCertRequest struct {
+type CreateBaasEbcUserCertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 加密属性描述列表
-	AttributeDescList []*AttributeDesc `json:"attribute_desc_list,omitempty" xml:"attribute_desc_list,omitempty" type:"Repeated"`
 	// 证书编号
 	CertCode *string `json:"cert_code,omitempty" xml:"cert_code,omitempty" maxLength:"64"`
+	// 证书描述
+	CertDescription *string `json:"cert_description,omitempty" xml:"cert_description,omitempty" maxLength:"1000"`
 	// 时间周期结束时间
 	CertEndTime *string `json:"cert_end_time,omitempty" xml:"cert_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 证书名称-中文
@@ -1976,10 +2118,14 @@ type CreateAasEbcUserCertRequest struct {
 	CertNameEn *string `json:"cert_name_en,omitempty" xml:"cert_name_en,omitempty" maxLength:"64"`
 	// 首次发布时间
 	CertPublishTime *string `json:"cert_publish_time,omitempty" xml:"cert_publish_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 发布时间时区，默认UTC+8
+	CertPublishTimeZone *string `json:"cert_publish_time_zone,omitempty" xml:"cert_publish_time_zone,omitempty" maxLength:"64"`
 	// 时间周期开始时间
 	CertStartTime *string `json:"cert_start_time,omitempty" xml:"cert_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 1-有效 2-冻结 3-失效 4-作废 5-其他
 	CertStatus *int64 `json:"cert_status,omitempty" xml:"cert_status,omitempty"`
+	// 证书概述
+	CertSummary *string `json:"cert_summary,omitempty" xml:"cert_summary,omitempty" maxLength:"250"`
 	// 证书归属国家 使用“ISO 3166-1”代码表-数字码 https://zh.wikipedia.org/wiki/ISO_3166-1
 	Country *string `json:"country,omitempty" xml:"country,omitempty" maxLength:"32"`
 	// 有效期类型1.长期有效 2.时间周期
@@ -1988,7 +2134,7 @@ type CreateAasEbcUserCertRequest struct {
 	//
 	HolderName *string `json:"holder_name,omitempty" xml:"holder_name,omitempty" maxLength:"64"`
 	// 证书等级类型： 初级（五级）、中级（四级）、高级（三级）、技师（二级）和高级技师（一级）、其他
-	Level *string `json:"level,omitempty" xml:"level,omitempty" maxLength:"32"`
+	Level *string `json:"level,omitempty" xml:"level,omitempty" maxLength:"256"`
 	// 企业id
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 企业名称
@@ -1999,6 +2145,12 @@ type CreateAasEbcUserCertRequest struct {
 	// 请使用我们提供的公钥对数据进行加密
 	//
 	PrimaryIdNo *string `json:"primary_id_no,omitempty" xml:"primary_id_no,omitempty" maxLength:"1024"`
+	// 隐私属性描述列表
+	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
+	// 托管属性描述列表
+	ProxyDescList []*ProxyDesc `json:"proxy_desc_list,omitempty" xml:"proxy_desc_list,omitempty" type:"Repeated"`
+	// 公开属性描述列表
+	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
 	// 持有人辅助证件编号-1
 	// 请使用我们提供的公钥对数据进行加密
 	SecondIdNo1 *string `json:"second_id_no_1,omitempty" xml:"second_id_no_1,omitempty" maxLength:"1024"`
@@ -2008,134 +2160,166 @@ type CreateAasEbcUserCertRequest struct {
 	// 持有人辅助证件编号-3
 	// 请使用我们提供的公钥对数据进行加密
 	SecondIdNo3 *string `json:"second_id_no_3,omitempty" xml:"second_id_no_3,omitempty" maxLength:"1024"`
+	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 	// -数字码类型为156时可使用如下类目： --学历证书-XLZ --职业证书--ZYZ -其他国家传入--QT
 	Type *string `json:"type,omitempty" xml:"type,omitempty" maxLength:"64"`
 }
 
-func (s CreateAasEbcUserCertRequest) String() string {
+func (s CreateBaasEbcUserCertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcUserCertRequest) GoString() string {
+func (s CreateBaasEbcUserCertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcUserCertRequest) SetAuthToken(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetAuthToken(v string) *CreateBaasEbcUserCertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetProductInstanceId(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetProductInstanceId(v string) *CreateBaasEbcUserCertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetRegionName(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetRegionName(v string) *CreateBaasEbcUserCertRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetAttributeDescList(v []*AttributeDesc) *CreateAasEbcUserCertRequest {
-	s.AttributeDescList = v
-	return s
-}
-
-func (s *CreateAasEbcUserCertRequest) SetCertCode(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertCode(v string) *CreateBaasEbcUserCertRequest {
 	s.CertCode = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertEndTime(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertDescription(v string) *CreateBaasEbcUserCertRequest {
+	s.CertDescription = &v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetCertEndTime(v string) *CreateBaasEbcUserCertRequest {
 	s.CertEndTime = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertNameCn(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertNameCn(v string) *CreateBaasEbcUserCertRequest {
 	s.CertNameCn = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertNameEn(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertNameEn(v string) *CreateBaasEbcUserCertRequest {
 	s.CertNameEn = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertPublishTime(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertPublishTime(v string) *CreateBaasEbcUserCertRequest {
 	s.CertPublishTime = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertStartTime(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertPublishTimeZone(v string) *CreateBaasEbcUserCertRequest {
+	s.CertPublishTimeZone = &v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetCertStartTime(v string) *CreateBaasEbcUserCertRequest {
 	s.CertStartTime = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCertStatus(v int64) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertStatus(v int64) *CreateBaasEbcUserCertRequest {
 	s.CertStatus = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetCountry(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetCertSummary(v string) *CreateBaasEbcUserCertRequest {
+	s.CertSummary = &v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetCountry(v string) *CreateBaasEbcUserCertRequest {
 	s.Country = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetExpireType(v int64) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetExpireType(v int64) *CreateBaasEbcUserCertRequest {
 	s.ExpireType = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetHolderName(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetHolderName(v string) *CreateBaasEbcUserCertRequest {
 	s.HolderName = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetLevel(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetLevel(v string) *CreateBaasEbcUserCertRequest {
 	s.Level = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetOrgDid(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetOrgDid(v string) *CreateBaasEbcUserCertRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetOrgName(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetOrgName(v string) *CreateBaasEbcUserCertRequest {
 	s.OrgName = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetOrgUserId(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetOrgUserId(v string) *CreateBaasEbcUserCertRequest {
 	s.OrgUserId = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetPrimaryIdNo(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetPrimaryIdNo(v string) *CreateBaasEbcUserCertRequest {
 	s.PrimaryIdNo = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetSecondIdNo1(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetPrivacyDescList(v []*PrivacyDesc) *CreateBaasEbcUserCertRequest {
+	s.PrivacyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetProxyDescList(v []*ProxyDesc) *CreateBaasEbcUserCertRequest {
+	s.ProxyDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetPublicDescList(v []*PublicDesc) *CreateBaasEbcUserCertRequest {
+	s.PublicDescList = v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetSecondIdNo1(v string) *CreateBaasEbcUserCertRequest {
 	s.SecondIdNo1 = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetSecondIdNo2(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetSecondIdNo2(v string) *CreateBaasEbcUserCertRequest {
 	s.SecondIdNo2 = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetSecondIdNo3(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetSecondIdNo3(v string) *CreateBaasEbcUserCertRequest {
 	s.SecondIdNo3 = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertRequest) SetType(v string) *CreateAasEbcUserCertRequest {
+func (s *CreateBaasEbcUserCertRequest) SetSecretKey(v string) *CreateBaasEbcUserCertRequest {
+	s.SecretKey = &v
+	return s
+}
+
+func (s *CreateBaasEbcUserCertRequest) SetType(v string) *CreateBaasEbcUserCertRequest {
 	s.Type = &v
 	return s
 }
 
-type CreateAasEbcUserCertResponse struct {
+type CreateBaasEbcUserCertResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2143,41 +2327,38 @@ type CreateAasEbcUserCertResponse struct {
 	CertId *string `json:"cert_id,omitempty" xml:"cert_id,omitempty"`
 }
 
-func (s CreateAasEbcUserCertResponse) String() string {
+func (s CreateBaasEbcUserCertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcUserCertResponse) GoString() string {
+func (s CreateBaasEbcUserCertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcUserCertResponse) SetReqMsgId(v string) *CreateAasEbcUserCertResponse {
+func (s *CreateBaasEbcUserCertResponse) SetReqMsgId(v string) *CreateBaasEbcUserCertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertResponse) SetResultCode(v string) *CreateAasEbcUserCertResponse {
+func (s *CreateBaasEbcUserCertResponse) SetResultCode(v string) *CreateBaasEbcUserCertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertResponse) SetResultMsg(v string) *CreateAasEbcUserCertResponse {
+func (s *CreateBaasEbcUserCertResponse) SetResultMsg(v string) *CreateBaasEbcUserCertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcUserCertResponse) SetCertId(v string) *CreateAasEbcUserCertResponse {
+func (s *CreateBaasEbcUserCertResponse) SetCertId(v string) *CreateBaasEbcUserCertResponse {
 	s.CertId = &v
 	return s
 }
 
-type UpdateAasEbcUserCertRequest struct {
+type UpdateBaasEbcUserCertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
-	// 加密属性描述列表
-	//
-	AttributeDescList []*AttributeDesc `json:"attribute_desc_list,omitempty" xml:"attribute_desc_list,omitempty" type:"Repeated"`
 	// 证书id
 	CertId *string `json:"cert_id,omitempty" xml:"cert_id,omitempty" maxLength:"128"`
 	// 首次发布时间
@@ -2188,91 +2369,117 @@ type UpdateAasEbcUserCertRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 企业用户id
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
+	// 隐私属性描述列表
+	//
+	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
+	// 托管属性描述列表
+	//
+	ProxyDescList []*ProxyDesc `json:"proxy_desc_list,omitempty" xml:"proxy_desc_list,omitempty" type:"Repeated"`
+	// 公开属性描述列表
+	//
+	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
+	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 }
 
-func (s UpdateAasEbcUserCertRequest) String() string {
+func (s UpdateBaasEbcUserCertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcUserCertRequest) GoString() string {
+func (s UpdateBaasEbcUserCertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetAuthToken(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetAuthToken(v string) *UpdateBaasEbcUserCertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetProductInstanceId(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetProductInstanceId(v string) *UpdateBaasEbcUserCertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetRegionName(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetRegionName(v string) *UpdateBaasEbcUserCertRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetAttributeDescList(v []*AttributeDesc) *UpdateAasEbcUserCertRequest {
-	s.AttributeDescList = v
-	return s
-}
-
-func (s *UpdateAasEbcUserCertRequest) SetCertId(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetCertId(v string) *UpdateBaasEbcUserCertRequest {
 	s.CertId = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetCertPublishTime(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetCertPublishTime(v string) *UpdateBaasEbcUserCertRequest {
 	s.CertPublishTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetCertStatus(v int64) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetCertStatus(v int64) *UpdateBaasEbcUserCertRequest {
 	s.CertStatus = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetOrgDid(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetOrgDid(v string) *UpdateBaasEbcUserCertRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertRequest) SetOrgUserId(v string) *UpdateAasEbcUserCertRequest {
+func (s *UpdateBaasEbcUserCertRequest) SetOrgUserId(v string) *UpdateBaasEbcUserCertRequest {
 	s.OrgUserId = &v
 	return s
 }
 
-type UpdateAasEbcUserCertResponse struct {
+func (s *UpdateBaasEbcUserCertRequest) SetPrivacyDescList(v []*PrivacyDesc) *UpdateBaasEbcUserCertRequest {
+	s.PrivacyDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcUserCertRequest) SetProxyDescList(v []*ProxyDesc) *UpdateBaasEbcUserCertRequest {
+	s.ProxyDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcUserCertRequest) SetPublicDescList(v []*PublicDesc) *UpdateBaasEbcUserCertRequest {
+	s.PublicDescList = v
+	return s
+}
+
+func (s *UpdateBaasEbcUserCertRequest) SetSecretKey(v string) *UpdateBaasEbcUserCertRequest {
+	s.SecretKey = &v
+	return s
+}
+
+type UpdateBaasEbcUserCertResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateAasEbcUserCertResponse) String() string {
+func (s UpdateBaasEbcUserCertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcUserCertResponse) GoString() string {
+func (s UpdateBaasEbcUserCertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcUserCertResponse) SetReqMsgId(v string) *UpdateAasEbcUserCertResponse {
+func (s *UpdateBaasEbcUserCertResponse) SetReqMsgId(v string) *UpdateBaasEbcUserCertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertResponse) SetResultCode(v string) *UpdateAasEbcUserCertResponse {
+func (s *UpdateBaasEbcUserCertResponse) SetResultCode(v string) *UpdateBaasEbcUserCertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcUserCertResponse) SetResultMsg(v string) *UpdateAasEbcUserCertResponse {
+func (s *UpdateBaasEbcUserCertResponse) SetResultMsg(v string) *UpdateBaasEbcUserCertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type QueryAasEbcOrganizationCertRequest struct {
+type QueryBaasEbcOrganizationCertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2284,45 +2491,45 @@ type QueryAasEbcOrganizationCertRequest struct {
 	Start *string `json:"start,omitempty" xml:"start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 }
 
-func (s QueryAasEbcOrganizationCertRequest) String() string {
+func (s QueryBaasEbcOrganizationCertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcOrganizationCertRequest) GoString() string {
+func (s QueryBaasEbcOrganizationCertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetAuthToken(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetAuthToken(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetProductInstanceId(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetProductInstanceId(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetRegionName(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetRegionName(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetEnd(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetEnd(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.End = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetOrgDid(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetOrgDid(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertRequest) SetStart(v string) *QueryAasEbcOrganizationCertRequest {
+func (s *QueryBaasEbcOrganizationCertRequest) SetStart(v string) *QueryBaasEbcOrganizationCertRequest {
 	s.Start = &v
 	return s
 }
 
-type QueryAasEbcOrganizationCertResponse struct {
+type QueryBaasEbcOrganizationCertResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2330,35 +2537,35 @@ type QueryAasEbcOrganizationCertResponse struct {
 	CertIdList []*string `json:"cert_id_list,omitempty" xml:"cert_id_list,omitempty" type:"Repeated"`
 }
 
-func (s QueryAasEbcOrganizationCertResponse) String() string {
+func (s QueryBaasEbcOrganizationCertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcOrganizationCertResponse) GoString() string {
+func (s QueryBaasEbcOrganizationCertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcOrganizationCertResponse) SetReqMsgId(v string) *QueryAasEbcOrganizationCertResponse {
+func (s *QueryBaasEbcOrganizationCertResponse) SetReqMsgId(v string) *QueryBaasEbcOrganizationCertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertResponse) SetResultCode(v string) *QueryAasEbcOrganizationCertResponse {
+func (s *QueryBaasEbcOrganizationCertResponse) SetResultCode(v string) *QueryBaasEbcOrganizationCertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertResponse) SetResultMsg(v string) *QueryAasEbcOrganizationCertResponse {
+func (s *QueryBaasEbcOrganizationCertResponse) SetResultMsg(v string) *QueryBaasEbcOrganizationCertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcOrganizationCertResponse) SetCertIdList(v []*string) *QueryAasEbcOrganizationCertResponse {
+func (s *QueryBaasEbcOrganizationCertResponse) SetCertIdList(v []*string) *QueryBaasEbcOrganizationCertResponse {
 	s.CertIdList = v
 	return s
 }
 
-type QueryAasEbcUserCertRequest struct {
+type QueryBaasEbcUserCertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2368,40 +2575,40 @@ type QueryAasEbcUserCertRequest struct {
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
 }
 
-func (s QueryAasEbcUserCertRequest) String() string {
+func (s QueryBaasEbcUserCertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcUserCertRequest) GoString() string {
+func (s QueryBaasEbcUserCertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcUserCertRequest) SetAuthToken(v string) *QueryAasEbcUserCertRequest {
+func (s *QueryBaasEbcUserCertRequest) SetAuthToken(v string) *QueryBaasEbcUserCertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertRequest) SetProductInstanceId(v string) *QueryAasEbcUserCertRequest {
+func (s *QueryBaasEbcUserCertRequest) SetProductInstanceId(v string) *QueryBaasEbcUserCertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertRequest) SetRegionName(v string) *QueryAasEbcUserCertRequest {
+func (s *QueryBaasEbcUserCertRequest) SetRegionName(v string) *QueryBaasEbcUserCertRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertRequest) SetOrgDid(v string) *QueryAasEbcUserCertRequest {
+func (s *QueryBaasEbcUserCertRequest) SetOrgDid(v string) *QueryBaasEbcUserCertRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertRequest) SetOrgUserId(v string) *QueryAasEbcUserCertRequest {
+func (s *QueryBaasEbcUserCertRequest) SetOrgUserId(v string) *QueryBaasEbcUserCertRequest {
 	s.OrgUserId = &v
 	return s
 }
 
-type QueryAasEbcUserCertResponse struct {
+type QueryBaasEbcUserCertResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2409,35 +2616,35 @@ type QueryAasEbcUserCertResponse struct {
 	CertIdList []*string `json:"cert_id_list,omitempty" xml:"cert_id_list,omitempty" type:"Repeated"`
 }
 
-func (s QueryAasEbcUserCertResponse) String() string {
+func (s QueryBaasEbcUserCertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcUserCertResponse) GoString() string {
+func (s QueryBaasEbcUserCertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcUserCertResponse) SetReqMsgId(v string) *QueryAasEbcUserCertResponse {
+func (s *QueryBaasEbcUserCertResponse) SetReqMsgId(v string) *QueryBaasEbcUserCertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertResponse) SetResultCode(v string) *QueryAasEbcUserCertResponse {
+func (s *QueryBaasEbcUserCertResponse) SetResultCode(v string) *QueryBaasEbcUserCertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertResponse) SetResultMsg(v string) *QueryAasEbcUserCertResponse {
+func (s *QueryBaasEbcUserCertResponse) SetResultMsg(v string) *QueryBaasEbcUserCertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcUserCertResponse) SetCertIdList(v []*string) *QueryAasEbcUserCertResponse {
+func (s *QueryBaasEbcUserCertResponse) SetCertIdList(v []*string) *QueryBaasEbcUserCertResponse {
 	s.CertIdList = v
 	return s
 }
 
-type QueryAasEbcCertRequest struct {
+type QueryBaasEbcCertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2447,40 +2654,40 @@ type QueryAasEbcCertRequest struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
-func (s QueryAasEbcCertRequest) String() string {
+func (s QueryBaasEbcCertRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcCertRequest) GoString() string {
+func (s QueryBaasEbcCertRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcCertRequest) SetAuthToken(v string) *QueryAasEbcCertRequest {
+func (s *QueryBaasEbcCertRequest) SetAuthToken(v string) *QueryBaasEbcCertRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcCertRequest) SetProductInstanceId(v string) *QueryAasEbcCertRequest {
+func (s *QueryBaasEbcCertRequest) SetProductInstanceId(v string) *QueryBaasEbcCertRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcCertRequest) SetRegionName(v string) *QueryAasEbcCertRequest {
+func (s *QueryBaasEbcCertRequest) SetRegionName(v string) *QueryBaasEbcCertRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcCertRequest) SetCertId(v string) *QueryAasEbcCertRequest {
+func (s *QueryBaasEbcCertRequest) SetCertId(v string) *QueryBaasEbcCertRequest {
 	s.CertId = &v
 	return s
 }
 
-func (s *QueryAasEbcCertRequest) SetOrgDid(v string) *QueryAasEbcCertRequest {
+func (s *QueryBaasEbcCertRequest) SetOrgDid(v string) *QueryBaasEbcCertRequest {
 	s.OrgDid = &v
 	return s
 }
 
-type QueryAasEbcCertResponse struct {
+type QueryBaasEbcCertResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2488,35 +2695,35 @@ type QueryAasEbcCertResponse struct {
 	Cert *Cert `json:"cert,omitempty" xml:"cert,omitempty"`
 }
 
-func (s QueryAasEbcCertResponse) String() string {
+func (s QueryBaasEbcCertResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcCertResponse) GoString() string {
+func (s QueryBaasEbcCertResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcCertResponse) SetReqMsgId(v string) *QueryAasEbcCertResponse {
+func (s *QueryBaasEbcCertResponse) SetReqMsgId(v string) *QueryBaasEbcCertResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcCertResponse) SetResultCode(v string) *QueryAasEbcCertResponse {
+func (s *QueryBaasEbcCertResponse) SetResultCode(v string) *QueryBaasEbcCertResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcCertResponse) SetResultMsg(v string) *QueryAasEbcCertResponse {
+func (s *QueryBaasEbcCertResponse) SetResultMsg(v string) *QueryBaasEbcCertResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcCertResponse) SetCert(v *Cert) *QueryAasEbcCertResponse {
+func (s *QueryBaasEbcCertResponse) SetCert(v *Cert) *QueryBaasEbcCertResponse {
 	s.Cert = v
 	return s
 }
 
-type ApplyAasEbcCertUrlRequest struct {
+type ApplyBaasEbcCertUrlRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2528,45 +2735,45 @@ type ApplyAasEbcCertUrlRequest struct {
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty"`
 }
 
-func (s ApplyAasEbcCertUrlRequest) String() string {
+func (s ApplyBaasEbcCertUrlRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyAasEbcCertUrlRequest) GoString() string {
+func (s ApplyBaasEbcCertUrlRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetAuthToken(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetAuthToken(v string) *ApplyBaasEbcCertUrlRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetProductInstanceId(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetProductInstanceId(v string) *ApplyBaasEbcCertUrlRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetRegionName(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetRegionName(v string) *ApplyBaasEbcCertUrlRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetCertCode(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetCertCode(v string) *ApplyBaasEbcCertUrlRequest {
 	s.CertCode = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetOrgDid(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetOrgDid(v string) *ApplyBaasEbcCertUrlRequest {
 	s.OrgDid = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlRequest) SetOrgUserId(v string) *ApplyAasEbcCertUrlRequest {
+func (s *ApplyBaasEbcCertUrlRequest) SetOrgUserId(v string) *ApplyBaasEbcCertUrlRequest {
 	s.OrgUserId = &v
 	return s
 }
 
-type ApplyAasEbcCertUrlResponse struct {
+type ApplyBaasEbcCertUrlResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2579,45 +2786,45 @@ type ApplyAasEbcCertUrlResponse struct {
 	HolderAvatarUploadUrl *string `json:"holder_avatar_upload_url,omitempty" xml:"holder_avatar_upload_url,omitempty"`
 }
 
-func (s ApplyAasEbcCertUrlResponse) String() string {
+func (s ApplyBaasEbcCertUrlResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApplyAasEbcCertUrlResponse) GoString() string {
+func (s ApplyBaasEbcCertUrlResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetReqMsgId(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetReqMsgId(v string) *ApplyBaasEbcCertUrlResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetResultCode(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetResultCode(v string) *ApplyBaasEbcCertUrlResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetResultMsg(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetResultMsg(v string) *ApplyBaasEbcCertUrlResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetCertUploadUrl(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetCertUploadUrl(v string) *ApplyBaasEbcCertUrlResponse {
 	s.CertUploadUrl = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetFeatureUploadUrl(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetFeatureUploadUrl(v string) *ApplyBaasEbcCertUrlResponse {
 	s.FeatureUploadUrl = &v
 	return s
 }
 
-func (s *ApplyAasEbcCertUrlResponse) SetHolderAvatarUploadUrl(v string) *ApplyAasEbcCertUrlResponse {
+func (s *ApplyBaasEbcCertUrlResponse) SetHolderAvatarUploadUrl(v string) *ApplyBaasEbcCertUrlResponse {
 	s.HolderAvatarUploadUrl = &v
 	return s
 }
 
-type CreateAasEbcAuthRequest struct {
+type CreateBaasEbcAuthRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2635,60 +2842,60 @@ type CreateAasEbcAuthRequest struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" maxLength:"64"`
 }
 
-func (s CreateAasEbcAuthRequest) String() string {
+func (s CreateBaasEbcAuthRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcAuthRequest) GoString() string {
+func (s CreateBaasEbcAuthRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcAuthRequest) SetAuthToken(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetAuthToken(v string) *CreateBaasEbcAuthRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetProductInstanceId(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetProductInstanceId(v string) *CreateBaasEbcAuthRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetRegionName(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetRegionName(v string) *CreateBaasEbcAuthRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetAuthEndTime(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetAuthEndTime(v string) *CreateBaasEbcAuthRequest {
 	s.AuthEndTime = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetAuthStartTime(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetAuthStartTime(v string) *CreateBaasEbcAuthRequest {
 	s.AuthStartTime = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetDataType(v int64) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetDataType(v int64) *CreateBaasEbcAuthRequest {
 	s.DataType = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetTargetIdList(v []*string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetTargetIdList(v []*string) *CreateBaasEbcAuthRequest {
 	s.TargetIdList = v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetTargetType(v int64) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetTargetType(v int64) *CreateBaasEbcAuthRequest {
 	s.TargetType = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthRequest) SetTenantName(v string) *CreateAasEbcAuthRequest {
+func (s *CreateBaasEbcAuthRequest) SetTenantName(v string) *CreateBaasEbcAuthRequest {
 	s.TenantName = &v
 	return s
 }
 
-type CreateAasEbcAuthResponse struct {
+type CreateBaasEbcAuthResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2696,35 +2903,35 @@ type CreateAasEbcAuthResponse struct {
 	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty"`
 }
 
-func (s CreateAasEbcAuthResponse) String() string {
+func (s CreateBaasEbcAuthResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CreateAasEbcAuthResponse) GoString() string {
+func (s CreateBaasEbcAuthResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CreateAasEbcAuthResponse) SetReqMsgId(v string) *CreateAasEbcAuthResponse {
+func (s *CreateBaasEbcAuthResponse) SetReqMsgId(v string) *CreateBaasEbcAuthResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthResponse) SetResultCode(v string) *CreateAasEbcAuthResponse {
+func (s *CreateBaasEbcAuthResponse) SetResultCode(v string) *CreateBaasEbcAuthResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthResponse) SetResultMsg(v string) *CreateAasEbcAuthResponse {
+func (s *CreateBaasEbcAuthResponse) SetResultMsg(v string) *CreateBaasEbcAuthResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CreateAasEbcAuthResponse) SetAuthId(v string) *CreateAasEbcAuthResponse {
+func (s *CreateBaasEbcAuthResponse) SetAuthId(v string) *CreateBaasEbcAuthResponse {
 	s.AuthId = &v
 	return s
 }
 
-type UpdateAasEbcAuthRequest struct {
+type UpdateBaasEbcAuthRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2748,94 +2955,94 @@ type UpdateAasEbcAuthRequest struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" maxLength:"64"`
 }
 
-func (s UpdateAasEbcAuthRequest) String() string {
+func (s UpdateBaasEbcAuthRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcAuthRequest) GoString() string {
+func (s UpdateBaasEbcAuthRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcAuthRequest) SetAuthToken(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetAuthToken(v string) *UpdateBaasEbcAuthRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetProductInstanceId(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetProductInstanceId(v string) *UpdateBaasEbcAuthRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetRegionName(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetRegionName(v string) *UpdateBaasEbcAuthRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetAuthEndTime(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetAuthEndTime(v string) *UpdateBaasEbcAuthRequest {
 	s.AuthEndTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetAuthId(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetAuthId(v string) *UpdateBaasEbcAuthRequest {
 	s.AuthId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetAuthStartTime(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetAuthStartTime(v string) *UpdateBaasEbcAuthRequest {
 	s.AuthStartTime = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetDataType(v int64) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetDataType(v int64) *UpdateBaasEbcAuthRequest {
 	s.DataType = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetTargetIdList(v []*string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetTargetIdList(v []*string) *UpdateBaasEbcAuthRequest {
 	s.TargetIdList = v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetTargetType(v int64) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetTargetType(v int64) *UpdateBaasEbcAuthRequest {
 	s.TargetType = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthRequest) SetTenantName(v string) *UpdateAasEbcAuthRequest {
+func (s *UpdateBaasEbcAuthRequest) SetTenantName(v string) *UpdateBaasEbcAuthRequest {
 	s.TenantName = &v
 	return s
 }
 
-type UpdateAasEbcAuthResponse struct {
+type UpdateBaasEbcAuthResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateAasEbcAuthResponse) String() string {
+func (s UpdateBaasEbcAuthResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcAuthResponse) GoString() string {
+func (s UpdateBaasEbcAuthResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcAuthResponse) SetReqMsgId(v string) *UpdateAasEbcAuthResponse {
+func (s *UpdateBaasEbcAuthResponse) SetReqMsgId(v string) *UpdateBaasEbcAuthResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthResponse) SetResultCode(v string) *UpdateAasEbcAuthResponse {
+func (s *UpdateBaasEbcAuthResponse) SetResultCode(v string) *UpdateBaasEbcAuthResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthResponse) SetResultMsg(v string) *UpdateAasEbcAuthResponse {
+func (s *UpdateBaasEbcAuthResponse) SetResultMsg(v string) *UpdateBaasEbcAuthResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type UpdateAasEbcAuthStatusRequest struct {
+type UpdateBaasEbcAuthStatusRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2849,74 +3056,74 @@ type UpdateAasEbcAuthStatusRequest struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" maxLength:"64"`
 }
 
-func (s UpdateAasEbcAuthStatusRequest) String() string {
+func (s UpdateBaasEbcAuthStatusRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcAuthStatusRequest) GoString() string {
+func (s UpdateBaasEbcAuthStatusRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetAuthToken(v string) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetAuthToken(v string) *UpdateBaasEbcAuthStatusRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetProductInstanceId(v string) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetProductInstanceId(v string) *UpdateBaasEbcAuthStatusRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetRegionName(v string) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetRegionName(v string) *UpdateBaasEbcAuthStatusRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetAuthId(v string) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetAuthId(v string) *UpdateBaasEbcAuthStatusRequest {
 	s.AuthId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetStatus(v int64) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetStatus(v int64) *UpdateBaasEbcAuthStatusRequest {
 	s.Status = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusRequest) SetTenantName(v string) *UpdateAasEbcAuthStatusRequest {
+func (s *UpdateBaasEbcAuthStatusRequest) SetTenantName(v string) *UpdateBaasEbcAuthStatusRequest {
 	s.TenantName = &v
 	return s
 }
 
-type UpdateAasEbcAuthStatusResponse struct {
+type UpdateBaasEbcAuthStatusResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateAasEbcAuthStatusResponse) String() string {
+func (s UpdateBaasEbcAuthStatusResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcAuthStatusResponse) GoString() string {
+func (s UpdateBaasEbcAuthStatusResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcAuthStatusResponse) SetReqMsgId(v string) *UpdateAasEbcAuthStatusResponse {
+func (s *UpdateBaasEbcAuthStatusResponse) SetReqMsgId(v string) *UpdateBaasEbcAuthStatusResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusResponse) SetResultCode(v string) *UpdateAasEbcAuthStatusResponse {
+func (s *UpdateBaasEbcAuthStatusResponse) SetResultCode(v string) *UpdateBaasEbcAuthStatusResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcAuthStatusResponse) SetResultMsg(v string) *UpdateAasEbcAuthStatusResponse {
+func (s *UpdateBaasEbcAuthStatusResponse) SetResultMsg(v string) *UpdateBaasEbcAuthStatusResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type UpdateAasEbcDataPriceRequest struct {
+type UpdateBaasEbcDataPriceRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -2928,45 +3135,45 @@ type UpdateAasEbcDataPriceRequest struct {
 	Price *int64 `json:"price,omitempty" xml:"price,omitempty" maximum:"undefined" minimum:"undefined"`
 }
 
-func (s UpdateAasEbcDataPriceRequest) String() string {
+func (s UpdateBaasEbcDataPriceRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcDataPriceRequest) GoString() string {
+func (s UpdateBaasEbcDataPriceRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetAuthToken(v string) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetAuthToken(v string) *UpdateBaasEbcDataPriceRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetProductInstanceId(v string) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetProductInstanceId(v string) *UpdateBaasEbcDataPriceRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetRegionName(v string) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetRegionName(v string) *UpdateBaasEbcDataPriceRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetDataIdList(v []*string) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetDataIdList(v []*string) *UpdateBaasEbcDataPriceRequest {
 	s.DataIdList = v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetDataType(v int64) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetDataType(v int64) *UpdateBaasEbcDataPriceRequest {
 	s.DataType = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceRequest) SetPrice(v int64) *UpdateAasEbcDataPriceRequest {
+func (s *UpdateBaasEbcDataPriceRequest) SetPrice(v int64) *UpdateBaasEbcDataPriceRequest {
 	s.Price = &v
 	return s
 }
 
-type UpdateAasEbcDataPriceResponse struct {
+type UpdateBaasEbcDataPriceResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -2974,35 +3181,35 @@ type UpdateAasEbcDataPriceResponse struct {
 	FailList []*string `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
 }
 
-func (s UpdateAasEbcDataPriceResponse) String() string {
+func (s UpdateBaasEbcDataPriceResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateAasEbcDataPriceResponse) GoString() string {
+func (s UpdateBaasEbcDataPriceResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateAasEbcDataPriceResponse) SetReqMsgId(v string) *UpdateAasEbcDataPriceResponse {
+func (s *UpdateBaasEbcDataPriceResponse) SetReqMsgId(v string) *UpdateBaasEbcDataPriceResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceResponse) SetResultCode(v string) *UpdateAasEbcDataPriceResponse {
+func (s *UpdateBaasEbcDataPriceResponse) SetResultCode(v string) *UpdateBaasEbcDataPriceResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceResponse) SetResultMsg(v string) *UpdateAasEbcDataPriceResponse {
+func (s *UpdateBaasEbcDataPriceResponse) SetResultMsg(v string) *UpdateBaasEbcDataPriceResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *UpdateAasEbcDataPriceResponse) SetFailList(v []*string) *UpdateAasEbcDataPriceResponse {
+func (s *UpdateBaasEbcDataPriceResponse) SetFailList(v []*string) *UpdateBaasEbcDataPriceResponse {
 	s.FailList = v
 	return s
 }
 
-type QueryAasEbcConsumptionAmountRequest struct {
+type QueryBaasEbcConsumptionAmountRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
@@ -3014,45 +3221,45 @@ type QueryAasEbcConsumptionAmountRequest struct {
 	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" maxLength:"64"`
 }
 
-func (s QueryAasEbcConsumptionAmountRequest) String() string {
+func (s QueryBaasEbcConsumptionAmountRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcConsumptionAmountRequest) GoString() string {
+func (s QueryBaasEbcConsumptionAmountRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetAuthToken(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetAuthToken(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetProductInstanceId(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetProductInstanceId(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetRegionName(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetRegionName(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.RegionName = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetEndTime(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetEndTime(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.EndTime = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetStartTime(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetStartTime(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.StartTime = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountRequest) SetTenantName(v string) *QueryAasEbcConsumptionAmountRequest {
+func (s *QueryBaasEbcConsumptionAmountRequest) SetTenantName(v string) *QueryBaasEbcConsumptionAmountRequest {
 	s.TenantName = &v
 	return s
 }
 
-type QueryAasEbcConsumptionAmountResponse struct {
+type QueryBaasEbcConsumptionAmountResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
@@ -3060,30 +3267,30 @@ type QueryAasEbcConsumptionAmountResponse struct {
 	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
 }
 
-func (s QueryAasEbcConsumptionAmountResponse) String() string {
+func (s QueryBaasEbcConsumptionAmountResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAasEbcConsumptionAmountResponse) GoString() string {
+func (s QueryBaasEbcConsumptionAmountResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAasEbcConsumptionAmountResponse) SetReqMsgId(v string) *QueryAasEbcConsumptionAmountResponse {
+func (s *QueryBaasEbcConsumptionAmountResponse) SetReqMsgId(v string) *QueryBaasEbcConsumptionAmountResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountResponse) SetResultCode(v string) *QueryAasEbcConsumptionAmountResponse {
+func (s *QueryBaasEbcConsumptionAmountResponse) SetResultCode(v string) *QueryBaasEbcConsumptionAmountResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountResponse) SetResultMsg(v string) *QueryAasEbcConsumptionAmountResponse {
+func (s *QueryBaasEbcConsumptionAmountResponse) SetResultMsg(v string) *QueryBaasEbcConsumptionAmountResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAasEbcConsumptionAmountResponse) SetAmount(v int64) *QueryAasEbcConsumptionAmountResponse {
+func (s *QueryBaasEbcConsumptionAmountResponse) SetAmount(v int64) *QueryBaasEbcConsumptionAmountResponse {
 	s.Amount = &v
 	return s
 }
@@ -3199,7 +3406,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200713"),
+				"sdkVersion":     tea.String("Tea-SDK-20200825"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3261,10 +3468,10 @@ func (client *Client) GetUserAgent() (_result *string) {
  * Description: 创建企业
  * Summary: 创建企业
  */
-func (client *Client) CreateAasEbcOrganization(request *CreateAasEbcOrganizationRequest) (_result *CreateAasEbcOrganizationResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganization(request *CreateBaasEbcOrganizationRequest) (_result *CreateBaasEbcOrganizationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcOrganizationResponse{}
-	_body, _err := client.CreateAasEbcOrganizationEx(request, runtime)
+	_result = &CreateBaasEbcOrganizationResponse{}
+	_body, _err := client.CreateBaasEbcOrganizationEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3276,12 +3483,12 @@ func (client *Client) CreateAasEbcOrganization(request *CreateAasEbcOrganization
  * Description: 创建企业
  * Summary: 创建企业
  */
-func (client *Client) CreateAasEbcOrganizationEx(request *CreateAasEbcOrganizationRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcOrganizationResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationEx(request *CreateBaasEbcOrganizationRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcOrganizationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcOrganizationResponse{}
+	_result = &CreateBaasEbcOrganizationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3294,10 +3501,10 @@ func (client *Client) CreateAasEbcOrganizationEx(request *CreateAasEbcOrganizati
  * Description: 创建个人
  * Summary: 创建个人
  */
-func (client *Client) CreateAasEbcPerson(request *CreateAasEbcPersonRequest) (_result *CreateAasEbcPersonResponse, _err error) {
+func (client *Client) CreateBaasEbcPerson(request *CreateBaasEbcPersonRequest) (_result *CreateBaasEbcPersonResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcPersonResponse{}
-	_body, _err := client.CreateAasEbcPersonEx(request, runtime)
+	_result = &CreateBaasEbcPersonResponse{}
+	_body, _err := client.CreateBaasEbcPersonEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3309,12 +3516,12 @@ func (client *Client) CreateAasEbcPerson(request *CreateAasEbcPersonRequest) (_r
  * Description: 创建个人
  * Summary: 创建个人
  */
-func (client *Client) CreateAasEbcPersonEx(request *CreateAasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcPersonResponse, _err error) {
+func (client *Client) CreateBaasEbcPersonEx(request *CreateBaasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcPersonResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcPersonResponse{}
+	_result = &CreateBaasEbcPersonResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.person.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3327,10 +3534,10 @@ func (client *Client) CreateAasEbcPersonEx(request *CreateAasEbcPersonRequest, r
  * Description: 企业用户注册
  * Summary: 企业用户注册
  */
-func (client *Client) CreateAasEbcOrganizationUser(request *CreateAasEbcOrganizationUserRequest) (_result *CreateAasEbcOrganizationUserResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationUser(request *CreateBaasEbcOrganizationUserRequest) (_result *CreateBaasEbcOrganizationUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcOrganizationUserResponse{}
-	_body, _err := client.CreateAasEbcOrganizationUserEx(request, runtime)
+	_result = &CreateBaasEbcOrganizationUserResponse{}
+	_body, _err := client.CreateBaasEbcOrganizationUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3342,12 +3549,12 @@ func (client *Client) CreateAasEbcOrganizationUser(request *CreateAasEbcOrganiza
  * Description: 企业用户注册
  * Summary: 企业用户注册
  */
-func (client *Client) CreateAasEbcOrganizationUserEx(request *CreateAasEbcOrganizationUserRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcOrganizationUserResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationUserEx(request *CreateBaasEbcOrganizationUserRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcOrganizationUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcOrganizationUserResponse{}
+	_result = &CreateBaasEbcOrganizationUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.user.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3360,10 +3567,10 @@ func (client *Client) CreateAasEbcOrganizationUserEx(request *CreateAasEbcOrgani
  * Description: 个人退出
  * Summary: 个人退出
  */
-func (client *Client) CancelAasEbcPerson(request *CancelAasEbcPersonRequest) (_result *CancelAasEbcPersonResponse, _err error) {
+func (client *Client) CancelBaasEbcPerson(request *CancelBaasEbcPersonRequest) (_result *CancelBaasEbcPersonResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CancelAasEbcPersonResponse{}
-	_body, _err := client.CancelAasEbcPersonEx(request, runtime)
+	_result = &CancelBaasEbcPersonResponse{}
+	_body, _err := client.CancelBaasEbcPersonEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3375,12 +3582,12 @@ func (client *Client) CancelAasEbcPerson(request *CancelAasEbcPersonRequest) (_r
  * Description: 个人退出
  * Summary: 个人退出
  */
-func (client *Client) CancelAasEbcPersonEx(request *CancelAasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *CancelAasEbcPersonResponse, _err error) {
+func (client *Client) CancelBaasEbcPersonEx(request *CancelBaasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *CancelBaasEbcPersonResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CancelAasEbcPersonResponse{}
+	_result = &CancelBaasEbcPersonResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.person.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3393,10 +3600,10 @@ func (client *Client) CancelAasEbcPersonEx(request *CancelAasEbcPersonRequest, r
  * Description: 用户复入
  * Summary: 用户复入
  */
-func (client *Client) ResumeAasEbcPerson(request *ResumeAasEbcPersonRequest) (_result *ResumeAasEbcPersonResponse, _err error) {
+func (client *Client) ResumeBaasEbcPerson(request *ResumeBaasEbcPersonRequest) (_result *ResumeBaasEbcPersonResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &ResumeAasEbcPersonResponse{}
-	_body, _err := client.ResumeAasEbcPersonEx(request, runtime)
+	_result = &ResumeBaasEbcPersonResponse{}
+	_body, _err := client.ResumeBaasEbcPersonEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3408,12 +3615,12 @@ func (client *Client) ResumeAasEbcPerson(request *ResumeAasEbcPersonRequest) (_r
  * Description: 用户复入
  * Summary: 用户复入
  */
-func (client *Client) ResumeAasEbcPersonEx(request *ResumeAasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *ResumeAasEbcPersonResponse, _err error) {
+func (client *Client) ResumeBaasEbcPersonEx(request *ResumeBaasEbcPersonRequest, runtime *util.RuntimeOptions) (_result *ResumeBaasEbcPersonResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ResumeAasEbcPersonResponse{}
+	_result = &ResumeBaasEbcPersonResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.person.resume"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3426,10 +3633,10 @@ func (client *Client) ResumeAasEbcPersonEx(request *ResumeAasEbcPersonRequest, r
  * Description: 创建班级
  * Summary: 创建班级
  */
-func (client *Client) CreateAasEbcOrganizationClass(request *CreateAasEbcOrganizationClassRequest) (_result *CreateAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationClass(request *CreateBaasEbcOrganizationClassRequest) (_result *CreateBaasEbcOrganizationClassResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcOrganizationClassResponse{}
-	_body, _err := client.CreateAasEbcOrganizationClassEx(request, runtime)
+	_result = &CreateBaasEbcOrganizationClassResponse{}
+	_body, _err := client.CreateBaasEbcOrganizationClassEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3441,12 +3648,12 @@ func (client *Client) CreateAasEbcOrganizationClass(request *CreateAasEbcOrganiz
  * Description: 创建班级
  * Summary: 创建班级
  */
-func (client *Client) CreateAasEbcOrganizationClassEx(request *CreateAasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationClassEx(request *CreateBaasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcOrganizationClassResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcOrganizationClassResponse{}
+	_result = &CreateBaasEbcOrganizationClassResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.class.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3459,10 +3666,10 @@ func (client *Client) CreateAasEbcOrganizationClassEx(request *CreateAasEbcOrgan
  * Description: 更新班级
  * Summary: 更新班级
  */
-func (client *Client) UpdateAasEbcOrganizationClass(request *UpdateAasEbcOrganizationClassRequest) (_result *UpdateAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) UpdateBaasEbcOrganizationClass(request *UpdateBaasEbcOrganizationClassRequest) (_result *UpdateBaasEbcOrganizationClassResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcOrganizationClassResponse{}
-	_body, _err := client.UpdateAasEbcOrganizationClassEx(request, runtime)
+	_result = &UpdateBaasEbcOrganizationClassResponse{}
+	_body, _err := client.UpdateBaasEbcOrganizationClassEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3474,12 +3681,12 @@ func (client *Client) UpdateAasEbcOrganizationClass(request *UpdateAasEbcOrganiz
  * Description: 更新班级
  * Summary: 更新班级
  */
-func (client *Client) UpdateAasEbcOrganizationClassEx(request *UpdateAasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) UpdateBaasEbcOrganizationClassEx(request *UpdateBaasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcOrganizationClassResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcOrganizationClassResponse{}
+	_result = &UpdateBaasEbcOrganizationClassResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.class.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3492,10 +3699,10 @@ func (client *Client) UpdateAasEbcOrganizationClassEx(request *UpdateAasEbcOrgan
  * Description: 增加学员
  * Summary: 增加学员
  */
-func (client *Client) AddAasEbcClassUser(request *AddAasEbcClassUserRequest) (_result *AddAasEbcClassUserResponse, _err error) {
+func (client *Client) AddBaasEbcClassUser(request *AddBaasEbcClassUserRequest) (_result *AddBaasEbcClassUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &AddAasEbcClassUserResponse{}
-	_body, _err := client.AddAasEbcClassUserEx(request, runtime)
+	_result = &AddBaasEbcClassUserResponse{}
+	_body, _err := client.AddBaasEbcClassUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3507,12 +3714,12 @@ func (client *Client) AddAasEbcClassUser(request *AddAasEbcClassUserRequest) (_r
  * Description: 增加学员
  * Summary: 增加学员
  */
-func (client *Client) AddAasEbcClassUserEx(request *AddAasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *AddAasEbcClassUserResponse, _err error) {
+func (client *Client) AddBaasEbcClassUserEx(request *AddBaasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *AddBaasEbcClassUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &AddAasEbcClassUserResponse{}
+	_result = &AddBaasEbcClassUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.class.user.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3525,10 +3732,10 @@ func (client *Client) AddAasEbcClassUserEx(request *AddAasEbcClassUserRequest, r
  * Description: 删除学员
  * Summary: 删除学员
  */
-func (client *Client) DeleteAasEbcClassUser(request *DeleteAasEbcClassUserRequest) (_result *DeleteAasEbcClassUserResponse, _err error) {
+func (client *Client) DeleteBaasEbcClassUser(request *DeleteBaasEbcClassUserRequest) (_result *DeleteBaasEbcClassUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &DeleteAasEbcClassUserResponse{}
-	_body, _err := client.DeleteAasEbcClassUserEx(request, runtime)
+	_result = &DeleteBaasEbcClassUserResponse{}
+	_body, _err := client.DeleteBaasEbcClassUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3540,12 +3747,12 @@ func (client *Client) DeleteAasEbcClassUser(request *DeleteAasEbcClassUserReques
  * Description: 删除学员
  * Summary: 删除学员
  */
-func (client *Client) DeleteAasEbcClassUserEx(request *DeleteAasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *DeleteAasEbcClassUserResponse, _err error) {
+func (client *Client) DeleteBaasEbcClassUserEx(request *DeleteBaasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *DeleteBaasEbcClassUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &DeleteAasEbcClassUserResponse{}
+	_result = &DeleteBaasEbcClassUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.class.user.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3558,10 +3765,10 @@ func (client *Client) DeleteAasEbcClassUserEx(request *DeleteAasEbcClassUserRequ
  * Description: 班级查询
  * Summary: 班级查询
  */
-func (client *Client) QueryAasEbcOrganizationClass(request *QueryAasEbcOrganizationClassRequest) (_result *QueryAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) QueryBaasEbcOrganizationClass(request *QueryBaasEbcOrganizationClassRequest) (_result *QueryBaasEbcOrganizationClassResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcOrganizationClassResponse{}
-	_body, _err := client.QueryAasEbcOrganizationClassEx(request, runtime)
+	_result = &QueryBaasEbcOrganizationClassResponse{}
+	_body, _err := client.QueryBaasEbcOrganizationClassEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3573,12 +3780,12 @@ func (client *Client) QueryAasEbcOrganizationClass(request *QueryAasEbcOrganizat
  * Description: 班级查询
  * Summary: 班级查询
  */
-func (client *Client) QueryAasEbcOrganizationClassEx(request *QueryAasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcOrganizationClassResponse, _err error) {
+func (client *Client) QueryBaasEbcOrganizationClassEx(request *QueryBaasEbcOrganizationClassRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcOrganizationClassResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcOrganizationClassResponse{}
+	_result = &QueryBaasEbcOrganizationClassResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.class.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3591,10 +3798,10 @@ func (client *Client) QueryAasEbcOrganizationClassEx(request *QueryAasEbcOrganiz
  * Description: 班级明细查询
  * Summary: 班级明细查询
  */
-func (client *Client) QueryAasEbcClassUser(request *QueryAasEbcClassUserRequest) (_result *QueryAasEbcClassUserResponse, _err error) {
+func (client *Client) QueryBaasEbcClassUser(request *QueryBaasEbcClassUserRequest) (_result *QueryBaasEbcClassUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcClassUserResponse{}
-	_body, _err := client.QueryAasEbcClassUserEx(request, runtime)
+	_result = &QueryBaasEbcClassUserResponse{}
+	_body, _err := client.QueryBaasEbcClassUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3606,12 +3813,12 @@ func (client *Client) QueryAasEbcClassUser(request *QueryAasEbcClassUserRequest)
  * Description: 班级明细查询
  * Summary: 班级明细查询
  */
-func (client *Client) QueryAasEbcClassUserEx(request *QueryAasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcClassUserResponse, _err error) {
+func (client *Client) QueryBaasEbcClassUserEx(request *QueryBaasEbcClassUserRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcClassUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcClassUserResponse{}
+	_result = &QueryBaasEbcClassUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.class.user.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3624,10 +3831,10 @@ func (client *Client) QueryAasEbcClassUserEx(request *QueryAasEbcClassUserReques
  * Description: 发布课程
  * Summary: 发布课程
  */
-func (client *Client) CreateAasEbcOrganizationCourse(request *CreateAasEbcOrganizationCourseRequest) (_result *CreateAasEbcOrganizationCourseResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationCourse(request *CreateBaasEbcOrganizationCourseRequest) (_result *CreateBaasEbcOrganizationCourseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcOrganizationCourseResponse{}
-	_body, _err := client.CreateAasEbcOrganizationCourseEx(request, runtime)
+	_result = &CreateBaasEbcOrganizationCourseResponse{}
+	_body, _err := client.CreateBaasEbcOrganizationCourseEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3639,12 +3846,12 @@ func (client *Client) CreateAasEbcOrganizationCourse(request *CreateAasEbcOrgani
  * Description: 发布课程
  * Summary: 发布课程
  */
-func (client *Client) CreateAasEbcOrganizationCourseEx(request *CreateAasEbcOrganizationCourseRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcOrganizationCourseResponse, _err error) {
+func (client *Client) CreateBaasEbcOrganizationCourseEx(request *CreateBaasEbcOrganizationCourseRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcOrganizationCourseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcOrganizationCourseResponse{}
+	_result = &CreateBaasEbcOrganizationCourseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.course.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3657,10 +3864,10 @@ func (client *Client) CreateAasEbcOrganizationCourseEx(request *CreateAasEbcOrga
  * Description: 更新课程
  * Summary: 更新课程
  */
-func (client *Client) UpdateAasEbcOrganizationCourse(request *UpdateAasEbcOrganizationCourseRequest) (_result *UpdateAasEbcOrganizationCourseResponse, _err error) {
+func (client *Client) UpdateBaasEbcOrganizationCourse(request *UpdateBaasEbcOrganizationCourseRequest) (_result *UpdateBaasEbcOrganizationCourseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcOrganizationCourseResponse{}
-	_body, _err := client.UpdateAasEbcOrganizationCourseEx(request, runtime)
+	_result = &UpdateBaasEbcOrganizationCourseResponse{}
+	_body, _err := client.UpdateBaasEbcOrganizationCourseEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3672,12 +3879,12 @@ func (client *Client) UpdateAasEbcOrganizationCourse(request *UpdateAasEbcOrgani
  * Description: 更新课程
  * Summary: 更新课程
  */
-func (client *Client) UpdateAasEbcOrganizationCourseEx(request *UpdateAasEbcOrganizationCourseRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcOrganizationCourseResponse, _err error) {
+func (client *Client) UpdateBaasEbcOrganizationCourseEx(request *UpdateBaasEbcOrganizationCourseRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcOrganizationCourseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcOrganizationCourseResponse{}
+	_result = &UpdateBaasEbcOrganizationCourseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.course.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3690,10 +3897,10 @@ func (client *Client) UpdateAasEbcOrganizationCourseEx(request *UpdateAasEbcOrga
  * Description: 将班级添加到课程中
  * Summary: 增加课程班级
  */
-func (client *Client) AddAasEbcCourseClass(request *AddAasEbcCourseClassRequest) (_result *AddAasEbcCourseClassResponse, _err error) {
+func (client *Client) AddBaasEbcCourseClass(request *AddBaasEbcCourseClassRequest) (_result *AddBaasEbcCourseClassResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &AddAasEbcCourseClassResponse{}
-	_body, _err := client.AddAasEbcCourseClassEx(request, runtime)
+	_result = &AddBaasEbcCourseClassResponse{}
+	_body, _err := client.AddBaasEbcCourseClassEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3705,12 +3912,12 @@ func (client *Client) AddAasEbcCourseClass(request *AddAasEbcCourseClassRequest)
  * Description: 将班级添加到课程中
  * Summary: 增加课程班级
  */
-func (client *Client) AddAasEbcCourseClassEx(request *AddAasEbcCourseClassRequest, runtime *util.RuntimeOptions) (_result *AddAasEbcCourseClassResponse, _err error) {
+func (client *Client) AddBaasEbcCourseClassEx(request *AddBaasEbcCourseClassRequest, runtime *util.RuntimeOptions) (_result *AddBaasEbcCourseClassResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &AddAasEbcCourseClassResponse{}
+	_result = &AddBaasEbcCourseClassResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.class.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3723,10 +3930,10 @@ func (client *Client) AddAasEbcCourseClassEx(request *AddAasEbcCourseClassReques
  * Description: 将学员添加到课程中
  * Summary: 增加课程学员
  */
-func (client *Client) AddAasEbcCourseUser(request *AddAasEbcCourseUserRequest) (_result *AddAasEbcCourseUserResponse, _err error) {
+func (client *Client) AddBaasEbcCourseUser(request *AddBaasEbcCourseUserRequest) (_result *AddBaasEbcCourseUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &AddAasEbcCourseUserResponse{}
-	_body, _err := client.AddAasEbcCourseUserEx(request, runtime)
+	_result = &AddBaasEbcCourseUserResponse{}
+	_body, _err := client.AddBaasEbcCourseUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3738,12 +3945,12 @@ func (client *Client) AddAasEbcCourseUser(request *AddAasEbcCourseUserRequest) (
  * Description: 将学员添加到课程中
  * Summary: 增加课程学员
  */
-func (client *Client) AddAasEbcCourseUserEx(request *AddAasEbcCourseUserRequest, runtime *util.RuntimeOptions) (_result *AddAasEbcCourseUserResponse, _err error) {
+func (client *Client) AddBaasEbcCourseUserEx(request *AddBaasEbcCourseUserRequest, runtime *util.RuntimeOptions) (_result *AddBaasEbcCourseUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &AddAasEbcCourseUserResponse{}
+	_result = &AddBaasEbcCourseUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.user.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3756,10 +3963,10 @@ func (client *Client) AddAasEbcCourseUserEx(request *AddAasEbcCourseUserRequest,
  * Description: 删除课程中的班级
  * Summary: 删除课程班级
  */
-func (client *Client) DeleteAasEbcCourseClass(request *DeleteAasEbcCourseClassRequest) (_result *DeleteAasEbcCourseClassResponse, _err error) {
+func (client *Client) DeleteBaasEbcCourseClass(request *DeleteBaasEbcCourseClassRequest) (_result *DeleteBaasEbcCourseClassResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &DeleteAasEbcCourseClassResponse{}
-	_body, _err := client.DeleteAasEbcCourseClassEx(request, runtime)
+	_result = &DeleteBaasEbcCourseClassResponse{}
+	_body, _err := client.DeleteBaasEbcCourseClassEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3771,12 +3978,12 @@ func (client *Client) DeleteAasEbcCourseClass(request *DeleteAasEbcCourseClassRe
  * Description: 删除课程中的班级
  * Summary: 删除课程班级
  */
-func (client *Client) DeleteAasEbcCourseClassEx(request *DeleteAasEbcCourseClassRequest, runtime *util.RuntimeOptions) (_result *DeleteAasEbcCourseClassResponse, _err error) {
+func (client *Client) DeleteBaasEbcCourseClassEx(request *DeleteBaasEbcCourseClassRequest, runtime *util.RuntimeOptions) (_result *DeleteBaasEbcCourseClassResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &DeleteAasEbcCourseClassResponse{}
+	_result = &DeleteBaasEbcCourseClassResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.class.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3789,10 +3996,10 @@ func (client *Client) DeleteAasEbcCourseClassEx(request *DeleteAasEbcCourseClass
  * Description: 删除课程中的学员
  * Summary: 删除课程学员
  */
-func (client *Client) DeleteAasEbcCourseUser(request *DeleteAasEbcCourseUserRequest) (_result *DeleteAasEbcCourseUserResponse, _err error) {
+func (client *Client) DeleteBaasEbcCourseUser(request *DeleteBaasEbcCourseUserRequest) (_result *DeleteBaasEbcCourseUserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &DeleteAasEbcCourseUserResponse{}
-	_body, _err := client.DeleteAasEbcCourseUserEx(request, runtime)
+	_result = &DeleteBaasEbcCourseUserResponse{}
+	_body, _err := client.DeleteBaasEbcCourseUserEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3804,12 +4011,12 @@ func (client *Client) DeleteAasEbcCourseUser(request *DeleteAasEbcCourseUserRequ
  * Description: 删除课程中的学员
  * Summary: 删除课程学员
  */
-func (client *Client) DeleteAasEbcCourseUserEx(request *DeleteAasEbcCourseUserRequest, runtime *util.RuntimeOptions) (_result *DeleteAasEbcCourseUserResponse, _err error) {
+func (client *Client) DeleteBaasEbcCourseUserEx(request *DeleteBaasEbcCourseUserRequest, runtime *util.RuntimeOptions) (_result *DeleteBaasEbcCourseUserResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &DeleteAasEbcCourseUserResponse{}
+	_result = &DeleteBaasEbcCourseUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.user.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3822,10 +4029,10 @@ func (client *Client) DeleteAasEbcCourseUserEx(request *DeleteAasEbcCourseUserRe
  * Description: 发布证书
  * Summary: 发布证书
  */
-func (client *Client) CreateAasEbcUserCert(request *CreateAasEbcUserCertRequest) (_result *CreateAasEbcUserCertResponse, _err error) {
+func (client *Client) CreateBaasEbcUserCert(request *CreateBaasEbcUserCertRequest) (_result *CreateBaasEbcUserCertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcUserCertResponse{}
-	_body, _err := client.CreateAasEbcUserCertEx(request, runtime)
+	_result = &CreateBaasEbcUserCertResponse{}
+	_body, _err := client.CreateBaasEbcUserCertEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3837,12 +4044,12 @@ func (client *Client) CreateAasEbcUserCert(request *CreateAasEbcUserCertRequest)
  * Description: 发布证书
  * Summary: 发布证书
  */
-func (client *Client) CreateAasEbcUserCertEx(request *CreateAasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcUserCertResponse, _err error) {
+func (client *Client) CreateBaasEbcUserCertEx(request *CreateBaasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcUserCertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcUserCertResponse{}
+	_result = &CreateBaasEbcUserCertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.user.cert.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3855,10 +4062,10 @@ func (client *Client) CreateAasEbcUserCertEx(request *CreateAasEbcUserCertReques
  * Description: 更新证书
  * Summary: 更新证书
  */
-func (client *Client) UpdateAasEbcUserCert(request *UpdateAasEbcUserCertRequest) (_result *UpdateAasEbcUserCertResponse, _err error) {
+func (client *Client) UpdateBaasEbcUserCert(request *UpdateBaasEbcUserCertRequest) (_result *UpdateBaasEbcUserCertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcUserCertResponse{}
-	_body, _err := client.UpdateAasEbcUserCertEx(request, runtime)
+	_result = &UpdateBaasEbcUserCertResponse{}
+	_body, _err := client.UpdateBaasEbcUserCertEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3870,12 +4077,12 @@ func (client *Client) UpdateAasEbcUserCert(request *UpdateAasEbcUserCertRequest)
  * Description: 更新证书
  * Summary: 更新证书
  */
-func (client *Client) UpdateAasEbcUserCertEx(request *UpdateAasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcUserCertResponse, _err error) {
+func (client *Client) UpdateBaasEbcUserCertEx(request *UpdateBaasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcUserCertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcUserCertResponse{}
+	_result = &UpdateBaasEbcUserCertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.user.cert.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3888,10 +4095,10 @@ func (client *Client) UpdateAasEbcUserCertEx(request *UpdateAasEbcUserCertReques
  * Description: 查询证书
  * Summary: 查询企业证书
  */
-func (client *Client) QueryAasEbcOrganizationCert(request *QueryAasEbcOrganizationCertRequest) (_result *QueryAasEbcOrganizationCertResponse, _err error) {
+func (client *Client) QueryBaasEbcOrganizationCert(request *QueryBaasEbcOrganizationCertRequest) (_result *QueryBaasEbcOrganizationCertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcOrganizationCertResponse{}
-	_body, _err := client.QueryAasEbcOrganizationCertEx(request, runtime)
+	_result = &QueryBaasEbcOrganizationCertResponse{}
+	_body, _err := client.QueryBaasEbcOrganizationCertEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3903,12 +4110,12 @@ func (client *Client) QueryAasEbcOrganizationCert(request *QueryAasEbcOrganizati
  * Description: 查询证书
  * Summary: 查询企业证书
  */
-func (client *Client) QueryAasEbcOrganizationCertEx(request *QueryAasEbcOrganizationCertRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcOrganizationCertResponse, _err error) {
+func (client *Client) QueryBaasEbcOrganizationCertEx(request *QueryBaasEbcOrganizationCertRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcOrganizationCertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcOrganizationCertResponse{}
+	_result = &QueryBaasEbcOrganizationCertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.cert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3921,10 +4128,10 @@ func (client *Client) QueryAasEbcOrganizationCertEx(request *QueryAasEbcOrganiza
  * Description: 查询用户证书
  * Summary: 查询用户证书
  */
-func (client *Client) QueryAasEbcUserCert(request *QueryAasEbcUserCertRequest) (_result *QueryAasEbcUserCertResponse, _err error) {
+func (client *Client) QueryBaasEbcUserCert(request *QueryBaasEbcUserCertRequest) (_result *QueryBaasEbcUserCertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcUserCertResponse{}
-	_body, _err := client.QueryAasEbcUserCertEx(request, runtime)
+	_result = &QueryBaasEbcUserCertResponse{}
+	_body, _err := client.QueryBaasEbcUserCertEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3936,12 +4143,12 @@ func (client *Client) QueryAasEbcUserCert(request *QueryAasEbcUserCertRequest) (
  * Description: 查询用户证书
  * Summary: 查询用户证书
  */
-func (client *Client) QueryAasEbcUserCertEx(request *QueryAasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcUserCertResponse, _err error) {
+func (client *Client) QueryBaasEbcUserCertEx(request *QueryBaasEbcUserCertRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcUserCertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcUserCertResponse{}
+	_result = &QueryBaasEbcUserCertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.user.cert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3954,10 +4161,10 @@ func (client *Client) QueryAasEbcUserCertEx(request *QueryAasEbcUserCertRequest,
  * Description: 证书明细查询
  * Summary: 证书明细查询
  */
-func (client *Client) QueryAasEbcCert(request *QueryAasEbcCertRequest) (_result *QueryAasEbcCertResponse, _err error) {
+func (client *Client) QueryBaasEbcCert(request *QueryBaasEbcCertRequest) (_result *QueryBaasEbcCertResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcCertResponse{}
-	_body, _err := client.QueryAasEbcCertEx(request, runtime)
+	_result = &QueryBaasEbcCertResponse{}
+	_body, _err := client.QueryBaasEbcCertEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -3969,12 +4176,12 @@ func (client *Client) QueryAasEbcCert(request *QueryAasEbcCertRequest) (_result 
  * Description: 证书明细查询
  * Summary: 证书明细查询
  */
-func (client *Client) QueryAasEbcCertEx(request *QueryAasEbcCertRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcCertResponse, _err error) {
+func (client *Client) QueryBaasEbcCertEx(request *QueryBaasEbcCertRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcCertResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcCertResponse{}
+	_result = &QueryBaasEbcCertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.cert.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -3989,10 +4196,10 @@ func (client *Client) QueryAasEbcCertEx(request *QueryAasEbcCertRequest, runtime
 文件最大5M
  * Summary: 申请证书信息上传url
 */
-func (client *Client) ApplyAasEbcCertUrl(request *ApplyAasEbcCertUrlRequest) (_result *ApplyAasEbcCertUrlResponse, _err error) {
+func (client *Client) ApplyBaasEbcCertUrl(request *ApplyBaasEbcCertUrlRequest) (_result *ApplyBaasEbcCertUrlResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &ApplyAasEbcCertUrlResponse{}
-	_body, _err := client.ApplyAasEbcCertUrlEx(request, runtime)
+	_result = &ApplyBaasEbcCertUrlResponse{}
+	_body, _err := client.ApplyBaasEbcCertUrlEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4006,12 +4213,12 @@ func (client *Client) ApplyAasEbcCertUrl(request *ApplyAasEbcCertUrlRequest) (_r
 文件最大5M
  * Summary: 申请证书信息上传url
 */
-func (client *Client) ApplyAasEbcCertUrlEx(request *ApplyAasEbcCertUrlRequest, runtime *util.RuntimeOptions) (_result *ApplyAasEbcCertUrlResponse, _err error) {
+func (client *Client) ApplyBaasEbcCertUrlEx(request *ApplyBaasEbcCertUrlRequest, runtime *util.RuntimeOptions) (_result *ApplyBaasEbcCertUrlResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ApplyAasEbcCertUrlResponse{}
+	_result = &ApplyBaasEbcCertUrlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.cert.url.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -4024,10 +4231,10 @@ func (client *Client) ApplyAasEbcCertUrlEx(request *ApplyAasEbcCertUrlRequest, r
  * Description: 新增授权关系，仅限联盟管理员调用
  * Summary: 新增授权关系
  */
-func (client *Client) CreateAasEbcAuth(request *CreateAasEbcAuthRequest) (_result *CreateAasEbcAuthResponse, _err error) {
+func (client *Client) CreateBaasEbcAuth(request *CreateBaasEbcAuthRequest) (_result *CreateBaasEbcAuthResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &CreateAasEbcAuthResponse{}
-	_body, _err := client.CreateAasEbcAuthEx(request, runtime)
+	_result = &CreateBaasEbcAuthResponse{}
+	_body, _err := client.CreateBaasEbcAuthEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4039,12 +4246,12 @@ func (client *Client) CreateAasEbcAuth(request *CreateAasEbcAuthRequest) (_resul
  * Description: 新增授权关系，仅限联盟管理员调用
  * Summary: 新增授权关系
  */
-func (client *Client) CreateAasEbcAuthEx(request *CreateAasEbcAuthRequest, runtime *util.RuntimeOptions) (_result *CreateAasEbcAuthResponse, _err error) {
+func (client *Client) CreateBaasEbcAuthEx(request *CreateBaasEbcAuthRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcAuthResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CreateAasEbcAuthResponse{}
+	_result = &CreateBaasEbcAuthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.auth.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -4057,10 +4264,10 @@ func (client *Client) CreateAasEbcAuthEx(request *CreateAasEbcAuthRequest, runti
  * Description: 更新授权关系，仅限联盟管理员调用
  * Summary: 更新授权关系
  */
-func (client *Client) UpdateAasEbcAuth(request *UpdateAasEbcAuthRequest) (_result *UpdateAasEbcAuthResponse, _err error) {
+func (client *Client) UpdateBaasEbcAuth(request *UpdateBaasEbcAuthRequest) (_result *UpdateBaasEbcAuthResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcAuthResponse{}
-	_body, _err := client.UpdateAasEbcAuthEx(request, runtime)
+	_result = &UpdateBaasEbcAuthResponse{}
+	_body, _err := client.UpdateBaasEbcAuthEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4072,12 +4279,12 @@ func (client *Client) UpdateAasEbcAuth(request *UpdateAasEbcAuthRequest) (_resul
  * Description: 更新授权关系，仅限联盟管理员调用
  * Summary: 更新授权关系
  */
-func (client *Client) UpdateAasEbcAuthEx(request *UpdateAasEbcAuthRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcAuthResponse, _err error) {
+func (client *Client) UpdateBaasEbcAuthEx(request *UpdateBaasEbcAuthRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcAuthResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcAuthResponse{}
+	_result = &UpdateBaasEbcAuthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.auth.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -4090,10 +4297,10 @@ func (client *Client) UpdateAasEbcAuthEx(request *UpdateAasEbcAuthRequest, runti
  * Description: 更新授权关系状态，仅限联盟管理员调用
  * Summary: 更新授权关系状态
  */
-func (client *Client) UpdateAasEbcAuthStatus(request *UpdateAasEbcAuthStatusRequest) (_result *UpdateAasEbcAuthStatusResponse, _err error) {
+func (client *Client) UpdateBaasEbcAuthStatus(request *UpdateBaasEbcAuthStatusRequest) (_result *UpdateBaasEbcAuthStatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcAuthStatusResponse{}
-	_body, _err := client.UpdateAasEbcAuthStatusEx(request, runtime)
+	_result = &UpdateBaasEbcAuthStatusResponse{}
+	_body, _err := client.UpdateBaasEbcAuthStatusEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4105,12 +4312,12 @@ func (client *Client) UpdateAasEbcAuthStatus(request *UpdateAasEbcAuthStatusRequ
  * Description: 更新授权关系状态，仅限联盟管理员调用
  * Summary: 更新授权关系状态
  */
-func (client *Client) UpdateAasEbcAuthStatusEx(request *UpdateAasEbcAuthStatusRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcAuthStatusResponse, _err error) {
+func (client *Client) UpdateBaasEbcAuthStatusEx(request *UpdateBaasEbcAuthStatusRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcAuthStatusResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcAuthStatusResponse{}
+	_result = &UpdateBaasEbcAuthStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.auth.status.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -4123,10 +4330,10 @@ func (client *Client) UpdateAasEbcAuthStatusEx(request *UpdateAasEbcAuthStatusRe
  * Description: 更新数据价值
  * Summary: 更新数据价值
  */
-func (client *Client) UpdateAasEbcDataPrice(request *UpdateAasEbcDataPriceRequest) (_result *UpdateAasEbcDataPriceResponse, _err error) {
+func (client *Client) UpdateBaasEbcDataPrice(request *UpdateBaasEbcDataPriceRequest) (_result *UpdateBaasEbcDataPriceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &UpdateAasEbcDataPriceResponse{}
-	_body, _err := client.UpdateAasEbcDataPriceEx(request, runtime)
+	_result = &UpdateBaasEbcDataPriceResponse{}
+	_body, _err := client.UpdateBaasEbcDataPriceEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4138,12 +4345,12 @@ func (client *Client) UpdateAasEbcDataPrice(request *UpdateAasEbcDataPriceReques
  * Description: 更新数据价值
  * Summary: 更新数据价值
  */
-func (client *Client) UpdateAasEbcDataPriceEx(request *UpdateAasEbcDataPriceRequest, runtime *util.RuntimeOptions) (_result *UpdateAasEbcDataPriceResponse, _err error) {
+func (client *Client) UpdateBaasEbcDataPriceEx(request *UpdateBaasEbcDataPriceRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcDataPriceResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateAasEbcDataPriceResponse{}
+	_result = &UpdateBaasEbcDataPriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.data.price.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
@@ -4156,10 +4363,10 @@ func (client *Client) UpdateAasEbcDataPriceEx(request *UpdateAasEbcDataPriceRequ
  * Description: 查询消费者消费金额
  * Summary: 查询消费者消费金额
  */
-func (client *Client) QueryAasEbcConsumptionAmount(request *QueryAasEbcConsumptionAmountRequest) (_result *QueryAasEbcConsumptionAmountResponse, _err error) {
+func (client *Client) QueryBaasEbcConsumptionAmount(request *QueryBaasEbcConsumptionAmountRequest) (_result *QueryBaasEbcConsumptionAmountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
-	_result = &QueryAasEbcConsumptionAmountResponse{}
-	_body, _err := client.QueryAasEbcConsumptionAmountEx(request, runtime)
+	_result = &QueryBaasEbcConsumptionAmountResponse{}
+	_body, _err := client.QueryBaasEbcConsumptionAmountEx(request, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4171,12 +4378,12 @@ func (client *Client) QueryAasEbcConsumptionAmount(request *QueryAasEbcConsumpti
  * Description: 查询消费者消费金额
  * Summary: 查询消费者消费金额
  */
-func (client *Client) QueryAasEbcConsumptionAmountEx(request *QueryAasEbcConsumptionAmountRequest, runtime *util.RuntimeOptions) (_result *QueryAasEbcConsumptionAmountResponse, _err error) {
+func (client *Client) QueryBaasEbcConsumptionAmountEx(request *QueryBaasEbcConsumptionAmountRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcConsumptionAmountResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAasEbcConsumptionAmountResponse{}
+	_result = &QueryBaasEbcConsumptionAmountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.consumption.amount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err

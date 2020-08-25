@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/EBC
+module github.com/antchain-openapi-sdk-go/ebc
 
 require (
 	github.com/antchain-openapi-sdk-go/antchain-util v0.0.1
