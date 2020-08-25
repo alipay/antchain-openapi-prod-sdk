@@ -1,26 +1,42 @@
+# -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
 
-"""
-Model for initing client
-"""
-
 
 class Config(TeaModel):
-    def __init__(self, access_key_id=None, access_key_secret=None, security_token=None, protocol=None, read_timeout=None, connect_timeout=None, http_proxy=None, https_proxy=None, endpoint=None, no_proxy=None, max_idle_conns=None, user_agent=None, socks_5proxy=None, socks_5net_work=None):
+    """
+    Model for initing client
+    """
+    def __init__(self, access_key_id=None, access_key_secret=None, security_token=None, protocol=None,
+                 read_timeout=None, connect_timeout=None, http_proxy=None, https_proxy=None, endpoint=None, no_proxy=None,
+                 max_idle_conns=None, user_agent=None, socks_5proxy=None, socks_5net_work=None):
+        # accesskey id
         self.access_key_id = access_key_id
+        # accesskey secret
         self.access_key_secret = access_key_secret
+        # security token
         self.security_token = security_token
+        # http protocol
         self.protocol = protocol
+        # read timeout
         self.read_timeout = read_timeout
+        # connect timeout
         self.connect_timeout = connect_timeout
+        # http proxy
         self.http_proxy = http_proxy
+        # https proxy
         self.https_proxy = https_proxy
+        # endpoint
         self.endpoint = endpoint
+        # proxy white list
         self.no_proxy = no_proxy
+        # max idle conns
         self.max_idle_conns = max_idle_conns
+        # user agent
         self.user_agent = user_agent
+        # socks5 proxy
         self.socks_5proxy = socks_5proxy
+        # socks5 network
         self.socks_5net_work = socks_5net_work
 
     def validate(self):
@@ -63,49 +79,22 @@ class Config(TeaModel):
 
 
 class Cert(TeaModel):
-    # 证书编号
-    # 时间周期结束时间
-    # 证书id
-    # 证书名称-中文
-    # 证书名称-英文（拼音）
-    # 首次发布时间
-    # 时间周期开始时间
-    # 1-有效
-    # 2-冻结
-    # 3-失效
-    # 4-作废
-    # 5-其他
-    # 实体证书图片url
-    # 证书归属国家
-    # 使用“ISO 3166-1”代码表-数字码
-    # https://zh.wikipedia.org/wiki/ISO_3166-1
-    # 1.长期有效
-    # 2.时间周期
-    # 其他信息文件url
-    # 持有人的人脸图像url
-    # 证书持有人姓名
-    # 证书等级类型：
-    # 初级（五级）、中级（四级）、高级（三级）、技师（二级）和高级技师（一级）、其他
-    # 企业did
-    # 企业名称
-    # 证书持有人id
-    # 持有人主证件编号，无身份证的个人使用0000000000000000
-    # 持有人辅助证件编号-1
-    # 持有人辅助证件编号-2
-    # 持有人辅助证件编号-3
-    # -数字码类型为156时可使用如下类目：
-    # --学历证书-XLZ
-    # --职业证书--ZYZ
-    # -其他国家传入--QT
-    def __init__(self, cert_code=None, cert_end_time=None, cert_id=None, cert_name_cn=None, cert_name_en=None, cert_publish_time=None, cert_start_time=None, cert_status=None, cert_url=None, country=None, expire_type=None, feature_url=None, holder_avatar=None, holder_name=None, level=None, org_did=None, org_name=None, org_user_id=None, primary_id_no=None, second_id_no_1=None, second_id_no_2=None, second_id_no_3=None, type=None):
+    def __init__(self, cert_code=None, cert_description=None, cert_end_time=None, cert_id=None, cert_name_cn=None,
+                 cert_name_en=None, cert_publish_time=None, cert_publish_time_zone=None, cert_start_time=None, cert_status=None,
+                 cert_summary=None, cert_url=None, country=None, expire_type=None, feature_url=None, holder_avatar=None,
+                 holder_name=None, level=None, org_did=None, org_name=None, org_user_id=None, primary_id_no=None,
+                 second_id_no_1=None, second_id_no_2=None, second_id_no_3=None, type=None):
         self.cert_code = cert_code
+        self.cert_description = cert_description
         self.cert_end_time = cert_end_time
         self.cert_id = cert_id
         self.cert_name_cn = cert_name_cn
         self.cert_name_en = cert_name_en
         self.cert_publish_time = cert_publish_time
+        self.cert_publish_time_zone = cert_publish_time_zone
         self.cert_start_time = cert_start_time
         self.cert_status = cert_status
+        self.cert_summary = cert_summary
         self.cert_url = cert_url
         self.country = country
         self.expire_type = expire_type
@@ -124,54 +113,57 @@ class Cert(TeaModel):
 
     def validate(self):
         if self.cert_code:
-            self.validate_max_length(cert_code, 'cert_code', 64)
+            self.validate_max_length(self.cert_code, 'cert_code', 64)
         if self.cert_end_time:
-            self.validate_pattern(cert_end_time, 'cert_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_end_time, 'cert_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.cert_id:
-            self.validate_max_length(cert_id, 'cert_id', 128)
+            self.validate_max_length(self.cert_id, 'cert_id', 128)
         if self.cert_name_cn:
-            self.validate_max_length(cert_name_cn, 'cert_name_cn', 64)
+            self.validate_max_length(self.cert_name_cn, 'cert_name_cn', 64)
         if self.cert_publish_time:
-            self.validate_pattern(cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.cert_start_time:
-            self.validate_pattern(cert_start_time, 'cert_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_start_time, 'cert_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.cert_url:
-            self.validate_max_length(cert_url, 'cert_url', 256)
+            self.validate_max_length(self.cert_url, 'cert_url', 256)
         if self.country:
-            self.validate_max_length(country, 'country', 32)
+            self.validate_max_length(self.country, 'country', 32)
         if self.feature_url:
-            self.validate_max_length(feature_url, 'feature_url', 512)
+            self.validate_max_length(self.feature_url, 'feature_url', 512)
         if self.holder_avatar:
-            self.validate_max_length(holder_avatar, 'holder_avatar', 256)
+            self.validate_max_length(self.holder_avatar, 'holder_avatar', 256)
         if self.holder_name:
-            self.validate_max_length(holder_name, 'holder_name', 64)
+            self.validate_max_length(self.holder_name, 'holder_name', 64)
         if self.level:
-            self.validate_max_length(level, 'level', 32)
+            self.validate_max_length(self.level, 'level', 32)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_name:
-            self.validate_max_length(org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 64)
         if self.org_user_id:
-            self.validate_max_length(org_user_id, 'org_user_id', 128)
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
         if self.primary_id_no:
-            self.validate_max_length(primary_id_no, 'primary_id_no', 64)
+            self.validate_max_length(self.primary_id_no, 'primary_id_no', 64)
         if self.second_id_no_1:
-            self.validate_max_length(second_id_no_1, 'second_id_no_1', 64)
+            self.validate_max_length(self.second_id_no_1, 'second_id_no_1', 64)
         if self.second_id_no_2:
-            self.validate_max_length(second_id_no_2, 'second_id_no_2', 64)
+            self.validate_max_length(self.second_id_no_2, 'second_id_no_2', 64)
         if self.second_id_no_3:
-            self.validate_max_length(second_id_no_3, 'second_id_no_3', 64)
+            self.validate_max_length(self.second_id_no_3, 'second_id_no_3', 64)
 
     def to_map(self):
         result = {}
         result['cert_code'] = self.cert_code
+        result['cert_description'] = self.cert_description
         result['cert_end_time'] = self.cert_end_time
         result['cert_id'] = self.cert_id
         result['cert_name_cn'] = self.cert_name_cn
         result['cert_name_en'] = self.cert_name_en
         result['cert_publish_time'] = self.cert_publish_time
+        result['cert_publish_time_zone'] = self.cert_publish_time_zone
         result['cert_start_time'] = self.cert_start_time
         result['cert_status'] = self.cert_status
+        result['cert_summary'] = self.cert_summary
         result['cert_url'] = self.cert_url
         result['country'] = self.country
         result['expire_type'] = self.expire_type
@@ -191,13 +183,16 @@ class Cert(TeaModel):
 
     def from_map(self, map={}):
         self.cert_code = map.get('cert_code')
+        self.cert_description = map.get('cert_description')
         self.cert_end_time = map.get('cert_end_time')
         self.cert_id = map.get('cert_id')
         self.cert_name_cn = map.get('cert_name_cn')
         self.cert_name_en = map.get('cert_name_en')
         self.cert_publish_time = map.get('cert_publish_time')
+        self.cert_publish_time_zone = map.get('cert_publish_time_zone')
         self.cert_start_time = map.get('cert_start_time')
         self.cert_status = map.get('cert_status')
+        self.cert_summary = map.get('cert_summary')
         self.cert_url = map.get('cert_url')
         self.country = map.get('country')
         self.expire_type = map.get('expire_type')
@@ -217,17 +212,15 @@ class Cert(TeaModel):
 
 
 class OrgUser(TeaModel):
-    # 企业did
-    # 企业用户id
     def __init__(self, org_did=None, org_user_id=None):
         self.org_did = org_did
         self.org_user_id = org_user_id
 
     def validate(self):
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_id:
-            self.validate_max_length(org_user_id, 'org_user_id', 128)
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
 
     def to_map(self):
         result = {}
@@ -241,18 +234,37 @@ class OrgUser(TeaModel):
         return self
 
 
-class Class_(TeaModel):
-    # 班级id
-    # 企业did
+class PrivacyDesc(TeaModel):
+    def __init__(self, attribute_name=None, privacy_level=None):
+        self.attribute_name = attribute_name
+        self.privacy_level = privacy_level
+
+    def validate(self):
+        if self.attribute_name:
+            self.validate_max_length(self.attribute_name, 'attribute_name', 64)
+
+    def to_map(self):
+        result = {}
+        result['attribute_name'] = self.attribute_name
+        result['privacy_level'] = self.privacy_level
+        return result
+
+    def from_map(self, map={}):
+        self.attribute_name = map.get('attribute_name')
+        self.privacy_level = map.get('privacy_level')
+        return self
+
+
+class Class(TeaModel):
     def __init__(self, class_id=None, org_did=None):
         self.class_id = class_id
         self.org_did = org_did
 
     def validate(self):
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -266,44 +278,49 @@ class Class_(TeaModel):
         return self
 
 
-class AttributeDesc(TeaModel):
-    # 属性名称
-    # 是否托管
-    # 注：非托管的数据不支持被动消费，只支持主动消费，目前系统尚不支持主动消费
-    # 是否公开
-    # 隐私等级
-    # 1级数据可以全量明文查询
-    # 2级数据仅可以通过数据比较查询
-    # 注：目前系统尚不支持隐私等级2的对比查询
-    def __init__(self, attribute_name=None, is_proxy=None, is_public=None, privacy_level=None):
+class ProxyDesc(TeaModel):
+    def __init__(self, attribute_name=None, is_proxy=None):
         self.attribute_name = attribute_name
         self.is_proxy = is_proxy
-        self.is_public = is_public
-        self.privacy_level = privacy_level
 
     def validate(self):
         if self.attribute_name:
-            self.validate_max_length(attribute_name, 'attribute_name', 64)
+            self.validate_max_length(self.attribute_name, 'attribute_name', 64)
 
     def to_map(self):
         result = {}
         result['attribute_name'] = self.attribute_name
         result['is_proxy'] = self.is_proxy
-        result['is_public'] = self.is_public
-        result['privacy_level'] = self.privacy_level
         return result
 
     def from_map(self, map={}):
         self.attribute_name = map.get('attribute_name')
         self.is_proxy = map.get('is_proxy')
-        self.is_public = map.get('is_public')
-        self.privacy_level = map.get('privacy_level')
         return self
 
 
-class CreateAasEbcOrganizationRequest(TeaModel):
-    # 企业码
-    # 企业名称
+class PublicDesc(TeaModel):
+    def __init__(self, attribute_name=None, is_public=None):
+        self.attribute_name = attribute_name
+        self.is_public = is_public
+
+    def validate(self):
+        if self.attribute_name:
+            self.validate_max_length(self.attribute_name, 'attribute_name', 64)
+
+    def to_map(self):
+        result = {}
+        result['attribute_name'] = self.attribute_name
+        result['is_public'] = self.is_public
+        return result
+
+    def from_map(self, map={}):
+        self.attribute_name = map.get('attribute_name')
+        self.is_public = map.get('is_public')
+        return self
+
+
+class CreateBaasEbcOrganizationRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, org_code=None, org_name=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -313,9 +330,9 @@ class CreateAasEbcOrganizationRequest(TeaModel):
 
     def validate(self):
         if self.org_code:
-            self.validate_max_length(org_code, 'org_code', 64)
+            self.validate_max_length(self.org_code, 'org_code', 64)
         if self.org_name:
-            self.validate_max_length(org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 64)
 
     def to_map(self):
         result = {}
@@ -335,8 +352,7 @@ class CreateAasEbcOrganizationRequest(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationResponse(TeaModel):
-    # 企业did
+class CreateBaasEbcOrganizationResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, org_did=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -362,85 +378,118 @@ class CreateAasEbcOrganizationResponse(TeaModel):
         return self
 
 
-class CreateAasEbcPersonRequest(TeaModel):
-    # 加密属性描述列表
-    # 
-    # 姓名
-    # 持有人主证件编号，无身份证的个人使用0000000000000000
-    # 请使用我们提供的公钥对数据进行加密
-    # 持有人辅助证件编号-1
-    # 请使用我们提供的公钥对数据进行加密
-    # 持有人辅助证件编号-1
-    # 请使用我们提供的公钥对数据进行加密
-    # 持有人辅助证件编号-3
-    # 请使用我们提供的公钥对数据进行加密
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, attribute_desc_list=None, person_name=None, primary_id_no=None, second_id_no_1=None, second_id_no_2=None, second_id_no_3=None):
+class CreateBaasEbcPersonRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, person_name=None,
+                 primary_id_no=None, privacy_desc_list=None, proxy_desc_list=None, public_desc_list=None, second_id_no_1=None,
+                 second_id_no_2=None, second_id_no_3=None, secret_key=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.attribute_desc_list = []
         self.person_name = person_name
         self.primary_id_no = primary_id_no
+        self.privacy_desc_list = privacy_desc_list
+        self.proxy_desc_list = proxy_desc_list
+        self.public_desc_list = public_desc_list
         self.second_id_no_1 = second_id_no_1
         self.second_id_no_2 = second_id_no_2
         self.second_id_no_3 = second_id_no_3
+        self.secret_key = secret_key
 
     def validate(self):
-        if self.attribute_desc_list:
-            for k in self.attribute_desc_list:
-                if k :
-                    k.validate()
         if self.person_name:
-            self.validate_max_length(person_name, 'person_name', 32)
+            self.validate_max_length(self.person_name, 'person_name', 32)
         if self.primary_id_no:
-            self.validate_max_length(primary_id_no, 'primary_id_no', 1024)
+            self.validate_max_length(self.primary_id_no, 'primary_id_no', 1024)
+        if self.privacy_desc_list:
+            for k in self.privacy_desc_list:
+                if k:
+                    k.validate()
+        if self.proxy_desc_list:
+            for k in self.proxy_desc_list:
+                if k:
+                    k.validate()
+        if self.public_desc_list:
+            for k in self.public_desc_list:
+                if k:
+                    k.validate()
         if self.second_id_no_1:
-            self.validate_max_length(second_id_no_1, 'second_id_no_1', 1024)
+            self.validate_max_length(self.second_id_no_1, 'second_id_no_1', 1024)
         if self.second_id_no_2:
-            self.validate_max_length(second_id_no_2, 'second_id_no_2', 1024)
+            self.validate_max_length(self.second_id_no_2, 'second_id_no_2', 1024)
         if self.second_id_no_3:
-            self.validate_max_length(second_id_no_3, 'second_id_no_3', 1024)
+            self.validate_max_length(self.second_id_no_3, 'second_id_no_3', 1024)
+        if self.secret_key:
+            self.validate_max_length(self.secret_key, 'secret_key', 512)
 
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
-        result['attribute_desc_list'] = []
-        if self.attribute_desc_list is not None:
-            for k in self.attribute_desc_list:
-                result['attribute_desc_list'].append(k.to_map() if k else None)
-        else:
-            result['attribute_desc_list'] = None
         result['person_name'] = self.person_name
         result['primary_id_no'] = self.primary_id_no
+        result['privacy_desc_list'] = []
+        if self.privacy_desc_list is not None:
+            for k in self.privacy_desc_list:
+                result['privacy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['privacy_desc_list'] = None
+        result['proxy_desc_list'] = []
+        if self.proxy_desc_list is not None:
+            for k in self.proxy_desc_list:
+                result['proxy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['proxy_desc_list'] = None
+        result['public_desc_list'] = []
+        if self.public_desc_list is not None:
+            for k in self.public_desc_list:
+                result['public_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['public_desc_list'] = None
         result['second_id_no_1'] = self.second_id_no_1
         result['second_id_no_2'] = self.second_id_no_2
         result['second_id_no_3'] = self.second_id_no_3
+        result['secret_key'] = self.secret_key
         return result
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
-        self.attribute_desc_list = []
-        if map.get('attribute_desc_list') is not None:
-            for k in map.get('attribute_desc_list'):
-                temp_model = AttributeDesc()
-                temp_model = temp_model.from_map(k)
-                self.attribute_desc_list.append(temp_model)
-        else:
-            self.attribute_desc_list = None
         self.person_name = map.get('person_name')
         self.primary_id_no = map.get('primary_id_no')
+        self.privacy_desc_list = []
+        if map.get('privacy_desc_list') is not None:
+            for k in map.get('privacy_desc_list'):
+                temp_model = PrivacyDesc()
+                temp_model = temp_model.from_map(k)
+                self.privacy_desc_list.append(temp_model)
+        else:
+            self.privacy_desc_list = None
+        self.proxy_desc_list = []
+        if map.get('proxy_desc_list') is not None:
+            for k in map.get('proxy_desc_list'):
+                temp_model = ProxyDesc()
+                temp_model = temp_model.from_map(k)
+                self.proxy_desc_list.append(temp_model)
+        else:
+            self.proxy_desc_list = None
+        self.public_desc_list = []
+        if map.get('public_desc_list') is not None:
+            for k in map.get('public_desc_list'):
+                temp_model = PublicDesc()
+                temp_model = temp_model.from_map(k)
+                self.public_desc_list.append(temp_model)
+        else:
+            self.public_desc_list = None
         self.second_id_no_1 = map.get('second_id_no_1')
         self.second_id_no_2 = map.get('second_id_no_2')
         self.second_id_no_3 = map.get('second_id_no_3')
+        self.secret_key = map.get('secret_key')
         return self
 
 
-class CreateAasEbcPersonResponse(TeaModel):
-    # 个人id
+class CreateBaasEbcPersonResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, person_did=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -466,11 +515,9 @@ class CreateAasEbcPersonResponse(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationUserRequest(TeaModel):
-    # 企业id
-    # 个人id
-    # 机构内部用户工号
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, org_did=None, person_did=None, uid=None):
+class CreateBaasEbcOrganizationUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, org_did=None, person_did=None,
+                 uid=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -480,11 +527,11 @@ class CreateAasEbcOrganizationUserRequest(TeaModel):
 
     def validate(self):
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.person_did:
-            self.validate_max_length(person_did, 'person_did', 128)
+            self.validate_max_length(self.person_did, 'person_did', 128)
         if self.uid:
-            self.validate_max_length(uid, 'uid', 64)
+            self.validate_max_length(self.uid, 'uid', 64)
 
     def to_map(self):
         result = {}
@@ -506,8 +553,7 @@ class CreateAasEbcOrganizationUserRequest(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationUserResponse(TeaModel):
-    # 机构内用户id
+class CreateBaasEbcOrganizationUserResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, org_user_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -533,8 +579,7 @@ class CreateAasEbcOrganizationUserResponse(TeaModel):
         return self
 
 
-class CancelAasEbcPersonRequest(TeaModel):
-    # 个人id
+class CancelBaasEbcPersonRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, person_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -543,7 +588,7 @@ class CancelAasEbcPersonRequest(TeaModel):
 
     def validate(self):
         if self.person_did:
-            self.validate_max_length(person_did, 'person_did', 128)
+            self.validate_max_length(self.person_did, 'person_did', 128)
 
     def to_map(self):
         result = {}
@@ -561,7 +606,7 @@ class CancelAasEbcPersonRequest(TeaModel):
         return self
 
 
-class CancelAasEbcPersonResponse(TeaModel):
+class CancelBaasEbcPersonResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -584,8 +629,7 @@ class CancelAasEbcPersonResponse(TeaModel):
         return self
 
 
-class ResumeAasEbcPersonRequest(TeaModel):
-    # 个人did
+class ResumeBaasEbcPersonRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, person_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -594,7 +638,7 @@ class ResumeAasEbcPersonRequest(TeaModel):
 
     def validate(self):
         if self.person_did:
-            self.validate_max_length(person_did, 'person_did', 128)
+            self.validate_max_length(self.person_did, 'person_did', 128)
 
     def to_map(self):
         result = {}
@@ -612,7 +656,7 @@ class ResumeAasEbcPersonRequest(TeaModel):
         return self
 
 
-class ResumeAasEbcPersonResponse(TeaModel):
+class ResumeBaasEbcPersonResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -635,60 +679,79 @@ class ResumeAasEbcPersonResponse(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationClassRequest(TeaModel):
-    # 加密属性描述列表
-    # 
-    # 班级容量
-    # 结束时间
-    # 班级名称
-    # 开始时间
-    # 1:有效、2:暂停、3:失效
-    # 企业id
-    # 1线上、2线下、3混合
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, attribute_desc_list=None, capacity=None, class_end_time=None, class_name=None, class_start_time=None, class_status=None, org_did=None, type=None):
+class CreateBaasEbcOrganizationClassRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, capacity=None,
+                 class_end_time=None, class_name=None, class_start_time=None, class_status=None, org_did=None,
+                 privacy_desc_list=None, proxy_desc_list=None, public_desc_list=None, secret_key=None, type=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.attribute_desc_list = []
         self.capacity = capacity
         self.class_end_time = class_end_time
         self.class_name = class_name
         self.class_start_time = class_start_time
         self.class_status = class_status
         self.org_did = org_did
+        self.privacy_desc_list = privacy_desc_list
+        self.proxy_desc_list = proxy_desc_list
+        self.public_desc_list = public_desc_list
+        self.secret_key = secret_key
         self.type = type
 
     def validate(self):
-        if self.attribute_desc_list:
-            for k in self.attribute_desc_list:
-                if k :
-                    k.validate()
         if self.class_end_time:
-            self.validate_pattern(class_end_time, 'class_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.class_end_time, 'class_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.class_name:
-            self.validate_max_length(class_name, 'class_name', 64)
+            self.validate_max_length(self.class_name, 'class_name', 64)
         if self.class_start_time:
-            self.validate_pattern(class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
+        if self.privacy_desc_list:
+            for k in self.privacy_desc_list:
+                if k:
+                    k.validate()
+        if self.proxy_desc_list:
+            for k in self.proxy_desc_list:
+                if k:
+                    k.validate()
+        if self.public_desc_list:
+            for k in self.public_desc_list:
+                if k:
+                    k.validate()
+        if self.secret_key:
+            self.validate_max_length(self.secret_key, 'secret_key', 512)
 
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
-        result['attribute_desc_list'] = []
-        if self.attribute_desc_list is not None:
-            for k in self.attribute_desc_list:
-                result['attribute_desc_list'].append(k.to_map() if k else None)
-        else:
-            result['attribute_desc_list'] = None
         result['capacity'] = self.capacity
         result['class_end_time'] = self.class_end_time
         result['class_name'] = self.class_name
         result['class_start_time'] = self.class_start_time
         result['class_status'] = self.class_status
         result['org_did'] = self.org_did
+        result['privacy_desc_list'] = []
+        if self.privacy_desc_list is not None:
+            for k in self.privacy_desc_list:
+                result['privacy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['privacy_desc_list'] = None
+        result['proxy_desc_list'] = []
+        if self.proxy_desc_list is not None:
+            for k in self.proxy_desc_list:
+                result['proxy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['proxy_desc_list'] = None
+        result['public_desc_list'] = []
+        if self.public_desc_list is not None:
+            for k in self.public_desc_list:
+                result['public_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['public_desc_list'] = None
+        result['secret_key'] = self.secret_key
         result['type'] = self.type
         return result
 
@@ -696,26 +759,42 @@ class CreateAasEbcOrganizationClassRequest(TeaModel):
         self.auth_token = map.get('auth_token')
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
-        self.attribute_desc_list = []
-        if map.get('attribute_desc_list') is not None:
-            for k in map.get('attribute_desc_list'):
-                temp_model = AttributeDesc()
-                temp_model = temp_model.from_map(k)
-                self.attribute_desc_list.append(temp_model)
-        else:
-            self.attribute_desc_list = None
         self.capacity = map.get('capacity')
         self.class_end_time = map.get('class_end_time')
         self.class_name = map.get('class_name')
         self.class_start_time = map.get('class_start_time')
         self.class_status = map.get('class_status')
         self.org_did = map.get('org_did')
+        self.privacy_desc_list = []
+        if map.get('privacy_desc_list') is not None:
+            for k in map.get('privacy_desc_list'):
+                temp_model = PrivacyDesc()
+                temp_model = temp_model.from_map(k)
+                self.privacy_desc_list.append(temp_model)
+        else:
+            self.privacy_desc_list = None
+        self.proxy_desc_list = []
+        if map.get('proxy_desc_list') is not None:
+            for k in map.get('proxy_desc_list'):
+                temp_model = ProxyDesc()
+                temp_model = temp_model.from_map(k)
+                self.proxy_desc_list.append(temp_model)
+        else:
+            self.proxy_desc_list = None
+        self.public_desc_list = []
+        if map.get('public_desc_list') is not None:
+            for k in map.get('public_desc_list'):
+                temp_model = PublicDesc()
+                temp_model = temp_model.from_map(k)
+                self.public_desc_list.append(temp_model)
+        else:
+            self.public_desc_list = None
+        self.secret_key = map.get('secret_key')
         self.type = map.get('type')
         return self
 
 
-class CreateAasEbcOrganizationClassResponse(TeaModel):
-    # 班级id
+class CreateBaasEbcOrganizationClassResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, class_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -741,21 +820,13 @@ class CreateAasEbcOrganizationClassResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcOrganizationClassRequest(TeaModel):
-    # 加密属性描述列表
-    # 
-    # 容量
-    # 结束时间
-    # 班级id
-    # 班级名称
-    # 开始时间
-    # 1:有效、2:暂停、3:失效
-    # 企业did
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, attribute_desc_list=None, capacity=None, class_end_time=None, class_id=None, class_name=None, class_start_time=None, class_status=None, org_did=None):
+class UpdateBaasEbcOrganizationClassRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, capacity=None,
+                 class_end_time=None, class_id=None, class_name=None, class_start_time=None, class_status=None, org_did=None,
+                 privacy_desc_list=None, proxy_desc_list=None, public_desc_list=None, secret_key=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.attribute_desc_list = []
         self.capacity = capacity
         self.class_end_time = class_end_time
         self.class_id = class_id
@@ -763,34 +834,42 @@ class UpdateAasEbcOrganizationClassRequest(TeaModel):
         self.class_start_time = class_start_time
         self.class_status = class_status
         self.org_did = org_did
+        self.privacy_desc_list = privacy_desc_list
+        self.proxy_desc_list = proxy_desc_list
+        self.public_desc_list = public_desc_list
+        self.secret_key = secret_key
 
     def validate(self):
-        if self.attribute_desc_list:
-            for k in self.attribute_desc_list:
-                if k :
-                    k.validate()
         if self.class_end_time:
-            self.validate_pattern(class_end_time, 'class_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.class_end_time, 'class_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.class_name:
-            self.validate_max_length(class_name, 'class_name', 64)
+            self.validate_max_length(self.class_name, 'class_name', 64)
         if self.class_start_time:
-            self.validate_pattern(class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
+        if self.privacy_desc_list:
+            for k in self.privacy_desc_list:
+                if k:
+                    k.validate()
+        if self.proxy_desc_list:
+            for k in self.proxy_desc_list:
+                if k:
+                    k.validate()
+        if self.public_desc_list:
+            for k in self.public_desc_list:
+                if k:
+                    k.validate()
+        if self.secret_key:
+            self.validate_max_length(self.secret_key, 'secret_key', 512)
 
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
-        result['attribute_desc_list'] = []
-        if self.attribute_desc_list is not None:
-            for k in self.attribute_desc_list:
-                result['attribute_desc_list'].append(k.to_map() if k else None)
-        else:
-            result['attribute_desc_list'] = None
         result['capacity'] = self.capacity
         result['class_end_time'] = self.class_end_time
         result['class_id'] = self.class_id
@@ -798,20 +877,31 @@ class UpdateAasEbcOrganizationClassRequest(TeaModel):
         result['class_start_time'] = self.class_start_time
         result['class_status'] = self.class_status
         result['org_did'] = self.org_did
+        result['privacy_desc_list'] = []
+        if self.privacy_desc_list is not None:
+            for k in self.privacy_desc_list:
+                result['privacy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['privacy_desc_list'] = None
+        result['proxy_desc_list'] = []
+        if self.proxy_desc_list is not None:
+            for k in self.proxy_desc_list:
+                result['proxy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['proxy_desc_list'] = None
+        result['public_desc_list'] = []
+        if self.public_desc_list is not None:
+            for k in self.public_desc_list:
+                result['public_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['public_desc_list'] = None
+        result['secret_key'] = self.secret_key
         return result
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
-        self.attribute_desc_list = []
-        if map.get('attribute_desc_list') is not None:
-            for k in map.get('attribute_desc_list'):
-                temp_model = AttributeDesc()
-                temp_model = temp_model.from_map(k)
-                self.attribute_desc_list.append(temp_model)
-        else:
-            self.attribute_desc_list = None
         self.capacity = map.get('capacity')
         self.class_end_time = map.get('class_end_time')
         self.class_id = map.get('class_id')
@@ -819,10 +909,35 @@ class UpdateAasEbcOrganizationClassRequest(TeaModel):
         self.class_start_time = map.get('class_start_time')
         self.class_status = map.get('class_status')
         self.org_did = map.get('org_did')
+        self.privacy_desc_list = []
+        if map.get('privacy_desc_list') is not None:
+            for k in map.get('privacy_desc_list'):
+                temp_model = PrivacyDesc()
+                temp_model = temp_model.from_map(k)
+                self.privacy_desc_list.append(temp_model)
+        else:
+            self.privacy_desc_list = None
+        self.proxy_desc_list = []
+        if map.get('proxy_desc_list') is not None:
+            for k in map.get('proxy_desc_list'):
+                temp_model = ProxyDesc()
+                temp_model = temp_model.from_map(k)
+                self.proxy_desc_list.append(temp_model)
+        else:
+            self.proxy_desc_list = None
+        self.public_desc_list = []
+        if map.get('public_desc_list') is not None:
+            for k in map.get('public_desc_list'):
+                temp_model = PublicDesc()
+                temp_model = temp_model.from_map(k)
+                self.public_desc_list.append(temp_model)
+        else:
+            self.public_desc_list = None
+        self.secret_key = map.get('secret_key')
         return self
 
 
-class UpdateAasEbcOrganizationClassResponse(TeaModel):
+class UpdateBaasEbcOrganizationClassResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -845,26 +960,24 @@ class UpdateAasEbcOrganizationClassResponse(TeaModel):
         return self
 
 
-class AddAasEbcClassUserRequest(TeaModel):
-    # 班级id
-    # 企业id
-    # 企业用户列表,最多一次传入50个
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None, org_user_list=None):
+class AddBaasEbcClassUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None,
+                 org_user_list=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
         self.class_id = class_id
         self.org_did = org_did
-        self.org_user_list = []
+        self.org_user_list = org_user_list
 
     def validate(self):
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_list:
             for k in self.org_user_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -899,18 +1012,17 @@ class AddAasEbcClassUserRequest(TeaModel):
         return self
 
 
-class AddAasEbcClassUserResponse(TeaModel):
-    # 加入失败的用户列表
+class AddBaasEbcClassUserResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -941,26 +1053,24 @@ class AddAasEbcClassUserResponse(TeaModel):
         return self
 
 
-class DeleteAasEbcClassUserRequest(TeaModel):
-    # 班级id
-    # 企业id
-    # 企业用户列表,最多一次传入50个
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None, org_user_list=None):
+class DeleteBaasEbcClassUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None,
+                 org_user_list=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
         self.class_id = class_id
         self.org_did = org_did
-        self.org_user_list = []
+        self.org_user_list = org_user_list
 
     def validate(self):
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_list:
             for k in self.org_user_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -995,18 +1105,17 @@ class DeleteAasEbcClassUserRequest(TeaModel):
         return self
 
 
-class DeleteAasEbcClassUserResponse(TeaModel):
-    # 删除失败的用户列表
+class DeleteBaasEbcClassUserResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1037,9 +1146,7 @@ class DeleteAasEbcClassUserResponse(TeaModel):
         return self
 
 
-class QueryAasEbcOrganizationClassRequest(TeaModel):
-    # 班级id
-    # 企业did
+class QueryBaasEbcOrganizationClassRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -1049,9 +1156,9 @@ class QueryAasEbcOrganizationClassRequest(TeaModel):
 
     def validate(self):
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1071,15 +1178,9 @@ class QueryAasEbcOrganizationClassRequest(TeaModel):
         return self
 
 
-class QueryAasEbcOrganizationClassResponse(TeaModel):
-    # 班级名称
-    # 1:有效、2:暂停、3:失效
-    # 创建时间
-    # 修改时间
-    # 累计时长
-    # 班级类型：线上、线下、混合
-    # 学员数量
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, class_name=None, class_status=None, create_time=None, modify_time=None, period=None, type=None, user_num=None):
+class QueryBaasEbcOrganizationClassResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, class_name=None, class_status=None,
+                 create_time=None, modify_time=None, period=None, type=None, user_num=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
@@ -1093,9 +1194,9 @@ class QueryAasEbcOrganizationClassResponse(TeaModel):
 
     def validate(self):
         if self.create_time:
-            self.validate_pattern(create_time, 'create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.create_time, 'create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.modify_time:
-            self.validate_pattern(modify_time, 'modify_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.modify_time, 'modify_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
     def to_map(self):
         result = {}
@@ -1125,9 +1226,7 @@ class QueryAasEbcOrganizationClassResponse(TeaModel):
         return self
 
 
-class QueryAasEbcClassUserRequest(TeaModel):
-    # 班级id
-    # 企业did
+class QueryBaasEbcClassUserRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_id=None, org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -1137,9 +1236,9 @@ class QueryAasEbcClassUserRequest(TeaModel):
 
     def validate(self):
         if self.class_id:
-            self.validate_max_length(class_id, 'class_id', 128)
+            self.validate_max_length(self.class_id, 'class_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1159,16 +1258,14 @@ class QueryAasEbcClassUserRequest(TeaModel):
         return self
 
 
-class QueryAasEbcClassUserResponse(TeaModel):
-    # 班级名称
-    # 企业用户id列表
-    # 学员数量
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, class_name=None, org_user_id_list=None, user_num=None):
+class QueryBaasEbcClassUserResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, class_name=None, org_user_id_list=None,
+                 user_num=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
         self.class_name = class_name
-        self.org_user_id_list = []
+        self.org_user_id_list = org_user_id_list
         self.user_num = user_num
 
     def validate(self):
@@ -1204,13 +1301,9 @@ class QueryAasEbcClassUserResponse(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationCourseRequest(TeaModel):
-    # 课程结束时间
-    # 课程名称
-    # 课程开始时间
-    # 企业did
-    # 课程时长
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_end_time=None, course_name=None, course_start_time=None, org_did=None, period=None):
+class CreateBaasEbcOrganizationCourseRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_end_time=None,
+                 course_name=None, course_start_time=None, org_did=None, period=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -1222,13 +1315,13 @@ class CreateAasEbcOrganizationCourseRequest(TeaModel):
 
     def validate(self):
         if self.course_end_time:
-            self.validate_pattern(course_end_time, 'course_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.course_end_time, 'course_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.course_name:
-            self.validate_max_length(course_name, 'course_name', 64)
+            self.validate_max_length(self.course_name, 'course_name', 64)
         if self.course_start_time:
-            self.validate_pattern(course_start_time, 'course_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.course_start_time, 'course_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1254,8 +1347,7 @@ class CreateAasEbcOrganizationCourseRequest(TeaModel):
         return self
 
 
-class CreateAasEbcOrganizationCourseResponse(TeaModel):
-    # 课程did
+class CreateBaasEbcOrganizationCourseResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, course_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -1281,14 +1373,9 @@ class CreateAasEbcOrganizationCourseResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcOrganizationCourseRequest(TeaModel):
-    # 课程结束时间
-    # 课程id
-    # 课程名称
-    # 课程开始时间
-    # 企业id
-    # 课程时长
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_end_time=None, course_id=None, course_name=None, course_start_time=None, org_did=None, period=None):
+class UpdateBaasEbcOrganizationCourseRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_end_time=None,
+                 course_id=None, course_name=None, course_start_time=None, org_did=None, period=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -1301,15 +1388,15 @@ class UpdateAasEbcOrganizationCourseRequest(TeaModel):
 
     def validate(self):
         if self.course_end_time:
-            self.validate_pattern(course_end_time, 'course_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.course_end_time, 'course_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.course_id:
-            self.validate_max_length(course_id, 'course_id', 128)
+            self.validate_max_length(self.course_id, 'course_id', 128)
         if self.course_name:
-            self.validate_max_length(course_name, 'course_name', 64)
+            self.validate_max_length(self.course_name, 'course_name', 64)
         if self.course_start_time:
-            self.validate_pattern(course_start_time, 'course_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.course_start_time, 'course_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1337,7 +1424,7 @@ class UpdateAasEbcOrganizationCourseRequest(TeaModel):
         return self
 
 
-class UpdateAasEbcOrganizationCourseResponse(TeaModel):
+class UpdateBaasEbcOrganizationCourseResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -1360,27 +1447,25 @@ class UpdateAasEbcOrganizationCourseResponse(TeaModel):
         return self
 
 
-class AddAasEbcCourseClassRequest(TeaModel):
-    # 班级列表,最多一次传入50个
-    # 班级id
-    # 企业id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_list=None, course_id=None, org_did=None):
+class AddBaasEbcCourseClassRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_list=None, course_id=None,
+                 org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.class_list = []
+        self.class_list = class_list
         self.course_id = course_id
         self.org_did = org_did
 
     def validate(self):
         if self.class_list:
             for k in self.class_list:
-                if k :
+                if k:
                     k.validate()
         if self.course_id:
-            self.validate_max_length(course_id, 'course_id', 128)
+            self.validate_max_length(self.course_id, 'course_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1414,18 +1499,17 @@ class AddAasEbcCourseClassRequest(TeaModel):
         return self
 
 
-class AddAasEbcCourseClassResponse(TeaModel):
-    # 添加失败的班级列表
+class AddBaasEbcCourseClassResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1456,26 +1540,24 @@ class AddAasEbcCourseClassResponse(TeaModel):
         return self
 
 
-class AddAasEbcCourseUserRequest(TeaModel):
-    # 课程id
-    # 企业id
-    # 企业用户列表,最多一次传入50个
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None, org_user_list=None):
+class AddBaasEbcCourseUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None,
+                 org_user_list=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
         self.course_id = course_id
         self.org_did = org_did
-        self.org_user_list = []
+        self.org_user_list = org_user_list
 
     def validate(self):
         if self.course_id:
-            self.validate_max_length(course_id, 'course_id', 128)
+            self.validate_max_length(self.course_id, 'course_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_list:
             for k in self.org_user_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1510,18 +1592,17 @@ class AddAasEbcCourseUserRequest(TeaModel):
         return self
 
 
-class AddAasEbcCourseUserResponse(TeaModel):
-    # 添加失败的用户列表
+class AddBaasEbcCourseUserResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1552,27 +1633,25 @@ class AddAasEbcCourseUserResponse(TeaModel):
         return self
 
 
-class DeleteAasEbcCourseClassRequest(TeaModel):
-    # 班级列表,最多一次传入50个
-    # 课程id
-    # 企业id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_list=None, course_id=None, org_did=None):
+class DeleteBaasEbcCourseClassRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, class_list=None, course_id=None,
+                 org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.class_list = []
+        self.class_list = class_list
         self.course_id = course_id
         self.org_did = org_did
 
     def validate(self):
         if self.class_list:
             for k in self.class_list:
-                if k :
+                if k:
                     k.validate()
         if self.course_id:
-            self.validate_max_length(course_id, 'course_id', 128)
+            self.validate_max_length(self.course_id, 'course_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -1606,18 +1685,17 @@ class DeleteAasEbcCourseClassRequest(TeaModel):
         return self
 
 
-class DeleteAasEbcCourseClassResponse(TeaModel):
-    # 删除失败的班级列表
+class DeleteBaasEbcCourseClassResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1648,26 +1726,24 @@ class DeleteAasEbcCourseClassResponse(TeaModel):
         return self
 
 
-class DeleteAasEbcCourseUserRequest(TeaModel):
-    # 课程id
-    # 企业id
-    # 企业用户列表,最多一次传入50个
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None, org_user_list=None):
+class DeleteBaasEbcCourseUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None,
+                 org_user_list=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
         self.course_id = course_id
         self.org_did = org_did
-        self.org_user_list = []
+        self.org_user_list = org_user_list
 
     def validate(self):
         if self.course_id:
-            self.validate_max_length(course_id, 'course_id', 128)
+            self.validate_max_length(self.course_id, 'course_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_list:
             for k in self.org_user_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1702,18 +1778,17 @@ class DeleteAasEbcCourseUserRequest(TeaModel):
         return self
 
 
-class DeleteAasEbcCourseUserResponse(TeaModel):
-    # 删除失败的用户列表
+class DeleteBaasEbcCourseUserResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         if self.fail_list:
             for k in self.fail_list:
-                if k :
+                if k:
                     k.validate()
 
     def to_map(self):
@@ -1744,45 +1819,26 @@ class DeleteAasEbcCourseUserResponse(TeaModel):
         return self
 
 
-class CreateAasEbcUserCertRequest(TeaModel):
-    # 加密属性描述列表
-    # 证书编号
-    # 时间周期结束时间
-    # 证书名称-中文
-    # 证书名称-英文（拼音）
-    # 首次发布时间
-    # 时间周期开始时间
-    # 1-有效 2-冻结 3-失效 4-作废 5-其他
-    # 证书归属国家 使用“ISO 3166-1”代码表-数字码 https://zh.wikipedia.org/wiki/ISO_3166-1
-    # 有效期类型1.长期有效 2.时间周期
-    # 证书持有人姓名
-    # 
-    # 证书等级类型： 初级（五级）、中级（四级）、高级（三级）、技师（二级）和高级技师（一级）、其他
-    # 企业id
-    # 企业名称
-    # 企业用户id
-    # 持有人主证件编号，无身份证的个人使用0000000000000000
-    # 请使用我们提供的公钥对数据进行加密
-    # 
-    # 持有人辅助证件编号-1
-    # 请使用我们提供的公钥对数据进行加密
-    # 持有人辅助证件编号-2
-    # 请使用我们提供的公钥对数据进行加密
-    # 持有人辅助证件编号-3
-    # 请使用我们提供的公钥对数据进行加密
-    # -数字码类型为156时可使用如下类目： --学历证书-XLZ --职业证书--ZYZ -其他国家传入--QT
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, attribute_desc_list=None, cert_code=None, cert_end_time=None, cert_name_cn=None, cert_name_en=None, cert_publish_time=None, cert_start_time=None, cert_status=None, country=None, expire_type=None, holder_name=None, level=None, org_did=None, org_name=None, org_user_id=None, primary_id_no=None, second_id_no_1=None, second_id_no_2=None, second_id_no_3=None, type=None):
+class CreateBaasEbcUserCertRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_code=None,
+                 cert_description=None, cert_end_time=None, cert_name_cn=None, cert_name_en=None, cert_publish_time=None,
+                 cert_publish_time_zone=None, cert_start_time=None, cert_status=None, cert_summary=None, country=None, expire_type=None,
+                 holder_name=None, level=None, org_did=None, org_name=None, org_user_id=None, primary_id_no=None,
+                 privacy_desc_list=None, proxy_desc_list=None, public_desc_list=None, second_id_no_1=None, second_id_no_2=None,
+                 second_id_no_3=None, secret_key=None, type=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.attribute_desc_list = []
         self.cert_code = cert_code
+        self.cert_description = cert_description
         self.cert_end_time = cert_end_time
         self.cert_name_cn = cert_name_cn
         self.cert_name_en = cert_name_en
         self.cert_publish_time = cert_publish_time
+        self.cert_publish_time_zone = cert_publish_time_zone
         self.cert_start_time = cert_start_time
         self.cert_status = cert_status
+        self.cert_summary = cert_summary
         self.country = country
         self.expire_type = expire_type
         self.holder_name = holder_name
@@ -1791,69 +1847,86 @@ class CreateAasEbcUserCertRequest(TeaModel):
         self.org_name = org_name
         self.org_user_id = org_user_id
         self.primary_id_no = primary_id_no
+        self.privacy_desc_list = privacy_desc_list
+        self.proxy_desc_list = proxy_desc_list
+        self.public_desc_list = public_desc_list
         self.second_id_no_1 = second_id_no_1
         self.second_id_no_2 = second_id_no_2
         self.second_id_no_3 = second_id_no_3
+        self.secret_key = secret_key
         self.type = type
 
     def validate(self):
-        if self.attribute_desc_list:
-            for k in self.attribute_desc_list:
-                if k :
-                    k.validate()
         if self.cert_code:
-            self.validate_max_length(cert_code, 'cert_code', 64)
+            self.validate_max_length(self.cert_code, 'cert_code', 64)
+        if self.cert_description:
+            self.validate_max_length(self.cert_description, 'cert_description', 1000)
         if self.cert_end_time:
-            self.validate_pattern(cert_end_time, 'cert_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_end_time, 'cert_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.cert_name_cn:
-            self.validate_max_length(cert_name_cn, 'cert_name_cn', 64)
+            self.validate_max_length(self.cert_name_cn, 'cert_name_cn', 64)
         if self.cert_name_en:
-            self.validate_max_length(cert_name_en, 'cert_name_en', 64)
+            self.validate_max_length(self.cert_name_en, 'cert_name_en', 64)
         if self.cert_publish_time:
-            self.validate_pattern(cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        if self.cert_publish_time_zone:
+            self.validate_max_length(self.cert_publish_time_zone, 'cert_publish_time_zone', 64)
         if self.cert_start_time:
-            self.validate_pattern(cert_start_time, 'cert_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_start_time, 'cert_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        if self.cert_summary:
+            self.validate_max_length(self.cert_summary, 'cert_summary', 250)
         if self.country:
-            self.validate_max_length(country, 'country', 32)
+            self.validate_max_length(self.country, 'country', 32)
         if self.holder_name:
-            self.validate_max_length(holder_name, 'holder_name', 64)
+            self.validate_max_length(self.holder_name, 'holder_name', 64)
         if self.level:
-            self.validate_max_length(level, 'level', 32)
+            self.validate_max_length(self.level, 'level', 256)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_name:
-            self.validate_max_length(org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 64)
         if self.org_user_id:
-            self.validate_max_length(org_user_id, 'org_user_id', 128)
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
         if self.primary_id_no:
-            self.validate_max_length(primary_id_no, 'primary_id_no', 1024)
+            self.validate_max_length(self.primary_id_no, 'primary_id_no', 1024)
+        if self.privacy_desc_list:
+            for k in self.privacy_desc_list:
+                if k:
+                    k.validate()
+        if self.proxy_desc_list:
+            for k in self.proxy_desc_list:
+                if k:
+                    k.validate()
+        if self.public_desc_list:
+            for k in self.public_desc_list:
+                if k:
+                    k.validate()
         if self.second_id_no_1:
-            self.validate_max_length(second_id_no_1, 'second_id_no_1', 1024)
+            self.validate_max_length(self.second_id_no_1, 'second_id_no_1', 1024)
         if self.second_id_no_2:
-            self.validate_max_length(second_id_no_2, 'second_id_no_2', 1024)
+            self.validate_max_length(self.second_id_no_2, 'second_id_no_2', 1024)
         if self.second_id_no_3:
-            self.validate_max_length(second_id_no_3, 'second_id_no_3', 1024)
+            self.validate_max_length(self.second_id_no_3, 'second_id_no_3', 1024)
+        if self.secret_key:
+            self.validate_max_length(self.secret_key, 'secret_key', 512)
         if self.type:
-            self.validate_max_length(type, 'type', 64)
+            self.validate_max_length(self.type, 'type', 64)
 
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
-        result['attribute_desc_list'] = []
-        if self.attribute_desc_list is not None:
-            for k in self.attribute_desc_list:
-                result['attribute_desc_list'].append(k.to_map() if k else None)
-        else:
-            result['attribute_desc_list'] = None
         result['cert_code'] = self.cert_code
+        result['cert_description'] = self.cert_description
         result['cert_end_time'] = self.cert_end_time
         result['cert_name_cn'] = self.cert_name_cn
         result['cert_name_en'] = self.cert_name_en
         result['cert_publish_time'] = self.cert_publish_time
+        result['cert_publish_time_zone'] = self.cert_publish_time_zone
         result['cert_start_time'] = self.cert_start_time
         result['cert_status'] = self.cert_status
+        result['cert_summary'] = self.cert_summary
         result['country'] = self.country
         result['expire_type'] = self.expire_type
         result['holder_name'] = self.holder_name
@@ -1862,9 +1935,28 @@ class CreateAasEbcUserCertRequest(TeaModel):
         result['org_name'] = self.org_name
         result['org_user_id'] = self.org_user_id
         result['primary_id_no'] = self.primary_id_no
+        result['privacy_desc_list'] = []
+        if self.privacy_desc_list is not None:
+            for k in self.privacy_desc_list:
+                result['privacy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['privacy_desc_list'] = None
+        result['proxy_desc_list'] = []
+        if self.proxy_desc_list is not None:
+            for k in self.proxy_desc_list:
+                result['proxy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['proxy_desc_list'] = None
+        result['public_desc_list'] = []
+        if self.public_desc_list is not None:
+            for k in self.public_desc_list:
+                result['public_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['public_desc_list'] = None
         result['second_id_no_1'] = self.second_id_no_1
         result['second_id_no_2'] = self.second_id_no_2
         result['second_id_no_3'] = self.second_id_no_3
+        result['secret_key'] = self.secret_key
         result['type'] = self.type
         return result
 
@@ -1872,21 +1964,16 @@ class CreateAasEbcUserCertRequest(TeaModel):
         self.auth_token = map.get('auth_token')
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
-        self.attribute_desc_list = []
-        if map.get('attribute_desc_list') is not None:
-            for k in map.get('attribute_desc_list'):
-                temp_model = AttributeDesc()
-                temp_model = temp_model.from_map(k)
-                self.attribute_desc_list.append(temp_model)
-        else:
-            self.attribute_desc_list = None
         self.cert_code = map.get('cert_code')
+        self.cert_description = map.get('cert_description')
         self.cert_end_time = map.get('cert_end_time')
         self.cert_name_cn = map.get('cert_name_cn')
         self.cert_name_en = map.get('cert_name_en')
         self.cert_publish_time = map.get('cert_publish_time')
+        self.cert_publish_time_zone = map.get('cert_publish_time_zone')
         self.cert_start_time = map.get('cert_start_time')
         self.cert_status = map.get('cert_status')
+        self.cert_summary = map.get('cert_summary')
         self.country = map.get('country')
         self.expire_type = map.get('expire_type')
         self.holder_name = map.get('holder_name')
@@ -1895,15 +1982,39 @@ class CreateAasEbcUserCertRequest(TeaModel):
         self.org_name = map.get('org_name')
         self.org_user_id = map.get('org_user_id')
         self.primary_id_no = map.get('primary_id_no')
+        self.privacy_desc_list = []
+        if map.get('privacy_desc_list') is not None:
+            for k in map.get('privacy_desc_list'):
+                temp_model = PrivacyDesc()
+                temp_model = temp_model.from_map(k)
+                self.privacy_desc_list.append(temp_model)
+        else:
+            self.privacy_desc_list = None
+        self.proxy_desc_list = []
+        if map.get('proxy_desc_list') is not None:
+            for k in map.get('proxy_desc_list'):
+                temp_model = ProxyDesc()
+                temp_model = temp_model.from_map(k)
+                self.proxy_desc_list.append(temp_model)
+        else:
+            self.proxy_desc_list = None
+        self.public_desc_list = []
+        if map.get('public_desc_list') is not None:
+            for k in map.get('public_desc_list'):
+                temp_model = PublicDesc()
+                temp_model = temp_model.from_map(k)
+                self.public_desc_list.append(temp_model)
+        else:
+            self.public_desc_list = None
         self.second_id_no_1 = map.get('second_id_no_1')
         self.second_id_no_2 = map.get('second_id_no_2')
         self.second_id_no_3 = map.get('second_id_no_3')
+        self.secret_key = map.get('secret_key')
         self.type = map.get('type')
         return self
 
 
-class CreateAasEbcUserCertResponse(TeaModel):
-    # 证书id
+class CreateBaasEbcUserCertResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -1929,78 +2040,116 @@ class CreateAasEbcUserCertResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcUserCertRequest(TeaModel):
-    # 加密属性描述列表
-    # 
-    # 证书id
-    # 首次发布时间
-    # 1-有效 2-冻结 3-失效 4-作废 5-其他
-    # 企业did
-    # 企业用户id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, attribute_desc_list=None, cert_id=None, cert_publish_time=None, cert_status=None, org_did=None, org_user_id=None):
+class UpdateBaasEbcUserCertRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_id=None,
+                 cert_publish_time=None, cert_status=None, org_did=None, org_user_id=None, privacy_desc_list=None,
+                 proxy_desc_list=None, public_desc_list=None, secret_key=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.attribute_desc_list = []
         self.cert_id = cert_id
         self.cert_publish_time = cert_publish_time
         self.cert_status = cert_status
         self.org_did = org_did
         self.org_user_id = org_user_id
+        self.privacy_desc_list = privacy_desc_list
+        self.proxy_desc_list = proxy_desc_list
+        self.public_desc_list = public_desc_list
+        self.secret_key = secret_key
 
     def validate(self):
-        if self.attribute_desc_list:
-            for k in self.attribute_desc_list:
-                if k :
-                    k.validate()
         if self.cert_id:
-            self.validate_max_length(cert_id, 'cert_id', 128)
+            self.validate_max_length(self.cert_id, 'cert_id', 128)
         if self.cert_publish_time:
-            self.validate_pattern(cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.cert_publish_time, 'cert_publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_id:
-            self.validate_max_length(org_user_id, 'org_user_id', 128)
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
+        if self.privacy_desc_list:
+            for k in self.privacy_desc_list:
+                if k:
+                    k.validate()
+        if self.proxy_desc_list:
+            for k in self.proxy_desc_list:
+                if k:
+                    k.validate()
+        if self.public_desc_list:
+            for k in self.public_desc_list:
+                if k:
+                    k.validate()
+        if self.secret_key:
+            self.validate_max_length(self.secret_key, 'secret_key', 512)
 
     def to_map(self):
         result = {}
         result['auth_token'] = self.auth_token
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
-        result['attribute_desc_list'] = []
-        if self.attribute_desc_list is not None:
-            for k in self.attribute_desc_list:
-                result['attribute_desc_list'].append(k.to_map() if k else None)
-        else:
-            result['attribute_desc_list'] = None
         result['cert_id'] = self.cert_id
         result['cert_publish_time'] = self.cert_publish_time
         result['cert_status'] = self.cert_status
         result['org_did'] = self.org_did
         result['org_user_id'] = self.org_user_id
+        result['privacy_desc_list'] = []
+        if self.privacy_desc_list is not None:
+            for k in self.privacy_desc_list:
+                result['privacy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['privacy_desc_list'] = None
+        result['proxy_desc_list'] = []
+        if self.proxy_desc_list is not None:
+            for k in self.proxy_desc_list:
+                result['proxy_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['proxy_desc_list'] = None
+        result['public_desc_list'] = []
+        if self.public_desc_list is not None:
+            for k in self.public_desc_list:
+                result['public_desc_list'].append(k.to_map() if k else None)
+        else:
+            result['public_desc_list'] = None
+        result['secret_key'] = self.secret_key
         return result
 
     def from_map(self, map={}):
         self.auth_token = map.get('auth_token')
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
-        self.attribute_desc_list = []
-        if map.get('attribute_desc_list') is not None:
-            for k in map.get('attribute_desc_list'):
-                temp_model = AttributeDesc()
-                temp_model = temp_model.from_map(k)
-                self.attribute_desc_list.append(temp_model)
-        else:
-            self.attribute_desc_list = None
         self.cert_id = map.get('cert_id')
         self.cert_publish_time = map.get('cert_publish_time')
         self.cert_status = map.get('cert_status')
         self.org_did = map.get('org_did')
         self.org_user_id = map.get('org_user_id')
+        self.privacy_desc_list = []
+        if map.get('privacy_desc_list') is not None:
+            for k in map.get('privacy_desc_list'):
+                temp_model = PrivacyDesc()
+                temp_model = temp_model.from_map(k)
+                self.privacy_desc_list.append(temp_model)
+        else:
+            self.privacy_desc_list = None
+        self.proxy_desc_list = []
+        if map.get('proxy_desc_list') is not None:
+            for k in map.get('proxy_desc_list'):
+                temp_model = ProxyDesc()
+                temp_model = temp_model.from_map(k)
+                self.proxy_desc_list.append(temp_model)
+        else:
+            self.proxy_desc_list = None
+        self.public_desc_list = []
+        if map.get('public_desc_list') is not None:
+            for k in map.get('public_desc_list'):
+                temp_model = PublicDesc()
+                temp_model = temp_model.from_map(k)
+                self.public_desc_list.append(temp_model)
+        else:
+            self.public_desc_list = None
+        self.secret_key = map.get('secret_key')
         return self
 
 
-class UpdateAasEbcUserCertResponse(TeaModel):
+class UpdateBaasEbcUserCertResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -2023,11 +2172,9 @@ class UpdateAasEbcUserCertResponse(TeaModel):
         return self
 
 
-class QueryAasEbcOrganizationCertRequest(TeaModel):
-    # 查询结束时间
-    # 企业id
-    # 开始时间
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, end=None, org_did=None, start=None):
+class QueryBaasEbcOrganizationCertRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, end=None, org_did=None,
+                 start=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -2037,11 +2184,11 @@ class QueryAasEbcOrganizationCertRequest(TeaModel):
 
     def validate(self):
         if self.end:
-            self.validate_pattern(end, 'end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.end, 'end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.start:
-            self.validate_pattern(start, 'start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.start, 'start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
     def to_map(self):
         result = {}
@@ -2063,13 +2210,12 @@ class QueryAasEbcOrganizationCertRequest(TeaModel):
         return self
 
 
-class QueryAasEbcOrganizationCertResponse(TeaModel):
-    # 证书id
+class QueryBaasEbcOrganizationCertResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert_id_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.cert_id_list = []
+        self.cert_id_list = cert_id_list
 
     def validate(self):
         pass
@@ -2100,9 +2246,7 @@ class QueryAasEbcOrganizationCertResponse(TeaModel):
         return self
 
 
-class QueryAasEbcUserCertRequest(TeaModel):
-    # 企业did
-    # 企业用户id
+class QueryBaasEbcUserCertRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, org_did=None, org_user_id=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -2112,9 +2256,9 @@ class QueryAasEbcUserCertRequest(TeaModel):
 
     def validate(self):
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_id:
-            self.validate_max_length(org_user_id, 'org_user_id', 128)
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
 
     def to_map(self):
         result = {}
@@ -2134,13 +2278,12 @@ class QueryAasEbcUserCertRequest(TeaModel):
         return self
 
 
-class QueryAasEbcUserCertResponse(TeaModel):
-    # 证书id列表
+class QueryBaasEbcUserCertResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert_id_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.cert_id_list = []
+        self.cert_id_list = cert_id_list
 
     def validate(self):
         pass
@@ -2171,9 +2314,7 @@ class QueryAasEbcUserCertResponse(TeaModel):
         return self
 
 
-class QueryAasEbcCertRequest(TeaModel):
-    # 证书id
-    # 企业did
+class QueryBaasEbcCertRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_id=None, org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -2183,9 +2324,9 @@ class QueryAasEbcCertRequest(TeaModel):
 
     def validate(self):
         if self.cert_id:
-            self.validate_max_length(cert_id, 'cert_id', 128)
+            self.validate_max_length(self.cert_id, 'cert_id', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -2205,8 +2346,7 @@ class QueryAasEbcCertRequest(TeaModel):
         return self
 
 
-class QueryAasEbcCertResponse(TeaModel):
-    # 证书明细
+class QueryBaasEbcCertResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -2240,11 +2380,9 @@ class QueryAasEbcCertResponse(TeaModel):
         return self
 
 
-class ApplyAasEbcCertUrlRequest(TeaModel):
-    # 证书code
-    # 机构did
-    # 证书持有人id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_code=None, org_did=None, org_user_id=None):
+class ApplyBaasEbcCertUrlRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, cert_code=None, org_did=None,
+                 org_user_id=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -2254,9 +2392,9 @@ class ApplyAasEbcCertUrlRequest(TeaModel):
 
     def validate(self):
         if self.cert_code:
-            self.validate_max_length(cert_code, 'cert_code', 128)
+            self.validate_max_length(self.cert_code, 'cert_code', 128)
         if self.org_did:
-            self.validate_max_length(org_did, 'org_did', 128)
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -2278,12 +2416,9 @@ class ApplyAasEbcCertUrlRequest(TeaModel):
         return self
 
 
-class ApplyAasEbcCertUrlResponse(TeaModel):
-    # 实体证书图片上传url，文件最大5M
-    # 其他信息文件上传url，文件最大5M
-    # 
-    # 持有人的人脸图像上传url，文件最大5M
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert_upload_url=None, feature_upload_url=None, holder_avatar_upload_url=None):
+class ApplyBaasEbcCertUrlResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, cert_upload_url=None,
+                 feature_upload_url=None, holder_avatar_upload_url=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
@@ -2314,31 +2449,26 @@ class ApplyAasEbcCertUrlResponse(TeaModel):
         return self
 
 
-class CreateAasEbcAuthRequest(TeaModel):
-    # 授权关系结束时间
-    # 授权关系开始时间
-    # 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
-    # 授权目标数据id列表，最多20个
-    # 1.数据,2.机构,3.认证方,4.ALL
-    # 消费方租户id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_end_time=None, auth_start_time=None, data_type=None, target_id_list=None, target_type=None, tenant_name=None):
+class CreateBaasEbcAuthRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_end_time=None,
+                 auth_start_time=None, data_type=None, target_id_list=None, target_type=None, tenant_name=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
         self.auth_end_time = auth_end_time
         self.auth_start_time = auth_start_time
         self.data_type = data_type
-        self.target_id_list = []
+        self.target_id_list = target_id_list
         self.target_type = target_type
         self.tenant_name = tenant_name
 
     def validate(self):
         if self.auth_end_time:
-            self.validate_pattern(auth_end_time, 'auth_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.auth_end_time, 'auth_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.auth_start_time:
-            self.validate_pattern(auth_start_time, 'auth_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.auth_start_time, 'auth_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.tenant_name:
-            self.validate_max_length(tenant_name, 'tenant_name', 64)
+            self.validate_max_length(self.tenant_name, 'tenant_name', 64)
 
     def to_map(self):
         result = {}
@@ -2376,8 +2506,7 @@ class CreateAasEbcAuthRequest(TeaModel):
         return self
 
 
-class CreateAasEbcAuthResponse(TeaModel):
-    # 授权关系id
+class CreateBaasEbcAuthResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, auth_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -2403,19 +2532,10 @@ class CreateAasEbcAuthResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcAuthRequest(TeaModel):
-    # 授权关系结束时间
-    # 
-    # 授权关系id
-    # 授权关系开始时间
-    # 
-    # 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
-    # 授权目标数据id列表，最多20个
-    # 1.数据,2.机构,3.认证方,4.ALL
-    # 
-    # 消费方租户id
-    # 
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_end_time=None, auth_id=None, auth_start_time=None, data_type=None, target_id_list=None, target_type=None, tenant_name=None):
+class UpdateBaasEbcAuthRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_end_time=None,
+                 auth_id=None, auth_start_time=None, data_type=None, target_id_list=None, target_type=None,
+                 tenant_name=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -2423,19 +2543,19 @@ class UpdateAasEbcAuthRequest(TeaModel):
         self.auth_id = auth_id
         self.auth_start_time = auth_start_time
         self.data_type = data_type
-        self.target_id_list = []
+        self.target_id_list = target_id_list
         self.target_type = target_type
         self.tenant_name = tenant_name
 
     def validate(self):
         if self.auth_end_time:
-            self.validate_pattern(auth_end_time, 'auth_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.auth_end_time, 'auth_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.auth_id:
-            self.validate_max_length(auth_id, 'auth_id', 256)
+            self.validate_max_length(self.auth_id, 'auth_id', 256)
         if self.auth_start_time:
-            self.validate_pattern(auth_start_time, 'auth_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.auth_start_time, 'auth_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.tenant_name:
-            self.validate_max_length(tenant_name, 'tenant_name', 64)
+            self.validate_max_length(self.tenant_name, 'tenant_name', 64)
 
     def to_map(self):
         result = {}
@@ -2475,7 +2595,7 @@ class UpdateAasEbcAuthRequest(TeaModel):
         return self
 
 
-class UpdateAasEbcAuthResponse(TeaModel):
+class UpdateBaasEbcAuthResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -2498,13 +2618,9 @@ class UpdateAasEbcAuthResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcAuthStatusRequest(TeaModel):
-    # 授权关系id
-    # 
-    # 1:启用，2：禁用，3：停用
-    # 消费方租户id
-    # 
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_id=None, status=None, tenant_name=None):
+class UpdateBaasEbcAuthStatusRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, auth_id=None, status=None,
+                 tenant_name=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -2514,9 +2630,9 @@ class UpdateAasEbcAuthStatusRequest(TeaModel):
 
     def validate(self):
         if self.auth_id:
-            self.validate_max_length(auth_id, 'auth_id', 256)
+            self.validate_max_length(self.auth_id, 'auth_id', 256)
         if self.tenant_name:
-            self.validate_max_length(tenant_name, 'tenant_name', 64)
+            self.validate_max_length(self.tenant_name, 'tenant_name', 64)
 
     def to_map(self):
         result = {}
@@ -2538,7 +2654,7 @@ class UpdateAasEbcAuthStatusRequest(TeaModel):
         return self
 
 
-class UpdateAasEbcAuthStatusResponse(TeaModel):
+class UpdateBaasEbcAuthStatusResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
@@ -2561,15 +2677,13 @@ class UpdateAasEbcAuthStatusResponse(TeaModel):
         return self
 
 
-class UpdateAasEbcDataPriceRequest(TeaModel):
-    # 目标数据id列表，最多20个
-    # 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
-    # 数据价值
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, data_id_list=None, data_type=None, price=None):
+class UpdateBaasEbcDataPriceRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, data_id_list=None,
+                 data_type=None, price=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
-        self.data_id_list = []
+        self.data_id_list = data_id_list
         self.data_type = data_type
         self.price = price
 
@@ -2606,13 +2720,12 @@ class UpdateAasEbcDataPriceRequest(TeaModel):
         return self
 
 
-class UpdateAasEbcDataPriceResponse(TeaModel):
-    # 更新失败的id列表
+class UpdateBaasEbcDataPriceResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, fail_list=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
-        self.fail_list = []
+        self.fail_list = fail_list
 
     def validate(self):
         pass
@@ -2643,11 +2756,9 @@ class UpdateAasEbcDataPriceResponse(TeaModel):
         return self
 
 
-class QueryAasEbcConsumptionAmountRequest(TeaModel):
-    # 结束时间
-    # 开始时间
-    # 消费方租户id
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, end_time=None, start_time=None, tenant_name=None):
+class QueryBaasEbcConsumptionAmountRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, end_time=None, start_time=None,
+                 tenant_name=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -2657,11 +2768,11 @@ class QueryAasEbcConsumptionAmountRequest(TeaModel):
 
     def validate(self):
         if self.end_time:
-            self.validate_pattern(end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.start_time:
-            self.validate_pattern(start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.tenant_name:
-            self.validate_max_length(tenant_name, 'tenant_name', 64)
+            self.validate_max_length(self.tenant_name, 'tenant_name', 64)
 
     def to_map(self):
         result = {}
@@ -2683,8 +2794,7 @@ class QueryAasEbcConsumptionAmountRequest(TeaModel):
         return self
 
 
-class QueryAasEbcConsumptionAmountResponse(TeaModel):
-    # 区间内的累计消费金额
+class QueryBaasEbcConsumptionAmountResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, amount=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code

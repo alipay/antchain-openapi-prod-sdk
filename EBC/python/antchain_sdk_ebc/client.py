@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 import time
 
-from antchain_sdk_ebc import models as _ebc_models
+from antchain_sdk_ebc import models as ebc_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from Tea.exceptions import TeaException
 from alibabacloud_tea_util import models as util_models
@@ -13,11 +14,15 @@ from alibabacloud_rpc_util.client import Client as RPCUtilClient
 from Tea.exceptions import UnretryableException
 
 
-class Client:
-    def __init__(self, config, _endpoint=None, _region_id=None, _access_key_id=None, _access_key_secret=None, _protocol=None, _user_agent=None, _read_timeout=None, _connect_timeout=None, _http_proxy=None, _https_proxy=None, _socks_5proxy=None, _socks_5net_work=None, _no_proxy=None, _max_idle_conns=None, _security_token=None):
+class Client(object):
+    def __init__(self, config, _endpoint=None, _region_id=None, _access_key_id=None, _access_key_secret=None,
+                 _protocol=None, _user_agent=None, _read_timeout=None, _connect_timeout=None, _http_proxy=None,
+                 _https_proxy=None, _socks_5proxy=None, _socks_5net_work=None, _no_proxy=None, _max_idle_conns=None,
+                 _security_token=None):
         """
         Init client with Config
-        @param config: config contains the necessary information to create a client
+
+        :param config: config contains the necessary information to create a client
         """
         self._endpoint = _endpoint
         self._region_id = _region_id
@@ -34,7 +39,7 @@ class Client:
         self._no_proxy = _no_proxy
         self._max_idle_conns = _max_idle_conns
         self._security_token = _security_token
-        if UtilClient.is_unset(config.to_map()):
+        if UtilClient.is_unset(config):
             raise TeaException({
                 "code": "ParameterMissing",
                 "message": "'config' can not be unset"
@@ -57,13 +62,25 @@ class Client:
     def do_request(self, version, action, protocol, method, pathname, request, runtime):
         """
         Encapsulate the request and invoke the network
-        @param action: api name
-        @param protocol: http or https
-        @param method: e.g. GET
-        @param pathname: pathname of every api
-        @param request: which contains request params
-        @param runtime: which controls some details of call api, such as retry times
-        @return the response
+
+        :type action: str
+        :param action: api name
+
+        :type protocol: str
+        :param protocol: http or https
+
+        :type method: str
+        :param method: e.g. GET
+
+        :type pathname: str
+        :param pathname: pathname of every api
+
+        :type request: dict
+        :param request: which contains request params
+
+        :param runtime: which controls some details of call api, such as retry times
+
+        :return: the response
         """
         runtime.validate()
         _runtime = {
@@ -108,7 +125,7 @@ class Client:
                     "access_key": self._access_key_id,
                     "charset": "UTF-8",
                     "baseSdkVersion": "Tea-SDK",
-                    "sdkVersion": "Tea-SDK-20200713"
+                    "sdkVersion": "Tea-SDK-20200825"
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query["security_token"] = self._security_token
@@ -144,12 +161,13 @@ class Client:
     def get_user_agent(self):
         """
         Get user agent
-        @return user agent
+
+        :return: user agent
         """
         user_agent = "TeaClient/1.0.0"
         return UtilClient.get_user_agent(user_agent)
 
-    def create_aas_ebc_organization(self, request):
+    def create_baas_ebc_organization(self, request):
         """
         Description: 创建企业
         Summary: 创建企业
@@ -157,18 +175,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_organization_ex(request, runtime)
+        return self.create_baas_ebc_organization_ex(request, runtime)
 
-    def create_aas_ebc_organization_ex(self, request, runtime):
+    def create_baas_ebc_organization_ex(self, request, runtime):
         """
         Description: 创建企业
         Summary: 创建企业
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcOrganizationResponse().from_map(self.do_request("1.0", "baas.ebc.organization.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcOrganizationResponse().from_map(self.do_request("1.0", "baas.ebc.organization.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_person(self, request):
+    def create_baas_ebc_person(self, request):
         """
         Description: 创建个人
         Summary: 创建个人
@@ -176,18 +194,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_person_ex(request, runtime)
+        return self.create_baas_ebc_person_ex(request, runtime)
 
-    def create_aas_ebc_person_ex(self, request, runtime):
+    def create_baas_ebc_person_ex(self, request, runtime):
         """
         Description: 创建个人
         Summary: 创建个人
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_organization_user(self, request):
+    def create_baas_ebc_organization_user(self, request):
         """
         Description: 企业用户注册
         Summary: 企业用户注册
@@ -195,18 +213,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_organization_user_ex(request, runtime)
+        return self.create_baas_ebc_organization_user_ex(request, runtime)
 
-    def create_aas_ebc_organization_user_ex(self, request, runtime):
+    def create_baas_ebc_organization_user_ex(self, request, runtime):
         """
         Description: 企业用户注册
         Summary: 企业用户注册
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcOrganizationUserResponse().from_map(self.do_request("1.0", "baas.ebc.organization.user.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcOrganizationUserResponse().from_map(self.do_request("1.0", "baas.ebc.organization.user.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def cancel_aas_ebc_person(self, request):
+    def cancel_baas_ebc_person(self, request):
         """
         Description: 个人退出
         Summary: 个人退出
@@ -214,18 +232,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.cancel_aas_ebc_person_ex(request, runtime)
+        return self.cancel_baas_ebc_person_ex(request, runtime)
 
-    def cancel_aas_ebc_person_ex(self, request, runtime):
+    def cancel_baas_ebc_person_ex(self, request, runtime):
         """
         Description: 个人退出
         Summary: 个人退出
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CancelAasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.cancel", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CancelBaasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.cancel", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def resume_aas_ebc_person(self, request):
+    def resume_baas_ebc_person(self, request):
         """
         Description: 用户复入
         Summary: 用户复入
@@ -233,18 +251,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.resume_aas_ebc_person_ex(request, runtime)
+        return self.resume_baas_ebc_person_ex(request, runtime)
 
-    def resume_aas_ebc_person_ex(self, request, runtime):
+    def resume_baas_ebc_person_ex(self, request, runtime):
         """
         Description: 用户复入
         Summary: 用户复入
         """
         UtilClient.validate_model(request)
-        return _ebc_models.ResumeAasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.resume", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.ResumeBaasEbcPersonResponse().from_map(self.do_request("1.0", "baas.ebc.person.resume", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_organization_class(self, request):
+    def create_baas_ebc_organization_class(self, request):
         """
         Description: 创建班级
         Summary: 创建班级
@@ -252,18 +270,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_organization_class_ex(request, runtime)
+        return self.create_baas_ebc_organization_class_ex(request, runtime)
 
-    def create_aas_ebc_organization_class_ex(self, request, runtime):
+    def create_baas_ebc_organization_class_ex(self, request, runtime):
         """
         Description: 创建班级
         Summary: 创建班级
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_organization_class(self, request):
+    def update_baas_ebc_organization_class(self, request):
         """
         Description: 更新班级
         Summary: 更新班级
@@ -271,18 +289,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_organization_class_ex(request, runtime)
+        return self.update_baas_ebc_organization_class_ex(request, runtime)
 
-    def update_aas_ebc_organization_class_ex(self, request, runtime):
+    def update_baas_ebc_organization_class_ex(self, request, runtime):
         """
         Description: 更新班级
         Summary: 更新班级
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def add_aas_ebc_class_user(self, request):
+    def add_baas_ebc_class_user(self, request):
         """
         Description: 增加学员
         Summary: 增加学员
@@ -290,18 +308,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.add_aas_ebc_class_user_ex(request, runtime)
+        return self.add_baas_ebc_class_user_ex(request, runtime)
 
-    def add_aas_ebc_class_user_ex(self, request, runtime):
+    def add_baas_ebc_class_user_ex(self, request, runtime):
         """
         Description: 增加学员
         Summary: 增加学员
         """
         UtilClient.validate_model(request)
-        return _ebc_models.AddAasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.AddBaasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def delete_aas_ebc_class_user(self, request):
+    def delete_baas_ebc_class_user(self, request):
         """
         Description: 删除学员
         Summary: 删除学员
@@ -309,18 +327,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.delete_aas_ebc_class_user_ex(request, runtime)
+        return self.delete_baas_ebc_class_user_ex(request, runtime)
 
-    def delete_aas_ebc_class_user_ex(self, request, runtime):
+    def delete_baas_ebc_class_user_ex(self, request, runtime):
         """
         Description: 删除学员
         Summary: 删除学员
         """
         UtilClient.validate_model(request)
-        return _ebc_models.DeleteAasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.DeleteBaasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_organization_class(self, request):
+    def query_baas_ebc_organization_class(self, request):
         """
         Description: 班级查询
         Summary: 班级查询
@@ -328,18 +346,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_organization_class_ex(request, runtime)
+        return self.query_baas_ebc_organization_class_ex(request, runtime)
 
-    def query_aas_ebc_organization_class_ex(self, request, runtime):
+    def query_baas_ebc_organization_class_ex(self, request, runtime):
         """
         Description: 班级查询
         Summary: 班级查询
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcOrganizationClassResponse().from_map(self.do_request("1.0", "baas.ebc.organization.class.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_class_user(self, request):
+    def query_baas_ebc_class_user(self, request):
         """
         Description: 班级明细查询
         Summary: 班级明细查询
@@ -347,18 +365,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_class_user_ex(request, runtime)
+        return self.query_baas_ebc_class_user_ex(request, runtime)
 
-    def query_aas_ebc_class_user_ex(self, request, runtime):
+    def query_baas_ebc_class_user_ex(self, request, runtime):
         """
         Description: 班级明细查询
         Summary: 班级明细查询
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcClassUserResponse().from_map(self.do_request("1.0", "baas.ebc.class.user.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_organization_course(self, request):
+    def create_baas_ebc_organization_course(self, request):
         """
         Description: 发布课程
         Summary: 发布课程
@@ -366,18 +384,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_organization_course_ex(request, runtime)
+        return self.create_baas_ebc_organization_course_ex(request, runtime)
 
-    def create_aas_ebc_organization_course_ex(self, request, runtime):
+    def create_baas_ebc_organization_course_ex(self, request, runtime):
         """
         Description: 发布课程
         Summary: 发布课程
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcOrganizationCourseResponse().from_map(self.do_request("1.0", "baas.ebc.organization.course.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcOrganizationCourseResponse().from_map(self.do_request("1.0", "baas.ebc.organization.course.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_organization_course(self, request):
+    def update_baas_ebc_organization_course(self, request):
         """
         Description: 更新课程
         Summary: 更新课程
@@ -385,18 +403,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_organization_course_ex(request, runtime)
+        return self.update_baas_ebc_organization_course_ex(request, runtime)
 
-    def update_aas_ebc_organization_course_ex(self, request, runtime):
+    def update_baas_ebc_organization_course_ex(self, request, runtime):
         """
         Description: 更新课程
         Summary: 更新课程
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcOrganizationCourseResponse().from_map(self.do_request("1.0", "baas.ebc.organization.course.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcOrganizationCourseResponse().from_map(self.do_request("1.0", "baas.ebc.organization.course.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def add_aas_ebc_course_class(self, request):
+    def add_baas_ebc_course_class(self, request):
         """
         Description: 将班级添加到课程中
         Summary: 增加课程班级
@@ -404,18 +422,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.add_aas_ebc_course_class_ex(request, runtime)
+        return self.add_baas_ebc_course_class_ex(request, runtime)
 
-    def add_aas_ebc_course_class_ex(self, request, runtime):
+    def add_baas_ebc_course_class_ex(self, request, runtime):
         """
         Description: 将班级添加到课程中
         Summary: 增加课程班级
         """
         UtilClient.validate_model(request)
-        return _ebc_models.AddAasEbcCourseClassResponse().from_map(self.do_request("1.0", "baas.ebc.course.class.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.AddBaasEbcCourseClassResponse().from_map(self.do_request("1.0", "baas.ebc.course.class.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def add_aas_ebc_course_user(self, request):
+    def add_baas_ebc_course_user(self, request):
         """
         Description: 将学员添加到课程中
         Summary: 增加课程学员
@@ -423,18 +441,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.add_aas_ebc_course_user_ex(request, runtime)
+        return self.add_baas_ebc_course_user_ex(request, runtime)
 
-    def add_aas_ebc_course_user_ex(self, request, runtime):
+    def add_baas_ebc_course_user_ex(self, request, runtime):
         """
         Description: 将学员添加到课程中
         Summary: 增加课程学员
         """
         UtilClient.validate_model(request)
-        return _ebc_models.AddAasEbcCourseUserResponse().from_map(self.do_request("1.0", "baas.ebc.course.user.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.AddBaasEbcCourseUserResponse().from_map(self.do_request("1.0", "baas.ebc.course.user.add", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def delete_aas_ebc_course_class(self, request):
+    def delete_baas_ebc_course_class(self, request):
         """
         Description: 删除课程中的班级
         Summary: 删除课程班级
@@ -442,18 +460,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.delete_aas_ebc_course_class_ex(request, runtime)
+        return self.delete_baas_ebc_course_class_ex(request, runtime)
 
-    def delete_aas_ebc_course_class_ex(self, request, runtime):
+    def delete_baas_ebc_course_class_ex(self, request, runtime):
         """
         Description: 删除课程中的班级
         Summary: 删除课程班级
         """
         UtilClient.validate_model(request)
-        return _ebc_models.DeleteAasEbcCourseClassResponse().from_map(self.do_request("1.0", "baas.ebc.course.class.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.DeleteBaasEbcCourseClassResponse().from_map(self.do_request("1.0", "baas.ebc.course.class.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def delete_aas_ebc_course_user(self, request):
+    def delete_baas_ebc_course_user(self, request):
         """
         Description: 删除课程中的学员
         Summary: 删除课程学员
@@ -461,18 +479,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.delete_aas_ebc_course_user_ex(request, runtime)
+        return self.delete_baas_ebc_course_user_ex(request, runtime)
 
-    def delete_aas_ebc_course_user_ex(self, request, runtime):
+    def delete_baas_ebc_course_user_ex(self, request, runtime):
         """
         Description: 删除课程中的学员
         Summary: 删除课程学员
         """
         UtilClient.validate_model(request)
-        return _ebc_models.DeleteAasEbcCourseUserResponse().from_map(self.do_request("1.0", "baas.ebc.course.user.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.DeleteBaasEbcCourseUserResponse().from_map(self.do_request("1.0", "baas.ebc.course.user.delete", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_user_cert(self, request):
+    def create_baas_ebc_user_cert(self, request):
         """
         Description: 发布证书
         Summary: 发布证书
@@ -480,18 +498,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_user_cert_ex(request, runtime)
+        return self.create_baas_ebc_user_cert_ex(request, runtime)
 
-    def create_aas_ebc_user_cert_ex(self, request, runtime):
+    def create_baas_ebc_user_cert_ex(self, request, runtime):
         """
         Description: 发布证书
         Summary: 发布证书
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_user_cert(self, request):
+    def update_baas_ebc_user_cert(self, request):
         """
         Description: 更新证书
         Summary: 更新证书
@@ -499,18 +517,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_user_cert_ex(request, runtime)
+        return self.update_baas_ebc_user_cert_ex(request, runtime)
 
-    def update_aas_ebc_user_cert_ex(self, request, runtime):
+    def update_baas_ebc_user_cert_ex(self, request, runtime):
         """
         Description: 更新证书
         Summary: 更新证书
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_organization_cert(self, request):
+    def query_baas_ebc_organization_cert(self, request):
         """
         Description: 查询证书
         Summary: 查询企业证书
@@ -518,18 +536,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_organization_cert_ex(request, runtime)
+        return self.query_baas_ebc_organization_cert_ex(request, runtime)
 
-    def query_aas_ebc_organization_cert_ex(self, request, runtime):
+    def query_baas_ebc_organization_cert_ex(self, request, runtime):
         """
         Description: 查询证书
         Summary: 查询企业证书
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcOrganizationCertResponse().from_map(self.do_request("1.0", "baas.ebc.organization.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcOrganizationCertResponse().from_map(self.do_request("1.0", "baas.ebc.organization.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_user_cert(self, request):
+    def query_baas_ebc_user_cert(self, request):
         """
         Description: 查询用户证书
         Summary: 查询用户证书
@@ -537,18 +555,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_user_cert_ex(request, runtime)
+        return self.query_baas_ebc_user_cert_ex(request, runtime)
 
-    def query_aas_ebc_user_cert_ex(self, request, runtime):
+    def query_baas_ebc_user_cert_ex(self, request, runtime):
         """
         Description: 查询用户证书
         Summary: 查询用户证书
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcUserCertResponse().from_map(self.do_request("1.0", "baas.ebc.user.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_cert(self, request):
+    def query_baas_ebc_cert(self, request):
         """
         Description: 证书明细查询
         Summary: 证书明细查询
@@ -556,18 +574,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_cert_ex(request, runtime)
+        return self.query_baas_ebc_cert_ex(request, runtime)
 
-    def query_aas_ebc_cert_ex(self, request, runtime):
+    def query_baas_ebc_cert_ex(self, request, runtime):
         """
         Description: 证书明细查询
         Summary: 证书明细查询
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcCertResponse().from_map(self.do_request("1.0", "baas.ebc.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcCertResponse().from_map(self.do_request("1.0", "baas.ebc.cert.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def apply_aas_ebc_cert_url(self, request):
+    def apply_baas_ebc_cert_url(self, request):
         """
         Description: 申请证书信息上传url，证书未发布则会返回证书图片、证书持有人、证书其他信息的文件上传url。
         证书已发布则会返回证书图片、证书其他信息的文件上传url。
@@ -577,9 +595,9 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.apply_aas_ebc_cert_url_ex(request, runtime)
+        return self.apply_baas_ebc_cert_url_ex(request, runtime)
 
-    def apply_aas_ebc_cert_url_ex(self, request, runtime):
+    def apply_baas_ebc_cert_url_ex(self, request, runtime):
         """
         Description: 申请证书信息上传url，证书未发布则会返回证书图片、证书持有人、证书其他信息的文件上传url。
         证书已发布则会返回证书图片、证书其他信息的文件上传url。
@@ -587,10 +605,10 @@ class Client:
         Summary: 申请证书信息上传url
         """
         UtilClient.validate_model(request)
-        return _ebc_models.ApplyAasEbcCertUrlResponse().from_map(self.do_request("1.0", "baas.ebc.cert.url.apply", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.ApplyBaasEbcCertUrlResponse().from_map(self.do_request("1.0", "baas.ebc.cert.url.apply", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def create_aas_ebc_auth(self, request):
+    def create_baas_ebc_auth(self, request):
         """
         Description: 新增授权关系，仅限联盟管理员调用
         Summary: 新增授权关系
@@ -598,18 +616,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.create_aas_ebc_auth_ex(request, runtime)
+        return self.create_baas_ebc_auth_ex(request, runtime)
 
-    def create_aas_ebc_auth_ex(self, request, runtime):
+    def create_baas_ebc_auth_ex(self, request, runtime):
         """
         Description: 新增授权关系，仅限联盟管理员调用
         Summary: 新增授权关系
         """
         UtilClient.validate_model(request)
-        return _ebc_models.CreateAasEbcAuthResponse().from_map(self.do_request("1.0", "baas.ebc.auth.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.CreateBaasEbcAuthResponse().from_map(self.do_request("1.0", "baas.ebc.auth.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_auth(self, request):
+    def update_baas_ebc_auth(self, request):
         """
         Description: 更新授权关系，仅限联盟管理员调用
         Summary: 更新授权关系
@@ -617,18 +635,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_auth_ex(request, runtime)
+        return self.update_baas_ebc_auth_ex(request, runtime)
 
-    def update_aas_ebc_auth_ex(self, request, runtime):
+    def update_baas_ebc_auth_ex(self, request, runtime):
         """
         Description: 更新授权关系，仅限联盟管理员调用
         Summary: 更新授权关系
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcAuthResponse().from_map(self.do_request("1.0", "baas.ebc.auth.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcAuthResponse().from_map(self.do_request("1.0", "baas.ebc.auth.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_auth_status(self, request):
+    def update_baas_ebc_auth_status(self, request):
         """
         Description: 更新授权关系状态，仅限联盟管理员调用
         Summary: 更新授权关系状态
@@ -636,18 +654,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_auth_status_ex(request, runtime)
+        return self.update_baas_ebc_auth_status_ex(request, runtime)
 
-    def update_aas_ebc_auth_status_ex(self, request, runtime):
+    def update_baas_ebc_auth_status_ex(self, request, runtime):
         """
         Description: 更新授权关系状态，仅限联盟管理员调用
         Summary: 更新授权关系状态
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcAuthStatusResponse().from_map(self.do_request("1.0", "baas.ebc.auth.status.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcAuthStatusResponse().from_map(self.do_request("1.0", "baas.ebc.auth.status.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def update_aas_ebc_data_price(self, request):
+    def update_baas_ebc_data_price(self, request):
         """
         Description: 更新数据价值
         Summary: 更新数据价值
@@ -655,18 +673,18 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.update_aas_ebc_data_price_ex(request, runtime)
+        return self.update_baas_ebc_data_price_ex(request, runtime)
 
-    def update_aas_ebc_data_price_ex(self, request, runtime):
+    def update_baas_ebc_data_price_ex(self, request, runtime):
         """
         Description: 更新数据价值
         Summary: 更新数据价值
         """
         UtilClient.validate_model(request)
-        return _ebc_models.UpdateAasEbcDataPriceResponse().from_map(self.do_request("1.0", "baas.ebc.data.price.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.UpdateBaasEbcDataPriceResponse().from_map(self.do_request("1.0", "baas.ebc.data.price.update", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
-    def query_aas_ebc_consumption_amount(self, request):
+    def query_baas_ebc_consumption_amount(self, request):
         """
         Description: 查询消费者消费金额
         Summary: 查询消费者消费金额
@@ -674,13 +692,13 @@ class Client:
         runtime = util_models.RuntimeOptions(
 
         )
-        return self.query_aas_ebc_consumption_amount_ex(request, runtime)
+        return self.query_baas_ebc_consumption_amount_ex(request, runtime)
 
-    def query_aas_ebc_consumption_amount_ex(self, request, runtime):
+    def query_baas_ebc_consumption_amount_ex(self, request, runtime):
         """
         Description: 查询消费者消费金额
         Summary: 查询消费者消费金额
         """
         UtilClient.validate_model(request)
-        return _ebc_models.QueryAasEbcConsumptionAmountResponse().from_map(self.do_request("1.0", "baas.ebc.consumption.amount.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+        return ebc_models.QueryBaasEbcConsumptionAmountResponse().from_map(self.do_request("1.0", "baas.ebc.consumption.amount.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
