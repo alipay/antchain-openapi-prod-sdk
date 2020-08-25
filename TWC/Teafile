@@ -11,7 +11,7 @@
   ],
   "releases": {
     "java": "com.alipay:twc:0.0.1",
-    "go": "github.com/antchain-openapi-sdk-go/TWC/client:v1.4.89",
+    "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.89",
     "csharp": "AntChain.SDK.TWC:0.0.1",
     "ts": "@antchain/twc:^1.0.0",
     "php": "antchain/twc:1.4.89",
