@@ -1,0 +1,70 @@
+{
+  "scope": "antchain",
+  "name": "TWC",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.alipay:twc:0.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/TWC/client:v1.4.89",
+    "csharp": "AntChain.SDK.TWC:0.0.1",
+    "ts": "@antchain/twc:^1.0.0",
+    "php": "antchain/twc:1.4.89",
+    "python": "antchain_sdk_twc:1.4.89"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AlipayUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.alipay.twc",
+    "packageInfo": {
+      "description": "Ant Chain TWC SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.TWC",
+    "packageInfo": {
+      "name": "twc",
+      "title": "antchain-twc",
+      "description": "Ant Chain TWC SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.TWC",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/twc",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_twc",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_twc",
+      "desc": "Ant Chain TWC SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
