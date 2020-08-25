@@ -5,8 +5,11 @@ namespace AntChain\EBC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OrgUser extends Model {
+class QueryBaasEbcUserCertRequest extends Model {
     protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'regionName' => 'region_name',
         'orgDid' => 'org_did',
         'orgUserId' => 'org_user_id',
     ];
@@ -16,6 +19,15 @@ class OrgUser extends Model {
     }
     public function toMap() {
         $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->regionName) {
+            $res['region_name'] = $this->regionName;
+        }
         if (null !== $this->orgDid) {
             $res['org_did'] = $this->orgDid;
         }
@@ -26,10 +38,19 @@ class OrgUser extends Model {
     }
     /**
      * @param array $map
-     * @return OrgUser
+     * @return QueryBaasEbcUserCertRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['region_name'])){
+            $model->regionName = $map['region_name'];
+        }
         if(isset($map['org_did'])){
             $model->orgDid = $map['org_did'];
         }
@@ -38,16 +59,29 @@ class OrgUser extends Model {
         }
         return $model;
     }
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    /**
+     * @var string
+     */
+    public $regionName;
+
     // 企业did
     /**
-     * @example did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 
      * @var string
      */
     public $orgDid;
 
     // 企业用户id
     /**
-     * @example 0001
      * @var string
      */
     public $orgUserId;

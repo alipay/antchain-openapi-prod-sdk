@@ -4,72 +4,72 @@
 namespace AntChain\EBC;
 
 use AlibabaCloud\Tea\Utils\Utils;
-use AlibabaCloud\Tea\Exception\TeaError;
-use AlibabaCloud\Tea\Request;
 use AlibabaCloud\Tea\Tea;
-use AlibabaCloud\Tea\Response;
+use AlibabaCloud\Tea\Request;
 use AntChain\Util\UtilClient;
 use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
 use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
 
 use AntChain\EBC\Models\Config;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\EBC\Models\CreateAasEbcOrganizationRequest;
-use AntChain\EBC\Models\CreateAasEbcOrganizationResponse;
-use AntChain\EBC\Models\CreateAasEbcPersonRequest;
-use AntChain\EBC\Models\CreateAasEbcPersonResponse;
-use AntChain\EBC\Models\CreateAasEbcOrganizationUserRequest;
-use AntChain\EBC\Models\CreateAasEbcOrganizationUserResponse;
-use AntChain\EBC\Models\CancelAasEbcPersonRequest;
-use AntChain\EBC\Models\CancelAasEbcPersonResponse;
-use AntChain\EBC\Models\ResumeAasEbcPersonRequest;
-use AntChain\EBC\Models\ResumeAasEbcPersonResponse;
-use AntChain\EBC\Models\CreateAasEbcOrganizationClassRequest;
-use AntChain\EBC\Models\CreateAasEbcOrganizationClassResponse;
-use AntChain\EBC\Models\UpdateAasEbcOrganizationClassRequest;
-use AntChain\EBC\Models\UpdateAasEbcOrganizationClassResponse;
-use AntChain\EBC\Models\AddAasEbcClassUserRequest;
-use AntChain\EBC\Models\AddAasEbcClassUserResponse;
-use AntChain\EBC\Models\DeleteAasEbcClassUserRequest;
-use AntChain\EBC\Models\DeleteAasEbcClassUserResponse;
-use AntChain\EBC\Models\QueryAasEbcOrganizationClassRequest;
-use AntChain\EBC\Models\QueryAasEbcOrganizationClassResponse;
-use AntChain\EBC\Models\QueryAasEbcClassUserRequest;
-use AntChain\EBC\Models\QueryAasEbcClassUserResponse;
-use AntChain\EBC\Models\CreateAasEbcOrganizationCourseRequest;
-use AntChain\EBC\Models\CreateAasEbcOrganizationCourseResponse;
-use AntChain\EBC\Models\UpdateAasEbcOrganizationCourseRequest;
-use AntChain\EBC\Models\UpdateAasEbcOrganizationCourseResponse;
-use AntChain\EBC\Models\AddAasEbcCourseClassRequest;
-use AntChain\EBC\Models\AddAasEbcCourseClassResponse;
-use AntChain\EBC\Models\AddAasEbcCourseUserRequest;
-use AntChain\EBC\Models\AddAasEbcCourseUserResponse;
-use AntChain\EBC\Models\DeleteAasEbcCourseClassRequest;
-use AntChain\EBC\Models\DeleteAasEbcCourseClassResponse;
-use AntChain\EBC\Models\DeleteAasEbcCourseUserRequest;
-use AntChain\EBC\Models\DeleteAasEbcCourseUserResponse;
-use AntChain\EBC\Models\CreateAasEbcUserCertRequest;
-use AntChain\EBC\Models\CreateAasEbcUserCertResponse;
-use AntChain\EBC\Models\UpdateAasEbcUserCertRequest;
-use AntChain\EBC\Models\UpdateAasEbcUserCertResponse;
-use AntChain\EBC\Models\QueryAasEbcOrganizationCertRequest;
-use AntChain\EBC\Models\QueryAasEbcOrganizationCertResponse;
-use AntChain\EBC\Models\QueryAasEbcUserCertRequest;
-use AntChain\EBC\Models\QueryAasEbcUserCertResponse;
-use AntChain\EBC\Models\QueryAasEbcCertRequest;
-use AntChain\EBC\Models\QueryAasEbcCertResponse;
-use AntChain\EBC\Models\ApplyAasEbcCertUrlRequest;
-use AntChain\EBC\Models\ApplyAasEbcCertUrlResponse;
-use AntChain\EBC\Models\CreateAasEbcAuthRequest;
-use AntChain\EBC\Models\CreateAasEbcAuthResponse;
-use AntChain\EBC\Models\UpdateAasEbcAuthRequest;
-use AntChain\EBC\Models\UpdateAasEbcAuthResponse;
-use AntChain\EBC\Models\UpdateAasEbcAuthStatusRequest;
-use AntChain\EBC\Models\UpdateAasEbcAuthStatusResponse;
-use AntChain\EBC\Models\UpdateAasEbcDataPriceRequest;
-use AntChain\EBC\Models\UpdateAasEbcDataPriceResponse;
-use AntChain\EBC\Models\QueryAasEbcConsumptionAmountRequest;
-use AntChain\EBC\Models\QueryAasEbcConsumptionAmountResponse;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationRequest;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationResponse;
+use AntChain\EBC\Models\CreateBaasEbcPersonRequest;
+use AntChain\EBC\Models\CreateBaasEbcPersonResponse;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationUserRequest;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationUserResponse;
+use AntChain\EBC\Models\CancelBaasEbcPersonRequest;
+use AntChain\EBC\Models\CancelBaasEbcPersonResponse;
+use AntChain\EBC\Models\ResumeBaasEbcPersonRequest;
+use AntChain\EBC\Models\ResumeBaasEbcPersonResponse;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationClassRequest;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationClassResponse;
+use AntChain\EBC\Models\UpdateBaasEbcOrganizationClassRequest;
+use AntChain\EBC\Models\UpdateBaasEbcOrganizationClassResponse;
+use AntChain\EBC\Models\AddBaasEbcClassUserRequest;
+use AntChain\EBC\Models\AddBaasEbcClassUserResponse;
+use AntChain\EBC\Models\DeleteBaasEbcClassUserRequest;
+use AntChain\EBC\Models\DeleteBaasEbcClassUserResponse;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationClassRequest;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationClassResponse;
+use AntChain\EBC\Models\QueryBaasEbcClassUserRequest;
+use AntChain\EBC\Models\QueryBaasEbcClassUserResponse;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationCourseRequest;
+use AntChain\EBC\Models\CreateBaasEbcOrganizationCourseResponse;
+use AntChain\EBC\Models\UpdateBaasEbcOrganizationCourseRequest;
+use AntChain\EBC\Models\UpdateBaasEbcOrganizationCourseResponse;
+use AntChain\EBC\Models\AddBaasEbcCourseClassRequest;
+use AntChain\EBC\Models\AddBaasEbcCourseClassResponse;
+use AntChain\EBC\Models\AddBaasEbcCourseUserRequest;
+use AntChain\EBC\Models\AddBaasEbcCourseUserResponse;
+use AntChain\EBC\Models\DeleteBaasEbcCourseClassRequest;
+use AntChain\EBC\Models\DeleteBaasEbcCourseClassResponse;
+use AntChain\EBC\Models\DeleteBaasEbcCourseUserRequest;
+use AntChain\EBC\Models\DeleteBaasEbcCourseUserResponse;
+use AntChain\EBC\Models\CreateBaasEbcUserCertRequest;
+use AntChain\EBC\Models\CreateBaasEbcUserCertResponse;
+use AntChain\EBC\Models\UpdateBaasEbcUserCertRequest;
+use AntChain\EBC\Models\UpdateBaasEbcUserCertResponse;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationCertRequest;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationCertResponse;
+use AntChain\EBC\Models\QueryBaasEbcUserCertRequest;
+use AntChain\EBC\Models\QueryBaasEbcUserCertResponse;
+use AntChain\EBC\Models\QueryBaasEbcCertRequest;
+use AntChain\EBC\Models\QueryBaasEbcCertResponse;
+use AntChain\EBC\Models\ApplyBaasEbcCertUrlRequest;
+use AntChain\EBC\Models\ApplyBaasEbcCertUrlResponse;
+use AntChain\EBC\Models\CreateBaasEbcAuthRequest;
+use AntChain\EBC\Models\CreateBaasEbcAuthResponse;
+use AntChain\EBC\Models\UpdateBaasEbcAuthRequest;
+use AntChain\EBC\Models\UpdateBaasEbcAuthResponse;
+use AntChain\EBC\Models\UpdateBaasEbcAuthStatusRequest;
+use AntChain\EBC\Models\UpdateBaasEbcAuthStatusResponse;
+use AntChain\EBC\Models\UpdateBaasEbcDataPriceRequest;
+use AntChain\EBC\Models\UpdateBaasEbcDataPriceResponse;
+use AntChain\EBC\Models\QueryBaasEbcConsumptionAmountRequest;
+use AntChain\EBC\Models\QueryBaasEbcConsumptionAmountResponse;
 
 class Client {
     protected $_endpoint;
@@ -106,12 +106,12 @@ class Client {
      * Init client with Config
      * @param config config contains the necessary information to create a client
      */
-    public function __construct(Config $config){
+    public function __construct($config){
         if (Utils::isUnset($config)) {
             throw new TeaError([
                 "code" => "ParameterMissing",
                 "message" => "'config' can not be unset"
-                ]);
+            ]);
         }
         $this->_accessKeyId = $config->accessKeyId;
         $this->_accessKeySecret = $config->accessKeySecret;
@@ -136,12 +136,14 @@ class Client {
      * @param string $protocol http or https
      * @param string $method e.g. GET
      * @param string $pathname pathname of every api
-     * @param object $request which contains request params
+     * @param array $request which contains request params
      * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
-     * @return object|array response
-     * @throws \Exception
+     * @return array the response
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
      */
-    public function doRequest($version, $action, $protocol, $method, $pathname, $request, RuntimeOptions $runtime){
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $runtime){
         $runtime->validate();
         $_runtime = [
             "timeouted" => "retry",
@@ -154,13 +156,13 @@ class Client {
             "retry" => [
                 "retryable" => $runtime->autoretry,
                 "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
-                ],
+            ],
             "backoff" => [
                 "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
-                ],
+            ],
             "ignoreSSL" => $runtime->ignoreSSL
-            ];
+        ];
         $_lastRequest = null;
         $_lastException = null;
         $_now = time();
@@ -187,20 +189,19 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200713"
-                    ];
+                    "sdkVersion" => "Tea-SDK-20200825"
+                ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
                 }
                 $_request->headers = [
                     "host" => $this->_endpoint,
                     "user-agent" => $this->getUserAgent()
-                    ];
+                ];
                 $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
                 $_request->body = Utils::toFormString($tmp);
                 $_request->headers["content-type"] = "application/x-www-form-urlencoded";
-                $signedParam = Tea::merge($_request->query,
-                    RpcUtils::query($request));
+                $signedParam = Tea::merge($_request->query, RpcUtils::query($request));
                 $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
                 $_lastRequest = $_request;
                 $_response= Tea::send($_request, $_runtime);
@@ -212,11 +213,14 @@ class Client {
                         "message" => $resp["result_msg"],
                         "data" => $resp,
                         "code" => $resp["result_code"]
-                        ]);
+                    ]);
                 }
                 return $resp;
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
                 if (Tea::isRetryable($e)) {
                     $_lastException = $e;
                     continue;
@@ -229,8 +233,7 @@ class Client {
 
     /**
      * Get user agent
-     * @return string agent
-     * @throws \Exception
+     * @return string user agent
      */
     public function getUserAgent(){
         $userAgent = "TeaClient/1.0.0";
@@ -240,551 +243,507 @@ class Client {
     /**
      * Description: 创建企业
      * Summary: 创建企业
-     * @param CreateAasEbcOrganizationRequest $request
-     * @return CreateAasEbcOrganizationResponse
-     * @throws \Exception
+     * @param CreateBaasEbcOrganizationRequest $request
+     * @return CreateBaasEbcOrganizationResponse
      */
-    public function createAasEbcOrganization(CreateAasEbcOrganizationRequest $request){
+    public function createBaasEbcOrganization($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcOrganizationEx($request, $runtime);
+        return $this->createBaasEbcOrganizationEx($request, $runtime);
     }
 
     /**
      * Description: 创建企业
      * Summary: 创建企业
-     * @param CreateAasEbcOrganizationRequest $request
+     * @param CreateBaasEbcOrganizationRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcOrganizationResponse
-     * @throws \Exception
+     * @return CreateBaasEbcOrganizationResponse
      */
-    public function createAasEbcOrganizationEx(CreateAasEbcOrganizationRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcOrganizationEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcOrganizationResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcOrganizationResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 创建个人
      * Summary: 创建个人
-     * @param CreateAasEbcPersonRequest $request
-     * @return CreateAasEbcPersonResponse
-     * @throws \Exception
+     * @param CreateBaasEbcPersonRequest $request
+     * @return CreateBaasEbcPersonResponse
      */
-    public function createAasEbcPerson(CreateAasEbcPersonRequest $request){
+    public function createBaasEbcPerson($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcPersonEx($request, $runtime);
+        return $this->createBaasEbcPersonEx($request, $runtime);
     }
 
     /**
      * Description: 创建个人
      * Summary: 创建个人
-     * @param CreateAasEbcPersonRequest $request
+     * @param CreateBaasEbcPersonRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcPersonResponse
-     * @throws \Exception
+     * @return CreateBaasEbcPersonResponse
      */
-    public function createAasEbcPersonEx(CreateAasEbcPersonRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcPersonEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 企业用户注册
      * Summary: 企业用户注册
-     * @param CreateAasEbcOrganizationUserRequest $request
-     * @return CreateAasEbcOrganizationUserResponse
-     * @throws \Exception
+     * @param CreateBaasEbcOrganizationUserRequest $request
+     * @return CreateBaasEbcOrganizationUserResponse
      */
-    public function createAasEbcOrganizationUser(CreateAasEbcOrganizationUserRequest $request){
+    public function createBaasEbcOrganizationUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcOrganizationUserEx($request, $runtime);
+        return $this->createBaasEbcOrganizationUserEx($request, $runtime);
     }
 
     /**
      * Description: 企业用户注册
      * Summary: 企业用户注册
-     * @param CreateAasEbcOrganizationUserRequest $request
+     * @param CreateBaasEbcOrganizationUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcOrganizationUserResponse
-     * @throws \Exception
+     * @return CreateBaasEbcOrganizationUserResponse
      */
-    public function createAasEbcOrganizationUserEx(CreateAasEbcOrganizationUserRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcOrganizationUserEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcOrganizationUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.user.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcOrganizationUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.user.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 个人退出
      * Summary: 个人退出
-     * @param CancelAasEbcPersonRequest $request
-     * @return CancelAasEbcPersonResponse
-     * @throws \Exception
+     * @param CancelBaasEbcPersonRequest $request
+     * @return CancelBaasEbcPersonResponse
      */
-    public function cancelAasEbcPerson(CancelAasEbcPersonRequest $request){
+    public function cancelBaasEbcPerson($request){
         $runtime = new RuntimeOptions([]);
-        return $this->cancelAasEbcPersonEx($request, $runtime);
+        return $this->cancelBaasEbcPersonEx($request, $runtime);
     }
 
     /**
      * Description: 个人退出
      * Summary: 个人退出
-     * @param CancelAasEbcPersonRequest $request
+     * @param CancelBaasEbcPersonRequest $request
      * @param RuntimeOptions $runtime
-     * @return CancelAasEbcPersonResponse
-     * @throws \Exception
+     * @return CancelBaasEbcPersonResponse
      */
-    public function cancelAasEbcPersonEx(CancelAasEbcPersonRequest $request, RuntimeOptions $runtime){
+    public function cancelBaasEbcPersonEx($request, $runtime){
         Utils::validateModel($request);
-        return CancelAasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.cancel", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CancelBaasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.cancel", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 用户复入
      * Summary: 用户复入
-     * @param ResumeAasEbcPersonRequest $request
-     * @return ResumeAasEbcPersonResponse
-     * @throws \Exception
+     * @param ResumeBaasEbcPersonRequest $request
+     * @return ResumeBaasEbcPersonResponse
      */
-    public function resumeAasEbcPerson(ResumeAasEbcPersonRequest $request){
+    public function resumeBaasEbcPerson($request){
         $runtime = new RuntimeOptions([]);
-        return $this->resumeAasEbcPersonEx($request, $runtime);
+        return $this->resumeBaasEbcPersonEx($request, $runtime);
     }
 
     /**
      * Description: 用户复入
      * Summary: 用户复入
-     * @param ResumeAasEbcPersonRequest $request
+     * @param ResumeBaasEbcPersonRequest $request
      * @param RuntimeOptions $runtime
-     * @return ResumeAasEbcPersonResponse
-     * @throws \Exception
+     * @return ResumeBaasEbcPersonResponse
      */
-    public function resumeAasEbcPersonEx(ResumeAasEbcPersonRequest $request, RuntimeOptions $runtime){
+    public function resumeBaasEbcPersonEx($request, $runtime){
         Utils::validateModel($request);
-        return ResumeAasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.resume", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ResumeBaasEbcPersonResponse::fromMap($this->doRequest("1.0", "baas.ebc.person.resume", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 创建班级
      * Summary: 创建班级
-     * @param CreateAasEbcOrganizationClassRequest $request
-     * @return CreateAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @param CreateBaasEbcOrganizationClassRequest $request
+     * @return CreateBaasEbcOrganizationClassResponse
      */
-    public function createAasEbcOrganizationClass(CreateAasEbcOrganizationClassRequest $request){
+    public function createBaasEbcOrganizationClass($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcOrganizationClassEx($request, $runtime);
+        return $this->createBaasEbcOrganizationClassEx($request, $runtime);
     }
 
     /**
      * Description: 创建班级
      * Summary: 创建班级
-     * @param CreateAasEbcOrganizationClassRequest $request
+     * @param CreateBaasEbcOrganizationClassRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @return CreateBaasEbcOrganizationClassResponse
      */
-    public function createAasEbcOrganizationClassEx(CreateAasEbcOrganizationClassRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcOrganizationClassEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新班级
      * Summary: 更新班级
-     * @param UpdateAasEbcOrganizationClassRequest $request
-     * @return UpdateAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcOrganizationClassRequest $request
+     * @return UpdateBaasEbcOrganizationClassResponse
      */
-    public function updateAasEbcOrganizationClass(UpdateAasEbcOrganizationClassRequest $request){
+    public function updateBaasEbcOrganizationClass($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcOrganizationClassEx($request, $runtime);
+        return $this->updateBaasEbcOrganizationClassEx($request, $runtime);
     }
 
     /**
      * Description: 更新班级
      * Summary: 更新班级
-     * @param UpdateAasEbcOrganizationClassRequest $request
+     * @param UpdateBaasEbcOrganizationClassRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcOrganizationClassResponse
      */
-    public function updateAasEbcOrganizationClassEx(UpdateAasEbcOrganizationClassRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcOrganizationClassEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 增加学员
      * Summary: 增加学员
-     * @param AddAasEbcClassUserRequest $request
-     * @return AddAasEbcClassUserResponse
-     * @throws \Exception
+     * @param AddBaasEbcClassUserRequest $request
+     * @return AddBaasEbcClassUserResponse
      */
-    public function addAasEbcClassUser(AddAasEbcClassUserRequest $request){
+    public function addBaasEbcClassUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addAasEbcClassUserEx($request, $runtime);
+        return $this->addBaasEbcClassUserEx($request, $runtime);
     }
 
     /**
      * Description: 增加学员
      * Summary: 增加学员
-     * @param AddAasEbcClassUserRequest $request
+     * @param AddBaasEbcClassUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return AddAasEbcClassUserResponse
-     * @throws \Exception
+     * @return AddBaasEbcClassUserResponse
      */
-    public function addAasEbcClassUserEx(AddAasEbcClassUserRequest $request, RuntimeOptions $runtime){
+    public function addBaasEbcClassUserEx($request, $runtime){
         Utils::validateModel($request);
-        return AddAasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddBaasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 删除学员
      * Summary: 删除学员
-     * @param DeleteAasEbcClassUserRequest $request
-     * @return DeleteAasEbcClassUserResponse
-     * @throws \Exception
+     * @param DeleteBaasEbcClassUserRequest $request
+     * @return DeleteBaasEbcClassUserResponse
      */
-    public function deleteAasEbcClassUser(DeleteAasEbcClassUserRequest $request){
+    public function deleteBaasEbcClassUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deleteAasEbcClassUserEx($request, $runtime);
+        return $this->deleteBaasEbcClassUserEx($request, $runtime);
     }
 
     /**
      * Description: 删除学员
      * Summary: 删除学员
-     * @param DeleteAasEbcClassUserRequest $request
+     * @param DeleteBaasEbcClassUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return DeleteAasEbcClassUserResponse
-     * @throws \Exception
+     * @return DeleteBaasEbcClassUserResponse
      */
-    public function deleteAasEbcClassUserEx(DeleteAasEbcClassUserRequest $request, RuntimeOptions $runtime){
+    public function deleteBaasEbcClassUserEx($request, $runtime){
         Utils::validateModel($request);
-        return DeleteAasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeleteBaasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 班级查询
      * Summary: 班级查询
-     * @param QueryAasEbcOrganizationClassRequest $request
-     * @return QueryAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @param QueryBaasEbcOrganizationClassRequest $request
+     * @return QueryBaasEbcOrganizationClassResponse
      */
-    public function queryAasEbcOrganizationClass(QueryAasEbcOrganizationClassRequest $request){
+    public function queryBaasEbcOrganizationClass($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcOrganizationClassEx($request, $runtime);
+        return $this->queryBaasEbcOrganizationClassEx($request, $runtime);
     }
 
     /**
      * Description: 班级查询
      * Summary: 班级查询
-     * @param QueryAasEbcOrganizationClassRequest $request
+     * @param QueryBaasEbcOrganizationClassRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcOrganizationClassResponse
-     * @throws \Exception
+     * @return QueryBaasEbcOrganizationClassResponse
      */
-    public function queryAasEbcOrganizationClassEx(QueryAasEbcOrganizationClassRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcOrganizationClassEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcOrganizationClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.class.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 班级明细查询
      * Summary: 班级明细查询
-     * @param QueryAasEbcClassUserRequest $request
-     * @return QueryAasEbcClassUserResponse
-     * @throws \Exception
+     * @param QueryBaasEbcClassUserRequest $request
+     * @return QueryBaasEbcClassUserResponse
      */
-    public function queryAasEbcClassUser(QueryAasEbcClassUserRequest $request){
+    public function queryBaasEbcClassUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcClassUserEx($request, $runtime);
+        return $this->queryBaasEbcClassUserEx($request, $runtime);
     }
 
     /**
      * Description: 班级明细查询
      * Summary: 班级明细查询
-     * @param QueryAasEbcClassUserRequest $request
+     * @param QueryBaasEbcClassUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcClassUserResponse
-     * @throws \Exception
+     * @return QueryBaasEbcClassUserResponse
      */
-    public function queryAasEbcClassUserEx(QueryAasEbcClassUserRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcClassUserEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcClassUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.class.user.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 发布课程
      * Summary: 发布课程
-     * @param CreateAasEbcOrganizationCourseRequest $request
-     * @return CreateAasEbcOrganizationCourseResponse
-     * @throws \Exception
+     * @param CreateBaasEbcOrganizationCourseRequest $request
+     * @return CreateBaasEbcOrganizationCourseResponse
      */
-    public function createAasEbcOrganizationCourse(CreateAasEbcOrganizationCourseRequest $request){
+    public function createBaasEbcOrganizationCourse($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcOrganizationCourseEx($request, $runtime);
+        return $this->createBaasEbcOrganizationCourseEx($request, $runtime);
     }
 
     /**
      * Description: 发布课程
      * Summary: 发布课程
-     * @param CreateAasEbcOrganizationCourseRequest $request
+     * @param CreateBaasEbcOrganizationCourseRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcOrganizationCourseResponse
-     * @throws \Exception
+     * @return CreateBaasEbcOrganizationCourseResponse
      */
-    public function createAasEbcOrganizationCourseEx(CreateAasEbcOrganizationCourseRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcOrganizationCourseEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcOrganizationCourseResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.course.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcOrganizationCourseResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.course.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新课程
      * Summary: 更新课程
-     * @param UpdateAasEbcOrganizationCourseRequest $request
-     * @return UpdateAasEbcOrganizationCourseResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcOrganizationCourseRequest $request
+     * @return UpdateBaasEbcOrganizationCourseResponse
      */
-    public function updateAasEbcOrganizationCourse(UpdateAasEbcOrganizationCourseRequest $request){
+    public function updateBaasEbcOrganizationCourse($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcOrganizationCourseEx($request, $runtime);
+        return $this->updateBaasEbcOrganizationCourseEx($request, $runtime);
     }
 
     /**
      * Description: 更新课程
      * Summary: 更新课程
-     * @param UpdateAasEbcOrganizationCourseRequest $request
+     * @param UpdateBaasEbcOrganizationCourseRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcOrganizationCourseResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcOrganizationCourseResponse
      */
-    public function updateAasEbcOrganizationCourseEx(UpdateAasEbcOrganizationCourseRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcOrganizationCourseEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcOrganizationCourseResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.course.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcOrganizationCourseResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.course.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 将班级添加到课程中
      * Summary: 增加课程班级
-     * @param AddAasEbcCourseClassRequest $request
-     * @return AddAasEbcCourseClassResponse
-     * @throws \Exception
+     * @param AddBaasEbcCourseClassRequest $request
+     * @return AddBaasEbcCourseClassResponse
      */
-    public function addAasEbcCourseClass(AddAasEbcCourseClassRequest $request){
+    public function addBaasEbcCourseClass($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addAasEbcCourseClassEx($request, $runtime);
+        return $this->addBaasEbcCourseClassEx($request, $runtime);
     }
 
     /**
      * Description: 将班级添加到课程中
      * Summary: 增加课程班级
-     * @param AddAasEbcCourseClassRequest $request
+     * @param AddBaasEbcCourseClassRequest $request
      * @param RuntimeOptions $runtime
-     * @return AddAasEbcCourseClassResponse
-     * @throws \Exception
+     * @return AddBaasEbcCourseClassResponse
      */
-    public function addAasEbcCourseClassEx(AddAasEbcCourseClassRequest $request, RuntimeOptions $runtime){
+    public function addBaasEbcCourseClassEx($request, $runtime){
         Utils::validateModel($request);
-        return AddAasEbcCourseClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.class.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddBaasEbcCourseClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.class.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 将学员添加到课程中
      * Summary: 增加课程学员
-     * @param AddAasEbcCourseUserRequest $request
-     * @return AddAasEbcCourseUserResponse
-     * @throws \Exception
+     * @param AddBaasEbcCourseUserRequest $request
+     * @return AddBaasEbcCourseUserResponse
      */
-    public function addAasEbcCourseUser(AddAasEbcCourseUserRequest $request){
+    public function addBaasEbcCourseUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addAasEbcCourseUserEx($request, $runtime);
+        return $this->addBaasEbcCourseUserEx($request, $runtime);
     }
 
     /**
      * Description: 将学员添加到课程中
      * Summary: 增加课程学员
-     * @param AddAasEbcCourseUserRequest $request
+     * @param AddBaasEbcCourseUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return AddAasEbcCourseUserResponse
-     * @throws \Exception
+     * @return AddBaasEbcCourseUserResponse
      */
-    public function addAasEbcCourseUserEx(AddAasEbcCourseUserRequest $request, RuntimeOptions $runtime){
+    public function addBaasEbcCourseUserEx($request, $runtime){
         Utils::validateModel($request);
-        return AddAasEbcCourseUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.user.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddBaasEbcCourseUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.user.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 删除课程中的班级
      * Summary: 删除课程班级
-     * @param DeleteAasEbcCourseClassRequest $request
-     * @return DeleteAasEbcCourseClassResponse
-     * @throws \Exception
+     * @param DeleteBaasEbcCourseClassRequest $request
+     * @return DeleteBaasEbcCourseClassResponse
      */
-    public function deleteAasEbcCourseClass(DeleteAasEbcCourseClassRequest $request){
+    public function deleteBaasEbcCourseClass($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deleteAasEbcCourseClassEx($request, $runtime);
+        return $this->deleteBaasEbcCourseClassEx($request, $runtime);
     }
 
     /**
      * Description: 删除课程中的班级
      * Summary: 删除课程班级
-     * @param DeleteAasEbcCourseClassRequest $request
+     * @param DeleteBaasEbcCourseClassRequest $request
      * @param RuntimeOptions $runtime
-     * @return DeleteAasEbcCourseClassResponse
-     * @throws \Exception
+     * @return DeleteBaasEbcCourseClassResponse
      */
-    public function deleteAasEbcCourseClassEx(DeleteAasEbcCourseClassRequest $request, RuntimeOptions $runtime){
+    public function deleteBaasEbcCourseClassEx($request, $runtime){
         Utils::validateModel($request);
-        return DeleteAasEbcCourseClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.class.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeleteBaasEbcCourseClassResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.class.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 删除课程中的学员
      * Summary: 删除课程学员
-     * @param DeleteAasEbcCourseUserRequest $request
-     * @return DeleteAasEbcCourseUserResponse
-     * @throws \Exception
+     * @param DeleteBaasEbcCourseUserRequest $request
+     * @return DeleteBaasEbcCourseUserResponse
      */
-    public function deleteAasEbcCourseUser(DeleteAasEbcCourseUserRequest $request){
+    public function deleteBaasEbcCourseUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deleteAasEbcCourseUserEx($request, $runtime);
+        return $this->deleteBaasEbcCourseUserEx($request, $runtime);
     }
 
     /**
      * Description: 删除课程中的学员
      * Summary: 删除课程学员
-     * @param DeleteAasEbcCourseUserRequest $request
+     * @param DeleteBaasEbcCourseUserRequest $request
      * @param RuntimeOptions $runtime
-     * @return DeleteAasEbcCourseUserResponse
-     * @throws \Exception
+     * @return DeleteBaasEbcCourseUserResponse
      */
-    public function deleteAasEbcCourseUserEx(DeleteAasEbcCourseUserRequest $request, RuntimeOptions $runtime){
+    public function deleteBaasEbcCourseUserEx($request, $runtime){
         Utils::validateModel($request);
-        return DeleteAasEbcCourseUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.user.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeleteBaasEbcCourseUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.user.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 发布证书
      * Summary: 发布证书
-     * @param CreateAasEbcUserCertRequest $request
-     * @return CreateAasEbcUserCertResponse
-     * @throws \Exception
+     * @param CreateBaasEbcUserCertRequest $request
+     * @return CreateBaasEbcUserCertResponse
      */
-    public function createAasEbcUserCert(CreateAasEbcUserCertRequest $request){
+    public function createBaasEbcUserCert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcUserCertEx($request, $runtime);
+        return $this->createBaasEbcUserCertEx($request, $runtime);
     }
 
     /**
      * Description: 发布证书
      * Summary: 发布证书
-     * @param CreateAasEbcUserCertRequest $request
+     * @param CreateBaasEbcUserCertRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcUserCertResponse
-     * @throws \Exception
+     * @return CreateBaasEbcUserCertResponse
      */
-    public function createAasEbcUserCertEx(CreateAasEbcUserCertRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcUserCertEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新证书
      * Summary: 更新证书
-     * @param UpdateAasEbcUserCertRequest $request
-     * @return UpdateAasEbcUserCertResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcUserCertRequest $request
+     * @return UpdateBaasEbcUserCertResponse
      */
-    public function updateAasEbcUserCert(UpdateAasEbcUserCertRequest $request){
+    public function updateBaasEbcUserCert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcUserCertEx($request, $runtime);
+        return $this->updateBaasEbcUserCertEx($request, $runtime);
     }
 
     /**
      * Description: 更新证书
      * Summary: 更新证书
-     * @param UpdateAasEbcUserCertRequest $request
+     * @param UpdateBaasEbcUserCertRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcUserCertResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcUserCertResponse
      */
-    public function updateAasEbcUserCertEx(UpdateAasEbcUserCertRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcUserCertEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 查询证书
      * Summary: 查询企业证书
-     * @param QueryAasEbcOrganizationCertRequest $request
-     * @return QueryAasEbcOrganizationCertResponse
-     * @throws \Exception
+     * @param QueryBaasEbcOrganizationCertRequest $request
+     * @return QueryBaasEbcOrganizationCertResponse
      */
-    public function queryAasEbcOrganizationCert(QueryAasEbcOrganizationCertRequest $request){
+    public function queryBaasEbcOrganizationCert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcOrganizationCertEx($request, $runtime);
+        return $this->queryBaasEbcOrganizationCertEx($request, $runtime);
     }
 
     /**
      * Description: 查询证书
      * Summary: 查询企业证书
-     * @param QueryAasEbcOrganizationCertRequest $request
+     * @param QueryBaasEbcOrganizationCertRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcOrganizationCertResponse
-     * @throws \Exception
+     * @return QueryBaasEbcOrganizationCertResponse
      */
-    public function queryAasEbcOrganizationCertEx(QueryAasEbcOrganizationCertRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcOrganizationCertEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcOrganizationCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcOrganizationCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 查询用户证书
      * Summary: 查询用户证书
-     * @param QueryAasEbcUserCertRequest $request
-     * @return QueryAasEbcUserCertResponse
-     * @throws \Exception
+     * @param QueryBaasEbcUserCertRequest $request
+     * @return QueryBaasEbcUserCertResponse
      */
-    public function queryAasEbcUserCert(QueryAasEbcUserCertRequest $request){
+    public function queryBaasEbcUserCert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcUserCertEx($request, $runtime);
+        return $this->queryBaasEbcUserCertEx($request, $runtime);
     }
 
     /**
      * Description: 查询用户证书
      * Summary: 查询用户证书
-     * @param QueryAasEbcUserCertRequest $request
+     * @param QueryBaasEbcUserCertRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcUserCertResponse
-     * @throws \Exception
+     * @return QueryBaasEbcUserCertResponse
      */
-    public function queryAasEbcUserCertEx(QueryAasEbcUserCertRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcUserCertEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcUserCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.user.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 证书明细查询
      * Summary: 证书明细查询
-     * @param QueryAasEbcCertRequest $request
-     * @return QueryAasEbcCertResponse
-     * @throws \Exception
+     * @param QueryBaasEbcCertRequest $request
+     * @return QueryBaasEbcCertResponse
      */
-    public function queryAasEbcCert(QueryAasEbcCertRequest $request){
+    public function queryBaasEbcCert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcCertEx($request, $runtime);
+        return $this->queryBaasEbcCertEx($request, $runtime);
     }
 
     /**
      * Description: 证书明细查询
      * Summary: 证书明细查询
-     * @param QueryAasEbcCertRequest $request
+     * @param QueryBaasEbcCertRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcCertResponse
-     * @throws \Exception
+     * @return QueryBaasEbcCertResponse
      */
-    public function queryAasEbcCertEx(QueryAasEbcCertRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcCertEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcCertResponse::fromMap($this->doRequest("1.0", "baas.ebc.cert.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
@@ -792,13 +751,12 @@ class Client {
      * 证书已发布则会返回证书图片、证书其他信息的文件上传url。
      * 文件最大5M
      * Summary: 申请证书信息上传url
-     * @param ApplyAasEbcCertUrlRequest $request
-     * @return ApplyAasEbcCertUrlResponse
-     * @throws \Exception
+     * @param ApplyBaasEbcCertUrlRequest $request
+     * @return ApplyBaasEbcCertUrlResponse
      */
-    public function applyAasEbcCertUrl(ApplyAasEbcCertUrlRequest $request){
+    public function applyBaasEbcCertUrl($request){
         $runtime = new RuntimeOptions([]);
-        return $this->applyAasEbcCertUrlEx($request, $runtime);
+        return $this->applyBaasEbcCertUrlEx($request, $runtime);
     }
 
     /**
@@ -806,138 +764,127 @@ class Client {
      * 证书已发布则会返回证书图片、证书其他信息的文件上传url。
      * 文件最大5M
      * Summary: 申请证书信息上传url
-     * @param ApplyAasEbcCertUrlRequest $request
+     * @param ApplyBaasEbcCertUrlRequest $request
      * @param RuntimeOptions $runtime
-     * @return ApplyAasEbcCertUrlResponse
-     * @throws \Exception
+     * @return ApplyBaasEbcCertUrlResponse
      */
-    public function applyAasEbcCertUrlEx(ApplyAasEbcCertUrlRequest $request, RuntimeOptions $runtime){
+    public function applyBaasEbcCertUrlEx($request, $runtime){
         Utils::validateModel($request);
-        return ApplyAasEbcCertUrlResponse::fromMap($this->doRequest("1.0", "baas.ebc.cert.url.apply", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ApplyBaasEbcCertUrlResponse::fromMap($this->doRequest("1.0", "baas.ebc.cert.url.apply", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 新增授权关系，仅限联盟管理员调用
      * Summary: 新增授权关系
-     * @param CreateAasEbcAuthRequest $request
-     * @return CreateAasEbcAuthResponse
-     * @throws \Exception
+     * @param CreateBaasEbcAuthRequest $request
+     * @return CreateBaasEbcAuthResponse
      */
-    public function createAasEbcAuth(CreateAasEbcAuthRequest $request){
+    public function createBaasEbcAuth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createAasEbcAuthEx($request, $runtime);
+        return $this->createBaasEbcAuthEx($request, $runtime);
     }
 
     /**
      * Description: 新增授权关系，仅限联盟管理员调用
      * Summary: 新增授权关系
-     * @param CreateAasEbcAuthRequest $request
+     * @param CreateBaasEbcAuthRequest $request
      * @param RuntimeOptions $runtime
-     * @return CreateAasEbcAuthResponse
-     * @throws \Exception
+     * @return CreateBaasEbcAuthResponse
      */
-    public function createAasEbcAuthEx(CreateAasEbcAuthRequest $request, RuntimeOptions $runtime){
+    public function createBaasEbcAuthEx($request, $runtime){
         Utils::validateModel($request);
-        return CreateAasEbcAuthResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateBaasEbcAuthResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新授权关系，仅限联盟管理员调用
      * Summary: 更新授权关系
-     * @param UpdateAasEbcAuthRequest $request
-     * @return UpdateAasEbcAuthResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcAuthRequest $request
+     * @return UpdateBaasEbcAuthResponse
      */
-    public function updateAasEbcAuth(UpdateAasEbcAuthRequest $request){
+    public function updateBaasEbcAuth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcAuthEx($request, $runtime);
+        return $this->updateBaasEbcAuthEx($request, $runtime);
     }
 
     /**
      * Description: 更新授权关系，仅限联盟管理员调用
      * Summary: 更新授权关系
-     * @param UpdateAasEbcAuthRequest $request
+     * @param UpdateBaasEbcAuthRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcAuthResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcAuthResponse
      */
-    public function updateAasEbcAuthEx(UpdateAasEbcAuthRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcAuthEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcAuthResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcAuthResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新授权关系状态，仅限联盟管理员调用
      * Summary: 更新授权关系状态
-     * @param UpdateAasEbcAuthStatusRequest $request
-     * @return UpdateAasEbcAuthStatusResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcAuthStatusRequest $request
+     * @return UpdateBaasEbcAuthStatusResponse
      */
-    public function updateAasEbcAuthStatus(UpdateAasEbcAuthStatusRequest $request){
+    public function updateBaasEbcAuthStatus($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcAuthStatusEx($request, $runtime);
+        return $this->updateBaasEbcAuthStatusEx($request, $runtime);
     }
 
     /**
      * Description: 更新授权关系状态，仅限联盟管理员调用
      * Summary: 更新授权关系状态
-     * @param UpdateAasEbcAuthStatusRequest $request
+     * @param UpdateBaasEbcAuthStatusRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcAuthStatusResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcAuthStatusResponse
      */
-    public function updateAasEbcAuthStatusEx(UpdateAasEbcAuthStatusRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcAuthStatusEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcAuthStatusResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.status.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcAuthStatusResponse::fromMap($this->doRequest("1.0", "baas.ebc.auth.status.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 更新数据价值
      * Summary: 更新数据价值
-     * @param UpdateAasEbcDataPriceRequest $request
-     * @return UpdateAasEbcDataPriceResponse
-     * @throws \Exception
+     * @param UpdateBaasEbcDataPriceRequest $request
+     * @return UpdateBaasEbcDataPriceResponse
      */
-    public function updateAasEbcDataPrice(UpdateAasEbcDataPriceRequest $request){
+    public function updateBaasEbcDataPrice($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateAasEbcDataPriceEx($request, $runtime);
+        return $this->updateBaasEbcDataPriceEx($request, $runtime);
     }
 
     /**
      * Description: 更新数据价值
      * Summary: 更新数据价值
-     * @param UpdateAasEbcDataPriceRequest $request
+     * @param UpdateBaasEbcDataPriceRequest $request
      * @param RuntimeOptions $runtime
-     * @return UpdateAasEbcDataPriceResponse
-     * @throws \Exception
+     * @return UpdateBaasEbcDataPriceResponse
      */
-    public function updateAasEbcDataPriceEx(UpdateAasEbcDataPriceRequest $request, RuntimeOptions $runtime){
+    public function updateBaasEbcDataPriceEx($request, $runtime){
         Utils::validateModel($request);
-        return UpdateAasEbcDataPriceResponse::fromMap($this->doRequest("1.0", "baas.ebc.data.price.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateBaasEbcDataPriceResponse::fromMap($this->doRequest("1.0", "baas.ebc.data.price.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**
      * Description: 查询消费者消费金额
      * Summary: 查询消费者消费金额
-     * @param QueryAasEbcConsumptionAmountRequest $request
-     * @return QueryAasEbcConsumptionAmountResponse
-     * @throws \Exception
+     * @param QueryBaasEbcConsumptionAmountRequest $request
+     * @return QueryBaasEbcConsumptionAmountResponse
      */
-    public function queryAasEbcConsumptionAmount(QueryAasEbcConsumptionAmountRequest $request){
+    public function queryBaasEbcConsumptionAmount($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryAasEbcConsumptionAmountEx($request, $runtime);
+        return $this->queryBaasEbcConsumptionAmountEx($request, $runtime);
     }
 
     /**
      * Description: 查询消费者消费金额
      * Summary: 查询消费者消费金额
-     * @param QueryAasEbcConsumptionAmountRequest $request
+     * @param QueryBaasEbcConsumptionAmountRequest $request
      * @param RuntimeOptions $runtime
-     * @return QueryAasEbcConsumptionAmountResponse
-     * @throws \Exception
+     * @return QueryBaasEbcConsumptionAmountResponse
      */
-    public function queryAasEbcConsumptionAmountEx(QueryAasEbcConsumptionAmountRequest $request, RuntimeOptions $runtime){
+    public function queryBaasEbcConsumptionAmountEx($request, $runtime){
         Utils::validateModel($request);
-        return QueryAasEbcConsumptionAmountResponse::fromMap($this->doRequest("1.0", "baas.ebc.consumption.amount.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryBaasEbcConsumptionAmountResponse::fromMap($this->doRequest("1.0", "baas.ebc.consumption.amount.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 }

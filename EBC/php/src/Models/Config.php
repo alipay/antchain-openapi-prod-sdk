@@ -150,14 +150,14 @@ class Config extends Model {
     /**
      * @description read timeout
      * @example 10
-     * @var integer
+     * @var int
      */
     public $readTimeout;
 
     /**
      * @description connect timeout
      * @example 10
-     * @var integer
+     * @var int
      */
     public $connectTimeout;
 
@@ -192,7 +192,7 @@ class Config extends Model {
     /**
      * @description max idle conns
      * @example 3
-     * @var integer
+     * @var int
      */
     public $maxIdleConns;
 
