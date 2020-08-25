@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/REALPERSON
+module github.com/antchain-openapi-sdk-go/realperson
 
 require (
 	github.com/antchain-openapi-sdk-go/antchain-util v0.0.1

@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/TWC
+module github.com/antchain-openapi-sdk-go/twc
 
 require (
 	github.com/antchain-openapi-sdk-go/antchain-util v0.0.1
