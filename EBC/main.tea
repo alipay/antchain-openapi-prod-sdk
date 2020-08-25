@@ -1,0 +1,1475 @@
+import AlipayUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = config.readTimeout;
+  @connectTimeout = config.connectTimeout;
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = config.maxIdleConns;
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AlipayUtil.getTimestamp(),
+    req_msg_id = Util.getNonce(),
+    access_key = @accessKeyId,
+    charset = 'UTF-8',
+    baseSdkVersion = 'Tea-SDK',
+    sdkVersion = 'Tea-SDK-20200825',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = @endpoint,
+    user-agent = getUserAgent()
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AlipayUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var obj = Util.readAsJSON(__response.body);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AlipayUtil.hasError(res)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+/**
+ * Get user agent
+ * @return user agent
+ */
+function getUserAgent(): string {
+  var userAgent = 'TeaClient/1.0.0';
+  return Util.getUserAgent(userAgent);
+}
+
+// 证书
+model Cert {
+  // 证书编号
+  certCode?: string(maxLength=64, name='cert_code', example='0001'),
+  // 证书描述	
+  certDescription?: string(name='cert_description', example='证书描述 '),
+  // 时间周期结束时间
+  certEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_end_time', example='2018-10-10T10:10:00Z'),
+  // 证书id
+  certId?: string(maxLength=128, name='cert_id', example='0001'),
+  // 证书名称-中文
+  certNameCn?: string(maxLength=64, name='cert_name_cn', example='四六级'),
+  // 证书名称-英文（拼音）
+  certNameEn?: string(name='cert_name_en', example='CET'),
+  // 首次发布时间
+  certPublishTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_publish_time', example='2018-10-10T10:10:00Z'),
+  // 发布时间时区，默认UTC+8	
+  // 
+  certPublishTimeZone?: string(name='cert_publish_time_zone', example='UTC+8'),
+  // 时间周期开始时间
+  certStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_start_time', example='2018-10-10T10:10:00Z'),
+  // 1-有效
+  // 2-冻结
+  // 3-失效
+  // 4-作废
+  // 5-其他
+  certStatus?: long(name='cert_status', example='1'),
+  // 证书概述	
+  certSummary?: string(name='cert_summary', example='证书概述 '),
+  // 实体证书图片url
+  certUrl?: string(maxLength=256, name='cert_url', example='https://xxx.aliyuncs.com/xxx/xx/xx/xx.xlsx?Expires=1589536141&OSSAccessKeyId=TMP.3 '),
+  // 证书归属国家
+  // 使用“ISO 3166-1”代码表-数字码
+  // https://zh.wikipedia.org/wiki/ISO_3166-1
+  country?: string(maxLength=32, name='country', example='001'),
+  // 1.长期有效
+  // 2.时间周期
+  expireType?: long(name='expire_type', example='1'),
+  // 其他信息文件url
+  featureUrl?: string(maxLength=512, name='feature_url', example='https://xxx.aliyuncs.com/xxx/xx/xx/xx.xlsx?Expires=1589536141&OSSAccessKeyId=TMP.3'),
+  // 持有人的人脸图像url
+  holderAvatar?: string(maxLength=256, name='holder_avatar', example=' https://xxx.aliyuncs.com/xxx/xx/xx/xx.xlsx?Expires=1589536141&OSSAccessKeyId=TMP.3Kep'),
+  // 证书持有人姓名
+  holderName?: string(maxLength=64, name='holder_name', example='张三'),
+  // 证书等级类型：
+  // 初级（五级）、中级（四级）、高级（三级）、技师（二级）和高级技师（一级）、其他
+  level?: string(maxLength=32, name='level', example='初级（五级）'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
+  // 企业名称
+  orgName?: string(maxLength=64, name='org_name', example='蚂蚁金服'),
+  // 证书持有人id
+  orgUserId?: string(maxLength=128, name='org_user_id', example='0001'),
+  // 持有人主证件编号，无身份证的个人使用0000000000000000
+  primaryIdNo?: string(maxLength=64, name='primary_id_no', example='0000000000000000'),
+  // 持有人辅助证件编号-1
+  secondIdNo1?: string(maxLength=64, name='second_id_no_1', example='G1223333'),
+  // 持有人辅助证件编号-2
+  secondIdNo2?: string(maxLength=64, name='second_id_no_2', example='G1223333'),
+  // 持有人辅助证件编号-3
+  secondIdNo3?: string(maxLength=64, name='second_id_no_3', example='G12233333'),
+  // -数字码类型为156时可使用如下类目：
+  // --学历证书-XLZ
+  // --职业证书--ZYZ
+  // -其他国家传入--QT
+  type?: string(name='type', example='XLZ'),
+}
+
+// 企业用户
+model OrgUser {
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
+  // 企业用户id
+  orgUserId?: string(maxLength=128, name='org_user_id', example='0001'),
+}
+
+// 字段隐私属性描述
+model PrivacyDesc {
+  // 属性名称
+  // 
+  attributeName?: string(maxLength=64, name='attribute_name', example='primary_id_no'),
+  // 隐私等级：
+  // 1：数据可以全量明文查询
+  // 2：数据仅可以通过数据比较查询
+  privacyLevel?: long(name='privacy_level', example='1'),
+}
+
+// 班级
+model Class {
+  // 班级id
+  classId?: string(maxLength=128, name='class_id', example='0001'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
+}
+
+// 字段托管属性描述
+model ProxyDesc {
+  // 属性名称
+  attributeName?: string(maxLength=64, name='attribute_name', example='primary_id_no'),
+  // 是否托管
+  isProxy?: boolean(name='is_proxy', example='true, false'),
+}
+
+// 字段公开属性描述列表
+model PublicDesc {
+  // 属性名称
+  attributeName?: string(maxLength=64, name='attribute_name', example='primary_id_no'),
+  // 数据是否所有消费方可查询
+  isPublic?: boolean(name='is_public', example='true, false'),
+}
+
+model CreateBaasEbcOrganizationRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 企业码
+  orgCode?: string(maxLength=64, name='org_code'),
+  // 企业名称
+  orgName?: string(maxLength=64, name='org_name'),
+}
+
+model CreateBaasEbcOrganizationResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 企业did
+  orgDid?: string(name='org_did'),
+}
+
+/**
+ * Description: 创建企业
+ * Summary: 创建企业
+ */
+async function createBaasEbcOrganization(request: CreateBaasEbcOrganizationRequest): CreateBaasEbcOrganizationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcOrganizationEx(request, runtime);
+}
+
+/**
+ * Description: 创建企业
+ * Summary: 创建企业
+ */
+async function createBaasEbcOrganizationEx(request: CreateBaasEbcOrganizationRequest, runtime: Util.RuntimeOptions): CreateBaasEbcOrganizationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcPersonRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 姓名
+  personName?: string(maxLength=32, name='person_name'),
+  // 持有人主证件编号，无身份证的个人使用0000000000000000
+  // 请使用我们提供的公钥对数据进行加密
+  primaryIdNo?: string(maxLength=1024, name='primary_id_no'),
+  // 隐私属性描述列表
+  // 
+  privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
+  // 托管属性描述列表
+  // 
+  proxyDescList?: [ ProxyDesc ](name='proxy_desc_list'),
+  // 公开属性描述列表
+  // 
+  publicDescList?: [ PublicDesc ](name='public_desc_list'),
+  // 持有人辅助证件编号-1
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo1?: string(maxLength=1024, name='second_id_no_1'),
+  // 持有人辅助证件编号-1
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo2?: string(maxLength=1024, name='second_id_no_2'),
+  // 持有人辅助证件编号-3
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo3?: string(maxLength=1024, name='second_id_no_3'),
+  // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+  secretKey?: string(maxLength=512, name='secret_key'),
+}
+
+model CreateBaasEbcPersonResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 个人id
+  personDid?: string(name='person_did'),
+}
+
+/**
+ * Description: 创建个人
+ * Summary: 创建个人
+ */
+async function createBaasEbcPerson(request: CreateBaasEbcPersonRequest): CreateBaasEbcPersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcPersonEx(request, runtime);
+}
+
+/**
+ * Description: 创建个人
+ * Summary: 创建个人
+ */
+async function createBaasEbcPersonEx(request: CreateBaasEbcPersonRequest, runtime: Util.RuntimeOptions): CreateBaasEbcPersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.person.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcOrganizationUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 个人id
+  personDid?: string(maxLength=128, name='person_did'),
+  // 机构内部用户工号
+  uid?: string(maxLength=64, name='uid'),
+}
+
+model CreateBaasEbcOrganizationUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 机构内用户id
+  orgUserId?: string(name='org_user_id'),
+}
+
+/**
+ * Description: 企业用户注册
+ * Summary: 企业用户注册
+ */
+async function createBaasEbcOrganizationUser(request: CreateBaasEbcOrganizationUserRequest): CreateBaasEbcOrganizationUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcOrganizationUserEx(request, runtime);
+}
+
+/**
+ * Description: 企业用户注册
+ * Summary: 企业用户注册
+ */
+async function createBaasEbcOrganizationUserEx(request: CreateBaasEbcOrganizationUserRequest, runtime: Util.RuntimeOptions): CreateBaasEbcOrganizationUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.user.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CancelBaasEbcPersonRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 个人id
+  personDid?: string(maxLength=128, name='person_did'),
+}
+
+model CancelBaasEbcPersonResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人退出
+ * Summary: 个人退出
+ */
+async function cancelBaasEbcPerson(request: CancelBaasEbcPersonRequest): CancelBaasEbcPersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return cancelBaasEbcPersonEx(request, runtime);
+}
+
+/**
+ * Description: 个人退出
+ * Summary: 个人退出
+ */
+async function cancelBaasEbcPersonEx(request: CancelBaasEbcPersonRequest, runtime: Util.RuntimeOptions): CancelBaasEbcPersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.person.cancel', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model ResumeBaasEbcPersonRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 个人did
+  personDid?: string(maxLength=128, name='person_did'),
+}
+
+model ResumeBaasEbcPersonResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户复入
+ * Summary: 用户复入
+ */
+async function resumeBaasEbcPerson(request: ResumeBaasEbcPersonRequest): ResumeBaasEbcPersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return resumeBaasEbcPersonEx(request, runtime);
+}
+
+/**
+ * Description: 用户复入
+ * Summary: 用户复入
+ */
+async function resumeBaasEbcPersonEx(request: ResumeBaasEbcPersonRequest, runtime: Util.RuntimeOptions): ResumeBaasEbcPersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.person.resume', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcOrganizationClassRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级容量
+  capacity?: long(name='capacity'),
+  // 结束时间
+  classEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_end_time'),
+  // 班级名称
+  className?: string(maxLength=64, name='class_name'),
+  // 开始时间
+  classStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_start_time'),
+  // 1:有效、2:暂停、3:失效
+  classStatus?: long(name='class_status'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 隐私属性描述列表
+  // 
+  privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
+  // 托管属性描述列表
+  // 
+  proxyDescList?: [ ProxyDesc ](name='proxy_desc_list'),
+  // 公开属性描述列表
+  // 
+  publicDescList?: [ PublicDesc ](name='public_desc_list'),
+  // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+  secretKey?: string(maxLength=512, name='secret_key'),
+  // 1线上、2线下、3混合
+  type?: long(name='type'),
+}
+
+model CreateBaasEbcOrganizationClassResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 班级id
+  classId?: string(name='class_id'),
+}
+
+/**
+ * Description: 创建班级
+ * Summary: 创建班级
+ */
+async function createBaasEbcOrganizationClass(request: CreateBaasEbcOrganizationClassRequest): CreateBaasEbcOrganizationClassResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcOrganizationClassEx(request, runtime);
+}
+
+/**
+ * Description: 创建班级
+ * Summary: 创建班级
+ */
+async function createBaasEbcOrganizationClassEx(request: CreateBaasEbcOrganizationClassRequest, runtime: Util.RuntimeOptions): CreateBaasEbcOrganizationClassResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.class.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcOrganizationClassRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 容量
+  capacity?: long(name='capacity'),
+  // 结束时间
+  classEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_end_time'),
+  // 班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 班级名称
+  className?: string(maxLength=64, name='class_name'),
+  // 开始时间
+  classStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_start_time'),
+  // 1:有效、2:暂停、3:失效
+  classStatus?: long(name='class_status'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 隐私属性描述列表
+  // 
+  privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
+  // 托管属性描述列表
+  // 
+  proxyDescList?: [ ProxyDesc ](name='proxy_desc_list'),
+  // 公开属性描述列表
+  // 
+  publicDescList?: [ PublicDesc ](name='public_desc_list'),
+  // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+  secretKey?: string(maxLength=512, name='secret_key'),
+}
+
+model UpdateBaasEbcOrganizationClassResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新班级
+ * Summary: 更新班级
+ */
+async function updateBaasEbcOrganizationClass(request: UpdateBaasEbcOrganizationClassRequest): UpdateBaasEbcOrganizationClassResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcOrganizationClassEx(request, runtime);
+}
+
+/**
+ * Description: 更新班级
+ * Summary: 更新班级
+ */
+async function updateBaasEbcOrganizationClassEx(request: UpdateBaasEbcOrganizationClassRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcOrganizationClassResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.class.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model AddBaasEbcClassUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户列表,最多一次传入50个
+  orgUserList?: [ OrgUser ](name='org_user_list'),
+}
+
+model AddBaasEbcClassUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 加入失败的用户列表
+  failList?: [ OrgUser ](name='fail_list'),
+}
+
+/**
+ * Description: 增加学员
+ * Summary: 增加学员
+ */
+async function addBaasEbcClassUser(request: AddBaasEbcClassUserRequest): AddBaasEbcClassUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return addBaasEbcClassUserEx(request, runtime);
+}
+
+/**
+ * Description: 增加学员
+ * Summary: 增加学员
+ */
+async function addBaasEbcClassUserEx(request: AddBaasEbcClassUserRequest, runtime: Util.RuntimeOptions): AddBaasEbcClassUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.class.user.add', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model DeleteBaasEbcClassUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户列表,最多一次传入50个
+  orgUserList?: [ OrgUser ](name='org_user_list'),
+}
+
+model DeleteBaasEbcClassUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 删除失败的用户列表
+  failList?: [ OrgUser ](name='fail_list'),
+}
+
+/**
+ * Description: 删除学员
+ * Summary: 删除学员
+ */
+async function deleteBaasEbcClassUser(request: DeleteBaasEbcClassUserRequest): DeleteBaasEbcClassUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return deleteBaasEbcClassUserEx(request, runtime);
+}
+
+/**
+ * Description: 删除学员
+ * Summary: 删除学员
+ */
+async function deleteBaasEbcClassUserEx(request: DeleteBaasEbcClassUserRequest, runtime: Util.RuntimeOptions): DeleteBaasEbcClassUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.class.user.delete', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcOrganizationClassRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+}
+
+model QueryBaasEbcOrganizationClassResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 班级名称
+  className?: string(name='class_name'),
+  // 1:有效、2:暂停、3:失效
+  classStatus?: long(name='class_status'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='create_time'),
+  // 修改时间
+  modifyTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='modify_time'),
+  // 累计时长
+  period?: long(name='period'),
+  // 班级类型：线上、线下、混合
+  type?: string(name='type'),
+  // 学员数量
+  userNum?: long(name='user_num'),
+}
+
+/**
+ * Description: 班级查询
+ * Summary: 班级查询
+ */
+async function queryBaasEbcOrganizationClass(request: QueryBaasEbcOrganizationClassRequest): QueryBaasEbcOrganizationClassResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcOrganizationClassEx(request, runtime);
+}
+
+/**
+ * Description: 班级查询
+ * Summary: 班级查询
+ */
+async function queryBaasEbcOrganizationClassEx(request: QueryBaasEbcOrganizationClassRequest, runtime: Util.RuntimeOptions): QueryBaasEbcOrganizationClassResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.class.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcClassUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+}
+
+model QueryBaasEbcClassUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 班级名称
+  className?: string(name='class_name'),
+  // 企业用户id列表
+  orgUserIdList?: [ string ](name='org_user_id_list'),
+  // 学员数量
+  userNum?: long(name='user_num'),
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+async function queryBaasEbcClassUser(request: QueryBaasEbcClassUserRequest): QueryBaasEbcClassUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcClassUserEx(request, runtime);
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+async function queryBaasEbcClassUserEx(request: QueryBaasEbcClassUserRequest, runtime: Util.RuntimeOptions): QueryBaasEbcClassUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.class.user.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcOrganizationCourseRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 课程结束时间
+  courseEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_end_time'),
+  // 课程名称
+  courseName?: string(maxLength=64, name='course_name'),
+  // 课程开始时间
+  courseStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_start_time'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 课程时长
+  period?: long(name='period'),
+}
+
+model CreateBaasEbcOrganizationCourseResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 课程did
+  courseId?: string(name='course_id'),
+}
+
+/**
+ * Description: 发布课程
+ * Summary: 发布课程
+ */
+async function createBaasEbcOrganizationCourse(request: CreateBaasEbcOrganizationCourseRequest): CreateBaasEbcOrganizationCourseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcOrganizationCourseEx(request, runtime);
+}
+
+/**
+ * Description: 发布课程
+ * Summary: 发布课程
+ */
+async function createBaasEbcOrganizationCourseEx(request: CreateBaasEbcOrganizationCourseRequest, runtime: Util.RuntimeOptions): CreateBaasEbcOrganizationCourseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.course.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcOrganizationCourseRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 课程结束时间
+  courseEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_end_time'),
+  // 课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 课程名称
+  courseName?: string(maxLength=64, name='course_name'),
+  // 课程开始时间
+  courseStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_start_time'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 课程时长
+  period?: long(name='period'),
+}
+
+model UpdateBaasEbcOrganizationCourseResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新课程
+ * Summary: 更新课程
+ */
+async function updateBaasEbcOrganizationCourse(request: UpdateBaasEbcOrganizationCourseRequest): UpdateBaasEbcOrganizationCourseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcOrganizationCourseEx(request, runtime);
+}
+
+/**
+ * Description: 更新课程
+ * Summary: 更新课程
+ */
+async function updateBaasEbcOrganizationCourseEx(request: UpdateBaasEbcOrganizationCourseRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcOrganizationCourseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.course.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model AddBaasEbcCourseClassRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级列表,最多一次传入50个
+  classList?: [ Class ](name='class_list'),
+  // 班级id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+}
+
+model AddBaasEbcCourseClassResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 添加失败的班级列表
+  failList?: [ Class ](name='fail_list'),
+}
+
+/**
+ * Description: 将班级添加到课程中
+ * Summary: 增加课程班级
+ */
+async function addBaasEbcCourseClass(request: AddBaasEbcCourseClassRequest): AddBaasEbcCourseClassResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return addBaasEbcCourseClassEx(request, runtime);
+}
+
+/**
+ * Description: 将班级添加到课程中
+ * Summary: 增加课程班级
+ */
+async function addBaasEbcCourseClassEx(request: AddBaasEbcCourseClassRequest, runtime: Util.RuntimeOptions): AddBaasEbcCourseClassResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.class.add', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model AddBaasEbcCourseUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户列表,最多一次传入50个
+  orgUserList?: [ OrgUser ](name='org_user_list'),
+}
+
+model AddBaasEbcCourseUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 添加失败的用户列表
+  failList?: [ OrgUser ](name='fail_list'),
+}
+
+/**
+ * Description: 将学员添加到课程中
+ * Summary: 增加课程学员
+ */
+async function addBaasEbcCourseUser(request: AddBaasEbcCourseUserRequest): AddBaasEbcCourseUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return addBaasEbcCourseUserEx(request, runtime);
+}
+
+/**
+ * Description: 将学员添加到课程中
+ * Summary: 增加课程学员
+ */
+async function addBaasEbcCourseUserEx(request: AddBaasEbcCourseUserRequest, runtime: Util.RuntimeOptions): AddBaasEbcCourseUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.user.add', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model DeleteBaasEbcCourseClassRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级列表,最多一次传入50个
+  classList?: [ Class ](name='class_list'),
+  // 课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+}
+
+model DeleteBaasEbcCourseClassResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 删除失败的班级列表
+  failList?: [ Class ](name='fail_list'),
+}
+
+/**
+ * Description: 删除课程中的班级
+ * Summary: 删除课程班级
+ */
+async function deleteBaasEbcCourseClass(request: DeleteBaasEbcCourseClassRequest): DeleteBaasEbcCourseClassResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return deleteBaasEbcCourseClassEx(request, runtime);
+}
+
+/**
+ * Description: 删除课程中的班级
+ * Summary: 删除课程班级
+ */
+async function deleteBaasEbcCourseClassEx(request: DeleteBaasEbcCourseClassRequest, runtime: Util.RuntimeOptions): DeleteBaasEbcCourseClassResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.class.delete', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model DeleteBaasEbcCourseUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户列表,最多一次传入50个
+  orgUserList?: [ OrgUser ](name='org_user_list'),
+}
+
+model DeleteBaasEbcCourseUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 删除失败的用户列表
+  failList?: [ OrgUser ](name='fail_list'),
+}
+
+/**
+ * Description: 删除课程中的学员
+ * Summary: 删除课程学员
+ */
+async function deleteBaasEbcCourseUser(request: DeleteBaasEbcCourseUserRequest): DeleteBaasEbcCourseUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return deleteBaasEbcCourseUserEx(request, runtime);
+}
+
+/**
+ * Description: 删除课程中的学员
+ * Summary: 删除课程学员
+ */
+async function deleteBaasEbcCourseUserEx(request: DeleteBaasEbcCourseUserRequest, runtime: Util.RuntimeOptions): DeleteBaasEbcCourseUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.user.delete', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcUserCertRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 证书编号
+  certCode?: string(maxLength=64, name='cert_code'),
+  // 证书描述
+  certDescription?: string(maxLength=1000, name='cert_description'),
+  // 时间周期结束时间
+  certEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_end_time'),
+  // 证书名称-中文
+  certNameCn?: string(maxLength=64, name='cert_name_cn'),
+  // 证书名称-英文（拼音）
+  certNameEn?: string(maxLength=64, name='cert_name_en'),
+  // 首次发布时间
+  certPublishTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_publish_time'),
+  // 发布时间时区，默认UTC+8
+  certPublishTimeZone?: string(maxLength=64, name='cert_publish_time_zone'),
+  // 时间周期开始时间
+  certStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_start_time'),
+  // 1-有效 2-冻结 3-失效 4-作废 5-其他
+  certStatus?: long(name='cert_status'),
+  // 证书概述
+  certSummary?: string(maxLength=250, name='cert_summary'),
+  // 证书归属国家 使用“ISO 3166-1”代码表-数字码 https://zh.wikipedia.org/wiki/ISO_3166-1
+  country?: string(maxLength=32, name='country'),
+  // 有效期类型1.长期有效 2.时间周期
+  expireType?: long(name='expire_type'),
+  // 证书持有人姓名
+  // 
+  holderName?: string(maxLength=64, name='holder_name'),
+  // 证书等级类型： 初级（五级）、中级（四级）、高级（三级）、技师（二级）和高级技师（一级）、其他
+  level?: string(maxLength=256, name='level'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业名称
+  orgName?: string(maxLength=64, name='org_name'),
+  // 企业用户id
+  orgUserId?: string(maxLength=128, name='org_user_id'),
+  // 持有人主证件编号，无身份证的个人使用0000000000000000
+  // 请使用我们提供的公钥对数据进行加密
+  // 
+  primaryIdNo?: string(maxLength=1024, name='primary_id_no'),
+  // 隐私属性描述列表
+  privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
+  // 托管属性描述列表
+  proxyDescList?: [ ProxyDesc ](name='proxy_desc_list'),
+  // 公开属性描述列表
+  publicDescList?: [ PublicDesc ](name='public_desc_list'),
+  // 持有人辅助证件编号-1
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo1?: string(maxLength=1024, name='second_id_no_1'),
+  // 持有人辅助证件编号-2
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo2?: string(maxLength=1024, name='second_id_no_2'),
+  // 持有人辅助证件编号-3
+  // 请使用我们提供的公钥对数据进行加密
+  secondIdNo3?: string(maxLength=1024, name='second_id_no_3'),
+  // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+  secretKey?: string(maxLength=512, name='secret_key'),
+  // -数字码类型为156时可使用如下类目： --学历证书-XLZ --职业证书--ZYZ -其他国家传入--QT
+  type?: string(maxLength=64, name='type'),
+}
+
+model CreateBaasEbcUserCertResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 证书id
+  certId?: string(name='cert_id'),
+}
+
+/**
+ * Description: 发布证书
+ * Summary: 发布证书
+ */
+async function createBaasEbcUserCert(request: CreateBaasEbcUserCertRequest): CreateBaasEbcUserCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcUserCertEx(request, runtime);
+}
+
+/**
+ * Description: 发布证书
+ * Summary: 发布证书
+ */
+async function createBaasEbcUserCertEx(request: CreateBaasEbcUserCertRequest, runtime: Util.RuntimeOptions): CreateBaasEbcUserCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.user.cert.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcUserCertRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 证书id
+  certId?: string(maxLength=128, name='cert_id'),
+  // 首次发布时间
+  certPublishTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='cert_publish_time'),
+  // 1-有效 2-冻结 3-失效 4-作废 5-其他
+  certStatus?: long(name='cert_status'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户id
+  orgUserId?: string(maxLength=128, name='org_user_id'),
+  // 隐私属性描述列表
+  // 
+  privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
+  // 托管属性描述列表
+  // 
+  proxyDescList?: [ ProxyDesc ](name='proxy_desc_list'),
+  // 公开属性描述列表
+  // 
+  publicDescList?: [ PublicDesc ](name='public_desc_list'),
+  // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
+  secretKey?: string(maxLength=512, name='secret_key'),
+}
+
+model UpdateBaasEbcUserCertResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新证书
+ * Summary: 更新证书
+ */
+async function updateBaasEbcUserCert(request: UpdateBaasEbcUserCertRequest): UpdateBaasEbcUserCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcUserCertEx(request, runtime);
+}
+
+/**
+ * Description: 更新证书
+ * Summary: 更新证书
+ */
+async function updateBaasEbcUserCertEx(request: UpdateBaasEbcUserCertRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcUserCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.user.cert.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcOrganizationCertRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 查询结束时间
+  end?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='end'),
+  // 企业id
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 开始时间
+  start?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='start'),
+}
+
+model QueryBaasEbcOrganizationCertResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 证书id
+  certIdList?: [ string ](name='cert_id_list'),
+}
+
+/**
+ * Description: 查询证书
+ * Summary: 查询企业证书
+ */
+async function queryBaasEbcOrganizationCert(request: QueryBaasEbcOrganizationCertRequest): QueryBaasEbcOrganizationCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcOrganizationCertEx(request, runtime);
+}
+
+/**
+ * Description: 查询证书
+ * Summary: 查询企业证书
+ */
+async function queryBaasEbcOrganizationCertEx(request: QueryBaasEbcOrganizationCertRequest, runtime: Util.RuntimeOptions): QueryBaasEbcOrganizationCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcUserCertRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户id
+  orgUserId?: string(maxLength=128, name='org_user_id'),
+}
+
+model QueryBaasEbcUserCertResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 证书id列表
+  certIdList?: [ string ](name='cert_id_list'),
+}
+
+/**
+ * Description: 查询用户证书
+ * Summary: 查询用户证书
+ */
+async function queryBaasEbcUserCert(request: QueryBaasEbcUserCertRequest): QueryBaasEbcUserCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcUserCertEx(request, runtime);
+}
+
+/**
+ * Description: 查询用户证书
+ * Summary: 查询用户证书
+ */
+async function queryBaasEbcUserCertEx(request: QueryBaasEbcUserCertRequest, runtime: Util.RuntimeOptions): QueryBaasEbcUserCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.user.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcCertRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 证书id
+  certId?: string(maxLength=128, name='cert_id'),
+  // 企业did
+  orgDid?: string(maxLength=128, name='org_did'),
+}
+
+model QueryBaasEbcCertResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 证书明细
+  cert?: Cert(name='cert'),
+}
+
+/**
+ * Description: 证书明细查询
+ * Summary: 证书明细查询
+ */
+async function queryBaasEbcCert(request: QueryBaasEbcCertRequest): QueryBaasEbcCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcCertEx(request, runtime);
+}
+
+/**
+ * Description: 证书明细查询
+ * Summary: 证书明细查询
+ */
+async function queryBaasEbcCertEx(request: QueryBaasEbcCertRequest, runtime: Util.RuntimeOptions): QueryBaasEbcCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.cert.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model ApplyBaasEbcCertUrlRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 证书code
+  certCode?: string(maxLength=128, name='cert_code'),
+  // 机构did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 证书持有人id
+  orgUserId?: string(name='org_user_id'),
+}
+
+model ApplyBaasEbcCertUrlResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 实体证书图片上传url，文件最大5M
+  certUploadUrl?: string(name='cert_upload_url'),
+  // 其他信息文件上传url，文件最大5M
+  // 
+  featureUploadUrl?: string(name='feature_upload_url'),
+  // 持有人的人脸图像上传url，文件最大5M
+  holderAvatarUploadUrl?: string(name='holder_avatar_upload_url'),
+}
+
+/**
+ * Description: 申请证书信息上传url，证书未发布则会返回证书图片、证书持有人、证书其他信息的文件上传url。
+证书已发布则会返回证书图片、证书其他信息的文件上传url。
+文件最大5M
+ * Summary: 申请证书信息上传url
+ */
+async function applyBaasEbcCertUrl(request: ApplyBaasEbcCertUrlRequest): ApplyBaasEbcCertUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return applyBaasEbcCertUrlEx(request, runtime);
+}
+
+/**
+ * Description: 申请证书信息上传url，证书未发布则会返回证书图片、证书持有人、证书其他信息的文件上传url。
+证书已发布则会返回证书图片、证书其他信息的文件上传url。
+文件最大5M
+ * Summary: 申请证书信息上传url
+ */
+async function applyBaasEbcCertUrlEx(request: ApplyBaasEbcCertUrlRequest, runtime: Util.RuntimeOptions): ApplyBaasEbcCertUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.cert.url.apply', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcAuthRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 授权关系结束时间
+  authEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='auth_end_time'),
+  // 授权关系开始时间
+  authStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='auth_start_time'),
+  // 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
+  dataType?: long(name='data_type'),
+  // 授权目标数据id列表，最多20个
+  targetIdList?: [ string ](name='target_id_list'),
+  // 1.数据,2.机构,3.认证方,4.ALL
+  targetType?: long(name='target_type'),
+  // 消费方租户id
+  tenantName?: string(maxLength=64, name='tenant_name'),
+}
+
+model CreateBaasEbcAuthResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 授权关系id
+  authId?: string(name='auth_id'),
+}
+
+/**
+ * Description: 新增授权关系，仅限联盟管理员调用
+ * Summary: 新增授权关系
+ */
+async function createBaasEbcAuth(request: CreateBaasEbcAuthRequest): CreateBaasEbcAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcAuthEx(request, runtime);
+}
+
+/**
+ * Description: 新增授权关系，仅限联盟管理员调用
+ * Summary: 新增授权关系
+ */
+async function createBaasEbcAuthEx(request: CreateBaasEbcAuthRequest, runtime: Util.RuntimeOptions): CreateBaasEbcAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.auth.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcAuthRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 授权关系结束时间
+  // 
+  authEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='auth_end_time'),
+  // 授权关系id
+  authId?: string(maxLength=256, name='auth_id'),
+  // 授权关系开始时间
+  // 
+  authStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='auth_start_time'),
+  // 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
+  dataType?: long(name='data_type'),
+  // 授权目标数据id列表，最多20个
+  targetIdList?: [ string ](name='target_id_list'),
+  // 1.数据,2.机构,3.认证方,4.ALL
+  // 
+  targetType?: long(name='target_type'),
+  // 消费方租户id
+  // 
+  tenantName?: string(maxLength=64, name='tenant_name'),
+}
+
+model UpdateBaasEbcAuthResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新授权关系，仅限联盟管理员调用
+ * Summary: 更新授权关系
+ */
+async function updateBaasEbcAuth(request: UpdateBaasEbcAuthRequest): UpdateBaasEbcAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcAuthEx(request, runtime);
+}
+
+/**
+ * Description: 更新授权关系，仅限联盟管理员调用
+ * Summary: 更新授权关系
+ */
+async function updateBaasEbcAuthEx(request: UpdateBaasEbcAuthRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.auth.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcAuthStatusRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 授权关系id
+  // 
+  authId?: string(maxLength=256, name='auth_id'),
+  // 1:启用，2：禁用，3：停用
+  status?: long(name='status'),
+  // 消费方租户id
+  // 
+  tenantName?: string(maxLength=64, name='tenant_name'),
+}
+
+model UpdateBaasEbcAuthStatusResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新授权关系状态，仅限联盟管理员调用
+ * Summary: 更新授权关系状态
+ */
+async function updateBaasEbcAuthStatus(request: UpdateBaasEbcAuthStatusRequest): UpdateBaasEbcAuthStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcAuthStatusEx(request, runtime);
+}
+
+/**
+ * Description: 更新授权关系状态，仅限联盟管理员调用
+ * Summary: 更新授权关系状态
+ */
+async function updateBaasEbcAuthStatusEx(request: UpdateBaasEbcAuthStatusRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcAuthStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.auth.status.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcDataPriceRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 目标数据id列表，最多20个
+  dataIdList?: [ string ](name='data_id_list'),
+  // 1:身份数据，2:机构数据，3：课程数据，4：班级数据，5：证书数据
+  dataType?: long(name='data_type'),
+  // 数据价值
+  price?: long(maximum='999999999', minimum='1', name='price'),
+}
+
+model UpdateBaasEbcDataPriceResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 更新失败的id列表
+  failList?: [ string ](name='fail_list'),
+}
+
+/**
+ * Description: 更新数据价值
+ * Summary: 更新数据价值
+ */
+async function updateBaasEbcDataPrice(request: UpdateBaasEbcDataPriceRequest): UpdateBaasEbcDataPriceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcDataPriceEx(request, runtime);
+}
+
+/**
+ * Description: 更新数据价值
+ * Summary: 更新数据价值
+ */
+async function updateBaasEbcDataPriceEx(request: UpdateBaasEbcDataPriceRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcDataPriceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.data.price.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcConsumptionAmountRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='end_time'),
+  // 开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='start_time'),
+  // 消费方租户id
+  tenantName?: string(maxLength=64, name='tenant_name'),
+}
+
+model QueryBaasEbcConsumptionAmountResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 区间内的累计消费金额
+  amount?: long(name='amount'),
+}
+
+/**
+ * Description: 查询消费者消费金额
+ * Summary: 查询消费者消费金额
+ */
+async function queryBaasEbcConsumptionAmount(request: QueryBaasEbcConsumptionAmountRequest): QueryBaasEbcConsumptionAmountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcConsumptionAmountEx(request, runtime);
+}
+
+/**
+ * Description: 查询消费者消费金额
+ * Summary: 查询消费者消费金额
+ */
+async function queryBaasEbcConsumptionAmountEx(request: QueryBaasEbcConsumptionAmountRequest, runtime: Util.RuntimeOptions): QueryBaasEbcConsumptionAmountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.consumption.amount.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+

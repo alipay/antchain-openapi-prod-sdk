@@ -1,0 +1,70 @@
+{
+  "scope": "antchain",
+  "name": "EBC",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.alipay:ebc:0.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/ebc/client:v0.0.1",
+    "csharp": "AntChain.SDK.EBC:0.0.1",
+    "ts": "@antchain/ebc:^1.0.0",
+    "php": "antchain/ebc:1.1.5",
+    "python": "antchain_sdk_ebc:0.0.1"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AlipayUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.alipay.ebc",
+    "packageInfo": {
+      "description": "Ant Chain EBC SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.EBC",
+    "packageInfo": {
+      "name": "ebc",
+      "title": "antchain-ebc",
+      "description": "Ant Chain EBC SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.EBC",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/ebc",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_ebc",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_ebc",
+      "desc": "Ant Chain EBC SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
