@@ -68,7 +68,7 @@ class UpdateBaasEbcDataPriceResponse extends Model {
 
     // 更新失败的id列表
     /**
-     * @var array
+     * @var string[]
      */
     public $failList;
 

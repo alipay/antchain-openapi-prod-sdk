@@ -97,7 +97,7 @@ class AddBaasEbcCourseClassRequest extends Model {
 
     // 班级列表,最多一次传入50个
     /**
-     * @var array
+     * @var Class_[]
      */
     public $classList;
 

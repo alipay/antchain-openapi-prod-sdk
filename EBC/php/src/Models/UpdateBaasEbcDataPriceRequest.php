@@ -85,7 +85,7 @@ class UpdateBaasEbcDataPriceRequest extends Model {
 
     // 目标数据id列表，最多20个
     /**
-     * @var array
+     * @var string[]
      */
     public $dataIdList;
 

@@ -136,7 +136,7 @@ class Client {
      * @param string $protocol http or https
      * @param string $method e.g. GET
      * @param string $pathname pathname of every api
-     * @param array $request which contains request params
+     * @param mixed[] $request which contains request params
      * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
      * @return array the response
      * @throws TeaError
@@ -189,7 +189,7 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200825"
+                    "sdkVersion" => "Tea-SDK-20200901"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;

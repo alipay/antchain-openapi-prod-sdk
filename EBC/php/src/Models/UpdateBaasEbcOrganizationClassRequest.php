@@ -226,21 +226,21 @@ class UpdateBaasEbcOrganizationClassRequest extends Model {
     // 隐私属性描述列表
     // 
     /**
-     * @var array
+     * @var PrivacyDesc[]
      */
     public $privacyDescList;
 
     // 托管属性描述列表
     // 
     /**
-     * @var array
+     * @var ProxyDesc[]
      */
     public $proxyDescList;
 
     // 公开属性描述列表
     // 
     /**
-     * @var array
+     * @var PublicDesc[]
      */
     public $publicDescList;
 

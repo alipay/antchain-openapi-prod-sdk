@@ -80,7 +80,7 @@ class AddBaasEbcCourseClassResponse extends Model {
 
     // 添加失败的班级列表
     /**
-     * @var array
+     * @var Class_[]
      */
     public $failList;
 

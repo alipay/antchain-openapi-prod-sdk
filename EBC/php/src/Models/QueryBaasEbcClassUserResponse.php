@@ -88,7 +88,7 @@ class QueryBaasEbcClassUserResponse extends Model {
 
     // 企业用户id列表
     /**
-     * @var array
+     * @var string[]
      */
     public $orgUserIdList;
 

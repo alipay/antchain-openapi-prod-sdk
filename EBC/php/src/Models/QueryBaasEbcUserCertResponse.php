@@ -68,7 +68,7 @@ class QueryBaasEbcUserCertResponse extends Model {
 
     // 证书id列表
     /**
-     * @var array
+     * @var string[]
      */
     public $certIdList;
 

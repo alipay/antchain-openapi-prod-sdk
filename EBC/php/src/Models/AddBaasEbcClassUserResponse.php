@@ -80,7 +80,7 @@ class AddBaasEbcClassUserResponse extends Model {
 
     // 加入失败的用户列表
     /**
-     * @var array
+     * @var OrgUser[]
      */
     public $failList;
 

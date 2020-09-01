@@ -80,7 +80,7 @@ class DeleteBaasEbcClassUserResponse extends Model {
 
     // 删除失败的用户列表
     /**
-     * @var array
+     * @var OrgUser[]
      */
     public $failList;
 

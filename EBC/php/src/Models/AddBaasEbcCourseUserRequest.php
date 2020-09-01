@@ -109,7 +109,7 @@ class AddBaasEbcCourseUserRequest extends Model {
 
     // 企业用户列表,最多一次传入50个
     /**
-     * @var array
+     * @var OrgUser[]
      */
     public $orgUserList;
 

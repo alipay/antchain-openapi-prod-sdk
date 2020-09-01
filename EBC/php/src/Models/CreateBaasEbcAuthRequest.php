@@ -125,7 +125,7 @@ class CreateBaasEbcAuthRequest extends Model {
 
     // 授权目标数据id列表，最多20个
     /**
-     * @var array
+     * @var string[]
      */
     public $targetIdList;
 

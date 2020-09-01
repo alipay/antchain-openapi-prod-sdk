@@ -80,7 +80,7 @@ class DeleteBaasEbcCourseClassResponse extends Model {
 
     // 删除失败的班级列表
     /**
-     * @var array
+     * @var Class_[]
      */
     public $failList;
 
