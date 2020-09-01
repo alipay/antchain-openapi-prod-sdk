@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_ebc.
 
-Created on 25/08/2020
+Created on 01/09/2020
 
 @author: Ant Chain SDK
 """
@@ -39,7 +39,7 @@ URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
 
 TOPDIR = os.path.dirname(__file__) or "."
 VERSION = __import__(PACKAGE).__version__
-REQUIRES = ["antchain_alipay_util==0.0.2","alibabacloud_tea_util==0.1.2","alibabacloud_rpc_util==0.0.3"]
+REQUIRES = ["antchain_alipay_util==0.0.2","alibabacloud_tea_util==0.2.0","alibabacloud_rpc_util==0.0.3"]
 
 if sys.version_info[0] == 2:
     with open("README.md") as fp:
