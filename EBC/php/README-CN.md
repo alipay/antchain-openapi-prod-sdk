@@ -1,5 +1,7 @@
 English | [简体中文](README-CN.md)
 
+![](https://aliyunsdk-pages.alicdn.com/icons/AlibabaCloud.svg)
+
 ## Ant Chain SDK Library for PHP
 
 ## Installation
