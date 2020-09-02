@@ -106,7 +106,7 @@ class QueryTwcNotaryLeaseIotinfoResponse extends Model {
 
     // 设备详情
     /**
-     * @var array
+     * @var LeaseIotItemInfo[]
      */
     public $leaseIotItemInfo;
 

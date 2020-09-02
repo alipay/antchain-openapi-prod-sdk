@@ -12,7 +12,6 @@ class GetTwcNotaryContractSignurlResponse extends Model {
         'resultMsg' => 'result_msg',
         'code' => 'code',
         'message' => 'message',
-        'shortUrl' => 'short_url',
         'url' => 'url',
     ];
     public function validate() {}
@@ -32,9 +31,6 @@ class GetTwcNotaryContractSignurlResponse extends Model {
         }
         if (null !== $this->message) {
             $res['message'] = $this->message;
-        }
-        if (null !== $this->shortUrl) {
-            $res['short_url'] = $this->shortUrl;
         }
         if (null !== $this->url) {
             $res['url'] = $this->url;
@@ -61,9 +57,6 @@ class GetTwcNotaryContractSignurlResponse extends Model {
         }
         if(isset($map['message'])){
             $model->message = $map['message'];
-        }
-        if(isset($map['short_url'])){
-            $model->shortUrl = $map['short_url'];
         }
         if(isset($map['url'])){
             $model->url = $map['url'];
@@ -97,13 +90,7 @@ class GetTwcNotaryContractSignurlResponse extends Model {
      */
     public $message;
 
-    // 短链地址（30天有效）
-    /**
-     * @var string
-     */
-    public $shortUrl;
-
-    // 长链地址(永久有效)
+    // 长链地址
     /**
      * @var string
      */

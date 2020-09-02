@@ -225,7 +225,7 @@ class CreateTwcNotaryLeaseProductinfoRequest extends Model {
 
     // 出租详细信息
     /**
-     * @var array
+     * @var RentInfo[]
      */
     public $rentinfos;
 

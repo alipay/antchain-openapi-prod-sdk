@@ -169,7 +169,7 @@ class CreateTwcNotaryLeaseClearingRequest extends Model {
 
     // 清分订单号 长度不超过128
     /**
-     * @var array
+     * @var string[]
      */
     public $clearingOrderIds;
 

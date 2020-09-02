@@ -80,7 +80,7 @@ class CheckTwcNotaryIndustryNotaryResponse extends Model {
 
     // 核验结果数组
     /**
-     * @var array
+     * @var NotaryCheckResult[]
      */
     public $notaryCheckResults;
 

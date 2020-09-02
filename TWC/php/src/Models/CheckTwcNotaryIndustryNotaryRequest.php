@@ -93,7 +93,7 @@ class CheckTwcNotaryIndustryNotaryRequest extends Model {
 
     // 核验数据列表
     /**
-     * @var array
+     * @var NotaryCheckMeta[]
      */
     public $notaryCheckMetaList;
 

@@ -100,7 +100,7 @@ class CreateTwcNotaryContractCommontriggerRequest extends Model {
 
     // 代扣规则详情
     /**
-     * @var array
+     * @var RepaymentOrderRequest[]
      */
     public $repaymentOrderInfo;
 

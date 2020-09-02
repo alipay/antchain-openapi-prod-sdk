@@ -18,7 +18,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
         'async' => 'async',
         'billUrl' => 'bill_url',
         'buyOutPrice' => 'buy_out_price',
+        'cityCode' => 'city_code',
         'depositFree' => 'deposit_free',
+        'districtCode' => 'district_code',
         'extraInfo' => 'extra_info',
         'installHash' => 'install_hash',
         'installPrice' => 'install_price',
@@ -41,6 +43,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
         'payProofUrl' => 'pay_proof_url',
         'preAuthPayOrderId' => 'pre_auth_pay_order_id',
         'productInfo' => 'product_info',
+        'provinceCode' => 'province_code',
         'purchaseContractBillHash' => 'purchase_contract_bill_hash',
         'purchaseContractBillTxHash' => 'purchase_contract_bill_tx_hash',
         'purchaseContractHash' => 'purchase_contract_hash',
@@ -85,8 +88,14 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
         if (null !== $this->buyOutPrice) {
             $res['buy_out_price'] = $this->buyOutPrice;
         }
+        if (null !== $this->cityCode) {
+            $res['city_code'] = $this->cityCode;
+        }
         if (null !== $this->depositFree) {
             $res['deposit_free'] = $this->depositFree;
+        }
+        if (null !== $this->districtCode) {
+            $res['district_code'] = $this->districtCode;
         }
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
@@ -165,6 +174,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
                     $res['product_info'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->provinceCode) {
+            $res['province_code'] = $this->provinceCode;
         }
         if (null !== $this->purchaseContractBillHash) {
             $res['purchase_contract_bill_hash'] = $this->purchaseContractBillHash;
@@ -246,8 +258,14 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
         if(isset($map['buy_out_price'])){
             $model->buyOutPrice = $map['buy_out_price'];
         }
+        if(isset($map['city_code'])){
+            $model->cityCode = $map['city_code'];
+        }
         if(isset($map['deposit_free'])){
             $model->depositFree = $map['deposit_free'];
+        }
+        if(isset($map['district_code'])){
+            $model->districtCode = $map['district_code'];
         }
         if(isset($map['extra_info'])){
             $model->extraInfo = $map['extra_info'];
@@ -326,6 +344,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
                     $model->productInfo[$n++] = null !== $item ? ProductInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if(isset($map['province_code'])){
+            $model->provinceCode = $map['province_code'];
         }
         if(isset($map['purchase_contract_bill_hash'])){
             $model->purchaseContractBillHash = $map['purchase_contract_bill_hash'];
@@ -424,11 +445,23 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
      */
     public $buyOutPrice;
 
+    // 市编码
+    /**
+     * @var string
+     */
+    public $cityCode;
+
     // 免押金额 精确到毫厘，即123400表示12.34元
     /**
      * @var int
      */
     public $depositFree;
+
+    // 区编码
+    /**
+     * @var string
+     */
+    public $districtCode;
 
     // 融资租赁额外字段
     /**
@@ -474,7 +507,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
 
     // 订单额外信息
     /**
-     * @var array
+     * @var LeaseOrderExtra[]
      */
     public $leaseOrderExtra;
 
@@ -558,9 +591,15 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
 
     // 产品详细信息
     /**
-     * @var array
+     * @var ProductInfo[]
      */
     public $productInfo;
+
+    // 省编码
+    /**
+     * @var string
+     */
+    public $provinceCode;
 
     // 采购发票文件哈希
     /**
@@ -595,7 +634,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest extends Model {
     // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
     // 
     /**
-     * @var array
+     * @var string[]
      */
     public $relatedNotify;
 

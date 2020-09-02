@@ -93,7 +93,7 @@ class CreateTwcNotaryContractHandsignfieldRequest extends Model {
 
     // 签署区列表数据
     /**
-     * @var array
+     * @var ContractHandSignFieldApplication[]
      */
     public $signFields;
 

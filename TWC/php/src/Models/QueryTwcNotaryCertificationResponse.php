@@ -94,7 +94,7 @@ class QueryTwcNotaryCertificationResponse extends Model {
 
     // 存证证明的证书信息列表
     /**
-     * @var array
+     * @var CertificateInfo[]
      */
     public $certificateInfo;
 

@@ -166,7 +166,7 @@ class QueryTwcNotaryContractTemplateResponse extends Model {
 
     // 文件模板中的输入项组件列表
     /**
-     * @var array
+     * @var ContractTemplateStructComponent[]
      */
     public $structComponents;
 

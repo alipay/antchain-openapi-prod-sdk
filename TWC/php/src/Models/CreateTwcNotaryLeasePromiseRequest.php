@@ -217,13 +217,13 @@ class CreateTwcNotaryLeasePromiseRequest extends Model {
 
     // 应付租金，精确到毫厘，即123400表示12.34元
     /**
-     * @var array
+     * @var string[]
      */
     public $payDateList;
 
     // 租赁方承诺额外字段
     /**
-     * @var array
+     * @var string[]
      */
     public $payExtraInfoList;
 
@@ -236,7 +236,7 @@ class CreateTwcNotaryLeasePromiseRequest extends Model {
 
     // 应付租金 精确到毫厘，即123400表示12.34元
     /**
-     * @var array
+     * @var int[]
      */
     public $payMoneyList;
 

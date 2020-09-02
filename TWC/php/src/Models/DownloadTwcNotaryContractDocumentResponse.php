@@ -100,7 +100,7 @@ class DownloadTwcNotaryContractDocumentResponse extends Model {
 
     // 文档下载地址信息列表
     /**
-     * @var array
+     * @var ContractDocAddress[]
      */
     public $docs;
 

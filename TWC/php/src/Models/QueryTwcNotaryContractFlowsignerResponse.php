@@ -106,7 +106,7 @@ class QueryTwcNotaryContractFlowsignerResponse extends Model {
 
     // 签字人列表
     /**
-     * @var array
+     * @var ContractFlowSigner[]
      */
     public $signers;
 

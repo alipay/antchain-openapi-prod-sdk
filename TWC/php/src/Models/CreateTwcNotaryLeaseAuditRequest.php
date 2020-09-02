@@ -195,7 +195,7 @@ class CreateTwcNotaryLeaseAuditRequest extends Model {
     // 额外通知第三方，如果需要通知相关方外的第三方，需要在此设置关联方的租户id，若不设置则只通知资方
     // 
     /**
-     * @var array
+     * @var string[]
      */
     public $relatedNotify;
 

@@ -80,7 +80,7 @@ class CheckTwcNotaryStatusRequest extends Model {
 
     // 存证核验数据组
     /**
-     * @var array
+     * @var NotaryCheckMeta[]
      */
     public $notaryCheckMetaList;
 

@@ -5,14 +5,11 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelTwcNotaryContractPaytradeResponse extends Model {
+class DeployTwcNotaryMytfTappResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'canceledOutTradeNo' => 'canceled_out_trade_no',
-        'code' => 'code',
-        'errMessage' => 'err_message',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,20 +23,11 @@ class CancelTwcNotaryContractPaytradeResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->canceledOutTradeNo) {
-            $res['canceled_out_trade_no'] = $this->canceledOutTradeNo;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->errMessage) {
-            $res['err_message'] = $this->errMessage;
-        }
         return $res;
     }
     /**
      * @param array $map
-     * @return CancelTwcNotaryContractPaytradeResponse
+     * @return DeployTwcNotaryMytfTappResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -51,17 +39,6 @@ class CancelTwcNotaryContractPaytradeResponse extends Model {
         }
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
-        }
-        if(isset($map['canceled_out_trade_no'])){
-            if(!empty($map['canceled_out_trade_no'])){
-                $model->canceledOutTradeNo = $map['canceled_out_trade_no'];
-            }
-        }
-        if(isset($map['code'])){
-            $model->code = $map['code'];
-        }
-        if(isset($map['err_message'])){
-            $model->errMessage = $map['err_message'];
         }
         return $model;
     }
@@ -79,23 +56,5 @@ class CancelTwcNotaryContractPaytradeResponse extends Model {
      * @var string
      */
     public $resultMsg;
-
-    // 取消的代扣条目
-    /**
-     * @var string[]
-     */
-    public $canceledOutTradeNo;
-
-    // 错误码
-    /**
-     * @var int
-     */
-    public $code;
-
-    // 错误信息描述
-    /**
-     * @var string
-     */
-    public $errMessage;
 
 }

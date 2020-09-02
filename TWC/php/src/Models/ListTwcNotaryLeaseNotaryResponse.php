@@ -80,7 +80,7 @@ class ListTwcNotaryLeaseNotaryResponse extends Model {
 
     // 存证记录列表
     /**
-     * @var array
+     * @var LeaseNotaryRecord[]
      */
     public $records;
 

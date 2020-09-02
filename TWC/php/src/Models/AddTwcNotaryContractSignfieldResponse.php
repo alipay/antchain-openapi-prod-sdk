@@ -106,7 +106,7 @@ class AddTwcNotaryContractSignfieldResponse extends Model {
 
     // 签署区列表数据
     /**
-     * @var array
+     * @var ContractSignField[]
      */
     public $signfields;
 

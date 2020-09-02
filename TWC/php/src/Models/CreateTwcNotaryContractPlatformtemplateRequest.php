@@ -167,13 +167,13 @@ class CreateTwcNotaryContractPlatformtemplateRequest extends Model {
 
     // 平台方的签署信息列表
     /**
-     * @var array
+     * @var ContractPlatformSignField[]
      */
     public $signFields;
 
     // 用户需要签章的页面列表（默认为最后一页）
     /**
-     * @var array
+     * @var int[]
      */
     public $userSignPages;
 

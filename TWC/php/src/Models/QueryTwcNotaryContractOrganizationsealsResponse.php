@@ -113,7 +113,7 @@ class QueryTwcNotaryContractOrganizationsealsResponse extends Model {
 
     // 印章列表
     /**
-     * @var array
+     * @var ContractSeal[]
      */
     public $seals;
 

@@ -101,7 +101,7 @@ class InitTwcNotaryCertificationRequest extends Model {
 
     // 存证证明所要展示的存证信息，可填多个
     /**
-     * @var array
+     * @var NotaryInfo[]
      */
     public $notaryInfo;
 

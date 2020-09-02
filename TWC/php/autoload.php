@@ -1,23 +1,11 @@
 <?php
 
-class Autoloader
-{
-    const BASE_NAMESPACE = 'AntChain\\TWC\\';
-
-    const BASE_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
-
-    public static function register()
-    {
-        spl_autoload_register(function ($class) {
-            $name = str_replace(self::BASE_NAMESPACE, '', $class);
-            $file = self::BASE_DIR . str_replace('\\', DIRECTORY_SEPARATOR, $name) . '.php';
-            if (file_exists($file)) {
-                require_once $file;
-                return true;
-            }
-            return false;
-        });
+spl_autoload_register(function ($class) {
+    $name = str_replace('AntChain\\TWC\\', '', $class);
+    $file = __DIR__ . \DIRECTORY_SEPARATOR . 'src' . \DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $name) . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+        return true;
     }
-}
-
-Autoloader::register();
+    return false;
+});

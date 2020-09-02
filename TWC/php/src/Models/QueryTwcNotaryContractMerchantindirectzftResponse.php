@@ -142,7 +142,7 @@ class QueryTwcNotaryContractMerchantindirectzftResponse extends Model {
 
     // 支付宝的ipRoleId
     /**
-     * @var array
+     * @var string[]
      */
     public $ipRoleId;
 

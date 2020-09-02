@@ -5,15 +5,12 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\TWC\Models\ContractDoc;
-
-class AddTwcNotaryContractDocumentRequest extends Model {
+class DeployTwcNotaryMytfTappRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'regionName' => 'region_name',
-        'docs' => 'docs',
-        'flowId' => 'flow_id',
+        'tappId' => 'tapp_id',
     ];
     public function validate() {}
     public function toMap() {
@@ -27,23 +24,14 @@ class AddTwcNotaryContractDocumentRequest extends Model {
         if (null !== $this->regionName) {
             $res['region_name'] = $this->regionName;
         }
-        if (null !== $this->docs) {
-            $res['docs'] = [];
-            if(null !== $this->docs && is_array($this->docs)){
-                $n = 0;
-                foreach($this->docs as $item){
-                    $res['docs'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->tappId) {
+            $res['tapp_id'] = $this->tappId;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return AddTwcNotaryContractDocumentRequest
+     * @return DeployTwcNotaryMytfTappRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -56,17 +44,8 @@ class AddTwcNotaryContractDocumentRequest extends Model {
         if(isset($map['region_name'])){
             $model->regionName = $map['region_name'];
         }
-        if(isset($map['docs'])){
-            if(!empty($map['docs'])){
-                $model->docs = [];
-                $n = 0;
-                foreach($map['docs'] as $item) {
-                    $model->docs[$n++] = null !== $item ? ContractDoc::fromMap($item) : $item;
-                }
-            }
-        }
-        if(isset($map['flow_id'])){
-            $model->flowId = $map['flow_id'];
+        if(isset($map['tapp_id'])){
+            $model->tappId = $map['tapp_id'];
         }
         return $model;
     }
@@ -85,16 +64,10 @@ class AddTwcNotaryContractDocumentRequest extends Model {
      */
     public $regionName;
 
-    // 文档列表数据
-    /**
-     * @var ContractDoc[]
-     */
-    public $docs;
-
-    // 流程ID
+    // tappId
     /**
      * @var string
      */
-    public $flowId;
+    public $tappId;
 
 }

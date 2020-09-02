@@ -10,7 +10,9 @@ class CreateTwcNotaryContractPlatformResponse extends Model {
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
+        'code' => 'code',
         'creatorId' => 'creator_id',
+        'message' => 'message',
         'platformId' => 'platform_id',
         'secret' => 'secret',
     ];
@@ -26,8 +28,14 @@ class CreateTwcNotaryContractPlatformResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
         if (null !== $this->creatorId) {
             $res['creator_id'] = $this->creatorId;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
         if (null !== $this->platformId) {
             $res['platform_id'] = $this->platformId;
@@ -52,8 +60,14 @@ class CreateTwcNotaryContractPlatformResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
+        if(isset($map['code'])){
+            $model->code = $map['code'];
+        }
         if(isset($map['creator_id'])){
             $model->creatorId = $map['creator_id'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
         }
         if(isset($map['platform_id'])){
             $model->platformId = $map['platform_id'];
@@ -78,11 +92,23 @@ class CreateTwcNotaryContractPlatformResponse extends Model {
      */
     public $resultMsg;
 
+    // 业务码，0表示成功
+    /**
+     * @var int
+     */
+    public $code;
+
     // 创建人ID
     /**
      * @var string
      */
     public $creatorId;
+
+    // 业务码信息
+    /**
+     * @var string
+     */
+    public $message;
 
     // 平台方ID
     /**

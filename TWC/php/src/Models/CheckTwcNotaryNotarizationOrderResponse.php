@@ -96,7 +96,7 @@ class CheckTwcNotaryNotarizationOrderResponse extends Model {
 
     // 下单的业务类型ID列表
     /**
-     * @var array
+     * @var string[]
      */
     public $bizId;
 

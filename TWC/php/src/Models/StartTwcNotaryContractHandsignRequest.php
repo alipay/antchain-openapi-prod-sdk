@@ -222,7 +222,7 @@ class StartTwcNotaryContractHandsignRequest extends Model {
 
     // 代扣规则详情，不可为空
     /**
-     * @var array
+     * @var RepaymentOrderRequest[]
      */
     public $repaymentOrderInfo;
 

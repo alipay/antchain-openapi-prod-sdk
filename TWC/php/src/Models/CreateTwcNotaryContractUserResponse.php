@@ -10,6 +10,8 @@ class CreateTwcNotaryContractUserResponse extends Model {
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
+        'code' => 'code',
+        'message' => 'message',
         'organizationId' => 'organization_id',
         'userId' => 'user_id',
     ];
@@ -24,6 +26,12 @@ class CreateTwcNotaryContractUserResponse extends Model {
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
         if (null !== $this->organizationId) {
             $res['organization_id'] = $this->organizationId;
@@ -48,6 +56,12 @@ class CreateTwcNotaryContractUserResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
+        if(isset($map['code'])){
+            $model->code = $map['code'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
+        }
         if(isset($map['organization_id'])){
             $model->organizationId = $map['organization_id'];
         }
@@ -70,6 +84,18 @@ class CreateTwcNotaryContractUserResponse extends Model {
      * @var string
      */
     public $resultMsg;
+
+    // 业务码，0表示成功
+    /**
+     * @var int
+     */
+    public $code;
+
+    // 业务码信息
+    /**
+     * @var string
+     */
+    public $message;
 
     // 机构账号
     /**

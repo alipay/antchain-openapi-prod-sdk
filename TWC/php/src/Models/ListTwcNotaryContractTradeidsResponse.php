@@ -101,7 +101,7 @@ class ListTwcNotaryContractTradeidsResponse extends Model {
 
     // 所有满足条件的订单
     /**
-     * @var array
+     * @var string[]
      */
     public $outTradeNo;
 

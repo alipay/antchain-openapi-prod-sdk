@@ -193,7 +193,7 @@ class CreateTwcNotaryLeaseCreditpromiseRequest extends Model {
 
     // 融资租赁承诺额外字段
     /**
-     * @var array
+     * @var string[]
      */
     public $creditPromiseExtraInfoList;
 
@@ -217,7 +217,7 @@ class CreateTwcNotaryLeaseCreditpromiseRequest extends Model {
 
     // 垫付金额，精确到毫厘，即123400表示12.34元
     /**
-     * @var array
+     * @var int[]
      */
     public $payInAdvanceMoneyList;
 
@@ -229,7 +229,7 @@ class CreateTwcNotaryLeaseCreditpromiseRequest extends Model {
 
     // 垫付日  格式为2019-8-31 12:00:00
     /**
-     * @var array
+     * @var string[]
      */
     public $payInAdvanceTimeList;
 
@@ -253,7 +253,7 @@ class CreateTwcNotaryLeaseCreditpromiseRequest extends Model {
 
     // 还款金额，精确到毫厘，即123400表示12.34元
     /**
-     * @var array
+     * @var int[]
      */
     public $returnMoneyList;
 
@@ -271,7 +271,7 @@ class CreateTwcNotaryLeaseCreditpromiseRequest extends Model {
 
     // 归还日，格式为"2019-07-31 12:00:00"
     /**
-     * @var array
+     * @var string[]
      */
     public $returnTimeList;
 

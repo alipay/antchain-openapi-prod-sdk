@@ -128,7 +128,7 @@ class ApplyTwcNotaryContractReportRequest extends Model {
 
     // 签署过程阶段存证核验信息
     /**
-     * @var array
+     * @var ContractNotarySignInfo[]
      */
     public $signInfo;
 

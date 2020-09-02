@@ -75,7 +75,7 @@ class GetTwcNotaryTransResponse extends Model {
 
     // 返回文件下载路径列表
     /**
-     * @var array
+     * @var string[]
      */
     public $fileUrl;
 

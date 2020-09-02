@@ -132,6 +132,8 @@ use AntChain\TWC\Models\CancelTwcNotaryContractPaysingletradeRequest;
 use AntChain\TWC\Models\CancelTwcNotaryContractPaysingletradeResponse;
 use AntChain\TWC\Models\ApplyTwcNotaryContractCallbackkeyRequest;
 use AntChain\TWC\Models\ApplyTwcNotaryContractCallbackkeyResponse;
+use AntChain\TWC\Models\DeployTwcNotaryMytfTappRequest;
+use AntChain\TWC\Models\DeployTwcNotaryMytfTappResponse;
 use AntChain\TWC\Models\CheckTwcNotaryEpidentityTwometaRequest;
 use AntChain\TWC\Models\CheckTwcNotaryEpidentityTwometaResponse;
 use AntChain\TWC\Models\CheckTwcNotaryEpidentityThreemetaRequest;
@@ -350,7 +352,7 @@ class Client {
      * @param string $protocol http or https
      * @param string $method e.g. GET
      * @param string $pathname pathname of every api
-     * @param array $request which contains request params
+     * @param mixed[] $request which contains request params
      * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
      * @return array the response
      * @throws TeaError
@@ -403,7 +405,7 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200825"
+                    "sdkVersion" => "Tea-SDK-20200902"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -1813,6 +1815,29 @@ class Client {
     public function applyTwcNotaryContractCallbackkeyEx($request, $runtime){
         Utils::validateModel($request);
         return ApplyTwcNotaryContractCallbackkeyResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.callbackkey.apply", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: mytf的tapp部署
+     * Summary: mytf的tapp部署
+     * @param DeployTwcNotaryMytfTappRequest $request
+     * @return DeployTwcNotaryMytfTappResponse
+     */
+    public function deployTwcNotaryMytfTapp($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->deployTwcNotaryMytfTappEx($request, $runtime);
+    }
+
+    /**
+     * Description: mytf的tapp部署
+     * Summary: mytf的tapp部署
+     * @param DeployTwcNotaryMytfTappRequest $request
+     * @param RuntimeOptions $runtime
+     * @return DeployTwcNotaryMytfTappResponse
+     */
+    public function deployTwcNotaryMytfTappEx($request, $runtime){
+        Utils::validateModel($request);
+        return DeployTwcNotaryMytfTappResponse::fromMap($this->doRequest("1.0", "twc.notary.mytf.tapp.deploy", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 
     /**

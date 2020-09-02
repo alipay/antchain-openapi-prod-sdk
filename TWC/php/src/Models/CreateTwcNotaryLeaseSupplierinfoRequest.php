@@ -158,7 +158,7 @@ class CreateTwcNotaryLeaseSupplierinfoRequest extends Model {
 
     // 产品详细信息
     /**
-     * @var array
+     * @var SupplierProductInfo[]
      */
     public $supplierProductList;
 
