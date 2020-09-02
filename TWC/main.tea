@@ -89,7 +89,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     charset = 'UTF-8',
     baseSdkVersion = 'Tea-SDK',
-    sdkVersion = 'Tea-SDK-20200825',
+    sdkVersion = 'Tea-SDK-20200902',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1378,8 +1378,12 @@ model CreateTwcNotaryContractPlatformResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
   // 创建人ID
   creatorId?: string(name='creator_id'),
+  // 业务码信息
+  message?: string(name='message'),
   // 平台方ID
   platformId?: string(name='platform_id'),
   // 平台用户与智能合同服务间鉴权使用的密钥
@@ -1420,6 +1424,10 @@ model CreateTwcNotaryContractUserResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
   // 机构账号
   organizationId?: string(name='organization_id'),
   // 用户类型为个人时返回用户账号；用户类型为机构时返回经办人账号
@@ -1484,8 +1492,12 @@ model StartTwcNotaryContractHandsignResponse = {
   reqMsgId?: string(name='req_msg_id'),
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: long(name='code'),
   // 签署流程ID
   flowId?: string(name='flow_id'),
+  // 业务码信息
+  message?: string(name='message'),
   // 手动签约唤起地址
   url?: string(name='url'),
 }
@@ -2925,9 +2937,7 @@ model GetTwcNotaryContractSignurlResponse = {
   code?: long(name='code'),
   // 业务码信息
   message?: string(name='message'),
-  // 短链地址（30天有效）
-  shortUrl?: string(name='short_url'),
-  // 长链地址(永久有效)	
+  // 长链地址
   url?: string(name='url'),
 }
 
@@ -3485,6 +3495,38 @@ async function applyTwcNotaryContractCallbackkey(request: ApplyTwcNotaryContract
 async function applyTwcNotaryContractCallbackkeyEx(request: ApplyTwcNotaryContractCallbackkeyRequest, runtime: Util.RuntimeOptions): ApplyTwcNotaryContractCallbackkeyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.callbackkey.apply', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model DeployTwcNotaryMytfTappRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // tappId
+  tappId?: string(name='tapp_id'),
+}
+
+model DeployTwcNotaryMytfTappResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: mytf的tapp部署
+ * Summary: mytf的tapp部署
+ */
+async function deployTwcNotaryMytfTapp(request: DeployTwcNotaryMytfTappRequest): DeployTwcNotaryMytfTappResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return deployTwcNotaryMytfTappEx(request, runtime);
+}
+
+/**
+ * Description: mytf的tapp部署
+ * Summary: mytf的tapp部署
+ */
+async function deployTwcNotaryMytfTappEx(request: DeployTwcNotaryMytfTappRequest, runtime: Util.RuntimeOptions): DeployTwcNotaryMytfTappResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.mytf.tapp.deploy', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
 model CheckTwcNotaryEpidentityTwometaRequest = {
@@ -5101,8 +5143,12 @@ model CreateTwcNotaryLeaseOrderinfoRequest = {
   billUrl?: string(name='bill_url'),
   // 到期买断价 精确到毫厘，即123400表示12.34元
   buyOutPrice?: long(name='buy_out_price'),
+  // 市编码
+  cityCode?: string(name='city_code'),
   // 免押金额 精确到毫厘，即123400表示12.34元
   depositFree?: long(name='deposit_free'),
+  // 区编码
+  districtCode?: string(name='district_code'),
   // 融资租赁额外字段
   extraInfo?: string(name='extra_info'),
   // 安装服务记录哈希
@@ -5147,6 +5193,8 @@ model CreateTwcNotaryLeaseOrderinfoRequest = {
   preAuthPayOrderId?: string(name='pre_auth_pay_order_id'),
   // 产品详细信息
   productInfo?: [ ProductInfo ](name='product_info'),
+  // 省编码
+  provinceCode?: string(name='province_code'),
   // 采购发票文件哈希
   purchaseContractBillHash?: string(name='purchase_contract_bill_hash'),
   // 采购发票文件链上存证交易哈希
