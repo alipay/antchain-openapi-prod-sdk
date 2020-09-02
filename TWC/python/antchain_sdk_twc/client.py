@@ -125,7 +125,7 @@ class Client(object):
                     "access_key": self._access_key_id,
                     "charset": "UTF-8",
                     "baseSdkVersion": "Tea-SDK",
-                    "sdkVersion": "Tea-SDK-20200825"
+                    "sdkVersion": "Tea-SDK-20200902"
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query["security_token"] = self._security_token
@@ -1290,6 +1290,25 @@ class Client(object):
         """
         UtilClient.validate_model(request)
         return twc_models.ApplyTwcNotaryContractCallbackkeyResponse().from_map(self.do_request("1.0", "twc.notary.contract.callbackkey.apply", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+
+
+    def deploy_twc_notary_mytf_tapp(self, request):
+        """
+        Description: mytf的tapp部署
+        Summary: mytf的tapp部署
+        """
+        runtime = util_models.RuntimeOptions(
+
+        )
+        return self.deploy_twc_notary_mytf_tapp_ex(request, runtime)
+
+    def deploy_twc_notary_mytf_tapp_ex(self, request, runtime):
+        """
+        Description: mytf的tapp部署
+        Summary: mytf的tapp部署
+        """
+        UtilClient.validate_model(request)
+        return twc_models.DeployTwcNotaryMytfTappResponse().from_map(self.do_request("1.0", "twc.notary.mytf.tapp.deploy", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
 
     def check_twc_notary_epidentity_twometa(self, request):

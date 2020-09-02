@@ -23,7 +23,7 @@ pip install antchain_sdk_twc
 
 ## 相关
 
-- [最新源码](https://github.com/alipay/antchain-openapi-prod-sdk/tree/master/python)
+- [最新源码](https://github.com/alipay/alipay/antchain-openapi-prod-sdk/tree/master/python)
 
 ## 许可证
 

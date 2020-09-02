@@ -2314,12 +2314,14 @@ class CreateTwcNotaryContractPlatformRequest(TeaModel):
 
 
 class CreateTwcNotaryContractPlatformResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, creator_id=None, platform_id=None,
-                 secret=None):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, code=None, creator_id=None, message=None,
+                 platform_id=None, secret=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        self.code = code
         self.creator_id = creator_id
+        self.message = message
         self.platform_id = platform_id
         self.secret = secret
 
@@ -2331,7 +2333,9 @@ class CreateTwcNotaryContractPlatformResponse(TeaModel):
         result['req_msg_id'] = self.req_msg_id
         result['result_code'] = self.result_code
         result['result_msg'] = self.result_msg
+        result['code'] = self.code
         result['creator_id'] = self.creator_id
+        result['message'] = self.message
         result['platform_id'] = self.platform_id
         result['secret'] = self.secret
         return result
@@ -2340,7 +2344,9 @@ class CreateTwcNotaryContractPlatformResponse(TeaModel):
         self.req_msg_id = map.get('req_msg_id')
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
+        self.code = map.get('code')
         self.creator_id = map.get('creator_id')
+        self.message = map.get('message')
         self.platform_id = map.get('platform_id')
         self.secret = map.get('secret')
         return self
@@ -2397,10 +2403,13 @@ class CreateTwcNotaryContractUserRequest(TeaModel):
 
 
 class CreateTwcNotaryContractUserResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, organization_id=None, user_id=None):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, code=None, message=None,
+                 organization_id=None, user_id=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        self.code = code
+        self.message = message
         self.organization_id = organization_id
         self.user_id = user_id
 
@@ -2412,6 +2421,8 @@ class CreateTwcNotaryContractUserResponse(TeaModel):
         result['req_msg_id'] = self.req_msg_id
         result['result_code'] = self.result_code
         result['result_msg'] = self.result_msg
+        result['code'] = self.code
+        result['message'] = self.message
         result['organization_id'] = self.organization_id
         result['user_id'] = self.user_id
         return result
@@ -2420,6 +2431,8 @@ class CreateTwcNotaryContractUserResponse(TeaModel):
         self.req_msg_id = map.get('req_msg_id')
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
+        self.code = map.get('code')
+        self.message = map.get('message')
         self.organization_id = map.get('organization_id')
         self.user_id = map.get('user_id')
         return self
@@ -2518,11 +2531,14 @@ class StartTwcNotaryContractHandsignRequest(TeaModel):
 
 
 class StartTwcNotaryContractHandsignResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, flow_id=None, url=None):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, code=None, flow_id=None, message=None,
+                 url=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        self.code = code
         self.flow_id = flow_id
+        self.message = message
         self.url = url
 
     def validate(self):
@@ -2533,7 +2549,9 @@ class StartTwcNotaryContractHandsignResponse(TeaModel):
         result['req_msg_id'] = self.req_msg_id
         result['result_code'] = self.result_code
         result['result_msg'] = self.result_msg
+        result['code'] = self.code
         result['flow_id'] = self.flow_id
+        result['message'] = self.message
         result['url'] = self.url
         return result
 
@@ -2541,7 +2559,9 @@ class StartTwcNotaryContractHandsignResponse(TeaModel):
         self.req_msg_id = map.get('req_msg_id')
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
+        self.code = map.get('code')
         self.flow_id = map.get('flow_id')
+        self.message = map.get('message')
         self.url = map.get('url')
         return self
 
@@ -4962,14 +4982,12 @@ class GetTwcNotaryContractSignurlRequest(TeaModel):
 
 
 class GetTwcNotaryContractSignurlResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, code=None, message=None, short_url=None,
-                 url=None):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, code=None, message=None, url=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
         self.code = code
         self.message = message
-        self.short_url = short_url
         self.url = url
 
     def validate(self):
@@ -4982,7 +5000,6 @@ class GetTwcNotaryContractSignurlResponse(TeaModel):
         result['result_msg'] = self.result_msg
         result['code'] = self.code
         result['message'] = self.message
-        result['short_url'] = self.short_url
         result['url'] = self.url
         return result
 
@@ -4992,7 +5009,6 @@ class GetTwcNotaryContractSignurlResponse(TeaModel):
         self.result_msg = map.get('result_msg')
         self.code = map.get('code')
         self.message = map.get('message')
-        self.short_url = map.get('short_url')
         self.url = map.get('url')
         return self
 
@@ -5828,6 +5844,55 @@ class ApplyTwcNotaryContractCallbackkeyResponse(TeaModel):
         self.code = map.get('code')
         self.key = map.get('key')
         self.message = map.get('message')
+        return self
+
+
+class DeployTwcNotaryMytfTappRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, tapp_id=None):
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
+        self.tapp_id = tapp_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = {}
+        result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
+        result['tapp_id'] = self.tapp_id
+        return result
+
+    def from_map(self, map={}):
+        self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
+        self.tapp_id = map.get('tapp_id')
+        return self
+
+
+class DeployTwcNotaryMytfTappResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None):
+        self.req_msg_id = req_msg_id
+        self.result_code = result_code
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = {}
+        result['req_msg_id'] = self.req_msg_id
+        result['result_code'] = self.result_code
+        result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, map={}):
+        self.req_msg_id = map.get('req_msg_id')
+        self.result_code = map.get('result_code')
+        self.result_msg = map.get('result_msg')
         return self
 
 
@@ -8424,16 +8489,17 @@ class CreateTwcNotaryLeaseUserinfoResponse(TeaModel):
 
 class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, acutal_pre_auth_free=None,
-                 application_id=None, async=None, bill_url=None, buy_out_price=None, deposit_free=None, extra_info=None,
-                 install_hash=None, install_price=None, install_tx_hash=None, insurance_number=None, insurance_url=None,
-                 in_store_time=None, lease_order_extra=None, lease_service_additional_file_hash=None,
-                 lease_service_additional_file_tx_hash=None, lease_service_file_hash=None, lease_service_file_tx_hash=None, order_create_time=None,
-                 order_id=None, order_pay_id=None, order_pay_time=None, order_pay_type=None, out_store_deliver_number=None,
-                 out_store_time=None, pay_proof_url=None, pre_auth_pay_order_id=None, product_info=None,
-                 purchase_contract_bill_hash=None, purchase_contract_bill_tx_hash=None, purchase_contract_hash=None,
-                 purchase_contract_tx_hash=None, purchase_contract_url=None, related_notify=None, rent_contract_url=None,
-                 rent_price_per_month=None, rent_term=None, sign_hash=None, sign_time=None, sign_tx_hash=None, store_type=None,
-                 supplement_protocol_url=None, supplier_isv_account=None, user_address=None):
+                 application_id=None, async=None, bill_url=None, buy_out_price=None, city_code=None, deposit_free=None,
+                 district_code=None, extra_info=None, install_hash=None, install_price=None, install_tx_hash=None,
+                 insurance_number=None, insurance_url=None, in_store_time=None, lease_order_extra=None,
+                 lease_service_additional_file_hash=None, lease_service_additional_file_tx_hash=None, lease_service_file_hash=None,
+                 lease_service_file_tx_hash=None, order_create_time=None, order_id=None, order_pay_id=None, order_pay_time=None,
+                 order_pay_type=None, out_store_deliver_number=None, out_store_time=None, pay_proof_url=None,
+                 pre_auth_pay_order_id=None, product_info=None, province_code=None, purchase_contract_bill_hash=None,
+                 purchase_contract_bill_tx_hash=None, purchase_contract_hash=None, purchase_contract_tx_hash=None, purchase_contract_url=None,
+                 related_notify=None, rent_contract_url=None, rent_price_per_month=None, rent_term=None, sign_hash=None,
+                 sign_time=None, sign_tx_hash=None, store_type=None, supplement_protocol_url=None, supplier_isv_account=None,
+                 user_address=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -8442,7 +8508,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
         self.async = async
         self.bill_url = bill_url
         self.buy_out_price = buy_out_price
+        self.city_code = city_code
         self.deposit_free = deposit_free
+        self.district_code = district_code
         self.extra_info = extra_info
         self.install_hash = install_hash
         self.install_price = install_price
@@ -8465,6 +8533,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
         self.pay_proof_url = pay_proof_url
         self.pre_auth_pay_order_id = pre_auth_pay_order_id
         self.product_info = product_info
+        self.province_code = province_code
         self.purchase_contract_bill_hash = purchase_contract_bill_hash
         self.purchase_contract_bill_tx_hash = purchase_contract_bill_tx_hash
         self.purchase_contract_hash = purchase_contract_hash
@@ -8502,7 +8571,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
         result['async'] = self.async
         result['bill_url'] = self.bill_url
         result['buy_out_price'] = self.buy_out_price
+        result['city_code'] = self.city_code
         result['deposit_free'] = self.deposit_free
+        result['district_code'] = self.district_code
         result['extra_info'] = self.extra_info
         result['install_hash'] = self.install_hash
         result['install_price'] = self.install_price
@@ -8535,6 +8606,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
                 result['product_info'].append(k.to_map() if k else None)
         else:
             result['product_info'] = None
+        result['province_code'] = self.province_code
         result['purchase_contract_bill_hash'] = self.purchase_contract_bill_hash
         result['purchase_contract_bill_tx_hash'] = self.purchase_contract_bill_tx_hash
         result['purchase_contract_hash'] = self.purchase_contract_hash
@@ -8567,7 +8639,9 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
         self.async = map.get('async')
         self.bill_url = map.get('bill_url')
         self.buy_out_price = map.get('buy_out_price')
+        self.city_code = map.get('city_code')
         self.deposit_free = map.get('deposit_free')
+        self.district_code = map.get('district_code')
         self.extra_info = map.get('extra_info')
         self.install_hash = map.get('install_hash')
         self.install_price = map.get('install_price')
@@ -8604,6 +8678,7 @@ class CreateTwcNotaryLeaseOrderinfoRequest(TeaModel):
                 self.product_info.append(temp_model)
         else:
             self.product_info = None
+        self.province_code = map.get('province_code')
         self.purchase_contract_bill_hash = map.get('purchase_contract_bill_hash')
         self.purchase_contract_bill_tx_hash = map.get('purchase_contract_bill_tx_hash')
         self.purchase_contract_hash = map.get('purchase_contract_hash')
