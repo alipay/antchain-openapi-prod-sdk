@@ -3676,8 +3676,12 @@ type CreateTwcNotaryContractPlatformResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
 	// 创建人ID
 	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 	// 平台方ID
 	PlatformId *string `json:"platform_id,omitempty" xml:"platform_id,omitempty"`
 	// 平台用户与智能合同服务间鉴权使用的密钥
@@ -3707,8 +3711,18 @@ func (s *CreateTwcNotaryContractPlatformResponse) SetResultMsg(v string) *Create
 	return s
 }
 
+func (s *CreateTwcNotaryContractPlatformResponse) SetCode(v int64) *CreateTwcNotaryContractPlatformResponse {
+	s.Code = &v
+	return s
+}
+
 func (s *CreateTwcNotaryContractPlatformResponse) SetCreatorId(v string) *CreateTwcNotaryContractPlatformResponse {
 	s.CreatorId = &v
+	return s
+}
+
+func (s *CreateTwcNotaryContractPlatformResponse) SetMessage(v string) *CreateTwcNotaryContractPlatformResponse {
+	s.Message = &v
 	return s
 }
 
@@ -3776,6 +3790,10 @@ type CreateTwcNotaryContractUserResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 	// 机构账号
 	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
 	// 用户类型为个人时返回用户账号；用户类型为机构时返回经办人账号
@@ -3802,6 +3820,16 @@ func (s *CreateTwcNotaryContractUserResponse) SetResultCode(v string) *CreateTwc
 
 func (s *CreateTwcNotaryContractUserResponse) SetResultMsg(v string) *CreateTwcNotaryContractUserResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateTwcNotaryContractUserResponse) SetCode(v int64) *CreateTwcNotaryContractUserResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateTwcNotaryContractUserResponse) SetMessage(v string) *CreateTwcNotaryContractUserResponse {
+	s.Message = &v
 	return s
 }
 
@@ -3948,8 +3976,12 @@ type StartTwcNotaryContractHandsignResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
 	// 签署流程ID
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 	// 手动签约唤起地址
 	Url *string `json:"url,omitempty" xml:"url,omitempty"`
 }
@@ -3977,8 +4009,18 @@ func (s *StartTwcNotaryContractHandsignResponse) SetResultMsg(v string) *StartTw
 	return s
 }
 
+func (s *StartTwcNotaryContractHandsignResponse) SetCode(v int64) *StartTwcNotaryContractHandsignResponse {
+	s.Code = &v
+	return s
+}
+
 func (s *StartTwcNotaryContractHandsignResponse) SetFlowId(v string) *StartTwcNotaryContractHandsignResponse {
 	s.FlowId = &v
+	return s
+}
+
+func (s *StartTwcNotaryContractHandsignResponse) SetMessage(v string) *StartTwcNotaryContractHandsignResponse {
+	s.Message = &v
 	return s
 }
 
@@ -7537,9 +7579,7 @@ type GetTwcNotaryContractSignurlResponse struct {
 	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
 	// 业务码信息
 	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 短链地址（30天有效）
-	ShortUrl *string `json:"short_url,omitempty" xml:"short_url,omitempty"`
-	// 长链地址(永久有效)
+	// 长链地址
 	Url *string `json:"url,omitempty" xml:"url,omitempty"`
 }
 
@@ -7573,11 +7613,6 @@ func (s *GetTwcNotaryContractSignurlResponse) SetCode(v int64) *GetTwcNotaryCont
 
 func (s *GetTwcNotaryContractSignurlResponse) SetMessage(v string) *GetTwcNotaryContractSignurlResponse {
 	s.Message = &v
-	return s
-}
-
-func (s *GetTwcNotaryContractSignurlResponse) SetShortUrl(v string) *GetTwcNotaryContractSignurlResponse {
-	s.ShortUrl = &v
 	return s
 }
 
@@ -8892,6 +8927,71 @@ func (s *ApplyTwcNotaryContractCallbackkeyResponse) SetKey(v string) *ApplyTwcNo
 
 func (s *ApplyTwcNotaryContractCallbackkeyResponse) SetMessage(v string) *ApplyTwcNotaryContractCallbackkeyResponse {
 	s.Message = &v
+	return s
+}
+
+type DeployTwcNotaryMytfTappRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// tappId
+	TappId *string `json:"tapp_id,omitempty" xml:"tapp_id,omitempty"`
+}
+
+func (s DeployTwcNotaryMytfTappRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployTwcNotaryMytfTappRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeployTwcNotaryMytfTappRequest) SetAuthToken(v string) *DeployTwcNotaryMytfTappRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeployTwcNotaryMytfTappRequest) SetProductInstanceId(v string) *DeployTwcNotaryMytfTappRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeployTwcNotaryMytfTappRequest) SetRegionName(v string) *DeployTwcNotaryMytfTappRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *DeployTwcNotaryMytfTappRequest) SetTappId(v string) *DeployTwcNotaryMytfTappRequest {
+	s.TappId = &v
+	return s
+}
+
+type DeployTwcNotaryMytfTappResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeployTwcNotaryMytfTappResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeployTwcNotaryMytfTappResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeployTwcNotaryMytfTappResponse) SetReqMsgId(v string) *DeployTwcNotaryMytfTappResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeployTwcNotaryMytfTappResponse) SetResultCode(v string) *DeployTwcNotaryMytfTappResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeployTwcNotaryMytfTappResponse) SetResultMsg(v string) *DeployTwcNotaryMytfTappResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -12773,8 +12873,12 @@ type CreateTwcNotaryLeaseOrderinfoRequest struct {
 	BillUrl *string `json:"bill_url,omitempty" xml:"bill_url,omitempty"`
 	// 到期买断价 精确到毫厘，即123400表示12.34元
 	BuyOutPrice *int64 `json:"buy_out_price,omitempty" xml:"buy_out_price,omitempty"`
+	// 市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
 	// 免押金额 精确到毫厘，即123400表示12.34元
 	DepositFree *int64 `json:"deposit_free,omitempty" xml:"deposit_free,omitempty"`
+	// 区编码
+	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty"`
 	// 融资租赁额外字段
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// 安装服务记录哈希
@@ -12819,6 +12923,8 @@ type CreateTwcNotaryLeaseOrderinfoRequest struct {
 	PreAuthPayOrderId *string `json:"pre_auth_pay_order_id,omitempty" xml:"pre_auth_pay_order_id,omitempty"`
 	// 产品详细信息
 	ProductInfo []*ProductInfo `json:"product_info,omitempty" xml:"product_info,omitempty" type:"Repeated"`
+	// 省编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty"`
 	// 采购发票文件哈希
 	PurchaseContractBillHash *string `json:"purchase_contract_bill_hash,omitempty" xml:"purchase_contract_bill_hash,omitempty"`
 	// 采购发票文件链上存证交易哈希
@@ -12902,8 +13008,18 @@ func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetBuyOutPrice(v int64) *CreateTw
 	return s
 }
 
+func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetCityCode(v string) *CreateTwcNotaryLeaseOrderinfoRequest {
+	s.CityCode = &v
+	return s
+}
+
 func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetDepositFree(v int64) *CreateTwcNotaryLeaseOrderinfoRequest {
 	s.DepositFree = &v
+	return s
+}
+
+func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetDistrictCode(v string) *CreateTwcNotaryLeaseOrderinfoRequest {
+	s.DistrictCode = &v
 	return s
 }
 
@@ -13014,6 +13130,11 @@ func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetPreAuthPayOrderId(v string) *C
 
 func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetProductInfo(v []*ProductInfo) *CreateTwcNotaryLeaseOrderinfoRequest {
 	s.ProductInfo = v
+	return s
+}
+
+func (s *CreateTwcNotaryLeaseOrderinfoRequest) SetProvinceCode(v string) *CreateTwcNotaryLeaseOrderinfoRequest {
+	s.ProvinceCode = &v
 	return s
 }
 
@@ -18701,7 +18822,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200825"),
+				"sdkVersion":     tea.String("Tea-SDK-20200902"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -20703,6 +20824,39 @@ func (client *Client) ApplyTwcNotaryContractCallbackkeyEx(request *ApplyTwcNotar
 	}
 	_result = &ApplyTwcNotaryContractCallbackkeyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.callbackkey.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: mytf的tapp部署
+ * Summary: mytf的tapp部署
+ */
+func (client *Client) DeployTwcNotaryMytfTapp(request *DeployTwcNotaryMytfTappRequest) (_result *DeployTwcNotaryMytfTappResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &DeployTwcNotaryMytfTappResponse{}
+	_body, _err := client.DeployTwcNotaryMytfTappEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: mytf的tapp部署
+ * Summary: mytf的tapp部署
+ */
+func (client *Client) DeployTwcNotaryMytfTappEx(request *DeployTwcNotaryMytfTappRequest, runtime *util.RuntimeOptions) (_result *DeployTwcNotaryMytfTappResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeployTwcNotaryMytfTappResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.mytf.tapp.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
 	}
