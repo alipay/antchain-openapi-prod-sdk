@@ -1,5 +1,5 @@
 {
-  "name": "@alicloud/BAASDT",
+  "name": "@antchain/baasdt",
   "version": "1.0.0",
   "description": "",
   "main": "dist/client.js",
