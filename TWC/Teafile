@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TWC",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -13,7 +13,7 @@
     "java": "com.alipay:twc:0.0.1",
     "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.94",
     "csharp": "AntChain.SDK.TWC:0.0.1",
-    "ts": "@antchain/twc:^1.0.0",
+    "ts": "@antchain/twc:1.0.0",
     "php": "antchain/twc:1.4.94",
     "python": "antchain_sdk_twc:1.4.94"
   },
