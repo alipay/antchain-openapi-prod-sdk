@@ -1562,12 +1562,21 @@ type CreateBaasEbcOrganizationCourseRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 课程描述
+	//
+	CourseDescription *string `json:"course_description,omitempty" xml:"course_description,omitempty" maxLength:"1000"`
 	// 课程结束时间
 	CourseEndTime *string `json:"course_end_time,omitempty" xml:"course_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 课程名称
 	CourseName *string `json:"course_name,omitempty" xml:"course_name,omitempty" maxLength:"64"`
 	// 课程开始时间
 	CourseStartTime *string `json:"course_start_time,omitempty" xml:"course_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 课程简介
+	//
+	CourseSummary *string `json:"course_summary,omitempty" xml:"course_summary,omitempty" maxLength:"120"`
+	// 课程类型
+	// 1直播课程，2录播课程，3线下课程，4其他类型
+	CourseType *int64 `json:"course_type,omitempty" xml:"course_type,omitempty"`
 	// 企业did
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 课程时长
@@ -1597,6 +1606,11 @@ func (s *CreateBaasEbcOrganizationCourseRequest) SetRegionName(v string) *Create
 	return s
 }
 
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseDescription(v string) *CreateBaasEbcOrganizationCourseRequest {
+	s.CourseDescription = &v
+	return s
+}
+
 func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.CourseEndTime = &v
 	return s
@@ -1609,6 +1623,16 @@ func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseName(v string) *Create
 
 func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *CreateBaasEbcOrganizationCourseRequest {
 	s.CourseStartTime = &v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseSummary(v string) *CreateBaasEbcOrganizationCourseRequest {
+	s.CourseSummary = &v
+	return s
+}
+
+func (s *CreateBaasEbcOrganizationCourseRequest) SetCourseType(v int64) *CreateBaasEbcOrganizationCourseRequest {
+	s.CourseType = &v
 	return s
 }
 
@@ -1662,6 +1686,9 @@ type UpdateBaasEbcOrganizationCourseRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 课程描述
+	//
+	CourseDescription *string `json:"course_description,omitempty" xml:"course_description,omitempty" maxLength:"1000"`
 	// 课程结束时间
 	CourseEndTime *string `json:"course_end_time,omitempty" xml:"course_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 课程id
@@ -1670,6 +1697,12 @@ type UpdateBaasEbcOrganizationCourseRequest struct {
 	CourseName *string `json:"course_name,omitempty" xml:"course_name,omitempty" maxLength:"64"`
 	// 课程开始时间
 	CourseStartTime *string `json:"course_start_time,omitempty" xml:"course_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 课程简介
+	//
+	CourseSummary *string `json:"course_summary,omitempty" xml:"course_summary,omitempty" maxLength:"120"`
+	// 课程类型
+	// 1直播课程，2录播课程，3线下课程，4其他类型
+	CourseType *int64 `json:"course_type,omitempty" xml:"course_type,omitempty"`
 	// 企业id
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 课程时长
@@ -1699,6 +1732,11 @@ func (s *UpdateBaasEbcOrganizationCourseRequest) SetRegionName(v string) *Update
 	return s
 }
 
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseDescription(v string) *UpdateBaasEbcOrganizationCourseRequest {
+	s.CourseDescription = &v
+	return s
+}
+
 func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseEndTime(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseEndTime = &v
 	return s
@@ -1716,6 +1754,16 @@ func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseName(v string) *Update
 
 func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseStartTime(v string) *UpdateBaasEbcOrganizationCourseRequest {
 	s.CourseStartTime = &v
+	return s
+}
+
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseSummary(v string) *UpdateBaasEbcOrganizationCourseRequest {
+	s.CourseSummary = &v
+	return s
+}
+
+func (s *UpdateBaasEbcOrganizationCourseRequest) SetCourseType(v int64) *UpdateBaasEbcOrganizationCourseRequest {
+	s.CourseType = &v
 	return s
 }
 
@@ -3295,6 +3343,473 @@ func (s *QueryBaasEbcConsumptionAmountResponse) SetAmount(v int64) *QueryBaasEbc
 	return s
 }
 
+type QueryBaasEbcOrganizationCourseRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 班级id
+	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty" maxLength:"128"`
+	// 企业did
+	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"256"`
+}
+
+func (s QueryBaasEbcOrganizationCourseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasEbcOrganizationCourseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasEbcOrganizationCourseRequest) SetAuthToken(v string) *QueryBaasEbcOrganizationCourseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseRequest) SetProductInstanceId(v string) *QueryBaasEbcOrganizationCourseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseRequest) SetRegionName(v string) *QueryBaasEbcOrganizationCourseRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseRequest) SetCourseId(v string) *QueryBaasEbcOrganizationCourseRequest {
+	s.CourseId = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseRequest) SetOrgDid(v string) *QueryBaasEbcOrganizationCourseRequest {
+	s.OrgDid = &v
+	return s
+}
+
+type QueryBaasEbcOrganizationCourseResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 课程班级列表
+	CourseClassIdList []*string `json:"course_class_id_list,omitempty" xml:"course_class_id_list,omitempty" type:"Repeated"`
+	// 课程描述
+	CourseDescription *string `json:"course_description,omitempty" xml:"course_description,omitempty"`
+	// 课程结束时间
+	//
+	CourseEndTime *string `json:"course_end_time,omitempty" xml:"course_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 课程名称
+	CourseName *string `json:"course_name,omitempty" xml:"course_name,omitempty"`
+	// 课程学员列表
+	CourseOrgUserIdList []*string `json:"course_org_user_id_list,omitempty" xml:"course_org_user_id_list,omitempty" type:"Repeated"`
+	// 课程开始时间
+	//
+	CourseStartTime *string `json:"course_start_time,omitempty" xml:"course_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 1:已发布,2:进行中,3:已结束
+	CourseStatus *int64 `json:"course_status,omitempty" xml:"course_status,omitempty"`
+	// 课程简介
+	CourseSummary *string `json:"course_summary,omitempty" xml:"course_summary,omitempty"`
+	// 课程时长
+	//
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
+}
+
+func (s QueryBaasEbcOrganizationCourseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasEbcOrganizationCourseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetReqMsgId(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetResultCode(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetResultMsg(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseClassIdList(v []*string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseClassIdList = v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseDescription(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseDescription = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseEndTime(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseEndTime = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseName(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseName = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseOrgUserIdList(v []*string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseOrgUserIdList = v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseStartTime(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseStartTime = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseStatus(v int64) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseStatus = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseSummary(v string) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseSummary = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetPeriod(v int64) *QueryBaasEbcOrganizationCourseResponse {
+	s.Period = &v
+	return s
+}
+
+type CreateBaasEbcCourseChapterRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 业务系统章节ID
+	ChapterBizId *string `json:"chapter_biz_id,omitempty" xml:"chapter_biz_id,omitempty" maxLength:"128"`
+	// 章节描述
+	ChapterDescription *string `json:"chapter_description,omitempty" xml:"chapter_description,omitempty" maxLength:"2000"`
+	// 章节名称
+	ChapterName *string `json:"chapter_name,omitempty" xml:"chapter_name,omitempty" maxLength:"128"`
+	// 章节时长，单位秒
+	ChapterPeriod *int64 `json:"chapter_period,omitempty" xml:"chapter_period,omitempty"`
+	// 课程id
+	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty" maxLength:"128"`
+}
+
+func (s CreateBaasEbcCourseChapterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasEbcCourseChapterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetAuthToken(v string) *CreateBaasEbcCourseChapterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetProductInstanceId(v string) *CreateBaasEbcCourseChapterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetRegionName(v string) *CreateBaasEbcCourseChapterRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetChapterBizId(v string) *CreateBaasEbcCourseChapterRequest {
+	s.ChapterBizId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetChapterDescription(v string) *CreateBaasEbcCourseChapterRequest {
+	s.ChapterDescription = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetChapterName(v string) *CreateBaasEbcCourseChapterRequest {
+	s.ChapterName = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetChapterPeriod(v int64) *CreateBaasEbcCourseChapterRequest {
+	s.ChapterPeriod = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetCourseId(v string) *CreateBaasEbcCourseChapterRequest {
+	s.CourseId = &v
+	return s
+}
+
+type CreateBaasEbcCourseChapterResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上章节id
+	ChapterId *string `json:"chapter_id,omitempty" xml:"chapter_id,omitempty"`
+}
+
+func (s CreateBaasEbcCourseChapterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasEbcCourseChapterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasEbcCourseChapterResponse) SetReqMsgId(v string) *CreateBaasEbcCourseChapterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterResponse) SetResultCode(v string) *CreateBaasEbcCourseChapterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterResponse) SetResultMsg(v string) *CreateBaasEbcCourseChapterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterResponse) SetChapterId(v string) *CreateBaasEbcCourseChapterResponse {
+	s.ChapterId = &v
+	return s
+}
+
+type UpdateBaasEbcCourseChapterRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 章节描述
+	ChapterDescription *string `json:"chapter_description,omitempty" xml:"chapter_description,omitempty" maxLength:"2000"`
+	// 链上章节id
+	ChapterId *string `json:"chapter_id,omitempty" xml:"chapter_id,omitempty" maxLength:"128"`
+	// 章节名称
+	ChapterName *string `json:"chapter_name,omitempty" xml:"chapter_name,omitempty" maxLength:"128"`
+	// 章节时长，单位秒
+	ChapterPeriod *int64 `json:"chapter_period,omitempty" xml:"chapter_period,omitempty"`
+}
+
+func (s UpdateBaasEbcCourseChapterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBaasEbcCourseChapterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetAuthToken(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetProductInstanceId(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetRegionName(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetChapterDescription(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.ChapterDescription = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetChapterId(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.ChapterId = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetChapterName(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.ChapterName = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetChapterPeriod(v int64) *UpdateBaasEbcCourseChapterRequest {
+	s.ChapterPeriod = &v
+	return s
+}
+
+type UpdateBaasEbcCourseChapterResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateBaasEbcCourseChapterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBaasEbcCourseChapterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBaasEbcCourseChapterResponse) SetReqMsgId(v string) *UpdateBaasEbcCourseChapterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterResponse) SetResultCode(v string) *UpdateBaasEbcCourseChapterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterResponse) SetResultMsg(v string) *UpdateBaasEbcCourseChapterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateBaasEbcCourseRecordRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 链上章节id
+	ChapterId *string `json:"chapter_id,omitempty" xml:"chapter_id,omitempty" maxLength:"128"`
+	// 链上班级id
+	ClassId *string `json:"class_id,omitempty" xml:"class_id,omitempty" maxLength:"128"`
+	// 链上课程id
+	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty" maxLength:"128"`
+	// 课程名称
+	CourseName *string `json:"course_name,omitempty" xml:"course_name,omitempty" maxLength:"128"`
+	// 企业did
+	//
+	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
+	// 企业用户id
+	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
+	// 课程扩展信息，格式为json。比如钉钉用户id。
+	RecordExt *string `json:"record_ext,omitempty" xml:"record_ext,omitempty" maxLength:"2000"`
+	// 本次开启时间
+	RecordOpenTime *string `json:"record_open_time,omitempty" xml:"record_open_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 本次观看时长，单位秒
+	RecordPeriod *int64 `json:"record_period,omitempty" xml:"record_period,omitempty"`
+	// 行为来源
+	RecordSource *string `json:"record_source,omitempty" xml:"record_source,omitempty" maxLength:"128"`
+	// 本次点击观看时间
+	RecordStartTime *string `json:"record_start_time,omitempty" xml:"record_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+}
+
+func (s CreateBaasEbcCourseRecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasEbcCourseRecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetAuthToken(v string) *CreateBaasEbcCourseRecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetProductInstanceId(v string) *CreateBaasEbcCourseRecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRegionName(v string) *CreateBaasEbcCourseRecordRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetChapterId(v string) *CreateBaasEbcCourseRecordRequest {
+	s.ChapterId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetClassId(v string) *CreateBaasEbcCourseRecordRequest {
+	s.ClassId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetCourseId(v string) *CreateBaasEbcCourseRecordRequest {
+	s.CourseId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetCourseName(v string) *CreateBaasEbcCourseRecordRequest {
+	s.CourseName = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetOrgDid(v string) *CreateBaasEbcCourseRecordRequest {
+	s.OrgDid = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetOrgUserId(v string) *CreateBaasEbcCourseRecordRequest {
+	s.OrgUserId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRecordExt(v string) *CreateBaasEbcCourseRecordRequest {
+	s.RecordExt = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRecordOpenTime(v string) *CreateBaasEbcCourseRecordRequest {
+	s.RecordOpenTime = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRecordPeriod(v int64) *CreateBaasEbcCourseRecordRequest {
+	s.RecordPeriod = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRecordSource(v string) *CreateBaasEbcCourseRecordRequest {
+	s.RecordSource = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordRequest) SetRecordStartTime(v string) *CreateBaasEbcCourseRecordRequest {
+	s.RecordStartTime = &v
+	return s
+}
+
+type CreateBaasEbcCourseRecordResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上学习记录id
+	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty"`
+}
+
+func (s CreateBaasEbcCourseRecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasEbcCourseRecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasEbcCourseRecordResponse) SetReqMsgId(v string) *CreateBaasEbcCourseRecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordResponse) SetResultCode(v string) *CreateBaasEbcCourseRecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordResponse) SetResultMsg(v string) *CreateBaasEbcCourseRecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseRecordResponse) SetRecordId(v string) *CreateBaasEbcCourseRecordResponse {
+	s.RecordId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint        *string
 	RegionId        *string
@@ -3406,7 +3921,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200901"),
+				"sdkVersion":     tea.String("Tea-SDK-20200911"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4385,6 +4900,138 @@ func (client *Client) QueryBaasEbcConsumptionAmountEx(request *QueryBaasEbcConsu
 	}
 	_result = &QueryBaasEbcConsumptionAmountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.consumption.amount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+func (client *Client) QueryBaasEbcOrganizationCourse(request *QueryBaasEbcOrganizationCourseRequest) (_result *QueryBaasEbcOrganizationCourseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &QueryBaasEbcOrganizationCourseResponse{}
+	_body, _err := client.QueryBaasEbcOrganizationCourseEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+func (client *Client) QueryBaasEbcOrganizationCourseEx(request *QueryBaasEbcOrganizationCourseRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcOrganizationCourseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBaasEbcOrganizationCourseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.course.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 课程章节发布
+ * Summary: 课程章节发布
+ */
+func (client *Client) CreateBaasEbcCourseChapter(request *CreateBaasEbcCourseChapterRequest) (_result *CreateBaasEbcCourseChapterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &CreateBaasEbcCourseChapterResponse{}
+	_body, _err := client.CreateBaasEbcCourseChapterEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 课程章节发布
+ * Summary: 课程章节发布
+ */
+func (client *Client) CreateBaasEbcCourseChapterEx(request *CreateBaasEbcCourseChapterRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcCourseChapterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBaasEbcCourseChapterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.chapter.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 课程章节更新
+ * Summary: 课程章节更新
+ */
+func (client *Client) UpdateBaasEbcCourseChapter(request *UpdateBaasEbcCourseChapterRequest) (_result *UpdateBaasEbcCourseChapterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &UpdateBaasEbcCourseChapterResponse{}
+	_body, _err := client.UpdateBaasEbcCourseChapterEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 课程章节更新
+ * Summary: 课程章节更新
+ */
+func (client *Client) UpdateBaasEbcCourseChapterEx(request *UpdateBaasEbcCourseChapterRequest, runtime *util.RuntimeOptions) (_result *UpdateBaasEbcCourseChapterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateBaasEbcCourseChapterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.chapter.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建学习记录
+ * Summary: 创建学习记录
+ */
+func (client *Client) CreateBaasEbcCourseRecord(request *CreateBaasEbcCourseRecordRequest) (_result *CreateBaasEbcCourseRecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &CreateBaasEbcCourseRecordResponse{}
+	_body, _err := client.CreateBaasEbcCourseRecordEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建学习记录
+ * Summary: 创建学习记录
+ */
+func (client *Client) CreateBaasEbcCourseRecordEx(request *CreateBaasEbcCourseRecordRequest, runtime *util.RuntimeOptions) (_result *CreateBaasEbcCourseRecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBaasEbcCourseRecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.record.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
 	}
