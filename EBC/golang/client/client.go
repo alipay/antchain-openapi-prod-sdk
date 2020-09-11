@@ -3495,6 +3495,8 @@ type CreateBaasEbcCourseChapterRequest struct {
 	ChapterPeriod *int64 `json:"chapter_period,omitempty" xml:"chapter_period,omitempty"`
 	// 课程id
 	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty" maxLength:"128"`
+	// 企业链上did
+	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
 func (s CreateBaasEbcCourseChapterRequest) String() string {
@@ -3542,6 +3544,11 @@ func (s *CreateBaasEbcCourseChapterRequest) SetChapterPeriod(v int64) *CreateBaa
 
 func (s *CreateBaasEbcCourseChapterRequest) SetCourseId(v string) *CreateBaasEbcCourseChapterRequest {
 	s.CourseId = &v
+	return s
+}
+
+func (s *CreateBaasEbcCourseChapterRequest) SetOrgDid(v string) *CreateBaasEbcCourseChapterRequest {
+	s.OrgDid = &v
 	return s
 }
 
@@ -3593,6 +3600,10 @@ type UpdateBaasEbcCourseChapterRequest struct {
 	ChapterName *string `json:"chapter_name,omitempty" xml:"chapter_name,omitempty" maxLength:"128"`
 	// 章节时长，单位秒
 	ChapterPeriod *int64 `json:"chapter_period,omitempty" xml:"chapter_period,omitempty"`
+	// 链上课程id
+	CourseId *string `json:"course_id,omitempty" xml:"course_id,omitempty" maxLength:"128"`
+	// 企业链上did
+	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 }
 
 func (s UpdateBaasEbcCourseChapterRequest) String() string {
@@ -3635,6 +3646,16 @@ func (s *UpdateBaasEbcCourseChapterRequest) SetChapterName(v string) *UpdateBaas
 
 func (s *UpdateBaasEbcCourseChapterRequest) SetChapterPeriod(v int64) *UpdateBaasEbcCourseChapterRequest {
 	s.ChapterPeriod = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetCourseId(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.CourseId = &v
+	return s
+}
+
+func (s *UpdateBaasEbcCourseChapterRequest) SetOrgDid(v string) *UpdateBaasEbcCourseChapterRequest {
+	s.OrgDid = &v
 	return s
 }
 
