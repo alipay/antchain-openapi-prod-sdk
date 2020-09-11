@@ -1560,6 +1560,8 @@ model CreateBaasEbcCourseChapterRequest = {
   chapterPeriod?: long(name='chapter_period'),
   // 课程id
   courseId?: string(maxLength=128, name='course_id'),
+  // 企业链上did
+  orgDid?: string(maxLength=128, name='org_did'),
 }
 
 model CreateBaasEbcCourseChapterResponse = {
@@ -1600,6 +1602,10 @@ model UpdateBaasEbcCourseChapterRequest = {
   chapterName?: string(maxLength=128, name='chapter_name'),
   // 章节时长，单位秒
   chapterPeriod?: long(name='chapter_period'),
+  // 链上课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业链上did
+  orgDid?: string(maxLength=128, name='org_did'),
 }
 
 model UpdateBaasEbcCourseChapterResponse = {
