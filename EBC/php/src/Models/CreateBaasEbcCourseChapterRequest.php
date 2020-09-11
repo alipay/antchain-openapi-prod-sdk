@@ -15,12 +15,14 @@ class CreateBaasEbcCourseChapterRequest extends Model {
         'chapterName' => 'chapter_name',
         'chapterPeriod' => 'chapter_period',
         'courseId' => 'course_id',
+        'orgDid' => 'org_did',
     ];
     public function validate() {
         Model::validateMaxLength('chapterBizId', $this->chapterBizId, 128);
         Model::validateMaxLength('chapterDescription', $this->chapterDescription, 2000);
         Model::validateMaxLength('chapterName', $this->chapterName, 128);
         Model::validateMaxLength('courseId', $this->courseId, 128);
+        Model::validateMaxLength('orgDid', $this->orgDid, 128);
     }
     public function toMap() {
         $res = [];
@@ -47,6 +49,9 @@ class CreateBaasEbcCourseChapterRequest extends Model {
         }
         if (null !== $this->courseId) {
             $res['course_id'] = $this->courseId;
+        }
+        if (null !== $this->orgDid) {
+            $res['org_did'] = $this->orgDid;
         }
         return $res;
     }
@@ -79,6 +84,9 @@ class CreateBaasEbcCourseChapterRequest extends Model {
         }
         if(isset($map['course_id'])){
             $model->courseId = $map['course_id'];
+        }
+        if(isset($map['org_did'])){
+            $model->orgDid = $map['org_did'];
         }
         return $model;
     }
@@ -126,5 +134,11 @@ class CreateBaasEbcCourseChapterRequest extends Model {
      * @var string
      */
     public $courseId;
+
+    // 企业链上did
+    /**
+     * @var string
+     */
+    public $orgDid;
 
 }

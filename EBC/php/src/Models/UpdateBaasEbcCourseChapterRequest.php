@@ -14,11 +14,15 @@ class UpdateBaasEbcCourseChapterRequest extends Model {
         'chapterId' => 'chapter_id',
         'chapterName' => 'chapter_name',
         'chapterPeriod' => 'chapter_period',
+        'courseId' => 'course_id',
+        'orgDid' => 'org_did',
     ];
     public function validate() {
         Model::validateMaxLength('chapterDescription', $this->chapterDescription, 2000);
         Model::validateMaxLength('chapterId', $this->chapterId, 128);
         Model::validateMaxLength('chapterName', $this->chapterName, 128);
+        Model::validateMaxLength('courseId', $this->courseId, 128);
+        Model::validateMaxLength('orgDid', $this->orgDid, 128);
     }
     public function toMap() {
         $res = [];
@@ -42,6 +46,12 @@ class UpdateBaasEbcCourseChapterRequest extends Model {
         }
         if (null !== $this->chapterPeriod) {
             $res['chapter_period'] = $this->chapterPeriod;
+        }
+        if (null !== $this->courseId) {
+            $res['course_id'] = $this->courseId;
+        }
+        if (null !== $this->orgDid) {
+            $res['org_did'] = $this->orgDid;
         }
         return $res;
     }
@@ -71,6 +81,12 @@ class UpdateBaasEbcCourseChapterRequest extends Model {
         }
         if(isset($map['chapter_period'])){
             $model->chapterPeriod = $map['chapter_period'];
+        }
+        if(isset($map['course_id'])){
+            $model->courseId = $map['course_id'];
+        }
+        if(isset($map['org_did'])){
+            $model->orgDid = $map['org_did'];
         }
         return $model;
     }
@@ -112,5 +128,17 @@ class UpdateBaasEbcCourseChapterRequest extends Model {
      * @var int
      */
     public $chapterPeriod;
+
+    // 链上课程id
+    /**
+     * @var string
+     */
+    public $courseId;
+
+    // 企业链上did
+    /**
+     * @var string
+     */
+    public $orgDid;
 
 }
