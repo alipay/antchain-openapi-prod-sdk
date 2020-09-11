@@ -89,7 +89,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     charset = 'UTF-8',
     baseSdkVersion = 'Tea-SDK',
-    sdkVersion = 'Tea-SDK-20200901',
+    sdkVersion = 'Tea-SDK-20200911',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -737,12 +737,21 @@ model CreateBaasEbcOrganizationCourseRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   regionName?: string(name='region_name'),
+  // 课程描述	
+  // 
+  courseDescription?: string(maxLength=1000, name='course_description'),
   // 课程结束时间
   courseEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_end_time'),
   // 课程名称
   courseName?: string(maxLength=64, name='course_name'),
   // 课程开始时间
   courseStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_start_time'),
+  // 课程简介	
+  // 
+  courseSummary?: string(maxLength=120, name='course_summary'),
+  // 课程类型
+  // 1直播课程，2录播课程，3线下课程，4其他类型
+  courseType?: long(name='course_type'),
   // 企业did
   orgDid?: string(maxLength=128, name='org_did'),
   // 课程时长
@@ -779,6 +788,9 @@ model UpdateBaasEbcOrganizationCourseRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   regionName?: string(name='region_name'),
+  // 课程描述	
+  // 
+  courseDescription?: string(maxLength=1000, name='course_description'),
   // 课程结束时间
   courseEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_end_time'),
   // 课程id
@@ -787,6 +799,12 @@ model UpdateBaasEbcOrganizationCourseRequest = {
   courseName?: string(maxLength=64, name='course_name'),
   // 课程开始时间
   courseStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_start_time'),
+  // 课程简介	
+  // 
+  courseSummary?: string(maxLength=120, name='course_summary'),
+  // 课程类型
+  // 1直播课程，2录播课程，3线下课程，4其他类型
+  courseType?: long(name='course_type'),
   // 企业id
   orgDid?: string(maxLength=128, name='org_did'),
   // 课程时长
@@ -1471,5 +1489,195 @@ async function queryBaasEbcConsumptionAmount(request: QueryBaasEbcConsumptionAmo
 async function queryBaasEbcConsumptionAmountEx(request: QueryBaasEbcConsumptionAmountRequest, runtime: Util.RuntimeOptions): QueryBaasEbcConsumptionAmountResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.ebc.consumption.amount.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcOrganizationCourseRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 班级id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 企业did
+  orgDid?: string(maxLength=256, name='org_did'),
+}
+
+model QueryBaasEbcOrganizationCourseResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 课程班级列表
+  courseClassIdList?: [ string ](name='course_class_id_list'),
+  // 课程描述
+  courseDescription?: string(name='course_description'),
+  // 课程结束时间
+  // 
+  courseEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_end_time'),
+  // 课程名称
+  courseName?: string(name='course_name'),
+  // 课程学员列表
+  courseOrgUserIdList?: [ string ](name='course_org_user_id_list'),
+  // 课程开始时间
+  // 
+  courseStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='course_start_time'),
+  // 1:已发布,2:进行中,3:已结束
+  courseStatus?: long(name='course_status'),
+  // 课程简介
+  courseSummary?: string(name='course_summary'),
+  // 课程时长
+  // 
+  period?: long(name='period'),
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+async function queryBaasEbcOrganizationCourse(request: QueryBaasEbcOrganizationCourseRequest): QueryBaasEbcOrganizationCourseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcOrganizationCourseEx(request, runtime);
+}
+
+/**
+ * Description: 班级明细查询
+ * Summary: 班级明细查询
+ */
+async function queryBaasEbcOrganizationCourseEx(request: QueryBaasEbcOrganizationCourseRequest, runtime: Util.RuntimeOptions): QueryBaasEbcOrganizationCourseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.course.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcCourseChapterRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 业务系统章节ID
+  chapterBizId?: string(maxLength=128, name='chapter_biz_id'),
+  // 章节描述
+  chapterDescription?: string(maxLength=2000, name='chapter_description'),
+  // 章节名称
+  chapterName?: string(maxLength=128, name='chapter_name'),
+  // 章节时长，单位秒
+  chapterPeriod?: long(name='chapter_period'),
+  // 课程id
+  courseId?: string(maxLength=128, name='course_id'),
+}
+
+model CreateBaasEbcCourseChapterResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 链上章节id
+  chapterId?: string(name='chapter_id'),
+}
+
+/**
+ * Description: 课程章节发布
+ * Summary: 课程章节发布
+ */
+async function createBaasEbcCourseChapter(request: CreateBaasEbcCourseChapterRequest): CreateBaasEbcCourseChapterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcCourseChapterEx(request, runtime);
+}
+
+/**
+ * Description: 课程章节发布
+ * Summary: 课程章节发布
+ */
+async function createBaasEbcCourseChapterEx(request: CreateBaasEbcCourseChapterRequest, runtime: Util.RuntimeOptions): CreateBaasEbcCourseChapterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.chapter.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model UpdateBaasEbcCourseChapterRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 章节描述
+  chapterDescription?: string(maxLength=2000, name='chapter_description'),
+  // 链上章节id
+  chapterId?: string(maxLength=128, name='chapter_id'),
+  // 章节名称
+  chapterName?: string(maxLength=128, name='chapter_name'),
+  // 章节时长，单位秒
+  chapterPeriod?: long(name='chapter_period'),
+}
+
+model UpdateBaasEbcCourseChapterResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 课程章节更新
+ * Summary: 课程章节更新
+ */
+async function updateBaasEbcCourseChapter(request: UpdateBaasEbcCourseChapterRequest): UpdateBaasEbcCourseChapterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return updateBaasEbcCourseChapterEx(request, runtime);
+}
+
+/**
+ * Description: 课程章节更新
+ * Summary: 课程章节更新
+ */
+async function updateBaasEbcCourseChapterEx(request: UpdateBaasEbcCourseChapterRequest, runtime: Util.RuntimeOptions): UpdateBaasEbcCourseChapterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.chapter.update', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model CreateBaasEbcCourseRecordRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 链上章节id
+  chapterId?: string(maxLength=128, name='chapter_id'),
+  // 链上班级id
+  classId?: string(maxLength=128, name='class_id'),
+  // 链上课程id
+  courseId?: string(maxLength=128, name='course_id'),
+  // 课程名称
+  courseName?: string(maxLength=128, name='course_name'),
+  // 企业did
+  // 
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 企业用户id
+  orgUserId?: string(maxLength=128, name='org_user_id'),
+  // 课程扩展信息，格式为json。比如钉钉用户id。
+  recordExt?: string(maxLength=2000, name='record_ext'),
+  // 本次开启时间
+  recordOpenTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='record_open_time'),
+  // 本次观看时长，单位秒
+  recordPeriod?: long(name='record_period'),
+  // 行为来源
+  recordSource?: string(maxLength=128, name='record_source'),
+  // 本次点击观看时间
+  recordStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='record_start_time'),
+}
+
+model CreateBaasEbcCourseRecordResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 链上学习记录id
+  recordId?: string(name='record_id'),
+}
+
+/**
+ * Description: 创建学习记录
+ * Summary: 创建学习记录
+ */
+async function createBaasEbcCourseRecord(request: CreateBaasEbcCourseRecordRequest): CreateBaasEbcCourseRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return createBaasEbcCourseRecordEx(request, runtime);
+}
+
+/**
+ * Description: 创建学习记录
+ * Summary: 创建学习记录
+ */
+async function createBaasEbcCourseRecordEx(request: CreateBaasEbcCourseRecordRequest, runtime: Util.RuntimeOptions): CreateBaasEbcCourseRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.course.record.create', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
