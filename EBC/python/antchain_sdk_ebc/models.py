@@ -3115,7 +3115,7 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
 
 class CreateBaasEbcCourseChapterRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, chapter_biz_id=None,
-                 chapter_description=None, chapter_name=None, chapter_period=None, course_id=None):
+                 chapter_description=None, chapter_name=None, chapter_period=None, course_id=None, org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -3129,6 +3129,8 @@ class CreateBaasEbcCourseChapterRequest(TeaModel):
         self.chapter_period = chapter_period
         # 课程id
         self.course_id = course_id
+        # 企业链上did
+        self.org_did = org_did
 
     def validate(self):
         if self.chapter_biz_id:
@@ -3139,6 +3141,8 @@ class CreateBaasEbcCourseChapterRequest(TeaModel):
             self.validate_max_length(self.chapter_name, 'chapter_name', 128)
         if self.course_id:
             self.validate_max_length(self.course_id, 'course_id', 128)
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -3150,6 +3154,7 @@ class CreateBaasEbcCourseChapterRequest(TeaModel):
         result['chapter_name'] = self.chapter_name
         result['chapter_period'] = self.chapter_period
         result['course_id'] = self.course_id
+        result['org_did'] = self.org_did
         return result
 
     def from_map(self, map={}):
@@ -3161,6 +3166,7 @@ class CreateBaasEbcCourseChapterRequest(TeaModel):
         self.chapter_name = map.get('chapter_name')
         self.chapter_period = map.get('chapter_period')
         self.course_id = map.get('course_id')
+        self.org_did = map.get('org_did')
         return self
 
 
@@ -3193,7 +3199,7 @@ class CreateBaasEbcCourseChapterResponse(TeaModel):
 
 class UpdateBaasEbcCourseChapterRequest(TeaModel):
     def __init__(self, auth_token=None, product_instance_id=None, region_name=None, chapter_description=None,
-                 chapter_id=None, chapter_name=None, chapter_period=None):
+                 chapter_id=None, chapter_name=None, chapter_period=None, course_id=None, org_did=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
@@ -3205,6 +3211,10 @@ class UpdateBaasEbcCourseChapterRequest(TeaModel):
         self.chapter_name = chapter_name
         # 章节时长，单位秒
         self.chapter_period = chapter_period
+        # 链上课程id
+        self.course_id = course_id
+        # 企业链上did
+        self.org_did = org_did
 
     def validate(self):
         if self.chapter_description:
@@ -3213,6 +3223,10 @@ class UpdateBaasEbcCourseChapterRequest(TeaModel):
             self.validate_max_length(self.chapter_id, 'chapter_id', 128)
         if self.chapter_name:
             self.validate_max_length(self.chapter_name, 'chapter_name', 128)
+        if self.course_id:
+            self.validate_max_length(self.course_id, 'course_id', 128)
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
 
     def to_map(self):
         result = {}
@@ -3223,6 +3237,8 @@ class UpdateBaasEbcCourseChapterRequest(TeaModel):
         result['chapter_id'] = self.chapter_id
         result['chapter_name'] = self.chapter_name
         result['chapter_period'] = self.chapter_period
+        result['course_id'] = self.course_id
+        result['org_did'] = self.org_did
         return result
 
     def from_map(self, map={}):
@@ -3233,6 +3249,8 @@ class UpdateBaasEbcCourseChapterRequest(TeaModel):
         self.chapter_id = map.get('chapter_id')
         self.chapter_name = map.get('chapter_name')
         self.chapter_period = map.get('chapter_period')
+        self.course_id = map.get('course_id')
+        self.org_did = map.get('org_did')
         return self
 
 
