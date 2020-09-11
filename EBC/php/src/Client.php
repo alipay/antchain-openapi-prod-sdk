@@ -70,6 +70,14 @@ use AntChain\EBC\Models\UpdateBaasEbcDataPriceRequest;
 use AntChain\EBC\Models\UpdateBaasEbcDataPriceResponse;
 use AntChain\EBC\Models\QueryBaasEbcConsumptionAmountRequest;
 use AntChain\EBC\Models\QueryBaasEbcConsumptionAmountResponse;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationCourseRequest;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationCourseResponse;
+use AntChain\EBC\Models\CreateBaasEbcCourseChapterRequest;
+use AntChain\EBC\Models\CreateBaasEbcCourseChapterResponse;
+use AntChain\EBC\Models\UpdateBaasEbcCourseChapterRequest;
+use AntChain\EBC\Models\UpdateBaasEbcCourseChapterResponse;
+use AntChain\EBC\Models\CreateBaasEbcCourseRecordRequest;
+use AntChain\EBC\Models\CreateBaasEbcCourseRecordResponse;
 
 class Client {
     protected $_endpoint;
@@ -189,7 +197,7 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200901"
+                    "sdkVersion" => "Tea-SDK-20200911"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -886,5 +894,97 @@ class Client {
     public function queryBaasEbcConsumptionAmountEx($request, $runtime){
         Utils::validateModel($request);
         return QueryBaasEbcConsumptionAmountResponse::fromMap($this->doRequest("1.0", "baas.ebc.consumption.amount.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 班级明细查询
+     * Summary: 班级明细查询
+     * @param QueryBaasEbcOrganizationCourseRequest $request
+     * @return QueryBaasEbcOrganizationCourseResponse
+     */
+    public function queryBaasEbcOrganizationCourse($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->queryBaasEbcOrganizationCourseEx($request, $runtime);
+    }
+
+    /**
+     * Description: 班级明细查询
+     * Summary: 班级明细查询
+     * @param QueryBaasEbcOrganizationCourseRequest $request
+     * @param RuntimeOptions $runtime
+     * @return QueryBaasEbcOrganizationCourseResponse
+     */
+    public function queryBaasEbcOrganizationCourseEx($request, $runtime){
+        Utils::validateModel($request);
+        return QueryBaasEbcOrganizationCourseResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.course.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 课程章节发布
+     * Summary: 课程章节发布
+     * @param CreateBaasEbcCourseChapterRequest $request
+     * @return CreateBaasEbcCourseChapterResponse
+     */
+    public function createBaasEbcCourseChapter($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->createBaasEbcCourseChapterEx($request, $runtime);
+    }
+
+    /**
+     * Description: 课程章节发布
+     * Summary: 课程章节发布
+     * @param CreateBaasEbcCourseChapterRequest $request
+     * @param RuntimeOptions $runtime
+     * @return CreateBaasEbcCourseChapterResponse
+     */
+    public function createBaasEbcCourseChapterEx($request, $runtime){
+        Utils::validateModel($request);
+        return CreateBaasEbcCourseChapterResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.chapter.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 课程章节更新
+     * Summary: 课程章节更新
+     * @param UpdateBaasEbcCourseChapterRequest $request
+     * @return UpdateBaasEbcCourseChapterResponse
+     */
+    public function updateBaasEbcCourseChapter($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->updateBaasEbcCourseChapterEx($request, $runtime);
+    }
+
+    /**
+     * Description: 课程章节更新
+     * Summary: 课程章节更新
+     * @param UpdateBaasEbcCourseChapterRequest $request
+     * @param RuntimeOptions $runtime
+     * @return UpdateBaasEbcCourseChapterResponse
+     */
+    public function updateBaasEbcCourseChapterEx($request, $runtime){
+        Utils::validateModel($request);
+        return UpdateBaasEbcCourseChapterResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.chapter.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 创建学习记录
+     * Summary: 创建学习记录
+     * @param CreateBaasEbcCourseRecordRequest $request
+     * @return CreateBaasEbcCourseRecordResponse
+     */
+    public function createBaasEbcCourseRecord($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->createBaasEbcCourseRecordEx($request, $runtime);
+    }
+
+    /**
+     * Description: 创建学习记录
+     * Summary: 创建学习记录
+     * @param CreateBaasEbcCourseRecordRequest $request
+     * @param RuntimeOptions $runtime
+     * @return CreateBaasEbcCourseRecordResponse
+     */
+    public function createBaasEbcCourseRecordEx($request, $runtime){
+        Utils::validateModel($request);
+        return CreateBaasEbcCourseRecordResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.record.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 }

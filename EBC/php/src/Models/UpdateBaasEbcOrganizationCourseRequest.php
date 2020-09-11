@@ -10,19 +10,24 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'regionName' => 'region_name',
+        'courseDescription' => 'course_description',
         'courseEndTime' => 'course_end_time',
         'courseId' => 'course_id',
         'courseName' => 'course_name',
         'courseStartTime' => 'course_start_time',
+        'courseSummary' => 'course_summary',
+        'courseType' => 'course_type',
         'orgDid' => 'org_did',
         'period' => 'period',
     ];
     public function validate() {
-        Model::validatePattern('courseEndTime', $this->courseEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
-        Model::validatePattern('courseStartTime', $this->courseStartTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateMaxLength('courseDescription', $this->courseDescription, 1000);
         Model::validateMaxLength('courseId', $this->courseId, 128);
         Model::validateMaxLength('courseName', $this->courseName, 64);
+        Model::validateMaxLength('courseSummary', $this->courseSummary, 120);
         Model::validateMaxLength('orgDid', $this->orgDid, 128);
+        Model::validatePattern('courseEndTime', $this->courseEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validatePattern('courseStartTime', $this->courseStartTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {
         $res = [];
@@ -35,6 +40,9 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
         if (null !== $this->regionName) {
             $res['region_name'] = $this->regionName;
         }
+        if (null !== $this->courseDescription) {
+            $res['course_description'] = $this->courseDescription;
+        }
         if (null !== $this->courseEndTime) {
             $res['course_end_time'] = $this->courseEndTime;
         }
@@ -46,6 +54,12 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
         }
         if (null !== $this->courseStartTime) {
             $res['course_start_time'] = $this->courseStartTime;
+        }
+        if (null !== $this->courseSummary) {
+            $res['course_summary'] = $this->courseSummary;
+        }
+        if (null !== $this->courseType) {
+            $res['course_type'] = $this->courseType;
         }
         if (null !== $this->orgDid) {
             $res['org_did'] = $this->orgDid;
@@ -70,6 +84,9 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
         if(isset($map['region_name'])){
             $model->regionName = $map['region_name'];
         }
+        if(isset($map['course_description'])){
+            $model->courseDescription = $map['course_description'];
+        }
         if(isset($map['course_end_time'])){
             $model->courseEndTime = $map['course_end_time'];
         }
@@ -81,6 +98,12 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
         }
         if(isset($map['course_start_time'])){
             $model->courseStartTime = $map['course_start_time'];
+        }
+        if(isset($map['course_summary'])){
+            $model->courseSummary = $map['course_summary'];
+        }
+        if(isset($map['course_type'])){
+            $model->courseType = $map['course_type'];
         }
         if(isset($map['org_did'])){
             $model->orgDid = $map['org_did'];
@@ -105,6 +128,13 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
      */
     public $regionName;
 
+    // 课程描述
+    // 
+    /**
+     * @var string
+     */
+    public $courseDescription;
+
     // 课程结束时间
     /**
      * @var string
@@ -128,6 +158,20 @@ class UpdateBaasEbcOrganizationCourseRequest extends Model {
      * @var string
      */
     public $courseStartTime;
+
+    // 课程简介
+    // 
+    /**
+     * @var string
+     */
+    public $courseSummary;
+
+    // 课程类型
+    // 1直播课程，2录播课程，3线下课程，4其他类型
+    /**
+     * @var int
+     */
+    public $courseType;
 
     // 企业id
     /**
