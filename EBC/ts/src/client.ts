@@ -223,6 +223,74 @@ export class OrgUser extends $tea.Model {
   }
 }
 
+// 课程学习记录
+export class CourseRecord extends $tea.Model {
+  // 链上章节id
+  // 
+  chapterId?: string;
+  // 班级id
+  classId?: string;
+  // 课程id
+  courseId?: string;
+  // 课程名称
+  courseName?: string;
+  // 企业did
+  orgDid?: string;
+  // 企业用户id
+  // 
+  orgUserId?: string;
+  // 课程扩展信息，格式为json。比如钉钉用户id。
+  recordExt?: string;
+  // 记录id
+  recordId?: string;
+  // 本次开启时间
+  // 
+  recordOpenTime?: string;
+  // 本次观看时长，单位秒
+  recordPeriod?: number;
+  // 行为来源
+  recordSource?: string;
+  // 本次点击观看时间
+  recordStartTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      chapterId: 'chapter_id',
+      classId: 'class_id',
+      courseId: 'course_id',
+      courseName: 'course_name',
+      orgDid: 'org_did',
+      orgUserId: 'org_user_id',
+      recordExt: 'record_ext',
+      recordId: 'record_id',
+      recordOpenTime: 'record_open_time',
+      recordPeriod: 'record_period',
+      recordSource: 'record_source',
+      recordStartTime: 'record_start_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      chapterId: 'string',
+      classId: 'string',
+      courseId: 'string',
+      courseName: 'string',
+      orgDid: 'string',
+      orgUserId: 'string',
+      recordExt: 'string',
+      recordId: 'string',
+      recordOpenTime: 'string',
+      recordPeriod: 'number',
+      recordSource: 'string',
+      recordStartTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 字段隐私属性描述
 export class PrivacyDesc extends $tea.Model {
   // 属性名称
@@ -318,6 +386,45 @@ export class PublicDesc extends $tea.Model {
     return {
       attributeName: 'string',
       isPublic: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 课程章节
+export class CourseChapter extends $tea.Model {
+  // 业务系统章节ID
+  // 
+  chapterBizId?: string;
+  // 章节描述
+  // 
+  chapterDescription?: string;
+  // 链上章节id
+  chapterId?: string;
+  // 章节名称
+  chapterName?: string;
+  // 章节时长，单位秒
+  chapterPeriod?: number;
+  static names(): { [key: string]: string } {
+    return {
+      chapterBizId: 'chapter_biz_id',
+      chapterDescription: 'chapter_description',
+      chapterId: 'chapter_id',
+      chapterName: 'chapter_name',
+      chapterPeriod: 'chapter_period',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      chapterBizId: 'string',
+      chapterDescription: 'string',
+      chapterId: 'string',
+      chapterName: 'string',
+      chapterPeriod: 'number',
     };
   }
 
@@ -2499,16 +2606,18 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
   resultCode?: string;
   resultMsg?: string;
   // 课程班级列表
-  courseClassIdList?: string[];
+  courseClassList?: Class[];
   // 课程描述
   courseDescription?: string;
   // 课程结束时间
   // 
   courseEndTime?: string;
+  // 课程最近一次修改时间
+  courseModifyTime?: string;
   // 课程名称
   courseName?: string;
   // 课程学员列表
-  courseOrgUserIdList?: string[];
+  courseOrgUserList?: OrgUser[];
   // 课程开始时间
   // 
   courseStartTime?: string;
@@ -2524,11 +2633,12 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      courseClassIdList: 'course_class_id_list',
+      courseClassList: 'course_class_list',
       courseDescription: 'course_description',
       courseEndTime: 'course_end_time',
+      courseModifyTime: 'course_modify_time',
       courseName: 'course_name',
-      courseOrgUserIdList: 'course_org_user_id_list',
+      courseOrgUserList: 'course_org_user_list',
       courseStartTime: 'course_start_time',
       courseStatus: 'course_status',
       courseSummary: 'course_summary',
@@ -2541,11 +2651,12 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      courseClassIdList: { 'type': 'array', 'itemType': 'string' },
+      courseClassList: { 'type': 'array', 'itemType': Class },
       courseDescription: 'string',
       courseEndTime: 'string',
+      courseModifyTime: 'string',
       courseName: 'string',
-      courseOrgUserIdList: { 'type': 'array', 'itemType': 'string' },
+      courseOrgUserList: { 'type': 'array', 'itemType': OrgUser },
       courseStartTime: 'string',
       courseStatus: 'number',
       courseSummary: 'string',
@@ -2809,6 +2920,152 @@ export class CreateBaasEbcCourseRecordResponse extends $tea.Model {
   }
 }
 
+export class QueryBaasEbcCourseChapterRequest extends $tea.Model {
+  authToken?: string;
+  productInstanceId?: string;
+  regionName?: string;
+  // 课程id
+  courseId?: string;
+  // 企业链上did
+  orgDid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionName: 'region_name',
+      courseId: 'course_id',
+      orgDid: 'org_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionName: 'string',
+      courseId: 'string',
+      orgDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaasEbcCourseChapterResponse extends $tea.Model {
+  reqMsgId?: string;
+  resultCode?: string;
+  resultMsg?: string;
+  // 课程章节列表
+  chapterList?: CourseChapter[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chapterList: 'chapter_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chapterList: { 'type': 'array', 'itemType': CourseChapter },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaasEbcCourseRecordRequest extends $tea.Model {
+  authToken?: string;
+  productInstanceId?: string;
+  regionName?: string;
+  // 课程id
+  courseId?: string;
+  // 企业链上did
+  // 
+  orgDid?: string;
+  // 企业用户id
+  // 
+  orgUserId?: string;
+  // 页码，从1开始
+  pageNum?: number;
+  // 页面大小，最大10
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionName: 'region_name',
+      courseId: 'course_id',
+      orgDid: 'org_did',
+      orgUserId: 'org_user_id',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionName: 'string',
+      courseId: 'string',
+      orgDid: 'string',
+      orgUserId: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaasEbcCourseRecordResponse extends $tea.Model {
+  reqMsgId?: string;
+  resultCode?: string;
+  resultMsg?: string;
+  // 总页数
+  pages?: number;
+  // 学习记录列表
+  recordList?: CourseRecord[];
+  // 数据总量
+  total?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pages: 'pages',
+      recordList: 'record_list',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pages: 'number',
+      recordList: { 'type': 'array', 'itemType': CourseRecord },
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2911,7 +3168,7 @@ export default class Client {
           access_key: this._accessKeyId,
           charset: "UTF-8",
           baseSdkVersion: "Tea-SDK",
-          sdkVersion: "Tea-SDK-20200911",
+          sdkVersion: "Tea-SDK-20200918",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3473,8 +3730,8 @@ export default class Client {
   }
 
   /**
-   * Description: 班级明细查询
-   * Summary: 班级明细查询
+   * Description: 课程明细查询
+   * Summary: 课程明细查询
    */
   async queryBaasEbcOrganizationCourse(request: QueryBaasEbcOrganizationCourseRequest): Promise<QueryBaasEbcOrganizationCourseResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3482,8 +3739,8 @@ export default class Client {
   }
 
   /**
-   * Description: 班级明细查询
-   * Summary: 班级明细查询
+   * Description: 课程明细查询
+   * Summary: 课程明细查询
    */
   async queryBaasEbcOrganizationCourseEx(request: QueryBaasEbcOrganizationCourseRequest, runtime: $Util.RuntimeOptions): Promise<QueryBaasEbcOrganizationCourseResponse> {
     Util.validateModel(request);
@@ -3542,6 +3799,42 @@ export default class Client {
   async createBaasEbcCourseRecordEx(request: CreateBaasEbcCourseRecordRequest, runtime: $Util.RuntimeOptions): Promise<CreateBaasEbcCourseRecordResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateBaasEbcCourseRecordResponse>(await this.doRequest("1.0", "baas.ebc.course.record.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), runtime), new CreateBaasEbcCourseRecordResponse({}));
+  }
+
+  /**
+   * Description: 课程章节查询
+   * Summary: 课程章节查询
+   */
+  async queryBaasEbcCourseChapter(request: QueryBaasEbcCourseChapterRequest): Promise<QueryBaasEbcCourseChapterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    return await this.queryBaasEbcCourseChapterEx(request, runtime);
+  }
+
+  /**
+   * Description: 课程章节查询
+   * Summary: 课程章节查询
+   */
+  async queryBaasEbcCourseChapterEx(request: QueryBaasEbcCourseChapterRequest, runtime: $Util.RuntimeOptions): Promise<QueryBaasEbcCourseChapterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBaasEbcCourseChapterResponse>(await this.doRequest("1.0", "baas.ebc.course.chapter.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), runtime), new QueryBaasEbcCourseChapterResponse({}));
+  }
+
+  /**
+   * Description: 学习记录查询
+   * Summary: 学习记录查询
+   */
+  async queryBaasEbcCourseRecord(request: QueryBaasEbcCourseRecordRequest): Promise<QueryBaasEbcCourseRecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    return await this.queryBaasEbcCourseRecordEx(request, runtime);
+  }
+
+  /**
+   * Description: 学习记录查询
+   * Summary: 学习记录查询
+   */
+  async queryBaasEbcCourseRecordEx(request: QueryBaasEbcCourseRecordRequest, runtime: $Util.RuntimeOptions): Promise<QueryBaasEbcCourseRecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBaasEbcCourseRecordResponse>(await this.doRequest("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), runtime), new QueryBaasEbcCourseRecordResponse({}));
   }
 
 }
