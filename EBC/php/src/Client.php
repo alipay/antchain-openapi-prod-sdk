@@ -78,6 +78,10 @@ use AntChain\EBC\Models\UpdateBaasEbcCourseChapterRequest;
 use AntChain\EBC\Models\UpdateBaasEbcCourseChapterResponse;
 use AntChain\EBC\Models\CreateBaasEbcCourseRecordRequest;
 use AntChain\EBC\Models\CreateBaasEbcCourseRecordResponse;
+use AntChain\EBC\Models\QueryBaasEbcCourseChapterRequest;
+use AntChain\EBC\Models\QueryBaasEbcCourseChapterResponse;
+use AntChain\EBC\Models\QueryBaasEbcCourseRecordRequest;
+use AntChain\EBC\Models\QueryBaasEbcCourseRecordResponse;
 
 class Client {
     protected $_endpoint;
@@ -197,7 +201,7 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200911"
+                    "sdkVersion" => "Tea-SDK-20200918"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -897,8 +901,8 @@ class Client {
     }
 
     /**
-     * Description: 班级明细查询
-     * Summary: 班级明细查询
+     * Description: 课程明细查询
+     * Summary: 课程明细查询
      * @param QueryBaasEbcOrganizationCourseRequest $request
      * @return QueryBaasEbcOrganizationCourseResponse
      */
@@ -908,8 +912,8 @@ class Client {
     }
 
     /**
-     * Description: 班级明细查询
-     * Summary: 班级明细查询
+     * Description: 课程明细查询
+     * Summary: 课程明细查询
      * @param QueryBaasEbcOrganizationCourseRequest $request
      * @param RuntimeOptions $runtime
      * @return QueryBaasEbcOrganizationCourseResponse
@@ -986,5 +990,51 @@ class Client {
     public function createBaasEbcCourseRecordEx($request, $runtime){
         Utils::validateModel($request);
         return CreateBaasEbcCourseRecordResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.record.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 课程章节查询
+     * Summary: 课程章节查询
+     * @param QueryBaasEbcCourseChapterRequest $request
+     * @return QueryBaasEbcCourseChapterResponse
+     */
+    public function queryBaasEbcCourseChapter($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->queryBaasEbcCourseChapterEx($request, $runtime);
+    }
+
+    /**
+     * Description: 课程章节查询
+     * Summary: 课程章节查询
+     * @param QueryBaasEbcCourseChapterRequest $request
+     * @param RuntimeOptions $runtime
+     * @return QueryBaasEbcCourseChapterResponse
+     */
+    public function queryBaasEbcCourseChapterEx($request, $runtime){
+        Utils::validateModel($request);
+        return QueryBaasEbcCourseChapterResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.chapter.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 学习记录查询
+     * Summary: 学习记录查询
+     * @param QueryBaasEbcCourseRecordRequest $request
+     * @return QueryBaasEbcCourseRecordResponse
+     */
+    public function queryBaasEbcCourseRecord($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->queryBaasEbcCourseRecordEx($request, $runtime);
+    }
+
+    /**
+     * Description: 学习记录查询
+     * Summary: 学习记录查询
+     * @param QueryBaasEbcCourseRecordRequest $request
+     * @param RuntimeOptions $runtime
+     * @return QueryBaasEbcCourseRecordResponse
+     */
+    public function queryBaasEbcCourseRecordEx($request, $runtime){
+        Utils::validateModel($request);
+        return QueryBaasEbcCourseRecordResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 }

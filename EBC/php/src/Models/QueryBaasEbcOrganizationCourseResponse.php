@@ -5,16 +5,20 @@ namespace AntChain\EBC\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\EBC\Models\Class_;
+use AntChain\EBC\Models\OrgUser;
+
 class QueryBaasEbcOrganizationCourseResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'courseClassIdList' => 'course_class_id_list',
+        'courseClassList' => 'course_class_list',
         'courseDescription' => 'course_description',
         'courseEndTime' => 'course_end_time',
+        'courseModifyTime' => 'course_modify_time',
         'courseName' => 'course_name',
-        'courseOrgUserIdList' => 'course_org_user_id_list',
+        'courseOrgUserList' => 'course_org_user_list',
         'courseStartTime' => 'course_start_time',
         'courseStatus' => 'course_status',
         'courseSummary' => 'course_summary',
@@ -22,6 +26,7 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
     ];
     public function validate() {
         Model::validatePattern('courseEndTime', $this->courseEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validatePattern('courseModifyTime', $this->courseModifyTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('courseStartTime', $this->courseStartTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {
@@ -35,8 +40,14 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->courseClassIdList) {
-            $res['course_class_id_list'] = $this->courseClassIdList;
+        if (null !== $this->courseClassList) {
+            $res['course_class_list'] = [];
+            if(null !== $this->courseClassList && is_array($this->courseClassList)){
+                $n = 0;
+                foreach($this->courseClassList as $item){
+                    $res['course_class_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->courseDescription) {
             $res['course_description'] = $this->courseDescription;
@@ -44,11 +55,20 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         if (null !== $this->courseEndTime) {
             $res['course_end_time'] = $this->courseEndTime;
         }
+        if (null !== $this->courseModifyTime) {
+            $res['course_modify_time'] = $this->courseModifyTime;
+        }
         if (null !== $this->courseName) {
             $res['course_name'] = $this->courseName;
         }
-        if (null !== $this->courseOrgUserIdList) {
-            $res['course_org_user_id_list'] = $this->courseOrgUserIdList;
+        if (null !== $this->courseOrgUserList) {
+            $res['course_org_user_list'] = [];
+            if(null !== $this->courseOrgUserList && is_array($this->courseOrgUserList)){
+                $n = 0;
+                foreach($this->courseOrgUserList as $item){
+                    $res['course_org_user_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->courseStartTime) {
             $res['course_start_time'] = $this->courseStartTime;
@@ -79,9 +99,13 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['course_class_id_list'])){
-            if(!empty($map['course_class_id_list'])){
-                $model->courseClassIdList = $map['course_class_id_list'];
+        if(isset($map['course_class_list'])){
+            if(!empty($map['course_class_list'])){
+                $model->courseClassList = [];
+                $n = 0;
+                foreach($map['course_class_list'] as $item) {
+                    $model->courseClassList[$n++] = null !== $item ? Class_::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['course_description'])){
@@ -90,12 +114,19 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         if(isset($map['course_end_time'])){
             $model->courseEndTime = $map['course_end_time'];
         }
+        if(isset($map['course_modify_time'])){
+            $model->courseModifyTime = $map['course_modify_time'];
+        }
         if(isset($map['course_name'])){
             $model->courseName = $map['course_name'];
         }
-        if(isset($map['course_org_user_id_list'])){
-            if(!empty($map['course_org_user_id_list'])){
-                $model->courseOrgUserIdList = $map['course_org_user_id_list'];
+        if(isset($map['course_org_user_list'])){
+            if(!empty($map['course_org_user_list'])){
+                $model->courseOrgUserList = [];
+                $n = 0;
+                foreach($map['course_org_user_list'] as $item) {
+                    $model->courseOrgUserList[$n++] = null !== $item ? OrgUser::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['course_start_time'])){
@@ -129,9 +160,9 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
 
     // 课程班级列表
     /**
-     * @var string[]
+     * @var Class_[]
      */
-    public $courseClassIdList;
+    public $courseClassList;
 
     // 课程描述
     /**
@@ -146,6 +177,12 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
      */
     public $courseEndTime;
 
+    // 课程最近一次修改时间
+    /**
+     * @var string
+     */
+    public $courseModifyTime;
+
     // 课程名称
     /**
      * @var string
@@ -154,9 +191,9 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
 
     // 课程学员列表
     /**
-     * @var string[]
+     * @var OrgUser[]
      */
-    public $courseOrgUserIdList;
+    public $courseOrgUserList;
 
     // 课程开始时间
     // 
