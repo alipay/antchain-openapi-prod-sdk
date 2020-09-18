@@ -274,6 +274,94 @@ class OrgUser(TeaModel):
         return self
 
 
+class CourseRecord(TeaModel):
+    def __init__(self, chapter_id=None, class_id=None, course_id=None, course_name=None, org_did=None,
+                 org_user_id=None, record_ext=None, record_id=None, record_open_time=None, record_period=None,
+                 record_source=None, record_start_time=None):
+        # 链上章节id
+        # 
+        self.chapter_id = chapter_id
+        # 班级id
+        self.class_id = class_id
+        # 课程id
+        self.course_id = course_id
+        # 课程名称
+        self.course_name = course_name
+        # 企业did
+        self.org_did = org_did
+        # 企业用户id
+        # 
+        self.org_user_id = org_user_id
+        # 课程扩展信息，格式为json。比如钉钉用户id。
+        self.record_ext = record_ext
+        # 记录id
+        self.record_id = record_id
+        # 本次开启时间
+        # 
+        self.record_open_time = record_open_time
+        # 本次观看时长，单位秒
+        self.record_period = record_period
+        # 行为来源
+        self.record_source = record_source
+        # 本次点击观看时间
+        self.record_start_time = record_start_time
+
+    def validate(self):
+        if self.chapter_id:
+            self.validate_max_length(self.chapter_id, 'chapter_id', 128)
+        if self.class_id:
+            self.validate_max_length(self.class_id, 'class_id', 128)
+        if self.course_id:
+            self.validate_max_length(self.course_id, 'course_id', 128)
+        if self.course_name:
+            self.validate_max_length(self.course_name, 'course_name', 128)
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
+        if self.org_user_id:
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
+        if self.record_ext:
+            self.validate_max_length(self.record_ext, 'record_ext', 2000)
+        if self.record_id:
+            self.validate_max_length(self.record_id, 'record_id', 128)
+        if self.record_open_time:
+            self.validate_pattern(self.record_open_time, 'record_open_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        if self.record_source:
+            self.validate_max_length(self.record_source, 'record_source', 128)
+        if self.record_start_time:
+            self.validate_pattern(self.record_start_time, 'record_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+
+    def to_map(self):
+        result = {}
+        result['chapter_id'] = self.chapter_id
+        result['class_id'] = self.class_id
+        result['course_id'] = self.course_id
+        result['course_name'] = self.course_name
+        result['org_did'] = self.org_did
+        result['org_user_id'] = self.org_user_id
+        result['record_ext'] = self.record_ext
+        result['record_id'] = self.record_id
+        result['record_open_time'] = self.record_open_time
+        result['record_period'] = self.record_period
+        result['record_source'] = self.record_source
+        result['record_start_time'] = self.record_start_time
+        return result
+
+    def from_map(self, map={}):
+        self.chapter_id = map.get('chapter_id')
+        self.class_id = map.get('class_id')
+        self.course_id = map.get('course_id')
+        self.course_name = map.get('course_name')
+        self.org_did = map.get('org_did')
+        self.org_user_id = map.get('org_user_id')
+        self.record_ext = map.get('record_ext')
+        self.record_id = map.get('record_id')
+        self.record_open_time = map.get('record_open_time')
+        self.record_period = map.get('record_period')
+        self.record_source = map.get('record_source')
+        self.record_start_time = map.get('record_start_time')
+        return self
+
+
 class PrivacyDesc(TeaModel):
     def __init__(self, attribute_name=None, privacy_level=None):
         # 属性名称
@@ -368,6 +456,50 @@ class PublicDesc(TeaModel):
     def from_map(self, map={}):
         self.attribute_name = map.get('attribute_name')
         self.is_public = map.get('is_public')
+        return self
+
+
+class CourseChapter(TeaModel):
+    def __init__(self, chapter_biz_id=None, chapter_description=None, chapter_id=None, chapter_name=None,
+                 chapter_period=None):
+        # 业务系统章节ID
+        # 
+        self.chapter_biz_id = chapter_biz_id
+        # 章节描述
+        # 
+        self.chapter_description = chapter_description
+        # 链上章节id
+        self.chapter_id = chapter_id
+        # 章节名称
+        self.chapter_name = chapter_name
+        # 章节时长，单位秒
+        self.chapter_period = chapter_period
+
+    def validate(self):
+        if self.chapter_biz_id:
+            self.validate_max_length(self.chapter_biz_id, 'chapter_biz_id', 128)
+        if self.chapter_description:
+            self.validate_max_length(self.chapter_description, 'chapter_description', 1000)
+        if self.chapter_id:
+            self.validate_max_length(self.chapter_id, 'chapter_id', 128)
+        if self.chapter_name:
+            self.validate_max_length(self.chapter_name, 'chapter_name', 128)
+
+    def to_map(self):
+        result = {}
+        result['chapter_biz_id'] = self.chapter_biz_id
+        result['chapter_description'] = self.chapter_description
+        result['chapter_id'] = self.chapter_id
+        result['chapter_name'] = self.chapter_name
+        result['chapter_period'] = self.chapter_period
+        return result
+
+    def from_map(self, map={}):
+        self.chapter_biz_id = map.get('chapter_biz_id')
+        self.chapter_description = map.get('chapter_description')
+        self.chapter_id = map.get('chapter_id')
+        self.chapter_name = map.get('chapter_name')
+        self.chapter_period = map.get('chapter_period')
         return self
 
 
@@ -3047,23 +3179,25 @@ class QueryBaasEbcOrganizationCourseRequest(TeaModel):
 
 
 class QueryBaasEbcOrganizationCourseResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, course_class_id_list=None,
-                 course_description=None, course_end_time=None, course_name=None, course_org_user_id_list=None,
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, course_class_list=None,
+                 course_description=None, course_end_time=None, course_modify_time=None, course_name=None, course_org_user_list=None,
                  course_start_time=None, course_status=None, course_summary=None, period=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
         # 课程班级列表
-        self.course_class_id_list = course_class_id_list
+        self.course_class_list = course_class_list
         # 课程描述
         self.course_description = course_description
         # 课程结束时间
         # 
         self.course_end_time = course_end_time
+        # 课程最近一次修改时间
+        self.course_modify_time = course_modify_time
         # 课程名称
         self.course_name = course_name
         # 课程学员列表
-        self.course_org_user_id_list = course_org_user_id_list
+        self.course_org_user_list = course_org_user_list
         # 课程开始时间
         # 
         self.course_start_time = course_start_time
@@ -3076,8 +3210,18 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         self.period = period
 
     def validate(self):
+        if self.course_class_list:
+            for k in self.course_class_list:
+                if k:
+                    k.validate()
         if self.course_end_time:
             self.validate_pattern(self.course_end_time, 'course_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        if self.course_modify_time:
+            self.validate_pattern(self.course_modify_time, 'course_modify_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        if self.course_org_user_list:
+            for k in self.course_org_user_list:
+                if k:
+                    k.validate()
         if self.course_start_time:
             self.validate_pattern(self.course_start_time, 'course_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
@@ -3086,11 +3230,22 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         result['req_msg_id'] = self.req_msg_id
         result['result_code'] = self.result_code
         result['result_msg'] = self.result_msg
-        result['course_class_id_list'] = self.course_class_id_list
+        result['course_class_list'] = []
+        if self.course_class_list is not None:
+            for k in self.course_class_list:
+                result['course_class_list'].append(k.to_map() if k else None)
+        else:
+            result['course_class_list'] = None
         result['course_description'] = self.course_description
         result['course_end_time'] = self.course_end_time
+        result['course_modify_time'] = self.course_modify_time
         result['course_name'] = self.course_name
-        result['course_org_user_id_list'] = self.course_org_user_id_list
+        result['course_org_user_list'] = []
+        if self.course_org_user_list is not None:
+            for k in self.course_org_user_list:
+                result['course_org_user_list'].append(k.to_map() if k else None)
+        else:
+            result['course_org_user_list'] = None
         result['course_start_time'] = self.course_start_time
         result['course_status'] = self.course_status
         result['course_summary'] = self.course_summary
@@ -3101,11 +3256,24 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         self.req_msg_id = map.get('req_msg_id')
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
-        self.course_class_id_list = map.get('course_class_id_list')
+        self.course_class_list = []
+        if map.get('course_class_list') is not None:
+            for k in map.get('course_class_list'):
+                temp_model = Class()
+                self.course_class_list.append(temp_model.from_map(k))
+        else:
+            self.course_class_list = None
         self.course_description = map.get('course_description')
         self.course_end_time = map.get('course_end_time')
+        self.course_modify_time = map.get('course_modify_time')
         self.course_name = map.get('course_name')
-        self.course_org_user_id_list = map.get('course_org_user_id_list')
+        self.course_org_user_list = []
+        if map.get('course_org_user_list') is not None:
+            for k in map.get('course_org_user_list'):
+                temp_model = OrgUser()
+                self.course_org_user_list.append(temp_model.from_map(k))
+        else:
+            self.course_org_user_list = None
         self.course_start_time = map.get('course_start_time')
         self.course_status = map.get('course_status')
         self.course_summary = map.get('course_summary')
@@ -3390,4 +3558,179 @@ class CreateBaasEbcCourseRecordResponse(TeaModel):
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
         self.record_id = map.get('record_id')
+        return self
+
+
+class QueryBaasEbcCourseChapterRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None):
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
+        # 课程id
+        self.course_id = course_id
+        # 企业链上did
+        self.org_did = org_did
+
+    def validate(self):
+        if self.course_id:
+            self.validate_max_length(self.course_id, 'course_id', 128)
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
+
+    def to_map(self):
+        result = {}
+        result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
+        result['course_id'] = self.course_id
+        result['org_did'] = self.org_did
+        return result
+
+    def from_map(self, map={}):
+        self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
+        self.course_id = map.get('course_id')
+        self.org_did = map.get('org_did')
+        return self
+
+
+class QueryBaasEbcCourseChapterResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, chapter_list=None):
+        self.req_msg_id = req_msg_id
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 课程章节列表
+        self.chapter_list = chapter_list
+
+    def validate(self):
+        if self.chapter_list:
+            for k in self.chapter_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = {}
+        result['req_msg_id'] = self.req_msg_id
+        result['result_code'] = self.result_code
+        result['result_msg'] = self.result_msg
+        result['chapter_list'] = []
+        if self.chapter_list is not None:
+            for k in self.chapter_list:
+                result['chapter_list'].append(k.to_map() if k else None)
+        else:
+            result['chapter_list'] = None
+        return result
+
+    def from_map(self, map={}):
+        self.req_msg_id = map.get('req_msg_id')
+        self.result_code = map.get('result_code')
+        self.result_msg = map.get('result_msg')
+        self.chapter_list = []
+        if map.get('chapter_list') is not None:
+            for k in map.get('chapter_list'):
+                temp_model = CourseChapter()
+                self.chapter_list.append(temp_model.from_map(k))
+        else:
+            self.chapter_list = None
+        return self
+
+
+class QueryBaasEbcCourseRecordRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, course_id=None, org_did=None,
+                 org_user_id=None, page_num=None, page_size=None):
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
+        # 课程id
+        self.course_id = course_id
+        # 企业链上did
+        # 
+        self.org_did = org_did
+        # 企业用户id
+        # 
+        self.org_user_id = org_user_id
+        # 页码，从1开始
+        self.page_num = page_num
+        # 页面大小，最大10
+        self.page_size = page_size
+
+    def validate(self):
+        if self.course_id:
+            self.validate_max_length(self.course_id, 'course_id', 128)
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
+        if self.org_user_id:
+            self.validate_max_length(self.org_user_id, 'org_user_id', 128)
+
+    def to_map(self):
+        result = {}
+        result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
+        result['course_id'] = self.course_id
+        result['org_did'] = self.org_did
+        result['org_user_id'] = self.org_user_id
+        result['page_num'] = self.page_num
+        result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, map={}):
+        self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
+        self.course_id = map.get('course_id')
+        self.org_did = map.get('org_did')
+        self.org_user_id = map.get('org_user_id')
+        self.page_num = map.get('page_num')
+        self.page_size = map.get('page_size')
+        return self
+
+
+class QueryBaasEbcCourseRecordResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, pages=None, record_list=None, total=None):
+        self.req_msg_id = req_msg_id
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 总页数
+        self.pages = pages
+        # 学习记录列表
+        self.record_list = record_list
+        # 数据总量
+        self.total = total
+
+    def validate(self):
+        if self.record_list:
+            for k in self.record_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = {}
+        result['req_msg_id'] = self.req_msg_id
+        result['result_code'] = self.result_code
+        result['result_msg'] = self.result_msg
+        result['pages'] = self.pages
+        result['record_list'] = []
+        if self.record_list is not None:
+            for k in self.record_list:
+                result['record_list'].append(k.to_map() if k else None)
+        else:
+            result['record_list'] = None
+        result['total'] = self.total
+        return result
+
+    def from_map(self, map={}):
+        self.req_msg_id = map.get('req_msg_id')
+        self.result_code = map.get('result_code')
+        self.result_msg = map.get('result_msg')
+        self.pages = map.get('pages')
+        self.record_list = []
+        if map.get('record_list') is not None:
+            for k in map.get('record_list'):
+                temp_model = CourseRecord()
+                self.record_list.append(temp_model.from_map(k))
+        else:
+            self.record_list = None
+        self.total = map.get('total')
         return self

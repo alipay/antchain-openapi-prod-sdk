@@ -125,7 +125,7 @@ class Client(object):
                     "access_key": self._access_key_id,
                     "charset": "UTF-8",
                     "baseSdkVersion": "Tea-SDK",
-                    "sdkVersion": "Tea-SDK-20200911"
+                    "sdkVersion": "Tea-SDK-20200918"
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query["security_token"] = self._security_token
@@ -678,8 +678,8 @@ class Client(object):
 
     def query_baas_ebc_organization_course(self, request):
         """
-        Description: 班级明细查询
-        Summary: 班级明细查询
+        Description: 课程明细查询
+        Summary: 课程明细查询
         """
         runtime = util_models.RuntimeOptions(
 
@@ -688,8 +688,8 @@ class Client(object):
 
     def query_baas_ebc_organization_course_ex(self, request, runtime):
         """
-        Description: 班级明细查询
-        Summary: 班级明细查询
+        Description: 课程明细查询
+        Summary: 课程明细查询
         """
         UtilClient.validate_model(request)
         return ebc_models.QueryBaasEbcOrganizationCourseResponse().from_map(self.do_request("1.0", "baas.ebc.organization.course.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
@@ -747,3 +747,39 @@ class Client(object):
         """
         UtilClient.validate_model(request)
         return ebc_models.CreateBaasEbcCourseRecordResponse().from_map(self.do_request("1.0", "baas.ebc.course.record.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+
+    def query_baas_ebc_course_chapter(self, request):
+        """
+        Description: 课程章节查询
+        Summary: 课程章节查询
+        """
+        runtime = util_models.RuntimeOptions(
+
+        )
+        return self.query_baas_ebc_course_chapter_ex(request, runtime)
+
+    def query_baas_ebc_course_chapter_ex(self, request, runtime):
+        """
+        Description: 课程章节查询
+        Summary: 课程章节查询
+        """
+        UtilClient.validate_model(request)
+        return ebc_models.QueryBaasEbcCourseChapterResponse().from_map(self.do_request("1.0", "baas.ebc.course.chapter.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+
+    def query_baas_ebc_course_record(self, request):
+        """
+        Description: 学习记录查询
+        Summary: 学习记录查询
+        """
+        runtime = util_models.RuntimeOptions(
+
+        )
+        return self.query_baas_ebc_course_record_ex(request, runtime)
+
+    def query_baas_ebc_course_record_ex(self, request, runtime):
+        """
+        Description: 学习记录查询
+        Summary: 学习记录查询
+        """
+        UtilClient.validate_model(request)
+        return ebc_models.QueryBaasEbcCourseRecordResponse().from_map(self.do_request("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
