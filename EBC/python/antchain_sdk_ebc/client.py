@@ -125,7 +125,7 @@ class Client(object):
                     "access_key": self._access_key_id,
                     "charset": "UTF-8",
                     "baseSdkVersion": "Tea-SDK",
-                    "sdkVersion": "Tea-SDK-20200918"
+                    "sdkVersion": "Tea-SDK-20200922"
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query["security_token"] = self._security_token
@@ -783,3 +783,21 @@ class Client(object):
         """
         UtilClient.validate_model(request)
         return ebc_models.QueryBaasEbcCourseRecordResponse().from_map(self.do_request("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
+
+    def query_baas_ebc_organization_user(self, request):
+        """
+        Description: 企业用户查询
+        Summary: 企业用户查询
+        """
+        runtime = util_models.RuntimeOptions(
+
+        )
+        return self.query_baas_ebc_organization_user_ex(request, runtime)
+
+    def query_baas_ebc_organization_user_ex(self, request, runtime):
+        """
+        Description: 企业用户查询
+        Summary: 企业用户查询
+        """
+        UtilClient.validate_model(request)
+        return ebc_models.QueryBaasEbcOrganizationUserResponse().from_map(self.do_request("1.0", "baas.ebc.organization.user.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))

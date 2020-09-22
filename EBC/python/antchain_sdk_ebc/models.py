@@ -250,27 +250,39 @@ class Cert(TeaModel):
 
 
 class OrgUser(TeaModel):
-    def __init__(self, org_did=None, org_user_id=None):
+    def __init__(self, org_did=None, org_user_id=None, person_did=None, uid=None):
         # 企业did
         self.org_did = org_did
         # 企业用户id
         self.org_user_id = org_user_id
+        # 个人id
+        self.person_did = person_did
+        # 机构内部用户工号
+        self.uid = uid
 
     def validate(self):
         if self.org_did:
             self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_user_id:
             self.validate_max_length(self.org_user_id, 'org_user_id', 128)
+        if self.person_did:
+            self.validate_max_length(self.person_did, 'person_did', 128)
+        if self.uid:
+            self.validate_max_length(self.uid, 'uid', 64)
 
     def to_map(self):
         result = {}
         result['org_did'] = self.org_did
         result['org_user_id'] = self.org_user_id
+        result['person_did'] = self.person_did
+        result['uid'] = self.uid
         return result
 
     def from_map(self, map={}):
         self.org_did = map.get('org_did')
         self.org_user_id = map.get('org_user_id')
+        self.person_did = map.get('person_did')
+        self.uid = map.get('uid')
         return self
 
 
@@ -601,7 +613,7 @@ class CreateBaasEbcPersonRequest(TeaModel):
         if self.person_name:
             self.validate_max_length(self.person_name, 'person_name', 32)
         if self.primary_id_no:
-            self.validate_max_length(self.primary_id_no, 'primary_id_no', 1024)
+            self.validate_max_length(self.primary_id_no, 'primary_id_no', 64)
         if self.privacy_desc_list:
             for k in self.privacy_desc_list:
                 if k:
@@ -615,11 +627,11 @@ class CreateBaasEbcPersonRequest(TeaModel):
                 if k:
                     k.validate()
         if self.second_id_no_1:
-            self.validate_max_length(self.second_id_no_1, 'second_id_no_1', 1024)
+            self.validate_max_length(self.second_id_no_1, 'second_id_no_1', 64)
         if self.second_id_no_2:
-            self.validate_max_length(self.second_id_no_2, 'second_id_no_2', 1024)
+            self.validate_max_length(self.second_id_no_2, 'second_id_no_2', 64)
         if self.second_id_no_3:
-            self.validate_max_length(self.second_id_no_3, 'second_id_no_3', 1024)
+            self.validate_max_length(self.second_id_no_3, 'second_id_no_3', 64)
         if self.secret_key:
             self.validate_max_length(self.secret_key, 'secret_key', 512)
 
@@ -3181,7 +3193,7 @@ class QueryBaasEbcOrganizationCourseRequest(TeaModel):
 class QueryBaasEbcOrganizationCourseResponse(TeaModel):
     def __init__(self, req_msg_id=None, result_code=None, result_msg=None, course_class_list=None,
                  course_description=None, course_end_time=None, course_modify_time=None, course_name=None, course_org_user_list=None,
-                 course_start_time=None, course_status=None, course_summary=None, period=None):
+                 course_start_time=None, course_status=None, course_summary=None, course_type=None, period=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
@@ -3205,6 +3217,8 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         self.course_status = course_status
         # 课程简介
         self.course_summary = course_summary
+        # 课程类型： 1直播课程，2录播课程，3线下课程，4其他类型
+        self.course_type = course_type
         # 课程时长
         # 
         self.period = period
@@ -3249,6 +3263,7 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         result['course_start_time'] = self.course_start_time
         result['course_status'] = self.course_status
         result['course_summary'] = self.course_summary
+        result['course_type'] = self.course_type
         result['period'] = self.period
         return result
 
@@ -3277,6 +3292,7 @@ class QueryBaasEbcOrganizationCourseResponse(TeaModel):
         self.course_start_time = map.get('course_start_time')
         self.course_status = map.get('course_status')
         self.course_summary = map.get('course_summary')
+        self.course_type = map.get('course_type')
         self.period = map.get('period')
         return self
 
@@ -3688,12 +3704,15 @@ class QueryBaasEbcCourseRecordRequest(TeaModel):
 
 
 class QueryBaasEbcCourseRecordResponse(TeaModel):
-    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, pages=None, record_list=None, total=None):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, pages=None, page_num=None,
+                 record_list=None, total=None):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
         # 总页数
         self.pages = pages
+        # 当前页码
+        self.page_num = page_num
         # 学习记录列表
         self.record_list = record_list
         # 数据总量
@@ -3711,6 +3730,7 @@ class QueryBaasEbcCourseRecordResponse(TeaModel):
         result['result_code'] = self.result_code
         result['result_msg'] = self.result_msg
         result['pages'] = self.pages
+        result['page_num'] = self.page_num
         result['record_list'] = []
         if self.record_list is not None:
             for k in self.record_list:
@@ -3725,6 +3745,7 @@ class QueryBaasEbcCourseRecordResponse(TeaModel):
         self.result_code = map.get('result_code')
         self.result_msg = map.get('result_msg')
         self.pages = map.get('pages')
+        self.page_num = map.get('page_num')
         self.record_list = []
         if map.get('record_list') is not None:
             for k in map.get('record_list'):
@@ -3732,5 +3753,96 @@ class QueryBaasEbcCourseRecordResponse(TeaModel):
                 self.record_list.append(temp_model.from_map(k))
         else:
             self.record_list = None
+        self.total = map.get('total')
+        return self
+
+
+class QueryBaasEbcOrganizationUserRequest(TeaModel):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, org_did=None, page_num=None,
+                 page_size=None):
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.region_name = region_name
+        # 企业链上did
+        self.org_did = org_did
+        # 页码，从1开始
+        self.page_num = page_num
+        # 页面大小，最大10
+        self.page_size = page_size
+
+    def validate(self):
+        if self.org_did:
+            self.validate_max_length(self.org_did, 'org_did', 128)
+
+    def to_map(self):
+        result = {}
+        result['auth_token'] = self.auth_token
+        result['product_instance_id'] = self.product_instance_id
+        result['region_name'] = self.region_name
+        result['org_did'] = self.org_did
+        result['page_num'] = self.page_num
+        result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, map={}):
+        self.auth_token = map.get('auth_token')
+        self.product_instance_id = map.get('product_instance_id')
+        self.region_name = map.get('region_name')
+        self.org_did = map.get('org_did')
+        self.page_num = map.get('page_num')
+        self.page_size = map.get('page_size')
+        return self
+
+
+class QueryBaasEbcOrganizationUserResponse(TeaModel):
+    def __init__(self, req_msg_id=None, result_code=None, result_msg=None, org_user_list=None, pages=None,
+                 page_num=None, total=None):
+        self.req_msg_id = req_msg_id
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 企业用户列表
+        self.org_user_list = org_user_list
+        # 总页数
+        self.pages = pages
+        # 当前页码
+        self.page_num = page_num
+        # 数据总量
+        self.total = total
+
+    def validate(self):
+        if self.org_user_list:
+            for k in self.org_user_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = {}
+        result['req_msg_id'] = self.req_msg_id
+        result['result_code'] = self.result_code
+        result['result_msg'] = self.result_msg
+        result['org_user_list'] = []
+        if self.org_user_list is not None:
+            for k in self.org_user_list:
+                result['org_user_list'].append(k.to_map() if k else None)
+        else:
+            result['org_user_list'] = None
+        result['pages'] = self.pages
+        result['page_num'] = self.page_num
+        result['total'] = self.total
+        return result
+
+    def from_map(self, map={}):
+        self.req_msg_id = map.get('req_msg_id')
+        self.result_code = map.get('result_code')
+        self.result_msg = map.get('result_msg')
+        self.org_user_list = []
+        if map.get('org_user_list') is not None:
+            for k in map.get('org_user_list'):
+                temp_model = OrgUser()
+                self.org_user_list.append(temp_model.from_map(k))
+        else:
+            self.org_user_list = None
+        self.pages = map.get('pages')
+        self.page_num = map.get('page_num')
         self.total = map.get('total')
         return self
