@@ -5,21 +5,17 @@ namespace AntChain\EBC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryBaasEbcCourseRecordRequest extends Model {
+class QueryBaasEbcOrganizationUserRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'regionName' => 'region_name',
-        'courseId' => 'course_id',
         'orgDid' => 'org_did',
-        'orgUserId' => 'org_user_id',
         'pageNum' => 'page_num',
         'pageSize' => 'page_size',
     ];
     public function validate() {
-        Model::validateMaxLength('courseId', $this->courseId, 128);
         Model::validateMaxLength('orgDid', $this->orgDid, 128);
-        Model::validateMaxLength('orgUserId', $this->orgUserId, 128);
         Model::validateMaximum('pageSize', $this->pageSize, '10');
     }
     public function toMap() {
@@ -33,14 +29,8 @@ class QueryBaasEbcCourseRecordRequest extends Model {
         if (null !== $this->regionName) {
             $res['region_name'] = $this->regionName;
         }
-        if (null !== $this->courseId) {
-            $res['course_id'] = $this->courseId;
-        }
         if (null !== $this->orgDid) {
             $res['org_did'] = $this->orgDid;
-        }
-        if (null !== $this->orgUserId) {
-            $res['org_user_id'] = $this->orgUserId;
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -52,7 +42,7 @@ class QueryBaasEbcCourseRecordRequest extends Model {
     }
     /**
      * @param array $map
-     * @return QueryBaasEbcCourseRecordRequest
+     * @return QueryBaasEbcOrganizationUserRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -65,14 +55,8 @@ class QueryBaasEbcCourseRecordRequest extends Model {
         if(isset($map['region_name'])){
             $model->regionName = $map['region_name'];
         }
-        if(isset($map['course_id'])){
-            $model->courseId = $map['course_id'];
-        }
         if(isset($map['org_did'])){
             $model->orgDid = $map['org_did'];
-        }
-        if(isset($map['org_user_id'])){
-            $model->orgUserId = $map['org_user_id'];
         }
         if(isset($map['page_num'])){
             $model->pageNum = $map['page_num'];
@@ -97,25 +81,11 @@ class QueryBaasEbcCourseRecordRequest extends Model {
      */
     public $regionName;
 
-    // 课程id
-    /**
-     * @var string
-     */
-    public $courseId;
-
     // 企业链上did
-    // 
     /**
      * @var string
      */
     public $orgDid;
-
-    // 企业用户id
-    // 
-    /**
-     * @var string
-     */
-    public $orgUserId;
 
     // 页码，从1开始
     /**

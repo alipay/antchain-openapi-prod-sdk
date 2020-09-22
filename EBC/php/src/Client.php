@@ -82,6 +82,8 @@ use AntChain\EBC\Models\QueryBaasEbcCourseChapterRequest;
 use AntChain\EBC\Models\QueryBaasEbcCourseChapterResponse;
 use AntChain\EBC\Models\QueryBaasEbcCourseRecordRequest;
 use AntChain\EBC\Models\QueryBaasEbcCourseRecordResponse;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationUserRequest;
+use AntChain\EBC\Models\QueryBaasEbcOrganizationUserResponse;
 
 class Client {
     protected $_endpoint;
@@ -201,7 +203,7 @@ class Client {
                     "access_key" => $this->_accessKeyId,
                     "charset" => "UTF-8",
                     "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200918"
+                    "sdkVersion" => "Tea-SDK-20200922"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -1036,5 +1038,28 @@ class Client {
     public function queryBaasEbcCourseRecordEx($request, $runtime){
         Utils::validateModel($request);
         return QueryBaasEbcCourseRecordResponse::fromMap($this->doRequest("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+    }
+
+    /**
+     * Description: 企业用户查询
+     * Summary: 企业用户查询
+     * @param QueryBaasEbcOrganizationUserRequest $request
+     * @return QueryBaasEbcOrganizationUserResponse
+     */
+    public function queryBaasEbcOrganizationUser($request){
+        $runtime = new RuntimeOptions([]);
+        return $this->queryBaasEbcOrganizationUserEx($request, $runtime);
+    }
+
+    /**
+     * Description: 企业用户查询
+     * Summary: 企业用户查询
+     * @param QueryBaasEbcOrganizationUserRequest $request
+     * @param RuntimeOptions $runtime
+     * @return QueryBaasEbcOrganizationUserResponse
+     */
+    public function queryBaasEbcOrganizationUserEx($request, $runtime){
+        Utils::validateModel($request);
+        return QueryBaasEbcOrganizationUserResponse::fromMap($this->doRequest("1.0", "baas.ebc.organization.user.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
     }
 }

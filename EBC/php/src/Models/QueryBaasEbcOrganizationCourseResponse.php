@@ -22,6 +22,7 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         'courseStartTime' => 'course_start_time',
         'courseStatus' => 'course_status',
         'courseSummary' => 'course_summary',
+        'courseType' => 'course_type',
         'period' => 'period',
     ];
     public function validate() {
@@ -78,6 +79,9 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         }
         if (null !== $this->courseSummary) {
             $res['course_summary'] = $this->courseSummary;
+        }
+        if (null !== $this->courseType) {
+            $res['course_type'] = $this->courseType;
         }
         if (null !== $this->period) {
             $res['period'] = $this->period;
@@ -137,6 +141,9 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
         }
         if(isset($map['course_summary'])){
             $model->courseSummary = $map['course_summary'];
+        }
+        if(isset($map['course_type'])){
+            $model->courseType = $map['course_type'];
         }
         if(isset($map['period'])){
             $model->period = $map['period'];
@@ -213,6 +220,12 @@ class QueryBaasEbcOrganizationCourseResponse extends Model {
      * @var string
      */
     public $courseSummary;
+
+    // 课程类型： 1直播课程，2录播课程，3线下课程，4其他类型
+    /**
+     * @var int
+     */
+    public $courseType;
 
     // 课程时长
     // 

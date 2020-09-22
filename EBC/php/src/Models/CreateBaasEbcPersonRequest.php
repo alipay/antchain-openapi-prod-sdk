@@ -26,10 +26,10 @@ class CreateBaasEbcPersonRequest extends Model {
     ];
     public function validate() {
         Model::validateMaxLength('personName', $this->personName, 32);
-        Model::validateMaxLength('primaryIdNo', $this->primaryIdNo, 1024);
-        Model::validateMaxLength('secondIdNo1', $this->secondIdNo1, 1024);
-        Model::validateMaxLength('secondIdNo2', $this->secondIdNo2, 1024);
-        Model::validateMaxLength('secondIdNo3', $this->secondIdNo3, 1024);
+        Model::validateMaxLength('primaryIdNo', $this->primaryIdNo, 64);
+        Model::validateMaxLength('secondIdNo1', $this->secondIdNo1, 64);
+        Model::validateMaxLength('secondIdNo2', $this->secondIdNo2, 64);
+        Model::validateMaxLength('secondIdNo3', $this->secondIdNo3, 64);
         Model::validateMaxLength('secretKey', $this->secretKey, 512);
     }
     public function toMap() {
