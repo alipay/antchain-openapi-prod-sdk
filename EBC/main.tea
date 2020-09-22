@@ -89,7 +89,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     charset = 'UTF-8',
     baseSdkVersion = 'Tea-SDK',
-    sdkVersion = 'Tea-SDK-20200918',
+    sdkVersion = 'Tea-SDK-20200922',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -225,6 +225,10 @@ model OrgUser {
   orgDid?: string(maxLength=128, name='org_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
   // 企业用户id
   orgUserId?: string(maxLength=128, name='org_user_id', example='0001'),
+  // 个人id
+  personDid?: string(maxLength=128, name='person_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
+  // 机构内部用户工号
+  uid?: string(maxLength=64, name='uid', example='00001'),
 }
 
 // 课程学习记录
@@ -353,7 +357,7 @@ model CreateBaasEbcPersonRequest = {
   personName?: string(maxLength=32, name='person_name'),
   // 持有人主证件编号，无身份证的个人使用0000000000000000
   // 请使用我们提供的公钥对数据进行加密
-  primaryIdNo?: string(maxLength=1024, name='primary_id_no'),
+  primaryIdNo?: string(maxLength=64, name='primary_id_no'),
   // 隐私属性描述列表
   // 
   privacyDescList?: [ PrivacyDesc ](name='privacy_desc_list'),
@@ -365,13 +369,13 @@ model CreateBaasEbcPersonRequest = {
   publicDescList?: [ PublicDesc ](name='public_desc_list'),
   // 持有人辅助证件编号-1
   // 请使用我们提供的公钥对数据进行加密
-  secondIdNo1?: string(maxLength=1024, name='second_id_no_1'),
+  secondIdNo1?: string(maxLength=64, name='second_id_no_1'),
   // 持有人辅助证件编号-1
   // 请使用我们提供的公钥对数据进行加密
-  secondIdNo2?: string(maxLength=1024, name='second_id_no_2'),
+  secondIdNo2?: string(maxLength=64, name='second_id_no_2'),
   // 持有人辅助证件编号-3
   // 请使用我们提供的公钥对数据进行加密
-  secondIdNo3?: string(maxLength=1024, name='second_id_no_3'),
+  secondIdNo3?: string(maxLength=64, name='second_id_no_3'),
   // 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
   secretKey?: string(maxLength=512, name='secret_key'),
 }
@@ -1572,6 +1576,8 @@ model QueryBaasEbcOrganizationCourseResponse = {
   courseStatus?: long(name='course_status'),
   // 课程简介
   courseSummary?: string(name='course_summary'),
+  // 课程类型： 1直播课程，2录播课程，3线下课程，4其他类型
+  courseType?: long(name='course_type'),
   // 课程时长
   // 
   period?: long(name='period'),
@@ -1787,7 +1793,7 @@ model QueryBaasEbcCourseRecordRequest = {
   // 页码，从1开始
   pageNum?: long(name='page_num'),
   // 页面大小，最大10
-  pageSize?: long(maximum='20', name='page_size'),
+  pageSize?: long(maximum='10', name='page_size'),
 }
 
 model QueryBaasEbcCourseRecordResponse = {
@@ -1796,6 +1802,8 @@ model QueryBaasEbcCourseRecordResponse = {
   resultMsg?: string(name='result_msg'),
   // 总页数
   pages?: long(name='pages'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
   // 学习记录列表
   recordList?: [ CourseRecord ](name='record_list'),
   // 数据总量
@@ -1818,5 +1826,49 @@ async function queryBaasEbcCourseRecord(request: QueryBaasEbcCourseRecordRequest
 async function queryBaasEbcCourseRecordEx(request: QueryBaasEbcCourseRecordRequest, runtime: Util.RuntimeOptions): QueryBaasEbcCourseRecordResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.ebc.course.record.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryBaasEbcOrganizationUserRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 企业链上did
+  orgDid?: string(maxLength=128, name='org_did'),
+  // 页码，从1开始
+  pageNum?: long(name='page_num'),
+  // 页面大小，最大10
+  pageSize?: long(maximum='10', name='page_size'),
+}
+
+model QueryBaasEbcOrganizationUserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 企业用户列表
+  orgUserList?: [ OrgUser ](name='org_user_list'),
+  // 总页数
+  pages?: long(name='pages'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
+  // 数据总量
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 企业用户查询
+ * Summary: 企业用户查询
+ */
+async function queryBaasEbcOrganizationUser(request: QueryBaasEbcOrganizationUserRequest): QueryBaasEbcOrganizationUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryBaasEbcOrganizationUserEx(request, runtime);
+}
+
+/**
+ * Description: 企业用户查询
+ * Summary: 企业用户查询
+ */
+async function queryBaasEbcOrganizationUserEx(request: QueryBaasEbcOrganizationUserRequest, runtime: Util.RuntimeOptions): QueryBaasEbcOrganizationUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.ebc.organization.user.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
 }
 
