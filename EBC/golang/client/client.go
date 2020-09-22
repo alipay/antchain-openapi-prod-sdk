@@ -332,6 +332,10 @@ type OrgUser struct {
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 企业用户id
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
+	// 个人id
+	PersonDid *string `json:"person_did,omitempty" xml:"person_did,omitempty" maxLength:"128"`
+	// 机构内部用户工号
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" maxLength:"64"`
 }
 
 func (s OrgUser) String() string {
@@ -349,6 +353,16 @@ func (s *OrgUser) SetOrgDid(v string) *OrgUser {
 
 func (s *OrgUser) SetOrgUserId(v string) *OrgUser {
 	s.OrgUserId = &v
+	return s
+}
+
+func (s *OrgUser) SetPersonDid(v string) *OrgUser {
+	s.PersonDid = &v
+	return s
+}
+
+func (s *OrgUser) SetUid(v string) *OrgUser {
+	s.Uid = &v
 	return s
 }
 
@@ -694,7 +708,7 @@ type CreateBaasEbcPersonRequest struct {
 	PersonName *string `json:"person_name,omitempty" xml:"person_name,omitempty" maxLength:"32"`
 	// 持有人主证件编号，无身份证的个人使用0000000000000000
 	// 请使用我们提供的公钥对数据进行加密
-	PrimaryIdNo *string `json:"primary_id_no,omitempty" xml:"primary_id_no,omitempty" maxLength:"1024"`
+	PrimaryIdNo *string `json:"primary_id_no,omitempty" xml:"primary_id_no,omitempty" maxLength:"64"`
 	// 隐私属性描述列表
 	//
 	PrivacyDescList []*PrivacyDesc `json:"privacy_desc_list,omitempty" xml:"privacy_desc_list,omitempty" type:"Repeated"`
@@ -706,13 +720,13 @@ type CreateBaasEbcPersonRequest struct {
 	PublicDescList []*PublicDesc `json:"public_desc_list,omitempty" xml:"public_desc_list,omitempty" type:"Repeated"`
 	// 持有人辅助证件编号-1
 	// 请使用我们提供的公钥对数据进行加密
-	SecondIdNo1 *string `json:"second_id_no_1,omitempty" xml:"second_id_no_1,omitempty" maxLength:"1024"`
+	SecondIdNo1 *string `json:"second_id_no_1,omitempty" xml:"second_id_no_1,omitempty" maxLength:"64"`
 	// 持有人辅助证件编号-1
 	// 请使用我们提供的公钥对数据进行加密
-	SecondIdNo2 *string `json:"second_id_no_2,omitempty" xml:"second_id_no_2,omitempty" maxLength:"1024"`
+	SecondIdNo2 *string `json:"second_id_no_2,omitempty" xml:"second_id_no_2,omitempty" maxLength:"64"`
 	// 持有人辅助证件编号-3
 	// 请使用我们提供的公钥对数据进行加密
-	SecondIdNo3 *string `json:"second_id_no_3,omitempty" xml:"second_id_no_3,omitempty" maxLength:"1024"`
+	SecondIdNo3 *string `json:"second_id_no_3,omitempty" xml:"second_id_no_3,omitempty" maxLength:"64"`
 	// 非对称加密后的对称秘钥，对应执行java SDK中的EnvelopeClient#envelopeSeal方法的返回值
 	SecretKey *string `json:"secret_key,omitempty" xml:"secret_key,omitempty" maxLength:"512"`
 }
@@ -3558,6 +3572,8 @@ type QueryBaasEbcOrganizationCourseResponse struct {
 	CourseStatus *int64 `json:"course_status,omitempty" xml:"course_status,omitempty"`
 	// 课程简介
 	CourseSummary *string `json:"course_summary,omitempty" xml:"course_summary,omitempty"`
+	// 课程类型： 1直播课程，2录播课程，3线下课程，4其他类型
+	CourseType *int64 `json:"course_type,omitempty" xml:"course_type,omitempty"`
 	// 课程时长
 	//
 	Period *int64 `json:"period,omitempty" xml:"period,omitempty"`
@@ -3628,6 +3644,11 @@ func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseStatus(v int64) *Query
 
 func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseSummary(v string) *QueryBaasEbcOrganizationCourseResponse {
 	s.CourseSummary = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationCourseResponse) SetCourseType(v int64) *QueryBaasEbcOrganizationCourseResponse {
+	s.CourseType = &v
 	return s
 }
 
@@ -4137,6 +4158,8 @@ type QueryBaasEbcCourseRecordResponse struct {
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 总页数
 	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 学习记录列表
 	RecordList []*CourseRecord `json:"record_list,omitempty" xml:"record_list,omitempty" type:"Repeated"`
 	// 数据总量
@@ -4171,12 +4194,124 @@ func (s *QueryBaasEbcCourseRecordResponse) SetPages(v int64) *QueryBaasEbcCourse
 	return s
 }
 
+func (s *QueryBaasEbcCourseRecordResponse) SetPageNum(v int64) *QueryBaasEbcCourseRecordResponse {
+	s.PageNum = &v
+	return s
+}
+
 func (s *QueryBaasEbcCourseRecordResponse) SetRecordList(v []*CourseRecord) *QueryBaasEbcCourseRecordResponse {
 	s.RecordList = v
 	return s
 }
 
 func (s *QueryBaasEbcCourseRecordResponse) SetTotal(v int64) *QueryBaasEbcCourseRecordResponse {
+	s.Total = &v
+	return s
+}
+
+type QueryBaasEbcOrganizationUserRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
+	// 企业链上did
+	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
+	// 页码，从1开始
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 页面大小，最大10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" maximum:"undefined"`
+}
+
+func (s QueryBaasEbcOrganizationUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasEbcOrganizationUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetAuthToken(v string) *QueryBaasEbcOrganizationUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetProductInstanceId(v string) *QueryBaasEbcOrganizationUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetRegionName(v string) *QueryBaasEbcOrganizationUserRequest {
+	s.RegionName = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetOrgDid(v string) *QueryBaasEbcOrganizationUserRequest {
+	s.OrgDid = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetPageNum(v int64) *QueryBaasEbcOrganizationUserRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserRequest) SetPageSize(v int64) *QueryBaasEbcOrganizationUserRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryBaasEbcOrganizationUserResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 企业用户列表
+	OrgUserList []*OrgUser `json:"org_user_list,omitempty" xml:"org_user_list,omitempty" type:"Repeated"`
+	// 总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 数据总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s QueryBaasEbcOrganizationUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasEbcOrganizationUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetReqMsgId(v string) *QueryBaasEbcOrganizationUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetResultCode(v string) *QueryBaasEbcOrganizationUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetResultMsg(v string) *QueryBaasEbcOrganizationUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetOrgUserList(v []*OrgUser) *QueryBaasEbcOrganizationUserResponse {
+	s.OrgUserList = v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetPages(v int64) *QueryBaasEbcOrganizationUserResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetPageNum(v int64) *QueryBaasEbcOrganizationUserResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryBaasEbcOrganizationUserResponse) SetTotal(v int64) *QueryBaasEbcOrganizationUserResponse {
 	s.Total = &v
 	return s
 }
@@ -4292,7 +4427,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200918"),
+				"sdkVersion":     tea.String("Tea-SDK-20200922"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -5469,6 +5604,39 @@ func (client *Client) QueryBaasEbcCourseRecordEx(request *QueryBaasEbcCourseReco
 	}
 	_result = &QueryBaasEbcCourseRecordResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.course.record.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业用户查询
+ * Summary: 企业用户查询
+ */
+func (client *Client) QueryBaasEbcOrganizationUser(request *QueryBaasEbcOrganizationUserRequest) (_result *QueryBaasEbcOrganizationUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	_result = &QueryBaasEbcOrganizationUserResponse{}
+	_body, _err := client.QueryBaasEbcOrganizationUserEx(request, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业用户查询
+ * Summary: 企业用户查询
+ */
+func (client *Client) QueryBaasEbcOrganizationUserEx(request *QueryBaasEbcOrganizationUserRequest, runtime *util.RuntimeOptions) (_result *QueryBaasEbcOrganizationUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBaasEbcOrganizationUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.ebc.organization.user.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), runtime)
 	if _err != nil {
 		return _result, _err
 	}
