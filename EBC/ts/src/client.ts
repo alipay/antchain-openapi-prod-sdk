@@ -204,10 +204,16 @@ export class OrgUser extends $tea.Model {
   orgDid?: string;
   // 企业用户id
   orgUserId?: string;
+  // 个人id
+  personDid?: string;
+  // 机构内部用户工号
+  uid?: string;
   static names(): { [key: string]: string } {
     return {
       orgDid: 'org_did',
       orgUserId: 'org_user_id',
+      personDid: 'person_did',
+      uid: 'uid',
     };
   }
 
@@ -215,6 +221,8 @@ export class OrgUser extends $tea.Model {
     return {
       orgDid: 'string',
       orgUserId: 'string',
+      personDid: 'string',
+      uid: 'string',
     };
   }
 
@@ -2625,6 +2633,8 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
   courseStatus?: number;
   // 课程简介
   courseSummary?: string;
+  // 课程类型： 1直播课程，2录播课程，3线下课程，4其他类型
+  courseType?: number;
   // 课程时长
   // 
   period?: number;
@@ -2642,6 +2652,7 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
       courseStartTime: 'course_start_time',
       courseStatus: 'course_status',
       courseSummary: 'course_summary',
+      courseType: 'course_type',
       period: 'period',
     };
   }
@@ -2660,6 +2671,7 @@ export class QueryBaasEbcOrganizationCourseResponse extends $tea.Model {
       courseStartTime: 'string',
       courseStatus: 'number',
       courseSummary: 'string',
+      courseType: 'number',
       period: 'number',
     };
   }
@@ -3035,6 +3047,8 @@ export class QueryBaasEbcCourseRecordResponse extends $tea.Model {
   resultMsg?: string;
   // 总页数
   pages?: number;
+  // 当前页码
+  pageNum?: number;
   // 学习记录列表
   recordList?: CourseRecord[];
   // 数据总量
@@ -3045,6 +3059,7 @@ export class QueryBaasEbcCourseRecordResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       pages: 'pages',
+      pageNum: 'page_num',
       recordList: 'record_list',
       total: 'total',
     };
@@ -3056,7 +3071,86 @@ export class QueryBaasEbcCourseRecordResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       pages: 'number',
+      pageNum: 'number',
       recordList: { 'type': 'array', 'itemType': CourseRecord },
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaasEbcOrganizationUserRequest extends $tea.Model {
+  authToken?: string;
+  productInstanceId?: string;
+  regionName?: string;
+  // 企业链上did
+  orgDid?: string;
+  // 页码，从1开始
+  pageNum?: number;
+  // 页面大小，最大10
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionName: 'region_name',
+      orgDid: 'org_did',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionName: 'string',
+      orgDid: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaasEbcOrganizationUserResponse extends $tea.Model {
+  reqMsgId?: string;
+  resultCode?: string;
+  resultMsg?: string;
+  // 企业用户列表
+  orgUserList?: OrgUser[];
+  // 总页数
+  pages?: number;
+  // 当前页码
+  pageNum?: number;
+  // 数据总量
+  total?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orgUserList: 'org_user_list',
+      pages: 'pages',
+      pageNum: 'page_num',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orgUserList: { 'type': 'array', 'itemType': OrgUser },
+      pages: 'number',
+      pageNum: 'number',
       total: 'number',
     };
   }
@@ -3168,7 +3262,7 @@ export default class Client {
           access_key: this._accessKeyId,
           charset: "UTF-8",
           baseSdkVersion: "Tea-SDK",
-          sdkVersion: "Tea-SDK-20200918",
+          sdkVersion: "Tea-SDK-20200922",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3835,6 +3929,24 @@ export default class Client {
   async queryBaasEbcCourseRecordEx(request: QueryBaasEbcCourseRecordRequest, runtime: $Util.RuntimeOptions): Promise<QueryBaasEbcCourseRecordResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBaasEbcCourseRecordResponse>(await this.doRequest("1.0", "baas.ebc.course.record.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), runtime), new QueryBaasEbcCourseRecordResponse({}));
+  }
+
+  /**
+   * Description: 企业用户查询
+   * Summary: 企业用户查询
+   */
+  async queryBaasEbcOrganizationUser(request: QueryBaasEbcOrganizationUserRequest): Promise<QueryBaasEbcOrganizationUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    return await this.queryBaasEbcOrganizationUserEx(request, runtime);
+  }
+
+  /**
+   * Description: 企业用户查询
+   * Summary: 企业用户查询
+   */
+  async queryBaasEbcOrganizationUserEx(request: QueryBaasEbcOrganizationUserRequest, runtime: $Util.RuntimeOptions): Promise<QueryBaasEbcOrganizationUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBaasEbcOrganizationUserResponse>(await this.doRequest("1.0", "baas.ebc.organization.user.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), runtime), new QueryBaasEbcOrganizationUserResponse({}));
   }
 
 }
