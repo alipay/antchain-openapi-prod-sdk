@@ -45,7 +45,7 @@ class Cert extends Model {
         Model::validateMaxLength('holderName', $this->holderName, 64);
         Model::validateMaxLength('level', $this->level, 32);
         Model::validateMaxLength('orgDid', $this->orgDid, 128);
-        Model::validateMaxLength('orgName', $this->orgName, 64);
+        Model::validateMaxLength('orgName', $this->orgName, 128);
         Model::validateMaxLength('orgUserId', $this->orgUserId, 128);
         Model::validateMaxLength('primaryIdNo', $this->primaryIdNo, 64);
         Model::validateMaxLength('secondIdNo1', $this->secondIdNo1, 64);

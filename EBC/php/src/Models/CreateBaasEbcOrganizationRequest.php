@@ -15,7 +15,7 @@ class CreateBaasEbcOrganizationRequest extends Model {
     ];
     public function validate() {
         Model::validateMaxLength('orgCode', $this->orgCode, 64);
-        Model::validateMaxLength('orgName', $this->orgName, 64);
+        Model::validateMaxLength('orgName', $this->orgName, 128);
     }
     public function toMap() {
         $res = [];
