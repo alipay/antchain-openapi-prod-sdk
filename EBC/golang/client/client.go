@@ -170,7 +170,7 @@ type Cert struct {
 	// 企业did
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"64"`
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"128"`
 	// 证书持有人id
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
 	// 持有人主证件编号，无身份证的个人使用0000000000000000
@@ -628,7 +628,7 @@ type CreateBaasEbcOrganizationRequest struct {
 	// 企业码
 	OrgCode *string `json:"org_code,omitempty" xml:"org_code,omitempty" maxLength:"64"`
 	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"64"`
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"128"`
 }
 
 func (s CreateBaasEbcOrganizationRequest) String() string {
@@ -2348,7 +2348,7 @@ type CreateBaasEbcUserCertRequest struct {
 	// 企业id
 	OrgDid *string `json:"org_did,omitempty" xml:"org_did,omitempty" maxLength:"128"`
 	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"64"`
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" maxLength:"128"`
 	// 企业用户id
 	OrgUserId *string `json:"org_user_id,omitempty" xml:"org_user_id,omitempty" maxLength:"128"`
 	// 持有人主证件编号，无身份证的个人使用0000000000000000
@@ -4427,7 +4427,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200922"),
+				"sdkVersion":     tea.String("Tea-SDK-20200923"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
