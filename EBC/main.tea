@@ -89,7 +89,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     charset = 'UTF-8',
     baseSdkVersion = 'Tea-SDK',
-    sdkVersion = 'Tea-SDK-20200922',
+    sdkVersion = 'Tea-SDK-20200923',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -201,7 +201,7 @@ model Cert {
   // 企业did
   orgDid?: string(maxLength=128, name='org_did', example='did:mychain:66530b21a9bee783234c442b653e909136629a5a3075be7b4d9ae085782e3d36 '),
   // 企业名称
-  orgName?: string(maxLength=64, name='org_name', example='蚂蚁金服'),
+  orgName?: string(maxLength=128, name='org_name', example='蚂蚁金服'),
   // 证书持有人id
   orgUserId?: string(maxLength=128, name='org_user_id', example='0001'),
   // 持有人主证件编号，无身份证的个人使用0000000000000000
@@ -320,7 +320,7 @@ model CreateBaasEbcOrganizationRequest = {
   // 企业码
   orgCode?: string(maxLength=64, name='org_code'),
   // 企业名称
-  orgName?: string(maxLength=64, name='org_name'),
+  orgName?: string(maxLength=128, name='org_name'),
 }
 
 model CreateBaasEbcOrganizationResponse = {
@@ -1074,7 +1074,7 @@ model CreateBaasEbcUserCertRequest = {
   // 企业id
   orgDid?: string(maxLength=128, name='org_did'),
   // 企业名称
-  orgName?: string(maxLength=64, name='org_name'),
+  orgName?: string(maxLength=128, name='org_name'),
   // 企业用户id
   orgUserId?: string(maxLength=128, name='org_user_id'),
   // 持有人主证件编号，无身份证的个人使用0000000000000000
