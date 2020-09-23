@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_ebc.
 
-Created on 22/09/2020
+Created on 23/09/2020
 
 @author: Ant Chain SDK
 """

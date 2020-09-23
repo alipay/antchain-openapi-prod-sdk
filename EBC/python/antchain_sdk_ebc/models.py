@@ -177,7 +177,7 @@ class Cert(TeaModel):
         if self.org_did:
             self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_name:
-            self.validate_max_length(self.org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 128)
         if self.org_user_id:
             self.validate_max_length(self.org_user_id, 'org_user_id', 128)
         if self.primary_id_no:
@@ -529,7 +529,7 @@ class CreateBaasEbcOrganizationRequest(TeaModel):
         if self.org_code:
             self.validate_max_length(self.org_code, 'org_code', 64)
         if self.org_name:
-            self.validate_max_length(self.org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 128)
 
     def to_map(self):
         result = {}
@@ -2225,7 +2225,7 @@ class CreateBaasEbcUserCertRequest(TeaModel):
         if self.org_did:
             self.validate_max_length(self.org_did, 'org_did', 128)
         if self.org_name:
-            self.validate_max_length(self.org_name, 'org_name', 64)
+            self.validate_max_length(self.org_name, 'org_name', 128)
         if self.org_user_id:
             self.validate_max_length(self.org_user_id, 'org_user_id', 128)
         if self.primary_id_no:
