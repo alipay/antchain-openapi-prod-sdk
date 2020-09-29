@@ -89,7 +89,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     charset = 'UTF-8',
     baseSdkVersion = 'Tea-SDK',
-    sdkVersion = 'Tea-SDK-20200923',
+    sdkVersion = 'Tea-SDK-20200929',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -517,7 +517,7 @@ model CreateBaasEbcOrganizationClassRequest = {
   // 结束时间
   classEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_end_time'),
   // 班级名称
-  className?: string(maxLength=64, name='class_name'),
+  className?: string(maxLength=128, name='class_name'),
   // 开始时间
   classStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_start_time'),
   // 1:有效、2:暂停、3:失效
@@ -576,7 +576,7 @@ model UpdateBaasEbcOrganizationClassRequest = {
   // 班级id
   classId?: string(maxLength=128, name='class_id'),
   // 班级名称
-  className?: string(maxLength=64, name='class_name'),
+  className?: string(maxLength=128, name='class_name'),
   // 开始时间
   classStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='class_start_time'),
   // 1:有效、2:暂停、3:失效
