@@ -3262,7 +3262,7 @@ export default class Client {
           access_key: this._accessKeyId,
           charset: "UTF-8",
           baseSdkVersion: "Tea-SDK",
-          sdkVersion: "Tea-SDK-20200923",
+          sdkVersion: "Tea-SDK-20200929",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
