@@ -934,7 +934,7 @@ class CreateBaasEbcOrganizationClassRequest(TeaModel):
         if self.class_end_time:
             self.validate_pattern(self.class_end_time, 'class_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.class_name:
-            self.validate_max_length(self.class_name, 'class_name', 64)
+            self.validate_max_length(self.class_name, 'class_name', 128)
         if self.class_start_time:
             self.validate_pattern(self.class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:
@@ -1089,7 +1089,7 @@ class UpdateBaasEbcOrganizationClassRequest(TeaModel):
         if self.class_id:
             self.validate_max_length(self.class_id, 'class_id', 128)
         if self.class_name:
-            self.validate_max_length(self.class_name, 'class_name', 64)
+            self.validate_max_length(self.class_name, 'class_name', 128)
         if self.class_start_time:
             self.validate_pattern(self.class_start_time, 'class_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.org_did:

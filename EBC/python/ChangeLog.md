@@ -1,3 +1,6 @@
+2020-09-29 Version: 1.3.8
+- Generated SDK for EBC.
+
 2020-09-23 Version: 1.3.7
 - Generated SDK for EBC.
 
