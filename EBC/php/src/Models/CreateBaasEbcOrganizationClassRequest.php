@@ -29,7 +29,7 @@ class CreateBaasEbcOrganizationClassRequest extends Model {
     public function validate() {
         Model::validatePattern('classEndTime', $this->classEndTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('classStartTime', $this->classStartTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
-        Model::validateMaxLength('className', $this->className, 64);
+        Model::validateMaxLength('className', $this->className, 128);
         Model::validateMaxLength('orgDid', $this->orgDid, 128);
         Model::validateMaxLength('secretKey', $this->secretKey, 512);
     }
