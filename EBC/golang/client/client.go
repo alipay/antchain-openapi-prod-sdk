@@ -1060,7 +1060,7 @@ type CreateBaasEbcOrganizationClassRequest struct {
 	// 结束时间
 	ClassEndTime *string `json:"class_end_time,omitempty" xml:"class_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 班级名称
-	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" maxLength:"64"`
+	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" maxLength:"128"`
 	// 开始时间
 	ClassStartTime *string `json:"class_start_time,omitempty" xml:"class_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 1:有效、2:暂停、3:失效
@@ -1207,7 +1207,7 @@ type UpdateBaasEbcOrganizationClassRequest struct {
 	// 班级id
 	ClassId *string `json:"class_id,omitempty" xml:"class_id,omitempty" maxLength:"128"`
 	// 班级名称
-	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" maxLength:"64"`
+	ClassName *string `json:"class_name,omitempty" xml:"class_name,omitempty" maxLength:"128"`
 	// 开始时间
 	ClassStartTime *string `json:"class_start_time,omitempty" xml:"class_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 1:有效、2:暂停、3:失效
@@ -4427,7 +4427,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200923"),
+				"sdkVersion":     tea.String("Tea-SDK-20200929"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
