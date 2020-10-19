@@ -11,6 +11,7 @@ class CreateDiRealpersonFacevrfServerRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'regionName' => 'region_name',
         'bizCode' => 'biz_code',
+        'callbackUrl' => 'callback_url',
         'certName' => 'cert_name',
         'certNo' => 'cert_no',
         'certType' => 'cert_type',
@@ -39,6 +40,9 @@ class CreateDiRealpersonFacevrfServerRequest extends Model {
         }
         if (null !== $this->bizCode) {
             $res['biz_code'] = $this->bizCode;
+        }
+        if (null !== $this->callbackUrl) {
+            $res['callback_url'] = $this->callbackUrl;
         }
         if (null !== $this->certName) {
             $res['cert_name'] = $this->certName;
@@ -98,6 +102,9 @@ class CreateDiRealpersonFacevrfServerRequest extends Model {
         }
         if(isset($map['biz_code'])){
             $model->bizCode = $map['biz_code'];
+        }
+        if(isset($map['callback_url'])){
+            $model->callbackUrl = $map['callback_url'];
         }
         if(isset($map['cert_name'])){
             $model->certName = $map['cert_name'];
@@ -160,6 +167,12 @@ class CreateDiRealpersonFacevrfServerRequest extends Model {
      * @var string
      */
     public $bizCode;
+
+    // h5认证完成后，服务端回调此地址通知商户认证结果
+    /**
+     * @var string
+     */
+    public $callbackUrl;
 
     // 真实姓名
     /**
