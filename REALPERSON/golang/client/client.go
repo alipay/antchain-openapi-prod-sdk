@@ -255,6 +255,8 @@ type CreateDiRealpersonFacevrfServerRequest struct {
 	RegionName        *string `json:"region_name,omitempty" xml:"region_name,omitempty"`
 	// 认证模式码
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// h5认证完成后，服务端回调此地址通知商户认证结果
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
 	// 真实姓名
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
 	// 证件号码
@@ -309,6 +311,11 @@ func (s *CreateDiRealpersonFacevrfServerRequest) SetRegionName(v string) *Create
 
 func (s *CreateDiRealpersonFacevrfServerRequest) SetBizCode(v string) *CreateDiRealpersonFacevrfServerRequest {
 	s.BizCode = &v
+	return s
+}
+
+func (s *CreateDiRealpersonFacevrfServerRequest) SetCallbackUrl(v string) *CreateDiRealpersonFacevrfServerRequest {
+	s.CallbackUrl = &v
 	return s
 }
 
@@ -794,7 +801,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"access_key":     client.AccessKeyId,
 				"charset":        tea.String("UTF-8"),
 				"baseSdkVersion": tea.String("Tea-SDK"),
-				"sdkVersion":     tea.String("Tea-SDK-20200825"),
+				"sdkVersion":     tea.String("Tea-SDK-20201019"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
