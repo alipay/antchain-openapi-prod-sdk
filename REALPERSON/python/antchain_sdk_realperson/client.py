@@ -2,16 +2,15 @@
 # This file is auto-generated, don't edit it. Thanks.
 import time
 
-from antchain_sdk_realperson import models as realperson_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from Tea.exceptions import TeaException
-from alibabacloud_tea_util import models as util_models
 from Tea.request import TeaRequest
 from Tea.core import TeaCore
-from Tea.response import TeaResponse
 from antchain_alipay_util.client import Client as AlipayUtilClient
 from alibabacloud_rpc_util.client import Client as RPCUtilClient
 from Tea.exceptions import UnretryableException
+from antchain_sdk_realperson import models as realperson_models
+from alibabacloud_tea_util import models as util_models
 
 
 class Client(object):
@@ -22,7 +21,7 @@ class Client(object):
         """
         Init client with Config
 
-        :param config: config contains the necessary information to create a client
+        @param config: config contains the necessary information to create a client
         """
         self._endpoint = _endpoint
         self._region_id = _region_id
@@ -63,24 +62,25 @@ class Client(object):
         """
         Encapsulate the request and invoke the network
 
-        :type action: str
-        :param action: api name
+        @type action: str
+        @param action: api name
 
-        :type protocol: str
-        :param protocol: http or https
+        @type protocol: str
+        @param protocol: http or https
 
-        :type method: str
-        :param method: e.g. GET
+        @type method: str
+        @param method: e.g. GET
 
-        :type pathname: str
-        :param pathname: pathname of every api
+        @type pathname: str
+        @param pathname: pathname of every api
 
-        :type request: dict
-        :param request: which contains request params
+        @type request: dict
+        @param request: which contains request params
 
-        :param runtime: which controls some details of call api, such as retry times
+        @param runtime: which controls some details of call api, such as retry times
 
-        :return: the response
+        @rtype: dict
+        @return: the response
         """
         runtime.validate()
         _runtime = {
@@ -125,7 +125,7 @@ class Client(object):
                     "access_key": self._access_key_id,
                     "charset": "UTF-8",
                     "baseSdkVersion": "Tea-SDK",
-                    "sdkVersion": "Tea-SDK-20200825"
+                    "sdkVersion": "Tea-SDK-20201019"
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query["security_token"] = self._security_token
@@ -162,7 +162,8 @@ class Client(object):
         """
         Get user agent
 
-        :return: user agent
+        @rtype: str
+        @return: user agent
         """
         user_agent = "TeaClient/1.0.0"
         return UtilClient.get_user_agent(user_agent)
@@ -185,7 +186,6 @@ class Client(object):
         UtilClient.validate_model(request)
         return realperson_models.QueryDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
-
     def create_di_realperson_facevrf_server(self, request):
         """
         Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
@@ -203,7 +203,6 @@ class Client(object):
         """
         UtilClient.validate_model(request)
         return realperson_models.CreateDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
-
 
     def exec_di_realperson_facevrf_server(self, request):
         """
@@ -223,7 +222,6 @@ class Client(object):
         UtilClient.validate_model(request)
         return realperson_models.ExecDiRealpersonFacevrfServerResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
 
-
     def get_di_realperson_facevrf_evidence(self, request):
         """
         Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
@@ -241,4 +239,3 @@ class Client(object):
         """
         UtilClient.validate_model(request)
         return realperson_models.GetDiRealpersonFacevrfEvidenceResponse().from_map(self.do_request("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", request.to_map(), runtime))
-

@@ -84,10 +84,16 @@ class QueryDiRealpersonFacevrfServerRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
+        # 实人认证唯一标识
         self.certify_id = certify_id
+        # 预留扩展业务参数
         self.extern_param = extern_param
+        # 认证材料（如人脸图像）的哈希
         self.material_hash = material_hash
+        # 外部唯一标识。用于定位。
+        # 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
         self.outer_order_no = outer_order_no
+        # 场景ID
         self.scene_id = scene_id
 
     def validate(self):
@@ -123,10 +129,15 @@ class QueryDiRealpersonFacevrfServerResponse(TeaModel):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        # 认证的主体信息，一般的认证场景返回为空
         self.identity_info = identity_info
+        # 认证主体附件信息，一般的认证场景都是返回空
         self.material_info = material_info
+        # 认证材料哈希是否匹配
         self.material_matched = material_matched
+        # 是否通过，通过为T，不通过为F
         self.passed = passed
+        # 业务失败原因
         self.reason = reason
 
     def validate(self):
@@ -157,26 +168,43 @@ class QueryDiRealpersonFacevrfServerResponse(TeaModel):
 
 
 class CreateDiRealpersonFacevrfServerRequest(TeaModel):
-    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, biz_code=None, cert_name=None,
-                 cert_no=None, cert_type=None, extern_param=None, facial_picture_ref=None, identity_type=None,
-                 meta_info=None, outer_order_no=None, return_url=None, scene_id=None, user_id=None, user_ip=None,
-                 user_mobile=None):
+    def __init__(self, auth_token=None, product_instance_id=None, region_name=None, biz_code=None,
+                 callback_url=None, cert_name=None, cert_no=None, cert_type=None, extern_param=None, facial_picture_ref=None,
+                 identity_type=None, meta_info=None, outer_order_no=None, return_url=None, scene_id=None, user_id=None,
+                 user_ip=None, user_mobile=None):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
+        # 认证模式码
         self.biz_code = biz_code
+        # h5认证完成后，服务端回调此地址通知商户认证结果
+        self.callback_url = callback_url
+        # 真实姓名
         self.cert_name = cert_name
+        # 证件号码
         self.cert_no = cert_no
+        # 证件类型，如身份证
         self.cert_type = cert_type
+        # 预留扩展参数
         self.extern_param = extern_param
+        # 自定义比对源人脸图像，base64编码格式
         self.facial_picture_ref = facial_picture_ref
+        # 身份信息来源类型，如证件
         self.identity_type = identity_type
+        # metainfo 环境参数，需要通过客户端 SDK 获取
         self.meta_info = meta_info
+        # 外部唯一标识。用于定位。
+        # 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
         self.outer_order_no = outer_order_no
+        # 回跳地址
         self.return_url = return_url
+        # 场景ID
         self.scene_id = scene_id
+        # 商户自定义的用户ID
         self.user_id = user_id
+        # 用户的IP
         self.user_ip = user_ip
+        # 用户的手机号
         self.user_mobile = user_mobile
 
     def validate(self):
@@ -188,6 +216,7 @@ class CreateDiRealpersonFacevrfServerRequest(TeaModel):
         result['product_instance_id'] = self.product_instance_id
         result['region_name'] = self.region_name
         result['biz_code'] = self.biz_code
+        result['callback_url'] = self.callback_url
         result['cert_name'] = self.cert_name
         result['cert_no'] = self.cert_no
         result['cert_type'] = self.cert_type
@@ -208,6 +237,7 @@ class CreateDiRealpersonFacevrfServerRequest(TeaModel):
         self.product_instance_id = map.get('product_instance_id')
         self.region_name = map.get('region_name')
         self.biz_code = map.get('biz_code')
+        self.callback_url = map.get('callback_url')
         self.cert_name = map.get('cert_name')
         self.cert_no = map.get('cert_no')
         self.cert_type = map.get('cert_type')
@@ -229,7 +259,9 @@ class CreateDiRealpersonFacevrfServerResponse(TeaModel):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        # 实人认证唯一标识
         self.certify_id = certify_id
+        # 认证地址。只在特定场景返回。
         self.certify_url = certify_url
 
     def validate(self):
@@ -260,17 +292,29 @@ class ExecDiRealpersonFacevrfServerRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
+        # 真实姓名
         self.cert_name = cert_name
+        # 证件号码
         self.cert_no = cert_no
+        # 证件类型，如身份证
         self.cert_type = cert_type
+        # 预留扩展参数
         self.extern_param = extern_param
+        # 待认证的人脸图像，base64编码格式
         self.facial_picture_auth = facial_picture_auth
+        # 自定义比对源人脸图像，base64编码格式
         self.facial_picture_ref = facial_picture_ref
+        # 身份信息来源类型，如证件
         self.identity_type = identity_type
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
         self.outer_order_no = outer_order_no
+        # 场景ID
         self.scene_id = scene_id
+        # 商户自定义的用户ID
         self.user_id = user_id
+        # 用户的IP
         self.user_ip = user_ip
+        # 用户的手机号（或其哈希值）
         self.user_mobile = user_mobile
 
     def validate(self):
@@ -319,8 +363,11 @@ class ExecDiRealpersonFacevrfServerResponse(TeaModel):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        # 认证ID
         self.certify_id = certify_id
+        # 是否通过，通过为T，不通过为F
         self.passed = passed
+        # 业务失败原因
         self.reason = reason
 
     def validate(self):
@@ -351,6 +398,7 @@ class GetDiRealpersonFacevrfEvidenceRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         self.region_name = region_name
+        # 某次刷脸的certifyId
         self.certify_id = certify_id
 
     def validate(self):
@@ -378,10 +426,15 @@ class GetDiRealpersonFacevrfEvidenceResponse(TeaModel):
         self.req_msg_id = req_msg_id
         self.result_code = result_code
         self.result_msg = result_msg
+        # 刷脸的certifyId，原样返回
         self.certify_id = certify_id
+        # 统一证据ID，非SUCCESS状态为null，可在控制台中持统一证据ID验证pdf文件的正确性，法院方也可用此统一证据ID在司法链控制台进行核验pdf文件的正确性。
         self.onchain_id = onchain_id
+        # 上链状态，`SUCCESS`表示成功、`INIT`表示正在上链
         self.onchain_status = onchain_status
+        # 存证pdf文件内容的base64
         self.pdf_content = pdf_content
+        # pdf存证是否已经过期，不支持超过6个月的存证获取
         self.pdf_expired = pdf_expired
 
     def validate(self):
