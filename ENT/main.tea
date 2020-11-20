@@ -1,0 +1,727 @@
+import AlipayUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = config.readTimeout;
+  @connectTimeout = config.connectTimeout;
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = config.maxIdleConns;
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AlipayUtil.getTimestamp(),
+    req_msg_id = Util.getNonce(),
+    access_key = @accessKeyId,
+    charset = 'UTF-8',
+    baseSdkVersion = 'Tea-SDK',
+    sdkVersion = 'Tea-SDK-20201120',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = @endpoint,
+    user-agent = getUserAgent()
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AlipayUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var obj = Util.readAsJSON(__response.body);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AlipayUtil.hasError(res)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+/**
+ * Get user agent
+ * @return user agent
+ */
+function getUserAgent(): string {
+  var userAgent = 'TeaClient/1.0.0';
+  return Util.getUserAgent(userAgent);
+}
+
+// 收益模型
+model Revenue {
+  // 收益币种，目前仅支持CNY
+  currency?: string(name='currency', example='CNY'),
+  // 收益金额，单位为分
+  value?: long(name='value', example='100'),
+}
+
+// 用户收益明细
+model UserRevenueDetail {
+  // 累计收益
+  accumulativeRevenue?: Revenue(name='accumulative_revenue', example=''),
+  // 待发放粉丝粒数量，单位分个。
+  pendingTokenAmount?: long(name='pending_token_amount', example='100'),
+  // 作品名称
+  projectName?: string(name='project_name', example='玩具总动员'),
+  // 可兑现粉丝粒数量，单位分个。
+  redeemableTokenAmount?: long(name='redeemable_token_amount', example='20'),
+  // 已兑现粉丝粒数量，单位分个
+  redeemedTokenAmount?: long(name='redeemed_token_amount', example='12'),
+  // 已发放粉丝粒数量，单位分个。
+  releasedTokenAmount?: long(name='released_token_amount', example='100'),
+  // 粉丝粒单价，单位分
+  tokenPrice?: long(name='token_price', example='61'),
+  // 可零收益
+  withdrawRevenue?: Revenue(name='withdraw_revenue', example=''),
+}
+
+// 项目
+model Project {
+  // 项目对应的合约 ID
+  contractId?: string(name='contract_id', example='f0aa07eb022d0504ba33d0d1bb99e0afee30d810393dcacc022aa220'),
+  // 项目结束时间，精确到毫秒，FILM类型订单必填
+  projectEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='project_end_time', example='2018-10-10T10:10:00Z'),
+  // 项目ID
+  projectId?: string(name='project_id', example='123456'),
+  // 项目名称
+  projectName?: string(name='project_name', example='玩具总动员2'),
+  // 项目开始时间，精确到毫秒，FILM类型订单必填
+  projectStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='project_start_time', example='2018-10-10T10:10:00Z'),
+  // 项目类型，目前支持FILM：电影，CAR：汽车
+  projectType?: string(name='project_type', example='FILM | CAR'),
+}
+
+// 用户资产明细
+model UserAssetDetail {
+  // 粉丝粒变化数量，带符号整数，单位分个。
+  asset?: long(name='asset', example='100'),
+  // 资产类型：PRE_ALLOCATION（待发放），RELEASED（已到账），CANCELLED（已取消），REDEEMING（兑现中），REDEEMED（已兑现）
+  assetType?: string(name='asset_type', example='PRE_ALLOCATION | RELEASED | CANCELLED | REDEEMING | REDEEMED'),
+  // 业务单号
+  bizNo?: string(name='biz_no', example='24435254363465'),
+  // 事件时间，时区GMT+8，精确到毫秒。
+  eventTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='event_time', example=''),
+  // 备注信息
+  memo?: string(name='memo', example='备注'),
+  // 项目名称
+  projectName?: string(name='project_name', example='玩具总动员'),
+  // 收益变化额度，单位为分。
+  revenue?: Revenue(name='revenue', example='200'),
+}
+
+// 用户资产信息
+model AssetDetail {
+  // Token获得类型
+  gainType?: string(name='gain_type', example='SHARE | BUY '),
+  // 用户昵称
+  nickname?: string(name='nickname', example='一个没钱的人'),
+  // Token发放状态
+  status?: string(name='status', example='PENDING | CONFIRMED'),
+  // 购票数
+  ticketNumber?: long(name='ticket_number', example='2'),
+  // Token数，单位为分个，1分个=0.01个
+  token?: long(name='token', example='1'),
+  // Token展示数
+  tokenDisplay?: string(name='token_display', example='1.41'),
+}
+
+// 订单详情
+model Order {
+  // 实付金额，单位分
+  actualTotalAmount?: long(name='actual_total_amount', example='10000'),
+  // 币种，目前仅支持 CNY
+  currency?: string(name='currency', example='CNY'),
+  // 数量
+  itemCount?: long(name='item_count', example='1'),
+  // 唯一订单号
+  orderNo?: string(name='order_no', example='1234567890'),
+  // 订单状态，ORDER_CREATE：订单创建，ORDER_CANCEL：订单取消
+  orderStatus?: string(name='order_status', example='ORDER_CREATE | ORDER_CANCEL'),
+  // 原始金额，单位分
+  originalTotalAmount?: long(name='original_total_amount', example='10000'),
+}
+
+// 当前用户收益
+model CurrentRevenue {
+  // 币种，当前仅支持CNY
+  currency?: string(name='currency', example='CNY'),
+  // 金额，单位为分
+  value?: long(name='value', example=''),
+}
+
+// 累计全部参与收益
+model AccumulativeRevenue {
+  // 币种，当前仅支持 CNY
+  currency?: string(name='currency', example='CNY'),
+  // 金额，单位为分
+  value?: long(name='value', example=''),
+}
+
+// 用户结构体
+model User {
+  // 用户账户，手机号格式为： +区号-手机号
+  userIdNo?: string(name='user_id_no', example='+86-13000000000'),
+  // 用户账号类型，当前仅支持手机号和分享码，PHONE：手机号，SHARE_CODE：分享码
+  userIdType?: string(name='user_id_type', example='PHONE | SHARE_CODE'),
+}
+
+model QueryAntchainEntCustomerProjectRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 登录支付宝账号，手机号或者邮箱地址
+  logonId?: string(name='logon_id'),
+  // 登录账号类型，PHONE 为手机号，EMAIL 为邮箱地址。
+  logonIdType?: string(name='logon_id_type'),
+}
+
+model QueryAntchainEntCustomerProjectResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 项目列表，元素为项目名称。
+  projects?: [ Project ](name='projects'),
+}
+
+/**
+ * Description: 查询用户参与的所有项目
+ * Summary: 用户参与的项目查询
+ */
+async function queryAntchainEntCustomerProject(request: QueryAntchainEntCustomerProjectRequest): QueryAntchainEntCustomerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryAntchainEntCustomerProjectEx(request, runtime);
+}
+
+/**
+ * Description: 查询用户参与的所有项目
+ * Summary: 用户参与的项目查询
+ */
+async function queryAntchainEntCustomerProjectEx(request: QueryAntchainEntCustomerProjectRequest, runtime: Util.RuntimeOptions): QueryAntchainEntCustomerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.customer.project.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryAntchainEntCustomerDataRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 资产类型：PRE_ALLOCATION（待发放），RELEASED（已到账），CANCELLED（已取消），REDEEMING（兑现中），REDEEMED（已兑现）
+  assetType?: string(name='asset_type'),
+  // 合约ID
+  contractId?: string(name='contract_id'),
+  // 数据类型，ASSET：资产信息， REVENUE：收益信息
+  dataType?: string(name='data_type'),
+  // 截止时间，时区GMT+8，精确到毫秒
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='end_time'),
+  // 登录支付宝的账号，手机号或者邮箱
+  logonId?: string(name='logon_id'),
+  // 登录账号类型，PHONE：手机号， EMAIL：邮箱地址
+  logonIdType?: string(name='logon_id_type'),
+  // 排序方式，ASC：升序， DESC：降序，默认按照时间降序
+  orderBy?: string(name='order_by'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 起始时间，时区GMT+8，精确到毫秒
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='start_time'),
+}
+
+model QueryAntchainEntCustomerDataResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 数据类型，ASSET：资产信息， REVENUE：收益信息
+  dataType?: string(name='data_type'),
+  // 登录支付宝的账号，手机号或者邮箱地址
+  logonId?: string(name='logon_id'),
+  // 登录账号类型，PHONE：手机号， EMAIL：电子邮箱
+  logonIdType?: string(name='logon_id_type'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 用户资产信息列表
+  userAssetDetails?: [ UserAssetDetail ](name='user_asset_details'),
+  // 用户收益信息
+  userRevenueData?: UserRevenueDetail(name='user_revenue_data'),
+  // 用户虚拟唯一标识
+  vid?: string(name='vid'),
+}
+
+/**
+ * Description: 查询用户数据的接口
+ * Summary: 用户数据查询接口
+ */
+async function queryAntchainEntCustomerData(request: QueryAntchainEntCustomerDataRequest): QueryAntchainEntCustomerDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryAntchainEntCustomerDataEx(request, runtime);
+}
+
+/**
+ * Description: 查询用户数据的接口
+ * Summary: 用户数据查询接口
+ */
+async function queryAntchainEntCustomerDataEx(request: QueryAntchainEntCustomerDataRequest, runtime: Util.RuntimeOptions): QueryAntchainEntCustomerDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.customer.data.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model GetAntchainEntUserSharecodeRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 分享者账号，如果账号类型为手机号则格式如 +86-11 位手机号，如果账号类型为支付宝账号，则填写邮箱地址或者 11 位手机号
+  sharerId?: string(name='sharer_id'),
+  // 分享者账号类型，PHONE：手机号，ALIPAY_LOGON_ID：支付宝账号
+  sharerIdType?: string(name='sharer_id_type'),
+}
+
+model GetAntchainEntUserSharecodeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 分享码
+  shareCode?: string(name='share_code'),
+}
+
+/**
+ * Description: 为用户创建分享码
+ * Summary: 用户分享码创建接口
+ */
+async function getAntchainEntUserSharecode(request: GetAntchainEntUserSharecodeRequest): GetAntchainEntUserSharecodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return getAntchainEntUserSharecodeEx(request, runtime);
+}
+
+/**
+ * Description: 为用户创建分享码
+ * Summary: 用户分享码创建接口
+ */
+async function getAntchainEntUserSharecodeEx(request: GetAntchainEntUserSharecodeRequest, runtime: Util.RuntimeOptions): GetAntchainEntUserSharecodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.user.sharecode.get', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model SendAntchainEntUserProjectordermsgRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 购买者
+  buyer?: User(name='buyer'),
+  // 链ID
+  chainId?: string(name='chain_id'),
+  // 订单详情
+  order?: Order(name='order'),
+  // 项目信息
+  project?: Project(name='project'),
+  // 分享者
+  sharer?: User(name='sharer'),
+}
+
+model SendAntchainEntUserProjectordermsgResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发送用户的项目订单数据
+ * Summary: 用户项目订单消息发送接口
+ */
+async function sendAntchainEntUserProjectordermsg(request: SendAntchainEntUserProjectordermsgRequest): SendAntchainEntUserProjectordermsgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return sendAntchainEntUserProjectordermsgEx(request, runtime);
+}
+
+/**
+ * Description: 发送用户的项目订单数据
+ * Summary: 用户项目订单消息发送接口
+ */
+async function sendAntchainEntUserProjectordermsgEx(request: SendAntchainEntUserProjectordermsgRequest, runtime: Util.RuntimeOptions): SendAntchainEntUserProjectordermsgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.user.projectordermsg.send', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model GetAntchainEntIsvSharecodeRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 电话号码/邮箱等登陆名
+  logonId?: string(name='logon_id'),
+}
+
+model GetAntchainEntIsvSharecodeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 生成的ISV用户邀请码
+  shareCode?: string(name='share_code'),
+}
+
+/**
+ * Description: 外部ISV获取分享码接口
+ * Summary: 获得ISV分享码
+ */
+async function getAntchainEntIsvSharecode(request: GetAntchainEntIsvSharecodeRequest): GetAntchainEntIsvSharecodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return getAntchainEntIsvSharecodeEx(request, runtime);
+}
+
+/**
+ * Description: 外部ISV获取分享码接口
+ * Summary: 获得ISV分享码
+ */
+async function getAntchainEntIsvSharecodeEx(request: GetAntchainEntIsvSharecodeRequest, runtime: Util.RuntimeOptions): GetAntchainEntIsvSharecodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.isv.sharecode.get', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model AddAntchainEntProvisionRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 业务单号
+  bizId?: string(name='biz_id'),
+  // 链 ID
+  chainId?: string(name='chain_id'),
+  // 合约 ID
+  contractId?: string(name='contract_id'),
+  // 调用方，例如租户 ID
+  source?: string(name='source'),
+  // 金额，单位为分
+  value?: long(name='value'),
+}
+
+model AddAntchainEntProvisionResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 备付金追加接口
+ * Summary: 备付金追加接口
+ */
+async function addAntchainEntProvision(request: AddAntchainEntProvisionRequest): AddAntchainEntProvisionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return addAntchainEntProvisionEx(request, runtime);
+}
+
+/**
+ * Description: 备付金追加接口
+ * Summary: 备付金追加接口
+ */
+async function addAntchainEntProvisionEx(request: AddAntchainEntProvisionRequest, runtime: Util.RuntimeOptions): AddAntchainEntProvisionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.provision.add', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model ReclaimAntchainEntProvisionExtraprovisionRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 业务单号
+  bizId?: string(name='biz_id'),
+  // 链 ID
+  chainId?: string(name='chain_id'),
+  // 合约 ID
+  contractId?: string(name='contract_id'),
+  // 调用方，例如租户 ID
+  source?: string(name='source'),
+}
+
+model ReclaimAntchainEntProvisionExtraprovisionResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 赎回链上多余备付金
+ * Summary: 赎回链上多余备付金
+ */
+async function reclaimAntchainEntProvisionExtraprovision(request: ReclaimAntchainEntProvisionExtraprovisionRequest): ReclaimAntchainEntProvisionExtraprovisionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return reclaimAntchainEntProvisionExtraprovisionEx(request, runtime);
+}
+
+/**
+ * Description: 赎回链上多余备付金
+ * Summary: 赎回链上多余备付金
+ */
+async function reclaimAntchainEntProvisionExtraprovisionEx(request: ReclaimAntchainEntProvisionExtraprovisionRequest, runtime: Util.RuntimeOptions): ReclaimAntchainEntProvisionExtraprovisionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.provision.extraprovision.reclaim', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model ExecAntchainEntTokenRedeemRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 业务单号
+  bizId?: string(name='biz_id'),
+  // 链 ID
+  chainId?: string(name='chain_id'),
+  // 合约 ID
+  contractId?: string(name='contract_id'),
+  // 币种，目前仅支持 CNY
+  currency?: string(name='currency'),
+  // 调用方
+  source?: string(name='source'),
+  // 要兑现的用户VID
+  targetUser?: string(name='target_user'),
+  // Token总金额，token_price*token_number 的结果，单位为分
+  tokenAmount?: long(name='token_amount'),
+  // 兑现的Token数目
+  tokenNumber?: long(name='token_number'),
+  // 兑现的Token单价，单位为分
+  tokenPrice?: long(name='token_price'),
+}
+
+model ExecAntchainEntTokenRedeemResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 链上Token兑现接口
+ * Summary: 链上Token兑现接口
+ */
+async function execAntchainEntTokenRedeem(request: ExecAntchainEntTokenRedeemRequest): ExecAntchainEntTokenRedeemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return execAntchainEntTokenRedeemEx(request, runtime);
+}
+
+/**
+ * Description: 链上Token兑现接口
+ * Summary: 链上Token兑现接口
+ */
+async function execAntchainEntTokenRedeemEx(request: ExecAntchainEntTokenRedeemRequest, runtime: Util.RuntimeOptions): ExecAntchainEntTokenRedeemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.token.redeem.exec', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model GetAntchainEntTppSharecodeRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 分享人在淘票票端绑定的支付宝UID
+  alipayUid?: string(name='alipay_uid'),
+}
+
+model GetAntchainEntTppSharecodeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 专属邀请码
+  shareCode?: string(name='share_code'),
+}
+
+/**
+ * Description: 针对淘票票的获取专属邀请码获取接口
+ * Summary: 淘票票专属邀请码获取接口
+ */
+async function getAntchainEntTppSharecode(request: GetAntchainEntTppSharecodeRequest): GetAntchainEntTppSharecodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return getAntchainEntTppSharecodeEx(request, runtime);
+}
+
+/**
+ * Description: 针对淘票票的获取专属邀请码获取接口
+ * Summary: 淘票票专属邀请码获取接口
+ */
+async function getAntchainEntTppSharecodeEx(request: GetAntchainEntTppSharecodeRequest, runtime: Util.RuntimeOptions): GetAntchainEntTppSharecodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.tpp.sharecode.get', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryAntchainEntTppAllinfoRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+  // 支付宝UID
+  alipayUid?: string(name='alipay_uid'),
+  // 排序方式，默认降序
+  orderBy?: string(name='order_by'),
+  // 页码
+  pageId?: long(name='page_id'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+}
+
+model QueryAntchainEntTppAllinfoResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 累计全部参与收益
+  accumulativeRevenue?: Revenue(name='accumulative_revenue'),
+  // 累计参与用书
+  accumulativeUsers?: long(name='accumulative_users'),
+  // 用户资产详情列表
+  assetDetailList?: [ AssetDetail ](name='asset_detail_list'),
+  // 用户当前累计收益
+  currentAccumulativeRevenue?: Revenue(name='current_accumulative_revenue'),
+  // 当前用户收益
+  currentRevenue?: Revenue(name='current_revenue'),
+}
+
+/**
+ * Description: 针对淘票票的查询全部必要信息的接口
+ * Summary: 淘票票查询全部必要信息接口
+ */
+async function queryAntchainEntTppAllinfo(request: QueryAntchainEntTppAllinfoRequest): QueryAntchainEntTppAllinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryAntchainEntTppAllinfoEx(request, runtime);
+}
+
+/**
+ * Description: 针对淘票票的查询全部必要信息的接口
+ * Summary: 淘票票查询全部必要信息接口
+ */
+async function queryAntchainEntTppAllinfoEx(request: QueryAntchainEntTppAllinfoRequest, runtime: Util.RuntimeOptions): QueryAntchainEntTppAllinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.tpp.allinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
+model QueryAntchainEntTppParticipationinfoRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  regionName?: string(name='region_name'),
+}
+
+model QueryAntchainEntTppParticipationinfoResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 累计全部参与收益
+  accumulativeRevenue?: AccumulativeRevenue(name='accumulative_revenue'),
+  // 累计参与用户数
+  accumulativeUsers?: long(name='accumulative_users'),
+}
+
+/**
+ * Description: 针对淘票票的参与信息查询接口
+ * Summary: 淘票票参与信息查询接口
+ */
+async function queryAntchainEntTppParticipationinfo(request: QueryAntchainEntTppParticipationinfoRequest): QueryAntchainEntTppParticipationinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  return queryAntchainEntTppParticipationinfoEx(request, runtime);
+}
+
+/**
+ * Description: 针对淘票票的参与信息查询接口
+ * Summary: 淘票票参与信息查询接口
+ */
+async function queryAntchainEntTppParticipationinfoEx(request: QueryAntchainEntTppParticipationinfoRequest, runtime: Util.RuntimeOptions): QueryAntchainEntTppParticipationinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.tpp.participationinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, runtime);
+}
+
