@@ -15,6 +15,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
+use AntChain\DEMO\Models\EchoGatewayCheckRequest;
+use AntChain\DEMO\Models\EchoGatewayCheckResponse;
+use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
     protected $_endpoint;
@@ -135,7 +139,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.3"
+                    "sdk_version" => "1.0.4"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -201,5 +205,64 @@ class Client {
     public function statusGatewayCheckEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return StatusGatewayCheckResponse::fromMap($this->doRequest("1.0", "demo.gateway.check.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Demo接口，返回当输入的值
+     * Summary: 返回输入值
+     * @param EchoGatewayCheckRequest $request
+     * @return EchoGatewayCheckResponse
+     */
+    public function echoGatewayCheck($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->echoGatewayCheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Demo接口，返回当输入的值
+     * Summary: 返回输入值
+     * @param EchoGatewayCheckRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return EchoGatewayCheckResponse
+     */
+    public function echoGatewayCheckEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "apiCode" => "demo.gateway.check.echo"
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+        return EchoGatewayCheckResponse::fromMap($this->doRequest("1.0", "demo.gateway.check.echo", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
