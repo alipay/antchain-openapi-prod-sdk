@@ -123,7 +123,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -221,7 +221,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -307,4 +307,128 @@ class Client:
         UtilClient.validate_model(request)
         return demo_models.StatusGatewayCheckResponse().from_map(
             await self.do_request_async('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def echo_gateway_check(
+        self,
+        request: demo_models.EchoGatewayCheckRequest,
+    ) -> demo_models.EchoGatewayCheckResponse:
+        """
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.echo_gateway_check_ex(request, headers, runtime)
+
+    async def echo_gateway_check_async(
+        self,
+        request: demo_models.EchoGatewayCheckRequest,
+    ) -> demo_models.EchoGatewayCheckResponse:
+        """
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.echo_gateway_check_ex_async(request, headers, runtime)
+
+    def echo_gateway_check_ex(
+        self,
+        request: demo_models.EchoGatewayCheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.EchoGatewayCheckResponse:
+        """
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                api_code='demo.gateway.check.echo'
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtilClient.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return demo_models.EchoGatewayCheckResponse().from_map(
+            self.do_request('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def echo_gateway_check_ex_async(
+        self,
+        request: demo_models.EchoGatewayCheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.EchoGatewayCheckResponse:
+        """
+        Description: Demo接口，返回当输入的值
+        Summary: 返回输入值
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                api_code='demo.gateway.check.echo'
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtilClient.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return demo_models.EchoGatewayCheckResponse().from_map(
+            await self.do_request_async('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: demo_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> demo_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: demo_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> demo_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: demo_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return demo_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: demo_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return demo_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
