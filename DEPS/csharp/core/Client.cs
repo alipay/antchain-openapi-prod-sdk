@@ -125,7 +125,7 @@ namespace AntChain.SDK.Deps
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.2.0"},
+                        {"sdk_version", "3.2.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -245,7 +245,7 @@ namespace AntChain.SDK.Deps
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.2.0"},
+                        {"sdk_version", "3.2.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
