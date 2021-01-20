@@ -1,0 +1,47 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.deps.models;
+
+import com.aliyun.tea.*;
+
+public class ListCellRequest extends TeaModel {
+    @NameInMap("auth_token")
+    public String authToken;
+
+    // 目标工作空间名称。
+    @NameInMap("workspace")
+    public String workspace;
+
+    // 目标环境名称。
+    @NameInMap("workspace_group")
+    public String workspaceGroup;
+
+    public static ListCellRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListCellRequest self = new ListCellRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public ListCellRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public ListCellRequest setWorkspace(String workspace) {
+        this.workspace = workspace;
+        return this;
+    }
+    public String getWorkspace() {
+        return this.workspace;
+    }
+
+    public ListCellRequest setWorkspaceGroup(String workspaceGroup) {
+        this.workspaceGroup = workspaceGroup;
+        return this;
+    }
+    public String getWorkspaceGroup() {
+        return this.workspaceGroup;
+    }
+
+}
