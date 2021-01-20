@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -228,6 +229,32 @@ func (s *AnotherClass) SetRefList(v []*DemoClass) *AnotherClass {
 	return s
 }
 
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
 type StatusGatewayCheckRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -284,6 +311,223 @@ func (s *StatusGatewayCheckResponse) SetResultMsg(v string) *StatusGatewayCheckR
 
 func (s *StatusGatewayCheckResponse) SetStatus(v string) *StatusGatewayCheckResponse {
 	s.Status = &v
+	return s
+}
+
+type EchoGatewayCheckRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// demo
+	InputDemo *DemoClass `json:"input_demo,omitempty" xml:"input_demo,omitempty"`
+	// echo
+	InputString *string `json:"input_string,omitempty" xml:"input_string,omitempty"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	FileId     *string   `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s EchoGatewayCheckRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EchoGatewayCheckRequest) GoString() string {
+	return s.String()
+}
+
+func (s *EchoGatewayCheckRequest) SetAuthToken(v string) *EchoGatewayCheckRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetProductInstanceId(v string) *EchoGatewayCheckRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetInputDemo(v *DemoClass) *EchoGatewayCheckRequest {
+	s.InputDemo = v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetInputString(v string) *EchoGatewayCheckRequest {
+	s.InputString = &v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetFileObject(v io.Reader) *EchoGatewayCheckRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetFileId(v string) *EchoGatewayCheckRequest {
+	s.FileId = &v
+	return s
+}
+
+type EchoGatewayCheckResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// output_demo
+	OutputDemo *DemoClass `json:"output_demo,omitempty" xml:"output_demo,omitempty"`
+	// output_string
+	OutputString *string `json:"output_string,omitempty" xml:"output_string,omitempty"`
+	// file_url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s EchoGatewayCheckResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EchoGatewayCheckResponse) GoString() string {
+	return s.String()
+}
+
+func (s *EchoGatewayCheckResponse) SetReqMsgId(v string) *EchoGatewayCheckResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *EchoGatewayCheckResponse) SetResultCode(v string) *EchoGatewayCheckResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *EchoGatewayCheckResponse) SetResultMsg(v string) *EchoGatewayCheckResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *EchoGatewayCheckResponse) SetOutputDemo(v *DemoClass) *EchoGatewayCheckResponse {
+	s.OutputDemo = v
+	return s
+}
+
+func (s *EchoGatewayCheckResponse) SetOutputString(v string) *EchoGatewayCheckResponse {
+	s.OutputString = &v
+	return s
+}
+
+func (s *EchoGatewayCheckResponse) SetFileUrl(v string) *EchoGatewayCheckResponse {
+	s.FileUrl = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
 	return s
 }
 
@@ -397,7 +641,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -472,6 +716,91 @@ func (client *Client) StatusGatewayCheckEx(request *StatusGatewayCheckRequest, h
 	}
 	_result = &StatusGatewayCheckResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.status"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+func (client *Client) EchoGatewayCheck(request *EchoGatewayCheckRequest) (_result *EchoGatewayCheckResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &EchoGatewayCheckResponse{}
+	_body, _err := client.EchoGatewayCheckEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+func (client *Client) EchoGatewayCheckEx(request *EchoGatewayCheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *EchoGatewayCheckResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			ApiCode: tea.String("demo.gateway.check.echo"),
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &EchoGatewayCheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.echo"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
