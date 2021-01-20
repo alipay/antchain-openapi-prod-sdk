@@ -1,0 +1,3125 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: int64(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: integer(description='长链接最大连接时长',default='5000'),
+  maxRequests?: integer(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: integer(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = config.readTimeout;
+  @connectTimeout = config.connectTimeout;
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = config.maxIdleConns;
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.1.0',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'undefined'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// AiExtraAttr
+model AiExtraAttr {
+  // time_range_thres
+  timeRangeThres?: string(name='time_range_thres', example='time_range_thres'),
+  // abnormal_value_thres
+  abnormalValueThres?: string(name='abnormal_value_thres', example='abnormal_value_thres'),
+  // value_range_thres
+  valueRangeThres?: string(name='value_range_thres', example='value_range_thres'),
+  // algo_score_thres
+  algoScoreThres?: string(name='algo_score_thres', example='algo_score_thres'),
+}
+
+// Threshold
+model Threshold {
+  // level1
+  level1?: string(name='level1', example='level1'),
+  // level2
+  level2?: string(name='level2', example='level2'),
+  // level3
+  level3?: string(name='level3', example='level3'),
+  // im
+  im?: string(name='im', example='im'),
+  // sms
+  sms?: string(name='sms', example='sms'),
+  // control_plan
+  controlPlan?: string(name='control_plan', example='control_plan'),
+}
+
+// DimFilter
+model DimFilter {
+  // dim_index
+  dimIndex?: long(name='dim_index', example='dim_index'),
+  // dim_name
+  dimName?: string(name='dim_name', example='dim_name'),
+  // white_names
+  whiteNames?: [ string ](name='white_names', example='white_names'),
+  // black_names
+  blackNames?: [ string ](name='black_names', example='black_names'),
+}
+
+// TimeFilter
+model TimeFilter {
+  // from
+  from?: string(name='from', example='from'),
+  // to
+  to?: string(name='to', example='to'),
+  // weeks
+  weeks?: [ long ](name='weeks', example='weeks'),
+}
+
+// Trigger
+model Trigger {
+  // value_field
+  valueField?: string(name='value_field', example='value_field'),
+  // value_index
+  valueIndex?: long(name='value_index', example='value_index'),
+  // type
+  type?: string(name='type', example='type'),
+  // n
+  n?: long(name='n', example='n'),
+  // compare
+  compare?: string(name='compare', example='compare'),
+  // compare_percent
+  comparePercent?: string(name='compare_percent', example='compare_percent'),
+  // threshold
+  threshold?: Threshold(name='threshold', example='threshold'),
+  // threshold_copy
+  thresholdCopy?: Threshold(name='threshold_copy', example='threshold_copy'),
+  // value_is_percent
+  valueIsPercent?: boolean(name='value_is_percent', example='true,false'),
+}
+
+// ControlPlan
+model ControlPlan {
+  // action_id
+  actionId?: long(name='action_id', example='action_id'),
+  // name
+  name?: string(name='name', example='name'),
+  // plugin_type
+  pluginType?: string(name='plugin_type', example='plugin_type'),
+  // plugin_id
+  pluginId?: string(name='plugin_id', example='plugin_id'),
+  // file_id
+  fileId?: long(name='file_id', example='file_id'),
+  // ds_name
+  dsName?: string(name='ds_name', example='ds_name'),
+}
+
+// TimeRange
+model TimeRange {
+  // start
+  start?: long(name='start', example='start'),
+  // end
+  end?: long(name='end', example='end'),
+}
+
+// AiAlarmParams
+model AiAlarmParams {
+  // value_fields
+  valueFields?: [ string ](name='value_fields', example='value_fields'),
+  // ai_algo_code
+  aiAlgoCode?: string(name='ai_algo_code', example='ai_algo_code'),
+  // ai_extra_attr
+  aiExtraAttr?: AiExtraAttr(name='ai_extra_attr', example='ai_extra_attr'),
+}
+
+// Rule
+model Rule {
+  // ai_alarm_params
+  aiAlarmParams?: AiAlarmParams(name='ai_alarm_params', example='ai_alarm_params'),
+  // name
+  name?: string(name='name', example='name'),
+  // run_type
+  runType?: string(name='run_type', example='run_type'),
+  // cal_time_range
+  calTimeRange?: TimeRange(name='cal_time_range', example='cal_time_range'),
+  // exclude_data_time_range
+  excludeDataTimeRange?: TimeRange(name='exclude_data_time_range', example='exclude_data_time_range'),
+  // dim_filters
+  dimFilters?: [ DimFilter ](name='dim_filters', example='dim_filters'),
+  // time_filter
+  timeFilter?: TimeFilter(name='time_filter', example='time_filter'),
+  // triggers
+  triggers?: [ Trigger ](name='triggers', example='triggers'),
+  // andor
+  andor?: string(name='andor', example='andor'),
+  // control_plan_auto
+  controlPlanAuto?: boolean(name='control_plan_auto', example='true, false'),
+  // control_plans
+  controlPlans?: [ ControlPlan ](name='control_plans', example='control_plans'),
+  // function_id
+  functionId?: long(name='function_id', example='function_id'),
+  // from_tmp_rule
+  fromTmpRule?: long(name='from_tmp_rule', example='from_tmp_rule'),
+  // rule_type
+  ruleType?: string(name='rule_type', example='rule_type'),
+  // ports
+  ports?: [ string ](name='ports', example='ports'),
+  // group_by
+  groupBy?: [ string ](name='group_by', example='group_by'),
+}
+
+// Model
+model Model {
+  // rules
+  rules?: [ Rule ](name='rules', example='rules'),
+  // batch_rule_id
+  batchRuleId?: string(name='batch_rule_id', example='batch_rule_id'),
+}
+
+// StackState
+model StackState {
+  // state
+  state?: string(name='state', example='state'),
+  // values
+  values?: [ string ](name='values', example='values'),
+  // is_black
+  isBlack?: boolean(name='is_black', example='true,false'),
+}
+
+// AlarmHistory
+model AlarmHistory {
+  // alarm_level
+  alarmLevel?: long(name='alarm_level', example='alarm_level'),
+  // alarmPkgId
+  alarmPkgId?: long(name='alarm_pkg_id', example='alarmPkgId'),
+  // alarm_rule_name
+  alarmRuleName?: string(name='alarm_rule_name', example='alarm_rule_name'),
+  // alarmSourceType
+  alarmSourceType?: string(name='alarm_source_type', example='alarmSourceType'),
+  // alarm_time
+  alarmTime?: long(name='alarm_time', example='alarm_time'),
+  // biz_domain_id
+  bizDomainId?: long(name='biz_domain_id', example='biz_domain_id'),
+  // context
+  context?: string(name='context', example='context'),
+  // custom_plugin_id
+  customPluginId?: long(name='custom_plugin_id', example='custom_plugin_id'),
+  // id
+  id?: long(name='id', example='id'),
+  // meta_group_id
+  metaGroupId?: long(name='meta_group_id', example='meta_group_id'),
+  // msg
+  msg?: string(name='msg', example='msg'),
+  // stack_entity_id
+  stackEntityId?: long(name='stack_entity_id', example='stack_entity_id'),
+  // stack_id
+  stackId?: long(name='stack_id', example='stack_id'),
+  // stack_monitor_item_name
+  stackMonitorItemName?: string(name='stack_monitor_item_name', example='stack_monitor_item_name'),
+  // stack_universal_table_id
+  stackUniversalTableId?: string(name='stack_universal_table_id', example='stack_universal_table_id'),
+  // tag_value_id
+  tagValueId?: long(name='tag_value_id', example='tag_value_id'),
+  // tenant_id
+  tenantId?: long(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: long(name='workspace_id', example='workspace_id'),
+}
+
+// OpsFilter
+model OpsFilter {
+  // black
+  black?: boolean(name='black', example='true, false'),
+  // names
+  names?: [ string ](name='names', example='names'),
+}
+
+// 对应Map结构
+model KeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// AlarmDO
+model AlarmDO {
+  // model
+  model?: Model(name='model', example='model'),
+  // level
+  level?: string(name='level', example='level'),
+  // frequency
+  frequency?: long(name='frequency', example='frequency'),
+  // silent_minute
+  silentMinute?: string(name='silent_minute', example='silent_minute'),
+  // emergency_copy
+  emergencyCopy?: string(name='emergency_copy', example='emergency_copy'),
+  // emergency_url
+  emergencyUrl?: string(name='emergency_url', example='emergency_url'),
+  // time_zone
+  timeZone?: string(name='time_zone', example='time_zone'),
+  // time_zone_custom
+  timeZoneCustom?: boolean(name='time_zone_custom', example='true,false'),
+}
+
+// Metrics 中的一个 field
+model TimeSeriesMetricsField {
+  // Field key
+  key?: string(name='key', example='"callCount"'),
+  // Field value
+  value?: string(name='value', example='100.1012'),
+}
+
+// TopAlarmDO
+model TopAlarmDO {
+  // error
+  error?: string(name='error', example='error'),
+  // error_count
+  errorCount?: long(name='error_count', example='error_count'),
+  // warn
+  warn?: string(name='warn', example='warn'),
+  // warn_count
+  warnCount?: long(name='warn_count', example='warn_count'),
+  // alarm_level
+  alarmLevel?: long(name='alarm_level', example='alarm_level'),
+  // max_alarm_count
+  maxAlarmCount?: long(name='max_alarm_count', example='max_alarm_count'),
+  // emergency_copy
+  emergencyCopy?: string(name='emergency_copy', example='emergency_copy'),
+  // emergency_url
+  emergencyUrl?: string(name='emergency_url', example='emergency_url'),
+}
+
+// PontusTrendRequest
+model PontusTrendRequest {
+  // token
+  token?: string(name='token', example='token'),
+  // metric_table
+  metricTable?: string(name='metric_table', example='metric_table'),
+  // site_env
+  siteEnv?: string(name='site_env', example='site_env'),
+  // view_id
+  viewId?: string(name='view_id', example='view_id'),
+  // period_type
+  periodType?: string(name='period_type', example='period_type'),
+  // extraDimNames
+  extraDimNames?: [ string ](name='extra_dim_names', example='extraDimNames'),
+  // metric_filter
+  metricFilter?: string(name='metric_filter', example='metric_filter'),
+  // start
+  start?: long(name='start', example='start'),
+  // end
+  end?: long(name='end', example='end'),
+  // dim_conditions_list
+  dimConditionsList?: [ KeySet ](name='dim_conditions_list', example='dim_conditions_list'),
+  // dim_expression
+  dimExpression?: KeySet(name='dim_expression', example='dim_expression'),
+  // dim_expression_list
+  dimExpressionList?: [ KeySet ](name='dim_expression_list', example='dim_expression_list'),
+}
+
+// AlarmHistoryListKeySet
+model AlarmHistoryListKeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // AlarmHistoryListKeySet
+  value?: [ AlarmHistory ](name='value', example='AlarmHistoryListKeySet'),
+}
+
+// OpsmetaSchema
+model OpsmetaSchema {
+  // envs
+  envs?: [ string ](name='envs', example='envs'),
+  // idc
+  idc?: OpsFilter(name='idc', example='idc'),
+  // ldc
+  ldc?: OpsFilter(name='ldc', example='ldc'),
+  // server
+  server?: OpsFilter(name='server', example='server'),
+}
+
+// Metrics 中具体时间点的数据
+model TimeSeriesMetricsPoint {
+  // 时间戳 (毫秒)
+  timestamp?: long(name='timestamp', example='1574664720333'),
+  // Metrics 某时间点的具体值
+  value?: [ TimeSeriesMetricsField ](name='value', example='[{"key":"callCount","value":102},{"key":"errorCount","value":1},{"key":"rps","value":12.01}]'),
+}
+
+// AlarmTypeStatsVO
+model AlarmTypeStatsVO {
+  // custom_plugin
+  customPlugin?: long(name='custom_plugin', example='custom_plugin'),
+  // meta_group
+  metaGroup?: long(name='meta_group', example='meta_group'),
+  // stack_universal_table
+  stackUniversalTable?: long(name='stack_universal_table', example='stack_universal_table'),
+}
+
+// SaveSchema
+model SaveSchema {
+  // capacity
+  capacity?: long(name='capacity', example='capacity'),
+  // reserved
+  reserved?: string(name='reserved', example='reserved'),
+  // max_key_size
+  maxKeySize?: long(name='max_key_size', example='max_key_size'),
+}
+
+// AlarmNotifyStats
+model AlarmNotifyStats {
+  // alarm_time
+  alarmTime?: long(name='alarm_time', example='alarm_time'),
+  // count
+  count?: long(name='count', example='count'),
+  // notify_channel
+  notifyChannel?: string(name='notify_channel', example='notify_channel'),
+}
+
+// KV对
+model KeyValuePair {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// AlarmLevelStatsVO
+model AlarmLevelStatsVO {
+  // l0
+  l0?: long(name='l0', example='l0'),
+  // l1
+  l1?: long(name='l1', example='l1'),
+  // l2
+  l2?: long(name='l2', example='l2'),
+}
+
+// PageQuery
+model PageQuery {
+  // page_size
+  pageSize?: long(name='page_size', example='page_size'),
+  // page_index
+  pageIndex?: long(name='page_index', example='page_index'),
+  // cur_index
+  curIndex?: long(name='cur_index', example='cur_index'),
+}
+
+// FolderPath
+model FolderPath {
+  // id
+  id?: long(name='id', example='id'),
+  // name
+  name?: string(name='name', example='name'),
+  // v
+  type?: string(name='type', example='type'),
+}
+
+// AlarmPkgDO
+model AlarmPkgDO {
+  // biz_groupby_name
+  bizGroupbyName?: string(name='biz_groupby_name', example='biz_groupby_name'),
+  // id
+  id?: long(name='id', example='id'),
+  // name
+  name?: string(name='name', example='name'),
+  // stack_metric_group_metric_table
+  stackMetricGroupMetricTable?: string(name='stack_metric_group_metric_table', example='stack_metric_group_metric_table'),
+  // tag_value
+  tagValue?: string(name='tag_value', example='tag_value'),
+  // uuid
+  uuid?: string(name='uuid', example='uuid'),
+  // alarm
+  alarm?: AlarmDO(name='alarm', example='alarm'),
+  // top_alarm
+  topAlarm?: TopAlarmDO(name='top_alarm', example='top_alarm'),
+}
+
+// StatusDO
+model StatusDO {
+  // creater
+  creater?: string(name='creater', example='creater'),
+  // create_time
+  createTime?: long(name='create_time', example='create_time'),
+  // operator
+  operator?: string(name='operator', example='operator'),
+  // update_time
+  updateTime?: long(name='update_time', example='update_time'),
+  // status_desc
+  statusDesc?: string(name='status_desc', example='status_desc'),
+  // compute_close
+  computeClose?: boolean(name='compute_close', example='true,false'),
+  // degrade_reason
+  degradeReason?: string(name='degrade_reason', example='degrade_reason'),
+  // degrade_operator
+  degradeOperator?: string(name='degrade_operator', example='degrade_operator'),
+  // degrade_time
+  degradeTime?: string(name='degrade_time', example='degrade_time'),
+  // degrade_time_v2
+  degradeTimeV2?: long(name='degrade_time_v2', example='degrade_time_v2'),
+}
+
+// Condition
+model Condition {
+  // plugin
+  plugin?: string(name='plugin', example='plugin'),
+  // content_type
+  contentType?: string(name='content_type', example='content_type'),
+  // tag
+  tag?: string(name='tag', example='tag'),
+  // ds_id
+  dsId?: string(name='ds_id', example='ds_id'),
+  // new_cp_id
+  newCpId?: string(name='new_cp_id', example='new_cp_id'),
+  // start
+  start?: long(name='start', example='start'),
+  // end
+  end?: long(name='end', example='end'),
+  // tick_interval
+  tickInterval?: long(name='tick_interval', example='tick_interval'),
+  // use_new
+  useNew?: boolean(name='use_new', example='true,false'),
+  // groupby
+  groupby?: [ string ](name='groupby', example='groupby'),
+  // values
+  values?: [ KeySet ](name='values', example='values'),
+  // tenant_id
+  tenantId?: long(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: long(name='workspace_id', example='workspace_id'),
+  // am_old_data_struct
+  amOldDataStruct?: boolean(name='am_old_data_struct', example='true, false'),
+  // am_is_spm
+  amIsSpm?: boolean(name='am_is_spm', example='true,false'),
+  // old_ds_id
+  oldDsId?: string(name='old_ds_id', example='old_ds_id'),
+}
+
+// StackExpression
+model StackExpression {
+  // states
+  states?: [ StackState ](name='states', example='states'),
+  // andor
+  andor?: boolean(name='andor', example='true, false'),
+}
+
+// IpFileOs
+model IpFileOs {
+  // error_msg
+  errorMsg?: string(name='error_msg', example='error_msg'),
+  // ip
+  ip?: string(name='ip', example='ip'),
+  // next_file_id
+  nextFileId?: string(name='next_file_id', example='next_file_id'),
+  // next_offset
+  nextOffset?: long(name='next_offset', example='next_offset'),
+  // uuid
+  uuid?: string(name='uuid', example='uuid'),
+}
+
+// AlarmHistoryListKeySetMap
+model AlarmHistoryListKeySetMap {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  entity?: [ AlarmHistoryListKeySet ](name='entity', example='value'),
+}
+
+// 只包含一个string value的结构体, 用于解决阿里云POP OpenAPI的限制问题.
+model StringValue {
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// AlarmTypeStatsVOKeySet
+model AlarmTypeStatsVOKeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: AlarmTypeStatsVO(name='value', example='value'),
+}
+
+// AlarmAppStats
+model AlarmAppStats {
+  // app
+  app?: string(name='app', example='app'),
+  // alarm_level
+  alarmLevel?: long(name='alarm_level', example='alarm_level'),
+  // count
+  count?: long(name='count', example='count'),
+  // stack_universal_table_id
+  stackUniversalTableId?: string(name='stack_universal_table_id', example='stack_universal_table_id'),
+}
+
+// FolderRequestCmd
+model FolderRequestCmd {
+  // custom_plugin_id
+  customPluginId?: long(name='custom_plugin_id', example='custom_plugin_id'),
+  // folder_id
+  folderId?: long(name='folder_id', example='folder_id'),
+  // include_me
+  includeMe?: boolean(name='include_me', example='true,false'),
+  // include_plugin_name
+  includePluginName?: boolean(name='include_plugin_name', example='true,false'),
+}
+
+// LongKeySet
+model LongKeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: long(name='value', example='value'),
+}
+
+// 单链路树状图树节点
+model TraceTreeItem {
+  // 应用名
+  app?: string(name='app', example='web'),
+  // 组件类型
+  component?: string(name='component', example='SOFAPRC'),
+  // 耗时, 毫秒
+  duration?: long(name='duration', example='5000'),
+  // 机房信息
+  idc?: string(name='idc', example='idc'),
+  // 描述信息
+  info?: string(name='info', example='info'),
+  // ip
+  ip?: string(name='ip', example='192.168.1.2'),
+  // 对应的span的类型 枚举类型 CLIENT SERVER CONSUMER PRODUCER
+  kind?: string(name='kind', example='CLIENT'),
+  // parent span id
+  parentId?: string(name='parent_id', example='0'),
+  // 请求体字节大小, 如果取不到就为-1
+  requestSize?: long(name='request_size', example='100'),
+  // 响应体大小, 如果取不到就为-1
+  responseSize?: long(name='response_size', example='1024'),
+  // span id
+  spanId?: string(name='span_id', example='0.1'),
+  // 开始时间, 毫秒时间戳
+  startTime?: long(name='start_time', example=''),
+  // 状态码
+  status?: string(name='status', example='00'),
+  // 键值对
+  tags?: [ KeySet ](name='tags', example=''),
+  // 节点的id, 没有业务语义, 用于帮助前端还原树状结构
+  treeId?: long(name='tree_id', example='1'),
+  // 父节点的id, 如果为0表示这是一个顶级节点, 没有业务语义, 用于帮助前端还原树状结构
+  treeParentId?: long(name='tree_parent_id', example='0'),
+  // 单元化信息
+  unit?: string(name='unit', example='unit'),
+}
+
+// ErrorRealte
+model ErrorRealte {
+  // ips
+  ips?: [ string ](name='ips', example='ips'),
+  // log_paths
+  logPaths?: [ string ](name='log_paths', example='log_paths'),
+}
+
+// FolderPaths
+model FolderPaths {
+  // paths
+  paths?: [ FolderPath ](name='paths', example='paths'),
+}
+
+// CallErrorMessage
+model CallErrorMessage {
+  // error_code
+  errorCode?: string(name='error_code', example='error_code'),
+  // message
+  message?: string(name='message', example='message'),
+  // cause
+  cause?: string(name='cause', example='cause'),
+}
+
+// 时序指标数据, 相当于一条时间线
+model TimeSeriesMetrics {
+  // 开始时间, 毫秒时间戳
+  startTime?: long(name='start_time', example='1574664720333'),
+  // 结束时间, 毫秒时间戳
+  endTime?: long(name='end_time', example='1574670361400'),
+  // 标识 metrics，类似 sql 查询条件
+  tags?: [ KeyValuePair ](name='tags', example='[{"key": "app", "value": "foo"}]'),
+  // 指标的分类
+  type?: string(name='type', example='db'),
+  // Metrics 多个 point 的集合
+  values?: [ TimeSeriesMetricsPoint ](name='values', example='{"values":[{"timestamp":1574664720333,"value":[{"key":"callCount","value":102},{"key":"errorCount","value":1},{"key":"rps","value":12.01}]}]}'),
+}
+
+// 链路搜索页面的tags配置项
+model TraceSpanSearchTagConfig {
+  // 字段的key
+  key?: string(name='key', example='key'),
+  // 中文标签
+  name?: string(name='name', example='name'),
+  // 是否支持多选
+  multiple?: boolean(name='multiple', example='multiple'),
+  // 如果该数组非空, 那么表明用户只能从数组给定的值中进行选择, 否则意味着用户可以随意填写.
+  values?: [ string ](name='values', example=''),
+}
+
+// RequestParams
+model RequestParams {
+  // req_type
+  reqType?: string(name='req_type', example='req_type'),
+  // condition
+  condition?: Condition(name='condition', example='condition'),
+  // dimCondition
+  dimCondition?: PontusTrendRequest(name='dim_condition', example='dimCondition'),
+  // tenant
+  tenant?: string(name='tenant', example='tenant'),
+  // zones
+  zones?: string(name='zones', example='zones'),
+  // from_front
+  fromFront?: boolean(name='from_front', example='from_front'),
+  // fuzzy
+  fuzzy?: boolean(name='fuzzy', example='fuzzy'),
+  // validKeyCount
+  validKeyCount?: long(name='valid_key_count', example='validKeyCount'),
+  // can_switch
+  canSwitch?: boolean(name='can_switch', example='can_switch'),
+}
+
+// 拓扑节点
+model TopologyNode {
+  // 应用名
+  app?: string(name='app', example='web'),
+  // 节点类型: APP DB MQ CACHE
+  type?: string(name='type', example='APP'),
+  // 节点id
+  id?: string(name='id', example='id'),
+}
+
+// 应用DO
+model AppDO {
+  // 应用名称
+  name?: string(name='name', example='ZOOKEEPER-zookeeper'),
+}
+
+// 拓扑边
+model TopologyEdge {
+  // id
+  id?: string(name='id', example='id'),
+  // source节点的id
+  source?: string(name='source', example='1'),
+  // target节点的id
+  target?: string(name='target', example='2'),
+}
+
+// AppStats
+model AppStats {
+  // app_list
+  appList?: [ string ](name='app_list', example='app_list'),
+  // page_query
+  pageQuery?: PageQuery(name='page_query', example='page_query'),
+}
+
+// UniversalBodyCmd
+model UniversalBodyCmd {
+  // body
+  body?: string(name='body', example='body'),
+  // id
+  id?: long(name='id', example='id'),
+  // model_name
+  modelName?: string(name='model_name', example='model_name'),
+  // op
+  op?: string(name='op', example='op'),
+  // parse_long_text
+  parseLongText?: boolean(name='parse_long_text', example='true,false'),
+  // page_size
+  pageSize?: long(name='page_size', example='page_size'),
+  // page_index
+  pageIndex?: long(name='page_index', example='page_index'),
+  // cur_index
+  curIndex?: long(name='cur_index', example='cur_index'),
+}
+
+// AlarmLevelStatsVOKeySet
+model AlarmLevelStatsVOKeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: AlarmLevelStatsVO(name='value', example='value'),
+}
+
+// PluginModelDO
+model PluginModelDO {
+  // id
+  id?: long(name='id', example='id'),
+  // parent_folder_id
+  parentFolderId?: long(name='parent_folder_id', example='parent_folder_id'),
+  // plugin_id
+  pluginId?: long(name='plugin_id', example='plugin_id'),
+  // plugin_type
+  pluginType?: string(name='plugin_type', example='plugin_type'),
+  // name
+  name?: string(name='name', example='name'),
+  // xflush_apps
+  xflushApps?: string(name='xflush_apps', example='xflush_apps'),
+  // stack_expression
+  stackExpression?: StackExpression(name='stack_expression', example='stack_expression'),
+  // cal_conf
+  calConf?: string(name='cal_conf', example='cal_conf'),
+  // opsmeta_schema
+  opsmetaSchema?: OpsmetaSchema(name='opsmeta_schema', example='opsmeta_schema'),
+  // save_schema
+  saveSchema?: SaveSchema(name='save_schema', example='save_schema'),
+  // status
+  status?: StatusDO(name='status', example='status'),
+  // outside_domain_id
+  outsideDomainId?: long(name='outside_domain_id', example='outside_domain_id'),
+  // old_folder_id
+  oldFolderId?: long(name='old_folder_id', example='old_folder_id'),
+  // tenant_id
+  tenantId?: long(name='tenant_id', example='tenant_id'),
+  // workspace_id
+  workspaceId?: long(name='workspace_id', example='workspace_id'),
+  // biz_domain_id
+  bizDomainId?: long(name='biz_domain_id', example='biz_domain_id'),
+  // creater
+  creater?: string(name='creater', example='creater'),
+  // gmt_create
+  gmtCreate?: long(name='gmt_create', example='gmt_create'),
+  // modifier
+  modifier?: string(name='modifier', example='modifier'),
+  // gmt_modified
+  gmtModified?: long(name='gmt_modified', example='gmt_modified'),
+  // alarm_pkgs
+  alarmPkgs?: [ AlarmPkgDO ](name='alarm_pkgs', example='alarm_pkgs'),
+  // noc
+  noc?: string(name='noc', example='noc'),
+  // position
+  position?: string(name='position', example='position'),
+  // alarmed
+  alarmed?: boolean(name='alarmed', example='true, false'),
+  // recent_alarm_history_id
+  recentAlarmHistoryId?: string(name='recent_alarm_history_id', example='recent_alarm_history_id'),
+  // recent_alarm
+  recentAlarm?: long(name='recent_alarm', example='recent_alarm'),
+  // key_cms
+  keyCms?: boolean(name='key_cms', example='true, false'),
+  // key_cms_sort
+  keyCmsSort?: long(name='key_cms_sort', example='key_cms_sort'),
+  // status_desc
+  statusDesc?: string(name='status_desc', example='status_desc'),
+  // data_from
+  dataFrom?: long(name='data_from', example='data_from'),
+  // data_to
+  dataTo?: long(name='data_to', example='data_to'),
+  // from_source
+  fromSource?: string(name='from_source', example='from_source'),
+}
+
+// trace span
+model TraceSpan {
+  // 组件类型
+  component?: string(name='component', example='SOFARPC'),
+  // 毫秒耗时
+  duration?: long(name='duration', example='5000'),
+  // 服务描述信息
+  info?: string(name='info', example='服务描述信息'),
+  // span kind, CLIENT SERVER PRODUCER CONSUMER
+  kind?: string(name='kind', example='kind'),
+  // local endpoint ip
+  localIp?: string(name='local_ip', example='192.168.1.2'),
+  // local endpoint service name
+  localServiceName?: string(name='local_service_name', example='web'),
+  // local idc name
+  localIdcName?: string(name='local_idc_name', example='idc'),
+  // local cell name
+  localCellName?: string(name='local_cell_name', example='cell'),
+  // name
+  name?: string(name='name', example='name'),
+  // parent_id
+  parentId?: string(name='parent_id', example='parent_id'),
+  // remote endpoint ip
+  remoteIp?: string(name='remote_ip', example='192.168.1.3'),
+  // remote endpoint service name
+  remoteServiceName?: string(name='remote_service_name', example='shop'),
+  // remote idc name
+  remoteIdcName?: string(name='remote_idc_name', example='idc'),
+  // remote cell name
+  remoteCellName?: string(name='remote_cell_name', example='cell'),
+  // span_id
+  spanId?: string(name='span_id', example='span_id'),
+  // 开始时间, 毫秒时间戳
+  startTime?: long(name='start_time', example=''),
+  // 状态码
+  status?: string(name='status', example='00'),
+  // span tags, 是关于span的键值对
+  tags?: [ KeySet ](name='tags', example=''),
+  // trace id
+  traceId?: string(name='trace_id', example='trace id'),
+}
+
+// ModelTreeNode
+model ModelTreeNode {
+  // name
+  name?: string(name='name', example='name'),
+  // id
+  id?: long(name='id', example='id'),
+  // plugin_name
+  pluginName?: string(name='plugin_name', example='plugin_name'),
+  // type
+  type?: string(name='type', example='type'),
+}
+
+// AlarmNotifyStatsKeySet
+model AlarmNotifyStatsKeySet {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: AlarmNotifyStats(name='value', example='value'),
+}
+
+model QueryRmsAgentloglocateRequest = {
+  authToken?: string(name='auth_token'),
+  // app_id
+  appId?: string(name='app_id'),
+  // batch_ip_files
+  batchIpFiles?: [ IpFileOs ](name='batch_ip_files'),
+  // charset_str
+  charsetStr?: string(name='charset_str'),
+  // error_msg
+  errorMsg?: string(name='error_msg'),
+  // ips
+  ips?: [ string ](name='ips'),
+  // ip_file
+  ipFile?: IpFileOs(name='ip_file'),
+  // is_batch
+  isBatch?: boolean(name='is_batch'),
+  // log_path
+  logPath?: string(name='log_path'),
+  // log_paths
+  logPaths?: [ string ](name='log_paths'),
+  // time
+  time?: long(name='time'),
+}
+
+model QueryRmsAgentloglocateResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // error_message
+  errorMessage?: CallErrorMessage(name='error_message'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: /agent/logLocate
+ * Summary: /agent/logLocate
+ */
+async function queryRmsAgentloglocate(request: QueryRmsAgentloglocateRequest): QueryRmsAgentloglocateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAgentloglocateEx(request, headers, runtime);
+}
+
+/**
+ * Description: /agent/logLocate
+ * Summary: /agent/logLocate
+ */
+async function queryRmsAgentloglocateEx(request: QueryRmsAgentloglocateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAgentloglocateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.agentloglocate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAgenttailRequest = {
+  authToken?: string(name='auth_token'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // app_name
+  appName?: string(name='app_name'),
+  // prefer_host
+  preferHost?: string(name='prefer_host'),
+  // full_path
+  fullPath?: string(name='full_path'),
+  // scan_dirs
+  scanDirs?: [ string ](name='scan_dirs'),
+  // need_bytes
+  needBytes?: long(name='need_bytes'),
+  // line_break_str
+  lineBreakStr?: string(name='line_break_str'),
+  // extra_suffixs
+  extraSuffixs?: [ string ](name='extra_suffixs'),
+  // charset_str
+  charsetStr?: string(name='charset_str'),
+}
+
+model QueryRmsAgenttailResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // error_message
+  errorMessage?: CallErrorMessage(name='error_message'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: /agent/tail
+ * Summary: /agent/tail
+ */
+async function queryRmsAgenttail(request: QueryRmsAgenttailRequest): QueryRmsAgenttailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAgenttailEx(request, headers, runtime);
+}
+
+/**
+ * Description: /agent/tail
+ * Summary: /agent/tail
+ */
+async function queryRmsAgenttailEx(request: QueryRmsAgenttailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAgenttailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.agenttail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAgentbrowserRequest = {
+  authToken?: string(name='auth_token'),
+  // app_name
+  appName?: string(name='app_name'),
+  // extra_suffixs
+  extraSuffixs?: [ string ](name='extra_suffixs'),
+  // scan_dirs
+  scanDirs?: [ string ](name='scan_dirs'),
+  // prefer_host
+  preferHost?: string(name='prefer_host'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+}
+
+model QueryRmsAgentbrowserResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+  // error_message
+  errorMessage?: CallErrorMessage(name='error_message'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: /agent/browser
+ * Summary: /agent/browser
+ */
+async function queryRmsAgentbrowser(request: QueryRmsAgentbrowserRequest): QueryRmsAgentbrowserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAgentbrowserEx(request, headers, runtime);
+}
+
+/**
+ * Description: /agent/browser
+ * Summary: /agent/browser
+ */
+async function queryRmsAgentbrowserEx(request: QueryRmsAgentbrowserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAgentbrowserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.agentbrowser.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAlarmhistorytypeRequest = {
+  authToken?: string(name='auth_token'),
+  // from
+  from?: long(name='from'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsAlarmhistorytypeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmTypeStatsVOKeySet ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: rms.alarmhistorytype.query
+ * Summary: alarmTypeStats
+ */
+async function queryRmsAlarmhistorytype(request: QueryRmsAlarmhistorytypeRequest): QueryRmsAlarmhistorytypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAlarmhistorytypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: rms.alarmhistorytype.query
+ * Summary: alarmTypeStats
+ */
+async function queryRmsAlarmhistorytypeEx(request: QueryRmsAlarmhistorytypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAlarmhistorytypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.alarmhistorytype.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAlarmhistorylevelRequest = {
+  authToken?: string(name='auth_token'),
+  // from
+  from?: long(name='from'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsAlarmhistorylevelResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmLevelStatsVOKeySet ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: alarmLevelStats
+ * Summary: alarmLevelStats
+ */
+async function queryRmsAlarmhistorylevel(request: QueryRmsAlarmhistorylevelRequest): QueryRmsAlarmhistorylevelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAlarmhistorylevelEx(request, headers, runtime);
+}
+
+/**
+ * Description: alarmLevelStats
+ * Summary: alarmLevelStats
+ */
+async function queryRmsAlarmhistorylevelEx(request: QueryRmsAlarmhistorylevelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAlarmhistorylevelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.alarmhistorylevel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsNotifyhistoryRequest = {
+  authToken?: string(name='auth_token'),
+  // from
+  from?: long(name='from'),
+  // login_name
+  loginName?: string(name='login_name'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsNotifyhistoryResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmNotifyStats ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /stats/notify/history
+ * Summary: notifyHistoryStatsV2
+ */
+async function queryRmsNotifyhistory(request: QueryRmsNotifyhistoryRequest): QueryRmsNotifyhistoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsNotifyhistoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: /stats/notify/history
+ * Summary: notifyHistoryStatsV2
+ */
+async function queryRmsNotifyhistoryEx(request: QueryRmsNotifyhistoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsNotifyhistoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.notifyhistory.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsStackentityRequest = {
+  authToken?: string(name='auth_token'),
+}
+
+model QueryRmsStackentityResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ LongKeySet ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /stats/stack/entity
+ * Summary: stackEntityStats
+ */
+async function queryRmsStackentity(request: QueryRmsStackentityRequest): QueryRmsStackentityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsStackentityEx(request, headers, runtime);
+}
+
+/**
+ * Description: /stats/stack/entity
+ * Summary: stackEntityStats
+ */
+async function queryRmsStackentityEx(request: QueryRmsStackentityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsStackentityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.stackentity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAlarmhistoryappcountRequest = {
+  authToken?: string(name='auth_token'),
+  // app_list
+  appList?: AppStats(name='app_list'),
+  // from
+  from?: long(name='from'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsAlarmhistoryappcountResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmAppStats ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /stats/alarm/history/appCount
+ * Summary: alarmHistoryAppCount
+ */
+async function queryRmsAlarmhistoryappcount(request: QueryRmsAlarmhistoryappcountRequest): QueryRmsAlarmhistoryappcountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAlarmhistoryappcountEx(request, headers, runtime);
+}
+
+/**
+ * Description: /stats/alarm/history/appCount
+ * Summary: alarmHistoryAppCount
+ */
+async function queryRmsAlarmhistoryappcountEx(request: QueryRmsAlarmhistoryappcountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAlarmhistoryappcountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.alarmhistoryappcount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAlarmhistoryappstatsRequest = {
+  authToken?: string(name='auth_token'),
+  // app_list
+  appList?: AppStats(name='app_list'),
+  // from
+  from?: long(name='from'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsAlarmhistoryappstatsResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmHistoryListKeySetMap ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /alarm/history/appStats
+ * Summary: alarmHistoryAppStats
+ */
+async function queryRmsAlarmhistoryappstats(request: QueryRmsAlarmhistoryappstatsRequest): QueryRmsAlarmhistoryappstatsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAlarmhistoryappstatsEx(request, headers, runtime);
+}
+
+/**
+ * Description: /alarm/history/appStats
+ * Summary: alarmHistoryAppStats
+ */
+async function queryRmsAlarmhistoryappstatsEx(request: QueryRmsAlarmhistoryappstatsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAlarmhistoryappstatsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.alarmhistoryappstats.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsAppstatspageableRequest = {
+  authToken?: string(name='auth_token'),
+  // app_list
+  appList?: AppStats(name='app_list'),
+  // from
+  from?: long(name='from'),
+  // to
+  to?: long(name='to'),
+}
+
+model QueryRmsAppstatspageableResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ AlarmHistoryListKeySetMap ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /alarm/history/appStatsPageable
+ * Summary: appstatspageable
+ */
+async function queryRmsAppstatspageable(request: QueryRmsAppstatspageableRequest): QueryRmsAppstatspageableResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsAppstatspageableEx(request, headers, runtime);
+}
+
+/**
+ * Description: /alarm/history/appStatsPageable
+ * Summary: appstatspageable
+ */
+async function queryRmsAppstatspageableEx(request: QueryRmsAppstatspageableRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsAppstatspageableResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.appstatspageable.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsLogreaderrorRequest = {
+  authToken?: string(name='auth_token'),
+  // app
+  app?: string(name='app'),
+  // time
+  time?: long(name='time'),
+}
+
+model QueryRmsLogreaderrorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: ErrorRealte(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /logread/error
+ * Summary: /logread/error
+ */
+async function queryRmsLogreaderror(request: QueryRmsLogreaderrorRequest): QueryRmsLogreaderrorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsLogreaderrorEx(request, headers, runtime);
+}
+
+/**
+ * Description: /logread/error
+ * Summary: /logread/error
+ */
+async function queryRmsLogreaderrorEx(request: QueryRmsLogreaderrorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsLogreaderrorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.logreaderror.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsUniversalreadRequest = {
+  authToken?: string(name='auth_token'),
+  // cmds
+  cmds?: [ UniversalBodyCmd ](name='cmds'),
+  // rid
+  rid?: string(name='rid'),
+}
+
+model QueryRmsUniversalreadResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ string ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /universal/read
+ * Summary: /universal/read
+ */
+async function queryRmsUniversalread(request: QueryRmsUniversalreadRequest): QueryRmsUniversalreadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsUniversalreadEx(request, headers, runtime);
+}
+
+/**
+ * Description: /universal/read
+ * Summary: /universal/read
+ */
+async function queryRmsUniversalreadEx(request: QueryRmsUniversalreadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsUniversalreadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.universalread.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsUniversalwriteRequest = {
+  authToken?: string(name='auth_token'),
+  // cmds
+  cmds?: [ UniversalBodyCmd ](name='cmds'),
+  // rid
+  rid?: string(name='rid'),
+}
+
+model QueryRmsUniversalwriteResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ string ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /universal/write
+ * Summary: /universal/write
+ */
+async function queryRmsUniversalwrite(request: QueryRmsUniversalwriteRequest): QueryRmsUniversalwriteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsUniversalwriteEx(request, headers, runtime);
+}
+
+/**
+ * Description: /universal/write
+ * Summary: /universal/write
+ */
+async function queryRmsUniversalwriteEx(request: QueryRmsUniversalwriteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsUniversalwriteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.universalwrite.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model CreateRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: boolean(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/create
+ * Summary: create
+ */
+async function createRmsPlugin(request: CreateRmsPluginRequest): CreateRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/create
+ * Summary: create
+ */
+async function createRmsPluginEx(request: CreateRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model DeleteRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: boolean(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/delete
+ * Summary: delete
+ */
+async function deleteRmsPlugin(request: DeleteRmsPluginRequest): DeleteRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/delete
+ * Summary: delete
+ */
+async function deleteRmsPluginEx(request: DeleteRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model CloseRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: boolean(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/close
+ * Summary: close
+ */
+async function closeRmsPlugin(request: CloseRmsPluginRequest): CloseRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/close
+ * Summary: close
+ */
+async function closeRmsPluginEx(request: CloseRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model OpenRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: boolean(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/open
+ * Summary: open
+ */
+async function openRmsPlugin(request: OpenRmsPluginRequest): OpenRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/open
+ * Summary: open
+ */
+async function openRmsPluginEx(request: OpenRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model UpdateRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: boolean(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/update
+ * Summary: update
+ */
+async function updateRmsPlugin(request: UpdateRmsPluginRequest): UpdateRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/update
+ * Summary: update
+ */
+async function updateRmsPluginEx(request: UpdateRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsPluginbytypeRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model QueryRmsPluginbytypeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ PluginModelDO ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/queryByPluginType
+ * Summary: queryByPluginType
+ */
+async function queryRmsPluginbytype(request: QueryRmsPluginbytypeRequest): QueryRmsPluginbytypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsPluginbytypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/queryByPluginType
+ * Summary: queryByPluginType
+ */
+async function queryRmsPluginbytypeEx(request: QueryRmsPluginbytypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsPluginbytypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.pluginbytype.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsPluginbyfolderRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model QueryRmsPluginbyfolderResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ ModelTreeNode ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/queryByFolder
+ * Summary: queryByFolder
+ */
+async function queryRmsPluginbyfolder(request: QueryRmsPluginbyfolderRequest): QueryRmsPluginbyfolderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsPluginbyfolderEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/queryByFolder
+ * Summary: queryByFolder
+ */
+async function queryRmsPluginbyfolderEx(request: QueryRmsPluginbyfolderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsPluginbyfolderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.pluginbyfolder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsPluginRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model QueryRmsPluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: PluginModelDO(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/query
+ * Summary: query
+ */
+async function queryRmsPlugin(request: QueryRmsPluginRequest): QueryRmsPluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsPluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/query
+ * Summary: query
+ */
+async function queryRmsPluginEx(request: QueryRmsPluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsPluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugin.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsPlugintestRequest = {
+  authToken?: string(name='auth_token'),
+  // body
+  body?: string(name='body'),
+  // file_id
+  fileId?: long(name='file_id'),
+  // id
+  id?: long(name='id'),
+  // outside_bizdomain
+  outsideBizdomain?: string(name='outside_bizdomain'),
+  // plugin_id
+  pluginId?: long(name='plugin_id'),
+  // table
+  table?: string(name='table'),
+}
+
+model QueryRmsPlugintestResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: Threshold(name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/plugin/querytest
+ * Summary: querytest
+ */
+async function queryRmsPlugintest(request: QueryRmsPlugintestRequest): QueryRmsPlugintestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsPlugintestEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/plugin/querytest
+ * Summary: querytest
+ */
+async function queryRmsPlugintestEx(request: QueryRmsPlugintestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsPlugintestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.plugintest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsPathRequest = {
+  authToken?: string(name='auth_token'),
+  // requests
+  requests?: [ FolderRequestCmd ](name='requests'),
+}
+
+model QueryRmsPathResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // data
+  data?: [ FolderPaths ](name='data'),
+  // error_code
+  errorCode?: string(name='error_code'),
+  // rid
+  rid?: string(name='rid'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /modeling/folder/path
+ * Summary: queryPath
+ */
+async function queryRmsPath(request: QueryRmsPathRequest): QueryRmsPathResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsPathEx(request, headers, runtime);
+}
+
+/**
+ * Description: /modeling/folder/path
+ * Summary: queryPath
+ */
+async function queryRmsPathEx(request: QueryRmsPathRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsPathResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.path.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecRmsUniversalcleankeyRequest = {
+  authToken?: string(name='auth_token'),
+  // req_params
+  reqParams?: [ KeySet ](name='req_params'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+}
+
+model ExecRmsUniversalcleankeyResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // error_message
+  errorMessage?: CallErrorMessage(name='error_message'),
+  // part_suc
+  partSuc?: boolean(name='part_suc'),
+  // result
+  result?: string(name='result'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: /{tenantId}/webapi/cleankey
+ * Summary: cleankey
+ */
+async function execRmsUniversalcleankey(request: ExecRmsUniversalcleankeyRequest): ExecRmsUniversalcleankeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execRmsUniversalcleankeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: /{tenantId}/webapi/cleankey
+ * Summary: cleankey
+ */
+async function execRmsUniversalcleankeyEx(request: ExecRmsUniversalcleankeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecRmsUniversalcleankeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.universalcleankey.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsUniversalRequest = {
+  authToken?: string(name='auth_token'),
+  // post_body
+  postBody?: string(name='post_body'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+}
+
+model QueryRmsUniversalResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: /{tenantId}/universalQuery
+ * Summary: universalQuery
+ */
+async function queryRmsUniversal(request: QueryRmsUniversalRequest): QueryRmsUniversalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsUniversalEx(request, headers, runtime);
+}
+
+/**
+ * Description: /{tenantId}/universalQuery
+ * Summary: universalQuery
+ */
+async function queryRmsUniversalEx(request: QueryRmsUniversalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsUniversalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.universal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRmsTracespanRequest = {
+  authToken?: string(name='auth_token'),
+  // 如果指定了app, 那么是 localServiceName or remoteServiceName 的效果, 任何一个命中了都行
+  app?: string(name='app'),
+  // 最大的毫秒开始时间戳
+  endTime?: long(name='end_time'),
+  // 万能扩展字段
+  extensions?: [ KeySet ](name='extensions'),
+  // 最大毫秒耗时
+  maxDuration?: long(name='max_duration'),
+  // 最小毫秒耗时
+  minDuration?: long(name='min_duration'),
+  // 分页号
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 搜索的毫秒开始时间戳
+  startTime?: long(name='start_time'),
+  // 结果码
+  status?: string(name='status'),
+  // 用来动态传递一些tags或条件匹配, 有一些key是保留的, 服务端会进行特殊解释, 其他的则会认为是要对tags做精确匹配.
+  tags?: [ KeySet ](name='tags'),
+  // 按traceId搜索时会用到 此时其他条件自动失效
+  traceId?: string(name='trace_id'),
+  // workspace_id
+  workspaceId?: long(name='workspace_id'),
+}
+
+model QueryRmsTracespanResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 分页号
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 搜索出的spans, 查无结果时为空数组
+  spans?: [ TraceSpan ](name='spans'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 链路搜索
+ * Summary: 链路搜索
+ */
+async function queryRmsTracespan(request: QueryRmsTracespanRequest): QueryRmsTracespanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRmsTracespanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链路搜索
+ * Summary: 链路搜索
+ */
+async function queryRmsTracespanEx(request: QueryRmsTracespanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRmsTracespanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.tracespan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRmsTracespanqueryconfigRequest = {
+  authToken?: string(name='auth_token'),
+}
+
+model GetRmsTracespanqueryconfigResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 支持的tags列表
+  tagConfigs?: [ TraceSpanSearchTagConfig ](name='tag_configs'),
+}
+
+/**
+ * Description: 查询链路搜索页面的配置
+ * Summary: 查询链路搜索页面的配置
+ */
+async function getRmsTracespanqueryconfig(request: GetRmsTracespanqueryconfigRequest): GetRmsTracespanqueryconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRmsTracespanqueryconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链路搜索页面的配置
+ * Summary: 查询链路搜索页面的配置
+ */
+async function getRmsTracespanqueryconfigEx(request: GetRmsTracespanqueryconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRmsTracespanqueryconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.tracespanqueryconfig.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeRmsTracetreeRequest = {
+  authToken?: string(name='auth_token'),
+  // trace_id
+  traceId?: string(name='trace_id'),
+}
+
+model DescribeRmsTracetreeResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 树状图结构体
+  // 找不到数据时 trace_tree_items 为空数组, 并不会报错
+  traceTreeItems?: [ TraceTreeItem ](name='trace_tree_items'),
+}
+
+/**
+ * Description: 单链路树状图查询
+ * Summary: 单链路树状图查询
+ */
+async function describeRmsTracetree(request: DescribeRmsTracetreeRequest): DescribeRmsTracetreeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeRmsTracetreeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单链路树状图查询
+ * Summary: 单链路树状图查询
+ */
+async function describeRmsTracetreeEx(request: DescribeRmsTracetreeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeRmsTracetreeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.tracetree.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiCompletecommodityRequest = {
+  authToken?: string(name='auth_token'),
+  // 南天门的请求体都是做成json字符串放在data字段里
+  data?: string(name='data'),
+}
+
+model CallbackSpiCompletecommodityResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 商品补全接口
+ * Summary: 南天门 - 商品补全接口
+ */
+async function callbackSpiCompletecommodity(request: CallbackSpiCompletecommodityRequest): CallbackSpiCompletecommodityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiCompletecommodityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 商品补全接口
+ * Summary: 南天门 - 商品补全接口
+ */
+async function callbackSpiCompletecommodityEx(request: CallbackSpiCompletecommodityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiCompletecommodityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.completecommodity.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiPayordercallbackRequest = {
+  authToken?: string(name='auth_token'),
+  // 南天门支付后回调请求, 见 http://help.aliyun-inc.com/internaldoc/detail/134798.html?spm=ntm.workbench-devPlatform-extendPoint.0.0.42a919afQhBhEB.
+  data?: string(name='data'),
+}
+
+model CallbackSpiPayordercallbackResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 支付后回调
+ * Summary: 南天门 - 支付后回调
+ */
+async function callbackSpiPayordercallback(request: CallbackSpiPayordercallbackRequest): CallbackSpiPayordercallbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiPayordercallbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 支付后回调
+ * Summary: 南天门 - 支付后回调
+ */
+async function callbackSpiPayordercallbackEx(request: CallbackSpiPayordercallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiPayordercallbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.payordercallback.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiCompleteorderparamRequest = {
+  authToken?: string(name='auth_token'),
+  // data
+  data?: string(name='data'),
+}
+
+model CallbackSpiCompleteorderparamResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 补全订单
+ * Summary: 南天门 - 补全订单
+ */
+async function callbackSpiCompleteorderparam(request: CallbackSpiCompleteorderparamRequest): CallbackSpiCompleteorderparamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiCompleteorderparamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 补全订单
+ * Summary: 南天门 - 补全订单
+ */
+async function callbackSpiCompleteorderparamEx(request: CallbackSpiCompleteorderparamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiCompleteorderparamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.completeorderparam.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiVerifyRequest = {
+  authToken?: string(name='auth_token'),
+  // data
+  data?: string(name='data'),
+}
+
+model CallbackSpiVerifyResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 订单校验回调
+ * Summary: 南天门 - 订单校验回调
+ */
+async function callbackSpiVerify(request: CallbackSpiVerifyRequest): CallbackSpiVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 订单校验回调
+ * Summary: 南天门 - 订单校验回调
+ */
+async function callbackSpiVerifyEx(request: CallbackSpiVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.verify.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiRefundRequest = {
+  authToken?: string(name='auth_token'),
+  // data
+  data?: string(name='data'),
+}
+
+model CallbackSpiRefundResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 退款
+ * Summary: 南天门 - 退款
+ */
+async function callbackSpiRefund(request: CallbackSpiRefundRequest): CallbackSpiRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 退款
+ * Summary: 南天门 - 退款
+ */
+async function callbackSpiRefundEx(request: CallbackSpiRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.refund.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSpiLifecycleRequest = {
+  authToken?: string(name='auth_token'),
+  // data
+  data?: string(name='data'),
+}
+
+model CallbackSpiLifecycleResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // code
+  code?: string(name='code'),
+  // data
+  data?: string(name='data'),
+  // message
+  message?: string(name='message'),
+  // a synchro
+  synchro?: string(name='synchro'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 南天门 - 商品实例生命周期回调
+ * Summary: 南天门 - 商品实例生命周期回调
+ */
+async function callbackSpiLifecycle(request: CallbackSpiLifecycleRequest): CallbackSpiLifecycleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSpiLifecycleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 南天门 - 商品实例生命周期回调
+ * Summary: 南天门 - 商品实例生命周期回调
+ */
+async function callbackSpiLifecycleEx(request: CallbackSpiLifecycleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSpiLifecycleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.spi.lifecycle.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeRmsTimeseriesmetricsRequest = {
+  authToken?: string(name='auth_token'),
+  // sum或none
+  aggregator?: string(name='aggregator'),
+  // 结束毫秒时间戳
+  endTime?: long(name='end_time'),
+  // metrics字段名称
+  metrics?: [ StringValue ](name='metrics'),
+  // 开始毫秒时间戳
+  startTime?: long(name='start_time'),
+  // 扩展字段tags
+  tags?: [ KeyValuePair ](name='tags'),
+  // metrics类型
+  type?: string(name='type'),
+  // workspace_id或workspace_name选填一个
+  workspaceId?: long(name='workspace_id'),
+  // workspace_id或workspace_name选填一个
+  workspaceName?: string(name='workspace_name'),
+}
+
+model DescribeRmsTimeseriesmetricsResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // metrics reulsts
+  results?: [ TimeSeriesMetrics ](name='results'),
+}
+
+/**
+ * Description: 查询时序指标
+ * Summary: 查询时序指标
+ */
+async function describeRmsTimeseriesmetrics(request: DescribeRmsTimeseriesmetricsRequest): DescribeRmsTimeseriesmetricsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeRmsTimeseriesmetricsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询时序指标
+ * Summary: 查询时序指标
+ */
+async function describeRmsTimeseriesmetricsEx(request: DescribeRmsTimeseriesmetricsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeRmsTimeseriesmetricsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.timeseriesmetrics.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeRmsTopologyRequest = {
+  authToken?: string(name='auth_token'),
+  // 结束毫秒时间戳
+  endTime?: long(name='end_time'),
+  // 开始毫秒时间戳
+  startTime?: long(name='start_time'),
+  // workspace_id或workspace_name二选一
+  workspaceId?: long(name='workspace_id'),
+  // workspace_id或workspace_name二选一
+  workspaceName?: string(name='workspace_name'),
+}
+
+model DescribeRmsTopologyResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 拓扑节点
+  nodes?: [ TopologyNode ](name='nodes'),
+  // 拓扑边
+  edges?: [ TopologyEdge ](name='edges'),
+  // 节点性能指标
+  nodeMetrics?: [ TimeSeriesMetrics ](name='node_metrics'),
+  // 边性能指标
+  edgeMetrics?: [ TimeSeriesMetrics ](name='edge_metrics'),
+}
+
+/**
+ * Description: 获取调用拓扑
+ * Summary: 获取调用拓扑
+ */
+async function describeRmsTopology(request: DescribeRmsTopologyRequest): DescribeRmsTopologyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeRmsTopologyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取调用拓扑
+ * Summary: 获取调用拓扑
+ */
+async function describeRmsTopologyEx(request: DescribeRmsTopologyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeRmsTopologyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.rms.topology.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMetricsRequest = {
+  authToken?: string(name='auth_token'),
+  // 开始时间
+  start?: long(name='start'),
+  // 结束时间
+  end?: long(name='end'),
+  // 插件类型
+  plugin?: string(name='plugin'),
+  // 监控指标 ID
+  dsId?: long(name='ds_id'),
+  // contentType
+  contentType?: string(name='content_type'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model QueryMetricsResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 查询数据结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 监控指标数据查询
+ * Summary: 监控指标数据查询
+ */
+async function queryMetrics(request: QueryMetricsRequest): QueryMetricsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMetricsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监控指标数据查询
+ * Summary: 监控指标数据查询
+ */
+async function queryMetricsEx(request: QueryMetricsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMetricsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.metrics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTraceSpanRequest = {
+  authToken?: string(name='auth_token'),
+  // 按traceId搜索时会用到 此时其他条件自动失效
+  traceId?: string(name='trace_id'),
+  // 如果指定了app, 那么是 localServiceName or remoteServiceName 的效果, 任何一个命中了都行
+  app?: string(name='app'),
+  // 搜索的毫秒开始时间戳
+  startTime?: long(name='start_time'),
+  // 最大的毫秒开始时间戳
+  endTime?: long(name='end_time'),
+  // 最小毫秒耗时
+  minDuration?: long(name='min_duration'),
+  // 最大毫秒耗时
+  maxDuration?: long(name='max_duration'),
+  // 分页号
+  currentPage?: long(name='current_page'),
+  // 每页记录条数
+  pageSize?: long(name='page_size'),
+  // 用来动态传递一些tags或条件匹配, 有一些key是保留的, 服务端会进行特殊解释, 其他的则会认为是要对tags做精确匹配.
+  tags?: [ KeySet ](name='tags'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model QueryTraceSpanResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 分页号
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 查询总数
+  totalNumber?: long(name='total_number'),
+  // 搜索出的spans, 查无结果时为空数组
+  spans?: [ TraceSpan ](name='spans'),
+}
+
+/**
+ * Description: 链路Span查询搜索
+ * Summary: 链路查询
+ */
+async function queryTraceSpan(request: QueryTraceSpanRequest): QueryTraceSpanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTraceSpanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链路Span查询搜索
+ * Summary: 链路查询
+ */
+async function queryTraceSpanEx(request: QueryTraceSpanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTraceSpanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.trace.span.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppRequest = {
+  authToken?: string(name='auth_token'),
+  // 实际SQL查询时LIMIT的第一个字段
+  currentPage?: long(name='current_page'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model ListAppResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 返回结果：应用列表
+  result?: [ AppDO ](name='result'),
+}
+
+/**
+ * Description: 获取应用列表
+ * Summary: 获取应用列表
+ */
+async function listApp(request: ListAppRequest): ListAppResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取应用列表
+ * Summary: 获取应用列表
+ */
+async function listAppEx(request: ListAppRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.app.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCustompluginRequest = {
+  authToken?: string(name='auth_token'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+  // 监控产品类型
+  pluginType?: string(name='plugin_type'),
+  // 监控配置名
+  name?: string(name='name'),
+  // 父级文件夹 ID
+  parentFolderId?: long(name='parent_folder_id'),
+  // 是否生效
+  isOpen?: boolean(name='is_open'),
+  // 告警套餐
+  alarmPkgs?: AlarmPkgDO(name='alarm_pkgs'),
+}
+
+model CreateCustompluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建自定义监控指标
+ * Summary: 创建自定义监控指标
+ */
+async function createCustomplugin(request: CreateCustompluginRequest): CreateCustompluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCustompluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建自定义监控指标
+ * Summary: 创建自定义监控指标
+ */
+async function createCustompluginEx(request: CreateCustompluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCustompluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.customplugin.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteCustompluginRequest = {
+  authToken?: string(name='auth_token'),
+  // 监控产品类型
+  pluginType?: string(name='plugin_type'),
+  // id
+  id?: long(name='id'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model DeleteCustompluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除自定义监控指标
+ * Summary: 删除自定义监控指标
+ */
+async function deleteCustomplugin(request: DeleteCustompluginRequest): DeleteCustompluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteCustompluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除自定义监控指标
+ * Summary: 删除自定义监控指标
+ */
+async function deleteCustompluginEx(request: DeleteCustompluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteCustompluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.customplugin.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateFolderRequest = {
+  authToken?: string(name='auth_token'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+  // 文件夹名称
+  name?: string(name='name'),
+  // 父级文件夹id
+  parentFolderId?: long(name='parent_folder_id'),
+}
+
+model CreateFolderResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 文件夹 ID
+  folderId?: long(name='folder_id'),
+}
+
+/**
+ * Description: 自定义监控 - 添加文件夹
+ * Summary: 自定义监控 - 添加文件夹
+ */
+async function createFolder(request: CreateFolderRequest): CreateFolderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createFolderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自定义监控 - 添加文件夹
+ * Summary: 自定义监控 - 添加文件夹
+ */
+async function createFolderEx(request: CreateFolderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateFolderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.folder.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateFolderRequest = {
+  authToken?: string(name='auth_token'),
+  // 文件夹id
+  id?: long(name='id'),
+  // 文件夹新名称
+  name?: string(name='name'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model UpdateFolderResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 自定义监控 - 文件夹更新
+ * Summary: 自定义监控 - 文件夹更新
+ */
+async function updateFolder(request: UpdateFolderRequest): UpdateFolderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateFolderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自定义监控 - 文件夹更新
+ * Summary: 自定义监控 - 文件夹更新
+ */
+async function updateFolderEx(request: UpdateFolderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateFolderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.folder.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTraceConfigRequest = {
+  authToken?: string(name='auth_token'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model QueryTraceConfigResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 链路配置
+  tags?: [ TraceSpanSearchTagConfig ](name='tags'),
+}
+
+/**
+ * Description: 链路查询时可选参数的配置查询
+ * Summary: 链路查询时可选参数的配置查询
+ */
+async function queryTraceConfig(request: QueryTraceConfigRequest): QueryTraceConfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTraceConfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链路查询时可选参数的配置查询
+ * Summary: 链路查询时可选参数的配置查询
+ */
+async function queryTraceConfigEx(request: QueryTraceConfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTraceConfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.trace.config.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFolderPathRequest = {
+  authToken?: string(name='auth_token'),
+  // 自定义监控 ID 
+  customPluginId?: long(name='custom_plugin_id'),
+  // 文件夹 ID
+  folderId?: long(name='folder_id'),
+  // 是否包含插件名
+  includePluginName?: boolean(name='include_plugin_name'),
+}
+
+model QueryFolderPathResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 文件夹路径
+  paths?: [ FolderPath ](name='paths'),
+}
+
+/**
+ * Description: 查询文件夹路径
+ * Summary: 查询文件夹路径
+ */
+async function queryFolderPath(request: QueryFolderPathRequest): QueryFolderPathResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFolderPathEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询文件夹路径
+ * Summary: 查询文件夹路径
+ */
+async function queryFolderPathEx(request: QueryFolderPathRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFolderPathResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.folder.path.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTraceDetailRequest = {
+  authToken?: string(name='auth_token'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+  // traceId
+  traceId?: string(name='trace_id'),
+  // 备选的入口ip
+  backupEntryip?: string(name='backup_entryip'),
+  // 是否为第一次查询
+  firstQuery?: boolean(name='first_query'),
+}
+
+model QueryTraceDetailResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // TaceTreeItem
+  traceTreeItem?: TraceTreeItem(name='trace_tree_item'),
+}
+
+/**
+ * Description: 查询链路详情
+ * Summary: 查询链路详情
+ */
+async function queryTraceDetail(request: QueryTraceDetailRequest): QueryTraceDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTraceDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链路详情
+ * Summary: 查询链路详情
+ */
+async function queryTraceDetailEx(request: QueryTraceDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTraceDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.trace.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTraceTopologyRequest = {
+  authToken?: string(name='auth_token'),
+  // 结束毫秒时间戳
+  endTime?: long(name='end_time'),
+  // 开始毫秒时间戳
+  startTime?: long(name='start_time'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+  // app
+  app?: string(name='app'),
+  // trace_id
+  traceId?: string(name='trace_id'),
+}
+
+model QueryTraceTopologyResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 拓扑节点
+  nodes?: TopologyNode(name='nodes'),
+  // 拓扑边
+  edges?: TopologyEdge(name='edges'),
+  // 节点性能指标
+  nodeMetrics?: TimeSeriesMetrics(name='node_metrics'),
+  // 边性能指标
+  edgeMetrics?: TimeSeriesMetrics(name='edge_metrics'),
+}
+
+/**
+ * Description: 获取链路拓扑图
+ * Summary: 获取链路拓扑图
+ */
+async function queryTraceTopology(request: QueryTraceTopologyRequest): QueryTraceTopologyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTraceTopologyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链路拓扑图
+ * Summary: 获取链路拓扑图
+ */
+async function queryTraceTopologyEx(request: QueryTraceTopologyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTraceTopologyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.trace.topology.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTraceMetricsRequest = {
+  authToken?: string(name='auth_token'),
+  // sum或none
+  aggregator?: string(name='aggregator'),
+  // 结束毫秒时间戳
+  endTime?: long(name='end_time'),
+  // 开始毫秒时间戳
+  startTime?: long(name='start_time'),
+  // metrics字段名称
+  metrics?: [ string ](name='metrics'),
+  // 扩展字段tags
+  tags?: [ KeyValuePair ](name='tags'),
+  // metrics类型
+  type?: string(name='type'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+}
+
+model QueryTraceMetricsResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // metrics reulsts
+  result?: TimeSeriesMetrics(name='result'),
+}
+
+/**
+ * Description: 查询链路关联指标
+ * Summary: 查询链路关联指标
+ */
+async function queryTraceMetrics(request: QueryTraceMetricsRequest): QueryTraceMetricsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTraceMetricsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链路关联指标
+ * Summary: 查询链路关联指标
+ */
+async function queryTraceMetricsEx(request: QueryTraceMetricsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTraceMetricsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.trace.metrics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCustompluginRequest = {
+  authToken?: string(name='auth_token'),
+  // 工作空间
+  workspaceName?: string(name='workspace_name'),
+  // 自定义监控指标 ID
+  id?: long(name='id'),
+  // 类型
+  pluginType?: string(name='plugin_type'),
+}
+
+model GetCustompluginResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // ID
+  id?: long(name='id'),
+  // 自定义监控名称
+  name?: string(name='name'),
+  // 是否有报警
+  alarmed?: boolean(name='alarmed'),
+  // 监控类型id
+  pluginId?: long(name='plugin_id'),
+  // 监控类型
+  pluginType?: string(name='plugin_type'),
+  // 创建者
+  creator?: string(name='creator'),
+  // 最后修改者
+  modifier?: string(name='modifier'),
+  // 创建时间戳
+  gmtCreate?: long(name='gmt_create'),
+  // 最后修改时间 - 时间戳
+  gmtModified?: long(name='gmt_modified'),
+  // 告警套餐列表
+  alarmPkgs?: [ AlarmPkgDO ](name='alarm_pkgs'),
+}
+
+/**
+ * Description: 获取自定义监控指标详情
+ * Summary: 获取自定义监控指标详情
+ */
+async function getCustomplugin(request: GetCustompluginRequest): GetCustompluginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCustompluginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取自定义监控指标详情
+ * Summary: 获取自定义监控指标详情
+ */
+async function getCustompluginEx(request: GetCustompluginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCustompluginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.monitor.customplugin.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
