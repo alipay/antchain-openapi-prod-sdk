@@ -16,6 +16,7 @@ class CreateAntcloudGatewayxFileUploadRequest extends Model {
         'apiCluster' => 'api_cluster',
     ];
     public function validate() {
+        Model::validateRequired('apiCode', $this->apiCode, true);
         Model::validateMaxLength('fileLabel', $this->fileLabel, 100);
         Model::validateMaxLength('fileMetadata', $this->fileMetadata, 1000);
         Model::validateMaxLength('fileName', $this->fileName, 100);

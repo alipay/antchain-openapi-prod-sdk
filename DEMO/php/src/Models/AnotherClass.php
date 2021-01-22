@@ -13,7 +13,10 @@ class AnotherClass extends Model {
         'ref' => 'ref',
         'refList' => 'refList',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('bar', $this->bar, true);
+        Model::validateRequired('ref', $this->ref, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->bar) {

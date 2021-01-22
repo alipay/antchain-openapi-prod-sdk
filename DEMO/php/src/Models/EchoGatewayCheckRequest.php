@@ -7,6 +7,7 @@ use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
 use AntChain\DEMO\Models\DemoClass;
+use AntChain\DEMO\Models\TestStruct;
 
 class EchoGatewayCheckRequest extends Model {
     protected $_name = [
@@ -15,8 +16,14 @@ class EchoGatewayCheckRequest extends Model {
         'inputDemo' => 'input_demo',
         'inputString' => 'input_string',
         'fileId' => 'file_id',
+        'inputArray' => 'input_array',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateMaxLength('inputString', $this->inputString, 20);
+        Model::validateMinLength('inputString', $this->inputString, 1);
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('inputArray', $this->inputArray, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
@@ -36,6 +43,9 @@ class EchoGatewayCheckRequest extends Model {
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->inputArray) {
+            $res['input_array'] = null !== $this->inputArray ? $this->inputArray->toMap() : null;
         }
         return $res;
     }
@@ -62,6 +72,9 @@ class EchoGatewayCheckRequest extends Model {
         }
         if(isset($map['file_id'])){
             $model->fileId = $map['file_id'];
+        }
+        if(isset($map['input_array'])){
+            $model->inputArray = TestStruct::fromMap($map['input_array']);
         }
         return $model;
     }
@@ -98,5 +111,11 @@ class EchoGatewayCheckRequest extends Model {
      * @var string
      */
     public $fileId;
+
+    // input_array
+    /**
+     * @var TestStruct
+     */
+    public $inputArray;
 
 }

@@ -7,31 +7,38 @@ use AlibabaCloud\Tea\Model;
 
 class DemoClass extends Model {
     protected $_name = [
-        'someString' => 'someString',
-        'someDate' => 'someDate',
-        'someBoolean' => 'someBoolean',
-        'someInt' => 'someInt',
-        'someList' => 'someList',
+        'someString' => 'some_string',
+        'someDate' => 'some_date',
+        'someBoolean' => 'some_boolean',
+        'someInt' => 'some_int',
+        'someList' => 'some_list',
     ];
     public function validate() {
+        Model::validateRequired('someString', $this->someString, true);
+        Model::validateRequired('someDate', $this->someDate, true);
+        Model::validateRequired('someBoolean', $this->someBoolean, true);
+        Model::validateRequired('someInt', $this->someInt, true);
+        Model::validateRequired('someList', $this->someList, true);
         Model::validatePattern('someDate', $this->someDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateMaximum('someInt', $this->someInt, 2000);
+        Model::validateMinimum('someInt', $this->someInt, 1);
     }
     public function toMap() {
         $res = [];
         if (null !== $this->someString) {
-            $res['someString'] = $this->someString;
+            $res['some_string'] = $this->someString;
         }
         if (null !== $this->someDate) {
-            $res['someDate'] = $this->someDate;
+            $res['some_date'] = $this->someDate;
         }
         if (null !== $this->someBoolean) {
-            $res['someBoolean'] = $this->someBoolean;
+            $res['some_boolean'] = $this->someBoolean;
         }
         if (null !== $this->someInt) {
-            $res['someInt'] = $this->someInt;
+            $res['some_int'] = $this->someInt;
         }
         if (null !== $this->someList) {
-            $res['someList'] = $this->someList;
+            $res['some_list'] = $this->someList;
         }
         return $res;
     }
@@ -41,21 +48,21 @@ class DemoClass extends Model {
      */
     public static function fromMap($map = []) {
         $model = new self();
-        if(isset($map['someString'])){
-            $model->someString = $map['someString'];
+        if(isset($map['some_string'])){
+            $model->someString = $map['some_string'];
         }
-        if(isset($map['someDate'])){
-            $model->someDate = $map['someDate'];
+        if(isset($map['some_date'])){
+            $model->someDate = $map['some_date'];
         }
-        if(isset($map['someBoolean'])){
-            $model->someBoolean = $map['someBoolean'];
+        if(isset($map['some_boolean'])){
+            $model->someBoolean = $map['some_boolean'];
         }
-        if(isset($map['someInt'])){
-            $model->someInt = $map['someInt'];
+        if(isset($map['some_int'])){
+            $model->someInt = $map['some_int'];
         }
-        if(isset($map['someList'])){
-            if(!empty($map['someList'])){
-                $model->someList = $map['someList'];
+        if(isset($map['some_list'])){
+            if(!empty($map['some_list'])){
+                $model->someList = $map['some_list'];
             }
         }
         return $model;
