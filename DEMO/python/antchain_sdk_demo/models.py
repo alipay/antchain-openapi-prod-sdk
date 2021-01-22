@@ -171,35 +171,95 @@ class DemoClass(TeaModel):
         self.some_list = some_list
 
     def validate(self):
+        self.validate_required(self.some_string, 'some_string')
+        self.validate_required(self.some_date, 'some_date')
         if self.some_date is not None:
             self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.some_boolean, 'some_boolean')
+        self.validate_required(self.some_int, 'some_int')
+        if self.some_int is not None:
+            self.validate_maximum(self.some_int, 'some_int', 2000)
+            self.validate_minimum(self.some_int, 'some_int', 1)
+        self.validate_required(self.some_list, 'some_list')
 
     def to_map(self):
         result = dict()
         if self.some_string is not None:
-            result['someString'] = self.some_string
+            result['some_string'] = self.some_string
         if self.some_date is not None:
-            result['someDate'] = self.some_date
+            result['some_date'] = self.some_date
         if self.some_boolean is not None:
-            result['someBoolean'] = self.some_boolean
+            result['some_boolean'] = self.some_boolean
         if self.some_int is not None:
-            result['someInt'] = self.some_int
+            result['some_int'] = self.some_int
         if self.some_list is not None:
-            result['someList'] = self.some_list
+            result['some_list'] = self.some_list
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('someString') is not None:
-            self.some_string = m.get('someString')
-        if m.get('someDate') is not None:
-            self.some_date = m.get('someDate')
-        if m.get('someBoolean') is not None:
-            self.some_boolean = m.get('someBoolean')
-        if m.get('someInt') is not None:
-            self.some_int = m.get('someInt')
-        if m.get('someList') is not None:
-            self.some_list = m.get('someList')
+        if m.get('some_string') is not None:
+            self.some_string = m.get('some_string')
+        if m.get('some_date') is not None:
+            self.some_date = m.get('some_date')
+        if m.get('some_boolean') is not None:
+            self.some_boolean = m.get('some_boolean')
+        if m.get('some_int') is not None:
+            self.some_int = m.get('some_int')
+        if m.get('some_list') is not None:
+            self.some_list = m.get('some_list')
+        return self
+
+
+class TestStruct(TeaModel):
+    def __init__(
+        self,
+        x: str = None,
+        y: DemoClass = None,
+        z: List[DemoClass] = None,
+    ):
+        # x
+        self.x = x
+        # y
+        self.y = y
+        # z
+        self.z = z
+
+    def validate(self):
+        self.validate_required(self.x, 'x')
+        self.validate_required(self.y, 'y')
+        if self.y:
+            self.y.validate()
+        self.validate_required(self.z, 'z')
+        if self.z:
+            for k in self.z:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.x is not None:
+            result['x'] = self.x
+        if self.y is not None:
+            result['y'] = self.y.to_map()
+        result['z'] = []
+        if self.z is not None:
+            for k in self.z:
+                result['z'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('x') is not None:
+            self.x = m.get('x')
+        if m.get('y') is not None:
+            temp_model = DemoClass()
+            self.y = temp_model.from_map(m['y'])
+        self.z = []
+        if m.get('z') is not None:
+            for k in m.get('z'):
+                temp_model = DemoClass()
+                self.z.append(temp_model.from_map(k))
         return self
 
 
@@ -218,6 +278,8 @@ class AnotherClass(TeaModel):
         self.ref_list = ref_list
 
     def validate(self):
+        self.validate_required(self.bar, 'bar')
+        self.validate_required(self.ref, 'ref')
         if self.ref:
             self.ref.validate()
         if self.ref_list:
@@ -264,7 +326,8 @@ class XNameValuePair(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         result = dict()
@@ -363,6 +426,7 @@ class EchoGatewayCheckRequest(TeaModel):
         input_string: str = None,
         file_object: BinaryIO = None,
         file_id: str = None,
+        input_array: TestStruct = None,
     ):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -374,10 +438,18 @@ class EchoGatewayCheckRequest(TeaModel):
         # 待上传文件
         self.file_object = file_object
         self.file_id = file_id
+        # input_array
+        self.input_array = input_array
 
     def validate(self):
         if self.input_demo:
             self.input_demo.validate()
+        if self.input_string is not None:
+            self.validate_max_length(self.input_string, 'input_string', 20)
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.input_array, 'input_array')
+        if self.input_array:
+            self.input_array.validate()
 
     def to_map(self):
         result = dict()
@@ -393,6 +465,8 @@ class EchoGatewayCheckRequest(TeaModel):
             result['fileObject'] = self.file_object
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.input_array is not None:
+            result['input_array'] = self.input_array.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -410,6 +484,9 @@ class EchoGatewayCheckRequest(TeaModel):
             self.file_object = m.get('fileObject')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('input_array') is not None:
+            temp_model = TestStruct()
+            self.input_array = temp_model.from_map(m['input_array'])
         return self
 
 
@@ -497,6 +574,7 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         self.api_cluster = api_cluster
 
     def validate(self):
+        self.validate_required(self.api_code, 'api_code')
         if self.file_label is not None:
             self.validate_max_length(self.file_label, 'file_label', 100)
         if self.file_metadata is not None:

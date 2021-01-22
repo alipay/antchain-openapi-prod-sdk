@@ -30,6 +30,10 @@ class Client:
     _no_proxy: str = None
     _max_idle_conns: int = None
     _security_token: str = None
+    _max_idle_time_millis: int = None
+    _keep_alive_duration_millis: int = None
+    _max_requests: int = None
+    _max_requests_per_host: int = None
 
     def __init__(
         self, 
@@ -50,14 +54,18 @@ class Client:
         self._endpoint = config.endpoint
         self._protocol = config.protocol
         self._user_agent = config.user_agent
-        self._read_timeout = config.read_timeout
-        self._connect_timeout = config.connect_timeout
+        self._read_timeout = UtilClient.default_number(config.read_timeout, 20000)
+        self._connect_timeout = UtilClient.default_number(config.connect_timeout, 20000)
         self._http_proxy = config.http_proxy
         self._https_proxy = config.https_proxy
         self._no_proxy = config.no_proxy
         self._socks_5proxy = config.socks_5proxy
         self._socks_5net_work = config.socks_5net_work
-        self._max_idle_conns = config.max_idle_conns
+        self._max_idle_conns = UtilClient.default_number(config.max_idle_conns, 60000)
+        self._max_idle_time_millis = UtilClient.default_number(config.max_idle_time_millis, 5)
+        self._keep_alive_duration_millis = UtilClient.default_number(config.keep_alive_duration_millis, 5000)
+        self._max_requests = UtilClient.default_number(config.max_requests, 100)
+        self._max_requests_per_host = UtilClient.default_number(config.max_requests_per_host, 100)
 
     def do_request(
         self,
@@ -89,6 +97,10 @@ class Client:
             'httpsProxy': UtilClient.default_string(runtime.https_proxy, self._https_proxy),
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
+            'maxIdleTimeMillis': self._max_idle_time_millis,
+            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'maxRequests': self._max_requests,
+            'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
                 'retryable': runtime.autoretry,
                 'maxAttempts': UtilClient.default_number(runtime.max_attempts, 3)
@@ -123,12 +135,12 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'undefined'),
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
@@ -187,6 +199,10 @@ class Client:
             'httpsProxy': UtilClient.default_string(runtime.https_proxy, self._https_proxy),
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
+            'maxIdleTimeMillis': self._max_idle_time_millis,
+            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'maxRequests': self._max_requests,
+            'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
                 'retryable': runtime.autoretry,
                 'maxAttempts': UtilClient.default_number(runtime.max_attempts, 3)
@@ -221,12 +237,12 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4'
+                    'sdk_version': '1.0.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'undefined'),
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
