@@ -16,14 +16,14 @@ public class Client {
     public String _accessKeySecret;
     public String _protocol;
     public String _userAgent;
-    public Integer _readTimeout;
-    public Integer _connectTimeout;
+    public Number _readTimeout;
+    public Number _connectTimeout;
     public String _httpProxy;
     public String _httpsProxy;
     public String _socks5Proxy;
     public String _socks5NetWork;
     public String _noProxy;
-    public Integer _maxIdleConns;
+    public Number _maxIdleConns;
     public String _securityToken;
     /**
      * Init client with Config

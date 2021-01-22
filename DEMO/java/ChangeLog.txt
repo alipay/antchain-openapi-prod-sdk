@@ -1,3 +1,6 @@
+2021-01-22 Version: 1.0.8
+- Generated SDK for DEMO.
+
 2021-01-20 Version: 1.0.4
 - Generated SDK for DEMO.
 
