@@ -42,7 +42,7 @@ type Config struct {
 	// socks5 network
 	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 	// 长链接最大空闲时长
-	MaxIdleTimeMillis *int64 `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
+	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
 	// 长链接最大连接时长
 	KeepAliveDurationMillis *int `json:"keepAliveDurationMillis,omitempty" xml:"keepAliveDurationMillis,omitempty"`
 	// 最大连接数（长链接最大总数）
@@ -129,7 +129,7 @@ func (s *Config) SetSocks5NetWork(v string) *Config {
 	return s
 }
 
-func (s *Config) SetMaxIdleTimeMillis(v int64) *Config {
+func (s *Config) SetMaxIdleTimeMillis(v int) *Config {
 	s.MaxIdleTimeMillis = &v
 	return s
 }
@@ -152,15 +152,15 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 // Demo类
 type DemoClass struct {
 	// 字符串测试
-	SomeString *string `json:"someString,omitempty" xml:"someString,omitempty"`
+	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
 	// 日期测试
-	SomeDate *string `json:"someDate,omitempty" xml:"someDate,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// Boolean测试
-	SomeBoolean *bool `json:"someBoolean,omitempty" xml:"someBoolean,omitempty"`
+	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
 	// 整数测试
-	SomeInt *int `json:"someInt,omitempty" xml:"someInt,omitempty"`
+	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true" maximum:"2000" minimum:"1"`
 	// 列表测试
-	SomeList []*string `json:"someList,omitempty" xml:"someList,omitempty" type:"Repeated"`
+	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s DemoClass) String() string {
@@ -186,7 +186,7 @@ func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
 	return s
 }
 
-func (s *DemoClass) SetSomeInt(v int) *DemoClass {
+func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
 	s.SomeInt = &v
 	return s
 }
@@ -196,12 +196,45 @@ func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
 	return s
 }
 
+// TestStruct
+type TestStruct struct {
+	// x
+	X *string `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// y
+	Y *DemoClass `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// z
+	Z []*DemoClass `json:"z,omitempty" xml:"z,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TestStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestStruct) GoString() string {
+	return s.String()
+}
+
+func (s *TestStruct) SetX(v string) *TestStruct {
+	s.X = &v
+	return s
+}
+
+func (s *TestStruct) SetY(v *DemoClass) *TestStruct {
+	s.Y = v
+	return s
+}
+
+func (s *TestStruct) SetZ(v []*DemoClass) *TestStruct {
+	s.Z = v
+	return s
+}
+
 // 另一个Demo类
 type AnotherClass struct {
 	// 测试字段
-	Bar *string `json:"bar,omitempty" xml:"bar,omitempty"`
+	Bar *string `json:"bar,omitempty" xml:"bar,omitempty" require:"true"`
 	// 引用字段
-	Ref *DemoClass `json:"ref,omitempty" xml:"ref,omitempty"`
+	Ref *DemoClass `json:"ref,omitempty" xml:"ref,omitempty" require:"true"`
 	// 列表引用Struct
 	RefList []*DemoClass `json:"refList,omitempty" xml:"refList,omitempty" type:"Repeated"`
 }
@@ -232,9 +265,9 @@ func (s *AnotherClass) SetRefList(v []*DemoClass) *AnotherClass {
 // 键值对
 type XNameValuePair struct {
 	// 键名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 键值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
 func (s XNameValuePair) String() string {
@@ -320,11 +353,13 @@ type EchoGatewayCheckRequest struct {
 	// demo
 	InputDemo *DemoClass `json:"input_demo,omitempty" xml:"input_demo,omitempty"`
 	// echo
-	InputString *string `json:"input_string,omitempty" xml:"input_string,omitempty"`
+	InputString *string `json:"input_string,omitempty" xml:"input_string,omitempty" maxLength:"20" minLength:"1"`
 	// file_id
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
-	FileId     *string   `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	FileId     *string   `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// input_array
+	InputArray *TestStruct `json:"input_array,omitempty" xml:"input_array,omitempty" require:"true"`
 }
 
 func (s EchoGatewayCheckRequest) String() string {
@@ -362,6 +397,11 @@ func (s *EchoGatewayCheckRequest) SetFileObject(v io.Reader) *EchoGatewayCheckRe
 
 func (s *EchoGatewayCheckRequest) SetFileId(v string) *EchoGatewayCheckRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *EchoGatewayCheckRequest) SetInputArray(v *TestStruct) *EchoGatewayCheckRequest {
+	s.InputArray = v
 	return s
 }
 
@@ -418,7 +458,7 @@ func (s *EchoGatewayCheckResponse) SetFileUrl(v string) *EchoGatewayCheckRespons
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 上传文件作用的openapi method
-	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty"`
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
 	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
 	// 自定义的文件元数据
@@ -532,21 +572,25 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *Creat
 }
 
 type Client struct {
-	Endpoint        *string
-	RegionId        *string
-	AccessKeyId     *string
-	AccessKeySecret *string
-	Protocol        *string
-	UserAgent       *string
-	ReadTimeout     *int
-	ConnectTimeout  *int
-	HttpProxy       *string
-	HttpsProxy      *string
-	Socks5Proxy     *string
-	Socks5NetWork   *string
-	NoProxy         *string
-	MaxIdleConns    *int
-	SecurityToken   *string
+	Endpoint                *string
+	RegionId                *string
+	AccessKeyId             *string
+	AccessKeySecret         *string
+	Protocol                *string
+	UserAgent               *string
+	ReadTimeout             *int
+	ConnectTimeout          *int
+	HttpProxy               *string
+	HttpsProxy              *string
+	Socks5Proxy             *string
+	Socks5NetWork           *string
+	NoProxy                 *string
+	MaxIdleConns            *int
+	SecurityToken           *string
+	MaxIdleTimeMillis       *int
+	KeepAliveDurationMillis *int
+	MaxRequests             *int
+	MaxRequestsPerHost      *int
 }
 
 /**
@@ -574,14 +618,18 @@ func (client *Client) Init(config *Config) (_err error) {
 	client.Endpoint = config.Endpoint
 	client.Protocol = config.Protocol
 	client.UserAgent = config.UserAgent
-	client.ReadTimeout = config.ReadTimeout
-	client.ConnectTimeout = config.ConnectTimeout
+	client.ReadTimeout = util.DefaultNumber(config.ReadTimeout, tea.Int(20000))
+	client.ConnectTimeout = util.DefaultNumber(config.ConnectTimeout, tea.Int(20000))
 	client.HttpProxy = config.HttpProxy
 	client.HttpsProxy = config.HttpsProxy
 	client.NoProxy = config.NoProxy
 	client.Socks5Proxy = config.Socks5Proxy
 	client.Socks5NetWork = config.Socks5NetWork
-	client.MaxIdleConns = config.MaxIdleConns
+	client.MaxIdleConns = util.DefaultNumber(config.MaxIdleConns, tea.Int(60000))
+	client.MaxIdleTimeMillis = util.DefaultNumber(config.MaxIdleTimeMillis, tea.Int(5))
+	client.KeepAliveDurationMillis = util.DefaultNumber(config.KeepAliveDurationMillis, tea.Int(5000))
+	client.MaxRequests = util.DefaultNumber(config.MaxRequests, tea.Int(100))
+	client.MaxRequestsPerHost = util.DefaultNumber(config.MaxRequestsPerHost, tea.Int(100))
 	return nil
 }
 
@@ -601,13 +649,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":      "retry",
-		"readTimeout":    tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout": tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":      tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":     tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":        tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":   tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"timeouted":               "retry",
+		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":             tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -641,14 +693,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
 			}
 
 			request_.Headers = tea.Merge(map[string]*string{
-				"host":       util.DefaultString(client.Endpoint, tea.String("undefined")),
+				"host":       util.DefaultString(client.Endpoint, tea.String("openapi.antchain.antgroup.com")),
 				"user-agent": util.GetUserAgent(client.UserAgent),
 			}, headers)
 			tmp := util.AnyifyMapValue(rpcutil.Query(request))
