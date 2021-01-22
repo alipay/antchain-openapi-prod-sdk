@@ -17,6 +17,10 @@ type @socks5NetWork = string
 type @noProxy = string
 type @maxIdleConns = number
 type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
 
 /**
  * Model for initing client
@@ -36,10 +40,10 @@ model Config {
   userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
   socks5Proxy?: string(description='socks5 proxy',default=''),
   socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
-  maxIdleTimeMillis?: int64(description='长链接最大空闲时长',default='60 * 1000L'),
-  keepAliveDurationMillis?: integer(description='长链接最大连接时长',default='5000'),
-  maxRequests?: integer(description='最大连接数（长链接最大总数）',default='100'),
-  maxRequestsPerHost?: integer(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
 }
 
 /**
@@ -60,14 +64,18 @@ init(config: Config) {
   @endpoint = config.endpoint;
   @protocol = config.protocol;
   @userAgent = config.userAgent;
-  @readTimeout = config.readTimeout;
-  @connectTimeout = config.connectTimeout;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
   @httpProxy = config.httpProxy;
   @httpsProxy = config.httpsProxy;
   @noProxy = config.noProxy;
   @socks5Proxy = config.socks5Proxy;
   @socks5NetWork = config.socks5NetWork;
-  @maxIdleConns = config.maxIdleConns;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
 }
 
 /**
@@ -92,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -100,7 +108,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   }
 
   __request.headers = {
-    host = Util.defaultString(@endpoint, 'undefined'),
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
     user-agent = Util.getUserAgent(@userAgent),
     ...headers
   };
@@ -136,6 +144,10 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
     retryable = runtime.autoretry,
     maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
@@ -150,25 +162,43 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 // Demo类
 model DemoClass {
   // 字符串测试
-  someString?: string(name='someString', example='some string'),
+  someString: string(name='some_string', example='some string'),
   // 日期测试
-  someDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='someDate', example='3'),
+  someDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='some_date', example='3'),
   // Boolean测试
-  someBoolean?: boolean(name='someBoolean', example='true'),
+  someBoolean: boolean(name='some_boolean', example='true'),
   // 整数测试
-  someInt?: integer(name='someInt', example='3'),
+  someInt: long(maximum=2000, minimum=1, name='some_int', example='3'),
   // 列表测试
-  someList?: [ string ](name='someList', example=''),
+  someList: [ string ](name='some_list', example=''),
+}
+
+// TestStruct
+model TestStruct {
+  // x
+  x: string(name='x', example='x'),
+  // y
+  y: DemoClass(name='y', example='y'),
+  // z
+  z: [ DemoClass ](name='z', example=''),
 }
 
 // 另一个Demo类
 model AnotherClass {
   // 测试字段
-  bar?: string(name='bar', example='some string'),
+  bar: string(name='bar', example='some string'),
   // 引用字段
-  ref?: DemoClass(name='ref', example=''),
+  ref: DemoClass(name='ref', example=''),
   // 列表引用Struct
   refList?: [ DemoClass ](name='refList', example=''),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model StatusGatewayCheckRequest = {
@@ -201,5 +231,108 @@ async function statusGatewayCheck(request: StatusGatewayCheckRequest): StatusGat
 async function statusGatewayCheckEx(request: StatusGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StatusGatewayCheckResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gateway.check.status', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EchoGatewayCheckRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // demo
+  inputDemo?: DemoClass(name='input_demo'),
+  // echo
+  inputString?: string(maxLength=20, minLength=1, name='input_string'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileId: string(name='file_id'),
+  // input_array
+  inputArray: TestStruct(name='input_array'),
+}
+
+model EchoGatewayCheckResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // output_demo
+  outputDemo?: DemoClass(name='output_demo'),
+  // output_string
+  outputString?: string(name='output_string'),
+  // file_url
+  fileUrl?: string(name='file_url'),
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+async function echoGatewayCheck(request: EchoGatewayCheckRequest): EchoGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return echoGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: Demo接口，返回当输入的值
+ * Summary: 返回输入值
+ */
+async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EchoGatewayCheckResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      apiCode = 'demo.gateway.check.echo',
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.echo', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
