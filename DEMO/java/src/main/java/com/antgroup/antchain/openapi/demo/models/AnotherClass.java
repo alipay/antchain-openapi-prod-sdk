@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class AnotherClass extends TeaModel {
     // 测试字段
     @NameInMap("bar")
+    @Validation(required = true)
     public String bar;
 
     // 引用字段
     @NameInMap("ref")
+    @Validation(required = true)
     public DemoClass ref;
 
     // 列表引用Struct

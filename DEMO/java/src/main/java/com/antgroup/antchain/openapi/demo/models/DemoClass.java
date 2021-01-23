@@ -5,24 +5,28 @@ import com.aliyun.tea.*;
 
 public class DemoClass extends TeaModel {
     // 字符串测试
-    @NameInMap("someString")
+    @NameInMap("some_string")
+    @Validation(required = true)
     public String someString;
 
     // 日期测试
-    @NameInMap("someDate")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @NameInMap("some_date")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String someDate;
 
     // Boolean测试
-    @NameInMap("someBoolean")
+    @NameInMap("some_boolean")
+    @Validation(required = true)
     public Boolean someBoolean;
 
     // 整数测试
-    @NameInMap("someInt")
-    public Integer someInt;
+    @NameInMap("some_int")
+    @Validation(required = true)
+    public Long someInt;
 
     // 列表测试
-    @NameInMap("someList")
+    @NameInMap("some_list")
+    @Validation(required = true)
     public java.util.List<String> someList;
 
     public static DemoClass build(java.util.Map<String, ?> map) throws Exception {
@@ -54,11 +58,11 @@ public class DemoClass extends TeaModel {
         return this.someBoolean;
     }
 
-    public DemoClass setSomeInt(Integer someInt) {
+    public DemoClass setSomeInt(Long someInt) {
         this.someInt = someInt;
         return this;
     }
-    public Integer getSomeInt() {
+    public Long getSomeInt() {
         return this.someInt;
     }
 
