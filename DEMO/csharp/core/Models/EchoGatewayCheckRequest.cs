@@ -24,7 +24,7 @@ namespace AntChain.SDK.DEMO.Models
 
         // echo
         [NameInMap("input_string")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=20)]
         public string InputString { get; set; }
 
         // file_id
@@ -36,8 +36,13 @@ namespace AntChain.SDK.DEMO.Models
         public Stream FileObject { get; set; }
 
         [NameInMap("file_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string FileId { get; set; }
+
+        // input_array
+        [NameInMap("input_array")]
+        [Validation(Required=true)]
+        public TestStruct InputArray { get; set; }
 
     }
 

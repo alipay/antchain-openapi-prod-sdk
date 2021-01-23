@@ -115,7 +115,7 @@ namespace AntChain.SDK.DEMO.Models
         /// </summary>
         [NameInMap("maxIdleTimeMillis")]
         [Validation(Required=false)]
-        public long? MaxIdleTimeMillis { get; set; }
+        public int? MaxIdleTimeMillis { get; set; }
 
         /// <summary>
         /// 长链接最大连接时长

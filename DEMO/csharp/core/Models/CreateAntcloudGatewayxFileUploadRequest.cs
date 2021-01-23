@@ -15,7 +15,7 @@ namespace AntChain.SDK.DEMO.Models
 
         // 上传文件作用的openapi method
         [NameInMap("api_code")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string ApiCode { get; set; }
 
         // 文件标签，多个标签;分割

@@ -12,12 +12,12 @@ namespace AntChain.SDK.DEMO.Models
     public class XNameValuePair : TeaModel {
         // 键名
         [NameInMap("name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Name { get; set; }
 
         // 键值
         [NameInMap("value")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Value { get; set; }
 
     }

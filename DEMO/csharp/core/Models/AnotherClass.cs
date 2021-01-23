@@ -12,12 +12,12 @@ namespace AntChain.SDK.DEMO.Models
     public class AnotherClass : TeaModel {
         // 测试字段
         [NameInMap("bar")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Bar { get; set; }
 
         // 引用字段
         [NameInMap("ref")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public DemoClass Ref { get; set; }
 
         // 列表引用Struct

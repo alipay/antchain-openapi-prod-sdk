@@ -30,6 +30,10 @@ namespace AntChain.SDK.DEMO
         protected string _noProxy;
         protected int? _maxIdleConns;
         protected string _securityToken;
+        protected int? _maxIdleTimeMillis;
+        protected int? _keepAliveDurationMillis;
+        protected int? _maxRequests;
+        protected int? _maxRequestsPerHost;
 
         /**
          * Init client with Config
@@ -51,14 +55,18 @@ namespace AntChain.SDK.DEMO
             this._endpoint = config.Endpoint;
             this._protocol = config.Protocol;
             this._userAgent = config.UserAgent;
-            this._readTimeout = config.ReadTimeout;
-            this._connectTimeout = config.ConnectTimeout;
+            this._readTimeout = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.ReadTimeout, 20000);
+            this._connectTimeout = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.ConnectTimeout, 20000);
             this._httpProxy = config.HttpProxy;
             this._httpsProxy = config.HttpsProxy;
             this._noProxy = config.NoProxy;
             this._socks5Proxy = config.Socks5Proxy;
             this._socks5NetWork = config.Socks5NetWork;
-            this._maxIdleConns = config.MaxIdleConns;
+            this._maxIdleConns = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.MaxIdleConns, 60000);
+            this._maxIdleTimeMillis = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.MaxIdleTimeMillis, 5);
+            this._keepAliveDurationMillis = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.KeepAliveDurationMillis, 5000);
+            this._maxRequests = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.MaxRequests, 100);
+            this._maxRequestsPerHost = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.MaxRequestsPerHost, 100);
         }
 
         /**
@@ -82,6 +90,10 @@ namespace AntChain.SDK.DEMO
                 {"httpsProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.HttpsProxy, _httpsProxy)},
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
+                {"maxIdleTimeMillis", _maxIdleTimeMillis},
+                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"maxRequests", _maxRequests},
+                {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
                 {
                     {"retryable", runtime.Autoretry},
@@ -125,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -135,7 +147,7 @@ namespace AntChain.SDK.DEMO
                     (
                         new Dictionary<string, string>()
                         {
-                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "undefined")},
+                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "openapi.antchain.antgroup.com")},
                             {"user-agent", AlibabaCloud.TeaUtil.Common.GetUserAgent(_userAgent)},
                         },
                         headers
@@ -202,6 +214,10 @@ namespace AntChain.SDK.DEMO
                 {"httpsProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.HttpsProxy, _httpsProxy)},
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
+                {"maxIdleTimeMillis", _maxIdleTimeMillis},
+                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"maxRequests", _maxRequests},
+                {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
                 {
                     {"retryable", runtime.Autoretry},
@@ -245,7 +261,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -255,7 +271,7 @@ namespace AntChain.SDK.DEMO
                     (
                         new Dictionary<string, string>()
                         {
-                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "undefined")},
+                            {"host", AlibabaCloud.TeaUtil.Common.DefaultString(_endpoint, "openapi.antchain.antgroup.com")},
                             {"user-agent", AlibabaCloud.TeaUtil.Common.GetUserAgent(_userAgent)},
                         },
                         headers
