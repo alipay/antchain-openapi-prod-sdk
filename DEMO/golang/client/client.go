@@ -354,12 +354,12 @@ type EchoGatewayCheckRequest struct {
 	InputDemo *DemoClass `json:"input_demo,omitempty" xml:"input_demo,omitempty"`
 	// echo
 	InputString *string `json:"input_string,omitempty" xml:"input_string,omitempty" maxLength:"20" minLength:"1"`
+	// input_array
+	InputArray *TestStruct `json:"input_array,omitempty" xml:"input_array,omitempty" require:"true"`
 	// file_id
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	FileId     *string   `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// input_array
-	InputArray *TestStruct `json:"input_array,omitempty" xml:"input_array,omitempty" require:"true"`
 }
 
 func (s EchoGatewayCheckRequest) String() string {
@@ -390,6 +390,11 @@ func (s *EchoGatewayCheckRequest) SetInputString(v string) *EchoGatewayCheckRequ
 	return s
 }
 
+func (s *EchoGatewayCheckRequest) SetInputArray(v *TestStruct) *EchoGatewayCheckRequest {
+	s.InputArray = v
+	return s
+}
+
 func (s *EchoGatewayCheckRequest) SetFileObject(v io.Reader) *EchoGatewayCheckRequest {
 	s.FileObject = v
 	return s
@@ -397,11 +402,6 @@ func (s *EchoGatewayCheckRequest) SetFileObject(v io.Reader) *EchoGatewayCheckRe
 
 func (s *EchoGatewayCheckRequest) SetFileId(v string) *EchoGatewayCheckRequest {
 	s.FileId = &v
-	return s
-}
-
-func (s *EchoGatewayCheckRequest) SetInputArray(v *TestStruct) *EchoGatewayCheckRequest {
-	s.InputArray = v
 	return s
 }
 
@@ -452,6 +452,100 @@ func (s *EchoGatewayCheckResponse) SetOutputString(v string) *EchoGatewayCheckRe
 
 func (s *EchoGatewayCheckResponse) SetFileUrl(v string) *EchoGatewayCheckResponse {
 	s.FileUrl = &v
+	return s
+}
+
+type CreateGatewayFileapiTestRequest struct {
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// OK
+	InputString *string `json:"input_string,omitempty" xml:"input_string,omitempty" require:"true"`
+	// 订单信息
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 业务字段
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	FileId     *string   `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s CreateGatewayFileapiTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateGatewayFileapiTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetAuthToken(v string) *CreateGatewayFileapiTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetProductInstanceId(v string) *CreateGatewayFileapiTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetInputString(v string) *CreateGatewayFileapiTestRequest {
+	s.InputString = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetOrderId(v string) *CreateGatewayFileapiTestRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetBizContent(v string) *CreateGatewayFileapiTestRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetFileObject(v io.Reader) *CreateGatewayFileapiTestRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestRequest) SetFileId(v string) *CreateGatewayFileapiTestRequest {
+	s.FileId = &v
+	return s
+}
+
+type CreateGatewayFileapiTestResponse struct {
+	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// output_string
+	OutputString *string `json:"output_string,omitempty" xml:"output_string,omitempty"`
+}
+
+func (s CreateGatewayFileapiTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateGatewayFileapiTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateGatewayFileapiTestResponse) SetReqMsgId(v string) *CreateGatewayFileapiTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestResponse) SetResultCode(v string) *CreateGatewayFileapiTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestResponse) SetResultMsg(v string) *CreateGatewayFileapiTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateGatewayFileapiTestResponse) SetOutputString(v string) *CreateGatewayFileapiTestResponse {
+	s.OutputString = &v
 	return s
 }
 
@@ -693,7 +787,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.0.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -819,6 +913,57 @@ func (client *Client) EchoGatewayCheckEx(request *EchoGatewayCheckRequest, heade
 	}
 	_result = &EchoGatewayCheckResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.echo"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试文件api上传
+ * Summary: 测试文件api上传
+ */
+func (client *Client) CreateGatewayFileapiTest(request *CreateGatewayFileapiTestRequest) (_result *CreateGatewayFileapiTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateGatewayFileapiTestResponse{}
+	_body, _err := client.CreateGatewayFileapiTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试文件api上传
+ * Summary: 测试文件api上传
+ */
+func (client *Client) CreateGatewayFileapiTestEx(request *CreateGatewayFileapiTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateGatewayFileapiTestResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			ApiCode: tea.String("demo.gateway.fileapi.test.create"),
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateGatewayFileapiTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.fileapi.test.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
