@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class EchoGatewayCheckRequest : TeaModel {
+    public class CreateGatewayFileapiTestRequest : TeaModel {
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
@@ -17,22 +17,22 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // demo
-        [NameInMap("input_demo")]
-        [Validation(Required=false)]
-        public DemoClass InputDemo { get; set; }
-
-        // echo
+        // OK
         [NameInMap("input_string")]
-        [Validation(Required=false, MaxLength=20)]
+        [Validation(Required=true)]
         public string InputString { get; set; }
 
-        // input_array
-        [NameInMap("input_array")]
-        [Validation(Required=true)]
-        public TestStruct InputArray { get; set; }
+        // 订单信息
+        [NameInMap("order_id")]
+        [Validation(Required=false)]
+        public string OrderId { get; set; }
 
-        // file_id
+        // 业务字段
+        [NameInMap("biz_content")]
+        [Validation(Required=false)]
+        public string BizContent { get; set; }
+
+        // 文件id
         /// <summary>
         /// 待上传文件
         /// </summary>

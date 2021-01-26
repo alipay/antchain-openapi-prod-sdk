@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -421,6 +421,70 @@ namespace AntChain.SDK.DEMO
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<EchoGatewayCheckResponse>(await DoRequestAsync("1.0", "demo.gateway.check.echo", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试文件api上传
+         * Summary: 测试文件api上传
+         */
+        public CreateGatewayFileapiTestResponse CreateGatewayFileapiTest(CreateGatewayFileapiTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateGatewayFileapiTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试文件api上传
+         * Summary: 测试文件api上传
+         */
+        public async Task<CreateGatewayFileapiTestResponse> CreateGatewayFileapiTestAsync(CreateGatewayFileapiTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateGatewayFileapiTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试文件api上传
+         * Summary: 测试文件api上传
+         */
+        public CreateGatewayFileapiTestResponse CreateGatewayFileapiTestEx(CreateGatewayFileapiTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    ApiCode = "demo.gateway.fileapi.test.create",
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.Client.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.Client.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateGatewayFileapiTestResponse>(DoRequest("1.0", "demo.gateway.fileapi.test.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试文件api上传
+         * Summary: 测试文件api上传
+         */
+        public async Task<CreateGatewayFileapiTestResponse> CreateGatewayFileapiTestExAsync(CreateGatewayFileapiTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    ApiCode = "demo.gateway.fileapi.test.create",
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.Client.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.Client.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateGatewayFileapiTestResponse>(await DoRequestAsync("1.0", "demo.gateway.fileapi.test.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
