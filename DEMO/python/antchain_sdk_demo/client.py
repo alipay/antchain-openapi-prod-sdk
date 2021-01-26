@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.0.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.0.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -393,6 +393,76 @@ class Client:
         UtilClient.validate_model(request)
         return demo_models.EchoGatewayCheckResponse().from_map(
             await self.do_request_async('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_gateway_fileapi_test(
+        self,
+        request: demo_models.CreateGatewayFileapiTestRequest,
+    ) -> demo_models.CreateGatewayFileapiTestResponse:
+        """
+        Description: 测试文件api上传
+        Summary: 测试文件api上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_gateway_fileapi_test_ex(request, headers, runtime)
+
+    async def create_gateway_fileapi_test_async(
+        self,
+        request: demo_models.CreateGatewayFileapiTestRequest,
+    ) -> demo_models.CreateGatewayFileapiTestResponse:
+        """
+        Description: 测试文件api上传
+        Summary: 测试文件api上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_gateway_fileapi_test_ex_async(request, headers, runtime)
+
+    def create_gateway_fileapi_test_ex(
+        self,
+        request: demo_models.CreateGatewayFileapiTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateGatewayFileapiTestResponse:
+        """
+        Description: 测试文件api上传
+        Summary: 测试文件api上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                api_code='demo.gateway.fileapi.test.create'
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtilClient.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return demo_models.CreateGatewayFileapiTestResponse().from_map(
+            self.do_request('1.0', 'demo.gateway.fileapi.test.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_gateway_fileapi_test_ex_async(
+        self,
+        request: demo_models.CreateGatewayFileapiTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.CreateGatewayFileapiTestResponse:
+        """
+        Description: 测试文件api上传
+        Summary: 测试文件api上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
+                api_code='demo.gateway.fileapi.test.create'
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtilClient.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return demo_models.CreateGatewayFileapiTestResponse().from_map(
+            await self.do_request_async('1.0', 'demo.gateway.fileapi.test.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

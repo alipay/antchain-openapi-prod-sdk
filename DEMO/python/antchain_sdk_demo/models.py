@@ -424,9 +424,9 @@ class EchoGatewayCheckRequest(TeaModel):
         product_instance_id: str = None,
         input_demo: DemoClass = None,
         input_string: str = None,
+        input_array: TestStruct = None,
         file_object: BinaryIO = None,
         file_id: str = None,
-        input_array: TestStruct = None,
     ):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
@@ -434,22 +434,22 @@ class EchoGatewayCheckRequest(TeaModel):
         self.input_demo = input_demo
         # echo
         self.input_string = input_string
+        # input_array
+        self.input_array = input_array
         # file_id
         # 待上传文件
         self.file_object = file_object
         self.file_id = file_id
-        # input_array
-        self.input_array = input_array
 
     def validate(self):
         if self.input_demo:
             self.input_demo.validate()
         if self.input_string is not None:
             self.validate_max_length(self.input_string, 'input_string', 20)
-        self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.input_array, 'input_array')
         if self.input_array:
             self.input_array.validate()
+        self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
         result = dict()
@@ -461,12 +461,12 @@ class EchoGatewayCheckRequest(TeaModel):
             result['input_demo'] = self.input_demo.to_map()
         if self.input_string is not None:
             result['input_string'] = self.input_string
+        if self.input_array is not None:
+            result['input_array'] = self.input_array.to_map()
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.input_array is not None:
-            result['input_array'] = self.input_array.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -480,13 +480,13 @@ class EchoGatewayCheckRequest(TeaModel):
             self.input_demo = temp_model.from_map(m['input_demo'])
         if m.get('input_string') is not None:
             self.input_string = m.get('input_string')
+        if m.get('input_array') is not None:
+            temp_model = TestStruct()
+            self.input_array = temp_model.from_map(m['input_array'])
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('input_array') is not None:
-            temp_model = TestStruct()
-            self.input_array = temp_model.from_map(m['input_array'])
         return self
 
 
@@ -545,6 +545,113 @@ class EchoGatewayCheckResponse(TeaModel):
             self.output_string = m.get('output_string')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
+        return self
+
+
+class CreateGatewayFileapiTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        input_string: str = None,
+        order_id: str = None,
+        biz_content: str = None,
+        file_object: BinaryIO = None,
+        file_id: str = None,
+    ):
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # OK
+        self.input_string = input_string
+        # 订单信息
+        self.order_id = order_id
+        # 业务字段
+        self.biz_content = biz_content
+        # 文件id
+        # 待上传文件
+        self.file_object = file_object
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.input_string, 'input_string')
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.input_string is not None:
+            result['input_string'] = self.input_string
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('input_string') is not None:
+            self.input_string = m.get('input_string')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class CreateGatewayFileapiTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        output_string: str = None,
+    ):
+        self.req_msg_id = req_msg_id
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # output_string
+        self.output_string = output_string
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.output_string is not None:
+            result['output_string'] = self.output_string
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('output_string') is not None:
+            self.output_string = m.get('output_string')
         return self
 
 
