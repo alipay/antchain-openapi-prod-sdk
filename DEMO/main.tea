@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.0.10',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -240,11 +240,11 @@ model EchoGatewayCheckRequest = {
   inputDemo?: DemoClass(name='input_demo'),
   // echo
   inputString?: string(maxLength=20, minLength=1, name='input_string'),
+  // input_array
+  inputArray: TestStruct(name='input_array'),
   // file_id
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileId: string(name='file_id'),
-  // input_array
-  inputArray: TestStruct(name='input_array'),
 }
 
 model EchoGatewayCheckResponse = {
@@ -285,6 +285,56 @@ async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gateway.check.echo', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateGatewayFileapiTestRequest = {
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // OK
+  inputString: string(name='input_string'),
+  // 订单信息
+  orderId?: string(name='order_id'),
+  // 业务字段
+  bizContent?: string(name='biz_content'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model CreateGatewayFileapiTestResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // output_string
+  outputString?: string(name='output_string'),
+}
+
+/**
+ * Description: 测试文件api上传
+ * Summary: 测试文件api上传
+ */
+async function createGatewayFileapiTest(request: CreateGatewayFileapiTestRequest): CreateGatewayFileapiTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createGatewayFileapiTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试文件api上传
+ * Summary: 测试文件api上传
+ */
+async function createGatewayFileapiTestEx(request: CreateGatewayFileapiTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateGatewayFileapiTestResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      apiCode = 'demo.gateway.fileapi.test.create',
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.fileapi.test.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
