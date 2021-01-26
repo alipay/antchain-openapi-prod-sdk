@@ -18,6 +18,8 @@ use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\DEMO\Models\EchoGatewayCheckRequest;
 use AntChain\DEMO\Models\EchoGatewayCheckResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DEMO\Models\CreateGatewayFileapiTestRequest;
+use AntChain\DEMO\Models\CreateGatewayFileapiTestResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
@@ -155,7 +157,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.9"
+                    "sdk_version" => "1.0.10"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -255,6 +257,40 @@ class Client {
         }
         Utils::validateModel($request);
         return EchoGatewayCheckResponse::fromMap($this->doRequest("1.0", "demo.gateway.check.echo", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试文件api上传
+     * Summary: 测试文件api上传
+     * @param CreateGatewayFileapiTestRequest $request
+     * @return CreateGatewayFileapiTestResponse
+     */
+    public function createGatewayFileapiTest($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createGatewayFileapiTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试文件api上传
+     * Summary: 测试文件api上传
+     * @param CreateGatewayFileapiTestRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateGatewayFileapiTestResponse
+     */
+    public function createGatewayFileapiTestEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "apiCode" => "demo.gateway.fileapi.test.create"
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+        return CreateGatewayFileapiTestResponse::fromMap($this->doRequest("1.0", "demo.gateway.fileapi.test.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

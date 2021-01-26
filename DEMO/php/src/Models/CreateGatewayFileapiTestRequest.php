@@ -6,22 +6,17 @@ namespace AntChain\DEMO\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-use AntChain\DEMO\Models\DemoClass;
-use AntChain\DEMO\Models\TestStruct;
-
-class EchoGatewayCheckRequest extends Model {
+class CreateGatewayFileapiTestRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'inputDemo' => 'input_demo',
         'inputString' => 'input_string',
-        'inputArray' => 'input_array',
+        'orderId' => 'order_id',
+        'bizContent' => 'biz_content',
         'fileId' => 'file_id',
     ];
     public function validate() {
-        Model::validateMaxLength('inputString', $this->inputString, 20);
-        Model::validateMinLength('inputString', $this->inputString, 1);
-        Model::validateRequired('inputArray', $this->inputArray, true);
+        Model::validateRequired('inputString', $this->inputString, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
     public function toMap() {
@@ -32,14 +27,14 @@ class EchoGatewayCheckRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->inputDemo) {
-            $res['input_demo'] = null !== $this->inputDemo ? $this->inputDemo->toMap() : null;
-        }
         if (null !== $this->inputString) {
             $res['input_string'] = $this->inputString;
         }
-        if (null !== $this->inputArray) {
-            $res['input_array'] = null !== $this->inputArray ? $this->inputArray->toMap() : null;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
@@ -51,7 +46,7 @@ class EchoGatewayCheckRequest extends Model {
     }
     /**
      * @param array $map
-     * @return EchoGatewayCheckRequest
+     * @return CreateGatewayFileapiTestRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -61,14 +56,14 @@ class EchoGatewayCheckRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['input_demo'])){
-            $model->inputDemo = DemoClass::fromMap($map['input_demo']);
-        }
         if(isset($map['input_string'])){
             $model->inputString = $map['input_string'];
         }
-        if(isset($map['input_array'])){
-            $model->inputArray = TestStruct::fromMap($map['input_array']);
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['biz_content'])){
+            $model->bizContent = $map['biz_content'];
         }
         if(isset($map['fileObject'])){
             $model->fileObject = $map['fileObject'];
@@ -88,25 +83,25 @@ class EchoGatewayCheckRequest extends Model {
      */
     public $productInstanceId;
 
-    // demo
-    /**
-     * @var DemoClass
-     */
-    public $inputDemo;
-
-    // echo
+    // OK
     /**
      * @var string
      */
     public $inputString;
 
-    // input_array
+    // 订单信息
     /**
-     * @var TestStruct
+     * @var string
      */
-    public $inputArray;
+    public $orderId;
 
-    // file_id
+    // 业务字段
+    /**
+     * @var string
+     */
+    public $bizContent;
+
+    // 文件id
     /**
      * @description 待上传文件
      * @var Stream
