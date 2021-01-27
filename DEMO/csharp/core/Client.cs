@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.0.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -168,7 +168,7 @@ namespace AntChain.SDK.DEMO
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret, "OK"))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.0.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -292,7 +292,7 @@ namespace AntChain.SDK.DEMO
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret, "OK"))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
