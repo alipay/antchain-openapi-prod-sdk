@@ -787,7 +787,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.10"),
+				"sdk_version":      tea.String("1.0.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -815,7 +815,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			obj := util.ParseJSON(raw)
 			res := util.AssertAsMap(obj)
 			resp := util.AssertAsMap(res["response"])
-			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
+			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret, tea.String("OK"))) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
 					"data":    resp,
