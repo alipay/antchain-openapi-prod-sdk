@@ -18,33 +18,32 @@
  under the License.
 """
 
-import sys
 import os
 from setuptools import setup, find_packages
 
 """
 setup module for antchain_twc.
 
-Created on 02/09/2020
+Created on 28/01/2021
 
 @author: Ant Chain SDK
 """
 
 PACKAGE = "antchain_sdk_twc"
-NAME = "antchain_twc"
+NAME = "antchain_twc" or "alibabacloud-package"
 DESCRIPTION = "Ant Chain TWC SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
-
-TOPDIR = os.path.dirname(__file__) or "."
 VERSION = __import__(PACKAGE).__version__
-REQUIRES = ["antchain_alipay_util==0.0.2","alibabacloud_tea_util==0.2.0","alibabacloud_rpc_util==0.0.3"]
+REQUIRES = [
+    "antchain_alipay_util>=0.0.5, <1.0.0",
+    "alibabacloud_tea_util>=0.3.1, <1.0.0",
+    "alibabacloud_rpc_util>=0.0.3, <1.0.0"
+]
 
-if sys.version_info[0] == 2:
-    with open("README.md") as fp:
-        LONG_DESCRIPTION = fp.read()
-else:
+LONG_DESCRIPTION = ''
+if os.path.exists('./README.md'):
     with open("README.md", encoding='utf-8') as fp:
         LONG_DESCRIPTION = fp.read()
 
@@ -53,28 +52,27 @@ setup(
     version=VERSION,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license="Apache License 2.0",
     url=URL,
-    keywords=["antchain_twc"],
+    keywords=["antchain","twc"],
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     platforms="any",
     install_requires=REQUIRES,
+    python_requires=">=3.6",
     classifiers=(
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         "Topic :: Software Development"
     )
 )
