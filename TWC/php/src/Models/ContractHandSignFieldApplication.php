@@ -24,7 +24,12 @@ class ContractHandSignFieldApplication extends Model {
         'thirdOrderNo' => 'third_order_no',
         'width' => 'width',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('posPage', $this->posPage, true);
+        Model::validateRequired('posY', $this->posY, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->accountId) {
@@ -161,7 +166,7 @@ class ContractHandSignFieldApplication extends Model {
      */
     public $posPage;
 
-    // x坐标
+    // x坐标，页面签章必填，骑缝签章不填写
     /**
      * @example 1.1
      * @var string

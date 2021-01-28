@@ -16,6 +16,11 @@ class SupplierProductInfo extends Model {
         'supplierVersion' => 'supplier_version',
     ];
     public function validate() {
+        Model::validateRequired('productId', $this->productId, true);
+        Model::validateRequired('productImeiId', $this->productImeiId, true);
+        Model::validateRequired('productName', $this->productName, true);
+        Model::validateRequired('productNumber', $this->productNumber, true);
+        Model::validateRequired('productPrice', $this->productPrice, true);
         Model::validateMaxLength('productName', $this->productName, 50);
         Model::validateMinLength('productName', $this->productName, 1);
     }

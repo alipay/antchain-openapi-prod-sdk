@@ -16,7 +16,10 @@ class ContractPlatformSignField extends Model {
         'thirdOrderNo' => 'third_order_no',
         'width' => 'width',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('posPage', $this->posPage, true);
+        Model::validateRequired('posY', $this->posY, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->addSignTime) {

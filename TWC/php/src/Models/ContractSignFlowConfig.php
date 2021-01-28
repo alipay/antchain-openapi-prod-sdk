@@ -11,8 +11,12 @@ class ContractSignFlowConfig extends Model {
         'noticeType' => 'notice_type',
         'redirectUrl' => 'redirect_url',
         'signPlatform' => 'sign_platform',
+        'redirectUrlOnFailure' => 'redirect_url_on_failure',
+        'freeSignature' => 'free_signature',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('noticeType', $this->noticeType, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->noticeDeveloperUrl) {
@@ -26,6 +30,12 @@ class ContractSignFlowConfig extends Model {
         }
         if (null !== $this->signPlatform) {
             $res['sign_platform'] = $this->signPlatform;
+        }
+        if (null !== $this->redirectUrlOnFailure) {
+            $res['redirect_url_on_failure'] = $this->redirectUrlOnFailure;
+        }
+        if (null !== $this->freeSignature) {
+            $res['free_signature'] = $this->freeSignature;
         }
         return $res;
     }
@@ -47,6 +57,12 @@ class ContractSignFlowConfig extends Model {
         if(isset($map['sign_platform'])){
             $model->signPlatform = $map['sign_platform'];
         }
+        if(isset($map['redirect_url_on_failure'])){
+            $model->redirectUrlOnFailure = $map['redirect_url_on_failure'];
+        }
+        if(isset($map['free_signature'])){
+            $model->freeSignature = $map['free_signature'];
+        }
         return $model;
     }
     // 回调通知地址 ,默认取项目配置通知地址
@@ -63,7 +79,7 @@ class ContractSignFlowConfig extends Model {
      */
     public $noticeType;
 
-    // 签署完成重定向地址,默认签署完成停在当前页面
+    // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
     /**
      * @example http://127.0.0.1:8110/h5/forword
      * @var string
@@ -76,5 +92,19 @@ class ContractSignFlowConfig extends Model {
      * @var string
      */
     public $signPlatform;
+
+    // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
+    /**
+     * @example http://127.0.0.1:8110/h5/forword/failure
+     * @var string
+     */
+    public $redirectUrlOnFailure;
+
+    // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
+    /**
+     * @example true, false
+     * @var bool
+     */
+    public $freeSignature;
 
 }

@@ -10,7 +10,10 @@ class LeaseOrderExtra extends Model {
         'key' => 'key',
         'value' => 'value',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('value', $this->value, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->key) {

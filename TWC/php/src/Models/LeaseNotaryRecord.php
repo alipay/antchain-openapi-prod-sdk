@@ -10,7 +10,10 @@ class LeaseNotaryRecord extends Model {
         'phase' => 'phase',
         'txHash' => 'tx_hash',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('phase', $this->phase, true);
+        Model::validateRequired('txHash', $this->txHash, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->phase) {

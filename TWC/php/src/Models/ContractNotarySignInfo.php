@@ -13,7 +13,12 @@ class ContractNotarySignInfo extends Model {
         'timestamp' => 'timestamp',
         'txHash' => 'tx_hash',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('contractHash', $this->contractHash, true);
+        Model::validateRequired('signatory', $this->signatory, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->content) {

@@ -12,11 +12,11 @@ class ContractSeal extends Model {
         'defaultFlag' => 'default_flag',
         'fileKey' => 'file_key',
         'height' => 'height',
-        'sealBizType' => 'seal_biz_type',
+        'width' => 'width',
         'sealId' => 'seal_id',
         'sealType' => 'seal_type',
         'url' => 'url',
-        'width' => 'width',
+        'sealBizType' => 'seal_biz_type',
     ];
     public function validate() {}
     public function toMap() {
@@ -36,8 +36,8 @@ class ContractSeal extends Model {
         if (null !== $this->height) {
             $res['height'] = $this->height;
         }
-        if (null !== $this->sealBizType) {
-            $res['seal_biz_type'] = $this->sealBizType;
+        if (null !== $this->width) {
+            $res['width'] = $this->width;
         }
         if (null !== $this->sealId) {
             $res['seal_id'] = $this->sealId;
@@ -48,8 +48,8 @@ class ContractSeal extends Model {
         if (null !== $this->url) {
             $res['url'] = $this->url;
         }
-        if (null !== $this->width) {
-            $res['width'] = $this->width;
+        if (null !== $this->sealBizType) {
+            $res['seal_biz_type'] = $this->sealBizType;
         }
         return $res;
     }
@@ -74,8 +74,8 @@ class ContractSeal extends Model {
         if(isset($map['height'])){
             $model->height = $map['height'];
         }
-        if(isset($map['seal_biz_type'])){
-            $model->sealBizType = $map['seal_biz_type'];
+        if(isset($map['width'])){
+            $model->width = $map['width'];
         }
         if(isset($map['seal_id'])){
             $model->sealId = $map['seal_id'];
@@ -86,8 +86,8 @@ class ContractSeal extends Model {
         if(isset($map['url'])){
             $model->url = $map['url'];
         }
-        if(isset($map['width'])){
-            $model->width = $map['width'];
+        if(isset($map['seal_biz_type'])){
+            $model->sealBizType = $map['seal_biz_type'];
         }
         return $model;
     }
@@ -126,12 +126,12 @@ class ContractSeal extends Model {
      */
     public $height;
 
-    // 印章业务类型，CANCELLATION-作废章，COMMON-其它
+    // 印章宽度
     /**
-     * @example COMMON
-     * @var string
+     * @example 100
+     * @var int
      */
-    public $sealBizType;
+    public $width;
 
     // 印章id
     /**
@@ -154,11 +154,11 @@ class ContractSeal extends Model {
      */
     public $url;
 
-    // 印章宽度
+    // 印章业务类型，CANCELLATION-作废章，COMMON-其它
     /**
-     * @example 100
-     * @var int
+     * @example COMMON
+     * @var string
      */
-    public $width;
+    public $sealBizType;
 
 }

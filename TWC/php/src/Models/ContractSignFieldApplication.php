@@ -17,8 +17,13 @@ class ContractSignFieldApplication extends Model {
         'sealId' => 'seal_id',
         'thirdOrderNo' => 'third_order_no',
         'width' => 'width',
+        'signType' => 'sign_type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('authorizedAccountId', $this->authorizedAccountId, true);
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('posY', $this->posY, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->addSignTime) {
@@ -50,6 +55,9 @@ class ContractSignFieldApplication extends Model {
         }
         if (null !== $this->width) {
             $res['width'] = $this->width;
+        }
+        if (null !== $this->signType) {
+            $res['sign_type'] = $this->signType;
         }
         return $res;
     }
@@ -89,6 +97,9 @@ class ContractSignFieldApplication extends Model {
         if(isset($map['width'])){
             $model->width = $map['width'];
         }
+        if(isset($map['sign_type'])){
+            $model->signType = $map['sign_type'];
+        }
         return $model;
     }
     // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
@@ -126,7 +137,7 @@ class ContractSignFieldApplication extends Model {
      */
     public $posPage;
 
-    // x坐标转为字符串的值，默认空
+    // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
     /**
      * @example 158.72531
      * @var string
@@ -160,5 +171,12 @@ class ContractSignFieldApplication extends Model {
      * @var string
      */
     public $width;
+
+    // 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+    /**
+     * @example 
+     * @var int
+     */
+    public $signType;
 
 }

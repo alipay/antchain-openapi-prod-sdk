@@ -13,8 +13,17 @@ class ContractNotaryFinishInfo extends Model {
         'signatories' => 'signatories',
         'timestamp' => 'timestamp',
         'txHash' => 'tx_hash',
+        'userTypes' => 'user_types',
+        'businessType' => 'business_type',
+        'amounts' => 'amounts',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('fileNum', $this->fileNum, true);
+        Model::validateRequired('initiator', $this->initiator, true);
+        Model::validateRequired('signatories', $this->signatories, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->content) {
@@ -34,6 +43,15 @@ class ContractNotaryFinishInfo extends Model {
         }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->userTypes) {
+            $res['user_types'] = $this->userTypes;
+        }
+        if (null !== $this->businessType) {
+            $res['business_type'] = $this->businessType;
+        }
+        if (null !== $this->amounts) {
+            $res['amounts'] = $this->amounts;
         }
         return $res;
     }
@@ -60,6 +78,15 @@ class ContractNotaryFinishInfo extends Model {
         }
         if(isset($map['tx_hash'])){
             $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['user_types'])){
+            $model->userTypes = $map['user_types'];
+        }
+        if(isset($map['business_type'])){
+            $model->businessType = $map['business_type'];
+        }
+        if(isset($map['amounts'])){
+            $model->amounts = $map['amounts'];
         }
         return $model;
     }
@@ -104,5 +131,26 @@ class ContractNotaryFinishInfo extends Model {
      * @var string
      */
     public $txHash;
+
+    // signatories对应的用户类型
+    /**
+     * @example PERSON,ENTERPRISE,PERSON
+     * @var string
+     */
+    public $userTypes;
+
+    // 签署合同所属行业
+    /**
+     * @example finance
+     * @var string
+     */
+    public $businessType;
+
+    // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
+    /**
+     * @example 888,0,888
+     * @var string
+     */
+    public $amounts;
 
 }

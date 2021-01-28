@@ -11,7 +11,11 @@ class CertificateInfo extends Model {
         'resourceName' => 'resource_name',
         'resourceUrl' => 'resource_url',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('hash', $this->hash, true);
+        Model::validateRequired('resourceName', $this->resourceName, true);
+        Model::validateRequired('resourceUrl', $this->resourceUrl, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->hash) {

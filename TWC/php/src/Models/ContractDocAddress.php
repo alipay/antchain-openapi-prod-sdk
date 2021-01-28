@@ -10,8 +10,13 @@ class ContractDocAddress extends Model {
         'fileId' => 'file_id',
         'fileName' => 'file_name',
         'fileUrl' => 'file_url',
+        'txHash' => 'tx_hash',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('fileName', $this->fileName, true);
+        Model::validateRequired('fileUrl', $this->fileUrl, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->fileId) {
@@ -22,6 +27,9 @@ class ContractDocAddress extends Model {
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
         }
         return $res;
     }
@@ -39,6 +47,9 @@ class ContractDocAddress extends Model {
         }
         if(isset($map['file_url'])){
             $model->fileUrl = $map['file_url'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
         }
         return $model;
     }
@@ -62,5 +73,12 @@ class ContractDocAddress extends Model {
      * @var string
      */
     public $fileUrl;
+
+    // 合同文件的存证地址
+    /**
+     * @example a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2
+     * @var string
+     */
+    public $txHash;
 
 }

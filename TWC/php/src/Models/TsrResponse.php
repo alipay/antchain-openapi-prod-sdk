@@ -8,21 +8,25 @@ use AlibabaCloud\Tea\Model;
 class TsrResponse extends Model {
     protected $_name = [
         'code' => 'code',
-        'ctsr' => 'ctsr',
         'hashedMessage' => 'hashed_message',
         'hashAlgorithm' => 'hash_algorithm',
         'message' => 'message',
-        'sn' => 'sn',
         'ts' => 'ts',
+        'ctsr' => 'ctsr',
+        'sn' => 'sn',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('hashedMessage', $this->hashedMessage, true);
+        Model::validateRequired('hashAlgorithm', $this->hashAlgorithm, true);
+        Model::validateRequired('ts', $this->ts, true);
+        Model::validateRequired('ctsr', $this->ctsr, true);
+        Model::validateRequired('sn', $this->sn, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->code) {
             $res['code'] = $this->code;
-        }
-        if (null !== $this->ctsr) {
-            $res['ctsr'] = $this->ctsr;
         }
         if (null !== $this->hashedMessage) {
             $res['hashed_message'] = $this->hashedMessage;
@@ -33,11 +37,14 @@ class TsrResponse extends Model {
         if (null !== $this->message) {
             $res['message'] = $this->message;
         }
-        if (null !== $this->sn) {
-            $res['sn'] = $this->sn;
-        }
         if (null !== $this->ts) {
             $res['ts'] = $this->ts;
+        }
+        if (null !== $this->ctsr) {
+            $res['ctsr'] = $this->ctsr;
+        }
+        if (null !== $this->sn) {
+            $res['sn'] = $this->sn;
         }
         return $res;
     }
@@ -50,9 +57,6 @@ class TsrResponse extends Model {
         if(isset($map['code'])){
             $model->code = $map['code'];
         }
-        if(isset($map['ctsr'])){
-            $model->ctsr = $map['ctsr'];
-        }
         if(isset($map['hashed_message'])){
             $model->hashedMessage = $map['hashed_message'];
         }
@@ -62,11 +66,14 @@ class TsrResponse extends Model {
         if(isset($map['message'])){
             $model->message = $map['message'];
         }
-        if(isset($map['sn'])){
-            $model->sn = $map['sn'];
-        }
         if(isset($map['ts'])){
             $model->ts = $map['ts'];
+        }
+        if(isset($map['ctsr'])){
+            $model->ctsr = $map['ctsr'];
+        }
+        if(isset($map['sn'])){
+            $model->sn = $map['sn'];
         }
         return $model;
     }
@@ -76,13 +83,6 @@ class TsrResponse extends Model {
      * @var string
      */
     public $code;
-
-    // 精简后的时间戳完整编码（在校验时需要提交）
-    /**
-     * @example  
-     * @var string
-     */
-    public $ctsr;
 
     // hash后的信息
     /**
@@ -105,6 +105,20 @@ class TsrResponse extends Model {
      */
     public $message;
 
+    // 时间
+    /**
+     * @example 123
+     * @var string
+     */
+    public $ts;
+
+    // 精简后的时间戳完整编码（在校验时需要提交）
+    /**
+     * @example  
+     * @var string
+     */
+    public $ctsr;
+
     // 凭证序列号 （在校验的时需要先填写凭证编号）
     // 
     /**
@@ -112,12 +126,5 @@ class TsrResponse extends Model {
      * @var string
      */
     public $sn;
-
-    // 时间
-    /**
-     * @example 123
-     * @var string
-     */
-    public $ts;
 
 }

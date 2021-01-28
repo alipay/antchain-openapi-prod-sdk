@@ -8,19 +8,19 @@ use AlibabaCloud\Tea\Model;
 class NotaryCheckMeta extends Model {
     protected $_name = [
         'agencyCode' => 'agency_code',
-        'applicationCode' => 'application_code',
         'hashAlgorithm' => 'hash_algorithm',
         'notaryContent' => 'notary_content',
         'txHash' => 'tx_hash',
+        'applicationCode' => 'application_code',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('notaryContent', $this->notaryContent, true);
+        Model::validateRequired('txHash', $this->txHash, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->agencyCode) {
             $res['agency_code'] = $this->agencyCode;
-        }
-        if (null !== $this->applicationCode) {
-            $res['application_code'] = $this->applicationCode;
         }
         if (null !== $this->hashAlgorithm) {
             $res['hash_algorithm'] = $this->hashAlgorithm;
@@ -30,6 +30,9 @@ class NotaryCheckMeta extends Model {
         }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->applicationCode) {
+            $res['application_code'] = $this->applicationCode;
         }
         return $res;
     }
@@ -42,9 +45,6 @@ class NotaryCheckMeta extends Model {
         if(isset($map['agency_code'])){
             $model->agencyCode = $map['agency_code'];
         }
-        if(isset($map['application_code'])){
-            $model->applicationCode = $map['application_code'];
-        }
         if(isset($map['hash_algorithm'])){
             $model->hashAlgorithm = $map['hash_algorithm'];
         }
@@ -54,6 +54,9 @@ class NotaryCheckMeta extends Model {
         if(isset($map['tx_hash'])){
             $model->txHash = $map['tx_hash'];
         }
+        if(isset($map['application_code'])){
+            $model->applicationCode = $map['application_code'];
+        }
         return $model;
     }
     // 对应的法院编号
@@ -62,13 +65,6 @@ class NotaryCheckMeta extends Model {
      * @var string
      */
     public $agencyCode;
-
-    // 应用ID
-    /**
-     * @example dstj
-     * @var string
-     */
-    public $applicationCode;
 
     // 哈希算法, notary_type 为 HASH 时此参数必填
     /**
@@ -90,5 +86,12 @@ class NotaryCheckMeta extends Model {
      * @var string
      */
     public $txHash;
+
+    // 应用ID
+    /**
+     * @example dstj
+     * @var string
+     */
+    public $applicationCode;
 
 }

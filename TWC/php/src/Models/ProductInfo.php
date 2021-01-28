@@ -7,7 +7,6 @@ use AlibabaCloud\Tea\Model;
 
 class ProductInfo extends Model {
     protected $_name = [
-        'extraInfo' => 'extra_info',
         'needDid' => 'need_did',
         'productBrand' => 'product_brand',
         'productId' => 'product_id',
@@ -18,13 +17,16 @@ class ProductInfo extends Model {
         'productPrice' => 'product_price',
         'supplierId' => 'supplier_id',
         'supplierVersion' => 'supplier_version',
+        'extraInfo' => 'extra_info',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('productId', $this->productId, true);
+        Model::validateRequired('productName', $this->productName, true);
+        Model::validateRequired('productNumber', $this->productNumber, true);
+        Model::validateRequired('productPrice', $this->productPrice, true);
+    }
     public function toMap() {
         $res = [];
-        if (null !== $this->extraInfo) {
-            $res['extra_info'] = $this->extraInfo;
-        }
         if (null !== $this->needDid) {
             $res['need_did'] = $this->needDid;
         }
@@ -55,6 +57,9 @@ class ProductInfo extends Model {
         if (null !== $this->supplierVersion) {
             $res['supplier_version'] = $this->supplierVersion;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
         return $res;
     }
     /**
@@ -63,9 +68,6 @@ class ProductInfo extends Model {
      */
     public static function fromMap($map = []) {
         $model = new self();
-        if(isset($map['extra_info'])){
-            $model->extraInfo = $map['extra_info'];
-        }
         if(isset($map['need_did'])){
             $model->needDid = $map['need_did'];
         }
@@ -96,15 +98,11 @@ class ProductInfo extends Model {
         if(isset($map['supplier_version'])){
             $model->supplierVersion = $map['supplier_version'];
         }
+        if(isset($map['extra_info'])){
+            $model->extraInfo = $map['extra_info'];
+        }
         return $model;
     }
-    // 额外字段
-    /**
-     * @example {}
-     * @var string
-     */
-    public $extraInfo;
-
     // 是否需要创建did
     /**
      * @example true, false
@@ -174,5 +172,12 @@ class ProductInfo extends Model {
      * @var string
      */
     public $supplierVersion;
+
+    // 额外字段
+    /**
+     * @example {}
+     * @var string
+     */
+    public $extraInfo;
 
 }

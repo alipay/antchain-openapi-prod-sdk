@@ -24,6 +24,10 @@ class Config extends Model {
         'userAgent' => '',
         'socks5Proxy' => '',
         'socks5NetWork' => '',
+        'maxIdleTimeMillis' => '60 * 1000L',
+        'keepAliveDurationMillis' => '5000',
+        'maxRequests' => '100',
+        'maxRequestsPerHost' => '100',
     ];
     public function validate() {}
     public function toMap() {
@@ -69,6 +73,18 @@ class Config extends Model {
         }
         if (null !== $this->socks5NetWork) {
             $res['socks5NetWork'] = $this->socks5NetWork;
+        }
+        if (null !== $this->maxIdleTimeMillis) {
+            $res['maxIdleTimeMillis'] = $this->maxIdleTimeMillis;
+        }
+        if (null !== $this->keepAliveDurationMillis) {
+            $res['keepAliveDurationMillis'] = $this->keepAliveDurationMillis;
+        }
+        if (null !== $this->maxRequests) {
+            $res['maxRequests'] = $this->maxRequests;
+        }
+        if (null !== $this->maxRequestsPerHost) {
+            $res['maxRequestsPerHost'] = $this->maxRequestsPerHost;
         }
         return $res;
     }
@@ -119,6 +135,18 @@ class Config extends Model {
         }
         if(isset($map['socks5NetWork'])){
             $model->socks5NetWork = $map['socks5NetWork'];
+        }
+        if(isset($map['maxIdleTimeMillis'])){
+            $model->maxIdleTimeMillis = $map['maxIdleTimeMillis'];
+        }
+        if(isset($map['keepAliveDurationMillis'])){
+            $model->keepAliveDurationMillis = $map['keepAliveDurationMillis'];
+        }
+        if(isset($map['maxRequests'])){
+            $model->maxRequests = $map['maxRequests'];
+        }
+        if(isset($map['maxRequestsPerHost'])){
+            $model->maxRequestsPerHost = $map['maxRequestsPerHost'];
         }
         return $model;
     }
@@ -215,5 +243,29 @@ class Config extends Model {
      * @var string
      */
     public $socks5NetWork;
+
+    /**
+     * @description 长链接最大空闲时长
+     * @var int
+     */
+    public $maxIdleTimeMillis;
+
+    /**
+     * @description 长链接最大连接时长
+     * @var int
+     */
+    public $keepAliveDurationMillis;
+
+    /**
+     * @description 最大连接数（长链接最大总数）
+     * @var int
+     */
+    public $maxRequests;
+
+    /**
+     * @description 每个目标主机的最大连接数（分主机域名的长链接最大总数
+     * @var int
+     */
+    public $maxRequestsPerHost;
 
 }

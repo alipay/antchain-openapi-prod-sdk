@@ -14,7 +14,12 @@ class ContractNotaryInitInfo extends Model {
         'timestamp' => 'timestamp',
         'txHash' => 'tx_hash',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('fileNum', $this->fileNum, true);
+        Model::validateRequired('initiator', $this->initiator, true);
+        Model::validateRequired('timestamp', $this->timestamp, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->content) {

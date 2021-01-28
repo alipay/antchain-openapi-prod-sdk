@@ -14,10 +14,14 @@ class NotaryInfo extends Model {
         'hashAlgorithm' => 'hash_algorithm',
         'platform' => 'platform',
         'size' => 'size',
-        'transactionId' => 'transaction_id',
         'txHash' => 'tx_hash',
+        'transactionId' => 'transaction_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('contentHash', $this->contentHash, true);
+        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('transactionId', $this->transactionId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->contentHash) {
@@ -41,11 +45,11 @@ class NotaryInfo extends Model {
         if (null !== $this->size) {
             $res['size'] = $this->size;
         }
-        if (null !== $this->transactionId) {
-            $res['transaction_id'] = $this->transactionId;
-        }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->transactionId) {
+            $res['transaction_id'] = $this->transactionId;
         }
         return $res;
     }
@@ -76,11 +80,11 @@ class NotaryInfo extends Model {
         if(isset($map['size'])){
             $model->size = $map['size'];
         }
-        if(isset($map['transaction_id'])){
-            $model->transactionId = $map['transaction_id'];
-        }
         if(isset($map['tx_hash'])){
             $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['transaction_id'])){
+            $model->transactionId = $map['transaction_id'];
         }
         return $model;
     }
@@ -133,18 +137,18 @@ class NotaryInfo extends Model {
      */
     public $size;
 
-    // 存证事务ID
-    /**
-     * @example 7bc888d8-1384-425c-9355-630cef0f4120
-     * @var string
-     */
-    public $transactionId;
-
     // 发起存证成功后，返回的存证凭据
     /**
      * @example a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2
      * @var string
      */
     public $txHash;
+
+    // 存证事务ID
+    /**
+     * @example 7bc888d8-1384-425c-9355-630cef0f4120
+     * @var string
+     */
+    public $transactionId;
 
 }

@@ -7,26 +7,33 @@ use AlibabaCloud\Tea\Model;
 
 class NotaryCheckResult extends Model {
     protected $_name = [
-        'blockHash' => 'block_hash',
         'blockHeight' => 'block_height',
         'errorCode' => 'error_code',
         'errorMessage' => 'error_message',
         'notaryTime' => 'notary_time',
         'notaryType' => 'notary_type',
-        'phase' => 'phase',
         'result' => 'result',
         'transactionId' => 'transaction_id',
         'txHash' => 'tx_hash',
+        'blockHash' => 'block_hash',
+        'phase' => 'phase',
     ];
     public function validate() {
-        Model::validateMinimum('blockHeight', $this->blockHeight, '0');
+        Model::validateRequired('blockHeight', $this->blockHeight, true);
+        Model::validateRequired('errorCode', $this->errorCode, true);
+        Model::validateRequired('errorMessage', $this->errorMessage, true);
+        Model::validateRequired('notaryTime', $this->notaryTime, true);
+        Model::validateRequired('notaryType', $this->notaryType, true);
+        Model::validateRequired('result', $this->result, true);
+        Model::validateRequired('transactionId', $this->transactionId, true);
+        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('blockHash', $this->blockHash, true);
+        Model::validateRequired('phase', $this->phase, true);
+        Model::validateMinimum('blockHeight', $this->blockHeight, 0);
         Model::validatePattern('notaryTime', $this->notaryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {
         $res = [];
-        if (null !== $this->blockHash) {
-            $res['block_hash'] = $this->blockHash;
-        }
         if (null !== $this->blockHeight) {
             $res['block_height'] = $this->blockHeight;
         }
@@ -42,9 +49,6 @@ class NotaryCheckResult extends Model {
         if (null !== $this->notaryType) {
             $res['notary_type'] = $this->notaryType;
         }
-        if (null !== $this->phase) {
-            $res['phase'] = $this->phase;
-        }
         if (null !== $this->result) {
             $res['result'] = $this->result;
         }
@@ -54,6 +58,12 @@ class NotaryCheckResult extends Model {
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
         }
+        if (null !== $this->blockHash) {
+            $res['block_hash'] = $this->blockHash;
+        }
+        if (null !== $this->phase) {
+            $res['phase'] = $this->phase;
+        }
         return $res;
     }
     /**
@@ -62,9 +72,6 @@ class NotaryCheckResult extends Model {
      */
     public static function fromMap($map = []) {
         $model = new self();
-        if(isset($map['block_hash'])){
-            $model->blockHash = $map['block_hash'];
-        }
         if(isset($map['block_height'])){
             $model->blockHeight = $map['block_height'];
         }
@@ -80,9 +87,6 @@ class NotaryCheckResult extends Model {
         if(isset($map['notary_type'])){
             $model->notaryType = $map['notary_type'];
         }
-        if(isset($map['phase'])){
-            $model->phase = $map['phase'];
-        }
         if(isset($map['result'])){
             $model->result = $map['result'];
         }
@@ -92,15 +96,14 @@ class NotaryCheckResult extends Model {
         if(isset($map['tx_hash'])){
             $model->txHash = $map['tx_hash'];
         }
+        if(isset($map['block_hash'])){
+            $model->blockHash = $map['block_hash'];
+        }
+        if(isset($map['phase'])){
+            $model->phase = $map['phase'];
+        }
         return $model;
     }
-    // 区块哈希
-    /**
-     * @example c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b
-     * @var string
-     */
-    public $blockHash;
-
     // 存证所在区块高度
     /**
      * @example 8888
@@ -136,13 +139,6 @@ class NotaryCheckResult extends Model {
      */
     public $notaryType;
 
-    // 存证阶段
-    /**
-     * @example start
-     * @var string
-     */
-    public $phase;
-
     // 核验是否成功
     /**
      * @example true, false
@@ -163,5 +159,19 @@ class NotaryCheckResult extends Model {
      * @var string
      */
     public $txHash;
+
+    // 区块哈希
+    /**
+     * @example c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b
+     * @var string
+     */
+    public $blockHash;
+
+    // 存证阶段
+    /**
+     * @example start
+     * @var string
+     */
+    public $phase;
 
 }

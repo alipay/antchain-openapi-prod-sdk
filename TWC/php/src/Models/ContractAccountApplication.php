@@ -14,7 +14,12 @@ class ContractAccountApplication extends Model {
         'name' => 'name',
         'userId' => 'user_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('idNumber', $this->idNumber, true);
+        Model::validateRequired('idType', $this->idType, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('userId', $this->userId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->email) {

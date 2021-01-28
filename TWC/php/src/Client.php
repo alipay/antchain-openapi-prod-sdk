@@ -4,288 +4,327 @@
 namespace AntChain\TWC;
 
 use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Request;
 use AntChain\Util\UtilClient;
 use AlibabaCloud\Tea\RpcUtils\RpcUtils;
-use AlibabaCloud\Tea\Exception\TeaError;
-use \Exception;
-use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
 
-use AntChain\TWC\Models\Config;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\TWC\Models\CallbackTwcNotaryArbitrationStatusRequest;
-use AntChain\TWC\Models\CallbackTwcNotaryArbitrationStatusResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountsealRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountsealResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractOrganizationRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractOrganizationResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractOrgsealRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractOrgsealResponse;
-use AntChain\TWC\Models\AuthTwcNotaryContractSignRequest;
-use AntChain\TWC\Models\AuthTwcNotaryContractSignResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractTemplateRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractTemplateResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractFlowRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractFlowResponse;
-use AntChain\TWC\Models\AddTwcNotaryContractDocumentRequest;
-use AntChain\TWC\Models\AddTwcNotaryContractDocumentResponse;
-use AntChain\TWC\Models\AddTwcNotaryContractSignfieldRequest;
-use AntChain\TWC\Models\AddTwcNotaryContractSignfieldResponse;
-use AntChain\TWC\Models\StartTwcNotaryContractFlowRequest;
-use AntChain\TWC\Models\StartTwcNotaryContractFlowResponse;
-use AntChain\TWC\Models\SaveTwcNotaryContractFlowRequest;
-use AntChain\TWC\Models\SaveTwcNotaryContractFlowResponse;
-use AntChain\TWC\Models\DownloadTwcNotaryContractDocumentRequest;
-use AntChain\TWC\Models\DownloadTwcNotaryContractDocumentResponse;
-use AntChain\TWC\Models\AddTwcNotaryContractFileRequest;
-use AntChain\TWC\Models\AddTwcNotaryContractFileResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractPlatformRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractPlatformResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractUserRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractUserResponse;
-use AntChain\TWC\Models\StartTwcNotaryContractHandsignRequest;
-use AntChain\TWC\Models\StartTwcNotaryContractHandsignResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractFlowRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractFlowResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountsealimageRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractAccountsealimageResponse;
-use AntChain\TWC\Models\GetTwcNotaryContractFileuploadurlRequest;
-use AntChain\TWC\Models\GetTwcNotaryContractFileuploadurlResponse;
-use AntChain\TWC\Models\AddTwcNotaryContractPlatformsignfieldsRequest;
-use AntChain\TWC\Models\AddTwcNotaryContractPlatformsignfieldsResponse;
-use AntChain\TWC\Models\GetTwcNotaryContractFileRequest;
-use AntChain\TWC\Models\GetTwcNotaryContractFileResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractAccountsealsRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractAccountsealsResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractOrganizationsealsRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractOrganizationsealsResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractFlowsignerRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractFlowsignerResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractSignfieldsRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractSignfieldsResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractAccountRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractAccountResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractOrganizationRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractOrganizationResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractTemplateRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractTemplateResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractSignflowRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractSignflowResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractRegisterzftRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractRegisterzftResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractPlatformtemplateRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractPlatformtemplateResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractMerchantzftRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractMerchantzftResponse;
-use AntChain\TWC\Models\ListTwcNotaryContractOuttradeidRequest;
-use AntChain\TWC\Models\ListTwcNotaryContractOuttradeidResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractTradedetailRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractTradedetailResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantrefundRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantrefundResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractAdminaccountRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractAdminaccountResponse;
-use AntChain\TWC\Models\ListTwcNotaryContractTradeidsRequest;
-use AntChain\TWC\Models\ListTwcNotaryContractTradeidsResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractCommontriggerRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractCommontriggerResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantindirectzftRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantindirectzftResponse;
-use AntChain\TWC\Models\QueryTwcNotaryContractMerchantindirectzftRequest;
-use AntChain\TWC\Models\QueryTwcNotaryContractMerchantindirectzftResponse;
-use AntChain\TWC\Models\QueryTwcNotaryPayresultfileurlRequest;
-use AntChain\TWC\Models\QueryTwcNotaryPayresultfileurlResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantimageRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractMerchantimageResponse;
-use AntChain\TWC\Models\CancelTwcNotaryContractPaytradeRequest;
-use AntChain\TWC\Models\CancelTwcNotaryContractPaytradeResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractHandsignflowRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractHandsignflowResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractHandsignfieldRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractHandsignfieldResponse;
-use AntChain\TWC\Models\GetTwcNotaryContractSignurlRequest;
-use AntChain\TWC\Models\GetTwcNotaryContractSignurlResponse;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdAgreementRequest;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdAgreementResponse;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdAgreementRequest;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdAgreementResponse;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdAgreementurlRequest;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdAgreementurlResponse;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdOverduetimeRequest;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdOverduetimeResponse;
-use AntChain\TWC\Models\SendTwcNotaryWithholdDeductRequest;
-use AntChain\TWC\Models\SendTwcNotaryWithholdDeductResponse;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdPayresultRequest;
-use AntChain\TWC\Models\QueryTwcNotaryWithholdPayresultResponse;
-use AntChain\TWC\Models\SendTwcNotaryWithholdRefundRequest;
-use AntChain\TWC\Models\SendTwcNotaryWithholdRefundResponse;
-use AntChain\TWC\Models\SendTwcNotaryContractInvitationRequest;
-use AntChain\TWC\Models\SendTwcNotaryContractInvitationResponse;
-use AntChain\TWC\Models\ListTwcNotaryContractPayruleRequest;
-use AntChain\TWC\Models\ListTwcNotaryContractPayruleResponse;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdQrcodeRequest;
-use AntChain\TWC\Models\CreateTwcNotaryWithholdQrcodeResponse;
-use AntChain\TWC\Models\CancelTwcNotaryContractPaysingletradeRequest;
-use AntChain\TWC\Models\CancelTwcNotaryContractPaysingletradeResponse;
-use AntChain\TWC\Models\ApplyTwcNotaryContractCallbackkeyRequest;
-use AntChain\TWC\Models\ApplyTwcNotaryContractCallbackkeyResponse;
-use AntChain\TWC\Models\DeployTwcNotaryMytfTappRequest;
-use AntChain\TWC\Models\DeployTwcNotaryMytfTappResponse;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityTwometaRequest;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityTwometaResponse;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityThreemetaRequest;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityThreemetaResponse;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityFourmetaRequest;
-use AntChain\TWC\Models\CheckTwcNotaryEpidentityFourmetaResponse;
-use AntChain\TWC\Models\CheckTwcNotaryNotarizationOrderRequest;
-use AntChain\TWC\Models\CheckTwcNotaryNotarizationOrderResponse;
-use AntChain\TWC\Models\UpdateTwcNotaryNotarizationOrderRequest;
-use AntChain\TWC\Models\UpdateTwcNotaryNotarizationOrderResponse;
-use AntChain\TWC\Models\SetTwcNotaryNotarizationOrderRequest;
-use AntChain\TWC\Models\SetTwcNotaryNotarizationOrderResponse;
-use AntChain\TWC\Models\InitTwcNotaryIdentificationFaceauthRequest;
-use AntChain\TWC\Models\InitTwcNotaryIdentificationFaceauthResponse;
-use AntChain\TWC\Models\CertifyTwcNotaryIdentificationFaceauthRequest;
-use AntChain\TWC\Models\CertifyTwcNotaryIdentificationFaceauthResponse;
-use AntChain\TWC\Models\QueryTwcNotaryIdentificationFaceauthRequest;
-use AntChain\TWC\Models\QueryTwcNotaryIdentificationFaceauthResponse;
-use AntChain\TWC\Models\QueryTwcNotaryEnterpriseFaceauthRequest;
-use AntChain\TWC\Models\QueryTwcNotaryEnterpriseFaceauthResponse;
-use AntChain\TWC\Models\InitTwcNotaryEnterpriseFaceauthRequest;
-use AntChain\TWC\Models\InitTwcNotaryEnterpriseFaceauthResponse;
-use AntChain\TWC\Models\CertifyTwcNotaryEnterpriseFaceauthRequest;
-use AntChain\TWC\Models\CertifyTwcNotaryEnterpriseFaceauthResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseOrderRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseOrderResponse;
-use AntChain\TWC\Models\CreateTwcNotaryNotarizationBillRequest;
-use AntChain\TWC\Models\CreateTwcNotaryNotarizationBillResponse;
-use AntChain\TWC\Models\InitTwcNotaryCertificationRequest;
-use AntChain\TWC\Models\InitTwcNotaryCertificationResponse;
-use AntChain\TWC\Models\QueryTwcNotaryCertificationRequest;
-use AntChain\TWC\Models\QueryTwcNotaryCertificationResponse;
-use AntChain\TWC\Models\GetTwcNotaryTsrCertificateRequest;
-use AntChain\TWC\Models\GetTwcNotaryTsrCertificateResponse;
-use AntChain\TWC\Models\SaveTwcNotaryJointconstraintRecordRequest;
-use AntChain\TWC\Models\SaveTwcNotaryJointconstraintRecordResponse;
-use AntChain\TWC\Models\DeleteTwcNotaryJointconstraintRecordRequest;
-use AntChain\TWC\Models\DeleteTwcNotaryJointconstraintRecordResponse;
-use AntChain\TWC\Models\QueryTwcNotaryJointconstraintBreachrecordRequest;
-use AntChain\TWC\Models\QueryTwcNotaryJointconstraintBreachrecordResponse;
-use AntChain\TWC\Models\CreateTwcNotaryTransRequest;
-use AntChain\TWC\Models\CreateTwcNotaryTransResponse;
-use AntChain\TWC\Models\GetTwcNotaryTransRequest;
-use AntChain\TWC\Models\GetTwcNotaryTransResponse;
-use AntChain\TWC\Models\CreateTwcNotaryTextRequest;
-use AntChain\TWC\Models\CreateTwcNotaryTextResponse;
-use AntChain\TWC\Models\GetTwcNotaryTextRequest;
-use AntChain\TWC\Models\GetTwcNotaryTextResponse;
-use AntChain\TWC\Models\CreateTwcNotaryFileRequest;
-use AntChain\TWC\Models\CreateTwcNotaryFileResponse;
-use AntChain\TWC\Models\GetTwcNotaryFileRequest;
-use AntChain\TWC\Models\GetTwcNotaryFileResponse;
-use AntChain\TWC\Models\CreateTwcNotarySourceRequest;
-use AntChain\TWC\Models\CreateTwcNotarySourceResponse;
-use AntChain\TWC\Models\GetTwcNotarySourceRequest;
-use AntChain\TWC\Models\GetTwcNotarySourceResponse;
-use AntChain\TWC\Models\CheckTwcNotaryStatusRequest;
-use AntChain\TWC\Models\CheckTwcNotaryStatusResponse;
-use AntChain\TWC\Models\DeployTwcNotaryLeaseContractRequest;
-use AntChain\TWC\Models\DeployTwcNotaryLeaseContractResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseProductinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseProductinfoResponse;
-use AntChain\TWC\Models\AuthTwcNotaryLeaseContractRequest;
-use AntChain\TWC\Models\AuthTwcNotaryLeaseContractResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseUserinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseUserinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseOrderinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseOrderinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeasePromiseRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeasePromiseResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseVerifyinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseVerifyinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseCreditpromiseRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseCreditpromiseResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseDisburseinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseDisburseinfoResponse;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseOrderinfoRequest;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseOrderinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryFinanceTextnotaryRequest;
-use AntChain\TWC\Models\CreateTwcNotaryFinanceTextnotaryResponse;
-use AntChain\TWC\Models\GetTwcNotaryFinanceTextnotaryRequest;
-use AntChain\TWC\Models\GetTwcNotaryFinanceTextnotaryResponse;
-use AntChain\TWC\Models\CreateTwcNotaryFinanceFilenotaryRequest;
-use AntChain\TWC\Models\CreateTwcNotaryFinanceFilenotaryResponse;
-use AntChain\TWC\Models\GetTwcNotaryFinanceFilenotaryRequest;
-use AntChain\TWC\Models\GetTwcNotaryFinanceFilenotaryResponse;
-use AntChain\TWC\Models\CheckTwcNotaryIndustryNotaryRequest;
-use AntChain\TWC\Models\CheckTwcNotaryIndustryNotaryResponse;
-use AntChain\TWC\Models\UpdateTwcNotaryLeaseContractRequest;
-use AntChain\TWC\Models\UpdateTwcNotaryLeaseContractResponse;
-use AntChain\TWC\Models\CreateTwcNotarySueBreakpromiseinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotarySueBreakpromiseinfoResponse;
-use AntChain\TWC\Models\UpdateTwcNotarySueBreakpromiseinfoRequest;
-use AntChain\TWC\Models\UpdateTwcNotarySueBreakpromiseinfoResponse;
-use AntChain\TWC\Models\DeleteTwcNotarySueBreakpromiseinfoRequest;
-use AntChain\TWC\Models\DeleteTwcNotarySueBreakpromiseinfoResponse;
-use AntChain\TWC\Models\QueryTwcNotarySueUserinfoRequest;
-use AntChain\TWC\Models\QueryTwcNotarySueUserinfoResponse;
-use AntChain\TWC\Models\UpdateTwcNotarySueExeplarycontractRequest;
-use AntChain\TWC\Models\UpdateTwcNotarySueExeplarycontractResponse;
-use AntChain\TWC\Models\UpdateTwcNotarySueExemplaryrevertRequest;
-use AntChain\TWC\Models\UpdateTwcNotarySueExemplaryrevertResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseAuditRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseAuditResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeasePaymentfileRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeasePaymentfileResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRentalRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRentalResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseClearingRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseClearingResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRepaymentRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRepaymentResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseNotifyregisterRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseNotifyregisterResponse;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseIotinfoRequest;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseIotinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryCourtTextnotaryRequest;
-use AntChain\TWC\Models\CreateTwcNotaryCourtTextnotaryResponse;
-use AntChain\TWC\Models\GetTwcNotaryCourtTextnotaryRequest;
-use AntChain\TWC\Models\GetTwcNotaryCourtTextnotaryResponse;
-use AntChain\TWC\Models\CreateTwcNotaryCourtFilenotaryRequest;
-use AntChain\TWC\Models\CreateTwcNotaryCourtFilenotaryResponse;
-use AntChain\TWC\Models\GetTwcNotaryCourtFilenotaryRequest;
-use AntChain\TWC\Models\GetTwcNotaryCourtFilenotaryResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRouteRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseRouteResponse;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseEncryptedinfoRequest;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseEncryptedinfoResponse;
-use AntChain\TWC\Models\CreateTwcNotaryContractTextRequest;
-use AntChain\TWC\Models\CreateTwcNotaryContractTextResponse;
-use AntChain\TWC\Models\ApplyTwcNotaryContractReportRequest;
-use AntChain\TWC\Models\ApplyTwcNotaryContractReportResponse;
-use AntChain\TWC\Models\GetTwcNotaryContractTextRequest;
-use AntChain\TWC\Models\GetTwcNotaryContractTextResponse;
-use AntChain\TWC\Models\CreateTwcNotaryInternalTransRequest;
-use AntChain\TWC\Models\CreateTwcNotaryInternalTransResponse;
-use AntChain\TWC\Models\CreateTwcNotaryInternalTextRequest;
-use AntChain\TWC\Models\CreateTwcNotaryInternalTextResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseTextRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseTextResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseFileRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseFileResponse;
-use AntChain\TWC\Models\ListTwcNotaryLeaseNotaryRequest;
-use AntChain\TWC\Models\ListTwcNotaryLeaseNotaryResponse;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseApplicationRequest;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseApplicationResponse;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseApplicationdetailinfoRequest;
-use AntChain\TWC\Models\QueryTwcNotaryLeaseApplicationdetailinfoResponse;
-use AntChain\TWC\Models\SetTwcNotaryLeaseRepaymentstatusRequest;
-use AntChain\TWC\Models\SetTwcNotaryLeaseRepaymentstatusResponse;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseSupplierinfoRequest;
-use AntChain\TWC\Models\CreateTwcNotaryLeaseSupplierinfoResponse;
+use AntChain\TWC\Models\CallbackArbitrationStatusRequest;
+use AntChain\TWC\Models\CallbackArbitrationStatusResponse;
+use AntChain\TWC\Models\CreateContractAccountRequest;
+use AntChain\TWC\Models\CreateContractAccountResponse;
+use AntChain\TWC\Models\CreateContractAccountsealRequest;
+use AntChain\TWC\Models\CreateContractAccountsealResponse;
+use AntChain\TWC\Models\CreateContractOrganizationRequest;
+use AntChain\TWC\Models\CreateContractOrganizationResponse;
+use AntChain\TWC\Models\CreateContractOrgsealRequest;
+use AntChain\TWC\Models\CreateContractOrgsealResponse;
+use AntChain\TWC\Models\AuthContractSignRequest;
+use AntChain\TWC\Models\AuthContractSignResponse;
+use AntChain\TWC\Models\CreateContractTemplateRequest;
+use AntChain\TWC\Models\CreateContractTemplateResponse;
+use AntChain\TWC\Models\CreateContractFlowRequest;
+use AntChain\TWC\Models\CreateContractFlowResponse;
+use AntChain\TWC\Models\AddContractDocumentRequest;
+use AntChain\TWC\Models\AddContractDocumentResponse;
+use AntChain\TWC\Models\AddContractSignfieldRequest;
+use AntChain\TWC\Models\AddContractSignfieldResponse;
+use AntChain\TWC\Models\StartContractFlowRequest;
+use AntChain\TWC\Models\StartContractFlowResponse;
+use AntChain\TWC\Models\SaveContractFlowRequest;
+use AntChain\TWC\Models\SaveContractFlowResponse;
+use AntChain\TWC\Models\DownloadContractDocumentRequest;
+use AntChain\TWC\Models\DownloadContractDocumentResponse;
+use AntChain\TWC\Models\AddContractFileRequest;
+use AntChain\TWC\Models\AddContractFileResponse;
+use AntChain\TWC\Models\CreateContractPlatformRequest;
+use AntChain\TWC\Models\CreateContractPlatformResponse;
+use AntChain\TWC\Models\CreateContractUserRequest;
+use AntChain\TWC\Models\CreateContractUserResponse;
+use AntChain\TWC\Models\StartContractHandsignRequest;
+use AntChain\TWC\Models\StartContractHandsignResponse;
+use AntChain\TWC\Models\QueryContractFlowRequest;
+use AntChain\TWC\Models\QueryContractFlowResponse;
+use AntChain\TWC\Models\CreateContractAccountsealimageRequest;
+use AntChain\TWC\Models\CreateContractAccountsealimageResponse;
+use AntChain\TWC\Models\GetContractFileuploadurlRequest;
+use AntChain\TWC\Models\GetContractFileuploadurlResponse;
+use AntChain\TWC\Models\AddContractPlatformsignfieldsRequest;
+use AntChain\TWC\Models\AddContractPlatformsignfieldsResponse;
+use AntChain\TWC\Models\GetContractFileRequest;
+use AntChain\TWC\Models\GetContractFileResponse;
+use AntChain\TWC\Models\QueryContractAccountsealsRequest;
+use AntChain\TWC\Models\QueryContractAccountsealsResponse;
+use AntChain\TWC\Models\QueryContractOrganizationsealsRequest;
+use AntChain\TWC\Models\QueryContractOrganizationsealsResponse;
+use AntChain\TWC\Models\QueryContractFlowsignerRequest;
+use AntChain\TWC\Models\QueryContractFlowsignerResponse;
+use AntChain\TWC\Models\QueryContractSignfieldsRequest;
+use AntChain\TWC\Models\QueryContractSignfieldsResponse;
+use AntChain\TWC\Models\QueryContractAccountRequest;
+use AntChain\TWC\Models\QueryContractAccountResponse;
+use AntChain\TWC\Models\QueryContractOrganizationRequest;
+use AntChain\TWC\Models\QueryContractOrganizationResponse;
+use AntChain\TWC\Models\QueryContractTemplateRequest;
+use AntChain\TWC\Models\QueryContractTemplateResponse;
+use AntChain\TWC\Models\CreateContractSignflowRequest;
+use AntChain\TWC\Models\CreateContractSignflowResponse;
+use AntChain\TWC\Models\CreateContractRegisterzftRequest;
+use AntChain\TWC\Models\CreateContractRegisterzftResponse;
+use AntChain\TWC\Models\CreateContractPlatformtemplateRequest;
+use AntChain\TWC\Models\CreateContractPlatformtemplateResponse;
+use AntChain\TWC\Models\QueryContractMerchantzftRequest;
+use AntChain\TWC\Models\QueryContractMerchantzftResponse;
+use AntChain\TWC\Models\ListContractOuttradeidRequest;
+use AntChain\TWC\Models\ListContractOuttradeidResponse;
+use AntChain\TWC\Models\QueryContractTradedetailRequest;
+use AntChain\TWC\Models\QueryContractTradedetailResponse;
+use AntChain\TWC\Models\CreateContractMerchantrefundRequest;
+use AntChain\TWC\Models\CreateContractMerchantrefundResponse;
+use AntChain\TWC\Models\CreateContractAdminaccountRequest;
+use AntChain\TWC\Models\CreateContractAdminaccountResponse;
+use AntChain\TWC\Models\ListContractTradeidsRequest;
+use AntChain\TWC\Models\ListContractTradeidsResponse;
+use AntChain\TWC\Models\CreateContractCommontriggerRequest;
+use AntChain\TWC\Models\CreateContractCommontriggerResponse;
+use AntChain\TWC\Models\CreateContractMerchantindirectzftRequest;
+use AntChain\TWC\Models\CreateContractMerchantindirectzftResponse;
+use AntChain\TWC\Models\QueryContractMerchantindirectzftRequest;
+use AntChain\TWC\Models\QueryContractMerchantindirectzftResponse;
+use AntChain\TWC\Models\QueryPayresultfileurlRequest;
+use AntChain\TWC\Models\QueryPayresultfileurlResponse;
+use AntChain\TWC\Models\CreateContractMerchantimageRequest;
+use AntChain\TWC\Models\CreateContractMerchantimageResponse;
+use AntChain\TWC\Models\CancelContractPaytradeRequest;
+use AntChain\TWC\Models\CancelContractPaytradeResponse;
+use AntChain\TWC\Models\CreateContractHandsignflowRequest;
+use AntChain\TWC\Models\CreateContractHandsignflowResponse;
+use AntChain\TWC\Models\CreateContractHandsignfieldRequest;
+use AntChain\TWC\Models\CreateContractHandsignfieldResponse;
+use AntChain\TWC\Models\GetContractSignurlRequest;
+use AntChain\TWC\Models\GetContractSignurlResponse;
+use AntChain\TWC\Models\CreateWithholdAgreementRequest;
+use AntChain\TWC\Models\CreateWithholdAgreementResponse;
+use AntChain\TWC\Models\QueryWithholdAgreementRequest;
+use AntChain\TWC\Models\QueryWithholdAgreementResponse;
+use AntChain\TWC\Models\QueryWithholdAgreementurlRequest;
+use AntChain\TWC\Models\QueryWithholdAgreementurlResponse;
+use AntChain\TWC\Models\CreateWithholdOverduetimeRequest;
+use AntChain\TWC\Models\CreateWithholdOverduetimeResponse;
+use AntChain\TWC\Models\SendWithholdDeductRequest;
+use AntChain\TWC\Models\SendWithholdDeductResponse;
+use AntChain\TWC\Models\QueryWithholdPayresultRequest;
+use AntChain\TWC\Models\QueryWithholdPayresultResponse;
+use AntChain\TWC\Models\SendWithholdRefundRequest;
+use AntChain\TWC\Models\SendWithholdRefundResponse;
+use AntChain\TWC\Models\SendContractInvitationRequest;
+use AntChain\TWC\Models\SendContractInvitationResponse;
+use AntChain\TWC\Models\ListContractPayruleRequest;
+use AntChain\TWC\Models\ListContractPayruleResponse;
+use AntChain\TWC\Models\CreateWithholdQrcodeRequest;
+use AntChain\TWC\Models\CreateWithholdQrcodeResponse;
+use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
+use AntChain\TWC\Models\CancelContractPaysingletradeResponse;
+use AntChain\TWC\Models\ApplyContractCallbackkeyRequest;
+use AntChain\TWC\Models\ApplyContractCallbackkeyResponse;
+use AntChain\TWC\Models\CreateContractOnestepflowRequest;
+use AntChain\TWC\Models\CreateContractOnestepflowResponse;
+use AntChain\TWC\Models\QueryContractNotaryRequest;
+use AntChain\TWC\Models\QueryContractNotaryResponse;
+use AntChain\TWC\Models\CreateEcocontractTransRequest;
+use AntChain\TWC\Models\CreateEcocontractTransResponse;
+use AntChain\TWC\Models\CreateEcocontractTextRequest;
+use AntChain\TWC\Models\CreateEcocontractTextResponse;
+use AntChain\TWC\Models\QueryContractWordspositionRequest;
+use AntChain\TWC\Models\QueryContractWordspositionResponse;
+use AntChain\TWC\Models\CheckEpidentityTwometaRequest;
+use AntChain\TWC\Models\CheckEpidentityTwometaResponse;
+use AntChain\TWC\Models\CheckEpidentityThreemetaRequest;
+use AntChain\TWC\Models\CheckEpidentityThreemetaResponse;
+use AntChain\TWC\Models\CheckEpidentityFourmetaRequest;
+use AntChain\TWC\Models\CheckEpidentityFourmetaResponse;
+use AntChain\TWC\Models\CheckNotarizationOrderRequest;
+use AntChain\TWC\Models\CheckNotarizationOrderResponse;
+use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
+use AntChain\TWC\Models\UpdateNotarizationOrderResponse;
+use AntChain\TWC\Models\SetNotarizationOrderRequest;
+use AntChain\TWC\Models\SetNotarizationOrderResponse;
+use AntChain\TWC\Models\InitIdentificationFaceauthRequest;
+use AntChain\TWC\Models\InitIdentificationFaceauthResponse;
+use AntChain\TWC\Models\CertifyIdentificationFaceauthRequest;
+use AntChain\TWC\Models\CertifyIdentificationFaceauthResponse;
+use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
+use AntChain\TWC\Models\QueryIdentificationFaceauthResponse;
+use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
+use AntChain\TWC\Models\QueryEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\InitEnterpriseFaceauthRequest;
+use AntChain\TWC\Models\InitEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\CertifyEnterpriseFaceauthRequest;
+use AntChain\TWC\Models\CertifyEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\CreateLeaseOrderRequest;
+use AntChain\TWC\Models\CreateLeaseOrderResponse;
+use AntChain\TWC\Models\CreateNotarizationBillRequest;
+use AntChain\TWC\Models\CreateNotarizationBillResponse;
+use AntChain\TWC\Models\InitCertificationRequest;
+use AntChain\TWC\Models\InitCertificationResponse;
+use AntChain\TWC\Models\QueryCertificationRequest;
+use AntChain\TWC\Models\QueryCertificationResponse;
+use AntChain\TWC\Models\GetTsrCertificateRequest;
+use AntChain\TWC\Models\GetTsrCertificateResponse;
+use AntChain\TWC\Models\SaveJointconstraintRecordRequest;
+use AntChain\TWC\Models\SaveJointconstraintRecordResponse;
+use AntChain\TWC\Models\DeleteJointconstraintRecordRequest;
+use AntChain\TWC\Models\DeleteJointconstraintRecordResponse;
+use AntChain\TWC\Models\QueryJointconstraintBreachrecordRequest;
+use AntChain\TWC\Models\QueryJointconstraintBreachrecordResponse;
+use AntChain\TWC\Models\ApplyJusticeMediationRequest;
+use AntChain\TWC\Models\ApplyJusticeMediationResponse;
+use AntChain\TWC\Models\CreateWitnessFlowRequest;
+use AntChain\TWC\Models\CreateWitnessFlowResponse;
+use AntChain\TWC\Models\SaveWitnessSnapshotRequest;
+use AntChain\TWC\Models\SaveWitnessSnapshotResponse;
+use AntChain\TWC\Models\CheckWitnessSignaccessRequest;
+use AntChain\TWC\Models\CheckWitnessSignaccessResponse;
+use AntChain\TWC\Models\AuthWitnessFlowRequest;
+use AntChain\TWC\Models\AuthWitnessFlowResponse;
+use AntChain\TWC\Models\ConfirmWitnessFlowRequest;
+use AntChain\TWC\Models\ConfirmWitnessFlowResponse;
+use AntChain\TWC\Models\CreateTransRequest;
+use AntChain\TWC\Models\CreateTransResponse;
+use AntChain\TWC\Models\GetTransRequest;
+use AntChain\TWC\Models\GetTransResponse;
+use AntChain\TWC\Models\CreateTextRequest;
+use AntChain\TWC\Models\CreateTextResponse;
+use AntChain\TWC\Models\GetTextRequest;
+use AntChain\TWC\Models\GetTextResponse;
+use AntChain\TWC\Models\CreateFileRequest;
+use AntChain\TWC\Models\CreateFileResponse;
+use AntChain\TWC\Models\GetFileRequest;
+use AntChain\TWC\Models\GetFileResponse;
+use AntChain\TWC\Models\CreateSourceRequest;
+use AntChain\TWC\Models\CreateSourceResponse;
+use AntChain\TWC\Models\GetSourceRequest;
+use AntChain\TWC\Models\GetSourceResponse;
+use AntChain\TWC\Models\CheckStatusRequest;
+use AntChain\TWC\Models\CheckStatusResponse;
+use AntChain\TWC\Models\DeployLeaseContractRequest;
+use AntChain\TWC\Models\DeployLeaseContractResponse;
+use AntChain\TWC\Models\CreateLeaseProductinfoRequest;
+use AntChain\TWC\Models\CreateLeaseProductinfoResponse;
+use AntChain\TWC\Models\AuthLeaseContractRequest;
+use AntChain\TWC\Models\AuthLeaseContractResponse;
+use AntChain\TWC\Models\CreateLeaseUserinfoRequest;
+use AntChain\TWC\Models\CreateLeaseUserinfoResponse;
+use AntChain\TWC\Models\CreateLeaseOrderinfoRequest;
+use AntChain\TWC\Models\CreateLeaseOrderinfoResponse;
+use AntChain\TWC\Models\CreateLeasePromiseRequest;
+use AntChain\TWC\Models\CreateLeasePromiseResponse;
+use AntChain\TWC\Models\CreateLeaseVerifyinfoRequest;
+use AntChain\TWC\Models\CreateLeaseVerifyinfoResponse;
+use AntChain\TWC\Models\CreateLeaseCreditpromiseRequest;
+use AntChain\TWC\Models\CreateLeaseCreditpromiseResponse;
+use AntChain\TWC\Models\CreateLeaseDisburseinfoRequest;
+use AntChain\TWC\Models\CreateLeaseDisburseinfoResponse;
+use AntChain\TWC\Models\QueryLeaseOrderinfoRequest;
+use AntChain\TWC\Models\QueryLeaseOrderinfoResponse;
+use AntChain\TWC\Models\CreateFinanceTextnotaryRequest;
+use AntChain\TWC\Models\CreateFinanceTextnotaryResponse;
+use AntChain\TWC\Models\GetFinanceTextnotaryRequest;
+use AntChain\TWC\Models\GetFinanceTextnotaryResponse;
+use AntChain\TWC\Models\CreateFinanceFilenotaryRequest;
+use AntChain\TWC\Models\CreateFinanceFilenotaryResponse;
+use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
+use AntChain\TWC\Models\GetFinanceFilenotaryResponse;
+use AntChain\TWC\Models\CheckIndustryNotaryRequest;
+use AntChain\TWC\Models\CheckIndustryNotaryResponse;
+use AntChain\TWC\Models\UpdateLeaseContractRequest;
+use AntChain\TWC\Models\UpdateLeaseContractResponse;
+use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
+use AntChain\TWC\Models\CreateSueBreakpromiseinfoResponse;
+use AntChain\TWC\Models\UpdateSueBreakpromiseinfoRequest;
+use AntChain\TWC\Models\UpdateSueBreakpromiseinfoResponse;
+use AntChain\TWC\Models\DeleteSueBreakpromiseinfoRequest;
+use AntChain\TWC\Models\DeleteSueBreakpromiseinfoResponse;
+use AntChain\TWC\Models\QuerySueUserinfoRequest;
+use AntChain\TWC\Models\QuerySueUserinfoResponse;
+use AntChain\TWC\Models\UpdateSueExeplarycontractRequest;
+use AntChain\TWC\Models\UpdateSueExeplarycontractResponse;
+use AntChain\TWC\Models\UpdateSueExemplaryrevertRequest;
+use AntChain\TWC\Models\UpdateSueExemplaryrevertResponse;
+use AntChain\TWC\Models\CreateLeaseAuditRequest;
+use AntChain\TWC\Models\CreateLeaseAuditResponse;
+use AntChain\TWC\Models\CreateLeasePaymentfileRequest;
+use AntChain\TWC\Models\CreateLeasePaymentfileResponse;
+use AntChain\TWC\Models\CreateLeaseRentalRequest;
+use AntChain\TWC\Models\CreateLeaseRentalResponse;
+use AntChain\TWC\Models\CreateLeaseClearingRequest;
+use AntChain\TWC\Models\CreateLeaseClearingResponse;
+use AntChain\TWC\Models\CreateLeaseRepaymentRequest;
+use AntChain\TWC\Models\CreateLeaseRepaymentResponse;
+use AntChain\TWC\Models\CreateLeaseNotifyregisterRequest;
+use AntChain\TWC\Models\CreateLeaseNotifyregisterResponse;
+use AntChain\TWC\Models\QueryLeaseIotinfoRequest;
+use AntChain\TWC\Models\QueryLeaseIotinfoResponse;
+use AntChain\TWC\Models\CreateCourtTextnotaryRequest;
+use AntChain\TWC\Models\CreateCourtTextnotaryResponse;
+use AntChain\TWC\Models\GetCourtTextnotaryRequest;
+use AntChain\TWC\Models\GetCourtTextnotaryResponse;
+use AntChain\TWC\Models\CreateCourtFilenotaryRequest;
+use AntChain\TWC\Models\CreateCourtFilenotaryResponse;
+use AntChain\TWC\Models\GetCourtFilenotaryRequest;
+use AntChain\TWC\Models\GetCourtFilenotaryResponse;
+use AntChain\TWC\Models\CreateLeaseRouteRequest;
+use AntChain\TWC\Models\CreateLeaseRouteResponse;
+use AntChain\TWC\Models\QueryLeaseEncryptedinfoRequest;
+use AntChain\TWC\Models\QueryLeaseEncryptedinfoResponse;
+use AntChain\TWC\Models\CreateContractTextRequest;
+use AntChain\TWC\Models\CreateContractTextResponse;
+use AntChain\TWC\Models\ApplyContractReportRequest;
+use AntChain\TWC\Models\ApplyContractReportResponse;
+use AntChain\TWC\Models\GetContractTextRequest;
+use AntChain\TWC\Models\GetContractTextResponse;
+use AntChain\TWC\Models\CreateInternalTransRequest;
+use AntChain\TWC\Models\CreateInternalTransResponse;
+use AntChain\TWC\Models\CreateInternalTextRequest;
+use AntChain\TWC\Models\CreateInternalTextResponse;
+use AntChain\TWC\Models\CreateLeaseTextRequest;
+use AntChain\TWC\Models\CreateLeaseTextResponse;
+use AntChain\TWC\Models\CreateLeaseFileRequest;
+use AntChain\TWC\Models\CreateLeaseFileResponse;
+use AntChain\TWC\Models\ListLeaseNotaryRequest;
+use AntChain\TWC\Models\ListLeaseNotaryResponse;
+use AntChain\TWC\Models\QueryLeaseApplicationRequest;
+use AntChain\TWC\Models\QueryLeaseApplicationResponse;
+use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoRequest;
+use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoResponse;
+use AntChain\TWC\Models\SetLeaseRepaymentstatusRequest;
+use AntChain\TWC\Models\SetLeaseRepaymentstatusResponse;
+use AntChain\TWC\Models\CreateLeaseSupplierinfoRequest;
+use AntChain\TWC\Models\CreateLeaseSupplierinfoResponse;
+use AntChain\TWC\Models\DeployMytfTappRequest;
+use AntChain\TWC\Models\DeployMytfTappResponse;
+use AntChain\TWC\Models\CreateLeaseSupplierdynamicinfoRequest;
+use AntChain\TWC\Models\CreateLeaseSupplierdynamicinfoResponse;
+use AntChain\TWC\Models\CreateLeaseBizRequest;
+use AntChain\TWC\Models\CreateLeaseBizResponse;
+use AntChain\TWC\Models\QueryLeaseProofRequest;
+use AntChain\TWC\Models\QueryLeaseProofResponse;
+use AntChain\TWC\Models\CreateLargefileRequest;
+use AntChain\TWC\Models\CreateLargefileResponse;
+use AntChain\TWC\Models\QueryLeaseBizRequest;
+use AntChain\TWC\Models\QueryLeaseBizResponse;
+use AntChain\TWC\Models\CreateLeaseBiznotaryRequest;
+use AntChain\TWC\Models\CreateLeaseBiznotaryResponse;
+use AntChain\TWC\Models\CreateInternalContractRequest;
+use AntChain\TWC\Models\CreateInternalContractResponse;
+use AntChain\TWC\Models\CreateLeaseZftagreementsignRequest;
+use AntChain\TWC\Models\CreateLeaseZftagreementsignResponse;
+use AntChain\TWC\Models\CreateLeaseZftagreementunsignRequest;
+use AntChain\TWC\Models\CreateLeaseZftagreementunsignResponse;
 
 class Client {
     protected $_endpoint;
@@ -318,6 +357,14 @@ class Client {
 
     protected $_securityToken;
 
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
     /**
      * Init client with Config
      * @param config config contains the necessary information to create a client
@@ -335,14 +382,18 @@ class Client {
         $this->_endpoint = $config->endpoint;
         $this->_protocol = $config->protocol;
         $this->_userAgent = $config->userAgent;
-        $this->_readTimeout = $config->readTimeout;
-        $this->_connectTimeout = $config->connectTimeout;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
         $this->_httpProxy = $config->httpProxy;
         $this->_httpsProxy = $config->httpsProxy;
         $this->_noProxy = $config->noProxy;
         $this->_socks5Proxy = $config->socks5Proxy;
         $this->_socks5NetWork = $config->socks5NetWork;
-        $this->_maxIdleConns = $config->maxIdleConns;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
     }
 
     /**
@@ -353,13 +404,14 @@ class Client {
      * @param string $method e.g. GET
      * @param string $pathname pathname of every api
      * @param mixed[] $request which contains request params
+     * @param string[] $headers
      * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
      * @return array the response
      * @throws TeaError
      * @throws Exception
      * @throws TeaUnableRetryError
      */
-    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $runtime){
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime){
         $runtime->validate();
         $_runtime = [
             "timeouted" => "retry",
@@ -369,6 +421,10 @@ class Client {
             "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
             "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
             "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDurationMillis" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
             "retry" => [
                 "retryable" => $runtime->autoretry,
                 "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
@@ -377,15 +433,16 @@ class Client {
                 "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
             ],
-            "ignoreSSL" => $runtime->ignoreSSL
+            "ignoreSSL" => $runtime->ignoreSSL,
+            // 签字人
         ];
         $_lastRequest = null;
         $_lastException = null;
         $_now = time();
         $_retryTimes = 0;
-        while (Tea::allowRetry($_runtime["retry"], $_retryTimes, $_now)) {
+        while (Tea::allowRetry(@$_runtime["retry"], $_retryTimes, $_now)) {
             if ($_retryTimes > 0) {
-                $_backoffTime = Tea::getBackoffTime($_runtime["backoff"], $_retryTimes);
+                $_backoffTime = Tea::getBackoffTime(@$_runtime["backoff"], $_retryTimes);
                 if ($_backoffTime > 0) {
                     Tea::sleep($_backoffTime);
                 }
@@ -401,19 +458,18 @@ class Client {
                     "version" => $version,
                     "sign_type" => "HmacSHA1",
                     "req_time" => UtilClient::getTimestamp(),
-                    "req_msg_id" => Utils::getNonce(),
+                    "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
-                    "charset" => "UTF-8",
-                    "baseSdkVersion" => "Tea-SDK",
-                    "sdkVersion" => "Tea-SDK-20200902"
+                    "base_sdk_version" => "TeaSDK-2.0",
+                    "sdk_version" => "1.4.131"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
                 }
-                $_request->headers = [
-                    "host" => $this->_endpoint,
-                    "user-agent" => $this->getUserAgent()
-                ];
+                $_request->headers = Tea::merge([
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
+                    "user-agent" => Utils::getUserAgent($this->_userAgent)
+                ], $headers);
                 $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
                 $_request->body = Utils::toFormString($tmp);
                 $_request->headers["content-type"] = "application/x-www-form-urlencoded";
@@ -421,14 +477,15 @@ class Client {
                 $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
                 $_lastRequest = $_request;
                 $_response= Tea::send($_request, $_runtime);
-                $obj = Utils::readAsJSON($_response->body);
+                $raw = Utils::readAsString($_response->body);
+                $obj = Utils::parseJSON($raw);
                 $res = Utils::assertAsMap($obj);
-                $resp = Utils::assertAsMap($res["response"]);
-                if (UtilClient::hasError($res)) {
+                $resp = Utils::assertAsMap(@$res["response"]);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret, "OK")) {
                     throw new TeaError([
-                        "message" => $resp["result_msg"],
+                        "message" => @$resp["result_msg"],
                         "data" => $resp,
-                        "code" => $resp["result_code"]
+                        "code" => @$resp["result_code"]
                     ]);
                 }
                 return $resp;
@@ -448,3143 +505,3906 @@ class Client {
     }
 
     /**
-     * Get user agent
-     * @return string user agent
+     * Description: 提供给第三方仲裁isv的仲裁申请状态变化回调接口
+     * Summary: 仲裁状态信息变更回调接口
+     * @param CallbackArbitrationStatusRequest $request
+     * @return CallbackArbitrationStatusResponse
      */
-    public function getUserAgent(){
-        $userAgent = "TeaClient/1.0.0";
-        return Utils::getUserAgent($userAgent);
+    public function callbackArbitrationStatus($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackArbitrationStatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 提供给第三方仲裁isv的仲裁申请状态变化回调接口
      * Summary: 仲裁状态信息变更回调接口
-     * @param CallbackTwcNotaryArbitrationStatusRequest $request
-     * @return CallbackTwcNotaryArbitrationStatusResponse
-     */
-    public function callbackTwcNotaryArbitrationStatus($request){
-        $runtime = new RuntimeOptions([]);
-        return $this->callbackTwcNotaryArbitrationStatusEx($request, $runtime);
-    }
-
-    /**
-     * Description: 提供给第三方仲裁isv的仲裁申请状态变化回调接口
-     * Summary: 仲裁状态信息变更回调接口
-     * @param CallbackTwcNotaryArbitrationStatusRequest $request
+     * @param CallbackArbitrationStatusRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CallbackTwcNotaryArbitrationStatusResponse
+     * @return CallbackArbitrationStatusResponse
      */
-    public function callbackTwcNotaryArbitrationStatusEx($request, $runtime){
+    public function callbackArbitrationStatusEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CallbackTwcNotaryArbitrationStatusResponse::fromMap($this->doRequest("1.0", "twc.notary.arbitration.status.callback", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CallbackArbitrationStatusResponse::fromMap($this->doRequest("1.0", "twc.notary.arbitration.status.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 调用本接口创建个人账号，后续有关该用户的所有操作都需使用该用户的accountId。如提供用户证件信息，则将根据提供的用户证件信息申请数字证书。
      * Summary: 创建电子合同签署个人帐户
-     * @param CreateTwcNotaryContractAccountRequest $request
-     * @return CreateTwcNotaryContractAccountResponse
+     * @param CreateContractAccountRequest $request
+     * @return CreateContractAccountResponse
      */
-    public function createTwcNotaryContractAccount($request){
+    public function createContractAccount($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractAccountEx($request, $runtime);
+        $headers = [];
+        return $this->createContractAccountEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 调用本接口创建个人账号，后续有关该用户的所有操作都需使用该用户的accountId。如提供用户证件信息，则将根据提供的用户证件信息申请数字证书。
      * Summary: 创建电子合同签署个人帐户
-     * @param CreateTwcNotaryContractAccountRequest $request
+     * @param CreateContractAccountRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractAccountResponse
+     * @return CreateContractAccountResponse
      */
-    public function createTwcNotaryContractAccountEx($request, $runtime){
+    public function createContractAccountEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractAccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.account.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractAccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.account.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 通过模版参数，创建个人印章
      * Summary: 创建电子合同个人帐户印章
-     * @param CreateTwcNotaryContractAccountsealRequest $request
-     * @return CreateTwcNotaryContractAccountsealResponse
+     * @param CreateContractAccountsealRequest $request
+     * @return CreateContractAccountsealResponse
      */
-    public function createTwcNotaryContractAccountseal($request){
+    public function createContractAccountseal($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractAccountsealEx($request, $runtime);
+        $headers = [];
+        return $this->createContractAccountsealEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 通过模版参数，创建个人印章
      * Summary: 创建电子合同个人帐户印章
-     * @param CreateTwcNotaryContractAccountsealRequest $request
+     * @param CreateContractAccountsealRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractAccountsealResponse
+     * @return CreateContractAccountsealResponse
      */
-    public function createTwcNotaryContractAccountsealEx($request, $runtime){
+    public function createContractAccountsealEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractAccountsealResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountseal.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractAccountsealResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountseal.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 对接方调用本接口创建机构账号，后续有关该机构的所有操作都需使用该机构的orgId。如提供机构证件信息，则将根据提供的机构证件信息申请数字证书。
      * 创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
      * Summary: 创建电子合同签署机构帐户
-     * @param CreateTwcNotaryContractOrganizationRequest $request
-     * @return CreateTwcNotaryContractOrganizationResponse
+     * @param CreateContractOrganizationRequest $request
+     * @return CreateContractOrganizationResponse
      */
-    public function createTwcNotaryContractOrganization($request){
+    public function createContractOrganization($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractOrganizationEx($request, $runtime);
+        $headers = [];
+        return $this->createContractOrganizationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 对接方调用本接口创建机构账号，后续有关该机构的所有操作都需使用该机构的orgId。如提供机构证件信息，则将根据提供的机构证件信息申请数字证书。
      * 创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
      * Summary: 创建电子合同签署机构帐户
-     * @param CreateTwcNotaryContractOrganizationRequest $request
+     * @param CreateContractOrganizationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractOrganizationResponse
+     * @return CreateContractOrganizationResponse
      */
-    public function createTwcNotaryContractOrganizationEx($request, $runtime){
+    public function createContractOrganizationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractOrganizationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organization.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractOrganizationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organization.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 通过模版参数，创建机构印章
      * Summary: 创建电子合同机构帐户印章
-     * @param CreateTwcNotaryContractOrgsealRequest $request
-     * @return CreateTwcNotaryContractOrgsealResponse
+     * @param CreateContractOrgsealRequest $request
+     * @return CreateContractOrgsealResponse
      */
-    public function createTwcNotaryContractOrgseal($request){
+    public function createContractOrgseal($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractOrgsealEx($request, $runtime);
+        $headers = [];
+        return $this->createContractOrgsealEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 通过模版参数，创建机构印章
      * Summary: 创建电子合同机构帐户印章
-     * @param CreateTwcNotaryContractOrgsealRequest $request
+     * @param CreateContractOrgsealRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractOrgsealResponse
+     * @return CreateContractOrgsealResponse
      */
-    public function createTwcNotaryContractOrgsealEx($request, $runtime){
+    public function createContractOrgsealEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractOrgsealResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.orgseal.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractOrgsealResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.orgseal.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 静默签署授权
      * Summary: 静默签署授权
-     * @param AuthTwcNotaryContractSignRequest $request
-     * @return AuthTwcNotaryContractSignResponse
+     * @param AuthContractSignRequest $request
+     * @return AuthContractSignResponse
      */
-    public function authTwcNotaryContractSign($request){
+    public function authContractSign($request){
         $runtime = new RuntimeOptions([]);
-        return $this->authTwcNotaryContractSignEx($request, $runtime);
+        $headers = [];
+        return $this->authContractSignEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 静默签署授权
      * Summary: 静默签署授权
-     * @param AuthTwcNotaryContractSignRequest $request
+     * @param AuthContractSignRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AuthTwcNotaryContractSignResponse
+     * @return AuthContractSignResponse
      */
-    public function authTwcNotaryContractSignEx($request, $runtime){
+    public function authContractSignEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AuthTwcNotaryContractSignResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.sign.auth", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AuthContractSignResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.sign.auth", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
      * Summary: 通过文件上传方式创建电子合同签署模板
-     * @param CreateTwcNotaryContractTemplateRequest $request
-     * @return CreateTwcNotaryContractTemplateResponse
+     * @param CreateContractTemplateRequest $request
+     * @return CreateContractTemplateResponse
      */
-    public function createTwcNotaryContractTemplate($request){
+    public function createContractTemplate($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractTemplateEx($request, $runtime);
+        $headers = [];
+        return $this->createContractTemplateEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
      * Summary: 通过文件上传方式创建电子合同签署模板
-     * @param CreateTwcNotaryContractTemplateRequest $request
+     * @param CreateContractTemplateRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractTemplateResponse
+     * @return CreateContractTemplateResponse
      */
-    public function createTwcNotaryContractTemplateEx($request, $runtime){
+    public function createContractTemplateEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractTemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.template.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractTemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.template.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建签署流程
      * Summary: 创建电子合同签署流程
-     * @param CreateTwcNotaryContractFlowRequest $request
-     * @return CreateTwcNotaryContractFlowResponse
+     * @param CreateContractFlowRequest $request
+     * @return CreateContractFlowResponse
      */
-    public function createTwcNotaryContractFlow($request){
+    public function createContractFlow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractFlowEx($request, $runtime);
+        $headers = [];
+        return $this->createContractFlowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建签署流程
      * Summary: 创建电子合同签署流程
-     * @param CreateTwcNotaryContractFlowRequest $request
+     * @param CreateContractFlowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractFlowResponse
+     * @return CreateContractFlowResponse
      */
-    public function createTwcNotaryContractFlowEx($request, $runtime){
+    public function createContractFlowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
      * Summary: 向电子合同签署流程中添加待签署文档
-     * @param AddTwcNotaryContractDocumentRequest $request
-     * @return AddTwcNotaryContractDocumentResponse
+     * @param AddContractDocumentRequest $request
+     * @return AddContractDocumentResponse
      */
-    public function addTwcNotaryContractDocument($request){
+    public function addContractDocument($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addTwcNotaryContractDocumentEx($request, $runtime);
+        $headers = [];
+        return $this->addContractDocumentEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
      * Summary: 向电子合同签署流程中添加待签署文档
-     * @param AddTwcNotaryContractDocumentRequest $request
+     * @param AddContractDocumentRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AddTwcNotaryContractDocumentResponse
+     * @return AddContractDocumentResponse
      */
-    public function addTwcNotaryContractDocumentEx($request, $runtime){
+    public function addContractDocumentEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AddTwcNotaryContractDocumentResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.document.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddContractDocumentResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.document.add", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
      * Summary: 添加电子合同签署方自动盖章签署区
-     * @param AddTwcNotaryContractSignfieldRequest $request
-     * @return AddTwcNotaryContractSignfieldResponse
+     * @param AddContractSignfieldRequest $request
+     * @return AddContractSignfieldResponse
      */
-    public function addTwcNotaryContractSignfield($request){
+    public function addContractSignfield($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addTwcNotaryContractSignfieldEx($request, $runtime);
+        $headers = [];
+        return $this->addContractSignfieldEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
      * Summary: 添加电子合同签署方自动盖章签署区
-     * @param AddTwcNotaryContractSignfieldRequest $request
+     * @param AddContractSignfieldRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AddTwcNotaryContractSignfieldResponse
+     * @return AddContractSignfieldResponse
      */
-    public function addTwcNotaryContractSignfieldEx($request, $runtime){
+    public function addContractSignfieldEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AddTwcNotaryContractSignfieldResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signfield.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddContractSignfieldResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signfield.add", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
      * Summary: 电子合同签署流程开启
-     * @param StartTwcNotaryContractFlowRequest $request
-     * @return StartTwcNotaryContractFlowResponse
+     * @param StartContractFlowRequest $request
+     * @return StartContractFlowResponse
      */
-    public function startTwcNotaryContractFlow($request){
+    public function startContractFlow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->startTwcNotaryContractFlowEx($request, $runtime);
+        $headers = [];
+        return $this->startContractFlowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
      * Summary: 电子合同签署流程开启
-     * @param StartTwcNotaryContractFlowRequest $request
+     * @param StartContractFlowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return StartTwcNotaryContractFlowResponse
+     * @return StartContractFlowResponse
      */
-    public function startTwcNotaryContractFlowEx($request, $runtime){
+    public function startContractFlowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return StartTwcNotaryContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.start", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return StartContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.start", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
      * Summary: 电子合同签署流程归档
-     * @param SaveTwcNotaryContractFlowRequest $request
-     * @return SaveTwcNotaryContractFlowResponse
+     * @param SaveContractFlowRequest $request
+     * @return SaveContractFlowResponse
      */
-    public function saveTwcNotaryContractFlow($request){
+    public function saveContractFlow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->saveTwcNotaryContractFlowEx($request, $runtime);
+        $headers = [];
+        return $this->saveContractFlowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
      * Summary: 电子合同签署流程归档
-     * @param SaveTwcNotaryContractFlowRequest $request
+     * @param SaveContractFlowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SaveTwcNotaryContractFlowResponse
+     * @return SaveContractFlowResponse
      */
-    public function saveTwcNotaryContractFlowEx($request, $runtime){
+    public function saveContractFlowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SaveTwcNotaryContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.save", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SaveContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 流程归档后，查询和下载签署后的文件
      * Summary: 电子合同流程文档下载
-     * @param DownloadTwcNotaryContractDocumentRequest $request
-     * @return DownloadTwcNotaryContractDocumentResponse
+     * @param DownloadContractDocumentRequest $request
+     * @return DownloadContractDocumentResponse
      */
-    public function downloadTwcNotaryContractDocument($request){
+    public function downloadContractDocument($request){
         $runtime = new RuntimeOptions([]);
-        return $this->downloadTwcNotaryContractDocumentEx($request, $runtime);
+        $headers = [];
+        return $this->downloadContractDocumentEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 流程归档后，查询和下载签署后的文件
      * Summary: 电子合同流程文档下载
-     * @param DownloadTwcNotaryContractDocumentRequest $request
+     * @param DownloadContractDocumentRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return DownloadTwcNotaryContractDocumentResponse
+     * @return DownloadContractDocumentResponse
      */
-    public function downloadTwcNotaryContractDocumentEx($request, $runtime){
+    public function downloadContractDocumentEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return DownloadTwcNotaryContractDocumentResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.document.download", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DownloadContractDocumentResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.document.download", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
      * Summary: 通过电子合同模板添加文档
-     * @param AddTwcNotaryContractFileRequest $request
-     * @return AddTwcNotaryContractFileResponse
+     * @param AddContractFileRequest $request
+     * @return AddContractFileResponse
      */
-    public function addTwcNotaryContractFile($request){
+    public function addContractFile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addTwcNotaryContractFileEx($request, $runtime);
+        $headers = [];
+        return $this->addContractFileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
      * Summary: 通过电子合同模板添加文档
-     * @param AddTwcNotaryContractFileRequest $request
+     * @param AddContractFileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AddTwcNotaryContractFileResponse
+     * @return AddContractFileResponse
      */
-    public function addTwcNotaryContractFileEx($request, $runtime){
+    public function addContractFileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AddTwcNotaryContractFileResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.file.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddContractFileResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.file.add", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
      * Summary: 电子合同平台方注册
-     * @param CreateTwcNotaryContractPlatformRequest $request
-     * @return CreateTwcNotaryContractPlatformResponse
+     * @param CreateContractPlatformRequest $request
+     * @return CreateContractPlatformResponse
      */
-    public function createTwcNotaryContractPlatform($request){
+    public function createContractPlatform($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractPlatformEx($request, $runtime);
+        $headers = [];
+        return $this->createContractPlatformEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
      * Summary: 电子合同平台方注册
-     * @param CreateTwcNotaryContractPlatformRequest $request
+     * @param CreateContractPlatformRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractPlatformResponse
+     * @return CreateContractPlatformResponse
      */
-    public function createTwcNotaryContractPlatformEx($request, $runtime){
+    public function createContractPlatformEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractPlatformResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platform.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractPlatformResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platform.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 电子合同平台方提供用户信息，注册成为平台用户
      * Summary: 电子合同平台方的用户注册
-     * @param CreateTwcNotaryContractUserRequest $request
-     * @return CreateTwcNotaryContractUserResponse
+     * @param CreateContractUserRequest $request
+     * @return CreateContractUserResponse
      */
-    public function createTwcNotaryContractUser($request){
+    public function createContractUser($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractUserEx($request, $runtime);
+        $headers = [];
+        return $this->createContractUserEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 电子合同平台方提供用户信息，注册成为平台用户
      * Summary: 电子合同平台方的用户注册
-     * @param CreateTwcNotaryContractUserRequest $request
+     * @param CreateContractUserRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractUserResponse
+     * @return CreateContractUserResponse
      */
-    public function createTwcNotaryContractUserEx($request, $runtime){
+    public function createContractUserEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractUserResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.user.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractUserResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.user.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 电子合同平台方发起签署流程，用户在H5页面完成手动签署
      * Summary: 电子合同平台方发起手动签署流程
-     * @param StartTwcNotaryContractHandsignRequest $request
-     * @return StartTwcNotaryContractHandsignResponse
+     * @param StartContractHandsignRequest $request
+     * @return StartContractHandsignResponse
      */
-    public function startTwcNotaryContractHandsign($request){
+    public function startContractHandsign($request){
         $runtime = new RuntimeOptions([]);
-        return $this->startTwcNotaryContractHandsignEx($request, $runtime);
+        $headers = [];
+        return $this->startContractHandsignEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 电子合同平台方发起签署流程，用户在H5页面完成手动签署
      * Summary: 电子合同平台方发起手动签署流程
-     * @param StartTwcNotaryContractHandsignRequest $request
+     * @param StartContractHandsignRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return StartTwcNotaryContractHandsignResponse
+     * @return StartContractHandsignResponse
      */
-    public function startTwcNotaryContractHandsignEx($request, $runtime){
+    public function startContractHandsignEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return StartTwcNotaryContractHandsignResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsign.start", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return StartContractHandsignResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsign.start", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
      * Summary: 签署流程查询
-     * @param QueryTwcNotaryContractFlowRequest $request
-     * @return QueryTwcNotaryContractFlowResponse
+     * @param QueryContractFlowRequest $request
+     * @return QueryContractFlowResponse
      */
-    public function queryTwcNotaryContractFlow($request){
+    public function queryContractFlow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractFlowEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractFlowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
      * Summary: 签署流程查询
-     * @param QueryTwcNotaryContractFlowRequest $request
+     * @param QueryContractFlowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractFlowResponse
+     * @return QueryContractFlowResponse
      */
-    public function queryTwcNotaryContractFlowEx($request, $runtime){
+    public function queryContractFlowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flow.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建个人/机构图片印章
      * Summary: 创建个人/机构图片印章
-     * @param CreateTwcNotaryContractAccountsealimageRequest $request
-     * @return CreateTwcNotaryContractAccountsealimageResponse
+     * @param CreateContractAccountsealimageRequest $request
+     * @return CreateContractAccountsealimageResponse
      */
-    public function createTwcNotaryContractAccountsealimage($request){
+    public function createContractAccountsealimage($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractAccountsealimageEx($request, $runtime);
+        $headers = [];
+        return $this->createContractAccountsealimageEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建个人/机构图片印章
      * Summary: 创建个人/机构图片印章
-     * @param CreateTwcNotaryContractAccountsealimageRequest $request
+     * @param CreateContractAccountsealimageRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractAccountsealimageResponse
+     * @return CreateContractAccountsealimageResponse
      */
-    public function createTwcNotaryContractAccountsealimageEx($request, $runtime){
+    public function createContractAccountsealimageEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractAccountsealimageResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountsealimage.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractAccountsealimageResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountsealimage.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
      * Summary: 通过上传方式创建文件
-     * @param GetTwcNotaryContractFileuploadurlRequest $request
-     * @return GetTwcNotaryContractFileuploadurlResponse
+     * @param GetContractFileuploadurlRequest $request
+     * @return GetContractFileuploadurlResponse
      */
-    public function getTwcNotaryContractFileuploadurl($request){
+    public function getContractFileuploadurl($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryContractFileuploadurlEx($request, $runtime);
+        $headers = [];
+        return $this->getContractFileuploadurlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
      * Summary: 通过上传方式创建文件
-     * @param GetTwcNotaryContractFileuploadurlRequest $request
+     * @param GetContractFileuploadurlRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryContractFileuploadurlResponse
+     * @return GetContractFileuploadurlResponse
      */
-    public function getTwcNotaryContractFileuploadurlEx($request, $runtime){
+    public function getContractFileuploadurlEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryContractFileuploadurlResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.fileuploadurl.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetContractFileuploadurlResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.fileuploadurl.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息（平台自动签无需指定签署人信息，默认签署人是对接的企业）。
      * 签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
      * Summary: 添加平台自动盖章签署区
-     * @param AddTwcNotaryContractPlatformsignfieldsRequest $request
-     * @return AddTwcNotaryContractPlatformsignfieldsResponse
+     * @param AddContractPlatformsignfieldsRequest $request
+     * @return AddContractPlatformsignfieldsResponse
      */
-    public function addTwcNotaryContractPlatformsignfields($request){
+    public function addContractPlatformsignfields($request){
         $runtime = new RuntimeOptions([]);
-        return $this->addTwcNotaryContractPlatformsignfieldsEx($request, $runtime);
+        $headers = [];
+        return $this->addContractPlatformsignfieldsEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息（平台自动签无需指定签署人信息，默认签署人是对接的企业）。
      * 签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
      * Summary: 添加平台自动盖章签署区
-     * @param AddTwcNotaryContractPlatformsignfieldsRequest $request
+     * @param AddContractPlatformsignfieldsRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AddTwcNotaryContractPlatformsignfieldsResponse
+     * @return AddContractPlatformsignfieldsResponse
      */
-    public function addTwcNotaryContractPlatformsignfieldsEx($request, $runtime){
+    public function addContractPlatformsignfieldsEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AddTwcNotaryContractPlatformsignfieldsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platformsignfields.add", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AddContractPlatformsignfieldsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platformsignfields.add", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询文件详情，包括文件名称、大小、下载地址等
      * Summary: 查询文件详情
-     * @param GetTwcNotaryContractFileRequest $request
-     * @return GetTwcNotaryContractFileResponse
+     * @param GetContractFileRequest $request
+     * @return GetContractFileResponse
      */
-    public function getTwcNotaryContractFile($request){
+    public function getContractFile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryContractFileEx($request, $runtime);
+        $headers = [];
+        return $this->getContractFileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询文件详情，包括文件名称、大小、下载地址等
      * Summary: 查询文件详情
-     * @param GetTwcNotaryContractFileRequest $request
+     * @param GetContractFileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryContractFileResponse
+     * @return GetContractFileResponse
      */
-    public function getTwcNotaryContractFileEx($request, $runtime){
+    public function getContractFileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryContractFileResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.file.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetContractFileResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.file.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询个人所有印章
      * Summary: 查询个人印章
-     * @param QueryTwcNotaryContractAccountsealsRequest $request
-     * @return QueryTwcNotaryContractAccountsealsResponse
+     * @param QueryContractAccountsealsRequest $request
+     * @return QueryContractAccountsealsResponse
      */
-    public function queryTwcNotaryContractAccountseals($request){
+    public function queryContractAccountseals($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractAccountsealsEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractAccountsealsEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询个人所有印章
      * Summary: 查询个人印章
-     * @param QueryTwcNotaryContractAccountsealsRequest $request
+     * @param QueryContractAccountsealsRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractAccountsealsResponse
+     * @return QueryContractAccountsealsResponse
      */
-    public function queryTwcNotaryContractAccountsealsEx($request, $runtime){
+    public function queryContractAccountsealsEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractAccountsealsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountseals.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractAccountsealsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.accountseals.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询机构所有印章
      * Summary: 查询机构印章
-     * @param QueryTwcNotaryContractOrganizationsealsRequest $request
-     * @return QueryTwcNotaryContractOrganizationsealsResponse
+     * @param QueryContractOrganizationsealsRequest $request
+     * @return QueryContractOrganizationsealsResponse
      */
-    public function queryTwcNotaryContractOrganizationseals($request){
+    public function queryContractOrganizationseals($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractOrganizationsealsEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractOrganizationsealsEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询机构所有印章
      * Summary: 查询机构印章
-     * @param QueryTwcNotaryContractOrganizationsealsRequest $request
+     * @param QueryContractOrganizationsealsRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractOrganizationsealsResponse
+     * @return QueryContractOrganizationsealsResponse
      */
-    public function queryTwcNotaryContractOrganizationsealsEx($request, $runtime){
+    public function queryContractOrganizationsealsEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractOrganizationsealsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organizationseals.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractOrganizationsealsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organizationseals.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询流程所有签署人列表。
      * Summary: 查询流程签署人列表
-     * @param QueryTwcNotaryContractFlowsignerRequest $request
-     * @return QueryTwcNotaryContractFlowsignerResponse
+     * @param QueryContractFlowsignerRequest $request
+     * @return QueryContractFlowsignerResponse
      */
-    public function queryTwcNotaryContractFlowsigner($request){
+    public function queryContractFlowsigner($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractFlowsignerEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractFlowsignerEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询流程所有签署人列表。
      * Summary: 查询流程签署人列表
-     * @param QueryTwcNotaryContractFlowsignerRequest $request
+     * @param QueryContractFlowsignerRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractFlowsignerResponse
+     * @return QueryContractFlowsignerResponse
      */
-    public function queryTwcNotaryContractFlowsignerEx($request, $runtime){
+    public function queryContractFlowsignerEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractFlowsignerResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flowsigner.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractFlowsignerResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.flowsigner.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
      * Summary: 查询签署区列表
-     * @param QueryTwcNotaryContractSignfieldsRequest $request
-     * @return QueryTwcNotaryContractSignfieldsResponse
+     * @param QueryContractSignfieldsRequest $request
+     * @return QueryContractSignfieldsResponse
      */
-    public function queryTwcNotaryContractSignfields($request){
+    public function queryContractSignfields($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractSignfieldsEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractSignfieldsEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
      * Summary: 查询签署区列表
-     * @param QueryTwcNotaryContractSignfieldsRequest $request
+     * @param QueryContractSignfieldsRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractSignfieldsResponse
+     * @return QueryContractSignfieldsResponse
      */
-    public function queryTwcNotaryContractSignfieldsEx($request, $runtime){
+    public function queryContractSignfieldsEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractSignfieldsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signfields.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractSignfieldsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signfields.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 使用创建账号返回的账号id查询用户的账号。
      * Summary: 查询个人账号
-     * @param QueryTwcNotaryContractAccountRequest $request
-     * @return QueryTwcNotaryContractAccountResponse
+     * @param QueryContractAccountRequest $request
+     * @return QueryContractAccountResponse
      */
-    public function queryTwcNotaryContractAccount($request){
+    public function queryContractAccount($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractAccountEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractAccountEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 使用创建账号返回的账号id查询用户的账号。
      * Summary: 查询个人账号
-     * @param QueryTwcNotaryContractAccountRequest $request
+     * @param QueryContractAccountRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractAccountResponse
+     * @return QueryContractAccountResponse
      */
-    public function queryTwcNotaryContractAccountEx($request, $runtime){
+    public function queryContractAccountEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractAccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.account.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractAccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.account.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 使用创建账号返回的账号id查询机构账号。
      * Summary: 查询机构账号
-     * @param QueryTwcNotaryContractOrganizationRequest $request
-     * @return QueryTwcNotaryContractOrganizationResponse
+     * @param QueryContractOrganizationRequest $request
+     * @return QueryContractOrganizationResponse
      */
-    public function queryTwcNotaryContractOrganization($request){
+    public function queryContractOrganization($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractOrganizationEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractOrganizationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 使用创建账号返回的账号id查询机构账号。
      * Summary: 查询机构账号
-     * @param QueryTwcNotaryContractOrganizationRequest $request
+     * @param QueryContractOrganizationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractOrganizationResponse
+     * @return QueryContractOrganizationResponse
      */
-    public function queryTwcNotaryContractOrganizationEx($request, $runtime){
+    public function queryContractOrganizationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractOrganizationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organization.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractOrganizationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.organization.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询模板详情，包括文件模板基本信息和输入项组件信息
      * Summary: 查询模板详情详情
-     * @param QueryTwcNotaryContractTemplateRequest $request
-     * @return QueryTwcNotaryContractTemplateResponse
+     * @param QueryContractTemplateRequest $request
+     * @return QueryContractTemplateResponse
      */
-    public function queryTwcNotaryContractTemplate($request){
+    public function queryContractTemplate($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractTemplateEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractTemplateEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询模板详情，包括文件模板基本信息和输入项组件信息
      * Summary: 查询模板详情详情
-     * @param QueryTwcNotaryContractTemplateRequest $request
+     * @param QueryContractTemplateRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractTemplateResponse
+     * @return QueryContractTemplateResponse
      */
-    public function queryTwcNotaryContractTemplateEx($request, $runtime){
+    public function queryContractTemplateEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractTemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.template.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractTemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.template.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
      * Summary: 创建签署流程
-     * @param CreateTwcNotaryContractSignflowRequest $request
-     * @return CreateTwcNotaryContractSignflowResponse
+     * @param CreateContractSignflowRequest $request
+     * @return CreateContractSignflowResponse
      */
-    public function createTwcNotaryContractSignflow($request){
+    public function createContractSignflow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractSignflowEx($request, $runtime);
+        $headers = [];
+        return $this->createContractSignflowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
      * Summary: 创建签署流程
-     * @param CreateTwcNotaryContractSignflowRequest $request
+     * @param CreateContractSignflowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractSignflowResponse
+     * @return CreateContractSignflowResponse
      */
-    public function createTwcNotaryContractSignflowEx($request, $runtime){
+    public function createContractSignflowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractSignflowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signflow.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractSignflowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signflow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 商户签署直付通协议
      * Summary: 商户签署直付通协议
-     * @param CreateTwcNotaryContractRegisterzftRequest $request
-     * @return CreateTwcNotaryContractRegisterzftResponse
+     * @param CreateContractRegisterzftRequest $request
+     * @return CreateContractRegisterzftResponse
      */
-    public function createTwcNotaryContractRegisterzft($request){
+    public function createContractRegisterzft($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractRegisterzftEx($request, $runtime);
+        $headers = [];
+        return $this->createContractRegisterzftEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 商户签署直付通协议
      * Summary: 商户签署直付通协议
-     * @param CreateTwcNotaryContractRegisterzftRequest $request
+     * @param CreateContractRegisterzftRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractRegisterzftResponse
+     * @return CreateContractRegisterzftResponse
      */
-    public function createTwcNotaryContractRegisterzftEx($request, $runtime){
+    public function createContractRegisterzftEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractRegisterzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.registerzft.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractRegisterzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.registerzft.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建模板的同时，指定平台方签署信息，完成智能合同模板创建
      * Summary: 创建智能合同模板
-     * @param CreateTwcNotaryContractPlatformtemplateRequest $request
-     * @return CreateTwcNotaryContractPlatformtemplateResponse
+     * @param CreateContractPlatformtemplateRequest $request
+     * @return CreateContractPlatformtemplateResponse
      */
-    public function createTwcNotaryContractPlatformtemplate($request){
+    public function createContractPlatformtemplate($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractPlatformtemplateEx($request, $runtime);
+        $headers = [];
+        return $this->createContractPlatformtemplateEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建模板的同时，指定平台方签署信息，完成智能合同模板创建
      * Summary: 创建智能合同模板
-     * @param CreateTwcNotaryContractPlatformtemplateRequest $request
+     * @param CreateContractPlatformtemplateRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractPlatformtemplateResponse
+     * @return CreateContractPlatformtemplateResponse
      */
-    public function createTwcNotaryContractPlatformtemplateEx($request, $runtime){
+    public function createContractPlatformtemplateEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractPlatformtemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platformtemplate.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractPlatformtemplateResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.platformtemplate.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询商户直付通入驻信息
      * Summary: 查询商户直付通入驻信息
-     * @param QueryTwcNotaryContractMerchantzftRequest $request
-     * @return QueryTwcNotaryContractMerchantzftResponse
+     * @param QueryContractMerchantzftRequest $request
+     * @return QueryContractMerchantzftResponse
      */
-    public function queryTwcNotaryContractMerchantzft($request){
+    public function queryContractMerchantzft($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractMerchantzftEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractMerchantzftEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询商户直付通入驻信息
      * Summary: 查询商户直付通入驻信息
-     * @param QueryTwcNotaryContractMerchantzftRequest $request
+     * @param QueryContractMerchantzftRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractMerchantzftResponse
+     * @return QueryContractMerchantzftResponse
      */
-    public function queryTwcNotaryContractMerchantzftEx($request, $runtime){
+    public function queryContractMerchantzftEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractMerchantzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantzft.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractMerchantzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantzft.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 列举本租户合同相关交易
      * Summary: 列举本租户合同相关交易
-     * @param ListTwcNotaryContractOuttradeidRequest $request
-     * @return ListTwcNotaryContractOuttradeidResponse
+     * @param ListContractOuttradeidRequest $request
+     * @return ListContractOuttradeidResponse
      */
-    public function listTwcNotaryContractOuttradeid($request){
+    public function listContractOuttradeid($request){
         $runtime = new RuntimeOptions([]);
-        return $this->listTwcNotaryContractOuttradeidEx($request, $runtime);
+        $headers = [];
+        return $this->listContractOuttradeidEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 列举本租户合同相关交易
      * Summary: 列举本租户合同相关交易
-     * @param ListTwcNotaryContractOuttradeidRequest $request
+     * @param ListContractOuttradeidRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ListTwcNotaryContractOuttradeidResponse
+     * @return ListContractOuttradeidResponse
      */
-    public function listTwcNotaryContractOuttradeidEx($request, $runtime){
+    public function listContractOuttradeidEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ListTwcNotaryContractOuttradeidResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.outtradeid.list", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ListContractOuttradeidResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.outtradeid.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 根据订单id查询订单代扣详情
      * Summary: 根据订单id查询订单代扣详情
-     * @param QueryTwcNotaryContractTradedetailRequest $request
-     * @return QueryTwcNotaryContractTradedetailResponse
+     * @param QueryContractTradedetailRequest $request
+     * @return QueryContractTradedetailResponse
      */
-    public function queryTwcNotaryContractTradedetail($request){
+    public function queryContractTradedetail($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractTradedetailEx($request, $runtime);
+        $headers = [];
+        return $this->queryContractTradedetailEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 根据订单id查询订单代扣详情
      * Summary: 根据订单id查询订单代扣详情
-     * @param QueryTwcNotaryContractTradedetailRequest $request
+     * @param QueryContractTradedetailRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractTradedetailResponse
+     * @return QueryContractTradedetailResponse
      */
-    public function queryTwcNotaryContractTradedetailEx($request, $runtime){
+    public function queryContractTradedetailEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractTradedetailResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.tradedetail.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractTradedetailResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.tradedetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 商户根据订单id退款
      * Summary: 商户根据订单id退款
-     * @param CreateTwcNotaryContractMerchantrefundRequest $request
-     * @return CreateTwcNotaryContractMerchantrefundResponse
+     * @param CreateContractMerchantrefundRequest $request
+     * @return CreateContractMerchantrefundResponse
      */
-    public function createTwcNotaryContractMerchantrefund($request){
+    public function createContractMerchantrefund($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractMerchantrefundEx($request, $runtime);
+        $headers = [];
+        return $this->createContractMerchantrefundEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 商户根据订单id退款
      * Summary: 商户根据订单id退款
-     * @param CreateTwcNotaryContractMerchantrefundRequest $request
+     * @param CreateContractMerchantrefundRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractMerchantrefundResponse
+     * @return CreateContractMerchantrefundResponse
      */
-    public function createTwcNotaryContractMerchantrefundEx($request, $runtime){
+    public function createContractMerchantrefundEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractMerchantrefundResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantrefund.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractMerchantrefundResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantrefund.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建蚂蚁区块链账户
      * Summary: 创建蚂蚁区块链账户
-     * @param CreateTwcNotaryContractAdminaccountRequest $request
-     * @return CreateTwcNotaryContractAdminaccountResponse
+     * @param CreateContractAdminaccountRequest $request
+     * @return CreateContractAdminaccountResponse
      */
-    public function createTwcNotaryContractAdminaccount($request){
+    public function createContractAdminaccount($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractAdminaccountEx($request, $runtime);
+        $headers = [];
+        return $this->createContractAdminaccountEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建蚂蚁区块链账户
      * Summary: 创建蚂蚁区块链账户
-     * @param CreateTwcNotaryContractAdminaccountRequest $request
+     * @param CreateContractAdminaccountRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractAdminaccountResponse
+     * @return CreateContractAdminaccountResponse
      */
-    public function createTwcNotaryContractAdminaccountEx($request, $runtime){
+    public function createContractAdminaccountEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractAdminaccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.adminaccount.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractAdminaccountResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.adminaccount.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 商户根据合同id列举所有的tradeId
      * Summary: 商户根据合同id列举所有的tradeId
-     * @param ListTwcNotaryContractTradeidsRequest $request
-     * @return ListTwcNotaryContractTradeidsResponse
+     * @param ListContractTradeidsRequest $request
+     * @return ListContractTradeidsResponse
      */
-    public function listTwcNotaryContractTradeids($request){
+    public function listContractTradeids($request){
         $runtime = new RuntimeOptions([]);
-        return $this->listTwcNotaryContractTradeidsEx($request, $runtime);
+        $headers = [];
+        return $this->listContractTradeidsEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 商户根据合同id列举所有的tradeId
      * Summary: 商户根据合同id列举所有的tradeId
-     * @param ListTwcNotaryContractTradeidsRequest $request
+     * @param ListContractTradeidsRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ListTwcNotaryContractTradeidsResponse
+     * @return ListContractTradeidsResponse
      */
-    public function listTwcNotaryContractTradeidsEx($request, $runtime){
+    public function listContractTradeidsEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ListTwcNotaryContractTradeidsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.tradeids.list", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ListContractTradeidsResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.tradeids.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 商户上传代扣规则
      * Summary: 商户上传代扣规则
-     * @param CreateTwcNotaryContractCommontriggerRequest $request
-     * @return CreateTwcNotaryContractCommontriggerResponse
+     * @param CreateContractCommontriggerRequest $request
+     * @return CreateContractCommontriggerResponse
      */
-    public function createTwcNotaryContractCommontrigger($request){
+    public function createContractCommontrigger($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractCommontriggerEx($request, $runtime);
+        $headers = [];
+        return $this->createContractCommontriggerEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 商户上传代扣规则
      * Summary: 商户上传代扣规则
-     * @param CreateTwcNotaryContractCommontriggerRequest $request
+     * @param CreateContractCommontriggerRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractCommontriggerResponse
+     * @return CreateContractCommontriggerResponse
      */
-    public function createTwcNotaryContractCommontriggerEx($request, $runtime){
+    public function createContractCommontriggerEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractCommontriggerResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.commontrigger.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractCommontriggerResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.commontrigger.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 商户入驻直付通，仅供管理员调用
-     * Summary: 商户入驻直付通，仅供管理员调用
-     * @param CreateTwcNotaryContractMerchantindirectzftRequest $request
-     * @return CreateTwcNotaryContractMerchantindirectzftResponse
+     * Description: 商户入驻直付通
+     * Summary: 商户入驻直付通
+     * @param CreateContractMerchantindirectzftRequest $request
+     * @return CreateContractMerchantindirectzftResponse
      */
-    public function createTwcNotaryContractMerchantindirectzft($request){
+    public function createContractMerchantindirectzft($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractMerchantindirectzftEx($request, $runtime);
+        $headers = [];
+        return $this->createContractMerchantindirectzftEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 商户入驻直付通，仅供管理员调用
-     * Summary: 商户入驻直付通，仅供管理员调用
-     * @param CreateTwcNotaryContractMerchantindirectzftRequest $request
+     * Description: 商户入驻直付通
+     * Summary: 商户入驻直付通
+     * @param CreateContractMerchantindirectzftRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractMerchantindirectzftResponse
+     * @return CreateContractMerchantindirectzftResponse
      */
-    public function createTwcNotaryContractMerchantindirectzftEx($request, $runtime){
+    public function createContractMerchantindirectzftEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractMerchantindirectzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantindirectzft.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
-    }
-
-    /**
-     * Description: 根据订单id查询直付通商户入驻信息
-     * Summary: 根据订单id查询直付通商户入驻信息
-     * @param QueryTwcNotaryContractMerchantindirectzftRequest $request
-     * @return QueryTwcNotaryContractMerchantindirectzftResponse
-     */
-    public function queryTwcNotaryContractMerchantindirectzft($request){
-        $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryContractMerchantindirectzftEx($request, $runtime);
+        return CreateContractMerchantindirectzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantindirectzft.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 根据订单id查询直付通商户入驻信息
      * Summary: 根据订单id查询直付通商户入驻信息
-     * @param QueryTwcNotaryContractMerchantindirectzftRequest $request
-     * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryContractMerchantindirectzftResponse
+     * @param QueryContractMerchantindirectzftRequest $request
+     * @return QueryContractMerchantindirectzftResponse
      */
-    public function queryTwcNotaryContractMerchantindirectzftEx($request, $runtime){
+    public function queryContractMerchantindirectzft($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryContractMerchantindirectzftEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据订单id查询直付通商户入驻信息
+     * Summary: 根据订单id查询直付通商户入驻信息
+     * @param QueryContractMerchantindirectzftRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryContractMerchantindirectzftResponse
+     */
+    public function queryContractMerchantindirectzftEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryContractMerchantindirectzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantindirectzft.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryContractMerchantindirectzftResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantindirectzft.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取支付对账文件的url
      * Summary: 获取支付对账文件的url
-     * @param QueryTwcNotaryPayresultfileurlRequest $request
-     * @return QueryTwcNotaryPayresultfileurlResponse
+     * @param QueryPayresultfileurlRequest $request
+     * @return QueryPayresultfileurlResponse
      */
-    public function queryTwcNotaryPayresultfileurl($request){
+    public function queryPayresultfileurl($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryPayresultfileurlEx($request, $runtime);
+        $headers = [];
+        return $this->queryPayresultfileurlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取支付对账文件的url
      * Summary: 获取支付对账文件的url
-     * @param QueryTwcNotaryPayresultfileurlRequest $request
+     * @param QueryPayresultfileurlRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryPayresultfileurlResponse
+     * @return QueryPayresultfileurlResponse
      */
-    public function queryTwcNotaryPayresultfileurlEx($request, $runtime){
+    public function queryPayresultfileurlEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryPayresultfileurlResponse::fromMap($this->doRequest("1.0", "twc.notary.payresultfileurl.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryPayresultfileurlResponse::fromMap($this->doRequest("1.0", "twc.notary.payresultfileurl.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 智能合同图片上传
      * Summary: 智能合同图片上传
-     * @param CreateTwcNotaryContractMerchantimageRequest $request
-     * @return CreateTwcNotaryContractMerchantimageResponse
+     * @param CreateContractMerchantimageRequest $request
+     * @return CreateContractMerchantimageResponse
      */
-    public function createTwcNotaryContractMerchantimage($request){
+    public function createContractMerchantimage($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractMerchantimageEx($request, $runtime);
+        $headers = [];
+        return $this->createContractMerchantimageEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 智能合同图片上传
      * Summary: 智能合同图片上传
-     * @param CreateTwcNotaryContractMerchantimageRequest $request
+     * @param CreateContractMerchantimageRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractMerchantimageResponse
+     * @return CreateContractMerchantimageResponse
      */
-    public function createTwcNotaryContractMerchantimageEx($request, $runtime){
+    public function createContractMerchantimageEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractMerchantimageResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantimage.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractMerchantimageResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.merchantimage.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 取消智能合同剩余代扣条目
      * Summary: 取消智能合同剩余代扣条目
-     * @param CancelTwcNotaryContractPaytradeRequest $request
-     * @return CancelTwcNotaryContractPaytradeResponse
+     * @param CancelContractPaytradeRequest $request
+     * @return CancelContractPaytradeResponse
      */
-    public function cancelTwcNotaryContractPaytrade($request){
+    public function cancelContractPaytrade($request){
         $runtime = new RuntimeOptions([]);
-        return $this->cancelTwcNotaryContractPaytradeEx($request, $runtime);
+        $headers = [];
+        return $this->cancelContractPaytradeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 取消智能合同剩余代扣条目
      * Summary: 取消智能合同剩余代扣条目
-     * @param CancelTwcNotaryContractPaytradeRequest $request
+     * @param CancelContractPaytradeRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CancelTwcNotaryContractPaytradeResponse
+     * @return CancelContractPaytradeResponse
      */
-    public function cancelTwcNotaryContractPaytradeEx($request, $runtime){
+    public function cancelContractPaytradeEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CancelTwcNotaryContractPaytradeResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.paytrade.cancel", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CancelContractPaytradeResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.paytrade.cancel", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建手动签署流程
      * Summary: 创建手动签署流程
-     * @param CreateTwcNotaryContractHandsignflowRequest $request
-     * @return CreateTwcNotaryContractHandsignflowResponse
+     * @param CreateContractHandsignflowRequest $request
+     * @return CreateContractHandsignflowResponse
      */
-    public function createTwcNotaryContractHandsignflow($request){
+    public function createContractHandsignflow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractHandsignflowEx($request, $runtime);
+        $headers = [];
+        return $this->createContractHandsignflowEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建手动签署流程
      * Summary: 创建手动签署流程
-     * @param CreateTwcNotaryContractHandsignflowRequest $request
+     * @param CreateContractHandsignflowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractHandsignflowResponse
+     * @return CreateContractHandsignflowResponse
      */
-    public function createTwcNotaryContractHandsignflowEx($request, $runtime){
+    public function createContractHandsignflowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractHandsignflowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsignflow.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractHandsignflowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsignflow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
      * Summary: 添加电子合同签署方手动盖章签署区
-     * @param CreateTwcNotaryContractHandsignfieldRequest $request
-     * @return CreateTwcNotaryContractHandsignfieldResponse
+     * @param CreateContractHandsignfieldRequest $request
+     * @return CreateContractHandsignfieldResponse
      */
-    public function createTwcNotaryContractHandsignfield($request){
+    public function createContractHandsignfield($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractHandsignfieldEx($request, $runtime);
+        $headers = [];
+        return $this->createContractHandsignfieldEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
      * Summary: 添加电子合同签署方手动盖章签署区
-     * @param CreateTwcNotaryContractHandsignfieldRequest $request
+     * @param CreateContractHandsignfieldRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractHandsignfieldResponse
+     * @return CreateContractHandsignfieldResponse
      */
-    public function createTwcNotaryContractHandsignfieldEx($request, $runtime){
+    public function createContractHandsignfieldEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractHandsignfieldResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsignfield.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractHandsignfieldResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.handsignfield.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
      * Summary: 获取签署地址
-     * @param GetTwcNotaryContractSignurlRequest $request
-     * @return GetTwcNotaryContractSignurlResponse
+     * @param GetContractSignurlRequest $request
+     * @return GetContractSignurlResponse
      */
-    public function getTwcNotaryContractSignurl($request){
+    public function getContractSignurl($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryContractSignurlEx($request, $runtime);
+        $headers = [];
+        return $this->getContractSignurlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
      * Summary: 获取签署地址
-     * @param GetTwcNotaryContractSignurlRequest $request
+     * @param GetContractSignurlRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryContractSignurlResponse
+     * @return GetContractSignurlResponse
      */
-    public function getTwcNotaryContractSignurlEx($request, $runtime){
+    public function getContractSignurlEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryContractSignurlResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signurl.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetContractSignurlResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.signurl.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 可信付代扣规则内容创建
      * Summary: 可信付代扣规则内容创建
-     * @param CreateTwcNotaryWithholdAgreementRequest $request
-     * @return CreateTwcNotaryWithholdAgreementResponse
+     * @param CreateWithholdAgreementRequest $request
+     * @return CreateWithholdAgreementResponse
      */
-    public function createTwcNotaryWithholdAgreement($request){
+    public function createWithholdAgreement($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryWithholdAgreementEx($request, $runtime);
+        $headers = [];
+        return $this->createWithholdAgreementEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 可信付代扣规则内容创建
      * Summary: 可信付代扣规则内容创建
-     * @param CreateTwcNotaryWithholdAgreementRequest $request
+     * @param CreateWithholdAgreementRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryWithholdAgreementResponse
+     * @return CreateWithholdAgreementResponse
      */
-    public function createTwcNotaryWithholdAgreementEx($request, $runtime){
+    public function createWithholdAgreementEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryWithholdAgreementResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreement.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateWithholdAgreementResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreement.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询消金代扣协议
      * Summary: 查询可信付代扣协议内容
-     * @param QueryTwcNotaryWithholdAgreementRequest $request
-     * @return QueryTwcNotaryWithholdAgreementResponse
+     * @param QueryWithholdAgreementRequest $request
+     * @return QueryWithholdAgreementResponse
      */
-    public function queryTwcNotaryWithholdAgreement($request){
+    public function queryWithholdAgreement($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryWithholdAgreementEx($request, $runtime);
+        $headers = [];
+        return $this->queryWithholdAgreementEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询消金代扣协议
      * Summary: 查询可信付代扣协议内容
-     * @param QueryTwcNotaryWithholdAgreementRequest $request
+     * @param QueryWithholdAgreementRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryWithholdAgreementResponse
+     * @return QueryWithholdAgreementResponse
      */
-    public function queryTwcNotaryWithholdAgreementEx($request, $runtime){
+    public function queryWithholdAgreementEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryWithholdAgreementResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreement.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryWithholdAgreementResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreement.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询可信付协议的入口
      * Summary: 查询可信付协议的入口
-     * @param QueryTwcNotaryWithholdAgreementurlRequest $request
-     * @return QueryTwcNotaryWithholdAgreementurlResponse
+     * @param QueryWithholdAgreementurlRequest $request
+     * @return QueryWithholdAgreementurlResponse
      */
-    public function queryTwcNotaryWithholdAgreementurl($request){
+    public function queryWithholdAgreementurl($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryWithholdAgreementurlEx($request, $runtime);
+        $headers = [];
+        return $this->queryWithholdAgreementurlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询可信付协议的入口
      * Summary: 查询可信付协议的入口
-     * @param QueryTwcNotaryWithholdAgreementurlRequest $request
+     * @param QueryWithholdAgreementurlRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryWithholdAgreementurlResponse
+     * @return QueryWithholdAgreementurlResponse
      */
-    public function queryTwcNotaryWithholdAgreementurlEx($request, $runtime){
+    public function queryWithholdAgreementurlEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryWithholdAgreementurlResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreementurl.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryWithholdAgreementurlResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.agreementurl.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 后台录入商家的产品的逾期日
      * Summary: 后台录入商家的产品的逾期日
-     * @param CreateTwcNotaryWithholdOverduetimeRequest $request
-     * @return CreateTwcNotaryWithholdOverduetimeResponse
+     * @param CreateWithholdOverduetimeRequest $request
+     * @return CreateWithholdOverduetimeResponse
      */
-    public function createTwcNotaryWithholdOverduetime($request){
+    public function createWithholdOverduetime($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryWithholdOverduetimeEx($request, $runtime);
+        $headers = [];
+        return $this->createWithholdOverduetimeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 后台录入商家的产品的逾期日
      * Summary: 后台录入商家的产品的逾期日
-     * @param CreateTwcNotaryWithholdOverduetimeRequest $request
+     * @param CreateWithholdOverduetimeRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryWithholdOverduetimeResponse
+     * @return CreateWithholdOverduetimeResponse
      */
-    public function createTwcNotaryWithholdOverduetimeEx($request, $runtime){
+    public function createWithholdOverduetimeEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryWithholdOverduetimeResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.overduetime.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateWithholdOverduetimeResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.overduetime.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 可信付代扣的扣费请求
      * Summary: 发送代扣请求
-     * @param SendTwcNotaryWithholdDeductRequest $request
-     * @return SendTwcNotaryWithholdDeductResponse
+     * @param SendWithholdDeductRequest $request
+     * @return SendWithholdDeductResponse
      */
-    public function sendTwcNotaryWithholdDeduct($request){
+    public function sendWithholdDeduct($request){
         $runtime = new RuntimeOptions([]);
-        return $this->sendTwcNotaryWithholdDeductEx($request, $runtime);
+        $headers = [];
+        return $this->sendWithholdDeductEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 可信付代扣的扣费请求
      * Summary: 发送代扣请求
-     * @param SendTwcNotaryWithholdDeductRequest $request
+     * @param SendWithholdDeductRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SendTwcNotaryWithholdDeductResponse
+     * @return SendWithholdDeductResponse
      */
-    public function sendTwcNotaryWithholdDeductEx($request, $runtime){
+    public function sendWithholdDeductEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SendTwcNotaryWithholdDeductResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.deduct.send", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SendWithholdDeductResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.deduct.send", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 可信付代扣结果查询
      * Summary: 可信付代扣结果查询
-     * @param QueryTwcNotaryWithholdPayresultRequest $request
-     * @return QueryTwcNotaryWithholdPayresultResponse
+     * @param QueryWithholdPayresultRequest $request
+     * @return QueryWithholdPayresultResponse
      */
-    public function queryTwcNotaryWithholdPayresult($request){
+    public function queryWithholdPayresult($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryWithholdPayresultEx($request, $runtime);
+        $headers = [];
+        return $this->queryWithholdPayresultEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 可信付代扣结果查询
      * Summary: 可信付代扣结果查询
-     * @param QueryTwcNotaryWithholdPayresultRequest $request
+     * @param QueryWithholdPayresultRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryWithholdPayresultResponse
+     * @return QueryWithholdPayresultResponse
      */
-    public function queryTwcNotaryWithholdPayresultEx($request, $runtime){
+    public function queryWithholdPayresultEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryWithholdPayresultResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.payresult.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryWithholdPayresultResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.payresult.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 可信付退款请求
      * Summary: 可信付退款请求
-     * @param SendTwcNotaryWithholdRefundRequest $request
-     * @return SendTwcNotaryWithholdRefundResponse
+     * @param SendWithholdRefundRequest $request
+     * @return SendWithholdRefundResponse
      */
-    public function sendTwcNotaryWithholdRefund($request){
+    public function sendWithholdRefund($request){
         $runtime = new RuntimeOptions([]);
-        return $this->sendTwcNotaryWithholdRefundEx($request, $runtime);
+        $headers = [];
+        return $this->sendWithholdRefundEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 可信付退款请求
      * Summary: 可信付退款请求
-     * @param SendTwcNotaryWithholdRefundRequest $request
+     * @param SendWithholdRefundRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SendTwcNotaryWithholdRefundResponse
+     * @return SendWithholdRefundResponse
      */
-    public function sendTwcNotaryWithholdRefundEx($request, $runtime){
+    public function sendWithholdRefundEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SendTwcNotaryWithholdRefundResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.refund.send", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SendWithholdRefundResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.refund.send", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建邀请任务，被邀请人收到通知后需要注册并完成实名认证方可开通电子签名服务。
      * Summary: 创建注册邀请任务
-     * @param SendTwcNotaryContractInvitationRequest $request
-     * @return SendTwcNotaryContractInvitationResponse
+     * @param SendContractInvitationRequest $request
+     * @return SendContractInvitationResponse
      */
-    public function sendTwcNotaryContractInvitation($request){
+    public function sendContractInvitation($request){
         $runtime = new RuntimeOptions([]);
-        return $this->sendTwcNotaryContractInvitationEx($request, $runtime);
+        $headers = [];
+        return $this->sendContractInvitationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建邀请任务，被邀请人收到通知后需要注册并完成实名认证方可开通电子签名服务。
      * Summary: 创建注册邀请任务
-     * @param SendTwcNotaryContractInvitationRequest $request
+     * @param SendContractInvitationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SendTwcNotaryContractInvitationResponse
+     * @return SendContractInvitationResponse
      */
-    public function sendTwcNotaryContractInvitationEx($request, $runtime){
+    public function sendContractInvitationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SendTwcNotaryContractInvitationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.invitation.send", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SendContractInvitationResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.invitation.send", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询代扣规则
      * Summary: 查询代扣规则
-     * @param ListTwcNotaryContractPayruleRequest $request
-     * @return ListTwcNotaryContractPayruleResponse
+     * @param ListContractPayruleRequest $request
+     * @return ListContractPayruleResponse
      */
-    public function listTwcNotaryContractPayrule($request){
+    public function listContractPayrule($request){
         $runtime = new RuntimeOptions([]);
-        return $this->listTwcNotaryContractPayruleEx($request, $runtime);
+        $headers = [];
+        return $this->listContractPayruleEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询代扣规则
      * Summary: 查询代扣规则
-     * @param ListTwcNotaryContractPayruleRequest $request
+     * @param ListContractPayruleRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ListTwcNotaryContractPayruleResponse
+     * @return ListContractPayruleResponse
      */
-    public function listTwcNotaryContractPayruleEx($request, $runtime){
+    public function listContractPayruleEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ListTwcNotaryContractPayruleResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.payrule.list", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ListContractPayruleResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.payrule.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取可信付免签协议的二维码
      * Summary: 获取可信付免签协议的二维码
-     * @param CreateTwcNotaryWithholdQrcodeRequest $request
-     * @return CreateTwcNotaryWithholdQrcodeResponse
+     * @param CreateWithholdQrcodeRequest $request
+     * @return CreateWithholdQrcodeResponse
      */
-    public function createTwcNotaryWithholdQrcode($request){
+    public function createWithholdQrcode($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryWithholdQrcodeEx($request, $runtime);
+        $headers = [];
+        return $this->createWithholdQrcodeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取可信付免签协议的二维码
      * Summary: 获取可信付免签协议的二维码
-     * @param CreateTwcNotaryWithholdQrcodeRequest $request
+     * @param CreateWithholdQrcodeRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryWithholdQrcodeResponse
+     * @return CreateWithholdQrcodeResponse
      */
-    public function createTwcNotaryWithholdQrcodeEx($request, $runtime){
+    public function createWithholdQrcodeEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryWithholdQrcodeResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.qrcode.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateWithholdQrcodeResponse::fromMap($this->doRequest("1.0", "twc.notary.withhold.qrcode.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 取消某一期的代扣规则
      * Summary: 取消某一期的代扣规则
-     * @param CancelTwcNotaryContractPaysingletradeRequest $request
-     * @return CancelTwcNotaryContractPaysingletradeResponse
+     * @param CancelContractPaysingletradeRequest $request
+     * @return CancelContractPaysingletradeResponse
      */
-    public function cancelTwcNotaryContractPaysingletrade($request){
+    public function cancelContractPaysingletrade($request){
         $runtime = new RuntimeOptions([]);
-        return $this->cancelTwcNotaryContractPaysingletradeEx($request, $runtime);
+        $headers = [];
+        return $this->cancelContractPaysingletradeEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 取消某一期的代扣规则
      * Summary: 取消某一期的代扣规则
-     * @param CancelTwcNotaryContractPaysingletradeRequest $request
+     * @param CancelContractPaysingletradeRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CancelTwcNotaryContractPaysingletradeResponse
+     * @return CancelContractPaysingletradeResponse
      */
-    public function cancelTwcNotaryContractPaysingletradeEx($request, $runtime){
+    public function cancelContractPaysingletradeEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CancelTwcNotaryContractPaysingletradeResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.paysingletrade.cancel", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CancelContractPaysingletradeResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.paysingletrade.cancel", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
      * Summary: 申请区块链合同回调加签key
-     * @param ApplyTwcNotaryContractCallbackkeyRequest $request
-     * @return ApplyTwcNotaryContractCallbackkeyResponse
+     * @param ApplyContractCallbackkeyRequest $request
+     * @return ApplyContractCallbackkeyResponse
      */
-    public function applyTwcNotaryContractCallbackkey($request){
+    public function applyContractCallbackkey($request){
         $runtime = new RuntimeOptions([]);
-        return $this->applyTwcNotaryContractCallbackkeyEx($request, $runtime);
+        $headers = [];
+        return $this->applyContractCallbackkeyEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
      * Summary: 申请区块链合同回调加签key
-     * @param ApplyTwcNotaryContractCallbackkeyRequest $request
+     * @param ApplyContractCallbackkeyRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ApplyTwcNotaryContractCallbackkeyResponse
+     * @return ApplyContractCallbackkeyResponse
      */
-    public function applyTwcNotaryContractCallbackkeyEx($request, $runtime){
+    public function applyContractCallbackkeyEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ApplyTwcNotaryContractCallbackkeyResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.callbackkey.apply", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ApplyContractCallbackkeyResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.callbackkey.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: mytf的tapp部署
-     * Summary: mytf的tapp部署
-     * @param DeployTwcNotaryMytfTappRequest $request
-     * @return DeployTwcNotaryMytfTappResponse
+     * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
+     * Summary: 一步创建签署流程接口
+     * @param CreateContractOnestepflowRequest $request
+     * @return CreateContractOnestepflowResponse
      */
-    public function deployTwcNotaryMytfTapp($request){
+    public function createContractOnestepflow($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deployTwcNotaryMytfTappEx($request, $runtime);
+        $headers = [];
+        return $this->createContractOnestepflowEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: mytf的tapp部署
-     * Summary: mytf的tapp部署
-     * @param DeployTwcNotaryMytfTappRequest $request
+     * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
+     * Summary: 一步创建签署流程接口
+     * @param CreateContractOnestepflowRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return DeployTwcNotaryMytfTappResponse
+     * @return CreateContractOnestepflowResponse
      */
-    public function deployTwcNotaryMytfTappEx($request, $runtime){
+    public function createContractOnestepflowEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return DeployTwcNotaryMytfTappResponse::fromMap($this->doRequest("1.0", "twc.notary.mytf.tapp.deploy", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractOnestepflowResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.onestepflow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过流程ID查询合同存证信息
+     * Summary: 查询合同存证信息
+     * @param QueryContractNotaryRequest $request
+     * @return QueryContractNotaryResponse
+     */
+    public function queryContractNotary($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryContractNotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过流程ID查询合同存证信息
+     * Summary: 查询合同存证信息
+     * @param QueryContractNotaryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryContractNotaryResponse
+     */
+    public function queryContractNotaryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryContractNotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.notary.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取合同存证事务ID
+     * Summary: 获取合同存证事务ID
+     * @param CreateEcocontractTransRequest $request
+     * @return CreateEcocontractTransResponse
+     */
+    public function createEcocontractTrans($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createEcocontractTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取合同存证事务ID
+     * Summary: 获取合同存证事务ID
+     * @param CreateEcocontractTransRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateEcocontractTransResponse
+     */
+    public function createEcocontractTransEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateEcocontractTransResponse::fromMap($this->doRequest("1.0", "twc.notary.ecocontract.trans.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同文本存证
+     * Summary: 合同文本存证
+     * @param CreateEcocontractTextRequest $request
+     * @return CreateEcocontractTextResponse
+     */
+    public function createEcocontractText($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createEcocontractTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同文本存证
+     * Summary: 合同文本存证
+     * @param CreateEcocontractTextRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateEcocontractTextResponse
+     */
+    public function createEcocontractTextEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateEcocontractTextResponse::fromMap($this->doRequest("1.0", "twc.notary.ecocontract.text.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 搜索关键字坐标，以关键字左下角为原点去查询坐标
+     * Summary: 搜索关键字坐标
+     * @param QueryContractWordspositionRequest $request
+     * @return QueryContractWordspositionResponse
+     */
+    public function queryContractWordsposition($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryContractWordspositionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 搜索关键字坐标，以关键字左下角为原点去查询坐标
+     * Summary: 搜索关键字坐标
+     * @param QueryContractWordspositionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryContractWordspositionResponse
+     */
+    public function queryContractWordspositionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryContractWordspositionResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.wordsposition.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 输入企业名+证件号，发起企业二要素认证请求。
      * Summary: 企业二要素认证
-     * @param CheckTwcNotaryEpidentityTwometaRequest $request
-     * @return CheckTwcNotaryEpidentityTwometaResponse
+     * @param CheckEpidentityTwometaRequest $request
+     * @return CheckEpidentityTwometaResponse
      */
-    public function checkTwcNotaryEpidentityTwometa($request){
+    public function checkEpidentityTwometa($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryEpidentityTwometaEx($request, $runtime);
+        $headers = [];
+        return $this->checkEpidentityTwometaEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 输入企业名+证件号，发起企业二要素认证请求。
      * Summary: 企业二要素认证
-     * @param CheckTwcNotaryEpidentityTwometaRequest $request
+     * @param CheckEpidentityTwometaRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryEpidentityTwometaResponse
+     * @return CheckEpidentityTwometaResponse
      */
-    public function checkTwcNotaryEpidentityTwometaEx($request, $runtime){
+    public function checkEpidentityTwometaEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryEpidentityTwometaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.twometa.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckEpidentityTwometaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.twometa.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 输入企业名+证件号+企业法人姓名，发起企业三要素认证请求。
      * Summary: 企业三要素认证
-     * @param CheckTwcNotaryEpidentityThreemetaRequest $request
-     * @return CheckTwcNotaryEpidentityThreemetaResponse
+     * @param CheckEpidentityThreemetaRequest $request
+     * @return CheckEpidentityThreemetaResponse
      */
-    public function checkTwcNotaryEpidentityThreemeta($request){
+    public function checkEpidentityThreemeta($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryEpidentityThreemetaEx($request, $runtime);
+        $headers = [];
+        return $this->checkEpidentityThreemetaEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 输入企业名+证件号+企业法人姓名，发起企业三要素认证请求。
      * Summary: 企业三要素认证
-     * @param CheckTwcNotaryEpidentityThreemetaRequest $request
+     * @param CheckEpidentityThreemetaRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryEpidentityThreemetaResponse
+     * @return CheckEpidentityThreemetaResponse
      */
-    public function checkTwcNotaryEpidentityThreemetaEx($request, $runtime){
+    public function checkEpidentityThreemetaEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryEpidentityThreemetaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.threemeta.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckEpidentityThreemetaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.threemeta.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 输入企业名+证件号+企业法人姓+法人证件号，发起企业四要素认证请求。
      * Summary: 企业四要素认证
-     * @param CheckTwcNotaryEpidentityFourmetaRequest $request
-     * @return CheckTwcNotaryEpidentityFourmetaResponse
+     * @param CheckEpidentityFourmetaRequest $request
+     * @return CheckEpidentityFourmetaResponse
      */
-    public function checkTwcNotaryEpidentityFourmeta($request){
+    public function checkEpidentityFourmeta($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryEpidentityFourmetaEx($request, $runtime);
+        $headers = [];
+        return $this->checkEpidentityFourmetaEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 输入企业名+证件号+企业法人姓+法人证件号，发起企业四要素认证请求。
      * Summary: 企业四要素认证
-     * @param CheckTwcNotaryEpidentityFourmetaRequest $request
+     * @param CheckEpidentityFourmetaRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryEpidentityFourmetaResponse
+     * @return CheckEpidentityFourmetaResponse
      */
-    public function checkTwcNotaryEpidentityFourmetaEx($request, $runtime){
+    public function checkEpidentityFourmetaEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryEpidentityFourmetaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.fourmeta.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckEpidentityFourmetaResponse::fromMap($this->doRequest("1.0", "twc.notary.epidentity.fourmeta.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询公证订单的有效性
      * Summary: 查询公证订单的有效性
-     * @param CheckTwcNotaryNotarizationOrderRequest $request
-     * @return CheckTwcNotaryNotarizationOrderResponse
+     * @param CheckNotarizationOrderRequest $request
+     * @return CheckNotarizationOrderResponse
      */
-    public function checkTwcNotaryNotarizationOrder($request){
+    public function checkNotarizationOrder($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryNotarizationOrderEx($request, $runtime);
+        $headers = [];
+        return $this->checkNotarizationOrderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询公证订单的有效性
      * Summary: 查询公证订单的有效性
-     * @param CheckTwcNotaryNotarizationOrderRequest $request
+     * @param CheckNotarizationOrderRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryNotarizationOrderResponse
+     * @return CheckNotarizationOrderResponse
      */
-    public function checkTwcNotaryNotarizationOrderEx($request, $runtime){
+    public function checkNotarizationOrderEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 更新公证订单状态
      * Summary: 更新公证订单状态
-     * @param UpdateTwcNotaryNotarizationOrderRequest $request
-     * @return UpdateTwcNotaryNotarizationOrderResponse
+     * @param UpdateNotarizationOrderRequest $request
+     * @return UpdateNotarizationOrderResponse
      */
-    public function updateTwcNotaryNotarizationOrder($request){
+    public function updateNotarizationOrder($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateTwcNotaryNotarizationOrderEx($request, $runtime);
+        $headers = [];
+        return $this->updateNotarizationOrderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 更新公证订单状态
      * Summary: 更新公证订单状态
-     * @param UpdateTwcNotaryNotarizationOrderRequest $request
+     * @param UpdateNotarizationOrderRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return UpdateTwcNotaryNotarizationOrderResponse
+     * @return UpdateNotarizationOrderResponse
      */
-    public function updateTwcNotaryNotarizationOrderEx($request, $runtime){
+    public function updateNotarizationOrderEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return UpdateTwcNotaryNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 设置订单属性
      * Summary: 设置订单属性
-     * @param SetTwcNotaryNotarizationOrderRequest $request
-     * @return SetTwcNotaryNotarizationOrderResponse
+     * @param SetNotarizationOrderRequest $request
+     * @return SetNotarizationOrderResponse
      */
-    public function setTwcNotaryNotarizationOrder($request){
+    public function setNotarizationOrder($request){
         $runtime = new RuntimeOptions([]);
-        return $this->setTwcNotaryNotarizationOrderEx($request, $runtime);
+        $headers = [];
+        return $this->setNotarizationOrderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 设置订单属性
      * Summary: 设置订单属性
-     * @param SetTwcNotaryNotarizationOrderRequest $request
+     * @param SetNotarizationOrderRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SetTwcNotaryNotarizationOrderResponse
+     * @return SetNotarizationOrderResponse
      */
-    public function setTwcNotaryNotarizationOrderEx($request, $runtime){
+    public function setNotarizationOrderEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SetTwcNotaryNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.set", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SetNotarizationOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.order.set", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 实人认证初始化
      * Summary: 实人认证初始化
-     * @param InitTwcNotaryIdentificationFaceauthRequest $request
-     * @return InitTwcNotaryIdentificationFaceauthResponse
+     * @param InitIdentificationFaceauthRequest $request
+     * @return InitIdentificationFaceauthResponse
      */
-    public function initTwcNotaryIdentificationFaceauth($request){
+    public function initIdentificationFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->initTwcNotaryIdentificationFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->initIdentificationFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 实人认证初始化
      * Summary: 实人认证初始化
-     * @param InitTwcNotaryIdentificationFaceauthRequest $request
+     * @param InitIdentificationFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return InitTwcNotaryIdentificationFaceauthResponse
+     * @return InitIdentificationFaceauthResponse
      */
-    public function initTwcNotaryIdentificationFaceauthEx($request, $runtime){
+    public function initIdentificationFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return InitTwcNotaryIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.init", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return InitIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起实人认证
      * Summary: 发起实人认证
-     * @param CertifyTwcNotaryIdentificationFaceauthRequest $request
-     * @return CertifyTwcNotaryIdentificationFaceauthResponse
+     * @param CertifyIdentificationFaceauthRequest $request
+     * @return CertifyIdentificationFaceauthResponse
      */
-    public function certifyTwcNotaryIdentificationFaceauth($request){
+    public function certifyIdentificationFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->certifyTwcNotaryIdentificationFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->certifyIdentificationFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起实人认证
      * Summary: 发起实人认证
-     * @param CertifyTwcNotaryIdentificationFaceauthRequest $request
+     * @param CertifyIdentificationFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CertifyTwcNotaryIdentificationFaceauthResponse
+     * @return CertifyIdentificationFaceauthResponse
      */
-    public function certifyTwcNotaryIdentificationFaceauthEx($request, $runtime){
+    public function certifyIdentificationFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CertifyTwcNotaryIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.certify", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CertifyIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.certify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询实人认证结果
      * Summary: 查询实人认证结果
-     * @param QueryTwcNotaryIdentificationFaceauthRequest $request
-     * @return QueryTwcNotaryIdentificationFaceauthResponse
+     * @param QueryIdentificationFaceauthRequest $request
+     * @return QueryIdentificationFaceauthResponse
      */
-    public function queryTwcNotaryIdentificationFaceauth($request){
+    public function queryIdentificationFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryIdentificationFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->queryIdentificationFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询实人认证结果
      * Summary: 查询实人认证结果
-     * @param QueryTwcNotaryIdentificationFaceauthRequest $request
+     * @param QueryIdentificationFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryIdentificationFaceauthResponse
+     * @return QueryIdentificationFaceauthResponse
      */
-    public function queryTwcNotaryIdentificationFaceauthEx($request, $runtime){
+    public function queryIdentificationFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryIdentificationFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.identification.faceauth.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 企业法人认证查询结果接口
      * Summary: 企业法人认证查询
-     * @param QueryTwcNotaryEnterpriseFaceauthRequest $request
-     * @return QueryTwcNotaryEnterpriseFaceauthResponse
+     * @param QueryEnterpriseFaceauthRequest $request
+     * @return QueryEnterpriseFaceauthResponse
      */
-    public function queryTwcNotaryEnterpriseFaceauth($request){
+    public function queryEnterpriseFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryEnterpriseFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->queryEnterpriseFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 企业法人认证查询结果接口
      * Summary: 企业法人认证查询
-     * @param QueryTwcNotaryEnterpriseFaceauthRequest $request
+     * @param QueryEnterpriseFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryEnterpriseFaceauthResponse
+     * @return QueryEnterpriseFaceauthResponse
      */
-    public function queryTwcNotaryEnterpriseFaceauthEx($request, $runtime){
+    public function queryEnterpriseFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 企业法人认证初始化接口
      * Summary: 企业法人认证初始化
-     * @param InitTwcNotaryEnterpriseFaceauthRequest $request
-     * @return InitTwcNotaryEnterpriseFaceauthResponse
+     * @param InitEnterpriseFaceauthRequest $request
+     * @return InitEnterpriseFaceauthResponse
      */
-    public function initTwcNotaryEnterpriseFaceauth($request){
+    public function initEnterpriseFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->initTwcNotaryEnterpriseFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->initEnterpriseFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 企业法人认证初始化接口
      * Summary: 企业法人认证初始化
-     * @param InitTwcNotaryEnterpriseFaceauthRequest $request
+     * @param InitEnterpriseFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return InitTwcNotaryEnterpriseFaceauthResponse
+     * @return InitEnterpriseFaceauthResponse
      */
-    public function initTwcNotaryEnterpriseFaceauthEx($request, $runtime){
+    public function initEnterpriseFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return InitTwcNotaryEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.init", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return InitEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 企业法人认证开始接口
      * Summary: 企业法人认证开始
-     * @param CertifyTwcNotaryEnterpriseFaceauthRequest $request
-     * @return CertifyTwcNotaryEnterpriseFaceauthResponse
+     * @param CertifyEnterpriseFaceauthRequest $request
+     * @return CertifyEnterpriseFaceauthResponse
      */
-    public function certifyTwcNotaryEnterpriseFaceauth($request){
+    public function certifyEnterpriseFaceauth($request){
         $runtime = new RuntimeOptions([]);
-        return $this->certifyTwcNotaryEnterpriseFaceauthEx($request, $runtime);
+        $headers = [];
+        return $this->certifyEnterpriseFaceauthEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 企业法人认证开始接口
      * Summary: 企业法人认证开始
-     * @param CertifyTwcNotaryEnterpriseFaceauthRequest $request
+     * @param CertifyEnterpriseFaceauthRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CertifyTwcNotaryEnterpriseFaceauthResponse
+     * @return CertifyEnterpriseFaceauthResponse
      */
-    public function certifyTwcNotaryEnterpriseFaceauthEx($request, $runtime){
+    public function certifyEnterpriseFaceauthEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CertifyTwcNotaryEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.certify", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CertifyEnterpriseFaceauthResponse::fromMap($this->doRequest("1.0", "twc.notary.enterprise.faceauth.certify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建租赁订单
      * Summary: 租赁订单创建
-     * @param CreateTwcNotaryLeaseOrderRequest $request
-     * @return CreateTwcNotaryLeaseOrderResponse
+     * @param CreateLeaseOrderRequest $request
+     * @return CreateLeaseOrderResponse
      */
-    public function createTwcNotaryLeaseOrder($request){
+    public function createLeaseOrder($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseOrderEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseOrderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建租赁订单
      * Summary: 租赁订单创建
-     * @param CreateTwcNotaryLeaseOrderRequest $request
+     * @param CreateLeaseOrderRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseOrderResponse
+     * @return CreateLeaseOrderResponse
      */
-    public function createTwcNotaryLeaseOrderEx($request, $runtime){
+    public function createLeaseOrderEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.order.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseOrderResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.order.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 电子公证或存证证明场景中，用户通过回传相关信息创建收费订单。
      * Summary: 公证场景创建收费订单
-     * @param CreateTwcNotaryNotarizationBillRequest $request
-     * @return CreateTwcNotaryNotarizationBillResponse
+     * @param CreateNotarizationBillRequest $request
+     * @return CreateNotarizationBillResponse
      */
-    public function createTwcNotaryNotarizationBill($request){
+    public function createNotarizationBill($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryNotarizationBillEx($request, $runtime);
+        $headers = [];
+        return $this->createNotarizationBillEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 电子公证或存证证明场景中，用户通过回传相关信息创建收费订单。
      * Summary: 公证场景创建收费订单
-     * @param CreateTwcNotaryNotarizationBillRequest $request
+     * @param CreateNotarizationBillRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryNotarizationBillResponse
+     * @return CreateNotarizationBillResponse
      */
-    public function createTwcNotaryNotarizationBillEx($request, $runtime){
+    public function createNotarizationBillEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryNotarizationBillResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.bill.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateNotarizationBillResponse::fromMap($this->doRequest("1.0", "twc.notary.notarization.bill.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 提供必要的存证信息，初始化一个存证证明的订单，提交公证处审核，并返回订单号
      * Summary: 初始化存证证明订单
-     * @param InitTwcNotaryCertificationRequest $request
-     * @return InitTwcNotaryCertificationResponse
+     * @param InitCertificationRequest $request
+     * @return InitCertificationResponse
      */
-    public function initTwcNotaryCertification($request){
+    public function initCertification($request){
         $runtime = new RuntimeOptions([]);
-        return $this->initTwcNotaryCertificationEx($request, $runtime);
+        $headers = [];
+        return $this->initCertificationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 提供必要的存证信息，初始化一个存证证明的订单，提交公证处审核，并返回订单号
      * Summary: 初始化存证证明订单
-     * @param InitTwcNotaryCertificationRequest $request
+     * @param InitCertificationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return InitTwcNotaryCertificationResponse
+     * @return InitCertificationResponse
      */
-    public function initTwcNotaryCertificationEx($request, $runtime){
+    public function initCertificationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return InitTwcNotaryCertificationResponse::fromMap($this->doRequest("1.0", "twc.notary.certification.init", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return InitCertificationResponse::fromMap($this->doRequest("1.0", "twc.notary.certification.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 输入申请ID，查询存证证明申请状态，成功后返回下载地址等信息
      * Summary: 查询存证证明申请状态
-     * @param QueryTwcNotaryCertificationRequest $request
-     * @return QueryTwcNotaryCertificationResponse
+     * @param QueryCertificationRequest $request
+     * @return QueryCertificationResponse
      */
-    public function queryTwcNotaryCertification($request){
+    public function queryCertification($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryCertificationEx($request, $runtime);
+        $headers = [];
+        return $this->queryCertificationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 输入申请ID，查询存证证明申请状态，成功后返回下载地址等信息
      * Summary: 查询存证证明申请状态
-     * @param QueryTwcNotaryCertificationRequest $request
+     * @param QueryCertificationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryCertificationResponse
+     * @return QueryCertificationResponse
      */
-    public function queryTwcNotaryCertificationEx($request, $runtime){
+    public function queryCertificationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryCertificationResponse::fromMap($this->doRequest("1.0", "twc.notary.certification.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryCertificationResponse::fromMap($this->doRequest("1.0", "twc.notary.certification.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 可以根据存证过程中获得当可信时间戳凭证，获取国家授时中心颁发的PDF格式可信时间证书
      * Summary: 可信时间凭证服务 - 获取时间凭证证书
-     * @param GetTwcNotaryTsrCertificateRequest $request
-     * @return GetTwcNotaryTsrCertificateResponse
+     * @param GetTsrCertificateRequest $request
+     * @return GetTsrCertificateResponse
      */
-    public function getTwcNotaryTsrCertificate($request){
+    public function getTsrCertificate($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryTsrCertificateEx($request, $runtime);
+        $headers = [];
+        return $this->getTsrCertificateEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 可以根据存证过程中获得当可信时间戳凭证，获取国家授时中心颁发的PDF格式可信时间证书
      * Summary: 可信时间凭证服务 - 获取时间凭证证书
-     * @param GetTwcNotaryTsrCertificateRequest $request
+     * @param GetTsrCertificateRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryTsrCertificateResponse
+     * @return GetTsrCertificateResponse
      */
-    public function getTwcNotaryTsrCertificateEx($request, $runtime){
+    public function getTsrCertificateEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryTsrCertificateResponse::fromMap($this->doRequest("1.0", "twc.notary.tsr.certificate.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetTsrCertificateResponse::fromMap($this->doRequest("1.0", "twc.notary.tsr.certificate.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 新增/修改履行记录，依据contractCode与contractFulfillmentCode判断唯一性
      * Summary: 联合执行履行记录新增/修改接口
-     * @param SaveTwcNotaryJointconstraintRecordRequest $request
-     * @return SaveTwcNotaryJointconstraintRecordResponse
+     * @param SaveJointconstraintRecordRequest $request
+     * @return SaveJointconstraintRecordResponse
      */
-    public function saveTwcNotaryJointconstraintRecord($request){
+    public function saveJointconstraintRecord($request){
         $runtime = new RuntimeOptions([]);
-        return $this->saveTwcNotaryJointconstraintRecordEx($request, $runtime);
+        $headers = [];
+        return $this->saveJointconstraintRecordEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 新增/修改履行记录，依据contractCode与contractFulfillmentCode判断唯一性
      * Summary: 联合执行履行记录新增/修改接口
-     * @param SaveTwcNotaryJointconstraintRecordRequest $request
+     * @param SaveJointconstraintRecordRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SaveTwcNotaryJointconstraintRecordResponse
+     * @return SaveJointconstraintRecordResponse
      */
-    public function saveTwcNotaryJointconstraintRecordEx($request, $runtime){
+    public function saveJointconstraintRecordEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SaveTwcNotaryJointconstraintRecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.record.save", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SaveJointconstraintRecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.record.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 删除履行记录
      * Summary: 履行记录删除接口
-     * @param DeleteTwcNotaryJointconstraintRecordRequest $request
-     * @return DeleteTwcNotaryJointconstraintRecordResponse
+     * @param DeleteJointconstraintRecordRequest $request
+     * @return DeleteJointconstraintRecordResponse
      */
-    public function deleteTwcNotaryJointconstraintRecord($request){
+    public function deleteJointconstraintRecord($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deleteTwcNotaryJointconstraintRecordEx($request, $runtime);
+        $headers = [];
+        return $this->deleteJointconstraintRecordEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 删除履行记录
      * Summary: 履行记录删除接口
-     * @param DeleteTwcNotaryJointconstraintRecordRequest $request
+     * @param DeleteJointconstraintRecordRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return DeleteTwcNotaryJointconstraintRecordResponse
+     * @return DeleteJointconstraintRecordResponse
      */
-    public function deleteTwcNotaryJointconstraintRecordEx($request, $runtime){
+    public function deleteJointconstraintRecordEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return DeleteTwcNotaryJointconstraintRecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.record.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeleteJointconstraintRecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.record.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询违约记录
      * Summary: 违约记录查询接口
-     * @param QueryTwcNotaryJointconstraintBreachrecordRequest $request
-     * @return QueryTwcNotaryJointconstraintBreachrecordResponse
+     * @param QueryJointconstraintBreachrecordRequest $request
+     * @return QueryJointconstraintBreachrecordResponse
      */
-    public function queryTwcNotaryJointconstraintBreachrecord($request){
+    public function queryJointconstraintBreachrecord($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryJointconstraintBreachrecordEx($request, $runtime);
+        $headers = [];
+        return $this->queryJointconstraintBreachrecordEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询违约记录
      * Summary: 违约记录查询接口
-     * @param QueryTwcNotaryJointconstraintBreachrecordRequest $request
+     * @param QueryJointconstraintBreachrecordRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryJointconstraintBreachrecordResponse
+     * @return QueryJointconstraintBreachrecordResponse
      */
-    public function queryTwcNotaryJointconstraintBreachrecordEx($request, $runtime){
+    public function queryJointconstraintBreachrecordEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryJointconstraintBreachrecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.breachrecord.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryJointconstraintBreachrecordResponse::fromMap($this->doRequest("1.0", "twc.notary.jointconstraint.breachrecord.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供给第三方调解申请提交
+     * Summary: 调解申请
+     * @param ApplyJusticeMediationRequest $request
+     * @return ApplyJusticeMediationResponse
+     */
+    public function applyJusticeMediation($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyJusticeMediationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供给第三方调解申请提交
+     * Summary: 调解申请
+     * @param ApplyJusticeMediationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyJusticeMediationResponse
+     */
+    public function applyJusticeMediationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyJusticeMediationResponse::fromMap($this->doRequest("1.0", "twc.notary.justice.mediation.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建签署见证流程
+     * Summary: 创建见证流程
+     * @param CreateWitnessFlowRequest $request
+     * @return CreateWitnessFlowResponse
+     */
+    public function createWitnessFlow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createWitnessFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建签署见证流程
+     * Summary: 创建见证流程
+     * @param CreateWitnessFlowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateWitnessFlowResponse
+     */
+    public function createWitnessFlowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateWitnessFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.witness.flow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保存见证流程快照数据
+     * Summary: 保存见证流程快照数据
+     * @param SaveWitnessSnapshotRequest $request
+     * @return SaveWitnessSnapshotResponse
+     */
+    public function saveWitnessSnapshot($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveWitnessSnapshotEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保存见证流程快照数据
+     * Summary: 保存见证流程快照数据
+     * @param SaveWitnessSnapshotRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveWitnessSnapshotResponse
+     */
+    public function saveWitnessSnapshotEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveWitnessSnapshotResponse::fromMap($this->doRequest("1.0", "twc.notary.witness.snapshot.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 见证流程签署权限校验
+     * Summary: 见证流程签署权限校验
+     * @param CheckWitnessSignaccessRequest $request
+     * @return CheckWitnessSignaccessResponse
+     */
+    public function checkWitnessSignaccess($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->checkWitnessSignaccessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 见证流程签署权限校验
+     * Summary: 见证流程签署权限校验
+     * @param CheckWitnessSignaccessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CheckWitnessSignaccessResponse
+     */
+    public function checkWitnessSignaccessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CheckWitnessSignaccessResponse::fromMap($this->doRequest("1.0", "twc.notary.witness.signaccess.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 见证流程签署
+     * Summary: 见证流程签署
+     * @param AuthWitnessFlowRequest $request
+     * @return AuthWitnessFlowResponse
+     */
+    public function authWitnessFlow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->authWitnessFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 见证流程签署
+     * Summary: 见证流程签署
+     * @param AuthWitnessFlowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return AuthWitnessFlowResponse
+     */
+    public function authWitnessFlowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return AuthWitnessFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.witness.flow.auth", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 见证流程签署确认
+     * Summary: 见证流程签署确认
+     * @param ConfirmWitnessFlowRequest $request
+     * @return ConfirmWitnessFlowResponse
+     */
+    public function confirmWitnessFlow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmWitnessFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 见证流程签署确认
+     * Summary: 见证流程签署确认
+     * @param ConfirmWitnessFlowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmWitnessFlowResponse
+     */
+    public function confirmWitnessFlowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmWitnessFlowResponse::fromMap($this->doRequest("1.0", "twc.notary.witness.flow.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取存证事务ID
      * Summary: 获取存证事务ID
-     * @param CreateTwcNotaryTransRequest $request
-     * @return CreateTwcNotaryTransResponse
+     * @param CreateTransRequest $request
+     * @return CreateTransResponse
      */
-    public function createTwcNotaryTrans($request){
+    public function createTrans($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryTransEx($request, $runtime);
+        $headers = [];
+        return $this->createTransEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取存证事务ID
      * Summary: 获取存证事务ID
-     * @param CreateTwcNotaryTransRequest $request
+     * @param CreateTransRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryTransResponse
+     * @return CreateTransResponse
      */
-    public function createTwcNotaryTransEx($request, $runtime){
+    public function createTransEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryTransResponse::fromMap($this->doRequest("1.0", "twc.notary.trans.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateTransResponse::fromMap($this->doRequest("1.0", "twc.notary.trans.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 通过存证事务Token，获取事务中所有的存证信息
      * Summary: 获取事务中所有的存证信息
-     * @param GetTwcNotaryTransRequest $request
-     * @return GetTwcNotaryTransResponse
+     * @param GetTransRequest $request
+     * @return GetTransResponse
      */
-    public function getTwcNotaryTrans($request){
+    public function getTrans($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryTransEx($request, $runtime);
+        $headers = [];
+        return $this->getTransEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 通过存证事务Token，获取事务中所有的存证信息
      * Summary: 获取事务中所有的存证信息
-     * @param GetTwcNotaryTransRequest $request
+     * @param GetTransRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryTransResponse
+     * @return GetTransResponse
      */
-    public function getTwcNotaryTransEx($request, $runtime){
+    public function getTransEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryTransResponse::fromMap($this->doRequest("1.0", "twc.notary.trans.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetTransResponse::fromMap($this->doRequest("1.0", "twc.notary.trans.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起文本存证，将文本内容存证上链
      * Summary: 文本存证，将文本内容存证上链
-     * @param CreateTwcNotaryTextRequest $request
-     * @return CreateTwcNotaryTextResponse
+     * @param CreateTextRequest $request
+     * @return CreateTextResponse
      */
-    public function createTwcNotaryText($request){
+    public function createText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryTextEx($request, $runtime);
+        $headers = [];
+        return $this->createTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起文本存证，将文本内容存证上链
      * Summary: 文本存证，将文本内容存证上链
-     * @param CreateTwcNotaryTextRequest $request
+     * @param CreateTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryTextResponse
+     * @return CreateTextResponse
      */
-    public function createTwcNotaryTextEx($request, $runtime){
+    public function createTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryTextResponse::fromMap($this->doRequest("1.0", "twc.notary.text.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateTextResponse::fromMap($this->doRequest("1.0", "twc.notary.text.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的文本存证内容
      * Summary: 获取文本存证内容
-     * @param GetTwcNotaryTextRequest $request
-     * @return GetTwcNotaryTextResponse
+     * @param GetTextRequest $request
+     * @return GetTextResponse
      */
-    public function getTwcNotaryText($request){
+    public function getText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryTextEx($request, $runtime);
+        $headers = [];
+        return $this->getTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的文本存证内容
      * Summary: 获取文本存证内容
-     * @param GetTwcNotaryTextRequest $request
+     * @param GetTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryTextResponse
+     * @return GetTextResponse
      */
-    public function getTwcNotaryTextEx($request, $runtime){
+    public function getTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryTextResponse::fromMap($this->doRequest("1.0", "twc.notary.text.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetTextResponse::fromMap($this->doRequest("1.0", "twc.notary.text.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起文件存证，将文件内容存证上链
      * Summary: 文件内容存证上链
-     * @param CreateTwcNotaryFileRequest $request
-     * @return CreateTwcNotaryFileResponse
+     * @param CreateFileRequest $request
+     * @return CreateFileResponse
      */
-    public function createTwcNotaryFile($request){
+    public function createFile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryFileEx($request, $runtime);
+        $headers = [];
+        return $this->createFileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起文件存证，将文件内容存证上链
      * Summary: 文件内容存证上链
-     * @param CreateTwcNotaryFileRequest $request
+     * @param CreateFileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryFileResponse
+     * @return CreateFileResponse
      */
-    public function createTwcNotaryFileEx($request, $runtime){
+    public function createFileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryFileResponse::fromMap($this->doRequest("1.0", "twc.notary.file.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateFileResponse::fromMap($this->doRequest("1.0", "twc.notary.file.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
      * Summary: 获取文件存证oss下载地址
-     * @param GetTwcNotaryFileRequest $request
-     * @return GetTwcNotaryFileResponse
+     * @param GetFileRequest $request
+     * @return GetFileResponse
      */
-    public function getTwcNotaryFile($request){
+    public function getFile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryFileEx($request, $runtime);
+        $headers = [];
+        return $this->getFileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
      * Summary: 获取文件存证oss下载地址
-     * @param GetTwcNotaryFileRequest $request
+     * @param GetFileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryFileResponse
+     * @return GetFileResponse
      */
-    public function getTwcNotaryFileEx($request, $runtime){
+    public function getFileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryFileResponse::fromMap($this->doRequest("1.0", "twc.notary.file.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetFileResponse::fromMap($this->doRequest("1.0", "twc.notary.file.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起原文存证，将原文内容存证上链
      * Summary: 原文内容存证
-     * @param CreateTwcNotarySourceRequest $request
-     * @return CreateTwcNotarySourceResponse
+     * @param CreateSourceRequest $request
+     * @return CreateSourceResponse
      */
-    public function createTwcNotarySource($request){
+    public function createSource($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotarySourceEx($request, $runtime);
+        $headers = [];
+        return $this->createSourceEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起原文存证，将原文内容存证上链
      * Summary: 原文内容存证
-     * @param CreateTwcNotarySourceRequest $request
+     * @param CreateSourceRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotarySourceResponse
+     * @return CreateSourceResponse
      */
-    public function createTwcNotarySourceEx($request, $runtime){
+    public function createSourceEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotarySourceResponse::fromMap($this->doRequest("1.0", "twc.notary.source.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateSourceResponse::fromMap($this->doRequest("1.0", "twc.notary.source.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
      * Summary: 获取原文存证oss下载地址
-     * @param GetTwcNotarySourceRequest $request
-     * @return GetTwcNotarySourceResponse
+     * @param GetSourceRequest $request
+     * @return GetSourceResponse
      */
-    public function getTwcNotarySource($request){
+    public function getSource($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotarySourceEx($request, $runtime);
+        $headers = [];
+        return $this->getSourceEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
      * Summary: 获取原文存证oss下载地址
-     * @param GetTwcNotarySourceRequest $request
+     * @param GetSourceRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotarySourceResponse
+     * @return GetSourceResponse
      */
-    public function getTwcNotarySourceEx($request, $runtime){
+    public function getSourceEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotarySourceResponse::fromMap($this->doRequest("1.0", "twc.notary.source.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetSourceResponse::fromMap($this->doRequest("1.0", "twc.notary.source.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建存证后，使用存证凭据核验存证状态。
      * Summary: 存证内容核验
-     * @param CheckTwcNotaryStatusRequest $request
-     * @return CheckTwcNotaryStatusResponse
+     * @param CheckStatusRequest $request
+     * @return CheckStatusResponse
      */
-    public function checkTwcNotaryStatus($request){
+    public function checkStatus($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryStatusEx($request, $runtime);
+        $headers = [];
+        return $this->checkStatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建存证后，使用存证凭据核验存证状态。
      * Summary: 存证内容核验
-     * @param CheckTwcNotaryStatusRequest $request
+     * @param CheckStatusRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryStatusResponse
+     * @return CheckStatusResponse
      */
-    public function checkTwcNotaryStatusEx($request, $runtime){
+    public function checkStatusEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryStatusResponse::fromMap($this->doRequest("1.0", "twc.notary.status.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckStatusResponse::fromMap($this->doRequest("1.0", "twc.notary.status.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资服务平台部署合约
      * Summary: 融资服务平台部署合约
-     * @param DeployTwcNotaryLeaseContractRequest $request
-     * @return DeployTwcNotaryLeaseContractResponse
+     * @param DeployLeaseContractRequest $request
+     * @return DeployLeaseContractResponse
      */
-    public function deployTwcNotaryLeaseContract($request){
+    public function deployLeaseContract($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deployTwcNotaryLeaseContractEx($request, $runtime);
+        $headers = [];
+        return $this->deployLeaseContractEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资服务平台部署合约
      * Summary: 融资服务平台部署合约
-     * @param DeployTwcNotaryLeaseContractRequest $request
+     * @param DeployLeaseContractRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return DeployTwcNotaryLeaseContractResponse
+     * @return DeployLeaseContractResponse
      */
-    public function deployTwcNotaryLeaseContractEx($request, $runtime){
+    public function deployLeaseContractEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return DeployTwcNotaryLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.deploy", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeployLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.deploy", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息
-     * @param CreateTwcNotaryLeaseProductinfoRequest $request
-     * @return CreateTwcNotaryLeaseProductinfoResponse
+     * @param CreateLeaseProductinfoRequest $request
+     * @return CreateLeaseProductinfoResponse
      */
-    public function createTwcNotaryLeaseProductinfo($request){
+    public function createLeaseProductinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseProductinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseProductinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息
-     * @param CreateTwcNotaryLeaseProductinfoRequest $request
+     * @param CreateLeaseProductinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseProductinfoResponse
+     * @return CreateLeaseProductinfoResponse
      */
-    public function createTwcNotaryLeaseProductinfoEx($request, $runtime){
+    public function createLeaseProductinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseProductinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseProductinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁服务平台授权融资服务平台
      * Summary: 租赁服务平台授权融资服务平台
-     * @param AuthTwcNotaryLeaseContractRequest $request
-     * @return AuthTwcNotaryLeaseContractResponse
+     * @param AuthLeaseContractRequest $request
+     * @return AuthLeaseContractResponse
      */
-    public function authTwcNotaryLeaseContract($request){
+    public function authLeaseContract($request){
         $runtime = new RuntimeOptions([]);
-        return $this->authTwcNotaryLeaseContractEx($request, $runtime);
+        $headers = [];
+        return $this->authLeaseContractEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁服务平台授权融资服务平台
      * Summary: 租赁服务平台授权融资服务平台
-     * @param AuthTwcNotaryLeaseContractRequest $request
+     * @param AuthLeaseContractRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return AuthTwcNotaryLeaseContractResponse
+     * @return AuthLeaseContractResponse
      */
-    public function authTwcNotaryLeaseContractEx($request, $runtime){
+    public function authLeaseContractEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return AuthTwcNotaryLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.auth", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return AuthLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.auth", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁服务平台上传用户信息
      * Summary: 租赁服务平台上传用户信息
-     * @param CreateTwcNotaryLeaseUserinfoRequest $request
-     * @return CreateTwcNotaryLeaseUserinfoResponse
+     * @param CreateLeaseUserinfoRequest $request
+     * @return CreateLeaseUserinfoResponse
      */
-    public function createTwcNotaryLeaseUserinfo($request){
+    public function createLeaseUserinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseUserinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseUserinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁服务平台上传用户信息
      * Summary: 租赁服务平台上传用户信息
-     * @param CreateTwcNotaryLeaseUserinfoRequest $request
+     * @param CreateLeaseUserinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseUserinfoResponse
+     * @return CreateLeaseUserinfoResponse
      */
-    public function createTwcNotaryLeaseUserinfoEx($request, $runtime){
+    public function createLeaseUserinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseUserinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.userinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseUserinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.userinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁服务平台上传订单产品/服务信息
      * Summary: 租赁服务平台上传订单产品/服务信息
-     * @param CreateTwcNotaryLeaseOrderinfoRequest $request
-     * @return CreateTwcNotaryLeaseOrderinfoResponse
+     * @param CreateLeaseOrderinfoRequest $request
+     * @return CreateLeaseOrderinfoResponse
      */
-    public function createTwcNotaryLeaseOrderinfo($request){
+    public function createLeaseOrderinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseOrderinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseOrderinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁服务平台上传订单产品/服务信息
      * Summary: 租赁服务平台上传订单产品/服务信息
-     * @param CreateTwcNotaryLeaseOrderinfoRequest $request
+     * @param CreateLeaseOrderinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseOrderinfoResponse
+     * @return CreateLeaseOrderinfoResponse
      */
-    public function createTwcNotaryLeaseOrderinfoEx($request, $runtime){
+    public function createLeaseOrderinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseOrderinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.orderinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseOrderinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.orderinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁服务平台上传承诺信息
      * Summary: 租赁服务平台上传承诺信息
-     * @param CreateTwcNotaryLeasePromiseRequest $request
-     * @return CreateTwcNotaryLeasePromiseResponse
+     * @param CreateLeasePromiseRequest $request
+     * @return CreateLeasePromiseResponse
      */
-    public function createTwcNotaryLeasePromise($request){
+    public function createLeasePromise($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeasePromiseEx($request, $runtime);
+        $headers = [];
+        return $this->createLeasePromiseEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁服务平台上传承诺信息
      * Summary: 租赁服务平台上传承诺信息
-     * @param CreateTwcNotaryLeasePromiseRequest $request
+     * @param CreateLeasePromiseRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeasePromiseResponse
+     * @return CreateLeasePromiseResponse
      */
-    public function createTwcNotaryLeasePromiseEx($request, $runtime){
+    public function createLeasePromiseEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeasePromiseResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.promise.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeasePromiseResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.promise.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资平台上传租赁物购买贷款订单信息
      * Summary: 融资平台上传租赁物购买贷款订单信息
-     * @param CreateTwcNotaryLeaseVerifyinfoRequest $request
-     * @return CreateTwcNotaryLeaseVerifyinfoResponse
+     * @param CreateLeaseVerifyinfoRequest $request
+     * @return CreateLeaseVerifyinfoResponse
      */
-    public function createTwcNotaryLeaseVerifyinfo($request){
+    public function createLeaseVerifyinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseVerifyinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseVerifyinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资平台上传租赁物购买贷款订单信息
      * Summary: 融资平台上传租赁物购买贷款订单信息
-     * @param CreateTwcNotaryLeaseVerifyinfoRequest $request
+     * @param CreateLeaseVerifyinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseVerifyinfoResponse
+     * @return CreateLeaseVerifyinfoResponse
      */
-    public function createTwcNotaryLeaseVerifyinfoEx($request, $runtime){
+    public function createLeaseVerifyinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseVerifyinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.verifyinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseVerifyinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.verifyinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资方上传承诺信息
      * Summary: 融资方上传承诺信息
-     * @param CreateTwcNotaryLeaseCreditpromiseRequest $request
-     * @return CreateTwcNotaryLeaseCreditpromiseResponse
+     * @param CreateLeaseCreditpromiseRequest $request
+     * @return CreateLeaseCreditpromiseResponse
      */
-    public function createTwcNotaryLeaseCreditpromise($request){
+    public function createLeaseCreditpromise($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseCreditpromiseEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseCreditpromiseEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资方上传承诺信息
      * Summary: 融资方上传承诺信息
-     * @param CreateTwcNotaryLeaseCreditpromiseRequest $request
+     * @param CreateLeaseCreditpromiseRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseCreditpromiseResponse
+     * @return CreateLeaseCreditpromiseResponse
      */
-    public function createTwcNotaryLeaseCreditpromiseEx($request, $runtime){
+    public function createLeaseCreditpromiseEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseCreditpromiseResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.creditpromise.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseCreditpromiseResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.creditpromise.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁平台上传支用/还款信息
      * Summary: 租赁平台上传支用/还款信息
-     * @param CreateTwcNotaryLeaseDisburseinfoRequest $request
-     * @return CreateTwcNotaryLeaseDisburseinfoResponse
+     * @param CreateLeaseDisburseinfoRequest $request
+     * @return CreateLeaseDisburseinfoResponse
      */
-    public function createTwcNotaryLeaseDisburseinfo($request){
+    public function createLeaseDisburseinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseDisburseinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseDisburseinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁平台上传支用/还款信息
      * Summary: 租赁平台上传支用/还款信息
-     * @param CreateTwcNotaryLeaseDisburseinfoRequest $request
+     * @param CreateLeaseDisburseinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseDisburseinfoResponse
+     * @return CreateLeaseDisburseinfoResponse
      */
-    public function createTwcNotaryLeaseDisburseinfoEx($request, $runtime){
+    public function createLeaseDisburseinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseDisburseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.disburseinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseDisburseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.disburseinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description:  查询订单详细信息
      * Summary:  查询订单详细信息
-     * @param QueryTwcNotaryLeaseOrderinfoRequest $request
-     * @return QueryTwcNotaryLeaseOrderinfoResponse
+     * @param QueryLeaseOrderinfoRequest $request
+     * @return QueryLeaseOrderinfoResponse
      */
-    public function queryTwcNotaryLeaseOrderinfo($request){
+    public function queryLeaseOrderinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryLeaseOrderinfoEx($request, $runtime);
+        $headers = [];
+        return $this->queryLeaseOrderinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description:  查询订单详细信息
      * Summary:  查询订单详细信息
-     * @param QueryTwcNotaryLeaseOrderinfoRequest $request
+     * @param QueryLeaseOrderinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryLeaseOrderinfoResponse
+     * @return QueryLeaseOrderinfoResponse
      */
-    public function queryTwcNotaryLeaseOrderinfoEx($request, $runtime){
+    public function queryLeaseOrderinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryLeaseOrderinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.orderinfo.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryLeaseOrderinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.orderinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建金融行业标准文本存证
      * Summary: 创建金融行业文本存证
-     * @param CreateTwcNotaryFinanceTextnotaryRequest $request
-     * @return CreateTwcNotaryFinanceTextnotaryResponse
+     * @param CreateFinanceTextnotaryRequest $request
+     * @return CreateFinanceTextnotaryResponse
      */
-    public function createTwcNotaryFinanceTextnotary($request){
+    public function createFinanceTextnotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryFinanceTextnotaryEx($request, $runtime);
+        $headers = [];
+        return $this->createFinanceTextnotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建金融行业标准文本存证
      * Summary: 创建金融行业文本存证
-     * @param CreateTwcNotaryFinanceTextnotaryRequest $request
+     * @param CreateFinanceTextnotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryFinanceTextnotaryResponse
+     * @return CreateFinanceTextnotaryResponse
      */
-    public function createTwcNotaryFinanceTextnotaryEx($request, $runtime){
+    public function createFinanceTextnotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryFinanceTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.textnotary.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateFinanceTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.textnotary.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取金融行业文本存证接口描述
      * Summary: 获取金融行业文本存证
-     * @param GetTwcNotaryFinanceTextnotaryRequest $request
-     * @return GetTwcNotaryFinanceTextnotaryResponse
+     * @param GetFinanceTextnotaryRequest $request
+     * @return GetFinanceTextnotaryResponse
      */
-    public function getTwcNotaryFinanceTextnotary($request){
+    public function getFinanceTextnotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryFinanceTextnotaryEx($request, $runtime);
+        $headers = [];
+        return $this->getFinanceTextnotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取金融行业文本存证接口描述
      * Summary: 获取金融行业文本存证
-     * @param GetTwcNotaryFinanceTextnotaryRequest $request
+     * @param GetFinanceTextnotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryFinanceTextnotaryResponse
+     * @return GetFinanceTextnotaryResponse
      */
-    public function getTwcNotaryFinanceTextnotaryEx($request, $runtime){
+    public function getFinanceTextnotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryFinanceTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.textnotary.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetFinanceTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.textnotary.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建金融行业文件存证接口描述
      * Summary: 创建金融行业文件存证
-     * @param CreateTwcNotaryFinanceFilenotaryRequest $request
-     * @return CreateTwcNotaryFinanceFilenotaryResponse
+     * @param CreateFinanceFilenotaryRequest $request
+     * @return CreateFinanceFilenotaryResponse
      */
-    public function createTwcNotaryFinanceFilenotary($request){
+    public function createFinanceFilenotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryFinanceFilenotaryEx($request, $runtime);
+        $headers = [];
+        return $this->createFinanceFilenotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建金融行业文件存证接口描述
      * Summary: 创建金融行业文件存证
-     * @param CreateTwcNotaryFinanceFilenotaryRequest $request
+     * @param CreateFinanceFilenotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryFinanceFilenotaryResponse
+     * @return CreateFinanceFilenotaryResponse
      */
-    public function createTwcNotaryFinanceFilenotaryEx($request, $runtime){
+    public function createFinanceFilenotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryFinanceFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.filenotary.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateFinanceFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.filenotary.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取金融行业文件存证接口描述
      * Summary: 获取金融行业文件存证
-     * @param GetTwcNotaryFinanceFilenotaryRequest $request
-     * @return GetTwcNotaryFinanceFilenotaryResponse
+     * @param GetFinanceFilenotaryRequest $request
+     * @return GetFinanceFilenotaryResponse
      */
-    public function getTwcNotaryFinanceFilenotary($request){
+    public function getFinanceFilenotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryFinanceFilenotaryEx($request, $runtime);
+        $headers = [];
+        return $this->getFinanceFilenotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取金融行业文件存证接口描述
      * Summary: 获取金融行业文件存证
-     * @param GetTwcNotaryFinanceFilenotaryRequest $request
+     * @param GetFinanceFilenotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryFinanceFilenotaryResponse
+     * @return GetFinanceFilenotaryResponse
      */
-    public function getTwcNotaryFinanceFilenotaryEx($request, $runtime){
+    public function getFinanceFilenotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryFinanceFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.filenotary.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetFinanceFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.finance.filenotary.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 统一存证核验接口
      * Summary: 统一存证核验接口（已下架）
-     * @param CheckTwcNotaryIndustryNotaryRequest $request
-     * @return CheckTwcNotaryIndustryNotaryResponse
+     * @param CheckIndustryNotaryRequest $request
+     * @return CheckIndustryNotaryResponse
      */
-    public function checkTwcNotaryIndustryNotary($request){
+    public function checkIndustryNotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->checkTwcNotaryIndustryNotaryEx($request, $runtime);
+        $headers = [];
+        return $this->checkIndustryNotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 统一存证核验接口
      * Summary: 统一存证核验接口（已下架）
-     * @param CheckTwcNotaryIndustryNotaryRequest $request
+     * @param CheckIndustryNotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CheckTwcNotaryIndustryNotaryResponse
+     * @return CheckIndustryNotaryResponse
      */
-    public function checkTwcNotaryIndustryNotaryEx($request, $runtime){
+    public function checkIndustryNotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CheckTwcNotaryIndustryNotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.industry.notary.check", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CheckIndustryNotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.industry.notary.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 升级融资租赁合约
      * Summary: 升级融资租赁合约
-     * @param UpdateTwcNotaryLeaseContractRequest $request
-     * @return UpdateTwcNotaryLeaseContractResponse
+     * @param UpdateLeaseContractRequest $request
+     * @return UpdateLeaseContractResponse
      */
-    public function updateTwcNotaryLeaseContract($request){
+    public function updateLeaseContract($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateTwcNotaryLeaseContractEx($request, $runtime);
+        $headers = [];
+        return $this->updateLeaseContractEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 升级融资租赁合约
      * Summary: 升级融资租赁合约
-     * @param UpdateTwcNotaryLeaseContractRequest $request
+     * @param UpdateLeaseContractRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return UpdateTwcNotaryLeaseContractResponse
+     * @return UpdateLeaseContractResponse
      */
-    public function updateTwcNotaryLeaseContractEx($request, $runtime){
+    public function updateLeaseContractEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return UpdateTwcNotaryLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateLeaseContractResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.contract.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 违约案件信息提交服务
      * Summary: 违约案件信息提交服务
-     * @param CreateTwcNotarySueBreakpromiseinfoRequest $request
-     * @return CreateTwcNotarySueBreakpromiseinfoResponse
+     * @param CreateSueBreakpromiseinfoRequest $request
+     * @return CreateSueBreakpromiseinfoResponse
      */
-    public function createTwcNotarySueBreakpromiseinfo($request){
+    public function createSueBreakpromiseinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotarySueBreakpromiseinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createSueBreakpromiseinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 违约案件信息提交服务
      * Summary: 违约案件信息提交服务
-     * @param CreateTwcNotarySueBreakpromiseinfoRequest $request
+     * @param CreateSueBreakpromiseinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotarySueBreakpromiseinfoResponse
+     * @return CreateSueBreakpromiseinfoResponse
      */
-    public function createTwcNotarySueBreakpromiseinfoEx($request, $runtime){
+    public function createSueBreakpromiseinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotarySueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateSueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 违约案件信息修改服务
      * Summary: 违约案件信息修改服务
-     * @param UpdateTwcNotarySueBreakpromiseinfoRequest $request
-     * @return UpdateTwcNotarySueBreakpromiseinfoResponse
+     * @param UpdateSueBreakpromiseinfoRequest $request
+     * @return UpdateSueBreakpromiseinfoResponse
      */
-    public function updateTwcNotarySueBreakpromiseinfo($request){
+    public function updateSueBreakpromiseinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateTwcNotarySueBreakpromiseinfoEx($request, $runtime);
+        $headers = [];
+        return $this->updateSueBreakpromiseinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 违约案件信息修改服务
      * Summary: 违约案件信息修改服务
-     * @param UpdateTwcNotarySueBreakpromiseinfoRequest $request
+     * @param UpdateSueBreakpromiseinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return UpdateTwcNotarySueBreakpromiseinfoResponse
+     * @return UpdateSueBreakpromiseinfoResponse
      */
-    public function updateTwcNotarySueBreakpromiseinfoEx($request, $runtime){
+    public function updateSueBreakpromiseinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return UpdateTwcNotarySueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateSueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 违约案件信息删除服务
      * Summary: 违约案件信息删除服务
-     * @param DeleteTwcNotarySueBreakpromiseinfoRequest $request
-     * @return DeleteTwcNotarySueBreakpromiseinfoResponse
+     * @param DeleteSueBreakpromiseinfoRequest $request
+     * @return DeleteSueBreakpromiseinfoResponse
      */
-    public function deleteTwcNotarySueBreakpromiseinfo($request){
+    public function deleteSueBreakpromiseinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->deleteTwcNotarySueBreakpromiseinfoEx($request, $runtime);
+        $headers = [];
+        return $this->deleteSueBreakpromiseinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 违约案件信息删除服务
      * Summary: 违约案件信息删除服务
-     * @param DeleteTwcNotarySueBreakpromiseinfoRequest $request
+     * @param DeleteSueBreakpromiseinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return DeleteTwcNotarySueBreakpromiseinfoResponse
+     * @return DeleteSueBreakpromiseinfoResponse
      */
-    public function deleteTwcNotarySueBreakpromiseinfoEx($request, $runtime){
+    public function deleteSueBreakpromiseinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return DeleteTwcNotarySueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.delete", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return DeleteSueBreakpromiseinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.breakpromiseinfo.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询惩戒信息
      * Summary: 查询惩戒信息
-     * @param QueryTwcNotarySueUserinfoRequest $request
-     * @return QueryTwcNotarySueUserinfoResponse
+     * @param QuerySueUserinfoRequest $request
+     * @return QuerySueUserinfoResponse
      */
-    public function queryTwcNotarySueUserinfo($request){
+    public function querySueUserinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotarySueUserinfoEx($request, $runtime);
+        $headers = [];
+        return $this->querySueUserinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询惩戒信息
      * Summary: 查询惩戒信息
-     * @param QueryTwcNotarySueUserinfoRequest $request
+     * @param QuerySueUserinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotarySueUserinfoResponse
+     * @return QuerySueUserinfoResponse
      */
-    public function queryTwcNotarySueUserinfoEx($request, $runtime){
+    public function querySueUserinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotarySueUserinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.userinfo.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QuerySueUserinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.userinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 升级用户管理合约
      * Summary: 升级用户管理合约
-     * @param UpdateTwcNotarySueExeplarycontractRequest $request
-     * @return UpdateTwcNotarySueExeplarycontractResponse
+     * @param UpdateSueExeplarycontractRequest $request
+     * @return UpdateSueExeplarycontractResponse
      */
-    public function updateTwcNotarySueExeplarycontract($request){
+    public function updateSueExeplarycontract($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateTwcNotarySueExeplarycontractEx($request, $runtime);
+        $headers = [];
+        return $this->updateSueExeplarycontractEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 升级用户管理合约
      * Summary: 升级用户管理合约
-     * @param UpdateTwcNotarySueExeplarycontractRequest $request
+     * @param UpdateSueExeplarycontractRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return UpdateTwcNotarySueExeplarycontractResponse
+     * @return UpdateSueExeplarycontractResponse
      */
-    public function updateTwcNotarySueExeplarycontractEx($request, $runtime){
+    public function updateSueExeplarycontractEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return UpdateTwcNotarySueExeplarycontractResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.exeplarycontract.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateSueExeplarycontractResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.exeplarycontract.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 回退用户管理合约
      * Summary: 回退用户管理合约
-     * @param UpdateTwcNotarySueExemplaryrevertRequest $request
-     * @return UpdateTwcNotarySueExemplaryrevertResponse
+     * @param UpdateSueExemplaryrevertRequest $request
+     * @return UpdateSueExemplaryrevertResponse
      */
-    public function updateTwcNotarySueExemplaryrevert($request){
+    public function updateSueExemplaryrevert($request){
         $runtime = new RuntimeOptions([]);
-        return $this->updateTwcNotarySueExemplaryrevertEx($request, $runtime);
+        $headers = [];
+        return $this->updateSueExemplaryrevertEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 回退用户管理合约
      * Summary: 回退用户管理合约
-     * @param UpdateTwcNotarySueExemplaryrevertRequest $request
+     * @param UpdateSueExemplaryrevertRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return UpdateTwcNotarySueExemplaryrevertResponse
+     * @return UpdateSueExemplaryrevertResponse
      */
-    public function updateTwcNotarySueExemplaryrevertEx($request, $runtime){
+    public function updateSueExemplaryrevertEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return UpdateTwcNotarySueExemplaryrevertResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.exemplaryrevert.update", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return UpdateSueExemplaryrevertResponse::fromMap($this->doRequest("1.0", "twc.notary.sue.exemplaryrevert.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资平台审核订单信息
      * Summary: 融资平台审核订单信息
-     * @param CreateTwcNotaryLeaseAuditRequest $request
-     * @return CreateTwcNotaryLeaseAuditResponse
+     * @param CreateLeaseAuditRequest $request
+     * @return CreateLeaseAuditResponse
      */
-    public function createTwcNotaryLeaseAudit($request){
+    public function createLeaseAudit($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseAuditEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseAuditEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资平台审核订单信息
      * Summary: 融资平台审核订单信息
-     * @param CreateTwcNotaryLeaseAuditRequest $request
+     * @param CreateLeaseAuditRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseAuditResponse
+     * @return CreateLeaseAuditResponse
      */
-    public function createTwcNotaryLeaseAuditEx($request, $runtime){
+    public function createLeaseAuditEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseAuditResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.audit.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseAuditResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.audit.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁平台上传付款通知信息
      * Summary: 租赁平台上传付款通知信息
-     * @param CreateTwcNotaryLeasePaymentfileRequest $request
-     * @return CreateTwcNotaryLeasePaymentfileResponse
+     * @param CreateLeasePaymentfileRequest $request
+     * @return CreateLeasePaymentfileResponse
      */
-    public function createTwcNotaryLeasePaymentfile($request){
+    public function createLeasePaymentfile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeasePaymentfileEx($request, $runtime);
+        $headers = [];
+        return $this->createLeasePaymentfileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁平台上传付款通知信息
      * Summary: 租赁平台上传付款通知信息
-     * @param CreateTwcNotaryLeasePaymentfileRequest $request
+     * @param CreateLeasePaymentfileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeasePaymentfileResponse
+     * @return CreateLeasePaymentfileResponse
      */
-    public function createTwcNotaryLeasePaymentfileEx($request, $runtime){
+    public function createLeasePaymentfileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeasePaymentfileResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.paymentfile.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeasePaymentfileResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.paymentfile.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 租赁系统上传租金归还记录 分期调用
      * Summary: 租赁系统上传租金归还记录 分期调用
-     * @param CreateTwcNotaryLeaseRentalRequest $request
-     * @return CreateTwcNotaryLeaseRentalResponse
+     * @param CreateLeaseRentalRequest $request
+     * @return CreateLeaseRentalResponse
      */
-    public function createTwcNotaryLeaseRental($request){
+    public function createLeaseRental($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseRentalEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseRentalEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 租赁系统上传租金归还记录 分期调用
      * Summary: 租赁系统上传租金归还记录 分期调用
-     * @param CreateTwcNotaryLeaseRentalRequest $request
+     * @param CreateLeaseRentalRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseRentalResponse
+     * @return CreateLeaseRentalResponse
      */
-    public function createTwcNotaryLeaseRentalEx($request, $runtime){
+    public function createLeaseRentalEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseRentalResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.rental.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseRentalResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.rental.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 清分服务机构上传资金清算记录，分期
      * Summary: 清分服务机构上传资金清算记录，分期
-     * @param CreateTwcNotaryLeaseClearingRequest $request
-     * @return CreateTwcNotaryLeaseClearingResponse
+     * @param CreateLeaseClearingRequest $request
+     * @return CreateLeaseClearingResponse
      */
-    public function createTwcNotaryLeaseClearing($request){
+    public function createLeaseClearing($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseClearingEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseClearingEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 清分服务机构上传资金清算记录，分期
      * Summary: 清分服务机构上传资金清算记录，分期
-     * @param CreateTwcNotaryLeaseClearingRequest $request
+     * @param CreateLeaseClearingRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseClearingResponse
+     * @return CreateLeaseClearingResponse
      */
-    public function createTwcNotaryLeaseClearingEx($request, $runtime){
+    public function createLeaseClearingEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseClearingResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.clearing.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseClearingResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.clearing.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资金融机构上传还款信息 每期
      * Summary: 融资金融机构上传还款信息 每期
-     * @param CreateTwcNotaryLeaseRepaymentRequest $request
-     * @return CreateTwcNotaryLeaseRepaymentResponse
+     * @param CreateLeaseRepaymentRequest $request
+     * @return CreateLeaseRepaymentResponse
      */
-    public function createTwcNotaryLeaseRepayment($request){
+    public function createLeaseRepayment($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseRepaymentEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseRepaymentEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资金融机构上传还款信息 每期
      * Summary: 融资金融机构上传还款信息 每期
-     * @param CreateTwcNotaryLeaseRepaymentRequest $request
+     * @param CreateLeaseRepaymentRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseRepaymentResponse
+     * @return CreateLeaseRepaymentResponse
      */
-    public function createTwcNotaryLeaseRepaymentEx($request, $runtime){
+    public function createLeaseRepaymentEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseRepaymentResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.repayment.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseRepaymentResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.repayment.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资租赁通知系统注册
      * Summary: 融资租赁通知系统注册
-     * @param CreateTwcNotaryLeaseNotifyregisterRequest $request
-     * @return CreateTwcNotaryLeaseNotifyregisterResponse
+     * @param CreateLeaseNotifyregisterRequest $request
+     * @return CreateLeaseNotifyregisterResponse
      */
-    public function createTwcNotaryLeaseNotifyregister($request){
+    public function createLeaseNotifyregister($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseNotifyregisterEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseNotifyregisterEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资租赁通知系统注册
      * Summary: 融资租赁通知系统注册
-     * @param CreateTwcNotaryLeaseNotifyregisterRequest $request
+     * @param CreateLeaseNotifyregisterRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseNotifyregisterResponse
+     * @return CreateLeaseNotifyregisterResponse
      */
-    public function createTwcNotaryLeaseNotifyregisterEx($request, $runtime){
+    public function createLeaseNotifyregisterEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseNotifyregisterResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.notifyregister.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseNotifyregisterResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.notifyregister.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 根据imeiID查询iot设备的详情
      * Summary: 根据imeiID查询iot设备的详情
-     * @param QueryTwcNotaryLeaseIotinfoRequest $request
-     * @return QueryTwcNotaryLeaseIotinfoResponse
+     * @param QueryLeaseIotinfoRequest $request
+     * @return QueryLeaseIotinfoResponse
      */
-    public function queryTwcNotaryLeaseIotinfo($request){
+    public function queryLeaseIotinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryLeaseIotinfoEx($request, $runtime);
+        $headers = [];
+        return $this->queryLeaseIotinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 根据imeiID查询iot设备的详情
      * Summary: 根据imeiID查询iot设备的详情
-     * @param QueryTwcNotaryLeaseIotinfoRequest $request
+     * @param QueryLeaseIotinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryLeaseIotinfoResponse
+     * @return QueryLeaseIotinfoResponse
      */
-    public function queryTwcNotaryLeaseIotinfoEx($request, $runtime){
+    public function queryLeaseIotinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryLeaseIotinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.iotinfo.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryLeaseIotinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.iotinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建法院通用文本存证
      * Summary: 法院通用文本存证创建接口
-     * @param CreateTwcNotaryCourtTextnotaryRequest $request
-     * @return CreateTwcNotaryCourtTextnotaryResponse
+     * @param CreateCourtTextnotaryRequest $request
+     * @return CreateCourtTextnotaryResponse
      */
-    public function createTwcNotaryCourtTextnotary($request){
+    public function createCourtTextnotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryCourtTextnotaryEx($request, $runtime);
+        $headers = [];
+        return $this->createCourtTextnotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建法院通用文本存证
      * Summary: 法院通用文本存证创建接口
-     * @param CreateTwcNotaryCourtTextnotaryRequest $request
+     * @param CreateCourtTextnotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryCourtTextnotaryResponse
+     * @return CreateCourtTextnotaryResponse
      */
-    public function createTwcNotaryCourtTextnotaryEx($request, $runtime){
+    public function createCourtTextnotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryCourtTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.textnotary.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateCourtTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.textnotary.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取法院通用文本存证
      * Summary: 法院通用文本存证获取接口
-     * @param GetTwcNotaryCourtTextnotaryRequest $request
-     * @return GetTwcNotaryCourtTextnotaryResponse
+     * @param GetCourtTextnotaryRequest $request
+     * @return GetCourtTextnotaryResponse
      */
-    public function getTwcNotaryCourtTextnotary($request){
+    public function getCourtTextnotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryCourtTextnotaryEx($request, $runtime);
+        $headers = [];
+        return $this->getCourtTextnotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取法院通用文本存证
      * Summary: 法院通用文本存证获取接口
-     * @param GetTwcNotaryCourtTextnotaryRequest $request
+     * @param GetCourtTextnotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryCourtTextnotaryResponse
+     * @return GetCourtTextnotaryResponse
      */
-    public function getTwcNotaryCourtTextnotaryEx($request, $runtime){
+    public function getCourtTextnotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryCourtTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.textnotary.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetCourtTextnotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.textnotary.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建法院通用文件存证接口
      * Summary: 法院通用文件存证创建接口
-     * @param CreateTwcNotaryCourtFilenotaryRequest $request
-     * @return CreateTwcNotaryCourtFilenotaryResponse
+     * @param CreateCourtFilenotaryRequest $request
+     * @return CreateCourtFilenotaryResponse
      */
-    public function createTwcNotaryCourtFilenotary($request){
+    public function createCourtFilenotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryCourtFilenotaryEx($request, $runtime);
+        $headers = [];
+        return $this->createCourtFilenotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建法院通用文件存证接口
      * Summary: 法院通用文件存证创建接口
-     * @param CreateTwcNotaryCourtFilenotaryRequest $request
+     * @param CreateCourtFilenotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryCourtFilenotaryResponse
+     * @return CreateCourtFilenotaryResponse
      */
-    public function createTwcNotaryCourtFilenotaryEx($request, $runtime){
+    public function createCourtFilenotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryCourtFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.filenotary.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateCourtFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.filenotary.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取法院通用文件存证
      * Summary: 法院通用文件存证获取接口
-     * @param GetTwcNotaryCourtFilenotaryRequest $request
-     * @return GetTwcNotaryCourtFilenotaryResponse
+     * @param GetCourtFilenotaryRequest $request
+     * @return GetCourtFilenotaryResponse
      */
-    public function getTwcNotaryCourtFilenotary($request){
+    public function getCourtFilenotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryCourtFilenotaryEx($request, $runtime);
+        $headers = [];
+        return $this->getCourtFilenotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取法院通用文件存证
      * Summary: 法院通用文件存证获取接口
-     * @param GetTwcNotaryCourtFilenotaryRequest $request
+     * @param GetCourtFilenotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryCourtFilenotaryResponse
+     * @return GetCourtFilenotaryResponse
      */
-    public function getTwcNotaryCourtFilenotaryEx($request, $runtime){
+    public function getCourtFilenotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryCourtFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.filenotary.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetCourtFilenotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.court.filenotary.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资租赁定制化统一入口
      * Summary: 融资租赁定制化统一入口
-     * @param CreateTwcNotaryLeaseRouteRequest $request
-     * @return CreateTwcNotaryLeaseRouteResponse
+     * @param CreateLeaseRouteRequest $request
+     * @return CreateLeaseRouteResponse
      */
-    public function createTwcNotaryLeaseRoute($request){
+    public function createLeaseRoute($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseRouteEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseRouteEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资租赁定制化统一入口
      * Summary: 融资租赁定制化统一入口
-     * @param CreateTwcNotaryLeaseRouteRequest $request
+     * @param CreateLeaseRouteRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseRouteResponse
+     * @return CreateLeaseRouteResponse
      */
-    public function createTwcNotaryLeaseRouteEx($request, $runtime){
+    public function createLeaseRouteEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseRouteResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.route.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseRouteResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.route.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密
      * Summary: 查询用户等加密信息
-     * @param QueryTwcNotaryLeaseEncryptedinfoRequest $request
-     * @return QueryTwcNotaryLeaseEncryptedinfoResponse
+     * @param QueryLeaseEncryptedinfoRequest $request
+     * @return QueryLeaseEncryptedinfoResponse
      */
-    public function queryTwcNotaryLeaseEncryptedinfo($request){
+    public function queryLeaseEncryptedinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryLeaseEncryptedinfoEx($request, $runtime);
+        $headers = [];
+        return $this->queryLeaseEncryptedinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密
      * Summary: 查询用户等加密信息
-     * @param QueryTwcNotaryLeaseEncryptedinfoRequest $request
+     * @param QueryLeaseEncryptedinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryLeaseEncryptedinfoResponse
+     * @return QueryLeaseEncryptedinfoResponse
      */
-    public function queryTwcNotaryLeaseEncryptedinfoEx($request, $runtime){
+    public function queryLeaseEncryptedinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryLeaseEncryptedinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.encryptedinfo.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryLeaseEncryptedinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.encryptedinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 电子合同文本存证
      * Summary: 电子合同文本存证
-     * @param CreateTwcNotaryContractTextRequest $request
-     * @return CreateTwcNotaryContractTextResponse
+     * @param CreateContractTextRequest $request
+     * @return CreateContractTextResponse
      */
-    public function createTwcNotaryContractText($request){
+    public function createContractText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryContractTextEx($request, $runtime);
+        $headers = [];
+        return $this->createContractTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 电子合同文本存证
      * Summary: 电子合同文本存证
-     * @param CreateTwcNotaryContractTextRequest $request
+     * @param CreateContractTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryContractTextResponse
+     * @return CreateContractTextResponse
      */
-    public function createTwcNotaryContractTextEx($request, $runtime){
+    public function createContractTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryContractTextResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.text.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateContractTextResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.text.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 全流程存证后，批量提交全流程核验信息，申请出证报告授权码。成功后可生成全流程上链报告
      * Summary: 申请电子合同存证报告
-     * @param ApplyTwcNotaryContractReportRequest $request
-     * @return ApplyTwcNotaryContractReportResponse
+     * @param ApplyContractReportRequest $request
+     * @return ApplyContractReportResponse
      */
-    public function applyTwcNotaryContractReport($request){
+    public function applyContractReport($request){
         $runtime = new RuntimeOptions([]);
-        return $this->applyTwcNotaryContractReportEx($request, $runtime);
+        $headers = [];
+        return $this->applyContractReportEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 全流程存证后，批量提交全流程核验信息，申请出证报告授权码。成功后可生成全流程上链报告
      * Summary: 申请电子合同存证报告
-     * @param ApplyTwcNotaryContractReportRequest $request
+     * @param ApplyContractReportRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ApplyTwcNotaryContractReportResponse
+     * @return ApplyContractReportResponse
      */
-    public function applyTwcNotaryContractReportEx($request, $runtime){
+    public function applyContractReportEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ApplyTwcNotaryContractReportResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.report.apply", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ApplyContractReportResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.report.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 下载合同存证某个环节的内容，得到存证信息对象最终上链的JSON序列化形式，该内容可用于统一核验
      * Summary: 下载合同存证
-     * @param GetTwcNotaryContractTextRequest $request
-     * @return GetTwcNotaryContractTextResponse
+     * @param GetContractTextRequest $request
+     * @return GetContractTextResponse
      */
-    public function getTwcNotaryContractText($request){
+    public function getContractText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->getTwcNotaryContractTextEx($request, $runtime);
+        $headers = [];
+        return $this->getContractTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 下载合同存证某个环节的内容，得到存证信息对象最终上链的JSON序列化形式，该内容可用于统一核验
      * Summary: 下载合同存证
-     * @param GetTwcNotaryContractTextRequest $request
+     * @param GetContractTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return GetTwcNotaryContractTextResponse
+     * @return GetContractTextResponse
      */
-    public function getTwcNotaryContractTextEx($request, $runtime){
+    public function getContractTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return GetTwcNotaryContractTextResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.text.get", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return GetContractTextResponse::fromMap($this->doRequest("1.0", "twc.notary.contract.text.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 获取存证事务ID内部接口
      * Summary: 获取存证事务ID内部接口
-     * @param CreateTwcNotaryInternalTransRequest $request
-     * @return CreateTwcNotaryInternalTransResponse
+     * @param CreateInternalTransRequest $request
+     * @return CreateInternalTransResponse
      */
-    public function createTwcNotaryInternalTrans($request){
+    public function createInternalTrans($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryInternalTransEx($request, $runtime);
+        $headers = [];
+        return $this->createInternalTransEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取存证事务ID内部接口
      * Summary: 获取存证事务ID内部接口
-     * @param CreateTwcNotaryInternalTransRequest $request
+     * @param CreateInternalTransRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryInternalTransResponse
+     * @return CreateInternalTransResponse
      */
-    public function createTwcNotaryInternalTransEx($request, $runtime){
+    public function createInternalTransEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryInternalTransResponse::fromMap($this->doRequest("1.0", "twc.notary.internal.trans.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateInternalTransResponse::fromMap($this->doRequest("1.0", "twc.notary.internal.trans.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 文本存证内部接口，将文本内容存证上链
      * Summary: 文本存证内部接口，将文本内容存证上链
-     * @param CreateTwcNotaryInternalTextRequest $request
-     * @return CreateTwcNotaryInternalTextResponse
+     * @param CreateInternalTextRequest $request
+     * @return CreateInternalTextResponse
      */
-    public function createTwcNotaryInternalText($request){
+    public function createInternalText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryInternalTextEx($request, $runtime);
+        $headers = [];
+        return $this->createInternalTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 文本存证内部接口，将文本内容存证上链
      * Summary: 文本存证内部接口，将文本内容存证上链
-     * @param CreateTwcNotaryInternalTextRequest $request
+     * @param CreateInternalTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryInternalTextResponse
+     * @return CreateInternalTextResponse
      */
-    public function createTwcNotaryInternalTextEx($request, $runtime){
+    public function createInternalTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryInternalTextResponse::fromMap($this->doRequest("1.0", "twc.notary.internal.text.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateInternalTextResponse::fromMap($this->doRequest("1.0", "twc.notary.internal.text.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起文本存证，将文本内容存证上链，租赁业务专用。
      * Summary: 租赁业务文本存证，将文本内容存证上链
-     * @param CreateTwcNotaryLeaseTextRequest $request
-     * @return CreateTwcNotaryLeaseTextResponse
+     * @param CreateLeaseTextRequest $request
+     * @return CreateLeaseTextResponse
      */
-    public function createTwcNotaryLeaseText($request){
+    public function createLeaseText($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseTextEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseTextEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起文本存证，将文本内容存证上链，租赁业务专用。
      * Summary: 租赁业务文本存证，将文本内容存证上链
-     * @param CreateTwcNotaryLeaseTextRequest $request
+     * @param CreateLeaseTextRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseTextResponse
+     * @return CreateLeaseTextResponse
      */
-    public function createTwcNotaryLeaseTextEx($request, $runtime){
+    public function createLeaseTextEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseTextResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.text.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseTextResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.text.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 发起文件存证，将文件内容存证上链，租赁业务专用。
      * Summary: 租赁业务文件内容存证上链
-     * @param CreateTwcNotaryLeaseFileRequest $request
-     * @return CreateTwcNotaryLeaseFileResponse
+     * @param CreateLeaseFileRequest $request
+     * @return CreateLeaseFileResponse
      */
-    public function createTwcNotaryLeaseFile($request){
+    public function createLeaseFile($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseFileEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseFileEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 发起文件存证，将文件内容存证上链，租赁业务专用。
      * Summary: 租赁业务文件内容存证上链
-     * @param CreateTwcNotaryLeaseFileRequest $request
+     * @param CreateLeaseFileRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseFileResponse
+     * @return CreateLeaseFileResponse
      */
-    public function createTwcNotaryLeaseFileEx($request, $runtime){
+    public function createLeaseFileEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseFileResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.file.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseFileResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.file.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 使用接口查询订单存证的信息，需要在完成订单回传后才可返回。获取到txhash后，用户可使用 获取文本存证、存证核验 等存证服务功能。
      * Summary: 租赁业务获取订单存证列表
-     * @param ListTwcNotaryLeaseNotaryRequest $request
-     * @return ListTwcNotaryLeaseNotaryResponse
+     * @param ListLeaseNotaryRequest $request
+     * @return ListLeaseNotaryResponse
      */
-    public function listTwcNotaryLeaseNotary($request){
+    public function listLeaseNotary($request){
         $runtime = new RuntimeOptions([]);
-        return $this->listTwcNotaryLeaseNotaryEx($request, $runtime);
+        $headers = [];
+        return $this->listLeaseNotaryEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 使用接口查询订单存证的信息，需要在完成订单回传后才可返回。获取到txhash后，用户可使用 获取文本存证、存证核验 等存证服务功能。
      * Summary: 租赁业务获取订单存证列表
-     * @param ListTwcNotaryLeaseNotaryRequest $request
+     * @param ListLeaseNotaryRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return ListTwcNotaryLeaseNotaryResponse
+     * @return ListLeaseNotaryResponse
      */
-    public function listTwcNotaryLeaseNotaryEx($request, $runtime){
+    public function listLeaseNotaryEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return ListTwcNotaryLeaseNotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.notary.list", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return ListLeaseNotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.notary.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询融资租赁application
      * Summary: 查询融资租赁application
-     * @param QueryTwcNotaryLeaseApplicationRequest $request
-     * @return QueryTwcNotaryLeaseApplicationResponse
+     * @param QueryLeaseApplicationRequest $request
+     * @return QueryLeaseApplicationResponse
      */
-    public function queryTwcNotaryLeaseApplication($request){
+    public function queryLeaseApplication($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryLeaseApplicationEx($request, $runtime);
+        $headers = [];
+        return $this->queryLeaseApplicationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询融资租赁application
      * Summary: 查询融资租赁application
-     * @param QueryTwcNotaryLeaseApplicationRequest $request
+     * @param QueryLeaseApplicationRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryLeaseApplicationResponse
+     * @return QueryLeaseApplicationResponse
      */
-    public function queryTwcNotaryLeaseApplicationEx($request, $runtime){
+    public function queryLeaseApplicationEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryLeaseApplicationResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.application.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryLeaseApplicationResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.application.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询融资租赁application的定义详情
      * Summary: 查询application的定义详情
-     * @param QueryTwcNotaryLeaseApplicationdetailinfoRequest $request
-     * @return QueryTwcNotaryLeaseApplicationdetailinfoResponse
+     * @param QueryLeaseApplicationdetailinfoRequest $request
+     * @return QueryLeaseApplicationdetailinfoResponse
      */
-    public function queryTwcNotaryLeaseApplicationdetailinfo($request){
+    public function queryLeaseApplicationdetailinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->queryTwcNotaryLeaseApplicationdetailinfoEx($request, $runtime);
+        $headers = [];
+        return $this->queryLeaseApplicationdetailinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询融资租赁application的定义详情
      * Summary: 查询application的定义详情
-     * @param QueryTwcNotaryLeaseApplicationdetailinfoRequest $request
+     * @param QueryLeaseApplicationdetailinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return QueryTwcNotaryLeaseApplicationdetailinfoResponse
+     * @return QueryLeaseApplicationdetailinfoResponse
      */
-    public function queryTwcNotaryLeaseApplicationdetailinfoEx($request, $runtime){
+    public function queryLeaseApplicationdetailinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return QueryTwcNotaryLeaseApplicationdetailinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.applicationdetailinfo.query", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return QueryLeaseApplicationdetailinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.applicationdetailinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 融资租赁资方重置订单状态
      * Summary: 融资租赁资方重置订单状态
-     * @param SetTwcNotaryLeaseRepaymentstatusRequest $request
-     * @return SetTwcNotaryLeaseRepaymentstatusResponse
+     * @param SetLeaseRepaymentstatusRequest $request
+     * @return SetLeaseRepaymentstatusResponse
      */
-    public function setTwcNotaryLeaseRepaymentstatus($request){
+    public function setLeaseRepaymentstatus($request){
         $runtime = new RuntimeOptions([]);
-        return $this->setTwcNotaryLeaseRepaymentstatusEx($request, $runtime);
+        $headers = [];
+        return $this->setLeaseRepaymentstatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 融资租赁资方重置订单状态
      * Summary: 融资租赁资方重置订单状态
-     * @param SetTwcNotaryLeaseRepaymentstatusRequest $request
+     * @param SetLeaseRepaymentstatusRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return SetTwcNotaryLeaseRepaymentstatusResponse
+     * @return SetLeaseRepaymentstatusResponse
      */
-    public function setTwcNotaryLeaseRepaymentstatusEx($request, $runtime){
+    public function setLeaseRepaymentstatusEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return SetTwcNotaryLeaseRepaymentstatusResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.repaymentstatus.set", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return SetLeaseRepaymentstatusResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.repaymentstatus.set", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 供应商上传采购等相关信息
      * Summary: 供应商上传采购等相关信息
-     * @param CreateTwcNotaryLeaseSupplierinfoRequest $request
-     * @return CreateTwcNotaryLeaseSupplierinfoResponse
+     * @param CreateLeaseSupplierinfoRequest $request
+     * @return CreateLeaseSupplierinfoResponse
      */
-    public function createTwcNotaryLeaseSupplierinfo($request){
+    public function createLeaseSupplierinfo($request){
         $runtime = new RuntimeOptions([]);
-        return $this->createTwcNotaryLeaseSupplierinfoEx($request, $runtime);
+        $headers = [];
+        return $this->createLeaseSupplierinfoEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 供应商上传采购等相关信息
      * Summary: 供应商上传采购等相关信息
-     * @param CreateTwcNotaryLeaseSupplierinfoRequest $request
+     * @param CreateLeaseSupplierinfoRequest $request
+     * @param string[] $headers
      * @param RuntimeOptions $runtime
-     * @return CreateTwcNotaryLeaseSupplierinfoResponse
+     * @return CreateLeaseSupplierinfoResponse
      */
-    public function createTwcNotaryLeaseSupplierinfoEx($request, $runtime){
+    public function createLeaseSupplierinfoEx($request, $headers, $runtime){
         Utils::validateModel($request);
-        return CreateTwcNotaryLeaseSupplierinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.supplierinfo.create", "HTTPS", "POST", "/gateway.do", $request, $runtime));
+        return CreateLeaseSupplierinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.supplierinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: mytf的tapp部署
+     * Summary: mytf的tapp部署
+     * @param DeployMytfTappRequest $request
+     * @return DeployMytfTappResponse
+     */
+    public function deployMytfTapp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deployMytfTappEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mytf的tapp部署
+     * Summary: mytf的tapp部署
+     * @param DeployMytfTappRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeployMytfTappResponse
+     */
+    public function deployMytfTappEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeployMytfTappResponse::fromMap($this->doRequest("1.0", "twc.notary.mytf.tapp.deploy", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 供应商更新物流状态、签收记录等信息
+     * Summary: 供应商更新物流状态、签收记录等信息
+     * @param CreateLeaseSupplierdynamicinfoRequest $request
+     * @return CreateLeaseSupplierdynamicinfoResponse
+     */
+    public function createLeaseSupplierdynamicinfo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLeaseSupplierdynamicinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 供应商更新物流状态、签收记录等信息
+     * Summary: 供应商更新物流状态、签收记录等信息
+     * @param CreateLeaseSupplierdynamicinfoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLeaseSupplierdynamicinfoResponse
+     */
+    public function createLeaseSupplierdynamicinfoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLeaseSupplierdynamicinfoResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.supplierdynamicinfo.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建租赁订单相关信息，融资租赁的前置条件
+     * Summary: 创建租赁订单相关信息，融资租赁的前置条件
+     * @param CreateLeaseBizRequest $request
+     * @return CreateLeaseBizResponse
+     */
+    public function createLeaseBiz($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLeaseBizEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建租赁订单相关信息，融资租赁的前置条件
+     * Summary: 创建租赁订单相关信息，融资租赁的前置条件
+     * @param CreateLeaseBizRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLeaseBizResponse
+     */
+    public function createLeaseBizEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLeaseBizResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.biz.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询核验结果
+     * Summary: 查询核验结果
+     * @param QueryLeaseProofRequest $request
+     * @return QueryLeaseProofResponse
+     */
+    public function queryLeaseProof($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryLeaseProofEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询核验结果
+     * Summary: 查询核验结果
+     * @param QueryLeaseProofRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryLeaseProofResponse
+     */
+    public function queryLeaseProofEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryLeaseProofResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.proof.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起文件存证，将文件内容存证上链，可存证10M以内的文件
+     * Summary: 大文件内容存证接口
+     * @param CreateLargefileRequest $request
+     * @return CreateLargefileResponse
+     */
+    public function createLargefile($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLargefileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起文件存证，将文件内容存证上链，可存证10M以内的文件
+     * Summary: 大文件内容存证接口
+     * @param CreateLargefileRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLargefileResponse
+     */
+    public function createLargefileEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLargefileResponse::fromMap($this->doRequest("1.0", "twc.notary.largefile.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁平台查询接口
+     * Summary: 租赁平台查询接口
+     * @param QueryLeaseBizRequest $request
+     * @return QueryLeaseBizResponse
+     */
+    public function queryLeaseBiz($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryLeaseBizEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁平台查询接口
+     * Summary: 租赁平台查询接口
+     * @param QueryLeaseBizRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryLeaseBizResponse
+     */
+    public function queryLeaseBizEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryLeaseBizResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.biz.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁宝哈希存证
+     * Summary: 租赁宝哈希存证
+     * @param CreateLeaseBiznotaryRequest $request
+     * @return CreateLeaseBiznotaryResponse
+     */
+    public function createLeaseBiznotary($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLeaseBiznotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁宝哈希存证
+     * Summary: 租赁宝哈希存证
+     * @param CreateLeaseBiznotaryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLeaseBiznotaryResponse
+     */
+    public function createLeaseBiznotaryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLeaseBiznotaryResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.biznotary.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同内部文本存证
+     * Summary: 合同内部文本存证
+     * @param CreateInternalContractRequest $request
+     * @return CreateInternalContractResponse
+     */
+    public function createInternalContract($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createInternalContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同内部文本存证
+     * Summary: 合同内部文本存证
+     * @param CreateInternalContractRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateInternalContractResponse
+     */
+    public function createInternalContractEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateInternalContractResponse::fromMap($this->doRequest("1.0", "twc.notary.internal.contract.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方上传网商直付通代扣协议核验结果
+     * Summary: 资方上传网商直付通代扣协议核验结果
+     * @param CreateLeaseZftagreementsignRequest $request
+     * @return CreateLeaseZftagreementsignResponse
+     */
+    public function createLeaseZftagreementsign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLeaseZftagreementsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方上传网商直付通代扣协议核验结果
+     * Summary: 资方上传网商直付通代扣协议核验结果
+     * @param CreateLeaseZftagreementsignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLeaseZftagreementsignResponse
+     */
+    public function createLeaseZftagreementsignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLeaseZftagreementsignResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.zftagreementsign.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方上传网商直付通代扣协议解约相关信息
+     * Summary: 资方上传网商直付通代扣协议解约相关信息
+     * @param CreateLeaseZftagreementunsignRequest $request
+     * @return CreateLeaseZftagreementunsignResponse
+     */
+    public function createLeaseZftagreementunsign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createLeaseZftagreementunsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方上传网商直付通代扣协议解约相关信息
+     * Summary: 资方上传网商直付通代扣协议解约相关信息
+     * @param CreateLeaseZftagreementunsignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateLeaseZftagreementunsignResponse
+     */
+    public function createLeaseZftagreementunsignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateLeaseZftagreementunsignResponse::fromMap($this->doRequest("1.0", "twc.notary.lease.zftagreementunsign.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }

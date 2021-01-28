@@ -9,8 +9,12 @@ class RepaymentOrderRequest extends Model {
     protected $_name = [
         'payDate' => 'pay_date',
         'payMoney' => 'pay_money',
+        'triggerImmediately' => 'trigger_immediately',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('payDate', $this->payDate, true);
+        Model::validateRequired('payMoney', $this->payMoney, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->payDate) {
@@ -18,6 +22,9 @@ class RepaymentOrderRequest extends Model {
         }
         if (null !== $this->payMoney) {
             $res['pay_money'] = $this->payMoney;
+        }
+        if (null !== $this->triggerImmediately) {
+            $res['trigger_immediately'] = $this->triggerImmediately;
         }
         return $res;
     }
@@ -32,6 +39,9 @@ class RepaymentOrderRequest extends Model {
         }
         if(isset($map['pay_money'])){
             $model->payMoney = $map['pay_money'];
+        }
+        if(isset($map['trigger_immediately'])){
+            $model->triggerImmediately = $map['trigger_immediately'];
         }
         return $model;
     }
@@ -49,5 +59,12 @@ class RepaymentOrderRequest extends Model {
      * @var int
      */
     public $payMoney;
+
+    // 是否用户签署成功后立即触发第一期代扣
+    /**
+     * @example 1
+     * @var int
+     */
+    public $triggerImmediately;
 
 }

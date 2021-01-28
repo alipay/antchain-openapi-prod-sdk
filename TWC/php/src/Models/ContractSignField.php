@@ -11,7 +11,11 @@ class ContractSignField extends Model {
         'fileId' => 'file_id',
         'signfieldId' => 'signfield_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('signfieldId', $this->signfieldId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->accountId) {

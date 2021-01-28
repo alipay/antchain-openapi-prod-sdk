@@ -12,7 +12,9 @@ class ContractDoc extends Model {
         'fileName' => 'file_name',
         'filePassword' => 'file_password',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('fileId', $this->fileId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->encryption) {

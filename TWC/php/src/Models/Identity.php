@@ -8,26 +8,28 @@ use AlibabaCloud\Tea\Model;
 class Identity extends Model {
     protected $_name = [
         'agent' => 'agent',
-        'agentCertType' => 'agent_cert_type',
         'agentId' => 'agent_id',
         'certName' => 'cert_name',
         'certNo' => 'cert_no',
         'certType' => 'cert_type',
         'legalPerson' => 'legal_person',
-        'legalPersonCertType' => 'legal_person_cert_type',
         'legalPersonId' => 'legal_person_id',
         'mobileNo' => 'mobile_no',
         'properties' => 'properties',
         'userType' => 'user_type',
+        'agentCertType' => 'agent_cert_type',
+        'legalPersonCertType' => 'legal_person_cert_type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('certName', $this->certName, true);
+        Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('certType', $this->certType, true);
+        Model::validateRequired('userType', $this->userType, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->agent) {
             $res['agent'] = $this->agent;
-        }
-        if (null !== $this->agentCertType) {
-            $res['agent_cert_type'] = $this->agentCertType;
         }
         if (null !== $this->agentId) {
             $res['agent_id'] = $this->agentId;
@@ -44,9 +46,6 @@ class Identity extends Model {
         if (null !== $this->legalPerson) {
             $res['legal_person'] = $this->legalPerson;
         }
-        if (null !== $this->legalPersonCertType) {
-            $res['legal_person_cert_type'] = $this->legalPersonCertType;
-        }
         if (null !== $this->legalPersonId) {
             $res['legal_person_id'] = $this->legalPersonId;
         }
@@ -59,6 +58,12 @@ class Identity extends Model {
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
         }
+        if (null !== $this->agentCertType) {
+            $res['agent_cert_type'] = $this->agentCertType;
+        }
+        if (null !== $this->legalPersonCertType) {
+            $res['legal_person_cert_type'] = $this->legalPersonCertType;
+        }
         return $res;
     }
     /**
@@ -69,9 +74,6 @@ class Identity extends Model {
         $model = new self();
         if(isset($map['agent'])){
             $model->agent = $map['agent'];
-        }
-        if(isset($map['agent_cert_type'])){
-            $model->agentCertType = $map['agent_cert_type'];
         }
         if(isset($map['agent_id'])){
             $model->agentId = $map['agent_id'];
@@ -88,9 +90,6 @@ class Identity extends Model {
         if(isset($map['legal_person'])){
             $model->legalPerson = $map['legal_person'];
         }
-        if(isset($map['legal_person_cert_type'])){
-            $model->legalPersonCertType = $map['legal_person_cert_type'];
-        }
         if(isset($map['legal_person_id'])){
             $model->legalPersonId = $map['legal_person_id'];
         }
@@ -103,6 +102,12 @@ class Identity extends Model {
         if(isset($map['user_type'])){
             $model->userType = $map['user_type'];
         }
+        if(isset($map['agent_cert_type'])){
+            $model->agentCertType = $map['agent_cert_type'];
+        }
+        if(isset($map['legal_person_cert_type'])){
+            $model->legalPersonCertType = $map['legal_person_cert_type'];
+        }
         return $model;
     }
     // 经办人姓名，企业认证选填
@@ -111,13 +116,6 @@ class Identity extends Model {
      * @var string
      */
     public $agent;
-
-    // 经办人证件类型，企业认证选填
-    /**
-     * @example IDENTITY_CARD
-     * @var string
-     */
-    public $agentCertType;
 
     // 经办人身份证，企业认证选填
     /**
@@ -154,13 +152,6 @@ class Identity extends Model {
      */
     public $legalPerson;
 
-    // 法人证件类型，企业认证必选
-    /**
-     * @example IDENTITY_CARD
-     * @var string
-     */
-    public $legalPersonCertType;
-
     // 法人身份证，企业认证必选
     /**
      * @example 123123321123
@@ -188,5 +179,19 @@ class Identity extends Model {
      * @var string
      */
     public $userType;
+
+    // 经办人证件类型，企业认证选填
+    /**
+     * @example IDENTITY_CARD
+     * @var string
+     */
+    public $agentCertType;
+
+    // 法人证件类型，企业认证必选
+    /**
+     * @example IDENTITY_CARD
+     * @var string
+     */
+    public $legalPersonCertType;
 
 }

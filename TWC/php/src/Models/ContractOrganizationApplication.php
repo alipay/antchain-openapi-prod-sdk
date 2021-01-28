@@ -14,7 +14,11 @@ class ContractOrganizationApplication extends Model {
         'name' => 'name',
         'organizationId' => 'organization_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('idNumber', $this->idNumber, true);
+        Model::validateRequired('idType', $this->idType, true);
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->idNumber) {
