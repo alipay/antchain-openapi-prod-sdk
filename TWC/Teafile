@@ -10,20 +10,20 @@
     }
   ],
   "releases": {
-    "java": "com.alipay:twc:0.0.1",
-    "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.94",
-    "csharp": "AntChain.SDK.TWC:0.0.1",
+    "java": "com.alipay:twc:1.4.131",
+    "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.131",
+    "csharp": "AntChain.SDK.TWC:1.4.131",
     "ts": "@antchain/twc:1.0.0",
-    "php": "antchain/twc:1.4.94",
-    "python": "antchain_sdk_twc:1.4.94"
+    "php": "antchain/twc:1.4.131",
+    "python": "antchain_sdk_twc:1.4.131"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
     "RPCUtil": "alibabacloud:RPCUtil:*",
-    "AlipayUtil": "antchain:AntchainUtil:*"
+    "AntchainUtil": "antchain:AntchainUtil:*"
   },
   "java": {
-    "package": "com.alipay.twc",
+    "package": "com.antgroup.antchain.openapi.twc",
     "packageInfo": {
       "description": "Ant Chain TWC SDK for Java",
       "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
@@ -31,6 +31,7 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "developerId": "alipayproducts",
       "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
       "developerEmail": "alipaysdk@alipay.com"
     }
   },
