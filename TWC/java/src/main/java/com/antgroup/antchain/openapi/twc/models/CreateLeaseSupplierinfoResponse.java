@@ -1,0 +1,81 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.twc.models;
+
+import com.aliyun.tea.*;
+
+public class CreateLeaseSupplierinfoResponse extends TeaModel {
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 错误码，0表示成功
+    @NameInMap("code")
+    public Long code;
+
+    // 错误信息描述
+    @NameInMap("err_message")
+    public String errMessage;
+
+    // 供应商上传采购等相关信息对应的链上哈希
+    @NameInMap("response_data")
+    public String responseData;
+
+    public static CreateLeaseSupplierinfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateLeaseSupplierinfoResponse self = new CreateLeaseSupplierinfoResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public CreateLeaseSupplierinfoResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public CreateLeaseSupplierinfoResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public CreateLeaseSupplierinfoResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public CreateLeaseSupplierinfoResponse setCode(Long code) {
+        this.code = code;
+        return this;
+    }
+    public Long getCode() {
+        return this.code;
+    }
+
+    public CreateLeaseSupplierinfoResponse setErrMessage(String errMessage) {
+        this.errMessage = errMessage;
+        return this;
+    }
+    public String getErrMessage() {
+        return this.errMessage;
+    }
+
+    public CreateLeaseSupplierinfoResponse setResponseData(String responseData) {
+        this.responseData = responseData;
+        return this;
+    }
+    public String getResponseData() {
+        return this.responseData;
+    }
+
+}
