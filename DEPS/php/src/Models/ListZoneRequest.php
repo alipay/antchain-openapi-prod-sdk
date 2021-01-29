@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class ListZoneRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'region' => 'region',
     ];
     public function validate() {}
@@ -15,6 +16,9 @@ class ListZoneRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->region) {
             $res['region'] = $this->region;
@@ -30,6 +34,9 @@ class ListZoneRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['region'])){
             $model->region = $map['region'];
         }
@@ -39,6 +46,11 @@ class ListZoneRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // region identity
     /**

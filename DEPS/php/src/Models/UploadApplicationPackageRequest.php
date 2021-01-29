@@ -8,13 +8,17 @@ use AlibabaCloud\Tea\Model;
 class UploadApplicationPackageRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'packageName' => 'package_name',
-        'tenant' => 'tenant',
         'versionNo' => 'version_no',
         'workspace' => 'workspace',
     ];
     public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('packageName', $this->packageName, true);
+        Model::validateRequired('versionNo', $this->versionNo, true);
+        Model::validateRequired('workspace', $this->workspace, true);
         Model::validateMaxLength('packageName', $this->packageName, 100);
         Model::validateMaxLength('versionNo', $this->versionNo, 50);
     }
@@ -23,14 +27,14 @@ class UploadApplicationPackageRequest extends Model {
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
+        }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
         }
         if (null !== $this->packageName) {
             $res['package_name'] = $this->packageName;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->versionNo) {
             $res['version_no'] = $this->versionNo;
@@ -49,14 +53,14 @@ class UploadApplicationPackageRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
         if(isset($map['package_name'])){
             $model->packageName = $map['package_name'];
-        }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
         }
         if(isset($map['version_no'])){
             $model->versionNo = $map['version_no'];
@@ -71,6 +75,11 @@ class UploadApplicationPackageRequest extends Model {
      */
     public $authToken;
 
+    /**
+     * @var string
+     */
+    public $tenant;
+
     // 目标应用完整名称
     /**
      * @var string
@@ -82,12 +91,6 @@ class UploadApplicationPackageRequest extends Model {
      * @var string
      */
     public $packageName;
-
-    // 目标租户名称
-    /**
-     * @var string
-     */
-    public $tenant;
 
     // 版本号。长度不超过50个单字节字符
     /**

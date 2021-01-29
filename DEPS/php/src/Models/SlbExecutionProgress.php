@@ -14,7 +14,12 @@ class SlbExecutionProgress extends Model {
         'state' => 'state',
         'mountWeights' => 'mount_weights',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('mountWeights', $this->mountWeights, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->id) {

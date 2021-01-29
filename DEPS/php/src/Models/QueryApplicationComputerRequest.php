@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryApplicationComputerRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'application' => 'application',
         'assign' => 'assign',
         'computerType' => 'computer_type',
@@ -20,11 +21,16 @@ class QueryApplicationComputerRequest extends Model {
         'statuses' => 'statuses',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->application) {
             $res['application'] = $this->application;
@@ -70,6 +76,9 @@ class QueryApplicationComputerRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application'])){
             $model->application = $map['application'];
         }
@@ -111,6 +120,11 @@ class QueryApplicationComputerRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
     /**

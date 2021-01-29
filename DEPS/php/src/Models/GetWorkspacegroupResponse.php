@@ -16,7 +16,13 @@ class GetWorkspacegroupResponse extends Model {
         'tenant' => 'tenant',
         'workspaces' => 'workspaces',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('tenant', $this->tenant, true);
+        Model::validateRequired('workspaces', $this->workspaces, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

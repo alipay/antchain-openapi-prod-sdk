@@ -22,7 +22,22 @@ class SLBInfo extends Model {
         'state' => 'state',
         'id' => 'id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('machineId', $this->machineId, true);
+        Model::validateRequired('port', $this->port, true);
+        Model::validateRequired('paasId', $this->paasId, true);
+        Model::validateRequired('iaasId', $this->iaasId, true);
+        Model::validateRequired('vServerGroupId', $this->vServerGroupId, true);
+        Model::validateRequired('vServerGroupName', $this->vServerGroupName, true);
+        Model::validateRequired('computerId', $this->computerId, true);
+        Model::validateRequired('appId', $this->appId, true);
+        Model::validateRequired('appSvcId', $this->appSvcId, true);
+        Model::validateRequired('vipAddresses', $this->vipAddresses, true);
+        Model::validateRequired('weight', $this->weight, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('id', $this->id, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->name) {

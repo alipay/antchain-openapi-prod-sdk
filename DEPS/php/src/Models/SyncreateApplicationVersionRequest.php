@@ -8,15 +8,19 @@ use AlibabaCloud\Tea\Model;
 class SyncreateApplicationVersionRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'packageEtag' => 'package_etag',
         'packageName' => 'package_name',
-        'tenant' => 'tenant',
         'versionMemo' => 'version_memo',
         'versionNo' => 'version_no',
         'workspace' => 'workspace',
     ];
     public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('packageName', $this->packageName, true);
+        Model::validateRequired('versionNo', $this->versionNo, true);
+        Model::validateRequired('workspace', $this->workspace, true);
         Model::validateMaxLength('packageName', $this->packageName, 100);
         Model::validateMaxLength('versionNo', $this->versionNo, 50);
     }
@@ -24,6 +28,9 @@ class SyncreateApplicationVersionRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -33,9 +40,6 @@ class SyncreateApplicationVersionRequest extends Model {
         }
         if (null !== $this->packageName) {
             $res['package_name'] = $this->packageName;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->versionMemo) {
             $res['version_memo'] = $this->versionMemo;
@@ -57,6 +61,9 @@ class SyncreateApplicationVersionRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
@@ -65,9 +72,6 @@ class SyncreateApplicationVersionRequest extends Model {
         }
         if(isset($map['package_name'])){
             $model->packageName = $map['package_name'];
-        }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
         }
         if(isset($map['version_memo'])){
             $model->versionMemo = $map['version_memo'];
@@ -84,6 +88,11 @@ class SyncreateApplicationVersionRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 目标应用完整名称
     /**
@@ -103,12 +112,6 @@ class SyncreateApplicationVersionRequest extends Model {
      * @var string
      */
     public $packageName;
-
-    // 目标租户名称
-    /**
-     * @var string
-     */
-    public $tenant;
 
     // 应用发布包备注
     /**

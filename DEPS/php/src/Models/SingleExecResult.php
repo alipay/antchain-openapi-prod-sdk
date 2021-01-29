@@ -13,7 +13,10 @@ class SingleExecResult extends Model {
         'status' => 'status',
         'target' => 'target',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('target', $this->target, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->executeDetails) {

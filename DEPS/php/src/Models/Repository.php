@@ -15,6 +15,7 @@ class Repository extends Model {
         'createdTime' => 'created_time',
     ];
     public function validate() {
+        Model::validateRequired('name', $this->name, true);
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {

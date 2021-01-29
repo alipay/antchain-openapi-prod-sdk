@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class DeleteSidecarRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'sidecarName' => 'sidecar_name',
         'scope' => 'scope',
         'scopeIdentity' => 'scope_identity',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('sidecarName', $this->sidecarName, true);
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->sidecarName) {
             $res['sidecar_name'] = $this->sidecarName;
@@ -38,6 +46,9 @@ class DeleteSidecarRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['sidecar_name'])){
             $model->sidecarName = $map['sidecar_name'];
         }
@@ -53,6 +64,11 @@ class DeleteSidecarRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // sidecar名称
     /**

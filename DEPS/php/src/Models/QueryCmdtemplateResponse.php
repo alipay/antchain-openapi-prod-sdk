@@ -15,7 +15,12 @@ class QueryCmdtemplateResponse extends Model {
         'templateIds' => 'template_ids',
         'totalCount' => 'total_count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('pageNum', $this->pageNum, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('templateIds', $this->templateIds, true);
+        Model::validateRequired('totalCount', $this->totalCount, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

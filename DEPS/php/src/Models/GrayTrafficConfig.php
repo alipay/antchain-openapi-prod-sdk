@@ -14,7 +14,14 @@ class GrayTrafficConfig extends Model {
         'proportion' => 'proportion',
         'targetUri' => 'target_uri',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('grayTrafficType', $this->grayTrafficType, true);
+        Model::validateRequired('hostname', $this->hostname, true);
+        Model::validateRequired('matchPatterns', $this->matchPatterns, true);
+        Model::validateRequired('port', $this->port, true);
+        Model::validateRequired('proportion', $this->proportion, true);
+        Model::validateRequired('targetUri', $this->targetUri, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->grayTrafficType) {

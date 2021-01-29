@@ -25,6 +25,20 @@ class OpsTask extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('parentGroupId', $this->parentGroupId, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('arrangementId', $this->arrangementId, true);
+        Model::validateRequired('actionHandlerCode', $this->actionHandlerCode, true);
+        Model::validateRequired('maxRetryAttempts', $this->maxRetryAttempts, true);
+        Model::validateRequired('context', $this->context, true);
+        Model::validateRequired('processDefinitionId', $this->processDefinitionId, true);
+        Model::validateRequired('parentId', $this->parentId, true);
+        Model::validateRequired('parentEntityType', $this->parentEntityType, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

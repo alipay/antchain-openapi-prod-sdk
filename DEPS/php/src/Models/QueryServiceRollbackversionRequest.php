@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryServiceRollbackversionRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'depth' => 'depth',
         'gmtCreateEnd' => 'gmt_create_end',
         'gmtCreateStart' => 'gmt_create_start',
@@ -25,11 +26,16 @@ class QueryServiceRollbackversionRequest extends Model {
     public function validate() {
         Model::validatePattern('gmtCreateEnd', $this->gmtCreateEnd, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('gmtCreateStart', $this->gmtCreateStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateRequired('processDefinitionId', $this->processDefinitionId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
     }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->depth) {
             $res['depth'] = $this->depth;
@@ -81,6 +87,9 @@ class QueryServiceRollbackversionRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['depth'])){
             $model->depth = $map['depth'];
         }
@@ -130,6 +139,11 @@ class QueryServiceRollbackversionRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // depth
     /**

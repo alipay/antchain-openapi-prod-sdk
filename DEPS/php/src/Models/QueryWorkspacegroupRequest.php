@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryWorkspacegroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'name' => 'name',
     ];
     public function validate() {}
@@ -15,6 +16,9 @@ class QueryWorkspacegroupRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -30,6 +34,9 @@ class QueryWorkspacegroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['name'])){
             $model->name = $map['name'];
         }
@@ -39,6 +46,11 @@ class QueryWorkspacegroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 环境组名称（唯一标识）
     /**

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryAppGroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appGroupName' => 'app_group_name',
         'layer' => 'layer',
         'orders' => 'orders',
@@ -21,6 +22,9 @@ class QueryAppGroupRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appGroupName) {
             $res['app_group_name'] = $this->appGroupName;
@@ -54,6 +58,9 @@ class QueryAppGroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_group_name'])){
             $model->appGroupName = $map['app_group_name'];
         }
@@ -83,6 +90,11 @@ class QueryAppGroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 根据应用分组名称查询
     /**

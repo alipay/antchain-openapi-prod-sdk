@@ -11,7 +11,10 @@ class AppLevel extends Model {
         'name' => 'name',
         'ownerLoginName' => 'owner_login_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->id) {

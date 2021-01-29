@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class GetTaskRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'reqBizId' => 'req_biz_id',
         'taskId' => 'task_id',
     ];
@@ -16,6 +17,9 @@ class GetTaskRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->reqBizId) {
             $res['req_biz_id'] = $this->reqBizId;
@@ -34,6 +38,9 @@ class GetTaskRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['req_biz_id'])){
             $model->reqBizId = $map['req_biz_id'];
         }
@@ -46,6 +53,11 @@ class GetTaskRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 请求的业务号，当`task_id`参数指定时该参数会被忽略
     /**

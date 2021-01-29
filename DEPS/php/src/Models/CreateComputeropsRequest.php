@@ -11,15 +11,21 @@ use AntChain\Deps\Models\Computer;
 class CreateComputeropsRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'cmds' => 'cmds',
         'computers' => 'computers',
         'title' => 'title',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('title', $this->title, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->cmds) {
             $res['cmds'] = [];
@@ -53,6 +59,9 @@ class CreateComputeropsRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['cmds'])){
             if(!empty($map['cmds'])){
                 $model->cmds = [];
@@ -80,6 +89,11 @@ class CreateComputeropsRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 执行的指令列表。n代表第n个指令，n从1开始，最大20。示例如下：cmds.1.template_id=000015678&cmds.1.args.1.name=--version&cmds.1.args.1.value=2.2&cmds.2.template_id=000015688
     /**

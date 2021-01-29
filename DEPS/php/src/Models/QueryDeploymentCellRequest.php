@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryDeploymentCellRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'name' => 'name',
         'namePrefix' => 'name_prefix',
         'workspace' => 'workspace',
@@ -18,6 +19,9 @@ class QueryDeploymentCellRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -42,6 +46,9 @@ class QueryDeploymentCellRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['name'])){
             $model->name = $map['name'];
         }
@@ -60,6 +67,11 @@ class QueryDeploymentCellRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 部署单元名称
     /**

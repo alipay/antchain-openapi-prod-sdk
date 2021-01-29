@@ -10,6 +10,7 @@ use AntChain\Deps\Models\BuildpackAppService;
 class UpdateAppservicebuildpackrelationRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'newAppService' => 'new_app_service',
         'originalAppService' => 'original_app_service',
     ];
@@ -18,6 +19,9 @@ class UpdateAppservicebuildpackrelationRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->newAppService) {
             $res['new_app_service'] = null !== $this->newAppService ? $this->newAppService->toMap() : null;
@@ -36,6 +40,9 @@ class UpdateAppservicebuildpackrelationRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['new_app_service'])){
             $model->newAppService = BuildpackAppService::fromMap($map['new_app_service']);
         }
@@ -48,6 +55,11 @@ class UpdateAppservicebuildpackrelationRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // new_app_service
     /**

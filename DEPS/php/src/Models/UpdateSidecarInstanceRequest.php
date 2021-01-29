@@ -10,6 +10,7 @@ use AntChain\Deps\Models\SidecarParamsConfig;
 class UpdateSidecarInstanceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'description' => 'description',
         'instanceName' => 'instance_name',
         'params' => 'params',
@@ -19,11 +20,21 @@ class UpdateSidecarInstanceRequest extends Model {
         'sidecarReleaseVersionId' => 'sidecar_release_version_id',
         'paramsConfigs' => 'params_configs',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('instanceName', $this->instanceName, true);
+        Model::validateRequired('rule', $this->rule, true);
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+        Model::validateRequired('sidecarReleaseVersionId', $this->sidecarReleaseVersionId, true);
+        Model::validateRequired('paramsConfigs', $this->paramsConfigs, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->description) {
             $res['description'] = $this->description;
@@ -66,6 +77,9 @@ class UpdateSidecarInstanceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['description'])){
             $model->description = $map['description'];
         }
@@ -102,6 +116,11 @@ class UpdateSidecarInstanceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 版本实例描述
     // 

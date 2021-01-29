@@ -8,14 +8,21 @@ use AlibabaCloud\Tea\Model;
 class UpdateMetaCellRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'request' => 'request',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('request', $this->request, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->request) {
             $res['request'] = $this->request;
@@ -34,6 +41,9 @@ class UpdateMetaCellRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['request'])){
             $model->request = $map['request'];
         }
@@ -46,6 +56,11 @@ class UpdateMetaCellRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // request
     /**

@@ -8,20 +8,28 @@ use AlibabaCloud\Tea\Model;
 class CreateApplicationServiceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'buildpackVersion' => 'buildpack_version',
         'cellIds' => 'cell_ids',
         'description' => 'description',
         'ownerLoginName' => 'owner_login_name',
         'serviceName' => 'service_name',
-        'tenant' => 'tenant',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('buildpackVersion', $this->buildpackVersion, true);
+        Model::validateRequired('serviceName', $this->serviceName, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -41,9 +49,6 @@ class CreateApplicationServiceRequest extends Model {
         if (null !== $this->serviceName) {
             $res['service_name'] = $this->serviceName;
         }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
-        }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
         }
@@ -57,6 +62,9 @@ class CreateApplicationServiceRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
@@ -78,9 +86,6 @@ class CreateApplicationServiceRequest extends Model {
         if(isset($map['service_name'])){
             $model->serviceName = $map['service_name'];
         }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
-        }
         if(isset($map['workspace'])){
             $model->workspace = $map['workspace'];
         }
@@ -90,6 +95,11 @@ class CreateApplicationServiceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用名称
     /**
@@ -126,12 +136,6 @@ class CreateApplicationServiceRequest extends Model {
      * @var string
      */
     public $serviceName;
-
-    // 租户名称
-    /**
-     * @var string
-     */
-    public $tenant;
 
     /**
      * @var string

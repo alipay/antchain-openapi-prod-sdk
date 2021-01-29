@@ -14,7 +14,9 @@ class QueryCellResponse extends Model {
         'resultMsg' => 'result_msg',
         'cells' => 'cells',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('cells', $this->cells, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

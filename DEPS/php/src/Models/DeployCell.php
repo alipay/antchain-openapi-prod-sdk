@@ -23,6 +23,13 @@ class DeployCell extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('createdTime', $this->createdTime, true);
+        Model::validateRequired('displayName', $this->displayName, true);
+        Model::validateRequired('identity', $this->identity, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+        Model::validateRequired('zone', $this->zone, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {

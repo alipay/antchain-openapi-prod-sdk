@@ -11,7 +11,9 @@ class ServiceInfoGroup extends Model {
     protected $_name = [
         'serviceInfoList' => 'service_info_list',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('serviceInfoList', $this->serviceInfoList, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->serviceInfoList) {

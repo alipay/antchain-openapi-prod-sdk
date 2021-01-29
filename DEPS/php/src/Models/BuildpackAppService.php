@@ -30,6 +30,7 @@ class BuildpackAppService extends Model {
         'workspaceId' => 'workspace_id',
     ];
     public function validate() {
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('utcCreate', $this->utcCreate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('utcModified', $this->utcModified, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

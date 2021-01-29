@@ -8,14 +8,21 @@ use AlibabaCloud\Tea\Model;
 class GetDeploymentApplicationRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'operationId' => 'operation_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('operationId', $this->operationId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -34,6 +41,9 @@ class GetDeploymentApplicationRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
@@ -46,6 +56,11 @@ class GetDeploymentApplicationRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 待查询的应用（服务）名称，必须是部署单中包含的应用（服务）
     /**

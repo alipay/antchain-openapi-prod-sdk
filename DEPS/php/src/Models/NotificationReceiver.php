@@ -12,7 +12,12 @@ class NotificationReceiver extends Model {
         'description' => 'description',
         'id' => 'id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('configId', $this->configId, true);
+        Model::validateRequired('receiver', $this->receiver, true);
+        Model::validateRequired('description', $this->description, true);
+        Model::validateRequired('id', $this->id, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->configId) {

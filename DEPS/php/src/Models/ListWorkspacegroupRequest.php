@@ -40,7 +40,6 @@ class ListWorkspacegroupRequest extends Model {
      */
     public $authToken;
 
-    // 目标租户名称
     /**
      * @var string
      */

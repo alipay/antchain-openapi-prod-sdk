@@ -8,27 +8,36 @@ use AlibabaCloud\Tea\Model;
 class CreateAppVersionRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'fileMd5' => 'file_md5',
         'filePath' => 'file_path',
         'fileSize' => 'file_size',
         'fileSource' => 'file_source',
-        'tenant' => 'tenant',
         'versionMemo' => 'version_memo',
         'versionNo' => 'version_no',
         'workspace' => 'workspace',
     ];
     public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('filePath', $this->filePath, true);
+        Model::validateRequired('fileSize', $this->fileSize, true);
+        Model::validateRequired('fileSource', $this->fileSource, true);
+        Model::validateRequired('versionNo', $this->versionNo, true);
+        Model::validateRequired('workspace', $this->workspace, true);
         Model::validateMaxLength('filePath', $this->filePath, 1024);
         Model::validateMaxLength('versionMemo', $this->versionMemo, 100);
         Model::validateMaxLength('versionNo', $this->versionNo, 50);
-        Model::validateMaximum('fileSize', $this->fileSize, '524288000');
-        Model::validateMinimum('fileSize', $this->fileSize, '1');
+        Model::validateMaximum('fileSize', $this->fileSize, 524288000);
+        Model::validateMinimum('fileSize', $this->fileSize, 1);
     }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -44,9 +53,6 @@ class CreateAppVersionRequest extends Model {
         }
         if (null !== $this->fileSource) {
             $res['file_source'] = $this->fileSource;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->versionMemo) {
             $res['version_memo'] = $this->versionMemo;
@@ -68,6 +74,9 @@ class CreateAppVersionRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
@@ -82,9 +91,6 @@ class CreateAppVersionRequest extends Model {
         }
         if(isset($map['file_source'])){
             $model->fileSource = $map['file_source'];
-        }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
         }
         if(isset($map['version_memo'])){
             $model->versionMemo = $map['version_memo'];
@@ -101,6 +107,11 @@ class CreateAppVersionRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 目标应用完整名称
     /**
@@ -133,12 +144,6 @@ class CreateAppVersionRequest extends Model {
      * @var string
      */
     public $fileSource;
-
-    // 目标租户名称
-    /**
-     * @var string
-     */
-    public $tenant;
 
     // 版本备注。长度不超过100个双字节字符
     /**

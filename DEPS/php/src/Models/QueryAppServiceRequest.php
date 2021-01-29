@@ -8,17 +8,23 @@ use AlibabaCloud\Tea\Model;
 class QueryAppServiceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appName' => 'app_name',
         'orders' => 'orders',
         'pageNum' => 'page_num',
         'pageSize' => 'page_size',
         'workspaceIds' => 'workspace_ids',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
@@ -46,6 +52,9 @@ class QueryAppServiceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_name'])){
             $model->appName = $map['app_name'];
         }
@@ -71,6 +80,11 @@ class QueryAppServiceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 根据应用名称查询，不能为空，不支持一次性查询所有应用
     /**

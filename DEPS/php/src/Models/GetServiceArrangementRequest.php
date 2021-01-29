@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class GetServiceArrangementRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'nodeId' => 'node_id',
         'serviceId' => 'service_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->nodeId) {
             $res['node_id'] = $this->nodeId;
@@ -38,6 +46,9 @@ class GetServiceArrangementRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['node_id'])){
             $model->nodeId = $map['node_id'];
         }
@@ -53,6 +64,11 @@ class GetServiceArrangementRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // node_id
     /**

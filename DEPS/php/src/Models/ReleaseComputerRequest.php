@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class ReleaseComputerRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'computerIds' => 'computer_ids',
         'reqBizId' => 'req_biz_id',
     ];
@@ -16,6 +17,9 @@ class ReleaseComputerRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->computerIds) {
             $res['computer_ids'] = $this->computerIds;
@@ -34,6 +38,9 @@ class ReleaseComputerRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['computer_ids'])){
             if(!empty($map['computer_ids'])){
                 $model->computerIds = $map['computer_ids'];
@@ -48,6 +55,11 @@ class ReleaseComputerRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 计算资源id，可以指定多个
     /**

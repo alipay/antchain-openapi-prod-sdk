@@ -699,6 +699,14 @@ class Client {
 
     protected $_securityToken;
 
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
     /**
      * Init client with Config
      * @param config config contains the necessary information to create a client
@@ -716,14 +724,18 @@ class Client {
         $this->_endpoint = $config->endpoint;
         $this->_protocol = $config->protocol;
         $this->_userAgent = $config->userAgent;
-        $this->_readTimeout = $config->readTimeout;
-        $this->_connectTimeout = $config->connectTimeout;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
         $this->_httpProxy = $config->httpProxy;
         $this->_httpsProxy = $config->httpsProxy;
         $this->_noProxy = $config->noProxy;
         $this->_socks5Proxy = $config->socks5Proxy;
         $this->_socks5NetWork = $config->socks5NetWork;
-        $this->_maxIdleConns = $config->maxIdleConns;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
     }
 
     /**
@@ -751,6 +763,10 @@ class Client {
             "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
             "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
             "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDurationMillis" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
             "retry" => [
                 "retryable" => $runtime->autoretry,
                 "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
@@ -787,13 +803,13 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "3.2.1"
+                    "sdk_version" => "3.2.2"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
                 }
                 $_request->headers = Tea::merge([
-                    "host" => Utils::defaultString($this->_endpoint, "undefined"),
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
                     "user-agent" => Utils::getUserAgent($this->_userAgent)
                 ], $headers);
                 $tmp = Utils::anyifyMapValue(RpcUtils::query($request));

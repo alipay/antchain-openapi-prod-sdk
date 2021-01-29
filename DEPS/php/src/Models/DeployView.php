@@ -14,7 +14,11 @@ class DeployView extends Model {
         'workspaceId' => 'workspace_id',
         'workspaceName' => 'workspace_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceAppServices', $this->workspaceAppServices, true);
+        Model::validateRequired('workspaceDisplayName', $this->workspaceDisplayName, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->workspaceAppServices) {

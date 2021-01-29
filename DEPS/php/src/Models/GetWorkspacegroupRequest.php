@@ -11,7 +11,9 @@ class GetWorkspacegroupRequest extends Model {
         'tenant' => 'tenant',
         'workspaceGroup' => 'workspace_group',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
@@ -47,7 +49,6 @@ class GetWorkspacegroupRequest extends Model {
      */
     public $authToken;
 
-    // 目标租户名称
     /**
      * @var string
      */

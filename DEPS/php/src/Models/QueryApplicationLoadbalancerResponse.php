@@ -17,7 +17,12 @@ class QueryApplicationLoadbalancerResponse extends Model {
         'pageSize' => 'page_size',
         'totalCount' => 'total_count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('loadbalancers', $this->loadbalancers, true);
+        Model::validateRequired('pageNum', $this->pageNum, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('totalCount', $this->totalCount, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

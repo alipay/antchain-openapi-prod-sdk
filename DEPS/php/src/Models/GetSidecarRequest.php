@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class GetSidecarRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'scope' => 'scope',
         'scopeIdentity' => 'scope_identity',
         'sidecarName' => 'sidecar_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+        Model::validateRequired('sidecarName', $this->sidecarName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->scope) {
             $res['scope'] = $this->scope;
@@ -38,6 +46,9 @@ class GetSidecarRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['scope'])){
             $model->scope = $map['scope'];
         }
@@ -53,6 +64,11 @@ class GetSidecarRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // sidecar生效范围：workspace、workspace_group、region
     // 

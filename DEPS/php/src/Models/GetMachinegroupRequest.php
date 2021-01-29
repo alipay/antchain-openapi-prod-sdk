@@ -8,15 +8,22 @@ use AlibabaCloud\Tea\Model;
 class GetMachinegroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'id' => 'id',
         'withMachines' => 'with_machines',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->id) {
             $res['id'] = $this->id;
@@ -38,6 +45,9 @@ class GetMachinegroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['id'])){
             $model->id = $map['id'];
         }
@@ -53,6 +63,11 @@ class GetMachinegroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 分组 ID
     /**

@@ -21,6 +21,10 @@ class TechstackBuildpackCount extends Model {
     public function validate() {
         Model::validatePattern('creationTime', $this->creationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modificationTime', $this->modificationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('status', $this->status, true);
     }
     public function toMap() {
         $res = [];

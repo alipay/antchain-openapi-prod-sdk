@@ -10,17 +10,27 @@ use AntChain\Deps\Models\Pair;
 class UpdateServiceSlbmountRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'mountInfo' => 'mount_info',
         'regionIdentity' => 'region_identity',
         'serviceId' => 'service_id',
         'slbId' => 'slb_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('mountInfo', $this->mountInfo, true);
+        Model::validateRequired('regionIdentity', $this->regionIdentity, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('slbId', $this->slbId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->mountInfo) {
             $res['mount_info'] = [];
@@ -54,6 +64,9 @@ class UpdateServiceSlbmountRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['mount_info'])){
             if(!empty($map['mount_info'])){
                 $model->mountInfo = [];
@@ -81,6 +94,11 @@ class UpdateServiceSlbmountRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 权重
     /**

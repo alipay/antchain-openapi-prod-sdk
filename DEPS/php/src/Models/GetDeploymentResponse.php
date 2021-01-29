@@ -16,7 +16,11 @@ class GetDeploymentResponse extends Model {
         'executor' => 'executor',
         'status' => 'status',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationChains', $this->applicationChains, true);
+        Model::validateRequired('executor', $this->executor, true);
+        Model::validateRequired('status', $this->status, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

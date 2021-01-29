@@ -8,16 +8,19 @@ use AlibabaCloud\Tea\Model;
 class QueryApplevelRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'name' => 'name',
         'pageNum' => 'page_num',
         'pageSize' => 'page_size',
-        'tenant' => 'tenant',
     ];
     public function validate() {}
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -27,9 +30,6 @@ class QueryApplevelRequest extends Model {
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         return $res;
     }
@@ -42,6 +42,9 @@ class QueryApplevelRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['name'])){
             $model->name = $map['name'];
         }
@@ -51,15 +54,17 @@ class QueryApplevelRequest extends Model {
         if(isset($map['page_size'])){
             $model->pageSize = $map['page_size'];
         }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
-        }
         return $model;
     }
     /**
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用等级名称
     /**
@@ -78,11 +83,5 @@ class QueryApplevelRequest extends Model {
      * @var int
      */
     public $pageSize;
-
-    // 租户名称
-    /**
-     * @var string
-     */
-    public $tenant;
 
 }

@@ -17,7 +17,14 @@ class ArrangementInfo extends Model {
         'workspaceId' => 'workspace_id',
         'opsActionPolicies' => 'ops_action_policies',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('arrangementType', $this->arrangementType, true);
+        Model::validateRequired('envConfig', $this->envConfig, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('processDefinitionId', $this->processDefinitionId, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
+        Model::validateRequired('opsActionPolicies', $this->opsActionPolicies, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->arrangementType) {

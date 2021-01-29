@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateConfigGlobalRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'dataLevel' => 'data_level',
         'desc' => 'desc',
         'key' => 'key',
@@ -17,11 +18,20 @@ class CreateConfigGlobalRequest extends Model {
         'type' => 'type',
         'value' => 'value',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('dataLevel', $this->dataLevel, true);
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeId', $this->scopeId, true);
+        Model::validateRequired('type', $this->type, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->dataLevel) {
             $res['data_level'] = $this->dataLevel;
@@ -58,6 +68,9 @@ class CreateConfigGlobalRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['data_level'])){
             $model->dataLevel = $map['data_level'];
         }
@@ -88,6 +101,11 @@ class CreateConfigGlobalRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 数据保密等级
     /**

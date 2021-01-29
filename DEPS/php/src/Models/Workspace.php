@@ -20,7 +20,9 @@ class Workspace extends Model {
         'zones' => 'zones',
         'type' => 'type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->createTime) {

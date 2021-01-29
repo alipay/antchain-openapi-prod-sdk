@@ -8,17 +8,25 @@ use AlibabaCloud\Tea\Model;
 class CreateSidecarRuleRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'description' => 'description',
         'level' => 'level',
         'scope' => 'scope',
         'scopeIdentity' => 'scope_identity',
         'sidecarVersionInstanceId' => 'sidecar_version_instance_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+        Model::validateRequired('sidecarVersionInstanceId', $this->sidecarVersionInstanceId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->description) {
             $res['description'] = $this->description;
@@ -46,6 +54,9 @@ class CreateSidecarRuleRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['description'])){
             $model->description = $map['description'];
         }
@@ -67,6 +78,11 @@ class CreateSidecarRuleRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 规则描述
     /**

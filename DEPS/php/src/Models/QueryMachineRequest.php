@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryMachineRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'pageNo' => 'page_no',
         'pageSize' => 'page_size',
         'parentId' => 'parent_id',
@@ -15,11 +16,16 @@ class QueryMachineRequest extends Model {
         'serviceId' => 'service_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->pageNo) {
             $res['page_no'] = $this->pageNo;
@@ -50,6 +56,9 @@ class QueryMachineRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['page_no'])){
             $model->pageNo = $map['page_no'];
         }
@@ -74,6 +83,11 @@ class QueryMachineRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 当前页
     /**

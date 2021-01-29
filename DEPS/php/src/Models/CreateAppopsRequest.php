@@ -11,6 +11,7 @@ use AntChain\Deps\Models\Computer;
 class CreateAppopsRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applications' => 'applications',
         'autoExecute' => 'auto_execute',
         'computers' => 'computers',
@@ -19,11 +20,18 @@ class CreateAppopsRequest extends Model {
         'opsDimension' => 'ops_dimension',
         'title' => 'title',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('opsAction', $this->opsAction, true);
+        Model::validateRequired('opsDimension', $this->opsDimension, true);
+        Model::validateRequired('title', $this->title, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applications) {
             $res['applications'] = [];
@@ -69,6 +77,9 @@ class CreateAppopsRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['applications'])){
             if(!empty($map['applications'])){
                 $model->applications = [];
@@ -108,6 +119,11 @@ class CreateAppopsRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 执行运维操作的目标应用名称列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个应用，使用如下形式：applications.1.name=myapp1&applications.2.name=myapp2
     /**

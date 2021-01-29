@@ -17,7 +17,12 @@ class AppGroup extends Model {
         'parentId' => 'parent_id',
         'layer' => 'layer',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('ownerLoginName', $this->ownerLoginName, true);
+        Model::validateRequired('parentId', $this->parentId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->appScheme) {

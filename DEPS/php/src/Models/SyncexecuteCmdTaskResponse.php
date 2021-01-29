@@ -14,7 +14,9 @@ class SyncexecuteCmdTaskResponse extends Model {
         'resultMsg' => 'result_msg',
         'result' => 'result',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('result', $this->result, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

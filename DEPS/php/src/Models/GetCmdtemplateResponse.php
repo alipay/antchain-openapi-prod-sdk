@@ -14,7 +14,9 @@ class GetCmdtemplateResponse extends Model {
         'resultMsg' => 'result_msg',
         'template' => 'template',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('template', $this->template, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

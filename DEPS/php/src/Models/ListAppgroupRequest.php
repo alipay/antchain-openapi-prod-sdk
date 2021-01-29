@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class ListAppgroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'pageNum' => 'page_num',
         'pageSize' => 'page_size',
     ];
@@ -16,6 +17,9 @@ class ListAppgroupRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
@@ -34,6 +38,9 @@ class ListAppgroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['page_num'])){
             $model->pageNum = $map['page_num'];
         }
@@ -46,6 +53,11 @@ class ListAppgroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 当前页码，默认为1
     /**

@@ -11,7 +11,9 @@ class OpsApplication extends Model {
         'status' => 'status',
         'type' => 'type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('type', $this->type, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->name) {

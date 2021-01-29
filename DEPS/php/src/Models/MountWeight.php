@@ -12,8 +12,11 @@ class MountWeight extends Model {
         'weight' => 'weight',
     ];
     public function validate() {
-        Model::validateMaximum('weight', $this->weight, '100');
-        Model::validateMinimum('weight', $this->weight, '0');
+        Model::validateRequired('mountTargetId', $this->mountTargetId, true);
+        Model::validateRequired('port', $this->port, true);
+        Model::validateRequired('weight', $this->weight, true);
+        Model::validateMaximum('weight', $this->weight, 100);
+        Model::validateMinimum('weight', $this->weight, 0);
     }
     public function toMap() {
         $res = [];

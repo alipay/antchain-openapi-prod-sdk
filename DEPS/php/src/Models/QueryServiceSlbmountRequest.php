@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class QueryServiceSlbmountRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'serviceId' => 'service_id',
         'slbId' => 'slb_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('slbId', $this->slbId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->serviceId) {
             $res['service_id'] = $this->serviceId;
@@ -38,6 +46,9 @@ class QueryServiceSlbmountRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['service_id'])){
             $model->serviceId = $map['service_id'];
         }
@@ -53,6 +64,11 @@ class QueryServiceSlbmountRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // service_id
     /**

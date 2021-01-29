@@ -13,7 +13,10 @@ class Application extends Model {
         'version' => 'version',
         'customParamsMap' => 'custom_params_map',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('serviceName', $this->serviceName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->depends) {

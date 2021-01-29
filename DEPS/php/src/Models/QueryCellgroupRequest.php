@@ -8,15 +8,21 @@ use AlibabaCloud\Tea\Model;
 class QueryCellgroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'namePrefix' => 'name_prefix',
         'workspaceGroup' => 'workspace_group',
         'name' => 'name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->namePrefix) {
             $res['name_prefix'] = $this->namePrefix;
@@ -38,6 +44,9 @@ class QueryCellgroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['name_prefix'])){
             $model->namePrefix = $map['name_prefix'];
         }
@@ -53,6 +62,11 @@ class QueryCellgroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // cell group 查询前缀
     /**

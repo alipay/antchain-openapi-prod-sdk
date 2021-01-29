@@ -10,7 +10,10 @@ class WorkspaceDeltaInfo extends Model {
         'tenant' => 'tenant',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('tenant', $this->tenant, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->tenant) {

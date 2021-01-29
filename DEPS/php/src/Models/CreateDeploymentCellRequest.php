@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateDeploymentCellRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'cellGroup' => 'cell_group',
         'color' => 'color',
         'identity' => 'identity',
@@ -19,11 +20,20 @@ class CreateDeploymentCellRequest extends Model {
         'workspaceGroup' => 'workspace_group',
         'zone' => 'zone',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('identity', $this->identity, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+        Model::validateRequired('zone', $this->zone, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->cellGroup) {
             $res['cell_group'] = $this->cellGroup;
@@ -66,6 +76,9 @@ class CreateDeploymentCellRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['cell_group'])){
             $model->cellGroup = $map['cell_group'];
         }
@@ -102,6 +115,11 @@ class CreateDeploymentCellRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 所属逻辑单元名称[单元化模式特有]
     // 当type为"RZone"或"CZone"时，为必填项

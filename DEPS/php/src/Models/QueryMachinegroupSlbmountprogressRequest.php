@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class QueryMachinegroupSlbmountprogressRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'machineGroupId' => 'machine_group_id',
         'requestIds' => 'request_ids',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('machineGroupId', $this->machineGroupId, true);
+        Model::validateRequired('requestIds', $this->requestIds, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->machineGroupId) {
             $res['machine_group_id'] = $this->machineGroupId;
@@ -38,6 +46,9 @@ class QueryMachinegroupSlbmountprogressRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['machine_group_id'])){
             $model->machineGroupId = $map['machine_group_id'];
         }
@@ -55,6 +66,11 @@ class QueryMachinegroupSlbmountprogressRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 分组ID
     /**

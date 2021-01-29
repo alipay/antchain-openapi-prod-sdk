@@ -17,7 +17,9 @@ class QueryDeploymentResponse extends Model {
         'pageSize' => 'page_size',
         'totalCount' => 'total_count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('deployments', $this->deployments, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

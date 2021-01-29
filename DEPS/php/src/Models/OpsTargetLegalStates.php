@@ -10,7 +10,10 @@ class OpsTargetLegalStates extends Model {
         'targetType' => 'target_type',
         'states' => 'states',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('targetType', $this->targetType, true);
+        Model::validateRequired('states', $this->states, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->targetType) {

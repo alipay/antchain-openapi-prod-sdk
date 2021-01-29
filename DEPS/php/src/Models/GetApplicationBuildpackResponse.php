@@ -12,7 +12,9 @@ class GetApplicationBuildpackResponse extends Model {
         'resultMsg' => 'result_msg',
         'buildpackId' => 'buildpack_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('buildpackId', $this->buildpackId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

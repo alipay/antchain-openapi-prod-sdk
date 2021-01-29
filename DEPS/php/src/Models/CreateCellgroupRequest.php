@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateCellgroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'datacenter' => 'datacenter',
         'defaultGzone' => 'default_gzone',
         'name' => 'name',
@@ -15,11 +16,19 @@ class CreateCellgroupRequest extends Model {
         'type' => 'type',
         'workspaceGroup' => 'workspace_group',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('operator', $this->operator, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->datacenter) {
             $res['datacenter'] = $this->datacenter;
@@ -50,6 +59,9 @@ class CreateCellgroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['datacenter'])){
             $model->datacenter = $map['datacenter'];
         }
@@ -74,6 +86,11 @@ class CreateCellgroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 所属idc
     /**

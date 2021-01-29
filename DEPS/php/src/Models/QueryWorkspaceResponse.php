@@ -16,7 +16,10 @@ class QueryWorkspaceResponse extends Model {
         'groups' => 'groups',
         'workspaces' => 'workspaces',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('groups', $this->groups, true);
+        Model::validateRequired('workspaces', $this->workspaces, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

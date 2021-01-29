@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class UpdateOauthTokenRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'accessExpiredTime' => 'access_expired_time',
         'accessToken' => 'access_token',
         'customerId' => 'customer_id',
@@ -16,6 +17,12 @@ class UpdateOauthTokenRequest extends Model {
         'workspace' => 'workspace',
     ];
     public function validate() {
+        Model::validateRequired('accessExpiredTime', $this->accessExpiredTime, true);
+        Model::validateRequired('accessToken', $this->accessToken, true);
+        Model::validateRequired('customerId', $this->customerId, true);
+        Model::validateRequired('refreshExpiredTime', $this->refreshExpiredTime, true);
+        Model::validateRequired('refreshToken', $this->refreshToken, true);
+        Model::validateRequired('workspace', $this->workspace, true);
         Model::validatePattern('accessExpiredTime', $this->accessExpiredTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('refreshExpiredTime', $this->refreshExpiredTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
@@ -23,6 +30,9 @@ class UpdateOauthTokenRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->accessExpiredTime) {
             $res['access_expired_time'] = $this->accessExpiredTime;
@@ -53,6 +63,9 @@ class UpdateOauthTokenRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['access_expired_time'])){
             $model->accessExpiredTime = $map['access_expired_time'];
         }
@@ -77,6 +90,11 @@ class UpdateOauthTokenRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 过期时间
     /**

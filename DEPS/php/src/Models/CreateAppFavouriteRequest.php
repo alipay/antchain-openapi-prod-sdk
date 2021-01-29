@@ -8,14 +8,20 @@ use AlibabaCloud\Tea\Model;
 class CreateAppFavouriteRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appName' => 'app_name',
         'ownerLoginName' => 'owner_login_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
@@ -34,6 +40,9 @@ class CreateAppFavouriteRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_name'])){
             $model->appName = $map['app_name'];
         }
@@ -46,6 +55,11 @@ class CreateAppFavouriteRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 用户要收藏的应用名称
     /**

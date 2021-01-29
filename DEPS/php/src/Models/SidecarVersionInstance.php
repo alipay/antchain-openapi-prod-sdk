@@ -29,6 +29,19 @@ class SidecarVersionInstance extends Model {
         'templateConfigs' => 'template_configs',
     ];
     public function validate() {
+        Model::validateRequired('description', $this->description, true);
+        Model::validateRequired('gmtCreated', $this->gmtCreated, true);
+        Model::validateRequired('gmtModified', $this->gmtModified, true);
+        Model::validateRequired('instanceName', $this->instanceName, true);
+        Model::validateRequired('releaseNote', $this->releaseNote, true);
+        Model::validateRequired('scopeDetail', $this->scopeDetail, true);
+        Model::validateRequired('sidecarName', $this->sidecarName, true);
+        Model::validateRequired('sidecarReleaseVersionId', $this->sidecarReleaseVersionId, true);
+        Model::validateRequired('sidecarVersion', $this->sidecarVersion, true);
+        Model::validateRequired('sidecarVersionInstanceId', $this->sidecarVersionInstanceId, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('template', $this->template, true);
+        Model::validateRequired('templateConfigs', $this->templateConfigs, true);
         Model::validatePattern('gmtCreated', $this->gmtCreated, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('gmtModified', $this->gmtModified, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

@@ -22,6 +22,19 @@ class OpsTaskExecutionDetail extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('requestToken', $this->requestToken, true);
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('executionCount', $this->executionCount, true);
+        Model::validateRequired('executionState', $this->executionState, true);
+        Model::validateRequired('targetId', $this->targetId, true);
+        Model::validateRequired('errorCode', $this->errorCode, true);
+        Model::validateRequired('resultMsg', $this->resultMsg, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

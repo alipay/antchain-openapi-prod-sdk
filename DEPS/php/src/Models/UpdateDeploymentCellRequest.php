@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class UpdateDeploymentCellRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'color' => 'color',
         'isGray' => 'is_gray',
         'name' => 'name',
@@ -15,11 +16,18 @@ class UpdateDeploymentCellRequest extends Model {
         'workspace' => 'workspace',
         'workspaceGroup' => 'workspace_group',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->color) {
             $res['color'] = $this->color;
@@ -50,6 +58,9 @@ class UpdateDeploymentCellRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['color'])){
             $model->color = $map['color'];
         }
@@ -74,6 +85,11 @@ class UpdateDeploymentCellRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 蓝绿着色信息
     /**

@@ -20,6 +20,14 @@ class ResourceGroupExecutionProgress extends Model {
         'referKey' => 'refer_key',
     ];
     public function validate() {
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('paasId', $this->paasId, true);
+        Model::validateRequired('resourceCount', $this->resourceCount, true);
+        Model::validateRequired('resourceStates', $this->resourceStates, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('referKey', $this->referKey, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {

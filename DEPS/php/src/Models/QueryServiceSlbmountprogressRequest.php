@@ -8,16 +8,25 @@ use AlibabaCloud\Tea\Model;
 class QueryServiceSlbmountprogressRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'processId' => 'process_id',
         'regionIdentity' => 'region_identity',
         'serviceId' => 'service_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('processId', $this->processId, true);
+        Model::validateRequired('regionIdentity', $this->regionIdentity, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->processId) {
             $res['process_id'] = $this->processId;
@@ -42,6 +51,9 @@ class QueryServiceSlbmountprogressRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['process_id'])){
             $model->processId = $map['process_id'];
         }
@@ -60,6 +72,11 @@ class QueryServiceSlbmountprogressRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // process_id
     /**

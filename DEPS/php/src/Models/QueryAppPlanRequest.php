@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryAppPlanRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appName' => 'app_name',
         'orders' => 'orders',
         'orderId' => 'order_id',
@@ -17,11 +18,16 @@ class QueryAppPlanRequest extends Model {
         'workspace' => 'workspace',
         'workspaceIds' => 'workspace_ids',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
@@ -57,6 +63,9 @@ class QueryAppPlanRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['app_name'])){
             $model->appName = $map['app_name'];
@@ -94,6 +103,11 @@ class QueryAppPlanRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用名称
     /**

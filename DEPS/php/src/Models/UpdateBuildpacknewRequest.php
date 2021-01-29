@@ -14,6 +14,7 @@ use AntChain\Deps\Models\UserDTO;
 class UpdateBuildpacknewRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'availableTenantNames' => 'available_tenant_names',
         'buildpackId' => 'buildpack_id',
         'buildpackParams' => 'buildpack_params',
@@ -56,6 +57,9 @@ class UpdateBuildpacknewRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->availableTenantNames) {
             $res['available_tenant_names'] = $this->availableTenantNames;
@@ -187,6 +191,9 @@ class UpdateBuildpacknewRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['available_tenant_names'])){
             if(!empty($map['available_tenant_names'])){
@@ -320,6 +327,11 @@ class UpdateBuildpacknewRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // available_tenant_names
     /**

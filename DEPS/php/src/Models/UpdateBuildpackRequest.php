@@ -10,6 +10,7 @@ use AntChain\Deps\Models\BuildpackParamTemplate;
 class UpdateBuildpackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'buildCommand' => 'build_command',
         'contactInfo' => 'contact_info',
         'debugMode' => 'debug_mode',
@@ -19,11 +20,18 @@ class UpdateBuildpackRequest extends Model {
         'id' => 'id',
         'supportedOs' => 'supported_os',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('fullVersion', $this->fullVersion, true);
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('supportedOs', $this->supportedOs, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->buildCommand) {
             $res['build_command'] = $this->buildCommand;
@@ -66,6 +74,9 @@ class UpdateBuildpackRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['build_command'])){
             $model->buildCommand = $map['build_command'];
         }
@@ -104,6 +115,11 @@ class UpdateBuildpackRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 技术栈的编译打包命令
     /**

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryBuildpackFindbyappservicesRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appServiceIds' => 'app_service_ids',
     ];
     public function validate() {}
@@ -15,6 +16,9 @@ class QueryBuildpackFindbyappservicesRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appServiceIds) {
             $res['app_service_ids'] = $this->appServiceIds;
@@ -30,6 +34,9 @@ class QueryBuildpackFindbyappservicesRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_service_ids'])){
             if(!empty($map['app_service_ids'])){
                 $model->appServiceIds = $map['app_service_ids'];
@@ -41,6 +48,11 @@ class QueryBuildpackFindbyappservicesRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // appServiceIds
     /**

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class OnlineBuildpackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'id' => 'id',
     ];
     public function validate() {}
@@ -15,6 +16,9 @@ class OnlineBuildpackRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->id) {
             $res['id'] = $this->id;
@@ -30,6 +34,9 @@ class OnlineBuildpackRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['id'])){
             if(!empty($map['id'])){
                 $model->id = $map['id'];
@@ -41,6 +48,11 @@ class OnlineBuildpackRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // buildpackId
     /**

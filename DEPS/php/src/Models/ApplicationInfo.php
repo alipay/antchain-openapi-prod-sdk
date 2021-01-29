@@ -24,7 +24,10 @@ class ApplicationInfo extends Model {
         'globalName' => 'global_name',
         'deployType' => 'deploy_type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('appExtraInfos', $this->appExtraInfos, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->alias) {

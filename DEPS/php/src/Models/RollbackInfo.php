@@ -20,7 +20,14 @@ class RollbackInfo extends Model {
         'confirmSucceededRollback' => 'confirm_succeeded_rollback',
         'retryRollbacked' => 'retry_rollbacked',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('groupAmount', $this->groupAmount, true);
+        Model::validateRequired('groupStrategy', $this->groupStrategy, true);
+        Model::validateRequired('reason', $this->reason, true);
+        Model::validateRequired('subEntities', $this->subEntities, true);
+        Model::validateRequired('targetId', $this->targetId, true);
+        Model::validateRequired('targetVersion', $this->targetVersion, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->groupAmount) {

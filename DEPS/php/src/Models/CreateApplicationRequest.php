@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateApplicationRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'alias' => 'alias',
         'applicationName' => 'application_name',
         'buildpackArch' => 'buildpack_arch',
@@ -18,11 +19,19 @@ class CreateApplicationRequest extends Model {
         'deployType' => 'deploy_type',
         'defaultRoute' => 'default_route',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('buildpackName', $this->buildpackName, true);
+        Model::validateRequired('buildpackVersion', $this->buildpackVersion, true);
+        Model::validateRequired('ownerLoginName', $this->ownerLoginName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->alias) {
             $res['alias'] = $this->alias;
@@ -62,6 +71,9 @@ class CreateApplicationRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['alias'])){
             $model->alias = $map['alias'];
         }
@@ -95,6 +107,11 @@ class CreateApplicationRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用别称。最大60个UTF-8字符
     /**

@@ -13,7 +13,10 @@ class AggregatedTaskExecutionProgress extends Model {
         'errorTaskExecutionNodes' => 'error_task_execution_nodes',
         'taskExecutionProgress' => 'task_execution_progress',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('errorTaskExecutionNodes', $this->errorTaskExecutionNodes, true);
+        Model::validateRequired('taskExecutionProgress', $this->taskExecutionProgress, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->errorTaskExecutionNodes) {

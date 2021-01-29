@@ -15,7 +15,12 @@ class NotificationConfig extends Model {
         'cloudWebUrl' => 'cloud_web_url',
         'id' => 'id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('receivers', $this->receivers, true);
+        Model::validateRequired('notificationType', $this->notificationType, true);
+        Model::validateRequired('cloudWebUrl', $this->cloudWebUrl, true);
+        Model::validateRequired('id', $this->id, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->receivers) {

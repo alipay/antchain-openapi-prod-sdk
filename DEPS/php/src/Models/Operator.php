@@ -12,7 +12,12 @@ class Operator extends Model {
         'email' => 'email',
         'nickName' => 'nick_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('loginName', $this->loginName, true);
+        Model::validateRequired('email', $this->email, true);
+        Model::validateRequired('nickName', $this->nickName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->id) {

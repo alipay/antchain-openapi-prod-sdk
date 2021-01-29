@@ -16,7 +16,13 @@ class AppBaselineSidecarConfig extends Model {
         'sidecarVersion' => 'sidecar_version',
         'id' => 'id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+        Model::validateRequired('category', $this->category, true);
+        Model::validateRequired('conditions', $this->conditions, true);
+        Model::validateRequired('enable', $this->enable, true);
+        Model::validateRequired('id', $this->id, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->appName) {

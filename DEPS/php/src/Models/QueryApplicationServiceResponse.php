@@ -17,7 +17,12 @@ class QueryApplicationServiceResponse extends Model {
         'services' => 'services',
         'totalCount' => 'total_count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('pageNum', $this->pageNum, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('services', $this->services, true);
+        Model::validateRequired('totalCount', $this->totalCount, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

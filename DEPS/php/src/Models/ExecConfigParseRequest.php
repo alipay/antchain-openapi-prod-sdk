@@ -10,16 +10,23 @@ use AntChain\Deps\Models\TemplateParamDef;
 class ExecConfigParseRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appName' => 'app_name',
         'params' => 'params',
         'workspaceGroupId' => 'workspace_group_id',
         'workspaceId' => 'workspace_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+        Model::validateRequired('params', $this->params, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appName) {
             $res['app_name'] = $this->appName;
@@ -50,6 +57,9 @@ class ExecConfigParseRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_name'])){
             $model->appName = $map['app_name'];
         }
@@ -74,6 +84,11 @@ class ExecConfigParseRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用名称
     /**

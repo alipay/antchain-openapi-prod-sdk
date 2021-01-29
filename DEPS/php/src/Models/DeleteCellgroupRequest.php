@@ -8,14 +8,21 @@ use AlibabaCloud\Tea\Model;
 class DeleteCellgroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'name' => 'name',
         'workspaceGroup' => 'workspace_group',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -34,6 +41,9 @@ class DeleteCellgroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['name'])){
             $model->name = $map['name'];
         }
@@ -46,6 +56,11 @@ class DeleteCellgroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 逻辑单元名称
     /**

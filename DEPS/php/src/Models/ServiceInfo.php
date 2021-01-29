@@ -36,7 +36,31 @@ class ServiceInfo extends Model {
         'updateBuildpackId' => 'update_buildpack_id',
         'customParams' => 'custom_params',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+        Model::validateRequired('cellIds', $this->cellIds, true);
+        Model::validateRequired('defaultExecuteAccount', $this->defaultExecuteAccount, true);
+        Model::validateRequired('envConfig', $this->envConfig, true);
+        Model::validateRequired('forceExecutable', $this->forceExecutable, true);
+        Model::validateRequired('grayTrafficConfigs', $this->grayTrafficConfigs, true);
+        Model::validateRequired('groupAmount', $this->groupAmount, true);
+        Model::validateRequired('groupStrategyType', $this->groupStrategyType, true);
+        Model::validateRequired('installFromCache', $this->installFromCache, true);
+        Model::validateRequired('needBeta', $this->needBeta, true);
+        Model::validateRequired('needGrayTraffic', $this->needGrayTraffic, true);
+        Model::validateRequired('postArrangementInfo', $this->postArrangementInfo, true);
+        Model::validateRequired('preArrangementInfo', $this->preArrangementInfo, true);
+        Model::validateRequired('serviceArrangement', $this->serviceArrangement, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('staticResourceDownloadUrl', $this->staticResourceDownloadUrl, true);
+        Model::validateRequired('staticResourceTargetFile', $this->staticResourceTargetFile, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('version', $this->version, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
+        Model::validateRequired('updateBuildpackVersion', $this->updateBuildpackVersion, true);
+        Model::validateRequired('updateBuildpackId', $this->updateBuildpackId, true);
+        Model::validateRequired('customParams', $this->customParams, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->appName) {

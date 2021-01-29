@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryOperationlogRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'event' => 'event',
         'pageNo' => 'page_no',
         'pageSize' => 'page_size',
@@ -21,6 +22,9 @@ class QueryOperationlogRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->event) {
             $res['event'] = $this->event;
@@ -54,6 +58,9 @@ class QueryOperationlogRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['event'])){
             $model->event = $map['event'];
         }
@@ -81,6 +88,11 @@ class QueryOperationlogRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // event
     /**

@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class UpdateAppbaselineSidecarRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appbaselineId' => 'appbaseline_id',
         'enable' => 'enable',
         'sidecarVersion' => 'sidecar_version',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appbaselineId', $this->appbaselineId, true);
+        Model::validateRequired('enable', $this->enable, true);
+        Model::validateRequired('sidecarVersion', $this->sidecarVersion, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appbaselineId) {
             $res['appbaseline_id'] = $this->appbaselineId;
@@ -38,6 +46,9 @@ class UpdateAppbaselineSidecarRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['appbaseline_id'])){
             $model->appbaselineId = $map['appbaseline_id'];
         }
@@ -53,6 +64,11 @@ class UpdateAppbaselineSidecarRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用sidecar基线id
     /**

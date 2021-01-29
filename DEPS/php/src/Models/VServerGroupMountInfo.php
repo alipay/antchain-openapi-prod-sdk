@@ -14,7 +14,12 @@ class VServerGroupMountInfo extends Model {
         'paasId' => 'paas_id',
         'mountWeights' => 'mount_weights',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('iaasId', $this->iaasId, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('paasId', $this->paasId, true);
+        Model::validateRequired('mountWeights', $this->mountWeights, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->iaasId) {

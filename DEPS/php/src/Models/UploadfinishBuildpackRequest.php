@@ -10,14 +10,20 @@ use AntChain\Deps\Models\BuildpackRegionRelation;
 class UploadfinishBuildpackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'buildpackId' => 'buildpack_id',
         'supportedRegions' => 'supported_regions',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('buildpackId', $this->buildpackId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->buildpackId) {
             $res['buildpack_id'] = $this->buildpackId;
@@ -42,6 +48,9 @@ class UploadfinishBuildpackRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['buildpack_id'])){
             $model->buildpackId = $map['buildpack_id'];
         }
@@ -60,6 +69,11 @@ class UploadfinishBuildpackRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 技术栈的ID
     /**

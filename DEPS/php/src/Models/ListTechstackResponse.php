@@ -14,7 +14,9 @@ class ListTechstackResponse extends Model {
         'resultMsg' => 'result_msg',
         'techstacks' => 'techstacks',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('techstacks', $this->techstacks, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

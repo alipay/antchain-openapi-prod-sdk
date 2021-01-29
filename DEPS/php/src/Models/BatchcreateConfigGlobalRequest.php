@@ -10,13 +10,19 @@ use AntChain\Deps\Models\GlobalParam;
 class BatchcreateConfigGlobalRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'items' => 'items',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('items', $this->items, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->items) {
             $res['items'] = [];
@@ -38,6 +44,9 @@ class BatchcreateConfigGlobalRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['items'])){
             if(!empty($map['items'])){
                 $model->items = [];
@@ -53,6 +62,11 @@ class BatchcreateConfigGlobalRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 要创建的全局参数列表
     /**

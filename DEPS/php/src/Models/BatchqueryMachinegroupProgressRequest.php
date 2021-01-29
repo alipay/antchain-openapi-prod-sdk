@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class BatchqueryMachinegroupProgressRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'pageNo' => 'page_no',
         'pageSize' => 'page_size',
         'parentId' => 'parent_id',
@@ -17,11 +18,16 @@ class BatchqueryMachinegroupProgressRequest extends Model {
         'state' => 'state',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->pageNo) {
             $res['page_no'] = $this->pageNo;
@@ -58,6 +64,9 @@ class BatchqueryMachinegroupProgressRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['page_no'])){
             $model->pageNo = $map['page_no'];
         }
@@ -88,6 +97,11 @@ class BatchqueryMachinegroupProgressRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 当前页，默认 1
     /**

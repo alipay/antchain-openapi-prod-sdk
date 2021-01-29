@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryConfigGlobalRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'dataLevel' => 'data_level',
         'key' => 'key',
         'orders' => 'orders',
@@ -23,6 +24,9 @@ class QueryConfigGlobalRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->dataLevel) {
             $res['data_level'] = $this->dataLevel;
@@ -62,6 +66,9 @@ class QueryConfigGlobalRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['data_level'])){
             $model->dataLevel = $map['data_level'];
         }
@@ -99,6 +106,11 @@ class QueryConfigGlobalRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 模板参数保密级别
     /**

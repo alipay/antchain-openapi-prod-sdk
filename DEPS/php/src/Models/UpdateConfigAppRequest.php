@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class UpdateConfigAppRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'dataLevel' => 'data_level',
         'desc' => 'desc',
         'id' => 'id',
@@ -18,11 +19,16 @@ class UpdateConfigAppRequest extends Model {
         'type' => 'type',
         'value' => 'value',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->dataLevel) {
             $res['data_level'] = $this->dataLevel;
@@ -62,6 +68,9 @@ class UpdateConfigAppRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['data_level'])){
             $model->dataLevel = $map['data_level'];
         }
@@ -95,6 +104,11 @@ class UpdateConfigAppRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 数据保密等级
     /**

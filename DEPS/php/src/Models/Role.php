@@ -11,7 +11,11 @@ class Role extends Model {
         'name' => 'name',
         'description' => 'description',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('description', $this->description, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->id) {

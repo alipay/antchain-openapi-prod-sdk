@@ -13,7 +13,9 @@ class DynamicQuery extends Model {
         'query' => 'query',
         'sort' => 'sort',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('query', $this->query, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->currentPage) {

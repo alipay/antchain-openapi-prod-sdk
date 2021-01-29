@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CountPlanStateRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'gmtCreateEnd' => 'gmt_create_end',
         'gmtCreateStart' => 'gmt_create_start',
         'initialByTag' => 'initial_by_tag',
@@ -26,11 +27,15 @@ class CountPlanStateRequest extends Model {
     public function validate() {
         Model::validatePattern('gmtCreateEnd', $this->gmtCreateEnd, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('gmtCreateStart', $this->gmtCreateStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateRequired('workspace', $this->workspace, true);
     }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->gmtCreateEnd) {
             $res['gmt_create_end'] = $this->gmtCreateEnd;
@@ -84,6 +89,9 @@ class CountPlanStateRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['gmt_create_end'])){
             $model->gmtCreateEnd = $map['gmt_create_end'];
@@ -143,6 +151,11 @@ class CountPlanStateRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // gmt_create_end
     /**

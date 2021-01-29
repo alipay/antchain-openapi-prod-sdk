@@ -10,7 +10,10 @@ class SidecarTemplateConfig extends Model {
         'type' => 'type',
         'template' => 'template',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('template', $this->template, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->type) {

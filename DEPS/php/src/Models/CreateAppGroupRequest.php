@@ -10,17 +10,23 @@ use AntChain\Deps\Models\AppDepend;
 class CreateAppGroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appScheme' => 'app_scheme',
         'description' => 'description',
         'name' => 'name',
         'ownerLoginName' => 'owner_login_name',
         'parentId' => 'parent_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appScheme) {
             $res['app_scheme'] = [];
@@ -54,6 +60,9 @@ class CreateAppGroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_scheme'])){
             if(!empty($map['app_scheme'])){
                 $model->appScheme = [];
@@ -81,6 +90,11 @@ class CreateAppGroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用依赖规划
     /**

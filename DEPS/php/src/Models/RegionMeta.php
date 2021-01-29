@@ -15,7 +15,9 @@ class RegionMeta extends Model {
         'zoneIds' => 'zone_ids',
         'state' => 'state',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('state', $this->state, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->availableNetworkTypes) {

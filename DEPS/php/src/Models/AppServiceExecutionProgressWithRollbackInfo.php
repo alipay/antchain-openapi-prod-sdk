@@ -12,7 +12,10 @@ class AppServiceExecutionProgressWithRollbackInfo extends Model {
         'progress' => 'progress',
         'rollbackProgress' => 'rollback_progress',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('progress', $this->progress, true);
+        Model::validateRequired('rollbackProgress', $this->rollbackProgress, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->progress) {

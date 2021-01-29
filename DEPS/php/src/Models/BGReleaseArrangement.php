@@ -34,6 +34,27 @@ class BGReleaseArrangement extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('activeUnitId', $this->activeUnitId, true);
+        Model::validateRequired('deactivatedUnitId', $this->deactivatedUnitId, true);
+        Model::validateRequired('grayTrafficProcessId', $this->grayTrafficProcessId, true);
+        Model::validateRequired('rollbackProcessId', $this->rollbackProcessId, true);
+        Model::validateRequired('serviceInfoCollection', $this->serviceInfoCollection, true);
+        Model::validateRequired('stepType', $this->stepType, true);
+        Model::validateRequired('unitType', $this->unitType, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('arrangementType', $this->arrangementType, true);
+        Model::validateRequired('envConfig', $this->envConfig, true);
+        Model::validateRequired('targetsLegalStates', $this->targetsLegalStates, true);
+        Model::validateRequired('processDefinitionId', $this->processDefinitionId, true);
+        Model::validateRequired('parentId', $this->parentId, true);
+        Model::validateRequired('parentEntityType', $this->parentEntityType, true);
+        Model::validateRequired('supportedTransitions', $this->supportedTransitions, true);
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

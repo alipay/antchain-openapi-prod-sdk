@@ -8,15 +8,22 @@ use AlibabaCloud\Tea\Model;
 class QueryRoleRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'fromAliyun' => 'from_aliyun',
         'pageSize' => 'page_size',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->fromAliyun) {
             $res['from_aliyun'] = $this->fromAliyun;
@@ -38,6 +45,9 @@ class QueryRoleRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['from_aliyun'])){
             $model->fromAliyun = $map['from_aliyun'];
         }
@@ -53,6 +63,11 @@ class QueryRoleRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // from_aliyun
     /**

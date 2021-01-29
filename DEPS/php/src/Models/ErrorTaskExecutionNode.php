@@ -12,7 +12,12 @@ class ErrorTaskExecutionNode extends Model {
         'code' => 'code',
         'message' => 'message',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('nodeName', $this->nodeName, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('message', $this->message, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->nodeId) {

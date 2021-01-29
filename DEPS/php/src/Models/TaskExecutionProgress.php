@@ -20,6 +20,17 @@ class TaskExecutionProgress extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('showName', $this->showName, true);
+        Model::validateRequired('businessEntityCode', $this->businessEntityCode, true);
+        Model::validateRequired('errorCode', $this->errorCode, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('executionCount', $this->executionCount, true);
+        Model::validateRequired('detailMsg', $this->detailMsg, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

@@ -10,7 +10,10 @@ class StateCount extends Model {
         'state' => 'state',
         'count' => 'count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('count', $this->count, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->state) {

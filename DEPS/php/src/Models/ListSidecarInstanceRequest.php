@@ -10,17 +10,24 @@ use AntChain\Deps\Models\PaginationQuery;
 class ListSidecarInstanceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'instanceName' => 'instance_name',
         'paginationQuery' => 'pagination_query',
         'scope' => 'scope',
         'scopeIdentity' => 'scope_identity',
         'status' => 'status',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->instanceName) {
             $res['instance_name'] = $this->instanceName;
@@ -48,6 +55,9 @@ class ListSidecarInstanceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['instance_name'])){
             $model->instanceName = $map['instance_name'];
         }
@@ -69,6 +79,11 @@ class ListSidecarInstanceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 版本实例名称
     /**

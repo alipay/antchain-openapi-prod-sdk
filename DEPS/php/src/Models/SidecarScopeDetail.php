@@ -12,7 +12,11 @@ class SidecarScopeDetail extends Model {
         'scopeIdentityDisplayName' => 'scope_identity_display_name',
         'scopeIdentityName' => 'scope_identity_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+        Model::validateRequired('scopeIdentityName', $this->scopeIdentityName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->scope) {

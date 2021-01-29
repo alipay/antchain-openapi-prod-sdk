@@ -10,16 +10,24 @@ use AntChain\Deps\Models\Computer;
 class AsyncexecuteBashcmdRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'command' => 'command',
         'computers' => 'computers',
         'timeOut' => 'time_out',
         'user' => 'user',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('command', $this->command, true);
+        Model::validateRequired('computers', $this->computers, true);
+        Model::validateRequired('timeOut', $this->timeOut, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->command) {
             $res['command'] = $this->command;
@@ -50,6 +58,9 @@ class AsyncexecuteBashcmdRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['command'])){
             $model->command = $map['command'];
         }
@@ -74,6 +85,11 @@ class AsyncexecuteBashcmdRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 执行的命令，长度不能超过500个字符
     /**

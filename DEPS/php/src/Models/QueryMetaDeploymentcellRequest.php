@@ -8,14 +8,20 @@ use AlibabaCloud\Tea\Model;
 class QueryMetaDeploymentcellRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'ids' => 'ids',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->ids) {
             $res['ids'] = $this->ids;
@@ -34,6 +40,9 @@ class QueryMetaDeploymentcellRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['ids'])){
             if(!empty($map['ids'])){
                 $model->ids = $map['ids'];
@@ -48,6 +57,11 @@ class QueryMetaDeploymentcellRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // ids
     /**

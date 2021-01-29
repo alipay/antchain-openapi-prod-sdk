@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateComputerRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'description' => 'description',
         'imageId' => 'image_id',
         'instanceCount' => 'instance_count',
@@ -24,6 +25,14 @@ class CreateComputerRequest extends Model {
         'zone' => 'zone',
     ];
     public function validate() {
+        Model::validateRequired('imageId', $this->imageId, true);
+        Model::validateRequired('region', $this->region, true);
+        Model::validateRequired('securityGroupId', $this->securityGroupId, true);
+        Model::validateRequired('specId', $this->specId, true);
+        Model::validateRequired('systemDiskSize', $this->systemDiskSize, true);
+        Model::validateRequired('systemDiskType', $this->systemDiskType, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+        Model::validateRequired('zone', $this->zone, true);
         Model::validateMaxLength('paasword', $this->paasword, 30);
         Model::validateMinLength('paasword', $this->paasword, 8);
     }
@@ -31,6 +40,9 @@ class CreateComputerRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->description) {
             $res['description'] = $this->description;
@@ -85,6 +97,9 @@ class CreateComputerRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['description'])){
             $model->description = $map['description'];
         }
@@ -133,6 +148,11 @@ class CreateComputerRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 实例描述
     /**

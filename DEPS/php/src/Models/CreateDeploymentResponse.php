@@ -12,7 +12,9 @@ class CreateDeploymentResponse extends Model {
         'resultMsg' => 'result_msg',
         'operationId' => 'operation_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('operationId', $this->operationId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

@@ -11,14 +11,21 @@ use AntChain\Deps\Models\OpsComputer;
 class SyncexecuteCmdTaskRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'cmd' => 'cmd',
         'computers' => 'computers',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('cmd', $this->cmd, true);
+        Model::validateRequired('computers', $this->computers, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->cmd) {
             $res['cmd'] = null !== $this->cmd ? $this->cmd->toMap() : null;
@@ -43,6 +50,9 @@ class SyncexecuteCmdTaskRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['cmd'])){
             $model->cmd = OpsCmd::fromMap($map['cmd']);
         }
@@ -61,6 +71,11 @@ class SyncexecuteCmdTaskRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 执行的指令。示例如下：cmd.template_id=000015678&cmd.args.1.name=--version&cmd.args.1.value=2.2
     /**

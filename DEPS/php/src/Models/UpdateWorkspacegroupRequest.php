@@ -8,16 +8,22 @@ use AlibabaCloud\Tea\Model;
 class UpdateWorkspacegroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'domainSuffix' => 'domain_suffix',
         'name' => 'name',
         'displayName' => 'display_name',
         'workspaces' => 'workspaces',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->domainSuffix) {
             $res['domain_suffix'] = $this->domainSuffix;
@@ -42,6 +48,9 @@ class UpdateWorkspacegroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['domain_suffix'])){
             $model->domainSuffix = $map['domain_suffix'];
         }
@@ -62,6 +71,11 @@ class UpdateWorkspacegroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 域名后缀。
     /**

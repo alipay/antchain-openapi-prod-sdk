@@ -22,6 +22,11 @@ class GlobalParam extends Model {
     public function validate() {
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modifiedTime', $this->modifiedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateRequired('dataLevel', $this->dataLevel, true);
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeId', $this->scopeId, true);
+        Model::validateRequired('type', $this->type, true);
     }
     public function toMap() {
         $res = [];

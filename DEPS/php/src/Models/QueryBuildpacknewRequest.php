@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryBuildpacknewRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'buildCommand' => 'build_command',
         'createdFroms' => 'created_froms',
         'creationTimeFrom' => 'creation_time_from',
@@ -44,6 +45,9 @@ class QueryBuildpacknewRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->buildCommand) {
             $res['build_command'] = $this->buildCommand;
@@ -124,6 +128,9 @@ class QueryBuildpacknewRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['build_command'])){
             $model->buildCommand = $map['build_command'];
@@ -220,6 +227,11 @@ class QueryBuildpacknewRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // buildCommand
     /**

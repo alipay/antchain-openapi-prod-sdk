@@ -10,16 +10,25 @@ use AntChain\Deps\Models\DisasterInfo;
 class UpdateCellgroupDisasterinfoRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'disasterInfo' => 'disaster_info',
         'name' => 'name',
         'operator' => 'operator',
         'workspaceGroup' => 'workspace_group',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('disasterInfo', $this->disasterInfo, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('operator', $this->operator, true);
+        Model::validateRequired('workspaceGroup', $this->workspaceGroup, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->disasterInfo) {
             $res['disaster_info'] = [];
@@ -50,6 +59,9 @@ class UpdateCellgroupDisasterinfoRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['disaster_info'])){
             if(!empty($map['disaster_info'])){
                 $model->disasterInfo = [];
@@ -74,6 +86,11 @@ class UpdateCellgroupDisasterinfoRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 灾备信息
     /**

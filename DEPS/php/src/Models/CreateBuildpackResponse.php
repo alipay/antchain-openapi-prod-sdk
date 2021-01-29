@@ -15,7 +15,10 @@ class CreateBuildpackResponse extends Model {
         'buildpackId' => 'buildpack_id',
         'uploadEndpoints' => 'upload_endpoints',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('buildpackId', $this->buildpackId, true);
+        Model::validateRequired('uploadEndpoints', $this->uploadEndpoints, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

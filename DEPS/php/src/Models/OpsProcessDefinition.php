@@ -27,6 +27,21 @@ class OpsProcessDefinition extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('description', $this->description, true);
+        Model::validateRequired('instruction', $this->instruction, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('opsType', $this->opsType, true);
+        Model::validateRequired('planId', $this->planId, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('arrangements', $this->arrangements, true);
+        Model::validateRequired('envConfig', $this->envConfig, true);
+        Model::validateRequired('supportedTransitions', $this->supportedTransitions, true);
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

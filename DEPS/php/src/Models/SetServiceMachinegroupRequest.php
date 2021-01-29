@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class SetServiceMachinegroupRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'groupMount' => 'group_mount',
         'groupStrategyType' => 'group_strategy_type',
         'machineGroups' => 'machine_groups',
@@ -16,11 +17,17 @@ class SetServiceMachinegroupRequest extends Model {
         'useDefaultSetup' => 'use_default_setup',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->groupMount) {
             $res['group_mount'] = $this->groupMount;
@@ -54,6 +61,9 @@ class SetServiceMachinegroupRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['group_mount'])){
             $model->groupMount = $map['group_mount'];
         }
@@ -83,6 +93,11 @@ class SetServiceMachinegroupRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 分组数
     /**

@@ -15,7 +15,9 @@ class CmdExecResult extends Model {
         'startTime' => 'start_time',
         'status' => 'status',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('status', $this->status, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->errMsg) {

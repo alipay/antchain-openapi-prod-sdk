@@ -8,16 +8,23 @@ use AlibabaCloud\Tea\Model;
 class QueryOperatorRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'customerId' => 'customer_id',
         'pageNo' => 'page_no',
         'pageSize' => 'page_size',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('customerId', $this->customerId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->customerId) {
             $res['customer_id'] = $this->customerId;
@@ -42,6 +49,9 @@ class QueryOperatorRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['customer_id'])){
             $model->customerId = $map['customer_id'];
         }
@@ -60,6 +70,11 @@ class QueryOperatorRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 用户 ID
     /**

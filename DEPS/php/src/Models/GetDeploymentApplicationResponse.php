@@ -15,7 +15,10 @@ class GetDeploymentApplicationResponse extends Model {
         'groups' => 'groups',
         'status' => 'status',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('groups', $this->groups, true);
+        Model::validateRequired('status', $this->status, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryBuildpackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'currentPage' => 'current_page',
         'fullVersion' => 'full_version',
         'pageSize' => 'page_size',
@@ -29,6 +30,9 @@ class QueryBuildpackRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->currentPage) {
             $res['current_page'] = $this->currentPage;
@@ -76,6 +80,9 @@ class QueryBuildpackRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['current_page'])){
             $model->currentPage = $map['current_page'];
@@ -133,6 +140,11 @@ class QueryBuildpackRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 当前页码
     /**

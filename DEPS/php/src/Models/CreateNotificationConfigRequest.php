@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateNotificationConfigRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'cloudWebUrl' => 'cloud_web_url',
         'enabled' => 'enabled',
         'modifiedVersion' => 'modified_version',
@@ -15,11 +16,20 @@ class CreateNotificationConfigRequest extends Model {
         'type' => 'type',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('cloudWebUrl', $this->cloudWebUrl, true);
+        Model::validateRequired('modifiedVersion', $this->modifiedVersion, true);
+        Model::validateRequired('receivers', $this->receivers, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->cloudWebUrl) {
             $res['cloud_web_url'] = $this->cloudWebUrl;
@@ -50,6 +60,9 @@ class CreateNotificationConfigRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['cloud_web_url'])){
             $model->cloudWebUrl = $map['cloud_web_url'];
         }
@@ -76,6 +89,11 @@ class CreateNotificationConfigRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // cloud web url
     /**

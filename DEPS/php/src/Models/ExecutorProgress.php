@@ -12,7 +12,10 @@ class ExecutorProgress extends Model {
         'status' => 'status',
         'resultMsg' => 'result_msg',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('resultMsg', $this->resultMsg, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->requestId) {

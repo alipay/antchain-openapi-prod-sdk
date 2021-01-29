@@ -20,7 +20,18 @@ class DeploymentZone extends Model {
         'appendedZoneIds' => 'appended_zone_ids',
         'cells' => 'cells',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('displayName', $this->displayName, true);
+        Model::validateRequired('description', $this->description, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
+        Model::validateRequired('workspaceGroupId', $this->workspaceGroupId, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('masterZoneId', $this->masterZoneId, true);
+        Model::validateRequired('appendedZoneIds', $this->appendedZoneIds, true);
+        Model::validateRequired('cells', $this->cells, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->id) {

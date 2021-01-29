@@ -13,7 +13,13 @@ class RetryInfo extends Model {
         'retryTimes' => 'retry_times',
         'timeout' => 'timeout',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('action', $this->action, true);
+        Model::validateRequired('checkInterval', $this->checkInterval, true);
+        Model::validateRequired('retryFailedOnly', $this->retryFailedOnly, true);
+        Model::validateRequired('retryTimes', $this->retryTimes, true);
+        Model::validateRequired('timeout', $this->timeout, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->action) {

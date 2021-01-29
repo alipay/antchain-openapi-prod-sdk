@@ -16,7 +16,12 @@ class AggregateExecutableProgress extends Model {
         'appServiceProgresses' => 'app_service_progresses',
         'commonProgresses' => 'common_progresses',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('baseProgress', $this->baseProgress, true);
+        Model::validateRequired('bgReleaseProgresses', $this->bgReleaseProgresses, true);
+        Model::validateRequired('appServiceProgresses', $this->appServiceProgresses, true);
+        Model::validateRequired('commonProgresses', $this->commonProgresses, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->baseProgress) {

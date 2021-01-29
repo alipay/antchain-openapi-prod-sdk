@@ -14,7 +14,9 @@ class ListWorkspacegroupResponse extends Model {
         'resultMsg' => 'result_msg',
         'workspaceGroups' => 'workspace_groups',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceGroups', $this->workspaceGroups, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

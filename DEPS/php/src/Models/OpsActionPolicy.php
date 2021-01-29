@@ -12,7 +12,12 @@ class OpsActionPolicy extends Model {
         'checkInterval' => 'check_interval',
         'retryTimes' => 'retry_times',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('opsActionType', $this->opsActionType, true);
+        Model::validateRequired('timeout', $this->timeout, true);
+        Model::validateRequired('checkInterval', $this->checkInterval, true);
+        Model::validateRequired('retryTimes', $this->retryTimes, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->opsActionType) {

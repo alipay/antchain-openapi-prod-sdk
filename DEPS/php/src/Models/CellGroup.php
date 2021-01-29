@@ -21,6 +21,12 @@ class CellGroup extends Model {
         'type' => 'type',
     ];
     public function validate() {
+        Model::validateRequired('cells', $this->cells, true);
+        Model::validateRequired('disasterInfo', $this->disasterInfo, true);
+        Model::validateRequired('modifiedTime', $this->modifiedTime, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('operator', $this->operator, true);
+        Model::validateRequired('type', $this->type, true);
         Model::validatePattern('modifiedTime', $this->modifiedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }
     public function toMap() {

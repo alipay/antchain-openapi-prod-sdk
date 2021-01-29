@@ -10,7 +10,10 @@ class SidecarParamsConfig extends Model {
         'type' => 'type',
         'params' => 'params',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('params', $this->params, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->type) {

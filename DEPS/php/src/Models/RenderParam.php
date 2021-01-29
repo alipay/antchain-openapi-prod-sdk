@@ -16,7 +16,13 @@ class RenderParam extends Model {
         'dataLevel' => 'data_level',
         'renderVals' => 'render_vals',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('value', $this->value, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('dataLevel', $this->dataLevel, true);
+        Model::validateRequired('renderVals', $this->renderVals, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->key) {

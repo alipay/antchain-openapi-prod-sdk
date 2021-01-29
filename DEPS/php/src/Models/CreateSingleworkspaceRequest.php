@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class CreateSingleworkspaceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'displayName' => 'display_name',
         'name' => 'name',
         'networkType' => 'network_type',
@@ -15,11 +16,19 @@ class CreateSingleworkspaceRequest extends Model {
         'type' => 'type',
         'zones' => 'zones',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('displayName', $this->displayName, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('networkType', $this->networkType, true);
+        Model::validateRequired('region', $this->region, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->displayName) {
             $res['display_name'] = $this->displayName;
@@ -50,6 +59,9 @@ class CreateSingleworkspaceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['display_name'])){
             $model->displayName = $map['display_name'];
         }
@@ -76,6 +88,11 @@ class CreateSingleworkspaceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // workspace 显示名称
     /**

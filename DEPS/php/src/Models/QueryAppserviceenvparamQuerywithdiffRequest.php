@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryAppserviceenvparamQuerywithdiffRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appServiceId' => 'app_service_id',
         'buildpackId' => 'buildpack_id',
     ];
@@ -16,6 +17,9 @@ class QueryAppserviceenvparamQuerywithdiffRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appServiceId) {
             $res['app_service_id'] = $this->appServiceId;
@@ -34,6 +38,9 @@ class QueryAppserviceenvparamQuerywithdiffRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['app_service_id'])){
             $model->appServiceId = $map['app_service_id'];
         }
@@ -46,6 +53,11 @@ class QueryAppserviceenvparamQuerywithdiffRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // appServiceId
     /**

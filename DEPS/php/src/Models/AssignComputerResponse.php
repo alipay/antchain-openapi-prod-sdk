@@ -12,7 +12,9 @@ class AssignComputerResponse extends Model {
         'resultMsg' => 'result_msg',
         'taskId' => 'task_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('taskId', $this->taskId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

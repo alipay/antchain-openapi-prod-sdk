@@ -14,7 +14,14 @@ class AppUnitResource extends Model {
         'slbCount' => 'slb_count',
         'slbWeight' => 'slb_weight',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appId', $this->appId, true);
+        Model::validateRequired('unitId', $this->unitId, true);
+        Model::validateRequired('machineCount', $this->machineCount, true);
+        Model::validateRequired('mountedMachineCount', $this->mountedMachineCount, true);
+        Model::validateRequired('slbCount', $this->slbCount, true);
+        Model::validateRequired('slbWeight', $this->slbWeight, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->appId) {

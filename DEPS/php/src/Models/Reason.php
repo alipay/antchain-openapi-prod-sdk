@@ -13,7 +13,13 @@ class Reason extends Model {
         'placeholder' => 'placeholder',
         'params' => 'params',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('visible', $this->visible, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('placeholder', $this->placeholder, true);
+        Model::validateRequired('params', $this->params, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->content) {

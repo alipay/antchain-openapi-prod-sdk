@@ -19,7 +19,15 @@ class BGReleaseExecutionProgress extends Model {
         'rollbackServiceExecutionProgressGroup' => 'rollback_service_execution_progress_group',
         'baseProgress' => 'base_progress',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('unitId', $this->unitId, true);
+        Model::validateRequired('unitType', $this->unitType, true);
+        Model::validateRequired('resourceType', $this->resourceType, true);
+        Model::validateRequired('trafficExecutionProgressOfService', $this->trafficExecutionProgressOfService, true);
+        Model::validateRequired('serviceExecutionProgressGroup', $this->serviceExecutionProgressGroup, true);
+        Model::validateRequired('rollbackServiceExecutionProgressGroup', $this->rollbackServiceExecutionProgressGroup, true);
+        Model::validateRequired('baseProgress', $this->baseProgress, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->unitId) {

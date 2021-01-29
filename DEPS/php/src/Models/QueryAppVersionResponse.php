@@ -14,7 +14,9 @@ class QueryAppVersionResponse extends Model {
         'resultMsg' => 'result_msg',
         'version' => 'version',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('version', $this->version, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

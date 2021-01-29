@@ -14,7 +14,9 @@ class QueryWorkspaceDeltaResponse extends Model {
         'resultMsg' => 'result_msg',
         'workspaceDeltaInfos' => 'workspace_delta_infos',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceDeltaInfos', $this->workspaceDeltaInfos, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

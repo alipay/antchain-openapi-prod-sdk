@@ -19,7 +19,12 @@ class CmdTemplate extends Model {
         'timeOut' => 'time_out',
         'type' => 'type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('creator', $this->creator, true);
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('type', $this->type, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->argNames) {

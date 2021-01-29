@@ -11,6 +11,7 @@ use AntChain\Deps\Models\BuildpackRegionRelation;
 class CreateBuildpackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'availableTenantNames' => 'available_tenant_names',
         'buildCommand' => 'build_command',
         'contactInfo' => 'contact_info',
@@ -31,6 +32,9 @@ class CreateBuildpackRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->availableTenantNames) {
             $res['available_tenant_names'] = $this->availableTenantNames;
@@ -97,6 +101,9 @@ class CreateBuildpackRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['available_tenant_names'])){
             if(!empty($map['available_tenant_names'])){
                 $model->availableTenantNames = $map['available_tenant_names'];
@@ -161,6 +168,11 @@ class CreateBuildpackRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 技术栈所支持的租户名称列表
     /**

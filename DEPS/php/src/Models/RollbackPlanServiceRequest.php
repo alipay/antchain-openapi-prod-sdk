@@ -10,16 +10,25 @@ use AntChain\Deps\Models\RollbackInfo;
 class RollbackPlanServiceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'planId' => 'plan_id',
         'rollbackInfo' => 'rollback_info',
         'service' => 'service',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('planId', $this->planId, true);
+        Model::validateRequired('rollbackInfo', $this->rollbackInfo, true);
+        Model::validateRequired('service', $this->service, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->planId) {
             $res['plan_id'] = $this->planId;
@@ -44,6 +53,9 @@ class RollbackPlanServiceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['plan_id'])){
             $model->planId = $map['plan_id'];
         }
@@ -62,6 +74,11 @@ class RollbackPlanServiceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 发布单ID
     /**

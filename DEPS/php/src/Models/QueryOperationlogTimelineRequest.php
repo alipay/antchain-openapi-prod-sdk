@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryOperationlogTimelineRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'customerId' => 'customer_id',
         'gmtFrom' => 'gmt_from',
         'gmtTo' => 'gmt_to',
@@ -24,11 +25,15 @@ class QueryOperationlogTimelineRequest extends Model {
     public function validate() {
         Model::validatePattern('gmtFrom', $this->gmtFrom, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('gmtTo', $this->gmtTo, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validateRequired('workspace', $this->workspace, true);
     }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->customerId) {
             $res['customer_id'] = $this->customerId;
@@ -77,6 +82,9 @@ class QueryOperationlogTimelineRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['customer_id'])){
             $model->customerId = $map['customer_id'];
         }
@@ -119,6 +127,11 @@ class QueryOperationlogTimelineRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // customer_id
     /**

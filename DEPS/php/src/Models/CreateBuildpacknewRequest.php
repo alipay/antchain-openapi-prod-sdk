@@ -13,6 +13,7 @@ use AntChain\Deps\Models\Techstack;
 class CreateBuildpacknewRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'availableTenantNames' => 'available_tenant_names',
         'buildpackParams' => 'buildpack_params',
         'buildCommand' => 'build_command',
@@ -38,6 +39,9 @@ class CreateBuildpacknewRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->availableTenantNames) {
             $res['available_tenant_names'] = $this->availableTenantNames;
@@ -125,6 +129,9 @@ class CreateBuildpacknewRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['available_tenant_names'])){
             if(!empty($map['available_tenant_names'])){
                 $model->availableTenantNames = $map['available_tenant_names'];
@@ -210,6 +217,11 @@ class CreateBuildpacknewRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // availableTenantNames
     /**

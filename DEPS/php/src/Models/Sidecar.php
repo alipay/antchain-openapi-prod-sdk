@@ -16,6 +16,10 @@ class Sidecar extends Model {
         'scopeDetail' => 'scope_detail',
     ];
     public function validate() {
+        Model::validateRequired('gmtCreated', $this->gmtCreated, true);
+        Model::validateRequired('gmtModified', $this->gmtModified, true);
+        Model::validateRequired('sidecarName', $this->sidecarName, true);
+        Model::validateRequired('scopeDetail', $this->scopeDetail, true);
         Model::validatePattern('gmtCreated', $this->gmtCreated, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('gmtModified', $this->gmtModified, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

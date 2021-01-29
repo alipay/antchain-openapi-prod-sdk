@@ -15,7 +15,9 @@ class OpsCmd extends Model {
         'templateId' => 'template_id',
         'timeOut' => 'time_out',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('templateId', $this->templateId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->args) {

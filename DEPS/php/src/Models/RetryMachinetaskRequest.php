@@ -10,16 +10,25 @@ use AntChain\Deps\Models\RetryInfo;
 class RetryMachinetaskRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'machineId' => 'machine_id',
         'retryInfo' => 'retry_info',
         'taskId' => 'task_id',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('machineId', $this->machineId, true);
+        Model::validateRequired('retryInfo', $this->retryInfo, true);
+        Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->machineId) {
             $res['machine_id'] = $this->machineId;
@@ -44,6 +53,9 @@ class RetryMachinetaskRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['machine_id'])){
             $model->machineId = $map['machine_id'];
         }
@@ -62,6 +74,11 @@ class RetryMachinetaskRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 机器 ID
     /**

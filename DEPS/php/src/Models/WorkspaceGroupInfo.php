@@ -23,6 +23,17 @@ class WorkspaceGroupInfo extends Model {
         'identity' => 'identity',
     ];
     public function validate() {
+        Model::validateRequired('createdTime', $this->createdTime, true);
+        Model::validateRequired('displayName', $this->displayName, true);
+        Model::validateRequired('domainSuffix', $this->domainSuffix, true);
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('masterWorkspaceId', $this->masterWorkspaceId, true);
+        Model::validateRequired('masterWorkspaceIdentity', $this->masterWorkspaceIdentity, true);
+        Model::validateRequired('modifiedTime', $this->modifiedTime, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('releaseMode', $this->releaseMode, true);
+        Model::validateRequired('tenantName', $this->tenantName, true);
+        Model::validateRequired('workspaces', $this->workspaces, true);
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modifiedTime', $this->modifiedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

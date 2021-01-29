@@ -13,7 +13,9 @@ class UploadApplicationPackageResponse extends Model {
         'bucketName' => 'bucket_name',
         'signedUploadUrl' => 'signed_upload_url',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('signedUploadUrl', $this->signedUploadUrl, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

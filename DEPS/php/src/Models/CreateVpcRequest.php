@@ -8,17 +8,27 @@ use AlibabaCloud\Tea\Model;
 class CreateVpcRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'regionId' => 'region_id',
         'tenantId' => 'tenant_id',
         'vpcId' => 'vpc_id',
         'workspaceId' => 'workspace_id',
         'name' => 'name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('regionId', $this->regionId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('vpcId', $this->vpcId, true);
+        Model::validateRequired('workspaceId', $this->workspaceId, true);
+        Model::validateRequired('name', $this->name, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->regionId) {
             $res['region_id'] = $this->regionId;
@@ -46,6 +56,9 @@ class CreateVpcRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['region_id'])){
             $model->regionId = $map['region_id'];
         }
@@ -67,6 +80,11 @@ class CreateVpcRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // VPC所在的地域
     /**

@@ -12,7 +12,9 @@ class QueryAppDeltaResponse extends Model {
         'resultMsg' => 'result_msg',
         'tenants' => 'tenants',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('tenants', $this->tenants, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

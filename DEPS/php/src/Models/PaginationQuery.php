@@ -11,7 +11,11 @@ class PaginationQuery extends Model {
         'pageSize' => 'page_size',
         'fuzzyName' => 'fuzzy_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('currentPage', $this->currentPage, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('fuzzyName', $this->fuzzyName, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->currentPage) {

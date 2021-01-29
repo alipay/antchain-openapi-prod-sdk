@@ -16,7 +16,13 @@ class AppServiceExecutionProgress extends Model {
         'postDeploymentExecutionProgresses' => 'post_deployment_execution_progresses',
         'groupExecutionProgresses' => 'group_execution_progresses',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('baseProgress', $this->baseProgress, true);
+        Model::validateRequired('groupCount', $this->groupCount, true);
+        Model::validateRequired('preDeploymentExecutionProgresses', $this->preDeploymentExecutionProgresses, true);
+        Model::validateRequired('postDeploymentExecutionProgresses', $this->postDeploymentExecutionProgresses, true);
+        Model::validateRequired('groupExecutionProgresses', $this->groupExecutionProgresses, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->baseProgress) {

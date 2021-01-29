@@ -10,17 +10,24 @@ use AntChain\Deps\Models\PaginationQuery;
 class ListSidecarRuleRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'paginationQuery' => 'pagination_query',
         'scope' => 'scope',
         'scopeIdentity' => 'scope_identity',
         'sidecarName' => 'sidecar_name',
         'status' => 'status',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('scope', $this->scope, true);
+        Model::validateRequired('scopeIdentity', $this->scopeIdentity, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->paginationQuery) {
             $res['pagination_query'] = null !== $this->paginationQuery ? $this->paginationQuery->toMap() : null;
@@ -48,6 +55,9 @@ class ListSidecarRuleRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['pagination_query'])){
             $model->paginationQuery = PaginationQuery::fromMap($map['pagination_query']);
         }
@@ -69,6 +79,11 @@ class ListSidecarRuleRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 分页查询
     /**

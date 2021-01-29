@@ -40,7 +40,6 @@ class EnabledApplicationServiceRequest extends Model {
      */
     public $authToken;
 
-    // 租户名称
     /**
      * @var string
      */

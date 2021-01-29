@@ -20,6 +20,10 @@ class TemplateParamDef extends Model {
         'modifiedTime' => 'modified_time',
     ];
     public function validate() {
+        Model::validateRequired('dataLevel', $this->dataLevel, true);
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('value', $this->value, true);
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modifiedTime', $this->modifiedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

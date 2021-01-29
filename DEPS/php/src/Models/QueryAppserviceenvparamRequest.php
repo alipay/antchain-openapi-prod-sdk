@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryAppserviceenvparamRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appIds' => 'app_ids',
         'appServiceIds' => 'app_service_ids',
         'buildpackIds' => 'buildpack_ids',
@@ -37,6 +38,9 @@ class QueryAppserviceenvparamRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appIds) {
             $res['app_ids'] = $this->appIds;
@@ -102,6 +106,9 @@ class QueryAppserviceenvparamRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['app_ids'])){
             if(!empty($map['app_ids'])){
@@ -171,6 +178,11 @@ class QueryAppserviceenvparamRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // appIds
     /**

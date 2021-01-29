@@ -22,6 +22,11 @@ class AppConfigTemplate extends Model {
         'modifiedTime' => 'modified_time',
     ];
     public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+        Model::validateRequired('operatorId', $this->operatorId, true);
+        Model::validateRequired('params', $this->params, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('createdTime', $this->createdTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modifiedTime', $this->modifiedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');

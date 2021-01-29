@@ -11,7 +11,11 @@ class AppServiceCount extends Model {
         'containerCount' => 'container_count',
         'serverlessCount' => 'serverless_count',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('classicCount', $this->classicCount, true);
+        Model::validateRequired('containerCount', $this->containerCount, true);
+        Model::validateRequired('serverlessCount', $this->serverlessCount, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->classicCount) {

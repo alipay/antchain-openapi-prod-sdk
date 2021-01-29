@@ -8,15 +8,23 @@ use AlibabaCloud\Tea\Model;
 class ExistConfigGlobalRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'key' => 'key',
         'scopeIds' => 'scope_ids',
         'type' => 'type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('key', $this->key, true);
+        Model::validateRequired('scopeIds', $this->scopeIds, true);
+        Model::validateRequired('type', $this->type, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->key) {
             $res['key'] = $this->key;
@@ -38,6 +46,9 @@ class ExistConfigGlobalRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['key'])){
             $model->key = $map['key'];
         }
@@ -55,6 +66,11 @@ class ExistConfigGlobalRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 全局参数名称，同一个 scope + scopeId 下不能有同名的全局参数
     /**

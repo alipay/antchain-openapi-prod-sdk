@@ -8,15 +8,22 @@ use AlibabaCloud\Tea\Model;
 class GetApplicationServiceRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'serviceName' => 'service_name',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationName', $this->applicationName, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -38,6 +45,9 @@ class GetApplicationServiceRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
@@ -53,6 +63,11 @@ class GetApplicationServiceRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 待查询的应用名称。最大60个UTF-8字符
     /**

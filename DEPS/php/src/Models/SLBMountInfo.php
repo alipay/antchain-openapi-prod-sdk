@@ -17,7 +17,14 @@ class SLBMountInfo extends Model {
         'mountWeights' => 'mount_weights',
         'vServerGroupMountInfoList' => 'v_server_group_mount_info_list',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('iaasId', $this->iaasId, true);
+        Model::validateRequired('id', $this->id, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('vipAddresses', $this->vipAddresses, true);
+        Model::validateRequired('mountWeights', $this->mountWeights, true);
+        Model::validateRequired('vServerGroupMountInfoList', $this->vServerGroupMountInfoList, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->iaasId) {

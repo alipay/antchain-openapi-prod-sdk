@@ -11,7 +11,10 @@ class AppDepend extends Model {
         'dependAppNames' => 'depend_app_names',
         'appDisplayName' => 'app_display_name',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('appName', $this->appName, true);
+        Model::validateRequired('dependAppNames', $this->dependAppNames, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->appName) {

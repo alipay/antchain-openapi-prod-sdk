@@ -14,7 +14,14 @@ class DisasterInfo extends Model {
         'source' => 'source',
         'type' => 'type',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('disasterRecoveryState', $this->disasterRecoveryState, true);
+        Model::validateRequired('localFailoverTarget', $this->localFailoverTarget, true);
+        Model::validateRequired('pressDisasterRecoveryState', $this->pressDisasterRecoveryState, true);
+        Model::validateRequired('remoteFailoverTarget', $this->remoteFailoverTarget, true);
+        Model::validateRequired('source', $this->source, true);
+        Model::validateRequired('type', $this->type, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->disasterRecoveryState) {

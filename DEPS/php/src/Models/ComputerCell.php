@@ -10,7 +10,10 @@ class ComputerCell extends Model {
         'cellId' => 'cell_id',
         'computerId' => 'computer_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('cellId', $this->cellId, true);
+        Model::validateRequired('computerId', $this->computerId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->cellId) {

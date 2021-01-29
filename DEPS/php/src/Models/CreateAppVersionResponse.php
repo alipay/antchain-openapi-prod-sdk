@@ -12,7 +12,9 @@ class CreateAppVersionResponse extends Model {
         'resultMsg' => 'result_msg',
         'buildId' => 'build_id',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('buildId', $this->buildId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->reqMsgId) {

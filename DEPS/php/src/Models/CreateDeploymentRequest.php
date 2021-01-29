@@ -10,18 +10,26 @@ use AntChain\Deps\Models\Application;
 class CreateDeploymentRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applications' => 'applications',
         'autoExecute' => 'auto_execute',
         'deployDimension' => 'deploy_dimension',
-        'tenant' => 'tenant',
         'title' => 'title',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applications', $this->applications, true);
+        Model::validateRequired('deployDimension', $this->deployDimension, true);
+        Model::validateRequired('title', $this->title, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applications) {
             $res['applications'] = [];
@@ -37,9 +45,6 @@ class CreateDeploymentRequest extends Model {
         }
         if (null !== $this->deployDimension) {
             $res['deploy_dimension'] = $this->deployDimension;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->title) {
             $res['title'] = $this->title;
@@ -58,6 +63,9 @@ class CreateDeploymentRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['applications'])){
             if(!empty($map['applications'])){
                 $model->applications = [];
@@ -73,9 +81,6 @@ class CreateDeploymentRequest extends Model {
         if(isset($map['deploy_dimension'])){
             $model->deployDimension = $map['deploy_dimension'];
         }
-        if(isset($map['tenant'])){
-            $model->tenant = $map['tenant'];
-        }
         if(isset($map['title'])){
             $model->title = $map['title'];
         }
@@ -88,6 +93,11 @@ class CreateDeploymentRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 应用列表
     /**
@@ -106,12 +116,6 @@ class CreateDeploymentRequest extends Model {
      * @var string
      */
     public $deployDimension;
-
-    // 执行部署操作的目标租户
-    /**
-     * @var string
-     */
-    public $tenant;
 
     // 部署单标题。长度不超过50个UTF-8字符
     /**

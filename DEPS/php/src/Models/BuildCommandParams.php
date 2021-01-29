@@ -12,7 +12,9 @@ class BuildCommandParams extends Model {
         'key' => 'key',
         'value' => 'value',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('buildpackId', $this->buildpackId, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->buildpackId) {

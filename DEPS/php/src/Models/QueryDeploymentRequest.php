@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryDeploymentRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'applicationName' => 'application_name',
         'creationTime' => 'creation_time',
         'operationId' => 'operation_id',
@@ -21,6 +22,9 @@ class QueryDeploymentRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->applicationName) {
             $res['application_name'] = $this->applicationName;
@@ -54,6 +58,9 @@ class QueryDeploymentRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['application_name'])){
             $model->applicationName = $map['application_name'];
         }
@@ -83,6 +90,11 @@ class QueryDeploymentRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 部署单包含的应用（服务）名称
     /**

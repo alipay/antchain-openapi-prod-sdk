@@ -10,7 +10,9 @@ class SidecarCondition extends Model {
         'workspaceGroups' => 'workspace_groups',
         'cells' => 'cells',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('workspaceGroups', $this->workspaceGroups, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->workspaceGroups) {

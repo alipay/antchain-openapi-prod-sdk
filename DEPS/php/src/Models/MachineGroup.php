@@ -32,6 +32,27 @@ class MachineGroup extends Model {
         'id' => 'id',
     ];
     public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('serviceId', $this->serviceId, true);
+        Model::validateRequired('serviceGroupId', $this->serviceGroupId, true);
+        Model::validateRequired('serviceGroupCollectionId', $this->serviceGroupCollectionId, true);
+        Model::validateRequired('arrangementId', $this->arrangementId, true);
+        Model::validateRequired('serviceType', $this->serviceType, true);
+        Model::validateRequired('paasServiceId', $this->paasServiceId, true);
+        Model::validateRequired('needBeta', $this->needBeta, true);
+        Model::validateRequired('needConfirm', $this->needConfirm, true);
+        Model::validateRequired('needReserve', $this->needReserve, true);
+        Model::validateRequired('needConfirmTraffic', $this->needConfirmTraffic, true);
+        Model::validateRequired('machines', $this->machines, true);
+        Model::validateRequired('processDefinitionId', $this->processDefinitionId, true);
+        Model::validateRequired('parentId', $this->parentId, true);
+        Model::validateRequired('parentEntityType', $this->parentEntityType, true);
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('state', $this->state, true);
+        Model::validateRequired('startedTime', $this->startedTime, true);
+        Model::validateRequired('finishedTime', $this->finishedTime, true);
+        Model::validateRequired('standaloneExecutable', $this->standaloneExecutable, true);
+        Model::validateRequired('id', $this->id, true);
         Model::validatePattern('startedTime', $this->startedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('finishedTime', $this->finishedTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
     }

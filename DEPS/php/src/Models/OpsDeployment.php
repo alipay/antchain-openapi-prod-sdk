@@ -15,7 +15,13 @@ class OpsDeployment extends Model {
         'status' => 'status',
         'title' => 'title',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('applicationChains', $this->applicationChains, true);
+        Model::validateRequired('executor', $this->executor, true);
+        Model::validateRequired('operationId', $this->operationId, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('title', $this->title, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->applicationChains) {

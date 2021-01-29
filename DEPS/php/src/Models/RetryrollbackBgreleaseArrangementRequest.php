@@ -10,16 +10,25 @@ use AntChain\Deps\Models\RollbackInfo;
 class RetryrollbackBgreleaseArrangementRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'arrangementId' => 'arrangement_id',
         'planId' => 'plan_id',
         'rollbackInfo' => 'rollback_info',
         'workspace' => 'workspace',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('arrangementId', $this->arrangementId, true);
+        Model::validateRequired('planId', $this->planId, true);
+        Model::validateRequired('rollbackInfo', $this->rollbackInfo, true);
+        Model::validateRequired('workspace', $this->workspace, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->arrangementId) {
             $res['arrangement_id'] = $this->arrangementId;
@@ -44,6 +53,9 @@ class RetryrollbackBgreleaseArrangementRequest extends Model {
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
+        }
         if(isset($map['arrangement_id'])){
             $model->arrangementId = $map['arrangement_id'];
         }
@@ -62,6 +74,11 @@ class RetryrollbackBgreleaseArrangementRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 概览ID
     /**

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 class QueryApptechstackrelationRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
+        'tenant' => 'tenant',
         'appIds' => 'app_ids',
         'buildpackArch' => 'buildpack_arch',
         'creationTimeFrom' => 'creation_time_from',
@@ -25,6 +26,11 @@ class QueryApptechstackrelationRequest extends Model {
         'techstackIds' => 'techstack_ids',
     ];
     public function validate() {
+        Model::validateRequired('appIds', $this->appIds, true);
+        Model::validateRequired('currentPage', $this->currentPage, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('startIndex', $this->startIndex, true);
+        Model::validateRequired('techstackIds', $this->techstackIds, true);
         Model::validatePattern('creationTimeFrom', $this->creationTimeFrom, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('creationTimeTo', $this->creationTimeTo, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
         Model::validatePattern('modificationTimeFrom', $this->modificationTimeFrom, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
@@ -34,6 +40,9 @@ class QueryApptechstackrelationRequest extends Model {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->appIds) {
             $res['app_ids'] = $this->appIds;
@@ -90,6 +99,9 @@ class QueryApptechstackrelationRequest extends Model {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant'])){
+            $model->tenant = $map['tenant'];
         }
         if(isset($map['app_ids'])){
             if(!empty($map['app_ids'])){
@@ -148,6 +160,11 @@ class QueryApptechstackrelationRequest extends Model {
      * @var string
      */
     public $authToken;
+
+    /**
+     * @var string
+     */
+    public $tenant;
 
     // 一组应用id
     /**

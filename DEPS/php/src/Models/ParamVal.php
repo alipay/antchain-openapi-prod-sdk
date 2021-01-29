@@ -11,7 +11,11 @@ class ParamVal extends Model {
         'scopeId' => 'scope_id',
         'scope' => 'scope',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('renderVal', $this->renderVal, true);
+        Model::validateRequired('scopeId', $this->scopeId, true);
+        Model::validateRequired('scope', $this->scope, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->renderVal) {
