@@ -41,7 +41,7 @@ type Config struct {
 	// socks5 network
 	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 	// 长链接最大空闲时长
-	MaxIdleTimeMillis *int64 `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
+	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
 	// 长链接最大连接时长
 	KeepAliveDurationMillis *int `json:"keepAliveDurationMillis,omitempty" xml:"keepAliveDurationMillis,omitempty"`
 	// 最大连接数（长链接最大总数）
@@ -128,7 +128,7 @@ func (s *Config) SetSocks5NetWork(v string) *Config {
 	return s
 }
 
-func (s *Config) SetMaxIdleTimeMillis(v int64) *Config {
+func (s *Config) SetMaxIdleTimeMillis(v int) *Config {
 	s.MaxIdleTimeMillis = &v
 	return s
 }
@@ -151,9 +151,9 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 // 键值对
 type Pair struct {
 	// 键
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
 func (s Pair) String() string {
@@ -177,13 +177,13 @@ func (s *Pair) SetValue(v string) *Pair {
 // 运维策略
 type OpsActionPolicy struct {
 	// 运维动作类型
-	OpsActionType *string `json:"ops_action_type,omitempty" xml:"ops_action_type,omitempty"`
+	OpsActionType *string `json:"ops_action_type,omitempty" xml:"ops_action_type,omitempty" require:"true"`
 	// 超时时间
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 	// 检查间隔
-	CheckInterval *int64 `json:"check_interval,omitempty" xml:"check_interval,omitempty"`
+	CheckInterval *int64 `json:"check_interval,omitempty" xml:"check_interval,omitempty" require:"true"`
 	// 重试次数
-	RetryTimes *int64 `json:"retry_times,omitempty" xml:"retry_times,omitempty"`
+	RetryTimes *int64 `json:"retry_times,omitempty" xml:"retry_times,omitempty" require:"true"`
 }
 
 func (s OpsActionPolicy) String() string {
@@ -217,17 +217,17 @@ func (s *OpsActionPolicy) SetRetryTimes(v int64) *OpsActionPolicy {
 // 灰度流量配置
 type GrayTrafficConfig struct {
 	// 灰度流量类型
-	GrayTrafficType *string `json:"gray_traffic_type,omitempty" xml:"gray_traffic_type,omitempty"`
+	GrayTrafficType *string `json:"gray_traffic_type,omitempty" xml:"gray_traffic_type,omitempty" require:"true"`
 	// 主机名
-	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty"`
+	Hostname *string `json:"hostname,omitempty" xml:"hostname,omitempty" require:"true"`
 	// 匹配规则
-	MatchPatterns *string `json:"match_patterns,omitempty" xml:"match_patterns,omitempty"`
+	MatchPatterns *string `json:"match_patterns,omitempty" xml:"match_patterns,omitempty" require:"true"`
 	// 端口号
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty"`
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
 	// 比例
-	Proportion *string `json:"proportion,omitempty" xml:"proportion,omitempty"`
+	Proportion *string `json:"proportion,omitempty" xml:"proportion,omitempty" require:"true"`
 	// 目标 uri
-	TargetUri *string `json:"target_uri,omitempty" xml:"target_uri,omitempty"`
+	TargetUri *string `json:"target_uri,omitempty" xml:"target_uri,omitempty" require:"true"`
 }
 
 func (s GrayTrafficConfig) String() string {
@@ -388,17 +388,17 @@ func (s *CloudPlatform) SetPassword(v string) *CloudPlatform {
 // 发布概览信息
 type ArrangementInfo struct {
 	// 类型
-	ArrangementType *string `json:"arrangement_type,omitempty" xml:"arrangement_type,omitempty"`
+	ArrangementType *string `json:"arrangement_type,omitempty" xml:"arrangement_type,omitempty" require:"true"`
 	// 环境变量
-	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" type:"Repeated"`
+	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" require:"true" type:"Repeated"`
 	// 发布概览名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 发布进程ID
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// 环境 ID
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// 策略
-	OpsActionPolicies []*OpsActionPolicy `json:"ops_action_policies,omitempty" xml:"ops_action_policies,omitempty" type:"Repeated"`
+	OpsActionPolicies []*OpsActionPolicy `json:"ops_action_policies,omitempty" xml:"ops_action_policies,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ArrangementInfo) String() string {
@@ -442,27 +442,27 @@ func (s *ArrangementInfo) SetOpsActionPolicies(v []*OpsActionPolicy) *Arrangemen
 // 任务执行进度
 type TaskExecutionProgress struct {
 	// 任务名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 显示名
-	ShowName *string `json:"show_name,omitempty" xml:"show_name,omitempty"`
+	ShowName *string `json:"show_name,omitempty" xml:"show_name,omitempty" require:"true"`
 	// 业务类型
-	BusinessEntityCode *string `json:"business_entity_code,omitempty" xml:"business_entity_code,omitempty"`
+	BusinessEntityCode *string `json:"business_entity_code,omitempty" xml:"business_entity_code,omitempty" require:"true"`
 	// 错误代码
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 执行次数
-	ExecutionCount *string `json:"execution_count,omitempty" xml:"execution_count,omitempty"`
+	ExecutionCount *string `json:"execution_count,omitempty" xml:"execution_count,omitempty" require:"true"`
 	// 详细信息
-	DetailMsg *string `json:"detail_msg,omitempty" xml:"detail_msg,omitempty"`
+	DetailMsg *string `json:"detail_msg,omitempty" xml:"detail_msg,omitempty" require:"true"`
 	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 是否可独立执行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s TaskExecutionProgress) String() string {
@@ -531,23 +531,23 @@ func (s *TaskExecutionProgress) SetId(v string) *TaskExecutionProgress {
 // ResourceGroupExecutionProgress
 type ResourceGroupExecutionProgress struct {
 	// finished_time
-	FinishedTime *bool `json:"finished_time,omitempty" xml:"finished_time,omitempty"`
+	FinishedTime *bool `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// paas_id
-	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty"`
+	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty" require:"true"`
 	// resource_count
-	ResourceCount *int64 `json:"resource_count,omitempty" xml:"resource_count,omitempty"`
+	ResourceCount *int64 `json:"resource_count,omitempty" xml:"resource_count,omitempty" require:"true"`
 	// resource_states
-	ResourceStates []*Pair `json:"resource_states,omitempty" xml:"resource_states,omitempty" type:"Repeated"`
+	ResourceStates []*Pair `json:"resource_states,omitempty" xml:"resource_states,omitempty" require:"true" type:"Repeated"`
 	// standalone_executable
 	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
 	// started_time
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// refer_key
-	ReferKey *string `json:"refer_key,omitempty" xml:"refer_key,omitempty"`
+	ReferKey *string `json:"refer_key,omitempty" xml:"refer_key,omitempty" require:"true"`
 }
 
 func (s ResourceGroupExecutionProgress) String() string {
@@ -677,7 +677,7 @@ type OpsApplication struct {
 	//
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// APPLICATION和APP_SERVICE。设置为APPLICATION表示该实例描述对象为应用; APP_SERVICE表示该实例描述对象为应用服务。
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s OpsApplication) String() string {
@@ -781,13 +781,13 @@ func (s *CellView) SetWorkspaceGroupId(v string) *CellView {
 // SLB 执行进度
 type SlbExecutionProgress struct {
 	// 进度 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 进度名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 挂载权重
-	MountWeights []*Pair `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" type:"Repeated"`
+	MountWeights []*Pair `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s SlbExecutionProgress) String() string {
@@ -987,53 +987,53 @@ func (s *Region) SetModificationTime(v string) *Region {
 // 发布应用信息
 type ServiceInfo struct {
 	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 部署单元 ID 列表
-	CellIds []*string `json:"cell_ids,omitempty" xml:"cell_ids,omitempty" type:"Repeated"`
+	CellIds []*string `json:"cell_ids,omitempty" xml:"cell_ids,omitempty" require:"true" type:"Repeated"`
 	// 默认执行账号
-	DefaultExecuteAccount *string `json:"default_execute_account,omitempty" xml:"default_execute_account,omitempty"`
+	DefaultExecuteAccount *string `json:"default_execute_account,omitempty" xml:"default_execute_account,omitempty" require:"true"`
 	// 环境变量
-	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" type:"Repeated"`
+	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" require:"true" type:"Repeated"`
 	// 是否可以强制执行
-	ForceExecutable *bool `json:"force_executable,omitempty" xml:"force_executable,omitempty"`
+	ForceExecutable *bool `json:"force_executable,omitempty" xml:"force_executable,omitempty" require:"true"`
 	// 灰度规则配置
-	GrayTrafficConfigs []*GrayTrafficConfig `json:"gray_traffic_configs,omitempty" xml:"gray_traffic_configs,omitempty" type:"Repeated"`
+	GrayTrafficConfigs []*GrayTrafficConfig `json:"gray_traffic_configs,omitempty" xml:"gray_traffic_configs,omitempty" require:"true" type:"Repeated"`
 	// 分组数
-	GroupAmount *int64 `json:"group_amount,omitempty" xml:"group_amount,omitempty"`
+	GroupAmount *int64 `json:"group_amount,omitempty" xml:"group_amount,omitempty" require:"true"`
 	// 分组策略
-	GroupStrategyType *string `json:"group_strategy_type,omitempty" xml:"group_strategy_type,omitempty"`
+	GroupStrategyType *string `json:"group_strategy_type,omitempty" xml:"group_strategy_type,omitempty" require:"true"`
 	// 从缓存安装
-	InstallFromCache *bool `json:"install_from_cache,omitempty" xml:"install_from_cache,omitempty"`
+	InstallFromCache *bool `json:"install_from_cache,omitempty" xml:"install_from_cache,omitempty" require:"true"`
 	// 应用发布名
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 是否需要 beta
-	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
+	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty" require:"true"`
 	// 是否需要灰度
-	NeedGrayTraffic *bool `json:"need_gray_traffic,omitempty" xml:"need_gray_traffic,omitempty"`
+	NeedGrayTraffic *bool `json:"need_gray_traffic,omitempty" xml:"need_gray_traffic,omitempty" require:"true"`
 	// 后置任务列表
-	PostArrangementInfo []*ArrangementInfo `json:"post_arrangement_info,omitempty" xml:"post_arrangement_info,omitempty" type:"Repeated"`
+	PostArrangementInfo []*ArrangementInfo `json:"post_arrangement_info,omitempty" xml:"post_arrangement_info,omitempty" require:"true" type:"Repeated"`
 	// 前置任务列表
-	PreArrangementInfo []*ArrangementInfo `json:"pre_arrangement_info,omitempty" xml:"pre_arrangement_info,omitempty" type:"Repeated"`
+	PreArrangementInfo []*ArrangementInfo `json:"pre_arrangement_info,omitempty" xml:"pre_arrangement_info,omitempty" require:"true" type:"Repeated"`
 	// 发布概览
-	ServiceArrangement *ArrangementInfo `json:"service_arrangement,omitempty" xml:"service_arrangement,omitempty"`
+	ServiceArrangement *ArrangementInfo `json:"service_arrangement,omitempty" xml:"service_arrangement,omitempty" require:"true"`
 	// 发布应用 ID
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// 静态资源下载链接
-	StaticResourceDownloadUrl *string `json:"static_resource_download_url,omitempty" xml:"static_resource_download_url,omitempty"`
+	StaticResourceDownloadUrl *string `json:"static_resource_download_url,omitempty" xml:"static_resource_download_url,omitempty" require:"true"`
 	// 静态资源目标文件
-	StaticResourceTargetFile *string `json:"static_resource_target_file,omitempty" xml:"static_resource_target_file,omitempty"`
+	StaticResourceTargetFile *string `json:"static_resource_target_file,omitempty" xml:"static_resource_target_file,omitempty" require:"true"`
 	// 类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 版本
-	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
 	// 环境 ID
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// update_buildpack_version
-	UpdateBuildpackVersion *string `json:"update_buildpack_version,omitempty" xml:"update_buildpack_version,omitempty"`
+	UpdateBuildpackVersion *string `json:"update_buildpack_version,omitempty" xml:"update_buildpack_version,omitempty" require:"true"`
 	// update_buildpack_id
-	UpdateBuildpackId *string `json:"update_buildpack_id,omitempty" xml:"update_buildpack_id,omitempty"`
+	UpdateBuildpackId *string `json:"update_buildpack_id,omitempty" xml:"update_buildpack_id,omitempty" require:"true"`
 	// custom_params
-	CustomParams *string `json:"custom_params,omitempty" xml:"custom_params,omitempty"`
+	CustomParams *string `json:"custom_params,omitempty" xml:"custom_params,omitempty" require:"true"`
 }
 
 func (s ServiceInfo) String() string {
@@ -1480,15 +1480,15 @@ func (s *DepsDatabase) SetStorage(v int64) *DepsDatabase {
 // AppServiceExecutionProgress
 type AppServiceExecutionProgress struct {
 	// base_progress
-	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty"`
+	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty" require:"true"`
 	// group_count
-	GroupCount *int64 `json:"group_count,omitempty" xml:"group_count,omitempty"`
+	GroupCount *int64 `json:"group_count,omitempty" xml:"group_count,omitempty" require:"true"`
 	// pre_deployment_execution_progresses
-	PreDeploymentExecutionProgresses []*TaskExecutionProgress `json:"pre_deployment_execution_progresses,omitempty" xml:"pre_deployment_execution_progresses,omitempty" type:"Repeated"`
+	PreDeploymentExecutionProgresses []*TaskExecutionProgress `json:"pre_deployment_execution_progresses,omitempty" xml:"pre_deployment_execution_progresses,omitempty" require:"true" type:"Repeated"`
 	// post_deployment_execution_progresses
-	PostDeploymentExecutionProgresses []*TaskExecutionProgress `json:"post_deployment_execution_progresses,omitempty" xml:"post_deployment_execution_progresses,omitempty" type:"Repeated"`
+	PostDeploymentExecutionProgresses []*TaskExecutionProgress `json:"post_deployment_execution_progresses,omitempty" xml:"post_deployment_execution_progresses,omitempty" require:"true" type:"Repeated"`
 	// group_execution_progresses
-	GroupExecutionProgresses []*ResourceGroupExecutionProgress `json:"group_execution_progresses,omitempty" xml:"group_execution_progresses,omitempty" type:"Repeated"`
+	GroupExecutionProgresses []*ResourceGroupExecutionProgress `json:"group_execution_progresses,omitempty" xml:"group_execution_progresses,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AppServiceExecutionProgress) String() string {
@@ -1673,33 +1673,33 @@ func (s *Computer) SetDeployMode(v string) *Computer {
 // SLB 信息
 type SLBInfo struct {
 	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 机器ID
-	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty"`
+	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty" require:"true"`
 	// 端口
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty"`
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
 	// paas id
-	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty"`
+	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty" require:"true"`
 	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
 	// 虚拟服务器组 id
-	VServerGroupId *string `json:"v_server_group_id,omitempty" xml:"v_server_group_id,omitempty"`
+	VServerGroupId *string `json:"v_server_group_id,omitempty" xml:"v_server_group_id,omitempty" require:"true"`
 	// 虚拟服务器组名
-	VServerGroupName *string `json:"v_server_group_name,omitempty" xml:"v_server_group_name,omitempty"`
+	VServerGroupName *string `json:"v_server_group_name,omitempty" xml:"v_server_group_name,omitempty" require:"true"`
 	// 计算资源 ID
-	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty"`
+	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty" require:"true"`
 	// 应用 ID
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 应用服务 ID
-	AppSvcId *string `json:"app_svc_id,omitempty" xml:"app_svc_id,omitempty"`
+	AppSvcId *string `json:"app_svc_id,omitempty" xml:"app_svc_id,omitempty" require:"true"`
 	// vip 地址列表
-	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
+	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" require:"true" type:"Repeated"`
 	// 权重
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s SLBInfo) String() string {
@@ -1783,11 +1783,11 @@ func (s *SLBInfo) SetId(v string) *SLBInfo {
 // 挂载权重
 type MountWeight struct {
 	// 挂载目标 ID
-	MountTargetId *string `json:"mount_target_id,omitempty" xml:"mount_target_id,omitempty"`
+	MountTargetId *string `json:"mount_target_id,omitempty" xml:"mount_target_id,omitempty" require:"true"`
 	// 端口
-	Port *int64 `json:"port,omitempty" xml:"port,omitempty"`
+	Port *int64 `json:"port,omitempty" xml:"port,omitempty" require:"true"`
 	// 权重
-	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" maximum:"undefined" minimum:"undefined"`
+	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty" require:"true" maximum:"100" minimum:"0"`
 }
 
 func (s MountWeight) String() string {
@@ -1922,9 +1922,9 @@ func (s *UserDTO) SetMobile(v string) *UserDTO {
 // 执行指令的一个参数。
 type OpsCmdArg struct {
 	// 指令参数名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 指令参数值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
 func (s OpsCmdArg) String() string {
@@ -1948,101 +1948,101 @@ func (s *OpsCmdArg) SetValue(v string) *OpsCmdArg {
 // 机器信息
 type Machine struct {
 	// 机器名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 所属发布服务id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// 包版本
-	ServicePackageVersion *string `json:"service_package_version,omitempty" xml:"service_package_version,omitempty"`
+	ServicePackageVersion *string `json:"service_package_version,omitempty" xml:"service_package_version,omitempty" require:"true"`
 	// 应用服务分组集合 ID
-	ServiceGroupCollectionId *string `json:"service_group_collection_id,omitempty" xml:"service_group_collection_id,omitempty"`
+	ServiceGroupCollectionId *string `json:"service_group_collection_id,omitempty" xml:"service_group_collection_id,omitempty" require:"true"`
 	// 发布分组 ID
-	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty"`
+	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty" require:"true"`
 	// 概览 ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 服务类型
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty"`
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
 	// paas 服务 ID
-	PaasServiceId *string `json:"paas_service_id,omitempty" xml:"paas_service_id,omitempty"`
+	PaasServiceId *string `json:"paas_service_id,omitempty" xml:"paas_service_id,omitempty" require:"true"`
 	// paas 状态
-	PaasState *string `json:"paas_state,omitempty" xml:"paas_state,omitempty"`
+	PaasState *string `json:"paas_state,omitempty" xml:"paas_state,omitempty" require:"true"`
 	// 关联目标 ID
-	RefTargetId *string `json:"ref_target_id,omitempty" xml:"ref_target_id,omitempty"`
+	RefTargetId *string `json:"ref_target_id,omitempty" xml:"ref_target_id,omitempty" require:"true"`
 	// 目标 iaas id
-	TargetIaasId *string `json:"target_iaas_id,omitempty" xml:"target_iaas_id,omitempty"`
+	TargetIaasId *string `json:"target_iaas_id,omitempty" xml:"target_iaas_id,omitempty" require:"true"`
 	// 内网 IP
-	InnerIp *string `json:"inner_ip,omitempty" xml:"inner_ip,omitempty"`
+	InnerIp *string `json:"inner_ip,omitempty" xml:"inner_ip,omitempty" require:"true"`
 	// 公网 IP
-	PublicIp *string `json:"public_ip,omitempty" xml:"public_ip,omitempty"`
+	PublicIp *string `json:"public_ip,omitempty" xml:"public_ip,omitempty" require:"true"`
 	// 主机名
-	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty"`
+	HostName *string `json:"host_name,omitempty" xml:"host_name,omitempty" require:"true"`
 	// 主机域名
-	HostDomain *string `json:"host_domain,omitempty" xml:"host_domain,omitempty"`
+	HostDomain *string `json:"host_domain,omitempty" xml:"host_domain,omitempty" require:"true"`
 	// 安全组ID
-	SecurityDomainId *string `json:"security_domain_id,omitempty" xml:"security_domain_id,omitempty"`
+	SecurityDomainId *string `json:"security_domain_id,omitempty" xml:"security_domain_id,omitempty" require:"true"`
 	// 安全组创建人 ID
-	SecurityDomainCreatorId *string `json:"security_domain_creator_id,omitempty" xml:"security_domain_creator_id,omitempty"`
+	SecurityDomainCreatorId *string `json:"security_domain_creator_id,omitempty" xml:"security_domain_creator_id,omitempty" require:"true"`
 	// 安全组名
-	SecurityDomainName *string `json:"security_domain_name,omitempty" xml:"security_domain_name,omitempty"`
+	SecurityDomainName *string `json:"security_domain_name,omitempty" xml:"security_domain_name,omitempty" require:"true"`
 	// 默认执行账号
-	DefaultExecuteAccount *string `json:"default_execute_account,omitempty" xml:"default_execute_account,omitempty"`
+	DefaultExecuteAccount *string `json:"default_execute_account,omitempty" xml:"default_execute_account,omitempty" require:"true"`
 	// 可用区 ID
-	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty" require:"true"`
 	// 部署单元 ID
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
 	// 用户名
-	Username *string `json:"username,omitempty" xml:"username,omitempty"`
+	Username *string `json:"username,omitempty" xml:"username,omitempty" require:"true"`
 	// 加密密码
-	EncodedPwd *string `json:"encoded_pwd,omitempty" xml:"encoded_pwd,omitempty"`
+	EncodedPwd *string `json:"encoded_pwd,omitempty" xml:"encoded_pwd,omitempty" require:"true"`
 	// 加密秘钥
-	EncodedSecreyKey *string `json:"encoded_secrey_key,omitempty" xml:"encoded_secrey_key,omitempty"`
+	EncodedSecreyKey *string `json:"encoded_secrey_key,omitempty" xml:"encoded_secrey_key,omitempty" require:"true"`
 	// 公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty"`
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
 	// star manage ip
-	StarManagerIp *string `json:"star_manager_ip,omitempty" xml:"star_manager_ip,omitempty"`
+	StarManagerIp *string `json:"star_manager_ip,omitempty" xml:"star_manager_ip,omitempty" require:"true"`
 	// star manager port
-	StarManagerPort *int64 `json:"star_manager_port,omitempty" xml:"star_manager_port,omitempty"`
+	StarManagerPort *int64 `json:"star_manager_port,omitempty" xml:"star_manager_port,omitempty" require:"true"`
 	// 初始化脚本 url
-	ScriptUrl *string `json:"script_url,omitempty" xml:"script_url,omitempty"`
+	ScriptUrl *string `json:"script_url,omitempty" xml:"script_url,omitempty" require:"true"`
 	// 特殊初始化脚本 url
-	SpecialScriptUrl *string `json:"special_script_url,omitempty" xml:"special_script_url,omitempty"`
+	SpecialScriptUrl *string `json:"special_script_url,omitempty" xml:"special_script_url,omitempty" require:"true"`
 	// 代理 url
-	AgentUrl *string `json:"agent_url,omitempty" xml:"agent_url,omitempty"`
+	AgentUrl *string `json:"agent_url,omitempty" xml:"agent_url,omitempty" require:"true"`
 	// 代理设置 url
-	AgentSetupUrl *string `json:"agent_setup_url,omitempty" xml:"agent_setup_url,omitempty"`
+	AgentSetupUrl *string `json:"agent_setup_url,omitempty" xml:"agent_setup_url,omitempty" require:"true"`
 	// 机器初始 url
-	MachineInitUrl *string `json:"machine_init_url,omitempty" xml:"machine_init_url,omitempty"`
+	MachineInitUrl *string `json:"machine_init_url,omitempty" xml:"machine_init_url,omitempty" require:"true"`
 	// 特殊机器初始 url
-	SpecialMachineInitUrl *string `json:"special_machine_init_url,omitempty" xml:"special_machine_init_url,omitempty"`
+	SpecialMachineInitUrl *string `json:"special_machine_init_url,omitempty" xml:"special_machine_init_url,omitempty" require:"true"`
 	// 控制类型
-	ControlType *string `json:"control_type,omitempty" xml:"control_type,omitempty"`
+	ControlType *string `json:"control_type,omitempty" xml:"control_type,omitempty" require:"true"`
 	// 控制对象
-	ControlTarget *string `json:"control_target,omitempty" xml:"control_target,omitempty"`
+	ControlTarget *string `json:"control_target,omitempty" xml:"control_target,omitempty" require:"true"`
 	// 是否需要初始化
-	NeedInitialize *bool `json:"need_initialize,omitempty" xml:"need_initialize,omitempty"`
+	NeedInitialize *bool `json:"need_initialize,omitempty" xml:"need_initialize,omitempty" require:"true"`
 	// SLB 信息
-	SlbInfoList []*SLBInfo `json:"slb_info_list,omitempty" xml:"slb_info_list,omitempty" type:"Repeated"`
+	SlbInfoList []*SLBInfo `json:"slb_info_list,omitempty" xml:"slb_info_list,omitempty" require:"true" type:"Repeated"`
 	// 子任务 id
-	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" type:"Repeated"`
+	TaskIds []*string `json:"task_ids,omitempty" xml:"task_ids,omitempty" require:"true" type:"Repeated"`
 	// 环境变量
-	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" type:"Repeated"`
+	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" require:"true" type:"Repeated"`
 	// pd id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// 父节点 id
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty" require:"true"`
 	// 父节点类型
-	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty"`
+	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty" require:"true"`
 	// 流程节点 ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 是否可独立执行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s Machine) String() string {
@@ -2296,13 +2296,13 @@ func (s *Machine) SetId(v string) *Machine {
 // 执行失败任务节点
 type ErrorTaskExecutionNode struct {
 	// 节点 ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// 节点名
-	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty"`
+	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty" require:"true"`
 	// 错误码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 错误信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
 }
 
 func (s ErrorTaskExecutionNode) String() string {
@@ -2432,9 +2432,9 @@ func (s *AppManifest) SetUtcModified(v string) *AppManifest {
 // sidecar环境参数配置
 type SidecarParamsConfig struct {
 	// 类型：默认、透明劫持
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 环境参数内容
-	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
 }
 
 func (s SidecarParamsConfig) String() string {
@@ -2465,15 +2465,15 @@ type DeployCell struct {
 	// 蓝绿着色信息[单元化模式特有]
 	Color *string `json:"color,omitempty" xml:"color,omitempty"`
 	// 创建时间
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// cell名称，与name一样，为了兼容已有代码
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// 部署单元标识，创建之后不允许修改
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
 	// 是否灰度[单元化模式特有]
 	IsGray *bool `json:"is_gray,omitempty" xml:"is_gray,omitempty"`
 	// 部署单元名称，主要用作页面展示
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 压测权重
 	PressWeight *int64 `json:"press_weight,omitempty" xml:"press_weight,omitempty"`
 	// 部署单元类型[单元化模式特有]
@@ -2481,11 +2481,11 @@ type DeployCell struct {
 	// 默认权重[单元化模式特有]
 	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
 	// 所属工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// 所属机房名称
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
 	// cell id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s DeployCell) String() string {
@@ -2569,7 +2569,7 @@ func (s *DeployCell) SetId(v string) *DeployCell {
 // BuildCommandParams
 type BuildCommandParams struct {
 	// buildpackId
-	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
+	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty" require:"true"`
 	// description
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// key
@@ -2609,13 +2609,13 @@ func (s *BuildCommandParams) SetValue(v string) *BuildCommandParams {
 // NotificationReceiver
 type NotificationReceiver struct {
 	// config id
-	ConfigId *string `json:"config_id,omitempty" xml:"config_id,omitempty"`
+	ConfigId *string `json:"config_id,omitempty" xml:"config_id,omitempty" require:"true"`
 	// receiver
-	Receiver *string `json:"receiver,omitempty" xml:"receiver,omitempty"`
+	Receiver *string `json:"receiver,omitempty" xml:"receiver,omitempty" require:"true"`
 	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s NotificationReceiver) String() string {
@@ -2771,7 +2771,7 @@ func (s *ZoneView) SetState(v string) *ZoneView {
 // ServiceInfoGroup
 type ServiceInfoGroup struct {
 	// 发布应用列表
-	ServiceInfoList []*ServiceInfo `json:"service_info_list,omitempty" xml:"service_info_list,omitempty" type:"Repeated"`
+	ServiceInfoList []*ServiceInfo `json:"service_info_list,omitempty" xml:"service_info_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ServiceInfoGroup) String() string {
@@ -2790,7 +2790,7 @@ func (s *ServiceInfoGroup) SetServiceInfoList(v []*ServiceInfo) *ServiceInfoGrou
 // sidecar过滤条件
 type SidecarCondition struct {
 	// 支持的workspaceGroup
-	WorkspaceGroups *string `json:"workspace_groups,omitempty" xml:"workspace_groups,omitempty"`
+	WorkspaceGroups *string `json:"workspace_groups,omitempty" xml:"workspace_groups,omitempty" require:"true"`
 	// 支持的cell列表
 	Cells *string `json:"cells,omitempty" xml:"cells,omitempty"`
 }
@@ -2926,17 +2926,17 @@ func (s *BuildpackRegionRelationDetail) SetRegion(v *Region) *BuildpackRegionRel
 // 逻辑单元灾备信息
 type DisasterInfo struct {
 	// 正常容灾状态
-	DisasterRecoveryState *string `json:"disaster_recovery_state,omitempty" xml:"disaster_recovery_state,omitempty"`
+	DisasterRecoveryState *string `json:"disaster_recovery_state,omitempty" xml:"disaster_recovery_state,omitempty" require:"true"`
 	// 同城灾备单元(组)
-	LocalFailoverTarget *string `json:"local_failover_target,omitempty" xml:"local_failover_target,omitempty"`
+	LocalFailoverTarget *string `json:"local_failover_target,omitempty" xml:"local_failover_target,omitempty" require:"true"`
 	// 压测容灾状态
-	PressDisasterRecoveryState *string `json:"press_disaster_recovery_state,omitempty" xml:"press_disaster_recovery_state,omitempty"`
+	PressDisasterRecoveryState *string `json:"press_disaster_recovery_state,omitempty" xml:"press_disaster_recovery_state,omitempty" require:"true"`
 	// 异地灾备单元(组)
-	RemoteFailoverTarget *string `json:"remote_failover_target,omitempty" xml:"remote_failover_target,omitempty"`
+	RemoteFailoverTarget *string `json:"remote_failover_target,omitempty" xml:"remote_failover_target,omitempty" require:"true"`
 	// 逻辑单元&部署单元名称
-	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 	// 容灾类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s DisasterInfo) String() string {
@@ -2980,11 +2980,11 @@ func (s *DisasterInfo) SetType(v string) *DisasterInfo {
 // 应用参数配置管理-某个参数在某个 scope + scope id 中渲染后的值
 type ParamVal struct {
 	// 参数渲染后的值
-	RenderVal *string `json:"render_val,omitempty" xml:"render_val,omitempty"`
+	RenderVal *string `json:"render_val,omitempty" xml:"render_val,omitempty" require:"true"`
 	// 某个 scope_id
-	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty"`
+	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty" require:"true"`
 	// scope 类型
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 }
 
 func (s ParamVal) String() string {
@@ -3013,19 +3013,19 @@ func (s *ParamVal) SetScope(v string) *ParamVal {
 // BGReleaseExecutionProgress
 type BGReleaseExecutionProgress struct {
 	// unit_id
-	UnitId *string `json:"unit_id,omitempty" xml:"unit_id,omitempty"`
+	UnitId *string `json:"unit_id,omitempty" xml:"unit_id,omitempty" require:"true"`
 	// unit_type
-	UnitType *string `json:"unit_type,omitempty" xml:"unit_type,omitempty"`
+	UnitType *string `json:"unit_type,omitempty" xml:"unit_type,omitempty" require:"true"`
 	// resource_type
-	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty"`
+	ResourceType *string `json:"resource_type,omitempty" xml:"resource_type,omitempty" require:"true"`
 	// traffic_execution_progress_of_service
-	TrafficExecutionProgressOfService []*SlbExecutionProgress `json:"traffic_execution_progress_of_service,omitempty" xml:"traffic_execution_progress_of_service,omitempty" type:"Repeated"`
+	TrafficExecutionProgressOfService []*SlbExecutionProgress `json:"traffic_execution_progress_of_service,omitempty" xml:"traffic_execution_progress_of_service,omitempty" require:"true" type:"Repeated"`
 	// service_execution_progress_group
-	ServiceExecutionProgressGroup []*TaskExecutionProgress `json:"service_execution_progress_group,omitempty" xml:"service_execution_progress_group,omitempty" type:"Repeated"`
+	ServiceExecutionProgressGroup []*TaskExecutionProgress `json:"service_execution_progress_group,omitempty" xml:"service_execution_progress_group,omitempty" require:"true" type:"Repeated"`
 	// rollback_service_execution_progress_group
-	RollbackServiceExecutionProgressGroup []*TaskExecutionProgress `json:"rollback_service_execution_progress_group,omitempty" xml:"rollback_service_execution_progress_group,omitempty" type:"Repeated"`
+	RollbackServiceExecutionProgressGroup []*TaskExecutionProgress `json:"rollback_service_execution_progress_group,omitempty" xml:"rollback_service_execution_progress_group,omitempty" require:"true" type:"Repeated"`
 	// base_progress
-	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty"`
+	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty" require:"true"`
 }
 
 func (s BGReleaseExecutionProgress) String() string {
@@ -3086,9 +3086,9 @@ type SingleExecResult struct {
 	//                     IGNORED：已忽略；
 	//                     TIME_OUT：已超时
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 执行对象。比如一台机器的ip
-	Target *string `json:"target,omitempty" xml:"target,omitempty"`
+	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
 }
 
 func (s SingleExecResult) String() string {
@@ -3127,13 +3127,13 @@ func (s *SingleExecResult) SetTarget(v string) *SingleExecResult {
 // 虚拟服务器组挂载信息
 type VServerGroupMountInfo struct {
 	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
 	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// paas id
-	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty"`
+	PaasId *string `json:"paas_id,omitempty" xml:"paas_id,omitempty" require:"true"`
 	// 权重信息
-	MountWeights []*MountWeight `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" type:"Repeated"`
+	MountWeights []*MountWeight `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s VServerGroupMountInfo) String() string {
@@ -3167,35 +3167,35 @@ func (s *VServerGroupMountInfo) SetMountWeights(v []*MountWeight) *VServerGroupM
 // 运维进程
 type OpsProcessDefinition struct {
 	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// 指令名称
-	Instruction *string `json:"instruction,omitempty" xml:"instruction,omitempty"`
+	Instruction *string `json:"instruction,omitempty" xml:"instruction,omitempty" require:"true"`
 	// 进程名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 运维类型
-	OpsType *string `json:"ops_type,omitempty" xml:"ops_type,omitempty"`
+	OpsType *string `json:"ops_type,omitempty" xml:"ops_type,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// 类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 概览信息
-	Arrangements []*ArrangementInfo `json:"arrangements,omitempty" xml:"arrangements,omitempty" type:"Repeated"`
+	Arrangements []*ArrangementInfo `json:"arrangements,omitempty" xml:"arrangements,omitempty" require:"true" type:"Repeated"`
 	// 环境变量
-	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" type:"Repeated"`
+	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" require:"true" type:"Repeated"`
 	// 支持的状态转换列表
-	SupportedTransitions []*string `json:"supported_transitions,omitempty" xml:"supported_transitions,omitempty" type:"Repeated"`
+	SupportedTransitions []*string `json:"supported_transitions,omitempty" xml:"supported_transitions,omitempty" require:"true" type:"Repeated"`
 	// 节点ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 可独立执行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s OpsProcessDefinition) String() string {
@@ -3286,11 +3286,11 @@ type Tag struct {
 	// 可读键名
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
 	// 键名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 映射类型，可选
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 键值
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
 func (s Tag) String() string {
@@ -3332,7 +3332,7 @@ type Workspace struct {
 	// 工作空间唯一标识
 	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
 	// workspace 名称（等同于唯一标识）
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 网络类型
 	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
 	// workspace所在regionId
@@ -3420,7 +3420,7 @@ func (s *Workspace) SetType(v string) *Workspace {
 // 应用额外元数据信息
 type AppExtraInfo struct {
 	// 应用额外元数据名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 元数据类型为 TEXT, USER 类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 元数据值
@@ -3453,9 +3453,9 @@ func (s *AppExtraInfo) SetValue(v string) *AppExtraInfo {
 // 合法的运维状态
 type OpsTargetLegalStates struct {
 	// 目标类型
-	TargetType *string `json:"target_type,omitempty" xml:"target_type,omitempty"`
+	TargetType *string `json:"target_type,omitempty" xml:"target_type,omitempty" require:"true"`
 	// 合法状态
-	States []*string `json:"states,omitempty" xml:"states,omitempty" type:"Repeated"`
+	States []*string `json:"states,omitempty" xml:"states,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s OpsTargetLegalStates) String() string {
@@ -3480,14 +3480,14 @@ func (s *OpsTargetLegalStates) SetStates(v []*string) *OpsTargetLegalStates {
 type SidecarScopeDetail struct {
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一id，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// scope identity展示名称
 	ScopeIdentityDisplayName *string `json:"scope_identity_display_name,omitempty" xml:"scope_identity_display_name,omitempty"`
 	// scope对应的唯一标识符
-	ScopeIdentityName *string `json:"scope_identity_name,omitempty" xml:"scope_identity_name,omitempty"`
+	ScopeIdentityName *string `json:"scope_identity_name,omitempty" xml:"scope_identity_name,omitempty" require:"true"`
 }
 
 func (s SidecarScopeDetail) String() string {
@@ -3617,9 +3617,9 @@ func (s *BuildpackOS) SetOsBitNum(v int64) *BuildpackOS {
 // AppServiceExecutionProgressWithRollbackInfo
 type AppServiceExecutionProgressWithRollbackInfo struct {
 	// progress
-	Progress *AppServiceExecutionProgress `json:"progress,omitempty" xml:"progress,omitempty"`
+	Progress *AppServiceExecutionProgress `json:"progress,omitempty" xml:"progress,omitempty" require:"true"`
 	// rollback_progress
-	RollbackProgress *AppServiceExecutionProgress `json:"rollback_progress,omitempty" xml:"rollback_progress,omitempty"`
+	RollbackProgress *AppServiceExecutionProgress `json:"rollback_progress,omitempty" xml:"rollback_progress,omitempty" require:"true"`
 }
 
 func (s AppServiceExecutionProgressWithRollbackInfo) String() string {
@@ -3697,9 +3697,9 @@ func (s *WorkspaceView) SetRegion(v string) *WorkspaceView {
 // sidecar版本模板配置
 type SidecarTemplateConfig struct {
 	// 类型：默认、透明劫持
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 模板内容
-	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 }
 
 func (s SidecarTemplateConfig) String() string {
@@ -3833,7 +3833,7 @@ func (s *Cell) SetAppendedZoneIds(v []*string) *Cell {
 // 应用参数配置管理-模板参数定义
 type TemplateParamDef struct {
 	// 数据保密级别，L1,L2,L3
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 默认值，表达式解析结果为空时使用
 	DefaultVal *string `json:"default_val,omitempty" xml:"default_val,omitempty"`
 	// 是否已删除
@@ -3843,13 +3843,13 @@ type TemplateParamDef struct {
 	// 参数id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 版本
 	ParamVersion *int64 `json:"param_version,omitempty" xml:"param_version,omitempty"`
 	// 参数值类型，CONST/EXPR
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数值，可能是一个常量或者表达式
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 	// 创建时间
 	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 修改时间
@@ -4339,9 +4339,9 @@ func (s *OpsUnit) SetZone(v string) *OpsUnit {
 // 应用管理-当前应用的依赖关系
 type AppDepend struct {
 	// 当前应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 该应用依赖的所有应用的 id 列表字符串
-	DependAppNames *string `json:"depend_app_names,omitempty" xml:"depend_app_names,omitempty"`
+	DependAppNames *string `json:"depend_app_names,omitempty" xml:"depend_app_names,omitempty" require:"true"`
 	// 应用显示名称
 	AppDisplayName *string `json:"app_display_name,omitempty" xml:"app_display_name,omitempty"`
 }
@@ -4497,17 +4497,17 @@ type TechstackBuildpackCount struct {
 	// extra_info
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// identity
 	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
 	// modification_time
 	ModificationTime *string `json:"modification_time,omitempty" xml:"modification_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// scope
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s TechstackBuildpackCount) String() string {
@@ -4571,7 +4571,7 @@ func (s *TechstackBuildpackCount) SetStatus(v string) *TechstackBuildpackCount {
 // ServiceInfoGroupCollection
 type ServiceInfoGroupCollection struct {
 	// service info groups
-	ServiceInfoGroups *ServiceInfoGroup `json:"service_info_groups,omitempty" xml:"service_info_groups,omitempty"`
+	ServiceInfoGroups *ServiceInfoGroup `json:"service_info_groups,omitempty" xml:"service_info_groups,omitempty" require:"true"`
 }
 
 func (s ServiceInfoGroupCollection) String() string {
@@ -4590,15 +4590,15 @@ func (s *ServiceInfoGroupCollection) SetServiceInfoGroups(v *ServiceInfoGroup) *
 // NotificationConfig
 type NotificationConfig struct {
 	// 接收人列表
-	Receivers []*NotificationReceiver `json:"receivers,omitempty" xml:"receivers,omitempty" type:"Repeated"`
+	Receivers []*NotificationReceiver `json:"receivers,omitempty" xml:"receivers,omitempty" require:"true" type:"Repeated"`
 	// 类型
-	NotificationType *string `json:"notification_type,omitempty" xml:"notification_type,omitempty"`
+	NotificationType *string `json:"notification_type,omitempty" xml:"notification_type,omitempty" require:"true"`
 	// 是否开启，默认不开启
 	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 	// cloud_web_url
-	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty"`
+	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s NotificationConfig) String() string {
@@ -4637,11 +4637,11 @@ func (s *NotificationConfig) SetId(v string) *NotificationConfig {
 // 分页查询
 type PaginationQuery struct {
 	// 当前页码
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 模糊搜索
-	FuzzyName *string `json:"fuzzy_name,omitempty" xml:"fuzzy_name,omitempty"`
+	FuzzyName *string `json:"fuzzy_name,omitempty" xml:"fuzzy_name,omitempty" require:"true"`
 }
 
 func (s PaginationQuery) String() string {
@@ -4745,9 +4745,9 @@ func (s *AppTechstackRelation) SetTechstackName(v string) *AppTechstackRelation 
 // <String, Boolean> 映射
 type MapStringToBooleanEntity struct {
 	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// value
-	Value *bool `json:"value,omitempty" xml:"value,omitempty"`
+	Value *bool `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
 func (s MapStringToBooleanEntity) String() string {
@@ -4771,47 +4771,47 @@ func (s *MapStringToBooleanEntity) SetValue(v bool) *MapStringToBooleanEntity {
 // 蓝绿发布概览
 type BGReleaseArrangement struct {
 	// 活跃单元 ID
-	ActiveUnitId *string `json:"active_unit_id,omitempty" xml:"active_unit_id,omitempty"`
+	ActiveUnitId *string `json:"active_unit_id,omitempty" xml:"active_unit_id,omitempty" require:"true"`
 	// 非活跃单元 ID
-	DeactivatedUnitId *string `json:"deactivated_unit_id,omitempty" xml:"deactivated_unit_id,omitempty"`
+	DeactivatedUnitId *string `json:"deactivated_unit_id,omitempty" xml:"deactivated_unit_id,omitempty" require:"true"`
 	// 灰度进程ID
-	GrayTrafficProcessId *string `json:"gray_traffic_process_id,omitempty" xml:"gray_traffic_process_id,omitempty"`
+	GrayTrafficProcessId *string `json:"gray_traffic_process_id,omitempty" xml:"gray_traffic_process_id,omitempty" require:"true"`
 	// 回滚进程ID
-	RollbackProcessId *string `json:"rollback_process_id,omitempty" xml:"rollback_process_id,omitempty"`
+	RollbackProcessId *string `json:"rollback_process_id,omitempty" xml:"rollback_process_id,omitempty" require:"true"`
 	// 发布应用信息集合
-	ServiceInfoCollection []*ServiceInfo `json:"service_info_collection,omitempty" xml:"service_info_collection,omitempty" type:"Repeated"`
+	ServiceInfoCollection []*ServiceInfo `json:"service_info_collection,omitempty" xml:"service_info_collection,omitempty" require:"true" type:"Repeated"`
 	// 类型
-	StepType *string `json:"step_type,omitempty" xml:"step_type,omitempty"`
+	StepType *string `json:"step_type,omitempty" xml:"step_type,omitempty" require:"true"`
 	// 单元类型
-	UnitType *string `json:"unit_type,omitempty" xml:"unit_type,omitempty"`
+	UnitType *string `json:"unit_type,omitempty" xml:"unit_type,omitempty" require:"true"`
 	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 类型
-	ArrangementType *string `json:"arrangement_type,omitempty" xml:"arrangement_type,omitempty"`
+	ArrangementType *string `json:"arrangement_type,omitempty" xml:"arrangement_type,omitempty" require:"true"`
 	// 环境变量
-	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" type:"Repeated"`
+	EnvConfig []*Pair `json:"env_config,omitempty" xml:"env_config,omitempty" require:"true" type:"Repeated"`
 	// 合法状态列表
-	TargetsLegalStates []*OpsTargetLegalStates `json:"targets_legal_states,omitempty" xml:"targets_legal_states,omitempty" type:"Repeated"`
+	TargetsLegalStates []*OpsTargetLegalStates `json:"targets_legal_states,omitempty" xml:"targets_legal_states,omitempty" require:"true" type:"Repeated"`
 	// 运维进程ID
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// 父运维进程ID
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty" require:"true"`
 	// 父进程类型
-	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty"`
+	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty" require:"true"`
 	// 支持的转换类型
-	SupportedTransitions []*string `json:"supported_transitions,omitempty" xml:"supported_transitions,omitempty" type:"Repeated"`
+	SupportedTransitions []*string `json:"supported_transitions,omitempty" xml:"supported_transitions,omitempty" require:"true" type:"Repeated"`
 	// 流程节点 ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 是否可以独立运行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s BGReleaseArrangement) String() string {
@@ -4930,17 +4930,17 @@ func (s *BGReleaseArrangement) SetId(v string) *BGReleaseArrangement {
 // 应用sidecar基线配置
 type AppBaselineSidecarConfig struct {
 	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// sidecar类型
-	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
 	// 应用基线适用条件，金融云环境仅能指定workspaceGroups属性，并且只能指定一个workspaceGroup
-	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
 	// 是否开启sidecar
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty" require:"true"`
 	// sidecar版本号，金融云环境必填
 	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
 	// 应用基线id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s AppBaselineSidecarConfig) String() string {
@@ -4984,9 +4984,9 @@ func (s *AppBaselineSidecarConfig) SetId(v string) *AppBaselineSidecarConfig {
 // StateCount
 type StateCount struct {
 	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// count
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
 }
 
 func (s StateCount) String() string {
@@ -5010,15 +5010,15 @@ func (s *StateCount) SetCount(v int64) *StateCount {
 // 错误原因
 type Reason struct {
 	// content
-	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 	// visible
-	Visible *bool `json:"visible,omitempty" xml:"visible,omitempty"`
+	Visible *bool `json:"visible,omitempty" xml:"visible,omitempty" require:"true"`
 	// code
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// placeholder
-	Placeholder *string `json:"placeholder,omitempty" xml:"placeholder,omitempty"`
+	Placeholder *string `json:"placeholder,omitempty" xml:"placeholder,omitempty" require:"true"`
 	// params
-	Params []*string `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
+	Params []*string `json:"params,omitempty" xml:"params,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s Reason) String() string {
@@ -5143,13 +5143,13 @@ type AppGroup struct {
 	// 应用分组描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 应用分组ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 应用分组名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 应用分组负责人登录名
-	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
+	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty" require:"true"`
 	// 父应用分组ID
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty" require:"true"`
 	// 应用分组层级，从1开始，1代表一级分组，2代表二级分组
 	Layer *int64 `json:"layer,omitempty" xml:"layer,omitempty"`
 }
@@ -5200,9 +5200,9 @@ func (s *AppGroup) SetLayer(v int64) *AppGroup {
 // 发生增量变动的workspace信息
 type WorkspaceDeltaInfo struct {
 	// 租户名
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
 	// 环境名
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s WorkspaceDeltaInfo) String() string {
@@ -5441,21 +5441,21 @@ func (s *BuildpackDetail) SetTenantId(v string) *BuildpackDetail {
 // 应用参数配置管理-应用参数模板
 type AppConfigTemplate struct {
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 描述
 	Comment *string `json:"comment,omitempty" xml:"comment,omitempty"`
 	// 应用参数模板 id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 操作人 id
-	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
 	// 参数定义列表
-	Params []*TemplateParamDef `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
+	Params []*TemplateParamDef `json:"params,omitempty" xml:"params,omitempty" require:"true" type:"Repeated"`
 	// 参数模板发布时间
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 模板状态，DRAFT 草稿，RELEASE 已发布，发布后才会生成 version，否则为空
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 租户 id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 模板版本
 	TplVersion *string `json:"tpl_version,omitempty" xml:"tpl_version,omitempty"`
 	// 创建时间
@@ -5530,13 +5530,13 @@ func (s *AppConfigTemplate) SetModifiedTime(v string) *AppConfigTemplate {
 // AggregateExecutableProgress
 type AggregateExecutableProgress struct {
 	// base_progress
-	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty"`
+	BaseProgress *ResourceGroupExecutionProgress `json:"base_progress,omitempty" xml:"base_progress,omitempty" require:"true"`
 	// bg_release_progresses
-	BgReleaseProgresses []*BGReleaseExecutionProgress `json:"bg_release_progresses,omitempty" xml:"bg_release_progresses,omitempty" type:"Repeated"`
+	BgReleaseProgresses []*BGReleaseExecutionProgress `json:"bg_release_progresses,omitempty" xml:"bg_release_progresses,omitempty" require:"true" type:"Repeated"`
 	// app_service_progresses
-	AppServiceProgresses []*AppServiceExecutionProgressWithRollbackInfo `json:"app_service_progresses,omitempty" xml:"app_service_progresses,omitempty" type:"Repeated"`
+	AppServiceProgresses []*AppServiceExecutionProgressWithRollbackInfo `json:"app_service_progresses,omitempty" xml:"app_service_progresses,omitempty" require:"true" type:"Repeated"`
 	// common_progresses
-	CommonProgresses []*ResourceGroupExecutionProgress `json:"common_progresses,omitempty" xml:"common_progresses,omitempty" type:"Repeated"`
+	CommonProgresses []*ResourceGroupExecutionProgress `json:"common_progresses,omitempty" xml:"common_progresses,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AggregateExecutableProgress) String() string {
@@ -5666,25 +5666,25 @@ func (s *Connection) SetStatus(v string) *Connection {
 // 部署可用区
 type DeploymentZone struct {
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 显示名
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// 环境 id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// 工作空间组 id
-	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
+	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty" require:"true"`
 	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 主可用区 ID
-	MasterZoneId *string `json:"master_zone_id,omitempty" xml:"master_zone_id,omitempty"`
+	MasterZoneId *string `json:"master_zone_id,omitempty" xml:"master_zone_id,omitempty" require:"true"`
 	// 附属可用区 ID
-	AppendedZoneIds []*string `json:"appended_zone_ids,omitempty" xml:"appended_zone_ids,omitempty" type:"Repeated"`
+	AppendedZoneIds []*string `json:"appended_zone_ids,omitempty" xml:"appended_zone_ids,omitempty" require:"true" type:"Repeated"`
 	// 包含部署单元
-	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" type:"Repeated"`
+	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s DeploymentZone) String() string {
@@ -5748,7 +5748,7 @@ func (s *DeploymentZone) SetCells(v []*Cell) *DeploymentZone {
 // 应用管理-应用代码库信息
 type Repository struct {
 	// 代码库名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 代码库类型，svn或者git
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 代码库地址
@@ -5805,13 +5805,13 @@ type Sidecar struct {
 	// sidecar描述内容
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 创建时间
-	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// scope生效范围详情
-	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty"`
+	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty" require:"true"`
 }
 
 func (s Sidecar) String() string {
@@ -5854,9 +5854,9 @@ type ExecutorProgress struct {
 	// 请求 ID 列表
 	RequestIds []*string `json:"request_ids,omitempty" xml:"request_ids,omitempty" type:"Repeated"`
 	// 状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 错误信息
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
 }
 
 func (s ExecutorProgress) String() string {
@@ -6121,9 +6121,9 @@ type Application struct {
 	// 应用部署时依赖的应用名称，只允许取此次调用参数中列出的应用。不允许形成循环依赖。
 	Depends []*string `json:"depends,omitempty" xml:"depends,omitempty" type:"Repeated"`
 	// 执行部署操作的目标应用名称，应用名称最大60个UTF-8字符
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 执行部署操作的目标应用服务名称，应用服务名称最大60个UTF-8字符
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
 	// 执行部署操作的目标应用版本。如果某个应用未指定版本，则使用最新版本部署。
 	Version *string `json:"version,omitempty" xml:"version,omitempty"`
 	// 自定义参数 jsonStr Map<String,List<String>>
@@ -6166,31 +6166,31 @@ func (s *Application) SetCustomParamsMap(v string) *Application {
 // OpsTaskExecutionDetail
 type OpsTaskExecutionDetail struct {
 	// task_id
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// request_token
-	RequestToken *string `json:"request_token,omitempty" xml:"request_token,omitempty"`
+	RequestToken *string `json:"request_token,omitempty" xml:"request_token,omitempty" require:"true"`
 	// node_id
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// request_id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// execution_count
-	ExecutionCount *int64 `json:"execution_count,omitempty" xml:"execution_count,omitempty"`
+	ExecutionCount *int64 `json:"execution_count,omitempty" xml:"execution_count,omitempty" require:"true"`
 	// executionState
-	ExecutionState *string `json:"execution_state,omitempty" xml:"execution_state,omitempty"`
+	ExecutionState *string `json:"execution_state,omitempty" xml:"execution_state,omitempty" require:"true"`
 	// target_id
-	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty"`
+	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty" require:"true"`
 	// error_code
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
 	// result_msg
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
 	// startedTime
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// finished_time
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// standalone_executable
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s OpsTaskExecutionDetail) String() string {
@@ -6283,7 +6283,7 @@ type CmdExecResult struct {
 	//                     IGNORED：已忽略；
 	//                     TIME_OUT：已超时
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s CmdExecResult) String() string {
@@ -6322,17 +6322,17 @@ func (s *CmdExecResult) SetStatus(v string) *CmdExecResult {
 // SLB 挂载信息
 type SLBMountInfo struct {
 	// iaas id
-	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
+	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty" require:"true"`
 	// slb id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// SLB 名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// vip 地址
-	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
+	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" require:"true" type:"Repeated"`
 	// 挂载权重
-	MountWeights []*MountWeight `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" type:"Repeated"`
+	MountWeights []*MountWeight `json:"mount_weights,omitempty" xml:"mount_weights,omitempty" require:"true" type:"Repeated"`
 	// 虚拟服务器组挂载信息
-	VServerGroupMountInfoList []*VServerGroupMountInfo `json:"v_server_group_mount_info_list,omitempty" xml:"v_server_group_mount_info_list,omitempty" type:"Repeated"`
+	VServerGroupMountInfoList []*VServerGroupMountInfo `json:"v_server_group_mount_info_list,omitempty" xml:"v_server_group_mount_info_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s SLBMountInfo) String() string {
@@ -6423,11 +6423,11 @@ func (s *BuildpackParam) SetDescription(v string) *BuildpackParam {
 // 应用管理-应用服务计数
 type AppServiceCount struct {
 	// 经典容器服务数量
-	ClassicCount *int64 `json:"classic_count,omitempty" xml:"classic_count,omitempty"`
+	ClassicCount *int64 `json:"classic_count,omitempty" xml:"classic_count,omitempty" require:"true"`
 	// 容器应用服务数量
-	ContainerCount *int64 `json:"container_count,omitempty" xml:"container_count,omitempty"`
+	ContainerCount *int64 `json:"container_count,omitempty" xml:"container_count,omitempty" require:"true"`
 	// 无服务器应用服务数
-	ServerlessCount *int64 `json:"serverless_count,omitempty" xml:"serverless_count,omitempty"`
+	ServerlessCount *int64 `json:"serverless_count,omitempty" xml:"serverless_count,omitempty" require:"true"`
 }
 
 func (s AppServiceCount) String() string {
@@ -6592,7 +6592,7 @@ type OpsCmd struct {
 	// 失败重试次数
 	RetryTimes *int `json:"retry_times,omitempty" xml:"retry_times,omitempty"`
 	// 指令模板ID
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
 	// 单次执行的超时时间，单位为秒
 	TimeOut *int `json:"time_out,omitempty" xml:"time_out,omitempty"`
 }
@@ -6633,33 +6633,33 @@ func (s *OpsCmd) SetTimeOut(v int) *OpsCmd {
 // OpsTask
 type OpsTask struct {
 	// parent_group_id
-	ParentGroupId *string `json:"parent_group_id,omitempty" xml:"parent_group_id,omitempty"`
+	ParentGroupId *string `json:"parent_group_id,omitempty" xml:"parent_group_id,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// arrangement_id
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// action_handler_code
-	ActionHandlerCode *string `json:"action_handler_code,omitempty" xml:"action_handler_code,omitempty"`
+	ActionHandlerCode *string `json:"action_handler_code,omitempty" xml:"action_handler_code,omitempty" require:"true"`
 	// max_retry_attempts
-	MaxRetryAttempts *int64 `json:"max_retry_attempts,omitempty" xml:"max_retry_attempts,omitempty"`
+	MaxRetryAttempts *int64 `json:"max_retry_attempts,omitempty" xml:"max_retry_attempts,omitempty" require:"true"`
 	// context
-	Context []*Pair `json:"context,omitempty" xml:"context,omitempty" type:"Repeated"`
+	Context []*Pair `json:"context,omitempty" xml:"context,omitempty" require:"true" type:"Repeated"`
 	// process_definition_id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// parent_id
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty" require:"true"`
 	// parent_entity_type
-	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty"`
+	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty" require:"true"`
 	// state
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// started_time
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// finished_time
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// standalone_executable
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s OpsTask) String() string {
@@ -6743,17 +6743,17 @@ func (s *OpsTask) SetId(v string) *OpsTask {
 // 应用参数配置管理-某个参数在不同环境中渲染后的值
 type RenderParam struct {
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 参数值，可能是一个常量或者表达式
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 	// 参数值类型，CONST/EXPR
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 数据保密级别，L1,L2,L3
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 参数渲染后的值
-	RenderVals []*ParamVal `json:"render_vals,omitempty" xml:"render_vals,omitempty" type:"Repeated"`
+	RenderVals []*ParamVal `json:"render_vals,omitempty" xml:"render_vals,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s RenderParam) String() string {
@@ -6982,11 +6982,11 @@ func (s *AppServiceEnvParam) SetWorkspaceId(v string) *AppServiceEnvParam {
 // 角色信息
 type Role struct {
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 }
 
 func (s Role) String() string {
@@ -7029,7 +7029,7 @@ type BuildpackAppService struct {
 	// extendProperties
 	ExtendProperties *string `json:"extend_properties,omitempty" xml:"extend_properties,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// isDefault
 	IsDefault *bool `json:"is_default,omitempty" xml:"is_default,omitempty"`
 	// isService
@@ -7174,11 +7174,11 @@ func (s *BuildpackAppService) SetWorkspaceId(v string) *BuildpackAppService {
 // 应用管理-当前 workspace 的部署图/拓扑图
 type DeployView struct {
 	// 当前 workspace 下的所有应用服务
-	WorkspaceAppServices []*AppServiceEntity `json:"workspace_app_services,omitempty" xml:"workspace_app_services,omitempty" type:"Repeated"`
+	WorkspaceAppServices []*AppServiceEntity `json:"workspace_app_services,omitempty" xml:"workspace_app_services,omitempty" require:"true" type:"Repeated"`
 	// workspace 显示名称
-	WorkspaceDisplayName *string `json:"workspace_display_name,omitempty" xml:"workspace_display_name,omitempty"`
+	WorkspaceDisplayName *string `json:"workspace_display_name,omitempty" xml:"workspace_display_name,omitempty" require:"true"`
 	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// workspace 名称
 	WorkspaceName *string `json:"workspace_name,omitempty" xml:"workspace_name,omitempty"`
 }
@@ -7216,19 +7216,19 @@ type SidecarRule struct {
 	// sidecar规则描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 创建时间
-	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 版本实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// 规则优先级
-	Level *int64 `json:"level,omitempty" xml:"level,omitempty"`
+	Level *int64 `json:"level,omitempty" xml:"level,omitempty" require:"true"`
 	// scope生效范围详情
-	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty"`
+	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 	// 规则状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
 	//
 	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
@@ -7359,29 +7359,29 @@ func (s *TaskResult) SetTargetId(v string) *TaskResult {
 // 应用参数配置管理-应用参数
 type AppParam struct {
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 创建时间
 	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 数据保密等级
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 应用参数 id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 修改时间
 	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 版本
 	ParamVersion *int64 `json:"param_version,omitempty" xml:"param_version,omitempty"`
 	// 该参数属于哪个 scope
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// 该参数在该 scope 中的 id
-	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty"`
+	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty" require:"true"`
 	// 租户 id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 参数类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数值
 	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
@@ -7462,38 +7462,38 @@ func (s *AppParam) SetValue(v string) *AppParam {
 // sidecar版本实例
 type SidecarVersionInstance struct {
 	// 版本实例描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// 创建时间
-	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 版本实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// 环境参数模板
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
 	// sidecar参数配置
 	ParamsConfigs []*SidecarParamsConfig `json:"params_configs,omitempty" xml:"params_configs,omitempty" type:"Repeated"`
 	// sidecar版本发布说明
-	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty"`
+	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty" require:"true"`
 	// scope生效范围详情
-	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty"`
+	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本id
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 	// 版本实例状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
 	//
 	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
 	// sidecar版本模板
-	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 	// sidecar模板配置
-	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" type:"Repeated"`
+	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s SidecarVersionInstance) String() string {
@@ -7695,7 +7695,7 @@ type RegionMeta struct {
 	// region包含的所有zone id列表
 	ZoneIds []*string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty" type:"Repeated"`
 	// region state.
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 }
 
 func (s RegionMeta) String() string {
@@ -7791,9 +7791,9 @@ func (s *WorkspaceGroup) SetWorkspaces(v []*string) *WorkspaceGroup {
 // 聚合任务执行进度
 type AggregatedTaskExecutionProgress struct {
 	// 错误节点信息
-	ErrorTaskExecutionNodes []*ErrorTaskExecutionNode `json:"error_task_execution_nodes,omitempty" xml:"error_task_execution_nodes,omitempty" type:"Repeated"`
+	ErrorTaskExecutionNodes []*ErrorTaskExecutionNode `json:"error_task_execution_nodes,omitempty" xml:"error_task_execution_nodes,omitempty" require:"true" type:"Repeated"`
 	// 任务执行进度
-	TaskExecutionProgress *TaskExecutionProgress `json:"task_execution_progress,omitempty" xml:"task_execution_progress,omitempty"`
+	TaskExecutionProgress *TaskExecutionProgress `json:"task_execution_progress,omitempty" xml:"task_execution_progress,omitempty" require:"true"`
 }
 
 func (s AggregatedTaskExecutionProgress) String() string {
@@ -7969,23 +7969,23 @@ func (s *OpsPlan) SetTimeSeriesId(v string) *OpsPlan {
 // 逻辑单元
 type CellGroup struct {
 	// 包含部署单元列表
-	Cells []*DeployCell `json:"cells,omitempty" xml:"cells,omitempty" type:"Repeated"`
+	Cells []*DeployCell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
 	// 机房名称
 	Datacenter *string `json:"datacenter,omitempty" xml:"datacenter,omitempty"`
 	// 默认全局域
 	DefaultGzone *string `json:"default_gzone,omitempty" xml:"default_gzone,omitempty"`
 	// 逻辑单元灾备信息
-	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" type:"Repeated"`
+	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" require:"true" type:"Repeated"`
 	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 逻辑单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// 所属地域：CZone Group 必填
 	Region *string `json:"region,omitempty" xml:"region,omitempty"`
 	// 逻辑单元类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s CellGroup) String() string {
@@ -8194,9 +8194,9 @@ func (s *RegionView) SetZones(v []*ZoneView) *RegionView {
 // 计算资源与Cell的关系信息
 type ComputerCell struct {
 	// 部署单元唯一标识
-	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty"`
+	CellId *string `json:"cell_id,omitempty" xml:"cell_id,omitempty" require:"true"`
 	// 计算资源唯一标识
-	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty"`
+	ComputerId *string `json:"computer_id,omitempty" xml:"computer_id,omitempty" require:"true"`
 }
 
 func (s ComputerCell) String() string {
@@ -8224,15 +8224,15 @@ type CmdTemplate struct {
 	// 指令模板内容，可以为一个简单命令，也可是一个自定义脚本
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// 指令模板创建者，通常为改用户注册蚂蚁金融云的email
-	Creator *string `json:"creator,omitempty" xml:"creator,omitempty"`
+	Creator *string `json:"creator,omitempty" xml:"creator,omitempty" require:"true"`
 	// 指令模板描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 在机器上执行该指令的账号，比如：root, admin
 	ExecuteAccount *string `json:"execute_account,omitempty" xml:"execute_account,omitempty"`
 	// 指令模板ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 指令名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 失败重试的间隔，单位为秒
 	RetryInterval *int `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
 	// 失败重试次数
@@ -8242,7 +8242,7 @@ type CmdTemplate struct {
 	// 模板类型。目前取值列表：
 	//                     SIMPLE_COMMAND：简单指令类型；
 	//                     CUSTOM_SHELL_SCRIPT：用户自定义shell脚本
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s CmdTemplate) String() string {
@@ -8393,15 +8393,15 @@ func (s *AppPackageListView) SetAppStatus(v string) *AppPackageListView {
 // 重试信息
 type RetryInfo struct {
 	// action
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
 	// check_interval
-	CheckInterval *int64 `json:"check_interval,omitempty" xml:"check_interval,omitempty"`
+	CheckInterval *int64 `json:"check_interval,omitempty" xml:"check_interval,omitempty" require:"true"`
 	// retry_failed_only
-	RetryFailedOnly *bool `json:"retry_failed_only,omitempty" xml:"retry_failed_only,omitempty"`
+	RetryFailedOnly *bool `json:"retry_failed_only,omitempty" xml:"retry_failed_only,omitempty" require:"true"`
 	// retry_times
-	RetryTimes *int64 `json:"retry_times,omitempty" xml:"retry_times,omitempty"`
+	RetryTimes *int64 `json:"retry_times,omitempty" xml:"retry_times,omitempty" require:"true"`
 	// timeout
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s RetryInfo) String() string {
@@ -8440,13 +8440,13 @@ func (s *RetryInfo) SetTimeout(v int64) *RetryInfo {
 // DeploymentCell
 type DeploymentCell struct {
 	// name
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 部署单元 id
-	CellIds []*string `json:"cell_ids,omitempty" xml:"cell_ids,omitempty" type:"Repeated"`
+	CellIds []*string `json:"cell_ids,omitempty" xml:"cell_ids,omitempty" require:"true" type:"Repeated"`
 	// description
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s DeploymentCell) String() string {
@@ -8482,9 +8482,9 @@ type ApplicationInfo struct {
 	// 应用别名
 	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
 	// 应用名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用额外元数据信息
-	AppExtraInfos []*AppExtraInfo `json:"app_extra_infos,omitempty" xml:"app_extra_infos,omitempty" type:"Repeated"`
+	AppExtraInfos []*AppExtraInfo `json:"app_extra_infos,omitempty" xml:"app_extra_infos,omitempty" require:"true" type:"Repeated"`
 	// 应用所属分组名
 	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
 	// 应用等级名称
@@ -8602,7 +8602,7 @@ type DynamicQuery struct {
 	// 分页规则-pageSize
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 具体的查询条件字符串
-	Query *string `json:"query,omitempty" xml:"query,omitempty"`
+	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
 	// 查询结果的排序规则
 	Sort *string `json:"sort,omitempty" xml:"sort,omitempty"`
 }
@@ -8782,9 +8782,9 @@ func (s *App) SetOwnerId(v string) *App {
 // 应用等级
 type AppLevel struct {
 	// 应用等级ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 应用等级名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 应用等级负责人登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 }
@@ -8953,17 +8953,17 @@ func (s *BuildpackByAppV) SetUtcModified(v string) *BuildpackByAppV {
 // 应用单元资源统计
 type AppUnitResource struct {
 	// 应用 ID
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 单元id
-	UnitId *string `json:"unit_id,omitempty" xml:"unit_id,omitempty"`
+	UnitId *string `json:"unit_id,omitempty" xml:"unit_id,omitempty" require:"true"`
 	// 机器数
-	MachineCount *int64 `json:"machine_count,omitempty" xml:"machine_count,omitempty"`
+	MachineCount *int64 `json:"machine_count,omitempty" xml:"machine_count,omitempty" require:"true"`
 	// 已挂载机器数
-	MountedMachineCount *int64 `json:"mounted_machine_count,omitempty" xml:"mounted_machine_count,omitempty"`
+	MountedMachineCount *int64 `json:"mounted_machine_count,omitempty" xml:"mounted_machine_count,omitempty" require:"true"`
 	// 负载均衡数
-	SlbCount *int64 `json:"slb_count,omitempty" xml:"slb_count,omitempty"`
+	SlbCount *int64 `json:"slb_count,omitempty" xml:"slb_count,omitempty" require:"true"`
 	// 负载均衡权重
-	SlbWeight *int64 `json:"slb_weight,omitempty" xml:"slb_weight,omitempty"`
+	SlbWeight *int64 `json:"slb_weight,omitempty" xml:"slb_weight,omitempty" require:"true"`
 }
 
 func (s AppUnitResource) String() string {
@@ -9061,47 +9061,47 @@ func (s *WorkspaceGroupView) SetWorkspaces(v []*WorkspaceView) *WorkspaceGroupVi
 // 机器分组
 type MachineGroup struct {
 	// 机器名
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 所属发布服务 ID
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// 所属发布服务分组 ID
-	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty"`
+	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty" require:"true"`
 	// 发布服务分组集合 ID
-	ServiceGroupCollectionId *string `json:"service_group_collection_id,omitempty" xml:"service_group_collection_id,omitempty"`
+	ServiceGroupCollectionId *string `json:"service_group_collection_id,omitempty" xml:"service_group_collection_id,omitempty" require:"true"`
 	// 概览 ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 服务类型
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty"`
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
 	// paas 服务 ID
-	PaasServiceId *string `json:"paas_service_id,omitempty" xml:"paas_service_id,omitempty"`
+	PaasServiceId *string `json:"paas_service_id,omitempty" xml:"paas_service_id,omitempty" require:"true"`
 	// 是否 beta 分组
-	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
+	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty" require:"true"`
 	// 是否需要确认
-	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty" require:"true"`
 	// 是否需要分组预确认
-	NeedReserve *bool `json:"need_reserve,omitempty" xml:"need_reserve,omitempty"`
+	NeedReserve *bool `json:"need_reserve,omitempty" xml:"need_reserve,omitempty" require:"true"`
 	// 是否需要引流确认
-	NeedConfirmTraffic *bool `json:"need_confirm_traffic,omitempty" xml:"need_confirm_traffic,omitempty"`
+	NeedConfirmTraffic *bool `json:"need_confirm_traffic,omitempty" xml:"need_confirm_traffic,omitempty" require:"true"`
 	// 机器信息组
-	Machines []*Machine `json:"machines,omitempty" xml:"machines,omitempty" type:"Repeated"`
+	Machines []*Machine `json:"machines,omitempty" xml:"machines,omitempty" require:"true" type:"Repeated"`
 	// pd id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// 父节点 ID
-	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
+	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty" require:"true"`
 	// 父节点类型
-	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty"`
+	ParentEntityType *string `json:"parent_entity_type,omitempty" xml:"parent_entity_type,omitempty" require:"true"`
 	// 流程节点 ID
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// 状态
-	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 开始时间
-	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartedTime *string `json:"started_time,omitempty" xml:"started_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 结束时间
-	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	FinishedTime *string `json:"finished_time,omitempty" xml:"finished_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 是否可以独立执行
-	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty"`
+	StandaloneExecutable *bool `json:"standalone_executable,omitempty" xml:"standalone_executable,omitempty" require:"true"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s MachineGroup) String() string {
@@ -9307,17 +9307,17 @@ func (s *OpsGroup) SetUnits(v []*OpsUnit) *OpsGroup {
 // 回滚信息
 type RollbackInfo struct {
 	// group_amount
-	GroupAmount *int64 `json:"group_amount,omitempty" xml:"group_amount,omitempty"`
+	GroupAmount *int64 `json:"group_amount,omitempty" xml:"group_amount,omitempty" require:"true"`
 	// group_strategy
-	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty"`
+	GroupStrategy *string `json:"group_strategy,omitempty" xml:"group_strategy,omitempty" require:"true"`
 	// reason
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 	// sub_entities
-	SubEntities []*string `json:"sub_entities,omitempty" xml:"sub_entities,omitempty" type:"Repeated"`
+	SubEntities []*string `json:"sub_entities,omitempty" xml:"sub_entities,omitempty" require:"true" type:"Repeated"`
 	// target_id
-	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty"`
+	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty" require:"true"`
 	// target_version
-	TargetVersion *string `json:"target_version,omitempty" xml:"target_version,omitempty"`
+	TargetVersion *string `json:"target_version,omitempty" xml:"target_version,omitempty" require:"true"`
 	// need_beta_group
 	NeedBetaGroup *bool `json:"need_beta_group,omitempty" xml:"need_beta_group,omitempty"`
 	// env_config
@@ -9391,23 +9391,23 @@ type GlobalParam struct {
 	// 创建时间
 	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 数据保密等级
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 全局参数 id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 修改时间
 	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 版本
 	ParamVersion *int64 `json:"param_version,omitempty" xml:"param_version,omitempty"`
 	// 该参数属于哪个 scope
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// 该参数在该 scope 中的 id
-	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty"`
+	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty" require:"true"`
 	// 参数值类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数值
 	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
@@ -9478,11 +9478,11 @@ func (s *GlobalParam) SetValue(v string) *GlobalParam {
 // 发布单信息
 type OpsDeployment struct {
 	// 此部署操作中所有被操作的应用（服务）详情，以操作链的形式体现
-	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" type:"Repeated"`
+	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" require:"true" type:"Repeated"`
 	// 部署操作执行者
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 	//
 	//
 	//     部署单状态。取值列表：
@@ -9496,9 +9496,9 @@ type OpsDeployment struct {
 	//     CANCELED：已取消
 	//
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 部署单标题。长度不超过50个UTF-8字符
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 }
 
 func (s OpsDeployment) String() string {
@@ -9537,27 +9537,27 @@ func (s *OpsDeployment) SetTitle(v string) *OpsDeployment {
 // 工作空间组详细信息。
 type WorkspaceGroupInfo struct {
 	// 创建时间。
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 工作空间组显示名称。
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// 域名后缀。
-	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty"`
+	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty" require:"true"`
 	// 工作空间组id。
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 主工作空间id。
-	MasterWorkspaceId *string `json:"master_workspace_id,omitempty" xml:"master_workspace_id,omitempty"`
+	MasterWorkspaceId *string `json:"master_workspace_id,omitempty" xml:"master_workspace_id,omitempty" require:"true"`
 	// 主工作空间名称。
-	MasterWorkspaceIdentity *string `json:"master_workspace_identity,omitempty" xml:"master_workspace_identity,omitempty"`
+	MasterWorkspaceIdentity *string `json:"master_workspace_identity,omitempty" xml:"master_workspace_identity,omitempty" require:"true"`
 	// 修改时间。
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 工作空间组唯一标识。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 发布模式。
-	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty"`
+	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty" require:"true"`
 	// the belonging tenant name.
-	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
 	// 包含工作空间列表。
-	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
+	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
 	// workspace name
 	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
 }
@@ -9751,31 +9751,31 @@ type SidecarReleaseVersion struct {
 	// sidecar版本描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 创建时间
-	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreated *string `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// release note
 	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty"`
 	// scope生效范围详情
-	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty"`
+	ScopeDetail *SidecarScopeDetail `json:"scope_detail,omitempty" xml:"scope_detail,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本id
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// 版本状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
 	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
 	// sidecar模板内容
-	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 	// sidecar模板配置
-	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" type:"Repeated"`
+	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" require:"true" type:"Repeated"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 版本周期：alpha/beta/release
-	VersionPeriod *string `json:"version_period,omitempty" xml:"version_period,omitempty"`
+	VersionPeriod *string `json:"version_period,omitempty" xml:"version_period,omitempty" require:"true"`
 }
 
 func (s SidecarReleaseVersion) String() string {
@@ -9859,13 +9859,13 @@ func (s *SidecarReleaseVersion) SetVersionPeriod(v string) *SidecarReleaseVersio
 // Operator
 type Operator struct {
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// login_name
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
 	// email
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
 	// nick_name
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty" require:"true"`
 }
 
 func (s Operator) String() string {
@@ -9898,20 +9898,21 @@ func (s *Operator) SetNickName(v string) *Operator {
 
 type CreateApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用别称。最大60个UTF-8字符
 	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
 	// 创建的应用名称。最大60个UTF-8字符
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 技术栈架构版本，默认使用BUILDPACK_V1，取值列表：BUILDPACK_V1、BUILDPACK_V2
 	BuildpackArch *string `json:"buildpack_arch,omitempty" xml:"buildpack_arch,omitempty"`
 	// 应用使用的技术栈名称
-	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty" require:"true"`
 	// 应用使用的技术栈版本
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty" require:"true"`
 	// 应用描述。最大200个UTF-8字符
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 应用负责人登录名
-	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
+	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty" require:"true"`
 	// 应用发布类型，默认不填入表示包发布，支持 mixed,image,workload
 	DeployType *string `json:"deploy_type,omitempty" xml:"deploy_type,omitempty"`
 	// 是否允许公网访问
@@ -9928,6 +9929,11 @@ func (s CreateApplicationRequest) GoString() string {
 
 func (s *CreateApplicationRequest) SetAuthToken(v string) *CreateApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateApplicationRequest) SetTenant(v string) *CreateApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10007,10 +10013,11 @@ func (s *CreateApplicationResponse) SetResultMsg(v string) *CreateApplicationRes
 
 type CreateApplicationServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用使用的技术栈版本
-	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty" require:"true"`
 	// 部署单元paas id列表
 	CellIds []*string `json:"cell_ids,omitempty" xml:"cell_ids,omitempty" type:"Repeated"`
 	// 描述
@@ -10018,10 +10025,8 @@ type CreateApplicationServiceRequest struct {
 	// 负责人登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 	// 应用服务实例名称
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
-	// 租户名称
-	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	Workspace   *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateApplicationServiceRequest) String() string {
@@ -10034,6 +10039,11 @@ func (s CreateApplicationServiceRequest) GoString() string {
 
 func (s *CreateApplicationServiceRequest) SetAuthToken(v string) *CreateApplicationServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateApplicationServiceRequest) SetTenant(v string) *CreateApplicationServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10064,11 +10074,6 @@ func (s *CreateApplicationServiceRequest) SetOwnerLoginName(v string) *CreateApp
 
 func (s *CreateApplicationServiceRequest) SetServiceName(v string) *CreateApplicationServiceRequest {
 	s.ServiceName = &v
-	return s
-}
-
-func (s *CreateApplicationServiceRequest) SetTenant(v string) *CreateApplicationServiceRequest {
-	s.Tenant = &v
 	return s
 }
 
@@ -10115,8 +10120,7 @@ func (s *CreateApplicationServiceResponse) SetId(v string) *CreateApplicationSer
 
 type EnabledApplicationServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s EnabledApplicationServiceRequest) String() string {
@@ -10175,8 +10179,9 @@ func (s *EnabledApplicationServiceResponse) SetIsEnabled(v bool) *EnabledApplica
 
 type GetApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用名称。最大60个UTF-8字符
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 查询结果是否返回应用额外元数据信息。默认为 false
 	QueryExtraInfo *bool `json:"query_extra_info,omitempty" xml:"query_extra_info,omitempty"`
 }
@@ -10191,6 +10196,11 @@ func (s GetApplicationRequest) GoString() string {
 
 func (s *GetApplicationRequest) SetAuthToken(v string) *GetApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationRequest) SetTenant(v string) *GetApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10323,11 +10333,12 @@ func (s *GetApplicationResponse) SetGlobalName(v string) *GetApplicationResponse
 
 type GetApplicationServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用名称。最大60个UTF-8字符
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 待查询服务实例名称
 	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
-	Workspace   *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace   *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetApplicationServiceRequest) String() string {
@@ -10340,6 +10351,11 @@ func (s GetApplicationServiceRequest) GoString() string {
 
 func (s *GetApplicationServiceRequest) SetAuthToken(v string) *GetApplicationServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationServiceRequest) SetTenant(v string) *GetApplicationServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10461,6 +10477,7 @@ func (s *GetApplicationServiceResponse) SetWorkspace(v string) *GetApplicationSe
 
 type QueryApplicationServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用名称。最大60个UTF-8字符
 	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
 	// 当前页码，默认为1
@@ -10481,6 +10498,11 @@ func (s QueryApplicationServiceRequest) GoString() string {
 
 func (s *QueryApplicationServiceRequest) SetAuthToken(v string) *QueryApplicationServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationServiceRequest) SetTenant(v string) *QueryApplicationServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10509,13 +10531,13 @@ type QueryApplicationServiceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 服务实例列表
-	Services []*AppService `json:"services,omitempty" xml:"services,omitempty" type:"Repeated"`
+	Services []*AppService `json:"services,omitempty" xml:"services,omitempty" require:"true" type:"Repeated"`
 	// 应用总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplicationServiceResponse) String() string {
@@ -10563,12 +10585,13 @@ func (s *QueryApplicationServiceResponse) SetTotalCount(v int) *QueryApplication
 
 type DeleteApplicationServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待删除的服务实例的应用名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 待删除服务实例名称
 	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
 	// 待删除服务实例所在环境名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteApplicationServiceRequest) String() string {
@@ -10581,6 +10604,11 @@ func (s DeleteApplicationServiceRequest) GoString() string {
 
 func (s *DeleteApplicationServiceRequest) SetAuthToken(v string) *DeleteApplicationServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteApplicationServiceRequest) SetTenant(v string) *DeleteApplicationServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10630,12 +10658,13 @@ func (s *DeleteApplicationServiceResponse) SetResultMsg(v string) *DeleteApplica
 
 type GetApplicationPackageRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布包所属的应用名称。最大60个UTF-8字符
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 版本号。长度不超过50个单字节字符
-	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" require:"true"`
 	// 环境
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetApplicationPackageRequest) String() string {
@@ -10648,6 +10677,11 @@ func (s GetApplicationPackageRequest) GoString() string {
 
 func (s *GetApplicationPackageRequest) SetAuthToken(v string) *GetApplicationPackageRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationPackageRequest) SetTenant(v string) *GetApplicationPackageRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10753,8 +10787,9 @@ func (s *GetApplicationPackageResponse) SetWorkspace(v string) *GetApplicationPa
 
 type QueryAppVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本构建id
-	BuildId *string `json:"build_id,omitempty" xml:"build_id,omitempty"`
+	BuildId *string `json:"build_id,omitempty" xml:"build_id,omitempty" require:"true"`
 }
 
 func (s QueryAppVersionRequest) String() string {
@@ -10770,6 +10805,11 @@ func (s *QueryAppVersionRequest) SetAuthToken(v string) *QueryAppVersionRequest 
 	return s
 }
 
+func (s *QueryAppVersionRequest) SetTenant(v string) *QueryAppVersionRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *QueryAppVersionRequest) SetBuildId(v string) *QueryAppVersionRequest {
 	s.BuildId = &v
 	return s
@@ -10780,7 +10820,7 @@ type QueryAppVersionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用发布包详情
-	Version *AppVersion `json:"version,omitempty" xml:"version,omitempty"`
+	Version *AppVersion `json:"version,omitempty" xml:"version,omitempty" require:"true"`
 }
 
 func (s QueryAppVersionResponse) String() string {
@@ -10813,8 +10853,9 @@ func (s *QueryAppVersionResponse) SetVersion(v *AppVersion) *QueryAppVersionResp
 
 type DeleteApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标应用完整名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 }
 
 func (s DeleteApplicationRequest) String() string {
@@ -10827,6 +10868,11 @@ func (s DeleteApplicationRequest) GoString() string {
 
 func (s *DeleteApplicationRequest) SetAuthToken(v string) *DeleteApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteApplicationRequest) SetTenant(v string) *DeleteApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -10866,6 +10912,7 @@ func (s *DeleteApplicationResponse) SetResultMsg(v string) *DeleteApplicationRes
 
 type ListApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10
@@ -10885,6 +10932,11 @@ func (s *ListApplicationRequest) SetAuthToken(v string) *ListApplicationRequest 
 	return s
 }
 
+func (s *ListApplicationRequest) SetTenant(v string) *ListApplicationRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *ListApplicationRequest) SetPageNum(v int) *ListApplicationRequest {
 	s.PageNum = &v
 	return s
@@ -10900,13 +10952,13 @@ type ListApplicationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用名称列表
-	ApplicationNames []*string `json:"application_names,omitempty" xml:"application_names,omitempty" type:"Repeated"`
+	ApplicationNames []*string `json:"application_names,omitempty" xml:"application_names,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 应用总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s ListApplicationResponse) String() string {
@@ -10954,6 +11006,7 @@ func (s *ListApplicationResponse) SetTotalCount(v int) *ListApplicationResponse 
 
 type ListAppgroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10
@@ -10973,6 +11026,11 @@ func (s *ListAppgroupRequest) SetAuthToken(v string) *ListAppgroupRequest {
 	return s
 }
 
+func (s *ListAppgroupRequest) SetTenant(v string) *ListAppgroupRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *ListAppgroupRequest) SetPageNum(v int) *ListAppgroupRequest {
 	s.PageNum = &v
 	return s
@@ -10988,13 +11046,13 @@ type ListAppgroupResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用名称列表
-	AppGroups []*AppGroup `json:"app_groups,omitempty" xml:"app_groups,omitempty" type:"Repeated"`
+	AppGroups []*AppGroup `json:"app_groups,omitempty" xml:"app_groups,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 应用总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s ListAppgroupResponse) String() string {
@@ -11042,6 +11100,7 @@ func (s *ListAppgroupResponse) SetTotalCount(v int) *ListAppgroupResponse {
 
 type QueryApplicationComputerRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
 	Application *string `json:"application,omitempty" xml:"application,omitempty"`
 	// assign=true代表分配了app/appservice的computer,反之代表没有分配app/appservice的computer
@@ -11063,7 +11122,7 @@ type QueryApplicationComputerRequest struct {
 	// 资源所处的状态，可指定多个
 	Statuses []*string `json:"statuses,omitempty" xml:"statuses,omitempty" type:"Repeated"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryApplicationComputerRequest) String() string {
@@ -11076,6 +11135,11 @@ func (s QueryApplicationComputerRequest) GoString() string {
 
 func (s *QueryApplicationComputerRequest) SetAuthToken(v string) *QueryApplicationComputerRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationComputerRequest) SetTenant(v string) *QueryApplicationComputerRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11139,13 +11203,13 @@ type QueryApplicationComputerResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 资源列表
-	Computers []*Computer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
+	Computers []*Computer `json:"computers,omitempty" xml:"computers,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 资源总数
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplicationComputerResponse) String() string {
@@ -11193,8 +11257,9 @@ func (s *QueryApplicationComputerResponse) SetTotalCount(v int64) *QueryApplicat
 
 type GetApplicationRepositoryRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用名称。最大60个UTF-8字符
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 }
 
 func (s GetApplicationRepositoryRequest) String() string {
@@ -11207,6 +11272,11 @@ func (s GetApplicationRepositoryRequest) GoString() string {
 
 func (s *GetApplicationRepositoryRequest) SetAuthToken(v string) *GetApplicationRepositoryRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationRepositoryRequest) SetTenant(v string) *GetApplicationRepositoryRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11253,14 +11323,13 @@ func (s *GetApplicationRepositoryResponse) SetRepository(v *Repository) *GetAppl
 
 type QueryAppgroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用分组名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10
 	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryAppgroupRequest) String() string {
@@ -11273,6 +11342,11 @@ func (s QueryAppgroupRequest) GoString() string {
 
 func (s *QueryAppgroupRequest) SetAuthToken(v string) *QueryAppgroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppgroupRequest) SetTenant(v string) *QueryAppgroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11291,23 +11365,18 @@ func (s *QueryAppgroupRequest) SetPageSize(v int) *QueryAppgroupRequest {
 	return s
 }
 
-func (s *QueryAppgroupRequest) SetTenant(v string) *QueryAppgroupRequest {
-	s.Tenant = &v
-	return s
-}
-
 type QueryAppgroupResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用分组列表
-	AppGroups []*AppGroup `json:"app_groups,omitempty" xml:"app_groups,omitempty" type:"Repeated"`
+	AppGroups []*AppGroup `json:"app_groups,omitempty" xml:"app_groups,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 资源总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryAppgroupResponse) String() string {
@@ -11355,14 +11424,13 @@ func (s *QueryAppgroupResponse) SetTotalCount(v int) *QueryAppgroupResponse {
 
 type QueryApplevelRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用等级名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10
 	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
-	// 租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryApplevelRequest) String() string {
@@ -11375,6 +11443,11 @@ func (s QueryApplevelRequest) GoString() string {
 
 func (s *QueryApplevelRequest) SetAuthToken(v string) *QueryApplevelRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplevelRequest) SetTenant(v string) *QueryApplevelRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11393,23 +11466,18 @@ func (s *QueryApplevelRequest) SetPageSize(v int) *QueryApplevelRequest {
 	return s
 }
 
-func (s *QueryApplevelRequest) SetTenant(v string) *QueryApplevelRequest {
-	s.Tenant = &v
-	return s
-}
-
 type QueryApplevelResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用等级列表
-	AppLevels []*AppLevel `json:"app_levels,omitempty" xml:"app_levels,omitempty" type:"Repeated"`
+	AppLevels []*AppLevel `json:"app_levels,omitempty" xml:"app_levels,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 资源总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplevelResponse) String() string {
@@ -11457,6 +11525,7 @@ func (s *QueryApplevelResponse) SetTotalCount(v int) *QueryApplevelResponse {
 
 type QueryApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
 	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
 	// 应用分组名
@@ -11471,8 +11540,6 @@ type QueryApplicationRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 查询结果是否返回应用额外元数据信息。此字段为 true 时，为保证查询效率，列表大小将强制修改为 10 （若超过）
 	QueryExtraInfo *bool `json:"query_extra_info,omitempty" xml:"query_extra_info,omitempty"`
-	// 租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryApplicationRequest) String() string {
@@ -11485,6 +11552,11 @@ func (s QueryApplicationRequest) GoString() string {
 
 func (s *QueryApplicationRequest) SetAuthToken(v string) *QueryApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationRequest) SetTenant(v string) *QueryApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11523,23 +11595,18 @@ func (s *QueryApplicationRequest) SetQueryExtraInfo(v bool) *QueryApplicationReq
 	return s
 }
 
-func (s *QueryApplicationRequest) SetTenant(v string) *QueryApplicationRequest {
-	s.Tenant = &v
-	return s
-}
-
 type QueryApplicationResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用列表
-	Applications []*ApplicationInfo `json:"applications,omitempty" xml:"applications,omitempty" type:"Repeated"`
+	Applications []*ApplicationInfo `json:"applications,omitempty" xml:"applications,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 资源总数
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplicationResponse) String() string {
@@ -11587,26 +11654,25 @@ func (s *QueryApplicationResponse) SetTotalCount(v int64) *QueryApplicationRespo
 
 type CreateAppVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标应用完整名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用部署包文件16字节md5值，以32位十六进制字符表示，不区分大小写。如果提供，APPMS下载应用部署包完成后，将会以此md5值进行校验，检验不通过则认为下载失败
 	//
 	FileMd5 *string `json:"file_md5,omitempty" xml:"file_md5,omitempty"`
 	// 应用部署包文件路径。长度不超过1024个单字节字符
-	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" maxLength:"1024"`
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true" maxLength:"1024"`
 	// 应用部署包文件大小，单位字节。取值范围[1,524288000]，即最大支持500M, 524288000 = 500 x 1024 x 1024
 	//
-	FileSize *int `json:"file_size,omitempty" xml:"file_size,omitempty" maximum:"undefined" minimum:"undefined"`
+	FileSize *int `json:"file_size,omitempty" xml:"file_size,omitempty" require:"true" maximum:"524288000" minimum:"1"`
 	// 文件交换源id
-	FileSource *string `json:"file_source,omitempty" xml:"file_source,omitempty"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	FileSource *string `json:"file_source,omitempty" xml:"file_source,omitempty" require:"true"`
 	// 版本备注。长度不超过100个双字节字符
 	VersionMemo *string `json:"version_memo,omitempty" xml:"version_memo,omitempty" maxLength:"100"`
 	// 版本号。长度不超过50个单字节字符
-	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" maxLength:"50"`
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" require:"true" maxLength:"50"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateAppVersionRequest) String() string {
@@ -11619,6 +11685,11 @@ func (s CreateAppVersionRequest) GoString() string {
 
 func (s *CreateAppVersionRequest) SetAuthToken(v string) *CreateAppVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppVersionRequest) SetTenant(v string) *CreateAppVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11647,11 +11718,6 @@ func (s *CreateAppVersionRequest) SetFileSource(v string) *CreateAppVersionReque
 	return s
 }
 
-func (s *CreateAppVersionRequest) SetTenant(v string) *CreateAppVersionRequest {
-	s.Tenant = &v
-	return s
-}
-
 func (s *CreateAppVersionRequest) SetVersionMemo(v string) *CreateAppVersionRequest {
 	s.VersionMemo = &v
 	return s
@@ -11672,7 +11738,7 @@ type CreateAppVersionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 发布包任务id，可用于查询应用发布包生成状态
-	BuildId *string `json:"build_id,omitempty" xml:"build_id,omitempty"`
+	BuildId *string `json:"build_id,omitempty" xml:"build_id,omitempty" require:"true"`
 }
 
 func (s CreateAppVersionResponse) String() string {
@@ -11705,10 +11771,11 @@ func (s *CreateAppVersionResponse) SetBuildId(v string) *CreateAppVersionRespons
 
 type QueryAppDeltaRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 结束时间点
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 开始时间点
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 }
 
 func (s QueryAppDeltaRequest) String() string {
@@ -11721,6 +11788,11 @@ func (s QueryAppDeltaRequest) GoString() string {
 
 func (s *QueryAppDeltaRequest) SetAuthToken(v string) *QueryAppDeltaRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppDeltaRequest) SetTenant(v string) *QueryAppDeltaRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11739,7 +11811,7 @@ type QueryAppDeltaResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 发生变化的租户列表
-	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryAppDeltaResponse) String() string {
@@ -11772,6 +11844,7 @@ func (s *QueryAppDeltaResponse) SetTenants(v []*string) *QueryAppDeltaResponse {
 
 type QueryApplicationLoadbalancerRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
 	Application *string `json:"application,omitempty" xml:"application,omitempty"`
 	// 资源名称
@@ -11795,7 +11868,7 @@ type QueryApplicationLoadbalancerRequest struct {
 	// vpc的id
 	VpcIds []*string `json:"vpc_ids,omitempty" xml:"vpc_ids,omitempty" type:"Repeated"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryApplicationLoadbalancerRequest) String() string {
@@ -11808,6 +11881,11 @@ func (s QueryApplicationLoadbalancerRequest) GoString() string {
 
 func (s *QueryApplicationLoadbalancerRequest) SetAuthToken(v string) *QueryApplicationLoadbalancerRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationLoadbalancerRequest) SetTenant(v string) *QueryApplicationLoadbalancerRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -11876,13 +11954,13 @@ type QueryApplicationLoadbalancerResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 负载均衡资源列表
-	Loadbalancers []*DepsLoadBalancer `json:"loadbalancers,omitempty" xml:"loadbalancers,omitempty" type:"Repeated"`
+	Loadbalancers []*DepsLoadBalancer `json:"loadbalancers,omitempty" xml:"loadbalancers,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 应用总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplicationLoadbalancerResponse) String() string {
@@ -11930,6 +12008,7 @@ func (s *QueryApplicationLoadbalancerResponse) SetTotalCount(v int) *QueryApplic
 
 type QueryApplicationDatabaseRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
 	Application *string `json:"application,omitempty" xml:"application,omitempty"`
 	// 连接地址
@@ -11951,7 +12030,7 @@ type QueryApplicationDatabaseRequest struct {
 	// 资源所处的状态，可指定多个
 	Statuses []*string `json:"statuses,omitempty" xml:"statuses,omitempty" type:"Repeated"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryApplicationDatabaseRequest) String() string {
@@ -11964,6 +12043,11 @@ func (s QueryApplicationDatabaseRequest) GoString() string {
 
 func (s *QueryApplicationDatabaseRequest) SetAuthToken(v string) *QueryApplicationDatabaseRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApplicationDatabaseRequest) SetTenant(v string) *QueryApplicationDatabaseRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12027,13 +12111,13 @@ type QueryApplicationDatabaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 资源列表
-	Databases []*DepsDatabase `json:"databases,omitempty" xml:"databases,omitempty" type:"Repeated"`
+	Databases []*DepsDatabase `json:"databases,omitempty" xml:"databases,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 应用总数
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryApplicationDatabaseResponse) String() string {
@@ -12081,16 +12165,15 @@ func (s *QueryApplicationDatabaseResponse) SetTotalCount(v int64) *QueryApplicat
 
 type UploadApplicationPackageRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标应用完整名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用发布包名称。长度不超过100个双字节字符
-	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" maxLength:"100"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" require:"true" maxLength:"100"`
 	// 版本号。长度不超过50个单字节字符
-	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" maxLength:"50"`
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" require:"true" maxLength:"50"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UploadApplicationPackageRequest) String() string {
@@ -12106,6 +12189,11 @@ func (s *UploadApplicationPackageRequest) SetAuthToken(v string) *UploadApplicat
 	return s
 }
 
+func (s *UploadApplicationPackageRequest) SetTenant(v string) *UploadApplicationPackageRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *UploadApplicationPackageRequest) SetApplicationName(v string) *UploadApplicationPackageRequest {
 	s.ApplicationName = &v
 	return s
@@ -12113,11 +12201,6 @@ func (s *UploadApplicationPackageRequest) SetApplicationName(v string) *UploadAp
 
 func (s *UploadApplicationPackageRequest) SetPackageName(v string) *UploadApplicationPackageRequest {
 	s.PackageName = &v
-	return s
-}
-
-func (s *UploadApplicationPackageRequest) SetTenant(v string) *UploadApplicationPackageRequest {
-	s.Tenant = &v
 	return s
 }
 
@@ -12138,7 +12221,7 @@ type UploadApplicationPackageResponse struct {
 	// 上传oss的bucket名称
 	BucketName *string `json:"bucket_name,omitempty" xml:"bucket_name,omitempty"`
 	// 上传应用发布包的授权签名上传地址
-	SignedUploadUrl *string `json:"signed_upload_url,omitempty" xml:"signed_upload_url,omitempty"`
+	SignedUploadUrl *string `json:"signed_upload_url,omitempty" xml:"signed_upload_url,omitempty" require:"true"`
 }
 
 func (s UploadApplicationPackageResponse) String() string {
@@ -12176,21 +12259,20 @@ func (s *UploadApplicationPackageResponse) SetSignedUploadUrl(v string) *UploadA
 
 type SyncreateApplicationVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标应用完整名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用部署包文件16字节md5值，以32位十六进制字符表示，不区分大小写。如果提供，将会以此md5值进行校验，检验不通过则认为创建失败
 	//
 	PackageEtag *string `json:"package_etag,omitempty" xml:"package_etag,omitempty"`
 	// 应用发布包名称。长度不超过100个双字节字符
-	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" maxLength:"100"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" require:"true" maxLength:"100"`
 	// 应用发布包备注
 	VersionMemo *string `json:"version_memo,omitempty" xml:"version_memo,omitempty"`
 	// 版本号。长度不超过50个单字节字符
-	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" maxLength:"50"`
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" require:"true" maxLength:"50"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SyncreateApplicationVersionRequest) String() string {
@@ -12206,6 +12288,11 @@ func (s *SyncreateApplicationVersionRequest) SetAuthToken(v string) *SyncreateAp
 	return s
 }
 
+func (s *SyncreateApplicationVersionRequest) SetTenant(v string) *SyncreateApplicationVersionRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *SyncreateApplicationVersionRequest) SetApplicationName(v string) *SyncreateApplicationVersionRequest {
 	s.ApplicationName = &v
 	return s
@@ -12218,11 +12305,6 @@ func (s *SyncreateApplicationVersionRequest) SetPackageEtag(v string) *Syncreate
 
 func (s *SyncreateApplicationVersionRequest) SetPackageName(v string) *SyncreateApplicationVersionRequest {
 	s.PackageName = &v
-	return s
-}
-
-func (s *SyncreateApplicationVersionRequest) SetTenant(v string) *SyncreateApplicationVersionRequest {
-	s.Tenant = &v
 	return s
 }
 
@@ -12272,6 +12354,7 @@ func (s *SyncreateApplicationVersionResponse) SetResultMsg(v string) *SyncreateA
 
 type ListCloudconnectorConnectionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s ListCloudconnectorConnectionRequest) String() string {
@@ -12284,6 +12367,11 @@ func (s ListCloudconnectorConnectionRequest) GoString() string {
 
 func (s *ListCloudconnectorConnectionRequest) SetAuthToken(v string) *ListCloudconnectorConnectionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListCloudconnectorConnectionRequest) SetTenant(v string) *ListCloudconnectorConnectionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12353,6 +12441,7 @@ func (s *ListCloudconnectorConnectionResponse) SetCurrentPage(v int64) *ListClou
 
 type QueryAppservicebuildpackrelationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 一组应用服务id
 	AppserviceIds []*string `json:"appservice_ids,omitempty" xml:"appservice_ids,omitempty" type:"Repeated"`
 	// 一组应用id
@@ -12392,6 +12481,11 @@ func (s QueryAppservicebuildpackrelationRequest) GoString() string {
 
 func (s *QueryAppservicebuildpackrelationRequest) SetAuthToken(v string) *QueryAppservicebuildpackrelationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppservicebuildpackrelationRequest) SetTenant(v string) *QueryAppservicebuildpackrelationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12519,6 +12613,7 @@ func (s *QueryAppservicebuildpackrelationResponse) SetTotalCount(v int64) *Query
 
 type UpdateAppservicebuildpackrelationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// new_app_service
 	NewAppService *BuildpackAppService `json:"new_app_service,omitempty" xml:"new_app_service,omitempty"`
 	// original_app_service
@@ -12535,6 +12630,11 @@ func (s UpdateAppservicebuildpackrelationRequest) GoString() string {
 
 func (s *UpdateAppservicebuildpackrelationRequest) SetAuthToken(v string) *UpdateAppservicebuildpackrelationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAppservicebuildpackrelationRequest) SetTenant(v string) *UpdateAppservicebuildpackrelationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12579,6 +12679,7 @@ func (s *UpdateAppservicebuildpackrelationResponse) SetResultMsg(v string) *Upda
 
 type QueryAppserviceenvparamRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appIds
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
 	// appServiceIds
@@ -12627,6 +12728,11 @@ func (s QueryAppserviceenvparamRequest) GoString() string {
 
 func (s *QueryAppserviceenvparamRequest) SetAuthToken(v string) *QueryAppserviceenvparamRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppserviceenvparamRequest) SetTenant(v string) *QueryAppserviceenvparamRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12779,6 +12885,7 @@ func (s *QueryAppserviceenvparamResponse) SetTotalCount(v int64) *QueryAppservic
 
 type QueryAppserviceenvparamGroupbyappservicesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appServiceIds
 	AppServiceIds []*string `json:"app_service_ids,omitempty" xml:"app_service_ids,omitempty" type:"Repeated"`
 }
@@ -12793,6 +12900,11 @@ func (s QueryAppserviceenvparamGroupbyappservicesRequest) GoString() string {
 
 func (s *QueryAppserviceenvparamGroupbyappservicesRequest) SetAuthToken(v string) *QueryAppserviceenvparamGroupbyappservicesRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppserviceenvparamGroupbyappservicesRequest) SetTenant(v string) *QueryAppserviceenvparamGroupbyappservicesRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12839,6 +12951,7 @@ func (s *QueryAppserviceenvparamGroupbyappservicesResponse) SetAppServiceEnvPara
 
 type QueryAppserviceenvparamQuerywithdiffRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appServiceId
 	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty"`
 	// buildpackId
@@ -12855,6 +12968,11 @@ func (s QueryAppserviceenvparamQuerywithdiffRequest) GoString() string {
 
 func (s *QueryAppserviceenvparamQuerywithdiffRequest) SetAuthToken(v string) *QueryAppserviceenvparamQuerywithdiffRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppserviceenvparamQuerywithdiffRequest) SetTenant(v string) *QueryAppserviceenvparamQuerywithdiffRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12906,6 +13024,7 @@ func (s *QueryAppserviceenvparamQuerywithdiffResponse) SetAppServiceEnvParamDiff
 
 type UpdateAppserviceenvparamUpdateparamsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appServiceId
 	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty"`
 	// buildpackId
@@ -12924,6 +13043,11 @@ func (s UpdateAppserviceenvparamUpdateparamsRequest) GoString() string {
 
 func (s *UpdateAppserviceenvparamUpdateparamsRequest) SetAuthToken(v string) *UpdateAppserviceenvparamUpdateparamsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAppserviceenvparamUpdateparamsRequest) SetTenant(v string) *UpdateAppserviceenvparamUpdateparamsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -12980,8 +13104,9 @@ func (s *UpdateAppserviceenvparamUpdateparamsResponse) SetAppServiceEnvParam(v [
 
 type QueryApptechstackrelationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 一组应用id
-	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
+	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" require:"true" type:"Repeated"`
 	// buildpack_arch
 	BuildpackArch *string `json:"buildpack_arch,omitempty" xml:"buildpack_arch,omitempty"`
 	// creation_fime_from
@@ -12992,7 +13117,7 @@ type QueryApptechstackrelationRequest struct {
 	CreationTimeTo *string `json:"creation_time_to,omitempty" xml:"creation_time_to,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// current_page
 	//
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
 	// 是否降序
 	Descend *string `json:"descend,omitempty" xml:"descend,omitempty"`
 	// ids
@@ -13007,18 +13132,18 @@ type QueryApptechstackrelationRequest struct {
 	ModificationTimeTo *string `json:"modification_time_to,omitempty" xml:"modification_time_to,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// page_size
 	//
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 分类
 	SortField *string `json:"sort_field,omitempty" xml:"sort_field,omitempty"`
 	// start_index
 	//
-	StartIndex *int64 `json:"start_index,omitempty" xml:"start_index,omitempty"`
+	StartIndex *int64 `json:"start_index,omitempty" xml:"start_index,omitempty" require:"true"`
 	// techstack_identities
 	//
 	TechstackIdentities *string `json:"techstack_identities,omitempty" xml:"techstack_identities,omitempty"`
 	// techstack_ids
 	//
-	TechstackIds []*int64 `json:"techstack_ids,omitempty" xml:"techstack_ids,omitempty" type:"Repeated"`
+	TechstackIds []*int64 `json:"techstack_ids,omitempty" xml:"techstack_ids,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryApptechstackrelationRequest) String() string {
@@ -13031,6 +13156,11 @@ func (s QueryApptechstackrelationRequest) GoString() string {
 
 func (s *QueryApptechstackrelationRequest) SetAuthToken(v string) *QueryApptechstackrelationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApptechstackrelationRequest) SetTenant(v string) *QueryApptechstackrelationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13168,6 +13298,7 @@ func (s *QueryApptechstackrelationResponse) SetTotalCount(v int64) *QueryApptech
 
 type UpdateApptechstackrelationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 	// buildpackArch
@@ -13198,6 +13329,11 @@ func (s UpdateApptechstackrelationRequest) GoString() string {
 
 func (s *UpdateApptechstackrelationRequest) SetAuthToken(v string) *UpdateApptechstackrelationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateApptechstackrelationRequest) SetTenant(v string) *UpdateApptechstackrelationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13277,18 +13413,19 @@ func (s *UpdateApptechstackrelationResponse) SetResultMsg(v string) *UpdateAppte
 
 type CreateAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
-	AppgroupName *string `json:"appgroup_name,omitempty" xml:"appgroup_name,omitempty"`
+	AppgroupName *string `json:"appgroup_name,omitempty" xml:"appgroup_name,omitempty" require:"true"`
 	// 应用描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 显示名称
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
 	// 应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 用户登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 	// 技术栈 id
-	StackId *string `json:"stack_id,omitempty" xml:"stack_id,omitempty"`
+	StackId *string `json:"stack_id,omitempty" xml:"stack_id,omitempty" require:"true"`
 	// 应用额外信息（应用标签）
 	Tags []*Tag `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
 	// 技术栈版本
@@ -13305,6 +13442,11 @@ func (s CreateAppRequest) GoString() string {
 
 func (s *CreateAppRequest) SetAuthToken(v string) *CreateAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppRequest) SetTenant(v string) *CreateAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13386,12 +13528,13 @@ func (s *CreateAppResponse) SetData(v string) *CreateAppResponse {
 
 type CreateAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用依赖规划
 	AppScheme []*AppDepend `json:"app_scheme,omitempty" xml:"app_scheme,omitempty" type:"Repeated"`
 	// 应用分组描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 应用分组名称，支持中文
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 应用分组负责人登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 	// 父应用分组 id
@@ -13408,6 +13551,11 @@ func (s CreateAppGroupRequest) GoString() string {
 
 func (s *CreateAppGroupRequest) SetAuthToken(v string) *CreateAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppGroupRequest) SetTenant(v string) *CreateAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13474,8 +13622,9 @@ func (s *CreateAppGroupResponse) SetData(v string) *CreateAppGroupResponse {
 
 type GetAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s GetAppRequest) String() string {
@@ -13488,6 +13637,11 @@ func (s GetAppRequest) GoString() string {
 
 func (s *GetAppRequest) SetAuthToken(v string) *GetAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppRequest) SetTenant(v string) *GetAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13534,8 +13688,9 @@ func (s *GetAppResponse) SetData(v *App) *GetAppResponse {
 
 type CountAppServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 }
 
 func (s CountAppServiceRequest) String() string {
@@ -13548,6 +13703,11 @@ func (s CountAppServiceRequest) GoString() string {
 
 func (s *CountAppServiceRequest) SetAuthToken(v string) *CountAppServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CountAppServiceRequest) SetTenant(v string) *CountAppServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13594,8 +13754,9 @@ func (s *CountAppServiceResponse) SetData(v *AppServiceCount) *CountAppServiceRe
 
 type AllAppDeployviewRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 }
 
 func (s AllAppDeployviewRequest) String() string {
@@ -13608,6 +13769,11 @@ func (s AllAppDeployviewRequest) GoString() string {
 
 func (s *AllAppDeployviewRequest) SetAuthToken(v string) *AllAppDeployviewRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *AllAppDeployviewRequest) SetTenant(v string) *AllAppDeployviewRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13654,6 +13820,7 @@ func (s *AllAppDeployviewResponse) SetData(v []*DeployView) *AllAppDeployviewRes
 
 type QueryAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 根据应用分组查询，为空默认查询所有应用分组
 	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
 	// 根据应用名称查询，为空默认查询所有应用
@@ -13678,6 +13845,11 @@ func (s QueryAppRequest) GoString() string {
 
 func (s *QueryAppRequest) SetAuthToken(v string) *QueryAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppRequest) SetTenant(v string) *QueryAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13770,8 +13942,9 @@ func (s *QueryAppResponse) SetTotal(v int64) *QueryAppResponse {
 
 type GetAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用分组名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s GetAppGroupRequest) String() string {
@@ -13784,6 +13957,11 @@ func (s GetAppGroupRequest) GoString() string {
 
 func (s *GetAppGroupRequest) SetAuthToken(v string) *GetAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppGroupRequest) SetTenant(v string) *GetAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13830,6 +14008,7 @@ func (s *GetAppGroupResponse) SetData(v *AppGroup) *GetAppGroupResponse {
 
 type QueryAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 根据应用分组名称查询
 	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
 	// 根据应用分组层级进行筛选
@@ -13856,6 +14035,11 @@ func (s QueryAppGroupRequest) GoString() string {
 
 func (s *QueryAppGroupRequest) SetAuthToken(v string) *QueryAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppGroupRequest) SetTenant(v string) *QueryAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -13953,8 +14137,9 @@ func (s *QueryAppGroupResponse) SetTotal(v int64) *QueryAppGroupResponse {
 
 type QueryAppServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 根据应用名称查询，不能为空，不支持一次性查询所有应用
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
 	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
 	// 当前页码，从1开始，默认为1
@@ -13975,6 +14160,11 @@ func (s QueryAppServiceRequest) GoString() string {
 
 func (s *QueryAppServiceRequest) SetAuthToken(v string) *QueryAppServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppServiceRequest) SetTenant(v string) *QueryAppServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14062,8 +14252,9 @@ func (s *QueryAppServiceResponse) SetTotal(v int64) *QueryAppServiceResponse {
 
 type CreateAppFavouriteRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 用户要收藏的应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 用户登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 }
@@ -14078,6 +14269,11 @@ func (s CreateAppFavouriteRequest) GoString() string {
 
 func (s *CreateAppFavouriteRequest) SetAuthToken(v string) *CreateAppFavouriteRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppFavouriteRequest) SetTenant(v string) *CreateAppFavouriteRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14129,8 +14325,9 @@ func (s *CreateAppFavouriteResponse) SetData(v string) *CreateAppFavouriteRespon
 
 type DeleteAppFavouriteRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 用户要取消收藏的应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 用户登录名
 	OwnerLoginName *string `json:"owner_login_name,omitempty" xml:"owner_login_name,omitempty"`
 }
@@ -14145,6 +14342,11 @@ func (s DeleteAppFavouriteRequest) GoString() string {
 
 func (s *DeleteAppFavouriteRequest) SetAuthToken(v string) *DeleteAppFavouriteRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteAppFavouriteRequest) SetTenant(v string) *DeleteAppFavouriteRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14196,6 +14398,7 @@ func (s *DeleteAppFavouriteResponse) SetData(v bool) *DeleteAppFavouriteResponse
 
 type UpdateAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
 	AppgroupName *string `json:"appgroup_name,omitempty" xml:"appgroup_name,omitempty"`
 	// 技术栈版本
@@ -14205,7 +14408,7 @@ type UpdateAppRequest struct {
 	// 显示名称
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
 	// 应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 应用额外信息（应用标签）
 	Tags []*Tag `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
 }
@@ -14220,6 +14423,11 @@ func (s UpdateAppRequest) GoString() string {
 
 func (s *UpdateAppRequest) SetAuthToken(v string) *UpdateAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAppRequest) SetTenant(v string) *UpdateAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14291,12 +14499,13 @@ func (s *UpdateAppResponse) SetData(v bool) *UpdateAppResponse {
 
 type UpdateAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用依赖拓扑图
 	AppScheme []*AppDepend `json:"app_scheme,omitempty" xml:"app_scheme,omitempty" type:"Repeated"`
 	// 应用分组描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 应用分组名称，支持中文
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 父应用分组 id
 	ParentId *string `json:"parent_id,omitempty" xml:"parent_id,omitempty"`
 }
@@ -14311,6 +14520,11 @@ func (s UpdateAppGroupRequest) GoString() string {
 
 func (s *UpdateAppGroupRequest) SetAuthToken(v string) *UpdateAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAppGroupRequest) SetTenant(v string) *UpdateAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14372,6 +14586,7 @@ func (s *UpdateAppGroupResponse) SetData(v bool) *UpdateAppGroupResponse {
 
 type ListAppFavouriteRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
 	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
 }
@@ -14386,6 +14601,11 @@ func (s ListAppFavouriteRequest) GoString() string {
 
 func (s *ListAppFavouriteRequest) SetAuthToken(v string) *ListAppFavouriteRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppFavouriteRequest) SetTenant(v string) *ListAppFavouriteRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14432,8 +14652,9 @@ func (s *ListAppFavouriteResponse) SetData(v []*App) *ListAppFavouriteResponse {
 
 type DeleteAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要删除的应用名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s DeleteAppRequest) String() string {
@@ -14446,6 +14667,11 @@ func (s DeleteAppRequest) GoString() string {
 
 func (s *DeleteAppRequest) SetAuthToken(v string) *DeleteAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteAppRequest) SetTenant(v string) *DeleteAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14492,8 +14718,9 @@ func (s *DeleteAppResponse) SetData(v bool) *DeleteAppResponse {
 
 type DeleteAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要删除的应用分组名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s DeleteAppGroupRequest) String() string {
@@ -14506,6 +14733,11 @@ func (s DeleteAppGroupRequest) GoString() string {
 
 func (s *DeleteAppGroupRequest) SetAuthToken(v string) *DeleteAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteAppGroupRequest) SetTenant(v string) *DeleteAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14552,8 +14784,9 @@ func (s *DeleteAppGroupResponse) SetData(v bool) *DeleteAppGroupResponse {
 
 type QueryAppPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
 	Orders []*string `json:"orders,omitempty" xml:"orders,omitempty" type:"Repeated"`
 	// 发布单 order_id
@@ -14580,6 +14813,11 @@ func (s QueryAppPlanRequest) GoString() string {
 
 func (s *QueryAppPlanRequest) SetAuthToken(v string) *QueryAppPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppPlanRequest) SetTenant(v string) *QueryAppPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14682,8 +14920,9 @@ func (s *QueryAppPlanResponse) SetTotal(v int64) *QueryAppPlanResponse {
 
 type ExistAppGroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用分组名称
-	AppgroupName *string `json:"appgroup_name,omitempty" xml:"appgroup_name,omitempty"`
+	AppgroupName *string `json:"appgroup_name,omitempty" xml:"appgroup_name,omitempty" require:"true"`
 }
 
 func (s ExistAppGroupRequest) String() string {
@@ -14696,6 +14935,11 @@ func (s ExistAppGroupRequest) GoString() string {
 
 func (s *ExistAppGroupRequest) SetAuthToken(v string) *ExistAppGroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExistAppGroupRequest) SetTenant(v string) *ExistAppGroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14742,6 +14986,7 @@ func (s *ExistAppGroupResponse) SetData(v bool) *ExistAppGroupResponse {
 
 type QueryUserRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 没传递该参数时，返回当前登录用户信息
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
 }
@@ -14756,6 +15001,11 @@ func (s QueryUserRequest) GoString() string {
 
 func (s *QueryUserRequest) SetAuthToken(v string) *QueryUserRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUserRequest) SetTenant(v string) *QueryUserRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14802,8 +15052,9 @@ func (s *QueryUserResponse) SetData(v *UserDTO) *QueryUserResponse {
 
 type ExistAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 }
 
 func (s ExistAppRequest) String() string {
@@ -14816,6 +15067,11 @@ func (s ExistAppRequest) GoString() string {
 
 func (s *ExistAppRequest) SetAuthToken(v string) *ExistAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExistAppRequest) SetTenant(v string) *ExistAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14862,12 +15118,13 @@ func (s *ExistAppResponse) SetData(v bool) *ExistAppResponse {
 
 type GetApplicationBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 应用服务的名称
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
 	// 环境
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetApplicationBuildpackRequest) String() string {
@@ -14880,6 +15137,11 @@ func (s GetApplicationBuildpackRequest) GoString() string {
 
 func (s *GetApplicationBuildpackRequest) SetAuthToken(v string) *GetApplicationBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationBuildpackRequest) SetTenant(v string) *GetApplicationBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -14903,7 +15165,7 @@ type GetApplicationBuildpackResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 技术栈id
-	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
+	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty" require:"true"`
 }
 
 func (s GetApplicationBuildpackResponse) String() string {
@@ -14936,8 +15198,9 @@ func (s *GetApplicationBuildpackResponse) SetBuildpackId(v string) *GetApplicati
 
 type GetApplicationTechstackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 }
 
 func (s GetApplicationTechstackRequest) String() string {
@@ -14953,6 +15216,11 @@ func (s *GetApplicationTechstackRequest) SetAuthToken(v string) *GetApplicationT
 	return s
 }
 
+func (s *GetApplicationTechstackRequest) SetTenant(v string) *GetApplicationTechstackRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetApplicationTechstackRequest) SetApplicationName(v string) *GetApplicationTechstackRequest {
 	s.ApplicationName = &v
 	return s
@@ -14963,7 +15231,7 @@ type GetApplicationTechstackResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 技术栈框架
-	Techstack *Techstack `json:"techstack,omitempty" xml:"techstack,omitempty"`
+	Techstack *Techstack `json:"techstack,omitempty" xml:"techstack,omitempty" require:"true"`
 }
 
 func (s GetApplicationTechstackResponse) String() string {
@@ -14996,6 +15264,7 @@ func (s *GetApplicationTechstackResponse) SetTechstack(v *Techstack) *GetApplica
 
 type GetBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 技术栈版本的ID
 	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
 }
@@ -15010,6 +15279,11 @@ func (s GetBuildpackRequest) GoString() string {
 
 func (s *GetBuildpackRequest) SetAuthToken(v string) *GetBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetBuildpackRequest) SetTenant(v string) *GetBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15154,6 +15428,7 @@ func (s *GetBuildpackResponse) SetTechstackId(v string) *GetBuildpackResponse {
 
 type ListTechstackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s ListTechstackRequest) String() string {
@@ -15169,12 +15444,17 @@ func (s *ListTechstackRequest) SetAuthToken(v string) *ListTechstackRequest {
 	return s
 }
 
+func (s *ListTechstackRequest) SetTenant(v string) *ListTechstackRequest {
+	s.Tenant = &v
+	return s
+}
+
 type ListTechstackResponse struct {
 	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 技术栈列表
-	Techstacks []*Techstack `json:"techstacks,omitempty" xml:"techstacks,omitempty" type:"Repeated"`
+	Techstacks []*Techstack `json:"techstacks,omitempty" xml:"techstacks,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ListTechstackResponse) String() string {
@@ -15207,6 +15487,7 @@ func (s *ListTechstackResponse) SetTechstacks(v []*Techstack) *ListTechstackResp
 
 type QueryBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页码
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// 技术栈版本号
@@ -15243,6 +15524,11 @@ func (s QueryBuildpackRequest) GoString() string {
 
 func (s *QueryBuildpackRequest) SetAuthToken(v string) *QueryBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackRequest) SetTenant(v string) *QueryBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15313,11 +15599,11 @@ type QueryBuildpackResponse struct {
 	// 符合条件的技术栈列表
 	Buildpacks []*BuildpackDetail `json:"buildpacks,omitempty" xml:"buildpacks,omitempty" type:"Repeated"`
 	// 当前页码
-	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
 	// 每页的大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 总数量
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryBuildpackResponse) String() string {
@@ -15365,6 +15651,7 @@ func (s *QueryBuildpackResponse) SetTotalCount(v int64) *QueryBuildpackResponse 
 
 type CreateBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 技术栈所支持的租户名称列表
 	AvailableTenantNames []*string `json:"available_tenant_names,omitempty" xml:"available_tenant_names,omitempty" type:"Repeated"`
 	// 技术栈的编译打包命令
@@ -15405,6 +15692,11 @@ func (s CreateBuildpackRequest) GoString() string {
 
 func (s *CreateBuildpackRequest) SetAuthToken(v string) *CreateBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBuildpackRequest) SetTenant(v string) *CreateBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15483,9 +15775,9 @@ type CreateBuildpackResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建完成的技术栈ID
-	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
+	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty" require:"true"`
 	// 技术栈包上传地址信息
-	UploadEndpoints []*UploadEndpoint `json:"upload_endpoints,omitempty" xml:"upload_endpoints,omitempty" type:"Repeated"`
+	UploadEndpoints []*UploadEndpoint `json:"upload_endpoints,omitempty" xml:"upload_endpoints,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateBuildpackResponse) String() string {
@@ -15523,8 +15815,9 @@ func (s *CreateBuildpackResponse) SetUploadEndpoints(v []*UploadEndpoint) *Creat
 
 type UploadfinishBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 技术栈的ID
-	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
+	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty" require:"true"`
 	// supportedRegions
 	SupportedRegions []*BuildpackRegionRelation `json:"supported_regions,omitempty" xml:"supported_regions,omitempty" type:"Repeated"`
 }
@@ -15539,6 +15832,11 @@ func (s UploadfinishBuildpackRequest) GoString() string {
 
 func (s *UploadfinishBuildpackRequest) SetAuthToken(v string) *UploadfinishBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadfinishBuildpackRequest) SetTenant(v string) *UploadfinishBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15583,6 +15881,7 @@ func (s *UploadfinishBuildpackResponse) SetResultMsg(v string) *UploadfinishBuil
 
 type PublishBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
 }
@@ -15597,6 +15896,11 @@ func (s PublishBuildpackRequest) GoString() string {
 
 func (s *PublishBuildpackRequest) SetAuthToken(v string) *PublishBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishBuildpackRequest) SetTenant(v string) *PublishBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15636,6 +15940,7 @@ func (s *PublishBuildpackResponse) SetResultMsg(v string) *PublishBuildpackRespo
 
 type UpdateBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 技术栈的编译打包命令
 	BuildCommand *string `json:"build_command,omitempty" xml:"build_command,omitempty"`
 	// 分享给其他租户时留下的联系信息
@@ -15647,11 +15952,11 @@ type UpdateBuildpackRequest struct {
 	// 环境变量
 	EnvParams []*BuildpackParamTemplate `json:"env_params,omitempty" xml:"env_params,omitempty" type:"Repeated"`
 	// 技术栈版本号
-	FullVersion *string `json:"full_version,omitempty" xml:"full_version,omitempty"`
+	FullVersion *string `json:"full_version,omitempty" xml:"full_version,omitempty" require:"true"`
 	// 技术栈id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 支持的操作系统ID
-	SupportedOs []*int64 `json:"supported_os,omitempty" xml:"supported_os,omitempty" type:"Repeated"`
+	SupportedOs []*int64 `json:"supported_os,omitempty" xml:"supported_os,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s UpdateBuildpackRequest) String() string {
@@ -15664,6 +15969,11 @@ func (s UpdateBuildpackRequest) GoString() string {
 
 func (s *UpdateBuildpackRequest) SetAuthToken(v string) *UpdateBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBuildpackRequest) SetTenant(v string) *UpdateBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15738,6 +16048,7 @@ func (s *UpdateBuildpackResponse) SetResultMsg(v string) *UpdateBuildpackRespons
 
 type QueryBuildpackFindbynamesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// techstackNames
 	TechstackNames []*string `json:"techstack_names,omitempty" xml:"techstack_names,omitempty" type:"Repeated"`
 }
@@ -15752,6 +16063,11 @@ func (s QueryBuildpackFindbynamesRequest) GoString() string {
 
 func (s *QueryBuildpackFindbynamesRequest) SetAuthToken(v string) *QueryBuildpackFindbynamesRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbynamesRequest) SetTenant(v string) *QueryBuildpackFindbynamesRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15798,6 +16114,7 @@ func (s *QueryBuildpackFindbynamesResponse) SetTechstack(v []*Techstack) *QueryB
 
 type CountBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
 }
@@ -15812,6 +16129,11 @@ func (s CountBuildpackRequest) GoString() string {
 
 func (s *CountBuildpackRequest) SetAuthToken(v string) *CountBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CountBuildpackRequest) SetTenant(v string) *CountBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15858,6 +16180,7 @@ func (s *CountBuildpackResponse) SetCount(v int64) *CountBuildpackResponse {
 
 type DeprecateBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// depracationNoteMap
 	DepracationNoteMap *DepracationNotePayload `json:"depracation_note_map,omitempty" xml:"depracation_note_map,omitempty"`
 	// ids
@@ -15874,6 +16197,11 @@ func (s DeprecateBuildpackRequest) GoString() string {
 
 func (s *DeprecateBuildpackRequest) SetAuthToken(v string) *DeprecateBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeprecateBuildpackRequest) SetTenant(v string) *DeprecateBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15925,6 +16253,7 @@ func (s *DeprecateBuildpackResponse) SetResult(v int64) *DeprecateBuildpackRespo
 
 type BatchdeleteBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ids
 	Id []*string `json:"id,omitempty" xml:"id,omitempty" type:"Repeated"`
 }
@@ -15939,6 +16268,11 @@ func (s BatchdeleteBuildpackRequest) GoString() string {
 
 func (s *BatchdeleteBuildpackRequest) SetAuthToken(v string) *BatchdeleteBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchdeleteBuildpackRequest) SetTenant(v string) *BatchdeleteBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -15985,6 +16319,7 @@ func (s *BatchdeleteBuildpackResponse) SetBuildpackDetailVo(v []*BuildpackDetail
 
 type ExistBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
 	// fullVersion
@@ -16003,6 +16338,11 @@ func (s ExistBuildpackRequest) GoString() string {
 
 func (s *ExistBuildpackRequest) SetAuthToken(v string) *ExistBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExistBuildpackRequest) SetTenant(v string) *ExistBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16059,6 +16399,7 @@ func (s *ExistBuildpackResponse) SetResult(v bool) *ExistBuildpackResponse {
 
 type UpdateBuildpackUpdatepackagesstatusRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// newFileStatus
@@ -16079,6 +16420,11 @@ func (s UpdateBuildpackUpdatepackagesstatusRequest) GoString() string {
 
 func (s *UpdateBuildpackUpdatepackagesstatusRequest) SetAuthToken(v string) *UpdateBuildpackUpdatepackagesstatusRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBuildpackUpdatepackagesstatusRequest) SetTenant(v string) *UpdateBuildpackUpdatepackagesstatusRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16140,6 +16486,7 @@ func (s *UpdateBuildpackUpdatepackagesstatusResponse) SetResult(v int64) *Update
 
 type QueryBuildpackFindidversionpairsbyversionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// fullVersion
 	FullVersion *string `json:"full_version,omitempty" xml:"full_version,omitempty"`
 	// statuses
@@ -16158,6 +16505,11 @@ func (s QueryBuildpackFindidversionpairsbyversionRequest) GoString() string {
 
 func (s *QueryBuildpackFindidversionpairsbyversionRequest) SetAuthToken(v string) *QueryBuildpackFindidversionpairsbyversionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindidversionpairsbyversionRequest) SetTenant(v string) *QueryBuildpackFindidversionpairsbyversionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16235,6 +16587,7 @@ func (s *QueryBuildpackFindidversionpairsbyversionResponse) SetTotalCount(v int6
 
 type QueryBuildpackGroupbytechstackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryBuildpackGroupbytechstackRequest) String() string {
@@ -16247,6 +16600,11 @@ func (s QueryBuildpackGroupbytechstackRequest) GoString() string {
 
 func (s *QueryBuildpackGroupbytechstackRequest) SetAuthToken(v string) *QueryBuildpackGroupbytechstackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackGroupbytechstackRequest) SetTenant(v string) *QueryBuildpackGroupbytechstackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16288,6 +16646,7 @@ func (s *QueryBuildpackGroupbytechstackResponse) SetCount(v []*TechstackBuildpac
 
 type QueryBuildpackFindvisibletechstacksRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryBuildpackFindvisibletechstacksRequest) String() string {
@@ -16300,6 +16659,11 @@ func (s QueryBuildpackFindvisibletechstacksRequest) GoString() string {
 
 func (s *QueryBuildpackFindvisibletechstacksRequest) SetAuthToken(v string) *QueryBuildpackFindvisibletechstacksRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindvisibletechstacksRequest) SetTenant(v string) *QueryBuildpackFindvisibletechstacksRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16341,6 +16705,7 @@ func (s *QueryBuildpackFindvisibletechstacksResponse) SetTechstack(v []*Techstac
 
 type QueryBuildpackFindwritabletechstacksRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryBuildpackFindwritabletechstacksRequest) String() string {
@@ -16353,6 +16718,11 @@ func (s QueryBuildpackFindwritabletechstacksRequest) GoString() string {
 
 func (s *QueryBuildpackFindwritabletechstacksRequest) SetAuthToken(v string) *QueryBuildpackFindwritabletechstacksRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindwritabletechstacksRequest) SetTenant(v string) *QueryBuildpackFindwritabletechstacksRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16394,6 +16764,7 @@ func (s *QueryBuildpackFindwritabletechstacksResponse) SetTechstack(v []*Techsta
 
 type QueryBuildpackFindosbycurrentcloudRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s QueryBuildpackFindosbycurrentcloudRequest) String() string {
@@ -16406,6 +16777,11 @@ func (s QueryBuildpackFindosbycurrentcloudRequest) GoString() string {
 
 func (s *QueryBuildpackFindosbycurrentcloudRequest) SetAuthToken(v string) *QueryBuildpackFindosbycurrentcloudRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindosbycurrentcloudRequest) SetTenant(v string) *QueryBuildpackFindosbycurrentcloudRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16447,6 +16823,7 @@ func (s *QueryBuildpackFindosbycurrentcloudResponse) SetBuildpackOs(v []*Buildpa
 
 type QueryBuildpackFindbyappsvRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appIds
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
 	// workspaceId
@@ -16463,6 +16840,11 @@ func (s QueryBuildpackFindbyappsvRequest) GoString() string {
 
 func (s *QueryBuildpackFindbyappsvRequest) SetAuthToken(v string) *QueryBuildpackFindbyappsvRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbyappsvRequest) SetTenant(v string) *QueryBuildpackFindbyappsvRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16514,6 +16896,7 @@ func (s *QueryBuildpackFindbyappsvResponse) SetBuildpack(v string) *QueryBuildpa
 
 type QueryBuildpackFindbyappsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appIds
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
 	// workspaceId
@@ -16530,6 +16913,11 @@ func (s QueryBuildpackFindbyappsRequest) GoString() string {
 
 func (s *QueryBuildpackFindbyappsRequest) SetAuthToken(v string) *QueryBuildpackFindbyappsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbyappsRequest) SetTenant(v string) *QueryBuildpackFindbyappsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16581,6 +16969,7 @@ func (s *QueryBuildpackFindbyappsResponse) SetBuildpackv2adapter(v string) *Quer
 
 type QueryBuildpackFindbyappservicesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appServiceIds
 	AppServiceIds []*string `json:"app_service_ids,omitempty" xml:"app_service_ids,omitempty" type:"Repeated"`
 }
@@ -16595,6 +16984,11 @@ func (s QueryBuildpackFindbyappservicesRequest) GoString() string {
 
 func (s *QueryBuildpackFindbyappservicesRequest) SetAuthToken(v string) *QueryBuildpackFindbyappservicesRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbyappservicesRequest) SetTenant(v string) *QueryBuildpackFindbyappservicesRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16641,6 +17035,7 @@ func (s *QueryBuildpackFindbyappservicesResponse) SetBuildpackV2Adapter(v string
 
 type QueryBuildpackFindbyappvRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 	// workspaceId
@@ -16657,6 +17052,11 @@ func (s QueryBuildpackFindbyappvRequest) GoString() string {
 
 func (s *QueryBuildpackFindbyappvRequest) SetAuthToken(v string) *QueryBuildpackFindbyappvRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbyappvRequest) SetTenant(v string) *QueryBuildpackFindbyappvRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16708,6 +17108,7 @@ func (s *QueryBuildpackFindbyappvResponse) SetBuildpack(v *BuildpackByAppV) *Que
 
 type QueryBuildpackFindbyappRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 	// workspaceId
@@ -16724,6 +17125,11 @@ func (s QueryBuildpackFindbyappRequest) GoString() string {
 
 func (s *QueryBuildpackFindbyappRequest) SetAuthToken(v string) *QueryBuildpackFindbyappRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindbyappRequest) SetTenant(v string) *QueryBuildpackFindbyappRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16922,6 +17328,7 @@ func (s *QueryBuildpackFindbyappResponse) SetVersion(v string) *QueryBuildpackFi
 
 type CreateBuildpackGeneratesignurlRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 地域ID
@@ -16938,6 +17345,11 @@ func (s CreateBuildpackGeneratesignurlRequest) GoString() string {
 
 func (s *CreateBuildpackGeneratesignurlRequest) SetAuthToken(v string) *CreateBuildpackGeneratesignurlRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBuildpackGeneratesignurlRequest) SetTenant(v string) *CreateBuildpackGeneratesignurlRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -16989,6 +17401,7 @@ func (s *CreateBuildpackGeneratesignurlResponse) SetUrl(v string) *CreateBuildpa
 
 type QueryBuildpackSumpackagessizeRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// regionIds
 	RegionIds []*string `json:"region_ids,omitempty" xml:"region_ids,omitempty" type:"Repeated"`
 }
@@ -17003,6 +17416,11 @@ func (s QueryBuildpackSumpackagessizeRequest) GoString() string {
 
 func (s *QueryBuildpackSumpackagessizeRequest) SetAuthToken(v string) *QueryBuildpackSumpackagessizeRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackSumpackagessizeRequest) SetTenant(v string) *QueryBuildpackSumpackagessizeRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17049,6 +17467,7 @@ func (s *QueryBuildpackSumpackagessizeResponse) SetResult(v string) *QueryBuildp
 
 type QueryBuildpackSupportcoderepoRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// techstackId
 	TechstackId *int64 `json:"techstack_id,omitempty" xml:"techstack_id,omitempty"`
 }
@@ -17063,6 +17482,11 @@ func (s QueryBuildpackSupportcoderepoRequest) GoString() string {
 
 func (s *QueryBuildpackSupportcoderepoRequest) SetAuthToken(v string) *QueryBuildpackSupportcoderepoRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackSupportcoderepoRequest) SetTenant(v string) *QueryBuildpackSupportcoderepoRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17109,6 +17533,7 @@ func (s *QueryBuildpackSupportcoderepoResponse) SetData(v bool) *QueryBuildpackS
 
 type QueryBuildpackFindavailablebyappserviceidsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// appServiceIds
 	AppServiceIds []*string `json:"app_service_ids,omitempty" xml:"app_service_ids,omitempty" type:"Repeated"`
 }
@@ -17123,6 +17548,11 @@ func (s QueryBuildpackFindavailablebyappserviceidsRequest) GoString() string {
 
 func (s *QueryBuildpackFindavailablebyappserviceidsRequest) SetAuthToken(v string) *QueryBuildpackFindavailablebyappserviceidsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpackFindavailablebyappserviceidsRequest) SetTenant(v string) *QueryBuildpackFindavailablebyappserviceidsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17169,6 +17599,7 @@ func (s *QueryBuildpackFindavailablebyappserviceidsResponse) SetResult(v string)
 
 type QueryBuildpacknewRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildCommand
 	BuildCommand *string `json:"build_command,omitempty" xml:"build_command,omitempty"`
 	// createdFroms
@@ -17227,6 +17658,11 @@ func (s QueryBuildpacknewRequest) GoString() string {
 
 func (s *QueryBuildpacknewRequest) SetAuthToken(v string) *QueryBuildpacknewRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBuildpacknewRequest) SetTenant(v string) *QueryBuildpacknewRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17404,6 +17840,7 @@ func (s *QueryBuildpacknewResponse) SetTotalCount(v int64) *QueryBuildpacknewRes
 
 type GetBuildpacknewRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 }
@@ -17418,6 +17855,11 @@ func (s GetBuildpacknewRequest) GoString() string {
 
 func (s *GetBuildpacknewRequest) SetAuthToken(v string) *GetBuildpacknewRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetBuildpacknewRequest) SetTenant(v string) *GetBuildpacknewRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17464,6 +17906,7 @@ func (s *GetBuildpacknewResponse) SetBuildpackDetailVO(v *BuildpackDetailVO) *Ge
 
 type UpdateBuildpacknewUploadfinishRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	BuildpackId *string `json:"buildpack_id,omitempty" xml:"buildpack_id,omitempty"`
 	// buildpackRegionRelation
@@ -17480,6 +17923,11 @@ func (s UpdateBuildpacknewUploadfinishRequest) GoString() string {
 
 func (s *UpdateBuildpacknewUploadfinishRequest) SetAuthToken(v string) *UpdateBuildpacknewUploadfinishRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBuildpacknewUploadfinishRequest) SetTenant(v string) *UpdateBuildpacknewUploadfinishRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17524,6 +17972,7 @@ func (s *UpdateBuildpacknewUploadfinishResponse) SetResultMsg(v string) *UpdateB
 
 type UpdateBuildpacknewRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// available_tenant_names
 	AvailableTenantNames []*string `json:"available_tenant_names,omitempty" xml:"available_tenant_names,omitempty" type:"Repeated"`
 	// buildpack_id
@@ -17600,6 +18049,11 @@ func (s UpdateBuildpacknewRequest) GoString() string {
 
 func (s *UpdateBuildpacknewRequest) SetAuthToken(v string) *UpdateBuildpacknewRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBuildpacknewRequest) SetTenant(v string) *UpdateBuildpacknewRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -17808,6 +18262,7 @@ func (s *UpdateBuildpacknewResponse) SetUploadEndpoints(v []*UploadEndpoint) *Up
 
 type CreateBuildpacknewRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// availableTenantNames
 	AvailableTenantNames []*string `json:"available_tenant_names,omitempty" xml:"available_tenant_names,omitempty" type:"Repeated"`
 	// buildpackParams
@@ -17868,6 +18323,11 @@ func (s CreateBuildpacknewRequest) GoString() string {
 
 func (s *CreateBuildpacknewRequest) SetAuthToken(v string) *CreateBuildpacknewRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBuildpacknewRequest) SetTenant(v string) *CreateBuildpacknewRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18013,6 +18473,7 @@ func (s *CreateBuildpacknewResponse) SetUploadEndpoints(v []*UploadEndpoint) *Cr
 
 type OnlineBuildpackRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// buildpackId
 	Id []*string `json:"id,omitempty" xml:"id,omitempty" type:"Repeated"`
 }
@@ -18027,6 +18488,11 @@ func (s OnlineBuildpackRequest) GoString() string {
 
 func (s *OnlineBuildpackRequest) SetAuthToken(v string) *OnlineBuildpackRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *OnlineBuildpackRequest) SetTenant(v string) *OnlineBuildpackRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18066,20 +18532,21 @@ func (s *OnlineBuildpackResponse) SetResultMsg(v string) *OnlineBuildpackRespons
 
 type CreateConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 数据保密等级
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 参数版本
 	ParamVersion *int64 `json:"param_version,omitempty" xml:"param_version,omitempty"`
 	// 该参数属于哪个 scope
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// 该参数在该 scope 中的 id
-	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty"`
+	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty" require:"true"`
 	// 参数类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数值
 	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
@@ -18094,6 +18561,11 @@ func (s CreateConfigGlobalRequest) GoString() string {
 
 func (s *CreateConfigGlobalRequest) SetAuthToken(v string) *CreateConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConfigGlobalRequest) SetTenant(v string) *CreateConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18175,8 +18647,9 @@ func (s *CreateConfigGlobalResponse) SetGlobalParamId(v string) *CreateConfigGlo
 
 type DeleteConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要删除的全局参数 id
-	GlobalParamId *string `json:"global_param_id,omitempty" xml:"global_param_id,omitempty"`
+	GlobalParamId *string `json:"global_param_id,omitempty" xml:"global_param_id,omitempty" require:"true"`
 }
 
 func (s DeleteConfigGlobalRequest) String() string {
@@ -18189,6 +18662,11 @@ func (s DeleteConfigGlobalRequest) GoString() string {
 
 func (s *DeleteConfigGlobalRequest) SetAuthToken(v string) *DeleteConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteConfigGlobalRequest) SetTenant(v string) *DeleteConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18228,12 +18706,13 @@ func (s *DeleteConfigGlobalResponse) SetResultMsg(v string) *DeleteConfigGlobalR
 
 type UpdateConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 数据保密等级
 	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 全局参数 id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 参数名
 	Key *string `json:"key,omitempty" xml:"key,omitempty"`
 	// 版本
@@ -18258,6 +18737,11 @@ func (s UpdateConfigGlobalRequest) GoString() string {
 
 func (s *UpdateConfigGlobalRequest) SetAuthToken(v string) *UpdateConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateConfigGlobalRequest) SetTenant(v string) *UpdateConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18337,6 +18821,7 @@ func (s *UpdateConfigGlobalResponse) SetResultMsg(v string) *UpdateConfigGlobalR
 
 type QueryConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 模板参数保密级别
 	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
 	// 参数名
@@ -18367,6 +18852,11 @@ func (s QueryConfigGlobalRequest) GoString() string {
 
 func (s *QueryConfigGlobalRequest) SetAuthToken(v string) *QueryConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryConfigGlobalRequest) SetTenant(v string) *QueryConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18474,8 +18964,9 @@ func (s *QueryConfigGlobalResponse) SetTotalCount(v int64) *QueryConfigGlobalRes
 
 type GetConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要获取的全局参数 id
-	GlobalParamId *string `json:"global_param_id,omitempty" xml:"global_param_id,omitempty"`
+	GlobalParamId *string `json:"global_param_id,omitempty" xml:"global_param_id,omitempty" require:"true"`
 }
 
 func (s GetConfigGlobalRequest) String() string {
@@ -18488,6 +18979,11 @@ func (s GetConfigGlobalRequest) GoString() string {
 
 func (s *GetConfigGlobalRequest) SetAuthToken(v string) *GetConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetConfigGlobalRequest) SetTenant(v string) *GetConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18534,22 +19030,23 @@ func (s *GetConfigGlobalResponse) SetData(v *GlobalParam) *GetConfigGlobalRespon
 
 type CreateConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 数据保密等级
-	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
+	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty" require:"true"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 参数名
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 版本
 	ParamVersion *int64 `json:"param_version,omitempty" xml:"param_version,omitempty"`
 	// 该参数属于哪个 scope
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// 该参数在该 scope 中的 id
-	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty"`
+	ScopeId *string `json:"scope_id,omitempty" xml:"scope_id,omitempty" require:"true"`
 	// 参数类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 参数值
 	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 }
@@ -18564,6 +19061,11 @@ func (s CreateConfigAppRequest) GoString() string {
 
 func (s *CreateConfigAppRequest) SetAuthToken(v string) *CreateConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConfigAppRequest) SetTenant(v string) *CreateConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18650,8 +19152,9 @@ func (s *CreateConfigAppResponse) SetAppParamId(v string) *CreateConfigAppRespon
 
 type DeleteConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要删除的应用参数 id
-	AppParamId *string `json:"app_param_id,omitempty" xml:"app_param_id,omitempty"`
+	AppParamId *string `json:"app_param_id,omitempty" xml:"app_param_id,omitempty" require:"true"`
 }
 
 func (s DeleteConfigAppRequest) String() string {
@@ -18664,6 +19167,11 @@ func (s DeleteConfigAppRequest) GoString() string {
 
 func (s *DeleteConfigAppRequest) SetAuthToken(v string) *DeleteConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteConfigAppRequest) SetTenant(v string) *DeleteConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18703,12 +19211,13 @@ func (s *DeleteConfigAppResponse) SetResultMsg(v string) *DeleteConfigAppRespons
 
 type UpdateConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 数据保密等级
 	DataLevel *string `json:"data_level,omitempty" xml:"data_level,omitempty"`
 	// 参数描述
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
 	// 应用参数 id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 参数名
 	Key *string `json:"key,omitempty" xml:"key,omitempty"`
 	// 版本
@@ -18733,6 +19242,11 @@ func (s UpdateConfigAppRequest) GoString() string {
 
 func (s *UpdateConfigAppRequest) SetAuthToken(v string) *UpdateConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateConfigAppRequest) SetTenant(v string) *UpdateConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18812,8 +19326,9 @@ func (s *UpdateConfigAppResponse) SetResultMsg(v string) *UpdateConfigAppRespons
 
 type GetConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用参数 id
-	AppParamId *string `json:"app_param_id,omitempty" xml:"app_param_id,omitempty"`
+	AppParamId *string `json:"app_param_id,omitempty" xml:"app_param_id,omitempty" require:"true"`
 }
 
 func (s GetConfigAppRequest) String() string {
@@ -18826,6 +19341,11 @@ func (s GetConfigAppRequest) GoString() string {
 
 func (s *GetConfigAppRequest) SetAuthToken(v string) *GetConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetConfigAppRequest) SetTenant(v string) *GetConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -18872,6 +19392,7 @@ func (s *GetConfigAppResponse) SetData(v *AppParam) *GetConfigAppResponse {
 
 type QueryConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
 	// 模板参数保密级别
@@ -18904,6 +19425,11 @@ func (s QueryConfigAppRequest) GoString() string {
 
 func (s *QueryConfigAppRequest) SetAuthToken(v string) *QueryConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryConfigAppRequest) SetTenant(v string) *QueryConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19016,8 +19542,9 @@ func (s *QueryConfigAppResponse) SetTotalCount(v int64) *QueryConfigAppResponse 
 
 type SaveConfigTemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 描述
 	Comment *string `json:"comment,omitempty" xml:"comment,omitempty"`
 	// 参数定义列表
@@ -19036,6 +19563,11 @@ func (s SaveConfigTemplateRequest) GoString() string {
 
 func (s *SaveConfigTemplateRequest) SetAuthToken(v string) *SaveConfigTemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveConfigTemplateRequest) SetTenant(v string) *SaveConfigTemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19097,8 +19629,9 @@ func (s *SaveConfigTemplateResponse) SetTplId(v string) *SaveConfigTemplateRespo
 
 type CreateConfigTemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 描述
 	Comment *string `json:"comment,omitempty" xml:"comment,omitempty"`
 	// 参数定义列表
@@ -19117,6 +19650,11 @@ func (s CreateConfigTemplateRequest) GoString() string {
 
 func (s *CreateConfigTemplateRequest) SetAuthToken(v string) *CreateConfigTemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConfigTemplateRequest) SetTenant(v string) *CreateConfigTemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19178,8 +19716,9 @@ func (s *CreateConfigTemplateResponse) SetTplId(v string) *CreateConfigTemplateR
 
 type PullConfigTemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// RELEAES：获取最新的、已经发布的参数模板；
 	// DRAFT：获取最新的参数模板草稿；
 	// 不指定：获取已存在的最新的参数模板，不区分已发布或者草稿态；
@@ -19196,6 +19735,11 @@ func (s PullConfigTemplateRequest) GoString() string {
 
 func (s *PullConfigTemplateRequest) SetAuthToken(v string) *PullConfigTemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *PullConfigTemplateRequest) SetTenant(v string) *PullConfigTemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19247,8 +19791,9 @@ func (s *PullConfigTemplateResponse) SetData(v *AppConfigTemplate) *PullConfigTe
 
 type DeleteConfigTemplatedraftRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要删除的应用参数模板 id
-	TplId *string `json:"tpl_id,omitempty" xml:"tpl_id,omitempty"`
+	TplId *string `json:"tpl_id,omitempty" xml:"tpl_id,omitempty" require:"true"`
 }
 
 func (s DeleteConfigTemplatedraftRequest) String() string {
@@ -19261,6 +19806,11 @@ func (s DeleteConfigTemplatedraftRequest) GoString() string {
 
 func (s *DeleteConfigTemplatedraftRequest) SetAuthToken(v string) *DeleteConfigTemplatedraftRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteConfigTemplatedraftRequest) SetTenant(v string) *DeleteConfigTemplatedraftRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19300,8 +19850,9 @@ func (s *DeleteConfigTemplatedraftResponse) SetResultMsg(v string) *DeleteConfig
 
 type GetConfigTemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用参数模板 id
-	TplId *string `json:"tpl_id,omitempty" xml:"tpl_id,omitempty"`
+	TplId *string `json:"tpl_id,omitempty" xml:"tpl_id,omitempty" require:"true"`
 }
 
 func (s GetConfigTemplateRequest) String() string {
@@ -19314,6 +19865,11 @@ func (s GetConfigTemplateRequest) GoString() string {
 
 func (s *GetConfigTemplateRequest) SetAuthToken(v string) *GetConfigTemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetConfigTemplateRequest) SetTenant(v string) *GetConfigTemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19360,6 +19916,7 @@ func (s *GetConfigTemplateResponse) SetData(v *AppConfigTemplate) *GetConfigTemp
 
 type QueryConfigTemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
 	// 排序规则数组，默认为 UTC_MODIFIED_DESC，即 根据修改时间降序排序
@@ -19386,6 +19943,11 @@ func (s QueryConfigTemplateRequest) GoString() string {
 
 func (s *QueryConfigTemplateRequest) SetAuthToken(v string) *QueryConfigTemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryConfigTemplateRequest) SetTenant(v string) *QueryConfigTemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19483,10 +20045,11 @@ func (s *QueryConfigTemplateResponse) SetTotalCount(v int64) *QueryConfigTemplat
 
 type ExecConfigParseRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 参数定义列表
-	Params []*TemplateParamDef `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
+	Params []*TemplateParamDef `json:"params,omitempty" xml:"params,omitempty" require:"true" type:"Repeated"`
 	// 工作空间组 id
 	WorkspaceGroupId *string `json:"workspace_group_id,omitempty" xml:"workspace_group_id,omitempty"`
 	// 工作空间 id
@@ -19503,6 +20066,11 @@ func (s ExecConfigParseRequest) GoString() string {
 
 func (s *ExecConfigParseRequest) SetAuthToken(v string) *ExecConfigParseRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecConfigParseRequest) SetTenant(v string) *ExecConfigParseRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19564,8 +20132,9 @@ func (s *ExecConfigParseResponse) SetData(v []*RenderParam) *ExecConfigParseResp
 
 type BatchcreateConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要创建的全局参数列表
-	Items []*GlobalParam `json:"items,omitempty" xml:"items,omitempty" type:"Repeated"`
+	Items []*GlobalParam `json:"items,omitempty" xml:"items,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s BatchcreateConfigGlobalRequest) String() string {
@@ -19578,6 +20147,11 @@ func (s BatchcreateConfigGlobalRequest) GoString() string {
 
 func (s *BatchcreateConfigGlobalRequest) SetAuthToken(v string) *BatchcreateConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateConfigGlobalRequest) SetTenant(v string) *BatchcreateConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19617,8 +20191,9 @@ func (s *BatchcreateConfigGlobalResponse) SetResultMsg(v string) *BatchcreateCon
 
 type BatchcreateConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 要创建的应用参数列表
-	Items []*AppParam `json:"items,omitempty" xml:"items,omitempty" type:"Repeated"`
+	Items []*AppParam `json:"items,omitempty" xml:"items,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s BatchcreateConfigAppRequest) String() string {
@@ -19631,6 +20206,11 @@ func (s BatchcreateConfigAppRequest) GoString() string {
 
 func (s *BatchcreateConfigAppRequest) SetAuthToken(v string) *BatchcreateConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateConfigAppRequest) SetTenant(v string) *BatchcreateConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19670,6 +20250,7 @@ func (s *BatchcreateConfigAppResponse) SetResultMsg(v string) *BatchcreateConfig
 
 type GetConfigSitetreeRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s GetConfigSitetreeRequest) String() string {
@@ -19682,6 +20263,11 @@ func (s GetConfigSitetreeRequest) GoString() string {
 
 func (s *GetConfigSitetreeRequest) SetAuthToken(v string) *GetConfigSitetreeRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetConfigSitetreeRequest) SetTenant(v string) *GetConfigSitetreeRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19723,6 +20309,7 @@ func (s *GetConfigSitetreeResponse) SetData(v []*RegionView) *GetConfigSitetreeR
 
 type GetConfigTenanttreeRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s GetConfigTenanttreeRequest) String() string {
@@ -19735,6 +20322,11 @@ func (s GetConfigTenanttreeRequest) GoString() string {
 
 func (s *GetConfigTenanttreeRequest) SetAuthToken(v string) *GetConfigTenanttreeRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetConfigTenanttreeRequest) SetTenant(v string) *GetConfigTenanttreeRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19776,14 +20368,15 @@ func (s *GetConfigTenanttreeResponse) SetData(v []*WorkspaceGroupView) *GetConfi
 
 type ExistConfigAppRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 应用参数名称，同一个 appName + scope + scopeId 下不能有同名的应用参数
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 作用域 id 数组，比如作用域类型（type）是 workspace，那么 scopeId 就是 workspace 的 id
-	ScopeIds []*string `json:"scope_ids,omitempty" xml:"scope_ids,omitempty" type:"Repeated"`
+	ScopeIds []*string `json:"scope_ids,omitempty" xml:"scope_ids,omitempty" require:"true" type:"Repeated"`
 	// 作用域类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s ExistConfigAppRequest) String() string {
@@ -19796,6 +20389,11 @@ func (s ExistConfigAppRequest) GoString() string {
 
 func (s *ExistConfigAppRequest) SetAuthToken(v string) *ExistConfigAppRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExistConfigAppRequest) SetTenant(v string) *ExistConfigAppRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19857,12 +20455,13 @@ func (s *ExistConfigAppResponse) SetData(v []*bool) *ExistConfigAppResponse {
 
 type ExistConfigGlobalRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 全局参数名称，同一个 scope + scopeId 下不能有同名的全局参数
-	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
 	// 作用域 id 数组，比如作用域类型（type）是 workspace，那么 scopeId 就是 workspace 的 id
-	ScopeIds []*string `json:"scope_ids,omitempty" xml:"scope_ids,omitempty" type:"Repeated"`
+	ScopeIds []*string `json:"scope_ids,omitempty" xml:"scope_ids,omitempty" require:"true" type:"Repeated"`
 	// 作用域类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s ExistConfigGlobalRequest) String() string {
@@ -19875,6 +20474,11 @@ func (s ExistConfigGlobalRequest) GoString() string {
 
 func (s *ExistConfigGlobalRequest) SetAuthToken(v string) *ExistConfigGlobalRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExistConfigGlobalRequest) SetTenant(v string) *ExistConfigGlobalRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -19931,8 +20535,7 @@ func (s *ExistConfigGlobalResponse) SetData(v []*bool) *ExistConfigGlobalRespons
 
 type ListWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s ListWorkspacegroupRequest) String() string {
@@ -19958,7 +20561,7 @@ type ListWorkspacegroupResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 环境列表
-	WorkspaceGroups []*WorkspaceGroup `json:"workspace_groups,omitempty" xml:"workspace_groups,omitempty" type:"Repeated"`
+	WorkspaceGroups []*WorkspaceGroup `json:"workspace_groups,omitempty" xml:"workspace_groups,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ListWorkspacegroupResponse) String() string {
@@ -19991,10 +20594,9 @@ func (s *ListWorkspacegroupResponse) SetWorkspaceGroups(v []*WorkspaceGroup) *Li
 
 type GetWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标环境名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s GetWorkspacegroupRequest) String() string {
@@ -20025,15 +20627,15 @@ type GetWorkspacegroupResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 环境名称
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 环境显示名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 环境状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
 	// 工作空间名称列表
-	Workspaces []*string `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
+	Workspaces []*string `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s GetWorkspacegroupResponse) String() string {
@@ -20086,8 +20688,7 @@ func (s *GetWorkspacegroupResponse) SetWorkspaces(v []*string) *GetWorkspacegrou
 
 type QueryCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 目标租户名称
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标工作空间名称
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
 	// 目标环境名称
@@ -20127,7 +20728,7 @@ type QueryCellResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 部署单元列表
-	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" type:"Repeated"`
+	Cells []*Cell `json:"cells,omitempty" xml:"cells,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryCellResponse) String() string {
@@ -20160,10 +20761,11 @@ func (s *QueryCellResponse) SetCells(v []*Cell) *QueryCellResponse {
 
 type QueryWorkspaceDeltaRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 结束时间点
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// 开始时间点
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 }
 
 func (s QueryWorkspaceDeltaRequest) String() string {
@@ -20176,6 +20778,11 @@ func (s QueryWorkspaceDeltaRequest) GoString() string {
 
 func (s *QueryWorkspaceDeltaRequest) SetAuthToken(v string) *QueryWorkspaceDeltaRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWorkspaceDeltaRequest) SetTenant(v string) *QueryWorkspaceDeltaRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20194,7 +20801,7 @@ type QueryWorkspaceDeltaResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 发生变化的workspace列表
-	WorkspaceDeltaInfos []*WorkspaceDeltaInfo `json:"workspace_delta_infos,omitempty" xml:"workspace_delta_infos,omitempty" type:"Repeated"`
+	WorkspaceDeltaInfos []*WorkspaceDeltaInfo `json:"workspace_delta_infos,omitempty" xml:"workspace_delta_infos,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryWorkspaceDeltaResponse) String() string {
@@ -20227,16 +20834,17 @@ func (s *QueryWorkspaceDeltaResponse) SetWorkspaceDeltaInfos(v []*WorkspaceDelta
 
 type CreateWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 工作空间组显示名称。
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// 域名后缀。
-	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty"`
+	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty" require:"true"`
 	// 工作空间组唯一标识。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 发布部署模式。
-	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty"`
+	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty" require:"true"`
 	// 包含工作空间列表。
-	Workspaces []*string `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
+	Workspaces []*string `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateWorkspacegroupRequest) String() string {
@@ -20249,6 +20857,11 @@ func (s CreateWorkspacegroupRequest) GoString() string {
 
 func (s *CreateWorkspacegroupRequest) SetAuthToken(v string) *CreateWorkspacegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateWorkspacegroupRequest) SetTenant(v string) *CreateWorkspacegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20315,6 +20928,7 @@ func (s *CreateWorkspacegroupResponse) SetData(v string) *CreateWorkspacegroupRe
 
 type QueryWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 环境组名称（唯一标识）
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 }
@@ -20329,6 +20943,11 @@ func (s QueryWorkspacegroupRequest) GoString() string {
 
 func (s *QueryWorkspacegroupRequest) SetAuthToken(v string) *QueryWorkspacegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWorkspacegroupRequest) SetTenant(v string) *QueryWorkspacegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20375,8 +20994,9 @@ func (s *QueryWorkspacegroupResponse) SetWorkspaceGroups(v []*WorkspaceGroupInfo
 
 type DeleteWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 工作空间组名称(唯一标识)。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s DeleteWorkspacegroupRequest) String() string {
@@ -20389,6 +21009,11 @@ func (s DeleteWorkspacegroupRequest) GoString() string {
 
 func (s *DeleteWorkspacegroupRequest) SetAuthToken(v string) *DeleteWorkspacegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteWorkspacegroupRequest) SetTenant(v string) *DeleteWorkspacegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20428,8 +21053,9 @@ func (s *DeleteWorkspacegroupResponse) SetResultMsg(v string) *DeleteWorkspacegr
 
 type GetSingleworkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 所属工作空间唯一标识
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetSingleworkspaceRequest) String() string {
@@ -20442,6 +21068,11 @@ func (s GetSingleworkspaceRequest) GoString() string {
 
 func (s *GetSingleworkspaceRequest) SetAuthToken(v string) *GetSingleworkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSingleworkspaceRequest) SetTenant(v string) *GetSingleworkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20565,8 +21196,9 @@ func (s *GetSingleworkspaceResponse) SetZones(v []*string) *GetSingleworkspaceRe
 
 type GetSingleworkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 环境名称。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s GetSingleworkspacegroupRequest) String() string {
@@ -20579,6 +21211,11 @@ func (s GetSingleworkspacegroupRequest) GoString() string {
 
 func (s *GetSingleworkspacegroupRequest) SetAuthToken(v string) *GetSingleworkspacegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSingleworkspacegroupRequest) SetTenant(v string) *GetSingleworkspacegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20653,10 +21290,11 @@ func (s *GetSingleworkspacegroupResponse) SetWorkspaces(v []*string) *GetSinglew
 
 type ListCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 目标工作空间名称。
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// 目标环境名称。
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s ListCellRequest) String() string {
@@ -20669,6 +21307,11 @@ func (s ListCellRequest) GoString() string {
 
 func (s *ListCellRequest) SetAuthToken(v string) *ListCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListCellRequest) SetTenant(v string) *ListCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20720,14 +21363,15 @@ func (s *ListCellResponse) SetCells(v []*Cell) *ListCellResponse {
 
 type CreateSingleworkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace 显示名称
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// workspace 唯一标识符
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// VPC ｜ Classic
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
 	// 地域
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
 	// 枚举值：
 	//   标准工作空间NORMAL;
 	//   单元化工作空间UNIT
@@ -20746,6 +21390,11 @@ func (s CreateSingleworkspaceRequest) GoString() string {
 
 func (s *CreateSingleworkspaceRequest) SetAuthToken(v string) *CreateSingleworkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSingleworkspaceRequest) SetTenant(v string) *CreateSingleworkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20817,8 +21466,9 @@ func (s *CreateSingleworkspaceResponse) SetWorkspaceId(v string) *CreateSinglewo
 
 type DeleteSingleworkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 }
 
 func (s DeleteSingleworkspaceRequest) String() string {
@@ -20831,6 +21481,11 @@ func (s DeleteSingleworkspaceRequest) GoString() string {
 
 func (s *DeleteSingleworkspaceRequest) SetAuthToken(v string) *DeleteSingleworkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteSingleworkspaceRequest) SetTenant(v string) *DeleteSingleworkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20877,17 +21532,18 @@ func (s *DeleteSingleworkspaceResponse) SetSuccess(v bool) *DeleteSingleworkspac
 
 type CreateVpcRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// VPC所在的地域
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
 	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 创建的VPC的ID
-	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
+	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
 	//
 	// 所属环境id
-	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// vpc名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s CreateVpcRequest) String() string {
@@ -20900,6 +21556,11 @@ func (s CreateVpcRequest) GoString() string {
 
 func (s *CreateVpcRequest) SetAuthToken(v string) *CreateVpcRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateVpcRequest) SetTenant(v string) *CreateVpcRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -20966,10 +21627,11 @@ func (s *CreateVpcResponse) SetId(v string) *CreateVpcResponse {
 
 type UpdateWorkspacegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 域名后缀。
 	DomainSuffix *string `json:"domain_suffix,omitempty" xml:"domain_suffix,omitempty"`
 	// workspacegroup名称，唯一标识一个环境。
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// workspacegroup显示名称。
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
 	// 包含工作空间名称。
@@ -20986,6 +21648,11 @@ func (s UpdateWorkspacegroupRequest) GoString() string {
 
 func (s *UpdateWorkspacegroupRequest) SetAuthToken(v string) *UpdateWorkspacegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateWorkspacegroupRequest) SetTenant(v string) *UpdateWorkspacegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21040,6 +21707,7 @@ func (s *UpdateWorkspacegroupResponse) SetResultMsg(v string) *UpdateWorkspacegr
 
 type UpdateSingleworkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace 显示名称
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
 	// VPC ｜ Classic
@@ -21049,7 +21717,7 @@ type UpdateSingleworkspaceRequest struct {
 	// 可用区id列表
 	Zones []*string `json:"zones,omitempty" xml:"zones,omitempty" type:"Repeated"`
 	// 环境唯一标识
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 }
 
 func (s UpdateSingleworkspaceRequest) String() string {
@@ -21062,6 +21730,11 @@ func (s UpdateSingleworkspaceRequest) GoString() string {
 
 func (s *UpdateSingleworkspaceRequest) SetAuthToken(v string) *UpdateSingleworkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSingleworkspaceRequest) SetTenant(v string) *UpdateSingleworkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21128,6 +21801,7 @@ func (s *UpdateSingleworkspaceResponse) SetSuccess(v bool) *UpdateSingleworkspac
 
 type ListRegionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s ListRegionRequest) String() string {
@@ -21140,6 +21814,11 @@ func (s ListRegionRequest) GoString() string {
 
 func (s *ListRegionRequest) SetAuthToken(v string) *ListRegionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListRegionRequest) SetTenant(v string) *ListRegionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21181,6 +21860,7 @@ func (s *ListRegionResponse) SetData(v []*RegionMeta) *ListRegionResponse {
 
 type ListZoneRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// region identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty"`
 }
@@ -21195,6 +21875,11 @@ func (s ListZoneRequest) GoString() string {
 
 func (s *ListZoneRequest) SetAuthToken(v string) *ListZoneRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListZoneRequest) SetTenant(v string) *ListZoneRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21241,18 +21926,19 @@ func (s *ListZoneResponse) SetData(v []*Zone) *ListZoneResponse {
 
 type CreateCellgroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 所属idc
 	Datacenter *string `json:"datacenter,omitempty" xml:"datacenter,omitempty"`
 	// 默认全局域
 	DefaultGzone *string `json:"default_gzone,omitempty" xml:"default_gzone,omitempty"`
 	// 逻辑单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// 逻辑单元类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 所属环境组名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s CreateCellgroupRequest) String() string {
@@ -21265,6 +21951,11 @@ func (s CreateCellgroupRequest) GoString() string {
 
 func (s *CreateCellgroupRequest) SetAuthToken(v string) *CreateCellgroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateCellgroupRequest) SetTenant(v string) *CreateCellgroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21329,10 +22020,11 @@ func (s *CreateCellgroupResponse) SetResultMsg(v string) *CreateCellgroupRespons
 
 type DeleteCellgroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 逻辑单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 所属环境名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s DeleteCellgroupRequest) String() string {
@@ -21345,6 +22037,11 @@ func (s DeleteCellgroupRequest) GoString() string {
 
 func (s *DeleteCellgroupRequest) SetAuthToken(v string) *DeleteCellgroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteCellgroupRequest) SetTenant(v string) *DeleteCellgroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21389,10 +22086,11 @@ func (s *DeleteCellgroupResponse) SetResultMsg(v string) *DeleteCellgroupRespons
 
 type QueryCellgroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// cell group 查询前缀
 	NamePrefix *string `json:"name_prefix,omitempty" xml:"name_prefix,omitempty"`
 	// 所属环境名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 	// 逻辑单元名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 }
@@ -21407,6 +22105,11 @@ func (s QueryCellgroupRequest) GoString() string {
 
 func (s *QueryCellgroupRequest) SetAuthToken(v string) *QueryCellgroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCellgroupRequest) SetTenant(v string) *QueryCellgroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21463,14 +22166,15 @@ func (s *QueryCellgroupResponse) SetData(v []*CellGroup) *QueryCellgroupResponse
 
 type UpdateCellgroupDisasterinfoRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 灾备信息
-	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" type:"Repeated"`
+	DisasterInfo []*DisasterInfo `json:"disaster_info,omitempty" xml:"disaster_info,omitempty" require:"true" type:"Repeated"`
 	// 逻辑单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
 	// 所属环境组名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s UpdateCellgroupDisasterinfoRequest) String() string {
@@ -21483,6 +22187,11 @@ func (s UpdateCellgroupDisasterinfoRequest) GoString() string {
 
 func (s *UpdateCellgroupDisasterinfoRequest) SetAuthToken(v string) *UpdateCellgroupDisasterinfoRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateCellgroupDisasterinfoRequest) SetTenant(v string) *UpdateCellgroupDisasterinfoRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21537,28 +22246,29 @@ func (s *UpdateCellgroupDisasterinfoResponse) SetResultMsg(v string) *UpdateCell
 
 type CreateDeploymentCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 所属逻辑单元名称[单元化模式特有]
 	// 当type为"RZone"或"CZone"时，为必填项
 	CellGroup *string `json:"cell_group,omitempty" xml:"cell_group,omitempty"`
 	// 蓝绿着色信息[单元化模式特有]
 	Color *string `json:"color,omitempty" xml:"color,omitempty"`
 	// 部署单元唯一标识
-	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
 	// 是否灰度[单元化模式特有]
 	IsGray *bool `json:"is_gray,omitempty" xml:"is_gray,omitempty"`
 	// 部署单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 部署单元类型:
 	// RZone, CZone,GZone,default
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 权重[单元化模式特有]
 	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
 	// 所属工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// 所属环境组名称
 	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
 	// 所属机房名称
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
 }
 
 func (s CreateDeploymentCellRequest) String() string {
@@ -21571,6 +22281,11 @@ func (s CreateDeploymentCellRequest) GoString() string {
 
 func (s *CreateDeploymentCellRequest) SetAuthToken(v string) *CreateDeploymentCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDeploymentCellRequest) SetTenant(v string) *CreateDeploymentCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21655,10 +22370,11 @@ func (s *CreateDeploymentCellResponse) SetResultMsg(v string) *CreateDeploymentC
 
 type DeleteDeploymentCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 所属工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteDeploymentCellRequest) String() string {
@@ -21671,6 +22387,11 @@ func (s DeleteDeploymentCellRequest) GoString() string {
 
 func (s *DeleteDeploymentCellRequest) SetAuthToken(v string) *DeleteDeploymentCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDeploymentCellRequest) SetTenant(v string) *DeleteDeploymentCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21715,6 +22436,7 @@ func (s *DeleteDeploymentCellResponse) SetResultMsg(v string) *DeleteDeploymentC
 
 type QueryDeploymentCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单元名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 部署单元名称前缀
@@ -21735,6 +22457,11 @@ func (s QueryDeploymentCellRequest) GoString() string {
 
 func (s *QueryDeploymentCellRequest) SetAuthToken(v string) *QueryDeploymentCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeploymentCellRequest) SetTenant(v string) *QueryDeploymentCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21796,18 +22523,19 @@ func (s *QueryDeploymentCellResponse) SetData(v []*DeployCell) *QueryDeploymentC
 
 type UpdateDeploymentCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 蓝绿着色信息
 	Color *string `json:"color,omitempty" xml:"color,omitempty"`
 	// 是否灰度
 	IsGray *bool `json:"is_gray,omitempty" xml:"is_gray,omitempty"`
 	// 部署单元名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 权重
 	Weight *int64 `json:"weight,omitempty" xml:"weight,omitempty"`
 	// 所属工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// 所属环境组名称
-	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty"`
+	WorkspaceGroup *string `json:"workspace_group,omitempty" xml:"workspace_group,omitempty" require:"true"`
 }
 
 func (s UpdateDeploymentCellRequest) String() string {
@@ -21820,6 +22548,11 @@ func (s UpdateDeploymentCellRequest) GoString() string {
 
 func (s *UpdateDeploymentCellRequest) SetAuthToken(v string) *UpdateDeploymentCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDeploymentCellRequest) SetTenant(v string) *UpdateDeploymentCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21884,6 +22617,7 @@ func (s *UpdateDeploymentCellResponse) SetResultMsg(v string) *UpdateDeploymentC
 
 type QueryDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单包含的应用（服务）名称
 	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
 	// 部署单创建日期，采用UTC时间，按照ISO8601标准表示，格式为：YYYY-MM-DDThh:mm:ssZ
@@ -21921,6 +22655,11 @@ func (s QueryDeploymentRequest) GoString() string {
 
 func (s *QueryDeploymentRequest) SetAuthToken(v string) *QueryDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeploymentRequest) SetTenant(v string) *QueryDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -21964,7 +22703,7 @@ type QueryDeploymentResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 批量查询部署单结果，以操作链的形式体现
-	Deployments []*OpsDeployment `json:"deployments,omitempty" xml:"deployments,omitempty" type:"Repeated"`
+	Deployments []*OpsDeployment `json:"deployments,omitempty" xml:"deployments,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小
@@ -22018,10 +22757,11 @@ func (s *QueryDeploymentResponse) SetTotalCount(v int) *QueryDeploymentResponse 
 
 type CancelDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 	// 取消原因。长度不超过100个UTF-8字符
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 }
 
 func (s CancelDeploymentRequest) String() string {
@@ -22034,6 +22774,11 @@ func (s CancelDeploymentRequest) GoString() string {
 
 func (s *CancelDeploymentRequest) SetAuthToken(v string) *CancelDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelDeploymentRequest) SetTenant(v string) *CancelDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22078,18 +22823,17 @@ func (s *CancelDeploymentResponse) SetResultMsg(v string) *CancelDeploymentRespo
 
 type CreateDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用列表
-	Applications []*Application `json:"applications,omitempty" xml:"applications,omitempty" type:"Repeated"`
+	Applications []*Application `json:"applications,omitempty" xml:"applications,omitempty" require:"true" type:"Repeated"`
 	// 是否启用自动运维，默认为**False**
 	AutoExecute *bool `json:"auto_execute,omitempty" xml:"auto_execute,omitempty"`
 	// 部署维度，有两种取值：APPLICATION和APP_SERVICE。设置为APPLICATION，表示在尚未引入应用服务环境中对整个应用都执行部署操作; APP_SERVICE表示在引入应用服务的环境中对应用服务执行部署操作。
-	DeployDimension *string `json:"deploy_dimension,omitempty" xml:"deploy_dimension,omitempty"`
-	// 执行部署操作的目标租户
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	DeployDimension *string `json:"deploy_dimension,omitempty" xml:"deploy_dimension,omitempty" require:"true"`
 	// 部署单标题。长度不超过50个UTF-8字符
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 	// 执行部署操作的目标工作空间
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateDeploymentRequest) String() string {
@@ -22102,6 +22846,11 @@ func (s CreateDeploymentRequest) GoString() string {
 
 func (s *CreateDeploymentRequest) SetAuthToken(v string) *CreateDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDeploymentRequest) SetTenant(v string) *CreateDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22120,11 +22869,6 @@ func (s *CreateDeploymentRequest) SetDeployDimension(v string) *CreateDeployment
 	return s
 }
 
-func (s *CreateDeploymentRequest) SetTenant(v string) *CreateDeploymentRequest {
-	s.Tenant = &v
-	return s
-}
-
 func (s *CreateDeploymentRequest) SetTitle(v string) *CreateDeploymentRequest {
 	s.Title = &v
 	return s
@@ -22140,7 +22884,7 @@ type CreateDeploymentResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建完成的部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s CreateDeploymentResponse) String() string {
@@ -22173,8 +22917,9 @@ func (s *CreateDeploymentResponse) SetOperationId(v string) *CreateDeploymentRes
 
 type GetDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s GetDeploymentRequest) String() string {
@@ -22190,6 +22935,11 @@ func (s *GetDeploymentRequest) SetAuthToken(v string) *GetDeploymentRequest {
 	return s
 }
 
+func (s *GetDeploymentRequest) SetTenant(v string) *GetDeploymentRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetDeploymentRequest) SetOperationId(v string) *GetDeploymentRequest {
 	s.OperationId = &v
 	return s
@@ -22200,9 +22950,9 @@ type GetDeploymentResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 此部署操作中所有被操作的应用详情，以操作链的形式体现
-	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" type:"Repeated"`
+	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" require:"true" type:"Repeated"`
 	// 部署操作执行者
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
 	//
 	//
 	// 部署单状态。取值列表：
@@ -22216,7 +22966,7 @@ type GetDeploymentResponse struct {
 	// CANCELED：已取消
 	//
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s GetDeploymentResponse) String() string {
@@ -22259,8 +23009,9 @@ func (s *GetDeploymentResponse) SetStatus(v string) *GetDeploymentResponse {
 
 type RetryDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s RetryDeploymentRequest) String() string {
@@ -22273,6 +23024,11 @@ func (s RetryDeploymentRequest) GoString() string {
 
 func (s *RetryDeploymentRequest) SetAuthToken(v string) *RetryDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryDeploymentRequest) SetTenant(v string) *RetryDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22312,8 +23068,9 @@ func (s *RetryDeploymentResponse) SetResultMsg(v string) *RetryDeploymentRespons
 
 type StartDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s StartDeploymentRequest) String() string {
@@ -22326,6 +23083,11 @@ func (s StartDeploymentRequest) GoString() string {
 
 func (s *StartDeploymentRequest) SetAuthToken(v string) *StartDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *StartDeploymentRequest) SetTenant(v string) *StartDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22365,10 +23127,11 @@ func (s *StartDeploymentResponse) SetResultMsg(v string) *StartDeploymentRespons
 
 type GetDeploymentApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 待查询的应用（服务）名称，必须是部署单中包含的应用（服务）
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s GetDeploymentApplicationRequest) String() string {
@@ -22381,6 +23144,11 @@ func (s GetDeploymentApplicationRequest) GoString() string {
 
 func (s *GetDeploymentApplicationRequest) SetAuthToken(v string) *GetDeploymentApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDeploymentApplicationRequest) SetTenant(v string) *GetDeploymentApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22399,11 +23167,11 @@ type GetDeploymentApplicationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 此应用下所有计算容器分组运维状态详情
-	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
+	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
 	// 应用（服务）当前运维状态。取值列表：INITING：初始化中；INIT_FAILED：初始化失败；INITED：初始化完成；
 	//                             EXECUTING：执行中；SUCCESS：执行成功；FAILED：执行失败
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s GetDeploymentApplicationResponse) String() string {
@@ -22441,12 +23209,13 @@ func (s *GetDeploymentApplicationResponse) SetStatus(v string) *GetDeploymentApp
 
 type RollbackDeploymentApplicationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 被回滚的应用（服务）名称，必须是部署单中包含的应用（服务）
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 	// 回滚原因。长度不超过100个UTF-8字符
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 }
 
 func (s RollbackDeploymentApplicationRequest) String() string {
@@ -22459,6 +23228,11 @@ func (s RollbackDeploymentApplicationRequest) GoString() string {
 
 func (s *RollbackDeploymentApplicationRequest) SetAuthToken(v string) *RollbackDeploymentApplicationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackDeploymentApplicationRequest) SetTenant(v string) *RollbackDeploymentApplicationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22508,8 +23282,9 @@ func (s *RollbackDeploymentApplicationResponse) SetResultMsg(v string) *Rollback
 
 type ReinitDeploymentRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部署单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s ReinitDeploymentRequest) String() string {
@@ -22522,6 +23297,11 @@ func (s ReinitDeploymentRequest) GoString() string {
 
 func (s *ReinitDeploymentRequest) SetAuthToken(v string) *ReinitDeploymentRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitDeploymentRequest) SetTenant(v string) *ReinitDeploymentRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22561,10 +23341,11 @@ func (s *ReinitDeploymentResponse) SetResultMsg(v string) *ReinitDeploymentRespo
 
 type QueryCmdtemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 指令模板描述信息
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 指令名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10
@@ -22581,6 +23362,11 @@ func (s QueryCmdtemplateRequest) GoString() string {
 
 func (s *QueryCmdtemplateRequest) SetAuthToken(v string) *QueryCmdtemplateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCmdtemplateRequest) SetTenant(v string) *QueryCmdtemplateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22609,13 +23395,13 @@ type QueryCmdtemplateResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 指令模板ID列表
-	TemplateIds []*string `json:"template_ids,omitempty" xml:"template_ids,omitempty" type:"Repeated"`
+	TemplateIds []*string `json:"template_ids,omitempty" xml:"template_ids,omitempty" require:"true" type:"Repeated"`
 	// 指令模板总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryCmdtemplateResponse) String() string {
@@ -22663,8 +23449,9 @@ func (s *QueryCmdtemplateResponse) SetTotalCount(v int) *QueryCmdtemplateRespons
 
 type GetCmdtemplateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 指令模板ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s GetCmdtemplateRequest) String() string {
@@ -22680,6 +23467,11 @@ func (s *GetCmdtemplateRequest) SetAuthToken(v string) *GetCmdtemplateRequest {
 	return s
 }
 
+func (s *GetCmdtemplateRequest) SetTenant(v string) *GetCmdtemplateRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetCmdtemplateRequest) SetId(v string) *GetCmdtemplateRequest {
 	s.Id = &v
 	return s
@@ -22690,7 +23482,7 @@ type GetCmdtemplateResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 指令模板详情
-	Template *CmdTemplate `json:"template,omitempty" xml:"template,omitempty"`
+	Template *CmdTemplate `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 }
 
 func (s GetCmdtemplateResponse) String() string {
@@ -22723,10 +23515,11 @@ func (s *GetCmdtemplateResponse) SetTemplate(v *CmdTemplate) *GetCmdtemplateResp
 
 type SyncexecuteCmdTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 执行的指令。示例如下：cmd.template_id=000015678&cmd.args.1.name=--version&cmd.args.1.value=2.2
-	Cmd *OpsCmd `json:"cmd,omitempty" xml:"cmd,omitempty"`
+	Cmd *OpsCmd `json:"cmd,omitempty" xml:"cmd,omitempty" require:"true"`
 	// 执行指令的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
-	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
+	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s SyncexecuteCmdTaskRequest) String() string {
@@ -22739,6 +23532,11 @@ func (s SyncexecuteCmdTaskRequest) GoString() string {
 
 func (s *SyncexecuteCmdTaskRequest) SetAuthToken(v string) *SyncexecuteCmdTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncexecuteCmdTaskRequest) SetTenant(v string) *SyncexecuteCmdTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22757,7 +23555,7 @@ type SyncexecuteCmdTaskResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 指令执行结果详情
-	Result *CmdExecResult `json:"result,omitempty" xml:"result,omitempty"`
+	Result *CmdExecResult `json:"result,omitempty" xml:"result,omitempty" require:"true"`
 }
 
 func (s SyncexecuteCmdTaskResponse) String() string {
@@ -22790,10 +23588,11 @@ func (s *SyncexecuteCmdTaskResponse) SetResult(v *CmdExecResult) *SyncexecuteCmd
 
 type AsyncexecuteCmdTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 执行的指令。示例如下：cmd.template_id=000015678&cmd.args.1.name=--version&cmd.args.1.value=2.2
-	Cmd *OpsCmd `json:"cmd,omitempty" xml:"cmd,omitempty"`
+	Cmd *OpsCmd `json:"cmd,omitempty" xml:"cmd,omitempty" require:"true"`
 	// 执行指令的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
-	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
+	Computers []*OpsComputer `json:"computers,omitempty" xml:"computers,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AsyncexecuteCmdTaskRequest) String() string {
@@ -22806,6 +23605,11 @@ func (s AsyncexecuteCmdTaskRequest) GoString() string {
 
 func (s *AsyncexecuteCmdTaskRequest) SetAuthToken(v string) *AsyncexecuteCmdTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *AsyncexecuteCmdTaskRequest) SetTenant(v string) *AsyncexecuteCmdTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22824,7 +23628,7 @@ type AsyncexecuteCmdTaskResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 指令执行任务ID，用于查询任务详情
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s AsyncexecuteCmdTaskResponse) String() string {
@@ -22857,8 +23661,9 @@ func (s *AsyncexecuteCmdTaskResponse) SetTaskId(v string) *AsyncexecuteCmdTaskRe
 
 type GetCmdTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 异步指令执行的任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s GetCmdTaskRequest) String() string {
@@ -22874,6 +23679,11 @@ func (s *GetCmdTaskRequest) SetAuthToken(v string) *GetCmdTaskRequest {
 	return s
 }
 
+func (s *GetCmdTaskRequest) SetTenant(v string) *GetCmdTaskRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetCmdTaskRequest) SetTaskId(v string) *GetCmdTaskRequest {
 	s.TaskId = &v
 	return s
@@ -22884,7 +23694,7 @@ type GetCmdTaskResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 指令执行结果详情
-	Result *CmdExecResult `json:"result,omitempty" xml:"result,omitempty"`
+	Result *CmdExecResult `json:"result,omitempty" xml:"result,omitempty" require:"true"`
 }
 
 func (s GetCmdTaskResponse) String() string {
@@ -22917,6 +23727,7 @@ func (s *GetCmdTaskResponse) SetResult(v *CmdExecResult) *GetCmdTaskResponse {
 
 type CreateAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 执行运维操作的目标应用名称列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个应用，使用如下形式：applications.1.name=myapp1&applications.2.name=myapp2
 	Applications []*Application `json:"applications,omitempty" xml:"applications,omitempty" type:"Repeated"`
 	// 是否启用自动运维，默认为**False**
@@ -22926,13 +23737,13 @@ type CreateAppopsRequest struct {
 	// 应用运维的操作类型，取值列表：ONLINE：上线应用，OFFLINE：下线应用，RESTART:重启应用，DEPLOY_STATIC_RESOURCE：部署静态资源。
 	//                         部署静态资源需传入 ops_action_params 为("default_execute_account", "resource_download_url", "resource_target_file")
 	//
-	OpsAction *string `json:"ops_action,omitempty" xml:"ops_action,omitempty"`
+	OpsAction *string `json:"ops_action,omitempty" xml:"ops_action,omitempty" require:"true"`
 	// ops_action 所需要的参数，以JSON格式传入。以 {"param_name": "param_value"} 定义JSON。
 	OpsActionParams *string `json:"ops_action_params,omitempty" xml:"ops_action_params,omitempty"`
 	// 应用运维的维度，有三种取值：APPLICATION、APP_SERVICE和MACHINE。设置为APPLICATION，表示在非应用服务环境下整个应用都执行该应用运维操作；设置为APP_SERVICE，表示在应用服务环境下对应用服务执行运维操作;设置为MACHINE，表示应用下的一台或多台机器执行改应用运维操作。
-	OpsDimension *string `json:"ops_dimension,omitempty" xml:"ops_dimension,omitempty"`
+	OpsDimension *string `json:"ops_dimension,omitempty" xml:"ops_dimension,omitempty" require:"true"`
 	// 运维单标题。长度不超过50个UTF-8字符
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 }
 
 func (s CreateAppopsRequest) String() string {
@@ -22945,6 +23756,11 @@ func (s CreateAppopsRequest) GoString() string {
 
 func (s *CreateAppopsRequest) SetAuthToken(v string) *CreateAppopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppopsRequest) SetTenant(v string) *CreateAppopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -22988,7 +23804,7 @@ type CreateAppopsResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建完成的运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s CreateAppopsResponse) String() string {
@@ -23021,8 +23837,9 @@ func (s *CreateAppopsResponse) SetOperationId(v string) *CreateAppopsResponse {
 
 type GetAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s GetAppopsRequest) String() string {
@@ -23038,6 +23855,11 @@ func (s *GetAppopsRequest) SetAuthToken(v string) *GetAppopsRequest {
 	return s
 }
 
+func (s *GetAppopsRequest) SetTenant(v string) *GetAppopsRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetAppopsRequest) SetOperationId(v string) *GetAppopsRequest {
 	s.OperationId = &v
 	return s
@@ -23048,13 +23870,13 @@ type GetAppopsResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 此运维操作中所有被操作的应用详情，以操作链的形式体现
-	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" type:"Repeated"`
+	ApplicationChains []*OpsApplicationChain `json:"application_chains,omitempty" xml:"application_chains,omitempty" require:"true" type:"Repeated"`
 	// 运维操作执行者
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
 	// 应用运维的操作类型，取值列表：ONLINE：上线应用，OFFLINE：下线应用，RESTART:重启应用，DEPLOY_STATIC_RESOURCE：部署静态资源
-	OpsAction *string `json:"ops_action,omitempty" xml:"ops_action,omitempty"`
+	OpsAction *string `json:"ops_action,omitempty" xml:"ops_action,omitempty" require:"true"`
 	// 应用运维的维度，有三种取值：APPLICATION、APP_SERVICE和MACHINE。设置为APPLICATION，表示在非应用服务环境下整个应用都执行该应用运维操作；设置为APP_SERVICE，表示在应用服务环境下对应用服务执行运维操作;设置为MACHINE，表示应用下的一台或多台机器执行改应用运维操作。
-	OpsDimension *string `json:"ops_dimension,omitempty" xml:"ops_dimension,omitempty"`
+	OpsDimension *string `json:"ops_dimension,omitempty" xml:"ops_dimension,omitempty" require:"true"`
 	//
 	//
 	// 部署单状态。取值列表：
@@ -23068,9 +23890,9 @@ type GetAppopsResponse struct {
 	// CANCELED：已取消
 	//
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 应用运维单标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 }
 
 func (s GetAppopsResponse) String() string {
@@ -23128,8 +23950,9 @@ func (s *GetAppopsResponse) SetTitle(v string) *GetAppopsResponse {
 
 type StartAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s StartAppopsRequest) String() string {
@@ -23142,6 +23965,11 @@ func (s StartAppopsRequest) GoString() string {
 
 func (s *StartAppopsRequest) SetAuthToken(v string) *StartAppopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *StartAppopsRequest) SetTenant(v string) *StartAppopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23181,8 +24009,9 @@ func (s *StartAppopsResponse) SetResultMsg(v string) *StartAppopsResponse {
 
 type ReinitAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s ReinitAppopsRequest) String() string {
@@ -23195,6 +24024,11 @@ func (s ReinitAppopsRequest) GoString() string {
 
 func (s *ReinitAppopsRequest) SetAuthToken(v string) *ReinitAppopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitAppopsRequest) SetTenant(v string) *ReinitAppopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23234,10 +24068,11 @@ func (s *ReinitAppopsResponse) SetResultMsg(v string) *ReinitAppopsResponse {
 
 type CancelAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 	// 取消原因。长度不超过100个UTF-8字符
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 }
 
 func (s CancelAppopsRequest) String() string {
@@ -23250,6 +24085,11 @@ func (s CancelAppopsRequest) GoString() string {
 
 func (s *CancelAppopsRequest) SetAuthToken(v string) *CancelAppopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelAppopsRequest) SetTenant(v string) *CancelAppopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23294,8 +24134,9 @@ func (s *CancelAppopsResponse) SetResultMsg(v string) *CancelAppopsResponse {
 
 type RetryAppopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s RetryAppopsRequest) String() string {
@@ -23308,6 +24149,11 @@ func (s RetryAppopsRequest) GoString() string {
 
 func (s *RetryAppopsRequest) SetAuthToken(v string) *RetryAppopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryAppopsRequest) SetTenant(v string) *RetryAppopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23347,12 +24193,13 @@ func (s *RetryAppopsResponse) SetResultMsg(v string) *RetryAppopsResponse {
 
 type CreateComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 执行的指令列表。n代表第n个指令，n从1开始，最大20。示例如下：cmds.1.template_id=000015678&cmds.1.args.1.name=--version&cmds.1.args.1.value=2.2&cmds.2.template_id=000015688
 	Cmds []*OpsCmd `json:"cmds,omitempty" xml:"cmds,omitempty" type:"Repeated"`
 	// 执行运维操作的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
 	Computers []*Computer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
 	// 运维单标题。长度不超过50个UTF-8字符
-	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
 }
 
 func (s CreateComputeropsRequest) String() string {
@@ -23365,6 +24212,11 @@ func (s CreateComputeropsRequest) GoString() string {
 
 func (s *CreateComputeropsRequest) SetAuthToken(v string) *CreateComputeropsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateComputeropsRequest) SetTenant(v string) *CreateComputeropsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23388,7 +24240,7 @@ type CreateComputeropsResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建完成的运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s CreateComputeropsResponse) String() string {
@@ -23421,8 +24273,9 @@ func (s *CreateComputeropsResponse) SetOperationId(v string) *CreateComputeropsR
 
 type GetComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s GetComputeropsRequest) String() string {
@@ -23438,6 +24291,11 @@ func (s *GetComputeropsRequest) SetAuthToken(v string) *GetComputeropsRequest {
 	return s
 }
 
+func (s *GetComputeropsRequest) SetTenant(v string) *GetComputeropsRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *GetComputeropsRequest) SetOperationId(v string) *GetComputeropsRequest {
 	s.OperationId = &v
 	return s
@@ -23448,9 +24306,9 @@ type GetComputeropsResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 运维操作执行者
-	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
+	Executor *string `json:"executor,omitempty" xml:"executor,omitempty" require:"true"`
 	// 改运维单下所有计算容器分组运维状态详情
-	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
+	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
 	//
 	//
 	// 部署单状态。取值列表：
@@ -23464,7 +24322,7 @@ type GetComputeropsResponse struct {
 	// CANCELED：已取消
 	//
 	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s GetComputeropsResponse) String() string {
@@ -23507,8 +24365,9 @@ func (s *GetComputeropsResponse) SetStatus(v string) *GetComputeropsResponse {
 
 type StartComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s StartComputeropsRequest) String() string {
@@ -23521,6 +24380,11 @@ func (s StartComputeropsRequest) GoString() string {
 
 func (s *StartComputeropsRequest) SetAuthToken(v string) *StartComputeropsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *StartComputeropsRequest) SetTenant(v string) *StartComputeropsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23560,8 +24424,9 @@ func (s *StartComputeropsResponse) SetResultMsg(v string) *StartComputeropsRespo
 
 type ReinitComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s ReinitComputeropsRequest) String() string {
@@ -23574,6 +24439,11 @@ func (s ReinitComputeropsRequest) GoString() string {
 
 func (s *ReinitComputeropsRequest) SetAuthToken(v string) *ReinitComputeropsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitComputeropsRequest) SetTenant(v string) *ReinitComputeropsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23613,10 +24483,11 @@ func (s *ReinitComputeropsResponse) SetResultMsg(v string) *ReinitComputeropsRes
 
 type CancelComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 	// 取消原因。长度不超过100个UTF-8字符
-	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true"`
 }
 
 func (s CancelComputeropsRequest) String() string {
@@ -23629,6 +24500,11 @@ func (s CancelComputeropsRequest) GoString() string {
 
 func (s *CancelComputeropsRequest) SetAuthToken(v string) *CancelComputeropsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelComputeropsRequest) SetTenant(v string) *CancelComputeropsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23673,8 +24549,9 @@ func (s *CancelComputeropsResponse) SetResultMsg(v string) *CancelComputeropsRes
 
 type RetryComputeropsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 运维单id
-	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
 }
 
 func (s RetryComputeropsRequest) String() string {
@@ -23687,6 +24564,11 @@ func (s RetryComputeropsRequest) GoString() string {
 
 func (s *RetryComputeropsRequest) SetAuthToken(v string) *RetryComputeropsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryComputeropsRequest) SetTenant(v string) *RetryComputeropsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23726,8 +24608,9 @@ func (s *RetryComputeropsResponse) SetResultMsg(v string) *RetryComputeropsRespo
 
 type QueryOpsappsvcRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用的名称
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// 当前页码，默认为1
 	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认10，最大50
@@ -23746,6 +24629,11 @@ func (s QueryOpsappsvcRequest) GoString() string {
 
 func (s *QueryOpsappsvcRequest) SetAuthToken(v string) *QueryOpsappsvcRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOpsappsvcRequest) SetTenant(v string) *QueryOpsappsvcRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23774,13 +24662,13 @@ type QueryOpsappsvcResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用服务的运维历史
-	Opsappsvcs []*OpsApplication `json:"opsappsvcs,omitempty" xml:"opsappsvcs,omitempty" type:"Repeated"`
+	Opsappsvcs []*OpsApplication `json:"opsappsvcs,omitempty" xml:"opsappsvcs,omitempty" require:"true" type:"Repeated"`
 	// 当前页码
-	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageNum *int `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 分页大小
-	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 总数
-	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	TotalCount *int `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
 }
 
 func (s QueryOpsappsvcResponse) String() string {
@@ -23828,12 +24716,13 @@ func (s *QueryOpsappsvcResponse) SetTotalCount(v int) *QueryOpsappsvcResponse {
 
 type AsyncexecuteBashcmdRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 执行的命令，长度不能超过500个字符
-	Command *string `json:"command,omitempty" xml:"command,omitempty"`
+	Command *string `json:"command,omitempty" xml:"command,omitempty" require:"true"`
 	// 执行指令的目标机器id列表。n代表第n个机器，n从1开始，最大50。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
-	Computers []*Computer `json:"computers,omitempty" xml:"computers,omitempty" type:"Repeated"`
+	Computers []*Computer `json:"computers,omitempty" xml:"computers,omitempty" require:"true" type:"Repeated"`
 	// 单次执行的超时时间，单位为秒。最大值为1800秒，默认值也为1800秒
-	TimeOut *int `json:"time_out,omitempty" xml:"time_out,omitempty"`
+	TimeOut *int `json:"time_out,omitempty" xml:"time_out,omitempty" require:"true"`
 	// 机器上执行命令的用户,比如：root,admin
 	User *string `json:"user,omitempty" xml:"user,omitempty"`
 }
@@ -23848,6 +24737,11 @@ func (s AsyncexecuteBashcmdRequest) GoString() string {
 
 func (s *AsyncexecuteBashcmdRequest) SetAuthToken(v string) *AsyncexecuteBashcmdRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *AsyncexecuteBashcmdRequest) SetTenant(v string) *AsyncexecuteBashcmdRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23876,7 +24770,7 @@ type AsyncexecuteBashcmdResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 异步bash命令执行的任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s AsyncexecuteBashcmdResponse) String() string {
@@ -23909,8 +24803,9 @@ func (s *AsyncexecuteBashcmdResponse) SetTaskId(v string) *AsyncexecuteBashcmdRe
 
 type GetBashcmdResultRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 异步bash指令执行的任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s GetBashcmdResultRequest) String() string {
@@ -23923,6 +24818,11 @@ func (s GetBashcmdResultRequest) GoString() string {
 
 func (s *GetBashcmdResultRequest) SetAuthToken(v string) *GetBashcmdResultRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetBashcmdResultRequest) SetTenant(v string) *GetBashcmdResultRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -23944,7 +24844,7 @@ type GetBashcmdResultResponse struct {
 	// 执行开始时间
 	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
 	// 执行结果状态。取值列表：EXECUTING：执行中；SUCCESS：执行成功；FAILED：执行失败；IGNORED：已忽略；TIME_OUT：已超时
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s GetBashcmdResultResponse) String() string {
@@ -23997,8 +24897,9 @@ func (s *GetBashcmdResultResponse) SetStatus(v string) *GetBashcmdResultResponse
 
 type CheckCloudconfigBgreleaseRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigBgreleaseRequest) String() string {
@@ -24011,6 +24912,11 @@ func (s CheckCloudconfigBgreleaseRequest) GoString() string {
 
 func (s *CheckCloudconfigBgreleaseRequest) SetAuthToken(v string) *CheckCloudconfigBgreleaseRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigBgreleaseRequest) SetTenant(v string) *CheckCloudconfigBgreleaseRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24057,10 +24963,11 @@ func (s *CheckCloudconfigBgreleaseResponse) SetEnabled(v bool) *CheckCloudconfig
 
 type CheckCloudconfigBgdeploymentcellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// require_release
 	RequireRelease *bool `json:"require_release,omitempty" xml:"require_release,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigBgdeploymentcellRequest) String() string {
@@ -24073,6 +24980,11 @@ func (s CheckCloudconfigBgdeploymentcellRequest) GoString() string {
 
 func (s *CheckCloudconfigBgdeploymentcellRequest) SetAuthToken(v string) *CheckCloudconfigBgdeploymentcellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigBgdeploymentcellRequest) SetTenant(v string) *CheckCloudconfigBgdeploymentcellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24124,8 +25036,9 @@ func (s *CheckCloudconfigBgdeploymentcellResponse) SetEnabled(v bool) *CheckClou
 
 type CheckCloudconfigAppserviceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigAppserviceRequest) String() string {
@@ -24138,6 +25051,11 @@ func (s CheckCloudconfigAppserviceRequest) GoString() string {
 
 func (s *CheckCloudconfigAppserviceRequest) SetAuthToken(v string) *CheckCloudconfigAppserviceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigAppserviceRequest) SetTenant(v string) *CheckCloudconfigAppserviceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24184,8 +25102,9 @@ func (s *CheckCloudconfigAppserviceResponse) SetEnabled(v bool) *CheckCloudconfi
 
 type CheckCloudconfigSharedmwRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigSharedmwRequest) String() string {
@@ -24198,6 +25117,11 @@ func (s CheckCloudconfigSharedmwRequest) GoString() string {
 
 func (s *CheckCloudconfigSharedmwRequest) SetAuthToken(v string) *CheckCloudconfigSharedmwRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigSharedmwRequest) SetTenant(v string) *CheckCloudconfigSharedmwRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24244,8 +25168,9 @@ func (s *CheckCloudconfigSharedmwResponse) SetEnabled(v bool) *CheckCloudconfigS
 
 type CheckCloudconfigVonereleaseRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigVonereleaseRequest) String() string {
@@ -24258,6 +25183,11 @@ func (s CheckCloudconfigVonereleaseRequest) GoString() string {
 
 func (s *CheckCloudconfigVonereleaseRequest) SetAuthToken(v string) *CheckCloudconfigVonereleaseRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigVonereleaseRequest) SetTenant(v string) *CheckCloudconfigVonereleaseRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24304,8 +25234,9 @@ func (s *CheckCloudconfigVonereleaseResponse) SetEnabled(v bool) *CheckCloudconf
 
 type CheckCloudconfigVoneappopsRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigVoneappopsRequest) String() string {
@@ -24318,6 +25249,11 @@ func (s CheckCloudconfigVoneappopsRequest) GoString() string {
 
 func (s *CheckCloudconfigVoneappopsRequest) SetAuthToken(v string) *CheckCloudconfigVoneappopsRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigVoneappopsRequest) SetTenant(v string) *CheckCloudconfigVoneappopsRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24364,8 +25300,9 @@ func (s *CheckCloudconfigVoneappopsResponse) SetEnabled(v bool) *CheckCloudconfi
 
 type CheckCloudconfigOlduiRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigOlduiRequest) String() string {
@@ -24378,6 +25315,11 @@ func (s CheckCloudconfigOlduiRequest) GoString() string {
 
 func (s *CheckCloudconfigOlduiRequest) SetAuthToken(v string) *CheckCloudconfigOlduiRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigOlduiRequest) SetTenant(v string) *CheckCloudconfigOlduiRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24424,8 +25366,9 @@ func (s *CheckCloudconfigOlduiResponse) SetEnabled(v bool) *CheckCloudconfigOldu
 
 type CheckCloudconfigXdclbforbiddenRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckCloudconfigXdclbforbiddenRequest) String() string {
@@ -24438,6 +25381,11 @@ func (s CheckCloudconfigXdclbforbiddenRequest) GoString() string {
 
 func (s *CheckCloudconfigXdclbforbiddenRequest) SetAuthToken(v string) *CheckCloudconfigXdclbforbiddenRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCloudconfigXdclbforbiddenRequest) SetTenant(v string) *CheckCloudconfigXdclbforbiddenRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24484,8 +25432,9 @@ func (s *CheckCloudconfigXdclbforbiddenResponse) SetForbidden(v bool) *CheckClou
 
 type QueryCloudconfigOpenapiconfigRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryCloudconfigOpenapiconfigRequest) String() string {
@@ -24498,6 +25447,11 @@ func (s QueryCloudconfigOpenapiconfigRequest) GoString() string {
 
 func (s *QueryCloudconfigOpenapiconfigRequest) SetAuthToken(v string) *QueryCloudconfigOpenapiconfigRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCloudconfigOpenapiconfigRequest) SetTenant(v string) *QueryCloudconfigOpenapiconfigRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24544,10 +25498,11 @@ func (s *QueryCloudconfigOpenapiconfigResponse) SetConfig(v string) *QueryCloudc
 
 type CountAppsPkgRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用 id 列表
-	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
+	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CountAppsPkgRequest) String() string {
@@ -24560,6 +25515,11 @@ func (s CountAppsPkgRequest) GoString() string {
 
 func (s *CountAppsPkgRequest) SetAuthToken(v string) *CountAppsPkgRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CountAppsPkgRequest) SetTenant(v string) *CountAppsPkgRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24611,10 +25571,11 @@ func (s *CountAppsPkgResponse) SetData(v []*Pair) *CountAppsPkgResponse {
 
 type QueryAppUnitresourcesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用 id 列表
-	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
+	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryAppUnitresourcesRequest) String() string {
@@ -24627,6 +25588,11 @@ func (s QueryAppUnitresourcesRequest) GoString() string {
 
 func (s *QueryAppUnitresourcesRequest) SetAuthToken(v string) *QueryAppUnitresourcesRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppUnitresourcesRequest) SetTenant(v string) *QueryAppUnitresourcesRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24678,8 +25644,9 @@ func (s *QueryAppUnitresourcesResponse) SetResources(v string) *QueryAppUnitreso
 
 type QueryOauthTokenRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryOauthTokenRequest) String() string {
@@ -24692,6 +25659,11 @@ func (s QueryOauthTokenRequest) GoString() string {
 
 func (s *QueryOauthTokenRequest) SetAuthToken(v string) *QueryOauthTokenRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOauthTokenRequest) SetTenant(v string) *QueryOauthTokenRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24780,18 +25752,19 @@ func (s *QueryOauthTokenResponse) SetTenantId(v string) *QueryOauthTokenResponse
 
 type UpdateOauthTokenRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 过期时间
-	AccessExpiredTime *string `json:"access_expired_time,omitempty" xml:"access_expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	AccessExpiredTime *string `json:"access_expired_time,omitempty" xml:"access_expired_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// access token
-	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 	// 用户 ID
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
 	// 过期时间
-	RefreshExpiredTime *string `json:"refresh_expired_time,omitempty" xml:"refresh_expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	RefreshExpiredTime *string `json:"refresh_expired_time,omitempty" xml:"refresh_expired_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// refresh token
-	RefreshToken *string `json:"refresh_token,omitempty" xml:"refresh_token,omitempty"`
+	RefreshToken *string `json:"refresh_token,omitempty" xml:"refresh_token,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateOauthTokenRequest) String() string {
@@ -24804,6 +25777,11 @@ func (s UpdateOauthTokenRequest) GoString() string {
 
 func (s *UpdateOauthTokenRequest) SetAuthToken(v string) *UpdateOauthTokenRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateOauthTokenRequest) SetTenant(v string) *UpdateOauthTokenRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24868,8 +25846,9 @@ func (s *UpdateOauthTokenResponse) SetResultMsg(v string) *UpdateOauthTokenRespo
 
 type DeleteOauthTokenRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteOauthTokenRequest) String() string {
@@ -24882,6 +25861,11 @@ func (s DeleteOauthTokenRequest) GoString() string {
 
 func (s *DeleteOauthTokenRequest) SetAuthToken(v string) *DeleteOauthTokenRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteOauthTokenRequest) SetTenant(v string) *DeleteOauthTokenRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24921,8 +25905,9 @@ func (s *DeleteOauthTokenResponse) SetResultMsg(v string) *DeleteOauthTokenRespo
 
 type QueryBaseinfoDeploymentzonesRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryBaseinfoDeploymentzonesRequest) String() string {
@@ -24935,6 +25920,11 @@ func (s QueryBaseinfoDeploymentzonesRequest) GoString() string {
 
 func (s *QueryBaseinfoDeploymentzonesRequest) SetAuthToken(v string) *QueryBaseinfoDeploymentzonesRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaseinfoDeploymentzonesRequest) SetTenant(v string) *QueryBaseinfoDeploymentzonesRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -24981,12 +25971,13 @@ func (s *QueryBaseinfoDeploymentzonesResponse) SetDeploymentZones(v []*string) *
 
 type GetBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetBgreleaseArrangementRequest) String() string {
@@ -24999,6 +25990,11 @@ func (s GetBgreleaseArrangementRequest) GoString() string {
 
 func (s *GetBgreleaseArrangementRequest) SetAuthToken(v string) *GetBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetBgreleaseArrangementRequest) SetTenant(v string) *GetBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25055,10 +26051,11 @@ func (s *GetBgreleaseArrangementResponse) SetArrangement(v string) *GetBgrelease
 
 type QueryBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryBgreleaseArrangementRequest) String() string {
@@ -25071,6 +26068,11 @@ func (s QueryBgreleaseArrangementRequest) GoString() string {
 
 func (s *QueryBgreleaseArrangementRequest) SetAuthToken(v string) *QueryBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBgreleaseArrangementRequest) SetTenant(v string) *QueryBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25122,12 +26124,13 @@ func (s *QueryBgreleaseArrangementResponse) SetArrangements(v []*string) *QueryB
 
 type QueryBgreleaseArrangementprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryBgreleaseArrangementprogressRequest) String() string {
@@ -25140,6 +26143,11 @@ func (s QueryBgreleaseArrangementprogressRequest) GoString() string {
 
 func (s *QueryBgreleaseArrangementprogressRequest) SetAuthToken(v string) *QueryBgreleaseArrangementprogressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBgreleaseArrangementprogressRequest) SetTenant(v string) *QueryBgreleaseArrangementprogressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25196,12 +26204,13 @@ func (s *QueryBgreleaseArrangementprogressResponse) SetProgresses(v []*string) *
 
 type QueryBgreleaseTaskprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryBgreleaseTaskprogressRequest) String() string {
@@ -25214,6 +26223,11 @@ func (s QueryBgreleaseTaskprogressRequest) GoString() string {
 
 func (s *QueryBgreleaseTaskprogressRequest) SetAuthToken(v string) *QueryBgreleaseTaskprogressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBgreleaseTaskprogressRequest) SetTenant(v string) *QueryBgreleaseTaskprogressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25270,12 +26284,13 @@ func (s *QueryBgreleaseTaskprogressResponse) SetProgresses(v []*string) *QueryBg
 
 type ExecBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ExecBgreleaseArrangementRequest) String() string {
@@ -25288,6 +26303,11 @@ func (s ExecBgreleaseArrangementRequest) GoString() string {
 
 func (s *ExecBgreleaseArrangementRequest) SetAuthToken(v string) *ExecBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecBgreleaseArrangementRequest) SetTenant(v string) *ExecBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25344,12 +26364,13 @@ func (s *ExecBgreleaseArrangementResponse) SetArrangement(v string) *ExecBgrelea
 
 type ConfirmBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmBgreleaseArrangementRequest) String() string {
@@ -25362,6 +26383,11 @@ func (s ConfirmBgreleaseArrangementRequest) GoString() string {
 
 func (s *ConfirmBgreleaseArrangementRequest) SetAuthToken(v string) *ConfirmBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmBgreleaseArrangementRequest) SetTenant(v string) *ConfirmBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25418,12 +26444,13 @@ func (s *ConfirmBgreleaseArrangementResponse) SetArrangement(v string) *ConfirmB
 
 type ConfirmBgreleaseArrangementvalidationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmBgreleaseArrangementvalidationRequest) String() string {
@@ -25436,6 +26463,11 @@ func (s ConfirmBgreleaseArrangementvalidationRequest) GoString() string {
 
 func (s *ConfirmBgreleaseArrangementvalidationRequest) SetAuthToken(v string) *ConfirmBgreleaseArrangementvalidationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmBgreleaseArrangementvalidationRequest) SetTenant(v string) *ConfirmBgreleaseArrangementvalidationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25492,12 +26524,13 @@ func (s *ConfirmBgreleaseArrangementvalidationResponse) SetArrangement(v string)
 
 type RetryBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryBgreleaseArrangementRequest) String() string {
@@ -25510,6 +26543,11 @@ func (s RetryBgreleaseArrangementRequest) GoString() string {
 
 func (s *RetryBgreleaseArrangementRequest) SetAuthToken(v string) *RetryBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryBgreleaseArrangementRequest) SetTenant(v string) *RetryBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25566,16 +26604,17 @@ func (s *RetryBgreleaseArrangementResponse) SetArrangement(v string) *RetryBgrel
 
 type RetryBgreleaseTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// retry_info
-	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty"`
+	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty" require:"true"`
 	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryBgreleaseTaskRequest) String() string {
@@ -25588,6 +26627,11 @@ func (s RetryBgreleaseTaskRequest) GoString() string {
 
 func (s *RetryBgreleaseTaskRequest) SetAuthToken(v string) *RetryBgreleaseTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryBgreleaseTaskRequest) SetTenant(v string) *RetryBgreleaseTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25654,14 +26698,15 @@ func (s *RetryBgreleaseTaskResponse) SetArrangement(v string) *RetryBgreleaseTas
 
 type SkipBgreleaseTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipBgreleaseTaskRequest) String() string {
@@ -25674,6 +26719,11 @@ func (s SkipBgreleaseTaskRequest) GoString() string {
 
 func (s *SkipBgreleaseTaskRequest) SetAuthToken(v string) *SkipBgreleaseTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipBgreleaseTaskRequest) SetTenant(v string) *SkipBgreleaseTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25735,12 +26785,13 @@ func (s *SkipBgreleaseTaskResponse) SetArrangement(v string) *SkipBgreleaseTaskR
 
 type SkipBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipBgreleaseArrangementRequest) String() string {
@@ -25753,6 +26804,11 @@ func (s SkipBgreleaseArrangementRequest) GoString() string {
 
 func (s *SkipBgreleaseArrangementRequest) SetAuthToken(v string) *SkipBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipBgreleaseArrangementRequest) SetTenant(v string) *SkipBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25809,12 +26865,13 @@ func (s *SkipBgreleaseArrangementResponse) SetArrangement(v string) *SkipBgrelea
 
 type CancelBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CancelBgreleaseArrangementRequest) String() string {
@@ -25827,6 +26884,11 @@ func (s CancelBgreleaseArrangementRequest) GoString() string {
 
 func (s *CancelBgreleaseArrangementRequest) SetAuthToken(v string) *CancelBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelBgreleaseArrangementRequest) SetTenant(v string) *CancelBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25883,14 +26945,15 @@ func (s *CancelBgreleaseArrangementResponse) SetArrangement(v string) *CancelBgr
 
 type RollbackBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RollbackBgreleaseArrangementRequest) String() string {
@@ -25903,6 +26966,11 @@ func (s RollbackBgreleaseArrangementRequest) GoString() string {
 
 func (s *RollbackBgreleaseArrangementRequest) SetAuthToken(v string) *RollbackBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackBgreleaseArrangementRequest) SetTenant(v string) *RollbackBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -25964,14 +27032,15 @@ func (s *RollbackBgreleaseArrangementResponse) SetArrangement(v string) *Rollbac
 
 type RetryrollbackBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryrollbackBgreleaseArrangementRequest) String() string {
@@ -25984,6 +27053,11 @@ func (s RetryrollbackBgreleaseArrangementRequest) GoString() string {
 
 func (s *RetryrollbackBgreleaseArrangementRequest) SetAuthToken(v string) *RetryrollbackBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryrollbackBgreleaseArrangementRequest) SetTenant(v string) *RetryrollbackBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26045,14 +27119,15 @@ func (s *RetryrollbackBgreleaseArrangementResponse) SetArrangement(v string) *Re
 
 type ConfirmrollbackBgreleaseArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// retry_rollbacked
-	RetryRollbacked *bool `json:"retry_rollbacked,omitempty" xml:"retry_rollbacked,omitempty"`
+	RetryRollbacked *bool `json:"retry_rollbacked,omitempty" xml:"retry_rollbacked,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmrollbackBgreleaseArrangementRequest) String() string {
@@ -26065,6 +27140,11 @@ func (s ConfirmrollbackBgreleaseArrangementRequest) GoString() string {
 
 func (s *ConfirmrollbackBgreleaseArrangementRequest) SetAuthToken(v string) *ConfirmrollbackBgreleaseArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmrollbackBgreleaseArrangementRequest) SetTenant(v string) *ConfirmrollbackBgreleaseArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26126,6 +27206,7 @@ func (s *ConfirmrollbackBgreleaseArrangementResponse) SetArrangement(v string) *
 
 type SwitchBgreleaseGraytrafficRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用ID
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 	// 执行人
@@ -26135,13 +27216,13 @@ type SwitchBgreleaseGraytrafficRequest struct {
 	// 来自阿里云用户
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// 比率
-	Proportion *int64 `json:"proportion,omitempty" xml:"proportion,omitempty"`
+	Proportion *int64 `json:"proportion,omitempty" xml:"proportion,omitempty" require:"true"`
 	// 目标ID
-	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty"`
+	TargetId *string `json:"target_id,omitempty" xml:"target_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SwitchBgreleaseGraytrafficRequest) String() string {
@@ -26154,6 +27235,11 @@ func (s SwitchBgreleaseGraytrafficRequest) GoString() string {
 
 func (s *SwitchBgreleaseGraytrafficRequest) SetAuthToken(v string) *SwitchBgreleaseGraytrafficRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SwitchBgreleaseGraytrafficRequest) SetTenant(v string) *SwitchBgreleaseGraytrafficRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26235,12 +27321,13 @@ func (s *SwitchBgreleaseGraytrafficResponse) SetProcessId(v string) *SwitchBgrel
 
 type RollbackBgreleaseGraytrafficRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RollbackBgreleaseGraytrafficRequest) String() string {
@@ -26253,6 +27340,11 @@ func (s RollbackBgreleaseGraytrafficRequest) GoString() string {
 
 func (s *RollbackBgreleaseGraytrafficRequest) SetAuthToken(v string) *RollbackBgreleaseGraytrafficRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackBgreleaseGraytrafficRequest) SetTenant(v string) *RollbackBgreleaseGraytrafficRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26309,10 +27401,11 @@ func (s *RollbackBgreleaseGraytrafficResponse) SetProcessId(v string) *RollbackB
 
 type QueryBgreleaseGrayprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 概览ID
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryBgreleaseGrayprogressRequest) String() string {
@@ -26325,6 +27418,11 @@ func (s QueryBgreleaseGrayprogressRequest) GoString() string {
 
 func (s *QueryBgreleaseGrayprogressRequest) SetAuthToken(v string) *QueryBgreleaseGrayprogressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBgreleaseGrayprogressRequest) SetTenant(v string) *QueryBgreleaseGrayprogressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26376,10 +27474,11 @@ func (s *QueryBgreleaseGrayprogressResponse) SetProgresses(v []*string) *QueryBg
 
 type GetGrayProcessRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetGrayProcessRequest) String() string {
@@ -26392,6 +27491,11 @@ func (s GetGrayProcessRequest) GoString() string {
 
 func (s *GetGrayProcessRequest) SetAuthToken(v string) *GetGrayProcessRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetGrayProcessRequest) SetTenant(v string) *GetGrayProcessRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26443,10 +27547,11 @@ func (s *GetGrayProcessResponse) SetProcessDefinition(v string) *GetGrayProcessR
 
 type QueryGrayProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryGrayProgressRequest) String() string {
@@ -26459,6 +27564,11 @@ func (s QueryGrayProgressRequest) GoString() string {
 
 func (s *QueryGrayProgressRequest) SetAuthToken(v string) *QueryGrayProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGrayProgressRequest) SetTenant(v string) *QueryGrayProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26510,10 +27620,11 @@ func (s *QueryGrayProgressResponse) SetProgresses(v string) *QueryGrayProgressRe
 
 type ReinitGrayProcessRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ReinitGrayProcessRequest) String() string {
@@ -26526,6 +27637,11 @@ func (s ReinitGrayProcessRequest) GoString() string {
 
 func (s *ReinitGrayProcessRequest) SetAuthToken(v string) *ReinitGrayProcessRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitGrayProcessRequest) SetTenant(v string) *ReinitGrayProcessRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26577,14 +27693,15 @@ func (s *ReinitGrayProcessResponse) SetProcessDefinition(v string) *ReinitGrayPr
 
 type RetryGrayTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 进程 ID
-	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty"`
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
 	// retry_info
-	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty"`
+	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty" require:"true"`
 	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryGrayTaskRequest) String() string {
@@ -26597,6 +27714,11 @@ func (s RetryGrayTaskRequest) GoString() string {
 
 func (s *RetryGrayTaskRequest) SetAuthToken(v string) *RetryGrayTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryGrayTaskRequest) SetTenant(v string) *RetryGrayTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26658,12 +27780,13 @@ func (s *RetryGrayTaskResponse) SetProcessDefinition(v string) *RetryGrayTaskRes
 
 type SkipGrayTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 进程 ID
-	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty"`
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
 	// 任务ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipGrayTaskRequest) String() string {
@@ -26676,6 +27799,11 @@ func (s SkipGrayTaskRequest) GoString() string {
 
 func (s *SkipGrayTaskRequest) SetAuthToken(v string) *SkipGrayTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipGrayTaskRequest) SetTenant(v string) *SkipGrayTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26732,6 +27860,7 @@ func (s *SkipGrayTaskResponse) SetProcessDefinition(v string) *SkipGrayTaskRespo
 
 type QueryMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页
 	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
 	// 页大小，默认 20
@@ -26743,7 +27872,7 @@ type QueryMachineRequest struct {
 	// 对应发布服务 ID
 	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMachineRequest) String() string {
@@ -26756,6 +27885,11 @@ func (s QueryMachineRequest) GoString() string {
 
 func (s *QueryMachineRequest) SetAuthToken(v string) *QueryMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMachineRequest) SetTenant(v string) *QueryMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26827,10 +27961,11 @@ func (s *QueryMachineResponse) SetMachines(v []*string) *QueryMachineResponse {
 
 type GetMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布机器 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetMachineRequest) String() string {
@@ -26843,6 +27978,11 @@ func (s GetMachineRequest) GoString() string {
 
 func (s *GetMachineRequest) SetAuthToken(v string) *GetMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMachineRequest) SetTenant(v string) *GetMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26894,10 +28034,11 @@ func (s *GetMachineResponse) SetMachine(v string) *GetMachineResponse {
 
 type QueryMachineProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布机器ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMachineProgressRequest) String() string {
@@ -26910,6 +28051,11 @@ func (s QueryMachineProgressRequest) GoString() string {
 
 func (s *QueryMachineProgressRequest) SetAuthToken(v string) *QueryMachineProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMachineProgressRequest) SetTenant(v string) *QueryMachineProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -26961,12 +28107,13 @@ func (s *QueryMachineProgressResponse) SetProgresses(v []*string) *QueryMachineP
 
 type RetryMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布机器 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// retry_info
-	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty"`
+	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryMachineRequest) String() string {
@@ -26979,6 +28126,11 @@ func (s RetryMachineRequest) GoString() string {
 
 func (s *RetryMachineRequest) SetAuthToken(v string) *RetryMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryMachineRequest) SetTenant(v string) *RetryMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27035,10 +28187,11 @@ func (s *RetryMachineResponse) SetMachine(v string) *RetryMachineResponse {
 
 type SkipMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 机器ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipMachineRequest) String() string {
@@ -27051,6 +28204,11 @@ func (s SkipMachineRequest) GoString() string {
 
 func (s *SkipMachineRequest) SetAuthToken(v string) *SkipMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipMachineRequest) SetTenant(v string) *SkipMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27102,10 +28260,11 @@ func (s *SkipMachineResponse) SetMachine(v string) *SkipMachineResponse {
 
 type CancelMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布机器 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CancelMachineRequest) String() string {
@@ -27118,6 +28277,11 @@ func (s CancelMachineRequest) GoString() string {
 
 func (s *CancelMachineRequest) SetAuthToken(v string) *CancelMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelMachineRequest) SetTenant(v string) *CancelMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27169,10 +28333,11 @@ func (s *CancelMachineResponse) SetMachine(v string) *CancelMachineResponse {
 
 type ExecMachineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 机器 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ExecMachineRequest) String() string {
@@ -27185,6 +28350,11 @@ func (s ExecMachineRequest) GoString() string {
 
 func (s *ExecMachineRequest) SetAuthToken(v string) *ExecMachineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMachineRequest) SetTenant(v string) *ExecMachineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27236,10 +28406,11 @@ func (s *ExecMachineResponse) SetMachine(v string) *ExecMachineResponse {
 
 type QueryMachinegroupProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMachinegroupProgressRequest) String() string {
@@ -27252,6 +28423,11 @@ func (s QueryMachinegroupProgressRequest) GoString() string {
 
 func (s *QueryMachinegroupProgressRequest) SetAuthToken(v string) *QueryMachinegroupProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMachinegroupProgressRequest) SetTenant(v string) *QueryMachinegroupProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27303,12 +28479,13 @@ func (s *QueryMachinegroupProgressResponse) SetProgresses(v []*string) *QueryMac
 
 type RetryMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// retry info
-	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty"`
+	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryMachinegroupRequest) String() string {
@@ -27321,6 +28498,11 @@ func (s RetryMachinegroupRequest) GoString() string {
 
 func (s *RetryMachinegroupRequest) SetAuthToken(v string) *RetryMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryMachinegroupRequest) SetTenant(v string) *RetryMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27377,10 +28559,11 @@ func (s *RetryMachinegroupResponse) SetMachineGroup(v string) *RetryMachinegroup
 
 type SkipMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipMachinegroupRequest) String() string {
@@ -27393,6 +28576,11 @@ func (s SkipMachinegroupRequest) GoString() string {
 
 func (s *SkipMachinegroupRequest) SetAuthToken(v string) *SkipMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipMachinegroupRequest) SetTenant(v string) *SkipMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27444,10 +28632,11 @@ func (s *SkipMachinegroupResponse) SetMachineGroup(v string) *SkipMachinegroupRe
 
 type CancelMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CancelMachinegroupRequest) String() string {
@@ -27460,6 +28649,11 @@ func (s CancelMachinegroupRequest) GoString() string {
 
 func (s *CancelMachinegroupRequest) SetAuthToken(v string) *CancelMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelMachinegroupRequest) SetTenant(v string) *CancelMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27511,12 +28705,13 @@ func (s *CancelMachinegroupResponse) SetMachineGroup(v string) *CancelMachinegro
 
 type DeleteMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// recursive
-	Recursive *bool `json:"recursive,omitempty" xml:"recursive,omitempty"`
+	Recursive *bool `json:"recursive,omitempty" xml:"recursive,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteMachinegroupRequest) String() string {
@@ -27529,6 +28724,11 @@ func (s DeleteMachinegroupRequest) GoString() string {
 
 func (s *DeleteMachinegroupRequest) SetAuthToken(v string) *DeleteMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteMachinegroupRequest) SetTenant(v string) *DeleteMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27585,12 +28785,13 @@ func (s *DeleteMachinegroupResponse) SetMachineGroup(v string) *DeleteMachinegro
 
 type UpdateMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty"`
+	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty" require:"true"`
 	// 发布机器 ID
-	MachineIds []*string `json:"machine_ids,omitempty" xml:"machine_ids,omitempty" type:"Repeated"`
+	MachineIds []*string `json:"machine_ids,omitempty" xml:"machine_ids,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateMachinegroupRequest) String() string {
@@ -27603,6 +28804,11 @@ func (s UpdateMachinegroupRequest) GoString() string {
 
 func (s *UpdateMachinegroupRequest) SetAuthToken(v string) *UpdateMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMachinegroupRequest) SetTenant(v string) *UpdateMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27659,10 +28865,11 @@ func (s *UpdateMachinegroupResponse) SetMachineGroup(v string) *UpdateMachinegro
 
 type ConfirmMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmMachinegroupRequest) String() string {
@@ -27675,6 +28882,11 @@ func (s ConfirmMachinegroupRequest) GoString() string {
 
 func (s *ConfirmMachinegroupRequest) SetAuthToken(v string) *ConfirmMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmMachinegroupRequest) SetTenant(v string) *ConfirmMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27726,6 +28938,7 @@ func (s *ConfirmMachinegroupResponse) SetMachineGroup(v string) *ConfirmMachineg
 
 type BatchqueryMachinegroupProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页，默认 1
 	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
 	// 分页大小，默认 20
@@ -27741,7 +28954,7 @@ type BatchqueryMachinegroupProgressRequest struct {
 	// 状态
 	State *string `json:"state,omitempty" xml:"state,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s BatchqueryMachinegroupProgressRequest) String() string {
@@ -27754,6 +28967,11 @@ func (s BatchqueryMachinegroupProgressRequest) GoString() string {
 
 func (s *BatchqueryMachinegroupProgressRequest) SetAuthToken(v string) *BatchqueryMachinegroupProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryMachinegroupProgressRequest) SetTenant(v string) *BatchqueryMachinegroupProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27835,12 +29053,13 @@ func (s *BatchqueryMachinegroupProgressResponse) SetMachineGroups(v []*string) *
 
 type ConfirmMachinegroupReserveRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 是否需要预确认分组
-	Reserved *bool `json:"reserved,omitempty" xml:"reserved,omitempty"`
+	Reserved *bool `json:"reserved,omitempty" xml:"reserved,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmMachinegroupReserveRequest) String() string {
@@ -27853,6 +29072,11 @@ func (s ConfirmMachinegroupReserveRequest) GoString() string {
 
 func (s *ConfirmMachinegroupReserveRequest) SetAuthToken(v string) *ConfirmMachinegroupReserveRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmMachinegroupReserveRequest) SetTenant(v string) *ConfirmMachinegroupReserveRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27909,14 +29133,15 @@ func (s *ConfirmMachinegroupReserveResponse) SetMachineGroup(v string) *ConfirmM
 
 type UpdateMachinegroupSlbmountweightRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// from_aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// 分组 ID
-	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty"`
+	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty" require:"true"`
 	// 挂载权重信息列表
-	SlbMountInfoList []*string `json:"slb_mount_info_list,omitempty" xml:"slb_mount_info_list,omitempty" type:"Repeated"`
+	SlbMountInfoList []*string `json:"slb_mount_info_list,omitempty" xml:"slb_mount_info_list,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateMachinegroupSlbmountweightRequest) String() string {
@@ -27929,6 +29154,11 @@ func (s UpdateMachinegroupSlbmountweightRequest) GoString() string {
 
 func (s *UpdateMachinegroupSlbmountweightRequest) SetAuthToken(v string) *UpdateMachinegroupSlbmountweightRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMachinegroupSlbmountweightRequest) SetTenant(v string) *UpdateMachinegroupSlbmountweightRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -27990,12 +29220,13 @@ func (s *UpdateMachinegroupSlbmountweightResponse) SetRequestIds(v []*string) *U
 
 type QueryMachinegroupSlbmountprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组ID
-	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty"`
+	MachineGroupId *string `json:"machine_group_id,omitempty" xml:"machine_group_id,omitempty" require:"true"`
 	// 请求 ID 列表
-	RequestIds []*string `json:"request_ids,omitempty" xml:"request_ids,omitempty" type:"Repeated"`
+	RequestIds []*string `json:"request_ids,omitempty" xml:"request_ids,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMachinegroupSlbmountprogressRequest) String() string {
@@ -28008,6 +29239,11 @@ func (s QueryMachinegroupSlbmountprogressRequest) GoString() string {
 
 func (s *QueryMachinegroupSlbmountprogressRequest) SetAuthToken(v string) *QueryMachinegroupSlbmountprogressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMachinegroupSlbmountprogressRequest) SetTenant(v string) *QueryMachinegroupSlbmountprogressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28064,10 +29300,11 @@ func (s *QueryMachinegroupSlbmountprogressResponse) SetExecutorProgress(v string
 
 type QueryMachinegroupSlbmountRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMachinegroupSlbmountRequest) String() string {
@@ -28080,6 +29317,11 @@ func (s QueryMachinegroupSlbmountRequest) GoString() string {
 
 func (s *QueryMachinegroupSlbmountRequest) SetAuthToken(v string) *QueryMachinegroupSlbmountRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMachinegroupSlbmountRequest) SetTenant(v string) *QueryMachinegroupSlbmountRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28131,12 +29373,13 @@ func (s *QueryMachinegroupSlbmountResponse) SetSlbMountInfoList(v []*string) *Qu
 
 type GetMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组 ID
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 是否带上机器信息，默认 false
 	WithMachines *bool `json:"with_machines,omitempty" xml:"with_machines,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetMachinegroupRequest) String() string {
@@ -28149,6 +29392,11 @@ func (s GetMachinegroupRequest) GoString() string {
 
 func (s *GetMachinegroupRequest) SetAuthToken(v string) *GetMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMachinegroupRequest) SetTenant(v string) *GetMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28205,12 +29453,13 @@ func (s *GetMachinegroupResponse) SetMachineGroup(v string) *GetMachinegroupResp
 
 type SkipMachinetaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 机器 ID
-	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty"`
+	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty" require:"true"`
 	// 任务 ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipMachinetaskRequest) String() string {
@@ -28223,6 +29472,11 @@ func (s SkipMachinetaskRequest) GoString() string {
 
 func (s *SkipMachinetaskRequest) SetAuthToken(v string) *SkipMachinetaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipMachinetaskRequest) SetTenant(v string) *SkipMachinetaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28279,14 +29533,15 @@ func (s *SkipMachinetaskResponse) SetProgress(v string) *SkipMachinetaskResponse
 
 type RetryMachinetaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 机器 ID
-	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty"`
+	MachineId *string `json:"machine_id,omitempty" xml:"machine_id,omitempty" require:"true"`
 	// retry_info
-	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty"`
+	RetryInfo *RetryInfo `json:"retry_info,omitempty" xml:"retry_info,omitempty" require:"true"`
 	// 任务 ID
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryMachinetaskRequest) String() string {
@@ -28299,6 +29554,11 @@ func (s RetryMachinetaskRequest) GoString() string {
 
 func (s *RetryMachinetaskRequest) SetAuthToken(v string) *RetryMachinetaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryMachinetaskRequest) SetTenant(v string) *RetryMachinetaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28360,8 +29620,9 @@ func (s *RetryMachinetaskResponse) SetProgress(v string) *RetryMachinetaskRespon
 
 type QueryMetaCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMetaCellRequest) String() string {
@@ -28374,6 +29635,11 @@ func (s QueryMetaCellRequest) GoString() string {
 
 func (s *QueryMetaCellRequest) SetAuthToken(v string) *QueryMetaCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMetaCellRequest) SetTenant(v string) *QueryMetaCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28420,10 +29686,11 @@ func (s *QueryMetaCellResponse) SetCells(v []*string) *QueryMetaCellResponse {
 
 type CreateMetaDeploymentcellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// deployment_cell
-	DeploymentCell *string `json:"deployment_cell,omitempty" xml:"deployment_cell,omitempty"`
+	DeploymentCell *string `json:"deployment_cell,omitempty" xml:"deployment_cell,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateMetaDeploymentcellRequest) String() string {
@@ -28436,6 +29703,11 @@ func (s CreateMetaDeploymentcellRequest) GoString() string {
 
 func (s *CreateMetaDeploymentcellRequest) SetAuthToken(v string) *CreateMetaDeploymentcellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMetaDeploymentcellRequest) SetTenant(v string) *CreateMetaDeploymentcellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28487,10 +29759,11 @@ func (s *CreateMetaDeploymentcellResponse) SetDeploymentCell(v string) *CreateMe
 
 type UpdateMetaDeploymentcellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// deployment_cell
-	DeploymentCell *string `json:"deployment_cell,omitempty" xml:"deployment_cell,omitempty"`
+	DeploymentCell *string `json:"deployment_cell,omitempty" xml:"deployment_cell,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateMetaDeploymentcellRequest) String() string {
@@ -28503,6 +29776,11 @@ func (s UpdateMetaDeploymentcellRequest) GoString() string {
 
 func (s *UpdateMetaDeploymentcellRequest) SetAuthToken(v string) *UpdateMetaDeploymentcellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMetaDeploymentcellRequest) SetTenant(v string) *UpdateMetaDeploymentcellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28554,8 +29832,9 @@ func (s *UpdateMetaDeploymentcellResponse) SetDeploymentCell(v string) *UpdateMe
 
 type GetMetaDeploymentcellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
 func (s GetMetaDeploymentcellRequest) String() string {
@@ -28568,6 +29847,11 @@ func (s GetMetaDeploymentcellRequest) GoString() string {
 
 func (s *GetMetaDeploymentcellRequest) SetAuthToken(v string) *GetMetaDeploymentcellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMetaDeploymentcellRequest) SetTenant(v string) *GetMetaDeploymentcellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28614,10 +29898,11 @@ func (s *GetMetaDeploymentcellResponse) SetDeploymentCell(v string) *GetMetaDepl
 
 type QueryMetaDeploymentcellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryMetaDeploymentcellRequest) String() string {
@@ -28630,6 +29915,11 @@ func (s QueryMetaDeploymentcellRequest) GoString() string {
 
 func (s *QueryMetaDeploymentcellRequest) SetAuthToken(v string) *QueryMetaDeploymentcellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMetaDeploymentcellRequest) SetTenant(v string) *QueryMetaDeploymentcellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28681,18 +29971,19 @@ func (s *QueryMetaDeploymentcellResponse) SetDeploymentCells(v []*string) *Query
 
 type CreateNotificationConfigRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// cloud web url
-	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty"`
+	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty" require:"true"`
 	// 是否开启，默认关闭
 	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 	// modified_version
-	ModifiedVersion *int64 `json:"modified_version,omitempty" xml:"modified_version,omitempty"`
+	ModifiedVersion *int64 `json:"modified_version,omitempty" xml:"modified_version,omitempty" require:"true"`
 	// 接受者
-	Receivers []*string `json:"receivers,omitempty" xml:"receivers,omitempty" type:"Repeated"`
+	Receivers []*string `json:"receivers,omitempty" xml:"receivers,omitempty" require:"true" type:"Repeated"`
 	// 类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateNotificationConfigRequest) String() string {
@@ -28705,6 +29996,11 @@ func (s CreateNotificationConfigRequest) GoString() string {
 
 func (s *CreateNotificationConfigRequest) SetAuthToken(v string) *CreateNotificationConfigRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateNotificationConfigRequest) SetTenant(v string) *CreateNotificationConfigRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28776,20 +30072,21 @@ func (s *CreateNotificationConfigResponse) SetConfig(v string) *CreateNotificati
 
 type UpdateNotificationConfigRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// cloud web url
-	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty"`
+	CloudWebUrl *string `json:"cloud_web_url,omitempty" xml:"cloud_web_url,omitempty" require:"true"`
 	// 是否开启
 	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// modified_version
-	ModifiedVersion *int64 `json:"modified_version,omitempty" xml:"modified_version,omitempty"`
+	ModifiedVersion *int64 `json:"modified_version,omitempty" xml:"modified_version,omitempty" require:"true"`
 	// 接受者
 	Receivers []*string `json:"receivers,omitempty" xml:"receivers,omitempty" type:"Repeated"`
 	// 类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateNotificationConfigRequest) String() string {
@@ -28802,6 +30099,11 @@ func (s UpdateNotificationConfigRequest) GoString() string {
 
 func (s *UpdateNotificationConfigRequest) SetAuthToken(v string) *UpdateNotificationConfigRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateNotificationConfigRequest) SetTenant(v string) *UpdateNotificationConfigRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28878,8 +30180,9 @@ func (s *UpdateNotificationConfigResponse) SetConfig(v string) *UpdateNotificati
 
 type QueryNotificationConfigRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryNotificationConfigRequest) String() string {
@@ -28892,6 +30195,11 @@ func (s QueryNotificationConfigRequest) GoString() string {
 
 func (s *QueryNotificationConfigRequest) SetAuthToken(v string) *QueryNotificationConfigRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNotificationConfigRequest) SetTenant(v string) *QueryNotificationConfigRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -28938,10 +30246,11 @@ func (s *QueryNotificationConfigResponse) SetConfigs(v []*string) *QueryNotifica
 
 type DeleteNotificationConfigRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteNotificationConfigRequest) String() string {
@@ -28954,6 +30263,11 @@ func (s DeleteNotificationConfigRequest) GoString() string {
 
 func (s *DeleteNotificationConfigRequest) SetAuthToken(v string) *DeleteNotificationConfigRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteNotificationConfigRequest) SetTenant(v string) *DeleteNotificationConfigRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29005,14 +30319,15 @@ func (s *DeleteNotificationConfigResponse) SetSuccess(v bool) *DeleteNotificatio
 
 type QueryOperatorRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 用户 ID
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
 	// 当前页
 	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
 	// 分页大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryOperatorRequest) String() string {
@@ -29025,6 +30340,11 @@ func (s QueryOperatorRequest) GoString() string {
 
 func (s *QueryOperatorRequest) SetAuthToken(v string) *QueryOperatorRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOperatorRequest) SetTenant(v string) *QueryOperatorRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29086,14 +30406,15 @@ func (s *QueryOperatorResponse) SetOperators(v []*string) *QueryOperatorResponse
 
 type RollbackPlanServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 发布单ID
-	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// 发布服务
-	Service *string `json:"service,omitempty" xml:"service,omitempty"`
+	Service *string `json:"service,omitempty" xml:"service,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RollbackPlanServiceRequest) String() string {
@@ -29106,6 +30427,11 @@ func (s RollbackPlanServiceRequest) GoString() string {
 
 func (s *RollbackPlanServiceRequest) SetAuthToken(v string) *RollbackPlanServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackPlanServiceRequest) SetTenant(v string) *RollbackPlanServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29167,12 +30493,13 @@ func (s *RollbackPlanServiceResponse) SetPlan(v string) *RollbackPlanServiceResp
 
 type CreatePlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
 	// from aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreatePlanRequest) String() string {
@@ -29185,6 +30512,11 @@ func (s CreatePlanRequest) GoString() string {
 
 func (s *CreatePlanRequest) SetAuthToken(v string) *CreatePlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreatePlanRequest) SetTenant(v string) *CreatePlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29241,12 +30573,13 @@ func (s *CreatePlanResponse) SetPlan(v string) *CreatePlanResponse {
 
 type CheckPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
 	// from_aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckPlanRequest) String() string {
@@ -29259,6 +30592,11 @@ func (s CheckPlanRequest) GoString() string {
 
 func (s *CheckPlanRequest) SetAuthToken(v string) *CheckPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckPlanRequest) SetTenant(v string) *CheckPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29329,12 +30667,13 @@ func (s *CheckPlanResponse) SetValidationMessages(v string) *CheckPlanResponse {
 
 type CheckPlanOperationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
 	// from_aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CheckPlanOperationRequest) String() string {
@@ -29347,6 +30686,11 @@ func (s CheckPlanOperationRequest) GoString() string {
 
 func (s *CheckPlanOperationRequest) SetAuthToken(v string) *CheckPlanOperationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckPlanOperationRequest) SetTenant(v string) *CheckPlanOperationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29417,12 +30761,13 @@ func (s *CheckPlanOperationResponse) SetValidationMessages(v string) *CheckPlanO
 
 type CreatePlanOperationRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// data
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
 	// from_aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreatePlanOperationRequest) String() string {
@@ -29435,6 +30780,11 @@ func (s CreatePlanOperationRequest) GoString() string {
 
 func (s *CreatePlanOperationRequest) SetAuthToken(v string) *CreatePlanOperationRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreatePlanOperationRequest) SetTenant(v string) *CreatePlanOperationRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29491,10 +30841,11 @@ func (s *CreatePlanOperationResponse) SetOpsPlan(v string) *CreatePlanOperationR
 
 type CreatePlanAdvancedRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// plan
-	OpsPlan *string `json:"ops_plan,omitempty" xml:"ops_plan,omitempty"`
+	OpsPlan *string `json:"ops_plan,omitempty" xml:"ops_plan,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreatePlanAdvancedRequest) String() string {
@@ -29507,6 +30858,11 @@ func (s CreatePlanAdvancedRequest) GoString() string {
 
 func (s *CreatePlanAdvancedRequest) SetAuthToken(v string) *CreatePlanAdvancedRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreatePlanAdvancedRequest) SetTenant(v string) *CreatePlanAdvancedRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29558,10 +30914,11 @@ func (s *CreatePlanAdvancedResponse) SetOpsPlan(v string) *CreatePlanAdvancedRes
 
 type ReinitPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ReinitPlanRequest) String() string {
@@ -29574,6 +30931,11 @@ func (s ReinitPlanRequest) GoString() string {
 
 func (s *ReinitPlanRequest) SetAuthToken(v string) *ReinitPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitPlanRequest) SetTenant(v string) *ReinitPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29625,10 +30987,11 @@ func (s *ReinitPlanResponse) SetOpsPlan(v string) *ReinitPlanResponse {
 
 type GetPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetPlanRequest) String() string {
@@ -29641,6 +31004,11 @@ func (s GetPlanRequest) GoString() string {
 
 func (s *GetPlanRequest) SetAuthToken(v string) *GetPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetPlanRequest) SetTenant(v string) *GetPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29692,12 +31060,13 @@ func (s *GetPlanResponse) SetOpsPlan(v string) *GetPlanResponse {
 
 type GetPlanBasicRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// show_basic
 	ShowBasic *bool `json:"show_basic,omitempty" xml:"show_basic,omitempty"`
 	// time_series_id
-	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty"`
+	TimeSeriesId *string `json:"time_series_id,omitempty" xml:"time_series_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetPlanBasicRequest) String() string {
@@ -29710,6 +31079,11 @@ func (s GetPlanBasicRequest) GoString() string {
 
 func (s *GetPlanBasicRequest) SetAuthToken(v string) *GetPlanBasicRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetPlanBasicRequest) SetTenant(v string) *GetPlanBasicRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29766,10 +31140,11 @@ func (s *GetPlanBasicResponse) SetOpsPlan(v string) *GetPlanBasicResponse {
 
 type GetPlanProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetPlanProgressRequest) String() string {
@@ -29782,6 +31157,11 @@ func (s GetPlanProgressRequest) GoString() string {
 
 func (s *GetPlanProgressRequest) SetAuthToken(v string) *GetPlanProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetPlanProgressRequest) SetTenant(v string) *GetPlanProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -29833,6 +31213,7 @@ func (s *GetPlanProgressResponse) SetProgress(v string) *GetPlanProgressResponse
 
 type QueryPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// gmtCreateEnd
 	GmtCreateEnd *string `json:"gmt_create_end,omitempty" xml:"gmt_create_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// gmtCreateStart
@@ -29860,7 +31241,7 @@ type QueryPlanRequest struct {
 	// states
 	States []*string `json:"states,omitempty" xml:"states,omitempty" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryPlanRequest) String() string {
@@ -29873,6 +31254,11 @@ func (s QueryPlanRequest) GoString() string {
 
 func (s *QueryPlanRequest) SetAuthToken(v string) *QueryPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPlanRequest) SetTenant(v string) *QueryPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30005,6 +31391,7 @@ func (s *QueryPlanResponse) SetTotalSize(v int64) *QueryPlanResponse {
 
 type CountPlanStateRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// gmt_create_end
 	GmtCreateEnd *string `json:"gmt_create_end,omitempty" xml:"gmt_create_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
 	// gmtCreateStart
@@ -30032,7 +31419,7 @@ type CountPlanStateRequest struct {
 	// states
 	States []*string `json:"states,omitempty" xml:"states,omitempty" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CountPlanStateRequest) String() string {
@@ -30045,6 +31432,11 @@ func (s CountPlanStateRequest) GoString() string {
 
 func (s *CountPlanStateRequest) SetAuthToken(v string) *CountPlanStateRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CountPlanStateRequest) SetTenant(v string) *CountPlanStateRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30156,10 +31548,11 @@ func (s *CountPlanStateResponse) SetStateCounts(v []*string) *CountPlanStateResp
 
 type ExecPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ExecPlanRequest) String() string {
@@ -30172,6 +31565,11 @@ func (s ExecPlanRequest) GoString() string {
 
 func (s *ExecPlanRequest) SetAuthToken(v string) *ExecPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecPlanRequest) SetTenant(v string) *ExecPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30223,10 +31621,11 @@ func (s *ExecPlanResponse) SetOpsPlan(v string) *ExecPlanResponse {
 
 type RetryPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryPlanRequest) String() string {
@@ -30239,6 +31638,11 @@ func (s RetryPlanRequest) GoString() string {
 
 func (s *RetryPlanRequest) SetAuthToken(v string) *RetryPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryPlanRequest) SetTenant(v string) *RetryPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30290,12 +31694,13 @@ func (s *RetryPlanResponse) SetOpsPlan(v string) *RetryPlanResponse {
 
 type CancelPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// reason
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CancelPlanRequest) String() string {
@@ -30308,6 +31713,11 @@ func (s CancelPlanRequest) GoString() string {
 
 func (s *CancelPlanRequest) SetAuthToken(v string) *CancelPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelPlanRequest) SetTenant(v string) *CancelPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30364,12 +31774,13 @@ func (s *CancelPlanResponse) SetOpsPlan(v string) *CancelPlanResponse {
 
 type RollbackPlanRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RollbackPlanRequest) String() string {
@@ -30382,6 +31793,11 @@ func (s RollbackPlanRequest) GoString() string {
 
 func (s *RollbackPlanRequest) SetAuthToken(v string) *RollbackPlanRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackPlanRequest) SetTenant(v string) *RollbackPlanRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30438,10 +31854,11 @@ func (s *RollbackPlanResponse) SetOpsPlan(v string) *RollbackPlanResponse {
 
 type GetTaskSummaryRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetTaskSummaryRequest) String() string {
@@ -30454,6 +31871,11 @@ func (s GetTaskSummaryRequest) GoString() string {
 
 func (s *GetTaskSummaryRequest) SetAuthToken(v string) *GetTaskSummaryRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetTaskSummaryRequest) SetTenant(v string) *GetTaskSummaryRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30505,10 +31927,11 @@ func (s *GetTaskSummaryResponse) SetTask(v string) *GetTaskSummaryResponse {
 
 type SkipTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipTaskRequest) String() string {
@@ -30521,6 +31944,11 @@ func (s SkipTaskRequest) GoString() string {
 
 func (s *SkipTaskRequest) SetAuthToken(v string) *SkipTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipTaskRequest) SetTenant(v string) *SkipTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30572,10 +32000,11 @@ func (s *SkipTaskResponse) SetTask(v string) *SkipTaskResponse {
 
 type RetryTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryTaskRequest) String() string {
@@ -30588,6 +32017,11 @@ func (s RetryTaskRequest) GoString() string {
 
 func (s *RetryTaskRequest) SetAuthToken(v string) *RetryTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryTaskRequest) SetTenant(v string) *RetryTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30639,12 +32073,13 @@ func (s *RetryTaskResponse) SetTask(v string) *RetryTaskResponse {
 
 type QueryRoleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// from_aliyun
 	FromAliyun *bool `json:"from_aliyun,omitempty" xml:"from_aliyun,omitempty"`
 	// page_size
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryRoleRequest) String() string {
@@ -30657,6 +32092,11 @@ func (s QueryRoleRequest) GoString() string {
 
 func (s *QueryRoleRequest) SetAuthToken(v string) *QueryRoleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRoleRequest) SetTenant(v string) *QueryRoleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30713,12 +32153,13 @@ func (s *QueryRoleResponse) SetRoles(v []*string) *QueryRoleResponse {
 
 type CreateServicegroupcollectionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// arrangement_id
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// process_definition_id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateServicegroupcollectionRequest) String() string {
@@ -30731,6 +32172,11 @@ func (s CreateServicegroupcollectionRequest) GoString() string {
 
 func (s *CreateServicegroupcollectionRequest) SetAuthToken(v string) *CreateServicegroupcollectionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateServicegroupcollectionRequest) SetTenant(v string) *CreateServicegroupcollectionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30787,12 +32233,13 @@ func (s *CreateServicegroupcollectionResponse) SetCollection(v string) *CreateSe
 
 type DeleteServicegroupcollectionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// arrangement_id
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// process_definition_id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteServicegroupcollectionRequest) String() string {
@@ -30805,6 +32252,11 @@ func (s DeleteServicegroupcollectionRequest) GoString() string {
 
 func (s *DeleteServicegroupcollectionRequest) SetAuthToken(v string) *DeleteServicegroupcollectionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteServicegroupcollectionRequest) SetTenant(v string) *DeleteServicegroupcollectionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30861,10 +32313,11 @@ func (s *DeleteServicegroupcollectionResponse) SetCollections(v []*string) *Dele
 
 type RetryServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryServicegroupRequest) String() string {
@@ -30877,6 +32330,11 @@ func (s RetryServicegroupRequest) GoString() string {
 
 func (s *RetryServicegroupRequest) SetAuthToken(v string) *RetryServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryServicegroupRequest) SetTenant(v string) *RetryServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30928,10 +32386,11 @@ func (s *RetryServicegroupResponse) SetGroup(v string) *RetryServicegroupRespons
 
 type ExecServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ExecServicegroupRequest) String() string {
@@ -30944,6 +32403,11 @@ func (s ExecServicegroupRequest) GoString() string {
 
 func (s *ExecServicegroupRequest) SetAuthToken(v string) *ExecServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecServicegroupRequest) SetTenant(v string) *ExecServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -30995,10 +32459,11 @@ func (s *ExecServicegroupResponse) SetGroup(v string) *ExecServicegroupResponse 
 
 type SkipServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipServicegroupRequest) String() string {
@@ -31011,6 +32476,11 @@ func (s SkipServicegroupRequest) GoString() string {
 
 func (s *SkipServicegroupRequest) SetAuthToken(v string) *SkipServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipServicegroupRequest) SetTenant(v string) *SkipServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31062,12 +32532,13 @@ func (s *SkipServicegroupResponse) SetGroup(v string) *SkipServicegroupResponse 
 
 type CreateServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// append
 	Append *bool `json:"append,omitempty" xml:"append,omitempty"`
 	// service_group_id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateServicegroupRequest) String() string {
@@ -31080,6 +32551,11 @@ func (s CreateServicegroupRequest) GoString() string {
 
 func (s *CreateServicegroupRequest) SetAuthToken(v string) *CreateServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateServicegroupRequest) SetTenant(v string) *CreateServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31136,10 +32612,11 @@ func (s *CreateServicegroupResponse) SetGroup(v string) *CreateServicegroupRespo
 
 type DeleteServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s DeleteServicegroupRequest) String() string {
@@ -31152,6 +32629,11 @@ func (s DeleteServicegroupRequest) GoString() string {
 
 func (s *DeleteServicegroupRequest) SetAuthToken(v string) *DeleteServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteServicegroupRequest) SetTenant(v string) *DeleteServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31203,12 +32685,13 @@ func (s *DeleteServicegroupResponse) SetGroup(v string) *DeleteServicegroupRespo
 
 type SwitchServicegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// service_group_id
-	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty"`
+	ServiceGroupId *string `json:"service_group_id,omitempty" xml:"service_group_id,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SwitchServicegroupRequest) String() string {
@@ -31221,6 +32704,11 @@ func (s SwitchServicegroupRequest) GoString() string {
 
 func (s *SwitchServicegroupRequest) SetAuthToken(v string) *SwitchServicegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SwitchServicegroupRequest) SetTenant(v string) *SwitchServicegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31277,12 +32765,13 @@ func (s *SwitchServicegroupResponse) SetGroups(v []*string) *SwitchServicegroupR
 
 type GetServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// 是否带上机器信息
 	WithMachineGroups *bool `json:"with_machine_groups,omitempty" xml:"with_machine_groups,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetServiceRequest) String() string {
@@ -31295,6 +32784,11 @@ func (s GetServiceRequest) GoString() string {
 
 func (s *GetServiceRequest) SetAuthToken(v string) *GetServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetServiceRequest) SetTenant(v string) *GetServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31351,10 +32845,11 @@ func (s *GetServiceResponse) SetService(v string) *GetServiceResponse {
 
 type GetServiceProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetServiceProgressRequest) String() string {
@@ -31367,6 +32862,11 @@ func (s GetServiceProgressRequest) GoString() string {
 
 func (s *GetServiceProgressRequest) SetAuthToken(v string) *GetServiceProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetServiceProgressRequest) SetTenant(v string) *GetServiceProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31418,6 +32918,7 @@ func (s *GetServiceProgressResponse) SetProgress(v string) *GetServiceProgressRe
 
 type QueryServiceProgressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// depth
 	Depth *int64 `json:"depth,omitempty" xml:"depth,omitempty"`
 	// gmt_create_end
@@ -31443,7 +32944,7 @@ type QueryServiceProgressRequest struct {
 	// state
 	State *string `json:"state,omitempty" xml:"state,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryServiceProgressRequest) String() string {
@@ -31456,6 +32957,11 @@ func (s QueryServiceProgressRequest) GoString() string {
 
 func (s *QueryServiceProgressRequest) SetAuthToken(v string) *QueryServiceProgressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServiceProgressRequest) SetTenant(v string) *QueryServiceProgressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31562,12 +33068,13 @@ func (s *QueryServiceProgressResponse) SetProgresses(v []*string) *QueryServiceP
 
 type QueryServiceSlbmountRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// slb_id
-	SlbId *string `json:"slb_id,omitempty" xml:"slb_id,omitempty"`
+	SlbId *string `json:"slb_id,omitempty" xml:"slb_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryServiceSlbmountRequest) String() string {
@@ -31580,6 +33087,11 @@ func (s QueryServiceSlbmountRequest) GoString() string {
 
 func (s *QueryServiceSlbmountRequest) SetAuthToken(v string) *QueryServiceSlbmountRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServiceSlbmountRequest) SetTenant(v string) *QueryServiceSlbmountRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31636,12 +33148,13 @@ func (s *QueryServiceSlbmountResponse) SetMountInfoList(v []*string) *QueryServi
 
 type BatchqueryServiceSlbmountRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// slb_ids
-	SlbIds []*string `json:"slb_ids,omitempty" xml:"slb_ids,omitempty" type:"Repeated"`
+	SlbIds []*string `json:"slb_ids,omitempty" xml:"slb_ids,omitempty" require:"true" type:"Repeated"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s BatchqueryServiceSlbmountRequest) String() string {
@@ -31654,6 +33167,11 @@ func (s BatchqueryServiceSlbmountRequest) GoString() string {
 
 func (s *BatchqueryServiceSlbmountRequest) SetAuthToken(v string) *BatchqueryServiceSlbmountRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryServiceSlbmountRequest) SetTenant(v string) *BatchqueryServiceSlbmountRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31710,16 +33228,17 @@ func (s *BatchqueryServiceSlbmountResponse) SetMountInfoList(v []*string) *Batch
 
 type UpdateServiceSlbmountRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 权重
-	MountInfo []*Pair `json:"mount_info,omitempty" xml:"mount_info,omitempty" type:"Repeated"`
+	MountInfo []*Pair `json:"mount_info,omitempty" xml:"mount_info,omitempty" require:"true" type:"Repeated"`
 	// region_identity
-	RegionIdentity *string `json:"region_identity,omitempty" xml:"region_identity,omitempty"`
+	RegionIdentity *string `json:"region_identity,omitempty" xml:"region_identity,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// slb_id
-	SlbId *string `json:"slb_id,omitempty" xml:"slb_id,omitempty"`
+	SlbId *string `json:"slb_id,omitempty" xml:"slb_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateServiceSlbmountRequest) String() string {
@@ -31732,6 +33251,11 @@ func (s UpdateServiceSlbmountRequest) GoString() string {
 
 func (s *UpdateServiceSlbmountRequest) SetAuthToken(v string) *UpdateServiceSlbmountRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateServiceSlbmountRequest) SetTenant(v string) *UpdateServiceSlbmountRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31798,14 +33322,15 @@ func (s *UpdateServiceSlbmountResponse) SetProcessId(v string) *UpdateServiceSlb
 
 type QueryServiceSlbmountprogressRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// process_id
-	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty"`
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
 	// region_identity
-	RegionIdentity *string `json:"region_identity,omitempty" xml:"region_identity,omitempty"`
+	RegionIdentity *string `json:"region_identity,omitempty" xml:"region_identity,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryServiceSlbmountprogressRequest) String() string {
@@ -31818,6 +33343,11 @@ func (s QueryServiceSlbmountprogressRequest) GoString() string {
 
 func (s *QueryServiceSlbmountprogressRequest) SetAuthToken(v string) *QueryServiceSlbmountprogressRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServiceSlbmountprogressRequest) SetTenant(v string) *QueryServiceSlbmountprogressRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31879,10 +33409,11 @@ func (s *QueryServiceSlbmountprogressResponse) SetProgress(v string) *QueryServi
 
 type QueryServiceLatestsuccessRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// service_paas_id
-	ServicePaasId *string `json:"service_paas_id,omitempty" xml:"service_paas_id,omitempty"`
+	ServicePaasId *string `json:"service_paas_id,omitempty" xml:"service_paas_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryServiceLatestsuccessRequest) String() string {
@@ -31895,6 +33426,11 @@ func (s QueryServiceLatestsuccessRequest) GoString() string {
 
 func (s *QueryServiceLatestsuccessRequest) SetAuthToken(v string) *QueryServiceLatestsuccessRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServiceLatestsuccessRequest) SetTenant(v string) *QueryServiceLatestsuccessRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -31946,10 +33482,11 @@ func (s *QueryServiceLatestsuccessResponse) SetService(v string) *QueryServiceLa
 
 type ReinitServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ReinitServiceRequest) String() string {
@@ -31962,6 +33499,11 @@ func (s ReinitServiceRequest) GoString() string {
 
 func (s *ReinitServiceRequest) SetAuthToken(v string) *ReinitServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitServiceRequest) SetTenant(v string) *ReinitServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32013,10 +33555,11 @@ func (s *ReinitServiceResponse) SetService(v string) *ReinitServiceResponse {
 
 type ExecServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ExecServiceRequest) String() string {
@@ -32029,6 +33572,11 @@ func (s ExecServiceRequest) GoString() string {
 
 func (s *ExecServiceRequest) SetAuthToken(v string) *ExecServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecServiceRequest) SetTenant(v string) *ExecServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32080,12 +33628,13 @@ func (s *ExecServiceResponse) SetService(v string) *ExecServiceResponse {
 
 type CancelServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// reason
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CancelServiceRequest) String() string {
@@ -32098,6 +33647,11 @@ func (s CancelServiceRequest) GoString() string {
 
 func (s *CancelServiceRequest) SetAuthToken(v string) *CancelServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelServiceRequest) SetTenant(v string) *CancelServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32154,10 +33708,11 @@ func (s *CancelServiceResponse) SetService(v string) *CancelServiceResponse {
 
 type SkipServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipServiceRequest) String() string {
@@ -32170,6 +33725,11 @@ func (s SkipServiceRequest) GoString() string {
 
 func (s *SkipServiceRequest) SetAuthToken(v string) *SkipServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipServiceRequest) SetTenant(v string) *SkipServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32221,10 +33781,11 @@ func (s *SkipServiceResponse) SetService(v string) *SkipServiceResponse {
 
 type StartServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s StartServiceRequest) String() string {
@@ -32237,6 +33798,11 @@ func (s StartServiceRequest) GoString() string {
 
 func (s *StartServiceRequest) SetAuthToken(v string) *StartServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *StartServiceRequest) SetTenant(v string) *StartServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32288,10 +33854,11 @@ func (s *StartServiceResponse) SetService(v string) *StartServiceResponse {
 
 type ConfirmServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmServiceRequest) String() string {
@@ -32304,6 +33871,11 @@ func (s ConfirmServiceRequest) GoString() string {
 
 func (s *ConfirmServiceRequest) SetAuthToken(v string) *ConfirmServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmServiceRequest) SetTenant(v string) *ConfirmServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32355,6 +33927,7 @@ func (s *ConfirmServiceResponse) SetService(v string) *ConfirmServiceResponse {
 
 type SetServiceMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分组数
 	GroupMount *int64 `json:"group_mount,omitempty" xml:"group_mount,omitempty"`
 	// groupStrategyType
@@ -32364,11 +33937,11 @@ type SetServiceMachinegroupRequest struct {
 	// need_beta
 	NeedBeta *bool `json:"need_beta,omitempty" xml:"need_beta,omitempty"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// use_default_setup
 	UseDefaultSetup *bool `json:"use_default_setup,omitempty" xml:"use_default_setup,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SetServiceMachinegroupRequest) String() string {
@@ -32381,6 +33954,11 @@ func (s SetServiceMachinegroupRequest) GoString() string {
 
 func (s *SetServiceMachinegroupRequest) SetAuthToken(v string) *SetServiceMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SetServiceMachinegroupRequest) SetTenant(v string) *SetServiceMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32457,10 +34035,11 @@ func (s *SetServiceMachinegroupResponse) SetService(v string) *SetServiceMachine
 
 type ReinitServiceMachinegroupRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ReinitServiceMachinegroupRequest) String() string {
@@ -32473,6 +34052,11 @@ func (s ReinitServiceMachinegroupRequest) GoString() string {
 
 func (s *ReinitServiceMachinegroupRequest) SetAuthToken(v string) *ReinitServiceMachinegroupRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ReinitServiceMachinegroupRequest) SetTenant(v string) *ReinitServiceMachinegroupRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32524,12 +34108,13 @@ func (s *ReinitServiceMachinegroupResponse) SetService(v string) *ReinitServiceM
 
 type ListServiceRollbackversionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// limit
 	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ListServiceRollbackversionRequest) String() string {
@@ -32542,6 +34127,11 @@ func (s ListServiceRollbackversionRequest) GoString() string {
 
 func (s *ListServiceRollbackversionRequest) SetAuthToken(v string) *ListServiceRollbackversionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListServiceRollbackversionRequest) SetTenant(v string) *ListServiceRollbackversionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32598,6 +34188,7 @@ func (s *ListServiceRollbackversionResponse) SetServices(v []*string) *ListServi
 
 type QueryServiceRollbackversionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// depth
 	Depth *int64 `json:"depth,omitempty" xml:"depth,omitempty"`
 	// gmt_create_end
@@ -32615,7 +34206,7 @@ type QueryServiceRollbackversionRequest struct {
 	// page_size
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// process_definition_id
-	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty"`
+	ProcessDefinitionId *string `json:"process_definition_id,omitempty" xml:"process_definition_id,omitempty" require:"true"`
 	// service_group_collection_id
 	ServiceGroupCollectionId *string `json:"service_group_collection_id,omitempty" xml:"service_group_collection_id,omitempty"`
 	// service_paas_id
@@ -32623,7 +34214,7 @@ type QueryServiceRollbackversionRequest struct {
 	// state
 	State *string `json:"state,omitempty" xml:"state,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryServiceRollbackversionRequest) String() string {
@@ -32636,6 +34227,11 @@ func (s QueryServiceRollbackversionRequest) GoString() string {
 
 func (s *QueryServiceRollbackversionRequest) SetAuthToken(v string) *QueryServiceRollbackversionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServiceRollbackversionRequest) SetTenant(v string) *QueryServiceRollbackversionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32742,12 +34338,13 @@ func (s *QueryServiceRollbackversionResponse) SetVersions(v []*Pair) *QueryServi
 
 type RollbackServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RollbackServiceRequest) String() string {
@@ -32760,6 +34357,11 @@ func (s RollbackServiceRequest) GoString() string {
 
 func (s *RollbackServiceRequest) SetAuthToken(v string) *RollbackServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RollbackServiceRequest) SetTenant(v string) *RollbackServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32816,12 +34418,13 @@ func (s *RollbackServiceResponse) SetService(v string) *RollbackServiceResponse 
 
 type ConfirmrollbackServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// retry_rollbacked
-	RetryRollbacked *bool `json:"retry_rollbacked,omitempty" xml:"retry_rollbacked,omitempty"`
+	RetryRollbacked *bool `json:"retry_rollbacked,omitempty" xml:"retry_rollbacked,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s ConfirmrollbackServiceRequest) String() string {
@@ -32834,6 +34437,11 @@ func (s ConfirmrollbackServiceRequest) GoString() string {
 
 func (s *ConfirmrollbackServiceRequest) SetAuthToken(v string) *ConfirmrollbackServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmrollbackServiceRequest) SetTenant(v string) *ConfirmrollbackServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32890,12 +34498,13 @@ func (s *ConfirmrollbackServiceResponse) SetService(v string) *ConfirmrollbackSe
 
 type RetryrollbackServiceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// rollback_info
-	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty"`
+	RollbackInfo *RollbackInfo `json:"rollback_info,omitempty" xml:"rollback_info,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryrollbackServiceRequest) String() string {
@@ -32908,6 +34517,11 @@ func (s RetryrollbackServiceRequest) GoString() string {
 
 func (s *RetryrollbackServiceRequest) SetAuthToken(v string) *RetryrollbackServiceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryrollbackServiceRequest) SetTenant(v string) *RetryrollbackServiceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -32964,12 +34578,13 @@ func (s *RetryrollbackServiceResponse) SetService(v string) *RetryrollbackServic
 
 type GetServiceArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// node_id
-	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetServiceArrangementRequest) String() string {
@@ -32982,6 +34597,11 @@ func (s GetServiceArrangementRequest) GoString() string {
 
 func (s *GetServiceArrangementRequest) SetAuthToken(v string) *GetServiceArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetServiceArrangementRequest) SetTenant(v string) *GetServiceArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33038,12 +34658,13 @@ func (s *GetServiceArrangementResponse) SetExecutionDetail(v string) *GetService
 
 type RetryServiceArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// arrangement_id
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s RetryServiceArrangementRequest) String() string {
@@ -33056,6 +34677,11 @@ func (s RetryServiceArrangementRequest) GoString() string {
 
 func (s *RetryServiceArrangementRequest) SetAuthToken(v string) *RetryServiceArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryServiceArrangementRequest) SetTenant(v string) *RetryServiceArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33112,12 +34738,13 @@ func (s *RetryServiceArrangementResponse) SetService(v string) *RetryServiceArra
 
 type SkipServiceArrangementRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// arrangement_id
-	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty"`
+	ArrangementId *string `json:"arrangement_id,omitempty" xml:"arrangement_id,omitempty" require:"true"`
 	// service_id
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty"`
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s SkipServiceArrangementRequest) String() string {
@@ -33130,6 +34757,11 @@ func (s SkipServiceArrangementRequest) GoString() string {
 
 func (s *SkipServiceArrangementRequest) SetAuthToken(v string) *SkipServiceArrangementRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SkipServiceArrangementRequest) SetTenant(v string) *SkipServiceArrangementRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33186,6 +34818,7 @@ func (s *SkipServiceArrangementResponse) SetService(v string) *SkipServiceArrang
 
 type QueryOperationlogRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// event
 	Event *string `json:"event,omitempty" xml:"event,omitempty"`
 	// page_no
@@ -33212,6 +34845,11 @@ func (s QueryOperationlogRequest) GoString() string {
 
 func (s *QueryOperationlogRequest) SetAuthToken(v string) *QueryOperationlogRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOperationlogRequest) SetTenant(v string) *QueryOperationlogRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33309,6 +34947,7 @@ func (s *QueryOperationlogResponse) SetTotalCount(v int64) *QueryOperationlogRes
 
 type QueryOperationlogTimelineRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// customer_id
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
 	// gmt_from
@@ -33332,7 +34971,7 @@ type QueryOperationlogTimelineRequest struct {
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s QueryOperationlogTimelineRequest) String() string {
@@ -33345,6 +34984,11 @@ func (s QueryOperationlogTimelineRequest) GoString() string {
 
 func (s *QueryOperationlogTimelineRequest) SetAuthToken(v string) *QueryOperationlogTimelineRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOperationlogTimelineRequest) SetTenant(v string) *QueryOperationlogTimelineRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33467,10 +35111,11 @@ func (s *QueryOperationlogTimelineResponse) SetTotalCount(v int64) *QueryOperati
 
 type GetServiceDetailRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetServiceDetailRequest) String() string {
@@ -33483,6 +35128,11 @@ func (s GetServiceDetailRequest) GoString() string {
 
 func (s *GetServiceDetailRequest) SetAuthToken(v string) *GetServiceDetailRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetServiceDetailRequest) SetTenant(v string) *GetServiceDetailRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33534,10 +35184,11 @@ func (s *GetServiceDetailResponse) SetService(v string) *GetServiceDetailRespons
 
 type CreateMetaCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// request
-	Request *string `json:"request,omitempty" xml:"request,omitempty"`
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s CreateMetaCellRequest) String() string {
@@ -33550,6 +35201,11 @@ func (s CreateMetaCellRequest) GoString() string {
 
 func (s *CreateMetaCellRequest) SetAuthToken(v string) *CreateMetaCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMetaCellRequest) SetTenant(v string) *CreateMetaCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33601,10 +35257,11 @@ func (s *CreateMetaCellResponse) SetData(v string) *CreateMetaCellResponse {
 
 type UpdateMetaCellRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// request
-	Request *string `json:"request,omitempty" xml:"request,omitempty"`
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s UpdateMetaCellRequest) String() string {
@@ -33617,6 +35274,11 @@ func (s UpdateMetaCellRequest) GoString() string {
 
 func (s *UpdateMetaCellRequest) SetAuthToken(v string) *UpdateMetaCellRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateMetaCellRequest) SetTenant(v string) *UpdateMetaCellRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33661,10 +35323,11 @@ func (s *UpdateMetaCellResponse) SetResultMsg(v string) *UpdateMetaCellResponse 
 
 type AddMetaMasterzonerelRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// request
-	Request *string `json:"request,omitempty" xml:"request,omitempty"`
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
 	// workspace
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s AddMetaMasterzonerelRequest) String() string {
@@ -33677,6 +35340,11 @@ func (s AddMetaMasterzonerelRequest) GoString() string {
 
 func (s *AddMetaMasterzonerelRequest) SetAuthToken(v string) *AddMetaMasterzonerelRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *AddMetaMasterzonerelRequest) SetTenant(v string) *AddMetaMasterzonerelRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33721,8 +35389,9 @@ func (s *AddMetaMasterzonerelResponse) SetResultMsg(v string) *AddMetaMasterzone
 
 type AssignComputerRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用的完整名称
-	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty"`
+	ApplicationName *string `json:"application_name,omitempty" xml:"application_name,omitempty" require:"true"`
 	// 是否启用自动运维，默认为**False**
 	AutoOps *bool `json:"auto_ops,omitempty" xml:"auto_ops,omitempty"`
 	// 计算资源与cell的关系，如果不指定会根据分配的应用、服务实例以及computer的zone信息由系统决定，如果无法决定会导致失败，建议在指定了service_name参数的情形下指定该参数
@@ -33736,9 +35405,9 @@ type AssignComputerRequest struct {
 	// 请求业务id，用于幂等性控制等，需要客户端提供并保证唯一。最大64位单字节字符
 	ReqBizId *string `json:"req_biz_id,omitempty" xml:"req_biz_id,omitempty"`
 	// 目标服务实例名称
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty"`
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
 	// 目标工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s AssignComputerRequest) String() string {
@@ -33751,6 +35420,11 @@ func (s AssignComputerRequest) GoString() string {
 
 func (s *AssignComputerRequest) SetAuthToken(v string) *AssignComputerRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *AssignComputerRequest) SetTenant(v string) *AssignComputerRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -33804,7 +35478,7 @@ type AssignComputerResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 请求的id
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s AssignComputerResponse) String() string {
@@ -33837,6 +35511,7 @@ func (s *AssignComputerResponse) SetTaskId(v string) *AssignComputerResponse {
 
 type ReleaseComputerRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 计算资源id，可以指定多个
 	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" type:"Repeated"`
 	// 请求业务id，用于幂等性控制等，需要客户端提供并保证唯一。最大64位单字节字符
@@ -33856,6 +35531,11 @@ func (s *ReleaseComputerRequest) SetAuthToken(v string) *ReleaseComputerRequest 
 	return s
 }
 
+func (s *ReleaseComputerRequest) SetTenant(v string) *ReleaseComputerRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *ReleaseComputerRequest) SetComputerIds(v []*string) *ReleaseComputerRequest {
 	s.ComputerIds = v
 	return s
@@ -33871,7 +35551,7 @@ type ReleaseComputerResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 请求的id
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s ReleaseComputerResponse) String() string {
@@ -33904,6 +35584,7 @@ func (s *ReleaseComputerResponse) SetTaskId(v string) *ReleaseComputerResponse {
 
 type GetTaskRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 请求的业务号，当`task_id`参数指定时该参数会被忽略
 	ReqBizId *string `json:"req_biz_id,omitempty" xml:"req_biz_id,omitempty"`
 	// 异步请求的id， 当`req_biz_id`参数指定时可以不指定该参数，如果指定了该参数则忽略`req_biz_id`参数
@@ -33920,6 +35601,11 @@ func (s GetTaskRequest) GoString() string {
 
 func (s *GetTaskRequest) SetAuthToken(v string) *GetTaskRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetTaskRequest) SetTenant(v string) *GetTaskRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34006,10 +35692,11 @@ func (s *GetTaskResponse) SetStatus(v string) *GetTaskResponse {
 
 type CreateComputerRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 实例描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 镜像文件ID，启动实例时选择的镜像资源。
-	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
+	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty" require:"true"`
 	// 创建的实例数量。默认为 1 台
 	InstanceCount *int64 `json:"instance_count,omitempty" xml:"instance_count,omitempty"`
 	// 实例名称前缀。可包含小写字母(a-z)，数字(0-9) 和中划线(-)，以字母开头，中划线不能结尾或连续使用，2 ~ 40 个字符。
@@ -34019,23 +35706,23 @@ type CreateComputerRequest struct {
 	// 其中，Windows实例不能以斜线号（/）为密码首字符。
 	Paasword *string `json:"paasword,omitempty" xml:"paasword,omitempty" maxLength:"30" minLength:"8"`
 	// 实例所在地域
-	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
 	// image 或者 package
 	DeployType *string `json:"deploy_type,omitempty" xml:"deploy_type,omitempty"`
 	// 新创建实例所属于的安全组ID，同一个安全组内的实例之间可以互相访问。
-	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
+	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty" require:"true"`
 	// 实例的资源规格。
-	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty"`
+	SpecId *string `json:"spec_id,omitempty" xml:"spec_id,omitempty" require:"true"`
 	// 单位 G。系统盘大小，需根据选择的 image 类型决定。
-	SystemDiskSize *string `json:"system_disk_size,omitempty" xml:"system_disk_size,omitempty"`
+	SystemDiskSize *string `json:"system_disk_size,omitempty" xml:"system_disk_size,omitempty" require:"true"`
 	// 系统盘类型
-	SystemDiskType *string `json:"system_disk_type,omitempty" xml:"system_disk_type,omitempty"`
+	SystemDiskType *string `json:"system_disk_type,omitempty" xml:"system_disk_type,omitempty" require:"true"`
 	// VPC类型的实例，需要指定虚拟交换机ID。
 	VSwitchId *string `json:"v_switch_id,omitempty" xml:"v_switch_id,omitempty"`
 	// 实例所在工作空间
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 	// 实例所在可用区
-	Zone *string `json:"zone,omitempty" xml:"zone,omitempty"`
+	Zone *string `json:"zone,omitempty" xml:"zone,omitempty" require:"true"`
 }
 
 func (s CreateComputerRequest) String() string {
@@ -34048,6 +35735,11 @@ func (s CreateComputerRequest) GoString() string {
 
 func (s *CreateComputerRequest) SetAuthToken(v string) *CreateComputerRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateComputerRequest) SetTenant(v string) *CreateComputerRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34159,14 +35851,15 @@ func (s *CreateComputerResponse) SetComputerIds(v []*string) *CreateComputerResp
 
 type CreateSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 }
 
 func (s CreateSidecarRequest) String() string {
@@ -34179,6 +35872,11 @@ func (s CreateSidecarRequest) GoString() string {
 
 func (s *CreateSidecarRequest) SetAuthToken(v string) *CreateSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSidecarRequest) SetTenant(v string) *CreateSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34233,10 +35931,11 @@ func (s *CreateSidecarResponse) SetResultMsg(v string) *CreateSidecarResponse {
 
 type ListSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分页请求体
 	PaginationQuery *PaginationQuery `json:"pagination_query,omitempty" xml:"pagination_query,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识符
 	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
 }
@@ -34251,6 +35950,11 @@ func (s ListSidecarRequest) GoString() string {
 
 func (s *ListSidecarRequest) SetAuthToken(v string) *ListSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListSidecarRequest) SetTenant(v string) *ListSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34314,24 +36018,25 @@ func (s *ListSidecarResponse) SetTotalCount(v int64) *ListSidecarResponse {
 
 type CreateSidecarVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar版本描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// release note
 	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace_name
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// 模板内容
-	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 	// sidecar模板配置
-	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" type:"Repeated"`
+	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" require:"true" type:"Repeated"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 版本周期：alpha/beta/release
 	VersionPeriod *string `json:"version_period,omitempty" xml:"version_period,omitempty"`
 }
@@ -34346,6 +36051,11 @@ func (s CreateSidecarVersionRequest) GoString() string {
 
 func (s *CreateSidecarVersionRequest) SetAuthToken(v string) *CreateSidecarVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSidecarVersionRequest) SetTenant(v string) *CreateSidecarVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34430,14 +36140,15 @@ func (s *CreateSidecarVersionResponse) SetResultMsg(v string) *CreateSidecarVers
 
 type ListSidecarVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分页查询请求体
 	PaginationQuery *PaginationQuery `json:"pagination_query,omitempty" xml:"pagination_query,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
 	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
 	// 版本状态
@@ -34454,6 +36165,11 @@ func (s ListSidecarVersionRequest) GoString() string {
 
 func (s *ListSidecarVersionRequest) SetAuthToken(v string) *ListSidecarVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListSidecarVersionRequest) SetTenant(v string) *ListSidecarVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34532,16 +36248,17 @@ func (s *ListSidecarVersionResponse) SetTotalCount(v int64) *ListSidecarVersionR
 
 type GetSidecarVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s GetSidecarVersionRequest) String() string {
@@ -34554,6 +36271,11 @@ func (s GetSidecarVersionRequest) GoString() string {
 
 func (s *GetSidecarVersionRequest) SetAuthToken(v string) *GetSidecarVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSidecarVersionRequest) SetTenant(v string) *GetSidecarVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34620,17 +36342,18 @@ func (s *GetSidecarVersionResponse) SetSidecarReleaseVersion(v *SidecarReleaseVe
 
 type CreateSidecarRuleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 规则描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 规则优先级
 	Level *int64 `json:"level,omitempty" xml:"level,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 }
 
 func (s CreateSidecarRuleRequest) String() string {
@@ -34643,6 +36366,11 @@ func (s CreateSidecarRuleRequest) GoString() string {
 
 func (s *CreateSidecarRuleRequest) SetAuthToken(v string) *CreateSidecarRuleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSidecarRuleRequest) SetTenant(v string) *CreateSidecarRuleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34702,13 +36430,14 @@ func (s *CreateSidecarRuleResponse) SetResultMsg(v string) *CreateSidecarRuleRes
 
 type GetSidecarRuleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 }
 
 func (s GetSidecarRuleRequest) String() string {
@@ -34721,6 +36450,11 @@ func (s GetSidecarRuleRequest) GoString() string {
 
 func (s *GetSidecarRuleRequest) SetAuthToken(v string) *GetSidecarRuleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSidecarRuleRequest) SetTenant(v string) *GetSidecarRuleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34777,13 +36511,14 @@ func (s *GetSidecarRuleResponse) SetSidecarRule(v *SidecarRule) *GetSidecarRuleR
 
 type ListSidecarRuleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 分页查询
 	PaginationQuery *PaginationQuery `json:"pagination_query,omitempty" xml:"pagination_query,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
 	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
 	// 规则状态
@@ -34800,6 +36535,11 @@ func (s ListSidecarRuleRequest) GoString() string {
 
 func (s *ListSidecarRuleRequest) SetAuthToken(v string) *ListSidecarRuleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListSidecarRuleRequest) SetTenant(v string) *ListSidecarRuleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34873,26 +36613,27 @@ func (s *ListSidecarRuleResponse) SetTotalCount(v int64) *ListSidecarRuleRespons
 
 type CreateSidecarInstanceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 规则描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// 环境参数模板
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
 	// 自定义规则内容
-	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
+	Rule *string `json:"rule,omitempty" xml:"rule,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
 	//
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 	// sidecar环境参数配置
 	//
-	ParamsConfigs []*SidecarParamsConfig `json:"params_configs,omitempty" xml:"params_configs,omitempty" type:"Repeated"`
+	ParamsConfigs []*SidecarParamsConfig `json:"params_configs,omitempty" xml:"params_configs,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateSidecarInstanceRequest) String() string {
@@ -34905,6 +36646,11 @@ func (s CreateSidecarInstanceRequest) GoString() string {
 
 func (s *CreateSidecarInstanceRequest) SetAuthToken(v string) *CreateSidecarInstanceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSidecarInstanceRequest) SetTenant(v string) *CreateSidecarInstanceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -34979,16 +36725,17 @@ func (s *CreateSidecarInstanceResponse) SetResultMsg(v string) *CreateSidecarIns
 
 type ListSidecarInstanceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本实例名称
 	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
 	// 分页查询
 	PaginationQuery *PaginationQuery `json:"pagination_query,omitempty" xml:"pagination_query,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// 版本实例状态
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
 }
@@ -35003,6 +36750,11 @@ func (s ListSidecarInstanceRequest) GoString() string {
 
 func (s *ListSidecarInstanceRequest) SetAuthToken(v string) *ListSidecarInstanceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListSidecarInstanceRequest) SetTenant(v string) *ListSidecarInstanceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35076,16 +36828,17 @@ func (s *ListSidecarInstanceResponse) SetTotalCount(v int64) *ListSidecarInstanc
 
 type GetSidecarInstanceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 }
 
 func (s GetSidecarInstanceRequest) String() string {
@@ -35098,6 +36851,11 @@ func (s GetSidecarInstanceRequest) GoString() string {
 
 func (s *GetSidecarInstanceRequest) SetAuthToken(v string) *GetSidecarInstanceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSidecarInstanceRequest) SetTenant(v string) *GetSidecarInstanceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35159,13 +36917,14 @@ func (s *GetSidecarInstanceResponse) SetSidecarVersionInstance(v *SidecarVersion
 
 type GetSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识符
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 }
 
 func (s GetSidecarRequest) String() string {
@@ -35178,6 +36937,11 @@ func (s GetSidecarRequest) GoString() string {
 
 func (s *GetSidecarRequest) SetAuthToken(v string) *GetSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSidecarRequest) SetTenant(v string) *GetSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35234,16 +36998,17 @@ func (s *GetSidecarResponse) SetSidecar(v *Sidecar) *GetSidecarResponse {
 
 type UpdateSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar类型描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarRequest) String() string {
@@ -35256,6 +37021,11 @@ func (s UpdateSidecarRequest) GoString() string {
 
 func (s *UpdateSidecarRequest) SetAuthToken(v string) *UpdateSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarRequest) SetTenant(v string) *UpdateSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35310,14 +37080,15 @@ func (s *UpdateSidecarResponse) SetResultMsg(v string) *UpdateSidecarResponse {
 
 type DeleteSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 }
 
 func (s DeleteSidecarRequest) String() string {
@@ -35330,6 +37101,11 @@ func (s DeleteSidecarRequest) GoString() string {
 
 func (s *DeleteSidecarRequest) SetAuthToken(v string) *DeleteSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteSidecarRequest) SetTenant(v string) *DeleteSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35379,30 +37155,31 @@ func (s *DeleteSidecarResponse) SetResultMsg(v string) *DeleteSidecarResponse {
 
 type UpdateSidecarVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar版本描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// 版本状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// sidecar模板内容
-	Template *string `json:"template,omitempty" xml:"template,omitempty"`
+	Template *string `json:"template,omitempty" xml:"template,omitempty" require:"true"`
 	// sidecar模板配置
-	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" type:"Repeated"`
+	TemplateConfigs []*SidecarTemplateConfig `json:"template_configs,omitempty" xml:"template_configs,omitempty" require:"true" type:"Repeated"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 版本周期：alpha/beta/release
 	//
-	VersionPeriod *string `json:"version_period,omitempty" xml:"version_period,omitempty"`
+	VersionPeriod *string `json:"version_period,omitempty" xml:"version_period,omitempty" require:"true"`
 	// 版本特性
-	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty"`
+	ReleaseNote *string `json:"release_note,omitempty" xml:"release_note,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarVersionRequest) String() string {
@@ -35415,6 +37192,11 @@ func (s UpdateSidecarVersionRequest) GoString() string {
 
 func (s *UpdateSidecarVersionRequest) SetAuthToken(v string) *UpdateSidecarVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarVersionRequest) SetTenant(v string) *UpdateSidecarVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35504,18 +37286,19 @@ func (s *UpdateSidecarVersionResponse) SetResultMsg(v string) *UpdateSidecarVers
 
 type DeleteSidecarVersionRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s DeleteSidecarVersionRequest) String() string {
@@ -35528,6 +37311,11 @@ func (s DeleteSidecarVersionRequest) GoString() string {
 
 func (s *DeleteSidecarVersionRequest) SetAuthToken(v string) *DeleteSidecarVersionRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteSidecarVersionRequest) SetTenant(v string) *DeleteSidecarVersionRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35587,26 +37375,27 @@ func (s *DeleteSidecarVersionResponse) SetResultMsg(v string) *DeleteSidecarVers
 
 type UpdateSidecarInstanceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本实例描述
 	//
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 版本实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// 环境模板参数
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
 	// 自定义规则内容
-	Rule *string `json:"rule,omitempty" xml:"rule,omitempty"`
+	Rule *string `json:"rule,omitempty" xml:"rule,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
 	//
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 	// sidecar环境参数配置
-	ParamsConfigs []*SidecarParamsConfig `json:"params_configs,omitempty" xml:"params_configs,omitempty" type:"Repeated"`
+	ParamsConfigs []*SidecarParamsConfig `json:"params_configs,omitempty" xml:"params_configs,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s UpdateSidecarInstanceRequest) String() string {
@@ -35619,6 +37408,11 @@ func (s UpdateSidecarInstanceRequest) GoString() string {
 
 func (s *UpdateSidecarInstanceRequest) SetAuthToken(v string) *UpdateSidecarInstanceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarInstanceRequest) SetTenant(v string) *UpdateSidecarInstanceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35693,18 +37487,19 @@ func (s *UpdateSidecarInstanceResponse) SetResultMsg(v string) *UpdateSidecarIns
 
 type DeleteSidecarInstanceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本实例名称
 	//
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
 	//
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 }
 
 func (s DeleteSidecarInstanceRequest) String() string {
@@ -35717,6 +37512,11 @@ func (s DeleteSidecarInstanceRequest) GoString() string {
 
 func (s *DeleteSidecarInstanceRequest) SetAuthToken(v string) *DeleteSidecarInstanceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteSidecarInstanceRequest) SetTenant(v string) *DeleteSidecarInstanceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35771,6 +37571,7 @@ func (s *DeleteSidecarInstanceResponse) SetResultMsg(v string) *DeleteSidecarIns
 
 type UpdateSidecarRuleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 规则描述
 	//
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
@@ -35778,14 +37579,14 @@ type UpdateSidecarRuleRequest struct {
 	Level *int64 `json:"level,omitempty" xml:"level,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 	// 规则状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarRuleRequest) String() string {
@@ -35798,6 +37599,11 @@ func (s UpdateSidecarRuleRequest) GoString() string {
 
 func (s *UpdateSidecarRuleRequest) SetAuthToken(v string) *UpdateSidecarRuleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarRuleRequest) SetTenant(v string) *UpdateSidecarRuleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35862,14 +37668,15 @@ func (s *UpdateSidecarRuleResponse) SetResultMsg(v string) *UpdateSidecarRuleRes
 
 type DeleteSidecarRuleRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 }
 
 func (s DeleteSidecarRuleRequest) String() string {
@@ -35882,6 +37689,11 @@ func (s DeleteSidecarRuleRequest) GoString() string {
 
 func (s *DeleteSidecarRuleRequest) SetAuthToken(v string) *DeleteSidecarRuleRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteSidecarRuleRequest) SetTenant(v string) *DeleteSidecarRuleRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -35931,22 +37743,23 @@ func (s *DeleteSidecarRuleResponse) SetResultMsg(v string) *DeleteSidecarRuleRes
 
 type UpdateSidecarVersionstatusRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar名称
-	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty"`
+	SidecarName *string `json:"sidecar_name,omitempty" xml:"sidecar_name,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 	// 版本状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
-	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
+	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty" require:"true"`
 	// sidecar版本类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarVersionstatusRequest) String() string {
@@ -35959,6 +37772,11 @@ func (s UpdateSidecarVersionstatusRequest) GoString() string {
 
 func (s *UpdateSidecarVersionstatusRequest) SetAuthToken(v string) *UpdateSidecarVersionstatusRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarVersionstatusRequest) SetTenant(v string) *UpdateSidecarVersionstatusRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36028,20 +37846,21 @@ func (s *UpdateSidecarVersionstatusResponse) SetResultMsg(v string) *UpdateSidec
 
 type UpdateSidecarInstancestatusRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 版本实例名称
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本id
-	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty"`
+	SidecarReleaseVersionId *string `json:"sidecar_release_version_id,omitempty" xml:"sidecar_release_version_id,omitempty" require:"true"`
 	// 版本实例状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
-	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
+	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarInstancestatusRequest) String() string {
@@ -36054,6 +37873,11 @@ func (s UpdateSidecarInstancestatusRequest) GoString() string {
 
 func (s *UpdateSidecarInstancestatusRequest) SetAuthToken(v string) *UpdateSidecarInstancestatusRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarInstancestatusRequest) SetTenant(v string) *UpdateSidecarInstancestatusRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36118,18 +37942,19 @@ func (s *UpdateSidecarInstancestatusResponse) SetResultMsg(v string) *UpdateSide
 
 type UpdateSidecarRulestatusRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// sidecar生效范围：workspace、workspace_group、region
 	//
-	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty" require:"true"`
 	// scope对应的唯一标识，例如workspace对应workspace id
 	//
-	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty"`
+	ScopeIdentity *string `json:"scope_identity,omitempty" xml:"scope_identity,omitempty" require:"true"`
 	// sidecar版本实例id
-	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty"`
+	SidecarVersionInstanceId *string `json:"sidecar_version_instance_id,omitempty" xml:"sidecar_version_instance_id,omitempty" require:"true"`
 	// 规则状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// 发布、下线、废弃原因
-	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty"`
+	StatusReason *string `json:"status_reason,omitempty" xml:"status_reason,omitempty" require:"true"`
 }
 
 func (s UpdateSidecarRulestatusRequest) String() string {
@@ -36142,6 +37967,11 @@ func (s UpdateSidecarRulestatusRequest) GoString() string {
 
 func (s *UpdateSidecarRulestatusRequest) SetAuthToken(v string) *UpdateSidecarRulestatusRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateSidecarRulestatusRequest) SetTenant(v string) *UpdateSidecarRulestatusRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36201,16 +38031,17 @@ func (s *UpdateSidecarRulestatusResponse) SetResultMsg(v string) *UpdateSidecarR
 
 type CreateAppbaselineSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// sidecar类型
-	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
 	// 应用基线适用条件，网商仅能指定workspaceGroups属性，并且只能指定一个workspaceGroup
-	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
 	// 是否开启sidecar
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 }
 
 func (s CreateAppbaselineSidecarRequest) String() string {
@@ -36223,6 +38054,11 @@ func (s CreateAppbaselineSidecarRequest) GoString() string {
 
 func (s *CreateAppbaselineSidecarRequest) SetAuthToken(v string) *CreateAppbaselineSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAppbaselineSidecarRequest) SetTenant(v string) *CreateAppbaselineSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36289,8 +38125,9 @@ func (s *CreateAppbaselineSidecarResponse) SetAppbaselineId(v string) *CreateApp
 
 type ListAppbaselineSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// sidecar类型
 	Category *string `json:"category,omitempty" xml:"category,omitempty"`
 	// 过滤条件，网商仅能指定workspaceGroups属性
@@ -36309,6 +38146,11 @@ func (s ListAppbaselineSidecarRequest) GoString() string {
 
 func (s *ListAppbaselineSidecarRequest) SetAuthToken(v string) *ListAppbaselineSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppbaselineSidecarRequest) SetTenant(v string) *ListAppbaselineSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36370,8 +38212,9 @@ func (s *ListAppbaselineSidecarResponse) SetAppbaselines(v []*AppBaselineSidecar
 
 type DeleteAppbaselineSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用基线ID
-	AppbaselineId *string `json:"appbaseline_id,omitempty" xml:"appbaseline_id,omitempty"`
+	AppbaselineId *string `json:"appbaseline_id,omitempty" xml:"appbaseline_id,omitempty" require:"true"`
 }
 
 func (s DeleteAppbaselineSidecarRequest) String() string {
@@ -36384,6 +38227,11 @@ func (s DeleteAppbaselineSidecarRequest) GoString() string {
 
 func (s *DeleteAppbaselineSidecarRequest) SetAuthToken(v string) *DeleteAppbaselineSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteAppbaselineSidecarRequest) SetTenant(v string) *DeleteAppbaselineSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36423,12 +38271,13 @@ func (s *DeleteAppbaselineSidecarResponse) SetResultMsg(v string) *DeleteAppbase
 
 type UpdateAppbaselineSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用sidecar基线id
-	AppbaselineId *string `json:"appbaseline_id,omitempty" xml:"appbaseline_id,omitempty"`
+	AppbaselineId *string `json:"appbaseline_id,omitempty" xml:"appbaseline_id,omitempty" require:"true"`
 	// 是否开启sidecar
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 }
 
 func (s UpdateAppbaselineSidecarRequest) String() string {
@@ -36441,6 +38290,11 @@ func (s UpdateAppbaselineSidecarRequest) GoString() string {
 
 func (s *UpdateAppbaselineSidecarRequest) SetAuthToken(v string) *UpdateAppbaselineSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAppbaselineSidecarRequest) SetTenant(v string) *UpdateAppbaselineSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36490,16 +38344,17 @@ func (s *UpdateAppbaselineSidecarResponse) SetResultMsg(v string) *UpdateAppbase
 
 type SaveAppbaselineSidecarRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 应用名
-	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
 	// sidecar类型
-	Category *string `json:"category,omitempty" xml:"category,omitempty"`
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
 	// 应用基线适用条件，网商仅能指定workspaceGroups属性，并且只能指定一个workspaceGroup
-	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" type:"Repeated"`
+	Conditions []*SidecarCondition `json:"conditions,omitempty" xml:"conditions,omitempty" require:"true" type:"Repeated"`
 	// 是否开启sidecar
-	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty"`
+	Enable *bool `json:"enable,omitempty" xml:"enable,omitempty" require:"true"`
 	// sidecar版本号
-	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty"`
+	SidecarVersion *string `json:"sidecar_version,omitempty" xml:"sidecar_version,omitempty" require:"true"`
 }
 
 func (s SaveAppbaselineSidecarRequest) String() string {
@@ -36512,6 +38367,11 @@ func (s SaveAppbaselineSidecarRequest) GoString() string {
 
 func (s *SaveAppbaselineSidecarRequest) SetAuthToken(v string) *SaveAppbaselineSidecarRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveAppbaselineSidecarRequest) SetTenant(v string) *SaveAppbaselineSidecarRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36578,8 +38438,9 @@ func (s *SaveAppbaselineSidecarResponse) SetAppbaselineId(v string) *SaveAppbase
 
 type GetWorkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 所属工作空间名称
-	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
 }
 
 func (s GetWorkspaceRequest) String() string {
@@ -36592,6 +38453,11 @@ func (s GetWorkspaceRequest) GoString() string {
 
 func (s *GetWorkspaceRequest) SetAuthToken(v string) *GetWorkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *GetWorkspaceRequest) SetTenant(v string) *GetWorkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36687,6 +38553,7 @@ func (s *GetWorkspaceResponse) SetZones(v []*string) *GetWorkspaceResponse {
 
 type QueryWorkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 工作空间状态。输入示例：status.1=CREATED
 	Status []*string `json:"status,omitempty" xml:"status,omitempty" type:"Repeated"`
 }
@@ -36704,6 +38571,11 @@ func (s *QueryWorkspaceRequest) SetAuthToken(v string) *QueryWorkspaceRequest {
 	return s
 }
 
+func (s *QueryWorkspaceRequest) SetTenant(v string) *QueryWorkspaceRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *QueryWorkspaceRequest) SetStatus(v []*string) *QueryWorkspaceRequest {
 	s.Status = v
 	return s
@@ -36714,9 +38586,9 @@ type QueryWorkspaceResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 此应用下所有计算容器分组运维状态详情
-	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" type:"Repeated"`
+	Groups []*OpsGroup `json:"groups,omitempty" xml:"groups,omitempty" require:"true" type:"Repeated"`
 	// 查询结果，workspace列表
-	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" type:"Repeated"`
+	Workspaces []*Workspace `json:"workspaces,omitempty" xml:"workspaces,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryWorkspaceResponse) String() string {
@@ -36754,14 +38626,15 @@ func (s *QueryWorkspaceResponse) SetWorkspaces(v []*Workspace) *QueryWorkspaceRe
 
 type CreateWorkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// workspace 显示名称
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// workspace名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 网络类型
-	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty"`
+	NetworkType *string `json:"network_type,omitempty" xml:"network_type,omitempty" require:"true"`
 	// 地域id
-	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty"`
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
 	// 机房ID
 	ZoneIds []*string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty" type:"Repeated"`
 }
@@ -36776,6 +38649,11 @@ func (s CreateWorkspaceRequest) GoString() string {
 
 func (s *CreateWorkspaceRequest) SetAuthToken(v string) *CreateWorkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateWorkspaceRequest) SetTenant(v string) *CreateWorkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36842,6 +38720,7 @@ func (s *CreateWorkspaceResponse) SetWorkspace(v *Workspace) *CreateWorkspaceRes
 
 type ListWorkspaceRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 }
 
 func (s ListWorkspaceRequest) String() string {
@@ -36854,6 +38733,11 @@ func (s ListWorkspaceRequest) GoString() string {
 
 func (s *ListWorkspaceRequest) SetAuthToken(v string) *ListWorkspaceRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *ListWorkspaceRequest) SetTenant(v string) *ListWorkspaceRequest {
+	s.Tenant = &v
 	return s
 }
 
@@ -36894,21 +38778,25 @@ func (s *ListWorkspaceResponse) SetWorkspaces(v []*Workspace) *ListWorkspaceResp
 }
 
 type Client struct {
-	Endpoint        *string
-	RegionId        *string
-	AccessKeyId     *string
-	AccessKeySecret *string
-	Protocol        *string
-	UserAgent       *string
-	ReadTimeout     *int
-	ConnectTimeout  *int
-	HttpProxy       *string
-	HttpsProxy      *string
-	Socks5Proxy     *string
-	Socks5NetWork   *string
-	NoProxy         *string
-	MaxIdleConns    *int
-	SecurityToken   *string
+	Endpoint                *string
+	RegionId                *string
+	AccessKeyId             *string
+	AccessKeySecret         *string
+	Protocol                *string
+	UserAgent               *string
+	ReadTimeout             *int
+	ConnectTimeout          *int
+	HttpProxy               *string
+	HttpsProxy              *string
+	Socks5Proxy             *string
+	Socks5NetWork           *string
+	NoProxy                 *string
+	MaxIdleConns            *int
+	SecurityToken           *string
+	MaxIdleTimeMillis       *int
+	KeepAliveDurationMillis *int
+	MaxRequests             *int
+	MaxRequestsPerHost      *int
 }
 
 /**
@@ -36936,14 +38824,18 @@ func (client *Client) Init(config *Config) (_err error) {
 	client.Endpoint = config.Endpoint
 	client.Protocol = config.Protocol
 	client.UserAgent = config.UserAgent
-	client.ReadTimeout = config.ReadTimeout
-	client.ConnectTimeout = config.ConnectTimeout
+	client.ReadTimeout = util.DefaultNumber(config.ReadTimeout, tea.Int(20000))
+	client.ConnectTimeout = util.DefaultNumber(config.ConnectTimeout, tea.Int(20000))
 	client.HttpProxy = config.HttpProxy
 	client.HttpsProxy = config.HttpsProxy
 	client.NoProxy = config.NoProxy
 	client.Socks5Proxy = config.Socks5Proxy
 	client.Socks5NetWork = config.Socks5NetWork
-	client.MaxIdleConns = config.MaxIdleConns
+	client.MaxIdleConns = util.DefaultNumber(config.MaxIdleConns, tea.Int(60000))
+	client.MaxIdleTimeMillis = util.DefaultNumber(config.MaxIdleTimeMillis, tea.Int(5))
+	client.KeepAliveDurationMillis = util.DefaultNumber(config.KeepAliveDurationMillis, tea.Int(5000))
+	client.MaxRequests = util.DefaultNumber(config.MaxRequests, tea.Int(100))
+	client.MaxRequestsPerHost = util.DefaultNumber(config.MaxRequestsPerHost, tea.Int(100))
 	return nil
 }
 
@@ -36963,13 +38855,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":      "retry",
-		"readTimeout":    tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout": tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":      tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":     tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":        tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":   tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"timeouted":               "retry",
+		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":             tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -37003,14 +38899,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.2.1"),
+				"sdk_version":      tea.String("3.2.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
 			}
 
 			request_.Headers = tea.Merge(map[string]*string{
-				"host":       util.DefaultString(client.Endpoint, tea.String("undefined")),
+				"host":       util.DefaultString(client.Endpoint, tea.String("openapi.antchain.antgroup.com")),
 				"user-agent": util.GetUserAgent(client.UserAgent),
 			}, headers)
 			tmp := util.AnyifyMapValue(rpcutil.Query(request))
