@@ -162,7 +162,8 @@ class Pair(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         result = dict()
@@ -199,7 +200,10 @@ class OpsActionPolicy(TeaModel):
         self.retry_times = retry_times
 
     def validate(self):
-        pass
+        self.validate_required(self.ops_action_type, 'ops_action_type')
+        self.validate_required(self.timeout, 'timeout')
+        self.validate_required(self.check_interval, 'check_interval')
+        self.validate_required(self.retry_times, 'retry_times')
 
     def to_map(self):
         result = dict()
@@ -250,7 +254,12 @@ class GrayTrafficConfig(TeaModel):
         self.target_uri = target_uri
 
     def validate(self):
-        pass
+        self.validate_required(self.gray_traffic_type, 'gray_traffic_type')
+        self.validate_required(self.hostname, 'hostname')
+        self.validate_required(self.match_patterns, 'match_patterns')
+        self.validate_required(self.port, 'port')
+        self.validate_required(self.proportion, 'proportion')
+        self.validate_required(self.target_uri, 'target_uri')
 
     def to_map(self):
         result = dict()
@@ -436,10 +445,16 @@ class ArrangementInfo(TeaModel):
         self.ops_action_policies = ops_action_policies
 
     def validate(self):
+        self.validate_required(self.arrangement_type, 'arrangement_type')
+        self.validate_required(self.env_config, 'env_config')
         if self.env_config:
             for k in self.env_config:
                 if k:
                     k.validate()
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.ops_action_policies, 'ops_action_policies')
         if self.ops_action_policies:
             for k in self.ops_action_policies:
                 if k:
@@ -527,10 +542,21 @@ class TaskExecutionProgress(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.show_name, 'show_name')
+        self.validate_required(self.business_entity_code, 'business_entity_code')
+        self.validate_required(self.error_code, 'error_code')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.execution_count, 'execution_count')
+        self.validate_required(self.detail_msg, 'detail_msg')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -618,12 +644,20 @@ class ResourceGroupExecutionProgress(TeaModel):
         self.refer_key = refer_key
 
     def validate(self):
+        self.validate_required(self.finished_time, 'finished_time')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.paas_id, 'paas_id')
+        self.validate_required(self.resource_count, 'resource_count')
+        self.validate_required(self.resource_states, 'resource_states')
         if self.resource_states:
             for k in self.resource_states:
                 if k:
                     k.validate()
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.refer_key, 'refer_key')
 
     def to_map(self):
         result = dict()
@@ -762,7 +796,7 @@ class OpsApplication(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -883,6 +917,10 @@ class SlbExecutionProgress(TeaModel):
         self.mount_weights = mount_weights
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.mount_weights, 'mount_weights')
         if self.mount_weights:
             for k in self.mount_weights:
                 if k:
@@ -1174,24 +1212,47 @@ class ServiceInfo(TeaModel):
         self.custom_params = custom_params
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.cell_ids, 'cell_ids')
+        self.validate_required(self.default_execute_account, 'default_execute_account')
+        self.validate_required(self.env_config, 'env_config')
         if self.env_config:
             for k in self.env_config:
                 if k:
                     k.validate()
+        self.validate_required(self.force_executable, 'force_executable')
+        self.validate_required(self.gray_traffic_configs, 'gray_traffic_configs')
         if self.gray_traffic_configs:
             for k in self.gray_traffic_configs:
                 if k:
                     k.validate()
+        self.validate_required(self.group_amount, 'group_amount')
+        self.validate_required(self.group_strategy_type, 'group_strategy_type')
+        self.validate_required(self.install_from_cache, 'install_from_cache')
+        self.validate_required(self.need_beta, 'need_beta')
+        self.validate_required(self.need_gray_traffic, 'need_gray_traffic')
+        self.validate_required(self.post_arrangement_info, 'post_arrangement_info')
         if self.post_arrangement_info:
             for k in self.post_arrangement_info:
                 if k:
                     k.validate()
+        self.validate_required(self.pre_arrangement_info, 'pre_arrangement_info')
         if self.pre_arrangement_info:
             for k in self.pre_arrangement_info:
                 if k:
                     k.validate()
+        self.validate_required(self.service_arrangement, 'service_arrangement')
         if self.service_arrangement:
             self.service_arrangement.validate()
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.static_resource_download_url, 'static_resource_download_url')
+        self.validate_required(self.static_resource_target_file, 'static_resource_target_file')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.version, 'version')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.update_buildpack_version, 'update_buildpack_version')
+        self.validate_required(self.update_buildpack_id, 'update_buildpack_id')
+        self.validate_required(self.custom_params, 'custom_params')
 
     def to_map(self):
         result = dict()
@@ -1700,16 +1761,21 @@ class AppServiceExecutionProgress(TeaModel):
         self.group_execution_progresses = group_execution_progresses
 
     def validate(self):
+        self.validate_required(self.base_progress, 'base_progress')
         if self.base_progress:
             self.base_progress.validate()
+        self.validate_required(self.group_count, 'group_count')
+        self.validate_required(self.pre_deployment_execution_progresses, 'pre_deployment_execution_progresses')
         if self.pre_deployment_execution_progresses:
             for k in self.pre_deployment_execution_progresses:
                 if k:
                     k.validate()
+        self.validate_required(self.post_deployment_execution_progresses, 'post_deployment_execution_progresses')
         if self.post_deployment_execution_progresses:
             for k in self.post_deployment_execution_progresses:
                 if k:
                     k.validate()
+        self.validate_required(self.group_execution_progresses, 'group_execution_progresses')
         if self.group_execution_progresses:
             for k in self.group_execution_progresses:
                 if k:
@@ -1967,7 +2033,20 @@ class SLBInfo(TeaModel):
         self.id = id
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.machine_id, 'machine_id')
+        self.validate_required(self.port, 'port')
+        self.validate_required(self.paas_id, 'paas_id')
+        self.validate_required(self.iaas_id, 'iaas_id')
+        self.validate_required(self.v_server_group_id, 'v_server_group_id')
+        self.validate_required(self.v_server_group_name, 'v_server_group_name')
+        self.validate_required(self.computer_id, 'computer_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.app_svc_id, 'app_svc_id')
+        self.validate_required(self.vip_addresses, 'vip_addresses')
+        self.validate_required(self.weight, 'weight')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -2049,6 +2128,9 @@ class MountWeight(TeaModel):
         self.weight = weight
 
     def validate(self):
+        self.validate_required(self.mount_target_id, 'mount_target_id')
+        self.validate_required(self.port, 'port')
+        self.validate_required(self.weight, 'weight')
         if self.weight is not None:
             self.validate_maximum(self.weight, 'weight', 100)
             self.validate_minimum(self.weight, 'weight', 0)
@@ -2223,7 +2305,8 @@ class OpsCmdArg(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         result = dict()
@@ -2392,18 +2475,66 @@ class Machine(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.service_package_version, 'service_package_version')
+        self.validate_required(self.service_group_collection_id, 'service_group_collection_id')
+        self.validate_required(self.service_group_id, 'service_group_id')
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.service_type, 'service_type')
+        self.validate_required(self.paas_service_id, 'paas_service_id')
+        self.validate_required(self.paas_state, 'paas_state')
+        self.validate_required(self.ref_target_id, 'ref_target_id')
+        self.validate_required(self.target_iaas_id, 'target_iaas_id')
+        self.validate_required(self.inner_ip, 'inner_ip')
+        self.validate_required(self.public_ip, 'public_ip')
+        self.validate_required(self.host_name, 'host_name')
+        self.validate_required(self.host_domain, 'host_domain')
+        self.validate_required(self.security_domain_id, 'security_domain_id')
+        self.validate_required(self.security_domain_creator_id, 'security_domain_creator_id')
+        self.validate_required(self.security_domain_name, 'security_domain_name')
+        self.validate_required(self.default_execute_account, 'default_execute_account')
+        self.validate_required(self.zone_id, 'zone_id')
+        self.validate_required(self.cell_id, 'cell_id')
+        self.validate_required(self.username, 'username')
+        self.validate_required(self.encoded_pwd, 'encoded_pwd')
+        self.validate_required(self.encoded_secrey_key, 'encoded_secrey_key')
+        self.validate_required(self.public_key, 'public_key')
+        self.validate_required(self.star_manager_ip, 'star_manager_ip')
+        self.validate_required(self.star_manager_port, 'star_manager_port')
+        self.validate_required(self.script_url, 'script_url')
+        self.validate_required(self.special_script_url, 'special_script_url')
+        self.validate_required(self.agent_url, 'agent_url')
+        self.validate_required(self.agent_setup_url, 'agent_setup_url')
+        self.validate_required(self.machine_init_url, 'machine_init_url')
+        self.validate_required(self.special_machine_init_url, 'special_machine_init_url')
+        self.validate_required(self.control_type, 'control_type')
+        self.validate_required(self.control_target, 'control_target')
+        self.validate_required(self.need_initialize, 'need_initialize')
+        self.validate_required(self.slb_info_list, 'slb_info_list')
         if self.slb_info_list:
             for k in self.slb_info_list:
                 if k:
                     k.validate()
+        self.validate_required(self.task_ids, 'task_ids')
+        self.validate_required(self.env_config, 'env_config')
         if self.env_config:
             for k in self.env_config:
                 if k:
                     k.validate()
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.parent_id, 'parent_id')
+        self.validate_required(self.parent_entity_type, 'parent_entity_type')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -2634,7 +2765,10 @@ class ErrorTaskExecutionNode(TeaModel):
         self.message = message
 
     def validate(self):
-        pass
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.node_name, 'node_name')
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.message, 'message')
 
     def to_map(self):
         result = dict()
@@ -2780,7 +2914,8 @@ class SidecarParamsConfig(TeaModel):
         self.params = params
 
     def validate(self):
-        pass
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.params, 'params')
 
     def to_map(self):
         result = dict()
@@ -2848,8 +2983,15 @@ class DeployCell(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.created_time, 'created_time')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.workspace, 'workspace')
+        self.validate_required(self.zone, 'zone')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -2934,7 +3076,7 @@ class BuildCommandParams(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.buildpack_id, 'buildpack_id')
 
     def to_map(self):
         result = dict()
@@ -2979,7 +3121,10 @@ class NotificationReceiver(TeaModel):
         self.id = id
 
     def validate(self):
-        pass
+        self.validate_required(self.config_id, 'config_id')
+        self.validate_required(self.receiver, 'receiver')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -3148,6 +3293,7 @@ class ServiceInfoGroup(TeaModel):
         self.service_info_list = service_info_list
 
     def validate(self):
+        self.validate_required(self.service_info_list, 'service_info_list')
         if self.service_info_list:
             for k in self.service_info_list:
                 if k:
@@ -3183,7 +3329,7 @@ class SidecarCondition(TeaModel):
         self.cells = cells
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace_groups, 'workspace_groups')
 
     def to_map(self):
         result = dict()
@@ -3347,7 +3493,12 @@ class DisasterInfo(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.disaster_recovery_state, 'disaster_recovery_state')
+        self.validate_required(self.local_failover_target, 'local_failover_target')
+        self.validate_required(self.press_disaster_recovery_state, 'press_disaster_recovery_state')
+        self.validate_required(self.remote_failover_target, 'remote_failover_target')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -3397,7 +3548,9 @@ class ParamVal(TeaModel):
         self.scope = scope
 
     def validate(self):
-        pass
+        self.validate_required(self.render_val, 'render_val')
+        self.validate_required(self.scope_id, 'scope_id')
+        self.validate_required(self.scope, 'scope')
 
     def to_map(self):
         result = dict()
@@ -3447,18 +3600,25 @@ class BGReleaseExecutionProgress(TeaModel):
         self.base_progress = base_progress
 
     def validate(self):
+        self.validate_required(self.unit_id, 'unit_id')
+        self.validate_required(self.unit_type, 'unit_type')
+        self.validate_required(self.resource_type, 'resource_type')
+        self.validate_required(self.traffic_execution_progress_of_service, 'traffic_execution_progress_of_service')
         if self.traffic_execution_progress_of_service:
             for k in self.traffic_execution_progress_of_service:
                 if k:
                     k.validate()
+        self.validate_required(self.service_execution_progress_group, 'service_execution_progress_group')
         if self.service_execution_progress_group:
             for k in self.service_execution_progress_group:
                 if k:
                     k.validate()
+        self.validate_required(self.rollback_service_execution_progress_group, 'rollback_service_execution_progress_group')
         if self.rollback_service_execution_progress_group:
             for k in self.rollback_service_execution_progress_group:
                 if k:
                     k.validate()
+        self.validate_required(self.base_progress, 'base_progress')
         if self.base_progress:
             self.base_progress.validate()
 
@@ -3542,7 +3702,8 @@ class SingleExecResult(TeaModel):
         self.target = target
 
     def validate(self):
-        pass
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.target, 'target')
 
     def to_map(self):
         result = dict()
@@ -3591,6 +3752,10 @@ class VServerGroupMountInfo(TeaModel):
         self.mount_weights = mount_weights
 
     def validate(self):
+        self.validate_required(self.iaas_id, 'iaas_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.paas_id, 'paas_id')
+        self.validate_required(self.mount_weights, 'mount_weights')
         if self.mount_weights:
             for k in self.mount_weights:
                 if k:
@@ -3677,18 +3842,33 @@ class OpsProcessDefinition(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.instruction, 'instruction')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.ops_type, 'ops_type')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.arrangements, 'arrangements')
         if self.arrangements:
             for k in self.arrangements:
                 if k:
                     k.validate()
+        self.validate_required(self.env_config, 'env_config')
         if self.env_config:
             for k in self.env_config:
                 if k:
                     k.validate()
+        self.validate_required(self.supported_transitions, 'supported_transitions')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -3787,7 +3967,8 @@ class Tag(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         result = dict()
@@ -3856,7 +4037,7 @@ class Workspace(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
@@ -3930,7 +4111,7 @@ class AppExtraInfo(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
@@ -3965,7 +4146,8 @@ class OpsTargetLegalStates(TeaModel):
         self.states = states
 
     def validate(self):
-        pass
+        self.validate_required(self.target_type, 'target_type')
+        self.validate_required(self.states, 'states')
 
     def to_map(self):
         result = dict()
@@ -4004,7 +4186,9 @@ class SidecarScopeDetail(TeaModel):
         self.scope_identity_name = scope_identity_name
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.scope_identity_name, 'scope_identity_name')
 
     def to_map(self):
         result = dict()
@@ -4147,8 +4331,10 @@ class AppServiceExecutionProgressWithRollbackInfo(TeaModel):
         self.rollback_progress = rollback_progress
 
     def validate(self):
+        self.validate_required(self.progress, 'progress')
         if self.progress:
             self.progress.validate()
+        self.validate_required(self.rollback_progress, 'rollback_progress')
         if self.rollback_progress:
             self.rollback_progress.validate()
 
@@ -4250,7 +4436,8 @@ class SidecarTemplateConfig(TeaModel):
         self.template = template
 
     def validate(self):
-        pass
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.template, 'template')
 
     def to_map(self):
         result = dict()
@@ -4423,6 +4610,10 @@ class TemplateParamDef(TeaModel):
         self.modified_time = modified_time
 
     def validate(self):
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.value, 'value')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.modified_time is not None:
@@ -4978,7 +5169,8 @@ class AppDepend(TeaModel):
         self.app_display_name = app_display_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.depend_app_names, 'depend_app_names')
 
     def to_map(self):
         result = dict()
@@ -5162,8 +5354,12 @@ class TechstackBuildpackCount(TeaModel):
     def validate(self):
         if self.creation_time is not None:
             self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.id, 'id')
         if self.modification_time is not None:
             self.validate_pattern(self.modification_time, 'modification_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -5223,6 +5419,7 @@ class ServiceInfoGroupCollection(TeaModel):
         self.service_info_groups = service_info_groups
 
     def validate(self):
+        self.validate_required(self.service_info_groups, 'service_info_groups')
         if self.service_info_groups:
             self.service_info_groups.validate()
 
@@ -5261,10 +5458,14 @@ class NotificationConfig(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.receivers, 'receivers')
         if self.receivers:
             for k in self.receivers:
                 if k:
                     k.validate()
+        self.validate_required(self.notification_type, 'notification_type')
+        self.validate_required(self.cloud_web_url, 'cloud_web_url')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -5315,7 +5516,9 @@ class PaginationQuery(TeaModel):
         self.fuzzy_name = fuzzy_name
 
     def validate(self):
-        pass
+        self.validate_required(self.current_page, 'current_page')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.fuzzy_name, 'fuzzy_name')
 
     def to_map(self):
         result = dict()
@@ -5433,7 +5636,8 @@ class MapStringToBooleanEntity(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         result = dict()
@@ -5521,22 +5725,43 @@ class BGReleaseArrangement(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.active_unit_id, 'active_unit_id')
+        self.validate_required(self.deactivated_unit_id, 'deactivated_unit_id')
+        self.validate_required(self.gray_traffic_process_id, 'gray_traffic_process_id')
+        self.validate_required(self.rollback_process_id, 'rollback_process_id')
+        self.validate_required(self.service_info_collection, 'service_info_collection')
         if self.service_info_collection:
             for k in self.service_info_collection:
                 if k:
                     k.validate()
+        self.validate_required(self.step_type, 'step_type')
+        self.validate_required(self.unit_type, 'unit_type')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.arrangement_type, 'arrangement_type')
+        self.validate_required(self.env_config, 'env_config')
         if self.env_config:
             for k in self.env_config:
                 if k:
                     k.validate()
+        self.validate_required(self.targets_legal_states, 'targets_legal_states')
         if self.targets_legal_states:
             for k in self.targets_legal_states:
                 if k:
                     k.validate()
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.parent_id, 'parent_id')
+        self.validate_required(self.parent_entity_type, 'parent_entity_type')
+        self.validate_required(self.supported_transitions, 'supported_transitions')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -5670,10 +5895,15 @@ class AppBaselineSidecarConfig(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.conditions, 'conditions')
         if self.conditions:
             for k in self.conditions:
                 if k:
                     k.validate()
+        self.validate_required(self.enable, 'enable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -5725,7 +5955,8 @@ class StateCount(TeaModel):
         self.count = count
 
     def validate(self):
-        pass
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.count, 'count')
 
     def to_map(self):
         result = dict()
@@ -5765,7 +5996,11 @@ class Reason(TeaModel):
         self.params = params
 
     def validate(self):
-        pass
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.visible, 'visible')
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.placeholder, 'placeholder')
+        self.validate_required(self.params, 'params')
 
     def to_map(self):
         result = dict()
@@ -5940,6 +6175,10 @@ class AppGroup(TeaModel):
             for k in self.app_scheme:
                 if k:
                     k.validate()
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.owner_login_name, 'owner_login_name')
+        self.validate_required(self.parent_id, 'parent_id')
 
     def to_map(self):
         result = dict()
@@ -5995,7 +6234,8 @@ class WorkspaceDeltaInfo(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.tenant, 'tenant')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
@@ -6299,12 +6539,17 @@ class AppConfigTemplate(TeaModel):
         self.modified_time = modified_time
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.operator_id, 'operator_id')
+        self.validate_required(self.params, 'params')
         if self.params:
             for k in self.params:
                 if k:
                     k.validate()
         if self.release_time is not None:
             self.validate_pattern(self.release_time, 'release_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.tenant_id, 'tenant_id')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.modified_time is not None:
@@ -6386,16 +6631,20 @@ class AggregateExecutableProgress(TeaModel):
         self.common_progresses = common_progresses
 
     def validate(self):
+        self.validate_required(self.base_progress, 'base_progress')
         if self.base_progress:
             self.base_progress.validate()
+        self.validate_required(self.bg_release_progresses, 'bg_release_progresses')
         if self.bg_release_progresses:
             for k in self.bg_release_progresses:
                 if k:
                     k.validate()
+        self.validate_required(self.app_service_progresses, 'app_service_progresses')
         if self.app_service_progresses:
             for k in self.app_service_progresses:
                 if k:
                     k.validate()
+        self.validate_required(self.common_progresses, 'common_progresses')
         if self.common_progresses:
             for k in self.common_progresses:
                 if k:
@@ -6588,6 +6837,16 @@ class DeploymentZone(TeaModel):
         self.cells = cells
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.workspace_group_id, 'workspace_group_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.master_zone_id, 'master_zone_id')
+        self.validate_required(self.appended_zone_ids, 'appended_zone_ids')
+        self.validate_required(self.cells, 'cells')
         if self.cells:
             for k in self.cells:
                 if k:
@@ -6671,6 +6930,7 @@ class Repository(TeaModel):
         self.created_time = created_time
 
     def validate(self):
+        self.validate_required(self.name, 'name')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
@@ -6728,10 +6988,14 @@ class Sidecar(TeaModel):
         self.scope_detail = scope_detail
 
     def validate(self):
+        self.validate_required(self.gmt_created, 'gmt_created')
         if self.gmt_created is not None:
             self.validate_pattern(self.gmt_created, 'gmt_created', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
             self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.scope_detail, 'scope_detail')
         if self.scope_detail:
             self.scope_detail.validate()
 
@@ -6783,7 +7047,8 @@ class ExecutorProgress(TeaModel):
         self.result_msg = result_msg
 
     def validate(self):
-        pass
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.result_msg, 'result_msg')
 
     def to_map(self):
         result = dict()
@@ -7124,7 +7389,8 @@ class Application(TeaModel):
         self.custom_params_map = custom_params_map
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.service_name, 'service_name')
 
     def to_map(self):
         result = dict()
@@ -7200,10 +7466,23 @@ class OpsTaskExecutionDetail(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.request_token, 'request_token')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.execution_count, 'execution_count')
+        self.validate_required(self.execution_state, 'execution_state')
+        self.validate_required(self.target_id, 'target_id')
+        self.validate_required(self.error_code, 'error_code')
+        self.validate_required(self.result_msg, 'result_msg')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -7297,6 +7576,7 @@ class CmdExecResult(TeaModel):
             for k in self.results:
                 if k:
                     k.validate()
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -7356,10 +7636,16 @@ class SLBMountInfo(TeaModel):
         self.v_server_group_mount_info_list = v_server_group_mount_info_list
 
     def validate(self):
+        self.validate_required(self.iaas_id, 'iaas_id')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.vip_addresses, 'vip_addresses')
+        self.validate_required(self.mount_weights, 'mount_weights')
         if self.mount_weights:
             for k in self.mount_weights:
                 if k:
                     k.validate()
+        self.validate_required(self.v_server_group_mount_info_list, 'v_server_group_mount_info_list')
         if self.v_server_group_mount_info_list:
             for k in self.v_server_group_mount_info_list:
                 if k:
@@ -7475,7 +7761,9 @@ class AppServiceCount(TeaModel):
         self.serverless_count = serverless_count
 
     def validate(self):
-        pass
+        self.validate_required(self.classic_count, 'classic_count')
+        self.validate_required(self.container_count, 'container_count')
+        self.validate_required(self.serverless_count, 'serverless_count')
 
     def to_map(self):
         result = dict()
@@ -7663,6 +7951,7 @@ class OpsCmd(TeaModel):
             for k in self.args:
                 if k:
                     k.validate()
+        self.validate_required(self.template_id, 'template_id')
 
     def to_map(self):
         result = dict()
@@ -7746,14 +8035,28 @@ class OpsTask(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.parent_group_id, 'parent_group_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.action_handler_code, 'action_handler_code')
+        self.validate_required(self.max_retry_attempts, 'max_retry_attempts')
+        self.validate_required(self.context, 'context')
         if self.context:
             for k in self.context:
                 if k:
                     k.validate()
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.parent_id, 'parent_id')
+        self.validate_required(self.parent_entity_type, 'parent_entity_type')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -7849,6 +8152,11 @@ class RenderParam(TeaModel):
         self.render_vals = render_vals
 
     def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.render_vals, 'render_vals')
         if self.render_vals:
             for k in self.render_vals:
                 if k:
@@ -8125,7 +8433,9 @@ class Role(TeaModel):
         self.description = description
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.description, 'description')
 
     def to_map(self):
         result = dict()
@@ -8217,6 +8527,7 @@ class BuildpackAppService(TeaModel):
         self.workspace_id = workspace_id
 
     def validate(self):
+        self.validate_required(self.id, 'id')
         if self.utc_create is not None:
             self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.utc_modified is not None:
@@ -8333,10 +8644,13 @@ class DeployView(TeaModel):
         self.workspace_name = workspace_name
 
     def validate(self):
+        self.validate_required(self.workspace_app_services, 'workspace_app_services')
         if self.workspace_app_services:
             for k in self.workspace_app_services:
                 if k:
                     k.validate()
+        self.validate_required(self.workspace_display_name, 'workspace_display_name')
+        self.validate_required(self.workspace_id, 'workspace_id')
 
     def to_map(self):
         result = dict()
@@ -8402,12 +8716,19 @@ class SidecarRule(TeaModel):
         self.status_reason = status_reason
 
     def validate(self):
+        self.validate_required(self.gmt_created, 'gmt_created')
         if self.gmt_created is not None:
             self.validate_pattern(self.gmt_created, 'gmt_created', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
             self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.level, 'level')
+        self.validate_required(self.scope_detail, 'scope_detail')
         if self.scope_detail:
             self.scope_detail.validate()
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -8579,10 +8900,17 @@ class AppParam(TeaModel):
         self.value = value
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.key, 'key')
         if self.modified_time is not None:
             self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_id, 'scope_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -8700,16 +9028,29 @@ class SidecarVersionInstance(TeaModel):
         self.template_configs = template_configs
 
     def validate(self):
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.gmt_created, 'gmt_created')
         if self.gmt_created is not None:
             self.validate_pattern(self.gmt_created, 'gmt_created', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
             self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.instance_name, 'instance_name')
         if self.params_configs:
             for k in self.params_configs:
                 if k:
                     k.validate()
+        self.validate_required(self.release_note, 'release_note')
+        self.validate_required(self.scope_detail, 'scope_detail')
         if self.scope_detail:
             self.scope_detail.validate()
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.template, 'template')
+        self.validate_required(self.template_configs, 'template_configs')
         if self.template_configs:
             for k in self.template_configs:
                 if k:
@@ -8927,7 +9268,7 @@ class RegionMeta(TeaModel):
         self.state = state
 
     def validate(self):
-        pass
+        self.validate_required(self.state, 'state')
 
     def to_map(self):
         result = dict()
@@ -9030,10 +9371,12 @@ class AggregatedTaskExecutionProgress(TeaModel):
         self.task_execution_progress = task_execution_progress
 
     def validate(self):
+        self.validate_required(self.error_task_execution_nodes, 'error_task_execution_nodes')
         if self.error_task_execution_nodes:
             for k in self.error_task_execution_nodes:
                 if k:
                     k.validate()
+        self.validate_required(self.task_execution_progress, 'task_execution_progress')
         if self.task_execution_progress:
             self.task_execution_progress.validate()
 
@@ -9280,16 +9623,22 @@ class CellGroup(TeaModel):
         self.type = type
 
     def validate(self):
+        self.validate_required(self.cells, 'cells')
         if self.cells:
             for k in self.cells:
                 if k:
                     k.validate()
+        self.validate_required(self.disaster_info, 'disaster_info')
         if self.disaster_info:
             for k in self.disaster_info:
                 if k:
                     k.validate()
+        self.validate_required(self.modified_time, 'modified_time')
         if self.modified_time is not None:
             self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.operator, 'operator')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -9529,7 +9878,8 @@ class ComputerCell(TeaModel):
         self.computer_id = computer_id
 
     def validate(self):
-        pass
+        self.validate_required(self.cell_id, 'cell_id')
+        self.validate_required(self.computer_id, 'computer_id')
 
     def to_map(self):
         result = dict()
@@ -9589,7 +9939,10 @@ class CmdTemplate(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.creator, 'creator')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -9754,7 +10107,11 @@ class RetryInfo(TeaModel):
         self.timeout = timeout
 
     def validate(self):
-        pass
+        self.validate_required(self.action, 'action')
+        self.validate_required(self.check_interval, 'check_interval')
+        self.validate_required(self.retry_failed_only, 'retry_failed_only')
+        self.validate_required(self.retry_times, 'retry_times')
+        self.validate_required(self.timeout, 'timeout')
 
     def to_map(self):
         result = dict()
@@ -9803,7 +10160,10 @@ class DeploymentCell(TeaModel):
         self.id = id
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.cell_ids, 'cell_ids')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -9884,6 +10244,8 @@ class ApplicationInfo(TeaModel):
         self.deploy_type = deploy_type
 
     def validate(self):
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.app_extra_infos, 'app_extra_infos')
         if self.app_extra_infos:
             for k in self.app_extra_infos:
                 if k:
@@ -9980,7 +10342,7 @@ class DynamicQuery(TeaModel):
         self.sort = sort
 
     def validate(self):
-        pass
+        self.validate_required(self.query, 'query')
 
     def to_map(self):
         result = dict()
@@ -10180,7 +10542,8 @@ class AppLevel(TeaModel):
         self.owner_login_name = owner_login_name
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
@@ -10377,7 +10740,12 @@ class AppUnitResource(TeaModel):
         self.slb_weight = slb_weight
 
     def validate(self):
-        pass
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.unit_id, 'unit_id')
+        self.validate_required(self.machine_count, 'machine_count')
+        self.validate_required(self.mounted_machine_count, 'mounted_machine_count')
+        self.validate_required(self.slb_count, 'slb_count')
+        self.validate_required(self.slb_weight, 'slb_weight')
 
     def to_map(self):
         result = dict()
@@ -10548,14 +10916,35 @@ class MachineGroup(TeaModel):
         self.id = id
 
     def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.service_group_id, 'service_group_id')
+        self.validate_required(self.service_group_collection_id, 'service_group_collection_id')
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.service_type, 'service_type')
+        self.validate_required(self.paas_service_id, 'paas_service_id')
+        self.validate_required(self.need_beta, 'need_beta')
+        self.validate_required(self.need_confirm, 'need_confirm')
+        self.validate_required(self.need_reserve, 'need_reserve')
+        self.validate_required(self.need_confirm_traffic, 'need_confirm_traffic')
+        self.validate_required(self.machines, 'machines')
         if self.machines:
             for k in self.machines:
                 if k:
                     k.validate()
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.parent_id, 'parent_id')
+        self.validate_required(self.parent_entity_type, 'parent_entity_type')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.started_time, 'started_time')
         if self.started_time is not None:
             self.validate_pattern(self.started_time, 'started_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.finished_time, 'finished_time')
         if self.finished_time is not None:
             self.validate_pattern(self.finished_time, 'finished_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.standalone_executable, 'standalone_executable')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
@@ -10796,6 +11185,12 @@ class RollbackInfo(TeaModel):
         self.retry_rollbacked = retry_rollbacked
 
     def validate(self):
+        self.validate_required(self.group_amount, 'group_amount')
+        self.validate_required(self.group_strategy, 'group_strategy')
+        self.validate_required(self.reason, 'reason')
+        self.validate_required(self.sub_entities, 'sub_entities')
+        self.validate_required(self.target_id, 'target_id')
+        self.validate_required(self.target_version, 'target_version')
         if self.env_config:
             for k in self.env_config:
                 if k:
@@ -10896,8 +11291,13 @@ class GlobalParam(TeaModel):
     def validate(self):
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.key, 'key')
         if self.modified_time is not None:
             self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_id, 'scope_id')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
@@ -10985,10 +11385,15 @@ class OpsDeployment(TeaModel):
         self.title = title
 
     def validate(self):
+        self.validate_required(self.application_chains, 'application_chains')
         if self.application_chains:
             for k in self.application_chains:
                 if k:
                     k.validate()
+        self.validate_required(self.executor, 'executor')
+        self.validate_required(self.operation_id, 'operation_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.title, 'title')
 
     def to_map(self):
         result = dict()
@@ -11066,10 +11471,21 @@ class WorkspaceGroupInfo(TeaModel):
         self.identity = identity
 
     def validate(self):
+        self.validate_required(self.created_time, 'created_time')
         if self.created_time is not None:
             self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.domain_suffix, 'domain_suffix')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.master_workspace_id, 'master_workspace_id')
+        self.validate_required(self.master_workspace_identity, 'master_workspace_identity')
+        self.validate_required(self.modified_time, 'modified_time')
         if self.modified_time is not None:
             self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.release_mode, 'release_mode')
+        self.validate_required(self.tenant_name, 'tenant_name')
+        self.validate_required(self.workspaces, 'workspaces')
         if self.workspaces:
             for k in self.workspaces:
                 if k:
@@ -11314,16 +11730,27 @@ class SidecarReleaseVersion(TeaModel):
         self.version_period = version_period
 
     def validate(self):
+        self.validate_required(self.gmt_created, 'gmt_created')
         if self.gmt_created is not None:
             self.validate_pattern(self.gmt_created, 'gmt_created', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
             self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.scope_detail, 'scope_detail')
         if self.scope_detail:
             self.scope_detail.validate()
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.template, 'template')
+        self.validate_required(self.template_configs, 'template_configs')
         if self.template_configs:
             for k in self.template_configs:
                 if k:
                     k.validate()
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.version_period, 'version_period')
 
     def to_map(self):
         result = dict()
@@ -11414,7 +11841,10 @@ class Operator(TeaModel):
         self.nick_name = nick_name
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.login_name, 'login_name')
+        self.validate_required(self.email, 'email')
+        self.validate_required(self.nick_name, 'nick_name')
 
     def to_map(self):
         result = dict()
@@ -11445,6 +11875,7 @@ class CreateApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         alias: str = None,
         application_name: str = None,
         buildpack_arch: str = None,
@@ -11456,6 +11887,7 @@ class CreateApplicationRequest(TeaModel):
         default_route: bool = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用别称。最大60个UTF-8字符
         self.alias = alias
         # 创建的应用名称。最大60个UTF-8字符
@@ -11476,12 +11908,17 @@ class CreateApplicationRequest(TeaModel):
         self.default_route = default_route
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.buildpack_name, 'buildpack_name')
+        self.validate_required(self.buildpack_version, 'buildpack_version')
+        self.validate_required(self.owner_login_name, 'owner_login_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.alias is not None:
             result['alias'] = self.alias
         if self.application_name is not None:
@@ -11506,6 +11943,8 @@ class CreateApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('alias') is not None:
             self.alias = m.get('alias')
         if m.get('application_name') is not None:
@@ -11566,16 +12005,17 @@ class CreateApplicationServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         buildpack_version: str = None,
         cell_ids: List[str] = None,
         description: str = None,
         owner_login_name: str = None,
         service_name: str = None,
-        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.application_name = application_name
         # 应用使用的技术栈版本
@@ -11588,17 +12028,20 @@ class CreateApplicationServiceRequest(TeaModel):
         self.owner_login_name = owner_login_name
         # 应用服务实例名称
         self.service_name = service_name
-        # 租户名称
-        self.tenant = tenant
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.buildpack_version, 'buildpack_version')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.buildpack_version is not None:
@@ -11611,8 +12054,6 @@ class CreateApplicationServiceRequest(TeaModel):
             result['owner_login_name'] = self.owner_login_name
         if self.service_name is not None:
             result['service_name'] = self.service_name
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -11621,6 +12062,8 @@ class CreateApplicationServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('buildpack_version') is not None:
@@ -11633,8 +12076,6 @@ class CreateApplicationServiceRequest(TeaModel):
             self.owner_login_name = m.get('owner_login_name')
         if m.get('service_name') is not None:
             self.service_name = m.get('service_name')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -11689,7 +12130,6 @@ class EnabledApplicationServiceRequest(TeaModel):
         tenant: str = None,
     ):
         self.auth_token = auth_token
-        # 租户名称
         self.tenant = tenant
 
     def validate(self):
@@ -11758,22 +12198,26 @@ class GetApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         query_extra_info: bool = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用名称。最大60个UTF-8字符
         self.application_name = application_name
         # 查询结果是否返回应用额外元数据信息。默认为 false
         self.query_extra_info = query_extra_info
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.query_extra_info is not None:
@@ -11784,6 +12228,8 @@ class GetApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('query_extra_info') is not None:
@@ -11926,11 +12372,13 @@ class GetApplicationServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         service_name: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用名称。最大60个UTF-8字符
         self.application_name = application_name
         # 待查询服务实例名称
@@ -11938,12 +12386,15 @@ class GetApplicationServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.service_name is not None:
@@ -11956,6 +12407,8 @@ class GetApplicationServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('service_name') is not None:
@@ -12076,12 +12529,14 @@ class QueryApplicationServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         page_num: int = None,
         page_size: int = None,
         workspaces: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用名称。最大60个UTF-8字符
         self.application_name = application_name
         # 当前页码，默认为1
@@ -12098,6 +12553,8 @@ class QueryApplicationServiceRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.page_num is not None:
@@ -12112,6 +12569,8 @@ class QueryApplicationServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('page_num') is not None:
@@ -12147,10 +12606,14 @@ class QueryApplicationServiceResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.services, 'services')
         if self.services:
             for k in self.services:
                 if k:
                     k.validate()
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -12198,11 +12661,13 @@ class DeleteApplicationServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         service_name: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待删除的服务实例的应用名称
         self.application_name = application_name
         # 待删除服务实例名称
@@ -12211,12 +12676,15 @@ class DeleteApplicationServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.service_name is not None:
@@ -12229,6 +12697,8 @@ class DeleteApplicationServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('service_name') is not None:
@@ -12277,11 +12747,13 @@ class GetApplicationPackageRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         version_no: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布包所属的应用名称。最大60个UTF-8字符
         self.application_name = application_name
         # 版本号。长度不超过50个单字节字符
@@ -12290,12 +12762,16 @@ class GetApplicationPackageRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.version_no, 'version_no')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.version_no is not None:
@@ -12308,6 +12784,8 @@ class GetApplicationPackageRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('version_no') is not None:
@@ -12412,19 +12890,23 @@ class QueryAppVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         build_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本构建id
         self.build_id = build_id
 
     def validate(self):
-        pass
+        self.validate_required(self.build_id, 'build_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.build_id is not None:
             result['build_id'] = self.build_id
         return result
@@ -12433,6 +12915,8 @@ class QueryAppVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('build_id') is not None:
             self.build_id = m.get('build_id')
         return self
@@ -12453,6 +12937,7 @@ class QueryAppVersionResponse(TeaModel):
         self.version = version
 
     def validate(self):
+        self.validate_required(self.version, 'version')
         if self.version:
             self.version.validate()
 
@@ -12486,19 +12971,23 @@ class DeleteApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标应用完整名称
         self.application_name = application_name
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         return result
@@ -12507,6 +12996,8 @@ class DeleteApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         return self
@@ -12551,10 +13042,12 @@ class ListApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         page_num: int = None,
         page_size: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 当前页码，默认为1
         self.page_num = page_num
         # 分页大小，默认10
@@ -12567,6 +13060,8 @@ class ListApplicationRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.page_size is not None:
@@ -12577,6 +13072,8 @@ class ListApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
@@ -12608,7 +13105,10 @@ class ListApplicationResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
-        pass
+        self.validate_required(self.application_names, 'application_names')
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -12651,10 +13151,12 @@ class ListAppgroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         page_num: int = None,
         page_size: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 当前页码，默认为1
         self.page_num = page_num
         # 分页大小，默认10
@@ -12667,6 +13169,8 @@ class ListAppgroupRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.page_size is not None:
@@ -12677,6 +13181,8 @@ class ListAppgroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
@@ -12708,10 +13214,14 @@ class ListAppgroupResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.app_groups, 'app_groups')
         if self.app_groups:
             for k in self.app_groups:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -12759,6 +13269,7 @@ class QueryApplicationComputerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application: str = None,
         assign: bool = None,
         computer_type: str = None,
@@ -12772,6 +13283,7 @@ class QueryApplicationComputerRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
         self.application = application
         # assign=true代表分配了app/appservice的computer,反之代表没有分配app/appservice的computer
@@ -12796,12 +13308,14 @@ class QueryApplicationComputerRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application is not None:
             result['application'] = self.application
         if self.assign is not None:
@@ -12830,6 +13344,8 @@ class QueryApplicationComputerRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application') is not None:
             self.application = m.get('application')
         if m.get('assign') is not None:
@@ -12879,10 +13395,14 @@ class QueryApplicationComputerResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.computers, 'computers')
         if self.computers:
             for k in self.computers:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -12930,19 +13450,23 @@ class GetApplicationRepositoryRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用名称。最大60个UTF-8字符
         self.application_name = application_name
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         return result
@@ -12951,6 +13475,8 @@ class GetApplicationRepositoryRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         return self
@@ -13004,20 +13530,19 @@ class QueryAppgroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
         page_num: int = None,
         page_size: int = None,
-        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用分组名称
         self.name = name
         # 当前页码，默认为1
         self.page_num = page_num
         # 分页大小，默认10
         self.page_size = page_size
-        # 租户名称
-        self.tenant = tenant
 
     def validate(self):
         pass
@@ -13026,28 +13551,28 @@ class QueryAppgroupRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         return self
 
 
@@ -13075,10 +13600,14 @@ class QueryAppgroupResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.app_groups, 'app_groups')
         if self.app_groups:
             for k in self.app_groups:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -13126,20 +13655,19 @@ class QueryApplevelRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
         page_num: int = None,
         page_size: int = None,
-        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用等级名称
         self.name = name
         # 当前页码，默认为1
         self.page_num = page_num
         # 分页大小，默认10
         self.page_size = page_size
-        # 租户名称
-        self.tenant = tenant
 
     def validate(self):
         pass
@@ -13148,28 +13676,28 @@ class QueryApplevelRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         return self
 
 
@@ -13197,10 +13725,14 @@ class QueryApplevelResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.app_levels, 'app_levels')
         if self.app_levels:
             for k in self.app_levels:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -13248,6 +13780,7 @@ class QueryApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         app_group_name: str = None,
         app_level_name: str = None,
@@ -13255,9 +13788,9 @@ class QueryApplicationRequest(TeaModel):
         page_num: int = None,
         page_size: int = None,
         query_extra_info: bool = None,
-        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.application_name = application_name
         # 应用分组名
@@ -13272,8 +13805,6 @@ class QueryApplicationRequest(TeaModel):
         self.page_size = page_size
         # 查询结果是否返回应用额外元数据信息。此字段为 true 时，为保证查询效率，列表大小将强制修改为 10 （若超过）
         self.query_extra_info = query_extra_info
-        # 租户名称
-        self.tenant = tenant
 
     def validate(self):
         pass
@@ -13282,6 +13813,8 @@ class QueryApplicationRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.app_group_name is not None:
@@ -13296,14 +13829,14 @@ class QueryApplicationRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.query_extra_info is not None:
             result['query_extra_info'] = self.query_extra_info
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('app_group_name') is not None:
@@ -13318,8 +13851,6 @@ class QueryApplicationRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('query_extra_info') is not None:
             self.query_extra_info = m.get('query_extra_info')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         return self
 
 
@@ -13347,10 +13878,14 @@ class QueryApplicationResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.applications, 'applications')
         if self.applications:
             for k in self.applications:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -13398,17 +13933,18 @@ class CreateAppVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         file_md_5: str = None,
         file_path: str = None,
         file_size: int = None,
         file_source: str = None,
-        tenant: str = None,
         version_memo: str = None,
         version_no: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标应用完整名称
         self.application_name = application_name
         # 应用部署包文件16字节md5值，以32位十六进制字符表示，不区分大小写。如果提供，APPMS下载应用部署包完成后，将会以此md5值进行校验，检验不通过则认为下载失败
@@ -13421,8 +13957,6 @@ class CreateAppVersionRequest(TeaModel):
         self.file_size = file_size
         # 文件交换源id
         self.file_source = file_source
-        # 目标租户名称
-        self.tenant = tenant
         # 版本备注。长度不超过100个双字节字符
         self.version_memo = version_memo
         # 版本号。长度不超过50个单字节字符
@@ -13431,20 +13965,28 @@ class CreateAppVersionRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.file_path, 'file_path')
         if self.file_path is not None:
             self.validate_max_length(self.file_path, 'file_path', 1024)
+        self.validate_required(self.file_size, 'file_size')
         if self.file_size is not None:
             self.validate_maximum(self.file_size, 'file_size', 524288000)
             self.validate_minimum(self.file_size, 'file_size', 1)
+        self.validate_required(self.file_source, 'file_source')
         if self.version_memo is not None:
             self.validate_max_length(self.version_memo, 'version_memo', 100)
+        self.validate_required(self.version_no, 'version_no')
         if self.version_no is not None:
             self.validate_max_length(self.version_no, 'version_no', 50)
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.file_md_5 is not None:
@@ -13455,8 +13997,6 @@ class CreateAppVersionRequest(TeaModel):
             result['file_size'] = self.file_size
         if self.file_source is not None:
             result['file_source'] = self.file_source
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.version_memo is not None:
             result['version_memo'] = self.version_memo
         if self.version_no is not None:
@@ -13469,6 +14009,8 @@ class CreateAppVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('file_md5') is not None:
@@ -13479,8 +14021,6 @@ class CreateAppVersionRequest(TeaModel):
             self.file_size = m.get('file_size')
         if m.get('file_source') is not None:
             self.file_source = m.get('file_source')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('version_memo') is not None:
             self.version_memo = m.get('version_memo')
         if m.get('version_no') is not None:
@@ -13505,7 +14045,7 @@ class CreateAppVersionResponse(TeaModel):
         self.build_id = build_id
 
     def validate(self):
-        pass
+        self.validate_required(self.build_id, 'build_id')
 
     def to_map(self):
         result = dict()
@@ -13536,18 +14076,22 @@ class QueryAppDeltaRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         end_time: str = None,
         start_time: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 结束时间点
         self.end_time = end_time
         # 开始时间点
         self.start_time = start_time
 
     def validate(self):
+        self.validate_required(self.end_time, 'end_time')
         if self.end_time is not None:
             self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.start_time, 'start_time')
         if self.start_time is not None:
             self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
@@ -13555,6 +14099,8 @@ class QueryAppDeltaRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.end_time is not None:
             result['end_time'] = self.end_time
         if self.start_time is not None:
@@ -13565,6 +14111,8 @@ class QueryAppDeltaRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
         if m.get('start_time') is not None:
@@ -13587,7 +14135,7 @@ class QueryAppDeltaResponse(TeaModel):
         self.tenants = tenants
 
     def validate(self):
-        pass
+        self.validate_required(self.tenants, 'tenants')
 
     def to_map(self):
         result = dict()
@@ -13618,6 +14166,7 @@ class QueryApplicationLoadbalancerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application: str = None,
         name: str = None,
         network_type: str = None,
@@ -13632,6 +14181,7 @@ class QueryApplicationLoadbalancerRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
         self.application = application
         # 资源名称
@@ -13658,12 +14208,14 @@ class QueryApplicationLoadbalancerRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application is not None:
             result['application'] = self.application
         if self.name is not None:
@@ -13694,6 +14246,8 @@ class QueryApplicationLoadbalancerRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application') is not None:
             self.application = m.get('application')
         if m.get('name') is not None:
@@ -13745,10 +14299,14 @@ class QueryApplicationLoadbalancerResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.loadbalancers, 'loadbalancers')
         if self.loadbalancers:
             for k in self.loadbalancers:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -13796,6 +14354,7 @@ class QueryApplicationDatabaseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application: str = None,
         connection_address: str = None,
         name: str = None,
@@ -13809,6 +14368,7 @@ class QueryApplicationDatabaseRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
         self.application = application
         # 连接地址
@@ -13833,12 +14393,14 @@ class QueryApplicationDatabaseRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application is not None:
             result['application'] = self.application
         if self.connection_address is not None:
@@ -13867,6 +14429,8 @@ class QueryApplicationDatabaseRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application') is not None:
             self.application = m.get('application')
         if m.get('connection_address') is not None:
@@ -13916,10 +14480,14 @@ class QueryApplicationDatabaseResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.databases, 'databases')
         if self.databases:
             for k in self.databases:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -13967,40 +14535,43 @@ class UploadApplicationPackageRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         package_name: str = None,
-        tenant: str = None,
         version_no: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标应用完整名称
         self.application_name = application_name
         # 应用发布包名称。长度不超过100个双字节字符
         self.package_name = package_name
-        # 目标租户名称
-        self.tenant = tenant
         # 版本号。长度不超过50个单字节字符
         self.version_no = version_no
         # 目标工作空间名称
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.package_name, 'package_name')
         if self.package_name is not None:
             self.validate_max_length(self.package_name, 'package_name', 100)
+        self.validate_required(self.version_no, 'version_no')
         if self.version_no is not None:
             self.validate_max_length(self.version_no, 'version_no', 50)
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.package_name is not None:
             result['package_name'] = self.package_name
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.version_no is not None:
             result['version_no'] = self.version_no
         if self.workspace is not None:
@@ -14011,12 +14582,12 @@ class UploadApplicationPackageRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('package_name') is not None:
             self.package_name = m.get('package_name')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('version_no') is not None:
             self.version_no = m.get('version_no')
         if m.get('workspace') is not None:
@@ -14042,7 +14613,7 @@ class UploadApplicationPackageResponse(TeaModel):
         self.signed_upload_url = signed_upload_url
 
     def validate(self):
-        pass
+        self.validate_required(self.signed_upload_url, 'signed_upload_url')
 
     def to_map(self):
         result = dict()
@@ -14077,15 +14648,16 @@ class SyncreateApplicationVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         package_etag: str = None,
         package_name: str = None,
-        tenant: str = None,
         version_memo: str = None,
         version_no: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标应用完整名称
         self.application_name = application_name
         # 应用部署包文件16字节md5值，以32位十六进制字符表示，不区分大小写。如果提供，将会以此md5值进行校验，检验不通过则认为创建失败
@@ -14093,8 +14665,6 @@ class SyncreateApplicationVersionRequest(TeaModel):
         self.package_etag = package_etag
         # 应用发布包名称。长度不超过100个双字节字符
         self.package_name = package_name
-        # 目标租户名称
-        self.tenant = tenant
         # 应用发布包备注
         self.version_memo = version_memo
         # 版本号。长度不超过50个单字节字符
@@ -14103,23 +14673,27 @@ class SyncreateApplicationVersionRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.package_name, 'package_name')
         if self.package_name is not None:
             self.validate_max_length(self.package_name, 'package_name', 100)
+        self.validate_required(self.version_no, 'version_no')
         if self.version_no is not None:
             self.validate_max_length(self.version_no, 'version_no', 50)
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.package_etag is not None:
             result['package_etag'] = self.package_etag
         if self.package_name is not None:
             result['package_name'] = self.package_name
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.version_memo is not None:
             result['version_memo'] = self.version_memo
         if self.version_no is not None:
@@ -14132,14 +14706,14 @@ class SyncreateApplicationVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('package_etag') is not None:
             self.package_etag = m.get('package_etag')
         if m.get('package_name') is not None:
             self.package_name = m.get('package_name')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('version_memo') is not None:
             self.version_memo = m.get('version_memo')
         if m.get('version_no') is not None:
@@ -14188,8 +14762,10 @@ class ListCloudconnectorConnectionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -14198,12 +14774,16 @@ class ListCloudconnectorConnectionRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -14289,6 +14869,7 @@ class QueryAppservicebuildpackrelationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appservice_ids: List[str] = None,
         app_ids: List[str] = None,
         buildpack_arch: str = None,
@@ -14304,6 +14885,7 @@ class QueryAppservicebuildpackrelationRequest(TeaModel):
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 一组应用服务id
         self.appservice_ids = appservice_ids
         # 一组应用id
@@ -14339,6 +14921,8 @@ class QueryAppservicebuildpackrelationRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appservice_ids is not None:
             result['appservice_ids'] = self.appservice_ids
         if self.app_ids is not None:
@@ -14371,6 +14955,8 @@ class QueryAppservicebuildpackrelationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appservice_ids') is not None:
             self.appservice_ids = m.get('appservice_ids')
         if m.get('app_ids') is not None:
@@ -14475,10 +15061,12 @@ class UpdateAppservicebuildpackrelationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         new_app_service: BuildpackAppService = None,
         original_app_service: BuildpackAppService = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # new_app_service
         self.new_app_service = new_app_service
         # original_app_service
@@ -14494,6 +15082,8 @@ class UpdateAppservicebuildpackrelationRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.new_app_service is not None:
             result['new_app_service'] = self.new_app_service.to_map()
         if self.original_app_service is not None:
@@ -14504,6 +15094,8 @@ class UpdateAppservicebuildpackrelationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('new_app_service') is not None:
             temp_model = BuildpackAppService()
             self.new_app_service = temp_model.from_map(m['new_app_service'])
@@ -14552,6 +15144,7 @@ class QueryAppserviceenvparamRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         app_service_ids: List[str] = None,
         buildpack_ids: List[str] = None,
@@ -14572,6 +15165,7 @@ class QueryAppserviceenvparamRequest(TeaModel):
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appIds
         self.app_ids = app_ids
         # appServiceIds
@@ -14623,6 +15217,8 @@ class QueryAppserviceenvparamRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.app_service_ids is not None:
@@ -14665,6 +15261,8 @@ class QueryAppserviceenvparamRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('app_service_ids') is not None:
@@ -14779,9 +15377,11 @@ class QueryAppserviceenvparamGroupbyappservicesRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_service_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appServiceIds
         self.app_service_ids = app_service_ids
 
@@ -14792,6 +15392,8 @@ class QueryAppserviceenvparamGroupbyappservicesRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_service_ids is not None:
             result['app_service_ids'] = self.app_service_ids
         return result
@@ -14800,6 +15402,8 @@ class QueryAppserviceenvparamGroupbyappservicesRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_service_ids') is not None:
             self.app_service_ids = m.get('app_service_ids')
         return self
@@ -14851,10 +15455,12 @@ class QueryAppserviceenvparamQuerywithdiffRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_service_id: str = None,
         buildpack_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appServiceId
         self.app_service_id = app_service_id
         # buildpackId
@@ -14867,6 +15473,8 @@ class QueryAppserviceenvparamQuerywithdiffRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_service_id is not None:
             result['app_service_id'] = self.app_service_id
         if self.buildpack_id is not None:
@@ -14877,6 +15485,8 @@ class QueryAppserviceenvparamQuerywithdiffRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_service_id') is not None:
             self.app_service_id = m.get('app_service_id')
         if m.get('buildpack_id') is not None:
@@ -14938,11 +15548,13 @@ class UpdateAppserviceenvparamUpdateparamsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_service_id: str = None,
         buildpack_id: str = None,
         params: List[AppServiceEnvParam] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appServiceId
         self.app_service_id = app_service_id
         # buildpackId
@@ -14960,6 +15572,8 @@ class UpdateAppserviceenvparamUpdateparamsRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_service_id is not None:
             result['app_service_id'] = self.app_service_id
         if self.buildpack_id is not None:
@@ -14974,6 +15588,8 @@ class UpdateAppserviceenvparamUpdateparamsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_service_id') is not None:
             self.app_service_id = m.get('app_service_id')
         if m.get('buildpack_id') is not None:
@@ -15040,6 +15656,7 @@ class QueryApptechstackrelationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         buildpack_arch: str = None,
         creation_time_from: str = None,
@@ -15057,6 +15674,7 @@ class QueryApptechstackrelationRequest(TeaModel):
         techstack_ids: List[int] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 一组应用id
         self.app_ids = app_ids
         # buildpack_arch
@@ -15098,19 +15716,26 @@ class QueryApptechstackrelationRequest(TeaModel):
         self.techstack_ids = techstack_ids
 
     def validate(self):
+        self.validate_required(self.app_ids, 'app_ids')
         if self.creation_time_from is not None:
             self.validate_pattern(self.creation_time_from, 'creation_time_from', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.creation_time_to is not None:
             self.validate_pattern(self.creation_time_to, 'creation_time_to', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.current_page, 'current_page')
         if self.modification_time_from is not None:
             self.validate_pattern(self.modification_time_from, 'modification_time_from', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.modification_time_to is not None:
             self.validate_pattern(self.modification_time_to, 'modification_time_to', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.start_index, 'start_index')
+        self.validate_required(self.techstack_ids, 'techstack_ids')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.buildpack_arch is not None:
@@ -15147,6 +15772,8 @@ class QueryApptechstackrelationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('buildpack_arch') is not None:
@@ -15255,6 +15882,7 @@ class UpdateApptechstackrelationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_id: str = None,
         buildpack_arch: str = None,
         creation_time: str = None,
@@ -15266,6 +15894,7 @@ class UpdateApptechstackrelationRequest(TeaModel):
         techstack_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appId
         self.app_id = app_id
         # buildpackArch
@@ -15295,6 +15924,8 @@ class UpdateApptechstackrelationRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_id is not None:
             result['app_id'] = self.app_id
         if self.buildpack_arch is not None:
@@ -15319,6 +15950,8 @@ class UpdateApptechstackrelationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_id') is not None:
             self.app_id = m.get('app_id')
         if m.get('buildpack_arch') is not None:
@@ -15379,6 +16012,7 @@ class CreateAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appgroup_name: str = None,
         description: str = None,
         display_name: str = None,
@@ -15389,6 +16023,7 @@ class CreateAppRequest(TeaModel):
         buildpack_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
         self.appgroup_name = appgroup_name
         # 应用描述
@@ -15407,6 +16042,9 @@ class CreateAppRequest(TeaModel):
         self.buildpack_version = buildpack_version
 
     def validate(self):
+        self.validate_required(self.appgroup_name, 'appgroup_name')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.stack_id, 'stack_id')
         if self.tags:
             for k in self.tags:
                 if k:
@@ -15416,6 +16054,8 @@ class CreateAppRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appgroup_name is not None:
             result['appgroup_name'] = self.appgroup_name
         if self.description is not None:
@@ -15440,6 +16080,8 @@ class CreateAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appgroup_name') is not None:
             self.appgroup_name = m.get('appgroup_name')
         if m.get('description') is not None:
@@ -15508,6 +16150,7 @@ class CreateAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_scheme: List[AppDepend] = None,
         description: str = None,
         name: str = None,
@@ -15515,6 +16158,7 @@ class CreateAppGroupRequest(TeaModel):
         parent_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用依赖规划
         self.app_scheme = app_scheme
         # 应用分组描述
@@ -15531,11 +16175,14 @@ class CreateAppGroupRequest(TeaModel):
             for k in self.app_scheme:
                 if k:
                     k.validate()
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['app_scheme'] = []
         if self.app_scheme is not None:
             for k in self.app_scheme:
@@ -15554,6 +16201,8 @@ class CreateAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.app_scheme = []
         if m.get('app_scheme') is not None:
             for k in m.get('app_scheme'):
@@ -15616,19 +16265,23 @@ class GetAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用名称
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -15637,6 +16290,8 @@ class GetAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -15690,19 +16345,23 @@ class CountAppServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         return result
@@ -15711,6 +16370,8 @@ class CountAppServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         return self
@@ -15764,19 +16425,23 @@ class AllAppDeployviewRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         return result
@@ -15785,6 +16450,8 @@ class AllAppDeployviewRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         return self
@@ -15844,6 +16511,7 @@ class QueryAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_group_name: str = None,
         app_name: str = None,
         orders: List[str] = None,
@@ -15852,6 +16520,7 @@ class QueryAppRequest(TeaModel):
         query_type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 根据应用分组查询，为空默认查询所有应用分组
         self.app_group_name = app_group_name
         # 根据应用名称查询，为空默认查询所有应用
@@ -15872,6 +16541,8 @@ class QueryAppRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_group_name is not None:
             result['app_group_name'] = self.app_group_name
         if self.app_name is not None:
@@ -15890,6 +16561,8 @@ class QueryAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_group_name') is not None:
             self.app_group_name = m.get('app_group_name')
         if m.get('app_name') is not None:
@@ -15980,19 +16653,23 @@ class GetAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用分组名称
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -16001,6 +16678,8 @@ class GetAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -16054,6 +16733,7 @@ class QueryAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_group_name: str = None,
         layer: int = None,
         orders: List[str] = None,
@@ -16063,6 +16743,7 @@ class QueryAppGroupRequest(TeaModel):
         query_type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 根据应用分组名称查询
         self.app_group_name = app_group_name
         # 根据应用分组层级进行筛选
@@ -16085,6 +16766,8 @@ class QueryAppGroupRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_group_name is not None:
             result['app_group_name'] = self.app_group_name
         if self.layer is not None:
@@ -16105,6 +16788,8 @@ class QueryAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_group_name') is not None:
             self.app_group_name = m.get('app_group_name')
         if m.get('layer') is not None:
@@ -16197,6 +16882,7 @@ class QueryAppServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         orders: List[str] = None,
         page_num: int = None,
@@ -16204,6 +16890,7 @@ class QueryAppServiceRequest(TeaModel):
         workspace_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 根据应用名称查询，不能为空，不支持一次性查询所有应用
         self.app_name = app_name
         # 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
@@ -16216,12 +16903,14 @@ class QueryAppServiceRequest(TeaModel):
         self.workspace_ids = workspace_ids
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.orders is not None:
@@ -16238,6 +16927,8 @@ class QueryAppServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('orders') is not None:
@@ -16326,22 +17017,26 @@ class CreateAppFavouriteRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         owner_login_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 用户要收藏的应用名称
         self.app_name = app_name
         # 用户登录名
         self.owner_login_name = owner_login_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.owner_login_name is not None:
@@ -16352,6 +17047,8 @@ class CreateAppFavouriteRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('owner_login_name') is not None:
@@ -16405,22 +17102,26 @@ class DeleteAppFavouriteRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         owner_login_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 用户要取消收藏的应用名称
         self.app_name = app_name
         # 用户登录名
         self.owner_login_name = owner_login_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.owner_login_name is not None:
@@ -16431,6 +17132,8 @@ class DeleteAppFavouriteRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('owner_login_name') is not None:
@@ -16484,6 +17187,7 @@ class UpdateAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appgroup_name: str = None,
         buildpack_version: str = None,
         description: str = None,
@@ -16492,6 +17196,7 @@ class UpdateAppRequest(TeaModel):
         tags: List[Tag] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
         self.appgroup_name = appgroup_name
         # 技术栈版本
@@ -16506,6 +17211,7 @@ class UpdateAppRequest(TeaModel):
         self.tags = tags
 
     def validate(self):
+        self.validate_required(self.name, 'name')
         if self.tags:
             for k in self.tags:
                 if k:
@@ -16515,6 +17221,8 @@ class UpdateAppRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appgroup_name is not None:
             result['appgroup_name'] = self.appgroup_name
         if self.buildpack_version is not None:
@@ -16535,6 +17243,8 @@ class UpdateAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appgroup_name') is not None:
             self.appgroup_name = m.get('appgroup_name')
         if m.get('buildpack_version') is not None:
@@ -16599,12 +17309,14 @@ class UpdateAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_scheme: List[AppDepend] = None,
         description: str = None,
         name: str = None,
         parent_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用依赖拓扑图
         self.app_scheme = app_scheme
         # 应用分组描述
@@ -16619,11 +17331,14 @@ class UpdateAppGroupRequest(TeaModel):
             for k in self.app_scheme:
                 if k:
                     k.validate()
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['app_scheme'] = []
         if self.app_scheme is not None:
             for k in self.app_scheme:
@@ -16640,6 +17355,8 @@ class UpdateAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.app_scheme = []
         if m.get('app_scheme') is not None:
             for k in m.get('app_scheme'):
@@ -16700,9 +17417,11 @@ class ListAppFavouriteRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         orders: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
         self.orders = orders
 
@@ -16713,6 +17432,8 @@ class ListAppFavouriteRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.orders is not None:
             result['orders'] = self.orders
         return result
@@ -16721,6 +17442,8 @@ class ListAppFavouriteRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('orders') is not None:
             self.orders = m.get('orders')
         return self
@@ -16780,19 +17503,23 @@ class DeleteAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要删除的应用名称
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -16801,6 +17528,8 @@ class DeleteAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -16852,19 +17581,23 @@ class DeleteAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要删除的应用分组名称
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -16873,6 +17606,8 @@ class DeleteAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -16924,6 +17659,7 @@ class QueryAppPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         orders: List[str] = None,
         order_id: str = None,
@@ -16934,6 +17670,7 @@ class QueryAppPlanRequest(TeaModel):
         workspace_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
@@ -16952,12 +17689,14 @@ class QueryAppPlanRequest(TeaModel):
         self.workspace_ids = workspace_ids
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.orders is not None:
@@ -16980,6 +17719,8 @@ class QueryAppPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('orders') is not None:
@@ -17074,19 +17815,23 @@ class ExistAppGroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appgroup_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用分组名称
         self.appgroup_name = appgroup_name
 
     def validate(self):
-        pass
+        self.validate_required(self.appgroup_name, 'appgroup_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appgroup_name is not None:
             result['appgroup_name'] = self.appgroup_name
         return result
@@ -17095,6 +17840,8 @@ class ExistAppGroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appgroup_name') is not None:
             self.appgroup_name = m.get('appgroup_name')
         return self
@@ -17146,9 +17893,11 @@ class QueryUserRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         login_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 没传递该参数时，返回当前登录用户信息
         self.login_name = login_name
 
@@ -17159,6 +17908,8 @@ class QueryUserRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.login_name is not None:
             result['login_name'] = self.login_name
         return result
@@ -17167,6 +17918,8 @@ class QueryUserRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('login_name') is not None:
             self.login_name = m.get('login_name')
         return self
@@ -17220,19 +17973,23 @@ class ExistAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         return result
@@ -17241,6 +17998,8 @@ class ExistAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         return self
@@ -17292,11 +18051,13 @@ class GetApplicationBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         service_name: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.application_name = application_name
         # 应用服务的名称
@@ -17305,12 +18066,16 @@ class GetApplicationBuildpackRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.service_name is not None:
@@ -17323,6 +18088,8 @@ class GetApplicationBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('service_name') is not None:
@@ -17347,7 +18114,7 @@ class GetApplicationBuildpackResponse(TeaModel):
         self.buildpack_id = buildpack_id
 
     def validate(self):
-        pass
+        self.validate_required(self.buildpack_id, 'buildpack_id')
 
     def to_map(self):
         result = dict()
@@ -17378,19 +18145,23 @@ class GetApplicationTechstackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.application_name = application_name
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         return result
@@ -17399,6 +18170,8 @@ class GetApplicationTechstackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         return self
@@ -17419,6 +18192,7 @@ class GetApplicationTechstackResponse(TeaModel):
         self.techstack = techstack
 
     def validate(self):
+        self.validate_required(self.techstack, 'techstack')
         if self.techstack:
             self.techstack.validate()
 
@@ -17452,9 +18226,11 @@ class GetBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 技术栈版本的ID
         self.buildpack_id = buildpack_id
 
@@ -17465,6 +18241,8 @@ class GetBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         return result
@@ -17473,6 +18251,8 @@ class GetBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         return self
@@ -17641,8 +18421,10 @@ class ListTechstackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -17651,12 +18433,16 @@ class ListTechstackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -17675,6 +18461,7 @@ class ListTechstackResponse(TeaModel):
         self.techstacks = techstacks
 
     def validate(self):
+        self.validate_required(self.techstacks, 'techstacks')
         if self.techstacks:
             for k in self.techstacks:
                 if k:
@@ -17714,6 +18501,7 @@ class QueryBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         current_page: int = None,
         full_version: str = None,
         page_size: int = None,
@@ -17728,6 +18516,7 @@ class QueryBuildpackRequest(TeaModel):
         creator_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 当前页码
         self.current_page = current_page
         # 技术栈版本号
@@ -17763,6 +18552,8 @@ class QueryBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.current_page is not None:
             result['current_page'] = self.current_page
         if self.full_version is not None:
@@ -17793,6 +18584,8 @@ class QueryBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('current_page') is not None:
             self.current_page = m.get('current_page')
         if m.get('full_version') is not None:
@@ -17848,6 +18641,9 @@ class QueryBuildpackResponse(TeaModel):
             for k in self.buildpacks:
                 if k:
                     k.validate()
+        self.validate_required(self.current_page, 'current_page')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -17895,6 +18691,7 @@ class CreateBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         available_tenant_names: List[str] = None,
         build_command: str = None,
         contact_info: str = None,
@@ -17911,6 +18708,7 @@ class CreateBuildpackRequest(TeaModel):
         techstack_id: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 技术栈所支持的租户名称列表
         self.available_tenant_names = available_tenant_names
         # 技术栈的编译打包命令
@@ -17954,6 +18752,8 @@ class CreateBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.available_tenant_names is not None:
             result['available_tenant_names'] = self.available_tenant_names
         if self.build_command is not None:
@@ -17992,6 +18792,8 @@ class CreateBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('available_tenant_names') is not None:
             self.available_tenant_names = m.get('available_tenant_names')
         if m.get('build_command') is not None:
@@ -18047,6 +18849,8 @@ class CreateBuildpackResponse(TeaModel):
         self.upload_endpoints = upload_endpoints
 
     def validate(self):
+        self.validate_required(self.buildpack_id, 'buildpack_id')
+        self.validate_required(self.upload_endpoints, 'upload_endpoints')
         if self.upload_endpoints:
             for k in self.upload_endpoints:
                 if k:
@@ -18090,16 +18894,19 @@ class UploadfinishBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
         supported_regions: List[BuildpackRegionRelation] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 技术栈的ID
         self.buildpack_id = buildpack_id
         # supportedRegions
         self.supported_regions = supported_regions
 
     def validate(self):
+        self.validate_required(self.buildpack_id, 'buildpack_id')
         if self.supported_regions:
             for k in self.supported_regions:
                 if k:
@@ -18109,6 +18916,8 @@ class UploadfinishBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         result['supported_regions'] = []
@@ -18121,6 +18930,8 @@ class UploadfinishBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         self.supported_regions = []
@@ -18170,9 +18981,11 @@ class PublishBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.buildpack_id = buildpack_id
 
@@ -18183,6 +18996,8 @@ class PublishBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         return result
@@ -18191,6 +19006,8 @@ class PublishBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         return self
@@ -18235,6 +19052,7 @@ class UpdateBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         build_command: str = None,
         contact_info: str = None,
         debug_mode: bool = None,
@@ -18245,6 +19063,7 @@ class UpdateBuildpackRequest(TeaModel):
         supported_os: List[int] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 技术栈的编译打包命令
         self.build_command = build_command
         # 分享给其他租户时留下的联系信息
@@ -18267,11 +19086,16 @@ class UpdateBuildpackRequest(TeaModel):
             for k in self.env_params:
                 if k:
                     k.validate()
+        self.validate_required(self.full_version, 'full_version')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.supported_os, 'supported_os')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.build_command is not None:
             result['build_command'] = self.build_command
         if self.contact_info is not None:
@@ -18296,6 +19120,8 @@ class UpdateBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('build_command') is not None:
             self.build_command = m.get('build_command')
         if m.get('contact_info') is not None:
@@ -18357,9 +19183,11 @@ class QueryBuildpackFindbynamesRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         techstack_names: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # techstackNames
         self.techstack_names = techstack_names
 
@@ -18370,6 +19198,8 @@ class QueryBuildpackFindbynamesRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.techstack_names is not None:
             result['techstack_names'] = self.techstack_names
         return result
@@ -18378,6 +19208,8 @@ class QueryBuildpackFindbynamesRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('techstack_names') is not None:
             self.techstack_names = m.get('techstack_names')
         return self
@@ -18437,9 +19269,11 @@ class CountBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.buildpack_id = buildpack_id
 
@@ -18450,6 +19284,8 @@ class CountBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         return result
@@ -18458,6 +19294,8 @@ class CountBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         return self
@@ -18509,10 +19347,12 @@ class DeprecateBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         depracation_note_map: DepracationNotePayload = None,
         id: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # depracationNoteMap
         self.depracation_note_map = depracation_note_map
         # ids
@@ -18526,6 +19366,8 @@ class DeprecateBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.depracation_note_map is not None:
             result['depracation_note_map'] = self.depracation_note_map.to_map()
         if self.id is not None:
@@ -18536,6 +19378,8 @@ class DeprecateBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('depracation_note_map') is not None:
             temp_model = DepracationNotePayload()
             self.depracation_note_map = temp_model.from_map(m['depracation_note_map'])
@@ -18590,9 +19434,11 @@ class BatchdeleteBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ids
         self.id = id
 
@@ -18603,6 +19449,8 @@ class BatchdeleteBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -18611,6 +19459,8 @@ class BatchdeleteBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -18670,11 +19520,13 @@ class ExistBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
         full_version: str = None,
         techstack_id: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.buildpack_id = buildpack_id
         # fullVersion
@@ -18689,6 +19541,8 @@ class ExistBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         if self.full_version is not None:
@@ -18701,6 +19555,8 @@ class ExistBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         if m.get('full_version') is not None:
@@ -18756,12 +19612,14 @@ class UpdateBuildpackUpdatepackagesstatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         new_file_status: str = None,
         original_file_status: str = None,
         region_num: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.id = id
         # newFileStatus
@@ -18778,6 +19636,8 @@ class UpdateBuildpackUpdatepackagesstatusRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.new_file_status is not None:
@@ -18792,6 +19652,8 @@ class UpdateBuildpackUpdatepackagesstatusRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('new_file_status') is not None:
@@ -18849,11 +19711,13 @@ class QueryBuildpackFindidversionpairsbyversionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         full_version: str = None,
         statuses: List[str] = None,
         techstack_id: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # fullVersion
         self.full_version = full_version
         # statuses
@@ -18868,6 +19732,8 @@ class QueryBuildpackFindidversionpairsbyversionRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.full_version is not None:
             result['full_version'] = self.full_version
         if self.statuses is not None:
@@ -18880,6 +19746,8 @@ class QueryBuildpackFindidversionpairsbyversionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('full_version') is not None:
             self.full_version = m.get('full_version')
         if m.get('statuses') is not None:
@@ -18964,8 +19832,10 @@ class QueryBuildpackGroupbytechstackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -18974,12 +19844,16 @@ class QueryBuildpackGroupbytechstackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -19037,8 +19911,10 @@ class QueryBuildpackFindvisibletechstacksRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -19047,12 +19923,16 @@ class QueryBuildpackFindvisibletechstacksRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -19110,8 +19990,10 @@ class QueryBuildpackFindwritabletechstacksRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -19120,12 +20002,16 @@ class QueryBuildpackFindwritabletechstacksRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -19183,8 +20069,10 @@ class QueryBuildpackFindosbycurrentcloudRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -19193,12 +20081,16 @@ class QueryBuildpackFindosbycurrentcloudRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -19256,10 +20148,12 @@ class QueryBuildpackFindbyappsvRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appIds
         self.app_ids = app_ids
         # workspaceId
@@ -19272,6 +20166,8 @@ class QueryBuildpackFindbyappsvRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.workspace_id is not None:
@@ -19282,6 +20178,8 @@ class QueryBuildpackFindbyappsvRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('workspace_id') is not None:
@@ -19335,10 +20233,12 @@ class QueryBuildpackFindbyappsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appIds
         self.app_ids = app_ids
         # workspaceId
@@ -19351,6 +20251,8 @@ class QueryBuildpackFindbyappsRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.workspace_id is not None:
@@ -19361,6 +20263,8 @@ class QueryBuildpackFindbyappsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('workspace_id') is not None:
@@ -19414,9 +20318,11 @@ class QueryBuildpackFindbyappservicesRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_service_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appServiceIds
         self.app_service_ids = app_service_ids
 
@@ -19427,6 +20333,8 @@ class QueryBuildpackFindbyappservicesRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_service_ids is not None:
             result['app_service_ids'] = self.app_service_ids
         return result
@@ -19435,6 +20343,8 @@ class QueryBuildpackFindbyappservicesRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_service_ids') is not None:
             self.app_service_ids = m.get('app_service_ids')
         return self
@@ -19486,10 +20396,12 @@ class QueryBuildpackFindbyappvRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_id: str = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appId
         self.app_id = app_id
         # workspaceId
@@ -19502,6 +20414,8 @@ class QueryBuildpackFindbyappvRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_id is not None:
             result['app_id'] = self.app_id
         if self.workspace_id is not None:
@@ -19512,6 +20426,8 @@ class QueryBuildpackFindbyappvRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_id') is not None:
             self.app_id = m.get('app_id')
         if m.get('workspace_id') is not None:
@@ -19567,10 +20483,12 @@ class QueryBuildpackFindbyappRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_id: str = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appId
         self.app_id = app_id
         # workspaceId
@@ -19583,6 +20501,8 @@ class QueryBuildpackFindbyappRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_id is not None:
             result['app_id'] = self.app_id
         if self.workspace_id is not None:
@@ -19593,6 +20513,8 @@ class QueryBuildpackFindbyappRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_id') is not None:
             self.app_id = m.get('app_id')
         if m.get('workspace_id') is not None:
@@ -19821,10 +20743,12 @@ class CreateBuildpackGeneratesignurlRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         region_num: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # 地域ID
@@ -19837,6 +20761,8 @@ class CreateBuildpackGeneratesignurlRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.region_num is not None:
@@ -19847,6 +20773,8 @@ class CreateBuildpackGeneratesignurlRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('region_num') is not None:
@@ -19900,9 +20828,11 @@ class QueryBuildpackSumpackagessizeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         region_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # regionIds
         self.region_ids = region_ids
 
@@ -19913,6 +20843,8 @@ class QueryBuildpackSumpackagessizeRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.region_ids is not None:
             result['region_ids'] = self.region_ids
         return result
@@ -19921,6 +20853,8 @@ class QueryBuildpackSumpackagessizeRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('region_ids') is not None:
             self.region_ids = m.get('region_ids')
         return self
@@ -19972,9 +20906,11 @@ class QueryBuildpackSupportcoderepoRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         techstack_id: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # techstackId
         self.techstack_id = techstack_id
 
@@ -19985,6 +20921,8 @@ class QueryBuildpackSupportcoderepoRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.techstack_id is not None:
             result['techstack_id'] = self.techstack_id
         return result
@@ -19993,6 +20931,8 @@ class QueryBuildpackSupportcoderepoRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('techstack_id') is not None:
             self.techstack_id = m.get('techstack_id')
         return self
@@ -20044,9 +20984,11 @@ class QueryBuildpackFindavailablebyappserviceidsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_service_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # appServiceIds
         self.app_service_ids = app_service_ids
 
@@ -20057,6 +20999,8 @@ class QueryBuildpackFindavailablebyappserviceidsRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_service_ids is not None:
             result['app_service_ids'] = self.app_service_ids
         return result
@@ -20065,6 +21009,8 @@ class QueryBuildpackFindavailablebyappserviceidsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_service_ids') is not None:
             self.app_service_ids = m.get('app_service_ids')
         return self
@@ -20116,6 +21062,7 @@ class QueryBuildpacknewRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         build_command: str = None,
         created_froms: List[str] = None,
         creation_time_from: str = None,
@@ -20141,6 +21088,7 @@ class QueryBuildpacknewRequest(TeaModel):
         techstack_names: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildCommand
         self.build_command = build_command
         # createdFroms
@@ -20206,6 +21154,8 @@ class QueryBuildpacknewRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.build_command is not None:
             result['build_command'] = self.build_command
         if self.created_froms is not None:
@@ -20258,6 +21208,8 @@ class QueryBuildpacknewRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('build_command') is not None:
             self.build_command = m.get('build_command')
         if m.get('created_froms') is not None:
@@ -20382,9 +21334,11 @@ class GetBuildpacknewRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
 
@@ -20395,6 +21349,8 @@ class GetBuildpacknewRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -20403,6 +21359,8 @@ class GetBuildpacknewRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -20456,10 +21414,12 @@ class UpdateBuildpacknewUploadfinishRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         buildpack_id: str = None,
         buildpack_region_relation: BuildpackRegionRelation = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.buildpack_id = buildpack_id
         # buildpackRegionRelation
@@ -20473,6 +21433,8 @@ class UpdateBuildpacknewUploadfinishRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.buildpack_id is not None:
             result['buildpack_id'] = self.buildpack_id
         if self.buildpack_region_relation is not None:
@@ -20483,6 +21445,8 @@ class UpdateBuildpacknewUploadfinishRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('buildpack_id') is not None:
             self.buildpack_id = m.get('buildpack_id')
         if m.get('buildpack_region_relation') is not None:
@@ -20530,6 +21494,7 @@ class UpdateBuildpacknewRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         available_tenant_names: List[str] = None,
         buildpack_id: str = None,
         buildpack_params: List[BuildpackParamTemplate] = None,
@@ -20564,6 +21529,7 @@ class UpdateBuildpacknewRequest(TeaModel):
         modification_time: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # available_tenant_names
         self.available_tenant_names = available_tenant_names
         # buildpack_id
@@ -20663,6 +21629,8 @@ class UpdateBuildpacknewRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.available_tenant_names is not None:
             result['available_tenant_names'] = self.available_tenant_names
         if self.buildpack_id is not None:
@@ -20741,6 +21709,8 @@ class UpdateBuildpacknewRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('available_tenant_names') is not None:
             self.available_tenant_names = m.get('available_tenant_names')
         if m.get('buildpack_id') is not None:
@@ -20884,6 +21854,7 @@ class CreateBuildpacknewRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         available_tenant_names: List[str] = None,
         buildpack_params: List[BuildpackParamTemplate] = None,
         build_command: str = None,
@@ -20905,6 +21876,7 @@ class CreateBuildpacknewRequest(TeaModel):
         id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # availableTenantNames
         self.available_tenant_names = available_tenant_names
         # buildpackParams
@@ -20974,6 +21946,8 @@ class CreateBuildpacknewRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.available_tenant_names is not None:
             result['available_tenant_names'] = self.available_tenant_names
         result['buildpack_params'] = []
@@ -21024,6 +21998,8 @@ class CreateBuildpacknewRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('available_tenant_names') is not None:
             self.available_tenant_names = m.get('available_tenant_names')
         self.buildpack_params = []
@@ -21138,9 +22114,11 @@ class OnlineBuildpackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # buildpackId
         self.id = id
 
@@ -21151,6 +22129,8 @@ class OnlineBuildpackRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -21159,6 +22139,8 @@ class OnlineBuildpackRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -21203,6 +22185,7 @@ class CreateConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data_level: str = None,
         desc: str = None,
         key: str = None,
@@ -21213,6 +22196,7 @@ class CreateConfigGlobalRequest(TeaModel):
         value: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 数据保密等级
         self.data_level = data_level
         # 参数描述
@@ -21231,12 +22215,18 @@ class CreateConfigGlobalRequest(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_id, 'scope_id')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data_level is not None:
             result['data_level'] = self.data_level
         if self.desc is not None:
@@ -21259,6 +22249,8 @@ class CreateConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data_level') is not None:
             self.data_level = m.get('data_level')
         if m.get('desc') is not None:
@@ -21324,19 +22316,23 @@ class DeleteConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         global_param_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要删除的全局参数 id
         self.global_param_id = global_param_id
 
     def validate(self):
-        pass
+        self.validate_required(self.global_param_id, 'global_param_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.global_param_id is not None:
             result['global_param_id'] = self.global_param_id
         return result
@@ -21345,6 +22341,8 @@ class DeleteConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('global_param_id') is not None:
             self.global_param_id = m.get('global_param_id')
         return self
@@ -21389,6 +22387,7 @@ class UpdateConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data_level: str = None,
         desc: str = None,
         id: str = None,
@@ -21400,6 +22399,7 @@ class UpdateConfigGlobalRequest(TeaModel):
         value: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 数据保密等级
         self.data_level = data_level
         # 参数描述
@@ -21420,12 +22420,14 @@ class UpdateConfigGlobalRequest(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data_level is not None:
             result['data_level'] = self.data_level
         if self.desc is not None:
@@ -21450,6 +22452,8 @@ class UpdateConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data_level') is not None:
             self.data_level = m.get('data_level')
         if m.get('desc') is not None:
@@ -21510,6 +22514,7 @@ class QueryConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data_level: str = None,
         key: str = None,
         orders: List[str] = None,
@@ -21521,6 +22526,7 @@ class QueryConfigGlobalRequest(TeaModel):
         scope_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 模板参数保密级别
         self.data_level = data_level
         # 参数名
@@ -21547,6 +22553,8 @@ class QueryConfigGlobalRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data_level is not None:
             result['data_level'] = self.data_level
         if self.key is not None:
@@ -21571,6 +22579,8 @@ class QueryConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data_level') is not None:
             self.data_level = m.get('data_level')
         if m.get('key') is not None:
@@ -21667,19 +22677,23 @@ class GetConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         global_param_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要获取的全局参数 id
         self.global_param_id = global_param_id
 
     def validate(self):
-        pass
+        self.validate_required(self.global_param_id, 'global_param_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.global_param_id is not None:
             result['global_param_id'] = self.global_param_id
         return result
@@ -21688,6 +22702,8 @@ class GetConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('global_param_id') is not None:
             self.global_param_id = m.get('global_param_id')
         return self
@@ -21741,6 +22757,7 @@ class CreateConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         data_level: str = None,
         desc: str = None,
@@ -21752,6 +22769,7 @@ class CreateConfigAppRequest(TeaModel):
         value: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 数据保密等级
@@ -21772,12 +22790,19 @@ class CreateConfigAppRequest(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.data_level, 'data_level')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_id, 'scope_id')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.data_level is not None:
@@ -21802,6 +22827,8 @@ class CreateConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('data_level') is not None:
@@ -21869,19 +22896,23 @@ class DeleteConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_param_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要删除的应用参数 id
         self.app_param_id = app_param_id
 
     def validate(self):
-        pass
+        self.validate_required(self.app_param_id, 'app_param_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_param_id is not None:
             result['app_param_id'] = self.app_param_id
         return result
@@ -21890,6 +22921,8 @@ class DeleteConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_param_id') is not None:
             self.app_param_id = m.get('app_param_id')
         return self
@@ -21934,6 +22967,7 @@ class UpdateConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data_level: str = None,
         desc: str = None,
         id: str = None,
@@ -21945,6 +22979,7 @@ class UpdateConfigAppRequest(TeaModel):
         value: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 数据保密等级
         self.data_level = data_level
         # 参数描述
@@ -21965,12 +23000,14 @@ class UpdateConfigAppRequest(TeaModel):
         self.value = value
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data_level is not None:
             result['data_level'] = self.data_level
         if self.desc is not None:
@@ -21995,6 +23032,8 @@ class UpdateConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data_level') is not None:
             self.data_level = m.get('data_level')
         if m.get('desc') is not None:
@@ -22055,19 +23094,23 @@ class GetConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_param_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用参数 id
         self.app_param_id = app_param_id
 
     def validate(self):
-        pass
+        self.validate_required(self.app_param_id, 'app_param_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_param_id is not None:
             result['app_param_id'] = self.app_param_id
         return result
@@ -22076,6 +23119,8 @@ class GetConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_param_id') is not None:
             self.app_param_id = m.get('app_param_id')
         return self
@@ -22129,6 +23174,7 @@ class QueryConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         data_level: str = None,
         key: str = None,
@@ -22141,6 +23187,7 @@ class QueryConfigAppRequest(TeaModel):
         scope_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 模板参数保密级别
@@ -22169,6 +23216,8 @@ class QueryConfigAppRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.data_level is not None:
@@ -22195,6 +23244,8 @@ class QueryConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('data_level') is not None:
@@ -22293,12 +23344,14 @@ class SaveConfigTemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         comment: str = None,
         params: List[TemplateParamDef] = None,
         tpl_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 描述
@@ -22309,6 +23362,7 @@ class SaveConfigTemplateRequest(TeaModel):
         self.tpl_id = tpl_id
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
         if self.params:
             for k in self.params:
                 if k:
@@ -22318,6 +23372,8 @@ class SaveConfigTemplateRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.comment is not None:
@@ -22334,6 +23390,8 @@ class SaveConfigTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('comment') is not None:
@@ -22394,12 +23452,14 @@ class CreateConfigTemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         comment: str = None,
         params: List[TemplateParamDef] = None,
         tpl_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 描述
@@ -22410,6 +23470,7 @@ class CreateConfigTemplateRequest(TeaModel):
         self.tpl_id = tpl_id
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
         if self.params:
             for k in self.params:
                 if k:
@@ -22419,6 +23480,8 @@ class CreateConfigTemplateRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.comment is not None:
@@ -22435,6 +23498,8 @@ class CreateConfigTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('comment') is not None:
@@ -22495,10 +23560,12 @@ class PullConfigTemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         state: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # RELEAES：获取最新的、已经发布的参数模板；
@@ -22507,12 +23574,14 @@ class PullConfigTemplateRequest(TeaModel):
         self.state = state
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.state is not None:
@@ -22523,6 +23592,8 @@ class PullConfigTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('state') is not None:
@@ -22578,19 +23649,23 @@ class DeleteConfigTemplatedraftRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         tpl_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要删除的应用参数模板 id
         self.tpl_id = tpl_id
 
     def validate(self):
-        pass
+        self.validate_required(self.tpl_id, 'tpl_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.tpl_id is not None:
             result['tpl_id'] = self.tpl_id
         return result
@@ -22599,6 +23674,8 @@ class DeleteConfigTemplatedraftRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('tpl_id') is not None:
             self.tpl_id = m.get('tpl_id')
         return self
@@ -22643,19 +23720,23 @@ class GetConfigTemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         tpl_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用参数模板 id
         self.tpl_id = tpl_id
 
     def validate(self):
-        pass
+        self.validate_required(self.tpl_id, 'tpl_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.tpl_id is not None:
             result['tpl_id'] = self.tpl_id
         return result
@@ -22664,6 +23745,8 @@ class GetConfigTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('tpl_id') is not None:
             self.tpl_id = m.get('tpl_id')
         return self
@@ -22717,6 +23800,7 @@ class QueryConfigTemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         orders: List[str] = None,
         page_num: int = None,
@@ -22726,6 +23810,7 @@ class QueryConfigTemplateRequest(TeaModel):
         tpl_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 排序规则数组，默认为 UTC_MODIFIED_DESC，即 根据修改时间降序排序
@@ -22748,6 +23833,8 @@ class QueryConfigTemplateRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.orders is not None:
@@ -22768,6 +23855,8 @@ class QueryConfigTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('orders') is not None:
@@ -22860,12 +23949,14 @@ class ExecConfigParseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         params: List[TemplateParamDef] = None,
         workspace_group_id: str = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 参数定义列表
@@ -22876,6 +23967,8 @@ class ExecConfigParseRequest(TeaModel):
         self.workspace_id = workspace_id
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.params, 'params')
         if self.params:
             for k in self.params:
                 if k:
@@ -22885,6 +23978,8 @@ class ExecConfigParseRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         result['params'] = []
@@ -22901,6 +23996,8 @@ class ExecConfigParseRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         self.params = []
@@ -22969,13 +24066,16 @@ class BatchcreateConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         items: List[GlobalParam] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要创建的全局参数列表
         self.items = items
 
     def validate(self):
+        self.validate_required(self.items, 'items')
         if self.items:
             for k in self.items:
                 if k:
@@ -22985,6 +24085,8 @@ class BatchcreateConfigGlobalRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['items'] = []
         if self.items is not None:
             for k in self.items:
@@ -22995,6 +24097,8 @@ class BatchcreateConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.items = []
         if m.get('items') is not None:
             for k in m.get('items'):
@@ -23042,13 +24146,16 @@ class BatchcreateConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         items: List[AppParam] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 要创建的应用参数列表
         self.items = items
 
     def validate(self):
+        self.validate_required(self.items, 'items')
         if self.items:
             for k in self.items:
                 if k:
@@ -23058,6 +24165,8 @@ class BatchcreateConfigAppRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['items'] = []
         if self.items is not None:
             for k in self.items:
@@ -23068,6 +24177,8 @@ class BatchcreateConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.items = []
         if m.get('items') is not None:
             for k in m.get('items'):
@@ -23115,8 +24226,10 @@ class GetConfigSitetreeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -23125,12 +24238,16 @@ class GetConfigSitetreeRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -23188,8 +24305,10 @@ class GetConfigTenanttreeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -23198,12 +24317,16 @@ class GetConfigTenanttreeRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -23261,12 +24384,14 @@ class ExistConfigAppRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         key: str = None,
         scope_ids: List[str] = None,
         type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名称
         self.app_name = app_name
         # 应用参数名称，同一个 appName + scope + scopeId 下不能有同名的应用参数
@@ -23277,12 +24402,17 @@ class ExistConfigAppRequest(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.scope_ids, 'scope_ids')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.key is not None:
@@ -23297,6 +24427,8 @@ class ExistConfigAppRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('key') is not None:
@@ -23354,11 +24486,13 @@ class ExistConfigGlobalRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         key: str = None,
         scope_ids: List[str] = None,
         type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 全局参数名称，同一个 scope + scopeId 下不能有同名的全局参数
         self.key = key
         # 作用域 id 数组，比如作用域类型（type）是 workspace，那么 scopeId 就是 workspace 的 id
@@ -23367,12 +24501,16 @@ class ExistConfigGlobalRequest(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.scope_ids, 'scope_ids')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.key is not None:
             result['key'] = self.key
         if self.scope_ids is not None:
@@ -23385,6 +24523,8 @@ class ExistConfigGlobalRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('key') is not None:
             self.key = m.get('key')
         if m.get('scope_ids') is not None:
@@ -23443,7 +24583,6 @@ class ListWorkspacegroupRequest(TeaModel):
         tenant: str = None,
     ):
         self.auth_token = auth_token
-        # 目标租户名称
         self.tenant = tenant
 
     def validate(self):
@@ -23481,6 +24620,7 @@ class ListWorkspacegroupResponse(TeaModel):
         self.workspace_groups = workspace_groups
 
     def validate(self):
+        self.validate_required(self.workspace_groups, 'workspace_groups')
         if self.workspace_groups:
             for k in self.workspace_groups:
                 if k:
@@ -23524,13 +24664,12 @@ class GetWorkspacegroupRequest(TeaModel):
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
-        # 目标租户名称
         self.tenant = tenant
         # 目标环境名称
         self.workspace_group = workspace_group
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
@@ -23580,7 +24719,11 @@ class GetWorkspacegroupResponse(TeaModel):
         self.workspaces = workspaces
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.tenant, 'tenant')
+        self.validate_required(self.workspaces, 'workspaces')
 
     def to_map(self):
         result = dict()
@@ -23632,7 +24775,6 @@ class QueryCellRequest(TeaModel):
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
-        # 目标租户名称
         self.tenant = tenant
         # 目标工作空间名称
         self.workspace = workspace
@@ -23682,6 +24824,7 @@ class QueryCellResponse(TeaModel):
         self.cells = cells
 
     def validate(self):
+        self.validate_required(self.cells, 'cells')
         if self.cells:
             for k in self.cells:
                 if k:
@@ -23721,18 +24864,22 @@ class QueryWorkspaceDeltaRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         end_time: str = None,
         start_time: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 结束时间点
         self.end_time = end_time
         # 开始时间点
         self.start_time = start_time
 
     def validate(self):
+        self.validate_required(self.end_time, 'end_time')
         if self.end_time is not None:
             self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.start_time, 'start_time')
         if self.start_time is not None:
             self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
 
@@ -23740,6 +24887,8 @@ class QueryWorkspaceDeltaRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.end_time is not None:
             result['end_time'] = self.end_time
         if self.start_time is not None:
@@ -23750,6 +24899,8 @@ class QueryWorkspaceDeltaRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('end_time') is not None:
             self.end_time = m.get('end_time')
         if m.get('start_time') is not None:
@@ -23772,6 +24923,7 @@ class QueryWorkspaceDeltaResponse(TeaModel):
         self.workspace_delta_infos = workspace_delta_infos
 
     def validate(self):
+        self.validate_required(self.workspace_delta_infos, 'workspace_delta_infos')
         if self.workspace_delta_infos:
             for k in self.workspace_delta_infos:
                 if k:
@@ -23811,6 +24963,7 @@ class CreateWorkspacegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         display_name: str = None,
         domain_suffix: str = None,
         name: str = None,
@@ -23818,6 +24971,7 @@ class CreateWorkspacegroupRequest(TeaModel):
         workspaces: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 工作空间组显示名称。
         self.display_name = display_name
         # 域名后缀。
@@ -23830,12 +24984,18 @@ class CreateWorkspacegroupRequest(TeaModel):
         self.workspaces = workspaces
 
     def validate(self):
-        pass
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.domain_suffix, 'domain_suffix')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.release_mode, 'release_mode')
+        self.validate_required(self.workspaces, 'workspaces')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.display_name is not None:
             result['display_name'] = self.display_name
         if self.domain_suffix is not None:
@@ -23852,6 +25012,8 @@ class CreateWorkspacegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('display_name') is not None:
             self.display_name = m.get('display_name')
         if m.get('domain_suffix') is not None:
@@ -23911,9 +25073,11 @@ class QueryWorkspacegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 环境组名称（唯一标识）
         self.name = name
 
@@ -23924,6 +25088,8 @@ class QueryWorkspacegroupRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -23932,6 +25098,8 @@ class QueryWorkspacegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -23991,19 +25159,23 @@ class DeleteWorkspacegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 工作空间组名称(唯一标识)。
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -24012,6 +25184,8 @@ class DeleteWorkspacegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -24056,19 +25230,23 @@ class GetSingleworkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 所属工作空间唯一标识
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -24077,6 +25255,8 @@ class GetSingleworkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -24208,19 +25388,23 @@ class GetSingleworkspacegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 环境名称。
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         return result
@@ -24229,6 +25413,8 @@ class GetSingleworkspacegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         return self
@@ -24308,22 +25494,27 @@ class ListCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 目标工作空间名称。
         self.workspace = workspace
         # 目标环境名称。
         self.workspace_group = workspace_group
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         if self.workspace_group is not None:
@@ -24334,6 +25525,8 @@ class ListCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         if m.get('workspace_group') is not None:
@@ -24395,6 +25588,7 @@ class CreateSingleworkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         display_name: str = None,
         name: str = None,
         network_type: str = None,
@@ -24403,6 +25597,7 @@ class CreateSingleworkspaceRequest(TeaModel):
         zones: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace 显示名称
         self.display_name = display_name
         # workspace 唯一标识符
@@ -24419,12 +25614,17 @@ class CreateSingleworkspaceRequest(TeaModel):
         self.zones = zones
 
     def validate(self):
-        pass
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.region, 'region')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.display_name is not None:
             result['display_name'] = self.display_name
         if self.name is not None:
@@ -24443,6 +25643,8 @@ class CreateSingleworkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('display_name') is not None:
             self.display_name = m.get('display_name')
         if m.get('name') is not None:
@@ -24504,19 +25706,23 @@ class DeleteSingleworkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace id
         self.workspace_id = workspace_id
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace_id, 'workspace_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace_id is not None:
             result['workspace_id'] = self.workspace_id
         return result
@@ -24525,6 +25731,8 @@ class DeleteSingleworkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace_id') is not None:
             self.workspace_id = m.get('workspace_id')
         return self
@@ -24576,6 +25784,7 @@ class CreateVpcRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         region_id: str = None,
         tenant_id: str = None,
         vpc_id: str = None,
@@ -24583,6 +25792,7 @@ class CreateVpcRequest(TeaModel):
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # VPC所在的地域
         self.region_id = region_id
         # 租户id
@@ -24596,12 +25806,18 @@ class CreateVpcRequest(TeaModel):
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.vpc_id, 'vpc_id')
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.region_id is not None:
             result['region_id'] = self.region_id
         if self.tenant_id is not None:
@@ -24618,6 +25834,8 @@ class CreateVpcRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('region_id') is not None:
             self.region_id = m.get('region_id')
         if m.get('tenant_id') is not None:
@@ -24677,12 +25895,14 @@ class UpdateWorkspacegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         domain_suffix: str = None,
         name: str = None,
         display_name: str = None,
         workspaces: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 域名后缀。
         self.domain_suffix = domain_suffix
         # workspacegroup名称，唯一标识一个环境。
@@ -24693,12 +25913,14 @@ class UpdateWorkspacegroupRequest(TeaModel):
         self.workspaces = workspaces
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.domain_suffix is not None:
             result['domain_suffix'] = self.domain_suffix
         if self.name is not None:
@@ -24713,6 +25935,8 @@ class UpdateWorkspacegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('domain_suffix') is not None:
             self.domain_suffix = m.get('domain_suffix')
         if m.get('name') is not None:
@@ -24763,6 +25987,7 @@ class UpdateSingleworkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         display_name: str = None,
         network_type: str = None,
         region: str = None,
@@ -24770,6 +25995,7 @@ class UpdateSingleworkspaceRequest(TeaModel):
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace 显示名称
         self.display_name = display_name
         # VPC ｜ Classic
@@ -24782,12 +26008,14 @@ class UpdateSingleworkspaceRequest(TeaModel):
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.display_name is not None:
             result['display_name'] = self.display_name
         if self.network_type is not None:
@@ -24804,6 +26032,8 @@ class UpdateSingleworkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('display_name') is not None:
             self.display_name = m.get('display_name')
         if m.get('network_type') is not None:
@@ -24863,8 +26093,10 @@ class ListRegionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -24873,12 +26105,16 @@ class ListRegionRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
@@ -24936,9 +26172,11 @@ class ListZoneRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         region: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # region identity
         self.region = region
 
@@ -24949,6 +26187,8 @@ class ListZoneRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.region is not None:
             result['region'] = self.region
         return result
@@ -24957,6 +26197,8 @@ class ListZoneRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('region') is not None:
             self.region = m.get('region')
         return self
@@ -25016,6 +26258,7 @@ class CreateCellgroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         datacenter: str = None,
         default_gzone: str = None,
         name: str = None,
@@ -25024,6 +26267,7 @@ class CreateCellgroupRequest(TeaModel):
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 所属idc
         self.datacenter = datacenter
         # 默认全局域
@@ -25038,12 +26282,17 @@ class CreateCellgroupRequest(TeaModel):
         self.workspace_group = workspace_group
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.operator, 'operator')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.datacenter is not None:
             result['datacenter'] = self.datacenter
         if self.default_gzone is not None:
@@ -25062,6 +26311,8 @@ class CreateCellgroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('datacenter') is not None:
             self.datacenter = m.get('datacenter')
         if m.get('default_gzone') is not None:
@@ -25116,22 +26367,27 @@ class DeleteCellgroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 逻辑单元名称
         self.name = name
         # 所属环境名称
         self.workspace_group = workspace_group
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         if self.workspace_group is not None:
@@ -25142,6 +26398,8 @@ class DeleteCellgroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('workspace_group') is not None:
@@ -25188,11 +26446,13 @@ class QueryCellgroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name_prefix: str = None,
         workspace_group: str = None,
         name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # cell group 查询前缀
         self.name_prefix = name_prefix
         # 所属环境名称
@@ -25201,12 +26461,14 @@ class QueryCellgroupRequest(TeaModel):
         self.name = name
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name_prefix is not None:
             result['name_prefix'] = self.name_prefix
         if self.workspace_group is not None:
@@ -25219,6 +26481,8 @@ class QueryCellgroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name_prefix') is not None:
             self.name_prefix = m.get('name_prefix')
         if m.get('workspace_group') is not None:
@@ -25282,12 +26546,14 @@ class UpdateCellgroupDisasterinfoRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         disaster_info: List[DisasterInfo] = None,
         name: str = None,
         operator: str = None,
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 灾备信息
         self.disaster_info = disaster_info
         # 逻辑单元名称
@@ -25298,15 +26564,21 @@ class UpdateCellgroupDisasterinfoRequest(TeaModel):
         self.workspace_group = workspace_group
 
     def validate(self):
+        self.validate_required(self.disaster_info, 'disaster_info')
         if self.disaster_info:
             for k in self.disaster_info:
                 if k:
                     k.validate()
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.operator, 'operator')
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['disaster_info'] = []
         if self.disaster_info is not None:
             for k in self.disaster_info:
@@ -25323,6 +26595,8 @@ class UpdateCellgroupDisasterinfoRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.disaster_info = []
         if m.get('disaster_info') is not None:
             for k in m.get('disaster_info'):
@@ -25376,6 +26650,7 @@ class CreateDeploymentCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cell_group: str = None,
         color: str = None,
         identity: str = None,
@@ -25388,6 +26663,7 @@ class CreateDeploymentCellRequest(TeaModel):
         zone: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 所属逻辑单元名称[单元化模式特有]
         # 当type为"RZone"或"CZone"时，为必填项
         self.cell_group = cell_group
@@ -25412,12 +26688,18 @@ class CreateDeploymentCellRequest(TeaModel):
         self.zone = zone
 
     def validate(self):
-        pass
+        self.validate_required(self.identity, 'identity')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.workspace, 'workspace')
+        self.validate_required(self.zone, 'zone')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.cell_group is not None:
             result['cell_group'] = self.cell_group
         if self.color is not None:
@@ -25444,6 +26726,8 @@ class CreateDeploymentCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('cell_group') is not None:
             self.cell_group = m.get('cell_group')
         if m.get('color') is not None:
@@ -25506,22 +26790,27 @@ class DeleteDeploymentCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单元名称
         self.name = name
         # 所属工作空间名称
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         if self.workspace is not None:
@@ -25532,6 +26821,8 @@ class DeleteDeploymentCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('workspace') is not None:
@@ -25578,12 +26869,14 @@ class QueryDeploymentCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         name: str = None,
         name_prefix: str = None,
         workspace: str = None,
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单元名称
         self.name = name
         # 部署单元名称前缀
@@ -25600,6 +26893,8 @@ class QueryDeploymentCellRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.name is not None:
             result['name'] = self.name
         if self.name_prefix is not None:
@@ -25614,6 +26909,8 @@ class QueryDeploymentCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('name_prefix') is not None:
@@ -25679,6 +26976,7 @@ class UpdateDeploymentCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         color: str = None,
         is_gray: bool = None,
         name: str = None,
@@ -25687,6 +26985,7 @@ class UpdateDeploymentCellRequest(TeaModel):
         workspace_group: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 蓝绿着色信息
         self.color = color
         # 是否灰度
@@ -25701,12 +27000,16 @@ class UpdateDeploymentCellRequest(TeaModel):
         self.workspace_group = workspace_group
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.workspace, 'workspace')
+        self.validate_required(self.workspace_group, 'workspace_group')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.color is not None:
             result['color'] = self.color
         if self.is_gray is not None:
@@ -25725,6 +27028,8 @@ class UpdateDeploymentCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('color') is not None:
             self.color = m.get('color')
         if m.get('is_gray') is not None:
@@ -25779,6 +27084,7 @@ class QueryDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         creation_time: str = None,
         operation_id: str = None,
@@ -25788,6 +27094,7 @@ class QueryDeploymentRequest(TeaModel):
         title: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单包含的应用（服务）名称
         self.application_name = application_name
         # 部署单创建日期，采用UTC时间，按照ISO8601标准表示，格式为：YYYY-MM-DDThh:mm:ssZ
@@ -25821,6 +27128,8 @@ class QueryDeploymentRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.creation_time is not None:
@@ -25841,6 +27150,8 @@ class QueryDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('creation_time') is not None:
@@ -25882,6 +27193,7 @@ class QueryDeploymentResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.deployments, 'deployments')
         if self.deployments:
             for k in self.deployments:
                 if k:
@@ -25933,22 +27245,27 @@ class CancelDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
         reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单id
         self.operation_id = operation_id
         # 取消原因。长度不超过100个UTF-8字符
         self.reason = reason
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
+        self.validate_required(self.reason, 'reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         if self.reason is not None:
@@ -25959,6 +27276,8 @@ class CancelDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         if m.get('reason') is not None:
@@ -26005,37 +27324,42 @@ class CreateDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         applications: List[Application] = None,
         auto_execute: bool = None,
         deploy_dimension: str = None,
-        tenant: str = None,
         title: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用列表
         self.applications = applications
         # 是否启用自动运维，默认为**False**\
         self.auto_execute = auto_execute
         # 部署维度，有两种取值：APPLICATION和APP_SERVICE。设置为APPLICATION，表示在尚未引入应用服务环境中对整个应用都执行部署操作; APP_SERVICE表示在引入应用服务的环境中对应用服务执行部署操作。
         self.deploy_dimension = deploy_dimension
-        # 执行部署操作的目标租户
-        self.tenant = tenant
         # 部署单标题。长度不超过50个UTF-8字符
         self.title = title
         # 执行部署操作的目标工作空间
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.applications, 'applications')
         if self.applications:
             for k in self.applications:
                 if k:
                     k.validate()
+        self.validate_required(self.deploy_dimension, 'deploy_dimension')
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['applications'] = []
         if self.applications is not None:
             for k in self.applications:
@@ -26044,8 +27368,6 @@ class CreateDeploymentRequest(TeaModel):
             result['auto_execute'] = self.auto_execute
         if self.deploy_dimension is not None:
             result['deploy_dimension'] = self.deploy_dimension
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.title is not None:
             result['title'] = self.title
         if self.workspace is not None:
@@ -26056,6 +27378,8 @@ class CreateDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.applications = []
         if m.get('applications') is not None:
             for k in m.get('applications'):
@@ -26065,8 +27389,6 @@ class CreateDeploymentRequest(TeaModel):
             self.auto_execute = m.get('auto_execute')
         if m.get('deploy_dimension') is not None:
             self.deploy_dimension = m.get('deploy_dimension')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('title') is not None:
             self.title = m.get('title')
         if m.get('workspace') is not None:
@@ -26089,7 +27411,7 @@ class CreateDeploymentResponse(TeaModel):
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
@@ -26120,19 +27442,23 @@ class GetDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -26141,6 +27467,8 @@ class GetDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -26179,10 +27507,13 @@ class GetDeploymentResponse(TeaModel):
         self.status = status
 
     def validate(self):
+        self.validate_required(self.application_chains, 'application_chains')
         if self.application_chains:
             for k in self.application_chains:
                 if k:
                     k.validate()
+        self.validate_required(self.executor, 'executor')
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -26226,19 +27557,23 @@ class RetryDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -26247,6 +27582,8 @@ class RetryDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -26291,19 +27628,23 @@ class StartDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -26312,6 +27653,8 @@ class StartDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -26356,22 +27699,27 @@ class GetDeploymentApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 待查询的应用（服务）名称，必须是部署单中包含的应用（服务）
         self.application_name = application_name
         # 部署单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.operation_id is not None:
@@ -26382,6 +27730,8 @@ class GetDeploymentApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('operation_id') is not None:
@@ -26409,10 +27759,12 @@ class GetDeploymentApplicationResponse(TeaModel):
         self.status = status
 
     def validate(self):
+        self.validate_required(self.groups, 'groups')
         if self.groups:
             for k in self.groups:
                 if k:
                     k.validate()
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -26452,11 +27804,13 @@ class RollbackDeploymentApplicationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         operation_id: str = None,
         reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 被回滚的应用（服务）名称，必须是部署单中包含的应用（服务）
         self.application_name = application_name
         # 部署单id
@@ -26465,12 +27819,16 @@ class RollbackDeploymentApplicationRequest(TeaModel):
         self.reason = reason
 
     def validate(self):
-        pass
+        self.validate_required(self.application_name, 'application_name')
+        self.validate_required(self.operation_id, 'operation_id')
+        self.validate_required(self.reason, 'reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.operation_id is not None:
@@ -26483,6 +27841,8 @@ class RollbackDeploymentApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('operation_id') is not None:
@@ -26531,19 +27891,23 @@ class ReinitDeploymentRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 部署单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -26552,6 +27916,8 @@ class ReinitDeploymentRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -26596,12 +27962,14 @@ class QueryCmdtemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         name: str = None,
         page_num: int = None,
         page_size: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 指令模板描述信息
         self.description = description
         # 指令名称
@@ -26612,12 +27980,14 @@ class QueryCmdtemplateRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
-        pass
+        self.validate_required(self.name, 'name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.name is not None:
@@ -26632,6 +28002,8 @@ class QueryCmdtemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('name') is not None:
@@ -26667,7 +28039,10 @@ class QueryCmdtemplateResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
-        pass
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.template_ids, 'template_ids')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -26710,19 +28085,23 @@ class GetCmdtemplateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 指令模板ID
         self.id = id
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -26731,6 +28110,8 @@ class GetCmdtemplateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -26751,6 +28132,7 @@ class GetCmdtemplateResponse(TeaModel):
         self.template = template
 
     def validate(self):
+        self.validate_required(self.template, 'template')
         if self.template:
             self.template.validate()
 
@@ -26784,18 +28166,22 @@ class SyncexecuteCmdTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cmd: OpsCmd = None,
         computers: List[OpsComputer] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 执行的指令。示例如下：cmd.template_id=000015678&cmd.args.1.name=--version&cmd.args.1.value=2.2
         self.cmd = cmd
         # 执行指令的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
         self.computers = computers
 
     def validate(self):
+        self.validate_required(self.cmd, 'cmd')
         if self.cmd:
             self.cmd.validate()
+        self.validate_required(self.computers, 'computers')
         if self.computers:
             for k in self.computers:
                 if k:
@@ -26805,6 +28191,8 @@ class SyncexecuteCmdTaskRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.cmd is not None:
             result['cmd'] = self.cmd.to_map()
         result['computers'] = []
@@ -26817,6 +28205,8 @@ class SyncexecuteCmdTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('cmd') is not None:
             temp_model = OpsCmd()
             self.cmd = temp_model.from_map(m['cmd'])
@@ -26843,6 +28233,7 @@ class SyncexecuteCmdTaskResponse(TeaModel):
         self.result = result
 
     def validate(self):
+        self.validate_required(self.result, 'result')
         if self.result:
             self.result.validate()
 
@@ -26876,18 +28267,22 @@ class AsyncexecuteCmdTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cmd: OpsCmd = None,
         computers: List[OpsComputer] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 执行的指令。示例如下：cmd.template_id=000015678&cmd.args.1.name=--version&cmd.args.1.value=2.2
         self.cmd = cmd
         # 执行指令的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
         self.computers = computers
 
     def validate(self):
+        self.validate_required(self.cmd, 'cmd')
         if self.cmd:
             self.cmd.validate()
+        self.validate_required(self.computers, 'computers')
         if self.computers:
             for k in self.computers:
                 if k:
@@ -26897,6 +28292,8 @@ class AsyncexecuteCmdTaskRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.cmd is not None:
             result['cmd'] = self.cmd.to_map()
         result['computers'] = []
@@ -26909,6 +28306,8 @@ class AsyncexecuteCmdTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('cmd') is not None:
             temp_model = OpsCmd()
             self.cmd = temp_model.from_map(m['cmd'])
@@ -26935,7 +28334,7 @@ class AsyncexecuteCmdTaskResponse(TeaModel):
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
@@ -26966,19 +28365,23 @@ class GetCmdTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         task_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 异步指令执行的任务ID
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.task_id is not None:
             result['task_id'] = self.task_id
         return result
@@ -26987,6 +28390,8 @@ class GetCmdTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         return self
@@ -27007,6 +28412,7 @@ class GetCmdTaskResponse(TeaModel):
         self.result = result
 
     def validate(self):
+        self.validate_required(self.result, 'result')
         if self.result:
             self.result.validate()
 
@@ -27040,6 +28446,7 @@ class CreateAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         applications: List[Application] = None,
         auto_execute: bool = None,
         computers: List[Computer] = None,
@@ -27049,6 +28456,7 @@ class CreateAppopsRequest(TeaModel):
         title: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 执行运维操作的目标应用名称列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个应用，使用如下形式：applications.1.name=myapp1&applications.2.name=myapp2
         self.applications = applications
         # 是否启用自动运维，默认为**False**\
@@ -27075,11 +28483,16 @@ class CreateAppopsRequest(TeaModel):
             for k in self.computers:
                 if k:
                     k.validate()
+        self.validate_required(self.ops_action, 'ops_action')
+        self.validate_required(self.ops_dimension, 'ops_dimension')
+        self.validate_required(self.title, 'title')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['applications'] = []
         if self.applications is not None:
             for k in self.applications:
@@ -27104,6 +28517,8 @@ class CreateAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.applications = []
         if m.get('applications') is not None:
             for k in m.get('applications'):
@@ -27142,7 +28557,7 @@ class CreateAppopsResponse(TeaModel):
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
@@ -27173,19 +28588,23 @@ class GetAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27194,6 +28613,8 @@ class GetAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27241,10 +28662,16 @@ class GetAppopsResponse(TeaModel):
         self.title = title
 
     def validate(self):
+        self.validate_required(self.application_chains, 'application_chains')
         if self.application_chains:
             for k in self.application_chains:
                 if k:
                     k.validate()
+        self.validate_required(self.executor, 'executor')
+        self.validate_required(self.ops_action, 'ops_action')
+        self.validate_required(self.ops_dimension, 'ops_dimension')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.title, 'title')
 
     def to_map(self):
         result = dict()
@@ -27300,19 +28727,23 @@ class StartAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27321,6 +28752,8 @@ class StartAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27365,19 +28798,23 @@ class ReinitAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27386,6 +28823,8 @@ class ReinitAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27430,22 +28869,27 @@ class CancelAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
         reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
         # 取消原因。长度不超过100个UTF-8字符
         self.reason = reason
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
+        self.validate_required(self.reason, 'reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         if self.reason is not None:
@@ -27456,6 +28900,8 @@ class CancelAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         if m.get('reason') is not None:
@@ -27502,19 +28948,23 @@ class RetryAppopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27523,6 +28973,8 @@ class RetryAppopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27567,11 +29019,13 @@ class CreateComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cmds: List[OpsCmd] = None,
         computers: List[Computer] = None,
         title: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 执行的指令列表。n代表第n个指令，n从1开始，最大20。示例如下：cmds.1.template_id=000015678&cmds.1.args.1.name=--version&cmds.1.args.1.value=2.2&cmds.2.template_id=000015688
         self.cmds = cmds
         # 执行运维操作的目标机器id列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
@@ -27588,11 +29042,14 @@ class CreateComputeropsRequest(TeaModel):
             for k in self.computers:
                 if k:
                     k.validate()
+        self.validate_required(self.title, 'title')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['cmds'] = []
         if self.cmds is not None:
             for k in self.cmds:
@@ -27609,6 +29066,8 @@ class CreateComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.cmds = []
         if m.get('cmds') is not None:
             for k in m.get('cmds'):
@@ -27639,7 +29098,7 @@ class CreateComputeropsResponse(TeaModel):
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
@@ -27670,19 +29129,23 @@ class GetComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27691,6 +29154,8 @@ class GetComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27729,10 +29194,13 @@ class GetComputeropsResponse(TeaModel):
         self.status = status
 
     def validate(self):
+        self.validate_required(self.executor, 'executor')
+        self.validate_required(self.groups, 'groups')
         if self.groups:
             for k in self.groups:
                 if k:
                     k.validate()
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -27776,19 +29244,23 @@ class StartComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27797,6 +29269,8 @@ class StartComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27841,19 +29315,23 @@ class ReinitComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27862,6 +29340,8 @@ class ReinitComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -27906,22 +29386,27 @@ class CancelComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
         reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
         # 取消原因。长度不超过100个UTF-8字符
         self.reason = reason
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
+        self.validate_required(self.reason, 'reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         if self.reason is not None:
@@ -27932,6 +29417,8 @@ class CancelComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         if m.get('reason') is not None:
@@ -27978,19 +29465,23 @@ class RetryComputeropsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         operation_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 运维单id
         self.operation_id = operation_id
 
     def validate(self):
-        pass
+        self.validate_required(self.operation_id, 'operation_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.operation_id is not None:
             result['operation_id'] = self.operation_id
         return result
@@ -27999,6 +29490,8 @@ class RetryComputeropsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('operation_id') is not None:
             self.operation_id = m.get('operation_id')
         return self
@@ -28043,12 +29536,14 @@ class QueryOpsappsvcRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         page_num: int = None,
         page_size: int = None,
         service_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用的名称
         self.app_name = app_name
         # 当前页码，默认为1
@@ -28059,12 +29554,14 @@ class QueryOpsappsvcRequest(TeaModel):
         self.service_name = service_name
 
     def validate(self):
-        pass
+        self.validate_required(self.app_name, 'app_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.page_num is not None:
@@ -28079,6 +29576,8 @@ class QueryOpsappsvcRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('page_num') is not None:
@@ -28114,10 +29613,14 @@ class QueryOpsappsvcResponse(TeaModel):
         self.total_count = total_count
 
     def validate(self):
+        self.validate_required(self.opsappsvcs, 'opsappsvcs')
         if self.opsappsvcs:
             for k in self.opsappsvcs:
                 if k:
                     k.validate()
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.total_count, 'total_count')
 
     def to_map(self):
         result = dict()
@@ -28165,12 +29668,14 @@ class AsyncexecuteBashcmdRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         command: str = None,
         computers: List[Computer] = None,
         time_out: int = None,
         user: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 执行的命令，长度不能超过500个字符
         self.command = command
         # 执行指令的目标机器id列表。n代表第n个机器，n从1开始，最大50。如果要输入多个机器，使用如下形式：computers.1.id=000112367&computers.2.id=000112367
@@ -28181,15 +29686,20 @@ class AsyncexecuteBashcmdRequest(TeaModel):
         self.user = user
 
     def validate(self):
+        self.validate_required(self.command, 'command')
+        self.validate_required(self.computers, 'computers')
         if self.computers:
             for k in self.computers:
                 if k:
                     k.validate()
+        self.validate_required(self.time_out, 'time_out')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.command is not None:
             result['command'] = self.command
         result['computers'] = []
@@ -28206,6 +29716,8 @@ class AsyncexecuteBashcmdRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('command') is not None:
             self.command = m.get('command')
         self.computers = []
@@ -28235,7 +29747,7 @@ class AsyncexecuteBashcmdResponse(TeaModel):
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
@@ -28266,19 +29778,23 @@ class GetBashcmdResultRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         task_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 异步bash指令执行的任务ID
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.task_id is not None:
             result['task_id'] = self.task_id
         return result
@@ -28287,6 +29803,8 @@ class GetBashcmdResultRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         return self
@@ -28323,6 +29841,7 @@ class GetBashcmdResultResponse(TeaModel):
             for k in self.results:
                 if k:
                     k.validate()
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
@@ -28374,19 +29893,23 @@ class CheckCloudconfigBgreleaseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28395,6 +29918,8 @@ class CheckCloudconfigBgreleaseRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28446,22 +29971,26 @@ class CheckCloudconfigBgdeploymentcellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         require_release: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # require_release
         self.require_release = require_release
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.require_release is not None:
             result['require_release'] = self.require_release
         if self.workspace is not None:
@@ -28472,6 +30001,8 @@ class CheckCloudconfigBgdeploymentcellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('require_release') is not None:
             self.require_release = m.get('require_release')
         if m.get('workspace') is not None:
@@ -28525,19 +30056,23 @@ class CheckCloudconfigAppserviceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28546,6 +30081,8 @@ class CheckCloudconfigAppserviceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28597,19 +30134,23 @@ class CheckCloudconfigSharedmwRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28618,6 +30159,8 @@ class CheckCloudconfigSharedmwRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28669,19 +30212,23 @@ class CheckCloudconfigVonereleaseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28690,6 +30237,8 @@ class CheckCloudconfigVonereleaseRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28741,19 +30290,23 @@ class CheckCloudconfigVoneappopsRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28762,6 +30315,8 @@ class CheckCloudconfigVoneappopsRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28813,19 +30368,23 @@ class CheckCloudconfigOlduiRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28834,6 +30393,8 @@ class CheckCloudconfigOlduiRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28885,19 +30446,23 @@ class CheckCloudconfigXdclbforbiddenRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28906,6 +30471,8 @@ class CheckCloudconfigXdclbforbiddenRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -28957,19 +30524,23 @@ class QueryCloudconfigOpenapiconfigRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -28978,6 +30549,8 @@ class QueryCloudconfigOpenapiconfigRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -29029,22 +30602,27 @@ class CountAppsPkgRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用 id 列表
         self.app_ids = app_ids
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.app_ids, 'app_ids')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.workspace is not None:
@@ -29055,6 +30633,8 @@ class CountAppsPkgRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('workspace') is not None:
@@ -29116,22 +30696,27 @@ class QueryAppUnitresourcesRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用 id 列表
         self.app_ids = app_ids
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.app_ids, 'app_ids')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_ids is not None:
             result['app_ids'] = self.app_ids
         if self.workspace is not None:
@@ -29142,6 +30727,8 @@ class QueryAppUnitresourcesRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_ids') is not None:
             self.app_ids = m.get('app_ids')
         if m.get('workspace') is not None:
@@ -29195,19 +30782,23 @@ class QueryOauthTokenRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -29216,6 +30807,8 @@ class QueryOauthTokenRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -29312,6 +30905,7 @@ class UpdateOauthTokenRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         access_expired_time: str = None,
         access_token: str = None,
         customer_id: str = None,
@@ -29320,6 +30914,7 @@ class UpdateOauthTokenRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 过期时间
         self.access_expired_time = access_expired_time
         # access token
@@ -29334,15 +30929,23 @@ class UpdateOauthTokenRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.access_expired_time, 'access_expired_time')
         if self.access_expired_time is not None:
             self.validate_pattern(self.access_expired_time, 'access_expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.access_token, 'access_token')
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.refresh_expired_time, 'refresh_expired_time')
         if self.refresh_expired_time is not None:
             self.validate_pattern(self.refresh_expired_time, 'refresh_expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.refresh_token, 'refresh_token')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.access_expired_time is not None:
             result['access_expired_time'] = self.access_expired_time
         if self.access_token is not None:
@@ -29361,6 +30964,8 @@ class UpdateOauthTokenRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('access_expired_time') is not None:
             self.access_expired_time = m.get('access_expired_time')
         if m.get('access_token') is not None:
@@ -29415,19 +31020,23 @@ class DeleteOauthTokenRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -29436,6 +31045,8 @@ class DeleteOauthTokenRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -29480,19 +31091,23 @@ class QueryBaseinfoDeploymentzonesRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -29501,6 +31116,8 @@ class QueryBaseinfoDeploymentzonesRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -29552,11 +31169,13 @@ class GetBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -29565,12 +31184,16 @@ class GetBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -29583,6 +31206,8 @@ class GetBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -29638,22 +31263,27 @@ class QueryBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布单ID
         self.plan_id = plan_id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.plan_id is not None:
             result['plan_id'] = self.plan_id
         if self.workspace is not None:
@@ -29664,6 +31294,8 @@ class QueryBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('plan_id') is not None:
             self.plan_id = m.get('plan_id')
         if m.get('workspace') is not None:
@@ -29717,11 +31349,13 @@ class QueryBgreleaseArrangementprogressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -29730,12 +31364,16 @@ class QueryBgreleaseArrangementprogressRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -29748,6 +31386,8 @@ class QueryBgreleaseArrangementprogressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -29803,11 +31443,13 @@ class QueryBgreleaseTaskprogressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -29816,12 +31458,16 @@ class QueryBgreleaseTaskprogressRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -29834,6 +31480,8 @@ class QueryBgreleaseTaskprogressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -29889,11 +31537,13 @@ class ExecBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -29902,12 +31552,16 @@ class ExecBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -29920,6 +31574,8 @@ class ExecBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -29975,11 +31631,13 @@ class ConfirmBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -29988,12 +31646,16 @@ class ConfirmBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30006,6 +31668,8 @@ class ConfirmBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30061,11 +31725,13 @@ class ConfirmBgreleaseArrangementvalidationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30074,12 +31740,16 @@ class ConfirmBgreleaseArrangementvalidationRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30092,6 +31762,8 @@ class ConfirmBgreleaseArrangementvalidationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30147,11 +31819,13 @@ class RetryBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布概览ID
         self.arrangement_id = arrangement_id
         # 发布单
@@ -30160,12 +31834,16 @@ class RetryBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30178,6 +31856,8 @@ class RetryBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30233,6 +31913,7 @@ class RetryBgreleaseTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         retry_info: RetryInfo = None,
@@ -30240,6 +31921,7 @@ class RetryBgreleaseTaskRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30252,13 +31934,20 @@ class RetryBgreleaseTaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.retry_info, 'retry_info')
         if self.retry_info:
             self.retry_info.validate()
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30275,6 +31964,8 @@ class RetryBgreleaseTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30335,12 +32026,14 @@ class SkipBgreleaseTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         task_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30351,12 +32044,17 @@ class SkipBgreleaseTaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30371,6 +32069,8 @@ class SkipBgreleaseTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30428,11 +32128,13 @@ class SkipBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30441,12 +32143,16 @@ class SkipBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30459,6 +32165,8 @@ class SkipBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30514,11 +32222,13 @@ class CancelBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30527,12 +32237,16 @@ class CancelBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30545,6 +32259,8 @@ class CancelBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30600,12 +32316,14 @@ class RollbackBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         rollback_info: RollbackInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30616,13 +32334,19 @@ class RollbackBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30637,6 +32361,8 @@ class RollbackBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30695,12 +32421,14 @@ class RetryrollbackBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         rollback_info: RollbackInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30711,13 +32439,19 @@ class RetryrollbackBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30732,6 +32466,8 @@ class RetryrollbackBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30790,12 +32526,14 @@ class ConfirmrollbackBgreleaseArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         retry_rollbacked: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -30806,12 +32544,17 @@ class ConfirmrollbackBgreleaseArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.retry_rollbacked, 'retry_rollbacked')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -30826,6 +32569,8 @@ class ConfirmrollbackBgreleaseArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -30883,6 +32628,7 @@ class SwitchBgreleaseGraytrafficRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_id: str = None,
         executor_id: str = None,
         executor_name: str = None,
@@ -30893,6 +32639,7 @@ class SwitchBgreleaseGraytrafficRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用ID
         self.app_id = app_id
         # 执行人
@@ -30911,12 +32658,17 @@ class SwitchBgreleaseGraytrafficRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.proportion, 'proportion')
+        self.validate_required(self.target_id, 'target_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_id is not None:
             result['app_id'] = self.app_id
         if self.executor_id is not None:
@@ -30939,6 +32691,8 @@ class SwitchBgreleaseGraytrafficRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_id') is not None:
             self.app_id = m.get('app_id')
         if m.get('executor_id') is not None:
@@ -31004,11 +32758,13 @@ class RollbackBgreleaseGraytrafficRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         plan_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # 发布单ID
@@ -31017,12 +32773,16 @@ class RollbackBgreleaseGraytrafficRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.plan_id is not None:
@@ -31035,6 +32795,8 @@ class RollbackBgreleaseGraytrafficRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('plan_id') is not None:
@@ -31090,22 +32852,27 @@ class QueryBgreleaseGrayprogressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 概览ID
         self.arrangement_id = arrangement_id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.workspace is not None:
@@ -31116,6 +32883,8 @@ class QueryBgreleaseGrayprogressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('workspace') is not None:
@@ -31169,22 +32938,27 @@ class GetGrayProcessRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31195,6 +32969,8 @@ class GetGrayProcessRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -31248,22 +33024,27 @@ class QueryGrayProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31274,6 +33055,8 @@ class QueryGrayProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -31327,22 +33110,27 @@ class ReinitGrayProcessRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31353,6 +33141,8 @@ class ReinitGrayProcessRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -31406,12 +33196,14 @@ class RetryGrayTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         process_id: str = None,
         retry_info: RetryInfo = None,
         task_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 进程 ID
         self.process_id = process_id
         # retry_info
@@ -31422,13 +33214,19 @@ class RetryGrayTaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.process_id, 'process_id')
+        self.validate_required(self.retry_info, 'retry_info')
         if self.retry_info:
             self.retry_info.validate()
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.process_id is not None:
             result['process_id'] = self.process_id
         if self.retry_info is not None:
@@ -31443,6 +33241,8 @@ class RetryGrayTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('process_id') is not None:
             self.process_id = m.get('process_id')
         if m.get('retry_info') is not None:
@@ -31501,11 +33301,13 @@ class SkipGrayTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         process_id: str = None,
         task_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 进程 ID
         self.process_id = process_id
         # 任务ID
@@ -31514,12 +33316,16 @@ class SkipGrayTaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.process_id, 'process_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.process_id is not None:
             result['process_id'] = self.process_id
         if self.task_id is not None:
@@ -31532,6 +33338,8 @@ class SkipGrayTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('process_id') is not None:
             self.process_id = m.get('process_id')
         if m.get('task_id') is not None:
@@ -31587,6 +33395,7 @@ class QueryMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         page_no: int = None,
         page_size: int = None,
         parent_id: str = None,
@@ -31595,6 +33404,7 @@ class QueryMachineRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 当前页
         self.page_no = page_no
         # 页大小，默认 20
@@ -31609,12 +33419,14 @@ class QueryMachineRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.page_no is not None:
             result['page_no'] = self.page_no
         if self.page_size is not None:
@@ -31633,6 +33445,8 @@ class QueryMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('page_no') is not None:
             self.page_no = m.get('page_no')
         if m.get('page_size') is not None:
@@ -31694,22 +33508,27 @@ class GetMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布机器 ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31720,6 +33539,8 @@ class GetMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -31773,22 +33594,27 @@ class QueryMachineProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布机器ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31799,6 +33625,8 @@ class QueryMachineProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -31852,11 +33680,13 @@ class RetryMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         retry_info: RetryInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布机器 ID
         self.id = id
         # retry_info
@@ -31865,13 +33695,18 @@ class RetryMachineRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.retry_info, 'retry_info')
         if self.retry_info:
             self.retry_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.retry_info is not None:
@@ -31884,6 +33719,8 @@ class RetryMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('retry_info') is not None:
@@ -31940,22 +33777,27 @@ class SkipMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 机器ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -31966,6 +33808,8 @@ class SkipMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32019,22 +33863,27 @@ class CancelMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布机器 ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32045,6 +33894,8 @@ class CancelMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32098,22 +33949,27 @@ class ExecMachineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 机器 ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32124,6 +33980,8 @@ class ExecMachineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32177,22 +34035,27 @@ class QueryMachinegroupProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32203,6 +34066,8 @@ class QueryMachinegroupProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32256,11 +34121,13 @@ class RetryMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         retry_info: RetryInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.id = id
         # retry info
@@ -32269,13 +34136,18 @@ class RetryMachinegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.retry_info, 'retry_info')
         if self.retry_info:
             self.retry_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.retry_info is not None:
@@ -32288,6 +34160,8 @@ class RetryMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('retry_info') is not None:
@@ -32344,22 +34218,27 @@ class SkipMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32370,6 +34249,8 @@ class SkipMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32423,22 +34304,27 @@ class CancelMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32449,6 +34335,8 @@ class CancelMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32502,11 +34390,13 @@ class DeleteMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         recursive: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ID
         self.id = id
         # recursive
@@ -32515,12 +34405,16 @@ class DeleteMachinegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.recursive, 'recursive')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.recursive is not None:
@@ -32533,6 +34427,8 @@ class DeleteMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('recursive') is not None:
@@ -32588,11 +34484,13 @@ class UpdateMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         machine_group_id: str = None,
         machine_ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.machine_group_id = machine_group_id
         # 发布机器 ID
@@ -32601,12 +34499,16 @@ class UpdateMachinegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.machine_group_id, 'machine_group_id')
+        self.validate_required(self.machine_ids, 'machine_ids')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.machine_group_id is not None:
             result['machine_group_id'] = self.machine_group_id
         if self.machine_ids is not None:
@@ -32619,6 +34521,8 @@ class UpdateMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('machine_group_id') is not None:
             self.machine_group_id = m.get('machine_group_id')
         if m.get('machine_ids') is not None:
@@ -32674,22 +34578,27 @@ class ConfirmMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -32700,6 +34609,8 @@ class ConfirmMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -32753,6 +34664,7 @@ class BatchqueryMachinegroupProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         page_no: int = None,
         page_size: int = None,
         parent_id: str = None,
@@ -32763,6 +34675,7 @@ class BatchqueryMachinegroupProgressRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 当前页，默认 1
         self.page_no = page_no
         # 分页大小，默认 20
@@ -32781,12 +34694,14 @@ class BatchqueryMachinegroupProgressRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.page_no is not None:
             result['page_no'] = self.page_no
         if self.page_size is not None:
@@ -32809,6 +34724,8 @@ class BatchqueryMachinegroupProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('page_no') is not None:
             self.page_no = m.get('page_no')
         if m.get('page_size') is not None:
@@ -32874,11 +34791,13 @@ class ConfirmMachinegroupReserveRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         reserved: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.id = id
         # 是否需要预确认分组
@@ -32887,12 +34806,16 @@ class ConfirmMachinegroupReserveRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.reserved, 'reserved')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.reserved is not None:
@@ -32905,6 +34828,8 @@ class ConfirmMachinegroupReserveRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('reserved') is not None:
@@ -32960,12 +34885,14 @@ class UpdateMachinegroupSlbmountweightRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         from_aliyun: bool = None,
         machine_group_id: str = None,
         slb_mount_info_list: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # from_aliyun
         self.from_aliyun = from_aliyun
         # 分组 ID
@@ -32976,12 +34903,16 @@ class UpdateMachinegroupSlbmountweightRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.machine_group_id, 'machine_group_id')
+        self.validate_required(self.slb_mount_info_list, 'slb_mount_info_list')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.from_aliyun is not None:
             result['from_aliyun'] = self.from_aliyun
         if self.machine_group_id is not None:
@@ -32996,6 +34927,8 @@ class UpdateMachinegroupSlbmountweightRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('from_aliyun') is not None:
             self.from_aliyun = m.get('from_aliyun')
         if m.get('machine_group_id') is not None:
@@ -33053,11 +34986,13 @@ class QueryMachinegroupSlbmountprogressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         machine_group_id: str = None,
         request_ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组ID
         self.machine_group_id = machine_group_id
         # 请求 ID 列表
@@ -33066,12 +35001,16 @@ class QueryMachinegroupSlbmountprogressRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.machine_group_id, 'machine_group_id')
+        self.validate_required(self.request_ids, 'request_ids')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.machine_group_id is not None:
             result['machine_group_id'] = self.machine_group_id
         if self.request_ids is not None:
@@ -33084,6 +35023,8 @@ class QueryMachinegroupSlbmountprogressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('machine_group_id') is not None:
             self.machine_group_id = m.get('machine_group_id')
         if m.get('request_ids') is not None:
@@ -33139,22 +35080,27 @@ class QueryMachinegroupSlbmountRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -33165,6 +35111,8 @@ class QueryMachinegroupSlbmountRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -33218,11 +35166,13 @@ class GetMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         with_machines: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组 ID
         self.id = id
         # 是否带上机器信息，默认 false
@@ -33231,12 +35181,15 @@ class GetMachinegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.with_machines is not None:
@@ -33249,6 +35202,8 @@ class GetMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('with_machines') is not None:
@@ -33304,11 +35259,13 @@ class SkipMachinetaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         machine_id: str = None,
         task_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 机器 ID
         self.machine_id = machine_id
         # 任务 ID
@@ -33317,12 +35274,16 @@ class SkipMachinetaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.machine_id, 'machine_id')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.machine_id is not None:
             result['machine_id'] = self.machine_id
         if self.task_id is not None:
@@ -33335,6 +35296,8 @@ class SkipMachinetaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('machine_id') is not None:
             self.machine_id = m.get('machine_id')
         if m.get('task_id') is not None:
@@ -33390,12 +35353,14 @@ class RetryMachinetaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         machine_id: str = None,
         retry_info: RetryInfo = None,
         task_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 机器 ID
         self.machine_id = machine_id
         # retry_info
@@ -33406,13 +35371,19 @@ class RetryMachinetaskRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.machine_id, 'machine_id')
+        self.validate_required(self.retry_info, 'retry_info')
         if self.retry_info:
             self.retry_info.validate()
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.machine_id is not None:
             result['machine_id'] = self.machine_id
         if self.retry_info is not None:
@@ -33427,6 +35398,8 @@ class RetryMachinetaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('machine_id') is not None:
             self.machine_id = m.get('machine_id')
         if m.get('retry_info') is not None:
@@ -33485,19 +35458,23 @@ class QueryMetaCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -33506,6 +35483,8 @@ class QueryMetaCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -33557,22 +35536,27 @@ class CreateMetaDeploymentcellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         deployment_cell: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # deployment_cell
         self.deployment_cell = deployment_cell
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.deployment_cell, 'deployment_cell')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.deployment_cell is not None:
             result['deployment_cell'] = self.deployment_cell
         if self.workspace is not None:
@@ -33583,6 +35567,8 @@ class CreateMetaDeploymentcellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('deployment_cell') is not None:
             self.deployment_cell = m.get('deployment_cell')
         if m.get('workspace') is not None:
@@ -33636,22 +35622,27 @@ class UpdateMetaDeploymentcellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         deployment_cell: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # deployment_cell
         self.deployment_cell = deployment_cell
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.deployment_cell, 'deployment_cell')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.deployment_cell is not None:
             result['deployment_cell'] = self.deployment_cell
         if self.workspace is not None:
@@ -33662,6 +35653,8 @@ class UpdateMetaDeploymentcellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('deployment_cell') is not None:
             self.deployment_cell = m.get('deployment_cell')
         if m.get('workspace') is not None:
@@ -33715,19 +35708,23 @@ class GetMetaDeploymentcellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -33736,6 +35733,8 @@ class GetMetaDeploymentcellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -33787,22 +35786,26 @@ class QueryMetaDeploymentcellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # ids
         self.ids = ids
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.ids is not None:
             result['ids'] = self.ids
         if self.workspace is not None:
@@ -33813,6 +35816,8 @@ class QueryMetaDeploymentcellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('ids') is not None:
             self.ids = m.get('ids')
         if m.get('workspace') is not None:
@@ -33866,6 +35871,7 @@ class CreateNotificationConfigRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cloud_web_url: str = None,
         enabled: bool = None,
         modified_version: int = None,
@@ -33874,6 +35880,7 @@ class CreateNotificationConfigRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # cloud web url
         self.cloud_web_url = cloud_web_url
         # 是否开启，默认关闭
@@ -33888,12 +35895,18 @@ class CreateNotificationConfigRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.cloud_web_url, 'cloud_web_url')
+        self.validate_required(self.modified_version, 'modified_version')
+        self.validate_required(self.receivers, 'receivers')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.cloud_web_url is not None:
             result['cloud_web_url'] = self.cloud_web_url
         if self.enabled is not None:
@@ -33912,6 +35925,8 @@ class CreateNotificationConfigRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('cloud_web_url') is not None:
             self.cloud_web_url = m.get('cloud_web_url')
         if m.get('enabled') is not None:
@@ -33973,6 +35988,7 @@ class UpdateNotificationConfigRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         cloud_web_url: str = None,
         enabled: bool = None,
         id: str = None,
@@ -33982,6 +35998,7 @@ class UpdateNotificationConfigRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # cloud web url
         self.cloud_web_url = cloud_web_url
         # 是否开启
@@ -33998,12 +36015,17 @@ class UpdateNotificationConfigRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.cloud_web_url, 'cloud_web_url')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.modified_version, 'modified_version')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.cloud_web_url is not None:
             result['cloud_web_url'] = self.cloud_web_url
         if self.enabled is not None:
@@ -34024,6 +36046,8 @@ class UpdateNotificationConfigRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('cloud_web_url') is not None:
             self.cloud_web_url = m.get('cloud_web_url')
         if m.get('enabled') is not None:
@@ -34087,19 +36111,23 @@ class QueryNotificationConfigRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -34108,6 +36136,8 @@ class QueryNotificationConfigRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -34159,22 +36189,27 @@ class DeleteNotificationConfigRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -34185,6 +36220,8 @@ class DeleteNotificationConfigRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -34238,12 +36275,14 @@ class QueryOperatorRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         customer_id: str = None,
         page_no: int = None,
         page_size: int = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 用户 ID
         self.customer_id = customer_id
         # 当前页
@@ -34254,12 +36293,15 @@ class QueryOperatorRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.customer_id is not None:
             result['customer_id'] = self.customer_id
         if self.page_no is not None:
@@ -34274,6 +36316,8 @@ class QueryOperatorRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('customer_id') is not None:
             self.customer_id = m.get('customer_id')
         if m.get('page_no') is not None:
@@ -34331,12 +36375,14 @@ class RollbackPlanServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         plan_id: str = None,
         rollback_info: RollbackInfo = None,
         service: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 发布单ID
         self.plan_id = plan_id
         # rollback_info
@@ -34347,13 +36393,19 @@ class RollbackPlanServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.plan_id, 'plan_id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.service, 'service')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.plan_id is not None:
             result['plan_id'] = self.plan_id
         if self.rollback_info is not None:
@@ -34368,6 +36420,8 @@ class RollbackPlanServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('plan_id') is not None:
             self.plan_id = m.get('plan_id')
         if m.get('rollback_info') is not None:
@@ -34426,11 +36480,13 @@ class CreatePlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data: str = None,
         from_aliyun: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # data
         self.data = data
         # from aliyun
@@ -34439,12 +36495,15 @@ class CreatePlanRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data is not None:
             result['data'] = self.data
         if self.from_aliyun is not None:
@@ -34457,6 +36516,8 @@ class CreatePlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data') is not None:
             self.data = m.get('data')
         if m.get('from_aliyun') is not None:
@@ -34512,11 +36573,13 @@ class CheckPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data: str = None,
         from_aliyun: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # data
         self.data = data
         # from_aliyun
@@ -34525,12 +36588,15 @@ class CheckPlanRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data is not None:
             result['data'] = self.data
         if self.from_aliyun is not None:
@@ -34543,6 +36609,8 @@ class CheckPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data') is not None:
             self.data = m.get('data')
         if m.get('from_aliyun') is not None:
@@ -34612,11 +36680,13 @@ class CheckPlanOperationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data: str = None,
         from_aliyun: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # data
         self.data = data
         # from_aliyun
@@ -34625,12 +36695,15 @@ class CheckPlanOperationRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data is not None:
             result['data'] = self.data
         if self.from_aliyun is not None:
@@ -34643,6 +36716,8 @@ class CheckPlanOperationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data') is not None:
             self.data = m.get('data')
         if m.get('from_aliyun') is not None:
@@ -34712,11 +36787,13 @@ class CreatePlanOperationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         data: str = None,
         from_aliyun: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # data
         self.data = data
         # from_aliyun
@@ -34725,12 +36802,15 @@ class CreatePlanOperationRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.data, 'data')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.data is not None:
             result['data'] = self.data
         if self.from_aliyun is not None:
@@ -34743,6 +36823,8 @@ class CreatePlanOperationRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('data') is not None:
             self.data = m.get('data')
         if m.get('from_aliyun') is not None:
@@ -34798,22 +36880,27 @@ class CreatePlanAdvancedRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         ops_plan: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # plan
         self.ops_plan = ops_plan
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.ops_plan, 'ops_plan')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.ops_plan is not None:
             result['ops_plan'] = self.ops_plan
         if self.workspace is not None:
@@ -34824,6 +36911,8 @@ class CreatePlanAdvancedRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('ops_plan') is not None:
             self.ops_plan = m.get('ops_plan')
         if m.get('workspace') is not None:
@@ -34877,22 +36966,27 @@ class ReinitPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -34903,6 +36997,8 @@ class ReinitPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -34956,22 +37052,27 @@ class GetPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -34982,6 +37083,8 @@ class GetPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -35035,11 +37138,13 @@ class GetPlanBasicRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         show_basic: bool = None,
         time_series_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # show_basic
         self.show_basic = show_basic
         # time_series_id
@@ -35048,12 +37153,15 @@ class GetPlanBasicRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.time_series_id, 'time_series_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.show_basic is not None:
             result['show_basic'] = self.show_basic
         if self.time_series_id is not None:
@@ -35066,6 +37174,8 @@ class GetPlanBasicRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('show_basic') is not None:
             self.show_basic = m.get('show_basic')
         if m.get('time_series_id') is not None:
@@ -35121,22 +37231,27 @@ class GetPlanProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -35147,6 +37262,8 @@ class GetPlanProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -35200,6 +37317,7 @@ class QueryPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         gmt_create_end: str = None,
         gmt_create_start: str = None,
         initial_by_tag: str = None,
@@ -35216,6 +37334,7 @@ class QueryPlanRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # gmtCreateEnd
         self.gmt_create_end = gmt_create_end
         # gmtCreateStart
@@ -35250,11 +37369,14 @@ class QueryPlanRequest(TeaModel):
             self.validate_pattern(self.gmt_create_end, 'gmt_create_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.gmt_create_start is not None:
             self.validate_pattern(self.gmt_create_start, 'gmt_create_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.gmt_create_end is not None:
             result['gmt_create_end'] = self.gmt_create_end
         if self.gmt_create_start is not None:
@@ -35289,6 +37411,8 @@ class QueryPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('gmt_create_end') is not None:
             self.gmt_create_end = m.get('gmt_create_end')
         if m.get('gmt_create_start') is not None:
@@ -35387,6 +37511,7 @@ class CountPlanStateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         gmt_create_end: str = None,
         gmt_create_start: str = None,
         initial_by_tag: str = None,
@@ -35403,6 +37528,7 @@ class CountPlanStateRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # gmt_create_end
         self.gmt_create_end = gmt_create_end
         # gmtCreateStart
@@ -35437,11 +37563,14 @@ class CountPlanStateRequest(TeaModel):
             self.validate_pattern(self.gmt_create_end, 'gmt_create_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.gmt_create_start is not None:
             self.validate_pattern(self.gmt_create_start, 'gmt_create_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.gmt_create_end is not None:
             result['gmt_create_end'] = self.gmt_create_end
         if self.gmt_create_start is not None:
@@ -35476,6 +37605,8 @@ class CountPlanStateRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('gmt_create_end') is not None:
             self.gmt_create_end = m.get('gmt_create_end')
         if m.get('gmt_create_start') is not None:
@@ -35553,22 +37684,27 @@ class ExecPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -35579,6 +37715,8 @@ class ExecPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -35632,22 +37770,27 @@ class RetryPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -35658,6 +37801,8 @@ class RetryPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -35711,11 +37856,13 @@ class CancelPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         reason: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # reason
@@ -35724,12 +37871,15 @@ class CancelPlanRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.reason is not None:
@@ -35742,6 +37892,8 @@ class CancelPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('reason') is not None:
@@ -35797,11 +37949,13 @@ class RollbackPlanRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         rollback_info: RollbackInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # rollback_info
@@ -35810,13 +37964,18 @@ class RollbackPlanRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.rollback_info is not None:
@@ -35829,6 +37988,8 @@ class RollbackPlanRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('rollback_info') is not None:
@@ -35885,22 +38046,27 @@ class GetTaskSummaryRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -35911,6 +38077,8 @@ class GetTaskSummaryRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -35964,22 +38132,27 @@ class SkipTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -35990,6 +38163,8 @@ class SkipTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36043,22 +38218,27 @@ class RetryTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36069,6 +38249,8 @@ class RetryTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36122,11 +38304,13 @@ class QueryRoleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         from_aliyun: bool = None,
         page_size: int = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # from_aliyun
         self.from_aliyun = from_aliyun
         # page_size
@@ -36135,12 +38319,15 @@ class QueryRoleRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.from_aliyun is not None:
             result['from_aliyun'] = self.from_aliyun
         if self.page_size is not None:
@@ -36153,6 +38340,8 @@ class QueryRoleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('from_aliyun') is not None:
             self.from_aliyun = m.get('from_aliyun')
         if m.get('page_size') is not None:
@@ -36208,11 +38397,13 @@ class CreateServicegroupcollectionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         process_definition_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # arrangement_id
         self.arrangement_id = arrangement_id
         # process_definition_id
@@ -36221,12 +38412,16 @@ class CreateServicegroupcollectionRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.process_definition_id is not None:
@@ -36239,6 +38434,8 @@ class CreateServicegroupcollectionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('process_definition_id') is not None:
@@ -36294,11 +38491,13 @@ class DeleteServicegroupcollectionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         process_definition_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # arrangement_id
         self.arrangement_id = arrangement_id
         # process_definition_id
@@ -36307,12 +38506,16 @@ class DeleteServicegroupcollectionRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.process_definition_id is not None:
@@ -36325,6 +38528,8 @@ class DeleteServicegroupcollectionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('process_definition_id') is not None:
@@ -36380,22 +38585,27 @@ class RetryServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36406,6 +38616,8 @@ class RetryServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36459,22 +38671,27 @@ class ExecServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36485,6 +38702,8 @@ class ExecServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36538,22 +38757,27 @@ class SkipServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36564,6 +38788,8 @@ class SkipServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36617,11 +38843,13 @@ class CreateServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         append: bool = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # append
         self.append = append
         # service_group_id
@@ -36630,12 +38858,15 @@ class CreateServicegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.append is not None:
             result['append'] = self.append
         if self.id is not None:
@@ -36648,6 +38879,8 @@ class CreateServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('append') is not None:
             self.append = m.get('append')
         if m.get('id') is not None:
@@ -36703,22 +38936,27 @@ class DeleteServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36729,6 +38967,8 @@ class DeleteServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -36782,11 +39022,13 @@ class SwitchServicegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         service_group_id: str = None,
         service_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # service_group_id
         self.service_group_id = service_group_id
         # service_id
@@ -36795,12 +39037,16 @@ class SwitchServicegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.service_group_id, 'service_group_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.service_group_id is not None:
             result['service_group_id'] = self.service_group_id
         if self.service_id is not None:
@@ -36813,6 +39059,8 @@ class SwitchServicegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('service_group_id') is not None:
             self.service_group_id = m.get('service_group_id')
         if m.get('service_id') is not None:
@@ -36868,11 +39116,13 @@ class GetServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         with_machine_groups: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # 是否带上机器信息
@@ -36881,12 +39131,15 @@ class GetServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.with_machine_groups is not None:
@@ -36899,6 +39152,8 @@ class GetServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('with_machine_groups') is not None:
@@ -36954,22 +39209,27 @@ class GetServiceProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -36980,6 +39240,8 @@ class GetServiceProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -37033,6 +39295,7 @@ class QueryServiceProgressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         depth: int = None,
         gmt_create_end: str = None,
         gmt_create_start: str = None,
@@ -37048,6 +39311,7 @@ class QueryServiceProgressRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # depth
         self.depth = depth
         # gmt_create_end
@@ -37080,11 +39344,14 @@ class QueryServiceProgressRequest(TeaModel):
             self.validate_pattern(self.gmt_create_end, 'gmt_create_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.gmt_create_start is not None:
             self.validate_pattern(self.gmt_create_start, 'gmt_create_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.depth is not None:
             result['depth'] = self.depth
         if self.gmt_create_end is not None:
@@ -37117,6 +39384,8 @@ class QueryServiceProgressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('depth') is not None:
             self.depth = m.get('depth')
         if m.get('gmt_create_end') is not None:
@@ -37192,11 +39461,13 @@ class QueryServiceSlbmountRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         service_id: str = None,
         slb_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # service_id
         self.service_id = service_id
         # slb_id
@@ -37205,12 +39476,16 @@ class QueryServiceSlbmountRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.slb_id, 'slb_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.service_id is not None:
             result['service_id'] = self.service_id
         if self.slb_id is not None:
@@ -37223,6 +39498,8 @@ class QueryServiceSlbmountRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('service_id') is not None:
             self.service_id = m.get('service_id')
         if m.get('slb_id') is not None:
@@ -37278,11 +39555,13 @@ class BatchqueryServiceSlbmountRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         service_id: str = None,
         slb_ids: List[str] = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # service_id
         self.service_id = service_id
         # slb_ids
@@ -37291,12 +39570,16 @@ class BatchqueryServiceSlbmountRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.slb_ids, 'slb_ids')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.service_id is not None:
             result['service_id'] = self.service_id
         if self.slb_ids is not None:
@@ -37309,6 +39592,8 @@ class BatchqueryServiceSlbmountRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('service_id') is not None:
             self.service_id = m.get('service_id')
         if m.get('slb_ids') is not None:
@@ -37364,6 +39649,7 @@ class UpdateServiceSlbmountRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         mount_info: List[Pair] = None,
         region_identity: str = None,
         service_id: str = None,
@@ -37371,6 +39657,7 @@ class UpdateServiceSlbmountRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 权重
         self.mount_info = mount_info
         # region_identity
@@ -37383,15 +39670,22 @@ class UpdateServiceSlbmountRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.mount_info, 'mount_info')
         if self.mount_info:
             for k in self.mount_info:
                 if k:
                     k.validate()
+        self.validate_required(self.region_identity, 'region_identity')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.slb_id, 'slb_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         result['mount_info'] = []
         if self.mount_info is not None:
             for k in self.mount_info:
@@ -37410,6 +39704,8 @@ class UpdateServiceSlbmountRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         self.mount_info = []
         if m.get('mount_info') is not None:
             for k in m.get('mount_info'):
@@ -37472,12 +39768,14 @@ class QueryServiceSlbmountprogressRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         process_id: str = None,
         region_identity: str = None,
         service_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # process_id
         self.process_id = process_id
         # region_identity
@@ -37488,12 +39786,17 @@ class QueryServiceSlbmountprogressRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.process_id, 'process_id')
+        self.validate_required(self.region_identity, 'region_identity')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.process_id is not None:
             result['process_id'] = self.process_id
         if self.region_identity is not None:
@@ -37508,6 +39811,8 @@ class QueryServiceSlbmountprogressRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('process_id') is not None:
             self.process_id = m.get('process_id')
         if m.get('region_identity') is not None:
@@ -37565,22 +39870,27 @@ class QueryServiceLatestsuccessRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         service_paas_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # service_paas_id
         self.service_paas_id = service_paas_id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.service_paas_id, 'service_paas_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.service_paas_id is not None:
             result['service_paas_id'] = self.service_paas_id
         if self.workspace is not None:
@@ -37591,6 +39901,8 @@ class QueryServiceLatestsuccessRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('service_paas_id') is not None:
             self.service_paas_id = m.get('service_paas_id')
         if m.get('workspace') is not None:
@@ -37644,22 +39956,27 @@ class ReinitServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -37670,6 +39987,8 @@ class ReinitServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -37723,22 +40042,27 @@ class ExecServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -37749,6 +40073,8 @@ class ExecServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -37802,11 +40128,13 @@ class CancelServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         reason: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # reason
@@ -37815,12 +40143,15 @@ class CancelServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.reason is not None:
@@ -37833,6 +40164,8 @@ class CancelServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('reason') is not None:
@@ -37888,22 +40221,27 @@ class SkipServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -37914,6 +40252,8 @@ class SkipServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -37967,22 +40307,27 @@ class StartServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -37993,6 +40338,8 @@ class StartServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -38046,22 +40393,27 @@ class ConfirmServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -38072,6 +40424,8 @@ class ConfirmServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -38125,6 +40479,7 @@ class SetServiceMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         group_mount: int = None,
         group_strategy_type: str = None,
         machine_groups: List[str] = None,
@@ -38134,6 +40489,7 @@ class SetServiceMachinegroupRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分组数
         self.group_mount = group_mount
         # groupStrategyType
@@ -38150,12 +40506,15 @@ class SetServiceMachinegroupRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.group_mount is not None:
             result['group_mount'] = self.group_mount
         if self.group_strategy_type is not None:
@@ -38176,6 +40535,8 @@ class SetServiceMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('group_mount') is not None:
             self.group_mount = m.get('group_mount')
         if m.get('group_strategy_type') is not None:
@@ -38239,22 +40600,27 @@ class ReinitServiceMachinegroupRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -38265,6 +40631,8 @@ class ReinitServiceMachinegroupRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -38318,11 +40686,13 @@ class ListServiceRollbackversionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         limit: int = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # limit
@@ -38331,12 +40701,15 @@ class ListServiceRollbackversionRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.limit is not None:
@@ -38349,6 +40722,8 @@ class ListServiceRollbackversionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('limit') is not None:
@@ -38404,6 +40779,7 @@ class QueryServiceRollbackversionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         depth: int = None,
         gmt_create_end: str = None,
         gmt_create_start: str = None,
@@ -38419,6 +40795,7 @@ class QueryServiceRollbackversionRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # depth
         self.depth = depth
         # gmt_create_end
@@ -38451,11 +40828,15 @@ class QueryServiceRollbackversionRequest(TeaModel):
             self.validate_pattern(self.gmt_create_end, 'gmt_create_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.gmt_create_start is not None:
             self.validate_pattern(self.gmt_create_start, 'gmt_create_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.process_definition_id, 'process_definition_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.depth is not None:
             result['depth'] = self.depth
         if self.gmt_create_end is not None:
@@ -38488,6 +40869,8 @@ class QueryServiceRollbackversionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('depth') is not None:
             self.depth = m.get('depth')
         if m.get('gmt_create_end') is not None:
@@ -38571,11 +40954,13 @@ class RollbackServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         rollback_info: RollbackInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # rollback_info
@@ -38584,13 +40969,18 @@ class RollbackServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.rollback_info is not None:
@@ -38603,6 +40993,8 @@ class RollbackServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('rollback_info') is not None:
@@ -38659,11 +41051,13 @@ class ConfirmrollbackServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         retry_rollbacked: bool = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # retry_rollbacked
@@ -38672,12 +41066,16 @@ class ConfirmrollbackServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.retry_rollbacked, 'retry_rollbacked')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.retry_rollbacked is not None:
@@ -38690,6 +41088,8 @@ class ConfirmrollbackServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('retry_rollbacked') is not None:
@@ -38745,11 +41145,13 @@ class RetryrollbackServiceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         rollback_info: RollbackInfo = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # rollback_info
@@ -38758,13 +41160,18 @@ class RetryrollbackServiceRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.rollback_info, 'rollback_info')
         if self.rollback_info:
             self.rollback_info.validate()
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.rollback_info is not None:
@@ -38777,6 +41184,8 @@ class RetryrollbackServiceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('rollback_info') is not None:
@@ -38833,11 +41242,13 @@ class GetServiceArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         node_id: str = None,
         service_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # node_id
         self.node_id = node_id
         # service_id
@@ -38846,12 +41257,16 @@ class GetServiceArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.node_id is not None:
             result['node_id'] = self.node_id
         if self.service_id is not None:
@@ -38864,6 +41279,8 @@ class GetServiceArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('node_id') is not None:
             self.node_id = m.get('node_id')
         if m.get('service_id') is not None:
@@ -38919,11 +41336,13 @@ class RetryServiceArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         service_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # arrangement_id
         self.arrangement_id = arrangement_id
         # service_id
@@ -38932,12 +41351,16 @@ class RetryServiceArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.service_id is not None:
@@ -38950,6 +41373,8 @@ class RetryServiceArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('service_id') is not None:
@@ -39005,11 +41430,13 @@ class SkipServiceArrangementRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         arrangement_id: str = None,
         service_id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # arrangement_id
         self.arrangement_id = arrangement_id
         # service_id
@@ -39018,12 +41445,16 @@ class SkipServiceArrangementRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.arrangement_id, 'arrangement_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.arrangement_id is not None:
             result['arrangement_id'] = self.arrangement_id
         if self.service_id is not None:
@@ -39036,6 +41467,8 @@ class SkipServiceArrangementRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('arrangement_id') is not None:
             self.arrangement_id = m.get('arrangement_id')
         if m.get('service_id') is not None:
@@ -39091,6 +41524,7 @@ class QueryOperationlogRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         event: str = None,
         page_no: int = None,
         page_size: int = None,
@@ -39100,6 +41534,7 @@ class QueryOperationlogRequest(TeaModel):
         user_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # event
         self.event = event
         # page_no
@@ -39122,6 +41557,8 @@ class QueryOperationlogRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.event is not None:
             result['event'] = self.event
         if self.page_no is not None:
@@ -39142,6 +41579,8 @@ class QueryOperationlogRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('event') is not None:
             self.event = m.get('event')
         if m.get('page_no') is not None:
@@ -39226,6 +41665,7 @@ class QueryOperationlogTimelineRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         customer_id: str = None,
         gmt_from: str = None,
         gmt_to: str = None,
@@ -39240,6 +41680,7 @@ class QueryOperationlogTimelineRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # customer_id
         self.customer_id = customer_id
         # gmt_from
@@ -39270,11 +41711,14 @@ class QueryOperationlogTimelineRequest(TeaModel):
             self.validate_pattern(self.gmt_from, 'gmt_from', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
         if self.gmt_to is not None:
             self.validate_pattern(self.gmt_to, 'gmt_to', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.customer_id is not None:
             result['customer_id'] = self.customer_id
         if self.gmt_from is not None:
@@ -39305,6 +41749,8 @@ class QueryOperationlogTimelineRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('customer_id') is not None:
             self.customer_id = m.get('customer_id')
         if m.get('gmt_from') is not None:
@@ -39399,22 +41845,27 @@ class GetServiceDetailRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         id: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # id
         self.id = id
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.id is not None:
             result['id'] = self.id
         if self.workspace is not None:
@@ -39425,6 +41876,8 @@ class GetServiceDetailRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('workspace') is not None:
@@ -39478,22 +41931,27 @@ class CreateMetaCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         request: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # request
         self.request = request
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.request, 'request')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.request is not None:
             result['request'] = self.request
         if self.workspace is not None:
@@ -39504,6 +41962,8 @@ class CreateMetaCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('request') is not None:
             self.request = m.get('request')
         if m.get('workspace') is not None:
@@ -39557,22 +42017,27 @@ class UpdateMetaCellRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         request: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # request
         self.request = request
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.request, 'request')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.request is not None:
             result['request'] = self.request
         if self.workspace is not None:
@@ -39583,6 +42048,8 @@ class UpdateMetaCellRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('request') is not None:
             self.request = m.get('request')
         if m.get('workspace') is not None:
@@ -39629,22 +42096,27 @@ class AddMetaMasterzonerelRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         request: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # request
         self.request = request
         # workspace
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.request, 'request')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.request is not None:
             result['request'] = self.request
         if self.workspace is not None:
@@ -39655,6 +42127,8 @@ class AddMetaMasterzonerelRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('request') is not None:
             self.request = m.get('request')
         if m.get('workspace') is not None:
@@ -39701,6 +42175,7 @@ class AssignComputerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         application_name: str = None,
         auto_ops: bool = None,
         computer_cells: List[ComputerCell] = None,
@@ -39712,6 +42187,7 @@ class AssignComputerRequest(TeaModel):
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用的完整名称
         self.application_name = application_name
         # 是否启用自动运维，默认为**False**\
@@ -39732,15 +42208,20 @@ class AssignComputerRequest(TeaModel):
         self.workspace = workspace
 
     def validate(self):
+        self.validate_required(self.application_name, 'application_name')
         if self.computer_cells:
             for k in self.computer_cells:
                 if k:
                     k.validate()
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.application_name is not None:
             result['application_name'] = self.application_name
         if self.auto_ops is not None:
@@ -39767,6 +42248,8 @@ class AssignComputerRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('application_name') is not None:
             self.application_name = m.get('application_name')
         if m.get('auto_ops') is not None:
@@ -39806,7 +42289,7 @@ class AssignComputerResponse(TeaModel):
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
@@ -39837,10 +42320,12 @@ class ReleaseComputerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         computer_ids: List[str] = None,
         req_biz_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 计算资源id，可以指定多个
         self.computer_ids = computer_ids
         # 请求业务id，用于幂等性控制等，需要客户端提供并保证唯一。最大64位单字节字符
@@ -39853,6 +42338,8 @@ class ReleaseComputerRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.computer_ids is not None:
             result['computer_ids'] = self.computer_ids
         if self.req_biz_id is not None:
@@ -39863,6 +42350,8 @@ class ReleaseComputerRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('computer_ids') is not None:
             self.computer_ids = m.get('computer_ids')
         if m.get('req_biz_id') is not None:
@@ -39885,7 +42374,7 @@ class ReleaseComputerResponse(TeaModel):
         self.task_id = task_id
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         result = dict()
@@ -39916,10 +42405,12 @@ class GetTaskRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         req_biz_id: str = None,
         task_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 请求的业务号，当`task_id`参数指定时该参数会被忽略
         self.req_biz_id = req_biz_id
         # 异步请求的id， 当`req_biz_id`参数指定时可以不指定该参数，如果指定了该参数则忽略`req_biz_id`参数
@@ -39932,6 +42423,8 @@ class GetTaskRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.req_biz_id is not None:
             result['req_biz_id'] = self.req_biz_id
         if self.task_id is not None:
@@ -39942,6 +42435,8 @@ class GetTaskRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('req_biz_id') is not None:
             self.req_biz_id = m.get('req_biz_id')
         if m.get('task_id') is not None:
@@ -40038,6 +42533,7 @@ class CreateComputerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         image_id: str = None,
         instance_count: int = None,
@@ -40054,6 +42550,7 @@ class CreateComputerRequest(TeaModel):
         zone: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 实例描述
         self.description = description
         # 镜像文件ID，启动实例时选择的镜像资源。
@@ -40086,13 +42583,23 @@ class CreateComputerRequest(TeaModel):
         self.zone = zone
 
     def validate(self):
+        self.validate_required(self.image_id, 'image_id')
         if self.paasword is not None:
             self.validate_max_length(self.paasword, 'paasword', 30)
+        self.validate_required(self.region, 'region')
+        self.validate_required(self.security_group_id, 'security_group_id')
+        self.validate_required(self.spec_id, 'spec_id')
+        self.validate_required(self.system_disk_size, 'system_disk_size')
+        self.validate_required(self.system_disk_type, 'system_disk_type')
+        self.validate_required(self.workspace, 'workspace')
+        self.validate_required(self.zone, 'zone')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.image_id is not None:
@@ -40127,6 +42634,8 @@ class CreateComputerRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('image_id') is not None:
@@ -40204,12 +42713,14 @@ class CreateSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         sidecar_name: str = None,
         scope: str = None,
         scope_identity: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar描述
         self.description = description
         # sidecar名称
@@ -40220,12 +42731,16 @@ class CreateSidecarRequest(TeaModel):
         self.scope_identity = scope_identity
 
     def validate(self):
-        pass
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.sidecar_name is not None:
@@ -40240,6 +42755,8 @@ class CreateSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('sidecar_name') is not None:
@@ -40290,11 +42807,13 @@ class ListSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         pagination_query: PaginationQuery = None,
         scope: str = None,
         scope_identity: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分页请求体
         self.pagination_query = pagination_query
         # sidecar生效范围：workspace、workspace_group、region
@@ -40305,11 +42824,14 @@ class ListSidecarRequest(TeaModel):
     def validate(self):
         if self.pagination_query:
             self.pagination_query.validate()
+        self.validate_required(self.scope, 'scope')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.pagination_query is not None:
             result['pagination_query'] = self.pagination_query.to_map()
         if self.scope is not None:
@@ -40322,6 +42844,8 @@ class ListSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('pagination_query') is not None:
             temp_model = PaginationQuery()
             self.pagination_query = temp_model.from_map(m['pagination_query'])
@@ -40393,6 +42917,7 @@ class CreateSidecarVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         release_note: str = None,
         scope: str = None,
@@ -40405,6 +42930,7 @@ class CreateSidecarVersionRequest(TeaModel):
         version_period: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar版本描述
         self.description = description
         # release note
@@ -40427,15 +42953,24 @@ class CreateSidecarVersionRequest(TeaModel):
         self.version_period = version_period
 
     def validate(self):
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.template, 'template')
+        self.validate_required(self.template_configs, 'template_configs')
         if self.template_configs:
             for k in self.template_configs:
                 if k:
                     k.validate()
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.release_note is not None:
@@ -40464,6 +42999,8 @@ class CreateSidecarVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('release_note') is not None:
@@ -40529,6 +43066,7 @@ class ListSidecarVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         pagination_query: PaginationQuery = None,
         scope: str = None,
         scope_identity: str = None,
@@ -40537,6 +43075,7 @@ class ListSidecarVersionRequest(TeaModel):
         status: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分页查询请求体
         self.pagination_query = pagination_query
         # sidecar生效范围：workspace、workspace_group、region
@@ -40553,11 +43092,16 @@ class ListSidecarVersionRequest(TeaModel):
     def validate(self):
         if self.pagination_query:
             self.pagination_query.validate()
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.pagination_query is not None:
             result['pagination_query'] = self.pagination_query.to_map()
         if self.scope is not None:
@@ -40576,6 +43120,8 @@ class ListSidecarVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('pagination_query') is not None:
             temp_model = PaginationQuery()
             self.pagination_query = temp_model.from_map(m['pagination_query'])
@@ -40653,6 +43199,7 @@ class GetSidecarVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_name: str = None,
@@ -40660,6 +43207,7 @@ class GetSidecarVersionRequest(TeaModel):
         type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         self.scope = scope
         # scope对应的唯一标识，例如workspace对应workspace id
@@ -40672,12 +43220,18 @@ class GetSidecarVersionRequest(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -40694,6 +43248,8 @@ class GetSidecarVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -40755,6 +43311,7 @@ class CreateSidecarRuleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         level: int = None,
         scope: str = None,
@@ -40762,6 +43319,7 @@ class CreateSidecarRuleRequest(TeaModel):
         sidecar_version_instance_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 规则描述
         self.description = description
         # 规则优先级
@@ -40775,12 +43333,16 @@ class CreateSidecarRuleRequest(TeaModel):
         self.sidecar_version_instance_id = sidecar_version_instance_id
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.level is not None:
@@ -40797,6 +43359,8 @@ class CreateSidecarRuleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('level') is not None:
@@ -40849,11 +43413,13 @@ class GetSidecarRuleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_version_instance_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         self.scope = scope
         # scope对应的唯一标识，例如workspace对应workspace id
@@ -40863,12 +43429,16 @@ class GetSidecarRuleRequest(TeaModel):
         self.sidecar_version_instance_id = sidecar_version_instance_id
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -40881,6 +43451,8 @@ class GetSidecarRuleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -40938,6 +43510,7 @@ class ListSidecarRuleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         pagination_query: PaginationQuery = None,
         scope: str = None,
         scope_identity: str = None,
@@ -40945,6 +43518,7 @@ class ListSidecarRuleRequest(TeaModel):
         status: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 分页查询
         self.pagination_query = pagination_query
         # sidecar生效范围：workspace、workspace_group、region
@@ -40960,11 +43534,15 @@ class ListSidecarRuleRequest(TeaModel):
     def validate(self):
         if self.pagination_query:
             self.pagination_query.validate()
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.pagination_query is not None:
             result['pagination_query'] = self.pagination_query.to_map()
         if self.scope is not None:
@@ -40981,6 +43559,8 @@ class ListSidecarRuleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('pagination_query') is not None:
             temp_model = PaginationQuery()
             self.pagination_query = temp_model.from_map(m['pagination_query'])
@@ -41056,6 +43636,7 @@ class CreateSidecarInstanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         instance_name: str = None,
         params: str = None,
@@ -41066,6 +43647,7 @@ class CreateSidecarInstanceRequest(TeaModel):
         params_configs: List[SidecarParamsConfig] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 规则描述
         self.description = description
         # 实例名称
@@ -41088,6 +43670,12 @@ class CreateSidecarInstanceRequest(TeaModel):
         self.params_configs = params_configs
 
     def validate(self):
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.rule, 'rule')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
+        self.validate_required(self.params_configs, 'params_configs')
         if self.params_configs:
             for k in self.params_configs:
                 if k:
@@ -41097,6 +43685,8 @@ class CreateSidecarInstanceRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.instance_name is not None:
@@ -41121,6 +43711,8 @@ class CreateSidecarInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('instance_name') is not None:
@@ -41182,6 +43774,7 @@ class ListSidecarInstanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         instance_name: str = None,
         pagination_query: PaginationQuery = None,
         scope: str = None,
@@ -41189,6 +43782,7 @@ class ListSidecarInstanceRequest(TeaModel):
         status: int = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本实例名称
         self.instance_name = instance_name
         # 分页查询
@@ -41205,11 +43799,15 @@ class ListSidecarInstanceRequest(TeaModel):
     def validate(self):
         if self.pagination_query:
             self.pagination_query.validate()
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.instance_name is not None:
             result['instance_name'] = self.instance_name
         if self.pagination_query is not None:
@@ -41226,6 +43824,8 @@ class ListSidecarInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('instance_name') is not None:
             self.instance_name = m.get('instance_name')
         if m.get('pagination_query') is not None:
@@ -41301,12 +43901,14 @@ class GetSidecarInstanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         instance_name: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_release_version_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本实例名称
         self.instance_name = instance_name
         # sidecar生效范围：workspace、workspace_group、region
@@ -41319,12 +43921,17 @@ class GetSidecarInstanceRequest(TeaModel):
         self.sidecar_release_version_id = sidecar_release_version_id
 
     def validate(self):
-        pass
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.instance_name is not None:
             result['instance_name'] = self.instance_name
         if self.scope is not None:
@@ -41339,6 +43946,8 @@ class GetSidecarInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('instance_name') is not None:
             self.instance_name = m.get('instance_name')
         if m.get('scope') is not None:
@@ -41398,11 +44007,13 @@ class GetSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         # 
         self.scope = scope
@@ -41412,12 +44023,16 @@ class GetSidecarRequest(TeaModel):
         self.sidecar_name = sidecar_name
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -41430,6 +44045,8 @@ class GetSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -41487,12 +44104,14 @@ class UpdateSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_name: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar类型描述
         self.description = description
         # sidecar生效范围：workspace、workspace_group、region
@@ -41505,12 +44124,17 @@ class UpdateSidecarRequest(TeaModel):
         self.sidecar_name = sidecar_name
 
     def validate(self):
-        pass
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.scope is not None:
@@ -41525,6 +44149,8 @@ class UpdateSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('scope') is not None:
@@ -41575,11 +44201,13 @@ class DeleteSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         sidecar_name: str = None,
         scope: str = None,
         scope_identity: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar名称
         self.sidecar_name = sidecar_name
         # sidecar生效范围：workspace、workspace_group、region
@@ -41590,12 +44218,16 @@ class DeleteSidecarRequest(TeaModel):
         self.scope_identity = scope_identity
 
     def validate(self):
-        pass
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.sidecar_name is not None:
             result['sidecar_name'] = self.sidecar_name
         if self.scope is not None:
@@ -41608,6 +44240,8 @@ class DeleteSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('sidecar_name') is not None:
             self.sidecar_name = m.get('sidecar_name')
         if m.get('scope') is not None:
@@ -41656,6 +44290,7 @@ class UpdateSidecarVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         scope: str = None,
         scope_identity: str = None,
@@ -41669,6 +44304,7 @@ class UpdateSidecarVersionRequest(TeaModel):
         release_note: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar版本描述
         self.description = description
         # sidecar生效范围：workspace、workspace_group、region
@@ -41695,15 +44331,28 @@ class UpdateSidecarVersionRequest(TeaModel):
         self.release_note = release_note
 
     def validate(self):
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.template, 'template')
+        self.validate_required(self.template_configs, 'template_configs')
         if self.template_configs:
             for k in self.template_configs:
                 if k:
                     k.validate()
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.version_period, 'version_period')
+        self.validate_required(self.release_note, 'release_note')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.scope is not None:
@@ -41734,6 +44383,8 @@ class UpdateSidecarVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('scope') is not None:
@@ -41801,6 +44452,7 @@ class DeleteSidecarVersionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_name: str = None,
@@ -41808,6 +44460,7 @@ class DeleteSidecarVersionRequest(TeaModel):
         type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         # 
         self.scope = scope
@@ -41822,12 +44475,18 @@ class DeleteSidecarVersionRequest(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -41844,6 +44503,8 @@ class DeleteSidecarVersionRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -41896,6 +44557,7 @@ class UpdateSidecarInstanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         instance_name: str = None,
         params: str = None,
@@ -41906,6 +44568,7 @@ class UpdateSidecarInstanceRequest(TeaModel):
         params_configs: List[SidecarParamsConfig] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本实例描述
         # 
         self.description = description
@@ -41928,6 +44591,12 @@ class UpdateSidecarInstanceRequest(TeaModel):
         self.params_configs = params_configs
 
     def validate(self):
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.rule, 'rule')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
+        self.validate_required(self.params_configs, 'params_configs')
         if self.params_configs:
             for k in self.params_configs:
                 if k:
@@ -41937,6 +44606,8 @@ class UpdateSidecarInstanceRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.instance_name is not None:
@@ -41961,6 +44632,8 @@ class UpdateSidecarInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('instance_name') is not None:
@@ -42022,12 +44695,14 @@ class DeleteSidecarInstanceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         instance_name: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_release_version_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本实例名称
         # 
         self.instance_name = instance_name
@@ -42042,12 +44717,17 @@ class DeleteSidecarInstanceRequest(TeaModel):
         self.sidecar_release_version_id = sidecar_release_version_id
 
     def validate(self):
-        pass
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.instance_name is not None:
             result['instance_name'] = self.instance_name
         if self.scope is not None:
@@ -42062,6 +44742,8 @@ class DeleteSidecarInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('instance_name') is not None:
             self.instance_name = m.get('instance_name')
         if m.get('scope') is not None:
@@ -42112,6 +44794,7 @@ class UpdateSidecarRuleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         description: str = None,
         level: int = None,
         scope: str = None,
@@ -42120,6 +44803,7 @@ class UpdateSidecarRuleRequest(TeaModel):
         status: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 规则描述
         # 
         self.description = description
@@ -42137,12 +44821,17 @@ class UpdateSidecarRuleRequest(TeaModel):
         self.status = status
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
+        self.validate_required(self.status, 'status')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.description is not None:
             result['description'] = self.description
         if self.level is not None:
@@ -42161,6 +44850,8 @@ class UpdateSidecarRuleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('level') is not None:
@@ -42215,11 +44906,13 @@ class DeleteSidecarRuleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_version_instance_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         # 
         self.scope = scope
@@ -42230,12 +44923,16 @@ class DeleteSidecarRuleRequest(TeaModel):
         self.sidecar_version_instance_id = sidecar_version_instance_id
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -42248,6 +44945,8 @@ class DeleteSidecarRuleRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -42296,6 +44995,7 @@ class UpdateSidecarVersionstatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_name: str = None,
@@ -42305,6 +45005,7 @@ class UpdateSidecarVersionstatusRequest(TeaModel):
         type: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         # 
         self.scope = scope
@@ -42323,12 +45024,20 @@ class UpdateSidecarVersionstatusRequest(TeaModel):
         self.type = type
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_name, 'sidecar_name')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.status_reason, 'status_reason')
+        self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -42349,6 +45058,8 @@ class UpdateSidecarVersionstatusRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -42405,6 +45116,7 @@ class UpdateSidecarInstancestatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         instance_name: str = None,
         scope: str = None,
         scope_identity: str = None,
@@ -42413,6 +45125,7 @@ class UpdateSidecarInstancestatusRequest(TeaModel):
         status_reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 版本实例名称
         self.instance_name = instance_name
         # sidecar生效范围：workspace、workspace_group、region
@@ -42429,12 +45142,19 @@ class UpdateSidecarInstancestatusRequest(TeaModel):
         self.status_reason = status_reason
 
     def validate(self):
-        pass
+        self.validate_required(self.instance_name, 'instance_name')
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_release_version_id, 'sidecar_release_version_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.status_reason, 'status_reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.instance_name is not None:
             result['instance_name'] = self.instance_name
         if self.scope is not None:
@@ -42453,6 +45173,8 @@ class UpdateSidecarInstancestatusRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('instance_name') is not None:
             self.instance_name = m.get('instance_name')
         if m.get('scope') is not None:
@@ -42507,6 +45229,7 @@ class UpdateSidecarRulestatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         scope: str = None,
         scope_identity: str = None,
         sidecar_version_instance_id: str = None,
@@ -42514,6 +45237,7 @@ class UpdateSidecarRulestatusRequest(TeaModel):
         status_reason: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # sidecar生效范围：workspace、workspace_group、region
         # 
         self.scope = scope
@@ -42528,12 +45252,18 @@ class UpdateSidecarRulestatusRequest(TeaModel):
         self.status_reason = status_reason
 
     def validate(self):
-        pass
+        self.validate_required(self.scope, 'scope')
+        self.validate_required(self.scope_identity, 'scope_identity')
+        self.validate_required(self.sidecar_version_instance_id, 'sidecar_version_instance_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.status_reason, 'status_reason')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.scope is not None:
             result['scope'] = self.scope
         if self.scope_identity is not None:
@@ -42550,6 +45280,8 @@ class UpdateSidecarRulestatusRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('scope_identity') is not None:
@@ -42602,6 +45334,7 @@ class CreateAppbaselineSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         category: str = None,
         conditions: List[SidecarCondition] = None,
@@ -42609,6 +45342,7 @@ class CreateAppbaselineSidecarRequest(TeaModel):
         sidecar_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名
         self.app_name = app_name
         # sidecar类型
@@ -42621,15 +45355,22 @@ class CreateAppbaselineSidecarRequest(TeaModel):
         self.sidecar_version = sidecar_version
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.conditions, 'conditions')
         if self.conditions:
             for k in self.conditions:
                 if k:
                     k.validate()
+        self.validate_required(self.enable, 'enable')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.category is not None:
@@ -42648,6 +45389,8 @@ class CreateAppbaselineSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('category') is not None:
@@ -42710,12 +45453,14 @@ class ListAppbaselineSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         category: str = None,
         condition: SidecarCondition = None,
         sidecar_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名
         self.app_name = app_name
         # sidecar类型
@@ -42726,6 +45471,7 @@ class ListAppbaselineSidecarRequest(TeaModel):
         self.sidecar_version = sidecar_version
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
         if self.condition:
             self.condition.validate()
 
@@ -42733,6 +45479,8 @@ class ListAppbaselineSidecarRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.category is not None:
@@ -42747,6 +45495,8 @@ class ListAppbaselineSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('category') is not None:
@@ -42813,19 +45563,23 @@ class DeleteAppbaselineSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appbaseline_id: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用基线ID
         self.appbaseline_id = appbaseline_id
 
     def validate(self):
-        pass
+        self.validate_required(self.appbaseline_id, 'appbaseline_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appbaseline_id is not None:
             result['appbaseline_id'] = self.appbaseline_id
         return result
@@ -42834,6 +45588,8 @@ class DeleteAppbaselineSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appbaseline_id') is not None:
             self.appbaseline_id = m.get('appbaseline_id')
         return self
@@ -42878,11 +45634,13 @@ class UpdateAppbaselineSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         appbaseline_id: str = None,
         enable: bool = None,
         sidecar_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用sidecar基线id
         self.appbaseline_id = appbaseline_id
         # 是否开启sidecar
@@ -42891,12 +45649,16 @@ class UpdateAppbaselineSidecarRequest(TeaModel):
         self.sidecar_version = sidecar_version
 
     def validate(self):
-        pass
+        self.validate_required(self.appbaseline_id, 'appbaseline_id')
+        self.validate_required(self.enable, 'enable')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.appbaseline_id is not None:
             result['appbaseline_id'] = self.appbaseline_id
         if self.enable is not None:
@@ -42909,6 +45671,8 @@ class UpdateAppbaselineSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('appbaseline_id') is not None:
             self.appbaseline_id = m.get('appbaseline_id')
         if m.get('enable') is not None:
@@ -42957,6 +45721,7 @@ class SaveAppbaselineSidecarRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         app_name: str = None,
         category: str = None,
         conditions: List[SidecarCondition] = None,
@@ -42964,6 +45729,7 @@ class SaveAppbaselineSidecarRequest(TeaModel):
         sidecar_version: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 应用名
         self.app_name = app_name
         # sidecar类型
@@ -42976,15 +45742,22 @@ class SaveAppbaselineSidecarRequest(TeaModel):
         self.sidecar_version = sidecar_version
 
     def validate(self):
+        self.validate_required(self.app_name, 'app_name')
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.conditions, 'conditions')
         if self.conditions:
             for k in self.conditions:
                 if k:
                     k.validate()
+        self.validate_required(self.enable, 'enable')
+        self.validate_required(self.sidecar_version, 'sidecar_version')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.app_name is not None:
             result['app_name'] = self.app_name
         if self.category is not None:
@@ -43003,6 +45776,8 @@ class SaveAppbaselineSidecarRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('app_name') is not None:
             self.app_name = m.get('app_name')
         if m.get('category') is not None:
@@ -43065,19 +45840,23 @@ class GetWorkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         workspace: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 所属工作空间名称
         self.workspace = workspace
 
     def validate(self):
-        pass
+        self.validate_required(self.workspace, 'workspace')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.workspace is not None:
             result['workspace'] = self.workspace
         return result
@@ -43086,6 +45865,8 @@ class GetWorkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
         return self
@@ -43186,9 +45967,11 @@ class QueryWorkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         status: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # 工作空间状态。输入示例：status.1=CREATED
         self.status = status
 
@@ -43199,6 +45982,8 @@ class QueryWorkspaceRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.status is not None:
             result['status'] = self.status
         return result
@@ -43207,6 +45992,8 @@ class QueryWorkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('status') is not None:
             self.status = m.get('status')
         return self
@@ -43230,10 +46017,12 @@ class QueryWorkspaceResponse(TeaModel):
         self.workspaces = workspaces
 
     def validate(self):
+        self.validate_required(self.groups, 'groups')
         if self.groups:
             for k in self.groups:
                 if k:
                     k.validate()
+        self.validate_required(self.workspaces, 'workspaces')
         if self.workspaces:
             for k in self.workspaces:
                 if k:
@@ -43282,6 +46071,7 @@ class CreateWorkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
         display_name: str = None,
         name: str = None,
         network_type: str = None,
@@ -43289,6 +46079,7 @@ class CreateWorkspaceRequest(TeaModel):
         zone_ids: List[str] = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
         # workspace 显示名称
         self.display_name = display_name
         # workspace名称
@@ -43301,12 +46092,17 @@ class CreateWorkspaceRequest(TeaModel):
         self.zone_ids = zone_ids
 
     def validate(self):
-        pass
+        self.validate_required(self.display_name, 'display_name')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.network_type, 'network_type')
+        self.validate_required(self.region_id, 'region_id')
 
     def to_map(self):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         if self.display_name is not None:
             result['display_name'] = self.display_name
         if self.name is not None:
@@ -43323,6 +46119,8 @@ class CreateWorkspaceRequest(TeaModel):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         if m.get('display_name') is not None:
             self.display_name = m.get('display_name')
         if m.get('name') is not None:
@@ -43384,8 +46182,10 @@ class ListWorkspaceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        tenant: str = None,
     ):
         self.auth_token = auth_token
+        self.tenant = tenant
 
     def validate(self):
         pass
@@ -43394,12 +46194,16 @@ class ListWorkspaceRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
         return self
 
 
