@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class RenderParam extends TeaModel {
     // 参数名
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 参数值，可能是一个常量或者表达式
     @NameInMap("value")
+    @Validation(required = true)
     public String value;
 
     // 参数值类型，CONST/EXPR
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 参数描述
@@ -22,10 +25,12 @@ public class RenderParam extends TeaModel {
 
     // 数据保密级别，L1,L2,L3
     @NameInMap("data_level")
+    @Validation(required = true)
     public String dataLevel;
 
     // 参数渲染后的值
     @NameInMap("render_vals")
+    @Validation(required = true)
     public java.util.List<ParamVal> renderVals;
 
     public static RenderParam build(java.util.Map<String, ?> map) throws Exception {

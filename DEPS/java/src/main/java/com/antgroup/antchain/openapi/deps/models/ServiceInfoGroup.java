@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class ServiceInfoGroup extends TeaModel {
     // 发布应用列表
     @NameInMap("service_info_list")
+    @Validation(required = true)
     public java.util.List<ServiceInfo> serviceInfoList;
 
     public static ServiceInfoGroup build(java.util.Map<String, ?> map) throws Exception {

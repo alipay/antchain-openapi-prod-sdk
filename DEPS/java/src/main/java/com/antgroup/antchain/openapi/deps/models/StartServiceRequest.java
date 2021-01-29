@@ -7,12 +7,17 @@ public class StartServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static StartServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class StartServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public StartServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public StartServiceRequest setId(String id) {

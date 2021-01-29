@@ -7,6 +7,9 @@ public class UpdateAppserviceenvparamUpdateparamsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // appServiceId
     @NameInMap("app_service_id")
     public String appServiceId;
@@ -30,6 +33,14 @@ public class UpdateAppserviceenvparamUpdateparamsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateAppserviceenvparamUpdateparamsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateAppserviceenvparamUpdateparamsRequest setAppServiceId(String appServiceId) {

@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class MapStringToBooleanEntity extends TeaModel {
     // key
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // value
     @NameInMap("value")
+    @Validation(required = true)
     public Boolean value;
 
     public static MapStringToBooleanEntity build(java.util.Map<String, ?> map) throws Exception {

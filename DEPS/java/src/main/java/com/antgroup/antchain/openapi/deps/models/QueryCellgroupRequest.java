@@ -7,12 +7,16 @@ public class QueryCellgroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // cell group 查询前缀
     @NameInMap("name_prefix")
     public String namePrefix;
 
     // 所属环境名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     // 逻辑单元名称
@@ -30,6 +34,14 @@ public class QueryCellgroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryCellgroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryCellgroupRequest setNamePrefix(String namePrefix) {

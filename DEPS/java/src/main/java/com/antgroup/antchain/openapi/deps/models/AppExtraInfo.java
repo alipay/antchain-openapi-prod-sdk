@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class AppExtraInfo extends TeaModel {
     // 应用额外元数据名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 元数据类型为 TEXT, USER 类型

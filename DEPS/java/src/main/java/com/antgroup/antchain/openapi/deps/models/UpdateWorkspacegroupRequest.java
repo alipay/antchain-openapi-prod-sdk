@@ -7,12 +7,16 @@ public class UpdateWorkspacegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 域名后缀。
     @NameInMap("domain_suffix")
     public String domainSuffix;
 
     // workspacegroup名称，唯一标识一个环境。
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // workspacegroup显示名称。
@@ -34,6 +38,14 @@ public class UpdateWorkspacegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateWorkspacegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateWorkspacegroupRequest setDomainSuffix(String domainSuffix) {

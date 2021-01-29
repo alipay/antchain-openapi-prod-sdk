@@ -23,6 +23,7 @@ public class TechstackBuildpackCount extends TeaModel {
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // identity
@@ -36,14 +37,17 @@ public class TechstackBuildpackCount extends TeaModel {
 
     // name
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // scope
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // status
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     public static TechstackBuildpackCount build(java.util.Map<String, ?> map) throws Exception {

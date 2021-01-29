@@ -6,48 +6,57 @@ import com.aliyun.tea.*;
 public class TaskExecutionProgress extends TeaModel {
     // 任务名
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 显示名
     @NameInMap("show_name")
+    @Validation(required = true)
     public String showName;
 
     // 业务类型
     @NameInMap("business_entity_code")
+    @Validation(required = true)
     public String businessEntityCode;
 
     // 错误代码
     @NameInMap("error_code")
+    @Validation(required = true)
     public String errorCode;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 执行次数
     @NameInMap("execution_count")
+    @Validation(required = true)
     public String executionCount;
 
     // 详细信息
     @NameInMap("detail_msg")
+    @Validation(required = true)
     public String detailMsg;
 
     // 开始时间
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // 结束时间
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // 是否可独立执行
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static TaskExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

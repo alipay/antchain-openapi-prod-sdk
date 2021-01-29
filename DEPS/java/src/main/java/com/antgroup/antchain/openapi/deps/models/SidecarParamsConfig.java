@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class SidecarParamsConfig extends TeaModel {
     // 类型：默认、透明劫持
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 环境参数内容
     @NameInMap("params")
+    @Validation(required = true)
     public String params;
 
     public static SidecarParamsConfig build(java.util.Map<String, ?> map) throws Exception {

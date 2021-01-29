@@ -7,16 +7,22 @@ public class SkipMachinetaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 机器 ID
     @NameInMap("machine_id")
+    @Validation(required = true)
     public String machineId;
 
     // 任务 ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SkipMachinetaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class SkipMachinetaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SkipMachinetaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SkipMachinetaskRequest setMachineId(String machineId) {

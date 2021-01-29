@@ -7,8 +7,12 @@ public class PullConfigTemplateRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // RELEAES：获取最新的、已经发布的参数模板；
@@ -28,6 +32,14 @@ public class PullConfigTemplateRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public PullConfigTemplateRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public PullConfigTemplateRequest setAppName(String appName) {

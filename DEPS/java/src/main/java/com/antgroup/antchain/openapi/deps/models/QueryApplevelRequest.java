@@ -7,6 +7,9 @@ public class QueryApplevelRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用等级名称
     @NameInMap("name")
     public String name;
@@ -19,10 +22,6 @@ public class QueryApplevelRequest extends TeaModel {
     @NameInMap("page_size")
     public Integer pageSize;
 
-    // 租户名称
-    @NameInMap("tenant")
-    public String tenant;
-
     public static QueryApplevelRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApplevelRequest self = new QueryApplevelRequest();
         return TeaModel.build(map, self);
@@ -34,6 +33,14 @@ public class QueryApplevelRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryApplevelRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryApplevelRequest setName(String name) {
@@ -58,14 +65,6 @@ public class QueryApplevelRequest extends TeaModel {
     }
     public Integer getPageSize() {
         return this.pageSize;
-    }
-
-    public QueryApplevelRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
 }

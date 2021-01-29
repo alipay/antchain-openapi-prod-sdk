@@ -7,6 +7,9 @@ public class UpdateAppservicebuildpackrelationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // new_app_service
     @NameInMap("new_app_service")
     public BuildpackAppService newAppService;
@@ -26,6 +29,14 @@ public class UpdateAppservicebuildpackrelationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateAppservicebuildpackrelationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateAppservicebuildpackrelationRequest setNewAppService(BuildpackAppService newAppService) {

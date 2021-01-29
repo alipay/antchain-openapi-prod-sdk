@@ -7,11 +7,13 @@ public class SidecarScopeDetail extends TeaModel {
     // sidecar生效范围：workspace、workspace_group、region	
     // 
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // scope对应的唯一id，例如workspace对应workspace id	
     // 
     @NameInMap("scope_identity")
+    @Validation(required = true)
     public String scopeIdentity;
 
     // scope identity展示名称
@@ -20,6 +22,7 @@ public class SidecarScopeDetail extends TeaModel {
 
     // scope对应的唯一标识符
     @NameInMap("scope_identity_name")
+    @Validation(required = true)
     public String scopeIdentityName;
 
     public static SidecarScopeDetail build(java.util.Map<String, ?> map) throws Exception {

@@ -7,25 +7,33 @@ public class CreateVpcRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // VPC所在的地域
     @NameInMap("region_id")
+    @Validation(required = true)
     public String regionId;
 
     // 租户id
     @NameInMap("tenant_id")
+    @Validation(required = true)
     public String tenantId;
 
     // 创建的VPC的ID
     @NameInMap("vpc_id")
+    @Validation(required = true)
     public String vpcId;
 
     // 	
     // 所属环境id
     @NameInMap("workspace_id")
+    @Validation(required = true)
     public String workspaceId;
 
     // vpc名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     public static CreateVpcRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -39,6 +47,14 @@ public class CreateVpcRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateVpcRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateVpcRequest setRegionId(String regionId) {

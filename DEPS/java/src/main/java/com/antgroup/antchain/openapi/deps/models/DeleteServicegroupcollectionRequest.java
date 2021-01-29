@@ -7,16 +7,22 @@ public class DeleteServicegroupcollectionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // arrangement_id
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // process_definition_id
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static DeleteServicegroupcollectionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class DeleteServicegroupcollectionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteServicegroupcollectionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteServicegroupcollectionRequest setArrangementId(String arrangementId) {

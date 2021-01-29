@@ -7,12 +7,17 @@ public class CancelMachineRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 发布机器 ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CancelMachineRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class CancelMachineRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CancelMachineRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CancelMachineRequest setId(String id) {

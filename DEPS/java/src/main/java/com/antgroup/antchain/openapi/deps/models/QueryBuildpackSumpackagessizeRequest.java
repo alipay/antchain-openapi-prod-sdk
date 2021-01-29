@@ -7,6 +7,9 @@ public class QueryBuildpackSumpackagessizeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // regionIds
     @NameInMap("region_ids")
     public java.util.List<String> regionIds;
@@ -22,6 +25,14 @@ public class QueryBuildpackSumpackagessizeRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackSumpackagessizeRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackSumpackagessizeRequest setRegionIds(java.util.List<String> regionIds) {

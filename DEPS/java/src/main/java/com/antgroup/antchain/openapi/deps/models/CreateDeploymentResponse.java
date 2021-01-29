@@ -15,6 +15,7 @@ public class CreateDeploymentResponse extends TeaModel {
 
     // 创建完成的部署单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     public static CreateDeploymentResponse build(java.util.Map<String, ?> map) throws Exception {

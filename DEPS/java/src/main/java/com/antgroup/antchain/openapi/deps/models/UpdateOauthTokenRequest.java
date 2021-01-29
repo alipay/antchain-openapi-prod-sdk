@@ -7,30 +7,37 @@ public class UpdateOauthTokenRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 过期时间
     @NameInMap("access_expired_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String accessExpiredTime;
 
     // access token
     @NameInMap("access_token")
+    @Validation(required = true)
     public String accessToken;
 
     // 用户 ID
     @NameInMap("customer_id")
+    @Validation(required = true)
     public String customerId;
 
     // 过期时间
     @NameInMap("refresh_expired_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String refreshExpiredTime;
 
     // refresh token
     @NameInMap("refresh_token")
+    @Validation(required = true)
     public String refreshToken;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UpdateOauthTokenRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -44,6 +51,14 @@ public class UpdateOauthTokenRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateOauthTokenRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateOauthTokenRequest setAccessExpiredTime(String accessExpiredTime) {

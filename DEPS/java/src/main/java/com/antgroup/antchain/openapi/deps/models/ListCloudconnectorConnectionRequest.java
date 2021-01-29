@@ -7,6 +7,9 @@ public class ListCloudconnectorConnectionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static ListCloudconnectorConnectionRequest build(java.util.Map<String, ?> map) throws Exception {
         ListCloudconnectorConnectionRequest self = new ListCloudconnectorConnectionRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class ListCloudconnectorConnectionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListCloudconnectorConnectionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

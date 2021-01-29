@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class AppParam extends TeaModel {
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 创建时间
@@ -15,6 +16,7 @@ public class AppParam extends TeaModel {
 
     // 数据保密等级
     @NameInMap("data_level")
+    @Validation(required = true)
     public String dataLevel;
 
     // 参数描述
@@ -27,6 +29,7 @@ public class AppParam extends TeaModel {
 
     // 参数名
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 修改时间
@@ -40,18 +43,22 @@ public class AppParam extends TeaModel {
 
     // 该参数属于哪个 scope
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // 该参数在该 scope 中的 id
     @NameInMap("scope_id")
+    @Validation(required = true)
     public String scopeId;
 
     // 租户 id
     @NameInMap("tenant_id")
+    @Validation(required = true)
     public String tenantId;
 
     // 参数类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 参数值

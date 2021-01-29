@@ -7,6 +7,9 @@ public class QueryBuildpackFindosbycurrentcloudRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static QueryBuildpackFindosbycurrentcloudRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBuildpackFindosbycurrentcloudRequest self = new QueryBuildpackFindosbycurrentcloudRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class QueryBuildpackFindosbycurrentcloudRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackFindosbycurrentcloudRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

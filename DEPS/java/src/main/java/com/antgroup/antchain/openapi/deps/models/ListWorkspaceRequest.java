@@ -7,6 +7,9 @@ public class ListWorkspaceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static ListWorkspaceRequest build(java.util.Map<String, ?> map) throws Exception {
         ListWorkspaceRequest self = new ListWorkspaceRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class ListWorkspaceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListWorkspaceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

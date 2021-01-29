@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class WorkspaceDeltaInfo extends TeaModel {
     // 租户名
     @NameInMap("tenant")
+    @Validation(required = true)
     public String tenant;
 
     // 环境名
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static WorkspaceDeltaInfo build(java.util.Map<String, ?> map) throws Exception {

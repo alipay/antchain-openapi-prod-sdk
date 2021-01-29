@@ -7,6 +7,9 @@ public class UpdateBuildpacknewRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // available_tenant_names
     @NameInMap("available_tenant_names")
     public java.util.List<String> availableTenantNames;
@@ -149,6 +152,14 @@ public class UpdateBuildpacknewRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateBuildpacknewRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateBuildpacknewRequest setAvailableTenantNames(java.util.List<String> availableTenantNames) {

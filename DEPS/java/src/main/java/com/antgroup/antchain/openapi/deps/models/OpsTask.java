@@ -6,60 +6,72 @@ import com.aliyun.tea.*;
 public class OpsTask extends TeaModel {
     // parent_group_id
     @NameInMap("parent_group_id")
+    @Validation(required = true)
     public String parentGroupId;
 
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // arrangement_id
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // action_handler_code
     @NameInMap("action_handler_code")
+    @Validation(required = true)
     public String actionHandlerCode;
 
     // max_retry_attempts
     @NameInMap("max_retry_attempts")
+    @Validation(required = true)
     public Long maxRetryAttempts;
 
     // context
     @NameInMap("context")
+    @Validation(required = true)
     public java.util.List<Pair> context;
 
     // process_definition_id
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // parent_id
     @NameInMap("parent_id")
+    @Validation(required = true)
     public String parentId;
 
     // parent_entity_type
     @NameInMap("parent_entity_type")
+    @Validation(required = true)
     public String parentEntityType;
 
     // state
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // started_time
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // finished_time
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // standalone_executable
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static OpsTask build(java.util.Map<String, ?> map) throws Exception {

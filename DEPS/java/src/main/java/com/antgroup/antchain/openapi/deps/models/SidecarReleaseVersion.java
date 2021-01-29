@@ -10,12 +10,12 @@ public class SidecarReleaseVersion extends TeaModel {
 
     // 创建时间
     @NameInMap("gmt_created")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtCreated;
 
     // 修改时间
     @NameInMap("gmt_modified")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtModified;
 
     // release note
@@ -24,22 +24,27 @@ public class SidecarReleaseVersion extends TeaModel {
 
     // scope生效范围详情
     @NameInMap("scope_detail")
+    @Validation(required = true)
     public SidecarScopeDetail scopeDetail;
 
     // sidecar名称
     @NameInMap("sidecar_name")
+    @Validation(required = true)
     public String sidecarName;
 
     // sidecar版本id
     @NameInMap("sidecar_release_version_id")
+    @Validation(required = true)
     public String sidecarReleaseVersionId;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     // 版本状态
     @NameInMap("status")
+    @Validation(required = true)
     public Long status;
 
     // 发布、下线、废弃原因
@@ -48,18 +53,22 @@ public class SidecarReleaseVersion extends TeaModel {
 
     // sidecar模板内容
     @NameInMap("template")
+    @Validation(required = true)
     public String template;
 
     // sidecar模板配置
     @NameInMap("template_configs")
+    @Validation(required = true)
     public java.util.List<SidecarTemplateConfig> templateConfigs;
 
     // sidecar版本类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 版本周期：alpha/beta/release
     @NameInMap("version_period")
+    @Validation(required = true)
     public String versionPeriod;
 
     public static SidecarReleaseVersion build(java.util.Map<String, ?> map) throws Exception {

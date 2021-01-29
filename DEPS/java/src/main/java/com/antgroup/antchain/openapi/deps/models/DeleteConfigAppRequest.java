@@ -7,8 +7,12 @@ public class DeleteConfigAppRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 要删除的应用参数 id
     @NameInMap("app_param_id")
+    @Validation(required = true)
     public String appParamId;
 
     public static DeleteConfigAppRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class DeleteConfigAppRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteConfigAppRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteConfigAppRequest setAppParamId(String appParamId) {

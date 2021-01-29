@@ -7,6 +7,9 @@ public class QueryApplicationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("application_name")
     public String applicationName;
@@ -35,10 +38,6 @@ public class QueryApplicationRequest extends TeaModel {
     @NameInMap("query_extra_info")
     public Boolean queryExtraInfo;
 
-    // 租户名称
-    @NameInMap("tenant")
-    public String tenant;
-
     public static QueryApplicationRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApplicationRequest self = new QueryApplicationRequest();
         return TeaModel.build(map, self);
@@ -50,6 +49,14 @@ public class QueryApplicationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryApplicationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryApplicationRequest setApplicationName(String applicationName) {
@@ -106,14 +113,6 @@ public class QueryApplicationRequest extends TeaModel {
     }
     public Boolean getQueryExtraInfo() {
         return this.queryExtraInfo;
-    }
-
-    public QueryApplicationRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
 }

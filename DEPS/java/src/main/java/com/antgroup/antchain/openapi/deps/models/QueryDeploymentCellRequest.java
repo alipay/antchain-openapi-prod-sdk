@@ -7,6 +7,9 @@ public class QueryDeploymentCellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 部署单元名称
     @NameInMap("name")
     public String name;
@@ -34,6 +37,14 @@ public class QueryDeploymentCellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryDeploymentCellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryDeploymentCellRequest setName(String name) {

@@ -7,20 +7,27 @@ public class RollbackPlanServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // rollback_info
     @NameInMap("rollback_info")
+    @Validation(required = true)
     public RollbackInfo rollbackInfo;
 
     // 发布服务
     @NameInMap("service")
+    @Validation(required = true)
     public String service;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static RollbackPlanServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class RollbackPlanServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RollbackPlanServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RollbackPlanServiceRequest setPlanId(String planId) {

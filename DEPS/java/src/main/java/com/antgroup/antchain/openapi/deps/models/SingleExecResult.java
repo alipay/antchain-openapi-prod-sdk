@@ -24,10 +24,12 @@ public class SingleExecResult extends TeaModel {
     //                     TIME_OUT：已超时
     //                 
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 执行对象。比如一台机器的ip 
     @NameInMap("target")
+    @Validation(required = true)
     public String target;
 
     public static SingleExecResult build(java.util.Map<String, ?> map) throws Exception {

@@ -7,24 +7,32 @@ public class SaveAppbaselineSidecarRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // sidecar类型
     @NameInMap("category")
+    @Validation(required = true)
     public String category;
 
     // 应用基线适用条件，网商仅能指定workspaceGroups属性，并且只能指定一个workspaceGroup
     @NameInMap("conditions")
+    @Validation(required = true)
     public java.util.List<SidecarCondition> conditions;
 
     // 是否开启sidecar
     @NameInMap("enable")
+    @Validation(required = true)
     public Boolean enable;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     public static SaveAppbaselineSidecarRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -38,6 +46,14 @@ public class SaveAppbaselineSidecarRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SaveAppbaselineSidecarRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SaveAppbaselineSidecarRequest setAppName(String appName) {

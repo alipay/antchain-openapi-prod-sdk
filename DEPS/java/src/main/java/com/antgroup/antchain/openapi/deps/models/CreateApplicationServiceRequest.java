@@ -7,12 +7,17 @@ public class CreateApplicationServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 应用使用的技术栈版本
     @NameInMap("buildpack_version")
+    @Validation(required = true)
     public String buildpackVersion;
 
     // 部署单元paas id列表
@@ -29,13 +34,11 @@ public class CreateApplicationServiceRequest extends TeaModel {
 
     // 应用服务实例名称
     @NameInMap("service_name")
+    @Validation(required = true)
     public String serviceName;
 
-    // 租户名称
-    @NameInMap("tenant")
-    public String tenant;
-
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CreateApplicationServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -49,6 +52,14 @@ public class CreateApplicationServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateApplicationServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateApplicationServiceRequest setApplicationName(String applicationName) {
@@ -97,14 +108,6 @@ public class CreateApplicationServiceRequest extends TeaModel {
     }
     public String getServiceName() {
         return this.serviceName;
-    }
-
-    public CreateApplicationServiceRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public CreateApplicationServiceRequest setWorkspace(String workspace) {

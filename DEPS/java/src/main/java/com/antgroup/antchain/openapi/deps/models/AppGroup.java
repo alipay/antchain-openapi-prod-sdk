@@ -14,18 +14,22 @@ public class AppGroup extends TeaModel {
 
     // 应用分组ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 应用分组名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 应用分组负责人登录名
     @NameInMap("owner_login_name")
+    @Validation(required = true)
     public String ownerLoginName;
 
     // 父应用分组ID
     @NameInMap("parent_id")
+    @Validation(required = true)
     public String parentId;
 
     // 应用分组层级，从1开始，1代表一级分组，2代表二级分组

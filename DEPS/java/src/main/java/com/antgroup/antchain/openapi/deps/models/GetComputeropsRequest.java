@@ -7,8 +7,12 @@ public class GetComputeropsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 运维单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     public static GetComputeropsRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class GetComputeropsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetComputeropsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetComputeropsRequest setOperationId(String operationId) {

@@ -6,26 +6,32 @@ import com.aliyun.tea.*;
 public class ArrangementInfo extends TeaModel {
     // 类型
     @NameInMap("arrangement_type")
+    @Validation(required = true)
     public String arrangementType;
 
     // 环境变量
     @NameInMap("env_config")
+    @Validation(required = true)
     public java.util.List<Pair> envConfig;
 
     // 发布概览名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 发布进程ID
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // 环境 ID
     @NameInMap("workspace_id")
+    @Validation(required = true)
     public String workspaceId;
 
     // 策略
     @NameInMap("ops_action_policies")
+    @Validation(required = true)
     public java.util.List<OpsActionPolicy> opsActionPolicies;
 
     public static ArrangementInfo build(java.util.Map<String, ?> map) throws Exception {

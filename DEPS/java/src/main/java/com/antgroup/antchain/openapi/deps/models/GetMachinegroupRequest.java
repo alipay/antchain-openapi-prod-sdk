@@ -7,8 +7,12 @@ public class GetMachinegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 分组 ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 是否带上机器信息，默认 false
@@ -17,6 +21,7 @@ public class GetMachinegroupRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static GetMachinegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +35,14 @@ public class GetMachinegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetMachinegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetMachinegroupRequest setId(String id) {

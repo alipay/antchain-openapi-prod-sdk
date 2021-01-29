@@ -6,38 +6,47 @@ import com.aliyun.tea.*;
 public class ServiceInfo extends TeaModel {
     // 应用名
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 部署单元 ID 列表
     @NameInMap("cell_ids")
+    @Validation(required = true)
     public java.util.List<String> cellIds;
 
     // 默认执行账号
     @NameInMap("default_execute_account")
+    @Validation(required = true)
     public String defaultExecuteAccount;
 
     // 环境变量
     @NameInMap("env_config")
+    @Validation(required = true)
     public java.util.List<Pair> envConfig;
 
     // 是否可以强制执行
     @NameInMap("force_executable")
+    @Validation(required = true)
     public Boolean forceExecutable;
 
     // 灰度规则配置
     @NameInMap("gray_traffic_configs")
+    @Validation(required = true)
     public java.util.List<GrayTrafficConfig> grayTrafficConfigs;
 
     // 分组数
     @NameInMap("group_amount")
+    @Validation(required = true)
     public Long groupAmount;
 
     // 分组策略
     @NameInMap("group_strategy_type")
+    @Validation(required = true)
     public String groupStrategyType;
 
     // 从缓存安装
     @NameInMap("install_from_cache")
+    @Validation(required = true)
     public Boolean installFromCache;
 
     // 应用发布名
@@ -46,58 +55,72 @@ public class ServiceInfo extends TeaModel {
 
     // 是否需要 beta
     @NameInMap("need_beta")
+    @Validation(required = true)
     public Boolean needBeta;
 
     // 是否需要灰度
     @NameInMap("need_gray_traffic")
+    @Validation(required = true)
     public Boolean needGrayTraffic;
 
     // 后置任务列表
     @NameInMap("post_arrangement_info")
+    @Validation(required = true)
     public java.util.List<ArrangementInfo> postArrangementInfo;
 
     // 前置任务列表
     @NameInMap("pre_arrangement_info")
+    @Validation(required = true)
     public java.util.List<ArrangementInfo> preArrangementInfo;
 
     // 发布概览
     @NameInMap("service_arrangement")
+    @Validation(required = true)
     public ArrangementInfo serviceArrangement;
 
     // 发布应用 ID
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // 静态资源下载链接
     @NameInMap("static_resource_download_url")
+    @Validation(required = true)
     public String staticResourceDownloadUrl;
 
     // 静态资源目标文件
     @NameInMap("static_resource_target_file")
+    @Validation(required = true)
     public String staticResourceTargetFile;
 
     // 类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 版本
     @NameInMap("version")
+    @Validation(required = true)
     public String version;
 
     // 环境 ID
     @NameInMap("workspace_id")
+    @Validation(required = true)
     public String workspaceId;
 
     // update_buildpack_version
     @NameInMap("update_buildpack_version")
+    @Validation(required = true)
     public String updateBuildpackVersion;
 
     // update_buildpack_id
     @NameInMap("update_buildpack_id")
+    @Validation(required = true)
     public String updateBuildpackId;
 
     // custom_params
     @NameInMap("custom_params")
+    @Validation(required = true)
     public String customParams;
 
     public static ServiceInfo build(java.util.Map<String, ?> map) throws Exception {

@@ -7,16 +7,22 @@ public class QueryBgreleaseTaskprogressRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 概览ID
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryBgreleaseTaskprogressRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class QueryBgreleaseTaskprogressRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBgreleaseTaskprogressRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBgreleaseTaskprogressRequest setArrangementId(String arrangementId) {

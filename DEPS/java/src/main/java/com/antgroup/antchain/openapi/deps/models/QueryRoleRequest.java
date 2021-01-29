@@ -7,16 +7,21 @@ public class QueryRoleRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // from_aliyun
     @NameInMap("from_aliyun")
     public Boolean fromAliyun;
 
     // page_size
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryRoleRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +35,14 @@ public class QueryRoleRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryRoleRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryRoleRequest setFromAliyun(Boolean fromAliyun) {

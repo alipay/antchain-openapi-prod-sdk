@@ -7,8 +7,12 @@ public class GetConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 要获取的全局参数 id
     @NameInMap("global_param_id")
+    @Validation(required = true)
     public String globalParamId;
 
     public static GetConfigGlobalRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class GetConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetConfigGlobalRequest setGlobalParamId(String globalParamId) {

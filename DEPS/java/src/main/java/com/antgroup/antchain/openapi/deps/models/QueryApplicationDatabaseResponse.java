@@ -15,18 +15,22 @@ public class QueryApplicationDatabaseResponse extends TeaModel {
 
     // 资源列表
     @NameInMap("databases")
+    @Validation(required = true)
     public java.util.List<DepsDatabase> databases;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Long pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // 应用总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Long totalCount;
 
     public static QueryApplicationDatabaseResponse build(java.util.Map<String, ?> map) throws Exception {

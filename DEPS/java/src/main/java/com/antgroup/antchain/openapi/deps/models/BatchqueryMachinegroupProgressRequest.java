@@ -7,6 +7,9 @@ public class BatchqueryMachinegroupProgressRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 当前页，默认 1
     @NameInMap("page_no")
     public Long pageNo;
@@ -37,6 +40,7 @@ public class BatchqueryMachinegroupProgressRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static BatchqueryMachinegroupProgressRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -50,6 +54,14 @@ public class BatchqueryMachinegroupProgressRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public BatchqueryMachinegroupProgressRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public BatchqueryMachinegroupProgressRequest setPageNo(Long pageNo) {

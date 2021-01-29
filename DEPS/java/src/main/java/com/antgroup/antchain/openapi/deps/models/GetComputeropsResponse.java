@@ -15,10 +15,12 @@ public class GetComputeropsResponse extends TeaModel {
 
     // 运维操作执行者
     @NameInMap("executor")
+    @Validation(required = true)
     public String executor;
 
     // 改运维单下所有计算容器分组运维状态详情
     @NameInMap("groups")
+    @Validation(required = true)
     public java.util.List<OpsGroup> groups;
 
     // 
@@ -35,6 +37,7 @@ public class GetComputeropsResponse extends TeaModel {
     //                             
     //                         
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     public static GetComputeropsResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -15,6 +15,7 @@ public class QueryDeploymentResponse extends TeaModel {
 
     // 批量查询部署单结果，以操作链的形式体现
     @NameInMap("deployments")
+    @Validation(required = true)
     public java.util.List<OpsDeployment> deployments;
 
     // 当前页码

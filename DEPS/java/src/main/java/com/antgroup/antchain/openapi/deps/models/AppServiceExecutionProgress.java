@@ -6,22 +6,27 @@ import com.aliyun.tea.*;
 public class AppServiceExecutionProgress extends TeaModel {
     // base_progress
     @NameInMap("base_progress")
+    @Validation(required = true)
     public ResourceGroupExecutionProgress baseProgress;
 
     // group_count
     @NameInMap("group_count")
+    @Validation(required = true)
     public Long groupCount;
 
     // pre_deployment_execution_progresses
     @NameInMap("pre_deployment_execution_progresses")
+    @Validation(required = true)
     public java.util.List<TaskExecutionProgress> preDeploymentExecutionProgresses;
 
     // post_deployment_execution_progresses
     @NameInMap("post_deployment_execution_progresses")
+    @Validation(required = true)
     public java.util.List<TaskExecutionProgress> postDeploymentExecutionProgresses;
 
     // group_execution_progresses
     @NameInMap("group_execution_progresses")
+    @Validation(required = true)
     public java.util.List<ResourceGroupExecutionProgress> groupExecutionProgresses;
 
     public static AppServiceExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

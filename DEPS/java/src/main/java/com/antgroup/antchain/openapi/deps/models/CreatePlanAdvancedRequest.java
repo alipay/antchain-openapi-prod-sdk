@@ -7,12 +7,17 @@ public class CreatePlanAdvancedRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // plan
     @NameInMap("ops_plan")
+    @Validation(required = true)
     public String opsPlan;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CreatePlanAdvancedRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class CreatePlanAdvancedRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreatePlanAdvancedRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreatePlanAdvancedRequest setOpsPlan(String opsPlan) {

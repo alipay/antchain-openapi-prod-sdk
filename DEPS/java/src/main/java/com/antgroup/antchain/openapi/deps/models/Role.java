@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class Role extends TeaModel {
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // name
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // description
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     public static Role build(java.util.Map<String, ?> map) throws Exception {

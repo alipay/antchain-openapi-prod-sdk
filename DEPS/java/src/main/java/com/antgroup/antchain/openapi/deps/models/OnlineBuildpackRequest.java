@@ -7,6 +7,9 @@ public class OnlineBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // buildpackId
     @NameInMap("id")
     public java.util.List<String> id;
@@ -22,6 +25,14 @@ public class OnlineBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public OnlineBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public OnlineBuildpackRequest setId(java.util.List<String> id) {

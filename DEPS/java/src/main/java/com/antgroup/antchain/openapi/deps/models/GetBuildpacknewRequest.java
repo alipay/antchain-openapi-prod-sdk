@@ -7,6 +7,9 @@ public class GetBuildpacknewRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // id
     @NameInMap("id")
     public String id;
@@ -22,6 +25,14 @@ public class GetBuildpacknewRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetBuildpacknewRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetBuildpacknewRequest setId(String id) {

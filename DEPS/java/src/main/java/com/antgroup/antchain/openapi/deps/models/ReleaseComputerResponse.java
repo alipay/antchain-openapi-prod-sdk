@@ -15,6 +15,7 @@ public class ReleaseComputerResponse extends TeaModel {
 
     // 请求的id
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     public static ReleaseComputerResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -7,8 +7,12 @@ public class CreateAppVersionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 目标应用完整名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 应用部署包文件16字节md5值，以32位十六进制字符表示，不区分大小写。如果提供，APPMS下载应用部署包完成后，将会以此md5值进行校验，检验不通过则认为下载失败
@@ -18,21 +22,19 @@ public class CreateAppVersionRequest extends TeaModel {
 
     // 应用部署包文件路径。长度不超过1024个单字节字符
     @NameInMap("file_path")
-    @Validation(maxLength = 1024)
+    @Validation(required = true, maxLength = 1024)
     public String filePath;
 
     // 应用部署包文件大小，单位字节。取值范围[1,524288000]，即最大支持500M, 524288000 = 500 x 1024 x 1024
     //                         
     @NameInMap("file_size")
+    @Validation(required = true, maximum = 524288000, minimum = 1)
     public Integer fileSize;
 
     // 文件交换源id
     @NameInMap("file_source")
+    @Validation(required = true)
     public String fileSource;
-
-    // 目标租户名称
-    @NameInMap("tenant")
-    public String tenant;
 
     // 版本备注。长度不超过100个双字节字符
     @NameInMap("version_memo")
@@ -41,11 +43,12 @@ public class CreateAppVersionRequest extends TeaModel {
 
     // 版本号。长度不超过50个单字节字符
     @NameInMap("version_no")
-    @Validation(maxLength = 50)
+    @Validation(required = true, maxLength = 50)
     public String versionNo;
 
     // 目标工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CreateAppVersionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -59,6 +62,14 @@ public class CreateAppVersionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAppVersionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateAppVersionRequest setApplicationName(String applicationName) {
@@ -99,14 +110,6 @@ public class CreateAppVersionRequest extends TeaModel {
     }
     public String getFileSource() {
         return this.fileSource;
-    }
-
-    public CreateAppVersionRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public CreateAppVersionRequest setVersionMemo(String versionMemo) {

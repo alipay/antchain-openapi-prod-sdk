@@ -7,16 +7,22 @@ public class BatchqueryServiceSlbmountRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // slb_ids
     @NameInMap("slb_ids")
+    @Validation(required = true)
     public java.util.List<String> slbIds;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static BatchqueryServiceSlbmountRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class BatchqueryServiceSlbmountRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public BatchqueryServiceSlbmountRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public BatchqueryServiceSlbmountRequest setServiceId(String serviceId) {

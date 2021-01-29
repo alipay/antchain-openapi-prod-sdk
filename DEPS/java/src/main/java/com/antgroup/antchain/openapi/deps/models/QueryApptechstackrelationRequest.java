@@ -7,8 +7,12 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 一组应用id
     @NameInMap("app_ids")
+    @Validation(required = true)
     public java.util.List<String> appIds;
 
     // buildpack_arch
@@ -30,6 +34,7 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     // current_page
     // 
     @NameInMap("current_page")
+    @Validation(required = true)
     public Long currentPage;
 
     // 是否降序
@@ -59,6 +64,7 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     // page_size
     // 
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // 分类
@@ -68,6 +74,7 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     // start_index
     // 
     @NameInMap("start_index")
+    @Validation(required = true)
     public Long startIndex;
 
     // techstack_identities
@@ -78,6 +85,7 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     // techstack_ids
     // 
     @NameInMap("techstack_ids")
+    @Validation(required = true)
     public java.util.List<Long> techstackIds;
 
     public static QueryApptechstackrelationRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -91,6 +99,14 @@ public class QueryApptechstackrelationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryApptechstackrelationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryApptechstackrelationRequest setAppIds(java.util.List<String> appIds) {

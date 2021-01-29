@@ -7,20 +7,27 @@ public class QueryServiceSlbmountprogressRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // process_id
     @NameInMap("process_id")
+    @Validation(required = true)
     public String processId;
 
     // region_identity
     @NameInMap("region_identity")
+    @Validation(required = true)
     public String regionIdentity;
 
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryServiceSlbmountprogressRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class QueryServiceSlbmountprogressRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryServiceSlbmountprogressRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryServiceSlbmountprogressRequest setProcessId(String processId) {

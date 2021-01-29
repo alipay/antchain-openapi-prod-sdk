@@ -6,22 +6,27 @@ import com.aliyun.tea.*;
 public class Reason extends TeaModel {
     // content
     @NameInMap("content")
+    @Validation(required = true)
     public String content;
 
     // visible
     @NameInMap("visible")
+    @Validation(required = true)
     public Boolean visible;
 
     // code
     @NameInMap("code")
+    @Validation(required = true)
     public String code;
 
     // placeholder
     @NameInMap("placeholder")
+    @Validation(required = true)
     public String placeholder;
 
     // params
     @NameInMap("params")
+    @Validation(required = true)
     public java.util.List<String> params;
 
     public static Reason build(java.util.Map<String, ?> map) throws Exception {

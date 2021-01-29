@@ -7,8 +7,12 @@ public class GetBashcmdResultRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 异步bash指令执行的任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     public static GetBashcmdResultRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class GetBashcmdResultRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetBashcmdResultRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetBashcmdResultRequest setTaskId(String taskId) {

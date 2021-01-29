@@ -23,6 +23,7 @@ public class OpsApplication extends TeaModel {
 
     // APPLICATION和APP_SERVICE。设置为APPLICATION表示该实例描述对象为应用; APP_SERVICE表示该实例描述对象为应用服务。
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     public static OpsApplication build(java.util.Map<String, ?> map) throws Exception {

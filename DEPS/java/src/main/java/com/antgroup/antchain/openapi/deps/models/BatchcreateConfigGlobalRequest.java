@@ -7,8 +7,12 @@ public class BatchcreateConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 要创建的全局参数列表
     @NameInMap("items")
+    @Validation(required = true)
     public java.util.List<GlobalParam> items;
 
     public static BatchcreateConfigGlobalRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class BatchcreateConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public BatchcreateConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public BatchcreateConfigGlobalRequest setItems(java.util.List<GlobalParam> items) {

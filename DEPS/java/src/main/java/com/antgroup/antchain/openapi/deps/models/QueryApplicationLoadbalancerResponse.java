@@ -15,18 +15,22 @@ public class QueryApplicationLoadbalancerResponse extends TeaModel {
 
     // 负载均衡资源列表
     @NameInMap("loadbalancers")
+    @Validation(required = true)
     public java.util.List<DepsLoadBalancer> loadbalancers;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Integer pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Integer pageSize;
 
     // 应用总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Integer totalCount;
 
     public static QueryApplicationLoadbalancerResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -7,6 +7,9 @@ public class CreateDeploymentCellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 所属逻辑单元名称[单元化模式特有]
     // 当type为"RZone"或"CZone"时，为必填项
     @NameInMap("cell_group")
@@ -18,6 +21,7 @@ public class CreateDeploymentCellRequest extends TeaModel {
 
     // 部署单元唯一标识
     @NameInMap("identity")
+    @Validation(required = true)
     public String identity;
 
     // 是否灰度[单元化模式特有]
@@ -26,11 +30,13 @@ public class CreateDeploymentCellRequest extends TeaModel {
 
     // 部署单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 部署单元类型:
     // RZone, CZone,GZone,default
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 权重[单元化模式特有]
@@ -39,6 +45,7 @@ public class CreateDeploymentCellRequest extends TeaModel {
 
     // 所属工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     // 所属环境组名称
@@ -47,6 +54,7 @@ public class CreateDeploymentCellRequest extends TeaModel {
 
     // 所属机房名称
     @NameInMap("zone")
+    @Validation(required = true)
     public String zone;
 
     public static CreateDeploymentCellRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -60,6 +68,14 @@ public class CreateDeploymentCellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateDeploymentCellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateDeploymentCellRequest setCellGroup(String cellGroup) {

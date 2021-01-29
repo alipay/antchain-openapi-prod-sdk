@@ -18,6 +18,7 @@ public class OpsCmd extends TeaModel {
 
     // 指令模板ID
     @NameInMap("template_id")
+    @Validation(required = true)
     public String templateId;
 
     // 单次执行的超时时间，单位为秒

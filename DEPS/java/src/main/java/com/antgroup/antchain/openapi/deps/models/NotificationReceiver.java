@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class NotificationReceiver extends TeaModel {
     // config id
     @NameInMap("config_id")
+    @Validation(required = true)
     public String configId;
 
     // receiver
     @NameInMap("receiver")
+    @Validation(required = true)
     public String receiver;
 
     // description
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static NotificationReceiver build(java.util.Map<String, ?> map) throws Exception {

@@ -16,15 +16,19 @@ public class Client {
     public String _accessKeySecret;
     public String _protocol;
     public String _userAgent;
-    public Integer _readTimeout;
-    public Integer _connectTimeout;
+    public Number _readTimeout;
+    public Number _connectTimeout;
     public String _httpProxy;
     public String _httpsProxy;
     public String _socks5Proxy;
     public String _socks5NetWork;
     public String _noProxy;
-    public Integer _maxIdleConns;
+    public Number _maxIdleConns;
     public String _securityToken;
+    public Number _maxIdleTimeMillis;
+    public Number _keepAliveDurationMillis;
+    public Number _maxRequests;
+    public Number _maxRequestsPerHost;
     /**
      * Init client with Config
      * @param config config contains the necessary information to create a client
@@ -43,14 +47,18 @@ public class Client {
         this._endpoint = config.endpoint;
         this._protocol = config.protocol;
         this._userAgent = config.userAgent;
-        this._readTimeout = config.readTimeout;
-        this._connectTimeout = config.connectTimeout;
+        this._readTimeout = com.aliyun.teautil.Common.defaultNumber(config.readTimeout, 20000);
+        this._connectTimeout = com.aliyun.teautil.Common.defaultNumber(config.connectTimeout, 20000);
         this._httpProxy = config.httpProxy;
         this._httpsProxy = config.httpsProxy;
         this._noProxy = config.noProxy;
         this._socks5Proxy = config.socks5Proxy;
         this._socks5NetWork = config.socks5NetWork;
-        this._maxIdleConns = config.maxIdleConns;
+        this._maxIdleConns = com.aliyun.teautil.Common.defaultNumber(config.maxIdleConns, 60000);
+        this._maxIdleTimeMillis = com.aliyun.teautil.Common.defaultNumber(config.maxIdleTimeMillis, 5);
+        this._keepAliveDurationMillis = com.aliyun.teautil.Common.defaultNumber(config.keepAliveDurationMillis, 5000);
+        this._maxRequests = com.aliyun.teautil.Common.defaultNumber(config.maxRequests, 100);
+        this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
     public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -62,6 +70,10 @@ public class Client {
             new TeaPair("httpsProxy", com.aliyun.teautil.Common.defaultString(runtime.httpsProxy, _httpsProxy)),
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
+            new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
+            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("maxRequests", _maxRequests),
+            new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
                 new TeaPair("retryable", runtime.autoretry),
                 new TeaPair("maxAttempts", com.aliyun.teautil.Common.defaultNumber(runtime.maxAttempts, 3))
@@ -97,7 +109,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.Client.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.2.1")
+                    new TeaPair("sdk_version", "3.2.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -105,7 +117,7 @@ public class Client {
 
                 request_.headers = TeaConverter.merge(String.class,
                     TeaConverter.buildMap(
-                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "undefined")),
+                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "openapi.antchain.antgroup.com")),
                         new TeaPair("user-agent", com.aliyun.teautil.Common.getUserAgent(_userAgent))
                     ),
                     headers

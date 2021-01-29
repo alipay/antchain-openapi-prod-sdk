@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class TemplateParamDef extends TeaModel {
     // 数据保密级别，L1,L2,L3
     @NameInMap("data_level")
+    @Validation(required = true)
     public String dataLevel;
 
     // 默认值，表达式解析结果为空时使用
@@ -26,6 +27,7 @@ public class TemplateParamDef extends TeaModel {
 
     // 参数名
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 版本
@@ -34,10 +36,12 @@ public class TemplateParamDef extends TeaModel {
 
     // 参数值类型，CONST/EXPR
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 参数值，可能是一个常量或者表达式
     @NameInMap("value")
+    @Validation(required = true)
     public String value;
 
     // 创建时间

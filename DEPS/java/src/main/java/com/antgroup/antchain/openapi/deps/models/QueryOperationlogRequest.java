@@ -7,6 +7,9 @@ public class QueryOperationlogRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // event
     @NameInMap("event")
     public String event;
@@ -46,6 +49,14 @@ public class QueryOperationlogRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryOperationlogRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryOperationlogRequest setEvent(String event) {

@@ -7,12 +7,12 @@ public class GetWorkspacegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 目标租户名称
     @NameInMap("tenant")
     public String tenant;
 
     // 目标环境名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     public static GetWorkspacegroupRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -15,6 +15,7 @@ public class AsyncexecuteBashcmdResponse extends TeaModel {
 
     // 异步bash命令执行的任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     public static AsyncexecuteBashcmdResponse build(java.util.Map<String, ?> map) throws Exception {

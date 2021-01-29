@@ -7,6 +7,9 @@ public class QueryBuildpackSupportcoderepoRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // techstackId
     @NameInMap("techstack_id")
     public Long techstackId;
@@ -22,6 +25,14 @@ public class QueryBuildpackSupportcoderepoRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackSupportcoderepoRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackSupportcoderepoRequest setTechstackId(Long techstackId) {

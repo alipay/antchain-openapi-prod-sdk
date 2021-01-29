@@ -7,6 +7,9 @@ public class GetTaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 请求的业务号，当`task_id`参数指定时该参数会被忽略
     @NameInMap("req_biz_id")
     public String reqBizId;
@@ -26,6 +29,14 @@ public class GetTaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetTaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetTaskRequest setReqBizId(String reqBizId) {

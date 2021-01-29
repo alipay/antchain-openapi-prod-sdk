@@ -15,6 +15,7 @@ public class ListTechstackResponse extends TeaModel {
 
     // 技术栈列表
     @NameInMap("techstacks")
+    @Validation(required = true)
     public java.util.List<Techstack> techstacks;
 
     public static ListTechstackResponse build(java.util.Map<String, ?> map) throws Exception {

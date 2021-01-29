@@ -7,6 +7,9 @@ public class QueryAppGroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 根据应用分组名称查询
     @NameInMap("app_group_name")
     public String appGroupName;
@@ -46,6 +49,14 @@ public class QueryAppGroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppGroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppGroupRequest setAppGroupName(String appGroupName) {

@@ -7,6 +7,9 @@ public class CountPlanStateRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // gmt_create_end
     @NameInMap("gmt_create_end")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
@@ -63,6 +66,7 @@ public class CountPlanStateRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CountPlanStateRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -76,6 +80,14 @@ public class CountPlanStateRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CountPlanStateRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CountPlanStateRequest setGmtCreateEnd(String gmtCreateEnd) {

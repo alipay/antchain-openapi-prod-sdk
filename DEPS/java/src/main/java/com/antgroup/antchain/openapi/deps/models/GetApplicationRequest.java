@@ -7,8 +7,12 @@ public class GetApplicationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 待查询的应用名称。最大60个UTF-8字符
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 查询结果是否返回应用额外元数据信息。默认为 false
@@ -26,6 +30,14 @@ public class GetApplicationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetApplicationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetApplicationRequest setApplicationName(String applicationName) {

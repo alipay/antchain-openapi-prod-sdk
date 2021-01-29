@@ -19,14 +19,17 @@ public class QueryBuildpackResponse extends TeaModel {
 
     // 当前页码
     @NameInMap("current_page")
+    @Validation(required = true)
     public Long currentPage;
 
     // 每页的大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // 总数量
     @NameInMap("total_count")
+    @Validation(required = true)
     public Long totalCount;
 
     public static QueryBuildpackResponse build(java.util.Map<String, ?> map) throws Exception {

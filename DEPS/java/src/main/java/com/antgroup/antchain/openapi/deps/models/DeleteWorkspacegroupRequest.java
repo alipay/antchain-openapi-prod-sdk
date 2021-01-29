@@ -7,8 +7,12 @@ public class DeleteWorkspacegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 工作空间组名称(唯一标识)。
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     public static DeleteWorkspacegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class DeleteWorkspacegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteWorkspacegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteWorkspacegroupRequest setName(String name) {

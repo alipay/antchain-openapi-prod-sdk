@@ -19,15 +19,17 @@ public class DeployCell extends TeaModel {
 
     // 创建时间
     @NameInMap("created_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String createdTime;
 
     // cell名称，与name一样，为了兼容已有代码
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // 部署单元标识，创建之后不允许修改
     @NameInMap("identity")
+    @Validation(required = true)
     public String identity;
 
     // 是否灰度[单元化模式特有]
@@ -36,6 +38,7 @@ public class DeployCell extends TeaModel {
 
     // 部署单元名称，主要用作页面展示
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 压测权重
@@ -52,14 +55,17 @@ public class DeployCell extends TeaModel {
 
     // 所属工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     // 所属机房名称
     @NameInMap("zone")
+    @Validation(required = true)
     public String zone;
 
     // cell id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static DeployCell build(java.util.Map<String, ?> map) throws Exception {

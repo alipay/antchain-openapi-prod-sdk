@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class AggregatedTaskExecutionProgress extends TeaModel {
     // 错误节点信息
     @NameInMap("error_task_execution_nodes")
+    @Validation(required = true)
     public java.util.List<ErrorTaskExecutionNode> errorTaskExecutionNodes;
 
     // 任务执行进度
     @NameInMap("task_execution_progress")
+    @Validation(required = true)
     public TaskExecutionProgress taskExecutionProgress;
 
     public static AggregatedTaskExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

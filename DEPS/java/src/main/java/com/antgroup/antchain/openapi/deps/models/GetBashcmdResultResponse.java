@@ -31,6 +31,7 @@ public class GetBashcmdResultResponse extends TeaModel {
 
     // 执行结果状态。取值列表：EXECUTING：执行中；SUCCESS：执行成功；FAILED：执行失败；IGNORED：已忽略；TIME_OUT：已超时
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     public static GetBashcmdResultResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class OpsCmdArg extends TeaModel {
     // 指令参数名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 指令参数值
     @NameInMap("value")
+    @Validation(required = true)
     public String value;
 
     public static OpsCmdArg build(java.util.Map<String, ?> map) throws Exception {

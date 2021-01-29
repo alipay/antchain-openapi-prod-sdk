@@ -7,6 +7,9 @@ public class QueryBuildpackFindidversionpairsbyversionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // fullVersion
     @NameInMap("full_version")
     public String fullVersion;
@@ -30,6 +33,14 @@ public class QueryBuildpackFindidversionpairsbyversionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackFindidversionpairsbyversionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackFindidversionpairsbyversionRequest setFullVersion(String fullVersion) {

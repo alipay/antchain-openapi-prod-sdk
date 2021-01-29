@@ -7,12 +7,17 @@ public class CancelAppopsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 运维单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     // 取消原因。长度不超过100个UTF-8字符
     @NameInMap("reason")
+    @Validation(required = true)
     public String reason;
 
     public static CancelAppopsRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class CancelAppopsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CancelAppopsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CancelAppopsRequest setOperationId(String operationId) {

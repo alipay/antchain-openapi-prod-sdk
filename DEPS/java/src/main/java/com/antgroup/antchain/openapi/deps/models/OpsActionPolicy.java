@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class OpsActionPolicy extends TeaModel {
     // 运维动作类型
     @NameInMap("ops_action_type")
+    @Validation(required = true)
     public String opsActionType;
 
     // 超时时间
     @NameInMap("timeout")
+    @Validation(required = true)
     public Long timeout;
 
     // 检查间隔
     @NameInMap("check_interval")
+    @Validation(required = true)
     public Long checkInterval;
 
     // 重试次数
     @NameInMap("retry_times")
+    @Validation(required = true)
     public Long retryTimes;
 
     public static OpsActionPolicy build(java.util.Map<String, ?> map) throws Exception {

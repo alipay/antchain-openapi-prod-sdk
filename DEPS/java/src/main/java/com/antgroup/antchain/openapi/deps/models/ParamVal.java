@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class ParamVal extends TeaModel {
     // 参数渲染后的值
     @NameInMap("render_val")
+    @Validation(required = true)
     public String renderVal;
 
     // 某个 scope_id
     @NameInMap("scope_id")
+    @Validation(required = true)
     public String scopeId;
 
     // scope 类型
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     public static ParamVal build(java.util.Map<String, ?> map) throws Exception {

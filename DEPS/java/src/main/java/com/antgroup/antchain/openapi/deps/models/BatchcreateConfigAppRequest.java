@@ -7,8 +7,12 @@ public class BatchcreateConfigAppRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 要创建的应用参数列表
     @NameInMap("items")
+    @Validation(required = true)
     public java.util.List<AppParam> items;
 
     public static BatchcreateConfigAppRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class BatchcreateConfigAppRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public BatchcreateConfigAppRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public BatchcreateConfigAppRequest setItems(java.util.List<AppParam> items) {

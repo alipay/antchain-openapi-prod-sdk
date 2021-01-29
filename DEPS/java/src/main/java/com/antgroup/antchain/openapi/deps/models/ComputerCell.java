@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class ComputerCell extends TeaModel {
     // 部署单元唯一标识
     @NameInMap("cell_id")
+    @Validation(required = true)
     public String cellId;
 
     // 计算资源唯一标识
     @NameInMap("computer_id")
+    @Validation(required = true)
     public String computerId;
 
     public static ComputerCell build(java.util.Map<String, ?> map) throws Exception {

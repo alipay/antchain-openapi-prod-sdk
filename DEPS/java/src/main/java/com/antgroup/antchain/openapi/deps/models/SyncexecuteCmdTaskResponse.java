@@ -15,6 +15,7 @@ public class SyncexecuteCmdTaskResponse extends TeaModel {
 
     // 指令执行结果详情
     @NameInMap("result")
+    @Validation(required = true)
     public CmdExecResult result;
 
     public static SyncexecuteCmdTaskResponse build(java.util.Map<String, ?> map) throws Exception {

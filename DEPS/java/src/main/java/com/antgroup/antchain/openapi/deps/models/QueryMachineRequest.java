@@ -7,6 +7,9 @@ public class QueryMachineRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 当前页
     @NameInMap("page_no")
     public Long pageNo;
@@ -29,6 +32,7 @@ public class QueryMachineRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryMachineRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -42,6 +46,14 @@ public class QueryMachineRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryMachineRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryMachineRequest setPageNo(Long pageNo) {

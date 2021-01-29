@@ -7,16 +7,22 @@ public class DeleteMachinegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // recursive
     @NameInMap("recursive")
+    @Validation(required = true)
     public Boolean recursive;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static DeleteMachinegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class DeleteMachinegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteMachinegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteMachinegroupRequest setId(String id) {

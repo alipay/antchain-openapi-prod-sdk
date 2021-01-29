@@ -7,20 +7,27 @@ public class RetryGrayTaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 进程 ID
     @NameInMap("process_id")
+    @Validation(required = true)
     public String processId;
 
     // retry_info
     @NameInMap("retry_info")
+    @Validation(required = true)
     public RetryInfo retryInfo;
 
     // 任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static RetryGrayTaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class RetryGrayTaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RetryGrayTaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RetryGrayTaskRequest setProcessId(String processId) {

@@ -7,6 +7,9 @@ public class SetServiceMachinegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 分组数
     @NameInMap("group_mount")
     public Long groupMount;
@@ -25,6 +28,7 @@ public class SetServiceMachinegroupRequest extends TeaModel {
 
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // use_default_setup
@@ -33,6 +37,7 @@ public class SetServiceMachinegroupRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SetServiceMachinegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -46,6 +51,14 @@ public class SetServiceMachinegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SetServiceMachinegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SetServiceMachinegroupRequest setGroupMount(Long groupMount) {

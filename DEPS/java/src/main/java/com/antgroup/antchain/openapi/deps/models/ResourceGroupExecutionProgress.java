@@ -6,22 +6,27 @@ import com.aliyun.tea.*;
 public class ResourceGroupExecutionProgress extends TeaModel {
     // finished_time
     @NameInMap("finished_time")
+    @Validation(required = true)
     public Boolean finishedTime;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // paas_id
     @NameInMap("paas_id")
+    @Validation(required = true)
     public String paasId;
 
     // resource_count
     @NameInMap("resource_count")
+    @Validation(required = true)
     public Long resourceCount;
 
     // resource_states
     @NameInMap("resource_states")
+    @Validation(required = true)
     public java.util.List<Pair> resourceStates;
 
     // standalone_executable
@@ -30,15 +35,17 @@ public class ResourceGroupExecutionProgress extends TeaModel {
 
     // started_time
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // state
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // refer_key
     @NameInMap("refer_key")
+    @Validation(required = true)
     public String referKey;
 
     public static ResourceGroupExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

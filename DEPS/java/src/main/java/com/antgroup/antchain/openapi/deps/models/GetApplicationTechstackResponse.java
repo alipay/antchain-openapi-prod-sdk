@@ -15,6 +15,7 @@ public class GetApplicationTechstackResponse extends TeaModel {
 
     // 技术栈框架
     @NameInMap("techstack")
+    @Validation(required = true)
     public Techstack techstack;
 
     public static GetApplicationTechstackResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -7,8 +7,12 @@ public class QueryOperatorRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 用户 ID
     @NameInMap("customer_id")
+    @Validation(required = true)
     public String customerId;
 
     // 当前页
@@ -21,6 +25,7 @@ public class QueryOperatorRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryOperatorRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +39,14 @@ public class QueryOperatorRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryOperatorRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryOperatorRequest setCustomerId(String customerId) {

@@ -7,7 +7,6 @@ public class QueryCellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 目标租户名称
     @NameInMap("tenant")
     public String tenant;
 

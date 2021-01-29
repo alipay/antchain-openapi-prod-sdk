@@ -7,6 +7,9 @@ public class QueryBuildpacknewRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // buildCommand
     @NameInMap("build_command")
     public String buildCommand;
@@ -116,6 +119,14 @@ public class QueryBuildpacknewRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpacknewRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpacknewRequest setBuildCommand(String buildCommand) {

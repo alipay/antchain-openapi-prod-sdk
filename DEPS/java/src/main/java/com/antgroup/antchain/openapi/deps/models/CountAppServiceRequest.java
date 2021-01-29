@@ -7,8 +7,12 @@ public class CountAppServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     public static CountAppServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class CountAppServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CountAppServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CountAppServiceRequest setAppName(String appName) {

@@ -7,6 +7,9 @@ public class ListTechstackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static ListTechstackRequest build(java.util.Map<String, ?> map) throws Exception {
         ListTechstackRequest self = new ListTechstackRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class ListTechstackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListTechstackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

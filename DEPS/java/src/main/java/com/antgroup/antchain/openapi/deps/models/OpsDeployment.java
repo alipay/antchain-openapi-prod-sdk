@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class OpsDeployment extends TeaModel {
     // 此部署操作中所有被操作的应用（服务）详情，以操作链的形式体现
     @NameInMap("application_chains")
+    @Validation(required = true)
     public java.util.List<OpsApplicationChain> applicationChains;
 
     // 部署操作执行者
     @NameInMap("executor")
+    @Validation(required = true)
     public String executor;
 
     // 部署单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     // 
@@ -30,10 +33,12 @@ public class OpsDeployment extends TeaModel {
     //                     
     //                 
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 部署单标题。长度不超过50个UTF-8字符
     @NameInMap("title")
+    @Validation(required = true)
     public String title;
 
     public static OpsDeployment build(java.util.Map<String, ?> map) throws Exception {

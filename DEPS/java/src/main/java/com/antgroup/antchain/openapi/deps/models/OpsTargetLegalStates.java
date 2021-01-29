@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class OpsTargetLegalStates extends TeaModel {
     // 目标类型
     @NameInMap("target_type")
+    @Validation(required = true)
     public String targetType;
 
     // 合法状态
     @NameInMap("states")
+    @Validation(required = true)
     public java.util.List<String> states;
 
     public static OpsTargetLegalStates build(java.util.Map<String, ?> map) throws Exception {

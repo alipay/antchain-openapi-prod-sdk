@@ -7,6 +7,9 @@ public class GetConfigTenanttreeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static GetConfigTenanttreeRequest build(java.util.Map<String, ?> map) throws Exception {
         GetConfigTenanttreeRequest self = new GetConfigTenanttreeRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class GetConfigTenanttreeRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetConfigTenanttreeRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

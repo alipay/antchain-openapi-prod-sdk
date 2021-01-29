@@ -7,6 +7,9 @@ public class QueryApplicationDatabaseRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 目标服务实例名称，填写application时有意义。application不填时，service_name的值会被忽略
     @NameInMap("application")
     public String application;
@@ -49,6 +52,7 @@ public class QueryApplicationDatabaseRequest extends TeaModel {
 
     // 目标工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryApplicationDatabaseRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -62,6 +66,14 @@ public class QueryApplicationDatabaseRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryApplicationDatabaseRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryApplicationDatabaseRequest setApplication(String application) {

@@ -7,16 +7,22 @@ public class ConfirmMachinegroupReserveRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 分组 ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 是否需要预确认分组
     @NameInMap("reserved")
+    @Validation(required = true)
     public Boolean reserved;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static ConfirmMachinegroupReserveRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class ConfirmMachinegroupReserveRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ConfirmMachinegroupReserveRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ConfirmMachinegroupReserveRequest setId(String id) {

@@ -6,20 +6,22 @@ import com.aliyun.tea.*;
 public class SidecarVersionInstance extends TeaModel {
     // 版本实例描述
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // 创建时间
     @NameInMap("gmt_created")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtCreated;
 
     // 修改时间
     @NameInMap("gmt_modified")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtModified;
 
     // 版本实例名称
     @NameInMap("instance_name")
+    @Validation(required = true)
     public String instanceName;
 
     // 环境参数模板
@@ -32,30 +34,37 @@ public class SidecarVersionInstance extends TeaModel {
 
     // sidecar版本发布说明
     @NameInMap("release_note")
+    @Validation(required = true)
     public String releaseNote;
 
     // scope生效范围详情
     @NameInMap("scope_detail")
+    @Validation(required = true)
     public SidecarScopeDetail scopeDetail;
 
     // sidecar名称
     @NameInMap("sidecar_name")
+    @Validation(required = true)
     public String sidecarName;
 
     // sidecar版本id
     @NameInMap("sidecar_release_version_id")
+    @Validation(required = true)
     public String sidecarReleaseVersionId;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     // sidecar版本实例id
     @NameInMap("sidecar_version_instance_id")
+    @Validation(required = true)
     public String sidecarVersionInstanceId;
 
     // 版本实例状态
     @NameInMap("status")
+    @Validation(required = true)
     public Long status;
 
     // 发布、下线、废弃原因
@@ -65,10 +74,12 @@ public class SidecarVersionInstance extends TeaModel {
 
     // sidecar版本模板
     @NameInMap("template")
+    @Validation(required = true)
     public String template;
 
     // sidecar模板配置
     @NameInMap("template_configs")
+    @Validation(required = true)
     public java.util.List<SidecarTemplateConfig> templateConfigs;
 
     public static SidecarVersionInstance build(java.util.Map<String, ?> map) throws Exception {

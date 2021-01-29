@@ -6,58 +6,72 @@ import com.aliyun.tea.*;
 public class SLBInfo extends TeaModel {
     // 名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 机器ID
     @NameInMap("machine_id")
+    @Validation(required = true)
     public String machineId;
 
     // 端口
     @NameInMap("port")
+    @Validation(required = true)
     public Long port;
 
     // paas id
     @NameInMap("paas_id")
+    @Validation(required = true)
     public String paasId;
 
     // iaas id
     @NameInMap("iaas_id")
+    @Validation(required = true)
     public String iaasId;
 
     // 虚拟服务器组 id
     @NameInMap("v_server_group_id")
+    @Validation(required = true)
     public String vServerGroupId;
 
     // 虚拟服务器组名
     @NameInMap("v_server_group_name")
+    @Validation(required = true)
     public String vServerGroupName;
 
     // 计算资源 ID
     @NameInMap("computer_id")
+    @Validation(required = true)
     public String computerId;
 
     // 应用 ID
     @NameInMap("app_id")
+    @Validation(required = true)
     public String appId;
 
     // 应用服务 ID
     @NameInMap("app_svc_id")
+    @Validation(required = true)
     public String appSvcId;
 
     // vip 地址列表
     @NameInMap("vip_addresses")
+    @Validation(required = true)
     public java.util.List<String> vipAddresses;
 
     // 权重
     @NameInMap("weight")
+    @Validation(required = true)
     public Long weight;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static SLBInfo build(java.util.Map<String, ?> map) throws Exception {

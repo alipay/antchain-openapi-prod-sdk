@@ -7,6 +7,9 @@ public class QueryConfigTemplateRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("app_name")
     public String appName;
@@ -46,6 +49,14 @@ public class QueryConfigTemplateRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryConfigTemplateRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryConfigTemplateRequest setAppName(String appName) {

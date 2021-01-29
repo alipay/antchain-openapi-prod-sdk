@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class NotificationConfig extends TeaModel {
     // 接收人列表
     @NameInMap("receivers")
+    @Validation(required = true)
     public java.util.List<NotificationReceiver> receivers;
 
     // 类型
     @NameInMap("notification_type")
+    @Validation(required = true)
     public String notificationType;
 
     // 是否开启，默认不开启
@@ -18,10 +20,12 @@ public class NotificationConfig extends TeaModel {
 
     // cloud_web_url
     @NameInMap("cloud_web_url")
+    @Validation(required = true)
     public String cloudWebUrl;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static NotificationConfig build(java.util.Map<String, ?> map) throws Exception {

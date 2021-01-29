@@ -7,8 +7,12 @@ public class QueryAppPlanRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
@@ -50,6 +54,14 @@ public class QueryAppPlanRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppPlanRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppPlanRequest setAppName(String appName) {

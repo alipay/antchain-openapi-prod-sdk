@@ -6,26 +6,32 @@ import com.aliyun.tea.*;
 public class AppUnitResource extends TeaModel {
     // 应用 ID
     @NameInMap("app_id")
+    @Validation(required = true)
     public String appId;
 
     // 单元id
     @NameInMap("unit_id")
+    @Validation(required = true)
     public String unitId;
 
     // 机器数
     @NameInMap("machine_count")
+    @Validation(required = true)
     public Long machineCount;
 
     // 已挂载机器数
     @NameInMap("mounted_machine_count")
+    @Validation(required = true)
     public Long mountedMachineCount;
 
     // 负载均衡数
     @NameInMap("slb_count")
+    @Validation(required = true)
     public Long slbCount;
 
     // 负载均衡权重
     @NameInMap("slb_weight")
+    @Validation(required = true)
     public Long slbWeight;
 
     public static AppUnitResource build(java.util.Map<String, ?> map) throws Exception {

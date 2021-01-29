@@ -15,18 +15,22 @@ public class QueryOpsappsvcResponse extends TeaModel {
 
     // 应用服务的运维历史
     @NameInMap("opsappsvcs")
+    @Validation(required = true)
     public java.util.List<OpsApplication> opsappsvcs;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Integer pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Integer pageSize;
 
     // 总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Integer totalCount;
 
     public static QueryOpsappsvcResponse build(java.util.Map<String, ?> map) throws Exception {

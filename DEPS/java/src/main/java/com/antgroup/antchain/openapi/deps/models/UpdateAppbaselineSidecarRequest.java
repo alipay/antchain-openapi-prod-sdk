@@ -7,16 +7,22 @@ public class UpdateAppbaselineSidecarRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用sidecar基线id
     @NameInMap("appbaseline_id")
+    @Validation(required = true)
     public String appbaselineId;
 
     // 是否开启sidecar
     @NameInMap("enable")
+    @Validation(required = true)
     public Boolean enable;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     public static UpdateAppbaselineSidecarRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class UpdateAppbaselineSidecarRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateAppbaselineSidecarRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateAppbaselineSidecarRequest setAppbaselineId(String appbaselineId) {

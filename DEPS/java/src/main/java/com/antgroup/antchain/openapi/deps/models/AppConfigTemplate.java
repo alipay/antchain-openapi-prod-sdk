@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class AppConfigTemplate extends TeaModel {
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 描述
@@ -18,10 +19,12 @@ public class AppConfigTemplate extends TeaModel {
 
     // 操作人 id
     @NameInMap("operator_id")
+    @Validation(required = true)
     public String operatorId;
 
     // 参数定义列表
     @NameInMap("params")
+    @Validation(required = true)
     public java.util.List<TemplateParamDef> params;
 
     // 参数模板发布时间
@@ -31,10 +34,12 @@ public class AppConfigTemplate extends TeaModel {
 
     // 模板状态，DRAFT 草稿，RELEASE 已发布，发布后才会生成 version，否则为空
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 租户 id
     @NameInMap("tenant_id")
+    @Validation(required = true)
     public String tenantId;
 
     // 模板版本

@@ -10,10 +10,12 @@ public class Application extends TeaModel {
 
     // 执行部署操作的目标应用名称，应用名称最大60个UTF-8字符
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 执行部署操作的目标应用服务名称，应用服务名称最大60个UTF-8字符
     @NameInMap("service_name")
+    @Validation(required = true)
     public String serviceName;
 
     // 执行部署操作的目标应用版本。如果某个应用未指定版本，则使用最新版本部署。

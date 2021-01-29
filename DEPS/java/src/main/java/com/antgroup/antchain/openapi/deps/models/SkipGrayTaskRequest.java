@@ -7,16 +7,22 @@ public class SkipGrayTaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 进程 ID
     @NameInMap("process_id")
+    @Validation(required = true)
     public String processId;
 
     // 任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SkipGrayTaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class SkipGrayTaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SkipGrayTaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SkipGrayTaskRequest setProcessId(String processId) {

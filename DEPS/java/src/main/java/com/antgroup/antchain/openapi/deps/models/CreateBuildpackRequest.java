@@ -7,6 +7,9 @@ public class CreateBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 技术栈所支持的租户名称列表
     @NameInMap("available_tenant_names")
     public java.util.List<String> availableTenantNames;
@@ -74,6 +77,14 @@ public class CreateBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateBuildpackRequest setAvailableTenantNames(java.util.List<String> availableTenantNames) {

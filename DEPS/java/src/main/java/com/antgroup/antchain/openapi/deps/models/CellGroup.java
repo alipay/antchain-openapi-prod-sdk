@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class CellGroup extends TeaModel {
     // 包含部署单元列表
     @NameInMap("cells")
+    @Validation(required = true)
     public java.util.List<DeployCell> cells;
 
     // 机房名称
@@ -18,19 +19,22 @@ public class CellGroup extends TeaModel {
 
     // 逻辑单元灾备信息
     @NameInMap("disaster_info")
+    @Validation(required = true)
     public java.util.List<DisasterInfo> disasterInfo;
 
     // 修改时间
     @NameInMap("modified_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String modifiedTime;
 
     // 逻辑单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 操作人
     @NameInMap("operator")
+    @Validation(required = true)
     public String operator;
 
     // 所属地域：CZone Group 必填
@@ -39,6 +43,7 @@ public class CellGroup extends TeaModel {
 
     // 逻辑单元类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     public static CellGroup build(java.util.Map<String, ?> map) throws Exception {

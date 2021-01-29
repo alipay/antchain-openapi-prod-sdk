@@ -7,6 +7,9 @@ public class DeprecateBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // depracationNoteMap
     @NameInMap("depracation_note_map")
     public DepracationNotePayload depracationNoteMap;
@@ -26,6 +29,14 @@ public class DeprecateBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeprecateBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeprecateBuildpackRequest setDepracationNoteMap(DepracationNotePayload depracationNoteMap) {

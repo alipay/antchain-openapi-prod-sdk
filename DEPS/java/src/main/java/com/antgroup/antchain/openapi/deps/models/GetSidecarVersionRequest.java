@@ -7,24 +7,32 @@ public class GetSidecarVersionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // sidecar生效范围：workspace、workspace_group、region
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // scope对应的唯一标识，例如workspace对应workspace id
     @NameInMap("scope_identity")
+    @Validation(required = true)
     public String scopeIdentity;
 
     // sidecar版本
     @NameInMap("sidecar_name")
+    @Validation(required = true)
     public String sidecarName;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     // sidecar版本类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     public static GetSidecarVersionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -38,6 +46,14 @@ public class GetSidecarVersionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetSidecarVersionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetSidecarVersionRequest setScope(String scope) {

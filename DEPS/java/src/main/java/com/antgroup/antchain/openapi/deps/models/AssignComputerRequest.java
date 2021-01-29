@@ -7,8 +7,12 @@ public class AssignComputerRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用的完整名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 是否启用自动运维，默认为**False**
@@ -37,10 +41,12 @@ public class AssignComputerRequest extends TeaModel {
 
     // 目标服务实例名称
     @NameInMap("service_name")
+    @Validation(required = true)
     public String serviceName;
 
     // 目标工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static AssignComputerRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -54,6 +60,14 @@ public class AssignComputerRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public AssignComputerRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public AssignComputerRequest setApplicationName(String applicationName) {

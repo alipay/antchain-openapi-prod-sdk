@@ -6,26 +6,32 @@ import com.aliyun.tea.*;
 public class DisasterInfo extends TeaModel {
     // 正常容灾状态
     @NameInMap("disaster_recovery_state")
+    @Validation(required = true)
     public String disasterRecoveryState;
 
     // 同城灾备单元(组)
     @NameInMap("local_failover_target")
+    @Validation(required = true)
     public String localFailoverTarget;
 
     // 压测容灾状态
     @NameInMap("press_disaster_recovery_state")
+    @Validation(required = true)
     public String pressDisasterRecoveryState;
 
     // 异地灾备单元(组)
     @NameInMap("remote_failover_target")
+    @Validation(required = true)
     public String remoteFailoverTarget;
 
     // 逻辑单元&部署单元名称
     @NameInMap("source")
+    @Validation(required = true)
     public String source;
 
     // 容灾类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     public static DisasterInfo build(java.util.Map<String, ?> map) throws Exception {

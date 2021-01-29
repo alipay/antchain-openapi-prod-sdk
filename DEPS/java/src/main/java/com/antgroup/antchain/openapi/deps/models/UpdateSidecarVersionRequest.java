@@ -7,50 +7,64 @@ public class UpdateSidecarVersionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // sidecar版本描述
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // sidecar生效范围：workspace、workspace_group、region	
     // 
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // scope对应的唯一标识，例如workspace对应workspace id
     @NameInMap("scope_identity")
+    @Validation(required = true)
     public String scopeIdentity;
 
     // sidecar名称
     @NameInMap("sidecar_name")
+    @Validation(required = true)
     public String sidecarName;
 
     // sidecar版本号
     @NameInMap("sidecar_version")
+    @Validation(required = true)
     public String sidecarVersion;
 
     // 版本状态
     @NameInMap("status")
+    @Validation(required = true)
     public Long status;
 
     // sidecar模板内容
     @NameInMap("template")
+    @Validation(required = true)
     public String template;
 
     // sidecar模板配置
     @NameInMap("template_configs")
+    @Validation(required = true)
     public java.util.List<SidecarTemplateConfig> templateConfigs;
 
     // sidecar版本类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 版本周期：alpha/beta/release
     // 
     @NameInMap("version_period")
+    @Validation(required = true)
     public String versionPeriod;
 
     // 版本特性
     @NameInMap("release_note")
+    @Validation(required = true)
     public String releaseNote;
 
     public static UpdateSidecarVersionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -64,6 +78,14 @@ public class UpdateSidecarVersionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateSidecarVersionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateSidecarVersionRequest setDescription(String description) {

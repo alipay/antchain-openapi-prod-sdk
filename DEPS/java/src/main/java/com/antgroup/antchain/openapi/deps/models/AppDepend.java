@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class AppDepend extends TeaModel {
     // 当前应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 该应用依赖的所有应用的 id 列表字符串
     @NameInMap("depend_app_names")
+    @Validation(required = true)
     public String dependAppNames;
 
     // 应用显示名称

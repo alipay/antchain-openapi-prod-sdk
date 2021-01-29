@@ -15,6 +15,7 @@ public class GetApplicationBuildpackResponse extends TeaModel {
 
     // 技术栈id
     @NameInMap("buildpack_id")
+    @Validation(required = true)
     public String buildpackId;
 
     public static GetApplicationBuildpackResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -7,20 +7,27 @@ public class CreateSingleworkspaceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // workspace 显示名称
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // workspace 唯一标识符
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // VPC ｜ Classic
     @NameInMap("network_type")
+    @Validation(required = true)
     public String networkType;
 
     // 地域
     @NameInMap("region")
+    @Validation(required = true)
     public String region;
 
     // 枚举值：
@@ -44,6 +51,14 @@ public class CreateSingleworkspaceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateSingleworkspaceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateSingleworkspaceRequest setDisplayName(String displayName) {

@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class DeployView extends TeaModel {
     // 当前 workspace 下的所有应用服务
     @NameInMap("workspace_app_services")
+    @Validation(required = true)
     public java.util.List<AppServiceEntity> workspaceAppServices;
 
     // workspace 显示名称
     @NameInMap("workspace_display_name")
+    @Validation(required = true)
     public String workspaceDisplayName;
 
     // workspace id
     @NameInMap("workspace_id")
+    @Validation(required = true)
     public String workspaceId;
 
     // workspace 名称

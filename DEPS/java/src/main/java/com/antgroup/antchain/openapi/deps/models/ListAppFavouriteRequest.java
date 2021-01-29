@@ -7,6 +7,9 @@ public class ListAppFavouriteRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
     @NameInMap("orders")
     public java.util.List<String> orders;
@@ -22,6 +25,14 @@ public class ListAppFavouriteRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListAppFavouriteRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ListAppFavouriteRequest setOrders(java.util.List<String> orders) {

@@ -7,20 +7,27 @@ public class UpdateCellgroupDisasterinfoRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 灾备信息
     @NameInMap("disaster_info")
+    @Validation(required = true)
     public java.util.List<DisasterInfo> disasterInfo;
 
     // 逻辑单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 操作人
     @NameInMap("operator")
+    @Validation(required = true)
     public String operator;
 
     // 所属环境组名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     public static UpdateCellgroupDisasterinfoRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class UpdateCellgroupDisasterinfoRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateCellgroupDisasterinfoRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateCellgroupDisasterinfoRequest setDisasterInfo(java.util.List<DisasterInfo> disasterInfo) {

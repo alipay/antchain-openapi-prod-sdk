@@ -25,11 +25,11 @@ public class Config extends TeaModel {
 
     // read timeout
     @NameInMap("readTimeout")
-    public Integer readTimeout;
+    public Number readTimeout;
 
     // connect timeout
     @NameInMap("connectTimeout")
-    public Integer connectTimeout;
+    public Number connectTimeout;
 
     // http proxy
     @NameInMap("httpProxy")
@@ -49,7 +49,7 @@ public class Config extends TeaModel {
 
     // max idle conns
     @NameInMap("maxIdleConns")
-    public Integer maxIdleConns;
+    public Number maxIdleConns;
 
     // user agent
     @NameInMap("userAgent")
@@ -65,19 +65,19 @@ public class Config extends TeaModel {
 
     // 长链接最大空闲时长
     @NameInMap("maxIdleTimeMillis")
-    public Long maxIdleTimeMillis;
+    public Number maxIdleTimeMillis;
 
     // 长链接最大连接时长
     @NameInMap("keepAliveDurationMillis")
-    public Integer keepAliveDurationMillis;
+    public Number keepAliveDurationMillis;
 
     // 最大连接数（长链接最大总数）
     @NameInMap("maxRequests")
-    public Integer maxRequests;
+    public Number maxRequests;
 
     // 每个目标主机的最大连接数（分主机域名的长链接最大总数
     @NameInMap("maxRequestsPerHost")
-    public Integer maxRequestsPerHost;
+    public Number maxRequestsPerHost;
 
     public static Config build(java.util.Map<String, ?> map) throws Exception {
         Config self = new Config();
@@ -116,19 +116,19 @@ public class Config extends TeaModel {
         return this.protocol;
     }
 
-    public Config setReadTimeout(Integer readTimeout) {
+    public Config setReadTimeout(Number readTimeout) {
         this.readTimeout = readTimeout;
         return this;
     }
-    public Integer getReadTimeout() {
+    public Number getReadTimeout() {
         return this.readTimeout;
     }
 
-    public Config setConnectTimeout(Integer connectTimeout) {
+    public Config setConnectTimeout(Number connectTimeout) {
         this.connectTimeout = connectTimeout;
         return this;
     }
-    public Integer getConnectTimeout() {
+    public Number getConnectTimeout() {
         return this.connectTimeout;
     }
 
@@ -164,11 +164,11 @@ public class Config extends TeaModel {
         return this.noProxy;
     }
 
-    public Config setMaxIdleConns(Integer maxIdleConns) {
+    public Config setMaxIdleConns(Number maxIdleConns) {
         this.maxIdleConns = maxIdleConns;
         return this;
     }
-    public Integer getMaxIdleConns() {
+    public Number getMaxIdleConns() {
         return this.maxIdleConns;
     }
 
@@ -196,35 +196,35 @@ public class Config extends TeaModel {
         return this.socks5NetWork;
     }
 
-    public Config setMaxIdleTimeMillis(Long maxIdleTimeMillis) {
+    public Config setMaxIdleTimeMillis(Number maxIdleTimeMillis) {
         this.maxIdleTimeMillis = maxIdleTimeMillis;
         return this;
     }
-    public Long getMaxIdleTimeMillis() {
+    public Number getMaxIdleTimeMillis() {
         return this.maxIdleTimeMillis;
     }
 
-    public Config setKeepAliveDurationMillis(Integer keepAliveDurationMillis) {
+    public Config setKeepAliveDurationMillis(Number keepAliveDurationMillis) {
         this.keepAliveDurationMillis = keepAliveDurationMillis;
         return this;
     }
-    public Integer getKeepAliveDurationMillis() {
+    public Number getKeepAliveDurationMillis() {
         return this.keepAliveDurationMillis;
     }
 
-    public Config setMaxRequests(Integer maxRequests) {
+    public Config setMaxRequests(Number maxRequests) {
         this.maxRequests = maxRequests;
         return this;
     }
-    public Integer getMaxRequests() {
+    public Number getMaxRequests() {
         return this.maxRequests;
     }
 
-    public Config setMaxRequestsPerHost(Integer maxRequestsPerHost) {
+    public Config setMaxRequestsPerHost(Number maxRequestsPerHost) {
         this.maxRequestsPerHost = maxRequestsPerHost;
         return this;
     }
-    public Integer getMaxRequestsPerHost() {
+    public Number getMaxRequestsPerHost() {
         return this.maxRequestsPerHost;
     }
 

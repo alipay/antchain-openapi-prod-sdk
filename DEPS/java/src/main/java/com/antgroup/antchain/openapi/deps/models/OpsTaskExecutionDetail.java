@@ -6,56 +6,67 @@ import com.aliyun.tea.*;
 public class OpsTaskExecutionDetail extends TeaModel {
     // task_id
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // request_token
     @NameInMap("request_token")
+    @Validation(required = true)
     public String requestToken;
 
     // node_id
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // request_id
     @NameInMap("request_id")
+    @Validation(required = true)
     public String requestId;
 
     // execution_count
     @NameInMap("execution_count")
+    @Validation(required = true)
     public Long executionCount;
 
     // executionState
     @NameInMap("execution_state")
+    @Validation(required = true)
     public String executionState;
 
     // target_id
     @NameInMap("target_id")
+    @Validation(required = true)
     public String targetId;
 
     // error_code
     @NameInMap("error_code")
+    @Validation(required = true)
     public String errorCode;
 
     // result_msg
     @NameInMap("result_msg")
+    @Validation(required = true)
     public String resultMsg;
 
     // startedTime
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // finished_time
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // standalone_executable
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static OpsTaskExecutionDetail build(java.util.Map<String, ?> map) throws Exception {

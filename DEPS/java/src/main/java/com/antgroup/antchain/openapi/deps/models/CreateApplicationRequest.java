@@ -7,12 +7,16 @@ public class CreateApplicationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用别称。最大60个UTF-8字符
     @NameInMap("alias")
     public String alias;
 
     // 创建的应用名称。最大60个UTF-8字符
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 技术栈架构版本，默认使用BUILDPACK_V1，取值列表：BUILDPACK_V1、BUILDPACK_V2
@@ -21,10 +25,12 @@ public class CreateApplicationRequest extends TeaModel {
 
     // 应用使用的技术栈名称
     @NameInMap("buildpack_name")
+    @Validation(required = true)
     public String buildpackName;
 
     // 应用使用的技术栈版本
     @NameInMap("buildpack_version")
+    @Validation(required = true)
     public String buildpackVersion;
 
     // 应用描述。最大200个UTF-8字符
@@ -33,6 +39,7 @@ public class CreateApplicationRequest extends TeaModel {
 
     // 应用负责人登录名
     @NameInMap("owner_login_name")
+    @Validation(required = true)
     public String ownerLoginName;
 
     // 应用发布类型，默认不填入表示包发布，支持 mixed,image,workload
@@ -54,6 +61,14 @@ public class CreateApplicationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateApplicationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateApplicationRequest setAlias(String alias) {

@@ -7,6 +7,9 @@ public class QueryApplicationServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 待查询的应用名称。最大60个UTF-8字符
     @NameInMap("application_name")
     public String applicationName;
@@ -34,6 +37,14 @@ public class QueryApplicationServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryApplicationServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryApplicationServiceRequest setApplicationName(String applicationName) {

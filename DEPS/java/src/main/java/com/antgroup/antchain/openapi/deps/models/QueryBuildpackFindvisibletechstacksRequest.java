@@ -7,6 +7,9 @@ public class QueryBuildpackFindvisibletechstacksRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static QueryBuildpackFindvisibletechstacksRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBuildpackFindvisibletechstacksRequest self = new QueryBuildpackFindvisibletechstacksRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class QueryBuildpackFindvisibletechstacksRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackFindvisibletechstacksRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

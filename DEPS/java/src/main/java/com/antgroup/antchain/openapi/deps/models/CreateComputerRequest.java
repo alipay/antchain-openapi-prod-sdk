@@ -7,12 +7,16 @@ public class CreateComputerRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 实例描述
     @NameInMap("description")
     public String description;
 
     // 镜像文件ID，启动实例时选择的镜像资源。
     @NameInMap("image_id")
+    @Validation(required = true)
     public String imageId;
 
     // 创建的实例数量。默认为 1 台
@@ -32,6 +36,7 @@ public class CreateComputerRequest extends TeaModel {
 
     // 实例所在地域
     @NameInMap("region")
+    @Validation(required = true)
     public String region;
 
     // image 或者 package
@@ -40,18 +45,22 @@ public class CreateComputerRequest extends TeaModel {
 
     // 新创建实例所属于的安全组ID，同一个安全组内的实例之间可以互相访问。
     @NameInMap("security_group_id")
+    @Validation(required = true)
     public String securityGroupId;
 
     // 实例的资源规格。
     @NameInMap("spec_id")
+    @Validation(required = true)
     public String specId;
 
     // 单位 G。系统盘大小，需根据选择的 image 类型决定。
     @NameInMap("system_disk_size")
+    @Validation(required = true)
     public String systemDiskSize;
 
     // 系统盘类型
     @NameInMap("system_disk_type")
+    @Validation(required = true)
     public String systemDiskType;
 
     // VPC类型的实例，需要指定虚拟交换机ID。
@@ -60,10 +69,12 @@ public class CreateComputerRequest extends TeaModel {
 
     // 实例所在工作空间
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     // 实例所在可用区
     @NameInMap("zone")
+    @Validation(required = true)
     public String zone;
 
     public static CreateComputerRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -77,6 +88,14 @@ public class CreateComputerRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateComputerRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateComputerRequest setDescription(String description) {

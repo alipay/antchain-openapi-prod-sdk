@@ -7,8 +7,12 @@ public class UpdateNotificationConfigRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // cloud web url
     @NameInMap("cloud_web_url")
+    @Validation(required = true)
     public String cloudWebUrl;
 
     // 是否开启
@@ -17,10 +21,12 @@ public class UpdateNotificationConfigRequest extends TeaModel {
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // modified_version
     @NameInMap("modified_version")
+    @Validation(required = true)
     public Long modifiedVersion;
 
     // 接受者
@@ -33,6 +39,7 @@ public class UpdateNotificationConfigRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UpdateNotificationConfigRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -46,6 +53,14 @@ public class UpdateNotificationConfigRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateNotificationConfigRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateNotificationConfigRequest setCloudWebUrl(String cloudWebUrl) {

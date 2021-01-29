@@ -15,6 +15,7 @@ public class QueryWorkspaceDeltaResponse extends TeaModel {
 
     // 发生变化的workspace列表
     @NameInMap("workspace_delta_infos")
+    @Validation(required = true)
     public java.util.List<WorkspaceDeltaInfo> workspaceDeltaInfos;
 
     public static QueryWorkspaceDeltaResponse build(java.util.Map<String, ?> map) throws Exception {

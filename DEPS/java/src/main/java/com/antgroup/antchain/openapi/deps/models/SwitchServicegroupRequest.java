@@ -7,16 +7,22 @@ public class SwitchServicegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // service_group_id
     @NameInMap("service_group_id")
+    @Validation(required = true)
     public String serviceGroupId;
 
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SwitchServicegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class SwitchServicegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SwitchServicegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SwitchServicegroupRequest setServiceGroupId(String serviceGroupId) {

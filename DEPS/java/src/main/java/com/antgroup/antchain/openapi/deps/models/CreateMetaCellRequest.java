@@ -7,12 +7,17 @@ public class CreateMetaCellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // request
     @NameInMap("request")
+    @Validation(required = true)
     public String request;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CreateMetaCellRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class CreateMetaCellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateMetaCellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateMetaCellRequest setRequest(String request) {

@@ -7,6 +7,9 @@ public class UpdateBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 技术栈的编译打包命令
     @NameInMap("build_command")
     public String buildCommand;
@@ -29,14 +32,17 @@ public class UpdateBuildpackRequest extends TeaModel {
 
     // 技术栈版本号
     @NameInMap("full_version")
+    @Validation(required = true)
     public String fullVersion;
 
     // 技术栈id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 支持的操作系统ID
     @NameInMap("supported_os")
+    @Validation(required = true)
     public java.util.List<Long> supportedOs;
 
     public static UpdateBuildpackRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -50,6 +56,14 @@ public class UpdateBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateBuildpackRequest setBuildCommand(String buildCommand) {

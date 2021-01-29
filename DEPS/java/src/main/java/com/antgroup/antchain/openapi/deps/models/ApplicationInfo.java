@@ -10,10 +10,12 @@ public class ApplicationInfo extends TeaModel {
 
     // 应用名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 应用额外元数据信息
     @NameInMap("app_extra_infos")
+    @Validation(required = true)
     public java.util.List<AppExtraInfo> appExtraInfos;
 
     // 应用所属分组名

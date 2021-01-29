@@ -7,20 +7,27 @@ public class RetryMachinetaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 机器 ID
     @NameInMap("machine_id")
+    @Validation(required = true)
     public String machineId;
 
     // retry_info
     @NameInMap("retry_info")
+    @Validation(required = true)
     public RetryInfo retryInfo;
 
     // 任务 ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static RetryMachinetaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class RetryMachinetaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RetryMachinetaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RetryMachinetaskRequest setMachineId(String machineId) {

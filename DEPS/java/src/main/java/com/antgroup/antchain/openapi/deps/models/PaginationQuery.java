@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class PaginationQuery extends TeaModel {
     // 当前页码
     @NameInMap("current_page")
+    @Validation(required = true)
     public Long currentPage;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // 模糊搜索
     @NameInMap("fuzzy_name")
+    @Validation(required = true)
     public String fuzzyName;
 
     public static PaginationQuery build(java.util.Map<String, ?> map) throws Exception {

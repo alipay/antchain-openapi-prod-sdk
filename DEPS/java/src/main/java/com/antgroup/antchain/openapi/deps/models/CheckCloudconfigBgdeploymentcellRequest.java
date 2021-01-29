@@ -7,12 +7,16 @@ public class CheckCloudconfigBgdeploymentcellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // require_release
     @NameInMap("require_release")
     public Boolean requireRelease;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CheckCloudconfigBgdeploymentcellRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +30,14 @@ public class CheckCloudconfigBgdeploymentcellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CheckCloudconfigBgdeploymentcellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CheckCloudconfigBgdeploymentcellRequest setRequireRelease(Boolean requireRelease) {

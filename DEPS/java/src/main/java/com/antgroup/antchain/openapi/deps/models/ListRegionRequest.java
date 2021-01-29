@@ -7,6 +7,9 @@ public class ListRegionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     public static ListRegionRequest build(java.util.Map<String, ?> map) throws Exception {
         ListRegionRequest self = new ListRegionRequest();
         return TeaModel.build(map, self);
@@ -18,6 +21,14 @@ public class ListRegionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListRegionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
 }

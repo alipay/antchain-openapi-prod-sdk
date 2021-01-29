@@ -7,6 +7,9 @@ public class QueryAppservicebuildpackrelationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 一组应用服务id
     @NameInMap("appservice_ids")
     public java.util.List<String> appserviceIds;
@@ -71,6 +74,14 @@ public class QueryAppservicebuildpackrelationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppservicebuildpackrelationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppservicebuildpackrelationRequest setAppserviceIds(java.util.List<String> appserviceIds) {

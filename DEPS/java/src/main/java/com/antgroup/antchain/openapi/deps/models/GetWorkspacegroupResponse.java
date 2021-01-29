@@ -15,22 +15,27 @@ public class GetWorkspacegroupResponse extends TeaModel {
 
     // 环境名称
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 环境显示名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 环境状态
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 租户名称
     @NameInMap("tenant")
+    @Validation(required = true)
     public String tenant;
 
     // 工作空间名称列表
     @NameInMap("workspaces")
+    @Validation(required = true)
     public java.util.List<String> workspaces;
 
     public static GetWorkspacegroupResponse build(java.util.Map<String, ?> map) throws Exception {

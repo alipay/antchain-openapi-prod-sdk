@@ -15,18 +15,22 @@ public class QueryApplicationComputerResponse extends TeaModel {
 
     // 资源列表
     @NameInMap("computers")
+    @Validation(required = true)
     public java.util.List<Computer> computers;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Long pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Long pageSize;
 
     // 资源总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Long totalCount;
 
     public static QueryApplicationComputerResponse build(java.util.Map<String, ?> map) throws Exception {

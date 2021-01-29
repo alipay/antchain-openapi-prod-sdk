@@ -7,6 +7,9 @@ public class ListApplicationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 当前页码，默认为1
     @NameInMap("page_num")
     public Integer pageNum;
@@ -26,6 +29,14 @@ public class ListApplicationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListApplicationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ListApplicationRequest setPageNum(Integer pageNum) {

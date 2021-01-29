@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class BuildCommandParams extends TeaModel {
     // buildpackId
     @NameInMap("buildpack_id")
+    @Validation(required = true)
     public String buildpackId;
 
     // description

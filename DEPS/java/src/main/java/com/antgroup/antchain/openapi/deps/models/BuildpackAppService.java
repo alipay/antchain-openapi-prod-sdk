@@ -34,6 +34,7 @@ public class BuildpackAppService extends TeaModel {
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // isDefault

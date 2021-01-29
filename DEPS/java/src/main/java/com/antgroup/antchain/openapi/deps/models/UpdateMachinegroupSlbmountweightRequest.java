@@ -7,20 +7,26 @@ public class UpdateMachinegroupSlbmountweightRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // from_aliyun
     @NameInMap("from_aliyun")
     public Boolean fromAliyun;
 
     // 分组 ID
     @NameInMap("machine_group_id")
+    @Validation(required = true)
     public String machineGroupId;
 
     // 挂载权重信息列表
     @NameInMap("slb_mount_info_list")
+    @Validation(required = true)
     public java.util.List<String> slbMountInfoList;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UpdateMachinegroupSlbmountweightRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +40,14 @@ public class UpdateMachinegroupSlbmountweightRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateMachinegroupSlbmountweightRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateMachinegroupSlbmountweightRequest setFromAliyun(Boolean fromAliyun) {

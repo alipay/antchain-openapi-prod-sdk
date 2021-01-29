@@ -15,6 +15,7 @@ public class AsyncexecuteCmdTaskResponse extends TeaModel {
 
     // 指令执行任务ID，用于查询任务详情
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     public static AsyncexecuteCmdTaskResponse build(java.util.Map<String, ?> map) throws Exception {

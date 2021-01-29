@@ -7,6 +7,9 @@ public class ListSidecarInstanceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 版本实例名称
     @NameInMap("instance_name")
     public String instanceName;
@@ -18,11 +21,13 @@ public class ListSidecarInstanceRequest extends TeaModel {
     // sidecar生效范围：workspace、workspace_group、region	
     // 
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // scope对应的唯一标识，例如workspace对应workspace id	
     // 
     @NameInMap("scope_identity")
+    @Validation(required = true)
     public String scopeIdentity;
 
     // 版本实例状态
@@ -40,6 +45,14 @@ public class ListSidecarInstanceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListSidecarInstanceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ListSidecarInstanceRequest setInstanceName(String instanceName) {

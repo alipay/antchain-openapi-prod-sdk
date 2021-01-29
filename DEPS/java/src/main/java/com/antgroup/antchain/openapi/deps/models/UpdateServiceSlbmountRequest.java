@@ -7,24 +7,32 @@ public class UpdateServiceSlbmountRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 权重
     @NameInMap("mount_info")
+    @Validation(required = true)
     public java.util.List<Pair> mountInfo;
 
     // region_identity
     @NameInMap("region_identity")
+    @Validation(required = true)
     public String regionIdentity;
 
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // slb_id
     @NameInMap("slb_id")
+    @Validation(required = true)
     public String slbId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UpdateServiceSlbmountRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -38,6 +46,14 @@ public class UpdateServiceSlbmountRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateServiceSlbmountRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateServiceSlbmountRequest setMountInfo(java.util.List<Pair> mountInfo) {

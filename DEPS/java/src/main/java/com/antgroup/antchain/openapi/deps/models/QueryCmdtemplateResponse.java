@@ -15,18 +15,22 @@ public class QueryCmdtemplateResponse extends TeaModel {
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Integer pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Integer pageSize;
 
     // 指令模板ID列表
     @NameInMap("template_ids")
+    @Validation(required = true)
     public java.util.List<String> templateIds;
 
     // 指令模板总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Integer totalCount;
 
     public static QueryCmdtemplateResponse build(java.util.Map<String, ?> map) throws Exception {

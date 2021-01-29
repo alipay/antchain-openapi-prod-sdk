@@ -18,6 +18,7 @@ public class DynamicQuery extends TeaModel {
 
     // 具体的查询条件字符串
     @NameInMap("query")
+    @Validation(required = true)
     public String query;
 
     // 查询结果的排序规则

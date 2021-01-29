@@ -7,6 +7,9 @@ public class CreateCellgroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 所属idc
     @NameInMap("datacenter")
     public String datacenter;
@@ -17,18 +20,22 @@ public class CreateCellgroupRequest extends TeaModel {
 
     // 逻辑单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 操作人
     @NameInMap("operator")
+    @Validation(required = true)
     public String operator;
 
     // 逻辑单元类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 所属环境组名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     public static CreateCellgroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -42,6 +49,14 @@ public class CreateCellgroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateCellgroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateCellgroupRequest setDatacenter(String datacenter) {

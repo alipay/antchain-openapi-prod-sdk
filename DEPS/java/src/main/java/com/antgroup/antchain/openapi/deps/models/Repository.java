@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class Repository extends TeaModel {
     // 代码库名字
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 代码库类型，svn或者git

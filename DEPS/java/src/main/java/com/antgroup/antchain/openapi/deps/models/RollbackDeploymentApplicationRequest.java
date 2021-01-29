@@ -7,16 +7,22 @@ public class RollbackDeploymentApplicationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 被回滚的应用（服务）名称，必须是部署单中包含的应用（服务）
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 部署单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     // 回滚原因。长度不超过100个UTF-8字符
     @NameInMap("reason")
+    @Validation(required = true)
     public String reason;
 
     public static RollbackDeploymentApplicationRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class RollbackDeploymentApplicationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RollbackDeploymentApplicationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RollbackDeploymentApplicationRequest setApplicationName(String applicationName) {

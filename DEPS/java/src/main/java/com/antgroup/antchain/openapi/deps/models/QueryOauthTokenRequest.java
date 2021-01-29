@@ -7,8 +7,12 @@ public class QueryOauthTokenRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryOauthTokenRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class QueryOauthTokenRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryOauthTokenRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryOauthTokenRequest setWorkspace(String workspace) {

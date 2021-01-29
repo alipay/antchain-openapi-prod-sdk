@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class SlbExecutionProgress extends TeaModel {
     // 进度 ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 进度名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 挂载权重
     @NameInMap("mount_weights")
+    @Validation(required = true)
     public java.util.List<Pair> mountWeights;
 
     public static SlbExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

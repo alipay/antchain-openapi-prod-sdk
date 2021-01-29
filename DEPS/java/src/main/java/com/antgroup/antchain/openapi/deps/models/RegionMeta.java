@@ -30,6 +30,7 @@ public class RegionMeta extends TeaModel {
 
     // region state.
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     public static RegionMeta build(java.util.Map<String, ?> map) throws Exception {

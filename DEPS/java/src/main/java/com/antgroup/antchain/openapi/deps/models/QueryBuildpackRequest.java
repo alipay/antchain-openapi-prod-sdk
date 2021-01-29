@@ -7,6 +7,9 @@ public class QueryBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 当前页码
     @NameInMap("current_page")
     public Long currentPage;
@@ -68,6 +71,14 @@ public class QueryBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackRequest setCurrentPage(Long currentPage) {

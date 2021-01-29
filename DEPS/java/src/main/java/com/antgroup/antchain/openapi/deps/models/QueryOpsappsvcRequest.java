@@ -7,8 +7,12 @@ public class QueryOpsappsvcRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用的名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 当前页码，默认为1
@@ -34,6 +38,14 @@ public class QueryOpsappsvcRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryOpsappsvcRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryOpsappsvcRequest setAppName(String appName) {

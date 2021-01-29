@@ -6,22 +6,27 @@ import com.aliyun.tea.*;
 public class RetryInfo extends TeaModel {
     // action
     @NameInMap("action")
+    @Validation(required = true)
     public String action;
 
     // check_interval
     @NameInMap("check_interval")
+    @Validation(required = true)
     public Long checkInterval;
 
     // retry_failed_only
     @NameInMap("retry_failed_only")
+    @Validation(required = true)
     public Boolean retryFailedOnly;
 
     // retry_times
     @NameInMap("retry_times")
+    @Validation(required = true)
     public Long retryTimes;
 
     // timeout
     @NameInMap("timeout")
+    @Validation(required = true)
     public Long timeout;
 
     public static RetryInfo build(java.util.Map<String, ?> map) throws Exception {

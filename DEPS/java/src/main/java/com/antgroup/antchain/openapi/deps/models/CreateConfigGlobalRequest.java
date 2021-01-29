@@ -7,8 +7,12 @@ public class CreateConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 数据保密等级
     @NameInMap("data_level")
+    @Validation(required = true)
     public String dataLevel;
 
     // 参数描述
@@ -17,6 +21,7 @@ public class CreateConfigGlobalRequest extends TeaModel {
 
     // 参数名
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 参数版本
@@ -25,14 +30,17 @@ public class CreateConfigGlobalRequest extends TeaModel {
 
     // 该参数属于哪个 scope
     @NameInMap("scope")
+    @Validation(required = true)
     public String scope;
 
     // 该参数在该 scope 中的 id
     @NameInMap("scope_id")
+    @Validation(required = true)
     public String scopeId;
 
     // 参数类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 参数值
@@ -50,6 +58,14 @@ public class CreateConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateConfigGlobalRequest setDataLevel(String dataLevel) {

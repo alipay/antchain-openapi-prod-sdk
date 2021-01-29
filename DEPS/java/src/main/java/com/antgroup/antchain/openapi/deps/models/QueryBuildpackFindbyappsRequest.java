@@ -7,6 +7,9 @@ public class QueryBuildpackFindbyappsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // appIds
     @NameInMap("app_ids")
     public java.util.List<String> appIds;
@@ -26,6 +29,14 @@ public class QueryBuildpackFindbyappsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackFindbyappsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackFindbyappsRequest setAppIds(java.util.List<String> appIds) {

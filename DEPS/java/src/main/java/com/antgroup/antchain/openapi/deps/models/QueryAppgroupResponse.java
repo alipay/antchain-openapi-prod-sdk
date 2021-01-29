@@ -15,18 +15,22 @@ public class QueryAppgroupResponse extends TeaModel {
 
     // 应用分组列表
     @NameInMap("app_groups")
+    @Validation(required = true)
     public java.util.List<AppGroup> appGroups;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Integer pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Integer pageSize;
 
     // 资源总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Integer totalCount;
 
     public static QueryAppgroupResponse build(java.util.Map<String, ?> map) throws Exception {

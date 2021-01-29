@@ -28,6 +28,7 @@ public class CmdExecResult extends TeaModel {
     //                     TIME_OUT：已超时
     //                 
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     public static CmdExecResult build(java.util.Map<String, ?> map) throws Exception {

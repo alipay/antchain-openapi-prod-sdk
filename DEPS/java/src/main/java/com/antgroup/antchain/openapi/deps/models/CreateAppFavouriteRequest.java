@@ -7,8 +7,12 @@ public class CreateAppFavouriteRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 用户要收藏的应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 用户登录名
@@ -26,6 +30,14 @@ public class CreateAppFavouriteRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAppFavouriteRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateAppFavouriteRequest setAppName(String appName) {

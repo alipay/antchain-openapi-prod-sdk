@@ -7,8 +7,12 @@ public class CreateDeploymentRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用列表
     @NameInMap("applications")
+    @Validation(required = true)
     public java.util.List<Application> applications;
 
     // 是否启用自动运维，默认为**False**
@@ -17,18 +21,17 @@ public class CreateDeploymentRequest extends TeaModel {
 
     // 部署维度，有两种取值：APPLICATION和APP_SERVICE。设置为APPLICATION，表示在尚未引入应用服务环境中对整个应用都执行部署操作; APP_SERVICE表示在引入应用服务的环境中对应用服务执行部署操作。
     @NameInMap("deploy_dimension")
+    @Validation(required = true)
     public String deployDimension;
-
-    // 执行部署操作的目标租户
-    @NameInMap("tenant")
-    public String tenant;
 
     // 部署单标题。长度不超过50个UTF-8字符
     @NameInMap("title")
+    @Validation(required = true)
     public String title;
 
     // 执行部署操作的目标工作空间
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CreateDeploymentRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -42,6 +45,14 @@ public class CreateDeploymentRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateDeploymentRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateDeploymentRequest setApplications(java.util.List<Application> applications) {
@@ -66,14 +77,6 @@ public class CreateDeploymentRequest extends TeaModel {
     }
     public String getDeployDimension() {
         return this.deployDimension;
-    }
-
-    public CreateDeploymentRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public CreateDeploymentRequest setTitle(String title) {

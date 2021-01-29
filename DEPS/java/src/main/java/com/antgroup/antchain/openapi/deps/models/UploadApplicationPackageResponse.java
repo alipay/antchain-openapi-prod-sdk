@@ -19,6 +19,7 @@ public class UploadApplicationPackageResponse extends TeaModel {
 
     // 上传应用发布包的授权签名上传地址
     @NameInMap("signed_upload_url")
+    @Validation(required = true)
     public String signedUploadUrl;
 
     public static UploadApplicationPackageResponse build(java.util.Map<String, ?> map) throws Exception {

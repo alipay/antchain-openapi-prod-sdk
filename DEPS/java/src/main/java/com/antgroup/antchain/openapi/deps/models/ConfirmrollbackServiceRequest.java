@@ -7,16 +7,22 @@ public class ConfirmrollbackServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // retry_rollbacked
     @NameInMap("retry_rollbacked")
+    @Validation(required = true)
     public Boolean retryRollbacked;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static ConfirmrollbackServiceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class ConfirmrollbackServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ConfirmrollbackServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ConfirmrollbackServiceRequest setId(String id) {

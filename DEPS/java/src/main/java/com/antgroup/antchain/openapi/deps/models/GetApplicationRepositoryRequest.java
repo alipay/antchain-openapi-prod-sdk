@@ -7,8 +7,12 @@ public class GetApplicationRepositoryRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 待查询的应用名称。最大60个UTF-8字符
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     public static GetApplicationRepositoryRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class GetApplicationRepositoryRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetApplicationRepositoryRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetApplicationRepositoryRequest setApplicationName(String applicationName) {

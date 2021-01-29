@@ -7,16 +7,22 @@ public class RetryMachineRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 发布机器 ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // retry_info
     @NameInMap("retry_info")
+    @Validation(required = true)
     public RetryInfo retryInfo;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static RetryMachineRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class RetryMachineRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RetryMachineRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RetryMachineRequest setId(String id) {

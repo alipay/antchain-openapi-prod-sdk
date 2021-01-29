@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class AppBaselineSidecarConfig extends TeaModel {
     // 应用名
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // sidecar类型
     @NameInMap("category")
+    @Validation(required = true)
     public String category;
 
     // 应用基线适用条件，金融云环境仅能指定workspaceGroups属性，并且只能指定一个workspaceGroup
     @NameInMap("conditions")
+    @Validation(required = true)
     public java.util.List<SidecarCondition> conditions;
 
     // 是否开启sidecar
     @NameInMap("enable")
+    @Validation(required = true)
     public Boolean enable;
 
     // sidecar版本号，金融云环境必填
@@ -26,6 +30,7 @@ public class AppBaselineSidecarConfig extends TeaModel {
 
     // 应用基线id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static AppBaselineSidecarConfig build(java.util.Map<String, ?> map) throws Exception {

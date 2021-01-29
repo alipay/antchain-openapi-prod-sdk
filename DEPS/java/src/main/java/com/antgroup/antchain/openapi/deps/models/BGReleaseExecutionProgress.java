@@ -6,30 +6,37 @@ import com.aliyun.tea.*;
 public class BGReleaseExecutionProgress extends TeaModel {
     // unit_id
     @NameInMap("unit_id")
+    @Validation(required = true)
     public String unitId;
 
     // unit_type
     @NameInMap("unit_type")
+    @Validation(required = true)
     public String unitType;
 
     // resource_type
     @NameInMap("resource_type")
+    @Validation(required = true)
     public String resourceType;
 
     // traffic_execution_progress_of_service
     @NameInMap("traffic_execution_progress_of_service")
+    @Validation(required = true)
     public java.util.List<SlbExecutionProgress> trafficExecutionProgressOfService;
 
     // service_execution_progress_group
     @NameInMap("service_execution_progress_group")
+    @Validation(required = true)
     public java.util.List<TaskExecutionProgress> serviceExecutionProgressGroup;
 
     // rollback_service_execution_progress_group
     @NameInMap("rollback_service_execution_progress_group")
+    @Validation(required = true)
     public java.util.List<TaskExecutionProgress> rollbackServiceExecutionProgressGroup;
 
     // base_progress
     @NameInMap("base_progress")
+    @Validation(required = true)
     public ResourceGroupExecutionProgress baseProgress;
 
     public static BGReleaseExecutionProgress build(java.util.Map<String, ?> map) throws Exception {

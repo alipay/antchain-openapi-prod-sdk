@@ -15,6 +15,7 @@ public class QueryAppVersionResponse extends TeaModel {
 
     // 应用发布包详情
     @NameInMap("version")
+    @Validation(required = true)
     public AppVersion version;
 
     public static QueryAppVersionResponse build(java.util.Map<String, ?> map) throws Exception {

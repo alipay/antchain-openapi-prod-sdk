@@ -7,12 +7,17 @@ public class DeleteCellgroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 逻辑单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 所属环境名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     public static DeleteCellgroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class DeleteCellgroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteCellgroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteCellgroupRequest setName(String name) {

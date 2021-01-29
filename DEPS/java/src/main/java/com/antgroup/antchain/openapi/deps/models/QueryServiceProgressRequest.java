@@ -7,6 +7,9 @@ public class QueryServiceProgressRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // depth
     @NameInMap("depth")
     public Long depth;
@@ -59,6 +62,7 @@ public class QueryServiceProgressRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryServiceProgressRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -72,6 +76,14 @@ public class QueryServiceProgressRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryServiceProgressRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryServiceProgressRequest setDepth(Long depth) {

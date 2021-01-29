@@ -6,64 +6,77 @@ import com.aliyun.tea.*;
 public class OpsProcessDefinition extends TeaModel {
     // 描述
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // 指令名称
     @NameInMap("instruction")
+    @Validation(required = true)
     public String instruction;
 
     // 进程名
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 运维类型
     @NameInMap("ops_type")
+    @Validation(required = true)
     public String opsType;
 
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // 类型
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     // 概览信息
     @NameInMap("arrangements")
+    @Validation(required = true)
     public java.util.List<ArrangementInfo> arrangements;
 
     // 环境变量
     @NameInMap("env_config")
+    @Validation(required = true)
     public java.util.List<Pair> envConfig;
 
     // 支持的状态转换列表
     @NameInMap("supported_transitions")
+    @Validation(required = true)
     public java.util.List<String> supportedTransitions;
 
     // 节点ID
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 开始时间
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // 结束时间
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // 可独立执行
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static OpsProcessDefinition build(java.util.Map<String, ?> map) throws Exception {

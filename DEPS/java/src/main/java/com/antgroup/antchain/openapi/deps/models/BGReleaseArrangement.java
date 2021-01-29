@@ -6,88 +6,107 @@ import com.aliyun.tea.*;
 public class BGReleaseArrangement extends TeaModel {
     // 活跃单元 ID
     @NameInMap("active_unit_id")
+    @Validation(required = true)
     public String activeUnitId;
 
     // 非活跃单元 ID
     @NameInMap("deactivated_unit_id")
+    @Validation(required = true)
     public String deactivatedUnitId;
 
     // 灰度进程ID
     @NameInMap("gray_traffic_process_id")
+    @Validation(required = true)
     public String grayTrafficProcessId;
 
     // 回滚进程ID
     @NameInMap("rollback_process_id")
+    @Validation(required = true)
     public String rollbackProcessId;
 
     // 发布应用信息集合
     @NameInMap("service_info_collection")
+    @Validation(required = true)
     public java.util.List<ServiceInfo> serviceInfoCollection;
 
     // 类型
     @NameInMap("step_type")
+    @Validation(required = true)
     public String stepType;
 
     // 单元类型
     @NameInMap("unit_type")
+    @Validation(required = true)
     public String unitType;
 
     // 名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 类型
     @NameInMap("arrangement_type")
+    @Validation(required = true)
     public String arrangementType;
 
     // 环境变量
     @NameInMap("env_config")
+    @Validation(required = true)
     public java.util.List<Pair> envConfig;
 
     // 合法状态列表
     @NameInMap("targets_legal_states")
+    @Validation(required = true)
     public java.util.List<OpsTargetLegalStates> targetsLegalStates;
 
     // 运维进程ID
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // 父运维进程ID
     @NameInMap("parent_id")
+    @Validation(required = true)
     public String parentId;
 
     // 父进程类型
     @NameInMap("parent_entity_type")
+    @Validation(required = true)
     public String parentEntityType;
 
     // 支持的转换类型
     @NameInMap("supported_transitions")
+    @Validation(required = true)
     public java.util.List<String> supportedTransitions;
 
     // 流程节点 ID
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 开始时间
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // 结束时间
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // 是否可以独立运行
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static BGReleaseArrangement build(java.util.Map<String, ?> map) throws Exception {

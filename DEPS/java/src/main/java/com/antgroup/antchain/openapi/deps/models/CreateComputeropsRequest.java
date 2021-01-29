@@ -7,6 +7,9 @@ public class CreateComputeropsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 执行的指令列表。n代表第n个指令，n从1开始，最大20。示例如下：cmds.1.template_id=000015678&cmds.1.args.1.name=--version&cmds.1.args.1.value=2.2&cmds.2.template_id=000015688
     @NameInMap("cmds")
     public java.util.List<OpsCmd> cmds;
@@ -17,6 +20,7 @@ public class CreateComputeropsRequest extends TeaModel {
 
     // 运维单标题。长度不超过50个UTF-8字符
     @NameInMap("title")
+    @Validation(required = true)
     public String title;
 
     public static CreateComputeropsRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +34,14 @@ public class CreateComputeropsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateComputeropsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateComputeropsRequest setCmds(java.util.List<OpsCmd> cmds) {

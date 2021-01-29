@@ -7,8 +7,12 @@ public class QueryAppVersionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 版本构建id
     @NameInMap("build_id")
+    @Validation(required = true)
     public String buildId;
 
     public static QueryAppVersionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class QueryAppVersionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppVersionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppVersionRequest setBuildId(String buildId) {

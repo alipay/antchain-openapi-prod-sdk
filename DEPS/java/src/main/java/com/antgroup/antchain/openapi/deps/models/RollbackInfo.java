@@ -6,26 +6,32 @@ import com.aliyun.tea.*;
 public class RollbackInfo extends TeaModel {
     // group_amount
     @NameInMap("group_amount")
+    @Validation(required = true)
     public Long groupAmount;
 
     // group_strategy
     @NameInMap("group_strategy")
+    @Validation(required = true)
     public String groupStrategy;
 
     // reason
     @NameInMap("reason")
+    @Validation(required = true)
     public String reason;
 
     // sub_entities
     @NameInMap("sub_entities")
+    @Validation(required = true)
     public java.util.List<String> subEntities;
 
     // target_id
     @NameInMap("target_id")
+    @Validation(required = true)
     public String targetId;
 
     // target_version
     @NameInMap("target_version")
+    @Validation(required = true)
     public String targetVersion;
 
     // need_beta_group

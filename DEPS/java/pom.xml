@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-deps</artifactId>
-  <version>3.2.1</version>
+  <version>3.2.2</version>
   <packaging>jar</packaging>
   <name>openapi-deps</name>
   <description>Ant Chain deps SDK for Java
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.antgroup.antchain.openapi</groupId>
       <artifactId>antchain-util</artifactId>
-      <version>0.1.2</version>
+      <version>0.1.4</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>

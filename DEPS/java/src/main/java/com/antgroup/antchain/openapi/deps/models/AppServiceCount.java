@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class AppServiceCount extends TeaModel {
     // 经典容器服务数量
     @NameInMap("classic_count")
+    @Validation(required = true)
     public Long classicCount;
 
     // 容器应用服务数量
     @NameInMap("container_count")
+    @Validation(required = true)
     public Long containerCount;
 
     // 无服务器应用服务数
     @NameInMap("serverless_count")
+    @Validation(required = true)
     public Long serverlessCount;
 
     public static AppServiceCount build(java.util.Map<String, ?> map) throws Exception {

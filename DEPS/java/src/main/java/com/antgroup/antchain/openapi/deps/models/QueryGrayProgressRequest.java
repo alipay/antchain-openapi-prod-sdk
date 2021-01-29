@@ -7,12 +7,17 @@ public class QueryGrayProgressRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryGrayProgressRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class QueryGrayProgressRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryGrayProgressRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryGrayProgressRequest setId(String id) {

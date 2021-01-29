@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class DeploymentCell extends TeaModel {
     // name
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 部署单元 id
     @NameInMap("cell_ids")
+    @Validation(required = true)
     public java.util.List<String> cellIds;
 
     // description
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static DeploymentCell build(java.util.Map<String, ?> map) throws Exception {

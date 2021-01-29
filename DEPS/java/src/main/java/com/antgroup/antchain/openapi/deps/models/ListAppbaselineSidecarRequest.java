@@ -7,8 +7,12 @@ public class ListAppbaselineSidecarRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // sidecar类型
@@ -34,6 +38,14 @@ public class ListAppbaselineSidecarRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ListAppbaselineSidecarRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ListAppbaselineSidecarRequest setAppName(String appName) {

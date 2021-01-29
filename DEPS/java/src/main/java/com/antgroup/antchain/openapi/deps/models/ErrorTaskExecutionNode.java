@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class ErrorTaskExecutionNode extends TeaModel {
     // 节点 ID
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // 节点名
     @NameInMap("node_name")
+    @Validation(required = true)
     public String nodeName;
 
     // 错误码
     @NameInMap("code")
+    @Validation(required = true)
     public String code;
 
     // 错误信息
     @NameInMap("message")
+    @Validation(required = true)
     public String message;
 
     public static ErrorTaskExecutionNode build(java.util.Map<String, ?> map) throws Exception {

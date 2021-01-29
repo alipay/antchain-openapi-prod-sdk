@@ -7,6 +7,9 @@ public class SwitchBgreleaseGraytrafficRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用ID
     @NameInMap("app_id")
     public String appId;
@@ -25,18 +28,22 @@ public class SwitchBgreleaseGraytrafficRequest extends TeaModel {
 
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // 比率
     @NameInMap("proportion")
+    @Validation(required = true)
     public Long proportion;
 
     // 目标ID
     @NameInMap("target_id")
+    @Validation(required = true)
     public String targetId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SwitchBgreleaseGraytrafficRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -50,6 +57,14 @@ public class SwitchBgreleaseGraytrafficRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SwitchBgreleaseGraytrafficRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SwitchBgreleaseGraytrafficRequest setAppId(String appId) {

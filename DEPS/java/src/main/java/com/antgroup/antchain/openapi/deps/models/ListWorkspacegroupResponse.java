@@ -15,6 +15,7 @@ public class ListWorkspacegroupResponse extends TeaModel {
 
     // 环境列表
     @NameInMap("workspace_groups")
+    @Validation(required = true)
     public java.util.List<WorkspaceGroup> workspaceGroups;
 
     public static ListWorkspacegroupResponse build(java.util.Map<String, ?> map) throws Exception {

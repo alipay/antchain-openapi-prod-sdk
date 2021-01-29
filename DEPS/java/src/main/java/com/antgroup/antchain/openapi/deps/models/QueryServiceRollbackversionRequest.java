@@ -7,6 +7,9 @@ public class QueryServiceRollbackversionRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // depth
     @NameInMap("depth")
     public Long depth;
@@ -43,6 +46,7 @@ public class QueryServiceRollbackversionRequest extends TeaModel {
 
     // process_definition_id
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // service_group_collection_id
@@ -59,6 +63,7 @@ public class QueryServiceRollbackversionRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryServiceRollbackversionRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -72,6 +77,14 @@ public class QueryServiceRollbackversionRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryServiceRollbackversionRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryServiceRollbackversionRequest setDepth(Long depth) {

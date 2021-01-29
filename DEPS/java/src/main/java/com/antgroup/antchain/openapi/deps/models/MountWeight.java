@@ -6,14 +6,17 @@ import com.aliyun.tea.*;
 public class MountWeight extends TeaModel {
     // 挂载目标 ID
     @NameInMap("mount_target_id")
+    @Validation(required = true)
     public String mountTargetId;
 
     // 端口
     @NameInMap("port")
+    @Validation(required = true)
     public Long port;
 
     // 权重
     @NameInMap("weight")
+    @Validation(required = true, maximum = 100)
     public Long weight;
 
     public static MountWeight build(java.util.Map<String, ?> map) throws Exception {

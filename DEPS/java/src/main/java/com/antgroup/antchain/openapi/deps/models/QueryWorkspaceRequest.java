@@ -7,6 +7,9 @@ public class QueryWorkspaceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 工作空间状态。输入示例：status.1=CREATED
     @NameInMap("status")
     public java.util.List<String> status;
@@ -22,6 +25,14 @@ public class QueryWorkspaceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryWorkspaceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryWorkspaceRequest setStatus(java.util.List<String> status) {

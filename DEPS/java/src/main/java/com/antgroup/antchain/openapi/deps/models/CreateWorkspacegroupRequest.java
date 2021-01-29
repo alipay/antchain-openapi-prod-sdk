@@ -7,24 +7,32 @@ public class CreateWorkspacegroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 工作空间组显示名称。
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // 域名后缀。
     @NameInMap("domain_suffix")
+    @Validation(required = true)
     public String domainSuffix;
 
     // 工作空间组唯一标识。
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 发布部署模式。
     @NameInMap("release_mode")
+    @Validation(required = true)
     public String releaseMode;
 
     // 包含工作空间列表。
     @NameInMap("workspaces")
+    @Validation(required = true)
     public java.util.List<String> workspaces;
 
     public static CreateWorkspacegroupRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -38,6 +46,14 @@ public class CreateWorkspacegroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateWorkspacegroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateWorkspacegroupRequest setDisplayName(String displayName) {

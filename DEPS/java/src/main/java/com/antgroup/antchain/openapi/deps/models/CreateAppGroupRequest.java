@@ -7,6 +7,9 @@ public class CreateAppGroupRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用依赖规划
     @NameInMap("app_scheme")
     public java.util.List<AppDepend> appScheme;
@@ -17,6 +20,7 @@ public class CreateAppGroupRequest extends TeaModel {
 
     // 应用分组名称，支持中文
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 应用分组负责人登录名
@@ -38,6 +42,14 @@ public class CreateAppGroupRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAppGroupRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateAppGroupRequest setAppScheme(java.util.List<AppDepend> appScheme) {

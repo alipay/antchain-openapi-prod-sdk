@@ -15,6 +15,7 @@ public class GetCmdtemplateResponse extends TeaModel {
 
     // 指令模板详情
     @NameInMap("template")
+    @Validation(required = true)
     public CmdTemplate template;
 
     public static GetCmdtemplateResponse build(java.util.Map<String, ?> map) throws Exception {

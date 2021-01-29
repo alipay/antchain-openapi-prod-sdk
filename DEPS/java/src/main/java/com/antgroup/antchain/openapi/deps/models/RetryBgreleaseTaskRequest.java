@@ -7,24 +7,32 @@ public class RetryBgreleaseTaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 概览ID
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // retry_info
     @NameInMap("retry_info")
+    @Validation(required = true)
     public RetryInfo retryInfo;
 
     // 任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static RetryBgreleaseTaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -38,6 +46,14 @@ public class RetryBgreleaseTaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public RetryBgreleaseTaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public RetryBgreleaseTaskRequest setArrangementId(String arrangementId) {

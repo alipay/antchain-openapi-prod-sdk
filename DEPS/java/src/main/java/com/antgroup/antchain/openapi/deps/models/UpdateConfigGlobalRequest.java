@@ -7,6 +7,9 @@ public class UpdateConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 数据保密等级
     @NameInMap("data_level")
     public String dataLevel;
@@ -17,6 +20,7 @@ public class UpdateConfigGlobalRequest extends TeaModel {
 
     // 全局参数 id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 参数名
@@ -54,6 +58,14 @@ public class UpdateConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateConfigGlobalRequest setDataLevel(String dataLevel) {

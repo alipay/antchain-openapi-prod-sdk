@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class StateCount extends TeaModel {
     // state
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // count
     @NameInMap("count")
+    @Validation(required = true)
     public Long count;
 
     public static StateCount build(java.util.Map<String, ?> map) throws Exception {

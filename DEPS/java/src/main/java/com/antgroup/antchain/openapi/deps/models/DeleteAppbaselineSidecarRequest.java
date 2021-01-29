@@ -7,8 +7,12 @@ public class DeleteAppbaselineSidecarRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用基线ID
     @NameInMap("appbaseline_id")
+    @Validation(required = true)
     public String appbaselineId;
 
     public static DeleteAppbaselineSidecarRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class DeleteAppbaselineSidecarRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteAppbaselineSidecarRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteAppbaselineSidecarRequest setAppbaselineId(String appbaselineId) {

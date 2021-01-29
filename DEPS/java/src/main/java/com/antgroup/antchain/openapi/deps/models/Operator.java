@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class Operator extends TeaModel {
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // login_name
     @NameInMap("login_name")
+    @Validation(required = true)
     public String loginName;
 
     // email
     @NameInMap("email")
+    @Validation(required = true)
     public String email;
 
     // nick_name
     @NameInMap("nick_name")
+    @Validation(required = true)
     public String nickName;
 
     public static Operator build(java.util.Map<String, ?> map) throws Exception {

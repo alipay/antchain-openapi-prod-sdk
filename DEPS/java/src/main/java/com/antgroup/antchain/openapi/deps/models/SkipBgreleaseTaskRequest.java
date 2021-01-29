@@ -7,20 +7,27 @@ public class SkipBgreleaseTaskRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 概览ID
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // 发布单ID
     @NameInMap("plan_id")
+    @Validation(required = true)
     public String planId;
 
     // 任务ID
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static SkipBgreleaseTaskRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -34,6 +41,14 @@ public class SkipBgreleaseTaskRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public SkipBgreleaseTaskRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public SkipBgreleaseTaskRequest setArrangementId(String arrangementId) {

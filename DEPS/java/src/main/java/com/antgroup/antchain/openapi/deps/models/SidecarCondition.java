@@ -6,6 +6,7 @@ import com.aliyun.tea.*;
 public class SidecarCondition extends TeaModel {
     // 支持的workspaceGroup
     @NameInMap("workspace_groups")
+    @Validation(required = true)
     public String workspaceGroups;
 
     // 支持的cell列表

@@ -7,8 +7,12 @@ public class DeleteConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 要删除的全局参数 id
     @NameInMap("global_param_id")
+    @Validation(required = true)
     public String globalParamId;
 
     public static DeleteConfigGlobalRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class DeleteConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public DeleteConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public DeleteConfigGlobalRequest setGlobalParamId(String globalParamId) {

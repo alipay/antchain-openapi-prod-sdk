@@ -7,6 +7,9 @@ public class UpdateDeploymentCellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 蓝绿着色信息
     @NameInMap("color")
     public String color;
@@ -17,6 +20,7 @@ public class UpdateDeploymentCellRequest extends TeaModel {
 
     // 部署单元名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 权重
@@ -25,10 +29,12 @@ public class UpdateDeploymentCellRequest extends TeaModel {
 
     // 所属工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     // 所属环境组名称
     @NameInMap("workspace_group")
+    @Validation(required = true)
     public String workspaceGroup;
 
     public static UpdateDeploymentCellRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -42,6 +48,14 @@ public class UpdateDeploymentCellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateDeploymentCellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateDeploymentCellRequest setColor(String color) {

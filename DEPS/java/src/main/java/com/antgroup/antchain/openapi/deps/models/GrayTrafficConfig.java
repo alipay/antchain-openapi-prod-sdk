@@ -6,26 +6,32 @@ import com.aliyun.tea.*;
 public class GrayTrafficConfig extends TeaModel {
     // 灰度流量类型
     @NameInMap("gray_traffic_type")
+    @Validation(required = true)
     public String grayTrafficType;
 
     // 主机名
     @NameInMap("hostname")
+    @Validation(required = true)
     public String hostname;
 
     // 匹配规则
     @NameInMap("match_patterns")
+    @Validation(required = true)
     public String matchPatterns;
 
     // 端口号
     @NameInMap("port")
+    @Validation(required = true)
     public Long port;
 
     // 比例
     @NameInMap("proportion")
+    @Validation(required = true)
     public String proportion;
 
     // 目标 uri
     @NameInMap("target_uri")
+    @Validation(required = true)
     public String targetUri;
 
     public static GrayTrafficConfig build(java.util.Map<String, ?> map) throws Exception {

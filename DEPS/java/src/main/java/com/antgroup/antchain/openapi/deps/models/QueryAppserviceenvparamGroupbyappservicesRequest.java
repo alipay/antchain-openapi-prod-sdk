@@ -7,6 +7,9 @@ public class QueryAppserviceenvparamGroupbyappservicesRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // appServiceIds
     @NameInMap("app_service_ids")
     public java.util.List<String> appServiceIds;
@@ -22,6 +25,14 @@ public class QueryAppserviceenvparamGroupbyappservicesRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppserviceenvparamGroupbyappservicesRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppserviceenvparamGroupbyappservicesRequest setAppServiceIds(java.util.List<String> appServiceIds) {

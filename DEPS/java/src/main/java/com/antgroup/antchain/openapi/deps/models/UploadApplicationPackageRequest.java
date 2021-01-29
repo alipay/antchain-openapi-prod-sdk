@@ -7,26 +7,27 @@ public class UploadApplicationPackageRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 目标应用完整名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 应用发布包名称。长度不超过100个双字节字符
     @NameInMap("package_name")
-    @Validation(maxLength = 100)
+    @Validation(required = true, maxLength = 100)
     public String packageName;
-
-    // 目标租户名称
-    @NameInMap("tenant")
-    public String tenant;
 
     // 版本号。长度不超过50个单字节字符
     @NameInMap("version_no")
-    @Validation(maxLength = 50)
+    @Validation(required = true, maxLength = 50)
     public String versionNo;
 
     // 目标工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UploadApplicationPackageRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -40,6 +41,14 @@ public class UploadApplicationPackageRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UploadApplicationPackageRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UploadApplicationPackageRequest setApplicationName(String applicationName) {
@@ -56,14 +65,6 @@ public class UploadApplicationPackageRequest extends TeaModel {
     }
     public String getPackageName() {
         return this.packageName;
-    }
-
-    public UploadApplicationPackageRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public UploadApplicationPackageRequest setVersionNo(String versionNo) {

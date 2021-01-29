@@ -7,6 +7,9 @@ public class QueryPlanRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // gmtCreateEnd
     @NameInMap("gmt_create_end")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
@@ -63,6 +66,7 @@ public class QueryPlanRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryPlanRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -76,6 +80,14 @@ public class QueryPlanRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryPlanRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryPlanRequest setGmtCreateEnd(String gmtCreateEnd) {

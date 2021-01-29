@@ -7,8 +7,12 @@ public class QueryAppServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 根据应用名称查询，不能为空，不支持一次性查询所有应用
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 排序规则数组，默认为 UTC_CREATED_DESC，即 根据创建时间降序排序
@@ -38,6 +42,14 @@ public class QueryAppServiceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryAppServiceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryAppServiceRequest setAppName(String appName) {

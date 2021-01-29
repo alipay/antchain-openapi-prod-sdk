@@ -7,6 +7,9 @@ public class QueryConfigGlobalRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 模板参数保密级别
     @NameInMap("data_level")
     public String dataLevel;
@@ -54,6 +57,14 @@ public class QueryConfigGlobalRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryConfigGlobalRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryConfigGlobalRequest setDataLevel(String dataLevel) {

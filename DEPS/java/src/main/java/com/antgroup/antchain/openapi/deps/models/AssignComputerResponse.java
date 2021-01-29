@@ -15,6 +15,7 @@ public class AssignComputerResponse extends TeaModel {
 
     // 请求的id
     @NameInMap("task_id")
+    @Validation(required = true)
     public String taskId;
 
     public static AssignComputerResponse build(java.util.Map<String, ?> map) throws Exception {

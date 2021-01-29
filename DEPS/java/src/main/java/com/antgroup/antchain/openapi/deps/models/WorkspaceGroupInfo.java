@@ -6,48 +6,57 @@ import com.aliyun.tea.*;
 public class WorkspaceGroupInfo extends TeaModel {
     // 创建时间。
     @NameInMap("created_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String createdTime;
 
     // 工作空间组显示名称。
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // 域名后缀。
     @NameInMap("domain_suffix")
+    @Validation(required = true)
     public String domainSuffix;
 
     // 工作空间组id。
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 主工作空间id。
     @NameInMap("master_workspace_id")
+    @Validation(required = true)
     public String masterWorkspaceId;
 
     // 主工作空间名称。
     @NameInMap("master_workspace_identity")
+    @Validation(required = true)
     public String masterWorkspaceIdentity;
 
     // 修改时间。
     @NameInMap("modified_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String modifiedTime;
 
     // 工作空间组唯一标识。
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 发布模式。
     @NameInMap("release_mode")
+    @Validation(required = true)
     public String releaseMode;
 
     // the belonging tenant name.
     @NameInMap("tenant_name")
+    @Validation(required = true)
     public String tenantName;
 
     // 包含工作空间列表。
     @NameInMap("workspaces")
+    @Validation(required = true)
     public java.util.List<Workspace> workspaces;
 
     // workspace name

@@ -7,8 +7,12 @@ public class CreateAppRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
     @NameInMap("appgroup_name")
+    @Validation(required = true)
     public String appgroupName;
 
     // 应用描述
@@ -21,6 +25,7 @@ public class CreateAppRequest extends TeaModel {
 
     // 应用名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 用户登录名
@@ -29,6 +34,7 @@ public class CreateAppRequest extends TeaModel {
 
     // 技术栈 id
     @NameInMap("stack_id")
+    @Validation(required = true)
     public String stackId;
 
     // 应用额外信息（应用标签）
@@ -50,6 +56,14 @@ public class CreateAppRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAppRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateAppRequest setAppgroupName(String appgroupName) {

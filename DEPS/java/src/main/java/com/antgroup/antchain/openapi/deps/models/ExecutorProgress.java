@@ -14,10 +14,12 @@ public class ExecutorProgress extends TeaModel {
 
     // 状态
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 错误信息
     @NameInMap("result_msg")
+    @Validation(required = true)
     public String resultMsg;
 
     public static ExecutorProgress build(java.util.Map<String, ?> map) throws Exception {

@@ -6,88 +6,107 @@ import com.aliyun.tea.*;
 public class MachineGroup extends TeaModel {
     // 机器名
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 所属发布服务 ID
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // 所属发布服务分组 ID
     @NameInMap("service_group_id")
+    @Validation(required = true)
     public String serviceGroupId;
 
     // 发布服务分组集合 ID
     @NameInMap("service_group_collection_id")
+    @Validation(required = true)
     public String serviceGroupCollectionId;
 
     // 概览 ID
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // 服务类型
     @NameInMap("service_type")
+    @Validation(required = true)
     public String serviceType;
 
     // paas 服务 ID
     @NameInMap("paas_service_id")
+    @Validation(required = true)
     public String paasServiceId;
 
     // 是否 beta 分组
     @NameInMap("need_beta")
+    @Validation(required = true)
     public Boolean needBeta;
 
     // 是否需要确认
     @NameInMap("need_confirm")
+    @Validation(required = true)
     public Boolean needConfirm;
 
     // 是否需要分组预确认
     @NameInMap("need_reserve")
+    @Validation(required = true)
     public Boolean needReserve;
 
     // 是否需要引流确认
     @NameInMap("need_confirm_traffic")
+    @Validation(required = true)
     public Boolean needConfirmTraffic;
 
     // 机器信息组
     @NameInMap("machines")
+    @Validation(required = true)
     public java.util.List<Machine> machines;
 
     // pd id
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // 父节点 ID
     @NameInMap("parent_id")
+    @Validation(required = true)
     public String parentId;
 
     // 父节点类型
     @NameInMap("parent_entity_type")
+    @Validation(required = true)
     public String parentEntityType;
 
     // 流程节点 ID
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 开始时间
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // 结束时间
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // 是否可以独立执行
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static MachineGroup build(java.util.Map<String, ?> map) throws Exception {

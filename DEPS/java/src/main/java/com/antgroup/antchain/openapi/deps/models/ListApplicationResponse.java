@@ -15,18 +15,22 @@ public class ListApplicationResponse extends TeaModel {
 
     // 应用名称列表
     @NameInMap("application_names")
+    @Validation(required = true)
     public java.util.List<String> applicationNames;
 
     // 当前页码
     @NameInMap("page_num")
+    @Validation(required = true)
     public Integer pageNum;
 
     // 分页大小
     @NameInMap("page_size")
+    @Validation(required = true)
     public Integer pageSize;
 
     // 应用总数
     @NameInMap("total_count")
+    @Validation(required = true)
     public Integer totalCount;
 
     public static ListApplicationResponse build(java.util.Map<String, ?> map) throws Exception {

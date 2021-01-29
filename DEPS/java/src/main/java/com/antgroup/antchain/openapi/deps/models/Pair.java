@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class Pair extends TeaModel {
     // 键
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 值
     @NameInMap("value")
+    @Validation(required = true)
     public String value;
 
     public static Pair build(java.util.Map<String, ?> map) throws Exception {

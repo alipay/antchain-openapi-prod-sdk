@@ -14,6 +14,7 @@ public class CmdTemplate extends TeaModel {
 
     // 指令模板创建者，通常为改用户注册蚂蚁金融云的email
     @NameInMap("creator")
+    @Validation(required = true)
     public String creator;
 
     // 指令模板描述
@@ -26,10 +27,12 @@ public class CmdTemplate extends TeaModel {
 
     // 指令模板ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 指令名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 失败重试的间隔，单位为秒
@@ -48,6 +51,7 @@ public class CmdTemplate extends TeaModel {
     //                     SIMPLE_COMMAND：简单指令类型；
     //                     CUSTOM_SHELL_SCRIPT：用户自定义shell脚本
     @NameInMap("type")
+    @Validation(required = true)
     public String type;
 
     public static CmdTemplate build(java.util.Map<String, ?> map) throws Exception {

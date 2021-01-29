@@ -6,196 +6,242 @@ import com.aliyun.tea.*;
 public class Machine extends TeaModel {
     // 机器名
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 所属发布服务id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // 包版本
     @NameInMap("service_package_version")
+    @Validation(required = true)
     public String servicePackageVersion;
 
     // 应用服务分组集合 ID
     @NameInMap("service_group_collection_id")
+    @Validation(required = true)
     public String serviceGroupCollectionId;
 
     // 发布分组 ID
     @NameInMap("service_group_id")
+    @Validation(required = true)
     public String serviceGroupId;
 
     // 概览 ID
     @NameInMap("arrangement_id")
+    @Validation(required = true)
     public String arrangementId;
 
     // 服务类型
     @NameInMap("service_type")
+    @Validation(required = true)
     public String serviceType;
 
     // paas 服务 ID
     @NameInMap("paas_service_id")
+    @Validation(required = true)
     public String paasServiceId;
 
     // paas 状态
     @NameInMap("paas_state")
+    @Validation(required = true)
     public String paasState;
 
     // 关联目标 ID
     @NameInMap("ref_target_id")
+    @Validation(required = true)
     public String refTargetId;
 
     // 目标 iaas id
     @NameInMap("target_iaas_id")
+    @Validation(required = true)
     public String targetIaasId;
 
     // 内网 IP
     @NameInMap("inner_ip")
+    @Validation(required = true)
     public String innerIp;
 
     // 公网 IP
     @NameInMap("public_ip")
+    @Validation(required = true)
     public String publicIp;
 
     // 主机名
     @NameInMap("host_name")
+    @Validation(required = true)
     public String hostName;
 
     // 主机域名
     @NameInMap("host_domain")
+    @Validation(required = true)
     public String hostDomain;
 
     // 安全组ID
     @NameInMap("security_domain_id")
+    @Validation(required = true)
     public String securityDomainId;
 
     // 安全组创建人 ID
     @NameInMap("security_domain_creator_id")
+    @Validation(required = true)
     public String securityDomainCreatorId;
 
     // 安全组名
     @NameInMap("security_domain_name")
+    @Validation(required = true)
     public String securityDomainName;
 
     // 默认执行账号
     @NameInMap("default_execute_account")
+    @Validation(required = true)
     public String defaultExecuteAccount;
 
     // 可用区 ID
     @NameInMap("zone_id")
+    @Validation(required = true)
     public String zoneId;
 
     // 部署单元 ID
     @NameInMap("cell_id")
+    @Validation(required = true)
     public String cellId;
 
     // 用户名
     @NameInMap("username")
+    @Validation(required = true)
     public String username;
 
     // 加密密码
     @NameInMap("encoded_pwd")
+    @Validation(required = true)
     public String encodedPwd;
 
     // 加密秘钥
     @NameInMap("encoded_secrey_key")
+    @Validation(required = true)
     public String encodedSecreyKey;
 
     // 公钥
     @NameInMap("public_key")
+    @Validation(required = true)
     public String publicKey;
 
     // star manage ip
     @NameInMap("star_manager_ip")
+    @Validation(required = true)
     public String starManagerIp;
 
     // star manager port
     @NameInMap("star_manager_port")
+    @Validation(required = true)
     public Long starManagerPort;
 
     // 初始化脚本 url
     @NameInMap("script_url")
+    @Validation(required = true)
     public String scriptUrl;
 
     // 特殊初始化脚本 url
     @NameInMap("special_script_url")
+    @Validation(required = true)
     public String specialScriptUrl;
 
     // 代理 url
     @NameInMap("agent_url")
+    @Validation(required = true)
     public String agentUrl;
 
     // 代理设置 url
     @NameInMap("agent_setup_url")
+    @Validation(required = true)
     public String agentSetupUrl;
 
     // 机器初始 url
     @NameInMap("machine_init_url")
+    @Validation(required = true)
     public String machineInitUrl;
 
     // 特殊机器初始 url
     @NameInMap("special_machine_init_url")
+    @Validation(required = true)
     public String specialMachineInitUrl;
 
     // 控制类型
     @NameInMap("control_type")
+    @Validation(required = true)
     public String controlType;
 
     // 控制对象
     @NameInMap("control_target")
+    @Validation(required = true)
     public String controlTarget;
 
     // 是否需要初始化
     @NameInMap("need_initialize")
+    @Validation(required = true)
     public Boolean needInitialize;
 
     // SLB 信息
     @NameInMap("slb_info_list")
+    @Validation(required = true)
     public java.util.List<SLBInfo> slbInfoList;
 
     // 子任务 id 
     @NameInMap("task_ids")
+    @Validation(required = true)
     public java.util.List<String> taskIds;
 
     // 环境变量
     @NameInMap("env_config")
+    @Validation(required = true)
     public java.util.List<Pair> envConfig;
 
     // pd id
     @NameInMap("process_definition_id")
+    @Validation(required = true)
     public String processDefinitionId;
 
     // 父节点 id
     @NameInMap("parent_id")
+    @Validation(required = true)
     public String parentId;
 
     // 父节点类型
     @NameInMap("parent_entity_type")
+    @Validation(required = true)
     public String parentEntityType;
 
     // 流程节点 ID
     @NameInMap("node_id")
+    @Validation(required = true)
     public String nodeId;
 
     // 状态
     @NameInMap("state")
+    @Validation(required = true)
     public String state;
 
     // 开始时间
     @NameInMap("started_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String startedTime;
 
     // 结束时间
     @NameInMap("finished_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String finishedTime;
 
     // 是否可独立执行
     @NameInMap("standalone_executable")
+    @Validation(required = true)
     public Boolean standaloneExecutable;
 
     // ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static Machine build(java.util.Map<String, ?> map) throws Exception {

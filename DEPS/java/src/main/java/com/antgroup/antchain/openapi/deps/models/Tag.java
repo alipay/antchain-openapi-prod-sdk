@@ -10,6 +10,7 @@ public class Tag extends TeaModel {
 
     // 键名
     @NameInMap("key")
+    @Validation(required = true)
     public String key;
 
     // 映射类型，可选
@@ -18,6 +19,7 @@ public class Tag extends TeaModel {
 
     // 键值
     @NameInMap("value")
+    @Validation(required = true)
     public String value;
 
     public static Tag build(java.util.Map<String, ?> map) throws Exception {

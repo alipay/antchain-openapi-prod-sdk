@@ -7,6 +7,9 @@ public class ReleaseComputerRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 计算资源id，可以指定多个
     @NameInMap("computer_ids")
     public java.util.List<String> computerIds;
@@ -26,6 +29,14 @@ public class ReleaseComputerRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public ReleaseComputerRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public ReleaseComputerRequest setComputerIds(java.util.List<String> computerIds) {

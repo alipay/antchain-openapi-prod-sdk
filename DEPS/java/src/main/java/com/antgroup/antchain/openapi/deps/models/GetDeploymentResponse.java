@@ -15,10 +15,12 @@ public class GetDeploymentResponse extends TeaModel {
 
     // 此部署操作中所有被操作的应用详情，以操作链的形式体现
     @NameInMap("application_chains")
+    @Validation(required = true)
     public java.util.List<OpsApplicationChain> applicationChains;
 
     // 部署操作执行者
     @NameInMap("executor")
+    @Validation(required = true)
     public String executor;
 
     // 
@@ -35,6 +37,7 @@ public class GetDeploymentResponse extends TeaModel {
     //                             
     //                         
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     public static GetDeploymentResponse build(java.util.Map<String, ?> map) throws Exception {

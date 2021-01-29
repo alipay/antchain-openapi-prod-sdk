@@ -7,12 +7,16 @@ public class QueryCmdtemplateRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 指令模板描述信息
     @NameInMap("description")
     public String description;
 
     // 指令名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 当前页码，默认为1
@@ -34,6 +38,14 @@ public class QueryCmdtemplateRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryCmdtemplateRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryCmdtemplateRequest setDescription(String description) {

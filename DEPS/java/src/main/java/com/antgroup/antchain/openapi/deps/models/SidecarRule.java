@@ -10,32 +10,37 @@ public class SidecarRule extends TeaModel {
 
     // 创建时间
     @NameInMap("gmt_created")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtCreated;
 
     // 修改时间
     @NameInMap("gmt_modified")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtModified;
 
     // 版本实例名称
     @NameInMap("instance_name")
+    @Validation(required = true)
     public String instanceName;
 
     // 规则优先级
     @NameInMap("level")
+    @Validation(required = true)
     public Long level;
 
     // scope生效范围详情
     @NameInMap("scope_detail")
+    @Validation(required = true)
     public SidecarScopeDetail scopeDetail;
 
     // sidecar版本实例id
     @NameInMap("sidecar_version_instance_id")
+    @Validation(required = true)
     public String sidecarVersionInstanceId;
 
     // 规则状态
     @NameInMap("status")
+    @Validation(required = true)
     public Long status;
 
     // 发布、下线、废弃原因

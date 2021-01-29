@@ -7,6 +7,9 @@ public class GetBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 技术栈版本的ID
     @NameInMap("buildpack_id")
     public String buildpackId;
@@ -22,6 +25,14 @@ public class GetBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetBuildpackRequest setBuildpackId(String buildpackId) {

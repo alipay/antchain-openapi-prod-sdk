@@ -7,8 +7,12 @@ public class UploadfinishBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 技术栈的ID
     @NameInMap("buildpack_id")
+    @Validation(required = true)
     public String buildpackId;
 
     // supportedRegions
@@ -26,6 +30,14 @@ public class UploadfinishBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UploadfinishBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UploadfinishBuildpackRequest setBuildpackId(String buildpackId) {

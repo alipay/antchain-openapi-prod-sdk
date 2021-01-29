@@ -6,42 +6,52 @@ import com.aliyun.tea.*;
 public class DeploymentZone extends TeaModel {
     // id
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 显示名
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // 描述
     @NameInMap("description")
+    @Validation(required = true)
     public String description;
 
     // 环境 id
     @NameInMap("workspace_id")
+    @Validation(required = true)
     public String workspaceId;
 
     // 工作空间组 id
     @NameInMap("workspace_group_id")
+    @Validation(required = true)
     public String workspaceGroupId;
 
     // 状态
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 主可用区 ID
     @NameInMap("master_zone_id")
+    @Validation(required = true)
     public String masterZoneId;
 
     // 附属可用区 ID
     @NameInMap("appended_zone_ids")
+    @Validation(required = true)
     public java.util.List<String> appendedZoneIds;
 
     // 包含部署单元
     @NameInMap("cells")
+    @Validation(required = true)
     public java.util.List<Cell> cells;
 
     public static DeploymentZone build(java.util.Map<String, ?> map) throws Exception {

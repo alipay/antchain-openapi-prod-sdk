@@ -15,6 +15,7 @@ public class QueryAppDeltaResponse extends TeaModel {
 
     // 发生变化的租户列表
     @NameInMap("tenants")
+    @Validation(required = true)
     public java.util.List<String> tenants;
 
     public static QueryAppDeltaResponse build(java.util.Map<String, ?> map) throws Exception {

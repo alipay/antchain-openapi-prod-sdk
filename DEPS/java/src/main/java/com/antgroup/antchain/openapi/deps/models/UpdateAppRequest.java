@@ -7,6 +7,9 @@ public class UpdateAppRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用所属分组，至于应用所属分组的级别需要后端根据分组名称计算出来
     @NameInMap("appgroup_name")
     public String appgroupName;
@@ -25,6 +28,7 @@ public class UpdateAppRequest extends TeaModel {
 
     // 应用名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 应用额外信息（应用标签）
@@ -42,6 +46,14 @@ public class UpdateAppRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateAppRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateAppRequest setAppgroupName(String appgroupName) {

@@ -7,6 +7,9 @@ public class QueryBuildpackFindbynamesRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // techstackNames
     @NameInMap("techstack_names")
     public java.util.List<String> techstackNames;
@@ -22,6 +25,14 @@ public class QueryBuildpackFindbynamesRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryBuildpackFindbynamesRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryBuildpackFindbynamesRequest setTechstackNames(java.util.List<String> techstackNames) {

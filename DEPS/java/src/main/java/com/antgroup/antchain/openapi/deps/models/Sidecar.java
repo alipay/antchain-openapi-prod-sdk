@@ -10,20 +10,22 @@ public class Sidecar extends TeaModel {
 
     // 创建时间
     @NameInMap("gmt_created")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtCreated;
 
     // 修改时间
     @NameInMap("gmt_modified")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
     public String gmtModified;
 
     // sidecar名称
     @NameInMap("sidecar_name")
+    @Validation(required = true)
     public String sidecarName;
 
     // scope生效范围详情
     @NameInMap("scope_detail")
+    @Validation(required = true)
     public SidecarScopeDetail scopeDetail;
 
     public static Sidecar build(java.util.Map<String, ?> map) throws Exception {

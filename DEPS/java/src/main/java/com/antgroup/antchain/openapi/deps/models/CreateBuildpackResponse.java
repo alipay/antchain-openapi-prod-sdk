@@ -15,10 +15,12 @@ public class CreateBuildpackResponse extends TeaModel {
 
     // 创建完成的技术栈ID
     @NameInMap("buildpack_id")
+    @Validation(required = true)
     public String buildpackId;
 
     // 技术栈包上传地址信息
     @NameInMap("upload_endpoints")
+    @Validation(required = true)
     public java.util.List<UploadEndpoint> uploadEndpoints;
 
     public static CreateBuildpackResponse build(java.util.Map<String, ?> map) throws Exception {

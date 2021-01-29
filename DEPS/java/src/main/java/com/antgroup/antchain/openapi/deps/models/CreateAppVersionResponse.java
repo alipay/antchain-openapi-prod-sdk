@@ -15,6 +15,7 @@ public class CreateAppVersionResponse extends TeaModel {
 
     // 发布包任务id，可用于查询应用发布包生成状态
     @NameInMap("build_id")
+    @Validation(required = true)
     public String buildId;
 
     public static CreateAppVersionResponse build(java.util.Map<String, ?> map) throws Exception {

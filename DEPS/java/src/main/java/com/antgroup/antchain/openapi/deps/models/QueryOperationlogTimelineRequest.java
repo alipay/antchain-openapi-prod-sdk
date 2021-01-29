@@ -7,6 +7,9 @@ public class QueryOperationlogTimelineRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // customer_id
     @NameInMap("customer_id")
     public String customerId;
@@ -55,6 +58,7 @@ public class QueryOperationlogTimelineRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryOperationlogTimelineRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -68,6 +72,14 @@ public class QueryOperationlogTimelineRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryOperationlogTimelineRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryOperationlogTimelineRequest setCustomerId(String customerId) {

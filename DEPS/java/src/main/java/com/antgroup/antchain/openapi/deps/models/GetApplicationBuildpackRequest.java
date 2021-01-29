@@ -7,16 +7,22 @@ public class GetApplicationBuildpackRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("application_name")
+    @Validation(required = true)
     public String applicationName;
 
     // 应用服务的名称
     @NameInMap("service_name")
+    @Validation(required = true)
     public String serviceName;
 
     // 环境
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static GetApplicationBuildpackRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class GetApplicationBuildpackRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetApplicationBuildpackRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetApplicationBuildpackRequest setApplicationName(String applicationName) {

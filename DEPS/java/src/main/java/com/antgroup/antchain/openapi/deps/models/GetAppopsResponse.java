@@ -15,18 +15,22 @@ public class GetAppopsResponse extends TeaModel {
 
     // 此运维操作中所有被操作的应用详情，以操作链的形式体现
     @NameInMap("application_chains")
+    @Validation(required = true)
     public java.util.List<OpsApplicationChain> applicationChains;
 
     // 运维操作执行者
     @NameInMap("executor")
+    @Validation(required = true)
     public String executor;
 
     // 应用运维的操作类型，取值列表：ONLINE：上线应用，OFFLINE：下线应用，RESTART:重启应用，DEPLOY_STATIC_RESOURCE：部署静态资源
     @NameInMap("ops_action")
+    @Validation(required = true)
     public String opsAction;
 
     // 应用运维的维度，有三种取值：APPLICATION、APP_SERVICE和MACHINE。设置为APPLICATION，表示在非应用服务环境下整个应用都执行该应用运维操作；设置为APP_SERVICE，表示在应用服务环境下对应用服务执行运维操作;设置为MACHINE，表示应用下的一台或多台机器执行改应用运维操作。
     @NameInMap("ops_dimension")
+    @Validation(required = true)
     public String opsDimension;
 
     // 
@@ -43,10 +47,12 @@ public class GetAppopsResponse extends TeaModel {
     //                             
     //                         
     @NameInMap("status")
+    @Validation(required = true)
     public String status;
 
     // 应用运维单标题
     @NameInMap("title")
+    @Validation(required = true)
     public String title;
 
     public static GetAppopsResponse build(java.util.Map<String, ?> map) throws Exception {

@@ -7,8 +7,12 @@ public class GetWorkspaceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 所属工作空间名称
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static GetWorkspaceRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -22,6 +26,14 @@ public class GetWorkspaceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public GetWorkspaceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public GetWorkspaceRequest setWorkspace(String workspace) {

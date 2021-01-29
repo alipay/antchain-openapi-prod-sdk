@@ -7,8 +7,12 @@ public class CheckPlanOperationRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // data
     @NameInMap("data")
+    @Validation(required = true)
     public String data;
 
     // from_aliyun
@@ -17,6 +21,7 @@ public class CheckPlanOperationRequest extends TeaModel {
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static CheckPlanOperationRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +35,14 @@ public class CheckPlanOperationRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CheckPlanOperationRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CheckPlanOperationRequest setData(String data) {

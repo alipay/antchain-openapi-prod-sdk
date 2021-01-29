@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class AppServiceExecutionProgressWithRollbackInfo extends TeaModel {
     // progress
     @NameInMap("progress")
+    @Validation(required = true)
     public AppServiceExecutionProgress progress;
 
     // rollback_progress
     @NameInMap("rollback_progress")
+    @Validation(required = true)
     public AppServiceExecutionProgress rollbackProgress;
 
     public static AppServiceExecutionProgressWithRollbackInfo build(java.util.Map<String, ?> map) throws Exception {

@@ -15,6 +15,7 @@ public class QueryCellResponse extends TeaModel {
 
     // 部署单元列表
     @NameInMap("cells")
+    @Validation(required = true)
     public java.util.List<Cell> cells;
 
     public static QueryCellResponse build(java.util.Map<String, ?> map) throws Exception {

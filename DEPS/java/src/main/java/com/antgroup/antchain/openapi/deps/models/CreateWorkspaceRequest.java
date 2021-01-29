@@ -7,20 +7,27 @@ public class CreateWorkspaceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // workspace 显示名称
     @NameInMap("display_name")
+    @Validation(required = true)
     public String displayName;
 
     // workspace名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 网络类型
     @NameInMap("network_type")
+    @Validation(required = true)
     public String networkType;
 
     // 地域id
     @NameInMap("region_id")
+    @Validation(required = true)
     public String regionId;
 
     // 机房ID
@@ -38,6 +45,14 @@ public class CreateWorkspaceRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateWorkspaceRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateWorkspaceRequest setDisplayName(String displayName) {

@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class AggregateExecutableProgress extends TeaModel {
     // base_progress
     @NameInMap("base_progress")
+    @Validation(required = true)
     public ResourceGroupExecutionProgress baseProgress;
 
     // bg_release_progresses
     @NameInMap("bg_release_progresses")
+    @Validation(required = true)
     public java.util.List<BGReleaseExecutionProgress> bgReleaseProgresses;
 
     // app_service_progresses
     @NameInMap("app_service_progresses")
+    @Validation(required = true)
     public java.util.List<AppServiceExecutionProgressWithRollbackInfo> appServiceProgresses;
 
     // common_progresses
     @NameInMap("common_progresses")
+    @Validation(required = true)
     public java.util.List<ResourceGroupExecutionProgress> commonProgresses;
 
     public static AggregateExecutableProgress build(java.util.Map<String, ?> map) throws Exception {

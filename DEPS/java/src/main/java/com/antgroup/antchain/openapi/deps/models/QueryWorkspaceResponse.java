@@ -15,10 +15,12 @@ public class QueryWorkspaceResponse extends TeaModel {
 
     // 此应用下所有计算容器分组运维状态详情
     @NameInMap("groups")
+    @Validation(required = true)
     public java.util.List<OpsGroup> groups;
 
     // 查询结果，workspace列表
     @NameInMap("workspaces")
+    @Validation(required = true)
     public java.util.List<Workspace> workspaces;
 
     public static QueryWorkspaceResponse build(java.util.Map<String, ?> map) throws Exception {

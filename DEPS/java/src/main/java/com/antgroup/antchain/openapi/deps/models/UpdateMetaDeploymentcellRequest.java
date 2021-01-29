@@ -7,12 +7,17 @@ public class UpdateMetaDeploymentcellRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // deployment_cell
     @NameInMap("deployment_cell")
+    @Validation(required = true)
     public String deploymentCell;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static UpdateMetaDeploymentcellRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -26,6 +31,14 @@ public class UpdateMetaDeploymentcellRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public UpdateMetaDeploymentcellRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public UpdateMetaDeploymentcellRequest setDeploymentCell(String deploymentCell) {

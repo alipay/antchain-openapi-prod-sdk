@@ -7,6 +7,9 @@ public class CreateAppopsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 执行运维操作的目标应用名称列表。n代表第n个应用的名称，n从1开始，最大100。每个应用名称最大60个UTF-8字符。如果要输入多个应用，使用如下形式：applications.1.name=myapp1&applications.2.name=myapp2
     @NameInMap("applications")
     public java.util.List<Application> applications;
@@ -23,6 +26,7 @@ public class CreateAppopsRequest extends TeaModel {
     //                         部署静态资源需传入 ops_action_params 为("default_execute_account", "resource_download_url", "resource_target_file")
     //                         
     @NameInMap("ops_action")
+    @Validation(required = true)
     public String opsAction;
 
     // ops_action 所需要的参数，以JSON格式传入。以 {"param_name": "param_value"} 定义JSON。
@@ -31,10 +35,12 @@ public class CreateAppopsRequest extends TeaModel {
 
     // 应用运维的维度，有三种取值：APPLICATION、APP_SERVICE和MACHINE。设置为APPLICATION，表示在非应用服务环境下整个应用都执行该应用运维操作；设置为APP_SERVICE，表示在应用服务环境下对应用服务执行运维操作;设置为MACHINE，表示应用下的一台或多台机器执行改应用运维操作。
     @NameInMap("ops_dimension")
+    @Validation(required = true)
     public String opsDimension;
 
     // 运维单标题。长度不超过50个UTF-8字符
     @NameInMap("title")
+    @Validation(required = true)
     public String title;
 
     public static CreateAppopsRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -48,6 +54,14 @@ public class CreateAppopsRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateAppopsRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateAppopsRequest setApplications(java.util.List<Application> applications) {

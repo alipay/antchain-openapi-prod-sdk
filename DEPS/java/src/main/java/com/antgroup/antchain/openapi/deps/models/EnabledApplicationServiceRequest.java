@@ -7,7 +7,6 @@ public class EnabledApplicationServiceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 租户名称
     @NameInMap("tenant")
     public String tenant;
 

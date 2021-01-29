@@ -15,6 +15,7 @@ public class CreateComputeropsResponse extends TeaModel {
 
     // 创建完成的运维单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     public static CreateComputeropsResponse build(java.util.Map<String, ?> map) throws Exception {

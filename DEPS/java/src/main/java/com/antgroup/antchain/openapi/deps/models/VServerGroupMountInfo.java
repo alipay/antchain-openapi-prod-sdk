@@ -6,18 +6,22 @@ import com.aliyun.tea.*;
 public class VServerGroupMountInfo extends TeaModel {
     // iaas id
     @NameInMap("iaas_id")
+    @Validation(required = true)
     public String iaasId;
 
     // 名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // paas id
     @NameInMap("paas_id")
+    @Validation(required = true)
     public String paasId;
 
     // 权重信息
     @NameInMap("mount_weights")
+    @Validation(required = true)
     public java.util.List<MountWeight> mountWeights;
 
     public static VServerGroupMountInfo build(java.util.Map<String, ?> map) throws Exception {

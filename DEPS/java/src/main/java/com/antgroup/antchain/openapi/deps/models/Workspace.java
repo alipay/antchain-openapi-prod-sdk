@@ -22,6 +22,7 @@ public class Workspace extends TeaModel {
 
     // workspace 名称（等同于唯一标识）
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 网络类型

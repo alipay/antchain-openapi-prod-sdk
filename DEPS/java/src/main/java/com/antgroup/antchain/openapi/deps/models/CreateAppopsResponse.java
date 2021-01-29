@@ -15,6 +15,7 @@ public class CreateAppopsResponse extends TeaModel {
 
     // 创建完成的运维单id
     @NameInMap("operation_id")
+    @Validation(required = true)
     public String operationId;
 
     public static CreateAppopsResponse build(java.util.Map<String, ?> map) throws Exception {

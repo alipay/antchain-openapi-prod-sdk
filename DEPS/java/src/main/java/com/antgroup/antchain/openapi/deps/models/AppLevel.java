@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class AppLevel extends TeaModel {
     // 应用等级ID
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     // 应用等级名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 应用等级负责人登录名

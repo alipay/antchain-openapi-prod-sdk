@@ -7,8 +7,12 @@ public class CreateConfigTemplateRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // 应用名称
     @NameInMap("app_name")
+    @Validation(required = true)
     public String appName;
 
     // 描述
@@ -34,6 +38,14 @@ public class CreateConfigTemplateRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public CreateConfigTemplateRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public CreateConfigTemplateRequest setAppName(String appName) {

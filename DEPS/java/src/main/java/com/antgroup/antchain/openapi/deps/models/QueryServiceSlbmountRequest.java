@@ -7,16 +7,22 @@ public class QueryServiceSlbmountRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    @NameInMap("tenant")
+    public String tenant;
+
     // service_id
     @NameInMap("service_id")
+    @Validation(required = true)
     public String serviceId;
 
     // slb_id
     @NameInMap("slb_id")
+    @Validation(required = true)
     public String slbId;
 
     // workspace
     @NameInMap("workspace")
+    @Validation(required = true)
     public String workspace;
 
     public static QueryServiceSlbmountRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -30,6 +36,14 @@ public class QueryServiceSlbmountRequest extends TeaModel {
     }
     public String getAuthToken() {
         return this.authToken;
+    }
+
+    public QueryServiceSlbmountRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
     }
 
     public QueryServiceSlbmountRequest setServiceId(String serviceId) {
