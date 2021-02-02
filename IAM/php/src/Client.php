@@ -253,7 +253,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "3.12.0"
+                    "sdk_version" => "3.12.1"
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query["security_token"] = $this->_securityToken;
@@ -273,7 +273,7 @@ class Client {
                 $obj = Utils::parseJSON($raw);
                 $res = Utils::assertAsMap($obj);
                 $resp = Utils::assertAsMap(@$res["response"]);
-                if (UtilClient::hasError($raw, $this->_accessKeySecret, "OK")) {
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
                     throw new TeaError([
                         "message" => @$resp["result_msg"],
                         "data" => $resp,
