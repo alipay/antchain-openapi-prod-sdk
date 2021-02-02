@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.0'
+                    'sdk_version': '3.12.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -155,7 +155,7 @@ class Client:
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret, 'OK'):
+                if AntchainUtilClient.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.0'
+                    'sdk_version': '3.12.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -257,7 +257,7 @@ class Client:
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret, 'OK'):
+                if AntchainUtilClient.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
