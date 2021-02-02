@@ -109,7 +109,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.Client.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.12.0")
+                    new TeaPair("sdk_version", "3.12.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -137,7 +137,7 @@ public class Client {
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
                 java.util.Map<String, Object> res = com.aliyun.teautil.Common.assertAsMap(obj);
                 java.util.Map<String, Object> resp = com.aliyun.teautil.Common.assertAsMap(res.get("response"));
-                if (com.antgroup.antchain.openapi.antchain.util.Client.hasError(raw, _accessKeySecret, "OK")) {
+                if (com.antgroup.antchain.openapi.antchain.util.Client.hasError(raw, _accessKeySecret)) {
                     throw new TeaException(TeaConverter.buildMap(
                         new TeaPair("message", resp.get("result_msg")),
                         new TeaPair("data", resp),

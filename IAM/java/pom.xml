@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-iam</artifactId>
-  <version>3.12.0</version>
+  <version>3.12.1</version>
   <packaging>jar</packaging>
   <name>openapi-iam</name>
   <description>Ant Chain IAM SDK for Java
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.antgroup.antchain.openapi</groupId>
       <artifactId>antchain-util</artifactId>
-      <version>0.1.3</version>
+      <version>0.1.4</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
