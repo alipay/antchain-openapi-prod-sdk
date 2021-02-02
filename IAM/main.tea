@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.12.0',
+    sdk_version = '3.12.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -128,7 +128,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   var res = Util.assertAsMap(obj);
   var resp = Util.assertAsMap(res.response);
 
-  if (AntchainUtil.hasError(raw, @accessKeySecret, 'OK')) {
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
     throw {
       message = resp.result_msg,
       data = resp,
