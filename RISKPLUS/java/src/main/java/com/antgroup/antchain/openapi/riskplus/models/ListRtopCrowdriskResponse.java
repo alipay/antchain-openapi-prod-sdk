@@ -1,0 +1,93 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.riskplus.models;
+
+import com.aliyun.tea.*;
+
+public class ListRtopCrowdriskResponse extends TeaModel {
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 企业列表
+    @NameInMap("companys")
+    public java.util.List<RtopCrowdRiskSummaryResp> companys;
+
+    // 页码
+    @NameInMap("page_num")
+    public Long pageNum;
+
+    // 每页条数
+    @NameInMap("page_size")
+    public Long pageSize;
+
+    // 总数
+    @NameInMap("total_count")
+    public Long totalCount;
+
+    public static ListRtopCrowdriskResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListRtopCrowdriskResponse self = new ListRtopCrowdriskResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public ListRtopCrowdriskResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public ListRtopCrowdriskResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public ListRtopCrowdriskResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public ListRtopCrowdriskResponse setCompanys(java.util.List<RtopCrowdRiskSummaryResp> companys) {
+        this.companys = companys;
+        return this;
+    }
+    public java.util.List<RtopCrowdRiskSummaryResp> getCompanys() {
+        return this.companys;
+    }
+
+    public ListRtopCrowdriskResponse setPageNum(Long pageNum) {
+        this.pageNum = pageNum;
+        return this;
+    }
+    public Long getPageNum() {
+        return this.pageNum;
+    }
+
+    public ListRtopCrowdriskResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public ListRtopCrowdriskResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
+    }
+
+}
