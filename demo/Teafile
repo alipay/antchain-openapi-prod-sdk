@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DEMO",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,11 +10,11 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-demo:1.0.21",
+    "java": "com.antgroup.antchain.openapi:openapi-demo:1.0.18",
     "go": "github.com/antchain-openapi-sdk-go/demo/client:v0.0.1",
     "csharp": "AntChain.SDK.DEMO:0.0.1",
     "ts": "@antchain/demo:^1.0.0",
-    "php": "antchain/demo:1.0.21",
+    "php": "antchain/demo:1.0.18",
     "python": "antchain_sdk_demo:0.0.1"
   },
   "libraries": {
