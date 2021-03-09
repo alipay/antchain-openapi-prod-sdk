@@ -1,0 +1,91 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.Acm.Models
+{
+    public class GetOperatorResponse : TeaModel {
+        [NameInMap("req_msg_id")]
+        [Validation(Required=false)]
+        public string ReqMsgId { get; set; }
+
+        [NameInMap("result_code")]
+        [Validation(Required=false)]
+        public string ResultCode { get; set; }
+
+        [NameInMap("result_msg")]
+        [Validation(Required=false)]
+        public string ResultMsg { get; set; }
+
+        // 操作员创建时间，ISO8601格式
+        [NameInMap("create_time")]
+        [Validation(Required=false)]
+        public string CreateTime { get; set; }
+
+        // 操作员所在的企业
+        [NameInMap("customer")]
+        [Validation(Required=true)]
+        public string Customer { get; set; }
+
+        // 邮箱
+        [NameInMap("email")]
+        [Validation(Required=true)]
+        public string Email { get; set; }
+
+        // 外部对接系统操作员ID
+        [NameInMap("external_id")]
+        [Validation(Required=true)]
+        public string ExternalId { get; set; }
+
+        // 外部对接系统类型
+        [NameInMap("external_system")]
+        [Validation(Required=true)]
+        public string ExternalSystem { get; set; }
+
+        // 操作员ID
+        [NameInMap("id")]
+        [Validation(Required=true)]
+        public string Id { get; set; }
+
+        // 登录名
+        [NameInMap("login_name")]
+        [Validation(Required=true)]
+        public string LoginName { get; set; }
+
+        // 手机号
+        [NameInMap("mobile")]
+        [Validation(Required=true)]
+        public string Mobile { get; set; }
+
+        // 昵称
+        [NameInMap("nickname")]
+        [Validation(Required=true)]
+        public string Nickname { get; set; }
+
+        // 真实姓名
+        [NameInMap("real_name")]
+        [Validation(Required=true)]
+        public string RealName { get; set; }
+
+        // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public string Status { get; set; }
+
+        // 用户加入的租户列表
+        [NameInMap("tenants")]
+        [Validation(Required=true)]
+        public List<string> Tenants { get; set; }
+
+        // 操作员最近一次修改时间，ISO8601格式
+        [NameInMap("update_time")]
+        [Validation(Required=false)]
+        public string UpdateTime { get; set; }
+
+    }
+
+}
