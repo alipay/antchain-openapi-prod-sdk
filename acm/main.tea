@@ -1,0 +1,1372 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.17',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 租户
+model Tenant {
+  // 蚂蚁通行证签约账户
+  antAccount?: string(name='ant_account', example='antcloud@alipay.com'),
+  // 蚂蚁通行证uid
+  antUid?: string(name='ant_uid', example='2088xxxxx1'),
+  // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+  businessOwnerId?: string(name='business_owner_id', example='ANTCLOUD'),
+  // 租户创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // 租户所在的企业的唯一标识
+  customer?: string(name='customer', example='2088201881714570'),
+  // 租户描述信息
+  description?: string(name='description', example='the default tenant'),
+  // 租户唯一标识
+  id?: string(name='id', example='TSCPDICN'),
+  // 租户内部id
+  internalId?: string(name='internal_id', example='0000000001'),
+  // 租户显示名称
+  name?: string(name='name', example='myTenant'),
+  // 租户最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
+// 操作员
+model Operator {
+  // 操作员创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // 操作员所在的企业
+  customer?: string(name='customer', example=''),
+  // 邮箱
+  email?: string(name='email', example='zhangsan@alipay.com'),
+  // 外部对接系统操作员id
+  externalId?: string(name='external_id', example='ding0000001'),
+  // 外部对接系统类型
+  externalSystem?: string(name='external_system', example='DING_TALK'),
+  // 操作员ID
+  id?: string(name='id', example='0000000001'),
+  // 登录名
+  loginName?: string(name='login_name', example=''),
+  // 手机号
+  mobile?: string(name='mobile', example=''),
+  // 昵称
+  nickname?: string(name='nickname', example=''),
+  // 真实姓名
+  realName?: string(name='real_name', example=''),
+  // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+  status?: string(name='status', example=''),
+  // 操作员加入的租户列表
+  tenants?: [ string ](name='tenants', example=''),
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
+// AccessKey
+model AccessKey {
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // AccessKey唯一标识
+  id?: string(name='id', example='LTAIyqaeoWfELqMg'),
+  // AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
+  secret?: string(name='secret', example=''),
+  // 状态
+  status?: string(name='status', example='ACTIVE'),
+  // AccessKey最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
+// 访问IaaS层的身份
+model Accessor {
+  // Accessor关联的AccessKey
+  accessKey?: string(name='access_key', example='LTAIyqaeoWfELqMg'),
+  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  accessSecret?: string(name='access_secret', example=''),
+  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  account?: string(name='account', example=''),
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // Accessor唯一标识
+  id?: string(name='id', example=''),
+  // Accessor类型(RAM/ACCOUNT)
+  type?: string(name='type', example='RAM'),
+}
+
+// 企业
+model Customer {
+  // 企业创建时间，ISO8601格式
+  createTime?: string(name='create_time', example=''),
+  // 企业ID
+  id?: string(name='id', example='2088xxxxx1'),
+  // 企业名称
+  name?: string(name='name', example='蚂蚁金融云有限公司'),
+  // 企业最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time', example=''),
+}
+
+model GetCustomerRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业ID
+  customer: string(name='customer'),
+}
+
+model GetCustomerResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 企业ID
+  id: string(name='id'),
+  // 企业名称
+  name: string(name='name'),
+  // 最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 查询企业详情
+ * Summary: 获取企业
+ */
+async function getCustomer(request: GetCustomerRequest): GetCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业详情
+ * Summary: 获取企业
+ */
+async function getCustomerEx(request: GetCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.customer.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 操作员登录名
+  loginName?: string(name='login_name'),
+  // 金融云操作员id
+  operatorId?: string(name='operator_id'),
+}
+
+model GetOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 操作员所在的企业
+  customer: string(name='customer'),
+  // 邮箱
+  email: string(name='email'),
+  // 外部对接系统操作员ID
+  externalId: string(name='external_id'),
+  // 外部对接系统类型
+  externalSystem: string(name='external_system'),
+  // 操作员ID
+  id: string(name='id'),
+  // 登录名
+  loginName: string(name='login_name'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 昵称
+  nickname: string(name='nickname'),
+  // 真实姓名
+  realName: string(name='real_name'),
+  // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+  status: string(name='status'),
+  // 用户加入的租户列表
+  tenants: [ string ](name='tenants'),
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 查询一个操作员的详情
+ * Summary: 获取操作员
+ */
+async function getOperator(request: GetOperatorRequest): GetOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询一个操作员的详情
+ * Summary: 获取操作员
+ */
+async function getOperatorEx(request: GetOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业ID
+  customer: string(name='customer'),
+  // 当前页，默认值为1
+  pageNum?: long(name='page_num'),
+  // 分页大小，默认值为10
+  pageSize?: long(name='page_size'),
+  // 真实姓名
+  realName?: string(name='real_name'),
+  // 租户唯一标识
+  tenant?: string(name='tenant'),
+}
+
+model QueryOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员列表
+  operators: [ Operator ](name='operators'),
+  // 传入的页码, 如果没有传入, 则取默认值1
+  pageNum: long(name='page_num'),
+  // 传入的页大小, 如果没有传入, 则取默认值10
+  pageSize: long(name='page_size'),
+  // 查询结果的总条目数量
+  totalCount: long(name='total_count'),
+}
+
+/**
+ * Description: 查询操作员列表
+ * Summary: 查询操作员
+ */
+async function queryOperator(request: QueryOperatorRequest): QueryOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询操作员列表
+ * Summary: 查询操作员
+ */
+async function queryOperatorEx(request: QueryOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SearchOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业ID
+  customer: string(name='customer'),
+  // 登录名
+  loginName?: string(name='login_name'),
+  // 昵称
+  nickname?: string(name='nickname'),
+  // 当前页，默认值为1
+  pageNum?: long(name='page_num'),
+  // 分页大小，默认值为10
+  pageSize?: long(name='page_size'),
+  // 真实姓名
+  realName?: string(name='real_name'),
+  // 租户唯一标识
+  tenant?: string(name='tenant'),
+}
+
+model SearchOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员列表
+  operators: [ Operator ](name='operators'),
+  // 传入的页码, 如果没有传入, 则取默认值1
+  pageNum: long(name='page_num'),
+  // 传入的页大小, 如果没有传入, 则取默认值10
+  pageSize: long(name='page_size'),
+  // 查询结果的总条目数量
+  totalCount: long(name='total_count'),
+}
+
+/**
+ * Description: 搜索操作员
+ * Summary: 搜索操作员
+ */
+async function searchOperator(request: SearchOperatorRequest): SearchOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return searchOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 搜索操作员
+ * Summary: 搜索操作员
+ */
+async function searchOperatorEx(request: SearchOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SearchOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.search', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业唯一标识
+  customer?: string(name='customer'),
+  // 外部对接系统操作员ID
+  externalId?: string(name='external_id'),
+  // 外部对接系统类型
+  externalSystem?: string(name='external_system'),
+  // 操作员唯一登录名
+  loginName: string(name='login_name'),
+  // 手机号
+  mobile?: string(name='mobile'),
+  // 操作员昵称
+  nickname?: string(name='nickname'),
+  // 操作员真实姓名
+  realName: string(name='real_name'),
+  // 租户唯一标识
+  tenant?: string(name='tenant'),
+  // 业务场景码
+  bussinessCode?: string(name='bussiness_code'),
+}
+
+model CreateOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员唯一ID
+  operatorId?: string(name='operator_id'),
+}
+
+/**
+ * Description: 创建操作员
+ * Summary: 创建操作员
+ */
+async function createOperator(request: CreateOperatorRequest): CreateOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建操作员
+ * Summary: 创建操作员
+ */
+async function createOperatorEx(request: CreateOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 邮箱
+  email?: string(name='email'),
+  // 手机号
+  mobile?: string(name='mobile'),
+  // 操作员昵称
+  nickname?: string(name='nickname'),
+  // 操作员唯一ID
+  operatorId: string(name='operator_id'),
+  // 操作员真实姓名
+  realName?: string(name='real_name'),
+}
+
+model UpdateOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 操作员所在的企业
+  customer: string(name='customer'),
+  // 邮箱
+  email: string(name='email'),
+  // 操作员ID
+  id: string(name='id'),
+  // 登录名
+  loginName: string(name='login_name'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 昵称
+  nickname: string(name='nickname'),
+  // 真实姓名
+  realName: string(name='real_name'),
+  // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
+  status: string(name='status'),
+  // 用户加入的租户列表
+  tenants: [ string ](name='tenants'),
+  // 操作员最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 更新操作员
+ * Summary: 更新操作员
+ */
+async function updateOperator(request: UpdateOperatorRequest): UpdateOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新操作员
+ * Summary: 更新操作员
+ */
+async function updateOperatorEx(request: UpdateOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteOperatorRequest = {
+  authToken?: string(name='auth_token'),
+  // 操作员唯一id
+  operatorId: string(name='operator_id'),
+}
+
+model DeleteOperatorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除操作员
+ * Summary: 删除操作员
+ */
+async function deleteOperator(request: DeleteOperatorRequest): DeleteOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除操作员
+ * Summary: 删除操作员
+ */
+async function deleteOperatorEx(request: DeleteOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddTenantMemberRequest = {
+  authToken?: string(name='auth_token'),
+  // 操作员唯一id
+  operatorId: string(name='operator_id'),
+  // 操作员唯一id
+  tenant: string(name='tenant'),
+}
+
+model AddTenantMemberResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加租户成员
+ * Summary: 添加租户成员
+ */
+async function addTenantMember(request: AddTenantMemberRequest): AddTenantMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addTenantMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加租户成员
+ * Summary: 添加租户成员
+ */
+async function addTenantMemberEx(request: AddTenantMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddTenantMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.member.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 蚂蚁通行证uid
+  antUid: string(name='ant_uid'),
+  // 金融云官网:ANTCLOUD, 蚂蚁开放平台：ANTOPEN, 口碑：KOUBEI
+  businessOwnerId?: string(name='business_owner_id'),
+}
+
+model CreateTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 租户唯一标识
+  tenant: string(name='tenant'),
+}
+
+/**
+ * Description: 初始化租户
+ * Summary: 初始化租户
+ */
+async function createTenant(request: CreateTenantRequest): CreateTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 初始化租户
+ * Summary: 初始化租户
+ */
+async function createTenantEx(request: CreateTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 租户唯一标识
+  tenant: string(name='tenant'),
+}
+
+model GetTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 蚂蚁通行证签约账户
+  antAccount: string(name='ant_account'),
+  // 蚂蚁通行证uid
+  antUid: string(name='ant_uid'),
+  // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+  businessOwnerId: string(name='business_owner_id'),
+  // 租户创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 租户所在的企业的唯一标识
+  customer?: string(name='customer'),
+  // 租户描述信息
+  description?: string(name='description'),
+  // 租户唯一标识
+  id?: string(name='id'),
+  // 租户内部id
+  internalId?: string(name='internal_id'),
+  // 租户显示名称
+  name?: string(name='name'),
+  // 租户最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 查询租户详情
+ * Summary: 获取租户
+ */
+async function getTenant(request: GetTenantRequest): GetTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户详情
+ * Summary: 获取租户
+ */
+async function getTenantEx(request: GetTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业唯一标识
+  customer: string(name='customer'),
+  // 当前页，默认值为1
+  pageNum?: long(name='page_num'),
+  // 分页大小，默认值为10
+  pageSize?: long(name='page_size'),
+}
+
+model QueryTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 传入的页码, 如果没有传入, 则取默认值1
+  pageNum: long(name='page_num'),
+  // 传入的页大小, 如果没有传入, 则取默认值10
+  pageSize: long(name='page_size'),
+  // 租户列表
+  tenants: [ Tenant ](name='tenants'),
+  // 查询结果的总条目数量
+  totalCount: long(name='total_count'),
+}
+
+/**
+ * Description: 查询租户列表
+ * Summary: 查询租户列表
+ */
+async function queryTenant(request: QueryTenantRequest): QueryTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户列表
+ * Summary: 查询租户列表
+ */
+async function queryTenantEx(request: QueryTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntpassportTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 蚂蚁通行证uid
+  antUid: string(name='ant_uid'),
+}
+
+model GetAntpassportTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  tenant: string(name='tenant'),
+}
+
+/**
+ * Description: 根据蚂蚁通行证uid查询租户id
+ * Summary: 查询租户ID
+ */
+async function getAntpassportTenant(request: GetAntpassportTenantRequest): GetAntpassportTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntpassportTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据蚂蚁通行证uid查询租户id
+ * Summary: 查询租户ID
+ */
+async function getAntpassportTenantEx(request: GetAntpassportTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntpassportTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.antpassport.tenant.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAccesskeyRequest = {
+  authToken?: string(name='auth_token'),
+  // 操作员或服务账号唯一ID
+  userId: string(name='user_id'),
+}
+
+model ListAccesskeyResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // AccessKey列表
+  accessKeys: [ AccessKey ](name='access_keys'),
+}
+
+/**
+ * Description: 获取用户AccessKey信息
+ * Summary: 获取用户AccessKey信息
+ */
+async function listAccesskey(request: ListAccesskeyRequest): ListAccesskeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAccesskeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取用户AccessKey信息
+ * Summary: 获取用户AccessKey信息
+ */
+async function listAccesskeyEx(request: ListAccesskeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAccesskeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.accesskey.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCurrentidRequest = {
+  authToken?: string(name='auth_token'),
+}
+
+model GetCurrentidResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 创建时间，ISO8601格式
+  createTime: string(name='create_time'),
+  // 身份实体所属企业
+  customer: string(name='customer'),
+  // 身份实体ID
+  id: string(name='id'),
+  // 身份实体类型，OPERATOR(操作员)或SERVICE(服务账号)
+  type: string(name='type'),
+  // 最近一次修改时间，ISO8601格式
+  updateTime: string(name='update_time'),
+}
+
+/**
+ * Description: 获取调用接口所使用AccessKey对应的身份实体信息
+ * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
+ */
+async function getCurrentid(request: GetCurrentidRequest): GetCurrentidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCurrentidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取调用接口所使用AccessKey对应的身份实体信息
+ * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
+ */
+async function getCurrentidEx(request: GetCurrentidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCurrentidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.currentid.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAccessorRequest = {
+  authToken?: string(name='auth_token'),
+  // Accessor关联的accessKey
+  accessKeyId?: string(name='access_key_id'),
+  // 租户唯一标识
+  tenant?: string(name='tenant'),
+  // 操作员或服务账号唯一ID
+  userId?: string(name='user_id'),
+}
+
+model GetAccessorResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // Accessor关联的AccessKey
+  accessKey?: string(name='access_key'),
+  // Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  accessSecret?: string(name='access_secret'),
+  // AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
+  account?: string(name='account'),
+  // AccessKey创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // Accessor唯一标识
+  id?: string(name='id'),
+  // 关联的租户
+  tenant?: string(name='tenant'),
+  // Accessor类型(RAM/ACCOUNT)
+  type?: string(name='type'),
+  // 关联的用户ID
+  userId?: string(name='userId'),
+}
+
+/**
+ * Description: 获取用户Accessor信息
+ * Summary: 获取用户Accessor信息
+ */
+async function getAccessor(request: GetAccessorRequest): GetAccessorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAccessorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取用户Accessor信息
+ * Summary: 获取用户Accessor信息
+ */
+async function getAccessorEx(request: GetAccessorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAccessorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.accessor.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTenantDingtokenRequest = {
+  authToken?: string(name='auth_token'),
+  // 入驻金融云的产品码
+  product: string(name='product'),
+  // 租户唯一标识
+  tenant: string(name='tenant'),
+}
+
+model GetTenantDingtokenResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 钉钉企业授权token
+  accessToken: string(name='access_token'),
+  // 	钉钉企业授权应用ID
+  agentId: string(name='agent_id'),
+  // 钉钉企业ID
+  corpId: string(name='corp_id'),
+  // 创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 前端授权ticket
+  jsTicket: string(name='js_ticket'),
+  // 最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 获取租户对应的钉钉授权token信息，内部接口
+ * Summary: 获取租户的钉钉授权
+ */
+async function getTenantDingtoken(request: GetTenantDingtokenRequest): GetTenantDingtokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTenantDingtokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取租户对应的钉钉授权token信息，内部接口
+ * Summary: 获取租户的钉钉授权
+ */
+async function getTenantDingtokenEx(request: GetTenantDingtokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTenantDingtokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.dingtoken.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAdminRequest = {
+  authToken?: string(name='auth_token'),
+  // 租户唯一标识
+  tenant: string(name='tenant'),
+}
+
+model QueryAdminResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 操作员列表
+  operators: [ Operator ](name='operators'),
+}
+
+/**
+ * Description: 分页查询管理员，内部接口
+ * Summary: 分页查询管理员
+ */
+async function queryAdmin(request: QueryAdminRequest): QueryAdminResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAdminEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询管理员，内部接口
+ * Summary: 分页查询管理员
+ */
+async function queryAdminEx(request: QueryAdminRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAdminResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.admin.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTenantIaasaccountRequest = {
+  authToken?: string(name='auth_token'),
+  // 租户唯一标识
+  tenant: string(name='tenant'),
+}
+
+model GetTenantIaasaccountResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 账户关联的AccessKey
+  accessKey?: string(name='access_key'),
+  // 账户关联的AccessSecret
+  accessSecret?: string(name='access_secret'),
+  // IaaS账户名
+  account?: string(name='account'),
+  // 创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // IaaS账户id
+  id?: string(name='id'),
+}
+
+/**
+ * Description: 获取租户的IaaS账号
+ * Summary: 获取租户的IaaS账号
+ */
+async function getTenantIaasaccount(request: GetTenantIaasaccountRequest): GetTenantIaasaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTenantIaasaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取租户的IaaS账号
+ * Summary: 获取租户的IaaS账号
+ */
+async function getTenantIaasaccountEx(request: GetTenantIaasaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTenantIaasaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.iaasaccount.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCustomerRequest = {
+  authToken?: string(name='auth_token'),
+}
+
+model ListCustomerResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 企业列表
+  customers: [ Customer ](name='customers'),
+}
+
+/**
+ * Description: 查询企业列表(内部接口,私有云开放)
+ * Summary: 查询企业列表
+ */
+async function listCustomer(request: ListCustomerRequest): ListCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业列表(内部接口,私有云开放)
+ * Summary: 查询企业列表
+ */
+async function listCustomerEx(request: ListCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.customer.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAlipayTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 支付宝账号关联的证件号
+  certNo?: string(name='cert_no'),
+  // 渠道编码 ，新接入时需要申请
+  channelCode: string(name='channel_code'),
+  // 企业名称
+  firmName?: string(name='firm_name'),
+  // 法人姓名
+  realName?: string(name='real_name'),
+  // 业务场景编码
+  sceneCode: string(name='scene_code'),
+  // 智科租户id(支付宝账号会员id）
+  tenantId: string(name='tenant_id'),
+}
+
+model CheckAlipayTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 智科租户id(支付宝会员id)
+  tenantId?: string(name='tenant_id'),
+}
+
+/**
+ * Description: 支付宝账号证书信息校验及校验、入驻、打标
+ * Summary: 支付宝账号证书信息校验、入驻、打标
+ */
+async function checkAlipayTenant(request: CheckAlipayTenantRequest): CheckAlipayTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAlipayTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付宝账号证书信息校验及校验、入驻、打标
+ * Summary: 支付宝账号证书信息校验、入驻、打标
+ */
+async function checkAlipayTenantEx(request: CheckAlipayTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAlipayTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.alipay.tenant.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTenantStatusRequest = {
+  authToken?: string(name='auth_token'),
+  // 渠道码，接入时需要申请
+  channelCode: string(name='channel_code'),
+  // 业务场景码，接入时需要申请
+  sceneCode: string(name='scene_code'),
+  // 智科租户id（支付宝会员id)
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryTenantStatusResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 租户入住状态
+  status?: string(name='status'),
+  // 智科租户id（支付宝会员id）
+  tenantId?: string(name='tenant_id'),
+}
+
+/**
+ * Description: 租户入住状态查询
+ * Summary: 租户入住状态查询
+ */
+async function queryTenantStatus(request: QueryTenantStatusRequest): QueryTenantStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTenantStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租户入住状态查询
+ * Summary: 租户入住状态查询
+ */
+async function queryTenantStatusEx(request: QueryTenantStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTenantStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntchainTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 企业名称或个人名称
+  name: string(name='name'),
+  // 客户类型
+  // PERSON("个人","1"),
+  // ENTERPRISE("企业","2")
+  userType: string(name='user_type'),
+  // 证件号
+  certNo?: string(name='cert_no'),
+  // 证件类型
+  certType?: string(name='cert_type'),
+  // 法人姓名
+  realName?: string(name='real_name'),
+  // 法人证件号
+  artificialPersonCertNo?: string(name='artificial_person_cert_no'),
+  // 法人证件类型
+  artificialPersonCertType?: string(name='artificial_person_cert_type'),
+  // 支付宝登录号
+  loginName?: string(name='login_name'),
+  // 支付宝uid(租户id)
+  tenantId?: string(name='tenant_id'),
+  // 业务场景码
+  bussinessCode: string(name='bussiness_code'),
+  // 在平台上的角色，比如服务提供方，服务消费方，合作机构，资金提供方
+  bussinessRole?: string(name='bussiness_role'),
+  // 是否支付宝账户入驻
+  isAlipayTenant: boolean(name='is_alipay_tenant'),
+  // 是否认证过，不填默认未认证
+  antchainCertified?: boolean(name='antchain_certified'),
+}
+
+model CreateAntchainTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 客户id
+  customerId?: string(name='customer_id'),
+}
+
+/**
+ * Description: 账号创建
+ * Summary: 账号创建
+ */
+async function createAntchainTenant(request: CreateAntchainTenantRequest): CreateAntchainTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntchainTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账号创建
+ * Summary: 账号创建
+ */
+async function createAntchainTenantEx(request: CreateAntchainTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntchainTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.antchain.tenant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCustomerIdentityRequest = {
+  authToken?: string(name='auth_token'),
+  // 客户id
+  customerId?: string(name='customer_id'),
+  // 企业名称或个人名称
+  name: string(name='name'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 证件号
+  certNo: string(name='cert_no'),
+  // 证件类型
+  certType: string(name='cert_type'),
+  // 法人姓名
+  realName?: string(name='real_name'),
+  // 法人证件号码
+  artificialPersonCertNo?: string(name='artificial_person_cert_no'),
+  // 法人证件类型
+  artificialPersonCertType?: string(name='artificial_person_cert_type'),
+  // 业务场景码
+  businessCode: string(name='business_code'),
+  // 业务角色
+  bussinessRole?: string(name='bussiness_role'),
+}
+
+model UpdateCustomerIdentityResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 返回客户id
+  customerId?: string(name='customer_id'),
+}
+
+/**
+ * Description: 客户认证信息更新
+ * Summary: 客户认证信息更新
+ */
+async function updateCustomerIdentity(request: UpdateCustomerIdentityRequest): UpdateCustomerIdentityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCustomerIdentityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户认证信息更新
+ * Summary: 客户认证信息更新
+ */
+async function updateCustomerIdentityEx(request: UpdateCustomerIdentityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCustomerIdentityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.customer.identity.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckLoginIdRequest = {
+  authToken?: string(name='auth_token'),
+  // 登录id
+  loginName: string(name='login_name'),
+}
+
+model CheckLoginIdResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 是否存在
+  exist?: boolean(name='exist'),
+  // 所属的租户id
+  tenantId?: string(name='tenant_id'),
+}
+
+/**
+ * Description: 校验邮箱是否可以创建账号
+ * Summary: 校验邮箱是否可以创建账号
+ */
+async function checkLoginId(request: CheckLoginIdRequest): CheckLoginIdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkLoginIdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验邮箱是否可以创建账号
+ * Summary: 校验邮箱是否可以创建账号
+ */
+async function checkLoginIdEx(request: CheckLoginIdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckLoginIdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.login.id.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetMasterTenantRequest = {
+  authToken?: string(name='auth_token'),
+  // 主账号id
+  tenantId: string(name='tenant_id'),
+}
+
+model GetMasterTenantResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 蚂蚁通行证签约账户
+  loginName?: string(name='login_name'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 租户创建时间，ISO8601格式	
+  createTime?: string(name='create_time'),
+  // 客户id
+  customerId?: string(name='customer_id'),
+  // 租户描述信息	
+  description?: string(name='description'),
+  // 租户名称
+  name?: string(name='name'),
+  // 租户最近一次修改时间，ISO8601格式	
+  updateTime?: string(name='update_time'),
+  // 用户类型
+  userType?: string(name='user_type'),
+}
+
+/**
+ * Description: 使用租户ID查询租户信息
+ * Summary: 使用租户ID查询租户信息
+ */
+async function getMasterTenant(request: GetMasterTenantRequest): GetMasterTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getMasterTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 使用租户ID查询租户信息
+ * Summary: 使用租户ID查询租户信息
+ */
+async function getMasterTenantEx(request: GetMasterTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetMasterTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.master.tenant.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckLoginnameRequest = {
+  authToken?: string(name='auth_token'),
+  // 邮箱名称
+  loginName: string(name='login_name'),
+}
+
+model CheckLoginnameResponse = {
+  reqMsgId?: string(name='req_msg_id'),
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 是否存在
+  exist?: boolean(name='exist'),
+  // 所属租户ID
+  tenantId?: string(name='tenant_id'),
+}
+
+/**
+ * Description: 检查邮箱是否可以用来注册
+ * Summary: 检查邮箱是否可以用来注册
+ */
+async function checkLoginname(request: CheckLoginnameRequest): CheckLoginnameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkLoginnameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 检查邮箱是否可以用来注册
+ * Summary: 检查邮箱是否可以用来注册
+ */
+async function checkLoginnameEx(request: CheckLoginnameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckLoginnameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.loginname.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
