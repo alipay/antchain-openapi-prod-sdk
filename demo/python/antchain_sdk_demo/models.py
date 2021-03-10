@@ -174,7 +174,7 @@ class DemoClass(TeaModel):
         self.validate_required(self.some_string, 'some_string')
         self.validate_required(self.some_date, 'some_date')
         if self.some_date is not None:
-            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.some_boolean, 'some_boolean')
         self.validate_required(self.some_int, 'some_int')
         if self.some_int is not None:
@@ -661,7 +661,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
 
     def validate(self):
         if self.expired_time is not None:
-            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.upload_headers:
             for k in self.upload_headers:
                 if k:
