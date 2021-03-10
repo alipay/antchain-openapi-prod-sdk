@@ -15,7 +15,7 @@ public class CreateAntcloudGatewayxFileUploadResponse extends TeaModel {
 
     // 上传有效期
     @NameInMap("expired_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String expiredTime;
 
     // 32位文件唯一id
