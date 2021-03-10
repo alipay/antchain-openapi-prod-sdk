@@ -62,7 +62,7 @@ class DemoClass extends Model
         Model::validateRequired('someBoolean', $this->someBoolean, true);
         Model::validateRequired('someInt', $this->someInt, true);
         Model::validateRequired('someList', $this->someList, true);
-        Model::validatePattern('someDate', $this->someDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validatePattern('someDate', $this->someDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validateMaximum('someInt', $this->someInt, 2000);
         Model::validateMinimum('someInt', $this->someInt, 1);
     }
