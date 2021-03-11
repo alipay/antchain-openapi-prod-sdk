@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.24',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -202,12 +202,16 @@ model XNameValuePair {
 }
 
 model StatusGatewayCheckRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
+  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model StatusGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
   // OK
@@ -234,7 +238,9 @@ async function statusGatewayCheckEx(request: StatusGatewayCheckRequest, headers:
 }
 
 model EchoGatewayCheckRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
+  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // demo
   inputDemo?: DemoClass(name='input_demo'),
@@ -250,7 +256,9 @@ model EchoGatewayCheckRequest = {
 }
 
 model EchoGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
   // output_demo
@@ -298,6 +306,7 @@ async function echoGatewayCheckEx(request: EchoGatewayCheckRequest, headers: map
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 上传文件作用的openapi method
   apiCode: string(name='api_code'),
@@ -314,7 +323,9 @@ model CreateAntcloudGatewayxFileUploadRequest = {
 }
 
 model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
   resultCode?: string(name='result_code'),
   resultMsg?: string(name='result_msg'),
   // 上传有效期
