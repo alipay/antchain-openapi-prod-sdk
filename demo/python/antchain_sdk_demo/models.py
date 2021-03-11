@@ -352,7 +352,9 @@ class StatusGatewayCheckRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
+        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -383,7 +385,9 @@ class StatusGatewayCheckResponse(TeaModel):
         result_msg: str = None,
         status: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
         self.result_code = result_code
         self.result_msg = result_msg
         # OK
@@ -429,7 +433,9 @@ class EchoGatewayCheckRequest(TeaModel):
         file_id: str = None,
         input_int: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
+        # 集群ID
         self.product_instance_id = product_instance_id
         # demo
         self.input_demo = input_demo
@@ -517,7 +523,9 @@ class EchoGatewayCheckResponse(TeaModel):
         output_string: str = None,
         file_url: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
         self.result_code = result_code
         self.result_msg = result_msg
         # output_demo
@@ -576,6 +584,7 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         mime_type: str = None,
         api_cluster: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 上传文件作用的openapi method
         self.api_code = api_code
@@ -647,7 +656,9 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         upload_headers: List[XNameValuePair] = None,
         upload_url: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
         self.result_code = result_code
         self.result_msg = result_msg
         # 上传有效期
