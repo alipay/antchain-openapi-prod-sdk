@@ -9,11 +9,13 @@ use GuzzleHttp\Psr7\Stream;
 
 class EchoGatewayCheckRequest extends Model
 {
+    // OAuth模式下的授权token
     /**
      * @var string
      */
     public $authToken;
 
+    // 集群ID
     /**
      * @var string
      */

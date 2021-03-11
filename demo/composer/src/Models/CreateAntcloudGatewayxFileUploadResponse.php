@@ -8,11 +8,13 @@ use AlibabaCloud\Tea\Model;
 
 class CreateAntcloudGatewayxFileUploadResponse extends Model
 {
+    // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
      */
     public $reqMsgId;
 
+    // 异常信息的文本描述
     /**
      * @var string
      */
