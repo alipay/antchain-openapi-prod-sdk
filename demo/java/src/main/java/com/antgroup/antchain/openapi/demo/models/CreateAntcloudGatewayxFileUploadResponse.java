@@ -4,9 +4,11 @@ package com.antgroup.antchain.openapi.demo.models;
 import com.aliyun.tea.*;
 
 public class CreateAntcloudGatewayxFileUploadResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 异常信息的文本描述
     @NameInMap("result_code")
     public String resultCode;
 
