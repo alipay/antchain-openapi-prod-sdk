@@ -1,0 +1,38 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.BLOCKCHAIN.Models
+{
+    public class StartVcVcrepositoryReadResponse : TeaModel {
+        // 请求唯一ID，用于链路跟踪和问题排查
+        [NameInMap("req_msg_id")]
+        [Validation(Required=false)]
+        public string ReqMsgId { get; set; }
+
+        // 异常信息的文本描述
+        [NameInMap("result_code")]
+        [Validation(Required=false)]
+        public string ResultCode { get; set; }
+
+        [NameInMap("result_msg")]
+        [Validation(Required=false)]
+        public string ResultMsg { get; set; }
+
+        // 密文加密16进制表示的字符串，是请求方did对应的didDoc中的公钥加密AES密钥的结果，使用标准信封加密的方式，AES密钥用于解密verifiable_claim_content的claim字段，如果此auth_access_key是空字符串，则说明verifiable_claim_content的内容是明文。
+        [NameInMap("auth_access_key")]
+        [Validation(Required=false)]
+        public string AuthAccessKey { get; set; }
+
+        // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义，可能为密文},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+        [NameInMap("verifiable_claim_content")]
+        [Validation(Required=false)]
+        public string VerifiableClaimContent { get; set; }
+
+    }
+
+}
