@@ -1,0 +1,17149 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\BLOCKCHAIN;
+
+use AlibabaCloud\Tea\Exception\TeaError;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Request;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\BLOCKCHAIN\Models\AddBlockchainMiniprogramRequest;
+use AntChain\BLOCKCHAIN\Models\AddBlockchainMiniprogramResponse;
+use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServicelistRequest;
+use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServicelistResponse;
+use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServiceRequest;
+use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServiceResponse;
+use AntChain\BLOCKCHAIN\Models\AddMydidcommunAssetDataRequest;
+use AntChain\BLOCKCHAIN\Models\AddMydidcommunAssetDataResponse;
+use AntChain\BLOCKCHAIN\Models\AddStatisticsPortTaskRequest;
+use AntChain\BLOCKCHAIN\Models\AddStatisticsPortTaskResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainAccountAntRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainAccountAntResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainCertAntRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainCertAntResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicAccountRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicAccountResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicCertRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicCertResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicRestRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainPublicRestResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainRestAntRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainRestAntResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationWithsignatureRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationWithsignatureResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyMydidcommunTaskServicetypeRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyMydidcommunTaskServicetypeResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyUnionMemberRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyUnionMemberResponse;
+use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataCorpRequest;
+use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataCorpResponse;
+use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataRequest;
+use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingInfoRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingInfoResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateChainMiniappUserRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateChainMiniappUserResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateDigitalassetartAccountRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateDigitalassetartAccountResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateDigitalassetExchangeAccountmapRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateDigitalassetExchangeAccountmapResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateLogisticFinanceAccountRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateLogisticFinanceAccountResponse;
+use AntChain\BLOCKCHAIN\Models\BatchqueryAccountMappingRequest;
+use AntChain\BLOCKCHAIN\Models\BatchqueryAccountMappingResponse;
+use AntChain\BLOCKCHAIN\Models\BatchqueryChainBrowserTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\BatchqueryChainBrowserTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\BatchqueryChainMiniappUserRequest;
+use AntChain\BLOCKCHAIN\Models\BatchqueryChainMiniappUserResponse;
+use AntChain\BLOCKCHAIN\Models\CallbackCreditTransferRequest;
+use AntChain\BLOCKCHAIN\Models\CallbackCreditTransferResponse;
+use AntChain\BLOCKCHAIN\Models\CallbackOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\CallbackOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessContractGrantcorpRequest;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessContractGrantcorpResponse;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessContractGrantdidRequest;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessContractGrantdidResponse;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessDepositGrantcorpRequest;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessDepositGrantcorpResponse;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessDepositGrantdidRequest;
+use AntChain\BLOCKCHAIN\Models\CancelBusinessDepositGrantdidResponse;
+use AntChain\BLOCKCHAIN\Models\CancelDataauthorizationAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\CancelDataauthorizationAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\CheckBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\CheckBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceRequest;
+use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceResponse;
+use AntChain\BLOCKCHAIN\Models\CheckContentRiskTextRequest;
+use AntChain\BLOCKCHAIN\Models\CheckContentRiskTextResponse;
+use AntChain\BLOCKCHAIN\Models\CheckDataauthorizationAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\CheckDataauthorizationAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\CheckDidSignRequest;
+use AntChain\BLOCKCHAIN\Models\CheckDidSignResponse;
+use AntChain\BLOCKCHAIN\Models\CheckOcpTaskRequest;
+use AntChain\BLOCKCHAIN\Models\CheckOcpTaskResponse;
+use AntChain\BLOCKCHAIN\Models\CheckOpenchainCorporateFaceRequest;
+use AntChain\BLOCKCHAIN\Models\CheckOpenchainCorporateFaceResponse;
+use AntChain\BLOCKCHAIN\Models\CloneChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\CloneChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\CloseDataauthorizationAuthorizationServiceRequest;
+use AntChain\BLOCKCHAIN\Models\CloseDataauthorizationAuthorizationServiceResponse;
+use AntChain\BLOCKCHAIN\Models\CloseOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\CloseOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\ConfirmBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\ConfirmBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\ConfirmUnionMemberRequest;
+use AntChain\BLOCKCHAIN\Models\ConfirmUnionMemberResponse;
+use AntChain\BLOCKCHAIN\Models\ConfirmVcVcrepoVctransmitRequest;
+use AntChain\BLOCKCHAIN\Models\ConfirmVcVcrepoVctransmitResponse;
+use AntChain\BLOCKCHAIN\Models\ConnectBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\ConnectBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAccountMappingInfoResponse;
+use AntChain\BLOCKCHAIN\Models\CreateApiConsortiumRequest;
+use AntChain\BLOCKCHAIN\Models\CreateApiConsortiumResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthClaimUrlRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthClaimUrlResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthClaimVcRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCorporateDidRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCorporateDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthUserDidRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthUserDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthUserinfoDidRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthUserinfoDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBlockchainInstanceInnerRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBlockchainInstanceInnerResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementRegisterRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementRegisterResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementRegistertemplateRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementRegistertemplateResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementSignRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessAgreementSignResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessBizaccountRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessBizaccountResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractDeployRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractDeployResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractencryptcallRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractencryptcallResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractGrantcorpRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractGrantcorpResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractGrantdidRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractGrantdidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractnormalcallRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessContractnormalcallResponse;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessDidRequest;
+use AntChain\BLOCKCHAIN\Models\CreateBusinessDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainCertAntRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainCertAntResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainContractContentRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainContractContentResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainMiniappCodeRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainMiniappCodeResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainPublicAccountRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainPublicAccountResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainPublicCertRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainPublicCertResponse;
+use AntChain\BLOCKCHAIN\Models\CreateContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\CreateContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationAgentAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationAgentAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationCustomDataRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationCustomDataResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationCustomParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationCustomParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataAssertRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataAssertResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataEntityRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataEntityResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataModelRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDataModelResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDirectAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationDirectAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDataauthorizationParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithfourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithfourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWiththreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWiththreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCorporateRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCorporateResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityIotRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityIotResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityPersonRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidIdentityPersonResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWithfourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWithfourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWiththreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWiththreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWithtwometaRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidPersonWithtwometaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetartAccountRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetartAccountResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetartArtCreateRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetartArtCreateResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeAccountmapRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeAccountmapResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeEpissueRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeEpissueResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeEpstockissueRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDigitalassetExchangeEpstockissueResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionOrderPromoterRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionOrderPromoterResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionOrderTradeRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionOrderTradeResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionProductItemRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionProductItemResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionShopRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionShopResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionUserRelationRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionUserRelationResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionUserRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDistributionUserResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogistFinanceAgentplatformRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogistFinanceAgentplatformResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceAccountRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceAccountResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceBillorderRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceBillorderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceCargoorderRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceCargoorderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceCargopayorderRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceCargopayorderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceConsignorRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceConsignorResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDisRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDisResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDisvcRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDisvcResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDriverRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceDriverResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceOrderRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinanceOrderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinancePayorderRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinancePayorderResponse;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinancePlatformRequest;
+use AntChain\BLOCKCHAIN\Models\CreateLogisticFinancePlatformResponse;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryFileRequest;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryFileResponse;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryRawTextRequest;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryRawTextResponse;
+use AntChain\BLOCKCHAIN\Models\CreateNotarySourceRequest;
+use AntChain\BLOCKCHAIN\Models\CreateNotarySourceResponse;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryTextRequest;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryTextResponse;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryTokenRequest;
+use AntChain\BLOCKCHAIN\Models\CreateNotaryTokenResponse;
+use AntChain\BLOCKCHAIN\Models\CreateOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\CreateOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\CreateOcpProductsRequest;
+use AntChain\BLOCKCHAIN\Models\CreateOcpProductsResponse;
+use AntChain\BLOCKCHAIN\Models\CreateOpenchainWebsitServiceRequest;
+use AntChain\BLOCKCHAIN\Models\CreateOpenchainWebsitServiceResponse;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositAccountRequest;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositAccountResponse;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositCorpdidRequest;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositCorpdidResponse;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositDidRequest;
+use AntChain\BLOCKCHAIN\Models\CreatePlatformDepositDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateUnionUnionRequest;
+use AntChain\BLOCKCHAIN\Models\CreateUnionUnionResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteBlockchainBrowserPrivilegeRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteBlockchainBrowserPrivilegeResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteChainContractContentRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteChainContractContentResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteChainMiniappUserRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteChainMiniappUserResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataAssertRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataAssertResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataEntityRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataEntityResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataModelRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationDataModelResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDataauthorizationParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDidUpdatedidServiceRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDidUpdatedidServiceResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteDidVcrepositoryVcRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteDidVcrepositoryVcResponse;
+use AntChain\BLOCKCHAIN\Models\DeleteUnionUnionRequest;
+use AntChain\BLOCKCHAIN\Models\DeleteUnionUnionResponse;
+use AntChain\BLOCKCHAIN\Models\DeployBusinessAgreementRequest;
+use AntChain\BLOCKCHAIN\Models\DeployBusinessAgreementResponse;
+use AntChain\BLOCKCHAIN\Models\DeployNotaryLeaseContractRequest;
+use AntChain\BLOCKCHAIN\Models\DeployNotaryLeaseContractResponse;
+use AntChain\BLOCKCHAIN\Models\DownloadChainCertAntRequest;
+use AntChain\BLOCKCHAIN\Models\DownloadChainCertAntResponse;
+use AntChain\BLOCKCHAIN\Models\DownloadChainPublicCertRequest;
+use AntChain\BLOCKCHAIN\Models\DownloadChainPublicCertResponse;
+use AntChain\BLOCKCHAIN\Models\EnableOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\EnableOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\ExecBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\ExecBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\ExecChainContractRequest;
+use AntChain\BLOCKCHAIN\Models\ExecChainContractResponse;
+use AntChain\BLOCKCHAIN\Models\ExecChainPublicContractRequest;
+use AntChain\BLOCKCHAIN\Models\ExecChainPublicContractResponse;
+use AntChain\BLOCKCHAIN\Models\ExecContractDelegateRequest;
+use AntChain\BLOCKCHAIN\Models\ExecContractDelegateResponse;
+use AntChain\BLOCKCHAIN\Models\ExecContractServiceRequest;
+use AntChain\BLOCKCHAIN\Models\ExecContractServiceResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDataauthorizationProcessRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDataauthorizationProcessResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDataauthorizationProcessWithsignatureRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDataauthorizationProcessWithsignatureResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolAuthorizeRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolAuthorizeResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolCheckRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolCheckResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolUpdateRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDidAccesscontrolUpdateResponse;
+use AntChain\BLOCKCHAIN\Models\ExecDidServicetypeCreateRequest;
+use AntChain\BLOCKCHAIN\Models\ExecDidServicetypeCreateResponse;
+use AntChain\BLOCKCHAIN\Models\ExecOcpTaskRequest;
+use AntChain\BLOCKCHAIN\Models\ExecOcpTaskResponse;
+use AntChain\BLOCKCHAIN\Models\FinishLogisticFinanceOrderRequest;
+use AntChain\BLOCKCHAIN\Models\FinishLogisticFinanceOrderResponse;
+use AntChain\BLOCKCHAIN\Models\FinishMydidcommunWorkergroupSyncRequest;
+use AntChain\BLOCKCHAIN\Models\FinishMydidcommunWorkergroupSyncResponse;
+use AntChain\BLOCKCHAIN\Models\FreezeChainAccountAntRequest;
+use AntChain\BLOCKCHAIN\Models\FreezeChainAccountAntResponse;
+use AntChain\BLOCKCHAIN\Models\FreezeDigitalassetartArtAccountRequest;
+use AntChain\BLOCKCHAIN\Models\FreezeDigitalassetartArtAccountResponse;
+use AntChain\BLOCKCHAIN\Models\GetAkdfUserbizkeyRequest;
+use AntChain\BLOCKCHAIN\Models\GetAkdfUserbizkeyResponse;
+use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateRequest;
+use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateResponse;
+use AntChain\BLOCKCHAIN\Models\GetAuthFrontendAccesstokenRequest;
+use AntChain\BLOCKCHAIN\Models\GetAuthFrontendAccesstokenResponse;
+use AntChain\BLOCKCHAIN\Models\GetBlockchainMiniprogramRequest;
+use AntChain\BLOCKCHAIN\Models\GetBlockchainMiniprogramResponse;
+use AntChain\BLOCKCHAIN\Models\GetContractAbiUrlRequest;
+use AntChain\BLOCKCHAIN\Models\GetContractAbiUrlResponse;
+use AntChain\BLOCKCHAIN\Models\GetContractBytecodeUrlRequest;
+use AntChain\BLOCKCHAIN\Models\GetContractBytecodeUrlResponse;
+use AntChain\BLOCKCHAIN\Models\GetContractConfigChainRequest;
+use AntChain\BLOCKCHAIN\Models\GetContractConfigChainResponse;
+use AntChain\BLOCKCHAIN\Models\GetContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\GetContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunTaskTaskresultRequest;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunTaskTaskresultResponse;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupPodRequest;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupPodResponse;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupSyncRequest;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupSyncResponse;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupTappRequest;
+use AntChain\BLOCKCHAIN\Models\GetMydidcommunWorkergroupTappResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryFileRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryFileResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryRawTextRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryRawTextResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotarySourceRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotarySourceResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTextRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTextResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextResponse;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransRequest;
+use AntChain\BLOCKCHAIN\Models\GetNotaryTransResponse;
+use AntChain\BLOCKCHAIN\Models\ImportLogisticFinanceLocationRequest;
+use AntChain\BLOCKCHAIN\Models\ImportLogisticFinanceLocationResponse;
+use AntChain\BLOCKCHAIN\Models\ImportPlatformTestregionTestfuncRequest;
+use AntChain\BLOCKCHAIN\Models\ImportPlatformTestregionTestfuncResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidAdddidHashRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidAdddidHashResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidAddvcHashRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidAddvcHashResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidCorporateDirectRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidCorporateDirectResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidCorporateIdentityRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidCorporateIdentityResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidUpdatedidHashRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidUpdatedidHashResponse;
+use AntChain\BLOCKCHAIN\Models\InitDidUpdatevcstatusHashRequest;
+use AntChain\BLOCKCHAIN\Models\InitDidUpdatevcstatusHashResponse;
+use AntChain\BLOCKCHAIN\Models\InitDistributionContractRequest;
+use AntChain\BLOCKCHAIN\Models\InitDistributionContractResponse;
+use AntChain\BLOCKCHAIN\Models\InitIdentificationEnterpriseFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\InitIdentificationEnterpriseFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\InitIdentificationFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\InitIdentificationFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\InitNotaryOpenapiMerchantRequest;
+use AntChain\BLOCKCHAIN\Models\InitNotaryOpenapiMerchantResponse;
+use AntChain\BLOCKCHAIN\Models\InitNotaryTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\InitNotaryTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\InitOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\InitOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\InitVcVcrepoVctransmitRequest;
+use AntChain\BLOCKCHAIN\Models\InitVcVcrepoVctransmitResponse;
+use AntChain\BLOCKCHAIN\Models\InvalidateBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\InvalidateBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\ListAkdfUserbizkeyRequest;
+use AntChain\BLOCKCHAIN\Models\ListAkdfUserbizkeyResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthorityCertRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthorityCertResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthorizationPageRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthorizationPageResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthparticipantPageRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAuthparticipantPageResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAvailableDatamodelRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationAvailableDatamodelResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationDataentityPageRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationDataentityPageResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationDatamodelPageRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationDatamodelPageResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationParticipantPageRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationParticipantPageResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationPublicKeyRequest;
+use AntChain\BLOCKCHAIN\Models\ListDataauthorizationPublicKeyResponse;
+use AntChain\BLOCKCHAIN\Models\ListLogisticFinanceDisRequest;
+use AntChain\BLOCKCHAIN\Models\ListLogisticFinanceDisResponse;
+use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionRequest;
+use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionResponse;
+use AntChain\BLOCKCHAIN\Models\OfflineContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\OfflineContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\OnlineContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\OnlineContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\OpenDataauthorizationAuthorizationServiceRequest;
+use AntChain\BLOCKCHAIN\Models\OpenDataauthorizationAuthorizationServiceResponse;
+use AntChain\BLOCKCHAIN\Models\OpenDidAdminServiceRequest;
+use AntChain\BLOCKCHAIN\Models\OpenDidAdminServiceResponse;
+use AntChain\BLOCKCHAIN\Models\OpenDidResolverServiceRequest;
+use AntChain\BLOCKCHAIN\Models\OpenDidResolverServiceResponse;
+use AntChain\BLOCKCHAIN\Models\OpenOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\OpenOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\PullAuthClaimVcRequest;
+use AntChain\BLOCKCHAIN\Models\PullAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\PullAuthUserDidRequest;
+use AntChain\BLOCKCHAIN\Models\PullAuthUserDidResponse;
+use AntChain\BLOCKCHAIN\Models\PullAuthWebpageUrlRequest;
+use AntChain\BLOCKCHAIN\Models\PullAuthWebpageUrlResponse;
+use AntChain\BLOCKCHAIN\Models\PullAuthWebpageVcRequest;
+use AntChain\BLOCKCHAIN\Models\PullAuthWebpageVcResponse;
+use AntChain\BLOCKCHAIN\Models\PushAuthClaimVcRequest;
+use AntChain\BLOCKCHAIN\Models\PushAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\PushAuthInsurancePolicyRequest;
+use AntChain\BLOCKCHAIN\Models\PushAuthInsurancePolicyResponse;
+use AntChain\BLOCKCHAIN\Models\PushAuthUserVcRequest;
+use AntChain\BLOCKCHAIN\Models\PushAuthUserVcResponse;
+use AntChain\BLOCKCHAIN\Models\PushDidCorporateDirectRequest;
+use AntChain\BLOCKCHAIN\Models\PushDidCorporateDirectResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAccountMappingRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAccountMappingResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAccountMappingresultRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAccountMappingresultResponse;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhAccountRequest;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhAccountResponse;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhbTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhbTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhContractRequest;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhContractResponse;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryApiDwhTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceVcRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBlockchainBrowserPrivilegeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBlockchainBrowserPrivilegeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBlockchainInstanceBizidRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBlockchainInstanceBizidResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserBlockLatestRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserBlockLatestResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserBlockRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserBlockResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserNodeOwnerRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserNodeOwnerResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionLatestRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionLatestResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionReceiptRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionReceiptResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionStatisticRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBrowserTransactionStatisticResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessAgreementRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessAgreementResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractencryptmethodRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractencryptmethodResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractencryptreceiptRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractencryptreceiptResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractreceiptRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessContractreceiptResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessDepositEncryptedmetadataRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessDepositEncryptedmetadataResponse;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessDepositRequest;
+use AntChain\BLOCKCHAIN\Models\QueryBusinessDepositResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainAccountAntRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainAccountAntResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserBlockRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserBlockResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserBlocksRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserBlocksResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserInfoRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserInfoResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserReceiptRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserReceiptResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserStatisticsRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserStatisticsResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserTransactionsRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainBrowserTransactionsResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainCertAntRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainCertAntResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainContractContentRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainContractContentResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainIdeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainIdeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappLogRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappLogResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainMiniappTransactionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainNodeAntRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainNodeAntResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicContentRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicContentResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicIdeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicIdeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicRestRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainPublicRestResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainResouceRegionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainResouceRegionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainResouceSaleRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainResouceSaleResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainResourceConfigRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainResourceConfigResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainResourceTypeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainResourceTypeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainRestAntRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainRestAntResponse;
+use AntChain\BLOCKCHAIN\Models\QueryContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\QueryContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferApplyRequest;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferApplyResponse;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferBalanceRequest;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferBalanceResponse;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferIssuebyidRequest;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferIssuebyidResponse;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferIssuebytimeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferIssuebytimeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferStatementRequest;
+use AntChain\BLOCKCHAIN\Models\QueryCreditTransferStatementResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDataEntityRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDataEntityResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDataModelRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDataModelResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDepositDataRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationDepositDataResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationProcessRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationProcessResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicediscoveryRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicediscoveryResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicetypeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicetypeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidCorporateFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidCorporateFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidDiddocDirectRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidDiddocDirectResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidDocRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidDocResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidDocSidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidDocSidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidIdentificationFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidIdentificationFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationDideventRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationDideventResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationFulldidRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationFulldidResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationVceventRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidNotificationVceventResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcDirectRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcDirectResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcrepositoryFuzzyquerywithdefinedidRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcrepositoryFuzzyquerywithdefinedidResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDidVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetartArtRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetartArtResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEpaccountRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEpaccountResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEpinfoRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEpinfoResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEptradeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDigitalassetExchangeEptradeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundPromoterflowRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundPromoterflowResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundPromoterRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundPromoterResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundShopRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionFundShopResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderPromoterRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderPromoterResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderRakebackRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderRakebackResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderTradeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionOrderTradeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionProductItemRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionProductItemResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionUserTeamRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDistributionUserTeamResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseFourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseFourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseThreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseThreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseTwometaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationEnterpriseTwometaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskFourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskFourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskMaskRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskMaskResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskThreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskThreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskTwometaRequest;
+use AntChain\BLOCKCHAIN\Models\QueryIdentificationRiskTwometaResponse;
+use AntChain\BLOCKCHAIN\Models\QueryLogisticFinanceDisvcRequest;
+use AntChain\BLOCKCHAIN\Models\QueryLogisticFinanceDisvcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryLogisticFinanceOrderRequest;
+use AntChain\BLOCKCHAIN\Models\QueryLogisticFinanceOrderResponse;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyProcessauthRequest;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyProcessauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyServicetypeinfoRequest;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyServicetypeinfoResponse;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyTaskresultfileRequest;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunAgencyTaskresultfileResponse;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunWorkergroupWorkflowRequest;
+use AntChain\BLOCKCHAIN\Models\QueryMydidcommunWorkergroupWorkflowResponse;
+use AntChain\BLOCKCHAIN\Models\QueryNotaryOpenapiMerchantRequest;
+use AntChain\BLOCKCHAIN\Models\QueryNotaryOpenapiMerchantResponse;
+use AntChain\BLOCKCHAIN\Models\QueryNotaryTestRequest;
+use AntChain\BLOCKCHAIN\Models\QueryNotaryTestResponse;
+use AntChain\BLOCKCHAIN\Models\QueryOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\QueryOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\QueryOpenchainCorporateFaceRequest;
+use AntChain\BLOCKCHAIN\Models\QueryOpenchainCorporateFaceResponse;
+use AntChain\BLOCKCHAIN\Models\QueryOpenchainUserDataRequest;
+use AntChain\BLOCKCHAIN\Models\QueryOpenchainUserDataResponse;
+use AntChain\BLOCKCHAIN\Models\QueryStatisticPortBizidRequest;
+use AntChain\BLOCKCHAIN\Models\QueryStatisticPortBizidResponse;
+use AntChain\BLOCKCHAIN\Models\QueryStatisticsPortHeightRequest;
+use AntChain\BLOCKCHAIN\Models\QueryStatisticsPortHeightResponse;
+use AntChain\BLOCKCHAIN\Models\QueryTraceabilityBlockchainInfosRequest;
+use AntChain\BLOCKCHAIN\Models\QueryTraceabilityBlockchainInfosResponse;
+use AntChain\BLOCKCHAIN\Models\QueryTraceabilityTxCheckRequest;
+use AntChain\BLOCKCHAIN\Models\QueryTraceabilityTxCheckResponse;
+use AntChain\BLOCKCHAIN\Models\QueryUnionBuyRequest;
+use AntChain\BLOCKCHAIN\Models\QueryUnionBuyResponse;
+use AntChain\BLOCKCHAIN\Models\QueryUnionChainRequest;
+use AntChain\BLOCKCHAIN\Models\QueryUnionChainResponse;
+use AntChain\BLOCKCHAIN\Models\QueryUnionMemberRequest;
+use AntChain\BLOCKCHAIN\Models\QueryUnionMemberResponse;
+use AntChain\BLOCKCHAIN\Models\QueryUnionUnionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryUnionUnionResponse;
+use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerRequest;
+use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerResponse;
+use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntRequest;
+use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntResponse;
+use AntChain\BLOCKCHAIN\Models\ReinitChainPublicCertRequest;
+use AntChain\BLOCKCHAIN\Models\ReinitChainPublicCertResponse;
+use AntChain\BLOCKCHAIN\Models\ReinitChainPublicRestRequest;
+use AntChain\BLOCKCHAIN\Models\ReinitChainPublicRestResponse;
+use AntChain\BLOCKCHAIN\Models\ReinitChainRestAntRequest;
+use AntChain\BLOCKCHAIN\Models\ReinitChainRestAntResponse;
+use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderLogicalRequest;
+use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderLogicalResponse;
+use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalRequest;
+use AntChain\BLOCKCHAIN\Models\ReleaseBlockchainOrderPhysicalResponse;
+use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\ResumeDataauthorizationAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\RetryChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\RetryChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\SaveBlockchainBrowserPrivilegeRequest;
+use AntChain\BLOCKCHAIN\Models\SaveBlockchainBrowserPrivilegeResponse;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositEncryptmetadataRequest;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositEncryptmetadataResponse;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositEncryptRequest;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositEncryptResponse;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositMetadataRequest;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositMetadataResponse;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositRequest;
+use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositResponse;
+use AntChain\BLOCKCHAIN\Models\SaveMydidIdaasDidserviceRequest;
+use AntChain\BLOCKCHAIN\Models\SaveMydidIdaasDidserviceResponse;
+use AntChain\BLOCKCHAIN\Models\SavePlatformDepositDepositRequest;
+use AntChain\BLOCKCHAIN\Models\SavePlatformDepositDepositResponse;
+use AntChain\BLOCKCHAIN\Models\SendChainPublicRestRequest;
+use AntChain\BLOCKCHAIN\Models\SendChainPublicRestResponse;
+use AntChain\BLOCKCHAIN\Models\SendChainRestAntRequest;
+use AntChain\BLOCKCHAIN\Models\SendChainRestAntResponse;
+use AntChain\BLOCKCHAIN\Models\SendDataauthorizationDepositDataRequest;
+use AntChain\BLOCKCHAIN\Models\SendDataauthorizationDepositDataResponse;
+use AntChain\BLOCKCHAIN\Models\SendNotaryTransactionTextRequest;
+use AntChain\BLOCKCHAIN\Models\SendNotaryTransactionTextResponse;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtIssueRequest;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtIssueResponse;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtIssuetoexchangeRequest;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtIssuetoexchangeResponse;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeonexchangeRequest;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeonexchangeResponse;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeRequest;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeResponse;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtUnissuetoexchangeRequest;
+use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtUnissuetoexchangeResponse;
+use AntChain\BLOCKCHAIN\Models\StartAccountMappingRequest;
+use AntChain\BLOCKCHAIN\Models\StartAccountMappingResponse;
+use AntChain\BLOCKCHAIN\Models\StartAccountSignatureRequest;
+use AntChain\BLOCKCHAIN\Models\StartAccountSignatureResponse;
+use AntChain\BLOCKCHAIN\Models\StartAmlCorporationJoincommitRequest;
+use AntChain\BLOCKCHAIN\Models\StartAmlCorporationJoincommitResponse;
+use AntChain\BLOCKCHAIN\Models\StartAmlCorporationJoinprepareRequest;
+use AntChain\BLOCKCHAIN\Models\StartAmlCorporationJoinprepareResponse;
+use AntChain\BLOCKCHAIN\Models\StartAmlPersonTwofactorRequest;
+use AntChain\BLOCKCHAIN\Models\StartAmlPersonTwofactorResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthCorporateSignRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthCorporateSignResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcAuthRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcAuthResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcBatchauthRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcBatchauthResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcGiveRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcGiveResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcReplaceRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcReplaceResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcRevokeRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcRevokeResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcSharebatchRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcSharebatchResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcShareRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVcShareResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinfoRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinfoResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinspectRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinspectResponse;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyDriverinfoRequest;
+use AntChain\BLOCKCHAIN\Models\StartAuthVerifyDriverinfoResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAdddidExecuteRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAdddidExecuteResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAddvcExecuteRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAddvcExecuteResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentChallengeresponseRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentChallengeresponseResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentServicetypeRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentServicetypeResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentSidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentSidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentVerifyauthresponseRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidAgentVerifyauthresponseResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationFourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationFourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationMaskRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationMaskResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationTwometaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationTwometaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCommonAgentcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCommonAgentcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateAgentcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateAgentcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateAgentcreatewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateAgentcreatewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateCustomerservicetypeRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateCustomerservicetypeResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateFourmetaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateFourmetaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateSelfcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateSelfcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateThreemetaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateThreemetaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateTwometaRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCorporateTwometaResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidDerivedidExecuteRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidDerivedidExecuteResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidIdentificationFaceauthRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidIdentificationFaceauthResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidIotAgentcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidIotAgentcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidIotAgentcreatewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidIotAgentcreatewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidNotificationConsumerRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidNotificationConsumerResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonAgentcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonAgentcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonAgentcreatewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonAgentcreatewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonSelfcreateRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidPersonSelfcreateResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidSignatureAgentRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidSignatureAgentResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidUpdatedidExecuteRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidUpdatedidExecuteResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidUpdatevcstatusExecuteRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidUpdatevcstatusExecuteResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthwithdefineidRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthwithdefineidResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthwithvcidRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryAuthwithvcidResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryFilterandreadRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryFilterandreadResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryIssueRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryIssueResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadwithdefineidRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadwithdefineidResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadwithvcidRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryReadwithvcidResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryVctransmitRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVcrepositoryVctransmitResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimIssuerandsaveRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimIssuerandsaveResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimIssureRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimIssureResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimVerifierRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidVerifiableclaimVerifierResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidZkpverifiableclaimProofRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidZkpverifiableclaimProofResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidZkpverifiableclaimVisibilityRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidZkpverifiableclaimVisibilityResponse;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEpbuybackRequest;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEpbuybackResponse;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEptradeRequest;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEptradeResponse;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEpwholesaleRequest;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeEpwholesaleResponse;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeLockpositionRequest;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeLockpositionResponse;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeUnfreezeRequest;
+use AntChain\BLOCKCHAIN\Models\StartDigitalassetExchangeUnfreezeResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyAuthRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyAuthResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyChoicetapplistRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyChoicetapplistResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyChoicetappRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyChoicetappResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDataapplicationRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDataapplicationResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDataassertregisterRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDataassertregisterResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDatatransmitcontinueRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDatatransmitcontinueResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDatatransmitstartRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyDatatransmitstartResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyProcessauthRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyProcessauthResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencySettleinRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencySettleinResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyuserCorporatejoinRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyuserCorporatejoinResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyuserPersonjoinRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunAgencyuserPersonjoinResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunInstitutionSettleinRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunInstitutionSettleinResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunTaskGetdataRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidcommunTaskGetdataResponse;
+use AntChain\BLOCKCHAIN\Models\StartMydidDidThreeelementRequest;
+use AntChain\BLOCKCHAIN\Models\StartMydidDidThreeelementResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcRepoReadwithvcidRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcRepoReadwithvcidResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoControlleradduserRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoControlleradduserResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryAuthRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryAuthResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryReadRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryReadResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryWriteRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepositoryWriteResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoUserRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoUserResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoVccontentsaveRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoVccontentsaveResponse;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoVctransmitRequest;
+use AntChain\BLOCKCHAIN\Models\StartVcVcrepoVctransmitResponse;
+use AntChain\BLOCKCHAIN\Models\StopDidAdminServiceRequest;
+use AntChain\BLOCKCHAIN\Models\StopDidAdminServiceResponse;
+use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceRequest;
+use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceResponse;
+use AntChain\BLOCKCHAIN\Models\StopOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\StopOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupRequest;
+use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupResponse;
+use AntChain\BLOCKCHAIN\Models\UnfreezeChainAccountAntRequest;
+use AntChain\BLOCKCHAIN\Models\UnfreezeChainAccountAntResponse;
+use AntChain\BLOCKCHAIN\Models\UnfreezeDigitalassetartArtAccountRequest;
+use AntChain\BLOCKCHAIN\Models\UnfreezeDigitalassetartArtAccountResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainContractContentResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainContractProjectRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainContractProjectResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainMiniappAuthorizationRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainMiniappAuthorizationResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateChainNameAntRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateChainNameAntResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateContractRecordRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateContractRecordResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataAssertRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataAssertResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataEntityRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataEntityResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataModelRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationDataModelResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationParticipantRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationParticipantResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationPublicKeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDataauthorizationPublicKeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidAgentSidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidAgentSidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidCorporateExtensionserviceRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidCorporateExtensionserviceResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidCorporateExtensionservicewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidCorporateExtensionservicewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidIotExtensionservicewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidIotExtensionservicewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidPersonExtensionservicewithsidekeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidPersonExtensionservicewithsidekeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidServicesRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidServicesResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidAuthkeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidAuthkeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidPubkeyRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidPubkeyResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidServiceRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatedidServiceResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatevcStatusRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidUpdatevcStatusResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDidVerifiableclaimStatusRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDidVerifiableclaimStatusResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDistributionFundPromoterRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDistributionFundPromoterResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateDistributionFundShopRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateDistributionFundShopResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateMydidcommunAgencyDocRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateMydidcommunAgencyDocResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateMydidcommunWorkergroupTappRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateMydidcommunWorkergroupTappResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateOcpProductRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateUnionMemberRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateUnionMemberResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionResponse;
+use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserRequest;
+use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserResponse;
+use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderRequest;
+use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderResponse;
+use AntChain\BLOCKCHAIN\Models\VerifyDidZkpverifiableclaimProofRequest;
+use AntChain\BLOCKCHAIN\Models\VerifyDidZkpverifiableclaimProofResponse;
+use AntChain\Util\UtilClient;
+use Exception;
+
+class Client
+{
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config.
+     *
+     * @param config config contains the necessary information to create a client
+     * @param mixed $config
+     */
+    public function __construct($config)
+    {
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                'code'    => 'ParameterMissing',
+                'message' => "'config' can not be unset",
+            ]);
+        }
+        $this->_accessKeyId             = $config->accessKeyId;
+        $this->_accessKeySecret         = $config->accessKeySecret;
+        $this->_securityToken           = $config->securityToken;
+        $this->_endpoint                = $config->endpoint;
+        $this->_protocol                = $config->protocol;
+        $this->_userAgent               = $config->userAgent;
+        $this->_readTimeout             = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout          = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy               = $config->httpProxy;
+        $this->_httpsProxy              = $config->httpsProxy;
+        $this->_noProxy                 = $config->noProxy;
+        $this->_socks5Proxy             = $config->socks5Proxy;
+        $this->_socks5NetWork           = $config->socks5NetWork;
+        $this->_maxIdleConns            = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis       = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests             = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost      = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network.
+     *
+     * @param string         $version
+     * @param string         $action   api name
+     * @param string         $protocol http or https
+     * @param string         $method   e.g. GET
+     * @param string         $pathname pathname of every api
+     * @param mixed[]        $request  which contains request params
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime  which controls some details of call api, such as retry times
+     *
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     *
+     * @return array the response
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime)
+    {
+        $runtime->validate();
+        $_runtime = [
+            'timeouted'               => 'retry',
+            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
+            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
+            'maxRequests'             => $this->_maxRequests,
+            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
+            'retry'                   => [
+                'retryable'   => $runtime->autoretry,
+                'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
+            ],
+            'backoff' => [
+                'policy' => Utils::defaultString($runtime->backoffPolicy, 'no'),
+                'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
+            ],
+            'ignoreSSL' => $runtime->ignoreSSL,
+            // 蚂蚁链浏览器合约链交易内容
+        ];
+        $_lastRequest   = null;
+        $_lastException = null;
+        $_now           = time();
+        $_retryTimes    = 0;
+        while (Tea::allowRetry(@$_runtime['retry'], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime['backoff'], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+
+            try {
+                $_request           = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method   = $method;
+                $_request->pathname = $pathname;
+                $_request->query    = [
+                    'method'           => $action,
+                    'version'          => $version,
+                    'sign_type'        => 'HmacSHA1',
+                    'req_time'         => UtilClient::getTimestamp(),
+                    'req_msg_id'       => UtilClient::getNonce(),
+                    'access_key'       => $this->_accessKeyId,
+                    'base_sdk_version' => 'TeaSDK-2.0',
+                    'sdk_version'      => '1.25.8',
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query['security_token'] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    'host'       => Utils::defaultString($this->_endpoint, 'openapi.antchain.antgroup.com'),
+                    'user-agent' => Utils::getUserAgent($this->_userAgent),
+                ], $headers);
+                $tmp                               = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body                    = Utils::toFormString($tmp);
+                $_request->headers['content-type'] = 'application/x-www-form-urlencoded';
+                $signedParam                       = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query['sign']           = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest                      = $_request;
+                $_response                         = Tea::send($_request, $_runtime);
+                $raw                               = Utils::readAsString($_response->body);
+                $obj                               = Utils::parseJSON($raw);
+                $res                               = Utils::assertAsMap($obj);
+                $resp                              = Utils::assertAsMap(@$res['response']);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        'message' => @$resp['result_msg'],
+                        'data'    => $resp,
+                        'code'    => @$resp['result_code'],
+                    ]);
+                }
+
+                return $resp;
+            } catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+
+                    continue;
+                }
+
+                throw $e;
+            }
+        }
+
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 将用户自有账户导入到链上
+     * Summary: 自有账户映射到链上.
+     *
+     * @param StartAccountMappingRequest $request
+     *
+     * @return StartAccountMappingResponse
+     */
+    public function startAccountMapping($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAccountMappingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将用户自有账户导入到链上
+     * Summary: 自有账户映射到链上.
+     *
+     * @param StartAccountMappingRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return StartAccountMappingResponse
+     */
+    public function startAccountMappingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAccountMappingResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自有账户到链上账户的批量映射接口
+     * Summary: 自有账户到链上账户的批量映射.
+     *
+     * @param BatchcreateAccountMappingRequest $request
+     *
+     * @return BatchcreateAccountMappingResponse
+     */
+    public function batchcreateAccountMapping($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateAccountMappingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自有账户到链上账户的批量映射接口
+     * Summary: 自有账户到链上账户的批量映射.
+     *
+     * @param BatchcreateAccountMappingRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return BatchcreateAccountMappingResponse
+     */
+    public function batchcreateAccountMappingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateAccountMappingResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为用户生成签名的接口
+     * Summary: 为用户生成签名.
+     *
+     * @param StartAccountSignatureRequest $request
+     *
+     * @return StartAccountSignatureResponse
+     */
+    public function startAccountSignature($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAccountSignatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为用户生成签名的接口
+     * Summary: 为用户生成签名.
+     *
+     * @param StartAccountSignatureRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return StartAccountSignatureResponse
+     */
+    public function startAccountSignatureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAccountSignatureResponse::fromMap($this->doRequest('1.0', 'baas.account.signature.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询批量映射结果的接口
+     * Summary: 查询批量映射的结果.
+     *
+     * @param QueryAccountMappingresultRequest $request
+     *
+     * @return QueryAccountMappingresultResponse
+     */
+    public function queryAccountMappingresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAccountMappingresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询批量映射结果的接口
+     * Summary: 查询批量映射的结果.
+     *
+     * @param QueryAccountMappingresultRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryAccountMappingresultResponse
+     */
+    public function queryAccountMappingresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAccountMappingresultResponse::fromMap($this->doRequest('1.0', 'baas.account.mappingresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商户下账户在链上账号映射情况
+     * Summary: 单个查询用户映射情况信息.
+     *
+     * @param QueryAccountMappingRequest $request
+     *
+     * @return QueryAccountMappingResponse
+     */
+    public function queryAccountMapping($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAccountMappingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商户下账户在链上账号映射情况
+     * Summary: 单个查询用户映射情况信息.
+     *
+     * @param QueryAccountMappingRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryAccountMappingResponse
+     */
+    public function queryAccountMappingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAccountMappingResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量查询商户下已映射的账户信息
+     * Summary: 批量查询商户下已映射的账户信息.
+     *
+     * @param BatchqueryAccountMappingRequest $request
+     *
+     * @return BatchqueryAccountMappingResponse
+     */
+    public function batchqueryAccountMapping($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryAccountMappingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量查询商户下已映射的账户信息
+     * Summary: 批量查询商户下已映射的账户信息.
+     *
+     * @param BatchqueryAccountMappingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return BatchqueryAccountMappingResponse
+     */
+    public function batchqueryAccountMappingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryAccountMappingResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户信息存储
+     * Summary: 用户信息存储.
+     *
+     * @param CreateAccountMappingInfoRequest $request
+     *
+     * @return CreateAccountMappingInfoResponse
+     */
+    public function createAccountMappingInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAccountMappingInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户信息存储
+     * Summary: 用户信息存储.
+     *
+     * @param CreateAccountMappingInfoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateAccountMappingInfoResponse
+     */
+    public function createAccountMappingInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAccountMappingInfoResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.info.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量创建用户信息
+     * Summary: 批量创建用户信息.
+     *
+     * @param BatchcreateAccountMappingInfoRequest $request
+     *
+     * @return BatchcreateAccountMappingInfoResponse
+     */
+    public function batchcreateAccountMappingInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateAccountMappingInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量创建用户信息
+     * Summary: 批量创建用户信息.
+     *
+     * @param BatchcreateAccountMappingInfoRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchcreateAccountMappingInfoResponse
+     */
+    public function batchcreateAccountMappingInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateAccountMappingInfoResponse::fromMap($this->doRequest('1.0', 'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取用户的密钥对。
+     * 公钥为明文公钥
+     * 私钥为密文，需要用户在本地再做一次解密才能得到真正的私钥
+     * Summary: 获取用户biz key.
+     *
+     * @param GetAkdfUserbizkeyRequest $request
+     *
+     * @return GetAkdfUserbizkeyResponse
+     */
+    public function getAkdfUserbizkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAkdfUserbizkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取用户的密钥对。
+     * 公钥为明文公钥
+     * 私钥为密文，需要用户在本地再做一次解密才能得到真正的私钥
+     * Summary: 获取用户biz key.
+     *
+     * @param GetAkdfUserbizkeyRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetAkdfUserbizkeyResponse
+     */
+    public function getAkdfUserbizkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAkdfUserbizkeyResponse::fromMap($this->doRequest('1.0', 'baas.akdf.userbizkey.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 列出用户在某条链上所有的密钥
+     * Summary: 列出密钥.
+     *
+     * @param ListAkdfUserbizkeyRequest $request
+     *
+     * @return ListAkdfUserbizkeyResponse
+     */
+    public function listAkdfUserbizkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAkdfUserbizkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 列出用户在某条链上所有的密钥
+     * Summary: 列出密钥.
+     *
+     * @param ListAkdfUserbizkeyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAkdfUserbizkeyResponse
+     */
+    public function listAkdfUserbizkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAkdfUserbizkeyResponse::fromMap($this->doRequest('1.0', 'baas.akdf.userbizkey.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据用户选择的规则和订单类型，生成instanceId给commondriver
+     * Summary: 下单.
+     *
+     * @param CheckBlockchainOrderRequest $request
+     *
+     * @return CheckBlockchainOrderResponse
+     */
+    public function checkBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据用户选择的规则和订单类型，生成instanceId给commondriver
+     * Summary: 下单.
+     *
+     * @param CheckBlockchainOrderRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CheckBlockchainOrderResponse
+     */
+    public function checkBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 下单前校验
+     * Summary: 下单前校验.
+     *
+     * @param VerifyBlockchainOrderRequest $request
+     *
+     * @return VerifyBlockchainOrderResponse
+     */
+    public function verifyBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 下单前校验
+     * Summary: 下单前校验.
+     *
+     * @param VerifyBlockchainOrderRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return VerifyBlockchainOrderResponse
+     */
+    public function verifyBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款
+     * Summary: 退款.
+     *
+     * @param InvalidateBlockchainOrderRequest $request
+     *
+     * @return InvalidateBlockchainOrderResponse
+     */
+    public function invalidateBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->invalidateBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款
+     * Summary: 退款.
+     *
+     * @param InvalidateBlockchainOrderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return InvalidateBlockchainOrderResponse
+     */
+    public function invalidateBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InvalidateBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.invalidate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除物理资源
+     * Summary: 删除物理资源.
+     *
+     * @param ReleaseBlockchainOrderPhysicalRequest $request
+     *
+     * @return ReleaseBlockchainOrderPhysicalResponse
+     */
+    public function releaseBlockchainOrderPhysical($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->releaseBlockchainOrderPhysicalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除物理资源
+     * Summary: 删除物理资源.
+     *
+     * @param ReleaseBlockchainOrderPhysicalRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return ReleaseBlockchainOrderPhysicalResponse
+     */
+    public function releaseBlockchainOrderPhysicalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReleaseBlockchainOrderPhysicalResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.physical.release', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逻辑资源删除
+     * Summary: 逻辑资源删除.
+     *
+     * @param ReleaseBlockchainOrderLogicalRequest $request
+     *
+     * @return ReleaseBlockchainOrderLogicalResponse
+     */
+    public function releaseBlockchainOrderLogical($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->releaseBlockchainOrderLogicalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逻辑资源删除
+     * Summary: 逻辑资源删除.
+     *
+     * @param ReleaseBlockchainOrderLogicalRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ReleaseBlockchainOrderLogicalResponse
+     */
+    public function releaseBlockchainOrderLogicalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReleaseBlockchainOrderLogicalResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.logical.release', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资源检查
+     * Summary: 资源检查.
+     *
+     * @param CheckBlockchainResourceRequest $request
+     *
+     * @return CheckBlockchainResourceResponse
+     */
+    public function checkBlockchainResource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkBlockchainResourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资源检查
+     * Summary: 资源检查.
+     *
+     * @param CheckBlockchainResourceRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CheckBlockchainResourceResponse
+     */
+    public function checkBlockchainResourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckBlockchainResourceResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.resource.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 补齐商品信息
+     * Summary: 补齐商品信息.
+     *
+     * @param ConfirmBlockchainOrderRequest $request
+     *
+     * @return ConfirmBlockchainOrderResponse
+     */
+    public function confirmBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 补齐商品信息
+     * Summary: 补齐商品信息.
+     *
+     * @param ConfirmBlockchainOrderRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ConfirmBlockchainOrderResponse
+     */
+    public function confirmBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 检查
+     * Summary: 检查.
+     *
+     * @param ConnectBlockchainOrderRequest $request
+     *
+     * @return ConnectBlockchainOrderResponse
+     */
+    public function connectBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->connectBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 检查
+     * Summary: 检查.
+     *
+     * @param ConnectBlockchainOrderRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ConnectBlockchainOrderResponse
+     */
+    public function connectBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConnectBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.connect', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链订单创建接口
+     * Summary: 阿里云区块链订单创建接口.
+     *
+     * @param ExecBlockchainOrderRequest $request
+     *
+     * @return ExecBlockchainOrderResponse
+     */
+    public function execBlockchainOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execBlockchainOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链订单创建接口
+     * Summary: 阿里云区块链订单创建接口.
+     *
+     * @param ExecBlockchainOrderRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecBlockchainOrderResponse
+     */
+    public function execBlockchainOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecBlockchainOrderResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.order.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建联盟
+     * Summary: 创建联盟
+     *
+     * @param CreateUnionUnionRequest $request
+     *
+     * @return CreateUnionUnionResponse
+     */
+    public function createUnionUnion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUnionUnionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建联盟
+     * Summary: 创建联盟
+     *
+     * @param CreateUnionUnionRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateUnionUnionResponse
+     */
+    public function createUnionUnionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateUnionUnionResponse::fromMap($this->doRequest('1.0', 'baas.union.union.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除联盟
+     * Summary: 删除联盟
+     *
+     * @param DeleteUnionUnionRequest $request
+     *
+     * @return DeleteUnionUnionResponse
+     */
+    public function deleteUnionUnion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteUnionUnionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除联盟
+     * Summary: 删除联盟
+     *
+     * @param DeleteUnionUnionRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return DeleteUnionUnionResponse
+     */
+    public function deleteUnionUnionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteUnionUnionResponse::fromMap($this->doRequest('1.0', 'baas.union.union.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 联盟更新
+     * Summary: 联盟更新.
+     *
+     * @param UpdateUnionUnionRequest $request
+     *
+     * @return UpdateUnionUnionResponse
+     */
+    public function updateUnionUnion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateUnionUnionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 联盟更新
+     * Summary: 联盟更新.
+     *
+     * @param UpdateUnionUnionRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateUnionUnionResponse
+     */
+    public function updateUnionUnionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateUnionUnionResponse::fromMap($this->doRequest('1.0', 'baas.union.union.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 联盟查询
+     * Summary: 联盟查询.
+     *
+     * @param QueryUnionUnionRequest $request
+     *
+     * @return QueryUnionUnionResponse
+     */
+    public function queryUnionUnion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUnionUnionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 联盟查询
+     * Summary: 联盟查询.
+     *
+     * @param QueryUnionUnionRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryUnionUnionResponse
+     */
+    public function queryUnionUnionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUnionUnionResponse::fromMap($this->doRequest('1.0', 'baas.union.union.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 联盟邀请用户
+     * Summary: 联盟邀请用户.
+     *
+     * @param ApplyUnionMemberRequest $request
+     *
+     * @return ApplyUnionMemberResponse
+     */
+    public function applyUnionMember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyUnionMemberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 联盟邀请用户
+     * Summary: 联盟邀请用户.
+     *
+     * @param ApplyUnionMemberRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyUnionMemberResponse
+     */
+    public function applyUnionMemberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyUnionMemberResponse::fromMap($this->doRequest('1.0', 'baas.union.member.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云联盟成员加入
+     * Summary: 阿里云联盟成员加入.
+     *
+     * @param ConfirmUnionMemberRequest $request
+     *
+     * @return ConfirmUnionMemberResponse
+     */
+    public function confirmUnionMember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmUnionMemberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云联盟成员加入
+     * Summary: 阿里云联盟成员加入.
+     *
+     * @param ConfirmUnionMemberRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ConfirmUnionMemberResponse
+     */
+    public function confirmUnionMemberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmUnionMemberResponse::fromMap($this->doRequest('1.0', 'baas.union.member.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取联盟内的蚂蚁区块链列表
+     * Summary: 获取联盟内的蚂蚁区块链列表.
+     *
+     * @param QueryUnionChainRequest $request
+     *
+     * @return QueryUnionChainResponse
+     */
+    public function queryUnionChain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUnionChainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取联盟内的蚂蚁区块链列表
+     * Summary: 获取联盟内的蚂蚁区块链列表.
+     *
+     * @param QueryUnionChainRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryUnionChainResponse
+     */
+    public function queryUnionChainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUnionChainResponse::fromMap($this->doRequest('1.0', 'baas.union.chain.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取联盟成员列表
+     * Summary: 获取联盟成员列表.
+     *
+     * @param QueryUnionMemberRequest $request
+     *
+     * @return QueryUnionMemberResponse
+     */
+    public function queryUnionMember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUnionMemberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取联盟成员列表
+     * Summary: 获取联盟成员列表.
+     *
+     * @param QueryUnionMemberRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryUnionMemberResponse
+     */
+    public function queryUnionMemberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUnionMemberResponse::fromMap($this->doRequest('1.0', 'baas.union.member.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新联盟成员属性
+     * Summary: 更新联盟成员属性.
+     *
+     * @param UpdateUnionMemberRequest $request
+     *
+     * @return UpdateUnionMemberResponse
+     */
+    public function updateUnionMember($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateUnionMemberEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新联盟成员属性
+     * Summary: 更新联盟成员属性.
+     *
+     * @param UpdateUnionMemberRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateUnionMemberResponse
+     */
+    public function updateUnionMemberEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateUnionMemberResponse::fromMap($this->doRequest('1.0', 'baas.union.member.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新区块链的名称
+     * Summary: 更新区块链的名称.
+     *
+     * @param UpdateChainNameAntRequest $request
+     *
+     * @return UpdateChainNameAntResponse
+     */
+    public function updateChainNameAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainNameAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新区块链的名称
+     * Summary: 更新区块链的名称.
+     *
+     * @param UpdateChainNameAntRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UpdateChainNameAntResponse
+     */
+    public function updateChainNameAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainNameAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.name.ant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 手工创建区块链证书
+     * Summary: 手工创建区块链证书.
+     *
+     * @param CreateChainCertAntRequest $request
+     *
+     * @return CreateChainCertAntResponse
+     */
+    public function createChainCertAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainCertAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 手工创建区块链证书
+     * Summary: 手工创建区块链证书.
+     *
+     * @param CreateChainCertAntRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateChainCertAntResponse
+     */
+    public function createChainCertAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainCertAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.cert.ant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动申请区块链证书
+     * Summary: 自动申请区块链证书.
+     *
+     * @param ApplyChainCertAntRequest $request
+     *
+     * @return ApplyChainCertAntResponse
+     */
+    public function applyChainCertAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainCertAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动申请区块链证书
+     * Summary: 自动申请区块链证书.
+     *
+     * @param ApplyChainCertAntRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyChainCertAntResponse
+     */
+    public function applyChainCertAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainCertAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.cert.ant.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人工申请区块链证书
+     * Summary: 人工申请区块链证书.
+     *
+     * @param CreateChainPublicCertRequest $request
+     *
+     * @return CreateChainPublicCertResponse
+     */
+    public function createChainPublicCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainPublicCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人工申请区块链证书
+     * Summary: 人工申请区块链证书.
+     *
+     * @param CreateChainPublicCertRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateChainPublicCertResponse
+     */
+    public function createChainPublicCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainPublicCertResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.cert.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动创建区块链证书
+     * Summary: 自动创建区块链证书.
+     *
+     * @param ApplyChainPublicCertRequest $request
+     *
+     * @return ApplyChainPublicCertResponse
+     */
+    public function applyChainPublicCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainPublicCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动创建区块链证书
+     * Summary: 自动创建区块链证书.
+     *
+     * @param ApplyChainPublicCertRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyChainPublicCertResponse
+     */
+    public function applyChainPublicCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainPublicCertResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.cert.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 免费体验链重置证书
+     * Summary: 免费体验链重置证书.
+     *
+     * @param ReinitChainPublicCertRequest $request
+     *
+     * @return ReinitChainPublicCertResponse
+     */
+    public function reinitChainPublicCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reinitChainPublicCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 免费体验链重置证书
+     * Summary: 免费体验链重置证书.
+     *
+     * @param ReinitChainPublicCertRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ReinitChainPublicCertResponse
+     */
+    public function reinitChainPublicCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReinitChainPublicCertResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.cert.reinit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 免费体验链创建账户
+     * Summary: 免费体验链创建账户.
+     *
+     * @param CreateChainPublicAccountRequest $request
+     *
+     * @return CreateChainPublicAccountResponse
+     */
+    public function createChainPublicAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainPublicAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 免费体验链创建账户
+     * Summary: 免费体验链创建账户.
+     *
+     * @param CreateChainPublicAccountRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateChainPublicAccountResponse
+     */
+    public function createChainPublicAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainPublicAccountResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动创建链上账户
+     * Summary: 自动创建链上账户.
+     *
+     * @param ApplyChainPublicAccountRequest $request
+     *
+     * @return ApplyChainPublicAccountResponse
+     */
+    public function applyChainPublicAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainPublicAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动创建链上账户
+     * Summary: 自动创建链上账户.
+     *
+     * @param ApplyChainPublicAccountRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyChainPublicAccountResponse
+     */
+    public function applyChainPublicAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainPublicAccountResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.account.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 免费体验链查询
+     * Summary: 免费体验链查询.
+     *
+     * @param QueryChainPublicRequest $request
+     *
+     * @return QueryChainPublicResponse
+     */
+    public function queryChainPublic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainPublicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 免费体验链查询
+     * Summary: 免费体验链查询.
+     *
+     * @param QueryChainPublicRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryChainPublicResponse
+     */
+    public function queryChainPublicEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainPublicResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 免费体验链证书下载
+     * Summary: 免费体验链证书下载.
+     *
+     * @param DownloadChainPublicCertRequest $request
+     *
+     * @return DownloadChainPublicCertResponse
+     */
+    public function downloadChainPublicCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadChainPublicCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 免费体验链证书下载
+     * Summary: 免费体验链证书下载.
+     *
+     * @param DownloadChainPublicCertRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DownloadChainPublicCertResponse
+     */
+    public function downloadChainPublicCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadChainPublicCertResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.cert.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 手工创建账户
+     * Summary: 手工创建账户.
+     *
+     * @param CreateChainAccountAntRequest $request
+     *
+     * @return CreateChainAccountAntResponse
+     */
+    public function createChainAccountAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainAccountAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 手工创建账户
+     * Summary: 手工创建账户.
+     *
+     * @param CreateChainAccountAntRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateChainAccountAntResponse
+     */
+    public function createChainAccountAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainAccountAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.ant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动创建账户
+     * Summary: 自动创建账户.
+     *
+     * @param ApplyChainAccountAntRequest $request
+     *
+     * @return ApplyChainAccountAntResponse
+     */
+    public function applyChainAccountAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainAccountAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动创建账户
+     * Summary: 自动创建账户.
+     *
+     * @param ApplyChainAccountAntRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyChainAccountAntResponse
+     */
+    public function applyChainAccountAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainAccountAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.ant.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询链上账户列表
+     * Summary: 查询链上账户列表.
+     *
+     * @param QueryChainAccountAntRequest $request
+     *
+     * @return QueryChainAccountAntResponse
+     */
+    public function queryChainAccountAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainAccountAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询链上账户列表
+     * Summary: 查询链上账户列表.
+     *
+     * @param QueryChainAccountAntRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryChainAccountAntResponse
+     */
+    public function queryChainAccountAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainAccountAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.ant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链证书下载
+     * Summary: 区块链证书下载.
+     *
+     * @param DownloadChainCertAntRequest $request
+     *
+     * @return DownloadChainCertAntResponse
+     */
+    public function downloadChainCertAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadChainCertAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链证书下载
+     * Summary: 区块链证书下载.
+     *
+     * @param DownloadChainCertAntRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return DownloadChainCertAntResponse
+     */
+    public function downloadChainCertAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadChainCertAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.cert.ant.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云链节点查询
+     * Summary: 阿里云链节点查询.
+     *
+     * @param QueryChainNodeAntRequest $request
+     *
+     * @return QueryChainNodeAntResponse
+     */
+    public function queryChainNodeAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainNodeAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云链节点查询
+     * Summary: 阿里云链节点查询.
+     *
+     * @param QueryChainNodeAntRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryChainNodeAntResponse
+     */
+    public function queryChainNodeAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainNodeAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.node.ant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链链上账户冻结
+     * Summary: 区块链链上账户冻结.
+     *
+     * @param FreezeChainAccountAntRequest $request
+     *
+     * @return FreezeChainAccountAntResponse
+     */
+    public function freezeChainAccountAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->freezeChainAccountAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链链上账户冻结
+     * Summary: 区块链链上账户冻结.
+     *
+     * @param FreezeChainAccountAntRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return FreezeChainAccountAntResponse
+     */
+    public function freezeChainAccountAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FreezeChainAccountAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.ant.freeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂蚁区块链账户解冻
+     * Summary: 蚂蚁区块链账户解冻.
+     *
+     * @param UnfreezeChainAccountAntRequest $request
+     *
+     * @return UnfreezeChainAccountAntResponse
+     */
+    public function unfreezeChainAccountAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezeChainAccountAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂蚁区块链账户解冻
+     * Summary: 蚂蚁区块链账户解冻.
+     *
+     * @param UnfreezeChainAccountAntRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UnfreezeChainAccountAntResponse
+     */
+    public function unfreezeChainAccountAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezeChainAccountAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.ant.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链证书重置
+     * Summary: 区块链证书重置.
+     *
+     * @param ReinitChainCertAntRequest $request
+     *
+     * @return ReinitChainCertAntResponse
+     */
+    public function reinitChainCertAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reinitChainCertAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链证书重置
+     * Summary: 区块链证书重置.
+     *
+     * @param ReinitChainCertAntRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ReinitChainCertAntResponse
+     */
+    public function reinitChainCertAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReinitChainCertAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.cert.ant.reinit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链证书查询
+     * Summary: 区块链证书查询.
+     *
+     * @param QueryChainCertAntRequest $request
+     *
+     * @return QueryChainCertAntResponse
+     */
+    public function queryChainCertAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainCertAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链证书查询
+     * Summary: 区块链证书查询.
+     *
+     * @param QueryChainCertAntRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryChainCertAntResponse
+     */
+    public function queryChainCertAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainCertAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.cert.ant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云浏览器信息查询
+     * Summary: 阿里云浏览器信息查询.
+     *
+     * @param QueryChainBrowserInfoRequest $request
+     *
+     * @return QueryChainBrowserInfoResponse
+     */
+    public function queryChainBrowserInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云浏览器信息查询
+     * Summary: 阿里云浏览器信息查询.
+     *
+     * @param QueryChainBrowserInfoRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryChainBrowserInfoResponse
+     */
+    public function queryChainBrowserInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserInfoResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云最新区块链信息查询
+     * Summary: 阿里云最新区块链信息查询.
+     *
+     * @param QueryChainBrowserBlocksRequest $request
+     *
+     * @return QueryChainBrowserBlocksResponse
+     */
+    public function queryChainBrowserBlocks($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserBlocksEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云最新区块链信息查询
+     * Summary: 阿里云最新区块链信息查询.
+     *
+     * @param QueryChainBrowserBlocksRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryChainBrowserBlocksResponse
+     */
+    public function queryChainBrowserBlocksEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserBlocksResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.blocks.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云最新交易查询
+     * Summary: 阿里云最新交易查询.
+     *
+     * @param QueryChainBrowserTransactionsRequest $request
+     *
+     * @return QueryChainBrowserTransactionsResponse
+     */
+    public function queryChainBrowserTransactions($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserTransactionsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云最新交易查询
+     * Summary: 阿里云最新交易查询.
+     *
+     * @param QueryChainBrowserTransactionsRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryChainBrowserTransactionsResponse
+     */
+    public function queryChainBrowserTransactionsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserTransactionsResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.transactions.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云最新区块交易信息查询
+     * Summary: 阿里云最新区块交易信息查询.
+     *
+     * @param BatchqueryChainBrowserTransactionRequest $request
+     *
+     * @return BatchqueryChainBrowserTransactionResponse
+     */
+    public function batchqueryChainBrowserTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryChainBrowserTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云最新区块交易信息查询
+     * Summary: 阿里云最新区块交易信息查询.
+     *
+     * @param BatchqueryChainBrowserTransactionRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchqueryChainBrowserTransactionResponse
+     */
+    public function batchqueryChainBrowserTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryChainBrowserTransactionResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.transaction.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链交易收据查询
+     * Summary: 阿里云区块链交易收据查询.
+     *
+     * @param QueryChainBrowserReceiptRequest $request
+     *
+     * @return QueryChainBrowserReceiptResponse
+     */
+    public function queryChainBrowserReceipt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserReceiptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链交易收据查询
+     * Summary: 阿里云区块链交易收据查询.
+     *
+     * @param QueryChainBrowserReceiptRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryChainBrowserReceiptResponse
+     */
+    public function queryChainBrowserReceiptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserReceiptResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.receipt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链交易查询
+     * Summary: 阿里云区块链交易查询.
+     *
+     * @param QueryChainBrowserTransactionRequest $request
+     *
+     * @return QueryChainBrowserTransactionResponse
+     */
+    public function queryChainBrowserTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链交易查询
+     * Summary: 阿里云区块链交易查询.
+     *
+     * @param QueryChainBrowserTransactionRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryChainBrowserTransactionResponse
+     */
+    public function queryChainBrowserTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserTransactionResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链的区块信息
+     * Summary: 阿里云区块链的区块信息.
+     *
+     * @param QueryChainBrowserBlockRequest $request
+     *
+     * @return QueryChainBrowserBlockResponse
+     */
+    public function queryChainBrowserBlock($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserBlockEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链的区块信息
+     * Summary: 阿里云区块链的区块信息.
+     *
+     * @param QueryChainBrowserBlockRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryChainBrowserBlockResponse
+     */
+    public function queryChainBrowserBlockEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserBlockResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.block.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云售卖区信息查询
+     * Summary: 阿里云售卖区信息查询.
+     *
+     * @param QueryChainResouceRegionRequest $request
+     *
+     * @return QueryChainResouceRegionResponse
+     */
+    public function queryChainResouceRegion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainResouceRegionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云售卖区信息查询
+     * Summary: 阿里云售卖区信息查询.
+     *
+     * @param QueryChainResouceRegionRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryChainResouceRegionResponse
+     */
+    public function queryChainResouceRegionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainResouceRegionResponse::fromMap($this->doRequest('1.0', 'baas.chain.resouce.region.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云资源类型查询
+     * Summary: 阿里云资源类型查询.
+     *
+     * @param QueryChainResourceTypeRequest $request
+     *
+     * @return QueryChainResourceTypeResponse
+     */
+    public function queryChainResourceType($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainResourceTypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云资源类型查询
+     * Summary: 阿里云资源类型查询.
+     *
+     * @param QueryChainResourceTypeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryChainResourceTypeResponse
+     */
+    public function queryChainResourceTypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainResourceTypeResponse::fromMap($this->doRequest('1.0', 'baas.chain.resource.type.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链售卖资源查询
+     * Summary: 阿里云区块链售卖资源查询.
+     *
+     * @param QueryChainResouceSaleRequest $request
+     *
+     * @return QueryChainResouceSaleResponse
+     */
+    public function queryChainResouceSale($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainResouceSaleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链售卖资源查询
+     * Summary: 阿里云区块链售卖资源查询.
+     *
+     * @param QueryChainResouceSaleRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryChainResouceSaleResponse
+     */
+    public function queryChainResouceSaleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainResouceSaleResponse::fromMap($this->doRequest('1.0', 'baas.chain.resouce.sale.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链配置信息查询
+     * Summary: 阿里云区块链配置信息查询.
+     *
+     * @param QueryChainResourceConfigRequest $request
+     *
+     * @return QueryChainResourceConfigResponse
+     */
+    public function queryChainResourceConfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainResourceConfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链配置信息查询
+     * Summary: 阿里云区块链配置信息查询.
+     *
+     * @param QueryChainResourceConfigRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryChainResourceConfigResponse
+     */
+    public function queryChainResourceConfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainResourceConfigResponse::fromMap($this->doRequest('1.0', 'baas.chain.resource.config.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链交易统计信息
+     * Summary: 阿里云区块链交易统计信息.
+     *
+     * @param QueryChainBrowserStatisticsRequest $request
+     *
+     * @return QueryChainBrowserStatisticsResponse
+     */
+    public function queryChainBrowserStatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainBrowserStatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链交易统计信息
+     * Summary: 阿里云区块链交易统计信息.
+     *
+     * @param QueryChainBrowserStatisticsRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryChainBrowserStatisticsResponse
+     */
+    public function queryChainBrowserStatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainBrowserStatisticsResponse::fromMap($this->doRequest('1.0', 'baas.chain.browser.statistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链交易执行交易
+     * Summary: 阿里云区块链交易执行交易.
+     *
+     * @param ExecChainPublicContractRequest $request
+     *
+     * @return ExecChainPublicContractResponse
+     */
+    public function execChainPublicContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execChainPublicContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链交易执行交易
+     * Summary: 阿里云区块链交易执行交易.
+     *
+     * @param ExecChainPublicContractRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ExecChainPublicContractResponse
+     */
+    public function execChainPublicContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecChainPublicContractResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.contract.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云免费体验链的cloudIde查询
+     * Summary: 阿里云免费体验链的cloudIde查询.
+     *
+     * @param QueryChainPublicIdeRequest $request
+     *
+     * @return QueryChainPublicIdeResponse
+     */
+    public function queryChainPublicIde($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainPublicIdeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云免费体验链的cloudIde查询
+     * Summary: 阿里云免费体验链的cloudIde查询.
+     *
+     * @param QueryChainPublicIdeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryChainPublicIdeResponse
+     */
+    public function queryChainPublicIdeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainPublicIdeResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.ide.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云免费体验链合约文件和内容查询
+     * Summary: 阿里云免费体验链合约文件和内容查询.
+     *
+     * @param QueryChainPublicContentRequest $request
+     *
+     * @return QueryChainPublicContentResponse
+     */
+    public function queryChainPublicContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainPublicContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云免费体验链合约文件和内容查询
+     * Summary: 阿里云免费体验链合约文件和内容查询.
+     *
+     * @param QueryChainPublicContentRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryChainPublicContentResponse
+     */
+    public function queryChainPublicContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainPublicContentResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.content.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云合约工程创建
+     * Summary: 阿里云合约工程创建.
+     *
+     * @param CreateChainContractProjectRequest $request
+     *
+     * @return CreateChainContractProjectResponse
+     */
+    public function createChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云合约工程创建
+     * Summary: 阿里云合约工程创建.
+     *
+     * @param CreateChainContractProjectRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateChainContractProjectResponse
+     */
+    public function createChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云合约工程删除
+     * Summary: 阿里云合约工程删除.
+     *
+     * @param DeleteChainContractProjectRequest $request
+     *
+     * @return DeleteChainContractProjectResponse
+     */
+    public function deleteChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云合约工程删除
+     * Summary: 阿里云合约工程删除.
+     *
+     * @param DeleteChainContractProjectRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DeleteChainContractProjectResponse
+     */
+    public function deleteChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 复制阿里云合约工程
+     * Summary: 复制阿里云合约工程.
+     *
+     * @param CloneChainContractProjectRequest $request
+     *
+     * @return CloneChainContractProjectResponse
+     */
+    public function cloneChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cloneChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 复制阿里云合约工程
+     * Summary: 复制阿里云合约工程.
+     *
+     * @param CloneChainContractProjectRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CloneChainContractProjectResponse
+     */
+    public function cloneChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloneChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.clone', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云合约工程信息查询
+     * Summary: 阿里云合约工程信息查询.
+     *
+     * @param QueryChainContractProjectRequest $request
+     *
+     * @return QueryChainContractProjectResponse
+     */
+    public function queryChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云合约工程信息查询
+     * Summary: 阿里云合约工程信息查询.
+     *
+     * @param QueryChainContractProjectRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryChainContractProjectResponse
+     */
+    public function queryChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 复制阿里云合约工程
+     * Summary: 复制阿里云合约工程.
+     *
+     * @param RetryChainContractProjectRequest $request
+     *
+     * @return RetryChainContractProjectResponse
+     */
+    public function retryChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 复制阿里云合约工程
+     * Summary: 复制阿里云合约工程.
+     *
+     * @param RetryChainContractProjectRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return RetryChainContractProjectResponse
+     */
+    public function retryChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新阿里云区块链的合约工程
+     * Summary: 更新阿里云区块链的合约工程.
+     *
+     * @param UpdateChainContractProjectRequest $request
+     *
+     * @return UpdateChainContractProjectResponse
+     */
+    public function updateChainContractProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainContractProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新阿里云区块链的合约工程
+     * Summary: 更新阿里云区块链的合约工程.
+     *
+     * @param UpdateChainContractProjectRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateChainContractProjectResponse
+     */
+    public function updateChainContractProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainContractProjectResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.project.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建合约文件内容
+     * Summary: 创建合约文件内容.
+     *
+     * @param CreateChainContractContentRequest $request
+     *
+     * @return CreateChainContractContentResponse
+     */
+    public function createChainContractContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainContractContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建合约文件内容
+     * Summary: 创建合约文件内容.
+     *
+     * @param CreateChainContractContentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateChainContractContentResponse
+     */
+    public function createChainContractContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainContractContentResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.content.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新阿里云合约文件内容
+     * Summary: 更新阿里云合约文件内容.
+     *
+     * @param UpdateChainContractContentRequest $request
+     *
+     * @return UpdateChainContractContentResponse
+     */
+    public function updateChainContractContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainContractContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新阿里云合约文件内容
+     * Summary: 更新阿里云合约文件内容.
+     *
+     * @param UpdateChainContractContentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateChainContractContentResponse
+     */
+    public function updateChainContractContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainContractContentResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.content.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云合约文件信息查询
+     * Summary: 阿里云合约文件信息查询.
+     *
+     * @param QueryChainContractContentRequest $request
+     *
+     * @return QueryChainContractContentResponse
+     */
+    public function queryChainContractContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainContractContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云合约文件信息查询
+     * Summary: 阿里云合约文件信息查询.
+     *
+     * @param QueryChainContractContentRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryChainContractContentResponse
+     */
+    public function queryChainContractContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainContractContentResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.content.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链合约执行
+     * Summary: 阿里云区块链合约执行.
+     *
+     * @param ExecChainContractRequest $request
+     *
+     * @return ExecChainContractResponse
+     */
+    public function execChainContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execChainContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链合约执行
+     * Summary: 阿里云区块链合约执行.
+     *
+     * @param ExecChainContractRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ExecChainContractResponse
+     */
+    public function execChainContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecChainContractResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链CloudIde配置查询
+     * Summary: 阿里云区块链CloudIde配置查询.
+     *
+     * @param QueryChainIdeRequest $request
+     *
+     * @return QueryChainIdeResponse
+     */
+    public function queryChainIde($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainIdeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链CloudIde配置查询
+     * Summary: 阿里云区块链CloudIde配置查询.
+     *
+     * @param QueryChainIdeRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryChainIdeResponse
+     */
+    public function queryChainIdeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainIdeResponse::fromMap($this->doRequest('1.0', 'baas.chain.ide.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链合约文件删除
+     * Summary: 阿里云区块链合约文件删除.
+     *
+     * @param DeleteChainContractContentRequest $request
+     *
+     * @return DeleteChainContractContentResponse
+     */
+    public function deleteChainContractContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteChainContractContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链合约文件删除
+     * Summary: 阿里云区块链合约文件删除.
+     *
+     * @param DeleteChainContractContentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DeleteChainContractContentResponse
+     */
+    public function deleteChainContractContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteChainContractContentResponse::fromMap($this->doRequest('1.0', 'baas.chain.contract.content.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序用户权限添加
+     * Summary: 阿里云区块链小程序用户权限添加.
+     *
+     * @param BatchcreateChainMiniappUserRequest $request
+     *
+     * @return BatchcreateChainMiniappUserResponse
+     */
+    public function batchcreateChainMiniappUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateChainMiniappUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序用户权限添加
+     * Summary: 阿里云区块链小程序用户权限添加.
+     *
+     * @param BatchcreateChainMiniappUserRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return BatchcreateChainMiniappUserResponse
+     */
+    public function batchcreateChainMiniappUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateChainMiniappUserResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.user.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序用户权限删除
+     * Summary: 阿里云区块链小程序用户权限删除.
+     *
+     * @param DeleteChainMiniappUserRequest $request
+     *
+     * @return DeleteChainMiniappUserResponse
+     */
+    public function deleteChainMiniappUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteChainMiniappUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序用户权限删除
+     * Summary: 阿里云区块链小程序用户权限删除.
+     *
+     * @param DeleteChainMiniappUserRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DeleteChainMiniappUserResponse
+     */
+    public function deleteChainMiniappUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteChainMiniappUserResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.user.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链所有用户权限查询
+     * Summary: 阿里云区块链所有用户权限查询.
+     *
+     * @param BatchqueryChainMiniappUserRequest $request
+     *
+     * @return BatchqueryChainMiniappUserResponse
+     */
+    public function batchqueryChainMiniappUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryChainMiniappUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链所有用户权限查询
+     * Summary: 阿里云区块链所有用户权限查询.
+     *
+     * @param BatchqueryChainMiniappUserRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return BatchqueryChainMiniappUserResponse
+     */
+    public function batchqueryChainMiniappUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryChainMiniappUserResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.user.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序权限控制查询
+     * Summary: 阿里云区块链小程序权限控制查询.
+     *
+     * @param QueryChainMiniappAuthorizationRequest $request
+     *
+     * @return QueryChainMiniappAuthorizationResponse
+     */
+    public function queryChainMiniappAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainMiniappAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序权限控制查询
+     * Summary: 阿里云区块链小程序权限控制查询.
+     *
+     * @param QueryChainMiniappAuthorizationRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryChainMiniappAuthorizationResponse
+     */
+    public function queryChainMiniappAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainMiniappAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.authorization.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序权限控制变更
+     * Summary: 阿里云区块链小程序权限控制变更.
+     *
+     * @param UpdateChainMiniappAuthorizationRequest $request
+     *
+     * @return UpdateChainMiniappAuthorizationResponse
+     */
+    public function updateChainMiniappAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChainMiniappAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序权限控制变更
+     * Summary: 阿里云区块链小程序权限控制变更.
+     *
+     * @param UpdateChainMiniappAuthorizationRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return UpdateChainMiniappAuthorizationResponse
+     */
+    public function updateChainMiniappAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChainMiniappAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.authorization.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序交易查询
+     * Summary: 阿里云区块链小程序交易查询.
+     *
+     * @param QueryChainMiniappTransactionRequest $request
+     *
+     * @return QueryChainMiniappTransactionResponse
+     */
+    public function queryChainMiniappTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainMiniappTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序交易查询
+     * Summary: 阿里云区块链小程序交易查询.
+     *
+     * @param QueryChainMiniappTransactionRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryChainMiniappTransactionResponse
+     */
+    public function queryChainMiniappTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainMiniappTransactionResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序交易查询的记录
+     * Summary: 阿里云区块链小程序交易查询的记录.
+     *
+     * @param QueryChainMiniappLogRequest $request
+     *
+     * @return QueryChainMiniappLogResponse
+     */
+    public function queryChainMiniappLog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainMiniappLogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序交易查询的记录
+     * Summary: 阿里云区块链小程序交易查询的记录.
+     *
+     * @param QueryChainMiniappLogRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryChainMiniappLogResponse
+     */
+    public function queryChainMiniappLogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainMiniappLogResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.log.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云区块链小程序二维码生成
+     * Summary: 阿里云区块链小程序二维码生成.
+     *
+     * @param CreateChainMiniappCodeRequest $request
+     *
+     * @return CreateChainMiniappCodeResponse
+     */
+    public function createChainMiniappCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainMiniappCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云区块链小程序二维码生成
+     * Summary: 阿里云区块链小程序二维码生成.
+     *
+     * @param CreateChainMiniappCodeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateChainMiniappCodeResponse
+     */
+    public function createChainMiniappCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainMiniappCodeResponse::fromMap($this->doRequest('1.0', 'baas.chain.miniapp.code.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云售卖页联盟信息查询
+     * Summary: 阿里云售卖页联盟信息查询.
+     *
+     * @param QueryUnionBuyRequest $request
+     *
+     * @return QueryUnionBuyResponse
+     */
+    public function queryUnionBuy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUnionBuyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云售卖页联盟信息查询
+     * Summary: 阿里云售卖页联盟信息查询.
+     *
+     * @param QueryUnionBuyRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryUnionBuyResponse
+     */
+    public function queryUnionBuyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUnionBuyResponse::fromMap($this->doRequest('1.0', 'baas.union.buy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站免费体验链Rest查询
+     * Summary: 阿里云国内站免费体验链Rest查询.
+     *
+     * @param QueryChainPublicRestRequest $request
+     *
+     * @return QueryChainPublicRestResponse
+     */
+    public function queryChainPublicRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainPublicRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站免费体验链Rest查询
+     * Summary: 阿里云国内站免费体验链Rest查询.
+     *
+     * @param QueryChainPublicRestRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryChainPublicRestResponse
+     */
+    public function queryChainPublicRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainPublicRestResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.rest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站免费体验链申请Rest
+     * Summary: 阿里云国内站免费体验链申请Rest.
+     *
+     * @param ApplyChainPublicRestRequest $request
+     *
+     * @return ApplyChainPublicRestResponse
+     */
+    public function applyChainPublicRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainPublicRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站免费体验链申请Rest
+     * Summary: 阿里云国内站免费体验链申请Rest.
+     *
+     * @param ApplyChainPublicRestRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyChainPublicRestResponse
+     */
+    public function applyChainPublicRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainPublicRestResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.rest.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站重置Rest
+     * Summary: 阿里云国内站重置Rest.
+     *
+     * @param ReinitChainPublicRestRequest $request
+     *
+     * @return ReinitChainPublicRestResponse
+     */
+    public function reinitChainPublicRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reinitChainPublicRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站重置Rest
+     * Summary: 阿里云国内站重置Rest.
+     *
+     * @param ReinitChainPublicRestRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ReinitChainPublicRestResponse
+     */
+    public function reinitChainPublicRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReinitChainPublicRestResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.rest.reinit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站区块链rest查询
+     * Summary: 阿里云国内站区块链rest查询.
+     *
+     * @param QueryChainRestAntRequest $request
+     *
+     * @return QueryChainRestAntResponse
+     */
+    public function queryChainRestAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainRestAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站区块链rest查询
+     * Summary: 阿里云国内站区块链rest查询.
+     *
+     * @param QueryChainRestAntRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryChainRestAntResponse
+     */
+    public function queryChainRestAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainRestAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.rest.ant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站区块链rest申请
+     * Summary: 阿里云国内站区块链rest申请.
+     *
+     * @param ApplyChainRestAntRequest $request
+     *
+     * @return ApplyChainRestAntResponse
+     */
+    public function applyChainRestAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainRestAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站区块链rest申请
+     * Summary: 阿里云国内站区块链rest申请.
+     *
+     * @param ApplyChainRestAntRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyChainRestAntResponse
+     */
+    public function applyChainRestAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainRestAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.rest.ant.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站区块链重置Rest
+     * Summary: 阿里云国内站区块链重置Rest.
+     *
+     * @param ReinitChainRestAntRequest $request
+     *
+     * @return ReinitChainRestAntResponse
+     */
+    public function reinitChainRestAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reinitChainRestAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站区块链重置Rest
+     * Summary: 阿里云国内站区块链重置Rest.
+     *
+     * @param ReinitChainRestAntRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ReinitChainRestAntResponse
+     */
+    public function reinitChainRestAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReinitChainRestAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.rest.ant.reinit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站公共链重置rest发送验证码
+     * Summary: 阿里云国内站公共链重置rest发送验证码
+     *
+     * @param SendChainPublicRestRequest $request
+     *
+     * @return SendChainPublicRestResponse
+     */
+    public function sendChainPublicRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendChainPublicRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站公共链重置rest发送验证码
+     * Summary: 阿里云国内站公共链重置rest发送验证码
+     *
+     * @param SendChainPublicRestRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SendChainPublicRestResponse
+     */
+    public function sendChainPublicRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendChainPublicRestResponse::fromMap($this->doRequest('1.0', 'baas.chain.public.rest.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云国内站区块链重置rest发送验证码
+     * Summary: 阿里云国内站区块链重置rest发送验证码
+     *
+     * @param SendChainRestAntRequest $request
+     *
+     * @return SendChainRestAntResponse
+     */
+    public function sendChainRestAnt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendChainRestAntEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云国内站区块链重置rest发送验证码
+     * Summary: 阿里云国内站区块链重置rest发送验证码
+     *
+     * @param SendChainRestAntRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SendChainRestAntResponse
+     */
+    public function sendChainRestAntEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendChainRestAntResponse::fromMap($this->doRequest('1.0', 'baas.chain.rest.ant.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
+     * Summary: 反洗钱信息共享平台入驻接口.
+     *
+     * @param StartAmlCorporationJoinprepareRequest $request
+     *
+     * @return StartAmlCorporationJoinprepareResponse
+     */
+    public function startAmlCorporationJoinprepare($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAmlCorporationJoinprepareEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业通过调用该接口准备接入反洗钱信息共享平台
+     * Summary: 反洗钱信息共享平台入驻接口.
+     *
+     * @param StartAmlCorporationJoinprepareRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartAmlCorporationJoinprepareResponse
+     */
+    public function startAmlCorporationJoinprepareEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAmlCorporationJoinprepareResponse::fromMap($this->doRequest('1.0', 'baas.aml.corporation.joinprepare.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 反洗钱信息共享平台确认加盟接口，用户在准备阶段确认了平台安全性之后可以确认入驻
+     * Summary: 反洗钱信息共享平台确认加盟接口.
+     *
+     * @param StartAmlCorporationJoincommitRequest $request
+     *
+     * @return StartAmlCorporationJoincommitResponse
+     */
+    public function startAmlCorporationJoincommit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAmlCorporationJoincommitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 反洗钱信息共享平台确认加盟接口，用户在准备阶段确认了平台安全性之后可以确认入驻
+     * Summary: 反洗钱信息共享平台确认加盟接口.
+     *
+     * @param StartAmlCorporationJoincommitRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartAmlCorporationJoincommitResponse
+     */
+    public function startAmlCorporationJoincommitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAmlCorporationJoincommitResponse::fromMap($this->doRequest('1.0', 'baas.aml.corporation.joincommit.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 反洗钱系统二要素实名认证
+     * Summary: 反洗钱系统二要素实名认证
+     *
+     * @param StartAmlPersonTwofactorRequest $request
+     *
+     * @return StartAmlPersonTwofactorResponse
+     */
+    public function startAmlPersonTwofactor($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAmlPersonTwofactorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 反洗钱系统二要素实名认证
+     * Summary: 反洗钱系统二要素实名认证
+     *
+     * @param StartAmlPersonTwofactorRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartAmlPersonTwofactorResponse
+     */
+    public function startAmlPersonTwofactorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAmlPersonTwofactorResponse::fromMap($this->doRequest('1.0', 'baas.aml.person.twofactor.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 简单存证
+     * Summary: 简单存证
+     *
+     * @param SaveBusinessDepositRequest $request
+     *
+     * @return SaveBusinessDepositResponse
+     */
+    public function saveBusinessDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveBusinessDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 简单存证
+     * Summary: 简单存证
+     *
+     * @param SaveBusinessDepositRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SaveBusinessDepositResponse
+     */
+    public function saveBusinessDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveBusinessDepositResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存储带有描述性的数据
+     * Summary: 存储带有描述性的数据.
+     *
+     * @param SaveBusinessDepositMetadataRequest $request
+     *
+     * @return SaveBusinessDepositMetadataResponse
+     */
+    public function saveBusinessDepositMetadata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveBusinessDepositMetadataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存储带有描述性的数据
+     * Summary: 存储带有描述性的数据.
+     *
+     * @param SaveBusinessDepositMetadataRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SaveBusinessDepositMetadataResponse
+     */
+    public function saveBusinessDepositMetadataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveBusinessDepositMetadataResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.metadata.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将存证的数据在链上加密
+     * Summary: 将存证的数据在链上加密.
+     *
+     * @param SaveBusinessDepositEncryptRequest $request
+     *
+     * @return SaveBusinessDepositEncryptResponse
+     */
+    public function saveBusinessDepositEncrypt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveBusinessDepositEncryptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将存证的数据在链上加密
+     * Summary: 将存证的数据在链上加密.
+     *
+     * @param SaveBusinessDepositEncryptRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SaveBusinessDepositEncryptResponse
+     */
+    public function saveBusinessDepositEncryptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveBusinessDepositEncryptResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.encrypt.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证带有描述性的数据并加密
+     * Summary: 存证带有描述性的数据并加密.
+     *
+     * @param SaveBusinessDepositEncryptmetadataRequest $request
+     *
+     * @return SaveBusinessDepositEncryptmetadataResponse
+     */
+    public function saveBusinessDepositEncryptmetadata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveBusinessDepositEncryptmetadataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证带有描述性的数据并加密
+     * Summary: 存证带有描述性的数据并加密.
+     *
+     * @param SaveBusinessDepositEncryptmetadataRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return SaveBusinessDepositEncryptmetadataResponse
+     */
+    public function saveBusinessDepositEncryptmetadataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveBusinessDepositEncryptmetadataResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.encryptmetadata.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过授权宝创建did
+     * Summary: 创建did.
+     *
+     * @param CreateBusinessDidRequest $request
+     *
+     * @return CreateBusinessDidResponse
+     */
+    public function createBusinessDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过授权宝创建did
+     * Summary: 创建did.
+     *
+     * @param CreateBusinessDidRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateBusinessDidResponse
+     */
+    public function createBusinessDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessDidResponse::fromMap($this->doRequest('1.0', 'baas.business.did.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据did创建链上账户
+     * Summary: 根据did创建链上账户.
+     *
+     * @param CreateBusinessBizaccountRequest $request
+     *
+     * @return CreateBusinessBizaccountResponse
+     */
+    public function createBusinessBizaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessBizaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据did创建链上账户
+     * Summary: 根据did创建链上账户.
+     *
+     * @param CreateBusinessBizaccountRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateBusinessBizaccountResponse
+     */
+    public function createBusinessBizaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessBizaccountResponse::fromMap($this->doRequest('1.0', 'baas.business.bizaccount.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询存证数据
+     * Summary: 查询存证数据.
+     *
+     * @param QueryBusinessDepositRequest $request
+     *
+     * @return QueryBusinessDepositResponse
+     */
+    public function queryBusinessDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询存证数据
+     * Summary: 查询存证数据.
+     *
+     * @param QueryBusinessDepositRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryBusinessDepositResponse
+     */
+    public function queryBusinessDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessDepositResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权存证数据
+     * Summary: 授权存证数据.
+     *
+     * @param AuthBusinessDepositdataRequest $request
+     *
+     * @return AuthBusinessDepositdataResponse
+     */
+    public function authBusinessDepositdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authBusinessDepositdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权存证数据
+     * Summary: 授权存证数据.
+     *
+     * @param AuthBusinessDepositdataRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AuthBusinessDepositdataResponse
+     */
+    public function authBusinessDepositdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthBusinessDepositdataResponse::fromMap($this->doRequest('1.0', 'baas.business.depositdata.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建部署合约
+     * Summary: 创建部署合约.
+     *
+     * @param CreateBusinessContractDeployRequest $request
+     *
+     * @return CreateBusinessContractDeployResponse
+     */
+    public function createBusinessContractDeploy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessContractDeployEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建部署合约
+     * Summary: 创建部署合约.
+     *
+     * @param CreateBusinessContractDeployRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateBusinessContractDeployResponse
+     */
+    public function createBusinessContractDeployEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessContractDeployResponse::fromMap($this->doRequest('1.0', 'baas.business.contract.deploy.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 普通合约接口调用
+     * Summary: 普通合约接口调用.
+     *
+     * @param CreateBusinessContractnormalcallRequest $request
+     *
+     * @return CreateBusinessContractnormalcallResponse
+     */
+    public function createBusinessContractnormalcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessContractnormalcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 普通合约接口调用
+     * Summary: 普通合约接口调用.
+     *
+     * @param CreateBusinessContractnormalcallRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateBusinessContractnormalcallResponse
+     */
+    public function createBusinessContractnormalcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessContractnormalcallResponse::fromMap($this->doRequest('1.0', 'baas.business.contractnormalcall.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用加密合约接口
+     * Summary: 调用加密合约接口.
+     *
+     * @param CreateBusinessContractencryptcallRequest $request
+     *
+     * @return CreateBusinessContractencryptcallResponse
+     */
+    public function createBusinessContractencryptcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessContractencryptcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用加密合约接口
+     * Summary: 调用加密合约接口.
+     *
+     * @param CreateBusinessContractencryptcallRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateBusinessContractencryptcallResponse
+     */
+    public function createBusinessContractencryptcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessContractencryptcallResponse::fromMap($this->doRequest('1.0', 'baas.business.contractencryptcall.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询交易receipt
+     * Summary: 查询交易receipt.
+     *
+     * @param QueryBusinessContractreceiptRequest $request
+     *
+     * @return QueryBusinessContractreceiptResponse
+     */
+    public function queryBusinessContractreceipt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessContractreceiptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询交易receipt
+     * Summary: 查询交易receipt.
+     *
+     * @param QueryBusinessContractreceiptRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryBusinessContractreceiptResponse
+     */
+    public function queryBusinessContractreceiptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessContractreceiptResponse::fromMap($this->doRequest('1.0', 'baas.business.contractreceipt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询加密的receipt
+     * Summary: 查询加密的receipt.
+     *
+     * @param QueryBusinessContractencryptreceiptRequest $request
+     *
+     * @return QueryBusinessContractencryptreceiptResponse
+     */
+    public function queryBusinessContractencryptreceipt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessContractencryptreceiptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询加密的receipt
+     * Summary: 查询加密的receipt.
+     *
+     * @param QueryBusinessContractencryptreceiptRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryBusinessContractencryptreceiptResponse
+     */
+    public function queryBusinessContractencryptreceiptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessContractencryptreceiptResponse::fromMap($this->doRequest('1.0', 'baas.business.contractencryptreceipt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询合约加密内容的方法
+     * Summary: 查询合约加密内容的方法.
+     *
+     * @param QueryBusinessContractencryptmethodRequest $request
+     *
+     * @return QueryBusinessContractencryptmethodResponse
+     */
+    public function queryBusinessContractencryptmethod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessContractencryptmethodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询合约加密内容的方法
+     * Summary: 查询合约加密内容的方法.
+     *
+     * @param QueryBusinessContractencryptmethodRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryBusinessContractencryptmethodResponse
+     */
+    public function queryBusinessContractencryptmethodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessContractencryptmethodResponse::fromMap($this->doRequest('1.0', 'baas.business.contractencryptmethod.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 部署业务共识合约
+     * Summary: 部署业务共识合约.
+     *
+     * @param DeployBusinessAgreementRequest $request
+     *
+     * @return DeployBusinessAgreementResponse
+     */
+    public function deployBusinessAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployBusinessAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 部署业务共识合约
+     * Summary: 部署业务共识合约.
+     *
+     * @param DeployBusinessAgreementRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeployBusinessAgreementResponse
+     */
+    public function deployBusinessAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployBusinessAgreementResponse::fromMap($this->doRequest('1.0', 'baas.business.agreement.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建业务共识模板
+     * Summary: 创建业务共识模板
+     *
+     * @param CreateBusinessAgreementRegistertemplateRequest $request
+     *
+     * @return CreateBusinessAgreementRegistertemplateResponse
+     */
+    public function createBusinessAgreementRegistertemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessAgreementRegistertemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建业务共识模板
+     * Summary: 创建业务共识模板
+     *
+     * @param CreateBusinessAgreementRegistertemplateRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return CreateBusinessAgreementRegistertemplateResponse
+     */
+    public function createBusinessAgreementRegistertemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessAgreementRegistertemplateResponse::fromMap($this->doRequest('1.0', 'baas.business.agreement.registertemplate.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册业务共识实例
+     * Summary: 注册业务共识实例.
+     *
+     * @param CreateBusinessAgreementRegisterRequest $request
+     *
+     * @return CreateBusinessAgreementRegisterResponse
+     */
+    public function createBusinessAgreementRegister($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessAgreementRegisterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册业务共识实例
+     * Summary: 注册业务共识实例.
+     *
+     * @param CreateBusinessAgreementRegisterRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateBusinessAgreementRegisterResponse
+     */
+    public function createBusinessAgreementRegisterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessAgreementRegisterResponse::fromMap($this->doRequest('1.0', 'baas.business.agreement.register.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对业务共识key进行签名认可
+     * Summary: 对业务共识key进行签名认可.
+     *
+     * @param CreateBusinessAgreementSignRequest $request
+     *
+     * @return CreateBusinessAgreementSignResponse
+     */
+    public function createBusinessAgreementSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessAgreementSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对业务共识key进行签名认可
+     * Summary: 对业务共识key进行签名认可.
+     *
+     * @param CreateBusinessAgreementSignRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateBusinessAgreementSignResponse
+     */
+    public function createBusinessAgreementSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessAgreementSignResponse::fromMap($this->doRequest('1.0', 'baas.business.agreement.sign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询业务共识当前状态
+     * Summary: 查询业务共识当前状态
+     *
+     * @param QueryBusinessAgreementRequest $request
+     *
+     * @return QueryBusinessAgreementResponse
+     */
+    public function queryBusinessAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询业务共识当前状态
+     * Summary: 查询业务共识当前状态
+     *
+     * @param QueryBusinessAgreementRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryBusinessAgreementResponse
+     */
+    public function queryBusinessAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessAgreementResponse::fromMap($this->doRequest('1.0', 'baas.business.agreement.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对合约隐私key授权
+     * Summary: 对合约隐私key授权.
+     *
+     * @param CreateBusinessContractGrantdidRequest $request
+     *
+     * @return CreateBusinessContractGrantdidResponse
+     */
+    public function createBusinessContractGrantdid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessContractGrantdidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对合约隐私key授权
+     * Summary: 对合约隐私key授权.
+     *
+     * @param CreateBusinessContractGrantdidRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateBusinessContractGrantdidResponse
+     */
+    public function createBusinessContractGrantdidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessContractGrantdidResponse::fromMap($this->doRequest('1.0', 'baas.business.contract.grantdid.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询被加密的存证数据
+     * Summary: 查询被加密的存证数据.
+     *
+     * @param QueryBusinessDepositEncryptedmetadataRequest $request
+     *
+     * @return QueryBusinessDepositEncryptedmetadataResponse
+     */
+    public function queryBusinessDepositEncryptedmetadata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBusinessDepositEncryptedmetadataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询被加密的存证数据
+     * Summary: 查询被加密的存证数据.
+     *
+     * @param QueryBusinessDepositEncryptedmetadataRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryBusinessDepositEncryptedmetadataResponse
+     */
+    public function queryBusinessDepositEncryptedmetadataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBusinessDepositEncryptedmetadataResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.encryptedmetadata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权存证数据给对应的组织机构，该组织下所有的人员都可以查询该存证数据的原内容
+     * Summary: 授权存证数据给对应的组织机构.
+     *
+     * @param AuthBusinessDepositdataCorpRequest $request
+     *
+     * @return AuthBusinessDepositdataCorpResponse
+     */
+    public function authBusinessDepositdataCorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authBusinessDepositdataCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权存证数据给对应的组织机构，该组织下所有的人员都可以查询该存证数据的原内容
+     * Summary: 授权存证数据给对应的组织机构.
+     *
+     * @param AuthBusinessDepositdataCorpRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return AuthBusinessDepositdataCorpResponse
+     */
+    public function authBusinessDepositdataCorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthBusinessDepositdataCorpResponse::fromMap($this->doRequest('1.0', 'baas.business.depositdata.corp.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消存证数据授权给账户
+     * Summary: 取消存证数据授权给账户.
+     *
+     * @param CancelBusinessDepositGrantdidRequest $request
+     *
+     * @return CancelBusinessDepositGrantdidResponse
+     */
+    public function cancelBusinessDepositGrantdid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBusinessDepositGrantdidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消存证数据授权给账户
+     * Summary: 取消存证数据授权给账户.
+     *
+     * @param CancelBusinessDepositGrantdidRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CancelBusinessDepositGrantdidResponse
+     */
+    public function cancelBusinessDepositGrantdidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBusinessDepositGrantdidResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.grantdid.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消存证授权给组织机构
+     * Summary: 取消存证授权给组织机构.
+     *
+     * @param CancelBusinessDepositGrantcorpRequest $request
+     *
+     * @return CancelBusinessDepositGrantcorpResponse
+     */
+    public function cancelBusinessDepositGrantcorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBusinessDepositGrantcorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消存证授权给组织机构
+     * Summary: 取消存证授权给组织机构.
+     *
+     * @param CancelBusinessDepositGrantcorpRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CancelBusinessDepositGrantcorpResponse
+     */
+    public function cancelBusinessDepositGrantcorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBusinessDepositGrantcorpResponse::fromMap($this->doRequest('1.0', 'baas.business.deposit.grantcorp.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权合约内加密字段给机构，机构下的所有人都有权限访问该数据
+     * Summary: 授权合约内加密字段给机构.
+     *
+     * @param CreateBusinessContractGrantcorpRequest $request
+     *
+     * @return CreateBusinessContractGrantcorpResponse
+     */
+    public function createBusinessContractGrantcorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBusinessContractGrantcorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权合约内加密字段给机构，机构下的所有人都有权限访问该数据
+     * Summary: 授权合约内加密字段给机构.
+     *
+     * @param CreateBusinessContractGrantcorpRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateBusinessContractGrantcorpResponse
+     */
+    public function createBusinessContractGrantcorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBusinessContractGrantcorpResponse::fromMap($this->doRequest('1.0', 'baas.business.contract.grantcorp.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消授权did查询加密数据
+     * Summary: 取消授权did查询加密数据.
+     *
+     * @param CancelBusinessContractGrantdidRequest $request
+     *
+     * @return CancelBusinessContractGrantdidResponse
+     */
+    public function cancelBusinessContractGrantdid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBusinessContractGrantdidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消授权did查询加密数据
+     * Summary: 取消授权did查询加密数据.
+     *
+     * @param CancelBusinessContractGrantdidRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CancelBusinessContractGrantdidResponse
+     */
+    public function cancelBusinessContractGrantdidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBusinessContractGrantdidResponse::fromMap($this->doRequest('1.0', 'baas.business.contract.grantdid.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消授权给组织机构
+     * Summary: 取消授权给组织机构.
+     *
+     * @param CancelBusinessContractGrantcorpRequest $request
+     *
+     * @return CancelBusinessContractGrantcorpResponse
+     */
+    public function cancelBusinessContractGrantcorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelBusinessContractGrantcorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消授权给组织机构
+     * Summary: 取消授权给组织机构.
+     *
+     * @param CancelBusinessContractGrantcorpRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CancelBusinessContractGrantcorpResponse
+     */
+    public function cancelBusinessContractGrantcorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelBusinessContractGrantcorpResponse::fromMap($this->doRequest('1.0', 'baas.business.contract.grantcorp.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务中台测试接口
+     * Summary: 业务中台测试接口.
+     *
+     * @param ImportPlatformTestregionTestfuncRequest $request
+     *
+     * @return ImportPlatformTestregionTestfuncResponse
+     */
+    public function importPlatformTestregionTestfunc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importPlatformTestregionTestfuncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务中台测试接口
+     * Summary: 业务中台测试接口.
+     *
+     * @param ImportPlatformTestregionTestfuncRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return ImportPlatformTestregionTestfuncResponse
+     */
+    public function importPlatformTestregionTestfuncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportPlatformTestregionTestfuncResponse::fromMap($this->doRequest('1.0', 'baas.platform.testregion.testfunc.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证创建账户
+     * Summary: 存证创建账户.
+     *
+     * @param CreatePlatformDepositAccountRequest $request
+     *
+     * @return CreatePlatformDepositAccountResponse
+     */
+    public function createPlatformDepositAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPlatformDepositAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证创建账户
+     * Summary: 存证创建账户.
+     *
+     * @param CreatePlatformDepositAccountRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreatePlatformDepositAccountResponse
+     */
+    public function createPlatformDepositAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePlatformDepositAccountResponse::fromMap($this->doRequest('1.0', 'baas.platform.deposit.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存证创建did
+     * Summary: 存证创建did.
+     *
+     * @param CreatePlatformDepositDidRequest $request
+     *
+     * @return CreatePlatformDepositDidResponse
+     */
+    public function createPlatformDepositDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPlatformDepositDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存证创建did
+     * Summary: 存证创建did.
+     *
+     * @param CreatePlatformDepositDidRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreatePlatformDepositDidResponse
+     */
+    public function createPlatformDepositDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePlatformDepositDidResponse::fromMap($this->doRequest('1.0', 'baas.platform.deposit.did.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 普通数据存证
+     * Summary: 普通数据存证
+     *
+     * @param SavePlatformDepositDepositRequest $request
+     *
+     * @return SavePlatformDepositDepositResponse
+     */
+    public function savePlatformDepositDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->savePlatformDepositDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 普通数据存证
+     * Summary: 普通数据存证
+     *
+     * @param SavePlatformDepositDepositRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SavePlatformDepositDepositResponse
+     */
+    public function savePlatformDepositDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SavePlatformDepositDepositResponse::fromMap($this->doRequest('1.0', 'baas.platform.deposit.deposit.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为企业创建did
+     * Summary: 为企业创建did.
+     *
+     * @param CreatePlatformDepositCorpdidRequest $request
+     *
+     * @return CreatePlatformDepositCorpdidResponse
+     */
+    public function createPlatformDepositCorpdid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPlatformDepositCorpdidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为企业创建did
+     * Summary: 为企业创建did.
+     *
+     * @param CreatePlatformDepositCorpdidRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreatePlatformDepositCorpdidResponse
+     */
+    public function createPlatformDepositCorpdidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePlatformDepositCorpdidResponse::fromMap($this->doRequest('1.0', 'baas.platform.deposit.corpdid.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于对用户的账户映射，输入用户名、账户、手机号等信息，返回用户的链上身份信息
+     * Summary: 用户账号映射.
+     *
+     * @param CreateDigitalassetartAccountRequest $request
+     *
+     * @return CreateDigitalassetartAccountResponse
+     */
+    public function createDigitalassetartAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalassetartAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于对用户的账户映射，输入用户名、账户、手机号等信息，返回用户的链上身份信息
+     * Summary: 用户账号映射.
+     *
+     * @param CreateDigitalassetartAccountRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateDigitalassetartAccountResponse
+     */
+    public function createDigitalassetartAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalassetartAccountResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量账户映射
+     * Summary: 批量账户映射.
+     *
+     * @param BatchcreateDigitalassetartAccountRequest $request
+     *
+     * @return BatchcreateDigitalassetartAccountResponse
+     */
+    public function batchcreateDigitalassetartAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateDigitalassetartAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量账户映射
+     * Summary: 批量账户映射.
+     *
+     * @param BatchcreateDigitalassetartAccountRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchcreateDigitalassetartAccountResponse
+     */
+    public function batchcreateDigitalassetartAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateDigitalassetartAccountResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.account.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建艺术品
+     * Summary: 创建艺术品
+     *
+     * @param CreateDigitalassetartArtCreateRequest $request
+     *
+     * @return CreateDigitalassetartArtCreateResponse
+     */
+    public function createDigitalassetartArtCreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalassetartArtCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建艺术品
+     * Summary: 创建艺术品
+     *
+     * @param CreateDigitalassetartArtCreateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateDigitalassetartArtCreateResponse
+     */
+    public function createDigitalassetartArtCreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalassetartArtCreateResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.create.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将艺术品从创建状态改为发行状态，只有在发行状态的艺术品才能进行各种交易
+     * Summary: 发行艺术品
+     *
+     * @param SetDigitalassetartArtIssueRequest $request
+     *
+     * @return SetDigitalassetartArtIssueResponse
+     */
+    public function setDigitalassetartArtIssue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDigitalassetartArtIssueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将艺术品从创建状态改为发行状态，只有在发行状态的艺术品才能进行各种交易
+     * Summary: 发行艺术品
+     *
+     * @param SetDigitalassetartArtIssueRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SetDigitalassetartArtIssueResponse
+     */
+    public function setDigitalassetartArtIssueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDigitalassetartArtIssueResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.issue.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将该艺术品发布到交易所
+     * Summary: 将该艺术品发布到交易所
+     *
+     * @param SetDigitalassetartArtIssuetoexchangeRequest $request
+     *
+     * @return SetDigitalassetartArtIssuetoexchangeResponse
+     */
+    public function setDigitalassetartArtIssuetoexchange($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDigitalassetartArtIssuetoexchangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将该艺术品发布到交易所
+     * Summary: 将该艺术品发布到交易所
+     *
+     * @param SetDigitalassetartArtIssuetoexchangeRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return SetDigitalassetartArtIssuetoexchangeResponse
+     */
+    public function setDigitalassetartArtIssuetoexchangeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDigitalassetartArtIssuetoexchangeResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.issuetoexchange.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 艺术品本链交易
+     * Summary: 艺术品本链交易.
+     *
+     * @param SetDigitalassetartArtTradeRequest $request
+     *
+     * @return SetDigitalassetartArtTradeResponse
+     */
+    public function setDigitalassetartArtTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDigitalassetartArtTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 艺术品本链交易
+     * Summary: 艺术品本链交易.
+     *
+     * @param SetDigitalassetartArtTradeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SetDigitalassetartArtTradeResponse
+     */
+    public function setDigitalassetartArtTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDigitalassetartArtTradeResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.trade.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在交易所交易艺术品
+     * Summary: 在交易所交易艺术品
+     *
+     * @param SetDigitalassetartArtTradeonexchangeRequest $request
+     *
+     * @return SetDigitalassetartArtTradeonexchangeResponse
+     */
+    public function setDigitalassetartArtTradeonexchange($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDigitalassetartArtTradeonexchangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在交易所交易艺术品
+     * Summary: 在交易所交易艺术品
+     *
+     * @param SetDigitalassetartArtTradeonexchangeRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return SetDigitalassetartArtTradeonexchangeResponse
+     */
+    public function setDigitalassetartArtTradeonexchangeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDigitalassetartArtTradeonexchangeResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.tradeonexchange.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 冻结艺术品
+     * Summary: 冻结艺术品
+     *
+     * @param FreezeDigitalassetartArtAccountRequest $request
+     *
+     * @return FreezeDigitalassetartArtAccountResponse
+     */
+    public function freezeDigitalassetartArtAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->freezeDigitalassetartArtAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 冻结艺术品
+     * Summary: 冻结艺术品
+     *
+     * @param FreezeDigitalassetartArtAccountRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return FreezeDigitalassetartArtAccountResponse
+     */
+    public function freezeDigitalassetartArtAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FreezeDigitalassetartArtAccountResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.account.freeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 艺术品解冻
+     * Summary: 艺术品解冻.
+     *
+     * @param UnfreezeDigitalassetartArtAccountRequest $request
+     *
+     * @return UnfreezeDigitalassetartArtAccountResponse
+     */
+    public function unfreezeDigitalassetartArtAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezeDigitalassetartArtAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 艺术品解冻
+     * Summary: 艺术品解冻.
+     *
+     * @param UnfreezeDigitalassetartArtAccountRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return UnfreezeDigitalassetartArtAccountResponse
+     */
+    public function unfreezeDigitalassetartArtAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezeDigitalassetartArtAccountResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.account.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消在交易所发布艺术品
+     * Summary: 取消在交易所发布艺术品
+     *
+     * @param SetDigitalassetartArtUnissuetoexchangeRequest $request
+     *
+     * @return SetDigitalassetartArtUnissuetoexchangeResponse
+     */
+    public function setDigitalassetartArtUnissuetoexchange($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setDigitalassetartArtUnissuetoexchangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消在交易所发布艺术品
+     * Summary: 取消在交易所发布艺术品
+     *
+     * @param SetDigitalassetartArtUnissuetoexchangeRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return SetDigitalassetartArtUnissuetoexchangeResponse
+     */
+    public function setDigitalassetartArtUnissuetoexchangeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetDigitalassetartArtUnissuetoexchangeResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.unissuetoexchange.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询艺术品信息
+     * Summary: 查询艺术品信息.
+     *
+     * @param QueryDigitalassetartArtRequest $request
+     *
+     * @return QueryDigitalassetartArtResponse
+     */
+    public function queryDigitalassetartArt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalassetartArtEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询艺术品信息
+     * Summary: 查询艺术品信息.
+     *
+     * @param QueryDigitalassetartArtRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDigitalassetartArtResponse
+     */
+    public function queryDigitalassetartArtEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalassetartArtResponse::fromMap($this->doRequest('1.0', 'baas.digitalassetart.art.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台业务方账户映射接口
+     * Summary: 数字资产管理平台业务方账户映射.
+     *
+     * @param CreateDigitalassetExchangeAccountmapRequest $request
+     *
+     * @return CreateDigitalassetExchangeAccountmapResponse
+     */
+    public function createDigitalassetExchangeAccountmap($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalassetExchangeAccountmapEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台业务方账户映射接口
+     * Summary: 数字资产管理平台业务方账户映射.
+     *
+     * @param CreateDigitalassetExchangeAccountmapRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return CreateDigitalassetExchangeAccountmapResponse
+     */
+    public function createDigitalassetExchangeAccountmapEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalassetExchangeAccountmapResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.accountmap.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台用户账户批量映射接口
+     * Summary: 数字资产管理平台用户账户批量映射.
+     *
+     * @param BatchcreateDigitalassetExchangeAccountmapRequest $request
+     *
+     * @return BatchcreateDigitalassetExchangeAccountmapResponse
+     */
+    public function batchcreateDigitalassetExchangeAccountmap($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateDigitalassetExchangeAccountmapEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台用户账户批量映射接口
+     * Summary: 数字资产管理平台用户账户批量映射.
+     *
+     * @param BatchcreateDigitalassetExchangeAccountmapRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return BatchcreateDigitalassetExchangeAccountmapResponse
+     */
+    public function batchcreateDigitalassetExchangeAccountmapEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateDigitalassetExchangeAccountmapResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.accountmap.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通解限接口
+     * Summary: 数字资产管理平台版通解限.
+     *
+     * @param StartDigitalassetExchangeUnfreezeRequest $request
+     *
+     * @return StartDigitalassetExchangeUnfreezeResponse
+     */
+    public function startDigitalassetExchangeUnfreeze($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDigitalassetExchangeUnfreezeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通解限接口
+     * Summary: 数字资产管理平台版通解限.
+     *
+     * @param StartDigitalassetExchangeUnfreezeRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return StartDigitalassetExchangeUnfreezeResponse
+     */
+    public function startDigitalassetExchangeUnfreezeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDigitalassetExchangeUnfreezeResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.unfreeze.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台资源管理 处理用户、版通的锁定与解锁
+     * 1. ep_code有值，user_account为空时，对指定版通进行锁定解锁操作
+     * 2. ep_code为空，user_account有值时，对指定账户进行锁定解锁操作
+     * 3. ep_code，user_account均有值时，对指定账户的版通进行锁定解锁操作
+     * 4. ep_code，user_account均为空时，对全交易所进行锁定解锁操作，需谨慎
+     * Summary: 数字资产管理平台资源管理.
+     *
+     * @param StartDigitalassetExchangeLockpositionRequest $request
+     *
+     * @return StartDigitalassetExchangeLockpositionResponse
+     */
+    public function startDigitalassetExchangeLockposition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDigitalassetExchangeLockpositionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台资源管理 处理用户、版通的锁定与解锁
+     * 1. ep_code有值，user_account为空时，对指定版通进行锁定解锁操作
+     * 2. ep_code为空，user_account有值时，对指定账户进行锁定解锁操作
+     * 3. ep_code，user_account均有值时，对指定账户的版通进行锁定解锁操作
+     * 4. ep_code，user_account均为空时，对全交易所进行锁定解锁操作，需谨慎
+     * Summary: 数字资产管理平台资源管理.
+     *
+     * @param StartDigitalassetExchangeLockpositionRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return StartDigitalassetExchangeLockpositionResponse
+     */
+    public function startDigitalassetExchangeLockpositionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDigitalassetExchangeLockpositionResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.lockposition.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通发行接口
+     * Summary: 数字资产管理平台版通发行.
+     *
+     * @param CreateDigitalassetExchangeEpissueRequest $request
+     *
+     * @return CreateDigitalassetExchangeEpissueResponse
+     */
+    public function createDigitalassetExchangeEpissue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalassetExchangeEpissueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通发行接口
+     * Summary: 数字资产管理平台版通发行.
+     *
+     * @param CreateDigitalassetExchangeEpissueRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateDigitalassetExchangeEpissueResponse
+     */
+    public function createDigitalassetExchangeEpissueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalassetExchangeEpissueResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epissue.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通存量发行接口
+     * Summary: 数字资产管理平台版通存量发行.
+     *
+     * @param CreateDigitalassetExchangeEpstockissueRequest $request
+     *
+     * @return CreateDigitalassetExchangeEpstockissueResponse
+     */
+    public function createDigitalassetExchangeEpstockissue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalassetExchangeEpstockissueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通存量发行接口
+     * Summary: 数字资产管理平台版通存量发行.
+     *
+     * @param CreateDigitalassetExchangeEpstockissueRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return CreateDigitalassetExchangeEpstockissueResponse
+     */
+    public function createDigitalassetExchangeEpstockissueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalassetExchangeEpstockissueResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epstockissue.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通批发接口
+     * Summary: 数字资产管理平台版通批发.
+     *
+     * @param StartDigitalassetExchangeEpwholesaleRequest $request
+     *
+     * @return StartDigitalassetExchangeEpwholesaleResponse
+     */
+    public function startDigitalassetExchangeEpwholesale($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDigitalassetExchangeEpwholesaleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通批发接口
+     * Summary: 数字资产管理平台版通批发.
+     *
+     * @param StartDigitalassetExchangeEpwholesaleRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDigitalassetExchangeEpwholesaleResponse
+     */
+    public function startDigitalassetExchangeEpwholesaleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDigitalassetExchangeEpwholesaleResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epwholesale.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通信息查询接口
+     * Summary: 数字资产管理平台版通信息查询.
+     *
+     * @param QueryDigitalassetExchangeEpinfoRequest $request
+     *
+     * @return QueryDigitalassetExchangeEpinfoResponse
+     */
+    public function queryDigitalassetExchangeEpinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalassetExchangeEpinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通信息查询接口
+     * Summary: 数字资产管理平台版通信息查询.
+     *
+     * @param QueryDigitalassetExchangeEpinfoRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryDigitalassetExchangeEpinfoResponse
+     */
+    public function queryDigitalassetExchangeEpinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalassetExchangeEpinfoResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台交易查询接口
+     * 1. ep_code有值，user_account为空时，查询版通的交易信息
+     * 2. ep_code为空，user_account有值时，查询账户的交易信息
+     * 3. ep_code，user_account均有值时，查询账户下指定版通的交易信息
+     * Summary: 数字资产管理平台交易查询.
+     *
+     * @param QueryDigitalassetExchangeEptradeRequest $request
+     *
+     * @return QueryDigitalassetExchangeEptradeResponse
+     */
+    public function queryDigitalassetExchangeEptrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalassetExchangeEptradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台交易查询接口
+     * 1. ep_code有值，user_account为空时，查询版通的交易信息
+     * 2. ep_code为空，user_account有值时，查询账户的交易信息
+     * 3. ep_code，user_account均有值时，查询账户下指定版通的交易信息
+     * Summary: 数字资产管理平台交易查询.
+     *
+     * @param QueryDigitalassetExchangeEptradeRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryDigitalassetExchangeEptradeResponse
+     */
+    public function queryDigitalassetExchangeEptradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalassetExchangeEptradeResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.eptrade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台账户信息查询接口
+     * Summary: 数字资产管理平台账户信息查询.
+     *
+     * @param QueryDigitalassetExchangeEpaccountRequest $request
+     *
+     * @return QueryDigitalassetExchangeEpaccountResponse
+     */
+    public function queryDigitalassetExchangeEpaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalassetExchangeEpaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台账户信息查询接口
+     * Summary: 数字资产管理平台账户信息查询.
+     *
+     * @param QueryDigitalassetExchangeEpaccountRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryDigitalassetExchangeEpaccountResponse
+     */
+    public function queryDigitalassetExchangeEpaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalassetExchangeEpaccountResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台交易接口
+     * Summary: 数字资产管理平台交易.
+     *
+     * @param StartDigitalassetExchangeEptradeRequest $request
+     *
+     * @return StartDigitalassetExchangeEptradeResponse
+     */
+    public function startDigitalassetExchangeEptrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDigitalassetExchangeEptradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台交易接口
+     * Summary: 数字资产管理平台交易.
+     *
+     * @param StartDigitalassetExchangeEptradeRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return StartDigitalassetExchangeEptradeResponse
+     */
+    public function startDigitalassetExchangeEptradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDigitalassetExchangeEptradeResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.eptrade.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字资产管理平台版通回购接口
+     * Summary: 数字资产管理平台版通回购.
+     *
+     * @param StartDigitalassetExchangeEpbuybackRequest $request
+     *
+     * @return StartDigitalassetExchangeEpbuybackResponse
+     */
+    public function startDigitalassetExchangeEpbuyback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDigitalassetExchangeEpbuybackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字资产管理平台版通回购接口
+     * Summary: 数字资产管理平台版通回购.
+     *
+     * @param StartDigitalassetExchangeEpbuybackRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return StartDigitalassetExchangeEpbuybackResponse
+     */
+    public function startDigitalassetExchangeEpbuybackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDigitalassetExchangeEpbuybackResponse::fromMap($this->doRequest('1.0', 'baas.digitalasset.exchange.epbuyback.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建用户接口
+     * Summary: 创建用户接口.
+     *
+     * @param CreateDistributionUserRequest $request
+     *
+     * @return CreateDistributionUserResponse
+     */
+    public function createDistributionUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建用户接口
+     * Summary: 创建用户接口.
+     *
+     * @param CreateDistributionUserRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateDistributionUserResponse
+     */
+    public function createDistributionUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionUserResponse::fromMap($this->doRequest('1.0', 'baas.distribution.user.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户下级分销关系查询
+     * Summary: 用户下级分销关系查询.
+     *
+     * @param QueryDistributionUserTeamRequest $request
+     *
+     * @return QueryDistributionUserTeamResponse
+     */
+    public function queryDistributionUserTeam($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionUserTeamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户下级分销关系查询
+     * Summary: 用户下级分销关系查询.
+     *
+     * @param QueryDistributionUserTeamRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDistributionUserTeamResponse
+     */
+    public function queryDistributionUserTeamEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionUserTeamResponse::fromMap($this->doRequest('1.0', 'baas.distribution.user.team.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建商户接口
+     * Summary: 创建商户.
+     *
+     * @param CreateDistributionShopRequest $request
+     *
+     * @return CreateDistributionShopResponse
+     */
+    public function createDistributionShop($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionShopEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建商户接口
+     * Summary: 创建商户.
+     *
+     * @param CreateDistributionShopRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateDistributionShopResponse
+     */
+    public function createDistributionShopEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionShopResponse::fromMap($this->doRequest('1.0', 'baas.distribution.shop.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户之间分销关系建立
+     * Summary: 用户之间分销关系建立.
+     *
+     * @param CreateDistributionUserRelationRequest $request
+     *
+     * @return CreateDistributionUserRelationResponse
+     */
+    public function createDistributionUserRelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionUserRelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户之间分销关系建立
+     * Summary: 用户之间分销关系建立.
+     *
+     * @param CreateDistributionUserRelationRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateDistributionUserRelationResponse
+     */
+    public function createDistributionUserRelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionUserRelationResponse::fromMap($this->doRequest('1.0', 'baas.distribution.user.relation.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销合约初始化
+     * Summary: 营销分销合约初始化.
+     *
+     * @param InitDistributionContractRequest $request
+     *
+     * @return InitDistributionContractResponse
+     */
+    public function initDistributionContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDistributionContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销合约初始化
+     * Summary: 营销分销合约初始化.
+     *
+     * @param InitDistributionContractRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDistributionContractResponse
+     */
+    public function initDistributionContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDistributionContractResponse::fromMap($this->doRequest('1.0', 'baas.distribution.contract.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台商品创建
+     * Summary: 营销分销平台商品创建.
+     *
+     * @param CreateDistributionProductItemRequest $request
+     *
+     * @return CreateDistributionProductItemResponse
+     */
+    public function createDistributionProductItem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionProductItemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台商品创建
+     * Summary: 营销分销平台商品创建.
+     *
+     * @param CreateDistributionProductItemRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateDistributionProductItemResponse
+     */
+    public function createDistributionProductItemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionProductItemResponse::fromMap($this->doRequest('1.0', 'baas.distribution.product.item.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台商品查询
+     * Summary: 营销分销平台商品查询.
+     *
+     * @param QueryDistributionProductItemRequest $request
+     *
+     * @return QueryDistributionProductItemResponse
+     */
+    public function queryDistributionProductItem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionProductItemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台商品查询
+     * Summary: 营销分销平台商品查询.
+     *
+     * @param QueryDistributionProductItemRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDistributionProductItemResponse
+     */
+    public function queryDistributionProductItemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionProductItemResponse::fromMap($this->doRequest('1.0', 'baas.distribution.product.item.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台推广人钱包更新
+     * Summary: 营销分销平台推广人钱包更新.
+     *
+     * @param UpdateDistributionFundPromoterRequest $request
+     *
+     * @return UpdateDistributionFundPromoterResponse
+     */
+    public function updateDistributionFundPromoter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDistributionFundPromoterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台推广人钱包更新
+     * Summary: 营销分销平台推广人钱包更新.
+     *
+     * @param UpdateDistributionFundPromoterRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UpdateDistributionFundPromoterResponse
+     */
+    public function updateDistributionFundPromoterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDistributionFundPromoterResponse::fromMap($this->doRequest('1.0', 'baas.distribution.fund.promoter.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台商户账户更新
+     * Summary: 营销分销平台商户账户更新.
+     *
+     * @param UpdateDistributionFundShopRequest $request
+     *
+     * @return UpdateDistributionFundShopResponse
+     */
+    public function updateDistributionFundShop($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDistributionFundShopEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台商户账户更新
+     * Summary: 营销分销平台商户账户更新.
+     *
+     * @param UpdateDistributionFundShopRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateDistributionFundShopResponse
+     */
+    public function updateDistributionFundShopEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDistributionFundShopResponse::fromMap($this->doRequest('1.0', 'baas.distribution.fund.shop.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台推广人账户查询
+     * Summary: 营销分销平台推广人账户查询.
+     *
+     * @param QueryDistributionFundPromoterRequest $request
+     *
+     * @return QueryDistributionFundPromoterResponse
+     */
+    public function queryDistributionFundPromoter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionFundPromoterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台推广人账户查询
+     * Summary: 营销分销平台推广人账户查询.
+     *
+     * @param QueryDistributionFundPromoterRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDistributionFundPromoterResponse
+     */
+    public function queryDistributionFundPromoterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionFundPromoterResponse::fromMap($this->doRequest('1.0', 'baas.distribution.fund.promoter.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台商户账户查询
+     * Summary: 营销分销平台商户账户查询.
+     *
+     * @param QueryDistributionFundShopRequest $request
+     *
+     * @return QueryDistributionFundShopResponse
+     */
+    public function queryDistributionFundShop($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionFundShopEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台商户账户查询
+     * Summary: 营销分销平台商户账户查询.
+     *
+     * @param QueryDistributionFundShopRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDistributionFundShopResponse
+     */
+    public function queryDistributionFundShopEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionFundShopResponse::fromMap($this->doRequest('1.0', 'baas.distribution.fund.shop.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台推广人账户流水查询
+     * Summary: 营销分销平台推广人账户流水查询.
+     *
+     * @param QueryDistributionFundPromoterflowRequest $request
+     *
+     * @return QueryDistributionFundPromoterflowResponse
+     */
+    public function queryDistributionFundPromoterflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionFundPromoterflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台推广人账户流水查询
+     * Summary: 营销分销平台推广人账户流水查询.
+     *
+     * @param QueryDistributionFundPromoterflowRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryDistributionFundPromoterflowResponse
+     */
+    public function queryDistributionFundPromoterflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionFundPromoterflowResponse::fromMap($this->doRequest('1.0', 'baas.distribution.fund.promoterflow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台推广订单创建
+     * Summary: 营销分销平台推广订单创建.
+     *
+     * @param CreateDistributionOrderPromoterRequest $request
+     *
+     * @return CreateDistributionOrderPromoterResponse
+     */
+    public function createDistributionOrderPromoter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionOrderPromoterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台推广订单创建
+     * Summary: 营销分销平台推广订单创建.
+     *
+     * @param CreateDistributionOrderPromoterRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateDistributionOrderPromoterResponse
+     */
+    public function createDistributionOrderPromoterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionOrderPromoterResponse::fromMap($this->doRequest('1.0', 'baas.distribution.order.promoter.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台购买订单创建
+     * Summary: 营销分销平台购买订单创建.
+     *
+     * @param CreateDistributionOrderTradeRequest $request
+     *
+     * @return CreateDistributionOrderTradeResponse
+     */
+    public function createDistributionOrderTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDistributionOrderTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台购买订单创建
+     * Summary: 营销分销平台购买订单创建.
+     *
+     * @param CreateDistributionOrderTradeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateDistributionOrderTradeResponse
+     */
+    public function createDistributionOrderTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDistributionOrderTradeResponse::fromMap($this->doRequest('1.0', 'baas.distribution.order.trade.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台推广订单查询
+     * Summary: 营销分销平台推广订单查询.
+     *
+     * @param QueryDistributionOrderPromoterRequest $request
+     *
+     * @return QueryDistributionOrderPromoterResponse
+     */
+    public function queryDistributionOrderPromoter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionOrderPromoterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台推广订单查询
+     * Summary: 营销分销平台推广订单查询.
+     *
+     * @param QueryDistributionOrderPromoterRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDistributionOrderPromoterResponse
+     */
+    public function queryDistributionOrderPromoterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionOrderPromoterResponse::fromMap($this->doRequest('1.0', 'baas.distribution.order.promoter.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台订单返佣信息查询
+     * Summary: 营销分销平台订单返佣信息查询.
+     *
+     * @param QueryDistributionOrderRakebackRequest $request
+     *
+     * @return QueryDistributionOrderRakebackResponse
+     */
+    public function queryDistributionOrderRakeback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionOrderRakebackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台订单返佣信息查询
+     * Summary: 营销分销平台订单返佣信息查询.
+     *
+     * @param QueryDistributionOrderRakebackRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDistributionOrderRakebackResponse
+     */
+    public function queryDistributionOrderRakebackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionOrderRakebackResponse::fromMap($this->doRequest('1.0', 'baas.distribution.order.rakeback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销分销平台购买订单查询
+     * Summary: 营销分销平台购买订单查询.
+     *
+     * @param QueryDistributionOrderTradeRequest $request
+     *
+     * @return QueryDistributionOrderTradeResponse
+     */
+    public function queryDistributionOrderTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDistributionOrderTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销分销平台购买订单查询
+     * Summary: 营销分销平台购买订单查询.
+     *
+     * @param QueryDistributionOrderTradeRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDistributionOrderTradeResponse
+     */
+    public function queryDistributionOrderTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDistributionOrderTradeResponse::fromMap($this->doRequest('1.0', 'baas.distribution.order.trade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: DIS 分布式数字身份申请
+     * Summary: DIS 分布式数字身份申请.
+     *
+     * @param CreateLogisticFinanceDisRequest $request
+     *
+     * @return CreateLogisticFinanceDisResponse
+     */
+    public function createLogisticFinanceDis($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceDisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: DIS 分布式数字身份申请
+     * Summary: DIS 分布式数字身份申请.
+     *
+     * @param CreateLogisticFinanceDisRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateLogisticFinanceDisResponse
+     */
+    public function createLogisticFinanceDisEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceDisResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.dis.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询 DIS 分布式数字身份列表
+     * Summary: 查询 DIS 分布式数字身份列表.
+     *
+     * @param ListLogisticFinanceDisRequest $request
+     *
+     * @return ListLogisticFinanceDisResponse
+     */
+    public function listLogisticFinanceDis($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listLogisticFinanceDisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询 DIS 分布式数字身份列表
+     * Summary: 查询 DIS 分布式数字身份列表.
+     *
+     * @param ListLogisticFinanceDisRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ListLogisticFinanceDisResponse
+     */
+    public function listLogisticFinanceDisEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListLogisticFinanceDisResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.dis.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为成员颁发可验证声明用于允许指定成员有访问数据的权限
+     * Summary: 颁发可验证声明.
+     *
+     * @param CreateLogisticFinanceDisvcRequest $request
+     *
+     * @return CreateLogisticFinanceDisvcResponse
+     */
+    public function createLogisticFinanceDisvc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceDisvcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为成员颁发可验证声明用于允许指定成员有访问数据的权限
+     * Summary: 颁发可验证声明.
+     *
+     * @param CreateLogisticFinanceDisvcRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateLogisticFinanceDisvcResponse
+     */
+    public function createLogisticFinanceDisvcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceDisvcResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.disvc.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询颁发的可验证声明完整声明内容
+     * Summary: 查询颁发的可验证声明.
+     *
+     * @param QueryLogisticFinanceDisvcRequest $request
+     *
+     * @return QueryLogisticFinanceDisvcResponse
+     */
+    public function queryLogisticFinanceDisvc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLogisticFinanceDisvcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询颁发的可验证声明完整声明内容
+     * Summary: 查询颁发的可验证声明.
+     *
+     * @param QueryLogisticFinanceDisvcRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryLogisticFinanceDisvcResponse
+     */
+    public function queryLogisticFinanceDisvcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLogisticFinanceDisvcResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.disvc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台用户账户映射
+     * Summary: 物流金融平台用户账户映射.
+     *
+     * @param CreateLogisticFinanceAccountRequest $request
+     *
+     * @return CreateLogisticFinanceAccountResponse
+     */
+    public function createLogisticFinanceAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台用户账户映射
+     * Summary: 物流金融平台用户账户映射.
+     *
+     * @param CreateLogisticFinanceAccountRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateLogisticFinanceAccountResponse
+     */
+    public function createLogisticFinanceAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceAccountResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台账户批量映射
+     * Summary: 物流金融平台账户批量映射.
+     *
+     * @param BatchcreateLogisticFinanceAccountRequest $request
+     *
+     * @return BatchcreateLogisticFinanceAccountResponse
+     */
+    public function batchcreateLogisticFinanceAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateLogisticFinanceAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台账户批量映射
+     * Summary: 物流金融平台账户批量映射.
+     *
+     * @param BatchcreateLogisticFinanceAccountRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchcreateLogisticFinanceAccountResponse
+     */
+    public function batchcreateLogisticFinanceAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateLogisticFinanceAccountResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.account.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台物流运单创建
+     * Summary: 物流金融平台物流运单创建.
+     *
+     * @param CreateLogisticFinanceOrderRequest $request
+     *
+     * @return CreateLogisticFinanceOrderResponse
+     */
+    public function createLogisticFinanceOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台物流运单创建
+     * Summary: 物流金融平台物流运单创建.
+     *
+     * @param CreateLogisticFinanceOrderRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateLogisticFinanceOrderResponse
+     */
+    public function createLogisticFinanceOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceOrderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.order.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台运单完成
+     * Summary: 物流金融平台运单完成.
+     *
+     * @param FinishLogisticFinanceOrderRequest $request
+     *
+     * @return FinishLogisticFinanceOrderResponse
+     */
+    public function finishLogisticFinanceOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishLogisticFinanceOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台运单完成
+     * Summary: 物流金融平台运单完成.
+     *
+     * @param FinishLogisticFinanceOrderRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return FinishLogisticFinanceOrderResponse
+     */
+    public function finishLogisticFinanceOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishLogisticFinanceOrderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.order.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台支付订单创建
+     * Summary: 物流金融平台支付订单创建.
+     *
+     * @param CreateLogisticFinancePayorderRequest $request
+     *
+     * @return CreateLogisticFinancePayorderResponse
+     */
+    public function createLogisticFinancePayorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinancePayorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台支付订单创建
+     * Summary: 物流金融平台支付订单创建.
+     *
+     * @param CreateLogisticFinancePayorderRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateLogisticFinancePayorderResponse
+     */
+    public function createLogisticFinancePayorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinancePayorderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.payorder.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台订单状态查询
+     * Summary: 物流金融平台订单状态查询.
+     *
+     * @param QueryLogisticFinanceOrderRequest $request
+     *
+     * @return QueryLogisticFinanceOrderResponse
+     */
+    public function queryLogisticFinanceOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLogisticFinanceOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台订单状态查询
+     * Summary: 物流金融平台订单状态查询.
+     *
+     * @param QueryLogisticFinanceOrderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryLogisticFinanceOrderResponse
+     */
+    public function queryLogisticFinanceOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLogisticFinanceOrderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台发票订单创建
+     * Summary: 物流金融平台发票订单创建.
+     *
+     * @param CreateLogisticFinanceBillorderRequest $request
+     *
+     * @return CreateLogisticFinanceBillorderResponse
+     */
+    public function createLogisticFinanceBillorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceBillorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台发票订单创建
+     * Summary: 物流金融平台发票订单创建.
+     *
+     * @param CreateLogisticFinanceBillorderRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateLogisticFinanceBillorderResponse
+     */
+    public function createLogisticFinanceBillorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceBillorderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.billorder.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台运单轨迹信息导入
+     * Summary: 物流金融平台运单轨迹信息导入.
+     *
+     * @param ImportLogisticFinanceLocationRequest $request
+     *
+     * @return ImportLogisticFinanceLocationResponse
+     */
+    public function importLogisticFinanceLocation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importLogisticFinanceLocationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台运单轨迹信息导入
+     * Summary: 物流金融平台运单轨迹信息导入.
+     *
+     * @param ImportLogisticFinanceLocationRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ImportLogisticFinanceLocationResponse
+     */
+    public function importLogisticFinanceLocationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportLogisticFinanceLocationResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.location.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台创建货主DIS
+     * Summary: 物流金融平台创建货主DIS.
+     *
+     * @param CreateLogisticFinanceConsignorRequest $request
+     *
+     * @return CreateLogisticFinanceConsignorResponse
+     */
+    public function createLogisticFinanceConsignor($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceConsignorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台创建货主DIS
+     * Summary: 物流金融平台创建货主DIS.
+     *
+     * @param CreateLogisticFinanceConsignorRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateLogisticFinanceConsignorResponse
+     */
+    public function createLogisticFinanceConsignorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceConsignorResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.consignor.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台创建无车承运平台DIS
+     * Summary: 物流金融平台创建无车承运平台DIS.
+     *
+     * @param CreateLogisticFinancePlatformRequest $request
+     *
+     * @return CreateLogisticFinancePlatformResponse
+     */
+    public function createLogisticFinancePlatform($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinancePlatformEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台创建无车承运平台DIS
+     * Summary: 物流金融平台创建无车承运平台DIS.
+     *
+     * @param CreateLogisticFinancePlatformRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateLogisticFinancePlatformResponse
+     */
+    public function createLogisticFinancePlatformEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinancePlatformResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.platform.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台代理创建无车承运平台DIS
+     * Summary: 物流金融平台代理创建无车承运平台DIS.
+     *
+     * @param CreateLogistFinanceAgentplatformRequest $request
+     *
+     * @return CreateLogistFinanceAgentplatformResponse
+     */
+    public function createLogistFinanceAgentplatform($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogistFinanceAgentplatformEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台代理创建无车承运平台DIS
+     * Summary: 物流金融平台代理创建无车承运平台DIS.
+     *
+     * @param CreateLogistFinanceAgentplatformRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateLogistFinanceAgentplatformResponse
+     */
+    public function createLogistFinanceAgentplatformEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogistFinanceAgentplatformResponse::fromMap($this->doRequest('1.0', 'baas.logist.finance.agentplatform.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台创建司机DIS
+     * Summary: 物流金融平台创建司机DIS.
+     *
+     * @param CreateLogisticFinanceDriverRequest $request
+     *
+     * @return CreateLogisticFinanceDriverResponse
+     */
+    public function createLogisticFinanceDriver($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceDriverEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台创建司机DIS
+     * Summary: 物流金融平台创建司机DIS.
+     *
+     * @param CreateLogisticFinanceDriverRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateLogisticFinanceDriverResponse
+     */
+    public function createLogisticFinanceDriverEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceDriverResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.driver.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台创建货源订单
+     * Summary: 物流金融平台创建货源订单.
+     *
+     * @param CreateLogisticFinanceCargoorderRequest $request
+     *
+     * @return CreateLogisticFinanceCargoorderResponse
+     */
+    public function createLogisticFinanceCargoorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceCargoorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台创建货源订单
+     * Summary: 物流金融平台创建货源订单.
+     *
+     * @param CreateLogisticFinanceCargoorderRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateLogisticFinanceCargoorderResponse
+     */
+    public function createLogisticFinanceCargoorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceCargoorderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.cargoorder.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融平台货源支付订单创建
+     * Summary: 物流金融平台货源支付订单创建.
+     *
+     * @param CreateLogisticFinanceCargopayorderRequest $request
+     *
+     * @return CreateLogisticFinanceCargopayorderResponse
+     */
+    public function createLogisticFinanceCargopayorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLogisticFinanceCargopayorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融平台货源支付订单创建
+     * Summary: 物流金融平台货源支付订单创建.
+     *
+     * @param CreateLogisticFinanceCargopayorderRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateLogisticFinanceCargopayorderResponse
+     */
+    public function createLogisticFinanceCargopayorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLogisticFinanceCargopayorderResponse::fromMap($this->doRequest('1.0', 'baas.logistic.finance.cargopayorder.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建蚂蚁区块链实例
+     * Summary: 创建蚂蚁区块链实例.
+     *
+     * @param CreateOcpProductRequest $request
+     *
+     * @return CreateOcpProductResponse
+     */
+    public function createOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建蚂蚁区块链实例
+     * Summary: 创建蚂蚁区块链实例.
+     *
+     * @param CreateOcpProductRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateOcpProductResponse
+     */
+    public function createOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 变配，对已有的实例进行规格变更操作。
+     * Summary: 对已有的实例进行规格变更操作.
+     *
+     * @param UpdateOcpProductRequest $request
+     *
+     * @return UpdateOcpProductResponse
+     */
+    public function updateOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 变配，对已有的实例进行规格变更操作。
+     * Summary: 对已有的实例进行规格变更操作.
+     *
+     * @param UpdateOcpProductRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateOcpProductResponse
+     */
+    public function updateOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户主动删除实例或欠费逾期平台按照约定进行强制删除。
+     * Summary: 释放资源.
+     *
+     * @param CloseOcpProductRequest $request
+     *
+     * @return CloseOcpProductResponse
+     */
+    public function closeOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->closeOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户主动删除实例或欠费逾期平台按照约定进行强制删除。
+     * Summary: 释放资源.
+     *
+     * @param CloseOcpProductRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CloseOcpProductResponse
+     */
+    public function closeOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloseOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户对欠费或者到期实例进行续费操作后，平台会通知产品解除对用户指定实例的操作限制。即恢复正常服务能力。
+     * Summary: 恢复资源.
+     *
+     * @param EnableOcpProductRequest $request
+     *
+     * @return EnableOcpProductResponse
+     */
+    public function enableOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->enableOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户对欠费或者到期实例进行续费操作后，平台会通知产品解除对用户指定实例的操作限制。即恢复正常服务能力。
+     * Summary: 恢复资源.
+     *
+     * @param EnableOcpProductRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return EnableOcpProductResponse
+     */
+    public function enableOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return EnableOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.enable', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资源到期或欠费情况下会对资源先进行停服操作，用于限制用户使用但不能删除用户数据！不同的产品可以根据自身的功能进行不同的限制。
+     * Summary: 停止服务
+     *
+     * @param StopOcpProductRequest $request
+     *
+     * @return StopOcpProductResponse
+     */
+    public function stopOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资源到期或欠费情况下会对资源先进行停服操作，用于限制用户使用但不能删除用户数据！不同的产品可以根据自身的功能进行不同的限制。
+     * Summary: 停止服务
+     *
+     * @param StopOcpProductRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return StopOcpProductResponse
+     */
+    public function stopOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 售卖页面加载产品个性化内容，比如：类目、库存等，用于辅助用户选择。用户下单后参数会下发给产品方
+     * Summary: 加载售卖页自定义参数.
+     *
+     * @param InitOcpProductRequest $request
+     *
+     * @return InitOcpProductResponse
+     */
+    public function initOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 售卖页面加载产品个性化内容，比如：类目、库存等，用于辅助用户选择。用户下单后参数会下发给产品方
+     * Summary: 加载售卖页自定义参数.
+     *
+     * @param InitOcpProductRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return InitOcpProductResponse
+     */
+    public function initOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商业化产品的状态
+     * Summary: 查询商业化产品的状态
+     *
+     * @param QueryOcpProductRequest $request
+     *
+     * @return QueryOcpProductResponse
+     */
+    public function queryOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商业化产品的状态
+     * Summary: 查询商业化产品的状态
+     *
+     * @param QueryOcpProductRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryOcpProductResponse
+     */
+    public function queryOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开通商业化服务
+     * Summary: 开通商业化服务
+     *
+     * @param OpenOcpProductRequest $request
+     *
+     * @return OpenOcpProductResponse
+     */
+    public function openOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开通商业化服务
+     * Summary: 开通商业化服务
+     *
+     * @param OpenOcpProductRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return OpenOcpProductResponse
+     */
+    public function openOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建商业化产品实例
+     * Summary: 创建商业化产品实例.
+     *
+     * @param CreateOcpProductsRequest $request
+     *
+     * @return CreateOcpProductsResponse
+     */
+    public function createOcpProducts($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOcpProductsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建商业化产品实例
+     * Summary: 创建商业化产品实例.
+     *
+     * @param CreateOcpProductsRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateOcpProductsResponse
+     */
+    public function createOcpProductsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOcpProductsResponse::fromMap($this->doRequest('1.0', 'baas.ocp.products.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 回调接口，产品侧主动通知ocp，产品状态变更。
+     * Summary: 主动通知ocp，产品状态变更.
+     *
+     * @param CallbackOcpProductRequest $request
+     *
+     * @return CallbackOcpProductResponse
+     */
+    public function callbackOcpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackOcpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 回调接口，产品侧主动通知ocp，产品状态变更。
+     * Summary: 主动通知ocp，产品状态变更.
+     *
+     * @param CallbackOcpProductRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CallbackOcpProductResponse
+     */
+    public function callbackOcpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackOcpProductResponse::fromMap($this->doRequest('1.0', 'baas.ocp.product.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 检查任务状态
+     * Summary: 检查任务状态
+     *
+     * @param CheckOcpTaskRequest $request
+     *
+     * @return CheckOcpTaskResponse
+     */
+    public function checkOcpTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkOcpTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 检查任务状态
+     * Summary: 检查任务状态
+     *
+     * @param CheckOcpTaskRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return CheckOcpTaskResponse
+     */
+    public function checkOcpTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckOcpTaskResponse::fromMap($this->doRequest('1.0', 'baas.ocp.task.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商业化产品相关任务下发
+     * Summary: 任务下发.
+     *
+     * @param ExecOcpTaskRequest $request
+     *
+     * @return ExecOcpTaskResponse
+     */
+    public function execOcpTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execOcpTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商业化产品相关任务下发
+     * Summary: 任务下发.
+     *
+     * @param ExecOcpTaskRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return ExecOcpTaskResponse
+     */
+    public function execOcpTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecOcpTaskResponse::fromMap($this->doRequest('1.0', 'baas.ocp.task.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链实例创建（内部）
+     * Summary: 区块链创建（内部）.
+     *
+     * @param CreateBlockchainInstanceInnerRequest $request
+     *
+     * @return CreateBlockchainInstanceInnerResponse
+     */
+    public function createBlockchainInstanceInner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBlockchainInstanceInnerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链实例创建（内部）
+     * Summary: 区块链创建（内部）.
+     *
+     * @param CreateBlockchainInstanceInnerRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateBlockchainInstanceInnerResponse
+     */
+    public function createBlockchainInstanceInnerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBlockchainInstanceInnerResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.instance.inner.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂蚁区块链通过实例查询链id
+     * Summary: 蚂蚁区块链通过实例查询链id.
+     *
+     * @param QueryBlockchainInstanceBizidRequest $request
+     *
+     * @return QueryBlockchainInstanceBizidResponse
+     */
+    public function queryBlockchainInstanceBizid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBlockchainInstanceBizidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂蚁区块链通过实例查询链id
+     * Summary: 蚂蚁区块链通过实例查询链id.
+     *
+     * @param QueryBlockchainInstanceBizidRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryBlockchainInstanceBizidResponse
+     */
+    public function queryBlockchainInstanceBizidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBlockchainInstanceBizidResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.instance.bizid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建联盟接口
+     * Summary: 创建联盟接口.
+     *
+     * @param CreateApiConsortiumRequest $request
+     *
+     * @return CreateApiConsortiumResponse
+     */
+    public function createApiConsortium($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createApiConsortiumEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建联盟接口
+     * Summary: 创建联盟接口.
+     *
+     * @param CreateApiConsortiumRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateApiConsortiumResponse
+     */
+    public function createApiConsortiumEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateApiConsortiumResponse::fromMap($this->doRequest('1.0', 'baas.api.consortium.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询链的小程序浏览器授权状态
+     * Summary: 查询链的小程序浏览器授权状态
+     *
+     * @param QueryApiMiniappbrowserAuthtypeRequest $request
+     *
+     * @return QueryApiMiniappbrowserAuthtypeResponse
+     */
+    public function queryApiMiniappbrowserAuthtype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiMiniappbrowserAuthtypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询链的小程序浏览器授权状态
+     * Summary: 查询链的小程序浏览器授权状态
+     *
+     * @param QueryApiMiniappbrowserAuthtypeRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryApiMiniappbrowserAuthtypeResponse
+     */
+    public function queryApiMiniappbrowserAuthtypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiMiniappbrowserAuthtypeResponse::fromMap($this->doRequest('1.0', 'baas.api.miniappbrowser.authtype.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询某链当前块高
+     * Summary: 查询某链当前块高.
+     *
+     * @param QueryStatisticsPortHeightRequest $request
+     *
+     * @return QueryStatisticsPortHeightResponse
+     */
+    public function queryStatisticsPortHeight($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticsPortHeightEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询某链当前块高
+     * Summary: 查询某链当前块高.
+     *
+     * @param QueryStatisticsPortHeightRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryStatisticsPortHeightResponse
+     */
+    public function queryStatisticsPortHeightEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticsPortHeightResponse::fromMap($this->doRequest('1.0', 'baas.statistics.port.height.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权的链id列表
+     * Summary: 查询授权的链id列表.
+     *
+     * @param QueryStatisticPortBizidRequest $request
+     *
+     * @return QueryStatisticPortBizidResponse
+     */
+    public function queryStatisticPortBizid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticPortBizidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权的链id列表
+     * Summary: 查询授权的链id列表.
+     *
+     * @param QueryStatisticPortBizidRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryStatisticPortBizidResponse
+     */
+    public function queryStatisticPortBizidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticPortBizidResponse::fromMap($this->doRequest('1.0', 'baas.statistic.port.bizid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加存量采集任务
+     * Summary: 添加存量采集任务
+     *
+     * @param AddStatisticsPortTaskRequest $request
+     *
+     * @return AddStatisticsPortTaskResponse
+     */
+    public function addStatisticsPortTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addStatisticsPortTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加存量采集任务
+     * Summary: 添加存量采集任务
+     *
+     * @param AddStatisticsPortTaskRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return AddStatisticsPortTaskResponse
+     */
+    public function addStatisticsPortTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddStatisticsPortTaskResponse::fromMap($this->doRequest('1.0', 'baas.statistics.port.task.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询交易列表
+     * Summary: 查询交易列表.
+     *
+     * @param QueryApiDwhTransactionRequest $request
+     *
+     * @return QueryApiDwhTransactionResponse
+     */
+    public function queryApiDwhTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiDwhTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询交易列表
+     * Summary: 查询交易列表.
+     *
+     * @param QueryApiDwhTransactionRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryApiDwhTransactionResponse
+     */
+    public function queryApiDwhTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiDwhTransactionResponse::fromMap($this->doRequest('1.0', 'baas.api.dwh.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据自定义条件查询用户列表
+     * Summary: 查询账户列表.
+     *
+     * @param QueryApiDwhAccountRequest $request
+     *
+     * @return QueryApiDwhAccountResponse
+     */
+    public function queryApiDwhAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiDwhAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据自定义条件查询用户列表
+     * Summary: 查询账户列表.
+     *
+     * @param QueryApiDwhAccountRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryApiDwhAccountResponse
+     */
+    public function queryApiDwhAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiDwhAccountResponse::fromMap($this->doRequest('1.0', 'baas.api.dwh.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询合约接口
+     * Summary: 查询合约.
+     *
+     * @param QueryApiDwhContractRequest $request
+     *
+     * @return QueryApiDwhContractResponse
+     */
+    public function queryApiDwhContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiDwhContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询合约接口
+     * Summary: 查询合约.
+     *
+     * @param QueryApiDwhContractRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryApiDwhContractResponse
+     */
+    public function queryApiDwhContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiDwhContractResponse::fromMap($this->doRequest('1.0', 'baas.api.dwh.contract.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单独查询交易
+     * Summary: 查询链上交易.
+     *
+     * @param QueryApiDwhbTransactionRequest $request
+     *
+     * @return QueryApiDwhbTransactionResponse
+     */
+    public function queryApiDwhbTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiDwhbTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单独查询交易
+     * Summary: 查询链上交易.
+     *
+     * @param QueryApiDwhbTransactionRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryApiDwhbTransactionResponse
+     */
+    public function queryApiDwhbTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiDwhbTransactionResponse::fromMap($this->doRequest('1.0', 'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约部署记录
+     * Summary: 合约部署记录.
+     *
+     * @param CreateContractRecordRequest $request
+     *
+     * @return CreateContractRecordResponse
+     */
+    public function createContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约部署记录
+     * Summary: 合约部署记录.
+     *
+     * @param CreateContractRecordRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateContractRecordResponse
+     */
+    public function createContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 部署记录详情
+     * Summary: 部署记录详情.
+     *
+     * @param GetContractRecordRequest $request
+     *
+     * @return GetContractRecordResponse
+     */
+    public function getContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 部署记录详情
+     * Summary: 部署记录详情.
+     *
+     * @param GetContractRecordRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetContractRecordResponse
+     */
+    public function getContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约升级更新
+     * Summary: 合约升级更新.
+     *
+     * @param UpdateContractRecordRequest $request
+     *
+     * @return UpdateContractRecordResponse
+     */
+    public function updateContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约升级更新
+     * Summary: 合约升级更新.
+     *
+     * @param UpdateContractRecordRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateContractRecordResponse
+     */
+    public function updateContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布合约服务
+     * Summary: 发布合约服务
+     *
+     * @param OnlineContractRecordRequest $request
+     *
+     * @return OnlineContractRecordResponse
+     */
+    public function onlineContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->onlineContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布合约服务
+     * Summary: 发布合约服务
+     *
+     * @param OnlineContractRecordRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return OnlineContractRecordResponse
+     */
+    public function onlineContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OnlineContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.online', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约服务下线
+     * Summary: 合约服务下线
+     *
+     * @param OfflineContractRecordRequest $request
+     *
+     * @return OfflineContractRecordResponse
+     */
+    public function offlineContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->offlineContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约服务下线
+     * Summary: 合约服务下线
+     *
+     * @param OfflineContractRecordRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return OfflineContractRecordResponse
+     */
+    public function offlineContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OfflineContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.offline', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询合约部署记录
+     * Summary: 查询合约部署记录.
+     *
+     * @param QueryContractRecordRequest $request
+     *
+     * @return QueryContractRecordResponse
+     */
+    public function queryContractRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询合约部署记录
+     * Summary: 查询合约部署记录.
+     *
+     * @param QueryContractRecordRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryContractRecordResponse
+     */
+    public function queryContractRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractRecordResponse::fromMap($this->doRequest('1.0', 'baas.contract.record.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合约代理调用
+     * Summary: 合约代理调用.
+     *
+     * @param ExecContractDelegateRequest $request
+     *
+     * @return ExecContractDelegateResponse
+     */
+    public function execContractDelegate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execContractDelegateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合约代理调用
+     * Summary: 合约代理调用.
+     *
+     * @param ExecContractDelegateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ExecContractDelegateResponse
+     */
+    public function execContractDelegateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecContractDelegateResponse::fromMap($this->doRequest('1.0', 'baas.contract.delegate.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用合约服务
+     * Summary: 调用合约服务
+     *
+     * @param ExecContractServiceRequest $request
+     *
+     * @return ExecContractServiceResponse
+     */
+    public function execContractService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execContractServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用合约服务
+     * Summary: 调用合约服务
+     *
+     * @param ExecContractServiceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecContractServiceResponse
+     */
+    public function execContractServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecContractServiceResponse::fromMap($this->doRequest('1.0', 'baas.contract.service.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取当前租户具有访问权限的合约链配置列表，方便在client（IDE插件、SDK等）访问合约链
+     * Summary: 获取合约链配置.
+     *
+     * @param GetContractConfigChainRequest $request
+     *
+     * @return GetContractConfigChainResponse
+     */
+    public function getContractConfigChain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractConfigChainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取当前租户具有访问权限的合约链配置列表，方便在client（IDE插件、SDK等）访问合约链
+     * Summary: 获取合约链配置.
+     *
+     * @param GetContractConfigChainRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetContractConfigChainResponse
+     */
+    public function getContractConfigChainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractConfigChainResponse::fromMap($this->doRequest('1.0', 'baas.contract.config.chain.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请获取一个可以上传文件到oss的url，此url可用时间默认为30秒
+     * Summary: 获取oss的可用url上传文件.
+     *
+     * @param GetContractAbiUrlRequest $request
+     *
+     * @return GetContractAbiUrlResponse
+     */
+    public function getContractAbiUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractAbiUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请获取一个可以上传文件到oss的url，此url可用时间默认为30秒
+     * Summary: 获取oss的可用url上传文件.
+     *
+     * @param GetContractAbiUrlRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetContractAbiUrlResponse
+     */
+    public function getContractAbiUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractAbiUrlResponse::fromMap($this->doRequest('1.0', 'baas.contract.abi.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请获取一个可以上传bytecode文件到oss的url，此url可用时间默认为30秒
+     * Summary: 获取oss的可用url上传文件.
+     *
+     * @param GetContractBytecodeUrlRequest $request
+     *
+     * @return GetContractBytecodeUrlResponse
+     */
+    public function getContractBytecodeUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractBytecodeUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请获取一个可以上传bytecode文件到oss的url，此url可用时间默认为30秒
+     * Summary: 获取oss的可用url上传文件.
+     *
+     * @param GetContractBytecodeUrlRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetContractBytecodeUrlResponse
+     */
+    public function getContractBytecodeUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractBytecodeUrlResponse::fromMap($this->doRequest('1.0', 'baas.contract.bytecode.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务创建参与方
+     * Summary: 数据授权服务创建参与方.
+     *
+     * @param CreateDataauthorizationParticipantRequest $request
+     *
+     * @return CreateDataauthorizationParticipantResponse
+     */
+    public function createDataauthorizationParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务创建参与方
+     * Summary: 数据授权服务创建参与方.
+     *
+     * @param CreateDataauthorizationParticipantRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateDataauthorizationParticipantResponse
+     */
+    public function createDataauthorizationParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务删除参与方
+     * Summary: 数据授权服务删除参与方.
+     *
+     * @param DeleteDataauthorizationParticipantRequest $request
+     *
+     * @return DeleteDataauthorizationParticipantResponse
+     */
+    public function deleteDataauthorizationParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDataauthorizationParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务删除参与方
+     * Summary: 数据授权服务删除参与方.
+     *
+     * @param DeleteDataauthorizationParticipantRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return DeleteDataauthorizationParticipantResponse
+     */
+    public function deleteDataauthorizationParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDataauthorizationParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务修改用户信息
+     * Summary: 数据授权服务修改用户信息.
+     *
+     * @param UpdateDataauthorizationParticipantRequest $request
+     *
+     * @return UpdateDataauthorizationParticipantResponse
+     */
+    public function updateDataauthorizationParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDataauthorizationParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务修改用户信息
+     * Summary: 数据授权服务修改用户信息.
+     *
+     * @param UpdateDataauthorizationParticipantRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return UpdateDataauthorizationParticipantResponse
+     */
+    public function updateDataauthorizationParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDataauthorizationParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务查询参与方信息
+     * Summary: 数据授权服务查询参与方信息.
+     *
+     * @param QueryDataauthorizationParticipantRequest $request
+     *
+     * @return QueryDataauthorizationParticipantResponse
+     */
+    public function queryDataauthorizationParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataauthorizationParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务查询参与方信息
+     * Summary: 数据授权服务查询参与方信息.
+     *
+     * @param QueryDataauthorizationParticipantRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryDataauthorizationParticipantResponse
+     */
+    public function queryDataauthorizationParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataauthorizationParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务根据角色获取用户列表
+     * Summary: 数据授权服务根据角色获取用户列表.
+     *
+     * @param ListDataauthorizationParticipantRequest $request
+     *
+     * @return ListDataauthorizationParticipantResponse
+     */
+    public function listDataauthorizationParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务根据角色获取用户列表
+     * Summary: 数据授权服务根据角色获取用户列表.
+     *
+     * @param ListDataauthorizationParticipantRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return ListDataauthorizationParticipantResponse
+     */
+    public function listDataauthorizationParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务创建数据目录
+     * Summary: 数据授权服务创建数据目录.
+     *
+     * @param CreateDataauthorizationDataEntityRequest $request
+     *
+     * @return CreateDataauthorizationDataEntityResponse
+     */
+    public function createDataauthorizationDataEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationDataEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务创建数据目录
+     * Summary: 数据授权服务创建数据目录.
+     *
+     * @param CreateDataauthorizationDataEntityRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateDataauthorizationDataEntityResponse
+     */
+    public function createDataauthorizationDataEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationDataEntityResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.entity.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务查询数据目录
+     * Summary: 数据授权服务查询数据目录.
+     *
+     * @param QueryDataauthorizationDataEntityRequest $request
+     *
+     * @return QueryDataauthorizationDataEntityResponse
+     */
+    public function queryDataauthorizationDataEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataauthorizationDataEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务查询数据目录
+     * Summary: 数据授权服务查询数据目录.
+     *
+     * @param QueryDataauthorizationDataEntityRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryDataauthorizationDataEntityResponse
+     */
+    public function queryDataauthorizationDataEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataauthorizationDataEntityResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.entity.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务公钥矩阵更新
+     * Summary: 数据授权服务公钥矩阵更新.
+     *
+     * @param UpdateDataauthorizationPublicKeyRequest $request
+     *
+     * @return UpdateDataauthorizationPublicKeyResponse
+     */
+    public function updateDataauthorizationPublicKey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDataauthorizationPublicKeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务公钥矩阵更新
+     * Summary: 数据授权服务公钥矩阵更新.
+     *
+     * @param UpdateDataauthorizationPublicKeyRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return UpdateDataauthorizationPublicKeyResponse
+     */
+    public function updateDataauthorizationPublicKeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDataauthorizationPublicKeyResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.public.key.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务公钥矩阵查询
+     * Summary: 数据授权服务公钥矩阵查询.
+     *
+     * @param ListDataauthorizationPublicKeyRequest $request
+     *
+     * @return ListDataauthorizationPublicKeyResponse
+     */
+    public function listDataauthorizationPublicKey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationPublicKeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务公钥矩阵查询
+     * Summary: 数据授权服务公钥矩阵查询.
+     *
+     * @param ListDataauthorizationPublicKeyRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return ListDataauthorizationPublicKeyResponse
+     */
+    public function listDataauthorizationPublicKeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationPublicKeyResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.public.key.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务开通服务
+     * Summary: 数据授权服务开通服务
+     *
+     * @param OpenDataauthorizationAuthorizationServiceRequest $request
+     *
+     * @return OpenDataauthorizationAuthorizationServiceResponse
+     */
+    public function openDataauthorizationAuthorizationService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openDataauthorizationAuthorizationServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务开通服务
+     * Summary: 数据授权服务开通服务
+     *
+     * @param OpenDataauthorizationAuthorizationServiceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return OpenDataauthorizationAuthorizationServiceResponse
+     */
+    public function openDataauthorizationAuthorizationServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenDataauthorizationAuthorizationServiceResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.service.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务关闭租户服务
+     * Summary: 数据授权服务关闭租户服务
+     *
+     * @param CloseDataauthorizationAuthorizationServiceRequest $request
+     *
+     * @return CloseDataauthorizationAuthorizationServiceResponse
+     */
+    public function closeDataauthorizationAuthorizationService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->closeDataauthorizationAuthorizationServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务关闭租户服务
+     * Summary: 数据授权服务关闭租户服务
+     *
+     * @param CloseDataauthorizationAuthorizationServiceRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return CloseDataauthorizationAuthorizationServiceResponse
+     */
+    public function closeDataauthorizationAuthorizationServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloseDataauthorizationAuthorizationServiceResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.service.close', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务申请权限
+     * Summary: 数据授权服务申请权限.
+     *
+     * @param ApplyDataauthorizationAuthorizationRequest $request
+     *
+     * @return ApplyDataauthorizationAuthorizationResponse
+     */
+    public function applyDataauthorizationAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDataauthorizationAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务申请权限
+     * Summary: 数据授权服务申请权限.
+     *
+     * @param ApplyDataauthorizationAuthorizationRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return ApplyDataauthorizationAuthorizationResponse
+     */
+    public function applyDataauthorizationAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDataauthorizationAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务流程步骤处理
+     * Summary: 数据授权服务流程步骤处理.
+     *
+     * @param ExecDataauthorizationProcessRequest $request
+     *
+     * @return ExecDataauthorizationProcessResponse
+     */
+    public function execDataauthorizationProcess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDataauthorizationProcessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务流程步骤处理
+     * Summary: 数据授权服务流程步骤处理.
+     *
+     * @param ExecDataauthorizationProcessRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return ExecDataauthorizationProcessResponse
+     */
+    public function execDataauthorizationProcessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDataauthorizationProcessResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.process.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务取消授权
+     * Summary: 数据授权服务取消授权.
+     *
+     * @param CancelDataauthorizationAuthorizationRequest $request
+     *
+     * @return CancelDataauthorizationAuthorizationResponse
+     */
+    public function cancelDataauthorizationAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDataauthorizationAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务取消授权
+     * Summary: 数据授权服务取消授权.
+     *
+     * @param CancelDataauthorizationAuthorizationRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return CancelDataauthorizationAuthorizationResponse
+     */
+    public function cancelDataauthorizationAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDataauthorizationAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务权限校验
+     * Summary: 数据授权服务权限校验.
+     *
+     * @param CheckDataauthorizationAuthorizationRequest $request
+     *
+     * @return CheckDataauthorizationAuthorizationResponse
+     */
+    public function checkDataauthorizationAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkDataauthorizationAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务权限校验
+     * Summary: 数据授权服务权限校验.
+     *
+     * @param CheckDataauthorizationAuthorizationRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return CheckDataauthorizationAuthorizationResponse
+     */
+    public function checkDataauthorizationAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckDataauthorizationAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务流程信息查询
+     * Summary: 数据授权服务流程信息查询.
+     *
+     * @param QueryDataauthorizationProcessRequest $request
+     *
+     * @return QueryDataauthorizationProcessResponse
+     */
+    public function queryDataauthorizationProcess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataauthorizationProcessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务流程信息查询
+     * Summary: 数据授权服务流程信息查询.
+     *
+     * @param QueryDataauthorizationProcessRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDataauthorizationProcessResponse
+     */
+    public function queryDataauthorizationProcessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataauthorizationProcessResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.process.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务存证数据上链
+     * Summary: 数据授权服务存证数据上链.
+     *
+     * @param SendDataauthorizationDepositDataRequest $request
+     *
+     * @return SendDataauthorizationDepositDataResponse
+     */
+    public function sendDataauthorizationDepositData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendDataauthorizationDepositDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务存证数据上链
+     * Summary: 数据授权服务存证数据上链.
+     *
+     * @param SendDataauthorizationDepositDataRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return SendDataauthorizationDepositDataResponse
+     */
+    public function sendDataauthorizationDepositDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendDataauthorizationDepositDataResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.deposit.data.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务查询存证数据
+     * Summary: 数据授权服务查询存证数据.
+     *
+     * @param QueryDataauthorizationDepositDataRequest $request
+     *
+     * @return QueryDataauthorizationDepositDataResponse
+     */
+    public function queryDataauthorizationDepositData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataauthorizationDepositDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务查询存证数据
+     * Summary: 数据授权服务查询存证数据.
+     *
+     * @param QueryDataauthorizationDepositDataRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryDataauthorizationDepositDataResponse
+     */
+    public function queryDataauthorizationDepositDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataauthorizationDepositDataResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.deposit.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务恢复权限
+     * Summary: 数据授权服务恢复权限.
+     *
+     * @param ResumeDataauthorizationAuthorizationRequest $request
+     *
+     * @return ResumeDataauthorizationAuthorizationResponse
+     */
+    public function resumeDataauthorizationAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resumeDataauthorizationAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务恢复权限
+     * Summary: 数据授权服务恢复权限.
+     *
+     * @param ResumeDataauthorizationAuthorizationRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return ResumeDataauthorizationAuthorizationResponse
+     */
+    public function resumeDataauthorizationAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResumeDataauthorizationAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务更新数据信息
+     * Summary: 数据授权服务更新数据信息.
+     *
+     * @param UpdateDataauthorizationDataEntityRequest $request
+     *
+     * @return UpdateDataauthorizationDataEntityResponse
+     */
+    public function updateDataauthorizationDataEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDataauthorizationDataEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务更新数据信息
+     * Summary: 数据授权服务更新数据信息.
+     *
+     * @param UpdateDataauthorizationDataEntityRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return UpdateDataauthorizationDataEntityResponse
+     */
+    public function updateDataauthorizationDataEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDataauthorizationDataEntityResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.entity.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务删除数据对象
+     * Summary: 数据授权服务删除数据对象
+     *
+     * @param DeleteDataauthorizationDataEntityRequest $request
+     *
+     * @return DeleteDataauthorizationDataEntityResponse
+     */
+    public function deleteDataauthorizationDataEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDataauthorizationDataEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务删除数据对象
+     * Summary: 数据授权服务删除数据对象
+     *
+     * @param DeleteDataauthorizationDataEntityRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return DeleteDataauthorizationDataEntityResponse
+     */
+    public function deleteDataauthorizationDataEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDataauthorizationDataEntityResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.entity.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务创建自定义ID用户
+     * Summary: 数据授权服务创建自定义ID用户.
+     *
+     * @param CreateDataauthorizationCustomParticipantRequest $request
+     *
+     * @return CreateDataauthorizationCustomParticipantResponse
+     */
+    public function createDataauthorizationCustomParticipant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationCustomParticipantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务创建自定义ID用户
+     * Summary: 数据授权服务创建自定义ID用户.
+     *
+     * @param CreateDataauthorizationCustomParticipantRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return CreateDataauthorizationCustomParticipantResponse
+     */
+    public function createDataauthorizationCustomParticipantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationCustomParticipantResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.custom.participant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务创建自定义ID数据对象
+     * Summary: 数据授权服务创建自定义ID数据对象
+     *
+     * @param CreateDataauthorizationCustomDataRequest $request
+     *
+     * @return CreateDataauthorizationCustomDataResponse
+     */
+    public function createDataauthorizationCustomData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationCustomDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务创建自定义ID数据对象
+     * Summary: 数据授权服务创建自定义ID数据对象
+     *
+     * @param CreateDataauthorizationCustomDataRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateDataauthorizationCustomDataResponse
+     */
+    public function createDataauthorizationCustomDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationCustomDataResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.custom.data.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务申请权限
+     * Summary: 数据授权服务申请权限.
+     *
+     * @param ApplyDataauthorizationAuthorizationWithsignatureRequest $request
+     *
+     * @return ApplyDataauthorizationAuthorizationWithsignatureResponse
+     */
+    public function applyDataauthorizationAuthorizationWithsignature($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDataauthorizationAuthorizationWithsignatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务申请权限
+     * Summary: 数据授权服务申请权限.
+     *
+     * @param ApplyDataauthorizationAuthorizationWithsignatureRequest $request
+     * @param string[]                                                $headers
+     * @param RuntimeOptions                                          $runtime
+     *
+     * @return ApplyDataauthorizationAuthorizationWithsignatureResponse
+     */
+    public function applyDataauthorizationAuthorizationWithsignatureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDataauthorizationAuthorizationWithsignatureResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.withsignature.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据授权服务流程步骤处理
+     * Summary: 数据授权服务流程步骤处理.
+     *
+     * @param ExecDataauthorizationProcessWithsignatureRequest $request
+     *
+     * @return ExecDataauthorizationProcessWithsignatureResponse
+     */
+    public function execDataauthorizationProcessWithsignature($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDataauthorizationProcessWithsignatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据授权服务流程步骤处理
+     * Summary: 数据授权服务流程步骤处理.
+     *
+     * @param ExecDataauthorizationProcessWithsignatureRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return ExecDataauthorizationProcessWithsignatureResponse
+     */
+    public function execDataauthorizationProcessWithsignatureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDataauthorizationProcessWithsignatureResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.process.withsignature.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建数据模型
+     * Summary: 创建数据模型.
+     *
+     * @param CreateDataauthorizationDataModelRequest $request
+     *
+     * @return CreateDataauthorizationDataModelResponse
+     */
+    public function createDataauthorizationDataModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationDataModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建数据模型
+     * Summary: 创建数据模型.
+     *
+     * @param CreateDataauthorizationDataModelRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateDataauthorizationDataModelResponse
+     */
+    public function createDataauthorizationDataModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationDataModelResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.model.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据模型修改
+     * Summary: 数据模型修改.
+     *
+     * @param UpdateDataauthorizationDataModelRequest $request
+     *
+     * @return UpdateDataauthorizationDataModelResponse
+     */
+    public function updateDataauthorizationDataModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDataauthorizationDataModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据模型修改
+     * Summary: 数据模型修改.
+     *
+     * @param UpdateDataauthorizationDataModelRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return UpdateDataauthorizationDataModelResponse
+     */
+    public function updateDataauthorizationDataModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDataauthorizationDataModelResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.model.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除数据模型
+     * Summary: 删除数据模型.
+     *
+     * @param DeleteDataauthorizationDataModelRequest $request
+     *
+     * @return DeleteDataauthorizationDataModelResponse
+     */
+    public function deleteDataauthorizationDataModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDataauthorizationDataModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除数据模型
+     * Summary: 删除数据模型.
+     *
+     * @param DeleteDataauthorizationDataModelRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return DeleteDataauthorizationDataModelResponse
+     */
+    public function deleteDataauthorizationDataModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDataauthorizationDataModelResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.model.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询参与方列表
+     * Summary: 分页查询参与方列表.
+     *
+     * @param ListDataauthorizationParticipantPageRequest $request
+     *
+     * @return ListDataauthorizationParticipantPageResponse
+     */
+    public function listDataauthorizationParticipantPage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationParticipantPageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询参与方列表
+     * Summary: 分页查询参与方列表.
+     *
+     * @param ListDataauthorizationParticipantPageRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return ListDataauthorizationParticipantPageResponse
+     */
+    public function listDataauthorizationParticipantPageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationParticipantPageResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.participant.page.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数据模型
+     * Summary: 查询数据模型.
+     *
+     * @param QueryDataauthorizationDataModelRequest $request
+     *
+     * @return QueryDataauthorizationDataModelResponse
+     */
+    public function queryDataauthorizationDataModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataauthorizationDataModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数据模型
+     * Summary: 查询数据模型.
+     *
+     * @param QueryDataauthorizationDataModelRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryDataauthorizationDataModelResponse
+     */
+    public function queryDataauthorizationDataModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataauthorizationDataModelResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.model.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据模型分页查询
+     * Summary: 数据模型分页查询.
+     *
+     * @param ListDataauthorizationDatamodelPageRequest $request
+     *
+     * @return ListDataauthorizationDatamodelPageResponse
+     */
+    public function listDataauthorizationDatamodelPage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationDatamodelPageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据模型分页查询
+     * Summary: 数据模型分页查询.
+     *
+     * @param ListDataauthorizationDatamodelPageRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ListDataauthorizationDatamodelPageResponse
+     */
+    public function listDataauthorizationDatamodelPageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationDatamodelPageResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.datamodel.page.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询可注册的数据模型列表
+     * Summary: 查询可注册的数据模型列表.
+     *
+     * @param ListDataauthorizationAvailableDatamodelRequest $request
+     *
+     * @return ListDataauthorizationAvailableDatamodelResponse
+     */
+    public function listDataauthorizationAvailableDatamodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationAvailableDatamodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询可注册的数据模型列表
+     * Summary: 查询可注册的数据模型列表.
+     *
+     * @param ListDataauthorizationAvailableDatamodelRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return ListDataauthorizationAvailableDatamodelResponse
+     */
+    public function listDataauthorizationAvailableDatamodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationAvailableDatamodelResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.available.datamodel.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据模型名称、授权状态分页查询。
+     * Summary: 数据注册情况查询.
+     *
+     * @param ListDataauthorizationDataentityPageRequest $request
+     *
+     * @return ListDataauthorizationDataentityPageResponse
+     */
+    public function listDataauthorizationDataentityPage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationDataentityPageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据模型名称、授权状态分页查询。
+     * Summary: 数据注册情况查询.
+     *
+     * @param ListDataauthorizationDataentityPageRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return ListDataauthorizationDataentityPageResponse
+     */
+    public function listDataauthorizationDataentityPageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationDataentityPageResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.dataentity.page.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直接授权接口
+     * Summary: 直接授权接口.
+     *
+     * @param CreateDataauthorizationDirectAuthorizationRequest $request
+     *
+     * @return CreateDataauthorizationDirectAuthorizationResponse
+     */
+    public function createDataauthorizationDirectAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationDirectAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直接授权接口
+     * Summary: 直接授权接口.
+     *
+     * @param CreateDataauthorizationDirectAuthorizationRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return CreateDataauthorizationDirectAuthorizationResponse
+     */
+    public function createDataauthorizationDirectAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationDirectAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.direct.authorization.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权列表分页查询
+     * Summary: 授权列表分页查询.
+     *
+     * @param ListDataauthorizationAuthorizationPageRequest $request
+     *
+     * @return ListDataauthorizationAuthorizationPageResponse
+     */
+    public function listDataauthorizationAuthorizationPage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationAuthorizationPageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权列表分页查询
+     * Summary: 授权列表分页查询.
+     *
+     * @param ListDataauthorizationAuthorizationPageRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return ListDataauthorizationAuthorizationPageResponse
+     */
+    public function listDataauthorizationAuthorizationPageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationAuthorizationPageResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authorization.page.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询已授权的参与方列表
+     * Summary: 查询已授权的参与方列表.
+     *
+     * @param ListDataauthorizationAuthparticipantPageRequest $request
+     *
+     * @return ListDataauthorizationAuthparticipantPageResponse
+     */
+    public function listDataauthorizationAuthparticipantPage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationAuthparticipantPageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询已授权的参与方列表
+     * Summary: 查询已授权的参与方列表.
+     *
+     * @param ListDataauthorizationAuthparticipantPageRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return ListDataauthorizationAuthparticipantPageResponse
+     */
+    public function listDataauthorizationAuthparticipantPageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationAuthparticipantPageResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authparticipant.page.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建数据资产
+     * Summary: 创建数据资产.
+     *
+     * @param CreateDataauthorizationDataAssertRequest $request
+     *
+     * @return CreateDataauthorizationDataAssertResponse
+     */
+    public function createDataauthorizationDataAssert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationDataAssertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建数据资产
+     * Summary: 创建数据资产.
+     *
+     * @param CreateDataauthorizationDataAssertRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateDataauthorizationDataAssertResponse
+     */
+    public function createDataauthorizationDataAssertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationDataAssertResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.assert.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据资产更新
+     * Summary: 数据资产更新.
+     *
+     * @param UpdateDataauthorizationDataAssertRequest $request
+     *
+     * @return UpdateDataauthorizationDataAssertResponse
+     */
+    public function updateDataauthorizationDataAssert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDataauthorizationDataAssertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据资产更新
+     * Summary: 数据资产更新.
+     *
+     * @param UpdateDataauthorizationDataAssertRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return UpdateDataauthorizationDataAssertResponse
+     */
+    public function updateDataauthorizationDataAssertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDataauthorizationDataAssertResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.assert.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据资产删除
+     * Summary: 数据资产删除.
+     *
+     * @param DeleteDataauthorizationDataAssertRequest $request
+     *
+     * @return DeleteDataauthorizationDataAssertResponse
+     */
+    public function deleteDataauthorizationDataAssert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDataauthorizationDataAssertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据资产删除
+     * Summary: 数据资产删除.
+     *
+     * @param DeleteDataauthorizationDataAssertRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return DeleteDataauthorizationDataAssertResponse
+     */
+    public function deleteDataauthorizationDataAssertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDataauthorizationDataAssertResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.data.assert.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权服务代理授权接口
+     * Summary: 代理授权.
+     *
+     * @param CreateDataauthorizationAgentAuthorizationRequest $request
+     *
+     * @return CreateDataauthorizationAgentAuthorizationResponse
+     */
+    public function createDataauthorizationAgentAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDataauthorizationAgentAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权服务代理授权接口
+     * Summary: 代理授权.
+     *
+     * @param CreateDataauthorizationAgentAuthorizationRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return CreateDataauthorizationAgentAuthorizationResponse
+     */
+    public function createDataauthorizationAgentAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDataauthorizationAgentAuthorizationResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.agent.authorization.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:  授权列表相信信息查询
+     * Summary:  授权列表相信信息查询.
+     *
+     * @param ListDataauthorizationAuthorityCertRequest $request
+     *
+     * @return ListDataauthorizationAuthorityCertResponse
+     */
+    public function listDataauthorizationAuthorityCert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDataauthorizationAuthorityCertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:  授权列表相信信息查询
+     * Summary:  授权列表相信信息查询.
+     *
+     * @param ListDataauthorizationAuthorityCertRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ListDataauthorizationAuthorityCertResponse
+     */
+    public function listDataauthorizationAuthorityCertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDataauthorizationAuthorityCertResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authority.cert.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过额交易hash查询，返回hash对应区块链上信息。
+     * Summary: 溯源区块查证接口.
+     *
+     * @param QueryTraceabilityTxCheckRequest $request
+     *
+     * @return QueryTraceabilityTxCheckResponse
+     */
+    public function queryTraceabilityTxCheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTraceabilityTxCheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过额交易hash查询，返回hash对应区块链上信息。
+     * Summary: 溯源区块查证接口.
+     *
+     * @param QueryTraceabilityTxCheckRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryTraceabilityTxCheckResponse
+     */
+    public function queryTraceabilityTxCheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTraceabilityTxCheckResponse::fromMap($this->doRequest('1.0', 'baas.traceability.tx.check.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过链id，获取链的相关信息
+     * Summary: 获取链信息接口.
+     *
+     * @param QueryTraceabilityBlockchainInfosRequest $request
+     *
+     * @return QueryTraceabilityBlockchainInfosResponse
+     */
+    public function queryTraceabilityBlockchainInfos($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTraceabilityBlockchainInfosEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过链id，获取链的相关信息
+     * Summary: 获取链信息接口.
+     *
+     * @param QueryTraceabilityBlockchainInfosRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryTraceabilityBlockchainInfosResponse
+     */
+    public function queryTraceabilityBlockchainInfosEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTraceabilityBlockchainInfosResponse::fromMap($this->doRequest('1.0', 'baas.traceability.blockchain.infos.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: BaaS区块链浏览器添加租户与链的访问权限
+     * Summary: BaaS区块链浏览器添加权限.
+     *
+     * @param SaveBlockchainBrowserPrivilegeRequest $request
+     *
+     * @return SaveBlockchainBrowserPrivilegeResponse
+     */
+    public function saveBlockchainBrowserPrivilege($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveBlockchainBrowserPrivilegeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: BaaS区块链浏览器添加租户与链的访问权限
+     * Summary: BaaS区块链浏览器添加权限.
+     *
+     * @param SaveBlockchainBrowserPrivilegeRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return SaveBlockchainBrowserPrivilegeResponse
+     */
+    public function saveBlockchainBrowserPrivilegeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveBlockchainBrowserPrivilegeResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.browser.privilege.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户查看某链的权限
+     * Summary: 查询租户查看某链的权限.
+     *
+     * @param QueryBlockchainBrowserPrivilegeRequest $request
+     *
+     * @return QueryBlockchainBrowserPrivilegeResponse
+     */
+    public function queryBlockchainBrowserPrivilege($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBlockchainBrowserPrivilegeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户查看某链的权限
+     * Summary: 查询租户查看某链的权限.
+     *
+     * @param QueryBlockchainBrowserPrivilegeRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryBlockchainBrowserPrivilegeResponse
+     */
+    public function queryBlockchainBrowserPrivilegeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBlockchainBrowserPrivilegeResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.browser.privilege.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: BaaS区块链浏览器删除租户与链的访问权限
+     * Summary: BaaS区块链浏览器添加权限.
+     *
+     * @param DeleteBlockchainBrowserPrivilegeRequest $request
+     *
+     * @return DeleteBlockchainBrowserPrivilegeResponse
+     */
+    public function deleteBlockchainBrowserPrivilege($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteBlockchainBrowserPrivilegeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: BaaS区块链浏览器删除租户与链的访问权限
+     * Summary: BaaS区块链浏览器添加权限.
+     *
+     * @param DeleteBlockchainBrowserPrivilegeRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return DeleteBlockchainBrowserPrivilegeResponse
+     */
+    public function deleteBlockchainBrowserPrivilegeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteBlockchainBrowserPrivilegeResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.browser.privilege.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生成蚂蚁区块链的交易二维码
+     * Summary: 生成蚂蚁区块链的交易二维码
+     *
+     * @param GetBlockchainMiniprogramRequest $request
+     *
+     * @return GetBlockchainMiniprogramResponse
+     */
+    public function getBlockchainMiniprogram($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getBlockchainMiniprogramEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生成蚂蚁区块链的交易二维码
+     * Summary: 生成蚂蚁区块链的交易二维码
+     *
+     * @param GetBlockchainMiniprogramRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetBlockchainMiniprogramResponse
+     */
+    public function getBlockchainMiniprogramEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetBlockchainMiniprogramResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.miniprogram.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂蚁区块链的链上交易数据查看权限批量添加
+     * Summary: 蚂蚁区块链的链上交易数据查看权限批量添加.
+     *
+     * @param AddBlockchainMiniprogramRequest $request
+     *
+     * @return AddBlockchainMiniprogramResponse
+     */
+    public function addBlockchainMiniprogram($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addBlockchainMiniprogramEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂蚁区块链的链上交易数据查看权限批量添加
+     * Summary: 蚂蚁区块链的链上交易数据查看权限批量添加.
+     *
+     * @param AddBlockchainMiniprogramRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return AddBlockchainMiniprogramResponse
+     */
+    public function addBlockchainMiniprogramEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddBlockchainMiniprogramResponse::fromMap($this->doRequest('1.0', 'baas.blockchain.miniprogram.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS浏览器交易统计信息
+     * Summary: 获取金融科技BaaS浏览器交易统计信息.
+     *
+     * @param QueryBrowserTransactionStatisticRequest $request
+     *
+     * @return QueryBrowserTransactionStatisticResponse
+     */
+    public function queryBrowserTransactionStatistic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserTransactionStatisticEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS浏览器交易统计信息
+     * Summary: 获取金融科技BaaS浏览器交易统计信息.
+     *
+     * @param QueryBrowserTransactionStatisticRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryBrowserTransactionStatisticResponse
+     */
+    public function queryBrowserTransactionStatisticEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserTransactionStatisticResponse::fromMap($this->doRequest('1.0', 'baas.browser.transaction.statistic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS最新区块信息列表
+     * Summary: 获取金融科技BaaS最新区块信息列表.
+     *
+     * @param QueryBrowserBlockLatestRequest $request
+     *
+     * @return QueryBrowserBlockLatestResponse
+     */
+    public function queryBrowserBlockLatest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserBlockLatestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS最新区块信息列表
+     * Summary: 获取金融科技BaaS最新区块信息列表.
+     *
+     * @param QueryBrowserBlockLatestRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryBrowserBlockLatestResponse
+     */
+    public function queryBrowserBlockLatestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserBlockLatestResponse::fromMap($this->doRequest('1.0', 'baas.browser.block.latest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS最新交易列表
+     * Summary: 获取金融科技BaaS最新交易列表.
+     *
+     * @param QueryBrowserTransactionLatestRequest $request
+     *
+     * @return QueryBrowserTransactionLatestResponse
+     */
+    public function queryBrowserTransactionLatest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserTransactionLatestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS最新交易列表
+     * Summary: 获取金融科技BaaS最新交易列表.
+     *
+     * @param QueryBrowserTransactionLatestRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryBrowserTransactionLatestResponse
+     */
+    public function queryBrowserTransactionLatestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserTransactionLatestResponse::fromMap($this->doRequest('1.0', 'baas.browser.transaction.latest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS区块信息
+     * Summary: 获取金融科技BaaS区块信息.
+     *
+     * @param QueryBrowserBlockRequest $request
+     *
+     * @return QueryBrowserBlockResponse
+     */
+    public function queryBrowserBlock($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserBlockEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS区块信息
+     * Summary: 获取金融科技BaaS区块信息.
+     *
+     * @param QueryBrowserBlockRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryBrowserBlockResponse
+     */
+    public function queryBrowserBlockEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserBlockResponse::fromMap($this->doRequest('1.0', 'baas.browser.block.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS交易信息内容
+     * Summary: 获取金融科技BaaS交易信息内容.
+     *
+     * @param QueryBrowserTransactionRequest $request
+     *
+     * @return QueryBrowserTransactionResponse
+     */
+    public function queryBrowserTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS交易信息内容
+     * Summary: 获取金融科技BaaS交易信息内容.
+     *
+     * @param QueryBrowserTransactionRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryBrowserTransactionResponse
+     */
+    public function queryBrowserTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserTransactionResponse::fromMap($this->doRequest('1.0', 'baas.browser.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取金融科技BaaS交易回执信息
+     * Summary: 获取金融科技BaaS交易回执信息.
+     *
+     * @param QueryBrowserTransactionReceiptRequest $request
+     *
+     * @return QueryBrowserTransactionReceiptResponse
+     */
+    public function queryBrowserTransactionReceipt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserTransactionReceiptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取金融科技BaaS交易回执信息
+     * Summary: 获取金融科技BaaS交易回执信息.
+     *
+     * @param QueryBrowserTransactionReceiptRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryBrowserTransactionReceiptResponse
+     */
+    public function queryBrowserTransactionReceiptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserTransactionReceiptResponse::fromMap($this->doRequest('1.0', 'baas.browser.transaction.receipt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂蚁链节点所有者查询
+     * Summary: 蚂蚁链节点所有者查询.
+     *
+     * @param QueryBrowserNodeOwnerRequest $request
+     *
+     * @return QueryBrowserNodeOwnerResponse
+     */
+    public function queryBrowserNodeOwner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBrowserNodeOwnerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂蚁链节点所有者查询
+     * Summary: 蚂蚁链节点所有者查询.
+     *
+     * @param QueryBrowserNodeOwnerRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryBrowserNodeOwnerResponse
+     */
+    public function queryBrowserNodeOwnerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBrowserNodeOwnerResponse::fromMap($this->doRequest('1.0', 'baas.browser.node.owner.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融信用流转能力注册开通结果查询
+     * Summary: 物流金融信用流转能力注册开通结果查询.
+     *
+     * @param QueryCreditTransferApplyRequest $request
+     *
+     * @return QueryCreditTransferApplyResponse
+     */
+    public function queryCreditTransferApply($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditTransferApplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融信用流转能力注册开通结果查询
+     * Summary: 物流金融信用流转能力注册开通结果查询.
+     *
+     * @param QueryCreditTransferApplyRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryCreditTransferApplyResponse
+     */
+    public function queryCreditTransferApplyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditTransferApplyResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.apply.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融信用流转额度查询，仅显示是否有额度，不会返回具体额度
+     * Summary: 物流金融信用流转额度查询.
+     *
+     * @param QueryCreditTransferBalanceRequest $request
+     *
+     * @return QueryCreditTransferBalanceResponse
+     */
+    public function queryCreditTransferBalance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditTransferBalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融信用流转额度查询，仅显示是否有额度，不会返回具体额度
+     * Summary: 物流金融信用流转额度查询.
+     *
+     * @param QueryCreditTransferBalanceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryCreditTransferBalanceResponse
+     */
+    public function queryCreditTransferBalanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditTransferBalanceResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.balance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融信用流转通过id查询发行结果
+     * Summary: 物流金融信用流转通过id查询发行结果.
+     *
+     * @param QueryCreditTransferIssuebyidRequest $request
+     *
+     * @return QueryCreditTransferIssuebyidResponse
+     */
+    public function queryCreditTransferIssuebyid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditTransferIssuebyidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融信用流转通过id查询发行结果
+     * Summary: 物流金融信用流转通过id查询发行结果.
+     *
+     * @param QueryCreditTransferIssuebyidRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryCreditTransferIssuebyidResponse
+     */
+    public function queryCreditTransferIssuebyidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditTransferIssuebyidResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.issuebyid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融根据时间查询信用凭证信息
+     * Summary: 物流金融根据时间查询信用流转信息.
+     *
+     * @param QueryCreditTransferIssuebytimeRequest $request
+     *
+     * @return QueryCreditTransferIssuebytimeResponse
+     */
+    public function queryCreditTransferIssuebytime($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditTransferIssuebytimeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融根据时间查询信用凭证信息
+     * Summary: 物流金融根据时间查询信用流转信息.
+     *
+     * @param QueryCreditTransferIssuebytimeRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryCreditTransferIssuebytimeResponse
+     */
+    public function queryCreditTransferIssuebytimeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditTransferIssuebytimeResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.issuebytime.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融信用流转流水查询
+     * Summary: 物流金融信用流转流水查询.
+     *
+     * @param QueryCreditTransferStatementRequest $request
+     *
+     * @return QueryCreditTransferStatementResponse
+     */
+    public function queryCreditTransferStatement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditTransferStatementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融信用流转流水查询
+     * Summary: 物流金融信用流转流水查询.
+     *
+     * @param QueryCreditTransferStatementRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryCreditTransferStatementResponse
+     */
+    public function queryCreditTransferStatementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditTransferStatementResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.statement.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物流金融信用流转主站系统回调
+     * Summary: 物流金融信用流转主站系统回调.
+     *
+     * @param CallbackCreditTransferRequest $request
+     *
+     * @return CallbackCreditTransferResponse
+     */
+    public function callbackCreditTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackCreditTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物流金融信用流转主站系统回调
+     * Summary: 物流金融信用流转主站系统回调.
+     *
+     * @param CallbackCreditTransferRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CallbackCreditTransferResponse
+     */
+    public function callbackCreditTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackCreditTransferResponse::fromMap($this->doRequest('1.0', 'baas.credit.transfer.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部业务方可以给DIS的C端小程序用户颁发声明（VC）用户特定场景
+     * Summary: 推送业务方给用户颁发的声明内容.
+     *
+     * @param PushAuthUserVcRequest $request
+     *
+     * @return PushAuthUserVcResponse
+     */
+    public function pushAuthUserVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushAuthUserVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部业务方可以给DIS的C端小程序用户颁发声明（VC）用户特定场景
+     * Summary: 推送业务方给用户颁发的声明内容.
+     *
+     * @param PushAuthUserVcRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return PushAuthUserVcResponse
+     */
+    public function pushAuthUserVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushAuthUserVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.user.vc.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务方推送需要用户使用数字身份did授权确认的声明，推送后可根据自定义的业务id（biz_id）来查询状态（另提供接口），进而获取用户授权后的声明。
+     * Summary: 推送需要用户端授权的业务声明.
+     *
+     * @param PushAuthClaimVcRequest $request
+     *
+     * @return PushAuthClaimVcResponse
+     */
+    public function pushAuthClaimVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushAuthClaimVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务方推送需要用户使用数字身份did授权确认的声明，推送后可根据自定义的业务id（biz_id）来查询状态（另提供接口），进而获取用户授权后的声明。
+     * Summary: 推送需要用户端授权的业务声明.
+     *
+     * @param PushAuthClaimVcRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PushAuthClaimVcResponse
+     */
+    public function pushAuthClaimVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushAuthClaimVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.vc.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务方通过提供二维码的方式引导用户支付宝扫描创建did，然后业务方通过此接口可查询用户新建的did
+     * Summary: 通过biz_id获取用户的did.
+     *
+     * @param PullAuthUserDidRequest $request
+     *
+     * @return PullAuthUserDidResponse
+     */
+    public function pullAuthUserDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullAuthUserDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务方通过提供二维码的方式引导用户支付宝扫描创建did，然后业务方通过此接口可查询用户新建的did
+     * Summary: 通过biz_id获取用户的did.
+     *
+     * @param PullAuthUserDidRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PullAuthUserDidResponse
+     */
+    public function pullAuthUserDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullAuthUserDidResponse::fromMap($this->doRequest('1.0', 'baas.auth.user.did.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务方通过此接口可以查询，申请用户授权的声明状态，如果用户已授权即可获取到授权后的声明（vc）内容。
+     * Summary: 获取申请用户声明的授权结果.
+     *
+     * @param PullAuthClaimVcRequest $request
+     *
+     * @return PullAuthClaimVcResponse
+     */
+    public function pullAuthClaimVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullAuthClaimVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务方通过此接口可以查询，申请用户授权的声明状态，如果用户已授权即可获取到授权后的声明（vc）内容。
+     * Summary: 获取申请用户声明的授权结果.
+     *
+     * @param PullAuthClaimVcRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PullAuthClaimVcResponse
+     */
+    public function pullAuthClaimVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullAuthClaimVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.vc.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务系统通过授权宝服务帮忙给用户创建did，此接口访问需预先在授权宝配置白名单开通。
+     * Summary: 给用户创建did，需要指定userId.
+     *
+     * @param CreateAuthUserDidRequest $request
+     *
+     * @return CreateAuthUserDidResponse
+     */
+    public function createAuthUserDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthUserDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务系统通过授权宝服务帮忙给用户创建did，此接口访问需预先在授权宝配置白名单开通。
+     * Summary: 给用户创建did，需要指定userId.
+     *
+     * @param CreateAuthUserDidRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateAuthUserDidResponse
+     */
+    public function createAuthUserDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthUserDidResponse::fromMap($this->doRequest('1.0', 'baas.auth.user.did.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 给企业DID创建DID，通常场景为对授权宝服务的开通，调用方对企业有认证能力。
+     * Summary: 创建企业DID，开通授权宝服务
+     *
+     * @param CreateAuthCorporateDidRequest $request
+     *
+     * @return CreateAuthCorporateDidResponse
+     */
+    public function createAuthCorporateDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthCorporateDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 给企业DID创建DID，通常场景为对授权宝服务的开通，调用方对企业有认证能力。
+     * Summary: 创建企业DID，开通授权宝服务
+     *
+     * @param CreateAuthCorporateDidRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateAuthCorporateDidResponse
+     */
+    public function createAuthCorporateDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthCorporateDidResponse::fromMap($this->doRequest('1.0', 'baas.auth.corporate.did.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务方的C端用户授权颁发“可验证声明”（简称VC）之后，就会异步推送结果给相关业务服务端，如果相关业务服务端没有接收到，或者本地缓存过期，则可以通过此接口到授权宝再次查询目标可验证声明结果情况。
+     * Summary: 查询目标可验证声明结果.
+     *
+     * @param PullAuthWebpageVcRequest $request
+     *
+     * @return PullAuthWebpageVcResponse
+     */
+    public function pullAuthWebpageVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullAuthWebpageVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务方的C端用户授权颁发“可验证声明”（简称VC）之后，就会异步推送结果给相关业务服务端，如果相关业务服务端没有接收到，或者本地缓存过期，则可以通过此接口到授权宝再次查询目标可验证声明结果情况。
+     * Summary: 查询目标可验证声明结果.
+     *
+     * @param PullAuthWebpageVcRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return PullAuthWebpageVcResponse
+     */
+    public function pullAuthWebpageVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullAuthWebpageVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.webpage.vc.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 此接口提供了授权宝这边可用的H5页面的Url，此Url会携带一些参数：授权宝鉴权token(JWT机制生成，内部使用)、bizId(接口入参带入)
+     * Summary: 获取授权宝侧的H5授权Url.
+     *
+     * @param PullAuthWebpageUrlRequest $request
+     *
+     * @return PullAuthWebpageUrlResponse
+     */
+    public function pullAuthWebpageUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullAuthWebpageUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 此接口提供了授权宝这边可用的H5页面的Url，此Url会携带一些参数：授权宝鉴权token(JWT机制生成，内部使用)、bizId(接口入参带入)
+     * Summary: 获取授权宝侧的H5授权Url.
+     *
+     * @param PullAuthWebpageUrlRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PullAuthWebpageUrlResponse
+     */
+    public function pullAuthWebpageUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullAuthWebpageUrlResponse::fromMap($this->doRequest('1.0', 'baas.auth.webpage.url.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在一些业务场景，指定可验证声明之后，根据bizType的类型，直接发生代理颁发可验证声明的操作。
+     * Summary: 给定声明内容并颁发声明.
+     *
+     * @param StartAuthVcAuthRequest $request
+     *
+     * @return StartAuthVcAuthResponse
+     */
+    public function startAuthVcAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在一些业务场景，指定可验证声明之后，根据bizType的类型，直接发生代理颁发可验证声明的操作。
+     * Summary: 给定声明内容并颁发声明.
+     *
+     * @param StartAuthVcAuthRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return StartAuthVcAuthResponse
+     */
+    public function startAuthVcAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcAuthResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.auth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可验证声明（VC）的拥有者（vcContent中的subject）可以将声明分享权限给其它的DID。
+     * Summary: 将目标的声明内容，分享权限给目标的DID.
+     *
+     * @param StartAuthVcShareRequest $request
+     *
+     * @return StartAuthVcShareResponse
+     */
+    public function startAuthVcShare($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcShareEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可验证声明（VC）的拥有者（vcContent中的subject）可以将声明分享权限给其它的DID。
+     * Summary: 将目标的声明内容，分享权限给目标的DID.
+     *
+     * @param StartAuthVcShareRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return StartAuthVcShareResponse
+     */
+    public function startAuthVcShareEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcShareResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.share.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明内容，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明内容.
+     *
+     * @param QueryAuthVcContentRequest $request
+     *
+     * @return QueryAuthVcContentResponse
+     */
+    public function queryAuthVcContent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVcContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明内容，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明内容.
+     *
+     * @param QueryAuthVcContentRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAuthVcContentResponse
+     */
+    public function queryAuthVcContentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVcContentResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.content.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务系统通过授权宝服务帮忙给C类用户创建did，此接口访问需预先在授权宝配置白名单开通。
+     * Summary: 给C类用户建did，需要指定user信息.
+     *
+     * @param CreateAuthUserinfoDidRequest $request
+     *
+     * @return CreateAuthUserinfoDidResponse
+     */
+    public function createAuthUserinfoDid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthUserinfoDidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务系统通过授权宝服务帮忙给C类用户创建did，此接口访问需预先在授权宝配置白名单开通。
+     * Summary: 给C类用户建did，需要指定user信息.
+     *
+     * @param CreateAuthUserinfoDidRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateAuthUserinfoDidResponse
+     */
+    public function createAuthUserinfoDidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthUserinfoDidResponse::fromMap($this->doRequest('1.0', 'baas.auth.userinfo.did.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 声明的持有者可以吊销一个已颁发的可验证声明(VC)
+     * Summary: 吊销已颁发声明.
+     *
+     * @param StartAuthVcRevokeRequest $request
+     *
+     * @return StartAuthVcRevokeResponse
+     */
+    public function startAuthVcRevoke($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcRevokeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 声明的持有者可以吊销一个已颁发的可验证声明(VC)
+     * Summary: 吊销已颁发声明.
+     *
+     * @param StartAuthVcRevokeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StartAuthVcRevokeResponse
+     */
+    public function startAuthVcRevokeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcRevokeResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.revoke.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将可验证声明内的数据资产内容赠送给目标的did
+     * Summary: 将vc赠送给一个目标did.
+     *
+     * @param StartAuthVcGiveRequest $request
+     *
+     * @return StartAuthVcGiveResponse
+     */
+    public function startAuthVcGive($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcGiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将可验证声明内的数据资产内容赠送给目标的did
+     * Summary: 将vc赠送给一个目标did.
+     *
+     * @param StartAuthVcGiveRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return StartAuthVcGiveResponse
+     */
+    public function startAuthVcGiveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcGiveResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.give.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供批量分享可验证声明到目标did
+     * Summary: 批量分享VC内容.
+     *
+     * @param StartAuthVcSharebatchRequest $request
+     *
+     * @return StartAuthVcSharebatchResponse
+     */
+    public function startAuthVcSharebatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcSharebatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供批量分享可验证声明到目标did
+     * Summary: 批量分享VC内容.
+     *
+     * @param StartAuthVcSharebatchRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return StartAuthVcSharebatchResponse
+     */
+    public function startAuthVcSharebatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcSharebatchResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.sharebatch.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 如果机构没有接入网关能力需要合作方代理在授权宝管理签名能力，可使用此接口。
+     * 初始申请创建此corp did的调用方，有权限申请签名。
+     * Summary: 代理签名.
+     *
+     * @param StartAuthCorporateSignRequest $request
+     *
+     * @return StartAuthCorporateSignResponse
+     */
+    public function startAuthCorporateSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthCorporateSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 如果机构没有接入网关能力需要合作方代理在授权宝管理签名能力，可使用此接口。
+     * 初始申请创建此corp did的调用方，有权限申请签名。
+     * Summary: 代理签名.
+     *
+     * @param StartAuthCorporateSignRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StartAuthCorporateSignResponse
+     */
+    public function startAuthCorporateSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthCorporateSignResponse::fromMap($this->doRequest('1.0', 'baas.auth.corporate.sign.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在一些业务场景，指定可验证声明之后，提交颁发可验证声明的操作。当前接口支持批量颁发声明，通常支持对多机构的数据授权。
+     * Summary: 批量给定声明内容颁发声明，并上链存证
+     *
+     * @param StartAuthVcBatchauthRequest $request
+     *
+     * @return StartAuthVcBatchauthResponse
+     */
+    public function startAuthVcBatchauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcBatchauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在一些业务场景，指定可验证声明之后，提交颁发可验证声明的操作。当前接口支持批量颁发声明，通常支持对多机构的数据授权。
+     * Summary: 批量给定声明内容颁发声明，并上链存证
+     *
+     * @param StartAuthVcBatchauthRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return StartAuthVcBatchauthResponse
+     */
+    public function startAuthVcBatchauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcBatchauthResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.batchauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将已颁发的可验证声明进行吊销，然后重新颁发一个新的可验证声明用于代替原有的业务语义的可验证声明。
+     * Summary: 将已颁发的可验证声明进行重置替换.
+     *
+     * @param StartAuthVcReplaceRequest $request
+     *
+     * @return StartAuthVcReplaceResponse
+     */
+    public function startAuthVcReplace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVcReplaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将已颁发的可验证声明进行吊销，然后重新颁发一个新的可验证声明用于代替原有的业务语义的可验证声明。
+     * Summary: 将已颁发的可验证声明进行重置替换.
+     *
+     * @param StartAuthVcReplaceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return StartAuthVcReplaceResponse
+     */
+    public function startAuthVcReplaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVcReplaceResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.replace.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送保单信息
+     * Summary: 推送保单信息.
+     *
+     * @param PushAuthInsurancePolicyRequest $request
+     *
+     * @return PushAuthInsurancePolicyResponse
+     */
+    public function pushAuthInsurancePolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushAuthInsurancePolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送保单信息
+     * Summary: 推送保单信息.
+     *
+     * @param PushAuthInsurancePolicyRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return PushAuthInsurancePolicyResponse
+     */
+    public function pushAuthInsurancePolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushAuthInsurancePolicyResponse::fromMap($this->doRequest('1.0', 'baas.auth.insurance.policy.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取前端sdk使用的token
+     * Summary: 获取前端sdk使用的token.
+     *
+     * @param GetAuthFrontendAccesstokenRequest $request
+     *
+     * @return GetAuthFrontendAccesstokenResponse
+     */
+    public function getAuthFrontendAccesstoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAuthFrontendAccesstokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取前端sdk使用的token
+     * Summary: 获取前端sdk使用的token.
+     *
+     * @param GetAuthFrontendAccesstokenRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return GetAuthFrontendAccesstokenResponse
+     */
+    public function getAuthFrontendAccesstokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAuthFrontendAccesstokenResponse::fromMap($this->doRequest('1.0', 'baas.auth.frontend.accesstoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取声明授权链接
+     * Summary: 获取声明授权链接.
+     *
+     * @param CreateAuthClaimUrlRequest $request
+     *
+     * @return CreateAuthClaimUrlResponse
+     */
+    public function createAuthClaimUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthClaimUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取声明授权链接
+     * Summary: 获取声明授权链接.
+     *
+     * @param CreateAuthClaimUrlRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateAuthClaimUrlResponse
+     */
+    public function createAuthClaimUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthClaimUrlResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.url.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 行驶证核身授权
+     * Summary: 授权宝个人信息授权，行驶证核身授权.
+     *
+     * @param StartAuthVerifyCarinfoRequest $request
+     *
+     * @return StartAuthVerifyCarinfoResponse
+     */
+    public function startAuthVerifyCarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVerifyCarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行驶证核身授权
+     * Summary: 授权宝个人信息授权，行驶证核身授权.
+     *
+     * @param StartAuthVerifyCarinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StartAuthVerifyCarinfoResponse
+     */
+    public function startAuthVerifyCarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVerifyCarinfoResponse::fromMap($this->doRequest('1.0', 'baas.auth.verify.carinfo.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 驾驶证相关信息核验并核身，并且结合授权宝完成授权。
+     * Summary: 授权宝个人信息授权，驾驶证核身授权.
+     *
+     * @param StartAuthVerifyDriverinfoRequest $request
+     *
+     * @return StartAuthVerifyDriverinfoResponse
+     */
+    public function startAuthVerifyDriverinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVerifyDriverinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 驾驶证相关信息核验并核身，并且结合授权宝完成授权。
+     * Summary: 授权宝个人信息授权，驾驶证核身授权.
+     *
+     * @param StartAuthVerifyDriverinfoRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartAuthVerifyDriverinfoResponse
+     */
+    public function startAuthVerifyDriverinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVerifyDriverinfoResponse::fromMap($this->doRequest('1.0', 'baas.auth.verify.driverinfo.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 检查车牌是否进行年检，当前状态，以及年检有效期止。
+     * Summary: 车检查询核验，目标车牌年检状态
+     *
+     * @param StartAuthVerifyCarinspectRequest $request
+     *
+     * @return StartAuthVerifyCarinspectResponse
+     */
+    public function startAuthVerifyCarinspect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAuthVerifyCarinspectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 检查车牌是否进行年检，当前状态，以及年检有效期止。
+     * Summary: 车检查询核验，目标车牌年检状态
+     *
+     * @param StartAuthVerifyCarinspectRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartAuthVerifyCarinspectResponse
+     */
+    public function startAuthVerifyCarinspectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAuthVerifyCarinspectResponse::fromMap($this->doRequest('1.0', 'baas.auth.verify.carinspect.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取授权声明模版
+     * Summary: 获取授权声明模版.
+     *
+     * @param GetAuthClaimTemplateRequest $request
+     *
+     * @return GetAuthClaimTemplateResponse
+     */
+    public function getAuthClaimTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAuthClaimTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取授权声明模版
+     * Summary: 获取授权声明模版.
+     *
+     * @param GetAuthClaimTemplateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return GetAuthClaimTemplateResponse
+     */
+    public function getAuthClaimTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAuthClaimTemplateResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.template.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过claim创建vc
+     * Summary: 通过claim创建vc.
+     *
+     * @param CreateAuthClaimVcRequest $request
+     *
+     * @return CreateAuthClaimVcResponse
+     */
+    public function createAuthClaimVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthClaimVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过claim创建vc
+     * Summary: 通过claim创建vc.
+     *
+     * @param CreateAuthClaimVcRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateAuthClaimVcResponse
+     */
+    public function createAuthClaimVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthClaimVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.vc.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询vc详情
+     * Summary: 查询vc详情.
+     *
+     * @param QueryAuthClaimVcRequest $request
+     *
+     * @return QueryAuthClaimVcResponse
+     */
+    public function queryAuthClaimVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthClaimVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询vc详情
+     * Summary: 查询vc详情.
+     *
+     * @param QueryAuthClaimVcRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryAuthClaimVcResponse
+     */
+    public function queryAuthClaimVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthClaimVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.vc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆投保日期查询(存量)
+     * Summary: 车辆投保日期查询(存量).
+     *
+     * @param QueryAuthVehicleinsuranceRequest $request
+     *
+     * @return QueryAuthVehicleinsuranceResponse
+     */
+    public function queryAuthVehicleinsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVehicleinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆投保日期查询(存量)
+     * Summary: 车辆投保日期查询(存量).
+     *
+     * @param QueryAuthVehicleinsuranceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryAuthVehicleinsuranceResponse
+     */
+    public function queryAuthVehicleinsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVehicleinsuranceResponse::fromMap($this->doRequest('1.0', 'baas.auth.vehicleinsurance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆投保日期查询(增量)
+     * Summary: 车辆投保日期查询(增量).
+     *
+     * @param QueryAuthVehicleinsuranceVcRequest $request
+     *
+     * @return QueryAuthVehicleinsuranceVcResponse
+     */
+    public function queryAuthVehicleinsuranceVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVehicleinsuranceVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆投保日期查询(增量)
+     * Summary: 车辆投保日期查询(增量).
+     *
+     * @param QueryAuthVehicleinsuranceVcRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAuthVehicleinsuranceVcResponse
+     */
+    public function queryAuthVehicleinsuranceVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVehicleinsuranceVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.vehicleinsurance.vc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过代理模式为企业创建did
+     * Summary: 通过代理模式为企业创建did.
+     *
+     * @param StartDidCorporateAgentcreateRequest $request
+     *
+     * @return StartDidCorporateAgentcreateResponse
+     */
+    public function startDidCorporateAgentcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateAgentcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过代理模式为企业创建did
+     * Summary: 通过代理模式为企业创建did.
+     *
+     * @param StartDidCorporateAgentcreateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return StartDidCorporateAgentcreateResponse
+     */
+    public function startDidCorporateAgentcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateAgentcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.agentcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过代理模式为个人创建did
+     * Summary: 通过代理模式为个人创建did.
+     *
+     * @param StartDidPersonAgentcreateRequest $request
+     *
+     * @return StartDidPersonAgentcreateResponse
+     */
+    public function startDidPersonAgentcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidPersonAgentcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过代理模式为个人创建did
+     * Summary: 通过代理模式为个人创建did.
+     *
+     * @param StartDidPersonAgentcreateRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidPersonAgentcreateResponse
+     */
+    public function startDidPersonAgentcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidPersonAgentcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.person.agentcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直接创建自己的企业did
+     * Summary: 直接创建自己的企业did.
+     *
+     * @param StartDidCorporateSelfcreateRequest $request
+     *
+     * @return StartDidCorporateSelfcreateResponse
+     */
+    public function startDidCorporateSelfcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateSelfcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直接创建自己的企业did
+     * Summary: 直接创建自己的企业did.
+     *
+     * @param StartDidCorporateSelfcreateRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return StartDidCorporateSelfcreateResponse
+     */
+    public function startDidCorporateSelfcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateSelfcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.selfcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直接创建自己的个人did
+     * Summary: 直接创建自己的个人did.
+     *
+     * @param StartDidPersonSelfcreateRequest $request
+     *
+     * @return StartDidPersonSelfcreateResponse
+     */
+    public function startDidPersonSelfcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidPersonSelfcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直接创建自己的个人did
+     * Summary: 直接创建自己的个人did.
+     *
+     * @param StartDidPersonSelfcreateRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidPersonSelfcreateResponse
+     */
+    public function startDidPersonSelfcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidPersonSelfcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.person.selfcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书
+     * Summary: 为指定did颁发证书.
+     *
+     * @param StartDidVerifiableclaimIssureRequest $request
+     *
+     * @return StartDidVerifiableclaimIssureResponse
+     */
+    public function startDidVerifiableclaimIssure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVerifiableclaimIssureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书
+     * Summary: 为指定did颁发证书.
+     *
+     * @param StartDidVerifiableclaimIssureRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartDidVerifiableclaimIssureResponse
+     */
+    public function startDidVerifiableclaimIssureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVerifiableclaimIssureResponse::fromMap($this->doRequest('1.0', 'baas.did.verifiableclaim.issure.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证可验证声明
+     * Summary: 验证可验证声明.
+     *
+     * @param StartDidVerifiableclaimVerifierRequest $request
+     *
+     * @return StartDidVerifiableclaimVerifierResponse
+     */
+    public function startDidVerifiableclaimVerifier($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVerifiableclaimVerifierEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证可验证声明
+     * Summary: 验证可验证声明.
+     *
+     * @param StartDidVerifiableclaimVerifierRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return StartDidVerifiableclaimVerifierResponse
+     */
+    public function startDidVerifiableclaimVerifierEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVerifiableclaimVerifierResponse::fromMap($this->doRequest('1.0', 'baas.did.verifiableclaim.verifier.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询did对应的doc
+     * Summary: 查询did对应的doc.
+     *
+     * @param QueryDidDocRequest $request
+     *
+     * @return QueryDidDocResponse
+     */
+    public function queryDidDoc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidDocEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询did对应的doc
+     * Summary: 查询did对应的doc.
+     *
+     * @param QueryDidDocRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryDidDocResponse
+     */
+    public function queryDidDocEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidDocResponse::fromMap($this->doRequest('1.0', 'baas.did.doc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新可验证声明状态
+     * Summary: 更新可验证声明状态
+     *
+     * @param UpdateDidVerifiableclaimStatusRequest $request
+     *
+     * @return UpdateDidVerifiableclaimStatusResponse
+     */
+    public function updateDidVerifiableclaimStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidVerifiableclaimStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新可验证声明状态
+     * Summary: 更新可验证声明状态
+     *
+     * @param UpdateDidVerifiableclaimStatusRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UpdateDidVerifiableclaimStatusResponse
+     */
+    public function updateDidVerifiableclaimStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidVerifiableclaimStatusResponse::fromMap($this->doRequest('1.0', 'baas.did.verifiableclaim.status.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户更新扩展字段中的扩展字段
+     * Summary: 更新doc service中的扩展字段.
+     *
+     * @param UpdateDidCorporateExtensionserviceRequest $request
+     *
+     * @return UpdateDidCorporateExtensionserviceResponse
+     */
+    public function updateDidCorporateExtensionservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidCorporateExtensionserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户更新扩展字段中的扩展字段
+     * Summary: 更新doc service中的扩展字段.
+     *
+     * @param UpdateDidCorporateExtensionserviceRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return UpdateDidCorporateExtensionserviceResponse
+     */
+    public function updateDidCorporateExtensionserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidCorporateExtensionserviceResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.extensionservice.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设置不通租户在DID中的不同扩展字段
+     * Summary: 设置不通租户在DID中的不同扩展字段.
+     *
+     * @param StartDidCorporateCustomerservicetypeRequest $request
+     *
+     * @return StartDidCorporateCustomerservicetypeResponse
+     */
+    public function startDidCorporateCustomerservicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateCustomerservicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设置不通租户在DID中的不同扩展字段
+     * Summary: 设置不通租户在DID中的不同扩展字段.
+     *
+     * @param StartDidCorporateCustomerservicetypeRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidCorporateCustomerservicetypeResponse
+     */
+    public function startDidCorporateCustomerservicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateCustomerservicetypeResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.customerservicetype.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三要素实名认证
+     * Summary: 三要素实名认证
+     *
+     * @param StartDidCertificationThreemetaRequest $request
+     *
+     * @return StartDidCertificationThreemetaResponse
+     */
+    public function startDidCertificationThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCertificationThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三要素实名认证
+     * Summary: 三要素实名认证
+     *
+     * @param StartDidCertificationThreemetaRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartDidCertificationThreemetaResponse
+     */
+    public function startDidCertificationThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCertificationThreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.certification.threemeta.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二要素实名认证
+     * Summary: 二要素实名认证
+     *
+     * @param StartDidCertificationTwometaRequest $request
+     *
+     * @return StartDidCertificationTwometaResponse
+     */
+    public function startDidCertificationTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCertificationTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二要素实名认证
+     * Summary: 二要素实名认证
+     *
+     * @param StartDidCertificationTwometaRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return StartDidCertificationTwometaResponse
+     */
+    public function startDidCertificationTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCertificationTwometaResponse::fromMap($this->doRequest('1.0', 'baas.did.certification.twometa.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过vcid查询vc内容
+     * Summary: 通过vcid查询vc内容.
+     *
+     * @param QueryDidVcRequest $request
+     *
+     * @return QueryDidVcResponse
+     */
+    public function queryDidVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过vcid查询vc内容
+     * Summary: 通过vcid查询vc内容.
+     *
+     * @param QueryDidVcRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryDidVcResponse
+     */
+    public function queryDidVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidVcResponse::fromMap($this->doRequest('1.0', 'baas.did.vc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     *
+     * @param StartDidIdentificationFaceauthRequest $request
+     *
+     * @return StartDidIdentificationFaceauthResponse
+     */
+    public function startDidIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     *
+     * @param StartDidIdentificationFaceauthRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartDidIdentificationFaceauthResponse
+     */
+    public function startDidIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果.
+     *
+     * @param QueryDidIdentificationFaceauthRequest $request
+     *
+     * @return QueryDidIdentificationFaceauthResponse
+     */
+    public function queryDidIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果.
+     *
+     * @param QueryDidIdentificationFaceauthRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDidIdentificationFaceauthResponse
+     */
+    public function queryDidIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户通过该接口订阅自己关心的did事件
+     * Summary: 订阅did事件服务
+     *
+     * @param StartDidNotificationConsumerRequest $request
+     *
+     * @return StartDidNotificationConsumerResponse
+     */
+    public function startDidNotificationConsumer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidNotificationConsumerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户通过该接口订阅自己关心的did事件
+     * Summary: 订阅did事件服务
+     *
+     * @param StartDidNotificationConsumerRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return StartDidNotificationConsumerResponse
+     */
+    public function startDidNotificationConsumerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidNotificationConsumerResponse::fromMap($this->doRequest('1.0', 'baas.did.notification.consumer.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 消费端在重启，或者需要重新拉之前的信息，需要调用这个接口重新注册
+     * Summary: 消费端重新启动.
+     *
+     * @param RebootDidNotificationConsumerRequest $request
+     *
+     * @return RebootDidNotificationConsumerResponse
+     */
+    public function rebootDidNotificationConsumer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rebootDidNotificationConsumerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 消费端在重启，或者需要重新拉之前的信息，需要调用这个接口重新注册
+     * Summary: 消费端重新启动.
+     *
+     * @param RebootDidNotificationConsumerRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return RebootDidNotificationConsumerResponse
+     */
+    public function rebootDidNotificationConsumerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RebootDidNotificationConsumerResponse::fromMap($this->doRequest('1.0', 'baas.did.notification.consumer.reboot', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 向Dis申请DID号
+     * Summary: 非托管模式下创建DID时，申请ID.
+     *
+     * @param InitDidCorporateDirectRequest $request
+     *
+     * @return InitDidCorporateDirectResponse
+     */
+    public function initDidCorporateDirect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidCorporateDirectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 向Dis申请DID号
+     * Summary: 非托管模式下创建DID时，申请ID.
+     *
+     * @param InitDidCorporateDirectRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return InitDidCorporateDirectResponse
+     */
+    public function initDidCorporateDirectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidCorporateDirectResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.direct.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送或者更新did doc
+     * Summary: 推送或者更新did doc.
+     *
+     * @param PushDidCorporateDirectRequest $request
+     *
+     * @return PushDidCorporateDirectResponse
+     */
+    public function pushDidCorporateDirect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDidCorporateDirectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送或者更新did doc
+     * Summary: 推送或者更新did doc.
+     *
+     * @param PushDidCorporateDirectRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PushDidCorporateDirectResponse
+     */
+    public function pushDidCorporateDirectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDidCorporateDirectResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.direct.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业申请did
+     * Summary: 申请did.
+     *
+     * @param InitDidCorporateIdentityRequest $request
+     *
+     * @return InitDidCorporateIdentityResponse
+     */
+    public function initDidCorporateIdentity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidCorporateIdentityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业申请did
+     * Summary: 申请did.
+     *
+     * @param InitDidCorporateIdentityRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDidCorporateIdentityResponse
+     */
+    public function initDidCorporateIdentityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidCorporateIdentityResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.identity.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对authchallenge进行响应
+     * Summary: 对authchallenge进行响应.
+     *
+     * @param StartDidAgentChallengeresponseRequest $request
+     *
+     * @return StartDidAgentChallengeresponseResponse
+     */
+    public function startDidAgentChallengeresponse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAgentChallengeresponseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对authchallenge进行响应
+     * Summary: 对authchallenge进行响应.
+     *
+     * @param StartDidAgentChallengeresponseRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartDidAgentChallengeresponseResponse
+     */
+    public function startDidAgentChallengeresponseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAgentChallengeresponseResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.challengeresponse.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证Auth Response有效性接口
+     * Summary: 验证Auth Response有效性.
+     *
+     * @param StartDidAgentVerifyauthresponseRequest $request
+     *
+     * @return StartDidAgentVerifyauthresponseResponse
+     */
+    public function startDidAgentVerifyauthresponse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAgentVerifyauthresponseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证Auth Response有效性接口
+     * Summary: 验证Auth Response有效性.
+     *
+     * @param StartDidAgentVerifyauthresponseRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return StartDidAgentVerifyauthresponseResponse
+     */
+    public function startDidAgentVerifyauthresponseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAgentVerifyauthresponseResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.verifyauthresponse.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 脱敏身份验证
+     * Summary: 脱敏身份验证
+     *
+     * @param StartDidCertificationMaskRequest $request
+     *
+     * @return StartDidCertificationMaskResponse
+     */
+    public function startDidCertificationMask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCertificationMaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 脱敏身份验证
+     * Summary: 脱敏身份验证
+     *
+     * @param StartDidCertificationMaskRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidCertificationMaskResponse
+     */
+    public function startDidCertificationMaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCertificationMaskResponse::fromMap($this->doRequest('1.0', 'baas.did.certification.mask.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 管理员为租户开通did服务
+     * Summary: 管理员为租户开通did服务
+     *
+     * @param OpenDidAdminServiceRequest $request
+     *
+     * @return OpenDidAdminServiceResponse
+     */
+    public function openDidAdminService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openDidAdminServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 管理员为租户开通did服务
+     * Summary: 管理员为租户开通did服务
+     *
+     * @param OpenDidAdminServiceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return OpenDidAdminServiceResponse
+     */
+    public function openDidAdminServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenDidAdminServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.admin.service.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 针对指定租户关闭dis服务
+     * Summary: 针对指定租户关闭dis服务
+     *
+     * @param StopDidAdminServiceRequest $request
+     *
+     * @return StopDidAdminServiceResponse
+     */
+    public function stopDidAdminService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopDidAdminServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 针对指定租户关闭dis服务
+     * Summary: 针对指定租户关闭dis服务
+     *
+     * @param StopDidAdminServiceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return StopDidAdminServiceResponse
+     */
+    public function stopDidAdminServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopDidAdminServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.admin.service.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为被托管人进行代理签名
+     * Summary: 为被托管人进行代理签名.
+     *
+     * @param StartDidSignatureAgentRequest $request
+     *
+     * @return StartDidSignatureAgentResponse
+     */
+    public function startDidSignatureAgent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidSignatureAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为被托管人进行代理签名
+     * Summary: 为被托管人进行代理签名.
+     *
+     * @param StartDidSignatureAgentRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StartDidSignatureAgentResponse
+     */
+    public function startDidSignatureAgentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidSignatureAgentResponse::fromMap($this->doRequest('1.0', 'baas.did.signature.agent.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对字符串进行验签
+     * Summary: 对字符串进行验签.
+     *
+     * @param CheckDidSignRequest $request
+     *
+     * @return CheckDidSignResponse
+     */
+    public function checkDidSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkDidSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对字符串进行验签
+     * Summary: 对字符串进行验签.
+     *
+     * @param CheckDidSignRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return CheckDidSignResponse
+     */
+    public function checkDidSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckDidSignResponse::fromMap($this->doRequest('1.0', 'baas.did.sign.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据用户指定路径，展示部分可见的声明，并可以被验证
+     * Summary: 根据用户指定路径，展示部分可见声明.
+     *
+     * @param StartDidZkpverifiableclaimVisibilityRequest $request
+     *
+     * @return StartDidZkpverifiableclaimVisibilityResponse
+     */
+    public function startDidZkpverifiableclaimVisibility($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidZkpverifiableclaimVisibilityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据用户指定路径，展示部分可见的声明，并可以被验证
+     * Summary: 根据用户指定路径，展示部分可见声明.
+     *
+     * @param StartDidZkpverifiableclaimVisibilityRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidZkpverifiableclaimVisibilityResponse
+     */
+    public function startDidZkpverifiableclaimVisibilityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidZkpverifiableclaimVisibilityResponse::fromMap($this->doRequest('1.0', 'baas.did.zkpverifiableclaim.visibility.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为指定did添加外键关联，该接口必须被did自己调用或者did的认证密钥管理人调用。
+     * Summary: 为指定did添加外键关联.
+     *
+     * @param StartDidAgentSidekeyRequest $request
+     *
+     * @return StartDidAgentSidekeyResponse
+     */
+    public function startDidAgentSidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAgentSidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为指定did添加外键关联，该接口必须被did自己调用或者did的认证密钥管理人调用。
+     * Summary: 为指定did添加外键关联.
+     *
+     * @param StartDidAgentSidekeyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return StartDidAgentSidekeyResponse
+     */
+    public function startDidAgentSidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAgentSidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.sidekey.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为指定did更新外键关联，该接口必须被did自己调用或者did的认证密钥管理人调用。
+     * Summary: 更新指定did的外键.
+     *
+     * @param UpdateDidAgentSidekeyRequest $request
+     *
+     * @return UpdateDidAgentSidekeyResponse
+     */
+    public function updateDidAgentSidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidAgentSidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为指定did更新外键关联，该接口必须被did自己调用或者did的认证密钥管理人调用。
+     * Summary: 更新指定did的外键.
+     *
+     * @param UpdateDidAgentSidekeyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return UpdateDidAgentSidekeyResponse
+     */
+    public function updateDidAgentSidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidAgentSidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.sidekey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代理创建did并创建外键
+     * Summary: 代理创建did并创建外键.
+     *
+     * @param StartDidCorporateAgentcreatewithsidekeyRequest $request
+     *
+     * @return StartDidCorporateAgentcreatewithsidekeyResponse
+     */
+    public function startDidCorporateAgentcreatewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateAgentcreatewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代理创建did并创建外键
+     * Summary: 代理创建did并创建外键.
+     *
+     * @param StartDidCorporateAgentcreatewithsidekeyRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return StartDidCorporateAgentcreatewithsidekeyResponse
+     */
+    public function startDidCorporateAgentcreatewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateAgentcreatewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.agentcreatewithsidekey.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新doc 中的扩展字段并更新外键
+     * Summary: 更新doc 中的扩展字段并更新外键.
+     *
+     * @param UpdateDidCorporateExtensionservicewithsidekeyRequest $request
+     *
+     * @return UpdateDidCorporateExtensionservicewithsidekeyResponse
+     */
+    public function updateDidCorporateExtensionservicewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidCorporateExtensionservicewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新doc 中的扩展字段并更新外键
+     * Summary: 更新doc 中的扩展字段并更新外键.
+     *
+     * @param UpdateDidCorporateExtensionservicewithsidekeyRequest $request
+     * @param string[]                                             $headers
+     * @param RuntimeOptions                                       $runtime
+     *
+     * @return UpdateDidCorporateExtensionservicewithsidekeyResponse
+     */
+    public function updateDidCorporateExtensionservicewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidCorporateExtensionservicewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.extensionservicewithsidekey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过sidekey方式查询对应doc
+     * Summary: 通过sidekey方式查询对应doc.
+     *
+     * @param QueryDidDocSidekeyRequest $request
+     *
+     * @return QueryDidDocSidekeyResponse
+     */
+    public function queryDidDocSidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidDocSidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过sidekey方式查询对应doc
+     * Summary: 通过sidekey方式查询对应doc.
+     *
+     * @param QueryDidDocSidekeyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDidDocSidekeyResponse
+     */
+    public function queryDidDocSidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidDocSidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.doc.sidekey.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代理创建个人did并创建外键
+     * Summary: 代理创建个人did并创建外键.
+     *
+     * @param StartDidPersonAgentcreatewithsidekeyRequest $request
+     *
+     * @return StartDidPersonAgentcreatewithsidekeyResponse
+     */
+    public function startDidPersonAgentcreatewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidPersonAgentcreatewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代理创建个人did并创建外键
+     * Summary: 代理创建个人did并创建外键.
+     *
+     * @param StartDidPersonAgentcreatewithsidekeyRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidPersonAgentcreatewithsidekeyResponse
+     */
+    public function startDidPersonAgentcreatewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidPersonAgentcreatewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.person.agentcreatewithsidekey.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代理创建IOT did
+     * Summary: 代理创建IOT did.
+     *
+     * @param StartDidIotAgentcreateRequest $request
+     *
+     * @return StartDidIotAgentcreateResponse
+     */
+    public function startDidIotAgentcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidIotAgentcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代理创建IOT did
+     * Summary: 代理创建IOT did.
+     *
+     * @param StartDidIotAgentcreateRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StartDidIotAgentcreateResponse
+     */
+    public function startDidIotAgentcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidIotAgentcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.iot.agentcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代理创建IOT did并创建外键
+     * Summary: 代理创建IOT did并创建外键.
+     *
+     * @param StartDidIotAgentcreatewithsidekeyRequest $request
+     *
+     * @return StartDidIotAgentcreatewithsidekeyResponse
+     */
+    public function startDidIotAgentcreatewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidIotAgentcreatewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代理创建IOT did并创建外键
+     * Summary: 代理创建IOT did并创建外键.
+     *
+     * @param StartDidIotAgentcreatewithsidekeyRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return StartDidIotAgentcreatewithsidekeyResponse
+     */
+    public function startDidIotAgentcreatewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidIotAgentcreatewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.iot.agentcreatewithsidekey.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新IOT类did的扩展字段并更新外键
+     * Summary: 更新IOT类did的扩展字段并更新外键.
+     *
+     * @param UpdateDidIotExtensionservicewithsidekeyRequest $request
+     *
+     * @return UpdateDidIotExtensionservicewithsidekeyResponse
+     */
+    public function updateDidIotExtensionservicewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidIotExtensionservicewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新IOT类did的扩展字段并更新外键
+     * Summary: 更新IOT类did的扩展字段并更新外键.
+     *
+     * @param UpdateDidIotExtensionservicewithsidekeyRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return UpdateDidIotExtensionservicewithsidekeyResponse
+     */
+    public function updateDidIotExtensionservicewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidIotExtensionservicewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.iot.extensionservicewithsidekey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新个人did中的扩展字段并更新外键
+     * Summary: 更新个人did中的扩展字段并更新外键.
+     *
+     * @param UpdateDidPersonExtensionservicewithsidekeyRequest $request
+     *
+     * @return UpdateDidPersonExtensionservicewithsidekeyResponse
+     */
+    public function updateDidPersonExtensionservicewithsidekey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidPersonExtensionservicewithsidekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新个人did中的扩展字段并更新外键
+     * Summary: 更新个人did中的扩展字段并更新外键.
+     *
+     * @param UpdateDidPersonExtensionservicewithsidekeyRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return UpdateDidPersonExtensionservicewithsidekeyResponse
+     */
+    public function updateDidPersonExtensionservicewithsidekeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidPersonExtensionservicewithsidekeyResponse::fromMap($this->doRequest('1.0', 'baas.did.person.extensionservicewithsidekey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+     * Summary: 通过个人三要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWiththreemetaRequest $request
+     *
+     * @return CreateDidPersonWiththreemetaResponse
+     */
+    public function createDidPersonWiththreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidPersonWiththreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+     * Summary: 通过个人三要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWiththreemetaRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateDidPersonWiththreemetaResponse
+     */
+    public function createDidPersonWiththreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidPersonWiththreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWiththreemetaRequest $request
+     *
+     * @return CreateDidCorporateWiththreemetaResponse
+     */
+    public function createDidCorporateWiththreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidCorporateWiththreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWiththreemetaRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateDidCorporateWiththreemetaResponse
+     */
+    public function createDidCorporateWiththreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidCorporateWiththreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。
+     * 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+     * Summary: 指定did颁发证书，并存储.
+     *
+     * @param StartDidVcrepositoryIssueRequest $request
+     *
+     * @return StartDidVcrepositoryIssueResponse
+     */
+    public function startDidVcrepositoryIssue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryIssueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。
+     * 支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+     * Summary: 指定did颁发证书，并存储.
+     *
+     * @param StartDidVcrepositoryIssueRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidVcrepositoryIssueResponse
+     */
+    public function startDidVcrepositoryIssueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryIssueResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来读取目标VC内容，如果调用方不知道目标VC的verifiable_claim_id，则通过配置目标VC的subject_did、issuer_did 和 过滤字段来查询并读取。
+     * 如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * Summary: 读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryReadRequest $request
+     *
+     * @return StartDidVcrepositoryReadResponse
+     */
+    public function startDidVcrepositoryRead($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryReadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来读取目标VC内容，如果调用方不知道目标VC的verifiable_claim_id，则通过配置目标VC的subject_did、issuer_did 和 过滤字段来查询并读取。
+     * 如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * Summary: 读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryReadRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidVcrepositoryReadResponse
+     */
+    public function startDidVcrepositoryReadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryReadResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.read.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用者需是目标VC的拥有者，也就是目标VC内容中的subject。
+     * 授权新的did读取目标VC的权限。
+     * Summary: 对已有vc新增授权did.
+     *
+     * @param StartDidVcrepositoryAuthRequest $request
+     *
+     * @return StartDidVcrepositoryAuthResponse
+     */
+    public function startDidVcrepositoryAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用者需是目标VC的拥有者，也就是目标VC内容中的subject。
+     * 授权新的did读取目标VC的权限。
+     * Summary: 对已有vc新增授权did.
+     *
+     * @param StartDidVcrepositoryAuthRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidVcrepositoryAuthResponse
+     */
+    public function startDidVcrepositoryAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryAuthResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.auth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过配置目标VC的subject_did 和 过滤字段来查询并读取。
+     * 如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * Summary: 查询过滤并读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryFilterandreadRequest $request
+     *
+     * @return StartDidVcrepositoryFilterandreadResponse
+     */
+    public function startDidVcrepositoryFilterandread($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryFilterandreadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过配置目标VC的subject_did 和 过滤字段来查询并读取。
+     * 如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * Summary: 查询过滤并读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryFilterandreadRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return StartDidVcrepositoryFilterandreadResponse
+     */
+    public function startDidVcrepositoryFilterandreadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryFilterandreadResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.filterandread.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来读取目标VC内容，如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * 注意通常verifiable_claim_id是“vc:mychain:”为前缀。
+     * Summary: 通过vcid读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryReadwithvcidRequest $request
+     *
+     * @return StartDidVcrepositoryReadwithvcidResponse
+     */
+    public function startDidVcrepositoryReadwithvcid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryReadwithvcidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来读取目标VC内容，如果调用者不在目标VC的授权名单中，则无法读取目标VC内容。
+     * 注意通常verifiable_claim_id是“vc:mychain:”为前缀。
+     * Summary: 通过vcid读取目标证书数据.
+     *
+     * @param StartDidVcrepositoryReadwithvcidRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return StartDidVcrepositoryReadwithvcidResponse
+     */
+    public function startDidVcrepositoryReadwithvcidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryReadwithvcidResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.readwithvcid.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 如果业务方在颁发证书VC时，使用了自定义的verifiable_claim_id，则使用此id来读取目标证书内容。
+     * 注意：通常自定义的verifiable_claim_id，不是“vc:mychain:”前缀开始。
+     * Summary: 通过自定义id读取目标证书内容.
+     *
+     * @param StartDidVcrepositoryReadwithdefineidRequest $request
+     *
+     * @return StartDidVcrepositoryReadwithdefineidResponse
+     */
+    public function startDidVcrepositoryReadwithdefineid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryReadwithdefineidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 如果业务方在颁发证书VC时，使用了自定义的verifiable_claim_id，则使用此id来读取目标证书内容。
+     * 注意：通常自定义的verifiable_claim_id，不是“vc:mychain:”前缀开始。
+     * Summary: 通过自定义id读取目标证书内容.
+     *
+     * @param StartDidVcrepositoryReadwithdefineidRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidVcrepositoryReadwithdefineidResponse
+     */
+    public function startDidVcrepositoryReadwithdefineidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryReadwithdefineidResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.readwithdefineid.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来找到目标VC内容并追加授权did列表，只有调用者是目标VC的subject才能操作。 注意通常verifiable_claim_id是“vc:mychain:”为前缀。
+     * Summary: 通过vcid对目标证书追加授权.
+     *
+     * @param StartDidVcrepositoryAuthwithvcidRequest $request
+     *
+     * @return StartDidVcrepositoryAuthwithvcidResponse
+     */
+    public function startDidVcrepositoryAuthwithvcid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryAuthwithvcidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过提供verifiable_claim_id来找到目标VC内容并追加授权did列表，只有调用者是目标VC的subject才能操作。 注意通常verifiable_claim_id是“vc:mychain:”为前缀。
+     * Summary: 通过vcid对目标证书追加授权.
+     *
+     * @param StartDidVcrepositoryAuthwithvcidRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return StartDidVcrepositoryAuthwithvcidResponse
+     */
+    public function startDidVcrepositoryAuthwithvcidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryAuthwithvcidResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.authwithvcid.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过提供业务方自定义id来找到目标VC内容并追加授权did列表，只有调用者是目标VC的subject才能操作。 注意通常自定义id不是“vc:mychain:”前缀。
+     * Summary: 通过自定义id对目标证书追加授权.
+     *
+     * @param StartDidVcrepositoryAuthwithdefineidRequest $request
+     *
+     * @return StartDidVcrepositoryAuthwithdefineidResponse
+     */
+    public function startDidVcrepositoryAuthwithdefineid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryAuthwithdefineidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过提供业务方自定义id来找到目标VC内容并追加授权did列表，只有调用者是目标VC的subject才能操作。 注意通常自定义id不是“vc:mychain:”前缀。
+     * Summary: 通过自定义id对目标证书追加授权.
+     *
+     * @param StartDidVcrepositoryAuthwithdefineidRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidVcrepositoryAuthwithdefineidResponse
+     */
+    public function startDidVcrepositoryAuthwithdefineidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryAuthwithdefineidResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.authwithdefineid.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型.
+     *
+     * @param StartDidAgentServicetypeRequest $request
+     *
+     * @return StartDidAgentServicetypeResponse
+     */
+    public function startDidAgentServicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAgentServicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型.
+     *
+     * @param StartDidAgentServicetypeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidAgentServicetypeResponse
+     */
+    public function startDidAgentServicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAgentServicetypeResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义.
+     *
+     * @param QueryDidAgentServicetypeRequest $request
+     *
+     * @return QueryDidAgentServicetypeResponse
+     */
+    public function queryDidAgentServicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidAgentServicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义.
+     *
+     * @param QueryDidAgentServicetypeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDidAgentServicetypeResponse
+     */
+    public function queryDidAgentServicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidAgentServicetypeResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代理模式下更新企业did doc中service中的字段
+     * Summary: 代理更新企业did中的services.
+     *
+     * @param UpdateDidServicesRequest $request
+     *
+     * @return UpdateDidServicesResponse
+     */
+    public function updateDidServices($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidServicesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代理模式下更新企业did doc中service中的字段
+     * Summary: 代理更新企业did中的services.
+     *
+     * @param UpdateDidServicesRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateDidServicesResponse
+     */
+    public function updateDidServicesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidServicesResponse::fromMap($this->doRequest('1.0', 'baas.did.services.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 服务发现
+     * Summary: 服务发现.
+     *
+     * @param QueryDidAgentServicediscoveryRequest $request
+     *
+     * @return QueryDidAgentServicediscoveryResponse
+     */
+    public function queryDidAgentServicediscovery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidAgentServicediscoveryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 服务发现
+     * Summary: 服务发现.
+     *
+     * @param QueryDidAgentServicediscoveryRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDidAgentServicediscoveryResponse
+     */
+    public function queryDidAgentServicediscoveryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidAgentServicediscoveryResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.servicediscovery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为指定did颁发证书,并将保存到对应仓库
+     * Summary: 为指定did颁发证书,并将保存到对应仓库.
+     *
+     * @param StartDidVerifiableclaimIssuerandsaveRequest $request
+     *
+     * @return StartDidVerifiableclaimIssuerandsaveResponse
+     */
+    public function startDidVerifiableclaimIssuerandsave($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVerifiableclaimIssuerandsaveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为指定did颁发证书,并将保存到对应仓库
+     * Summary: 为指定did颁发证书,并将保存到对应仓库.
+     *
+     * @param StartDidVerifiableclaimIssuerandsaveRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidVerifiableclaimIssuerandsaveResponse
+     */
+    public function startDidVerifiableclaimIssuerandsaveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVerifiableclaimIssuerandsaveResponse::fromMap($this->doRequest('1.0', 'baas.did.verifiableclaim.issuerandsave.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过agent代理通过VC Repo进行VC传输
+     * Summary: 通过agent代理进行VC传输.
+     *
+     * @param StartDidVcrepositoryVctransmitRequest $request
+     *
+     * @return StartDidVcrepositoryVctransmitResponse
+     */
+    public function startDidVcrepositoryVctransmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidVcrepositoryVctransmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过agent代理通过VC Repo进行VC传输
+     * Summary: 通过agent代理进行VC传输.
+     *
+     * @param StartDidVcrepositoryVctransmitRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartDidVcrepositoryVctransmitResponse
+     */
+    public function startDidVcrepositoryVctransmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidVcrepositoryVctransmitResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.vctransmit.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+     * Summary: 通过个人二要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWithtwometaRequest $request
+     *
+     * @return CreateDidPersonWithtwometaResponse
+     */
+    public function createDidPersonWithtwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidPersonWithtwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+     * Summary: 通过个人二要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWithtwometaRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateDidPersonWithtwometaResponse
+     */
+    public function createDidPersonWithtwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidPersonWithtwometaResponse::fromMap($this->doRequest('1.0', 'baas.did.person.withtwometa.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWithtwometaRequest $request
+     *
+     * @return CreateDidCorporateWithtwometaResponse
+     */
+    public function createDidCorporateWithtwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidCorporateWithtwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWithtwometaRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateDidCorporateWithtwometaResponse
+     */
+    public function createDidCorporateWithtwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidCorporateWithtwometaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWithfourmetaRequest $request
+     *
+     * @return CreateDidCorporateWithfourmetaResponse
+     */
+    public function createDidCorporateWithfourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidCorporateWithfourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did.
+     *
+     * @param CreateDidCorporateWithfourmetaRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateDidCorporateWithfourmetaResponse
+     */
+    public function createDidCorporateWithfourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidCorporateWithfourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过个人四要素验证后创建个人did
+     * Summary: 通过个人四要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWithfourmetaRequest $request
+     *
+     * @return CreateDidPersonWithfourmetaResponse
+     */
+    public function createDidPersonWithfourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidPersonWithfourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过个人四要素验证后创建个人did
+     * Summary: 通过个人四要素验证后创建个人did.
+     *
+     * @param CreateDidPersonWithfourmetaRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateDidPersonWithfourmetaResponse
+     */
+    public function createDidPersonWithfourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidPersonWithfourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对did进行企业二要素实名认证
+     * Summary: 对did进行企业二要素实名认证
+     *
+     * @param StartDidCorporateTwometaRequest $request
+     *
+     * @return StartDidCorporateTwometaResponse
+     */
+    public function startDidCorporateTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对did进行企业二要素实名认证
+     * Summary: 对did进行企业二要素实名认证
+     *
+     * @param StartDidCorporateTwometaRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidCorporateTwometaResponse
+     */
+    public function startDidCorporateTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateTwometaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.twometa.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对did进行企业三要素实名认证
+     * Summary: 对did进行企业三要素实名认证
+     *
+     * @param StartDidCorporateThreemetaRequest $request
+     *
+     * @return StartDidCorporateThreemetaResponse
+     */
+    public function startDidCorporateThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对did进行企业三要素实名认证
+     * Summary: 对did进行企业三要素实名认证
+     *
+     * @param StartDidCorporateThreemetaRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return StartDidCorporateThreemetaResponse
+     */
+    public function startDidCorporateThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateThreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.threemeta.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对did进行企业四要素实名认证
+     * Summary: 对did进行企业四要素实名认证
+     *
+     * @param StartDidCorporateFourmetaRequest $request
+     *
+     * @return StartDidCorporateFourmetaResponse
+     */
+    public function startDidCorporateFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对did进行企业四要素实名认证
+     * Summary: 对did进行企业四要素实名认证
+     *
+     * @param StartDidCorporateFourmetaRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidCorporateFourmetaResponse
+     */
+    public function startDidCorporateFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateFourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.fourmeta.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 四要素实名认证
+     * Summary: 四要素实名认证
+     *
+     * @param StartDidCertificationFourmetaRequest $request
+     *
+     * @return StartDidCertificationFourmetaResponse
+     */
+    public function startDidCertificationFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCertificationFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 四要素实名认证
+     * Summary: 四要素实名认证
+     *
+     * @param StartDidCertificationFourmetaRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartDidCertificationFourmetaResponse
+     */
+    public function startDidCertificationFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCertificationFourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.certification.fourmeta.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 模糊查询VC列表
+     * Summary: 模糊查询vc.
+     *
+     * @param QueryDidVcrepositoryFuzzyquerywithdefinedidRequest $request
+     *
+     * @return QueryDidVcrepositoryFuzzyquerywithdefinedidResponse
+     */
+    public function queryDidVcrepositoryFuzzyquerywithdefinedid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidVcrepositoryFuzzyquerywithdefinedidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 模糊查询VC列表
+     * Summary: 模糊查询vc.
+     *
+     * @param QueryDidVcrepositoryFuzzyquerywithdefinedidRequest $request
+     * @param string[]                                           $headers
+     * @param RuntimeOptions                                     $runtime
+     *
+     * @return QueryDidVcrepositoryFuzzyquerywithdefinedidResponse
+     */
+    public function queryDidVcrepositoryFuzzyquerywithdefinedidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidVcrepositoryFuzzyquerywithdefinedidResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.fuzzyquerywithdefinedid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过代理模式为普通账号创建did
+     * Summary: 通过代理模式为普通账号创建did.
+     *
+     * @param StartDidCommonAgentcreateRequest $request
+     *
+     * @return StartDidCommonAgentcreateResponse
+     */
+    public function startDidCommonAgentcreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCommonAgentcreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过代理模式为普通账号创建did
+     * Summary: 通过代理模式为普通账号创建did.
+     *
+     * @param StartDidCommonAgentcreateRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidCommonAgentcreateResponse
+     */
+    public function startDidCommonAgentcreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCommonAgentcreateResponse::fromMap($this->doRequest('1.0', 'baas.did.common.agentcreate.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     *
+     * @param StartDidCorporateFaceauthRequest $request
+     *
+     * @return StartDidCorporateFaceauthResponse
+     */
+    public function startDidCorporateFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCorporateFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     *
+     * @param StartDidCorporateFaceauthRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartDidCorporateFaceauthResponse
+     */
+    public function startDidCorporateFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCorporateFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果.
+     *
+     * @param QueryDidCorporateFaceauthRequest $request
+     *
+     * @return QueryDidCorporateFaceauthResponse
+     */
+    public function queryDidCorporateFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidCorporateFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果.
+     *
+     * @param QueryDidCorporateFaceauthRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDidCorporateFaceauthResponse
+     */
+    public function queryDidCorporateFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidCorporateFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户删除不需要的VC
+     * Summary: 用户删除不需要的vc.
+     *
+     * @param DeleteDidVcrepositoryVcRequest $request
+     *
+     * @return DeleteDidVcrepositoryVcResponse
+     */
+    public function deleteDidVcrepositoryVc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDidVcrepositoryVcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户删除不需要的VC
+     * Summary: 用户删除不需要的vc.
+     *
+     * @param DeleteDidVcrepositoryVcRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteDidVcrepositoryVcResponse
+     */
+    public function deleteDidVcrepositoryVcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDidVcrepositoryVcResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.vc.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:  构造包含零知识 字段的VC
+     * Summary: 构造零知识证明的VC.
+     *
+     * @param StartDidZkpverifiableclaimProofRequest $request
+     *
+     * @return StartDidZkpverifiableclaimProofResponse
+     */
+    public function startDidZkpverifiableclaimProof($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidZkpverifiableclaimProofEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:  构造包含零知识 字段的VC
+     * Summary: 构造零知识证明的VC.
+     *
+     * @param StartDidZkpverifiableclaimProofRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return StartDidZkpverifiableclaimProofResponse
+     */
+    public function startDidZkpverifiableclaimProofEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidZkpverifiableclaimProofResponse::fromMap($this->doRequest('1.0', 'baas.did.zkpverifiableclaim.proof.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证包含ZKP Proof的VC
+     * Summary: 验证包含ZKP Proof的VC.
+     *
+     * @param VerifyDidZkpverifiableclaimProofRequest $request
+     *
+     * @return VerifyDidZkpverifiableclaimProofResponse
+     */
+    public function verifyDidZkpverifiableclaimProof($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyDidZkpverifiableclaimProofEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证包含ZKP Proof的VC
+     * Summary: 验证包含ZKP Proof的VC.
+     *
+     * @param VerifyDidZkpverifiableclaimProofRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return VerifyDidZkpverifiableclaimProofResponse
+     */
+    public function verifyDidZkpverifiableclaimProofEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyDidZkpverifiableclaimProofResponse::fromMap($this->doRequest('1.0', 'baas.did.zkpverifiableclaim.proof.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据隐私服务合作方入驻接口
+     * Summary: 数据隐私服务合作方入驻接口.
+     *
+     * @param StartMydidcommunAgencySettleinRequest $request
+     *
+     * @return StartMydidcommunAgencySettleinResponse
+     */
+    public function startMydidcommunAgencySettlein($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencySettleinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据隐私服务合作方入驻接口
+     * Summary: 数据隐私服务合作方入驻接口.
+     *
+     * @param StartMydidcommunAgencySettleinRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartMydidcommunAgencySettleinResponse
+     */
+    public function startMydidcommunAgencySettleinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencySettleinResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.settlein.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构选择tapp接口
+     * Summary: 数据隐私服务合作机构选择tapp接口.
+     *
+     * @param StartMydidcommunAgencyChoicetappRequest $request
+     *
+     * @return StartMydidcommunAgencyChoicetappResponse
+     */
+    public function startMydidcommunAgencyChoicetapp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyChoicetappEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构选择tapp接口
+     * Summary: 数据隐私服务合作机构选择tapp接口.
+     *
+     * @param StartMydidcommunAgencyChoicetappRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return StartMydidcommunAgencyChoicetappResponse
+     */
+    public function startMydidcommunAgencyChoicetappEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyChoicetappResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.choicetapp.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构下个人用户入驻接口
+     * Summary: 数据隐私服务合作机构下个人用户入驻接口.
+     *
+     * @param StartMydidcommunAgencyuserPersonjoinRequest $request
+     *
+     * @return StartMydidcommunAgencyuserPersonjoinResponse
+     */
+    public function startMydidcommunAgencyuserPersonjoin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyuserPersonjoinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构下个人用户入驻接口
+     * Summary: 数据隐私服务合作机构下个人用户入驻接口.
+     *
+     * @param StartMydidcommunAgencyuserPersonjoinRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartMydidcommunAgencyuserPersonjoinResponse
+     */
+    public function startMydidcommunAgencyuserPersonjoinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyuserPersonjoinResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agencyuser.personjoin.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构下企业用户入驻接口
+     * Summary: 数据隐私服务合作机构下企业用户入驻接口.
+     *
+     * @param StartMydidcommunAgencyuserCorporatejoinRequest $request
+     *
+     * @return StartMydidcommunAgencyuserCorporatejoinResponse
+     */
+    public function startMydidcommunAgencyuserCorporatejoin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyuserCorporatejoinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据隐私服务合作机构下企业用户入驻接口
+     * Summary: 数据隐私服务合作机构下企业用户入驻接口.
+     *
+     * @param StartMydidcommunAgencyuserCorporatejoinRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return StartMydidcommunAgencyuserCorporatejoinResponse
+     */
+    public function startMydidcommunAgencyuserCorporatejoinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyuserCorporatejoinResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agencyuser.corporatejoin.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新doc service接口
+     * Summary: 更新doc service接口.
+     *
+     * @param UpdateMydidcommunAgencyDocRequest $request
+     *
+     * @return UpdateMydidcommunAgencyDocResponse
+     */
+    public function updateMydidcommunAgencyDoc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMydidcommunAgencyDocEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新doc service接口
+     * Summary: 更新doc service接口.
+     *
+     * @param UpdateMydidcommunAgencyDocRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateMydidcommunAgencyDocResponse
+     */
+    public function updateMydidcommunAgencyDocEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMydidcommunAgencyDocResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.doc.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主动发起数据传输流程请求
+     * Summary: 主动发起数据安全传输流程.
+     *
+     * @param StartMydidcommunAgencyDatatransmitstartRequest $request
+     *
+     * @return StartMydidcommunAgencyDatatransmitstartResponse
+     */
+    public function startMydidcommunAgencyDatatransmitstart($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyDatatransmitstartEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主动发起数据传输流程请求
+     * Summary: 主动发起数据安全传输流程.
+     *
+     * @param StartMydidcommunAgencyDatatransmitstartRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return StartMydidcommunAgencyDatatransmitstartResponse
+     */
+    public function startMydidcommunAgencyDatatransmitstartEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyDatatransmitstartResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.datatransmitstart.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 继续触发主动发起数据安全传输流程
+     * Summary: 继续触发主动发起数据安全传输流程.
+     *
+     * @param StartMydidcommunAgencyDatatransmitcontinueRequest $request
+     *
+     * @return StartMydidcommunAgencyDatatransmitcontinueResponse
+     */
+    public function startMydidcommunAgencyDatatransmitcontinue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyDatatransmitcontinueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 继续触发主动发起数据安全传输流程
+     * Summary: 继续触发主动发起数据安全传输流程.
+     *
+     * @param StartMydidcommunAgencyDatatransmitcontinueRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return StartMydidcommunAgencyDatatransmitcontinueResponse
+     */
+    public function startMydidcommunAgencyDatatransmitcontinueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyDatatransmitcontinueResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.datatransmitcontinue.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主动发起申请数据资产的流程
+     * Summary: 主动发起申请数据资产的流程.
+     *
+     * @param StartMydidcommunAgencyDataapplicationRequest $request
+     *
+     * @return StartMydidcommunAgencyDataapplicationResponse
+     */
+    public function startMydidcommunAgencyDataapplication($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyDataapplicationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主动发起申请数据资产的流程
+     * Summary: 主动发起申请数据资产的流程.
+     *
+     * @param StartMydidcommunAgencyDataapplicationRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return StartMydidcommunAgencyDataapplicationResponse
+     */
+    public function startMydidcommunAgencyDataapplicationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyDataapplicationResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.dataapplication.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 据隐私服务合作机构选择多个tapp接口
+     * Summary: 据隐私服务合作机构选择多个tapp接口.
+     *
+     * @param StartMydidcommunAgencyChoicetapplistRequest $request
+     *
+     * @return StartMydidcommunAgencyChoicetapplistResponse
+     */
+    public function startMydidcommunAgencyChoicetapplist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyChoicetapplistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 据隐私服务合作机构选择多个tapp接口
+     * Summary: 据隐私服务合作机构选择多个tapp接口.
+     *
+     * @param StartMydidcommunAgencyChoicetapplistRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartMydidcommunAgencyChoicetapplistResponse
+     */
+    public function startMydidcommunAgencyChoicetapplistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyChoicetapplistResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.choicetapplist.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 定义数据资产审批流程
+     * Summary: 定义数据资产审批流程.
+     *
+     * @param StartMydidcommunAgencyDataassertregisterRequest $request
+     *
+     * @return StartMydidcommunAgencyDataassertregisterResponse
+     */
+    public function startMydidcommunAgencyDataassertregister($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyDataassertregisterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 定义数据资产审批流程
+     * Summary: 定义数据资产审批流程.
+     *
+     * @param StartMydidcommunAgencyDataassertregisterRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return StartMydidcommunAgencyDataassertregisterResponse
+     */
+    public function startMydidcommunAgencyDataassertregisterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyDataassertregisterResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.dataassertregister.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起数据授权
+     * Summary: 发起数据授权.
+     *
+     * @param StartMydidcommunAgencyAuthRequest $request
+     *
+     * @return StartMydidcommunAgencyAuthResponse
+     */
+    public function startMydidcommunAgencyAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起数据授权
+     * Summary: 发起数据授权.
+     *
+     * @param StartMydidcommunAgencyAuthRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return StartMydidcommunAgencyAuthResponse
+     */
+    public function startMydidcommunAgencyAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyAuthResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.auth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 处理授权流程
+     * Summary: 处理授权流程.
+     *
+     * @param StartMydidcommunAgencyProcessauthRequest $request
+     *
+     * @return StartMydidcommunAgencyProcessauthResponse
+     */
+    public function startMydidcommunAgencyProcessauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunAgencyProcessauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 处理授权流程
+     * Summary: 处理授权流程.
+     *
+     * @param StartMydidcommunAgencyProcessauthRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return StartMydidcommunAgencyProcessauthResponse
+     */
+    public function startMydidcommunAgencyProcessauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunAgencyProcessauthResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.processauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权当前状态
+     * Summary: 查询授权当前状态
+     *
+     * @param QueryMydidcommunAgencyProcessauthRequest $request
+     *
+     * @return QueryMydidcommunAgencyProcessauthResponse
+     */
+    public function queryMydidcommunAgencyProcessauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMydidcommunAgencyProcessauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权当前状态
+     * Summary: 查询授权当前状态
+     *
+     * @param QueryMydidcommunAgencyProcessauthRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryMydidcommunAgencyProcessauthResponse
+     */
+    public function queryMydidcommunAgencyProcessauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMydidcommunAgencyProcessauthResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.processauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过serviceType查找其对应信息
+     * Summary: 通过serviceType查找其对应信息.
+     *
+     * @param QueryMydidcommunAgencyServicetypeinfoRequest $request
+     *
+     * @return QueryMydidcommunAgencyServicetypeinfoResponse
+     */
+    public function queryMydidcommunAgencyServicetypeinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMydidcommunAgencyServicetypeinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过serviceType查找其对应信息
+     * Summary: 通过serviceType查找其对应信息.
+     *
+     * @param QueryMydidcommunAgencyServicetypeinfoRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryMydidcommunAgencyServicetypeinfoResponse
+     */
+    public function queryMydidcommunAgencyServicetypeinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMydidcommunAgencyServicetypeinfoResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.servicetypeinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询任务执行结果文件
+     * Summary: 查询任务执行结果文件.
+     *
+     * @param QueryMydidcommunAgencyTaskresultfileRequest $request
+     *
+     * @return QueryMydidcommunAgencyTaskresultfileResponse
+     */
+    public function queryMydidcommunAgencyTaskresultfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMydidcommunAgencyTaskresultfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询任务执行结果文件
+     * Summary: 查询任务执行结果文件.
+     *
+     * @param QueryMydidcommunAgencyTaskresultfileRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return QueryMydidcommunAgencyTaskresultfileResponse
+     */
+    public function queryMydidcommunAgencyTaskresultfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMydidcommunAgencyTaskresultfileResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.agency.taskresultfile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务执行 - 为目标用户申请某一服务类型的调用权限
+     * Summary: 服务类型权限申请.
+     *
+     * @param ApplyMydidcommunTaskServicetypeRequest $request
+     *
+     * @return ApplyMydidcommunTaskServicetypeResponse
+     */
+    public function applyMydidcommunTaskServicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyMydidcommunTaskServicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务执行 - 为目标用户申请某一服务类型的调用权限
+     * Summary: 服务类型权限申请.
+     *
+     * @param ApplyMydidcommunTaskServicetypeRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return ApplyMydidcommunTaskServicetypeResponse
+     */
+    public function applyMydidcommunTaskServicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyMydidcommunTaskServicetypeResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.task.servicetype.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过任务Id获取任务执行结果
+     * Summary: 获取任务执行结果.
+     *
+     * @param GetMydidcommunTaskTaskresultRequest $request
+     *
+     * @return GetMydidcommunTaskTaskresultResponse
+     */
+    public function getMydidcommunTaskTaskresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMydidcommunTaskTaskresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过任务Id获取任务执行结果
+     * Summary: 获取任务执行结果.
+     *
+     * @param GetMydidcommunTaskTaskresultRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return GetMydidcommunTaskTaskresultResponse
+     */
+    public function getMydidcommunTaskTaskresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMydidcommunTaskTaskresultResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.task.taskresult.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 添加数据资产.
+     *
+     * @param AddMydidcommunAssetDataRequest $request
+     *
+     * @return AddMydidcommunAssetDataResponse
+     */
+    public function addMydidcommunAssetData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addMydidcommunAssetDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 添加数据资产.
+     *
+     * @param AddMydidcommunAssetDataRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AddMydidcommunAssetDataResponse
+     */
+    public function addMydidcommunAssetDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddMydidcommunAssetDataResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.asset.data.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开始获取数据任务流程
+     * Summary: 执行获取数据接口.
+     *
+     * @param StartMydidcommunTaskGetdataRequest $request
+     *
+     * @return StartMydidcommunTaskGetdataResponse
+     */
+    public function startMydidcommunTaskGetdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunTaskGetdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开始获取数据任务流程
+     * Summary: 执行获取数据接口.
+     *
+     * @param StartMydidcommunTaskGetdataRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return StartMydidcommunTaskGetdataResponse
+     */
+    public function startMydidcommunTaskGetdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunTaskGetdataResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.task.getdata.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 针对线下入驻，或者无法提供四要素的机构入驻
+     * Summary: 机构入驻数据隐私服务
+     *
+     * @param StartMydidcommunInstitutionSettleinRequest $request
+     *
+     * @return StartMydidcommunInstitutionSettleinResponse
+     */
+    public function startMydidcommunInstitutionSettlein($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidcommunInstitutionSettleinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 针对线下入驻，或者无法提供四要素的机构入驻
+     * Summary: 机构入驻数据隐私服务
+     *
+     * @param StartMydidcommunInstitutionSettleinRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return StartMydidcommunInstitutionSettleinResponse
+     */
+    public function startMydidcommunInstitutionSettleinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidcommunInstitutionSettleinResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.institution.settlein.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算集群 - 部署同步 - 获取一个需要同步的部署任务
+     * Summary: 计算集群-部署同步-获取一个需要同步任务
+     *
+     * @param GetMydidcommunWorkergroupSyncRequest $request
+     *
+     * @return GetMydidcommunWorkergroupSyncResponse
+     */
+    public function getMydidcommunWorkergroupSync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMydidcommunWorkergroupSyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算集群 - 部署同步 - 获取一个需要同步的部署任务
+     * Summary: 计算集群-部署同步-获取一个需要同步任务
+     *
+     * @param GetMydidcommunWorkergroupSyncRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return GetMydidcommunWorkergroupSyncResponse
+     */
+    public function getMydidcommunWorkergroupSyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMydidcommunWorkergroupSyncResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.sync.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过部署ID获取部署详情
+     * Summary: 计算集群-部署-获取部署详情.
+     *
+     * @param GetMydidcommunWorkergroupPodRequest $request
+     *
+     * @return GetMydidcommunWorkergroupPodResponse
+     */
+    public function getMydidcommunWorkergroupPod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMydidcommunWorkergroupPodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过部署ID获取部署详情
+     * Summary: 计算集群-部署-获取部署详情.
+     *
+     * @param GetMydidcommunWorkergroupPodRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return GetMydidcommunWorkergroupPodResponse
+     */
+    public function getMydidcommunWorkergroupPodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMydidcommunWorkergroupPodResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.pod.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算集群-部署同步-设置同步任务完成
+     * Summary: 计算集群-部署同步-设置同步任务完成.
+     *
+     * @param FinishMydidcommunWorkergroupSyncRequest $request
+     *
+     * @return FinishMydidcommunWorkergroupSyncResponse
+     */
+    public function finishMydidcommunWorkergroupSync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishMydidcommunWorkergroupSyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算集群-部署同步-设置同步任务完成
+     * Summary: 计算集群-部署同步-设置同步任务完成.
+     *
+     * @param FinishMydidcommunWorkergroupSyncRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return FinishMydidcommunWorkergroupSyncResponse
+     */
+    public function finishMydidcommunWorkergroupSyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishMydidcommunWorkergroupSyncResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.sync.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算集群-部署同步-获取TAPP部署详情
+     * Summary: 计算集群-TAPP-获取TAPP部署.
+     *
+     * @param GetMydidcommunWorkergroupTappRequest $request
+     *
+     * @return GetMydidcommunWorkergroupTappResponse
+     */
+    public function getMydidcommunWorkergroupTapp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getMydidcommunWorkergroupTappEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算集群-部署同步-获取TAPP部署详情
+     * Summary: 计算集群-TAPP-获取TAPP部署.
+     *
+     * @param GetMydidcommunWorkergroupTappRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return GetMydidcommunWorkergroupTappResponse
+     */
+    public function getMydidcommunWorkergroupTappEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetMydidcommunWorkergroupTappResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.tapp.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新TAPP部署的信息，包括公钥哈希等
+     * Summary: 计算集群-TAPP-更新TAPP信息.
+     *
+     * @param UpdateMydidcommunWorkergroupTappRequest $request
+     *
+     * @return UpdateMydidcommunWorkergroupTappResponse
+     */
+    public function updateMydidcommunWorkergroupTapp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMydidcommunWorkergroupTappEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新TAPP部署的信息，包括公钥哈希等
+     * Summary: 计算集群-TAPP-更新TAPP信息.
+     *
+     * @param UpdateMydidcommunWorkergroupTappRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return UpdateMydidcommunWorkergroupTappResponse
+     */
+    public function updateMydidcommunWorkergroupTappEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMydidcommunWorkergroupTappResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.tapp.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取工作流的所有在线版本的配置
+     * Summary: 计算集群-工作流-获取工作流配置.
+     *
+     * @param QueryMydidcommunWorkergroupWorkflowRequest $request
+     *
+     * @return QueryMydidcommunWorkergroupWorkflowResponse
+     */
+    public function queryMydidcommunWorkergroupWorkflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMydidcommunWorkergroupWorkflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取工作流的所有在线版本的配置
+     * Summary: 计算集群-工作流-获取工作流配置.
+     *
+     * @param QueryMydidcommunWorkergroupWorkflowRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryMydidcommunWorkergroupWorkflowResponse
+     */
+    public function queryMydidcommunWorkergroupWorkflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMydidcommunWorkergroupWorkflowResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.workflow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步集群状态
+     * Summary: 计算集群-集群-同步集群状态
+     *
+     * @param SyncMydidcommunWorkergroupGroupRequest $request
+     *
+     * @return SyncMydidcommunWorkergroupGroupResponse
+     */
+    public function syncMydidcommunWorkergroupGroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncMydidcommunWorkergroupGroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步集群状态
+     * Summary: 计算集群-集群-同步集群状态
+     *
+     * @param SyncMydidcommunWorkergroupGroupRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return SyncMydidcommunWorkergroupGroupResponse
+     */
+    public function syncMydidcommunWorkergroupGroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncMydidcommunWorkergroupGroupResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.group.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算集群-部署版本-获取版本列表
+     * Summary: 计算集群-部署版本-获取版本列表.
+     *
+     * @param ListMydidcommunWorkergroupPodversionRequest $request
+     *
+     * @return ListMydidcommunWorkergroupPodversionResponse
+     */
+    public function listMydidcommunWorkergroupPodversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listMydidcommunWorkergroupPodversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算集群-部署版本-获取版本列表
+     * Summary: 计算集群-部署版本-获取版本列表.
+     *
+     * @param ListMydidcommunWorkergroupPodversionRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return ListMydidcommunWorkergroupPodversionResponse
+     */
+    public function listMydidcommunWorkergroupPodversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListMydidcommunWorkergroupPodversionResponse::fromMap($this->doRequest('1.0', 'baas.mydidcommun.workergroup.podversion.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: did创建
+     * Summary: did创建.
+     *
+     * @param SaveMydidIdaasDidserviceRequest $request
+     *
+     * @return SaveMydidIdaasDidserviceResponse
+     */
+    public function saveMydidIdaasDidservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveMydidIdaasDidserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: did创建
+     * Summary: did创建.
+     *
+     * @param SaveMydidIdaasDidserviceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return SaveMydidIdaasDidserviceResponse
+     */
+    public function saveMydidIdaasDidserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveMydidIdaasDidserviceResponse::fromMap($this->doRequest('1.0', 'baas.mydid.idaas.didservice.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 消息端主动拉取did event
+     * Summary: 消息端主动拉取did event.
+     *
+     * @param QueryDidNotificationDideventRequest $request
+     *
+     * @return QueryDidNotificationDideventResponse
+     */
+    public function queryDidNotificationDidevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidNotificationDideventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 消息端主动拉取did event
+     * Summary: 消息端主动拉取did event.
+     *
+     * @param QueryDidNotificationDideventRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDidNotificationDideventResponse
+     */
+    public function queryDidNotificationDideventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidNotificationDideventResponse::fromMap($this->doRequest('1.0', 'baas.did.notification.didevent.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主动拉取vc事件
+     * Summary: 主动拉取vc事件.
+     *
+     * @param QueryDidNotificationVceventRequest $request
+     *
+     * @return QueryDidNotificationVceventResponse
+     */
+    public function queryDidNotificationVcevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidNotificationVceventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主动拉取vc事件
+     * Summary: 主动拉取vc事件.
+     *
+     * @param QueryDidNotificationVceventRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDidNotificationVceventResponse
+     */
+    public function queryDidNotificationVceventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidNotificationVceventResponse::fromMap($this->doRequest('1.0', 'baas.did.notification.vcevent.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取did全量数据
+     * Summary: 获取did全量数据.
+     *
+     * @param QueryDidNotificationFulldidRequest $request
+     *
+     * @return QueryDidNotificationFulldidResponse
+     */
+    public function queryDidNotificationFulldid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidNotificationFulldidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取did全量数据
+     * Summary: 获取did全量数据.
+     *
+     * @param QueryDidNotificationFulldidRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDidNotificationFulldidResponse
+     */
+    public function queryDidNotificationFulldidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidNotificationFulldidResponse::fromMap($this->doRequest('1.0', 'baas.did.notification.fulldid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式下创建企业did账户
+     * Summary: 非托管模式下创建企业did账户.
+     *
+     * @param CreateDidIdentityCorporateRequest $request
+     *
+     * @return CreateDidIdentityCorporateResponse
+     */
+    public function createDidIdentityCorporate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidIdentityCorporateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式下创建企业did账户
+     * Summary: 非托管模式下创建企业did账户.
+     *
+     * @param CreateDidIdentityCorporateRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateDidIdentityCorporateResponse
+     */
+    public function createDidIdentityCorporateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidIdentityCorporateResponse::fromMap($this->doRequest('1.0', 'baas.did.identity.corporate.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算上链交易hash
+     * Summary: add did doc上链交易hash.
+     *
+     * @param InitDidAdddidHashRequest $request
+     *
+     * @return InitDidAdddidHashResponse
+     */
+    public function initDidAdddidHash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidAdddidHashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算上链交易hash
+     * Summary: add did doc上链交易hash.
+     *
+     * @param InitDidAdddidHashRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return InitDidAdddidHashResponse
+     */
+    public function initDidAdddidHashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidAdddidHashResponse::fromMap($this->doRequest('1.0', 'baas.did.adddid.hash.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 将diddoc写入DIS链
+     * Summary: 将diddoc写入DIS链.
+     *
+     * @param StartDidAdddidExecuteRequest $request
+     *
+     * @return StartDidAdddidExecuteResponse
+     */
+    public function startDidAdddidExecute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAdddidExecuteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 将diddoc写入DIS链
+     * Summary: 将diddoc写入DIS链.
+     *
+     * @param StartDidAdddidExecuteRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return StartDidAdddidExecuteResponse
+     */
+    public function startDidAdddidExecuteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAdddidExecuteResponse::fromMap($this->doRequest('1.0', 'baas.did.adddid.execute.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可验证声明上链之前计算其hash
+     * Summary: 可验证声明上链之前计算其hash.
+     *
+     * @param InitDidAddvcHashRequest $request
+     *
+     * @return InitDidAddvcHashResponse
+     */
+    public function initDidAddvcHash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidAddvcHashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可验证声明上链之前计算其hash
+     * Summary: 可验证声明上链之前计算其hash.
+     *
+     * @param InitDidAddvcHashRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return InitDidAddvcHashResponse
+     */
+    public function initDidAddvcHashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidAddvcHashResponse::fromMap($this->doRequest('1.0', 'baas.did.addvc.hash.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实际执行可验证声明上链
+     * Summary: 实际执行可验证声明上链.
+     *
+     * @param StartDidAddvcExecuteRequest $request
+     *
+     * @return StartDidAddvcExecuteResponse
+     */
+    public function startDidAddvcExecute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidAddvcExecuteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实际执行可验证声明上链
+     * Summary: 实际执行可验证声明上链.
+     *
+     * @param StartDidAddvcExecuteRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return StartDidAddvcExecuteResponse
+     */
+    public function startDidAddvcExecuteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidAddvcExecuteResponse::fromMap($this->doRequest('1.0', 'baas.did.addvc.execute.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算更新VC状态交易hash
+     * Summary: 计算更新VC状态交易hash.
+     *
+     * @param InitDidUpdatevcstatusHashRequest $request
+     *
+     * @return InitDidUpdatevcstatusHashResponse
+     */
+    public function initDidUpdatevcstatusHash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidUpdatevcstatusHashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算更新VC状态交易hash
+     * Summary: 计算更新VC状态交易hash.
+     *
+     * @param InitDidUpdatevcstatusHashRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return InitDidUpdatevcstatusHashResponse
+     */
+    public function initDidUpdatevcstatusHashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidUpdatevcstatusHashResponse::fromMap($this->doRequest('1.0', 'baas.did.updatevcstatus.hash.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新VC状态
+     * Summary: 更新VC状态
+     *
+     * @param StartDidUpdatevcstatusExecuteRequest $request
+     *
+     * @return StartDidUpdatevcstatusExecuteResponse
+     */
+    public function startDidUpdatevcstatusExecute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidUpdatevcstatusExecuteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新VC状态
+     * Summary: 更新VC状态
+     *
+     * @param StartDidUpdatevcstatusExecuteRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartDidUpdatevcstatusExecuteResponse
+     */
+    public function startDidUpdatevcstatusExecuteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidUpdatevcstatusExecuteResponse::fromMap($this->doRequest('1.0', 'baas.did.updatevcstatus.execute.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计算更新did交易hash
+     * Summary: 计算更新did交易hash.
+     *
+     * @param InitDidUpdatedidHashRequest $request
+     *
+     * @return InitDidUpdatedidHashResponse
+     */
+    public function initDidUpdatedidHash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDidUpdatedidHashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计算更新did交易hash
+     * Summary: 计算更新did交易hash.
+     *
+     * @param InitDidUpdatedidHashRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return InitDidUpdatedidHashResponse
+     */
+    public function initDidUpdatedidHashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDidUpdatedidHashResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.hash.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新did
+     * Summary: 更新did.
+     *
+     * @param StartDidUpdatedidExecuteRequest $request
+     *
+     * @return StartDidUpdatedidExecuteResponse
+     */
+    public function startDidUpdatedidExecute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidUpdatedidExecuteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新did
+     * Summary: 更新did.
+     *
+     * @param StartDidUpdatedidExecuteRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidUpdatedidExecuteResponse
+     */
+    public function startDidUpdatedidExecuteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidUpdatedidExecuteResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.execute.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管查询did doc
+     * Summary: 非托管查询did doc.
+     *
+     * @param QueryDidDiddocDirectRequest $request
+     *
+     * @return QueryDidDiddocDirectResponse
+     */
+    public function queryDidDiddocDirect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidDiddocDirectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管查询did doc
+     * Summary: 非托管查询did doc.
+     *
+     * @param QueryDidDiddocDirectRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryDidDiddocDirectResponse
+     */
+    public function queryDidDiddocDirectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidDiddocDirectResponse::fromMap($this->doRequest('1.0', 'baas.did.diddoc.direct.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管查询可验证声明
+     * Summary: 非托管查询可验证声明.
+     *
+     * @param QueryDidVcDirectRequest $request
+     *
+     * @return QueryDidVcDirectResponse
+     */
+    public function queryDidVcDirect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDidVcDirectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管查询可验证声明
+     * Summary: 非托管查询可验证声明.
+     *
+     * @param QueryDidVcDirectRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryDidVcDirectResponse
+     */
+    public function queryDidVcDirectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDidVcDirectResponse::fromMap($this->doRequest('1.0', 'baas.did.vc.direct.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式下创建个人did账户
+     * Summary: 非托管模式下创建个人did账户.
+     *
+     * @param CreateDidIdentityPersonRequest $request
+     *
+     * @return CreateDidIdentityPersonResponse
+     */
+    public function createDidIdentityPerson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidIdentityPersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式下创建个人did账户
+     * Summary: 非托管模式下创建个人did账户.
+     *
+     * @param CreateDidIdentityPersonRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDidIdentityPersonResponse
+     */
+    public function createDidIdentityPersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidIdentityPersonResponse::fromMap($this->doRequest('1.0', 'baas.did.identity.person.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式更新did doc中的auth key
+     * Summary: 非托管模式更新doc中的auth key.
+     *
+     * @param UpdateDidUpdatedidAuthkeyRequest $request
+     *
+     * @return UpdateDidUpdatedidAuthkeyResponse
+     */
+    public function updateDidUpdatedidAuthkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidUpdatedidAuthkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式更新did doc中的auth key
+     * Summary: 非托管模式更新doc中的auth key.
+     *
+     * @param UpdateDidUpdatedidAuthkeyRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateDidUpdatedidAuthkeyResponse
+     */
+    public function updateDidUpdatedidAuthkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidUpdatedidAuthkeyResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.authkey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新did对应did doc中的service信息
+     * Summary: 更新did service信息.
+     *
+     * @param UpdateDidUpdatedidServiceRequest $request
+     *
+     * @return UpdateDidUpdatedidServiceResponse
+     */
+    public function updateDidUpdatedidService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidUpdatedidServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新did对应did doc中的service信息
+     * Summary: 更新did service信息.
+     *
+     * @param UpdateDidUpdatedidServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UpdateDidUpdatedidServiceResponse
+     */
+    public function updateDidUpdatedidServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidUpdatedidServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.service.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加did doc中的service
+     * Summary: 添加did doc中的service.
+     *
+     * @param AddDidUpdatedidServiceRequest $request
+     *
+     * @return AddDidUpdatedidServiceResponse
+     */
+    public function addDidUpdatedidService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDidUpdatedidServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加did doc中的service
+     * Summary: 添加did doc中的service.
+     *
+     * @param AddDidUpdatedidServiceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return AddDidUpdatedidServiceResponse
+     */
+    public function addDidUpdatedidServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDidUpdatedidServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.service.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除did doc中的service信息
+     * Summary: 删除did doc中的service信息.
+     *
+     * @param DeleteDidUpdatedidServiceRequest $request
+     *
+     * @return DeleteDidUpdatedidServiceResponse
+     */
+    public function deleteDidUpdatedidService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDidUpdatedidServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除did doc中的service信息
+     * Summary: 删除did doc中的service信息.
+     *
+     * @param DeleteDidUpdatedidServiceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeleteDidUpdatedidServiceResponse
+     */
+    public function deleteDidUpdatedidServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDidUpdatedidServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.service.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新可验证声明状态
+     * Summary: 更新可验证声明.
+     *
+     * @param UpdateDidUpdatevcStatusRequest $request
+     *
+     * @return UpdateDidUpdatevcStatusResponse
+     */
+    public function updateDidUpdatevcStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidUpdatevcStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新可验证声明状态
+     * Summary: 更新可验证声明.
+     *
+     * @param UpdateDidUpdatevcStatusRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UpdateDidUpdatevcStatusResponse
+     */
+    public function updateDidUpdatevcStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidUpdatevcStatusResponse::fromMap($this->doRequest('1.0', 'baas.did.updatevc.status.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开通resolver服务接口
+     * Summary: 开通resolver服务接口.
+     *
+     * @param OpenDidResolverServiceRequest $request
+     *
+     * @return OpenDidResolverServiceResponse
+     */
+    public function openDidResolverService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openDidResolverServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开通resolver服务接口
+     * Summary: 开通resolver服务接口.
+     *
+     * @param OpenDidResolverServiceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return OpenDidResolverServiceResponse
+     */
+    public function openDidResolverServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenDidResolverServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.resolver.service.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 停止resolver服务接口
+     * Summary: 停止resolver服务接口.
+     *
+     * @param StopDidResolverServiceRequest $request
+     *
+     * @return StopDidResolverServiceResponse
+     */
+    public function stopDidResolverService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopDidResolverServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 停止resolver服务接口
+     * Summary: 停止resolver服务接口.
+     *
+     * @param StopDidResolverServiceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StopDidResolverServiceResponse
+     */
+    public function stopDidResolverServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopDidResolverServiceResponse::fromMap($this->doRequest('1.0', 'baas.did.resolver.service.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 使用根DID派生子DID并上链
+     * Summary: 派生子DID上链.
+     *
+     * @param StartDidDerivedidExecuteRequest $request
+     *
+     * @return StartDidDerivedidExecuteResponse
+     */
+    public function startDidDerivedidExecute($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidDerivedidExecuteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 使用根DID派生子DID并上链
+     * Summary: 派生子DID上链.
+     *
+     * @param StartDidDerivedidExecuteRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartDidDerivedidExecuteResponse
+     */
+    public function startDidDerivedidExecuteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidDerivedidExecuteResponse::fromMap($this->doRequest('1.0', 'baas.did.derivedid.execute.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于DIS的访问控制授权
+     * Summary: 访问控制授权.
+     *
+     * @param ExecDidAccesscontrolAuthorizeRequest $request
+     *
+     * @return ExecDidAccesscontrolAuthorizeResponse
+     */
+    public function execDidAccesscontrolAuthorize($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDidAccesscontrolAuthorizeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于DIS的访问控制授权
+     * Summary: 访问控制授权.
+     *
+     * @param ExecDidAccesscontrolAuthorizeRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ExecDidAccesscontrolAuthorizeResponse
+     */
+    public function execDidAccesscontrolAuthorizeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDidAccesscontrolAuthorizeResponse::fromMap($this->doRequest('1.0', 'baas.did.accesscontrol.authorize.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对请求的权限进行鉴权，判断是否有该权限
+     * Summary: 访问控制鉴权.
+     *
+     * @param ExecDidAccesscontrolCheckRequest $request
+     *
+     * @return ExecDidAccesscontrolCheckResponse
+     */
+    public function execDidAccesscontrolCheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDidAccesscontrolCheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对请求的权限进行鉴权，判断是否有该权限
+     * Summary: 访问控制鉴权.
+     *
+     * @param ExecDidAccesscontrolCheckRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ExecDidAccesscontrolCheckResponse
+     */
+    public function execDidAccesscontrolCheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDidAccesscontrolCheckResponse::fromMap($this->doRequest('1.0', 'baas.did.accesscontrol.check.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 访问控制中更新权限
+     * Summary: 对已授权的did更新权限.
+     *
+     * @param ExecDidAccesscontrolUpdateRequest $request
+     *
+     * @return ExecDidAccesscontrolUpdateResponse
+     */
+    public function execDidAccesscontrolUpdate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDidAccesscontrolUpdateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 访问控制中更新权限
+     * Summary: 对已授权的did更新权限.
+     *
+     * @param ExecDidAccesscontrolUpdateRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ExecDidAccesscontrolUpdateResponse
+     */
+    public function execDidAccesscontrolUpdateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDidAccesscontrolUpdateResponse::fromMap($this->doRequest('1.0', 'baas.did.accesscontrol.update.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式下为iot创建did
+     * Summary: 非托管模式下为iot创建did.
+     *
+     * @param CreateDidIdentityIotRequest $request
+     *
+     * @return CreateDidIdentityIotResponse
+     */
+    public function createDidIdentityIot($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidIdentityIotEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式下为iot创建did
+     * Summary: 非托管模式下为iot创建did.
+     *
+     * @param CreateDidIdentityIotRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateDidIdentityIotResponse
+     */
+    public function createDidIdentityIotEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidIdentityIotResponse::fromMap($this->doRequest('1.0', 'baas.did.identity.iot.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式下的服务类型创建
+     * Summary: 非托管模式下的服务类型创建.
+     *
+     * @param ExecDidServicetypeCreateRequest $request
+     *
+     * @return ExecDidServicetypeCreateResponse
+     */
+    public function execDidServicetypeCreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDidServicetypeCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式下的服务类型创建
+     * Summary: 非托管模式下的服务类型创建.
+     *
+     * @param ExecDidServicetypeCreateRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ExecDidServicetypeCreateResponse
+     */
+    public function execDidServicetypeCreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDidServicetypeCreateResponse::fromMap($this->doRequest('1.0', 'baas.did.servicetype.create.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非托管模式下创建普通did账户
+     * Summary: 非托管模式下创建普通did账户.
+     *
+     * @param CreateDidIdentityCommonRequest $request
+     *
+     * @return CreateDidIdentityCommonResponse
+     */
+    public function createDidIdentityCommon($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidIdentityCommonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非托管模式下创建普通did账户
+     * Summary: 非托管模式下创建普通did账户.
+     *
+     * @param CreateDidIdentityCommonRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDidIdentityCommonResponse
+     */
+    public function createDidIdentityCommonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidIdentityCommonResponse::fromMap($this->doRequest('1.0', 'baas.did.identity.common.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: VC传输确认请求
+     * Summary: VC传输确认请求
+     *
+     * @param ConfirmVcVcrepoVctransmitRequest $request
+     *
+     * @return ConfirmVcVcrepoVctransmitResponse
+     */
+    public function confirmVcVcrepoVctransmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmVcVcrepoVctransmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: VC传输确认请求
+     * Summary: VC传输确认请求
+     *
+     * @param ConfirmVcVcrepoVctransmitRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ConfirmVcVcrepoVctransmitResponse
+     */
+    public function confirmVcVcrepoVctransmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmVcVcrepoVctransmitResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.vctransmit.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在非托管模式，要先createDid，然后addDoc，两步都完成才实现DID创建。
+     * 如果第一步成功，第二步失败，无法完全回滚，但是第一步createDid已经绑定了一个pubKey，如果调用方重试，并且用了新的pubKey（可能之前绑定的pubKey因为没有走完流程，没有保存，或者没有中间态，继续重试第二步），就无法重试成功。因此需要给这种极端情况一个更新pubKey的机会，但是需要通过recoveryKey鉴权请求变更。
+     * Summary: 非托管更新还未上链did的pub key.
+     *
+     * @param UpdateDidUpdatedidPubkeyRequest $request
+     *
+     * @return UpdateDidUpdatedidPubkeyResponse
+     */
+    public function updateDidUpdatedidPubkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDidUpdatedidPubkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在非托管模式，要先createDid，然后addDoc，两步都完成才实现DID创建。
+     * 如果第一步成功，第二步失败，无法完全回滚，但是第一步createDid已经绑定了一个pubKey，如果调用方重试，并且用了新的pubKey（可能之前绑定的pubKey因为没有走完流程，没有保存，或者没有中间态，继续重试第二步），就无法重试成功。因此需要给这种极端情况一个更新pubKey的机会，但是需要通过recoveryKey鉴权请求变更。
+     * Summary: 非托管更新还未上链did的pub key.
+     *
+     * @param UpdateDidUpdatedidPubkeyRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UpdateDidUpdatedidPubkeyResponse
+     */
+    public function updateDidUpdatedidPubkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDidUpdatedidPubkeyResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.pubkey.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次增加多个service
+     * Summary: 一次增加多个service.
+     *
+     * @param AddDidUpdatedidServicelistRequest $request
+     *
+     * @return AddDidUpdatedidServicelistResponse
+     */
+    public function addDidUpdatedidServicelist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDidUpdatedidServicelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次增加多个service
+     * Summary: 一次增加多个service.
+     *
+     * @param AddDidUpdatedidServicelistRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return AddDidUpdatedidServicelistResponse
+     */
+    public function addDidUpdatedidServicelistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDidUpdatedidServicelistResponse::fromMap($this->doRequest('1.0', 'baas.did.updatedid.servicelist.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 存储VC到存储中
+     * Summary: 写入VC存储.
+     *
+     * @param StartVcVcrepositoryWriteRequest $request
+     *
+     * @return StartVcVcrepositoryWriteResponse
+     */
+    public function startVcVcrepositoryWrite($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepositoryWriteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 存储VC到存储中
+     * Summary: 写入VC存储.
+     *
+     * @param StartVcVcrepositoryWriteRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartVcVcrepositoryWriteResponse
+     */
+    public function startVcVcrepositoryWriteEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepositoryWriteResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepository.write.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从VC存储中，读取目标的VC内容，前提是调用者的did已经被授予权限。
+     * 如果VC中claim内容已被加密，返回值的verifiable_claim_content的claim字段是密文，需要使用当前调用者的did对应私钥解密auth_access_key获取AES密钥，然后通过AES密钥解密VC内容。
+     * Summary: 从VC存储读取已被授权VC内容.
+     *
+     * @param StartVcVcrepositoryReadRequest $request
+     *
+     * @return StartVcVcrepositoryReadResponse
+     */
+    public function startVcVcrepositoryRead($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepositoryReadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从VC存储中，读取目标的VC内容，前提是调用者的did已经被授予权限。
+     * 如果VC中claim内容已被加密，返回值的verifiable_claim_content的claim字段是密文，需要使用当前调用者的did对应私钥解密auth_access_key获取AES密钥，然后通过AES密钥解密VC内容。
+     * Summary: 从VC存储读取已被授权VC内容.
+     *
+     * @param StartVcVcrepositoryReadRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartVcVcrepositoryReadResponse
+     */
+    public function startVcVcrepositoryReadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepositoryReadResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepository.read.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对已存在的证书VC进行新增授权管理，批量添加did到授权列表中，授权这些did具有读取VC的权限。
+     * 注意：VC的整体auth_did_list的长度将受限制，目前约定不超过30。
+     * Summary: 添加已有证书VC的授权列表.
+     *
+     * @param StartVcVcrepositoryAuthRequest $request
+     *
+     * @return StartVcVcrepositoryAuthResponse
+     */
+    public function startVcVcrepositoryAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepositoryAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对已存在的证书VC进行新增授权管理，批量添加did到授权列表中，授权这些did具有读取VC的权限。
+     * 注意：VC的整体auth_did_list的长度将受限制，目前约定不超过30。
+     * Summary: 添加已有证书VC的授权列表.
+     *
+     * @param StartVcVcrepositoryAuthRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartVcVcrepositoryAuthResponse
+     */
+    public function startVcVcrepositoryAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepositoryAuthResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepository.auth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: vc repo上的用户注册
+     * Summary: vc repo 上的用户注册.
+     *
+     * @param StartVcVcrepoUserRequest $request
+     *
+     * @return StartVcVcrepoUserResponse
+     */
+    public function startVcVcrepoUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepoUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: vc repo上的用户注册
+     * Summary: vc repo 上的用户注册.
+     *
+     * @param StartVcVcrepoUserRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StartVcVcrepoUserResponse
+     */
+    public function startVcVcrepoUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepoUserResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.user.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: VC Repo用户信息更新，可以更新公钥，可以更新vc channel
+     * Summary: VC Repo用户信息更新.
+     *
+     * @param UpdateVcVcrepoUserRequest $request
+     *
+     * @return UpdateVcVcrepoUserResponse
+     */
+    public function updateVcVcrepoUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateVcVcrepoUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: VC Repo用户信息更新，可以更新公钥，可以更新vc channel
+     * Summary: VC Repo用户信息更新.
+     *
+     * @param UpdateVcVcrepoUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return UpdateVcVcrepoUserResponse
+     */
+    public function updateVcVcrepoUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateVcVcrepoUserResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.user.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 指定VC可信传输到指定Verifier
+     * Summary: 指定VC可信传输到指定Verifier.
+     *
+     * @param StartVcVcrepoVctransmitRequest $request
+     *
+     * @return StartVcVcrepoVctransmitResponse
+     */
+    public function startVcVcrepoVctransmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepoVctransmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 指定VC可信传输到指定Verifier
+     * Summary: 指定VC可信传输到指定Verifier.
+     *
+     * @param StartVcVcrepoVctransmitRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartVcVcrepoVctransmitResponse
+     */
+    public function startVcVcrepoVctransmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepoVctransmitResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.vctransmit.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过controller进行用户注册
+     * Summary: 通过controller的用户注册.
+     *
+     * @param StartVcVcrepoControlleradduserRequest $request
+     *
+     * @return StartVcVcrepoControlleradduserResponse
+     */
+    public function startVcVcrepoControlleradduser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepoControlleradduserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过controller进行用户注册
+     * Summary: 通过controller的用户注册.
+     *
+     * @param StartVcVcrepoControlleradduserRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartVcVcrepoControlleradduserResponse
+     */
+    public function startVcVcrepoControlleradduserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepoControlleradduserResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.controlleradduser.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: VC存储
+     * Summary: VC存储.
+     *
+     * @param StartVcVcrepoVccontentsaveRequest $request
+     *
+     * @return StartVcVcrepoVccontentsaveResponse
+     */
+    public function startVcVcrepoVccontentsave($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcVcrepoVccontentsaveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: VC存储
+     * Summary: VC存储.
+     *
+     * @param StartVcVcrepoVccontentsaveRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return StartVcVcrepoVccontentsaveResponse
+     */
+    public function startVcVcrepoVccontentsaveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcVcrepoVccontentsaveResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.vccontentsave.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据vcid获取vccontent
+     * Summary: 根据vcid获取vccontent.
+     *
+     * @param StartVcRepoReadwithvcidRequest $request
+     *
+     * @return StartVcRepoReadwithvcidResponse
+     */
+    public function startVcRepoReadwithvcid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startVcRepoReadwithvcidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据vcid获取vccontent
+     * Summary: 根据vcid获取vccontent.
+     *
+     * @param StartVcRepoReadwithvcidRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return StartVcRepoReadwithvcidResponse
+     */
+    public function startVcRepoReadwithvcidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartVcRepoReadwithvcidResponse::fromMap($this->doRequest('1.0', 'baas.vc.repo.readwithvcid.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: vc仓库非托管模式下的VC传输初始化接口
+     * Summary: vc仓库非托管模式下的VC传输初始化接口.
+     *
+     * @param InitVcVcrepoVctransmitRequest $request
+     *
+     * @return InitVcVcrepoVctransmitResponse
+     */
+    public function initVcVcrepoVctransmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initVcVcrepoVctransmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: vc仓库非托管模式下的VC传输初始化接口
+     * Summary: vc仓库非托管模式下的VC传输初始化接口.
+     *
+     * @param InitVcVcrepoVctransmitRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return InitVcVcrepoVctransmitResponse
+     */
+    public function initVcVcrepoVctransmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitVcVcrepoVctransmitResponse::fromMap($this->doRequest('1.0', 'baas.vc.vcrepo.vctransmit.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人脸实人认证初始化接口
+     * Summary: 人脸实人认证初始化接口.
+     *
+     * @param InitIdentificationFaceauthRequest $request
+     *
+     * @return InitIdentificationFaceauthResponse
+     */
+    public function initIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸实人认证初始化接口
+     * Summary: 人脸实人认证初始化接口.
+     *
+     * @param InitIdentificationFaceauthRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return InitIdentificationFaceauthResponse
+     */
+    public function initIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.identification.faceauth.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取人脸实人认证结果
+     * Summary: 获取人脸实人认证结果.
+     *
+     * @param QueryIdentificationFaceauthRequest $request
+     *
+     * @return QueryIdentificationFaceauthResponse
+     */
+    public function queryIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取人脸实人认证结果
+     * Summary: 获取人脸实人认证结果.
+     *
+     * @param QueryIdentificationFaceauthRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryIdentificationFaceauthResponse
+     */
+    public function queryIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.identification.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化存证事务: 进⾏行行资格核验，包括调⽤用⽅方账号权限，是否实⼈人等。成功后获得存证事务 ID(Token)
+     * Summary: 存证交易初始化.
+     *
+     * @param InitNotaryTransactionRequest $request
+     *
+     * @return InitNotaryTransactionResponse
+     */
+    public function initNotaryTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initNotaryTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化存证事务: 进⾏行行资格核验，包括调⽤用⽅方账号权限，是否实⼈人等。成功后获得存证事务 ID(Token)
+     * Summary: 存证交易初始化.
+     *
+     * @param InitNotaryTransactionRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return InitNotaryTransactionResponse
+     */
+    public function initNotaryTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitNotaryTransactionResponse::fromMap($this->doRequest('1.0', 'baas.notary.transaction.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ⽤用户通过存证事务Token，获取事务中所有的存证信息
+     * Summary: 获取事务中所有的存证信息.
+     *
+     * @param GetNotaryTransactionRequest $request
+     *
+     * @return GetNotaryTransactionResponse
+     */
+    public function getNotaryTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ⽤用户通过存证事务Token，获取事务中所有的存证信息
+     * Summary: 获取事务中所有的存证信息.
+     *
+     * @param GetNotaryTransactionRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return GetNotaryTransactionResponse
+     */
+    public function getNotaryTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryTransactionResponse::fromMap($this->doRequest('1.0', 'baas.notary.transaction.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起⼀个文本存证，将文本内容存证上链。
+     * Summary: 发送文本存证
+     *
+     * @param SendNotaryTransactionTextRequest $request
+     *
+     * @return SendNotaryTransactionTextResponse
+     */
+    public function sendNotaryTransactionText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendNotaryTransactionTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起⼀个文本存证，将文本内容存证上链。
+     * Summary: 发送文本存证
+     *
+     * @param SendNotaryTransactionTextRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SendNotaryTransactionTextResponse
+     */
+    public function sendNotaryTransactionTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendNotaryTransactionTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.transaction.text.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ⽤户通过交易易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证
+     *
+     * @param GetNotaryTransactionTextRequest $request
+     *
+     * @return GetNotaryTransactionTextResponse
+     */
+    public function getNotaryTransactionText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryTransactionTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ⽤户通过交易易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证
+     *
+     * @param GetNotaryTransactionTextRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetNotaryTransactionTextResponse
+     */
+    public function getNotaryTransactionTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryTransactionTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.transaction.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取存证事务ID
+     * Summary: 获取存证事务ID.
+     *
+     * @param CreateNotaryTokenRequest $request
+     *
+     * @return CreateNotaryTokenResponse
+     */
+    public function createNotaryToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNotaryTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取存证事务ID
+     * Summary: 获取存证事务ID.
+     *
+     * @param CreateNotaryTokenRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateNotaryTokenResponse
+     */
+    public function createNotaryTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNotaryTokenResponse::fromMap($this->doRequest('1.0', 'baas.notary.token.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过存证事务Token，获取事务中所有的存证信息
+     * Summary: 获取事务中所有的存证信息.
+     *
+     * @param GetNotaryTransRequest $request
+     *
+     * @return GetNotaryTransResponse
+     */
+    public function getNotaryTrans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过存证事务Token，获取事务中所有的存证信息
+     * Summary: 获取事务中所有的存证信息.
+     *
+     * @param GetNotaryTransRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetNotaryTransResponse
+     */
+    public function getNotaryTransEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryTransResponse::fromMap($this->doRequest('1.0', 'baas.notary.trans.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起文本存证，将文本内容存证上链
+     * Summary: 文本存证，将文本内容存证上链.
+     *
+     * @param CreateNotaryTextRequest $request
+     *
+     * @return CreateNotaryTextResponse
+     */
+    public function createNotaryText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNotaryTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起文本存证，将文本内容存证上链
+     * Summary: 文本存证，将文本内容存证上链.
+     *
+     * @param CreateNotaryTextRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateNotaryTextResponse
+     */
+    public function createNotaryTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNotaryTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证内容.
+     *
+     * @param GetNotaryTextRequest $request
+     *
+     * @return GetNotaryTextResponse
+     */
+    public function getNotaryText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证内容.
+     *
+     * @param GetNotaryTextRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetNotaryTextResponse
+     */
+    public function getNotaryTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起文件存证，将文件内容存证上链
+     * Summary: 文件内容存证上链.
+     *
+     * @param CreateNotaryFileRequest $request
+     *
+     * @return CreateNotaryFileResponse
+     */
+    public function createNotaryFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNotaryFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起文件存证，将文件内容存证上链
+     * Summary: 文件内容存证上链.
+     *
+     * @param CreateNotaryFileRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateNotaryFileResponse
+     */
+    public function createNotaryFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNotaryFileResponse::fromMap($this->doRequest('1.0', 'baas.notary.file.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
+     * Summary: 获取文件存证oss下载地址
+     *
+     * @param GetNotaryFileRequest $request
+     *
+     * @return GetNotaryFileResponse
+     */
+    public function getNotaryFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
+     * Summary: 获取文件存证oss下载地址
+     *
+     * @param GetNotaryFileRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return GetNotaryFileResponse
+     */
+    public function getNotaryFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryFileResponse::fromMap($this->doRequest('1.0', 'baas.notary.file.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起原文存证，将原文内容存证上链
+     * Summary: 原文内容存证
+     *
+     * @param CreateNotarySourceRequest $request
+     *
+     * @return CreateNotarySourceResponse
+     */
+    public function createNotarySource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNotarySourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起原文存证，将原文内容存证上链
+     * Summary: 原文内容存证
+     *
+     * @param CreateNotarySourceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateNotarySourceResponse
+     */
+    public function createNotarySourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNotarySourceResponse::fromMap($this->doRequest('1.0', 'baas.notary.source.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
+     * Summary: 获取原文存证oss下载地址
+     *
+     * @param GetNotarySourceRequest $request
+     *
+     * @return GetNotarySourceResponse
+     */
+    public function getNotarySource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotarySourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
+     * Summary: 获取原文存证oss下载地址
+     *
+     * @param GetNotarySourceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetNotarySourceResponse
+     */
+    public function getNotarySourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotarySourceResponse::fromMap($this->doRequest('1.0', 'baas.notary.source.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryNotaryTestRequest $request
+     *
+     * @return QueryNotaryTestResponse
+     */
+    public function queryNotaryTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryNotaryTestRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryNotaryTestResponse
+     */
+    public function queryNotaryTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryTestResponse::fromMap($this->doRequest('1.0', 'baas.notary.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 接口定义 https://yuque.antfin-inc.com/antchain/lqq4qz/pnvo46#52f667ab
+     * Summary: 企业法人认证初始化接口.
+     *
+     * @param InitNotaryOpenapiMerchantRequest $request
+     *
+     * @return InitNotaryOpenapiMerchantResponse
+     */
+    public function initNotaryOpenapiMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initNotaryOpenapiMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 接口定义 https://yuque.antfin-inc.com/antchain/lqq4qz/pnvo46#52f667ab
+     * Summary: 企业法人认证初始化接口.
+     *
+     * @param InitNotaryOpenapiMerchantRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return InitNotaryOpenapiMerchantResponse
+     */
+    public function initNotaryOpenapiMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitNotaryOpenapiMerchantResponse::fromMap($this->doRequest('1.0', 'baas.notary.openapi.merchant.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业法人认证查询认证状态
+     * Summary: 企业法人认证查询认证状态
+     *
+     * @param QueryNotaryOpenapiMerchantRequest $request
+     *
+     * @return QueryNotaryOpenapiMerchantResponse
+     */
+    public function queryNotaryOpenapiMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNotaryOpenapiMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业法人认证查询认证状态
+     * Summary: 企业法人认证查询认证状态
+     *
+     * @param QueryNotaryOpenapiMerchantRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryNotaryOpenapiMerchantResponse
+     */
+    public function queryNotaryOpenapiMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNotaryOpenapiMerchantResponse::fromMap($this->doRequest('1.0', 'baas.notary.openapi.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为租赁服务平台部署合约
+     * Summary: 为租赁服务平台部署合约.
+     *
+     * @param DeployNotaryLeaseContractRequest $request
+     *
+     * @return DeployNotaryLeaseContractResponse
+     */
+    public function deployNotaryLeaseContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deployNotaryLeaseContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为租赁服务平台部署合约
+     * Summary: 为租赁服务平台部署合约.
+     *
+     * @param DeployNotaryLeaseContractRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return DeployNotaryLeaseContractResponse
+     */
+    public function deployNotaryLeaseContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeployNotaryLeaseContractResponse::fromMap($this->doRequest('1.0', 'baas.notary.lease.contract.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 建站服务信息注册
+     * Summary: 服务注册.
+     *
+     * @param CreateOpenchainWebsitServiceRequest $request
+     *
+     * @return CreateOpenchainWebsitServiceResponse
+     */
+    public function createOpenchainWebsitService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOpenchainWebsitServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 建站服务信息注册
+     * Summary: 服务注册.
+     *
+     * @param CreateOpenchainWebsitServiceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateOpenchainWebsitServiceResponse
+     */
+    public function createOpenchainWebsitServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOpenchainWebsitServiceResponse::fromMap($this->doRequest('1.0', 'baas.openchain.websit.service.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信建站法人四要素认证
+     * Summary: 可信建站法人四要素认证
+     *
+     * @param CheckOpenchainCorporateFaceRequest $request
+     *
+     * @return CheckOpenchainCorporateFaceResponse
+     */
+    public function checkOpenchainCorporateFace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkOpenchainCorporateFaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信建站法人四要素认证
+     * Summary: 可信建站法人四要素认证
+     *
+     * @param CheckOpenchainCorporateFaceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CheckOpenchainCorporateFaceResponse
+     */
+    public function checkOpenchainCorporateFaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckOpenchainCorporateFaceResponse::fromMap($this->doRequest('1.0', 'baas.openchain.corporate.face.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法人认证4要素结果查询
+     * Summary: 法人认证4要素结果查询.
+     *
+     * @param QueryOpenchainCorporateFaceRequest $request
+     *
+     * @return QueryOpenchainCorporateFaceResponse
+     */
+    public function queryOpenchainCorporateFace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOpenchainCorporateFaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法人认证4要素结果查询
+     * Summary: 法人认证4要素结果查询.
+     *
+     * @param QueryOpenchainCorporateFaceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryOpenchainCorporateFaceResponse
+     */
+    public function queryOpenchainCorporateFaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOpenchainCorporateFaceResponse::fromMap($this->doRequest('1.0', 'baas.openchain.corporate.face.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权用户数据查询
+     * Summary: 授权用户数据查询.
+     *
+     * @param QueryOpenchainUserDataRequest $request
+     *
+     * @return QueryOpenchainUserDataResponse
+     */
+    public function queryOpenchainUserData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOpenchainUserDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权用户数据查询
+     * Summary: 授权用户数据查询.
+     *
+     * @param QueryOpenchainUserDataRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryOpenchainUserDataResponse
+     */
+    public function queryOpenchainUserDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOpenchainUserDataResponse::fromMap($this->doRequest('1.0', 'baas.openchain.user.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三要素验证身份冒用风险
+     * Summary: 三要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskThreemetaRequest $request
+     *
+     * @return QueryIdentificationRiskThreemetaResponse
+     */
+    public function queryIdentificationRiskThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationRiskThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三要素验证身份冒用风险
+     * Summary: 三要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskThreemetaRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryIdentificationRiskThreemetaResponse
+     */
+    public function queryIdentificationRiskThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationRiskThreemetaResponse::fromMap($this->doRequest('1.0', 'baas.identification.risk.threemeta.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本内容安全扫描
+     * Summary: 文本内容安全扫描.
+     *
+     * @param CheckContentRiskTextRequest $request
+     *
+     * @return CheckContentRiskTextResponse
+     */
+    public function checkContentRiskText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkContentRiskTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本内容安全扫描
+     * Summary: 文本内容安全扫描.
+     *
+     * @param CheckContentRiskTextRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CheckContentRiskTextResponse
+     */
+    public function checkContentRiskTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckContentRiskTextResponse::fromMap($this->doRequest('1.0', 'baas.content.risk.text.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二要素验证身份冒用风险
+     * Summary: 二要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskTwometaRequest $request
+     *
+     * @return QueryIdentificationRiskTwometaResponse
+     */
+    public function queryIdentificationRiskTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationRiskTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二要素验证身份冒用风险
+     * Summary: 二要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskTwometaRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryIdentificationRiskTwometaResponse
+     */
+    public function queryIdentificationRiskTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationRiskTwometaResponse::fromMap($this->doRequest('1.0', 'baas.identification.risk.twometa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 四要素验证身份冒用风险
+     * Summary: 四要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskFourmetaRequest $request
+     *
+     * @return QueryIdentificationRiskFourmetaResponse
+     */
+    public function queryIdentificationRiskFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationRiskFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 四要素验证身份冒用风险
+     * Summary: 四要素验证身份冒用风险.
+     *
+     * @param QueryIdentificationRiskFourmetaRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryIdentificationRiskFourmetaResponse
+     */
+    public function queryIdentificationRiskFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationRiskFourmetaResponse::fromMap($this->doRequest('1.0', 'baas.identification.risk.fourmeta.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 原生存证接口
+     * Summary: 原生存证接口.
+     *
+     * @param CreateNotaryRawTextRequest $request
+     *
+     * @return CreateNotaryRawTextResponse
+     */
+    public function createNotaryRawText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createNotaryRawTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 原生存证接口
+     * Summary: 原生存证接口.
+     *
+     * @param CreateNotaryRawTextRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateNotaryRawTextResponse
+     */
+    public function createNotaryRawTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateNotaryRawTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.raw.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取原生存证内容接口
+     * Summary: 获取原生存证内容接口.
+     *
+     * @param GetNotaryRawTextRequest $request
+     *
+     * @return GetNotaryRawTextResponse
+     */
+    public function getNotaryRawText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getNotaryRawTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取原生存证内容接口
+     * Summary: 获取原生存证内容接口.
+     *
+     * @param GetNotaryRawTextRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return GetNotaryRawTextResponse
+     */
+    public function getNotaryRawTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetNotaryRawTextResponse::fromMap($this->doRequest('1.0', 'baas.notary.raw.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 脱敏身份验证
+     * Summary: 脱敏身份验证
+     *
+     * @param QueryIdentificationRiskMaskRequest $request
+     *
+     * @return QueryIdentificationRiskMaskResponse
+     */
+    public function queryIdentificationRiskMask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationRiskMaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 脱敏身份验证
+     * Summary: 脱敏身份验证
+     *
+     * @param QueryIdentificationRiskMaskRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryIdentificationRiskMaskResponse
+     */
+    public function queryIdentificationRiskMaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationRiskMaskResponse::fromMap($this->doRequest('1.0', 'baas.identification.risk.mask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于法人实人认证的企业四要素认证
+     * Summary: 基于法人实人认证的企业四要素认证
+     *
+     * @param InitIdentificationEnterpriseFaceauthRequest $request
+     *
+     * @return InitIdentificationEnterpriseFaceauthResponse
+     */
+    public function initIdentificationEnterpriseFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initIdentificationEnterpriseFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于法人实人认证的企业四要素认证
+     * Summary: 基于法人实人认证的企业四要素认证
+     *
+     * @param InitIdentificationEnterpriseFaceauthRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return InitIdentificationEnterpriseFaceauthResponse
+     */
+    public function initIdentificationEnterpriseFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitIdentificationEnterpriseFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.identification.enterprise.faceauth.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询企业四要素（实人）认证结果
+     * Summary: 查询企业四要素（实人）认证结果.
+     *
+     * @param QueryIdentificationEnterpriseFaceauthRequest $request
+     *
+     * @return QueryIdentificationEnterpriseFaceauthResponse
+     */
+    public function queryIdentificationEnterpriseFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationEnterpriseFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询企业四要素（实人）认证结果
+     * Summary: 查询企业四要素（实人）认证结果.
+     *
+     * @param QueryIdentificationEnterpriseFaceauthRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryIdentificationEnterpriseFaceauthResponse
+     */
+    public function queryIdentificationEnterpriseFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationEnterpriseFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.identification.enterprise.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业四要素认证
+     * Summary: 企业四要素认证
+     *
+     * @param QueryIdentificationEnterpriseFourmetaRequest $request
+     *
+     * @return QueryIdentificationEnterpriseFourmetaResponse
+     */
+    public function queryIdentificationEnterpriseFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationEnterpriseFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业四要素认证
+     * Summary: 企业四要素认证
+     *
+     * @param QueryIdentificationEnterpriseFourmetaRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryIdentificationEnterpriseFourmetaResponse
+     */
+    public function queryIdentificationEnterpriseFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationEnterpriseFourmetaResponse::fromMap($this->doRequest('1.0', 'baas.identification.enterprise.fourmeta.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业三要素认证（企业名，企业证件号，法人姓名）
+     * Summary: 企业三要素认证
+     *
+     * @param QueryIdentificationEnterpriseThreemetaRequest $request
+     *
+     * @return QueryIdentificationEnterpriseThreemetaResponse
+     */
+    public function queryIdentificationEnterpriseThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationEnterpriseThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业三要素认证（企业名，企业证件号，法人姓名）
+     * Summary: 企业三要素认证
+     *
+     * @param QueryIdentificationEnterpriseThreemetaRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryIdentificationEnterpriseThreemetaResponse
+     */
+    public function queryIdentificationEnterpriseThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationEnterpriseThreemetaResponse::fromMap($this->doRequest('1.0', 'baas.identification.enterprise.threemeta.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业二要素认证（企业名称，企业证件号码）
+     * Summary:  企业二要素认证
+     *
+     * @param QueryIdentificationEnterpriseTwometaRequest $request
+     *
+     * @return QueryIdentificationEnterpriseTwometaResponse
+     */
+    public function queryIdentificationEnterpriseTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIdentificationEnterpriseTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业二要素认证（企业名称，企业证件号码）
+     * Summary:  企业二要素认证
+     *
+     * @param QueryIdentificationEnterpriseTwometaRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return QueryIdentificationEnterpriseTwometaResponse
+     */
+    public function queryIdentificationEnterpriseTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIdentificationEnterpriseTwometaResponse::fromMap($this->doRequest('1.0', 'baas.identification.enterprise.twometa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 完成1.三要素认证；2创建did；3.颁发声明（声明该DID已经完成三要素认证）
+     * Summary: 三要素认证与did创建接口.
+     *
+     * @param StartMydidDidThreeelementRequest $request
+     *
+     * @return StartMydidDidThreeelementResponse
+     */
+    public function startMydidDidThreeelement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMydidDidThreeelementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 完成1.三要素认证；2创建did；3.颁发声明（声明该DID已经完成三要素认证）
+     * Summary: 三要素认证与did创建接口.
+     *
+     * @param StartMydidDidThreeelementRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return StartMydidDidThreeelementResponse
+     */
+    public function startMydidDidThreeelementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMydidDidThreeelementResponse::fromMap($this->doRequest('1.0', 'baas.mydid.did.threeelement.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+}
