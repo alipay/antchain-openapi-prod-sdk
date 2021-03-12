@@ -1,0 +1,59 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.blockchain.models;
+
+import com.aliyun.tea.*;
+
+public class QueryCreditTransferBalanceResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 异常信息的文本描述
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 是否有信用流转额度
+    @NameInMap("has_balance")
+    public Boolean hasBalance;
+
+    public static QueryCreditTransferBalanceResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryCreditTransferBalanceResponse self = new QueryCreditTransferBalanceResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public QueryCreditTransferBalanceResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public QueryCreditTransferBalanceResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public QueryCreditTransferBalanceResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public QueryCreditTransferBalanceResponse setHasBalance(Boolean hasBalance) {
+        this.hasBalance = hasBalance;
+        return this;
+    }
+    public Boolean getHasBalance() {
+        return this.hasBalance;
+    }
+
+}

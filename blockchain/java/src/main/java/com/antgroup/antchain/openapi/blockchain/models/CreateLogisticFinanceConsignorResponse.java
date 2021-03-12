@@ -1,0 +1,59 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.blockchain.models;
+
+import com.aliyun.tea.*;
+
+public class CreateLogisticFinanceConsignorResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 异常信息的文本描述
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 返回货主did信息
+    @NameInMap("did")
+    public String did;
+
+    public static CreateLogisticFinanceConsignorResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateLogisticFinanceConsignorResponse self = new CreateLogisticFinanceConsignorResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public CreateLogisticFinanceConsignorResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public CreateLogisticFinanceConsignorResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public CreateLogisticFinanceConsignorResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public CreateLogisticFinanceConsignorResponse setDid(String did) {
+        this.did = did;
+        return this;
+    }
+    public String getDid() {
+        return this.did;
+    }
+
+}

@@ -1,0 +1,59 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.blockchain.models;
+
+import com.aliyun.tea.*;
+
+public class GetContractBytecodeUrlResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 异常信息的文本描述
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 可用于上传文件到oss的相关oss client字段配置，包括服务端的签名，url超期时间等。
+    @NameInMap("result")
+    public PresignedUrlPolicy result;
+
+    public static GetContractBytecodeUrlResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetContractBytecodeUrlResponse self = new GetContractBytecodeUrlResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public GetContractBytecodeUrlResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public GetContractBytecodeUrlResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public GetContractBytecodeUrlResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public GetContractBytecodeUrlResponse setResult(PresignedUrlPolicy result) {
+        this.result = result;
+        return this;
+    }
+    public PresignedUrlPolicy getResult() {
+        return this.result;
+    }
+
+}
