@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.8"},
+                        {"sdk_version", "1.25.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.8"},
+                        {"sdk_version", "1.25.9"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -13291,6 +13291,132 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAuthVehicleinsuranceVcResponse>(await DoRequestAsync("1.0", "baas.auth.vehicleinsurance.vc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+         * Summary: 查询目标场景的凭证颁发的统计数据
+         */
+        public QueryAuthVcStatisticsResponse QueryAuthVcStatistics(QueryAuthVcStatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthVcStatisticsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+         * Summary: 查询目标场景的凭证颁发的统计数据
+         */
+        public async Task<QueryAuthVcStatisticsResponse> QueryAuthVcStatisticsAsync(QueryAuthVcStatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthVcStatisticsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+         * Summary: 查询目标场景的凭证颁发的统计数据
+         */
+        public QueryAuthVcStatisticsResponse QueryAuthVcStatisticsEx(QueryAuthVcStatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthVcStatisticsResponse>(DoRequest("1.0", "baas.auth.vc.statistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+         * Summary: 查询目标场景的凭证颁发的统计数据
+         */
+        public async Task<QueryAuthVcStatisticsResponse> QueryAuthVcStatisticsExAsync(QueryAuthVcStatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthVcStatisticsResponse>(await DoRequestAsync("1.0", "baas.auth.vc.statistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+         * Summary: 查询目标业务凭证颁发的实时列表情况
+         */
+        public QueryAuthVcRealtimeResponse QueryAuthVcRealtime(QueryAuthVcRealtimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthVcRealtimeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+         * Summary: 查询目标业务凭证颁发的实时列表情况
+         */
+        public async Task<QueryAuthVcRealtimeResponse> QueryAuthVcRealtimeAsync(QueryAuthVcRealtimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthVcRealtimeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+         * Summary: 查询目标业务凭证颁发的实时列表情况
+         */
+        public QueryAuthVcRealtimeResponse QueryAuthVcRealtimeEx(QueryAuthVcRealtimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthVcRealtimeResponse>(DoRequest("1.0", "baas.auth.vc.realtime.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+         * Summary: 查询目标业务凭证颁发的实时列表情况
+         */
+        public async Task<QueryAuthVcRealtimeResponse> QueryAuthVcRealtimeExAsync(QueryAuthVcRealtimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthVcRealtimeResponse>(await DoRequestAsync("1.0", "baas.auth.vc.realtime.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+         * Summary: 特定场景下使用，查询机构状态
+         */
+        public QueryAuthOrgStatusResponse QueryAuthOrgStatus(QueryAuthOrgStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthOrgStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+         * Summary: 特定场景下使用，查询机构状态
+         */
+        public async Task<QueryAuthOrgStatusResponse> QueryAuthOrgStatusAsync(QueryAuthOrgStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthOrgStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+         * Summary: 特定场景下使用，查询机构状态
+         */
+        public QueryAuthOrgStatusResponse QueryAuthOrgStatusEx(QueryAuthOrgStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthOrgStatusResponse>(DoRequest("1.0", "baas.auth.org.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+         * Summary: 特定场景下使用，查询机构状态
+         */
+        public async Task<QueryAuthOrgStatusResponse> QueryAuthOrgStatusExAsync(QueryAuthOrgStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthOrgStatusResponse>(await DoRequestAsync("1.0", "baas.auth.org.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

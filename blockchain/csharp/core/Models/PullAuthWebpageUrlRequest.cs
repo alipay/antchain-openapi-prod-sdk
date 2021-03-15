@@ -46,7 +46,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 
         // 业务方B类身份标识id，与创建的业务方B类DID（颁发可验证声明的subject目标）时baas.auth.corporate.did.create接口的入参owner_uid相同。
         [NameInMap("pk_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PkId { get; set; }
 
     }
