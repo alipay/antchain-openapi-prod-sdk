@@ -38,7 +38,6 @@ public class PullAuthWebpageUrlRequest extends TeaModel {
 
     // 业务方B类身份标识id，与创建的业务方B类DID（颁发可验证声明的subject目标）时baas.auth.corporate.did.create接口的入参owner_uid相同。
     @NameInMap("pk_id")
-    @Validation(required = true)
     public String pkId;
 
     public static PullAuthWebpageUrlRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.25.8")
+                    new TeaPair("sdk_version", "1.25.9")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -6029,6 +6029,63 @@ public class Client {
     public QueryAuthVehicleinsuranceVcResponse queryAuthVehicleinsuranceVcEx(QueryAuthVehicleinsuranceVcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.vehicleinsurance.vc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthVehicleinsuranceVcResponse());
+    }
+
+    /**
+     * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+     * Summary: 查询目标场景的凭证颁发的统计数据
+     */
+    public QueryAuthVcStatisticsResponse queryAuthVcStatistics(QueryAuthVcStatisticsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthVcStatisticsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+     * Summary: 查询目标场景的凭证颁发的统计数据
+     */
+    public QueryAuthVcStatisticsResponse queryAuthVcStatisticsEx(QueryAuthVcStatisticsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.vc.statistics.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthVcStatisticsResponse());
+    }
+
+    /**
+     * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+     * Summary: 查询目标业务凭证颁发的实时列表情况
+     */
+    public QueryAuthVcRealtimeResponse queryAuthVcRealtime(QueryAuthVcRealtimeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthVcRealtimeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+     * Summary: 查询目标业务凭证颁发的实时列表情况
+     */
+    public QueryAuthVcRealtimeResponse queryAuthVcRealtimeEx(QueryAuthVcRealtimeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.vc.realtime.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthVcRealtimeResponse());
+    }
+
+    /**
+     * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+     * Summary: 特定场景下使用，查询机构状态
+     */
+    public QueryAuthOrgStatusResponse queryAuthOrgStatus(QueryAuthOrgStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthOrgStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+     * Summary: 特定场景下使用，查询机构状态
+     */
+    public QueryAuthOrgStatusResponse queryAuthOrgStatusEx(QueryAuthOrgStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.org.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthOrgStatusResponse());
     }
 
     /**
