@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.8'
+                    'sdk_version': '1.25.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtilClient.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.8'
+                    'sdk_version': '1.25.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -16941,6 +16941,168 @@ class Client:
         UtilClient.validate_model(request)
         return blockchain_models.QueryAuthVehicleinsuranceVcResponse().from_map(
             await self.do_request_async('1.0', 'baas.auth.vehicleinsurance.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_vc_statistics(
+        self,
+        request: blockchain_models.QueryAuthVcStatisticsRequest,
+    ) -> blockchain_models.QueryAuthVcStatisticsResponse:
+        """
+        Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+        Summary: 查询目标场景的凭证颁发的统计数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_vc_statistics_ex(request, headers, runtime)
+
+    async def query_auth_vc_statistics_async(
+        self,
+        request: blockchain_models.QueryAuthVcStatisticsRequest,
+    ) -> blockchain_models.QueryAuthVcStatisticsResponse:
+        """
+        Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+        Summary: 查询目标场景的凭证颁发的统计数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_vc_statistics_ex_async(request, headers, runtime)
+
+    def query_auth_vc_statistics_ex(
+        self,
+        request: blockchain_models.QueryAuthVcStatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcStatisticsResponse:
+        """
+        Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+        Summary: 查询目标场景的凭证颁发的统计数据
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthVcStatisticsResponse().from_map(
+            self.do_request('1.0', 'baas.auth.vc.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_vc_statistics_ex_async(
+        self,
+        request: blockchain_models.QueryAuthVcStatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcStatisticsResponse:
+        """
+        Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+        Summary: 查询目标场景的凭证颁发的统计数据
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthVcStatisticsResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.vc.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_vc_realtime(
+        self,
+        request: blockchain_models.QueryAuthVcRealtimeRequest,
+    ) -> blockchain_models.QueryAuthVcRealtimeResponse:
+        """
+        Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+        Summary: 查询目标业务凭证颁发的实时列表情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_vc_realtime_ex(request, headers, runtime)
+
+    async def query_auth_vc_realtime_async(
+        self,
+        request: blockchain_models.QueryAuthVcRealtimeRequest,
+    ) -> blockchain_models.QueryAuthVcRealtimeResponse:
+        """
+        Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+        Summary: 查询目标业务凭证颁发的实时列表情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_vc_realtime_ex_async(request, headers, runtime)
+
+    def query_auth_vc_realtime_ex(
+        self,
+        request: blockchain_models.QueryAuthVcRealtimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcRealtimeResponse:
+        """
+        Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+        Summary: 查询目标业务凭证颁发的实时列表情况
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthVcRealtimeResponse().from_map(
+            self.do_request('1.0', 'baas.auth.vc.realtime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_vc_realtime_ex_async(
+        self,
+        request: blockchain_models.QueryAuthVcRealtimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcRealtimeResponse:
+        """
+        Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+        Summary: 查询目标业务凭证颁发的实时列表情况
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthVcRealtimeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.vc.realtime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_org_status(
+        self,
+        request: blockchain_models.QueryAuthOrgStatusRequest,
+    ) -> blockchain_models.QueryAuthOrgStatusResponse:
+        """
+        Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+        Summary: 特定场景下使用，查询机构状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_org_status_ex(request, headers, runtime)
+
+    async def query_auth_org_status_async(
+        self,
+        request: blockchain_models.QueryAuthOrgStatusRequest,
+    ) -> blockchain_models.QueryAuthOrgStatusResponse:
+        """
+        Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+        Summary: 特定场景下使用，查询机构状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_org_status_ex_async(request, headers, runtime)
+
+    def query_auth_org_status_ex(
+        self,
+        request: blockchain_models.QueryAuthOrgStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthOrgStatusResponse:
+        """
+        Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+        Summary: 特定场景下使用，查询机构状态
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthOrgStatusResponse().from_map(
+            self.do_request('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_org_status_ex_async(
+        self,
+        request: blockchain_models.QueryAuthOrgStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthOrgStatusResponse:
+        """
+        Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+        Summary: 特定场景下使用，查询机构状态
+        """
+        UtilClient.validate_model(request)
+        return blockchain_models.QueryAuthOrgStatusResponse().from_map(
+            await self.do_request_async('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(

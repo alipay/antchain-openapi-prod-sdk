@@ -7062,6 +7062,38 @@ class UserBizKeyInfo(TeaModel):
         return self
 
 
+class Curve(TeaModel):
+    def __init__(
+        self,
+        date: str = None,
+        value: str = None,
+    ):
+        # 分布以day为单位的日期
+        self.date = date
+        # 以day为单位的一天凭证颁发的数据量统计。
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.date is not None:
+            result['date'] = self.date
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class ALiYunChainDownload(TeaModel):
     def __init__(
         self,
@@ -41990,7 +42022,6 @@ class PullAuthWebpageUrlRequest(TeaModel):
         self.validate_required(self.biz_type, 'biz_type')
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.name, 'name')
-        self.validate_required(self.pk_id, 'pk_id')
 
     def to_map(self):
         result = dict()
@@ -44997,6 +45028,339 @@ class QueryAuthVehicleinsuranceVcResponse(TeaModel):
             self.vc_id = m.get('vc_id')
         if m.get('isp_type') is not None:
             self.isp_type = m.get('isp_type')
+        return self
+
+
+class QueryAuthVcStatisticsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_type: str = None,
+        size: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 集群ID
+        self.product_instance_id = product_instance_id
+        # 业务场景码，通常特定的业务场景需要与授权宝约定使用
+        self.biz_type = biz_type
+        # 返回分布数据以day为单位的数量，当前此参数保留，只返回7day的分布，后续启用此参数。
+        self.size = size
+
+    def validate(self):
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class QueryAuthVcStatisticsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_type: str = None,
+        total: int = None,
+        list: List[Curve] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 业务场景值，与入参相同
+        self.biz_type = biz_type
+        # 指定业务场景的数据量，在核酸检测场景，就是整体核酸检测数据的数量
+        self.total = total
+        # 分布曲线描绘的一个点，day为单位的分布数据汇总情况。
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = Curve()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAuthVcRealtimeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_type: str = None,
+        size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 集群ID
+        self.product_instance_id = product_instance_id
+        # 查询目标业务的实时凭证颁发情况
+        self.biz_type = biz_type
+        # 最新实时颁发的凭证查看数目，可以不设定，默认返回10个结果，如果整体结果少于10，则按情况返回。
+        self.size = size
+
+    def validate(self):
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class QueryAuthVcRealtimeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_type: str = None,
+        total: int = None,
+        list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 业务类型场景码，与入参相同。
+        self.biz_type = biz_type
+        # 实际返回的结果数目，如果真是数据量小于request中的size的情况下，total 不等于 size，否则 total 与size值相等。
+        self.total = total
+        # 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+        # 
+        # {
+        # "key":"vc:mychain:01364d9acbda8d09d8c30d94987b40b28f2c28d4ff8f86dbe16197a8f2b0c031",
+        # "name": "张三",           //个人姓名
+        # "certNo": "210XXXXXX90", //个人证件号码
+        # "mobile": "138XXXXXX90", //个人手机号码
+        # "orgName": "XXX检测中心",      //检测机构名称
+        # "orgNo": "90XXXX00",    //检测机构编号 (可选)
+        # "type":"1",             //具体类型说明：1：核酸检测证明，2：疫苗接种证明，其他类型后续扩展
+        # "result":"阴性",
+        # "date":"2021-03-09",    //检测的日期，请统一使用此标准
+        # "timestamp":"检测准确时间戳"   //其它字段可以再补充
+        # }
+        self.list = list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.total is not None:
+            result['total'] = self.total
+        if self.list is not None:
+            result['list'] = self.list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('list') is not None:
+            self.list = m.get('list')
+        return self
+
+
+class QueryAuthOrgStatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 集群ID
+        self.product_instance_id = product_instance_id
+        # 业务类型说明，当前查询的业务类型，不同业务的机构列表不同。
+        self.biz_type = biz_type
+
+    def validate(self):
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        return self
+
+
+class QueryAuthOrgStatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_type: str = None,
+        list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 异常信息的文本描述
+        self.result_code = result_code
+        self.result_msg = result_msg
+        # 业务场景码类型
+        self.biz_type = biz_type
+        # 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+        # 
+        # [
+        # {
+        # "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfd",
+        # "orgName": "XX检查门诊-1",
+        # "orgNo": "机构编号-1",
+        # "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+        # "status": 1
+        # },
+        # {
+        # "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfe",
+        # "orgName": "XX检查门诊-2",
+        # "orgNo": "机构编号-2",
+        # "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+        # "status": 0
+        # }
+        # ]
+        self.list = list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.list is not None:
+            result['list'] = self.list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('list') is not None:
+            self.list = m.get('list')
         return self
 
 
