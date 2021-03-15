@@ -6072,6 +6072,32 @@ func (s *UserBizKeyInfo) SetKeyName(v string) *UserBizKeyInfo {
 	return s
 }
 
+// 描述分布的结构，目前主要包含date和value值
+type Curve struct {
+	// 分布以day为单位的日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 以day为单位的一天凭证颁发的数据量统计。
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s Curve) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Curve) GoString() string {
+	return s.String()
+}
+
+func (s *Curve) SetDate(v string) *Curve {
+	s.Date = &v
+	return s
+}
+
+func (s *Curve) SetValue(v string) *Curve {
+	s.Value = &v
+	return s
+}
+
 // 阿里云蚂蚁区块链相关下载结果
 type ALiYunChainDownload struct {
 	// private_key
@@ -35908,7 +35934,7 @@ type PullAuthWebpageUrlRequest struct {
 	// 业务方C端用户姓名信息，会进入可验证声明claim内容中。
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 业务方B类身份标识id，与创建的业务方B类DID（颁发可验证声明的subject目标）时baas.auth.corporate.did.create接口的入参owner_uid相同。
-	PkId *string `json:"pk_id,omitempty" xml:"pk_id,omitempty" require:"true"`
+	PkId *string `json:"pk_id,omitempty" xml:"pk_id,omitempty"`
 }
 
 func (s PullAuthWebpageUrlRequest) String() string {
@@ -38556,6 +38582,295 @@ func (s *QueryAuthVehicleinsuranceVcResponse) SetVcId(v string) *QueryAuthVehicl
 
 func (s *QueryAuthVehicleinsuranceVcResponse) SetIspType(v int64) *QueryAuthVehicleinsuranceVcResponse {
 	s.IspType = &v
+	return s
+}
+
+type QueryAuthVcStatisticsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 集群ID
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务场景码，通常特定的业务场景需要与授权宝约定使用
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 返回分布数据以day为单位的数量，当前此参数保留，只返回7day的分布，后续启用此参数。
+	Size *string `json:"size,omitempty" xml:"size,omitempty"`
+}
+
+func (s QueryAuthVcStatisticsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcStatisticsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcStatisticsRequest) SetAuthToken(v string) *QueryAuthVcStatisticsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsRequest) SetProductInstanceId(v string) *QueryAuthVcStatisticsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsRequest) SetBizType(v string) *QueryAuthVcStatisticsRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsRequest) SetSize(v string) *QueryAuthVcStatisticsRequest {
+	s.Size = &v
+	return s
+}
+
+type QueryAuthVcStatisticsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 异常信息的文本描述
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务场景值，与入参相同
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 指定业务场景的数据量，在核酸检测场景，就是整体核酸检测数据的数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 分布曲线描绘的一个点，day为单位的分布数据汇总情况。
+	List []*Curve `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthVcStatisticsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcStatisticsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetReqMsgId(v string) *QueryAuthVcStatisticsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetResultCode(v string) *QueryAuthVcStatisticsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetResultMsg(v string) *QueryAuthVcStatisticsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetBizType(v string) *QueryAuthVcStatisticsResponse {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetTotal(v int64) *QueryAuthVcStatisticsResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryAuthVcStatisticsResponse) SetList(v []*Curve) *QueryAuthVcStatisticsResponse {
+	s.List = v
+	return s
+}
+
+type QueryAuthVcRealtimeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 集群ID
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询目标业务的实时凭证颁发情况
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 最新实时颁发的凭证查看数目，可以不设定，默认返回10个结果，如果整体结果少于10，则按情况返回。
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+}
+
+func (s QueryAuthVcRealtimeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcRealtimeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcRealtimeRequest) SetAuthToken(v string) *QueryAuthVcRealtimeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeRequest) SetProductInstanceId(v string) *QueryAuthVcRealtimeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeRequest) SetBizType(v string) *QueryAuthVcRealtimeRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeRequest) SetSize(v int64) *QueryAuthVcRealtimeRequest {
+	s.Size = &v
+	return s
+}
+
+type QueryAuthVcRealtimeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 异常信息的文本描述
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务类型场景码，与入参相同。
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 实际返回的结果数目，如果真是数据量小于request中的size的情况下，total 不等于 size，否则 total 与size值相等。
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+	//
+	// {
+	//   "key":"vc:mychain:01364d9acbda8d09d8c30d94987b40b28f2c28d4ff8f86dbe16197a8f2b0c031",
+	//   "name": "张三",           //个人姓名
+	//   "certNo": "210XXXXXX90", //个人证件号码
+	//   "mobile": "138XXXXXX90", //个人手机号码
+	//   "orgName": "XXX检测中心",      //检测机构名称
+	//   "orgNo": "90XXXX00",    //检测机构编号 (可选)
+	//   "type":"1",             //具体类型说明：1：核酸检测证明，2：疫苗接种证明，其他类型后续扩展
+	//   "result":"阴性",
+	//   "date":"2021-03-09",    //检测的日期，请统一使用此标准
+	//   "timestamp":"检测准确时间戳"   //其它字段可以再补充
+	// }
+	List []*string `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthVcRealtimeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcRealtimeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetReqMsgId(v string) *QueryAuthVcRealtimeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetResultCode(v string) *QueryAuthVcRealtimeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetResultMsg(v string) *QueryAuthVcRealtimeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetBizType(v string) *QueryAuthVcRealtimeResponse {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetTotal(v int64) *QueryAuthVcRealtimeResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryAuthVcRealtimeResponse) SetList(v []*string) *QueryAuthVcRealtimeResponse {
+	s.List = v
+	return s
+}
+
+type QueryAuthOrgStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 集群ID
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型说明，当前查询的业务类型，不同业务的机构列表不同。
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+}
+
+func (s QueryAuthOrgStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthOrgStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthOrgStatusRequest) SetAuthToken(v string) *QueryAuthOrgStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusRequest) SetProductInstanceId(v string) *QueryAuthOrgStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusRequest) SetBizType(v string) *QueryAuthOrgStatusRequest {
+	s.BizType = &v
+	return s
+}
+
+type QueryAuthOrgStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 异常信息的文本描述
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务场景码类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+	//
+	// [
+	//   {
+	//     "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfd",
+	//     "orgName": "XX检查门诊-1",
+	//     "orgNo": "机构编号-1",
+	//     "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+	//     "status": 1
+	//   },
+	//   {
+	//     "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfe",
+	//     "orgName": "XX检查门诊-2",
+	//     "orgNo": "机构编号-2",
+	//     "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+	//     "status": 0
+	//   }
+	// ]
+	List []*string `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthOrgStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthOrgStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthOrgStatusResponse) SetReqMsgId(v string) *QueryAuthOrgStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusResponse) SetResultCode(v string) *QueryAuthOrgStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusResponse) SetResultMsg(v string) *QueryAuthOrgStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusResponse) SetBizType(v string) *QueryAuthOrgStatusResponse {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthOrgStatusResponse) SetList(v []*string) *QueryAuthOrgStatusResponse {
+	s.List = v
 	return s
 }
 
@@ -55565,7 +55880,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.8"),
+				"sdk_version":      tea.String("1.25.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -66098,6 +66413,108 @@ func (client *Client) QueryAuthVehicleinsuranceVcEx(request *QueryAuthVehicleins
 	}
 	_result = &QueryAuthVehicleinsuranceVcResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.vehicleinsurance.vc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+ * Summary: 查询目标场景的凭证颁发的统计数据
+ */
+func (client *Client) QueryAuthVcStatistics(request *QueryAuthVcStatisticsRequest) (_result *QueryAuthVcStatisticsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthVcStatisticsResponse{}
+	_body, _err := client.QueryAuthVcStatisticsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+ * Summary: 查询目标场景的凭证颁发的统计数据
+ */
+func (client *Client) QueryAuthVcStatisticsEx(request *QueryAuthVcStatisticsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthVcStatisticsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthVcStatisticsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.vc.statistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+ * Summary: 查询目标业务凭证颁发的实时列表情况
+ */
+func (client *Client) QueryAuthVcRealtime(request *QueryAuthVcRealtimeRequest) (_result *QueryAuthVcRealtimeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthVcRealtimeResponse{}
+	_body, _err := client.QueryAuthVcRealtimeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+ * Summary: 查询目标业务凭证颁发的实时列表情况
+ */
+func (client *Client) QueryAuthVcRealtimeEx(request *QueryAuthVcRealtimeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthVcRealtimeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthVcRealtimeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.vc.realtime.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+ * Summary: 特定场景下使用，查询机构状态
+ */
+func (client *Client) QueryAuthOrgStatus(request *QueryAuthOrgStatusRequest) (_result *QueryAuthOrgStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthOrgStatusResponse{}
+	_body, _err := client.QueryAuthOrgStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+ * Summary: 特定场景下使用，查询机构状态
+ */
+func (client *Client) QueryAuthOrgStatusEx(request *QueryAuthOrgStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthOrgStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthOrgStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.org.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
