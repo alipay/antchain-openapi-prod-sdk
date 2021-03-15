@@ -465,8 +465,14 @@ use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcStatisticsRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcStatisticsResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceVcRequest;
@@ -1124,7 +1130,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.25.8',
+                    'sdk_version'      => '1.25.9',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -11352,6 +11358,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryAuthVehicleinsuranceVcResponse::fromMap($this->doRequest('1.0', 'baas.auth.vehicleinsurance.vc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+     * Summary: 查询目标场景的凭证颁发的统计数据.
+     *
+     * @param QueryAuthVcStatisticsRequest $request
+     *
+     * @return QueryAuthVcStatisticsResponse
+     */
+    public function queryAuthVcStatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVcStatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+     * Summary: 查询目标场景的凭证颁发的统计数据.
+     *
+     * @param QueryAuthVcStatisticsRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryAuthVcStatisticsResponse
+     */
+    public function queryAuthVcStatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVcStatisticsResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.statistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+     * Summary: 查询目标业务凭证颁发的实时列表情况.
+     *
+     * @param QueryAuthVcRealtimeRequest $request
+     *
+     * @return QueryAuthVcRealtimeResponse
+     */
+    public function queryAuthVcRealtime($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVcRealtimeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+     * Summary: 查询目标业务凭证颁发的实时列表情况.
+     *
+     * @param QueryAuthVcRealtimeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryAuthVcRealtimeResponse
+     */
+    public function queryAuthVcRealtimeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVcRealtimeResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.realtime.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+     * Summary: 特定场景下使用，查询机构状态
+     *
+     * @param QueryAuthOrgStatusRequest $request
+     *
+     * @return QueryAuthOrgStatusResponse
+     */
+    public function queryAuthOrgStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthOrgStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+     * Summary: 特定场景下使用，查询机构状态
+     *
+     * @param QueryAuthOrgStatusRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAuthOrgStatusResponse
+     */
+    public function queryAuthOrgStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthOrgStatusResponse::fromMap($this->doRequest('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

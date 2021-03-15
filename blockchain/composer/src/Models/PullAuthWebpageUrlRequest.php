@@ -72,7 +72,6 @@ class PullAuthWebpageUrlRequest extends Model
         Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('pkId', $this->pkId, true);
     }
 
     public function toMap()
