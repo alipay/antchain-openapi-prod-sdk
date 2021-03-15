@@ -4684,6 +4684,31 @@ export class UserBizKeyInfo extends $tea.Model {
   }
 }
 
+// 描述分布的结构，目前主要包含date和value值
+export class Curve extends $tea.Model {
+  // 分布以day为单位的日期
+  date: string;
+  // 以day为单位的一天凭证颁发的数据量统计。
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      date: 'date',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      date: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云蚂蚁区块链相关下载结果
 export class ALiYunChainDownload extends $tea.Model {
   // private_key
@@ -27523,7 +27548,7 @@ export class PullAuthWebpageUrlRequest extends $tea.Model {
   // 业务方C端用户姓名信息，会进入可验证声明claim内容中。
   name: string;
   // 业务方B类身份标识id，与创建的业务方B类DID（颁发可验证声明的subject目标）时baas.auth.corporate.did.create接口的入参owner_uid相同。
-  pkId: string;
+  pkId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -29450,6 +29475,241 @@ export class QueryAuthVehicleinsuranceVcResponse extends $tea.Model {
       ownerUserDid: 'string',
       vcId: 'string',
       ispType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthVcStatisticsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 集群ID
+  productInstanceId?: string;
+  // 业务场景码，通常特定的业务场景需要与授权宝约定使用
+  bizType: string;
+  // 返回分布数据以day为单位的数量，当前此参数保留，只返回7day的分布，后续启用此参数。
+  size?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      size: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthVcStatisticsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 异常信息的文本描述
+  resultCode?: string;
+  resultMsg?: string;
+  // 业务场景值，与入参相同
+  bizType?: string;
+  // 指定业务场景的数据量，在核酸检测场景，就是整体核酸检测数据的数量
+  total?: number;
+  // 分布曲线描绘的一个点，day为单位的分布数据汇总情况。
+  list?: Curve[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizType: 'biz_type',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizType: 'string',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': Curve },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthVcRealtimeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 集群ID
+  productInstanceId?: string;
+  // 查询目标业务的实时凭证颁发情况
+  bizType: string;
+  // 最新实时颁发的凭证查看数目，可以不设定，默认返回10个结果，如果整体结果少于10，则按情况返回。
+  size?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      size: 'size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      size: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthVcRealtimeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 异常信息的文本描述
+  resultCode?: string;
+  resultMsg?: string;
+  // 业务类型场景码，与入参相同。
+  bizType?: string;
+  // 实际返回的结果数目，如果真是数据量小于request中的size的情况下，total 不等于 size，否则 total 与size值相等。
+  total?: number;
+  // 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+  // 
+  // {
+  //   "key":"vc:mychain:01364d9acbda8d09d8c30d94987b40b28f2c28d4ff8f86dbe16197a8f2b0c031",
+  //   "name": "张三",           //个人姓名
+  //   "certNo": "210XXXXXX90", //个人证件号码
+  //   "mobile": "138XXXXXX90", //个人手机号码
+  //   "orgName": "XXX检测中心",      //检测机构名称
+  //   "orgNo": "90XXXX00",    //检测机构编号 (可选)
+  //   "type":"1",             //具体类型说明：1：核酸检测证明，2：疫苗接种证明，其他类型后续扩展
+  //   "result":"阴性",
+  //   "date":"2021-03-09",    //检测的日期，请统一使用此标准
+  //   "timestamp":"检测准确时间戳"   //其它字段可以再补充
+  // }
+  list?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizType: 'biz_type',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizType: 'string',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthOrgStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 集群ID
+  productInstanceId?: string;
+  // 业务类型说明，当前查询的业务类型，不同业务的机构列表不同。
+  bizType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthOrgStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 异常信息的文本描述
+  resultCode?: string;
+  resultMsg?: string;
+  // 业务场景码类型
+  bizType?: string;
+  // 列表结果，其中每个元素是一个json的string，这个json实际就是数据源提供的数据上链之前的内容。
+  // 
+  // [
+  //   {
+  //     "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfd",
+  //     "orgName": "XX检查门诊-1",
+  //     "orgNo": "机构编号-1",
+  //     "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+  //     "status": 1
+  //   },
+  //   {
+  //     "did": "did:mychain:b11dd863d31c38507d6cf8e615b897c7a9160d145e404b8a991964179c0e0bfe",
+  //     "orgName": "XX检查门诊-2",
+  //     "orgNo": "机构编号-2",
+  //     "logoUrl": "https://gw.alipayobjects.com/mdn/rms_40e4ff/afts/img/A*a8QOSJysDlsAAAAAAAAAAABkARQnAQ",
+  //     "status": 0
+  //   }
+  // ]
+  list?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizType: 'biz_type',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizType: 'string',
+      list: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -42604,7 +42864,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.8",
+          sdk_version: "1.25.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -48520,6 +48780,63 @@ export default class Client {
   async queryAuthVehicleinsuranceVcEx(request: QueryAuthVehicleinsuranceVcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthVehicleinsuranceVcResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAuthVehicleinsuranceVcResponse>(await this.doRequest("1.0", "baas.auth.vehicleinsurance.vc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthVehicleinsuranceVcResponse({}));
+  }
+
+  /**
+   * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+   * Summary: 查询目标场景的凭证颁发的统计数据
+   */
+  async queryAuthVcStatistics(request: QueryAuthVcStatisticsRequest): Promise<QueryAuthVcStatisticsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthVcStatisticsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询在特定业务bizType下的凭证颁发的统计数据，以及按照day维度的分布情况。
+   * Summary: 查询目标场景的凭证颁发的统计数据
+   */
+  async queryAuthVcStatisticsEx(request: QueryAuthVcStatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthVcStatisticsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthVcStatisticsResponse>(await this.doRequest("1.0", "baas.auth.vc.statistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthVcStatisticsResponse({}));
+  }
+
+  /**
+   * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+   * Summary: 查询目标业务凭证颁发的实时列表情况
+   */
+  async queryAuthVcRealtime(request: QueryAuthVcRealtimeRequest): Promise<QueryAuthVcRealtimeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthVcRealtimeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询目标业务凭证的实时颁发的情况，返回一个列表。
+   * Summary: 查询目标业务凭证颁发的实时列表情况
+   */
+  async queryAuthVcRealtimeEx(request: QueryAuthVcRealtimeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthVcRealtimeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthVcRealtimeResponse>(await this.doRequest("1.0", "baas.auth.vc.realtime.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthVcRealtimeResponse({}));
+  }
+
+  /**
+   * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+   * Summary: 特定场景下使用，查询机构状态
+   */
+  async queryAuthOrgStatus(request: QueryAuthOrgStatusRequest): Promise<QueryAuthOrgStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthOrgStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在机构颁发凭证的情况下，机构的可信度和状态会影响颁发的凭证的有效性和影响，因此提供接口查询机构状态。
+   * Summary: 特定场景下使用，查询机构状态
+   */
+  async queryAuthOrgStatusEx(request: QueryAuthOrgStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthOrgStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthOrgStatusResponse>(await this.doRequest("1.0", "baas.auth.org.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthOrgStatusResponse({}));
   }
 
   /**
