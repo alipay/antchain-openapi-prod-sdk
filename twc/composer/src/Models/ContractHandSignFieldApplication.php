@@ -143,6 +143,14 @@ class ContractHandSignFieldApplication extends Model
      * @var string[]
      */
     public $sealIds;
+
+    // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+    /**
+     * @example 0
+     *
+     * @var int
+     */
+    public $signFieldType;
     protected $_name = [
         'accountId'        => 'account_id',
         'fileId'           => 'file_id',
@@ -161,6 +169,7 @@ class ContractHandSignFieldApplication extends Model
         'thirdOrderNo'     => 'third_order_no',
         'width'            => 'width',
         'sealIds'          => 'seal_ids',
+        'signFieldType'    => 'sign_field_type',
     ];
 
     public function validate()
@@ -224,6 +233,9 @@ class ContractHandSignFieldApplication extends Model
         }
         if (null !== $this->sealIds) {
             $res['seal_ids'] = $this->sealIds;
+        }
+        if (null !== $this->signFieldType) {
+            $res['sign_field_type'] = $this->signFieldType;
         }
 
         return $res;
@@ -289,6 +301,9 @@ class ContractHandSignFieldApplication extends Model
             if (!empty($map['seal_ids'])) {
                 $model->sealIds = $map['seal_ids'];
             }
+        }
+        if (isset($map['sign_field_type'])) {
+            $model->signFieldType = $map['sign_field_type'];
         }
 
         return $model;
