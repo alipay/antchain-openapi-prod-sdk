@@ -1191,6 +1191,8 @@ type ContractHandSignFieldApplication struct {
 	Width *string `json:"width,omitempty" xml:"width,omitempty"`
 	// 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
 	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
+	// 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+	SignFieldType *int64 `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
 }
 
 func (s ContractHandSignFieldApplication) String() string {
@@ -1283,6 +1285,11 @@ func (s *ContractHandSignFieldApplication) SetWidth(v string) *ContractHandSignF
 
 func (s *ContractHandSignFieldApplication) SetSealIds(v []*string) *ContractHandSignFieldApplication {
 	s.SealIds = v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignFieldType(v int64) *ContractHandSignFieldApplication {
+	s.SignFieldType = &v
 	return s
 }
 
@@ -22159,7 +22166,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.140"),
+				"sdk_version":      tea.String("1.4.141"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
