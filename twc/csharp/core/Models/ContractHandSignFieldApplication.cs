@@ -95,6 +95,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<string> SealIds { get; set; }
 
+        // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+        [NameInMap("sign_field_type")]
+        [Validation(Required=false)]
+        public long? SignFieldType { get; set; }
+
     }
 
 }
