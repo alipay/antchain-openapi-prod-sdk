@@ -76,6 +76,10 @@ public class ContractHandSignFieldApplication extends TeaModel {
     @NameInMap("seal_ids")
     public java.util.List<String> sealIds;
 
+    // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+    @NameInMap("sign_field_type")
+    public Long signFieldType;
+
     public static ContractHandSignFieldApplication build(java.util.Map<String, ?> map) throws Exception {
         ContractHandSignFieldApplication self = new ContractHandSignFieldApplication();
         return TeaModel.build(map, self);
@@ -215,6 +219,14 @@ public class ContractHandSignFieldApplication extends TeaModel {
     }
     public java.util.List<String> getSealIds() {
         return this.sealIds;
+    }
+
+    public ContractHandSignFieldApplication setSignFieldType(Long signFieldType) {
+        this.signFieldType = signFieldType;
+        return this;
+    }
+    public Long getSignFieldType() {
+        return this.signFieldType;
     }
 
 }
