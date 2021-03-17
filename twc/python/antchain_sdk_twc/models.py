@@ -1312,6 +1312,7 @@ class ContractHandSignFieldApplication(TeaModel):
         third_order_no: str = None,
         width: str = None,
         seal_ids: List[str] = None,
+        sign_field_type: int = None,
     ):
         # 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
         self.account_id = account_id
@@ -1347,6 +1348,8 @@ class ContractHandSignFieldApplication(TeaModel):
         self.width = width
         # 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
         self.seal_ids = seal_ids
+        # 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+        self.sign_field_type = sign_field_type
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -1390,6 +1393,8 @@ class ContractHandSignFieldApplication(TeaModel):
             result['width'] = self.width
         if self.seal_ids is not None:
             result['seal_ids'] = self.seal_ids
+        if self.sign_field_type is not None:
+            result['sign_field_type'] = self.sign_field_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1428,6 +1433,8 @@ class ContractHandSignFieldApplication(TeaModel):
             self.width = m.get('width')
         if m.get('seal_ids') is not None:
             self.seal_ids = m.get('seal_ids')
+        if m.get('sign_field_type') is not None:
+            self.sign_field_type = m.get('sign_field_type')
         return self
 
 
