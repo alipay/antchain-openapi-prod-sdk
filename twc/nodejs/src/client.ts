@@ -871,6 +871,8 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   width?: string;
   // 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
   sealIds?: string[];
+  // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+  signFieldType?: number;
   static names(): { [key: string]: string } {
     return {
       accountId: 'account_id',
@@ -890,6 +892,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
       thirdOrderNo: 'third_order_no',
       width: 'width',
       sealIds: 'seal_ids',
+      signFieldType: 'sign_field_type',
     };
   }
 
@@ -912,6 +915,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
       thirdOrderNo: 'string',
       width: 'string',
       sealIds: { 'type': 'array', 'itemType': 'string' },
+      signFieldType: 'number',
     };
   }
 
@@ -16229,7 +16233,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.140",
+          sdk_version: "1.4.141",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
