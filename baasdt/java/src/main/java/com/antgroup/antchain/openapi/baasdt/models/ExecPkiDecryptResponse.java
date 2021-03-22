@@ -1,0 +1,59 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.baasdt.models;
+
+import com.aliyun.tea.*;
+
+public class ExecPkiDecryptResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 异常信息的文本描述
+    @NameInMap("result_code")
+    public String resultCode;
+
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 明文
+    @NameInMap("content")
+    public String content;
+
+    public static ExecPkiDecryptResponse build(java.util.Map<String, ?> map) throws Exception {
+        ExecPkiDecryptResponse self = new ExecPkiDecryptResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public ExecPkiDecryptResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public ExecPkiDecryptResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public ExecPkiDecryptResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public ExecPkiDecryptResponse setContent(String content) {
+        this.content = content;
+        return this;
+    }
+    public String getContent() {
+        return this.content;
+    }
+
+}
