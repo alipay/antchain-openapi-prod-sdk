@@ -1,0 +1,74 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.BAASDT.Models
+{
+    public class StartIpPackagetradeRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        // 集群ID
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 基础请求参数
+        [NameInMap("base_request")]
+        [Validation(Required=true)]
+        public BaseRequestInfo BaseRequest { get; set; }
+
+        // 买方的链上账户Id
+        [NameInMap("account_id")]
+        [Validation(Required=true)]
+        public string AccountId { get; set; }
+
+        // IP ID
+        [NameInMap("ip_id")]
+        [Validation(Required=true)]
+        public string IpId { get; set; }
+
+        // true 只上链不走真实支付，false 上链并链下真实支付账单
+        [NameInMap("only_call_blockchain")]
+        [Validation(Required=true)]
+        public bool? OnlyCallBlockchain { get; set; }
+
+        // 终端商品价格区间
+        [NameInMap("price_range")]
+        [Validation(Required=true)]
+        public string PriceRange { get; set; }
+
+        // 套餐中包含终端商品数量
+        [NameInMap("amount")]
+        [Validation(Required=true)]
+        public long? Amount { get; set; }
+
+        // 套餐交易应付金额，单位元，保留两位小数
+        [NameInMap("expected_total_price")]
+        [Validation(Required=true)]
+        public string ExpectedTotalPrice { get; set; }
+
+        // 授权合作开始期限（毫秒时间戳）
+        [NameInMap("auth_begin_time")]
+        [Validation(Required=true)]
+        public long? AuthBeginTime { get; set; }
+
+        // 授权合作结束期限（毫秒时间戳）
+        [NameInMap("auth_end_time")]
+        [Validation(Required=true)]
+        public long? AuthEndTime { get; set; }
+
+        // 备注信息
+        [NameInMap("memo")]
+        [Validation(Required=true)]
+        public string Memo { get; set; }
+
+    }
+
+}
