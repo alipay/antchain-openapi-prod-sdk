@@ -1,0 +1,1025 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.6',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 计量详细结果
+model MeteringDataDetail {
+  // 比对通过
+  identifyPassedPv?: long(name='identify_passed_pv', example='10'),
+  // 上传服务端成功
+  identifySucceedPv?: long(name='identify_succeed_pv', example='10'),
+  // 计量类型
+  meteringType?: string(name='metering_type', example='计量类型'),
+  // 产品渲染（SDK唤起）
+  prodStartPv?: long(name='prod_start_pv', example='10'),
+  // 查询结果通过
+  queryPassedPv?: long(name='query_passed_pv', example='10'),
+  // 发起查询
+  querySucceedPv?: long(name='query_succeed_pv', example='10'),
+  // 可用性检查通过
+  usablePassedPv?: long(name='usable_passed_pv', example='10'),
+  // 可用性检查开始
+  usableStartPv?: long(name='usable_start_pv', example='10'),
+}
+
+// 计量结果
+model MeteringData {
+  // endTime
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='endTime'),
+  // metering_data_detail_list
+  meteringDataDetailList?: [ MeteringDataDetail ](name='metering_data_detail_list', example='metering_data_detail_list'),
+  // startTime
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='startTime'),
+}
+
+model ExecFaceauthAlgorithmRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务ID
+  bizId: string(name='biz_id'),
+  // 渠道
+  channel: string(name='channel'),
+  // base64图片
+  imgStr: string(name='img_str'),
+  // Pano类型
+  imgType: string(name='img_type'),
+  // 场景
+  scene?: string(name='scene'),
+}
+
+model ExecFaceauthAlgorithmResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 算法结果，json格式
+  algoResult?: string(name='algo_result'),
+}
+
+/**
+ * Description: 金融云计算能力输出给主站使用
+ * Summary: 金融云计算能力输出给主站使用
+ */
+async function execFaceauthAlgorithm(request: ExecFaceauthAlgorithmRequest): ExecFaceauthAlgorithmResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execFaceauthAlgorithmEx(request, headers, runtime);
+}
+
+/**
+ * Description: 金融云计算能力输出给主站使用
+ * Summary: 金融云计算能力输出给主站使用
+ */
+async function execFaceauthAlgorithmEx(request: ExecFaceauthAlgorithmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecFaceauthAlgorithmResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.algorithm.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FaceFaceauthInitializeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 用户身份信息
+  identityParam: string(name='identity_param'),
+  // metainfo环境参数
+  metainfo: string(name='metainfo'),
+  // 操作类型
+  operationType?: string(name='operation_type'),
+  // 比对源图片
+  refImg?: string(name='ref_img'),
+}
+
+model FaceFaceauthInitializeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub: string(name='result_msg_sub'),
+  // 实人认证id
+  zimId: string(name='zim_id'),
+}
+
+/**
+ * Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+ * Summary: 实人认证初始化
+ */
+async function faceFaceauthInitialize(request: FaceFaceauthInitializeRequest): FaceFaceauthInitializeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return faceFaceauthInitializeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+ * Summary: 实人认证初始化
+ */
+async function faceFaceauthInitializeEx(request: FaceFaceauthInitializeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FaceFaceauthInitializeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.initialize.face', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FaceFaceauthQueryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务单据号，用于核对和排查
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // zimId，用于查询认证结果
+  zimId: string(name='zim_id'),
+}
+
+model FaceFaceauthQueryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
+ * Summary: 实人认证查询
+ */
+async function faceFaceauthQuery(request: FaceFaceauthQueryRequest): FaceFaceauthQueryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return faceFaceauthQueryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
+ * Summary: 实人认证查询
+ */
+async function faceFaceauthQueryEx(request: FaceFaceauthQueryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FaceFaceauthQueryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.query.face', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model IdentityFaceauthServermodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 活体照片，base64编码
+  authImg?: string(name='auth_img'),
+  // BLOB：使用客户端透传的BLOB数据
+  // IMAGE：正常图片模式
+  authImgType?: string(name='auth_img_type'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 用户身份信息
+  identityParam?: string(name='identity_param'),
+  // 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
+  operationType?: string(name='operation_type'),
+  // 比对源照片，base64编码
+  refImg?: string(name='ref_img'),
+}
+
+model IdentityFaceauthServermodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // 明细返回码对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 人脸纯服务端模式比对
+ * Summary: 人脸纯服务端模式比对
+ */
+async function identityFaceauthServermode(request: IdentityFaceauthServermodeRequest): IdentityFaceauthServermodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return identityFaceauthServermodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 人脸纯服务端模式比对
+ * Summary: 人脸纯服务端模式比对
+ */
+async function identityFaceauthServermodeEx(request: IdentityFaceauthServermodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): IdentityFaceauthServermodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.servermode.identity', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitializeFaceauthWebRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 用户身份信息
+  identityParam?: string(name='identity_param'),
+  // metainfo环境参数
+  metainfo?: string(name='metainfo'),
+  // 操作类型
+  operationType?: string(name='operation_type'),
+  // 比对源图片
+  refImg?: string(name='ref_img'),
+}
+
+model InitializeFaceauthWebResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+  // 实人认证id
+  zimId?: string(name='zim_id'),
+}
+
+/**
+ * Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+ * Summary: H5实人认证初始化
+ */
+async function initializeFaceauthWeb(request: InitializeFaceauthWebRequest): InitializeFaceauthWebResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initializeFaceauthWebEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+ * Summary: H5实人认证初始化
+ */
+async function initializeFaceauthWebEx(request: InitializeFaceauthWebRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitializeFaceauthWebResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.web.initialize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceauthWebRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务单据号，用于核对和排查问题
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // zimId，用于查询认证结果
+  zimId: string(name='zim_id'),
+}
+
+model QueryFaceauthWebResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: H5实人认证查询
+ * Summary: H5实人认证查询
+ */
+async function queryFaceauthWeb(request: QueryFaceauthWebRequest): QueryFaceauthWebResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceauthWebEx(request, headers, runtime);
+}
+
+/**
+ * Description: H5实人认证查询
+ * Summary: H5实人认证查询
+ */
+async function queryFaceauthWebEx(request: QueryFaceauthWebRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthWebResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.web.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceauthMeteringRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId: string(name='biz_id'),
+  // 截止时间（整小时）
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+  // 初始化接口传入的二级商户id
+  merchantId?: string(name='merchant_id'),
+  // 需要查询的计量类型
+  // 实名新用户:realNameNewUser
+  // 实名老用户:realNameOldUser
+  // 匿名注册:anonymousEnroll
+  // 匿名比对:anonymousAuth
+  // 
+  meteringType?: string(name='metering_type'),
+  // 起始时间（整小时）
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+}
+
+model QueryFaceauthMeteringResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 计量数据
+  meteringData?: MeteringData(name='metering_data'),
+}
+
+/**
+ * Description: 提供给业务方刷脸认证计量查询接口
+ * Summary: 提供给业务方刷脸认证计量查询接口
+ */
+async function queryFaceauthMetering(request: QueryFaceauthMeteringRequest): QueryFaceauthMeteringResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceauthMeteringEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供给业务方刷脸认证计量查询接口
+ * Summary: 提供给业务方刷脸认证计量查询接口
+ */
+async function queryFaceauthMeteringEx(request: QueryFaceauthMeteringRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthMeteringResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.metering.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitFaceauthFaceLiteRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 用户身份信息
+  identityParam: string(name='identity_param'),
+  // metainfo环境参数
+  metainfo: string(name='metainfo'),
+  // 操作类型
+  operationType?: string(name='operation_type'),
+  // 比对源图片
+  refImg?: string(name='ref_img'),
+}
+
+model InitFaceauthFaceLiteResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 扩展结果
+  externInfo?: string(name='extern_info'),
+  // 人脸协议
+  protocol?: string(name='protocol'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // 明细返回码对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+  // 刷脸认证唯一标识。如果初始化失败则为空，可通过返回码分析具体原因
+  zimId?: string(name='zim_id'),
+}
+
+/**
+ * Description: 极简模式初始化接口，返回zimId和协议
+ * Summary: 极简模式初始化接口
+ */
+async function initFaceauthFaceLite(request: InitFaceauthFaceLiteRequest): InitFaceauthFaceLiteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initFaceauthFaceLiteEx(request, headers, runtime);
+}
+
+/**
+ * Description: 极简模式初始化接口，返回zimId和协议
+ * Summary: 极简模式初始化接口
+ */
+async function initFaceauthFaceLiteEx(request: InitFaceauthFaceLiteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFaceauthFaceLiteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.face.lite.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceauthDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务ID
+  bizId: string(name='biz_id'),
+  // 数据地址
+  dataUrl: string(name='data_url'),
+}
+
+model QueryFaceauthDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 查询结果详情
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据查询，排查case
+ * Summary: 数据查询，排查case
+ */
+async function queryFaceauthData(request: QueryFaceauthDataRequest): QueryFaceauthDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceauthDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据查询，排查case
+ * Summary: 数据查询，排查case
+ */
+async function queryFaceauthDataEx(request: QueryFaceauthDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAuthenticationCustomerFaceabilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // extract(提取特征)、sex(检测性别)、rect(人脸矩形框识别)
+  ability: string(name='ability'),
+  // 算法版本
+  algVer: string(name='alg_ver'),
+  // 图片encode base64 String
+  authImg: string(name='auth_img'),
+  // 业务接入方生成，唯一ID
+  bizId: string(name='biz_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model ExecAuthenticationCustomerFaceabilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 提供人脸特征提取、人脸区域识别等能力接口
+ * Summary: 提供人脸特征提取、人脸区域识别等能力接口
+ */
+async function execAuthenticationCustomerFaceability(request: ExecAuthenticationCustomerFaceabilityRequest): ExecAuthenticationCustomerFaceabilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAuthenticationCustomerFaceabilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供人脸特征提取、人脸区域识别等能力接口
+ * Summary: 提供人脸特征提取、人脸区域识别等能力接口
+ */
+async function execAuthenticationCustomerFaceabilityEx(request: ExecAuthenticationCustomerFaceabilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAuthenticationCustomerFaceabilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.authentication.customer.faceability.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitFaceauthZimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务参数
+  bizData?: string(name='biz_data'),
+  // 渠道
+  channel?: string(name='channel'),
+  // 商户
+  merchant?: string(name='merchant'),
+  // 环境参数
+  metaInfo: string(name='meta_info'),
+  // 产品节点
+  produceNode?: string(name='produce_node'),
+  // 产品名称
+  productName?: string(name='product_name'),
+  // 实人认证id
+  zimId: string(name='zim_id'),
+  // 身份信息参数
+  zimPrincipal?: string(name='zim_principal'),
+}
+
+model InitFaceauthZimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  extParams?: string(name='ext_params'),
+  // 描述
+  message?: string(name='message'),
+  // 协议
+  protocol?: string(name='protocol'),
+  // 返回码
+  retCode?: string(name='ret_code'),
+  // 明细返回码
+  retCodeSub?: string(name='ret_code_sub'),
+  // 明细返回码对应的文案
+  retMessageSub?: string(name='ret_message_sub'),
+  // 实人认证id
+  zimiId?: string(name='zimi_id'),
+}
+
+/**
+ * Description: 客户端接口初始化认证
+ * Summary: 客户端初始化
+ */
+async function initFaceauthZim(request: InitFaceauthZimRequest): InitFaceauthZimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initFaceauthZimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户端接口初始化认证
+ * Summary: 客户端初始化
+ */
+async function initFaceauthZimEx(request: InitFaceauthZimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFaceauthZimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.zim.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyFaceauthZimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展信息,Map的json格式
+  externParam?: string(name='extern_param'),
+  // 人脸业务参数
+  zimData: string(name='zim_data'),
+  // 实人认证id
+  zimId: string(name='zim_id'),
+}
+
+model VerifyFaceauthZimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  extParams?: string(name='ext_params'),
+  // ""
+  hasNext?: string(name='has_next'),
+  // ""
+  nextProtocol?: string(name='next_protocol'),
+  // 产品返回明细码
+  productRetCode?: string(name='product_ret_code'),
+  // 明细返回码
+  retCodeSub?: string(name='ret_code_sub'),
+  // 明细返回码对应的文案
+  retMessageSub?: string(name='ret_message_sub'),
+  // 验证返回明细码
+  validationRetCode?: string(name='validation_ret_code'),
+}
+
+/**
+ * Description: 提供客户端活体检测与人脸比对服务
+ * Summary: 客户端人脸验证
+ */
+async function verifyFaceauthZim(request: VerifyFaceauthZimRequest): VerifyFaceauthZimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyFaceauthZimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供客户端活体检测与人脸比对服务
+ * Summary: 客户端人脸验证
+ */
+async function verifyFaceauthZimEx(request: VerifyFaceauthZimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyFaceauthZimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.zim.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeFaceauthOcrRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据内容
+  dataContext: string(name='data_context'),
+  // 数据类型：OSS_ADDR/BASE64_JPG
+  dataType: string(name='data_type'),
+  // 扩展字段
+  externParam?: string(name='extern_param'),
+  // face: 身份证正面 back: 身份证反面 缺省值是：face
+  // 
+  side: string(name='side'),
+  // zimid
+  zimId: string(name='zim_id'),
+}
+
+model RecognizeFaceauthOcrResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // Map的json格式,预留
+  externInfo?: string(name='extern_info'),
+  // Map的json格式：里面存储ocr识别的结果：
+  // 
+  // name:姓名
+  // 
+  // sex：性别
+  // 
+  // num：身份证号码
+  // 
+  // birth：出生年月日
+  // 
+  // address：地址
+  // 
+  // nationality：名族
+  // 
+  // start_date：身份证有效期开始时间
+  // 
+  // end_date：身份证有效期截止时间
+  // 
+  // issue：备案公安局
+  ocrInfo?: string(name='ocr_info'),
+  // 返回码
+  retCode?: string(name='ret_code'),
+  // 业务返回码
+  // 
+  retCodeSub?: string(name='ret_code_sub'),
+  // 业务返回码描述
+  // 
+  retMessageSub?: string(name='ret_message_sub'),
+  // face: 身份证正面 back: 身份证反面 缺省值是：face
+  // 
+  side?: string(name='side'),
+  // zimid
+  zimId?: string(name='zim_id'),
+}
+
+/**
+ * Description: OCR识别接口，开放给阿里云场景
+ * Summary: OCR识别接口
+ */
+async function recognizeFaceauthOcr(request: RecognizeFaceauthOcrRequest): RecognizeFaceauthOcrResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeFaceauthOcrEx(request, headers, runtime);
+}
+
+/**
+ * Description: OCR识别接口，开放给阿里云场景
+ * Summary: OCR识别接口
+ */
+async function recognizeFaceauthOcrEx(request: RecognizeFaceauthOcrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeFaceauthOcrResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.ocr.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitFaceauthWebsdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 用户身份信息
+  identityParam?: string(name='identity_param'),
+  // metainfo环境参数
+  metainfo?: string(name='metainfo'),
+  // 操作类型
+  operationType?: string(name='operation_type'),
+  // 比对源图片
+  refImg?: string(name='ref_img'),
+}
+
+model InitFaceauthWebsdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+  // 实人认证id
+  zimId?: string(name='zim_id'),
+}
+
+/**
+ * Description: Web实人认证初始化	
+ * Summary: Web实人认证初始化 
+ */
+async function initFaceauthWebsdk(request: InitFaceauthWebsdkRequest): InitFaceauthWebsdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initFaceauthWebsdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: Web实人认证初始化	
+ * Summary: Web实人认证初始化 
+ */
+async function initFaceauthWebsdkEx(request: InitFaceauthWebsdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFaceauthWebsdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.websdk.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceauthWebsdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务单据号，用于核对和排查问题
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // zimId，用于查询认证结果
+  zimId: string(name='zim_id'),
+}
+
+model QueryFaceauthWebsdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: Web实人认证查询
+ * Summary: Web实人认证查询
+ */
+async function queryFaceauthWebsdk(request: QueryFaceauthWebsdkRequest): QueryFaceauthWebsdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceauthWebsdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: Web实人认证查询
+ * Summary: Web实人认证查询
+ */
+async function queryFaceauthWebsdkEx(request: QueryFaceauthWebsdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthWebsdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.websdk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFaceauthFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // zoloz认证会话主键
+  zimId: string(name='zim_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+}
+
+model QueryFaceauthFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 结果码
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
+ * Summary: 获取认证资料
+ */
+async function queryFaceauthFile(request: QueryFaceauthFileRequest): QueryFaceauthFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFaceauthFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
+ * Summary: 获取认证资料
+ */
+async function queryFaceauthFileEx(request: QueryFaceauthFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFaceauthFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.faceauth.file.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
