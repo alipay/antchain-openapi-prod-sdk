@@ -1,0 +1,1568 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.2.19',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// NameValuePair
+model NameValuePair {
+  // 字段名称
+  name: string(name='name', example='key'),
+  // 字段值
+  value: string(name='value', example='value'),
+}
+
+// 数据归属权
+model DataTransferObject {
+  // 发起方
+  from: string(name='from', example=' '),
+  // 转交方
+  to: string(name='to', example=' '),
+  // 流转备注
+  formBody: string(name='form_body', example=' '),
+  // 链上流转记录
+  txHash: string(name='tx_hash', example=' '),
+  // 链上时间戳
+  // 
+  timestamp: long(name='timestamp', example=''),
+}
+
+// 数据状态驱动
+model StatusDrive {
+  // 起始状态
+  fromStatus: string(name='from_status', example=' START'),
+  // 下一状态
+  toStatus: string(name='to_status', example=' NEXT'),
+  // 驱动上链记录哈希
+  driveHash: string(name='drive_hash', example=' cbf34bb98ad466a4640f725ce6c53233b83477feb9ef46537a80287b3c244cfd'),
+  // 链上时间戳
+  timestamp: long(name='timestamp', example=''),
+}
+
+// 结果返回过滤
+model ResultFilterDTO {
+  // 过滤器名称
+  filterName: string(name='filter_name', example='resultFilter'),
+  // 要返回的字段路径列表
+  pathList: [ string ](name='path_list', example=''),
+}
+
+// 自定义流程入参DTO
+model FlowTemplate {
+  // 业务单据类型
+  type: string(name='type', example=' '),
+  // 起始状态
+  fromStatus: string(name='from_status', example=' '),
+  // 目标状态
+  toStatus: string(name='to_status', example=' '),
+  // 是否为状态流起始节点
+  startNode: boolean(name='start_node', example=' '),
+}
+
+// 存证记录
+model NotaryRecord {
+  // 存证记录
+  attributes: [ NameValuePair ](name='attributes', example=''),
+  // 二维码链接
+  qrCodeUrl: string(name='qr_code_url', example='https://xxx.com/p/s/xxx-web/?bizid=a00e36c5'),
+}
+
+// 用户可访问Channel信息
+model UserChannelDTO {
+  // 通道名称
+  channelName: string(name='channel_name', example='shop1'),
+  // 通道是否公开可访问
+  publicAcl: boolean(name='public_acl', example='true, false'),
+  // 创建通道的用户did
+  creatorDid: string(name='creator_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
+  // 权限到期时间
+  validTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time', example='2020-12-15 15:26:00'),
+}
+
+// 数据通道Channel
+model ChannelDTO {
+  // 通道名称
+  channelName: string(name='channel_name', example='shop01'),
+  // 通道是否公开访问
+  publicAcl: boolean(name='public_acl', example='true, false'),
+  // 通道创建账户
+  userDid: string(name='user_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
+}
+
+// 访问权限过滤器
+model AccessFilterDTO {
+  // 过滤器名称
+  filterName: string(name='filter_name', example='typeFilter'),
+  // 要过滤的字段路径
+  path: string(name='path', example='/body/type'),
+  // 路径字段的取值范围
+  target: [ string ](name='target', example='["Type1", "Type2"]'),
+}
+
+// 表单链下链上锚定索引
+model FormIndexDTO {
+  // 业务表单ID
+  formId: string(name='form_id', example='2020213303'),
+  // 业务表单类型
+  formType: string(name='form_type', example='TransferTicket.Apply'),
+  // 块高
+  blockHeight: long(name='block_height', example='1000'),
+  // 交易hash
+  txHash: string(name='tx_hash', example='063a580c6f208a71e4cf57672049e9f59df76412e4d810e4c26950c9147c3ced'),
+  // 交易时间戳
+  txTimestamp: string(name='tx_timestamp', example='1597130279858'),
+}
+
+model CreateUserDidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟标识（联盟ID）
+  unionId: long(name='union_id'),
+  // 参与方的业务类型，如仓库WMS, 电商平台PSP，银行BANK
+  type: string(name='type'),
+}
+
+model CreateUserDidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 用户创建的账户身份DID，用于向区块链上发交易
+  userDid?: string(name='user_did'),
+}
+
+/**
+ * Description: 区块链身份创建
+ * Summary: 区块链身份创建
+ */
+async function createUserDid(request: CreateUserDidRequest): CreateUserDidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserDidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链身份创建
+ * Summary: 区块链身份创建
+ */
+async function createUserDidEx(request: CreateUserDidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserDidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.user.did.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUnionApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 协作联盟名称
+  name: string(name='name'),
+  // 联盟描述
+  description: string(name='description'),
+}
+
+model CreateUnionApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 协作联盟创建申请
+ * Summary: 协作联盟创建申请
+ */
+async function createUnionApply(request: CreateUnionApplyRequest): CreateUnionApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUnionApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 协作联盟创建申请
+ * Summary: 协作联盟创建申请
+ */
+async function createUnionApplyEx(request: CreateUnionApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUnionApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.apply.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmUnionApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核是否通过，SUCCESS,FAILURE,FREEZE
+  status: string(name='status'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // 区块链ID，status为SUCCESS时需要传入
+  chainId?: string(name='chain_id'),
+  // COMMON:普通链
+  // TEE：TEE链
+  // status为SUCCESS时需要填充
+  chainType?: string(name='chain_type'),
+  // TEE场景下要部署的链上合约名称，chain_type为TEE时需要传入
+  contractName?: string(name='contract_name'),
+  // 合约版本，TEE场景下需要传入
+  contractVersion?: string(name='contract_version'),
+}
+
+model ConfirmUnionApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 联盟创建申请审核，仅内部租户可调用
+ * Summary: 联盟创建申请审核
+ */
+async function confirmUnionApply(request: ConfirmUnionApplyRequest): ConfirmUnionApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmUnionApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联盟创建申请审核，仅内部租户可调用
+ * Summary: 联盟创建申请审核
+ */
+async function confirmUnionApplyEx(request: ConfirmUnionApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmUnionApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.apply.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUnionChannelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // 通信通道的名称
+  channelName: string(name='channel_name'),
+  // 发起创建channel的用户
+  userDid: string(name='user_did'),
+  // Channel中数据是否联盟内公开，true为公开可访问，支持后续更新是否公开
+  publicAcl: boolean(name='public_acl'),
+}
+
+model CreateUnionChannelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 在联盟中创建信息通道Channel
+ * Summary: 在联盟中创建信息通道Channel
+ */
+async function createUnionChannel(request: CreateUnionChannelRequest): CreateUnionChannelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUnionChannelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在联盟中创建信息通道Channel
+ * Summary: 在联盟中创建信息通道Channel
+ */
+async function createUnionChannelEx(request: CreateUnionChannelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUnionChannelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.channel.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUserChannelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // 发起账户
+  userDid: string(name='user_did'),
+  // 操作权限类型读、写，入参为WRITE, READ
+  operateType: string(name='operate_type'),
+  // 页码，从1开始，不传默认查询第一页
+  pageNum?: long(name='page_num'),
+  // 页大小，不传的话默认100，页大小上限100
+  pageSize?: long(name='page_size'),
+}
+
+model ListUserChannelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 用户有读或写权限的非公开访问通道列表
+  channelList?: [ UserChannelDTO ](name='channel_list'),
+}
+
+/**
+ * Description: 成员查询自己拥有读或写权限的channel，返回非公开访问的可读Channel集。如果需要查询公开访问的Channel集可以使用blockchain.appex.union.publicChannel.list
+ * Summary: 成员查询自己拥有访问权限的channel
+ */
+async function listUserChannel(request: ListUserChannelRequest): ListUserChannelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUserChannelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 成员查询自己拥有读或写权限的channel，返回非公开访问的可读Channel集。如果需要查询公开访问的Channel集可以使用blockchain.appex.union.publicChannel.list
+ * Summary: 成员查询自己拥有访问权限的channel
+ */
+async function listUserChannelEx(request: ListUserChannelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUserChannelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.user.channel.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUnionPubchannelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // 发起查询的账户
+  userDid: string(name='user_did'),
+  // 页码，不传默认为第一页
+  pageNum?: long(name='page_num'),
+  // 页大小，不传默认为100，页大小上限为100
+  pageSize: long(name='page_size'),
+}
+
+model ListUnionPubchannelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 公开可访问Channel列表
+  channelList?: [ ChannelDTO ](name='channel_list'),
+}
+
+/**
+ * Description: 联盟公开Channel查询
+ * Summary: 联盟公开Channel查询
+ */
+async function listUnionPubchannel(request: ListUnionPubchannelRequest): ListUnionPubchannelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUnionPubchannelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联盟公开Channel查询
+ * Summary: 联盟公开Channel查询
+ */
+async function listUnionPubchannelEx(request: ListUnionPubchannelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUnionPubchannelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.pubchannel.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthChannelUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // Channel名称
+  channelName: string(name='channel_name'),
+  // 发起授权操作的账户
+  userDid: string(name='user_did'),
+  // 要授权的账户
+  targetUserDid: string(name='target_user_did'),
+  // 要给用户分配读或写权限
+  // READ,
+  // WRITE;
+  operateType: string(name='operate_type'),
+  // 授权有效期，为空时表示永久有效
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+}
+
+model AuthChannelUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: Channel授权给用户
+ * Summary: Channel授权给用户
+ */
+async function authChannelUser(request: AuthChannelUserRequest): AuthChannelUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authChannelUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: Channel授权给用户
+ * Summary: Channel授权给用户
+ */
+async function authChannelUserEx(request: AuthChannelUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthChannelUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.channel.user.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelChannelUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // Channel名称
+  channelName: string(name='channel_name'),
+  // 发起方账户
+  userDid: string(name='user_did'),
+  // 要取消授权的账户
+  targetUserDid: string(name='target_user_did'),
+  // 要取消的操作权限类型
+  operateType: string(name='operate_type'),
+}
+
+model CancelChannelUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 取消用户访问Channel的权限
+ * Summary: 取消用户访问Channel的权限
+ */
+async function cancelChannelUser(request: CancelChannelUserRequest): CancelChannelUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelChannelUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消用户访问Channel的权限
+ * Summary: 取消用户访问Channel的权限
+ */
+async function cancelChannelUserEx(request: CancelChannelUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelChannelUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.channel.user.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUnionFormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // Channel名称
+  channelName: string(name='channel_name'),
+  // 业务单据号
+  formId: string(name='form_id'),
+  // 业务单据类型
+  formType: string(name='form_type'),
+  // 原生单据json字符串
+  formBody: string(name='form_body'),
+  // 用户自定义的图ID，开启图功能时传入
+  graphId?: string(name='graph_id'),
+  // 用户自定义的LineNode名称
+  lineNode?: string(name='line_node'),
+  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+  traceId?: string(name='trace_id'),
+  // 表单的直接上游节点formId
+  parentFormIdList?: [ string ](name='parent_form_id_list'),
+  // 表单的直接下游节点formId
+  childFormIdList?: [ string ](name='child_form_id_list'),
+}
+
+model CreateUnionFormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 链上交易Hash
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 单据加密上链
+ * Summary: 单据加密上链
+ */
+async function createUnionForm(request: CreateUnionFormRequest): CreateUnionFormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUnionFormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单据加密上链
+ * Summary: 单据加密上链
+ */
+async function createUnionFormEx(request: CreateUnionFormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUnionFormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.form.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUnionFormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 发起方账户
+  userDid: string(name='user_did'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // 业务单据ID
+  formId: string(name='form_id'),
+  // 业务单据类型
+  formType: string(name='form_type'),
+}
+
+model QueryUnionFormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 块高
+  blockHeight?: long(name='block_height'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 交易时间戳
+  txTimestamp?: string(name='tx_timestamp'),
+  // 业务表单ID
+  formId?: string(name='form_id'),
+  // 业务单据类型
+  formType?: string(name='form_type'),
+  // 解密后原始表单内容
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 查询单个表单
+ * Summary: 查询单个表单
+ */
+async function queryUnionForm(request: QueryUnionFormRequest): QueryUnionFormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUnionFormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单个表单
+ * Summary: 查询单个表单
+ */
+async function queryUnionFormEx(request: QueryUnionFormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUnionFormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.form.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListChannelUserformRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 发起方的账户
+  userDid: string(name='user_did'),
+  // 联盟ID
+  unionId: long(name='union_id'),
+  // Channel名称
+  channelName: string(name='channel_name'),
+  // 页码，默认1
+  pageNum?: long(name='page_num'),
+  // 页大小，默认100
+  pageSize: long(name='page_size'),
+}
+
+model ListChannelUserformResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 表单列表
+  formList?: [ FormIndexDTO ](name='form_list'),
+}
+
+/**
+ * Description: 通道中用户可以访问的表单列表
+ * Summary: 通道中用户可以访问的表单列表
+ */
+async function listChannelUserform(request: ListChannelUserformRequest): ListChannelUserformResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listChannelUserformEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通道中用户可以访问的表单列表
+ * Summary: 通道中用户可以访问的表单列表
+ */
+async function listChannelUserformEx(request: ListChannelUserformRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListChannelUserformResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.channel.userform.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateObjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链身份
+  // 
+  // 
+  userDid: string(name='user_did'),
+  // 联盟标识（联盟码）	
+  unionId: string(name='union_id'),
+  // 归属权要流转的表单ID
+  // 
+  // 
+  formId: string(name='form_id'),
+  // 物的信息
+  // 
+  // 
+  formBody: string(name='form_body'),
+}
+
+model CreateObjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 交易哈希，物的链上身份
+  objectHash?: string(name='object_hash'),
+}
+
+/**
+ * Description: 物上链，链上数字物体创建
+ * Summary: 物权上链
+ */
+async function createObject(request: CreateObjectRequest): CreateObjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createObjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物上链，链上数字物体创建
+ * Summary: 物权上链
+ */
+async function createObjectEx(request: CreateObjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateObjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.object.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateObjectTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链身份
+  userDid: string(name='user_did'),
+  // 联盟标识（联盟码）	
+  unionId: string(name='union_id'),
+  // 链上物体的身份，即物体（物权）上链接口返回的交易哈希
+  objectHash: string(name='object_hash'),
+  // 流转备注信息
+  formBody?: string(name='form_body'),
+  // 数据归属权流转到的Did
+  toDid: string(name='to_did'),
+}
+
+model CreateObjectTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 交易Hash
+  // 
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 数据归属权流转
+ * Summary: 数据归属权流转
+ */
+async function createObjectTransfer(request: CreateObjectTransferRequest): CreateObjectTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createObjectTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据归属权流转
+ * Summary: 数据归属权流转
+ */
+async function createObjectTransferEx(request: CreateObjectTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateObjectTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.object.transfer.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListObjectTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链身份
+  userDid: string(name='user_did'),
+  // 联盟标识（联盟码）
+  unionId: string(name='union_id'),
+  // 链上物体的身份
+  objectHash: string(name='object_hash'),
+}
+
+model ListObjectTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 数据归属权流转列表
+  // 
+  dataTransferList?: [ DataTransferObject ](name='data_transfer_list'),
+}
+
+/**
+ * Description: 数据归属权流转记录查询
+ * Summary: 数据归属权流转记录查询
+ */
+async function listObjectTransfer(request: ListObjectTransferRequest): ListObjectTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listObjectTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据归属权流转记录查询
+ * Summary: 数据归属权流转记录查询
+ */
+async function listObjectTransferEx(request: ListObjectTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListObjectTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.object.transfer.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateStatusflowTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 状态流模版名称
+  flowName: string(name='flow_name'),
+  // 自定义流程入参DTO
+  flowTemplate: [ FlowTemplate ](name='flow_template'),
+}
+
+model CreateStatusflowTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 状态流驱动模版新增
+ * Summary: 状态流驱动模版新增
+ */
+async function createStatusflowTemplate(request: CreateStatusflowTemplateRequest): CreateStatusflowTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createStatusflowTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 状态流驱动模版新增
+ * Summary: 状态流驱动模版新增
+ */
+async function createStatusflowTemplateEx(request: CreateStatusflowTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStatusflowTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.statusflow.template.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteStatusflowTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 状态流模版名称
+  flowName: string(name='flow_name'),
+}
+
+model DeleteStatusflowTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 状态流驱动模版删除
+ * Summary: 状态流驱动模版删除
+ */
+async function deleteStatusflowTemplate(request: DeleteStatusflowTemplateRequest): DeleteStatusflowTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteStatusflowTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 状态流驱动模版删除
+ * Summary: 状态流驱动模版删除
+ */
+async function deleteStatusflowTemplateEx(request: DeleteStatusflowTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteStatusflowTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.statusflow.template.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStatusflowTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  unionId: string(name='union_id'),
+  // 状态流模版名称
+  flowName: string(name='flow_name'),
+}
+
+model QueryStatusflowTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 联盟ID
+  unionId?: string(name='union_id'),
+  // 状态流模版名称
+  flowName?: string(name='flow_name'),
+  // 自定义流程返回DTO
+  listTemplateProcess?: [ FlowTemplate ](name='list_template_process'),
+}
+
+/**
+ * Description: 状态流驱动模版查询
+ * Summary: 状态流驱动模版查询
+ */
+async function queryStatusflowTemplate(request: QueryStatusflowTemplateRequest): QueryStatusflowTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStatusflowTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 状态流驱动模版查询
+ * Summary: 状态流驱动模版查询
+ */
+async function queryStatusflowTemplateEx(request: QueryStatusflowTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStatusflowTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.statusflow.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartDatastatusDriveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链身份
+  userDid: string(name='user_did'),
+  // 联盟标识（联盟码）
+  unionId: string(name='union_id'),
+  // 链上物体的身份，即物体（物权）上链接口返回的交易哈希
+  objectHash: string(name='object_hash'),
+  // 进行驱动状态的环节业务类型
+  formType: string(name='form_type'),
+  // 驱动状态的信息备注
+  formBody: string(name='form_body'),
+  // 是否驱动状态流转，前置条件配置了状态流转模版
+  driveStatus: boolean(name='drive_status'),
+}
+
+model StartDatastatusDriveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 交易Hash
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 数据状态驱动
+ * Summary: 数据状态驱动
+ */
+async function startDatastatusDrive(request: StartDatastatusDriveRequest): StartDatastatusDriveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startDatastatusDriveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据状态驱动
+ * Summary: 数据状态驱动
+ */
+async function startDatastatusDriveEx(request: StartDatastatusDriveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartDatastatusDriveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.datastatus.drive.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDatastatusDriveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链身份
+  // 
+  userDid: string(name='user_did'),
+  // 联盟标识（联盟码）
+  // 
+  unionId: string(name='union_id'),
+  // 链上数据的身份
+  // 
+  txHash: string(name='tx_hash'),
+}
+
+model ListDatastatusDriveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 数据状态流转
+  // 
+  dataStatusDriveList?: [ StatusDrive ](name='data_status_drive_list'),
+}
+
+/**
+ * Description: 查询数据状态流转记录
+ * Summary: 查询数据状态流转记录
+ */
+async function listDatastatusDrive(request: ListDatastatusDriveRequest): ListDatastatusDriveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDatastatusDriveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据状态流转记录
+ * Summary: 查询数据状态流转记录
+ */
+async function listDatastatusDriveEx(request: ListDatastatusDriveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDatastatusDriveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySolutionFastnotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  // 
+  appDid: string(name='app_did'),
+  // 索引字段的值
+  // 
+  bizIndexKeyValue: string(name='biz_index_key_value'),
+  // 名称
+  schemaName: string(name='schema_name'),
+}
+
+model QuerySolutionFastnotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 存证记录
+  notaryRecord?: NotaryRecord(name='notary_record'),
+}
+
+/**
+ * Description: 结构化存证查询
+ * Summary: 结构化存证查询
+ */
+async function querySolutionFastnotary(request: QuerySolutionFastnotaryRequest): QuerySolutionFastnotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySolutionFastnotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 结构化存证查询
+ * Summary: 结构化存证查询
+ */
+async function querySolutionFastnotaryEx(request: QuerySolutionFastnotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySolutionFastnotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.fastnotary.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveSolutionFastnotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  // 
+  appDid: string(name='app_did'),
+  // 表名
+  schemaName: string(name='schema_name'),
+  // 存证数据
+  attributes: [ NameValuePair ](name='attributes'),
+}
+
+model SaveSolutionFastnotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 交易哈希
+  // 
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 发起结构化存证
+ * Summary: 发起结构化存证
+ */
+async function saveSolutionFastnotary(request: SaveSolutionFastnotaryRequest): SaveSolutionFastnotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveSolutionFastnotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起结构化存证
+ * Summary: 发起结构化存证
+ */
+async function saveSolutionFastnotaryEx(request: SaveSolutionFastnotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveSolutionFastnotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.fastnotary.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitSolutionFilenotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  appDid: string(name='app_did'),
+}
+
+model InitSolutionFilenotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 文件存证id
+  fileNotaryId?: string(name='file_notary_id'),
+  // 上传url
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 初始化文件存证
+ * Summary: 初始化文件存证
+ */
+async function initSolutionFilenotary(request: InitSolutionFilenotaryRequest): InitSolutionFilenotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initSolutionFilenotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 初始化文件存证
+ * Summary: 初始化文件存证
+ */
+async function initSolutionFilenotaryEx(request: InitSolutionFilenotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitSolutionFilenotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.filenotary.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncSolutionFilenotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  // 
+  appDid: string(name='app_did'),
+  // 文件存证id
+  // 
+  fileNotaryId: string(name='file_notary_id'),
+}
+
+model SyncSolutionFilenotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 是否被接收
+  // 
+  accepted?: boolean(name='accepted'),
+  // 拒绝原因
+  // 
+  deniedReason?: string(name='denied_reason'),
+  // 文件存证id
+  // 
+  fileNotaryId?: string(name='file_notary_id'),
+}
+
+/**
+ * Description: 通知文件上传完成
+ * Summary: 通知文件上传完成
+ */
+async function syncSolutionFilenotary(request: SyncSolutionFilenotaryRequest): SyncSolutionFilenotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncSolutionFilenotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通知文件上传完成
+ * Summary: 通知文件上传完成
+ */
+async function syncSolutionFilenotaryEx(request: SyncSolutionFilenotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncSolutionFilenotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.filenotary.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetSolutionFilenotarystatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  // 
+  appDid: string(name='app_did'),
+  // 文件存证id
+  // 
+  fileNotaryId: string(name='file_notary_id'),
+}
+
+model GetSolutionFilenotarystatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 存证是否接受
+  // 
+  accepted?: boolean(name='accepted'),
+  // 存证拒绝原因
+  // 
+  deniedReason?: string(name='denied_reason'),
+  // 文件存证id
+  // 
+  fileNotaryId?: string(name='file_notary_id'),
+  // 存证是否完成
+  finished?: boolean(name='finished'),
+  // 存证哈希，存证未完成时为空
+  // 
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 获取文件存证的状态
+ * Summary: 获取文件存证的状态
+ */
+async function getSolutionFilenotarystatus(request: GetSolutionFilenotarystatusRequest): GetSolutionFilenotarystatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getSolutionFilenotarystatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取文件存证的状态
+ * Summary: 获取文件存证的状态
+ */
+async function getSolutionFilenotarystatusEx(request: GetSolutionFilenotarystatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetSolutionFilenotarystatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.filenotarystatus.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySolutionFilenotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  // 
+  appDid: string(name='app_did'),
+  // 存证哈希
+  // 
+  txHash: string(name='tx_hash'),
+}
+
+model QuerySolutionFilenotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 文件sha256哈希
+  // 
+  fileContentHash?: string(name='file_content_hash'),
+  // 小程序二维码对应的url
+  // 
+  qrCodeUrl?: string(name='qr_code_url'),
+  // 下载url
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 查询文件存证
+ * Summary: 查询文件存证
+ */
+async function querySolutionFilenotary(request: QuerySolutionFilenotaryRequest): QuerySolutionFilenotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySolutionFilenotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询文件存证
+ * Summary: 查询文件存证
+ */
+async function querySolutionFilenotaryEx(request: QuerySolutionFilenotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySolutionFilenotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.filenotary.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecContractServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  appDid: string(maxLength=128, name='app_did'),
+  // 合约方法名
+  contractMethod: string(maxLength=128, name='contract_method'),
+  // 合约名称，当一个应用有多个合约时需要传入
+  contractName?: string(maxLength=128, name='contract_name'),
+  // 1.同步交易，2.异步交易，3.Local
+  // 如果不理解以上交易方式之间的区别请不要传入该参数，默认为同步交易
+  execType?: long(name='exec_type'),
+  // 合约入参（格式为json）
+  requestBody: string(maxLength=1024, name='request_body'),
+}
+
+model ExecContractServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 合约执行结果
+  responseBody?: string(name='response_body'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
+ */
+async function execContractService(request: ExecContractServiceRequest): ExecContractServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execContractServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
+ */
+async function execContractServiceEx(request: ExecContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecContractServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitSolutionBmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 账户名称
+  account: string(name='account'),
+  // 合约ID
+  contractId: string(name='contract_id'),
+  // 合约名称
+  contractName: string(name='contract_name'),
+  // 合约临时url
+  contractUrl: string(name='contract_url'),
+}
+
+model InitSolutionBmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 应用ID
+  appDid?: string(name='app_did'),
+}
+
+/**
+ * Description: 速搭平台支持openapi创建应用
+ * Summary: 创建合约应用
+ */
+async function initSolutionBms(request: InitSolutionBmsRequest): InitSolutionBmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initSolutionBmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 速搭平台支持openapi创建应用
+ * Summary: 创建合约应用
+ */
+async function initSolutionBmsEx(request: InitSolutionBmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitSolutionBmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.bms.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySolutionBmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 集群ID
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 合约ID
+  contractId: string(name='contract_id'),
+  // 合约名称
+  contractName: string(name='contract_name'),
+}
+
+model QuerySolutionBmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 异常信息的文本描述
+  resultCode?: string(name='result_code'),
+  resultMsg?: string(name='result_msg'),
+  // 合约oss存储url
+  tempContractUrl?: string(name='temp_contract_url'),
+}
+
+/**
+ * Description: 获取合约临时oss url
+ * Summary: 获取合约临时oss url
+ */
+async function querySolutionBms(request: QuerySolutionBmsRequest): QuerySolutionBmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySolutionBmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取合约临时oss url
+ * Summary: 获取合约临时oss url
+ */
+async function querySolutionBmsEx(request: QuerySolutionBmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySolutionBmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.bms.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
