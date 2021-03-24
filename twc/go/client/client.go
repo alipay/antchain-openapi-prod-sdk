@@ -1168,7 +1168,7 @@ type ContractHandSignFieldApplication struct {
 	// x坐标，页面签章必填，骑缝签章不填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
 	// y坐标
-	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
 	// 印章id
 	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
 	// 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
@@ -19901,6 +19901,8 @@ type CreateInternalTransRequest struct {
 	SubBizId *string `json:"sub_biz_id,omitempty" xml:"sub_biz_id,omitempty"`
 	// 是否使用可信时间戳，默认为false
 	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 代理客户存证时，实际用户的租户ID
+	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
 }
 
 func (s CreateInternalTransRequest) String() string {
@@ -19938,6 +19940,11 @@ func (s *CreateInternalTransRequest) SetSubBizId(v string) *CreateInternalTransR
 
 func (s *CreateInternalTransRequest) SetTsr(v bool) *CreateInternalTransRequest {
 	s.Tsr = &v
+	return s
+}
+
+func (s *CreateInternalTransRequest) SetRealTenant(v string) *CreateInternalTransRequest {
+	s.RealTenant = &v
 	return s
 }
 
@@ -20007,6 +20014,8 @@ type CreateInternalTextRequest struct {
 	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
 	// 是否使用可信时间戳，默认为false
 	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 代理客户存证时，实际用户的租户ID
+	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
 }
 
 func (s CreateInternalTextRequest) String() string {
@@ -20064,6 +20073,11 @@ func (s *CreateInternalTextRequest) SetTransactionId(v string) *CreateInternalTe
 
 func (s *CreateInternalTextRequest) SetTsr(v bool) *CreateInternalTextRequest {
 	s.Tsr = &v
+	return s
+}
+
+func (s *CreateInternalTextRequest) SetRealTenant(v string) *CreateInternalTextRequest {
+	s.RealTenant = &v
 	return s
 }
 
@@ -22166,7 +22180,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.141"),
+				"sdk_version":      tea.String("1.4.143"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
