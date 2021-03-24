@@ -3446,7 +3446,7 @@ func (s *VcShareStruct) SetSignature(v string) *VcShareStruct {
 	return s
 }
 
-// 蚂蚁链浏览器节点所有者信息
+// 蚂蚁链节点信息
 type BlockchainBrowserNodeOwner struct {
 	// node_id
 	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
@@ -3464,6 +3464,10 @@ type BlockchainBrowserNodeOwner struct {
 	NodeState *string `json:"node_state,omitempty" xml:"node_state,omitempty" require:"true"`
 	// node_type
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
+	// 节点已使用的存储空间
+	NodeDiskUsed *string `json:"node_disk_used,omitempty" xml:"node_disk_used,omitempty" require:"true"`
+	// 节点的总存储空间
+	NodeDiskTotal *string `json:"node_disk_total,omitempty" xml:"node_disk_total,omitempty" require:"true"`
 }
 
 func (s BlockchainBrowserNodeOwner) String() string {
@@ -3511,6 +3515,16 @@ func (s *BlockchainBrowserNodeOwner) SetNodeState(v string) *BlockchainBrowserNo
 
 func (s *BlockchainBrowserNodeOwner) SetNodeType(v string) *BlockchainBrowserNodeOwner {
 	s.NodeType = &v
+	return s
+}
+
+func (s *BlockchainBrowserNodeOwner) SetNodeDiskUsed(v string) *BlockchainBrowserNodeOwner {
+	s.NodeDiskUsed = &v
+	return s
+}
+
+func (s *BlockchainBrowserNodeOwner) SetNodeDiskTotal(v string) *BlockchainBrowserNodeOwner {
+	s.NodeDiskTotal = &v
 	return s
 }
 
@@ -55880,7 +55894,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.9"),
+				"sdk_version":      tea.String("1.25.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
