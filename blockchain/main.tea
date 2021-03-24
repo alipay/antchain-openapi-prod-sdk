@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.9',
+    sdk_version = '1.25.10',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1142,7 +1142,7 @@ model VcShareStruct {
   signature?: string(name='signature', example='jN1LVH5YhbTvgrdeBqlImPJBWDzVdNyyHZ1n9A0pSOQKnt11jWM5Qn707+wEa7bc8TOd1WvRItTe\r\nmx4xYCqX0gE=\r\n '),
 }
 
-// 蚂蚁链浏览器节点所有者信息
+// 蚂蚁链节点信息
 model BlockchainBrowserNodeOwner {
   // node_id
   nodeId: string(name='node_id', example='node_id'),
@@ -1160,6 +1160,10 @@ model BlockchainBrowserNodeOwner {
   nodeState: string(name='node_state', example='node_state'),
   // node_type
   nodeType: string(name='node_type', example='node_type'),
+  // 节点已使用的存储空间
+  nodeDiskUsed: string(name='node_disk_used', example='50'),
+  // 节点的总存储空间
+  nodeDiskTotal: string(name='node_disk_total', example='1024'),
 }
 
 // 版通历史发行记录信息
