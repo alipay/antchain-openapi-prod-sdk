@@ -71,15 +71,33 @@ class BlockchainBrowserNodeOwner extends Model
      * @var string
      */
     public $nodeType;
+
+    // 节点已使用的存储空间
+    /**
+     * @example 50
+     *
+     * @var string
+     */
+    public $nodeDiskUsed;
+
+    // 节点的总存储空间
+    /**
+     * @example 1024
+     *
+     * @var string
+     */
+    public $nodeDiskTotal;
     protected $_name = [
-        'nodeId'     => 'node_id',
-        'nodeIp'     => 'node_ip',
-        'nodeName'   => 'node_name',
-        'nodeOwner'  => 'node_owner',
-        'nodePort'   => 'node_port',
-        'nodeSource' => 'node_source',
-        'nodeState'  => 'node_state',
-        'nodeType'   => 'node_type',
+        'nodeId'        => 'node_id',
+        'nodeIp'        => 'node_ip',
+        'nodeName'      => 'node_name',
+        'nodeOwner'     => 'node_owner',
+        'nodePort'      => 'node_port',
+        'nodeSource'    => 'node_source',
+        'nodeState'     => 'node_state',
+        'nodeType'      => 'node_type',
+        'nodeDiskUsed'  => 'node_disk_used',
+        'nodeDiskTotal' => 'node_disk_total',
     ];
 
     public function validate()
@@ -92,6 +110,8 @@ class BlockchainBrowserNodeOwner extends Model
         Model::validateRequired('nodeSource', $this->nodeSource, true);
         Model::validateRequired('nodeState', $this->nodeState, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
+        Model::validateRequired('nodeDiskUsed', $this->nodeDiskUsed, true);
+        Model::validateRequired('nodeDiskTotal', $this->nodeDiskTotal, true);
     }
 
     public function toMap()
@@ -120,6 +140,12 @@ class BlockchainBrowserNodeOwner extends Model
         }
         if (null !== $this->nodeType) {
             $res['node_type'] = $this->nodeType;
+        }
+        if (null !== $this->nodeDiskUsed) {
+            $res['node_disk_used'] = $this->nodeDiskUsed;
+        }
+        if (null !== $this->nodeDiskTotal) {
+            $res['node_disk_total'] = $this->nodeDiskTotal;
         }
 
         return $res;
@@ -156,6 +182,12 @@ class BlockchainBrowserNodeOwner extends Model
         }
         if (isset($map['node_type'])) {
             $model->nodeType = $map['node_type'];
+        }
+        if (isset($map['node_disk_used'])) {
+            $model->nodeDiskUsed = $map['node_disk_used'];
+        }
+        if (isset($map['node_disk_total'])) {
+            $model->nodeDiskTotal = $map['node_disk_total'];
         }
 
         return $model;
