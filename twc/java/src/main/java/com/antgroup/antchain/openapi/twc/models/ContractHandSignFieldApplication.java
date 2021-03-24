@@ -29,7 +29,6 @@ public class ContractHandSignFieldApplication extends TeaModel {
 
     // y坐标
     @NameInMap("pos_y")
-    @Validation(required = true)
     public String posY;
 
     // 印章id

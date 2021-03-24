@@ -29,6 +29,10 @@ public class CreateInternalTransRequest extends TeaModel {
     @NameInMap("tsr")
     public Boolean tsr;
 
+    // 代理客户存证时，实际用户的租户ID
+    @NameInMap("real_tenant")
+    public String realTenant;
+
     public static CreateInternalTransRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInternalTransRequest self = new CreateInternalTransRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class CreateInternalTransRequest extends TeaModel {
     }
     public Boolean getTsr() {
         return this.tsr;
+    }
+
+    public CreateInternalTransRequest setRealTenant(String realTenant) {
+        this.realTenant = realTenant;
+        return this;
+    }
+    public String getRealTenant() {
+        return this.realTenant;
     }
 
 }
