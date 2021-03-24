@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.141',
+    sdk_version = '1.4.143',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -470,7 +470,7 @@ model ContractHandSignFieldApplication {
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string(name='pos_x', example='1.1'),
   // y坐标
-  posY: string(name='pos_y', example='1.1'),
+  posY?: string(name='pos_y', example='1.1'),
   // 印章id
   sealId?: string(name='seal_id', example='bcd7ffd9-5caf-4342-bd1c-02257229ccd5'),
   // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
@@ -8434,6 +8434,8 @@ model CreateInternalTransRequest = {
   subBizId?: string(name='sub_biz_id'),
   // 是否使用可信时间戳，默认为false
   tsr?: boolean(name='tsr'),
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string(name='real_tenant'),
 }
 
 model CreateInternalTransResponse = {
@@ -8488,6 +8490,8 @@ model CreateInternalTextRequest = {
   transactionId: string(name='transaction_id'),
   // 是否使用可信时间戳，默认为false
   tsr?: boolean(name='tsr'),
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string(name='real_tenant'),
 }
 
 model CreateInternalTextResponse = {
