@@ -2574,7 +2574,7 @@ export class VcShareStruct extends $tea.Model {
   }
 }
 
-// 蚂蚁链浏览器节点所有者信息
+// 蚂蚁链节点信息
 export class BlockchainBrowserNodeOwner extends $tea.Model {
   // node_id
   nodeId: string;
@@ -2592,6 +2592,10 @@ export class BlockchainBrowserNodeOwner extends $tea.Model {
   nodeState: string;
   // node_type
   nodeType: string;
+  // 节点已使用的存储空间
+  nodeDiskUsed: string;
+  // 节点的总存储空间
+  nodeDiskTotal: string;
   static names(): { [key: string]: string } {
     return {
       nodeId: 'node_id',
@@ -2602,6 +2606,8 @@ export class BlockchainBrowserNodeOwner extends $tea.Model {
       nodeSource: 'node_source',
       nodeState: 'node_state',
       nodeType: 'node_type',
+      nodeDiskUsed: 'node_disk_used',
+      nodeDiskTotal: 'node_disk_total',
     };
   }
 
@@ -2615,6 +2621,8 @@ export class BlockchainBrowserNodeOwner extends $tea.Model {
       nodeSource: 'string',
       nodeState: 'string',
       nodeType: 'string',
+      nodeDiskUsed: 'string',
+      nodeDiskTotal: 'string',
     };
   }
 
@@ -42864,7 +42872,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.9",
+          sdk_version: "1.25.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;

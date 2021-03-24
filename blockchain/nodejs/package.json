@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/blockchain",
-  "version": "1.25.9",
+  "version": "1.25.10",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
