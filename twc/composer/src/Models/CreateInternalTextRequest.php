@@ -67,6 +67,12 @@ class CreateInternalTextRequest extends Model
      * @var bool
      */
     public $tsr;
+
+    // 代理客户存证时，实际用户的租户ID
+    /**
+     * @var string
+     */
+    public $realTenant;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -78,6 +84,7 @@ class CreateInternalTextRequest extends Model
         'textNotaryType'    => 'text_notary_type',
         'transactionId'     => 'transaction_id',
         'tsr'               => 'tsr',
+        'realTenant'        => 'real_tenant',
     ];
 
     public function validate()
@@ -120,6 +127,9 @@ class CreateInternalTextRequest extends Model
         if (null !== $this->tsr) {
             $res['tsr'] = $this->tsr;
         }
+        if (null !== $this->realTenant) {
+            $res['real_tenant'] = $this->realTenant;
+        }
 
         return $res;
     }
@@ -161,6 +171,9 @@ class CreateInternalTextRequest extends Model
         }
         if (isset($map['tsr'])) {
             $model->tsr = $map['tsr'];
+        }
+        if (isset($map['real_tenant'])) {
+            $model->realTenant = $map['real_tenant'];
         }
 
         return $model;

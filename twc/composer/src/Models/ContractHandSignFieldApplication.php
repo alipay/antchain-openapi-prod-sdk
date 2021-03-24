@@ -177,7 +177,6 @@ class ContractHandSignFieldApplication extends Model
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('posPage', $this->posPage, true);
-        Model::validateRequired('posY', $this->posY, true);
     }
 
     public function toMap()
