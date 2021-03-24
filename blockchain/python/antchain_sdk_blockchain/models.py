@@ -3986,6 +3986,8 @@ class BlockchainBrowserNodeOwner(TeaModel):
         node_source: str = None,
         node_state: str = None,
         node_type: str = None,
+        node_disk_used: str = None,
+        node_disk_total: str = None,
     ):
         # node_id
         self.node_id = node_id
@@ -4003,6 +4005,10 @@ class BlockchainBrowserNodeOwner(TeaModel):
         self.node_state = node_state
         # node_type
         self.node_type = node_type
+        # 节点已使用的存储空间
+        self.node_disk_used = node_disk_used
+        # 节点的总存储空间
+        self.node_disk_total = node_disk_total
 
     def validate(self):
         self.validate_required(self.node_id, 'node_id')
@@ -4013,6 +4019,8 @@ class BlockchainBrowserNodeOwner(TeaModel):
         self.validate_required(self.node_source, 'node_source')
         self.validate_required(self.node_state, 'node_state')
         self.validate_required(self.node_type, 'node_type')
+        self.validate_required(self.node_disk_used, 'node_disk_used')
+        self.validate_required(self.node_disk_total, 'node_disk_total')
 
     def to_map(self):
         result = dict()
@@ -4032,6 +4040,10 @@ class BlockchainBrowserNodeOwner(TeaModel):
             result['node_state'] = self.node_state
         if self.node_type is not None:
             result['node_type'] = self.node_type
+        if self.node_disk_used is not None:
+            result['node_disk_used'] = self.node_disk_used
+        if self.node_disk_total is not None:
+            result['node_disk_total'] = self.node_disk_total
         return result
 
     def from_map(self, m: dict = None):
@@ -4052,6 +4064,10 @@ class BlockchainBrowserNodeOwner(TeaModel):
             self.node_state = m.get('node_state')
         if m.get('node_type') is not None:
             self.node_type = m.get('node_type')
+        if m.get('node_disk_used') is not None:
+            self.node_disk_used = m.get('node_disk_used')
+        if m.get('node_disk_total') is not None:
+            self.node_disk_total = m.get('node_disk_total')
         return self
 
 
