@@ -848,7 +848,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string;
   // y坐标
-  posY: string;
+  posY?: string;
   // 印章id
   sealId?: string;
   // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
@@ -14502,6 +14502,8 @@ export class CreateInternalTransRequest extends $tea.Model {
   subBizId?: string;
   // 是否使用可信时间戳，默认为false
   tsr?: boolean;
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14510,6 +14512,7 @@ export class CreateInternalTransRequest extends $tea.Model {
       properties: 'properties',
       subBizId: 'sub_biz_id',
       tsr: 'tsr',
+      realTenant: 'real_tenant',
     };
   }
 
@@ -14521,6 +14524,7 @@ export class CreateInternalTransRequest extends $tea.Model {
       properties: 'string',
       subBizId: 'string',
       tsr: 'boolean',
+      realTenant: 'string',
     };
   }
 
@@ -14585,6 +14589,8 @@ export class CreateInternalTextRequest extends $tea.Model {
   transactionId: string;
   // 是否使用可信时间戳，默认为false
   tsr?: boolean;
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14597,6 +14603,7 @@ export class CreateInternalTextRequest extends $tea.Model {
       textNotaryType: 'text_notary_type',
       transactionId: 'transaction_id',
       tsr: 'tsr',
+      realTenant: 'real_tenant',
     };
   }
 
@@ -14612,6 +14619,7 @@ export class CreateInternalTextRequest extends $tea.Model {
       textNotaryType: 'string',
       transactionId: 'string',
       tsr: 'boolean',
+      realTenant: 'string',
     };
   }
 
@@ -16233,7 +16241,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.141",
+          sdk_version: "1.4.143",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
