@@ -44,6 +44,16 @@ public class BlockchainBrowserNodeOwner extends TeaModel {
     @Validation(required = true)
     public String nodeType;
 
+    // 节点已使用的存储空间
+    @NameInMap("node_disk_used")
+    @Validation(required = true)
+    public String nodeDiskUsed;
+
+    // 节点的总存储空间
+    @NameInMap("node_disk_total")
+    @Validation(required = true)
+    public String nodeDiskTotal;
+
     public static BlockchainBrowserNodeOwner build(java.util.Map<String, ?> map) throws Exception {
         BlockchainBrowserNodeOwner self = new BlockchainBrowserNodeOwner();
         return TeaModel.build(map, self);
@@ -111,6 +121,22 @@ public class BlockchainBrowserNodeOwner extends TeaModel {
     }
     public String getNodeType() {
         return this.nodeType;
+    }
+
+    public BlockchainBrowserNodeOwner setNodeDiskUsed(String nodeDiskUsed) {
+        this.nodeDiskUsed = nodeDiskUsed;
+        return this;
+    }
+    public String getNodeDiskUsed() {
+        return this.nodeDiskUsed;
+    }
+
+    public BlockchainBrowserNodeOwner setNodeDiskTotal(String nodeDiskTotal) {
+        this.nodeDiskTotal = nodeDiskTotal;
+        return this;
+    }
+    public String getNodeDiskTotal() {
+        return this.nodeDiskTotal;
     }
 
 }
