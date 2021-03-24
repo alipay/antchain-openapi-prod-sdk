@@ -1355,7 +1355,6 @@ class ContractHandSignFieldApplication(TeaModel):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.pos_page, 'pos_page')
-        self.validate_required(self.pos_y, 'pos_y')
 
     def to_map(self):
         result = dict()
@@ -22701,6 +22700,7 @@ class CreateInternalTransRequest(TeaModel):
         properties: str = None,
         sub_biz_id: str = None,
         tsr: bool = None,
+        real_tenant: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22714,6 +22714,8 @@ class CreateInternalTransRequest(TeaModel):
         self.sub_biz_id = sub_biz_id
         # 是否使用可信时间戳，默认为false
         self.tsr = tsr
+        # 代理客户存证时，实际用户的租户ID
+        self.real_tenant = real_tenant
 
     def validate(self):
         self.validate_required(self.customer, 'customer')
@@ -22734,6 +22736,8 @@ class CreateInternalTransRequest(TeaModel):
             result['sub_biz_id'] = self.sub_biz_id
         if self.tsr is not None:
             result['tsr'] = self.tsr
+        if self.real_tenant is not None:
+            result['real_tenant'] = self.real_tenant
         return result
 
     def from_map(self, m: dict = None):
@@ -22751,6 +22755,8 @@ class CreateInternalTransRequest(TeaModel):
             self.sub_biz_id = m.get('sub_biz_id')
         if m.get('tsr') is not None:
             self.tsr = m.get('tsr')
+        if m.get('real_tenant') is not None:
+            self.real_tenant = m.get('real_tenant')
         return self
 
 
@@ -22820,6 +22826,7 @@ class CreateInternalTextRequest(TeaModel):
         text_notary_type: str = None,
         transaction_id: str = None,
         tsr: bool = None,
+        real_tenant: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22841,6 +22848,8 @@ class CreateInternalTextRequest(TeaModel):
         self.transaction_id = transaction_id
         # 是否使用可信时间戳，默认为false
         self.tsr = tsr
+        # 代理客户存证时，实际用户的租户ID
+        self.real_tenant = real_tenant
 
     def validate(self):
         if self.location:
@@ -22871,6 +22880,8 @@ class CreateInternalTextRequest(TeaModel):
             result['transaction_id'] = self.transaction_id
         if self.tsr is not None:
             result['tsr'] = self.tsr
+        if self.real_tenant is not None:
+            result['real_tenant'] = self.real_tenant
         return result
 
     def from_map(self, m: dict = None):
@@ -22896,6 +22907,8 @@ class CreateInternalTextRequest(TeaModel):
             self.transaction_id = m.get('transaction_id')
         if m.get('tsr') is not None:
             self.tsr = m.get('tsr')
+        if m.get('real_tenant') is not None:
+            self.real_tenant = m.get('real_tenant')
         return self
 
 
