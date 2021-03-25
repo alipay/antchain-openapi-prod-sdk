@@ -308,7 +308,7 @@ class UserInfo extends Model {
 
     // 个人照片路径
     /**
-     * @example http://*/*.png
+     * @example http://*\/*.png
      * @var string
      */
     public $personalPhoto;
