@@ -7487,6 +7487,73 @@ export class DeleteContractSignerResponse extends $tea.Model {
   }
 }
 
+export class GetContractCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 集群ID
+  productInstanceId?: string;
+  // 签署流程ID
+  flowId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetContractCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 异常信息的文本描述
+  resultCode?: string;
+  resultMsg?: string;
+  // 下载文件地址(一小时内有效)
+  url?: string;
+  // 状态值
+  code?: number;
+  // 	状态信息描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      code: 'number',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CheckEpidentityTwometaRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15994,73 +16061,6 @@ export class CreateLeaseZftagreementunsignResponse extends $tea.Model {
   }
 }
 
-export class GetContractCertificateRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 集群ID
-  productInstanceId?: string;
-  // 签署流程ID
-  flowId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      flowId: 'flow_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      flowId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class GetContractCertificateResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 异常信息的文本描述
-  resultCode?: string;
-  resultMsg?: string;
-  // 下载文件地址(一小时内有效)
-  url?: string;
-  // 状态值
-  code?: number;
-  // 	状态信息描述
-  message?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      url: 'url',
-      code: 'code',
-      message: 'message',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      url: 'string',
-      code: 'number',
-      message: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class GetCertificateDetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -16241,7 +16241,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.143",
+          sdk_version: "1.4.144",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -17524,6 +17524,25 @@ export default class Client {
   async deleteContractSignerEx(request: DeleteContractSignerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteContractSignerResponse> {
     Util.validateModel(request);
     return $tea.cast<DeleteContractSignerResponse>(await this.doRequest("1.0", "twc.notary.contract.signer.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteContractSignerResponse({}));
+  }
+
+  /**
+   * Description: 获取区块链合同存证证明
+   * Summary: 获取区块链合同存证证明
+   */
+  async getContractCertificate(request: GetContractCertificateRequest): Promise<GetContractCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getContractCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取区块链合同存证证明
+   * Summary: 获取区块链合同存证证明
+   */
+  async getContractCertificateEx(request: GetContractCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetContractCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetContractCertificateResponse>(await this.doRequest("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetContractCertificateResponse({}));
   }
 
   /**
@@ -19291,25 +19310,6 @@ export default class Client {
   async createLeaseZftagreementunsignEx(request: CreateLeaseZftagreementunsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseZftagreementunsignResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateLeaseZftagreementunsignResponse>(await this.doRequest("1.0", "twc.notary.lease.zftagreementunsign.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseZftagreementunsignResponse({}));
-  }
-
-  /**
-   * Description: 获取区块链合同存证证明
-   * Summary: 获取区块链合同存证证明
-   */
-  async getContractCertificate(request: GetContractCertificateRequest): Promise<GetContractCertificateResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.getContractCertificateEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 获取区块链合同存证证明
-   * Summary: 获取区块链合同存证证明
-   */
-  async getContractCertificateEx(request: GetContractCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetContractCertificateResponse> {
-    Util.validateModel(request);
-    return $tea.cast<GetContractCertificateResponse>(await this.doRequest("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetContractCertificateResponse({}));
   }
 
   /**
