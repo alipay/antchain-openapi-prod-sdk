@@ -478,7 +478,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.143',
+                    'sdk_version'      => '1.4.144',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2671,6 +2671,39 @@ class Client
         Utils::validateModel($request);
 
         return DeleteContractSignerResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signer.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取区块链合同存证证明
+     * Summary: 获取区块链合同存证证明.
+     *
+     * @param GetContractCertificateRequest $request
+     *
+     * @return GetContractCertificateResponse
+     */
+    public function getContractCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取区块链合同存证证明
+     * Summary: 获取区块链合同存证证明.
+     *
+     * @param GetContractCertificateRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetContractCertificateResponse
+     */
+    public function getContractCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5740,39 +5773,6 @@ class Client
         Utils::validateModel($request);
 
         return CreateLeaseZftagreementunsignResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.zftagreementunsign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 获取区块链合同存证证明
-     * Summary: 获取区块链合同存证证明.
-     *
-     * @param GetContractCertificateRequest $request
-     *
-     * @return GetContractCertificateResponse
-     */
-    public function getContractCertificate($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getContractCertificateEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 获取区块链合同存证证明
-     * Summary: 获取区块链合同存证证明.
-     *
-     * @param GetContractCertificateRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return GetContractCertificateResponse
-     */
-    public function getContractCertificateEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetContractCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
