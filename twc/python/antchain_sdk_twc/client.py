@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.143'
+                    'sdk_version': '1.4.144'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.143'
+                    'sdk_version': '1.4.144'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3787,6 +3787,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.DeleteContractSignerResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.signer.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_contract_certificate(
+        self,
+        request: twc_models.GetContractCertificateRequest,
+    ) -> twc_models.GetContractCertificateResponse:
+        """
+        Description: 获取区块链合同存证证明
+        Summary: 获取区块链合同存证证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_contract_certificate_ex(request, headers, runtime)
+
+    async def get_contract_certificate_async(
+        self,
+        request: twc_models.GetContractCertificateRequest,
+    ) -> twc_models.GetContractCertificateResponse:
+        """
+        Description: 获取区块链合同存证证明
+        Summary: 获取区块链合同存证证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_contract_certificate_ex_async(request, headers, runtime)
+
+    def get_contract_certificate_ex(
+        self,
+        request: twc_models.GetContractCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractCertificateResponse:
+        """
+        Description: 获取区块链合同存证证明
+        Summary: 获取区块链合同存证证明
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetContractCertificateResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_contract_certificate_ex_async(
+        self,
+        request: twc_models.GetContractCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractCertificateResponse:
+        """
+        Description: 获取区块链合同存证证明
+        Summary: 获取区块链合同存证证明
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetContractCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
@@ -8809,60 +8863,6 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CreateLeaseZftagreementunsignResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.lease.zftagreementunsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def get_contract_certificate(
-        self,
-        request: twc_models.GetContractCertificateRequest,
-    ) -> twc_models.GetContractCertificateResponse:
-        """
-        Description: 获取区块链合同存证证明
-        Summary: 获取区块链合同存证证明
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_contract_certificate_ex(request, headers, runtime)
-
-    async def get_contract_certificate_async(
-        self,
-        request: twc_models.GetContractCertificateRequest,
-    ) -> twc_models.GetContractCertificateResponse:
-        """
-        Description: 获取区块链合同存证证明
-        Summary: 获取区块链合同存证证明
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_contract_certificate_ex_async(request, headers, runtime)
-
-    def get_contract_certificate_ex(
-        self,
-        request: twc_models.GetContractCertificateRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetContractCertificateResponse:
-        """
-        Description: 获取区块链合同存证证明
-        Summary: 获取区块链合同存证证明
-        """
-        UtilClient.validate_model(request)
-        return twc_models.GetContractCertificateResponse().from_map(
-            self.do_request('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_contract_certificate_ex_async(
-        self,
-        request: twc_models.GetContractCertificateRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetContractCertificateResponse:
-        """
-        Description: 获取区块链合同存证证明
-        Summary: 获取区块链合同存证证明
-        """
-        UtilClient.validate_model(request)
-        return twc_models.GetContractCertificateResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_certificate_detail(
