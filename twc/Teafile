@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-twc:1.4.144",
-    "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.144",
+    "java": "com.antgroup.antchain.openapi:openapi-twc:1.4.145",
+    "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.4.145",
     "csharp": "AntChain.SDK.TWC:1.4.141",
-    "ts": "@antchain/twc:1.4.144",
-    "php": "antchain/twc:1.4.144",
-    "python": "antchain_sdk_twc:1.4.144"
+    "ts": "@antchain/twc:1.4.145",
+    "php": "antchain/twc:1.4.145",
+    "python": "antchain_sdk_twc:1.4.145"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
