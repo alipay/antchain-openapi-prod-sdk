@@ -1163,8 +1163,8 @@ type ContractHandSignFieldApplication struct {
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
 	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
-	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
+	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
 	// x坐标，页面签章必填，骑缝签章不填写
 	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
 	// y坐标
@@ -22180,7 +22180,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.144"),
+				"sdk_version":      tea.String("1.4.145"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
