@@ -843,8 +843,8 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
-  posPage: string;
+  // 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+  posPage?: string;
   // x坐标，页面签章必填，骑缝签章不填写
   posX?: string;
   // y坐标
@@ -16241,7 +16241,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.144",
+          sdk_version: "1.4.145",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
