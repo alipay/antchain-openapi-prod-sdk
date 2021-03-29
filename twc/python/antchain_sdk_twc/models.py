@@ -1320,7 +1320,7 @@ class ContractHandSignFieldApplication(TeaModel):
         self.file_id = file_id
         # 签署区顺序，默认1,且不小于1，顺序越小越先处理
         self.order = order
-        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字
+        # 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
         self.pos_page = pos_page
         # x坐标，页面签章必填，骑缝签章不填写
         self.pos_x = pos_x
@@ -1354,7 +1354,6 @@ class ContractHandSignFieldApplication(TeaModel):
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.file_id, 'file_id')
-        self.validate_required(self.pos_page, 'pos_page')
 
     def to_map(self):
         result = dict()
