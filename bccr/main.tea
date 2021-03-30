@@ -1,0 +1,1545 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.8.15',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 取证文件信息
+model ScreenInfo {
+  // 全链路取证日志文件下载链接
+  processLogFile?: string(name='process_log_file', example='https://xxxx'),
+  // 网页截图文件下载链接
+  webScreenshotFile?: string(name='web_screenshot_file', example='https://xxxx'),
+  // 网页源码文件下载链接
+  webSourceFile?: string(name='web_source_file', example='https://xxxx'),
+  // 视频源文件下载链接
+  videoFile?: string(name='video_file', example='http://xx'),
+}
+
+// 网页取证具体信息
+model ScreenshotInfo {
+  // 全链路取证日志文件下载链接
+  processLogFile?: string(name='process_log_file', example='https://xxxx'),
+  // 网页截图文件下载链接
+  screenshotFile: string(name='screenshot_file', example='https://xxxx'),
+}
+
+// 监测提供商能力
+model MonitorProviderCapability {
+  // 供应商id
+  providerId: string(name='provider_id', example='GOODEYE'),
+  // 供应商名称
+  providerName: string(name='provider_name', example='千里眼'),
+  // 供应商描述
+  providerDescription: string(name='provider_description', example='描述'),
+  // 是否推荐供应商
+  isProvided: boolean(name='is_provided', example='true, false'),
+}
+
+// 监测任务结果
+model MonitorResult {
+  // 监测任务ID
+  // 
+  monitorTaskId: string(name='monitor_task_id', example='111111111111111111'),
+  // 监测结果ID
+  // 
+  monitorResultId: string(name='monitor_result_id', example='1'),
+  // 侵权网址
+  // 
+  // 
+  infrUrl?: string(name='infr_url', example='http://a.b.c'),
+  // 侵权主体
+  // 
+  // 
+  infrHost?: string(name='infr_host', example='hhh'),
+  // 侵权标题
+  // 
+  // 
+  infrTitle?: string(name='infr_title', example='biaoti'),
+  // 侵权内容上传时间
+  // 
+  // 
+  infrTime?: long(name='infr_time', example='1592807928'),
+  // 侵权详情
+  // 
+  detail?: string(name='detail', example='details'),
+}
+
+// 网页取证数据
+model ScreenshotData {
+  // 取证地址
+  url: string(name='url', example='https://xxxx'),
+  // 网页取证时间
+  gmtEvidence: long(name='gmt_evidence', example='111111'),
+  // 网页取证文件Hash值
+  fileHash?: string(name='file_hash', example='00030a38fae767396d499b306c810d2f08c15773f8447d870e5e0235e6634ed10000'),
+  // 网页取证文件大小
+  fileSize?: long(name='file_size', example='111111'),
+  // 统一证据编号
+  txHash?: string(name='tx_hash', example='1d642de2e838c809965768d7fd63230c10ad8740809b5bc0a070855397674ea5'),
+  // 网页取证文件存证块高
+  blockHeight?: long(name='block_height', example='111111'),
+  // 网页取证文件上链时间
+  timestamp?: long(name='timestamp', example='111111'),
+  // 可信时间戳的返回对象
+  tsr?: string(name='tsr', example='{"cTSR":"1f8b080000009d0e6c198caccc2c4c","code":"0","hashAlgorithm":"sha256","hashedMessage":"3585100148072894b8","sN":"TTAS_S.0.2_87310861339018912","tS":1602672018916,"version":"2.0"}'),
+  // 网页截图文件公证处证书下载链接
+  certificateUrl?: string(name='certificate_url', example='https://xxxx'),
+  // 公证处证书编号
+  certificateStorageNo?: string(name='certificate_storage_no', example='111111'),
+  // 网页取证工具软件版本号
+  toolVersion?: string(name='tool_version', example='0.0.1'),
+  // 证据包下载地址（状态为SUCCESS 才有数据）
+  screenshotZip?: string(name='screenshot_zip', example='https://xxxx'),
+  // 取证文件信息
+  screenshotInfo?: ScreenshotInfo(name='screenshot_info', example='111111'),
+}
+
+// 用户信息
+model UserData {
+  // 用户账号
+  account: string(name='account', example='18654362713'),
+  // 账号类型
+  accountType: string(name='account_type', example='COPYRIGHT'),
+  // 证件名称
+  certName: string(name='cert_name', example='张三'),
+  // 证件号码
+  certNo: string(name='cert_no', example='11111111111'),
+  // 证件类型
+  certType: string(name='cert_type', example='IDENTITY_CARD'),
+  // 联系方式
+  contactInfo?: string(name='contact_info', example='186534672712'),
+  // 企业法人
+  legalPerson?: string(name='legal_person', example='李四'),
+  // 注册时间
+  regTime: long(name='reg_time', example='1603162178000'),
+  // 账号状态
+  status: string(name='status', example='SUCCESS'),
+  // 用户类型
+  type: string(name='type', example='PERSON'),
+}
+
+// 代理信息
+model ProxyData {
+  // 金融云租户id
+  tenantId: string(name='tenant_id', example='2088XXXXXX'),
+  // 租户名称
+  tenantName: string(name='tenant_name', example='FJKDNESX'),
+}
+
+// 监测文件类型
+model MonitorType {
+  // 文件类型
+  fileType: string(name='file_type', example='jpg'),
+  // 提交类型
+  submitType: string(name='submit_type', example='FILE'),
+}
+
+// 商品sku信息
+model GoodSkuInfo {
+  // 授权规格序号
+  skuNum: string(name='sku_num', example='001'),
+  // 授权规格价格(单位：分)
+  price: long(name='price', example='10'),
+}
+
+// 类型对应供应商
+model MonitorProviderType {
+  // 监测文件类型
+  fileType: string(name='file_type', example='txt'),
+  // 提交类型
+  submitType: string(name='submit_type', example='FILE'),
+  // 文件格式
+  fileFormat?: string(name='file_format', example='jpg'),
+  // 支持的服务商列表，已排序
+  monitorProviders: [ MonitorProviderCapability ](name='monitor_providers', example=''),
+}
+
+// 监测任务信息
+model MonitorTask {
+  // 内容表述
+  // 
+  // 
+  contentDesc?: string(name='content_desc', example='wert'),
+  // 监测任务标题
+  // 
+  // 
+  contentTitle?: string(name='content_title', example='awe'),
+  // 监测文件时长，主要用于视频监测、音频监测的时长记录
+  fileLengthInSecond?: long(name='file_length_in_second', example='200'),
+  // 监测关键字
+  // 
+  // 
+  keywords: [ string ](name='keywords', example='111111111111111111'),
+  // 监测任务ID
+  // 
+  monitorTaskId: string(name='monitor_task_id', example='111111111111111111'),
+  // 任务名称
+  // 
+  // 
+  name: string(name='name', example='111111111111111111'),
+  // 监测供应商id
+  providerId?: string(name='provider_id', example='GOODEYE'),
+  // 监测结果数量
+  // 
+  // 
+  resultCount?: long(name='result_count', example='1'),
+  // 监测范围
+  // 
+  // 
+  scopes: [ string ](name='scopes', example='111111111111111111'),
+  // 任务状态
+  // 
+  // INIT
+  // 
+  // WORKING
+  // 
+  // FINISH
+  // 
+  // FAILURE
+  // 
+  // DELETE
+  status: string(name='status', example='WORKING'),
+  // 监测时长(天)
+  // 
+  // 
+  taskDuration: long(name='task_duration', example='1'),
+  // 任务结束时间
+  // 
+  // 
+  taskEnd?: long(name='task_end', example='1592807928'),
+  // 任务开始时间
+  // 
+  // 
+  taskStart?: long(name='task_start', example='1592807928'),
+  // 文件类别
+  // 
+  // IMAGE
+  // 
+  // TEXT
+  // 
+  // VIDEO
+  fileType: string(name='file_type', example='IMAGE'),
+  // 文件大小
+  fileSize?: long(name='file_size', example='111111'),
+  // submitType是url就是url地址 submitType 是file就是oss fileId
+  submitContent: string(name='submit_content', example='https://xxxx'),
+  // 提交任务的类型:FILE/URL
+  // 不填为FILE
+  // FILE表示文件上传素材，URL表示上传URL
+  submitType?: string(name='submit_type', example='FILE'),
+  // 当status为failure时的具体错误信息
+  failureMsg?: string(name='failure_msg', example='error'),
+}
+
+// 录屏取证信息
+model RecordScreenData {
+  // 错误原因（状态为FAIL才有数据）
+  errorReason?: string(name='error_reason', example='error'),
+  // 录屏文件Hash值
+  fileHash?: string(name='file_hash', example='00030a38fae767396d499b306c810d2f08c15773f8447d870e5e0235e6634ed10000'),
+  // 录屏结束时间
+  gmtEnd: long(name='gmt_end', example='11111'),
+  // 录屏开始时间
+  gmtStart: long(name='gmt_start', example='111111'),
+  // OS版本号
+  osVersion: string(name='os_version', example='Microsoft Windows Server 2012 R2 Datacenter 64 位'),
+  // 录屏文件信息
+  screenInfo?: ScreenInfo(name='screen_info', example=''),
+  // 证据包下载地址（状态为SUCCESS 才有数据）
+  screenZip?: string(name='screen_zip', example='https://xxxx'),
+  // 录屏软件版本号
+  swVersion: string(name='sw_version', example='1.0.24'),
+  // 可信时间戳的返回对象
+  tsr?: string(name='tsr', example='{"cTSR":"1f8b080000009d0e6c198caccc2c4c","code":"0","hashAlgorithm":"sha256","hashedMessage":"3585100148072894b8","sN":"TTAS_S.0.2_87310861339018912","tS":1602672018916,"version":"2.0"}'),
+  // 统一证据编号
+  txHash?: string(name='tx_hash', example='1d642de2e838c809965768d7fd63230c10ad8740809b5bc0a070855397674ea5'),
+  // 录屏文件大小
+  fileSize?: long(name='file_size', example='111111'),
+  // 录屏文件存证块高
+  blockHeight?: long(name='block_height', example='1212121'),
+  // 录屏文件上链时间
+  timestamp?: long(name='timestamp', example='1605597503000'),
+  // 录屏文件公证处证书下载链接
+  certificateUrl?: string(name='certificate_url', example='https://xxxx'),
+  // 公证处证书编号
+  certificateStorageNo?: string(name='certificate_storage_no', example='111111'),
+}
+
+model GetUploadurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件名称
+  fileName: string(maxLength=128, name='file_name'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。
+  clientToken?: string(maxLength=64, name='client_token'),
+}
+
+model GetUploadurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权访问oss链接
+  url?: string(name='url'),
+  // OSS 文件id
+  fileId?: string(name='file_id'),
+}
+
+/**
+ * Description: 调用接口获取版权开放平台授权访问oss链接
+ * Summary: 获取授权访问oss链接
+ */
+async function getUploadurl(request: GetUploadurlRequest): GetUploadurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getUploadurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用接口获取版权开放平台授权访问oss链接
+ * Summary: 获取授权访问oss链接
+ */
+async function getUploadurlEx(request: GetUploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetUploadurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.uploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddHashregisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件SHA256 hash
+  hash: string(name='hash'),
+  // 文件大小
+  length: long(name='length'),
+  // hash算法
+  hashType: string(name='hash_type'),
+  // 文件类型
+  type: string(name='type'),
+  // 文件名称
+  name: string(maxLength=128, name='name'),
+  // 备注
+  memo?: string(maxLength=512, name='memo'),
+  // 证件名称
+  certName: string(name='cert_name'),
+  // 证件号码
+  certNo: string(name='cert_no'),
+  // 证件类型
+  certType: string(name='cert_type'),
+  // 是否自动创建公证保管函
+  createCertificate?: boolean(name='create_certificate'),
+  // 证书类型
+  certificateType?: string(name='certificate_type'),
+  // 是否创建证据包，默认否
+  createPackage?: boolean(name='create_package'),
+  // 	
+  // 公证处Id
+  orgId?: string(name='org_id'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 电话号码
+  phoneNum?: string(name='phone_num'),
+  // 特征文件oss id
+  featureFileId?: string(name='feature_file_id'),
+  // 幂等字段
+  clientToken?: string(name='client_token'),
+}
+
+model AddHashregisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登记id
+  registerId?: string(name='register_id'),
+}
+
+/**
+ * Description: 版权开发平台hash登记
+ * Summary: 新增HASH版权登记
+ */
+async function addHashregister(request: AddHashregisterRequest): AddHashregisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addHashregisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权开发平台hash登记
+ * Summary: 新增HASH版权登记
+ */
+async function addHashregisterEx(request: AddHashregisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddHashregisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.hashregister.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddRegisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件oss id
+  fileId: string(name='file_id'),
+  // 是否自动创建公证书,默认否
+  createCertificate?: boolean(name='create_certificate'),
+  // 证书类型
+  certificateType?: string(name='certificate_type'),
+  // 是否创建证据包，默认否
+  createPackage?: boolean(name='create_package'),
+  // 公证处id
+  orgId?: string(name='org_id'),
+  // 文件名称
+  name: string(maxLength=128, name='name'),
+  // 文件类型
+  type: string(name='type'),
+  // 备注
+  memo?: string(maxLength=512, name='memo'),
+  // 证件名称
+  certName: string(name='cert_name'),
+  // 证件号码
+  certNo: string(name='cert_no'),
+  // 证件类型
+  certType: string(name='cert_type'),
+  // 电话号码
+  phoneNum?: string(name='phone_num'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 幂等
+  clientToken?: string(name='client_token'),
+}
+
+model AddRegisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登记id
+  registerId?: string(name='register_id'),
+}
+
+/**
+ * Description: 版权平台新增版权登记
+ * Summary: 新增版权登记
+ */
+async function addRegister(request: AddRegisterRequest): AddRegisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addRegisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权平台新增版权登记
+ * Summary: 新增版权登记
+ */
+async function addRegisterEx(request: AddRegisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddRegisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.register.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRegisterstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登记id
+  registerId: string(name='register_id'),
+}
+
+model QueryRegisterstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登记状态
+  status?: string(name='status'),
+  // 存证时间
+  timestamp?: long(name='timestamp'),
+  // 文件hash
+  hash?: string(name='hash'),
+  // 统一证据编号（存证交易HASH）
+  txHash?: string(name='tx_hash'),
+  // 存证块高
+  blockHeight?: long(name='block_height'),
+  // tsr信息
+  tsr?: string(name='tsr'),
+  // 公证处证书下载链接
+  certificateUrl?: string(name='certificate_url'),
+  // 公证处证书编号
+  certificateStorageNo?: string(name='certificate_storage_no'),
+  // 授时中心证书下载链接
+  certificateTimeUrl?: string(name='certificate_time_url'),
+  // 证据包下载地址（状态为SUCCESS并且请求要求生成证据包才有数据）
+  packageUrl?: string(name='package_url'),
+}
+
+/**
+ * Description: 版权平台查询版权登记状态
+ * Summary: 查询版权登记状态
+ */
+async function queryRegisterstatus(request: QueryRegisterstatusRequest): QueryRegisterstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRegisterstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权平台查询版权登记状态
+ * Summary: 查询版权登记状态
+ */
+async function queryRegisterstatusEx(request: QueryRegisterstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRegisterstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.registerstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 版权登记id
+  registerId: string(name='register_id'),
+  // 证书类型
+  certificateType: string(name='certificate_type'),
+  // 功能类型
+  featuresType: string(name='features_type'),
+  // 公证处id
+  orgId?: string(name='org_id'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+}
+
+model CreateCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成证书结果
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 版权平台生成版权登记证书
+ * Summary: 生成版权登记证书
+ */
+async function createCertificate(request: CreateCertificateRequest): CreateCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权平台生成版权登记证书
+ * Summary: 生成版权登记证书
+ */
+async function createCertificateEx(request: CreateCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.certificate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 证书类型
+  certificateType: string(name='certificate_type'),
+  // 功能类型
+  featuresType: string(name='features_type'),
+  // 版权登记id
+  registerId: string(name='register_id'),
+}
+
+model GetCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书下载链接
+  url?: string(name='url'),
+  // 证书生成状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 版权平台获取版权登记证书
+ * Summary: 获取版权登记证书
+ */
+async function getCertificate(request: GetCertificateRequest): GetCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权平台获取版权登记证书
+ * Summary: 获取版权登记证书
+ */
+async function getCertificateEx(request: GetCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.certificate.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMonitorTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // submitType是url就传 url地址 submitType 是file就传 oss fileId
+  submitContent: string(name='submit_content'),
+  // 提交任务的类型:FILE/URL
+  // 不填为FILE
+  // FILE表示文件上传素材，URL表示上传URL
+  submitType?: string(name='submit_type'),
+  // 文件类别
+  // 
+  // IMAGE
+  // 
+  // TEXT
+  // 
+  // VIDEO
+  fileType: string(name='file_type'),
+  // 任务名称(不超过100字符)
+  taskName: string(name='task_name'),
+  // 监测任务标题(不超过100字符)
+  contentTitle: string(name='content_title'),
+  // 关键词(不超过200字符)
+  keywords: [ string ](name='keywords'),
+  // 内容表述(不超过1000字符)
+  contentDesc?: string(name='content_desc'),
+  // 监测供应商id
+  providerId?: string(name='provider_id'),
+  // 监测范围 默认全部：ALL；PC网站：SITE；APP应用：APP
+  scopes?: [ string ](name='scopes'),
+  // 任务开始时间，如当前时间戳，不传则取服务器当前时间戳，单位毫秒
+  taskStart?: long(name='task_start'),
+  // 任务持续时间，单位天，默认90天
+  // 
+  // 一次性监测：0
+  taskDuration?: long(name='task_duration'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string(name='client_token'),
+}
+
+model CreateMonitorTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 监测任务Id
+  monitorTaskId?: string(name='monitor_task_id'),
+}
+
+/**
+ * Description: 新增版权监测任务
+ * Summary: 新增版权监测
+ */
+async function createMonitorTask(request: CreateMonitorTaskRequest): CreateMonitorTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMonitorTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增版权监测任务
+ * Summary: 新增版权监测
+ */
+async function createMonitorTaskEx(request: CreateMonitorTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMonitorTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.monitor.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopMonitorTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 监测任务Id
+  // 
+  monitorTaskId: string(name='monitor_task_id'),
+}
+
+model StopMonitorTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 停止版权监测任务
+ * Summary: 停止版权监测
+ */
+async function stopMonitorTask(request: StopMonitorTaskRequest): StopMonitorTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopMonitorTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 停止版权监测任务
+ * Summary: 停止版权监测
+ */
+async function stopMonitorTaskEx(request: StopMonitorTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopMonitorTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.monitor.task.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMonitorTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 监测任务Id
+  // 
+  monitorTaskId: string(name='monitor_task_id'),
+}
+
+model QueryMonitorTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 监测任务信息
+  // 
+  // 
+  monitorTask?: MonitorTask(name='monitor_task'),
+}
+
+/**
+ * Description: 查询版权监测任务
+ * Summary: 查询版权监测
+ */
+async function queryMonitorTask(request: QueryMonitorTaskRequest): QueryMonitorTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMonitorTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询版权监测任务
+ * Summary: 查询版权监测
+ */
+async function queryMonitorTaskEx(request: QueryMonitorTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMonitorTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.monitor.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMonitorResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 监测任务Id
+  monitorTaskId: string(name='monitor_task_id'),
+  // 页序号(>0)
+  // 
+  // 
+  pageIndex: long(name='page_index'),
+  // 页大小(1-200)
+  // 
+  // 
+  pageSize: long(name='page_size'),
+}
+
+model QueryMonitorResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 监测任务信息
+  monitorResultList?: [ MonitorResult ](name='monitor_result_list'),
+  // 页序号(>0)
+  pageIndex?: long(name='page_index'),
+  // 页大小(1-200)
+  pageSize?: long(name='page_size'),
+  // 监测结果数量
+  resultCount?: long(name='result_count'),
+}
+
+/**
+ * Description: 查询版权任务监测结果
+ * Summary: 查询版权监测结果
+ */
+async function queryMonitorResult(request: QueryMonitorResultRequest): QueryMonitorResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMonitorResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询版权任务监测结果
+ * Summary: 查询版权监测结果
+ */
+async function queryMonitorResultEx(request: QueryMonitorResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMonitorResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.monitor.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListMonitorProviderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需监测文件类型
+  monitorTypes: [ MonitorType ](name='monitor_types'),
+}
+
+model ListMonitorProviderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 监测能力提供方类型列表
+  providerList?: [ MonitorProviderType ](name='provider_list'),
+}
+
+/**
+ * Description: 获取传播监测能力服务商列表
+ * Summary: 获取传播监测能力服务商列表
+ */
+async function listMonitorProvider(request: ListMonitorProviderRequest): ListMonitorProviderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listMonitorProviderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取传播监测能力服务商列表
+ * Summary: 获取传播监测能力服务商列表
+ */
+async function listMonitorProviderEx(request: ListMonitorProviderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListMonitorProviderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.monitor.provider.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRecodescreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证名称（最长128个字符）
+  name: string(maxLength=128, minLength=1, name='name'),
+  // 取证备注（最长512个字符）
+  memo?: string(maxLength=512, name='memo'),
+  // 预校验网址和预打开网页（不能大于10条）
+  url?: [ string ](name='url'),
+  // 取证类型 具体见附录 RecordScreenType
+  type: string(name='type'),
+  // 取证服务器地域 具体见附录 RecordScreenArea
+  area: string(name='area'),
+  // 定制录屏桌面识别码，目前取值只有默认值：DEFAULT
+  screenCode?: string(name='screen_code'),
+  // 最大录屏时间，maxTimeInMin不能小于6min，不能大于300min
+  maxTimeInMin: long(name='max_time_in_min'),
+  // 服务器进入ready状态，指定时间未开始进入abort状态的等待时间，单位为分钟，默认1min，waitInMin不能小于1，不能大于10min
+  waitInMin?: long(name='wait_in_min'),
+  // 当所选地域无机器资源时，是否使用其它地域
+  // 
+  // 目前取值只有默认值：FORBID
+  crossRegion?: string(name='cross_region'),
+  // ip地域取值
+  // 
+  // 目前取值只有默认值：ANY
+  ipType?: string(name='ip_type'),
+  // 回调地址
+  callbackUrl?: string(name='callback_url'),
+  // 公证处Id
+  orgId?: string(name='org_id'),
+  // 取证人证件名称
+  certName: string(name='cert_name'),
+  // 	
+  // 取证人证件号码
+  certNo: string(name='cert_no'),
+  // 取证人证件类型 具体见附录CertType
+  certType: string(name='cert_type'),
+  // 企业法人代表姓名(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonName?: string(name='legal_person_name'),
+  // 企业法人代表身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonNo?: string(name='legal_person_no'),
+  // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
+  agent?: string(name='agent'),
+  // 企业用户取证人身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  agentNo?: string(name='agent_no'),
+  // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630   或  (86)13738258505
+  phoneNum?: string(name='phone_num'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string(name='client_token'),
+}
+
+model CreateRecodescreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 创建录屏取证(废弃)
+ * Summary: 创建录屏取证(废弃)
+ */
+async function createRecodescreen(request: CreateRecodescreenRequest): CreateRecodescreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRecodescreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建录屏取证(废弃)
+ * Summary: 创建录屏取证(废弃)
+ */
+async function createRecodescreenEx(request: CreateRecodescreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRecodescreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.recodescreen.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRecodescreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证id
+  evidenceId: string(name='evidence_id'),
+}
+
+model QueryRecodescreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+  // 取证状态 具体见附录 RecordScreenStatus
+  status?: string(name='status'),
+  // 取证操作Url （状态为INIT和DOING 时返回 可以重复打开使用）
+  operateUrl?: string(name='operate_url'),
+  // 取证详情（状态为PACKAGING,SUCCESS,FAIL才有数据）
+  data?: RecordScreenData(name='data'),
+}
+
+/**
+ * Description: 查询录屏取证(废弃)
+ * Summary: 查询录屏取证(废弃)
+ */
+async function queryRecodescreen(request: QueryRecodescreenRequest): QueryRecodescreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRecodescreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询录屏取证(废弃)
+ * Summary: 查询录屏取证(废弃)
+ */
+async function queryRecodescreenEx(request: QueryRecodescreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRecodescreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.recodescreen.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户token，从cookie或者重定向链接获取
+  token: string(name='token'),
+}
+
+model QueryUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否登录
+  login?: boolean(name='login'),
+  // 用户信息
+  user?: UserData(name='user'),
+}
+
+/**
+ * Description: 用户信息查询
+ * Summary: 用户信息查询
+ */
+async function queryUser(request: QueryUserRequest): QueryUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户信息查询
+ * Summary: 用户信息查询
+ */
+async function queryUserEx(request: QueryUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.user.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUserListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码，从1开始
+  pageIndex: long(minimum=1, name='page_index'),
+  // 每页数据，1~100
+  pageSize: long(maximum=100, minimum=1, name='page_size'),
+  // 用户状态
+  status?: string(name='status'),
+}
+
+model QueryUserListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码，从1开始
+  pageIndex?: long(name='page_index'),
+  // 每页数据，1~100
+  pageSize?: long(name='page_size'),
+  // 总数量
+  totalCount?: long(name='total_count'),
+  // 用户信息列表
+  userList?: [ UserData ](name='user_list'),
+}
+
+/**
+ * Description: 查询用户信息列表
+ * Summary: 查询用户信息列表
+ */
+async function queryUserList(request: QueryUserListRequest): QueryUserListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUserListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户信息列表
+ * Summary: 查询用户信息列表
+ */
+async function queryUserListEx(request: QueryUserListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUserListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.user.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddGoodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品一级分类
+  classification: string(maxLength=20, minLength=1, name='classification'),
+  // 幂等
+  clientToken?: string(name='client_token'),
+  // 商品名称
+  goodName: string(maxLength=200, minLength=1, name='good_name'),
+  // 权利内容id，权利申明获得
+  rightId: string(name='right_id'),
+  // 是否直接上架   Y 上架  N 不上架  默认：Y
+  selling?: string(name='selling'),
+  // 商品标签，英文逗号分割
+  tags?: string(maxLength=200, name='tags'),
+  // 授权规格列表（数量1-3）
+  skuLists: [ GoodSkuInfo ](name='sku_lists'),
+}
+
+model AddGoodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品id
+  goodId?: string(name='good_id'),
+}
+
+/**
+ * Description: 版权平台新增商品
+ * Summary: 新增商品
+ */
+async function addGood(request: AddGoodRequest): AddGoodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addGoodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版权平台新增商品
+ * Summary: 新增商品
+ */
+async function addGoodEx(request: AddGoodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddGoodResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.good.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateScreenshotRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证名称（最长128个字符）
+  name: string(maxLength=128, minLength=1, name='name'),
+  // 取证备注（最长512个字符）
+  memo?: string(maxLength=512, name='memo'),
+  // 取证地址（最长2048个字符）
+  url: string(maxLength=2048, minLength=8, name='url'),
+  // 公证处Id
+  orgId?: string(name='org_id'),
+  // 取证人证件名称
+  certName: string(name='cert_name'),
+  // 取证人证件号码
+  certNo: string(name='cert_no'),
+  // 取证人证件类型
+  certType: string(name='cert_type'),
+  // 法人代表姓名(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonName?: string(name='legal_person_name'),
+  // 法人代表身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonNo?: string(name='legal_person_no'),
+  // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
+  agentName?: string(name='agent_name'),
+  // 企业用户取证人身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  agentNo?: string(name='agent_no'),
+  // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630   或  (86)13738258505
+  phoneNum?: string(name='phone_num'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
+  clientToken: string(maxLength=64, name='client_token'),
+}
+
+model CreateScreenshotResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 创建网页取证
+ * Summary: 创建网页取证
+ */
+async function createScreenshot(request: CreateScreenshotRequest): CreateScreenshotResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createScreenshotEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建网页取证
+ * Summary: 创建网页取证
+ */
+async function createScreenshotEx(request: CreateScreenshotRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateScreenshotResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.screenshot.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScreenshotRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证id
+  evidenceId: string(name='evidence_id'),
+}
+
+model QueryScreenshotResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+  // 取证状态
+  status?: string(name='status'),
+  // 网页截图信息
+  data?: ScreenshotData(name='data'),
+}
+
+/**
+ * Description: 查询网页取证
+ * Summary: 查询网页取证
+ */
+async function queryScreenshot(request: QueryScreenshotRequest): QueryScreenshotResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScreenshotEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询网页取证
+ * Summary: 查询网页取证
+ */
+async function queryScreenshotEx(request: QueryScreenshotRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScreenshotResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.screenshot.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyBlockchainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 统一证据编号（存证交易HASH）
+  txHash: string(name='tx_hash'),
+  // 文件HASH，使用HEX的完整表示，如 6460c949f8a347eb...
+  // 
+  // (和fileId 二选一，必传一个，都传按fileHash为准)
+  fileHash?: string(name='file_hash'),
+  // 文件OSS Id（上传文件有大小限制，文本文件最大100M，图片最大1G，视频和压缩包最大2G）
+  // 
+  // (和fileHash 二选一，必传一个，都传按fileHash为准)
+  fileId?: string(name='file_id'),
+  // 证件名称
+  certName?: string(name='cert_name'),
+  // 证件号码
+  certNo?: string(name='cert_no'),
+  // 证件类型
+  certType?: string(name='cert_type'),
+}
+
+model VerifyBlockchainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 统一证据编号（存证交易HASH）
+  txHash?: string(name='tx_hash'),
+  // 核验结果
+  status?: string(name='status'),
+  // 所在区块hash
+  blockHash?: string(name='block_hash'),
+  // 区块链高度
+  blockHeight?: long(name='block_height'),
+  // 存证类型
+  dataType?: string(name='data_type'),
+  // 存证时间
+  timestamp?: string(name='timestamp'),
+}
+
+/**
+ * Description: 链上核验
+ * Summary: 链上核验
+ */
+async function verifyBlockchain(request: VerifyBlockchainRequest): VerifyBlockchainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyBlockchainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上核验
+ * Summary: 链上核验
+ */
+async function verifyBlockchainEx(request: VerifyBlockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyBlockchainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.blockchain.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateRecordscreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证名称（最长128个字符）
+  name: string(maxLength=128, minLength=1, name='name'),
+  // 取证备注（最长512个字符）
+  memo?: string(maxLength=512, name='memo'),
+  // 预校验网址和预打开网页（不能大于10条）
+  url?: [ string ](name='url'),
+  // 取证类型 具体见附录 RecordScreenType
+  type: string(name='type'),
+  // 取证服务器地域 具体见附录 RecordScreenArea
+  area: string(name='area'),
+  // 定制录屏桌面识别码，目前取值只有默认值：DEFAULT
+  screenCode?: string(name='screen_code'),
+  // 最大录屏时间，maxTimeInMin不能小于6min，不能大于300min
+  maxTimeInMin: long(name='max_time_in_min'),
+  // 服务器进入ready状态，指定时间未开始进入abort状态的等待时间，单位为分钟，默认1min，waitInMin不能小于1，不能大于10min
+  waitInMin?: long(name='wait_in_min'),
+  // 当所选地域无机器资源时，是否使用其它地域 目前取值只有默认值：FORBID
+  crossRegion?: string(name='cross_region'),
+  // ip地域取值 目前取值只有默认值：ANY
+  ipType?: string(name='ip_type'),
+  // 回调地址
+  callbackUrl?: string(name='callback_url'),
+  // 公证处Id
+  orgId?: string(name='org_id'),
+  // 取证人证件名称
+  certName: string(name='cert_name'),
+  // 取证人证件号码
+  certNo: string(name='cert_no'),
+  // 取证人证件类型 具体见附录CertType
+  certType: string(name='cert_type'),
+  // 企业法人代表姓名(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonName?: string(name='legal_person_name'),
+  // 企业法人代表身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonNo?: string(name='legal_person_no'),
+  // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
+  agentName?: string(name='agent_name'),
+  // 企业用户取证人身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  agentNo?: string(name='agent_no'),
+  // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
+  phoneNum?: string(name='phone_num'),
+  // 代理信息
+  proxyInfo?: ProxyData(name='proxy_info'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。更多详情，请参见如何保证幂等性。
+  clientToken: string(name='client_token'),
+}
+
+model CreateRecordscreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+async function createRecordscreen(request: CreateRecordscreenRequest): CreateRecordscreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createRecordscreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建录屏取证
+ * Summary: 创建录屏取证
+ */
+async function createRecordscreenEx(request: CreateRecordscreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateRecordscreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.recordscreen.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRecordscreenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证id
+  evidenceId: string(name='evidence_id'),
+}
+
+model QueryRecordscreenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+  // 取证状态 具体见附录 RecordScreenStatus
+  status?: string(name='status'),
+  // 取证操作Url （状态为INIT和DOING 时返回 可以重复打开使用）
+  operateUrl?: string(name='operate_url'),
+  // 取证详情（状态为PACKAGING,SUCCESS,FAIL才有数据）
+  data?: RecordScreenData(name='data'),
+}
+
+/**
+ * Description: 查询录屏取证
+ * Summary: 查询录屏取证
+ */
+async function queryRecordscreen(request: QueryRecordscreenRequest): QueryRecordscreenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRecordscreenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询录屏取证
+ * Summary: 查询录屏取证
+ */
+async function queryRecordscreenEx(request: QueryRecordscreenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRecordscreenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.recordscreen.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
