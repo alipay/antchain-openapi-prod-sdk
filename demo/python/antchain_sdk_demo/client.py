@@ -5,12 +5,12 @@ import time
 from Tea.exceptions import TeaException, UnretryableException
 from Tea.request import TeaRequest
 from Tea.core import TeaCore
+from antchain_alipay_util.antchain_utils import AntchainUtils
 from typing import Dict
 
 from antchain_sdk_demo import models as demo_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_tea_util import models as util_models
-from antchain_alipay_util.client import Client as AntchainUtilClient
 from alibabacloud_rpc_util.client import Client as RPCUtilClient
 
 
@@ -131,11 +131,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.29'
+                    'sdk_version': '1.0.32'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -148,14 +148,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = TeaCore.do_action(_request, _runtime)
                 raw = UtilClient.read_as_string(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -233,11 +233,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.29'
+                    'sdk_version': '1.0.32'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -250,14 +250,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = await TeaCore.async_do_action(_request, _runtime)
                 raw = await UtilClient.read_as_string_async(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -364,15 +364,15 @@ class Client:
                 api_code='demo.gateway.check.echo'
             )
             upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtilClient.is_success(upload_resp.result_code, 'OK'):
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
                 echo_gateway_check_response = demo_models.EchoGatewayCheckResponse(
                     req_msg_id=upload_resp.req_msg_id,
                     result_code=upload_resp.result_code,
                     result_msg=upload_resp.result_msg
                 )
                 return echo_gateway_check_response
-            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtilClient.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return demo_models.EchoGatewayCheckResponse().from_map(
@@ -394,15 +394,15 @@ class Client:
                 api_code='demo.gateway.check.echo'
             )
             upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtilClient.is_success(upload_resp.result_code, 'OK'):
+            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
                 echo_gateway_check_response = demo_models.EchoGatewayCheckResponse(
                     req_msg_id=upload_resp.req_msg_id,
                     result_code=upload_resp.result_code,
                     result_msg=upload_resp.result_msg
                 )
                 return echo_gateway_check_response
-            upload_headers = AntchainUtilClient.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtilClient.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return demo_models.EchoGatewayCheckResponse().from_map(

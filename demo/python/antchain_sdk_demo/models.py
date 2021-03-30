@@ -354,7 +354,6 @@ class StatusGatewayCheckRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -387,8 +386,9 @@ class StatusGatewayCheckResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # OK
         self.status = status
@@ -435,7 +435,6 @@ class EchoGatewayCheckRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # demo
         self.input_demo = input_demo
@@ -525,8 +524,9 @@ class EchoGatewayCheckResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # output_demo
         self.output_demo = output_demo
@@ -658,8 +658,9 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 上传有效期
         self.expired_time = expired_time
