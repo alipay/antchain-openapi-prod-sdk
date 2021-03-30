@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.29',
+    sdk_version = '1.0.32',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -204,15 +204,15 @@ model XNameValuePair {
 model StatusGatewayCheckRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model StatusGatewayCheckResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // OK
   status?: string(name='status'),
@@ -240,7 +240,6 @@ async function statusGatewayCheckEx(request: StatusGatewayCheckRequest, headers:
 model EchoGatewayCheckRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // demo
   inputDemo?: DemoClass(name='input_demo'),
@@ -258,8 +257,9 @@ model EchoGatewayCheckRequest = {
 model EchoGatewayCheckResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // output_demo
   outputDemo?: DemoClass(name='output_demo'),
@@ -325,8 +325,9 @@ model CreateAntcloudGatewayxFileUploadRequest = {
 model CreateAntcloudGatewayxFileUploadResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 上传有效期
   expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
