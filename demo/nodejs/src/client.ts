@@ -201,7 +201,6 @@ export class XNameValuePair extends $tea.Model {
 export class StatusGatewayCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -225,8 +224,9 @@ export class StatusGatewayCheckRequest extends $tea.Model {
 export class StatusGatewayCheckResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // OK
   status?: string;
@@ -256,7 +256,6 @@ export class StatusGatewayCheckResponse extends $tea.Model {
 export class EchoGatewayCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // demo
   inputDemo?: DemoClass;
@@ -303,8 +302,9 @@ export class EchoGatewayCheckRequest extends $tea.Model {
 export class EchoGatewayCheckResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // output_demo
   outputDemo?: DemoClass;
@@ -386,8 +386,9 @@ export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
 export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 上传有效期
   expiredTime?: string;
@@ -539,7 +540,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.29",
+          sdk_version: "1.0.32",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
