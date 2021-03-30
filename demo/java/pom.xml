@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-demo</artifactId>
-  <version>1.0.29</version>
+  <version>1.0.32</version>
   <packaging>jar</packaging>
   <name>openapi-demo</name>
   <description>Ant Chain DEMO SDK for Java
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.antgroup.antchain.openapi</groupId>
       <artifactId>antchain-util</artifactId>
-      <version>0.1.8</version>
+      <version>0.1.9</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
