@@ -1,0 +1,4689 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.44',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 无分组设备
+model DeviceInfoNoGroup {
+  // 物模型Id
+  aliyunModelId?: string(name='aliyun_model_id', example='aliyunModelId'),
+  // 三元组
+  deviceMeta?: string(name='device_meta', example='deviceMeta'),
+  // 设备拥有者Id
+  deviceOwnerId?: string(name='device_owner_id', example='deviceOwnerId'),
+  // 设备安装信息
+  deviceSetupInfo?: string(name='device_setup_info', example='deviceSetupInfo'),
+  // 设备类型【ALIDEV：阿里云设备，CHAINMACDEV：链机设备，M2MDEV：M2M设备，OTHERDEV：其他设备】
+  // 
+  deviceType?: string(name='device_type', example='ALIDEV'),
+  // 设备使用者Id
+  deviceUserIdList?: [ string ](name='device_user_id_list', example='deviceUserId'),
+  // 设备虚拟id
+  deviceVirtualId?: string(name='device_virtual_id', example='deviceVirtualId'),
+  // 智能版本
+  smartVersion?: string(name='smart_version', example='smartVersion'),
+  // 设备状态 【READY：未启用，STARTED：已启用，LOADING：信息待完善，DELETED：已注销， ALL：全部】
+  status?: string(name='status', example='READY'),
+  // 库位Id
+  stockPositionIdList?: [ string ](name='stock_position_id_list', example='stockPositionId'),
+  // 库位名称
+  stockPositionNameList?: [ string ](name='stock_position_name_list', example='stockPositionName'),
+  // 设备id
+  thingsDid?: string(name='things_did', example='thingsDid'),
+  // 设备名称
+  thingsName?: string(name='things_name', example='thingsName'),
+  // 视频流地址
+  videoUrl?: string(name='video_url', example='videoUrl'),
+  // 仓库Id
+  warehouseId?: string(name='warehouse_id', example='warehouseId'),
+  // 仓库名称
+  warehouseName?: string(name='warehouse_name', example='warehouseName'),
+}
+
+// 船运箱子详情结构体
+model CargoTank {
+  // 箱号
+  boxNo: string(name='box_no', example='box-001'),
+  // 铅封号	
+  // 
+  leadSealingNo: string(name='lead_sealing_no', example='s-f-x-99 '),
+  // 箱型	
+  boxType: string(name='box_type', example='长整箱'),
+  // 重量	
+  boxWeight: string(name='box_weight', example='15T'),
+}
+
+// 操作信息
+model FlowNode {
+  // 序号
+  index?: long(name='index', example='1'),
+  // 操作类型【CREATE：创建入库申请，AUDIT：保管人审核，ALLOCATE：审核拒绝，STORAGE：入库，COMPLETE：完成】
+  //  
+  //    
+  //     
+  type?: string(name='type', example='CREATE'),
+  // 流程节点状态【 PASS：成功，FAIL：失败，ACTIVE：激活，INACTIVE：未激活】
+  state?: string(name='state', example='PASS'),
+  // 操作时间，单位：ms
+  operateTime?: long(name='operate_time', example='4343215412341'),
+  // 备注
+  comment?: string(name='comment', example='comment'),
+}
+
+// 区块链信息
+model BlockchainInfo {
+  // hash值
+  txHash?: string(name='tx_hash', example='457345'),
+  // 时间戳
+  txTime?: long(name='tx_time', example='5676989'),
+}
+
+// 流程信息
+model FlowInfo {
+  // 备注
+  comment?: string(name='comment', example='comment'),
+  // 操作时间
+  operateTime?: string(name='operate_time', example='operateTime'),
+  // 操作人
+  operator?: string(name='operator', example='operator'),
+  // 操作状态【NONE,WAITING,AGREED,REJECTED,CANCELED,ALL】
+  status?: string(name='status', example='WAITING'),
+}
+
+// 字典信息
+model TemplateDataConverter {
+  // 货物品类
+  commodityCategory: string(name='commodity_category', example='commodityCategory'),
+  // 仓单的生成时间
+  createTime?: long(name='create_time', example='14313413241'),
+  // 仓储方名称或ID，提交的时候使用ID，展示使用名称
+  custodianCorp?: string(name='custodian_corp', example='custodianCorp'),
+  // 存货人名称或ID，提交的时候使用ID，展示使用名称
+  customerCorp?: string(name='customer_corp', example='customerCorp'),
+  // 其他字典定制信息
+  customData?: string(name='custom_data', example='customData'),
+  // 是否补仓
+  isSupplement: boolean(name='is_supplement', example='isSupplement'),
+  // 联盟ID
+  leagueId: string(name='league_id', example='leagueId'),
+  // 联盟名称
+  leagueName: string(name='league_name', example='leagueName'),
+  // 资金方名称或ID，提交的时候使用ID，展示使用名称
+  lenderCorp?: string(name='lender_corp', example='lenderCorp'),
+  // 仓位ID列表
+  position?: [ string ](name='position', example='position'),
+  // 预分配仓位ID列表
+  prePosition?: [ string ](name='pre_position', example='prePosition'),
+  // 预分配仓库名称或ID，提交的时候使用ID，展示使用名称
+  preWarehouseName?: string(name='pre_warehouse_name', example='preWarehouseName'),
+  // 数量
+  quantity: long(name='quantity', example='quantity'),
+  // 数量单位
+  quantityUnit: string(name='quantity_unit', example='quantityUnit'),
+  // 物权方
+  realRightName?: string(name='real_right_name', example='realRightName'),
+  // 仓单状态
+  state?: string(name='state', example='111'),
+  // 补仓仓单ID
+  supplementWarehouseReceiptId?: string(name='supplement_warehouse_receipt_id', example='supplementWarehouseReceiptId'),
+  // 仓单更新时间
+  updateTime?: long(name='update_time', example='312124234'),
+  // 仓库名称或ID，提交的时候使用ID，展示使用名称
+  warehouseName?: string(name='warehouse_name', example='warehouseName'),
+  // 仓单ID
+  warehouseReceiptId?: string(name='warehouse_receipt_id', example='warehouseReceiptId'),
+  // 重量
+  weight: string(name='weight', example='11.32'),
+  // 重量单位
+  weightUnit: string(name='weight_unit', example='克'),
+}
+
+// 联盟信息
+model LeagueInfo {
+  // 时间
+  createTime?: long(name='create_time', example='5676989'),
+  // 联盟id
+  leagueId?: string(name='league_id', example='5676989'),
+  // 联盟名称
+  leagueName?: string(name='league_name', example='5676989'),
+  // 联盟描述
+  leagueDesc?: string(name='league_desc', example='leagueDesc'),
+  // 联盟对应的物权平台产品
+  productVersion?: string(name='product_version', example='productVersion'),
+}
+
+// 设备组
+model DeviceGroup {
+  // 设备组id
+  groupId?: string(name='group_id', example='groupId'),
+  // 设备组名称
+  groupName?: string(name='group_name', example='groupName'),
+  // 设备id
+  thingsDidList?: [ string ](name='things_did_list', example='thingsDid'),
+  // 设备其他信息
+  thingsInfoList?: [ DeviceInfoNoGroup ](name='things_info_list', example='1'),
+}
+
+// 物证信息
+model EvidenceInfo {
+  // 自定义序列
+  bizId: long(name='biz_id', example='1'),
+  // 资产id
+  assetId?: string(name='asset_id', example='assetId'),
+  // 请求信息
+  message?: string(name='message', example='message'),
+  // 创建是否成功
+  success: boolean(name='success', example='true, false'),
+  // 短码
+  qrCode?: string(name='qr_code', example='qrCode'),
+}
+
+// 融资利率结构体
+model FinancialRateInfo {
+  // 融资利率
+  rate: string(name='rate', example='12.50'),
+  // 起始-天
+  startDay: long(name='start_day', example='0'),
+  // 终止-天
+  endDay: long(name='end_day', example='30'),
+}
+
+// 仓库信息
+model WarehouseInfo {
+  // 地址
+  address: string(name='address', example='地址'),
+  // 平面图
+  blueprintUrl: string(name='blueprint_url', example='1'),
+  // 所在国家
+  country: string(name='country', example='China'),
+  // 设备数量
+  deviceNum: long(name='device_num', example='100'),
+  // 其他信息
+  extraInfo?: string(name='extra_info', example='其他信息'),
+  // 纬度
+  latitude: string(name='latitude', example='25.65'),
+  // 经度
+  longitude: string(name='longitude', example='125.45'),
+  // 智能版本
+  smartLevel: string(name='smart_level', example='1.0.0'),
+  // 仓库状态
+  status: string(name='status', example='1'),
+  // 仓位数量
+  stockPositionNum: long(name='stock_position_num', example='100'),
+  // 版本信息
+  version: string(name='version', example='1.0.0'),
+  // 仓库面积
+  warehouseArea: string(name='warehouse_area', example='100'),
+  // 仓库高度
+  warehouseHeight: string(name='warehouse_height', example='10'),
+  // 仓库Id
+  warehouseId: string(name='warehouse_id', example='5676989'),
+  // 仓库名称
+  warehouseName: string(name='warehouse_name', example='仓库名称'),
+}
+
+// 角色
+model Role {
+  // 企业名称
+  firmName?: string(name='firm_name', example='firmName'),
+  // 蚂蚁金融科技租户ID
+  openTenant?: string(name='open_tenant', example='open_tenant'),
+  // 角色类型【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType?: string(name='role_type', example='MEMBER '),
+}
+
+// 物流运单信息详情结构体
+model OrderInfo {
+  // 运单号
+  orderNo: string(name='order_no', example='132134'),
+  // 船名
+  shipName: string(name='ship_name', example='运龙号'),
+  // 航次
+  voyageNo: string(name='voyage_no', example='98-fx'),
+  // 起始地
+  originalPlace: string(name='original_place', example='大连'),
+  // 目的地
+  destPlace: string(name='dest_place', example='上海'),
+  // 离港时间
+  leaveDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='leave_date', example='2018-10-10T10:10:00Z'),
+  // 预计到港时间
+  estArriDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='est_arri_date', example='2018-10-10T10:10:00Z'),
+  // 实际到港时间
+  actualArriDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='actual_arri_date', example='2018-10-10T10:10:00Z'),
+  // 运单重量
+  waybillWeight: string(name='waybill_weight', example='1000t'),
+  // 船运箱子详情列表
+  cargoTankList: [ CargoTank ](name='cargo_tank_list', example=''),
+  // 委托人信息
+  grantorInfo: [ string ](name='grantor_info', example=''),
+  // 收货人信息
+  consigneeInfo: [ string ](name='consignee_info', example=''),
+  // 运单附件
+  attachment: string(name='attachment', example='xxx.jpg'),
+  // 物流状态:
+  // 1-->已离开港口;
+  // 2-->已到达港口;
+  logisticsStatus: long(name='logistics_status', example='1'),
+}
+
+// 用户明细清单
+model UserDetail {
+  // 融资编号
+  financingNo: string(name='financing_no', example='financingNo'),
+  // 分润金额，乘过分润比例，到记账日的累计值
+  dividedAmount: long(name='divided_amount', example='0'),
+  // 分润比例，保留两位小数
+  dividedRate: string(name='divided_rate', example='10.01'),
+  // 罚息金额
+  penaltyAmount: long(name='penalty_amount', example='0'),
+  // 角色编码
+  roleCode: string(name='role_code', example='roleCode'),
+  // 记账日期 yyyy-mm-dd
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date', example='2018-10-10'),
+  // 当日还款金额
+  payment: long(name='payment', example='0'),
+  // 其他利润(操作费还款日时写到各方记录)
+  otherProfit: long(name='other_profit', example='0'),
+}
+
+// 物权信息
+model AssetInfo {
+  // 资产Id
+  assetId?: string(name='asset_id', example='5676989'),
+  // 数据字典Id
+  templateId?: string(name='template_id', example='5676989'),
+  // 资产内容
+  content?: string(name='content', example='5676989'),
+  // 链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info', example='5676989'),
+  // 短码
+  qrCode?: string(name='qr_code', example='qrCode'),
+}
+
+// 错误信息提示
+model ErrorMessage {
+  // 错误码
+  errorCode?: string(name='error_code', example='unknown'),
+  // 错误信息描述
+  errorMsg?: string(name='error_msg', example='ggg'),
+}
+
+// 角色对应分润比例
+model RoleRatio {
+  // 角色编号
+  // 角色编号类型
+  // 风险承担方：RISK_TAKER
+  // 货物监管方：CARGO_SUPERVISION
+  // 资金推荐方：CAPITAL_RECOMMEND
+  // 融资推荐方：FUNDER_RECOMMEND
+  // 运营管理方：MANAGEMENT
+  // 技术支持方：TECHNICAL
+  roleCode: string(name='role_code', example='roleCode'),
+  // 分润比例，保留两位小数的百分比
+  ratio: string(name='ratio', example='99.99'),
+}
+
+// 用户对账单
+model UserStatement {
+  // 融资编号
+  financingNo: string(name='financing_no', example='financingNo'),
+  // 产品编号，有的话返回
+  productNo: string(name='product_no', example='productNo'),
+  // 融资金额
+  financialAmount: long(name='financial_amount', example='0'),
+  // 分润比例，保留两位小数的百分比
+  profitRate: string(name='profit_rate', example='99.99'),
+  // 总分润金额，乘过分润比例
+  totalAmount: long(name='total_amount', example='0'),
+  // 角色名称，按上述角色名称约定
+  roleCode: string(name='role_code', example='roleCode'),
+  // 角色对应的企业
+  companyNo: string(name='company_no', example='companyNo'),
+  // 记账日期 yyyy-MM-dd
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date', example='2018-10-10'),
+}
+
+// 文件信息
+model DocumentInfo {
+  // 文档Id
+  documentId?: string(name='document_id', example='documentId'),
+  // 类型【CONTRACT 合同, NOTE 票据, DOCUMENT 文件, UNKNOWN 未知】
+  fileType?: string(name='file_type', example='CONTRACT'),
+  // 文档名
+  name?: string(name='name', example='name'),
+  // 存证哈希
+  txHash?: string(name='tx_hash', example='txHash'),
+  // 存证时间
+  txTime?: long(name='tx_time', example='txTime'),
+  // 文件Url
+  url?: string(name='url', example='url'),
+}
+
+// 用户
+model AssetChainUser {
+  // 申请Id
+  applyId?: string(name='apply_id', example='applyId'),
+  // 联盟申请类型【NONE,JOIN,CREATE,ALL】
+  applyType?: string(name='apply_type', example='JOIN'),
+  // 当前联盟信息
+  currentLeagueInfo?: LeagueInfo(name='current_league_info', example='currentLeagueInfo'),
+  // 企业名称
+  firmName?: string(name='firm_name', example='firmName'),
+  // 申请流程状态【NONE,WAITING,AGREED,REJECTED,CANCELED,ALL】
+  leagueApplyStatus?: string(name='league_apply_status', example='AGREED'),
+  // 是否是盟主
+  leagueLeader?: boolean(name='league_leader', example='leagueLeader'),
+  // 登录名
+  loginName?: string(name='login_name', example='loginName'),
+  // 蚂蚁金融科技租户ID
+  openTenant?: string(name='open_tenant', example='openTenant'),
+  // 角色类型【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType?: string(name='role_type', example='MEMBER'),
+}
+
+// 分配的仓位
+model AllocLocationInfo {
+  // 仓位ID
+  locationId?: string(name='location_id', example='locationId'),
+  // 仓位名称
+  locationName?: string(name='location_name', example='locationName'),
+  // 仓位容量
+  capacity?: long(name='capacity', example='100'),
+  // 已用容量
+  usedCapacity?: string(name='used_capacity', example='10.55'),
+  // 监控等级【VIDEOREGULATORY：视频监控】
+  monitorCapacity?: string(name='monitor_capacity', example='VIDEOREGULATORY'),
+  // 监控水平【STANDARD：标准版，UPGRADED：升级版】
+  monitorLevel?: string(name='monitor_level', example='STANDARD'),
+}
+
+// 阿里云模型
+model AliyunModel {
+  // 物模型类目名
+  name?: string(name='name', example='name'),
+  // 物模型类目Id
+  id?: string(name='id', example='id'),
+}
+
+// 数据字典
+model AssetTemplate {
+  // 模板类型id
+  categoryId?: string(name='category_id', example='categoryId'),
+  // 模板内容
+  content?: string(name='content', example='模板内容'),
+  // 模板id
+  templateId?: string(name='template_id', example='templateId'),
+  // 模板名称
+  templateName?: string(name='template_name', example='templateName'),
+  // 是否生效
+  valid?: boolean(name='valid', example='true, false'),
+  // 是否使用
+  used?: boolean(name='used', example='true, false'),
+  // 版本号
+  version?: string(name='version', example='1.0.1'),
+  // 联盟Id
+  leagueUid?: string(name='league_uid', example='leagueUid'),
+  // 标准数据字典
+  standard?: boolean(name='standard', example='true, false'),
+}
+
+// 设备信息
+model DeviceInfo {
+  // 物模型Id
+  aliyunModelId?: string(name='aliyun_model_id', example='aliyunModelId'),
+  // 设备组
+  deviceGroupList?: [ DeviceGroup ](name='device_group_list', example='deviceGroupList'),
+  // 三元组
+  deviceMeta?: string(name='device_meta', example='deviceMeta'),
+  // 设备拥有者Id
+  deviceOwnerId?: string(name='device_owner_id', example='deviceOwnerId'),
+  // 设备安装信息
+  deviceSetupInfo?: string(name='device_setup_info', example='deviceSetupInfo'),
+  // 设备类型【ALIDEV：阿里云设备，CHAINMACDEV：链机设备，M2MDEV：M2M设备，OTHERDEV：其他设备】
+  deviceType?: string(name='device_type', example='ALIDEV'),
+  // 设备使用者Id
+  deviceUserIdList?: [ string ](name='device_user_id_list', example='deviceUserId'),
+  // 设备虚拟id
+  deviceVirtualId?: string(name='device_virtual_id', example='deviceVirtualId'),
+  // 智能版本
+  smartVersion?: string(name='smart_version', example='smartVersion'),
+  // 设备状态
+  //     【READY：未启用，STARTED：已启用，LOADING：信息待完善，DELETED：已注销， ALL：全部】
+  status?: string(name='status', example='READY'),
+  // 库位Id
+  stockPositionIdList?: [ string ](name='stock_position_id_list', example='stockPositionId'),
+  // 库位名称
+  stockPositionNameList?: [ string ](name='stock_position_name_list', example='stockPositionName'),
+  // thingsDid
+  thingsDid?: string(name='things_did', example='thingsDid'),
+  // 设备名称
+  thingsName?: string(name='things_name', example='thingsName'),
+  // 视频流地址
+  videoUrl?: string(name='video_url', example='videoUrl'),
+  // 仓库Id
+  warehouseId?: string(name='warehouse_id', example='warehouseId'),
+  // 仓库名称
+  warehouseName?: string(name='warehouse_name', example='warehouseName'),
+}
+
+// 联盟申请信息
+model LeagueApplyInfo {
+  // 申请账号
+  applyAccount?: string(name='apply_account', example='applyAccount'),
+  // 申请企业
+  applyCorp?: string(name='apply_corp', example='applyCorp'),
+  // 申请Id
+  applyId?: string(name='apply_id', example='applyId'),
+  // 申请人手机
+  applyMobileNum?: string(name='apply_mobile_num', example='applyMobileNum'),
+  // 申请时间
+  applyTime?: string(name='apply_time', example='applyTime'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType?: string(name='apply_type', example='JOIN'),
+  // 当前流程状态【NONE,WAITING,AGREED,REJECTED,CANCELED,ALL】
+  currentStatus?: string(name='current_status', example='WAITING'),
+  // 流程历史
+  flowHistory?: [ FlowInfo ](name='flow_history', example='flowHistory'),
+  // 角色【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType?: string(name='role_type', example='MEMBER '),
+}
+
+// 注册仓单申请单
+model RegisterWhReceiptSummary {
+  // 注册仓单申请单ID
+  registerWhReceiptId?: string(name='register_wh_receipt_id', example='registerWhReceiptId'),
+  // 仓单ID
+  warehouseReceiptId?: string(name='warehouse_receipt_id', example='warehouseReceiptId'),
+  // 注册仓单申请单状态【 NONE：无效状态，WAITING：待审核，AGREED：审核同意，REJECTED：审核拒绝，CANCELED：已取消，WAITING_PRE_ALLOC_POSITION：待预分配仓位，WAITING_TRANSACTION_IN：待入库，TRANSACTION_IN：入库中，FINISHED_TRANSACTION_IN：已入库/待确认，CONFIRMED_TRANSACTION_IN：完成入库，INTERRUPTION：已中断，ALL：所有状态】
+  status?: string(name='status', example='WAITING'),
+  // 申请时间，单位：ms
+  applyTime?: long(name='apply_time', example='1413241234'),
+  // 货物品类
+  commodityCategory?: string(name='commodity_category', example='commodityCategory'),
+  // 数量 + 单位
+  quantity?: string(name='quantity', example='13个'),
+  // 重量 + 单位
+  weight?: string(name='weight', example='13克'),
+  // 存货人名称
+  customerName?: string(name='customer_name', example='customerName'),
+  // 保管人名称
+  custodianName?: string(name='custodian_name', example='custodianName'),
+}
+
+// 仓位使用情况
+model StockPositionUsed {
+  // 库位ID
+  positionId: string(name='position_id', example='positionId'),
+  // 已用容量，百分比的数值，如50%，则为50
+  usedCapacity: long(name='used_capacity', example='50'),
+}
+
+// 设备用户
+model DeviceUser {
+  // 用户id
+  deviceUserId?: string(name='device_user_id', example='device_user_id'),
+  // 用户名称
+  deviceUserName?: string(name='device_user_name', example='deviceUserName'),
+  // 角色类型【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType?: string(name='role_type', example='roleType'),
+  // 权限(仅有设备所有权和设备使用权两种权限)
+  authority?: string(name='authority', example='authority'),
+}
+
+// 角色企业Map信息
+model RoleOrganization {
+  // 企业编号
+  companyNo: string(name='company_no', example='A001'),
+  // 企业名称
+  companyName: string(name='company_name', example='金融科技'),
+  // 角色编码
+  // 角色编码类型
+  // 风险承担方：RISK_TAKER
+  // 货物监管方：CARGO_SUPERVISION
+  // 资金推荐方：CAPITAL_RECOMMEND
+  // 融资推荐方：FUNDER_RECOMMEND
+  // 运营管理方：MANAGEMENT
+  // 技术支持方：TECHNICAL
+  roleCode: string(name='role_code', example='roleCode'),
+}
+
+// 溯源信息
+model WarehouseReceiptTraceInfo {
+  // string (enum: PICK_UP, WEAK_ASSET, WEAK_ASSET_TRANSFER, WAREHOUSE_RECEIPT_TRANSFER, WAREHOUSE_RECEIPT_REGISTER, PLEDGE_APPLICATION, PLEDGE_RELEASE, WAREHOUSE_RECEIPT_CANCEL, WAREHOUSE_RECEIPT_UPDATE)
+  operateType?: string(name='operate_type', example='PICK_UP'),
+  // 操作标识
+  operateTypeDesc?: string(name='operate_type_desc', example='gggg'),
+  // 操作时间
+  operateTime?: long(name='operate_time', example='5676989'),
+  // 区块链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info', example='info '),
+  // 操作主体
+  operatorName?: string(name='operator_name', example='ff'),
+  // string (enum: COMMIT, AGREE, REJECT, CREATE, START, PRE_ALLOC, ALLOC, UPLOAD, UPDATE, COMPLETE, CONFIRM, CONFIRM_COMMIT, CONFIRM_RECALL, TRIGGER, SPLIT, RECALL)
+  actionType?: string(name='action_type', example='COMMIT'),
+  // 动作描述
+  actionDesc?: string(name='action_desc', example='gtger'),
+  // 操作对象
+  operateObject?: string(name='operate_object', example='tttt'),
+}
+
+// 快照
+model ScreenShot {
+  // id
+  fileId?: string(name='file_id', example='fileId'),
+  // url
+  fileUrl?: string(name='file_url', example='fileUrl'),
+  // 时间
+  screenshotTime?: long(name='screenshot_time', example='screenshotTime'),
+  // 上链txHash
+  txHash?: string(name='tx_hash', example='txHash'),
+  // 设备名称
+  deviceName?: string(name='device_name', example='deviceName'),
+  // 关联仓位名称列表
+  locationNameList?: [ string ](name='location_name_list', example='locationNameList'),
+}
+
+// 罚息利率结构体
+model PenaltyRateInfo {
+  // 罚息
+  rate: string(name='rate', example='10.00'),
+  // 起始-天
+  startDay: long(name='start_day', example='1'),
+  // 终止-天
+  endDay: long(name='end_day', example='30'),
+}
+
+// 库位信息
+model StorageLocation {
+  // 仓位容量
+  capacity?: string(name='capacity', example='capacity'),
+  // 设备id
+  deviceIdList?: [ string ](name='device_id_list', example='deviceIdList'),
+  // 其他信息
+  extraInfo?: string(name='extra_info', example='extraInfo'),
+  // 库位id
+  id?: string(name='id', example='id'),
+  // 监控等级【VIDEOREGULATORY：视频监控】
+  monitorCapacity?: string(name='monitor_capacity', example='VIDEOREGULATORY'),
+  // 监控水平【STANDARD：标准版，UPGRADED：升级版】
+  monitorLevel?: string(name='monitor_level', example='STANDARD'),
+  // 库位名称
+  name?: string(name='name', example='name'),
+  // 货物类型【DANGER：危险品，NON_DANGER：非危险品，FOOD：食品】	
+  // 
+  productType?: string(name='product_type', example='DANGER'),
+  // 状态【AVAILABLE：可用，IN_USE：使用中，IN_CONFIG：配置中，DELETED：已删除】
+  status?: string(name='status', example='AVAILABLE'),
+  // 仓位面积
+  storageLocationArea?: string(name='storage_location_area', example='storageLocationArea'),
+  // 仓位高度
+  storageLocationHeight?: string(name='storage_location_height', example='storageLocationHeight'),
+  // 库位类型【CHILL：冷藏，FREEZE：冷冻，PASSAGE：通道，FLAT：平面， STEREO：立体】
+  type?: string(name='type', example='CHILL'),
+  // 已用容量
+  usedCapacity?: string(name='used_capacity', example='usedCapacity'),
+  // 库位虚拟id
+  virtualId?: string(name='virtual_id', example='virtualId'),
+  // 仓库Id
+  warehouseId?: string(name='warehouse_id', example='warehouseId'),
+  // 关联仓单Id
+  warehouseReceiptId?: string(name='warehouse_receipt_id', example='warehouseReceiptId'),
+}
+
+// 用户信息
+model ThirdPartyUser {
+  // 用户id
+  userId?: string(name='user_id', example='userId'),
+  // 用户名
+  userName?: string(name='user_name', example='userName'),
+  // 联盟id
+  leagueUid?: string(name='league_uid', example='leagueUid'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 资产操作结果
+model AssetResult {
+  // 资产id
+  assetId: string(name='asset_id', example='assetId'),
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 信息
+  message?: string(name='message', example='message'),
+}
+
+// 操作费单价结构体
+model OpeUnitPriceInfo {
+  // 操作费单价 （分）
+  unitPrice: long(name='unit_price', example='10000'),
+  // 起始-天 （-999 表示无日期限制）
+  startDay: long(name='start_day', example='1'),
+  // 终止-天 （-999 表示无日期限制）
+  endDay: long(name='end_day', example='30'),
+}
+
+// 数据字典信息
+model TemplateInfo {
+  // 数据字id
+  templateId?: string(name='template_id', example='5676989'),
+  // 数据字典名称
+  templateName?: string(name='template_name', example='tttt'),
+  // 数据字典内容
+  template?: string(name='template', example='{“key ” : "bvalue"}'),
+}
+
+// 总对账单
+model TotalStatement {
+  // 企业编号
+  companyNo: string(name='company_no', example='companyNo'),
+  // 记账日期 yyyy-mm-dd
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date', example='2018-10-10'),
+  // 总分润金额
+  amount: long(name='amount', example='0'),
+  // 风险承担方金额
+  riskTaker: long(name='risk_taker', example='0'),
+  // 货物监管方金额
+  cargoSupervision: long(name='cargo_supervision', example='0'),
+  // 资金推荐方金额
+  capitalRecommend: long(name='capital_recommend', example='0'),
+  // 融资推荐方金额
+  funderRecommend: long(name='funder_recommend', example='0'),
+  // 运营管理方金额
+  management: long(name='management', example='0'),
+  // 技术支持方金额
+  technical: long(name='technical', example='0'),
+}
+
+// 物权信息
+model CertificateInfo {
+  // 模板id
+  templateId: string(name='template_id', example='templateId'),
+  // 字典模板定义的数据，key-value的json对象
+  content: string(name='content', example='{"key":"value"}'),
+  // 自定义序列（不能重复）
+  bizId: long(name='biz_id', example='1'),
+}
+
+// 数字字典内容
+model TemplateData {
+  // 字典类型ID
+  templateUid?: string(name='template_uid', example='templateUid'),
+  // 数字字典内容
+  formData?: TemplateDataConverter(name='form_data', example='数字字典内容'),
+}
+
+// 入库信息
+model TransactionInInfo {
+  // 入库信息表ID
+  id?: long(name='id', example='21431231'),
+  // 仓库Did
+  warehouseDid?: string(name='warehouse_did', example='1231231'),
+  // 仓库名称
+  warehouseName?: string(name='warehouse_name', example='warehouseName'),
+  // 库位Did
+  locationDid?: string(name='location_did', example='locationDid'),
+  // 库位名称
+  locationName?: string(name='location_name', example='locationName'),
+  // 设备Did
+  deviceDid?: string(name='device_did', example='deviceDid'),
+  // 设备名称
+  deviceName?: string(name='device_name', example='deviceName'),
+  // 开始时间，单位：s
+  startTime?: long(name='start_time', example='213123123'),
+  // 结束时间, 单位：s
+  endTime?: long(name='end_time', example='312312313'),
+  // 入库视频信息url
+  videoUrl?: string(name='video_url', example='videoUrl'),
+  // 存证交易hash
+  txHash?: string(name='tx_hash', example='txHash'),
+}
+
+// 组织信息
+model Organization {
+  // 企业编号
+  roleCompanyNo: string(name='role_company_no', example='roleCompanyNo'),
+  // 企业名称
+  roleCompanyName: string(name='role_company_name', example='roleCompanyName'),
+}
+
+// 还款利息
+model BankFee {
+  // 融资编号
+  financialNo: string(name='financial_no', example='financialNo'),
+  // 产品编号
+  productNo: string(name='product_no', example='productNo'),
+  // 应付银行本金
+  capitalAmount: long(name='capital_amount', example=''),
+  // 应付银行利息
+  interestAmount: long(name='interest_amount', example=''),
+  // 应付总金额
+  totalAmount: long(name='total_amount', example=''),
+  // 记账日期 yyyy-MM-dd
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date', example='2018-10-10'),
+}
+
+// key和value均为String的entry
+model StringStringEntry {
+  // 键
+  key?: string(name='key', example='key'),
+  // 值
+  value: string(name='value', example='value'),
+}
+
+// 申请信息
+model RegisterWhReceiptHeader {
+  // 注册申请单ID
+  registerWhReceiptId?: string(name='register_wh_receipt_id', example='registerWhReceiptId'),
+  // 注册仓单状态【 NONE：无效状态，WAITING：待审核，AGREED：审核同意，REJECTED：审核拒绝，CANCELED：已取消，WAITING_PRE_ALLOC_POSITION：待预分配仓位，WAITING_TRANSACTION_IN：待入库，TRANSACTION_IN：入库中，FINISHED_TRANSACTION_IN：已入库/待确认，CONFIRMED_TRANSACTION_IN：完成入库，INTERRUPTION：已中断，ALL：所有状态】
+  status?: string(name='status', example='NONE'),
+  // 入库中时的子状态，只有入库中才有值【ALLOCATED_LOCATION：已调用分配仓位信息接口，TRANSACTION_IN_INFO：已调用添加入库信息接口，LOCATION_INFO：已调用补充仓位占用信息接口】
+  inStoringStatus?: string(name='in_storing_status', example='ALLOCATED_LOCATION'),
+  // 更新时间
+  updateTime?: long(name='update_time', example='124134132411'),
+}
+
+// 历史操作信息
+model FlowHistory {
+  // 操作信息
+  flowNodeList?: [ FlowNode ](name='flow_node_list', example='1'),
+}
+
+model CreateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户名
+  userName: string(name='user_name'),
+  // 11位的合法手机号
+  phone: string(name='phone'),
+}
+
+model CreateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 用户id
+  userId?: string(name='user_id'),
+}
+
+/**
+ * Description: 用户注册
+ * Summary: 用户注册
+ */
+async function createUser(request: CreateUserRequest): CreateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户注册
+ * Summary: 用户注册
+ */
+async function createUserEx(request: CreateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id
+  assetId: string(name='asset_id'),
+  // 被转让的对象
+  transferee: string(name='transferee'),
+  // 转让金额
+  monetaryAmount: string(name='monetary_amount'),
+  // 用户的标识
+  userId: string(name='user_id'),
+}
+
+model CreateTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // long类型时间戳
+  date?: long(name='date'),
+  // 实体类中包含两个变量
+  blockchainInfo?: BlockchainInfo(name='blockchain_info'),
+}
+
+/**
+ * Description: 物权凭证转让/赠送
+ * Summary: 物权凭证转让/赠送
+ */
+async function createTransfer(request: CreateTransferRequest): CreateTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物权凭证转让/赠送
+ * Summary: 物权凭证转让/赠送
+ */
+async function createTransferEx(request: CreateTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.transfer.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreatePickupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id
+  assetId: string(name='asset_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model CreatePickupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 提取码
+  pickupId?: string(name='pickup_id'),
+  // 区块链信息
+  info?: BlockchainInfo(name='info'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 创建提取码
+ * Summary: 创建提取码
+ */
+async function createPickup(request: CreatePickupRequest): CreatePickupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createPickupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建提取码
+ * Summary: 创建提取码
+ */
+async function createPickupEx(request: CreatePickupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreatePickupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.pickup.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelPickupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 提取码
+  pickupId: string(name='pickup_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model CancelPickupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 提取码
+  pickupId?: string(name='pickup_id'),
+  // 区块链信息
+  info?: BlockchainInfo(name='info'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 销毁提取码
+ * Summary: 销毁提取码
+ */
+async function cancelPickup(request: CancelPickupRequest): CancelPickupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelPickupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 销毁提取码
+ * Summary: 销毁提取码
+ */
+async function cancelPickupEx(request: CancelPickupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelPickupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.pickup.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DisablePickupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id
+  assetId: string(name='asset_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model DisablePickupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链信息
+  info?: BlockchainInfo(name='info'),
+  // 提取码
+  pickupId?: string(name='pickup_id'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 核销提取码
+ * Summary: 核销提取码
+ */
+async function disablePickup(request: DisablePickupRequest): DisablePickupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return disablePickupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核销提取码
+ * Summary: 核销提取码
+ */
+async function disablePickupEx(request: DisablePickupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DisablePickupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.pickup.disable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链标识
+  blockchainD: string(name='blockchain_d'),
+  // 评论
+  comment?: string(name='comment'),
+  // 联盟名称
+  leagueName: string(name='league_name'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model CreateLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 联盟id
+  leagueId?: string(name='league_id'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createLeague(request: CreateLeagueRequest): CreateLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createLeagueEx(request: CreateLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model AddLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 加入联盟
+ * Summary: 加入联盟
+ */
+async function addLeague(request: AddLeagueRequest): AddLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 加入联盟
+ * Summary: 加入联盟
+ */
+async function addLeagueEx(request: AddLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+  // 加入用户的标识
+  joinUserId: string(name='join_user_id'),
+  // 审核结果
+  pass: boolean(name='pass'),
+}
+
+model ConfirmLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 审核加入联盟
+ * Summary: 审核加入联盟
+ */
+async function confirmLeague(request: ConfirmLeagueRequest): ConfirmLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 审核加入联盟
+ * Summary: 审核加入联盟
+ */
+async function confirmLeagueEx(request: ConfirmLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户标识
+  userId: string(name='user_id'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+}
+
+model QueryLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟信息
+  league?: LeagueInfo(name='league'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 查询联盟
+ * Summary: 查询联盟
+ */
+async function queryLeague(request: QueryLeagueRequest): QueryLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询联盟
+ * Summary: 查询联盟
+ */
+async function queryLeagueEx(request: QueryLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 字典id
+  templateId: string(name='template_id'),
+  // 数据字典内容
+  content: string(name='content'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model CreateImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产id
+  assetId?: string(name='asset_id'),
+  // 区块链信息
+  info?: BlockchainInfo(name='info'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 短码
+  qrCode?: string(name='qr_code'),
+}
+
+/**
+ * Description: 创建资产信息
+ * Summary: 创建资产信息
+ */
+async function createImportasset(request: CreateImportassetRequest): CreateImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建资产信息
+ * Summary: 创建资产信息
+ */
+async function createImportassetEx(request: CreateImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 数据字典内容
+  content: string(name='content'),
+  // 用户标识
+  userId: string(name='user_id'),
+}
+
+model UpdateImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info'),
+  // 请求时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 更新物权
+ * Summary: 更新物权
+ */
+async function updateImportasset(request: UpdateImportassetRequest): UpdateImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新物权
+ * Summary: 更新物权
+ */
+async function updateImportassetEx(request: UpdateImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model CancelImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 注销物权
+ * Summary: 注销物权
+ */
+async function cancelImportasset(request: CancelImportassetRequest): CancelImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注销物权
+ * Summary: 注销物权
+ */
+async function cancelImportassetEx(request: CancelImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FreezeImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model FreezeImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 冻结物权
+ * Summary: 冻结物权
+ */
+async function freezeImportasset(request: FreezeImportassetRequest): FreezeImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return freezeImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 冻结物权
+ * Summary: 冻结物权
+ */
+async function freezeImportassetEx(request: FreezeImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FreezeImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.freeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezeImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model UnfreezeImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链信息
+  blockchainInfo?: BlockchainInfo(name='blockchain_info'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 解冻物权
+ * Summary: 解冻物权
+ */
+async function unfreezeImportasset(request: UnfreezeImportassetRequest): UnfreezeImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezeImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解冻物权
+ * Summary: 解冻物权
+ */
+async function unfreezeImportassetEx(request: UnfreezeImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezeImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 用户id
+  userId?: string(name='user_id'),
+}
+
+model QueryImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物权信息
+  asset?: AssetInfo(name='asset'),
+  // 时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 查询物权
+ * Summary: 查询物权
+ */
+async function queryImportasset(request: QueryImportassetRequest): QueryImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询物权
+ * Summary: 查询物权
+ */
+async function queryImportassetEx(request: QueryImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页面容量
+  pageSize: long(name='page_size'),
+  // 用户标识
+  userId?: string(name='user_id'),
+  // 小程序是加密后的字符串
+  phone: string(name='phone'),
+}
+
+model AllImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物权信息
+  assets?: [ AssetInfo ](name='assets'),
+  // 当前页码
+  currentPage?: long(name='current_page'),
+  // 时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 物权列表
+ * Summary: 物权列表
+ */
+async function allImportasset(request: AllImportassetRequest): AllImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物权列表
+ * Summary: 物权列表
+ */
+async function allImportassetEx(request: AllImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页面大小
+  pageSize: long(name='page_size'),
+  // string (enum: PICK_UP, WEAK_ASSET, WEAK_ASSET_TRANSFER, WAREHOUSE_RECEIPT_TRANSFER, WAREHOUSE_RECEIPT_REGISTER, PLEDGE_APPLICATION, PLEDGE_RELEASE, WAREHOUSE_RECEIPT_CANCEL, WAREHOUSE_RECEIPT_UPDATE) 
+  type: string(name='type'),
+  // 用户id
+  userId?: string(name='user_id'),
+  // 资产id
+  assetId: string(name='asset_id'),
+}
+
+model BatchqueryImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  currentPage?: long(name='current_page'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 总条目
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 溯源信息
+  traceInfoList?: [ WarehouseReceiptTraceInfo ](name='trace_info_list'),
+}
+
+/**
+ * Description: 批量查询溯源信息
+ * Summary: 批量查询溯源信息
+ */
+async function batchqueryImportasset(request: BatchqueryImportassetRequest): BatchqueryImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量查询溯源信息
+ * Summary: 批量查询溯源信息
+ */
+async function batchqueryImportassetEx(request: BatchqueryImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 名称
+  name: string(name='name'),
+  // 数据字典
+  template?: string(name='template'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model CreateTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 数据字典id
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 创建数据字典
+ * Summary: 创建数据字典
+ */
+async function createTemplate(request: CreateTemplateRequest): CreateTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建数据字典
+ * Summary: 创建数据字典
+ */
+async function createTemplateEx(request: CreateTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.template.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据字典id
+  templateId: string(name='template_id'),
+  // 数据字典内容
+  template?: string(name='template'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model UpdateTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 更新数据字典
+ * Summary: 更新数据字典
+ */
+async function updateTemplate(request: UpdateTemplateRequest): UpdateTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新数据字典
+ * Summary: 更新数据字典
+ */
+async function updateTemplateEx(request: UpdateTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.template.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据字典id
+  templateId: string(name='template_id'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model QueryTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 数据字典信息
+  templateInfo?: TemplateInfo(name='template_info'),
+}
+
+/**
+ * Description: 查询数据字典
+ * Summary: 查询数据字典
+ */
+async function queryTemplate(request: QueryTemplateRequest): QueryTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据字典
+ * Summary: 查询数据字典
+ */
+async function queryTemplateEx(request: QueryTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 一页的大小
+  pageSize: long(name='page_size'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model AllTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 时间
+  date?: long(name='date'),
+  // 请求id
+  requestId?: string(name='request_id'),
+  // 数据字典信息
+  templateInfoList?: [ TemplateInfo ](name='template_info_list'),
+}
+
+/**
+ * Description: 数据字典列表信息
+ * Summary: 数据字典列表信息
+ */
+async function allTemplate(request: AllTemplateRequest): AllTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据字典列表信息
+ * Summary: 数据字典列表信息
+ */
+async function allTemplateEx(request: AllTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.template.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCheckcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权码
+  assetId: string(name='asset_id'),
+  // 创建验权码的用户
+  userId: string(name='user_id'),
+}
+
+model CreateCheckcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验权码
+  checkCode?: string(name='check_code'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间戳
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 创建验权码
+ * Summary: 创建验权码
+ */
+async function createCheckcode(request: CreateCheckcodeRequest): CreateCheckcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCheckcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建验权码
+ * Summary: 创建验权码
+ */
+async function createCheckcodeEx(request: CreateCheckcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCheckcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.checkcode.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckCheckcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权码
+  assetId: string(name='asset_id'),
+  // 验权码
+  checkCode: string(name='check_code'),
+}
+
+model CheckCheckcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 校验通过与否
+  audit?: boolean(name='audit'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间戳
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 校验验权码
+ * Summary: 校验验权码
+ */
+async function checkCheckcode(request: CheckCheckcodeRequest): CheckCheckcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkCheckcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验验权码
+ * Summary: 校验验权码
+ */
+async function checkCheckcodeEx(request: CheckCheckcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCheckcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.checkcode.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAssetpledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权id
+  assetId: string(name='asset_id'),
+  // 资金方的id
+  lenderId: string(name='lender_id'),
+  // 申请方的id
+  userId: string(name='user_id'),
+  // 融资协议
+  financialProtocolId?: string(name='financial_protocol_id'),
+  // 质押金额
+  value: long(name='value'),
+  // 质押时长
+  duration: long(name='duration'),
+}
+
+model CreateAssetpledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 质押申请id
+  pledgeId?: string(name='pledge_id'),
+  // 区块链信息
+  info?: BlockchainInfo(name='info'),
+  // 时间戳
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 创建质押申请
+ * Summary: 创建质押申请
+ */
+async function createAssetpledge(request: CreateAssetpledgeRequest): CreateAssetpledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAssetpledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建质押申请
+ * Summary: 创建质押申请
+ */
+async function createAssetpledgeEx(request: CreateAssetpledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAssetpledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assetpledge.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReleaseAssetpledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资金方的id
+  userId: string(name='user_id'),
+  // 质押Id
+  pledgeId: string(name='pledge_id'),
+  // 放款时间
+  lendDate: long(name='lend_date'),
+  // 放款金额
+  value: long(name='value'),
+  // 收款方名称
+  borrowerName: string(name='borrower_name'),
+  // 收款方账号
+  borrowerAccount: string(name='borrower_account'),
+  // 收款方银行
+  borrowerBankInfo: string(name='borrower_bank_info'),
+}
+
+model ReleaseAssetpledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链信息
+  info?: BlockchainInfo(name='info'),
+  // 时间戳
+  date?: long(name='date'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 质押放款
+ * Summary: 质押放款
+ */
+async function releaseAssetpledge(request: ReleaseAssetpledgeRequest): ReleaseAssetpledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return releaseAssetpledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 质押放款
+ * Summary: 质押放款
+ */
+async function releaseAssetpledgeEx(request: ReleaseAssetpledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReleaseAssetpledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assetpledge.release', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayAssetpledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请方
+  userId: string(name='user_id'),
+  // 质押id
+  pledgeId: string(name='pledge_id'),
+  // 收款方银行
+  recipientBank: string(name='recipient_bank'),
+  // 收款方账号
+  recipientAccount: string(name='recipient_account'),
+  // 金额
+  value: long(name='value'),
+  // 还款时间
+  repayDate: long(name='repay_date'),
+}
+
+model RepayAssetpledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款id
+  repayId?: string(name='repay_id'),
+  // 链信息
+  info?: BlockchainInfo(name='info'),
+  // 请求标识
+  requestId?: string(name='request_id'),
+  // 时间戳
+  date?: long(name='date'),
+}
+
+/**
+ * Description: 质押还款
+ * Summary: 质押还款
+ */
+async function repayAssetpledge(request: RepayAssetpledgeRequest): RepayAssetpledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayAssetpledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 质押还款
+ * Summary: 质押还款
+ */
+async function repayAssetpledgeEx(request: RepayAssetpledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayAssetpledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assetpledge.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetLeagueAccountinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model GetLeagueAccountinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户信息
+  role?: AssetChainUser(name='role'),
+}
+
+/**
+ * Description: 查询账户信息
+ * Summary: 查询账户信息
+ */
+async function getLeagueAccountinfo(request: GetLeagueAccountinfoRequest): GetLeagueAccountinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getLeagueAccountinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询账户信息
+ * Summary: 查询账户信息
+ */
+async function getLeagueAccountinfoEx(request: GetLeagueAccountinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetLeagueAccountinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.accountinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateWarehouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 地址
+  address: string(name='address'),
+  // 平面图
+  blueprintId?: string(name='blueprint_id'),
+  // 所在国家
+  country: string(name='country'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 纬度
+  latitude: string(name='latitude'),
+  // 经度
+  longitude: string(name='longitude'),
+  // 仓库面积
+  warehouseArea: string(name='warehouse_area'),
+  // 仓库高度
+  warehouseHeight?: string(name='warehouse_height'),
+  // 仓库id
+  warehouseId: string(maxLength=255, minLength=1, name='warehouse_id'),
+  // 仓库名称
+  warehouseName: string(maxLength=255, minLength=1, name='warehouse_name'),
+}
+
+model CreateWarehouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 仓库id
+  warehouseId?: string(name='warehouse_id'),
+}
+
+/**
+ * Description: 登记仓库
+ * Summary: 登记仓库
+ */
+async function createWarehouse(request: CreateWarehouseRequest): CreateWarehouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createWarehouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 登记仓库
+ * Summary: 登记仓库
+ */
+async function createWarehouseEx(request: CreateWarehouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateWarehouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLeagueRoleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 角色类型集合【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleTypes: [ string ](name='role_types'),
+}
+
+model ListLeagueRoleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 角色列表
+  roleList?: [ Role ](name='role_list'),
+}
+
+/**
+ * Description: 例举角色类型
+ * Summary: 例举角色类型
+ */
+async function listLeagueRole(request: ListLeagueRoleRequest): ListLeagueRoleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLeagueRoleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 例举角色类型
+ * Summary: 例举角色类型
+ */
+async function listLeagueRoleEx(request: ListLeagueRoleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLeagueRoleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.role.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetWarehouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model GetWarehouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址
+  address?: string(name='address'),
+  // 平面图
+  blueprintUrl?: string(name='blueprint_url'),
+  // 所在国家
+  country?: string(name='country'),
+  // 设备数量
+  deviceNum?: long(name='device_num'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 纬度
+  latitude?: string(name='latitude'),
+  // 经度
+  longitude?: string(name='longitude'),
+  // 智能版本
+  smartLevel?: string(name='smart_level'),
+  // 仓位数量
+  stockPositionNum?: long(name='stock_position_num'),
+  // version
+  version?: string(name='version'),
+  // 仓库面积
+  warehouseArea?: string(name='warehouse_area'),
+  // 仓库高度
+  warehouseHeight?: string(name='warehouse_height'),
+  // 仓库id
+  warehouseId?: string(name='warehouse_id'),
+  // 仓库名称
+  warehouseName?: string(name='warehouse_name'),
+}
+
+/**
+ * Description: 查询仓库详细信息
+ * Summary: 查询仓库详细信息
+ */
+async function getWarehouse(request: GetWarehouseRequest): GetWarehouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getWarehouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询仓库详细信息
+ * Summary: 查询仓库详细信息
+ */
+async function getWarehouseEx(request: GetWarehouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetWarehouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateWarehouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 地址（传原值，不可修改此项）
+  address: string(name='address'),
+  // 平面图
+  blueprintId?: string(name='blueprint_id'),
+  // 所在国家（传原值，不可修改此项）
+  country: string(name='country'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 仓库面积
+  warehouseArea: string(name='warehouse_area'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+  // 仓库名称（传原值，不可修改此项）
+  warehouseName: string(name='warehouse_name'),
+}
+
+model UpdateWarehouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址
+  address?: string(name='address'),
+  // 平面图
+  blueprintId?: string(name='blueprint_id'),
+  // 所在国家
+  country?: string(name='country'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 经纬度
+  location?: string(name='location'),
+  // 仓库面积
+  warehouseArea?: string(name='warehouse_area'),
+  // 仓库id
+  warehouseId?: string(name='warehouse_id'),
+  // 仓库名称
+  warehouseName?: string(name='warehouse_name'),
+}
+
+/**
+ * Description: 更新库存信息
+ * Summary: 更新库存信息
+ */
+async function updateWarehouse(request: UpdateWarehouseRequest): UpdateWarehouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateWarehouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新库存信息
+ * Summary: 更新库存信息
+ */
+async function updateWarehouseEx(request: UpdateWarehouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateWarehouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListWarehouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页面大小
+  pageSize: long(name='page_size'),
+}
+
+model ListWarehouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 仓位总数
+  locationTotal?: long(name='location_total'),
+  // 总条目
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 仓库信息
+  warehouseList?: [ WarehouseInfo ](name='warehouse_list'),
+  // 设备总数
+  deviceTotal?: long(name='device_total'),
+}
+
+/**
+ * Description: 列举用户仓库列表
+ * Summary: 列举用户仓库列表
+ */
+async function listWarehouse(request: ListWarehouseRequest): ListWarehouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listWarehouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举用户仓库列表
+ * Summary: 列举用户仓库列表
+ */
+async function listWarehouseEx(request: ListWarehouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListWarehouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟详情列表
+  leagueInfoList?: [ LeagueInfo ](name='league_info_list'),
+}
+
+/**
+ * Description: 例举联盟
+ * Summary: 例举联盟
+ */
+async function listLeague(request: ListLeagueRequest): ListLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 例举联盟
+ * Summary: 例举联盟
+ */
+async function listLeagueEx(request: ListLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryWarehouseDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备状态[READY：未启用，STARTED：已启用，LOADING：信息待完善，DELETED：已注销，ALL：全部]
+  deviceFilter?: string(name='device_filter'),
+  // 仓位id
+  storageLocationId?: string(name='storage_location_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model QueryWarehouseDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备信息
+  deviceList?: [ DeviceInfo ](name='device_list'),
+}
+
+/**
+ * Description: 列举某个仓库/仓位下的设备信息
+ * Summary: 列举某个仓库/仓位下的设备信息
+ */
+async function queryWarehouseDevice(request: QueryWarehouseDeviceRequest): QueryWarehouseDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryWarehouseDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举某个仓库/仓位下的设备信息
+ * Summary: 列举某个仓库/仓位下的设备信息
+ */
+async function queryWarehouseDeviceEx(request: QueryWarehouseDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWarehouseDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.device.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeagueApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟描述
+  leagueDesc?: string(name='league_desc'),
+  // 联盟名称
+  leagueName: string(name='league_name'),
+  // 费率
+  rate?: long(name='rate'),
+  // 角色类型【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType: string(name='role_type'),
+}
+
+model CreateLeagueApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟id
+  applyId?: string(name='apply_id'),
+}
+
+/**
+ * Description: 创建联盟申请
+ * Summary: 创建联盟申请
+ */
+async function createLeagueApply(request: CreateLeagueApplyRequest): CreateLeagueApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeagueApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建联盟申请
+ * Summary: 创建联盟申请
+ */
+async function createLeagueApplyEx(request: CreateLeagueApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeagueApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.apply.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeagueJoinapplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 备注
+  comment?: string(name='comment'),
+  // 联盟Id
+  leagueId: string(name='league_id'),
+  // 角色【NONE 无，MEMBER 存货方，CUSTODIAN 保管方，LENDER 资金方，OPERATOR 运营方，WARRANTY 担保方 ALL 所有】
+  roleType: string(name='role_type'),
+}
+
+model CreateLeagueJoinapplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请id
+  applyId?: string(name='apply_id'),
+}
+
+/**
+ * Description: 提交入盟申请
+ * Summary: 提交入盟申请
+ */
+async function createLeagueJoinapply(request: CreateLeagueJoinapplyRequest): CreateLeagueJoinapplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeagueJoinapplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交入盟申请
+ * Summary: 提交入盟申请
+ */
+async function createLeagueJoinapplyEx(request: CreateLeagueJoinapplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeagueJoinapplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.joinapply.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelLeagueApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请Id
+  applyId: string(name='apply_id'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType: string(name='apply_type'),
+  // 备注
+  comment?: string(name='comment'),
+}
+
+model CancelLeagueApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType?: string(name='apply_type'),
+}
+
+/**
+ * Description: 撤销入盟申请
+ * Summary: 撤销入盟申请
+ */
+async function cancelLeagueApply(request: CancelLeagueApplyRequest): CancelLeagueApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelLeagueApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 撤销入盟申请
+ * Summary: 撤销入盟申请
+ */
+async function cancelLeagueApplyEx(request: CancelLeagueApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelLeagueApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.apply.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model QueryWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位信息
+  storageLocationList?: [ StorageLocation ](name='storage_location_list'),
+}
+
+/**
+ * Description: 列举仓库下的库位列表
+ * Summary: 列举仓库下的库位列表
+ */
+async function queryWarehouseStoragelocation(request: QueryWarehouseStoragelocationRequest): QueryWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举仓库下的库位列表
+ * Summary: 列举仓库下的库位列表
+ */
+async function queryWarehouseStoragelocationEx(request: QueryWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthLeagueApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请Id
+  applyId: string(name='apply_id'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType: string(name='apply_type'),
+  // 备注
+  comment?: string(name='comment'),
+  // 审核结果
+  pass: boolean(name='pass'),
+}
+
+model AuthLeagueApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType?: string(name='apply_type'),
+}
+
+/**
+ * Description: 盟主审核入盟申请
+ * Summary: 盟主审核入盟申请
+ */
+async function authLeagueApply(request: AuthLeagueApplyRequest): AuthLeagueApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authLeagueApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 盟主审核入盟申请
+ * Summary: 盟主审核入盟申请
+ */
+async function authLeagueApplyEx(request: AuthLeagueApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthLeagueApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.apply.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteWarehouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model DeleteWarehouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除仓库
+ * Summary: 删除仓库
+ */
+async function deleteWarehouse(request: DeleteWarehouseRequest): DeleteWarehouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteWarehouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除仓库
+ * Summary: 删除仓库
+ */
+async function deleteWarehouseEx(request: DeleteWarehouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteWarehouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListLeagueApplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType: string(name='apply_type'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 入盟申请状态【NONE,WAITING,AGREED,REJECTED,CANCELED,ALL】
+  status: string(name='status'),
+}
+
+model ListLeagueApplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请类型【NONE,JOIN,CREATE,ALL】
+  applyType?: string(name='apply_type'),
+  // 申请内容
+  leagueApplyInfoList?: [ LeagueApplyInfo ](name='league_apply_info_list'),
+  // 总条目
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 例举入盟申请
+ * Summary: 例举入盟申请
+ */
+async function listLeagueApply(request: ListLeagueApplyRequest): ListLeagueApplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listLeagueApplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 例举入盟申请
+ * Summary: 例举入盟申请
+ */
+async function listLeagueApplyEx(request: ListLeagueApplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListLeagueApplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.league.apply.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateWarehouseStoraglocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 是否禁用智能监管
+  disableSurv?: boolean(name='disable_surv'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 库位名称
+  name: string(name='name'),
+  // 货物类型【DANGER：危险品，NON_DANGER：非危险品，FOOD：食品】
+  productType: string(name='product_type'),
+  // 状态【AVAILABLE：可用，IN_USE：使用中，IN_CONFIG：配置中，DELETED：已删除】
+  status: string(name='status'),
+  // 仓位面积
+  storageLocationArea: string(name='storage_location_area'),
+  // 仓位高度
+  storageLocationHeight: string(name='storage_location_height'),
+  // 库位类型【CHILL：冷藏，FREEZE：冷冻，PASSAGE：通道，FLAT：平面， STEREO：立体】
+  type: string(name='type'),
+  // 仓位虚拟id
+  virtualStorageLocationId: string(name='virtual_storage_location_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model CreateWarehouseStoraglocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位id
+  storageLocationId?: string(name='storage_location_id'),
+}
+
+/**
+ * Description: 登记库位信息
+ * Summary: 登记库位信息
+ */
+async function createWarehouseStoraglocation(request: CreateWarehouseStoraglocationRequest): CreateWarehouseStoraglocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createWarehouseStoraglocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 登记库位信息
+ * Summary: 登记库位信息
+ */
+async function createWarehouseStoraglocationEx(request: CreateWarehouseStoraglocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateWarehouseStoraglocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storaglocation.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 库位id
+  locationId: string(name='location_id'),
+}
+
+model GetWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位信息
+  storageLocation?: StorageLocation(name='storage_location'),
+}
+
+/**
+ * Description: 查询库位详细信息
+ * Summary: 查询库位详细信息
+ */
+async function getWarehouseStoragelocation(request: GetWarehouseStoragelocationRequest): GetWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询库位详细信息
+ * Summary: 查询库位详细信息
+ */
+async function getWarehouseStoragelocationEx(request: GetWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 其他信息
+  extraInfo?: string(name='extra_info'),
+  // 仓位id
+  id: string(name='id'),
+  // 货物类型【DANGER：危险品，NON_DANGER：非危险品，FOOD：食品】
+  productType: string(name='product_type'),
+  // 状态【AVAILABLE：可用，IN_USE：使用中，IN_CONFIG：配置中，DELETED：已删除】
+  status: string(name='status'),
+  // 仓位面积
+  storageLocationArea: string(name='storage_location_area'),
+  // 仓位高度
+  storageLocationHeight: string(name='storage_location_height'),
+  // 库位类型【CHILL：冷藏，FREEZE：冷冻，PASSAGE：通道，FLAT：平面， STEREO：立体】
+  type: string(name='type'),
+}
+
+model UpdateWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位信息
+  storageLocation?: StorageLocation(name='storage_location'),
+}
+
+/**
+ * Description:  更新库位信息
+ * Summary:  更新库位信息
+ */
+async function updateWarehouseStoragelocation(request: UpdateWarehouseStoragelocationRequest): UpdateWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description:  更新库位信息
+ * Summary:  更新库位信息
+ */
+async function updateWarehouseStoragelocationEx(request: UpdateWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BatchqueryWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位信息
+  storageLocationList?: [ StorageLocation ](name='storage_location_list'),
+}
+
+/**
+ * Description: 列举用户库位列表
+ * Summary: 列举用户库位列表
+ */
+async function batchqueryWarehouseStoragelocation(request: BatchqueryWarehouseStoragelocationRequest): BatchqueryWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举用户库位列表
+ * Summary: 列举用户库位列表
+ */
+async function batchqueryWarehouseStoragelocationEx(request: BatchqueryWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 库位状态【AVAILABLE：可用，IN_USE：使用中，IN_CONFIG：配置中，DELETED：已删除】
+  status?: string(name='status'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model ListWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库位信息
+  storageLocationList?: [ StorageLocation ](name='storage_location_list'),
+  // 总条目
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 列举仓库下某状态的库位列表
+ * Summary: 列举仓库下某状态的库位列表
+ */
+async function listWarehouseStoragelocation(request: ListWarehouseStoragelocationRequest): ListWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举仓库下某状态的库位列表
+ * Summary: 列举仓库下某状态的库位列表
+ */
+async function listWarehouseStoragelocationEx(request: ListWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteWarehouseStoragelocationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 仓位id
+  locationId: string(name='location_id'),
+  // 仓库id
+  warehouseId: string(name='warehouse_id'),
+}
+
+model DeleteWarehouseStoragelocationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除库位
+ * Summary: 删除库位
+ */
+async function deleteWarehouseStoragelocation(request: DeleteWarehouseStoragelocationRequest): DeleteWarehouseStoragelocationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteWarehouseStoragelocationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除库位
+ * Summary: 删除库位
+ */
+async function deleteWarehouseStoragelocationEx(request: DeleteWarehouseStoragelocationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteWarehouseStoragelocationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.warehouse.storagelocation.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板类型id
+  categoryId: string(name='category_id'),
+  // 模板JSON内容
+  content: string(name='content'),
+  // 模板名称
+  name: string(name='name'),
+}
+
+model CreateAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据字典id
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 创建数据字典
+ * Summary: 创建数据字典
+ */
+async function createAssettemplate(request: CreateAssettemplateRequest): CreateAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建数据字典
+ * Summary: 创建数据字典
+ */
+async function createAssettemplateEx(request: CreateAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板类型Id
+  categoryId?: string(name='category_id'),
+  // 模板JSON内容
+  content?: string(name='content'),
+  // 数据字典id
+  templateId: string(name='template_id'),
+  // 名称
+  templateName?: string(name='template_name'),
+}
+
+model UpdateAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新数据字典
+ * Summary: 更新数据字典
+ */
+async function updateAssettemplate(request: UpdateAssettemplateRequest): UpdateAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新数据字典
+ * Summary: 更新数据字典
+ */
+async function updateAssettemplateEx(request: UpdateAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据字典id
+  templateId: string(name='template_id'),
+}
+
+model GetAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据字典信息
+  templateInfo?: AssetTemplate(name='template_info'),
+}
+
+/**
+ * Description: 查询数据字典
+ * Summary: 查询数据字典
+ */
+async function getAssettemplate(request: GetAssettemplateRequest): GetAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据字典
+ * Summary: 查询数据字典
+ */
+async function getAssettemplateEx(request: GetAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 模板状态【ALL：全部，INVALID：无效，VALID：有效】
+  templateStatus?: string(name='template_status'),
+}
+
+model ListAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据字典信息
+  templateInfoList?: [ AssetTemplate ](name='template_info_list'),
+  // 总条目
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 列举数据字典
+ * Summary: 列举数据字典
+ */
+async function listAssettemplate(request: ListAssettemplateRequest): ListAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列举数据字典
+ * Summary: 列举数据字典
+ */
+async function listAssettemplateEx(request: ListAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板id
+  templateId: string(name='template_id'),
+}
+
+model DeleteAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除数据字典
+ * Summary: 删除数据字典
+ */
+async function deleteAssettemplate(request: DeleteAssettemplateRequest): DeleteAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除数据字典
+ * Summary: 删除数据字典
+ */
+async function deleteAssettemplateEx(request: DeleteAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EnableAssettemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板id
+  templateId: string(name='template_id'),
+  // 是否生效
+  valid: boolean(name='valid'),
+}
+
+model EnableAssettemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 生效/失效数据字典
+ * Summary: 生效/失效数据字典
+ */
+async function enableAssettemplate(request: EnableAssettemplateRequest): EnableAssettemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return enableAssettemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生效/失效数据字典
+ * Summary: 生效/失效数据字典
+ */
+async function enableAssettemplateEx(request: EnableAssettemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EnableAssettemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.assettemplate.enable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDocumentFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 原文件md5
+  fileMd5: string(name='file_md5'),
+  // 文件名称
+  fileName: string(name='file_name'),
+  // 原文件大小
+  fileSize: long(name='file_size'),
+  // 文件类型【CONTRACT 合同, NOTE 票据, DOCUMENT 文件, UNKNOWN 未知】
+  fileType: string(name='file_type'),
+  // 原文件url
+  fileUrl: string(name='file_url'),
+}
+
+model UpdateDocumentFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件信息
+  documentInfo?: DocumentInfo(name='document_info'),
+}
+
+/**
+ * Description: 上传文件
+ * Summary: 上传文件
+ */
+async function updateDocumentFile(request: UpdateDocumentFileRequest): UpdateDocumentFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDocumentFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传文件
+ * Summary: 上传文件
+ */
+async function updateDocumentFileEx(request: UpdateDocumentFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDocumentFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.document.file.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDocumentFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件Id
+  fileId: string(name='file_id'),
+}
+
+model GetDocumentFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文档Id
+  documentId?: string(name='document_id'),
+  // 类型【CONTRACT 合同, NOTE 票据, DOCUMENT 文件, UNKNOWN 未知】
+  fileType?: string(name='file_type'),
+  // 文档名
+  name?: string(name='name'),
+  // 存证哈希
+  txHash?: string(name='tx_hash'),
+  // 存证时间
+  txTime?: long(name='tx_time'),
+  // 文件Url
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 根据文件id查找文件
+ * Summary: 根据文件id查找文件
+ */
+async function getDocumentFile(request: GetDocumentFileRequest): GetDocumentFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDocumentFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据文件id查找文件
+ * Summary: 根据文件id查找文件
+ */
+async function getDocumentFileEx(request: GetDocumentFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDocumentFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.document.file.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+}
+
+model CancelUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求时间
+  date?: long(name='date'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 用户注销
+ * Summary: 用户注销
+ */
+async function cancelUser(request: CancelUserRequest): CancelUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户注销
+ * Summary: 用户注销
+ */
+async function cancelUserEx(request: CancelUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.user.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 11位的合法手机号
+  phone: string(name='phone'),
+}
+
+model UpdateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求时间
+  date?: long(name='date'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 更新用户信息
+ * Summary: 更新用户信息
+ */
+async function updateUser(request: UpdateUserRequest): UpdateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新用户信息
+ * Summary: 更新用户信息
+ */
+async function updateUserEx(request: UpdateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 手机号
+  phone: string(name='phone'),
+}
+
+model ListUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户信息列表
+  userList?: [ ThirdPartyUser ](name='user_list'),
+}
+
+/**
+ * Description: 查询用户信息列表
+ * Summary: 查询用户信息列表
+ */
+async function listUser(request: ListUserRequest): ListUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户信息列表
+ * Summary: 查询用户信息列表
+ */
+async function listUserEx(request: ListUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.user.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MountUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物证平台用户id
+  userId: string(name='user_id'),
+  // 平台类别
+  platform: string(name='platform'),
+  // 外部平台id
+  openId: string(name='open_id'),
+}
+
+model MountUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 映射用户信息
+ * Summary: 映射用户信息
+ */
+async function mountUser(request: MountUserRequest): MountUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return mountUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 映射用户信息
+ * Summary: 映射用户信息
+ */
+async function mountUserEx(request: MountUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MountUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.user.mount', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 物权信息列表
+  certificates: [ CertificateInfo ](name='certificates'),
+}
+
+model BatchcreateImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 物证信息
+  evidences?: [ EvidenceInfo ](name='evidences'),
+}
+
+/**
+ * Description: 批量创建物权
+ * Summary: 批量创建物权
+ */
+async function batchcreateImportasset(request: BatchcreateImportassetRequest): BatchcreateImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量创建物权
+ * Summary: 批量创建物权
+ */
+async function batchcreateImportassetEx(request: BatchcreateImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物权凭证id
+  assetId: string(name='asset_id'),
+  // 信息内容JSON格式
+  content: string(name='content'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model DescribeImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加物权描述信息
+ * Summary: 添加物权描述信息
+ */
+async function describeImportasset(request: DescribeImportassetRequest): DescribeImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加物权描述信息
+ * Summary: 添加物权描述信息
+ */
+async function describeImportassetEx(request: DescribeImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchfreezeImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id列表
+  assetIdList: [ string ](name='asset_id_list'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model BatchfreezeImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量操作返回信息
+  resultList?: [ AssetResult ](name='result_list'),
+}
+
+/**
+ * Description: 批量冻结
+ * Summary: 批量冻结
+ */
+async function batchfreezeImportasset(request: BatchfreezeImportassetRequest): BatchfreezeImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchfreezeImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量冻结
+ * Summary: 批量冻结
+ */
+async function batchfreezeImportassetEx(request: BatchfreezeImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchfreezeImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.batchfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchunfreezeImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批量操作信息列表
+  assetIdList: [ string ](name='asset_id_list'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model BatchunfreezeImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量返回信息列表
+  resultList?: [ AssetResult ](name='result_list'),
+}
+
+/**
+ * Description: 物权批量解冻
+ * Summary: 物权批量解冻
+ */
+async function batchunfreezeImportasset(request: BatchunfreezeImportassetRequest): BatchunfreezeImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchunfreezeImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物权批量解冻
+ * Summary: 物权批量解冻
+ */
+async function batchunfreezeImportassetEx(request: BatchunfreezeImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchunfreezeImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.batchunfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcancelImportassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id列表
+  assetIdList: [ string ](name='asset_id_list'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model BatchcancelImportassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量返回信息列表
+  resultList?: [ AssetResult ](name='result_list'),
+}
+
+/**
+ * Description: 物权批量撤销
+ * Summary: 物权批量撤销
+ */
+async function batchcancelImportasset(request: BatchcancelImportassetRequest): BatchcancelImportassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcancelImportassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物权批量撤销
+ * Summary: 物权批量撤销
+ */
+async function batchcancelImportassetEx(request: BatchcancelImportassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcancelImportassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.importasset.batchcancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产id列表
+  assetIdList: [ string ](name='asset_id_list'),
+  // 接收人id
+  transferee: string(name='transferee'),
+  // 转让金额
+  monetaryAmount: string(name='monetary_amount'),
+  // 用户id
+  userId: string(name='user_id'),
+}
+
+model BatchcreateTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量操作返回信息列表
+  resultList?: [ AssetResult ](name='result_list'),
+}
+
+/**
+ * Description: 批量创建转让申请
+ * Summary: 批量创建转让申请
+ */
+async function batchcreateTransfer(request: BatchcreateTransferRequest): BatchcreateTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量创建转让申请
+ * Summary: 批量创建转让申请
+ */
+async function batchcreateTransferEx(request: BatchcreateTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.transfer.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCmportProfitrateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品编号
+  productNo: string(name='product_no'),
+  // 产品类型
+  productType: string(name='product_type'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 金融机构编号
+  financialNo: string(name='financial_no'),
+  // 金融机构名称
+  financialName: string(name='financial_name'),
+  // 各方分润比例
+  // 对应角色编码类型：
+  // 风险承担方：RISK_TAKER
+  // 货物监管方：CARGO_SUPERVISION
+  // 资金推荐方：CAPITAL_RECOMMEND
+  // 融资推荐方：FUNDER_RECOMMEND
+  // 运营管理方：MANAGEMENT
+  // 技术支持方：TECHNICAL
+  roleRatio: [ RoleRatio ](name='role_ratio'),
+}
+
+model CreateCmportProfitrateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建分润比例配置
+ * Summary: 创建分润比例配置
+ */
+async function createCmportProfitrate(request: CreateCmportProfitrateRequest): CreateCmportProfitrateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCmportProfitrateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建分润比例配置
+ * Summary: 创建分润比例配置
+ */
+async function createCmportProfitrateEx(request: CreateCmportProfitrateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCmportProfitrateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.profitrate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyCmportFinanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 来源方
+  source: string(name='source'),
+  // 融资编号（粮达生成）
+  financialNo: string(name='financial_no'),
+  // 融资编号（粮达生成）
+  merchantFinancialNo: string(name='merchant_financial_no'),
+  // 交易编号（粮达生成）
+  tradeNo: string(name='trade_no'),
+  // 融资企业名称
+  companyName: string(name='company_name'),
+  // 融资企业编码
+  companyCode: string(name='company_code'),
+  // 统一信用代码
+  uniCreditCode: string(name='uni_credit_code'),
+  // 法人名称
+  legalPerson: string(name='legal_person'),
+  // 法人身份号码
+  legalPersonIdNo: string(name='legal_person_id_no'),
+  // 融资企业联系人
+  companyContactPerson: string(name='company_contact_person'),
+  // 融资企业联系号码
+  companyContactPhone: string(name='company_contact_phone'),
+  // 企业办公地址
+  companyAddr: string(name='company_addr'),
+  // 对手编号
+  buyerCode: string(name='buyer_code'),
+  // 对手企业名称
+  buyerName: string(name='buyer_name'),
+  // 对手统一信用代码
+  buyerUniCreditCode: string(name='buyer_uni_credit_code'),
+  // 对手法人
+  buyerLegalPerson?: string(name='buyer_legal_person'),
+  // 对手法人身份证号码
+  buyerLegalPersonIdNo?: string(name='buyer_legal_person_id_no'),
+  // 对手联系人
+  buyerContactPerson?: string(name='buyer_contact_person'),
+  // 对手联系人手机
+  buyerContactPhone?: string(name='buyer_contact_phone'),
+  // 融资标的（采购合同关联的货权编号: 多个编号，隔开）
+  financingTarget: string(name='financing_target'),
+  // 融资金额（分）
+  financialAmount: long(name='financial_amount'),
+  // 融资周期（天）
+  financialPeriod: long(name='financial_period'),
+  // 融资利率列表
+  financialRateList: [ FinancialRateInfo ](name='financial_rate_list'),
+  // 罚息利率列表
+  penaltyRateList: [ PenaltyRateInfo ](name='penalty_rate_list'),
+  // 操作费类型 1->标准收费; 2->阶梯收费
+  opeFeeType: long(name='ope_fee_type'),
+  // 操作费单价列表
+  opeUnitPriceList: [ OpeUnitPriceInfo ](name='ope_unit_price_list'),
+  // 货物品种
+  cargoType: string(name='cargo_type'),
+  // 货物吨数 (单位 t)
+  cargoWeight: string(name='cargo_weight'),
+  // 货物单价（分）
+  cargoUnitPrice: long(name='cargo_unit_price'),
+  // 货物单价类型
+  cargoUnitPriceType: string(name='cargo_unit_price_type'),
+  // 货物总价
+  cargoTotalPrice: long(name='cargo_total_price'),
+  // 融资申请日期
+  applyDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='apply_date'),
+  // 产品编号
+  productNo: string(name='product_no'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 产品类别：1->买方保理;2->卖方保理;3->仓单融资
+  productType: long(name='product_type'),
+  // 确权方编码
+  authenticRightCode: string(name='authentic_right_code'),
+  // 确权方名称
+  authenticRightName: string(name='authentic_right_name'),
+  // 确权状态 1->已确权; 2->未确权。粮达网默认是 1
+  authenticRightStatus: long(name='authentic_right_status'),
+  // 确权时间
+  authenticRightTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='authentic_right_time'),
+  // 仓储服务商/物流服务商
+  storageServiceProvider: string(name='storage_service_provider'),
+  // 仓储地址/物流地址
+  warehouseAddr: string(name='warehouse_addr'),
+  // 仓储联系方式/物流联系方式
+  storageContactPhone: string(name='storage_contact_phone'),
+  // 金融机构编码
+  bankInstiCode: string(name='bank_insti_code'),
+  // 金融机构名称
+  bankInstiName: string(name='bank_insti_name'),
+  // 是否缴纳保证金 1->缴纳;2->不缴纳
+  isPaySecurityDeposit: long(name='is_pay_security_deposit'),
+  // 保证金缴纳金额
+  securityDepositAmount: long(name='security_deposit_amount'),
+  // 保证金缴纳比例
+  securityDepositRate: string(name='security_deposit_rate'),
+  // 融资额度协议编号
+  financingLimitAgreeNo: string(name='financing_limit_agree_no'),
+  // 电子章认证机构
+  elecCertInsti: string(name='elec_cert_insti'),
+  // 签署日期
+  signDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_date'),
+  // 保理协议编号
+  factoringAgreementNo: string(name='factoring_agreement_no'),
+  // 卖方保理专户（回款账户）
+  sellerFactoringAccount: string(name='seller_factoring_account'),
+  // 服务类型: 1->应收账款保理
+  serviceType: string(name='service_type'),
+  // 业务类型: 1-> 买断循环后收息
+  businessType: string(name='business_type'),
+  // 费用收取方式: 1-> 融资时收取
+  feeCollectType: string(name='fee_collect_type'),
+  // 利息收取方式: 1-> 预扣
+  interestCollectType: string(name='interest_collect_type'),
+  // 电子凭证编号
+  elecCertNo: string(name='elec_cert_no'),
+  // 电子凭证开立日
+  elecCertSetUpDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='elec_cert_set_up_date'),
+  // 电子凭证付款到期日
+  elecCertExpireDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='elec_cert_expire_date'),
+  // 转让电子凭证金额
+  elecCertAmount: long(name='elec_cert_amount'),
+  // 交易合同发票编号
+  tradeContractInvoNo: string(name='trade_contract_invo_no'),
+  // 交易合同发票金额
+  tradeContractInvoAmount: long(name='trade_contract_invo_amount'),
+  // 交易合同名称
+  tradeContractName: string(name='trade_contract_name'),
+  // 交易合同编号
+  tradeContractNo: string(name='trade_contract_no'),
+  // 交易合同买方名称
+  tradeContractBuyerName: string(name='trade_contract_buyer_name'),
+  // 磅单凭证（多个的话-分号分割）
+  poundProofs?: string(name='pound_proofs'),
+  // 入库凭证（多个的话-分号分割）
+  storageProofs: string(name='storage_proofs'),
+  // 借款合同（多个的话-分号分割）
+  loanContract: string(name='loan_contract'),
+  // 采购合同（多个的话-分号分割）
+  purchaseContract: string(name='purchase_contract'),
+  // 销售合同（多个的话-分号分割）
+  sellContract: string(name='sell_contract'),
+  // 寄售合同（多个的话-分号分割）
+  consignmentContract?: string(name='consignment_contract'),
+  // 融资方营业执照
+  bussLicense?: string(name='buss_license'),
+  // 法人身份证（正）
+  legalPersonFront?: string(name='legal_person_front'),
+  // 法人身份证（反）
+  legalPersonReverse?: string(name='legal_person_reverse'),
+  // 银行侧融资利率
+  bankFinancialRate: string(name='bank_financial_rate'),
+  // 银行侧罚息
+  bankPenaltyRate: string(name='bank_penalty_rate'),
+  // 融资状态:
+  // 10->待确权;20->待审核;30->待签署;40->待放款;50->待还款;51->还款撤销;52->还款中;60->已还款;70->审核不通过;80->已融资撤销
+  financialStatus: long(name='financial_status'),
+  // 撤销申请日期
+  cancelApplyDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='cancel_apply_date'),
+  // 撤销申请描述
+  cancelApplyDesc?: string(name='cancel_apply_desc'),
+  // 审核人
+  auditor?: string(name='auditor'),
+  // 审核时间
+  auditDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='audit_date'),
+  // 审核评论
+  auditComment?: string(name='audit_comment'),
+  // 确认放款日期
+  confirmLoanDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='confirm_loan_date'),
+  // 确认放款评论
+  confirmLoanComment?: string(name='confirm_loan_comment'),
+  // 流程标记：
+  // 1->流程通过;2->流程打回到上一级;3->直接拒绝
+  confirmLoanFlag?: long(name='confirm_loan_flag'),
+  // Date
+  contractSignTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='contract_sign_time'),
+  // 待签署评论
+  contractSignComment?: string(name='contract_sign_comment'),
+  // 流程标记：
+  // 1->流程通过;2->流程打回到上一级;3->直接拒绝
+  contractSignFlag?: long(name='contract_sign_flag'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // Channel 名称
+  channelName: string(name='channel_name'),
+}
+
+model ApplyCmportFinanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 粮达网发起融资申请，经过金融平台，然后金融平台再全量同步给区块链应用。
+ * Summary: 融资申请信息落地到区块链
+ */
+async function applyCmportFinance(request: ApplyCmportFinanceRequest): ApplyCmportFinanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyCmportFinanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 粮达网发起融资申请，经过金融平台，然后金融平台再全量同步给区块链应用。
+ * Summary: 融资申请信息落地到区块链
+ */
+async function applyCmportFinanceEx(request: ApplyCmportFinanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyCmportFinanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.finance.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCmportEnterprisestatementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // accountingDate
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date'),
+  // 页码，从1开始
+  pageNum: long(name='page_num'),
+  // 页大小，最大100
+  pageSize: long(name='page_size'),
+}
+
+model ListCmportEnterprisestatementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 总对账单
+  totalStatementList?: [ TotalStatement ](name='total_statement_list'),
+}
+
+/**
+ * Description: 分润对账，企业到当前记账日期的累计利润信息
+ * Summary: 企业分润对账单
+ */
+async function listCmportEnterprisestatement(request: ListCmportEnterprisestatementRequest): ListCmportEnterprisestatementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCmportEnterprisestatementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分润对账，企业到当前记账日期的累计利润信息
+ * Summary: 企业分润对账单
+ */
+async function listCmportEnterprisestatementEx(request: ListCmportEnterprisestatementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCmportEnterprisestatementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.enterprisestatement.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCmportUserstatementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 记账日期   yyyy-mm-dd
+  accountingDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='accounting_date'),
+}
+
+model ListCmportUserstatementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 用户对账单
+  userStatementList?: [ UserStatement ](name='user_statement_list'),
+}
+
+/**
+ * Description: 用户对账单
+ * Summary: 用户对账单
+ */
+async function listCmportUserstatement(request: ListCmportUserstatementRequest): ListCmportUserstatementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCmportUserstatementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户对账单
+ * Summary: 用户对账单
+ */
+async function listCmportUserstatementEx(request: ListCmportUserstatementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCmportUserstatementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.userstatement.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCmportUserprofitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 页大小
+  pageSize: long(name='page_size'),
+  // 记账日期 yyyy-mm-dd
+  accountingDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='accounting_date'),
+}
+
+model ListCmportUserprofitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 用户明细清单
+  userBillList?: [ UserDetail ](name='user_bill_list'),
+}
+
+/**
+ * Description: 用户明细清单
+ * Summary: 用户明细清单
+ */
+async function listCmportUserprofit(request: ListCmportUserprofitRequest): ListCmportUserprofitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCmportUserprofitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户明细清单
+ * Summary: 用户明细清单
+ */
+async function listCmportUserprofitEx(request: ListCmportUserprofitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCmportUserprofitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.userprofit.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCmportBankfeeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资编号
+  financialNo: string(name='financial_no'),
+  // 记账日期 yyyy-mm-dd
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date'),
+}
+
+model QueryCmportBankfeeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应付银行本金
+  capitalAmount?: long(name='capital_amount'),
+  // 应付银行利息
+  interestAmount?: long(name='interest_amount'),
+  // 应付总金额
+  totalAmount?: long(name='total_amount'),
+}
+
+/**
+ * Description: 还款本息查询
+ * Summary: 还款本息查询
+ */
+async function queryCmportBankfee(request: QueryCmportBankfeeRequest): QueryCmportBankfeeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCmportBankfeeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 还款本息查询
+ * Summary: 还款本息查询
+ */
+async function queryCmportBankfeeEx(request: QueryCmportBankfeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCmportBankfeeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.bankfee.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCmportProfitpartnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业编号
+  companyNo: string(name='company_no'),
+  // 企业名称
+  companyName: string(name='company_name'),
+  // 组织类别
+  organizationCategory: string(name='organization_category'),
+  // 角色编号对应组织信息
+  // 组织对应角色编码：
+  // 风险承担方：RISK_TAKER
+  // 货物监管方：CARGO_SUPERVISION
+  // 资金推荐方：CAPITAL_RECOMMEND
+  // 融资推荐方：FUNDER_RECOMMEND
+  // 运营管理方：MANAGEMENT
+  // 技术支持方：TECHNICAL
+  roleOrganizationList: [ RoleOrganization ](name='role_organization_list'),
+}
+
+model CreateCmportProfitpartnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建分润归属配置
+ * Summary: 创建分润归属配置
+ */
+async function createCmportProfitpartner(request: CreateCmportProfitpartnerRequest): CreateCmportProfitpartnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCmportProfitpartnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建分润归属配置
+ * Summary: 创建分润归属配置
+ */
+async function createCmportProfitpartnerEx(request: CreateCmportProfitpartnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCmportProfitpartnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.profitpartner.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelCmportFinanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台融资编号
+  financialNo: string(name='financial_no'),
+  // 融资企业编码
+  companyCode: string(name='company_code'),
+  // 融资企业名称
+  companyName: string(name='company_name'),
+  // 撤销申请日期
+  cancelApplyDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='cancel_apply_date'),
+  // 撤销申请描述
+  cancelApplyDesc: string(name='cancel_apply_desc'),
+  //  融资状态:
+  // 10->待确权;20->待审核;30->待签署;40->待放款;50->待还款;51->还款撤销;52->还款中;60->已还款;70->审核不通过;80->已融资撤销
+  financialStatus: long(name='financial_status'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // Channel 名称
+  channelName: string(name='channel_name'),
+}
+
+model CancelCmportFinanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 监管方（粮达网）撤销融资申请
+ * Summary: 撤销融资申请
+ */
+async function cancelCmportFinance(request: CancelCmportFinanceRequest): CancelCmportFinanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelCmportFinanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监管方（粮达网）撤销融资申请
+ * Summary: 撤销融资申请
+ */
+async function cancelCmportFinanceEx(request: CancelCmportFinanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelCmportFinanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.finance.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyCmportBankRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台融资编号
+  financialNo: string(name='financial_no'),
+  // 审核人
+  auditor: string(name='auditor'),
+  // 审核时间
+  auditDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='audit_date'),
+  // 审核评论
+  auditComment: string(name='audit_comment'),
+  // 融资状态:
+  // 10->待确权;20->待审核;30->待签署;40->待放款;50->待还款;51->还款撤销;52->还款中;60->已还款;70->审核不通过;80->已融资撤销
+  financialStatus: long(name='financial_status'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // Channel 名称
+  channelName: string(name='channel_name'),
+}
+
+model NotifyCmportBankResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 银行融资审核结果同步
+ * Summary: 银行融资审核结果同步
+ */
+async function notifyCmportBank(request: NotifyCmportBankRequest): NotifyCmportBankResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyCmportBankEx(request, headers, runtime);
+}
+
+/**
+ * Description: 银行融资审核结果同步
+ * Summary: 银行融资审核结果同步
+ */
+async function notifyCmportBankEx(request: NotifyCmportBankRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyCmportBankResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.bank.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyCmportLoanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台融资编号
+  financialNo: string(name='financial_no'),
+  // 确认放款日期
+  confirmLoanDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='confirm_loan_date'),
+  // 放款描述
+  confirmLoanComment: string(name='confirm_loan_comment'),
+  // 流程标记： 1->流程通过;2->流程打回到上一级;3->直接拒绝
+  confirmLoanFlag: long(name='confirm_loan_flag'),
+  //  融资状态:
+  // 10->待确权;20->待审核;30->待签署;40->待放款;50->待还款;51->还款撤销;52->还款中;60->已还款;70->审核不通过;80->已融资撤销
+  financialStatus: long(name='financial_status'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // Channel 名称
+  channelName: string(name='channel_name'),
+}
+
+model NotifyCmportLoanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 银行放款结果同步给区块链
+ * Summary: 银行放款结果同步给区块链
+ */
+async function notifyCmportLoan(request: NotifyCmportLoanRequest): NotifyCmportLoanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyCmportLoanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 银行放款结果同步给区块链
+ * Summary: 银行放款结果同步给区块链
+ */
+async function notifyCmportLoanEx(request: NotifyCmportLoanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyCmportLoanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.loan.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyCmportRepayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台融资编号
+  financialNo: string(name='financial_no'),
+  // 还款编号
+  repayNo: string(name='repay_no'),
+  // 融资企业名称
+  companyName: string(name='company_name'),
+  // 融资企业编码
+  companyCode: string(name='company_code'),
+  // 产品编号
+  productNo: string(name='product_no'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 还款金额，一期一次性全部还款，加上利息
+  totalAmount: long(name='total_amount'),
+  // 还款银行
+  repayBank: string(name='repay_bank'),
+  // 还款银行账号
+  repayBankAccount: string(name='repay_bank_account'),
+  //  融资状态:
+  // 10->待确权;20->待审核;30->待签署;40->待放款;50->待还款;51->还款撤销;52->还款中;60->已还款;70->审核不通过;80->已融资撤销
+  financialStatus: long(name='financial_status'),
+  // 还款日期
+  repayDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='repay_date'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // Channel 名称
+  channelName: string(name='channel_name'),
+}
+
+model NotifyCmportRepayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 还款结果同步给区块链
+ * Summary: 还款结果同步给区块链
+ */
+async function notifyCmportRepay(request: NotifyCmportRepayRequest): NotifyCmportRepayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyCmportRepayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 还款结果同步给区块链
+ * Summary: 还款结果同步给区块链
+ */
+async function notifyCmportRepayEx(request: NotifyCmportRepayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyCmportRepayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.repay.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCmportBankfeeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // accountingDate
+  accountDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='account_date'),
+  // 页码，从1开始
+  pageNum: long(name='page_num'),
+  // 页大小，最大100
+  pageSize: long(name='page_size'),
+}
+
+model ListCmportBankfeeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 返回还款利息列表
+  bankFeeList?: [ BankFee ](name='bank_fee_list'),
+}
+
+/**
+ * Description: 还款本息查询-分页
+ * Summary: 还款本息查询-分页
+ */
+async function listCmportBankfee(request: ListCmportBankfeeRequest): ListCmportBankfeeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCmportBankfeeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 还款本息查询-分页
+ * Summary: 还款本息查询-分页
+ */
+async function listCmportBankfeeEx(request: ListCmportBankfeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCmportBankfeeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.bankfee.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyCmportLogisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融资编号 	
+  // 
+  financialNo: string(name='financial_no'),
+  // 货权编号	
+  // 
+  cargoRightNo: string(name='cargo_right_no'),
+  // 获物品名	
+  // 
+  goodsTypeName: string(name='goods_type_name'),
+  // 运输条款	
+  // 
+  transitClause: string(name='transit_clause'),
+  // 箱子数量	
+  // 
+  boxNum: long(name='box_num'),
+  // 箱型	
+  // 
+  boxType?: string(name='box_type'),
+  // 运单信息详情列表	
+  orderInfoList: [ OrderInfo ](name='order_info_list'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟id
+  unionId: long(name='union_id'),
+  // 渠道名称
+  channelName: string(name='channel_name'),
+}
+
+model NotifyCmportLogisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 物流轨迹同步给区块链
+ * Summary: 物流轨迹同步给区块链
+ */
+async function notifyCmportLogistics(request: NotifyCmportLogisticsRequest): NotifyCmportLogisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyCmportLogisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物流轨迹同步给区块链
+ * Summary: 物流轨迹同步给区块链
+ */
+async function notifyCmportLogisticsEx(request: NotifyCmportLogisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyCmportLogisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.propertychain.cmport.logistics.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
