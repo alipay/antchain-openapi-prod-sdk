@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    // 蚂蚁链浏览器节点所有者信息
+    // 蚂蚁链节点信息
     public class BlockchainBrowserNodeOwner : TeaModel {
         // node_id
         [NameInMap("node_id")]
@@ -49,6 +49,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [NameInMap("node_type")]
         [Validation(Required=true)]
         public string NodeType { get; set; }
+
+        // 节点已使用的存储空间
+        [NameInMap("node_disk_used")]
+        [Validation(Required=true)]
+        public string NodeDiskUsed { get; set; }
+
+        // 节点的总存储空间
+        [NameInMap("node_disk_total")]
+        [Validation(Required=true)]
+        public string NodeDiskTotal { get; set; }
 
     }
 
