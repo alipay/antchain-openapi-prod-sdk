@@ -21706,6 +21706,7 @@ class ApplyPfConfirmationResponse(TeaModel):
         loan_start_time: str = None,
         loan_end_time: str = None,
         repayment: str = None,
+        etrd_ln_int_rt: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -21732,6 +21733,8 @@ class ApplyPfConfirmationResponse(TeaModel):
         # 
         # 
         self.repayment = repayment
+        # 贷款利率
+        self.etrd_ln_int_rt = etrd_ln_int_rt
 
     def validate(self):
         pass
@@ -21754,6 +21757,8 @@ class ApplyPfConfirmationResponse(TeaModel):
             result['loan_end_time'] = self.loan_end_time
         if self.repayment is not None:
             result['repayment'] = self.repayment
+        if self.etrd_ln_int_rt is not None:
+            result['etrd_ln_int_rt'] = self.etrd_ln_int_rt
         return result
 
     def from_map(self, m: dict = None):
@@ -21774,6 +21779,8 @@ class ApplyPfConfirmationResponse(TeaModel):
             self.loan_end_time = m.get('loan_end_time')
         if m.get('repayment') is not None:
             self.repayment = m.get('repayment')
+        if m.get('etrd_ln_int_rt') is not None:
+            self.etrd_ln_int_rt = m.get('etrd_ln_int_rt')
         return self
 
 
