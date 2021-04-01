@@ -45,6 +45,10 @@ public class ApplyPfConfirmationResponse extends TeaModel {
     @NameInMap("repayment")
     public String repayment;
 
+    // 贷款利率
+    @NameInMap("etrd_ln_int_rt")
+    public String etrdLnIntRt;
+
     public static ApplyPfConfirmationResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyPfConfirmationResponse self = new ApplyPfConfirmationResponse();
         return TeaModel.build(map, self);
@@ -112,6 +116,14 @@ public class ApplyPfConfirmationResponse extends TeaModel {
     }
     public String getRepayment() {
         return this.repayment;
+    }
+
+    public ApplyPfConfirmationResponse setEtrdLnIntRt(String etrdLnIntRt) {
+        this.etrdLnIntRt = etrdLnIntRt;
+        return this;
+    }
+    public String getEtrdLnIntRt() {
+        return this.etrdLnIntRt;
     }
 
 }
