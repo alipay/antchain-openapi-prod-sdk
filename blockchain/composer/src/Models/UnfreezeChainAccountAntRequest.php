@@ -14,7 +14,6 @@ class UnfreezeChainAccountAntRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

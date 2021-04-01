@@ -14,7 +14,6 @@ class StartDidVcrepositoryAuthwithvcidRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

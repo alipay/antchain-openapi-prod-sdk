@@ -14,7 +14,6 @@ class QueryDataauthorizationDataEntityRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

@@ -14,7 +14,6 @@ class CreateLogisticFinanceAccountRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

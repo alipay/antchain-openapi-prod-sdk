@@ -14,7 +14,6 @@ class CreateDidCorporateWithtwometaRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

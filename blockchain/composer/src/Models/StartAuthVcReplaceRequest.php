@@ -14,7 +14,6 @@ class StartAuthVcReplaceRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

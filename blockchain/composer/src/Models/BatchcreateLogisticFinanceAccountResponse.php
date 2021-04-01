@@ -14,12 +14,13 @@ class BatchcreateLogisticFinanceAccountResponse extends Model
      */
     public $reqMsgId;
 
-    // 异常信息的文本描述
+    // 结果码，一般OK表示调用成功
     /**
      * @var string
      */
     public $resultCode;
 
+    // 异常信息的文本描述
     /**
      * @var string
      */

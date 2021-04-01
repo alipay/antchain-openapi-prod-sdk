@@ -14,7 +14,6 @@ class StartMydidcommunAgencyChoicetapplistRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
