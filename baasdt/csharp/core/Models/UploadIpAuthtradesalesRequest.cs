@@ -14,7 +14,6 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -41,8 +40,13 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 授权佣金比例
         [NameInMap("auth_rate")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthRate { get; set; }
+
+        // 定向授权按量付费单价
+        [NameInMap("auth_price")]
+        [Validation(Required=false)]
+        public string AuthPrice { get; set; }
 
         // 本次结算周期开始时间
         [NameInMap("settlement_begin_time")]
@@ -53,6 +57,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("settlement_end_time")]
         [Validation(Required=true)]
         public long? SettlementEndTime { get; set; }
+
+        // 零售价
+        [NameInMap("price")]
+        [Validation(Required=true)]
+        public string Price { get; set; }
 
         // 终端商品销售数量
         [NameInMap("amount")]
@@ -68,6 +77,26 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("payment")]
         [Validation(Required=true)]
         public string Payment { get; set; }
+
+        // 终端商品名称
+        [NameInMap("goods_name")]
+        [Validation(Required=true)]
+        public string GoodsName { get; set; }
+
+        // 终端商品图片
+        [NameInMap("goods_image")]
+        [Validation(Required=false)]
+        public string GoodsImage { get; set; }
+
+        // 终端销售渠道
+        [NameInMap("sales_channel")]
+        [Validation(Required=false)]
+        public string SalesChannel { get; set; }
+
+        // 终端商品链接
+        [NameInMap("goods_url")]
+        [Validation(Required=false)]
+        public string GoodsUrl { get; set; }
 
         // 商品信息
         [NameInMap("goods_info")]

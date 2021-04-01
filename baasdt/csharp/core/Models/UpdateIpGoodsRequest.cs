@@ -14,7 +14,6 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -126,6 +125,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("copy_right_end_time")]
         [Validation(Required=true)]
         public long? CopyRightEndTime { get; set; }
+
+        // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+        [NameInMap("need_approval")]
+        [Validation(Required=false)]
+        public bool? NeedApproval { get; set; }
 
     }
 

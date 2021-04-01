@@ -14,7 +14,6 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -68,6 +67,21 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("memo")]
         [Validation(Required=true)]
         public string Memo { get; set; }
+
+        // 授权产品范围
+        [NameInMap("auth_product_scope")]
+        [Validation(Required=false)]
+        public string AuthProductScope { get; set; }
+
+        // 授权地域范围
+        [NameInMap("auth_area_scope")]
+        [Validation(Required=false)]
+        public string AuthAreaScope { get; set; }
+
+        // 商品销售渠道
+        [NameInMap("sales_channel")]
+        [Validation(Required=false)]
+        public string SalesChannel { get; set; }
 
     }
 

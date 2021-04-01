@@ -133,6 +133,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? CopyRightEndTime { get; set; }
 
+        // 账户名称
+        [NameInMap("account_name")]
+        [Validation(Required=false)]
+        public string AccountName { get; set; }
+
     }
 
 }

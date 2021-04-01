@@ -14,11 +14,12 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ReqMsgId { get; set; }
 
-        // 异常信息的文本描述
+        // 结果码，一般OK表示调用成功
         [NameInMap("result_code")]
         [Validation(Required=false)]
         public string ResultCode { get; set; }
 
+        // 异常信息的文本描述
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
@@ -27,6 +28,16 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("ip_order_id")]
         [Validation(Required=false)]
         public string IpOrderId { get; set; }
+
+        // 保底金支付链接
+        [NameInMap("pay_url")]
+        [Validation(Required=false)]
+        public string PayUrl { get; set; }
+
+        // 保底金账单ID
+        [NameInMap("ip_bill_id")]
+        [Validation(Required=false)]
+        public string IpBillId { get; set; }
 
     }
 

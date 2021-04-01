@@ -45,6 +45,21 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? Status { get; set; }
 
+        // 用户的外系统识别Id
+        [NameInMap("external_user_id")]
+        [Validation(Required=true)]
+        public string ExternalUserId { get; set; }
+
+        // 外部系统用户名
+        [NameInMap("external_user_name")]
+        [Validation(Required=true)]
+        public string ExternalUserName { get; set; }
+
+        // 申请时间(毫秒时间戳)
+        [NameInMap("apply_date")]
+        [Validation(Required=true)]
+        public long? ApplyDate { get; set; }
+
     }
 
 }

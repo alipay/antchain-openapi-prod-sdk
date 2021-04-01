@@ -14,11 +14,12 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ReqMsgId { get; set; }
 
-        // 异常信息的文本描述
+        // 结果码，一般OK表示调用成功
         [NameInMap("result_code")]
         [Validation(Required=false)]
         public string ResultCode { get; set; }
 
+        // 异常信息的文本描述
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
@@ -26,7 +27,7 @@ namespace AntChain.SDK.BAASDT.Models
         // ip信息
         [NameInMap("ip_list")]
         [Validation(Required=false)]
-        public List<IpBasicInfoWithChannelInfo> IpList { get; set; }
+        public List<IpAllInfo> IpList { get; set; }
 
         // 总数
         [NameInMap("all_count")]

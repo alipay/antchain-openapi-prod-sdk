@@ -14,7 +14,6 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -34,10 +33,20 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string IpId { get; set; }
 
+        // 收费模式：0 销售抽佣, 1 按量付费
+        [NameInMap("charge_type")]
+        [Validation(Required=false)]
+        public long? ChargeType { get; set; }
+
         // 授权计费比例
         [NameInMap("auth_rate")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthRate { get; set; }
+
+        // 按量付费的收费单价（按量付费模式必填）
+        [NameInMap("auth_price")]
+        [Validation(Required=false)]
+        public string AuthPrice { get; set; }
 
         // 授权合作开始期限（毫秒时间戳）
         [NameInMap("auth_begin_time")]
@@ -56,13 +65,48 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 设计稿（文件URL）
         [NameInMap("design_draft")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DesignDraft { get; set; }
+
+        // 授权产品范围
+        [NameInMap("auth_product_scope")]
+        [Validation(Required=false)]
+        public string AuthProductScope { get; set; }
+
+        // 授权地域范围
+        [NameInMap("auth_area_scope")]
+        [Validation(Required=false)]
+        public string AuthAreaScope { get; set; }
+
+        // 商品销售渠道
+        [NameInMap("sales_channel")]
+        [Validation(Required=false)]
+        public string SalesChannel { get; set; }
 
         // 备注消息(不超过256个字符)
         [NameInMap("memo")]
         [Validation(Required=true)]
         public string Memo { get; set; }
+
+        // 是否有保底金
+        [NameInMap("guaranteed")]
+        [Validation(Required=true)]
+        public bool? Guaranteed { get; set; }
+
+        // 支付的保底金金额
+        [NameInMap("guaranteed_fund")]
+        [Validation(Required=false)]
+        public string GuaranteedFund { get; set; }
+
+        // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+        [NameInMap("guaranteed_goods_amount")]
+        [Validation(Required=false)]
+        public long? GuaranteedGoodsAmount { get; set; }
+
+        // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+        [NameInMap("guaranteed_sales")]
+        [Validation(Required=false)]
+        public string GuaranteedSales { get; set; }
 
     }
 

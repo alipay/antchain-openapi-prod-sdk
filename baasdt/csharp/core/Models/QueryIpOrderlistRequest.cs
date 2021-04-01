@@ -14,7 +14,6 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -59,6 +58,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string SellerName { get; set; }
 
+        // 交易类型：1 套餐交易， 2 定向授权
+        [NameInMap("trade_type")]
+        [Validation(Required=false)]
+        public long? TradeType { get; set; }
+
+        // 收费模式：0 销售抽拥，1 按量计费
+        [NameInMap("charge_type")]
+        [Validation(Required=false)]
+        public long? ChargeType { get; set; }
+
         // 查询订单授权开始时间
         [NameInMap("auth_start_time")]
         [Validation(Required=false)]
@@ -74,7 +83,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string OrderBy { get; set; }
 
-        // 正序还是倒叙
+        // 数据排序顺序：正序还是倒序
         [NameInMap("order")]
         [Validation(Required=true)]
         public string Order { get; set; }

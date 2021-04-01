@@ -115,10 +115,71 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? Status { get; set; }
 
+        // 订单创建时间，时间戳（毫秒）
+        [NameInMap("create_time")]
+        [Validation(Required=true)]
+        public long? CreateTime { get; set; }
+
         // 订单最近更新时间
         [NameInMap("update_time")]
         [Validation(Required=true)]
         public long? UpdateTime { get; set; }
+
+        // 收费模式：0 销售抽佣, 1 按量付费
+        [NameInMap("charge_type")]
+        [Validation(Required=true)]
+        public long? ChargeType { get; set; }
+
+        // 按量付费的收费单价（按量付费模式必填）
+        [NameInMap("auth_price")]
+        [Validation(Required=true)]
+        public string AuthPrice { get; set; }
+
+        // 是否有保底金
+        [NameInMap("guaranteed")]
+        [Validation(Required=true)]
+        public bool? Guaranteed { get; set; }
+
+        // 保底金金额
+        [NameInMap("guaranteed_amount")]
+        [Validation(Required=true)]
+        public string GuaranteedAmount { get; set; }
+
+        // 保底商品个数（按量付费）
+        [NameInMap("guaranteed_goods_amount")]
+        [Validation(Required=true)]
+        public long? GuaranteedGoodsAmount { get; set; }
+
+        // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+        [NameInMap("used_guaranteed_goods_amount")]
+        [Validation(Required=true)]
+        public long? UsedGuaranteedGoodsAmount { get; set; }
+
+        // 保底商品销售金额（销售抽佣）
+        [NameInMap("guaranteed_sales")]
+        [Validation(Required=true)]
+        public string GuaranteedSales { get; set; }
+
+        // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+        // 
+        [NameInMap("used_guaranteed_sales")]
+        [Validation(Required=true)]
+        public string UsedGuaranteedSales { get; set; }
+
+        // 授权产品范围
+        [NameInMap("auth_product_scope")]
+        [Validation(Required=true)]
+        public string AuthProductScope { get; set; }
+
+        // 授权地域范围
+        [NameInMap("auth_area_scope")]
+        [Validation(Required=true)]
+        public string AuthAreaScope { get; set; }
+
+        // 商品销售渠道
+        [NameInMap("sales_channel")]
+        [Validation(Required=true)]
+        public string SalesChannel { get; set; }
 
     }
 

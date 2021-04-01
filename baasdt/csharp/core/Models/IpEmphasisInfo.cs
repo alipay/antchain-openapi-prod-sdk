@@ -55,6 +55,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string IpName { get; set; }
 
+        // 商户名称
+        [NameInMap("account_name")]
+        [Validation(Required=false)]
+        public string AccountName { get; set; }
+
     }
 
 }
