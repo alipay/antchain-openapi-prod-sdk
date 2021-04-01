@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1")
+                    new TeaPair("sdk_version", "1.2.18")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1358,7 +1358,7 @@ public class Client {
 
     /**
      * Description: 个人用户来账付款协议签约
-     * Summary: 个人用户来账付款协议签约
+     * Summary: 数字商品-消费卡服务-个人用户签约
      */
     public CreateConsumecardReceiptcontractResponse createConsumecardReceiptcontract(CreateConsumecardReceiptcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1368,7 +1368,7 @@ public class Client {
 
     /**
      * Description: 个人用户来账付款协议签约
-     * Summary: 个人用户来账付款协议签约
+     * Summary: 数字商品-消费卡服务-个人用户签约
      */
     public CreateConsumecardReceiptcontractResponse createConsumecardReceiptcontractEx(CreateConsumecardReceiptcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1377,7 +1377,7 @@ public class Client {
 
     /**
      * Description: 来账协议解约接口
-     * Summary: 来账协议签约
+     * Summary: 数字商品-消费卡服务-个人协议解约
      */
     public RemoveConsumecardReceiptcontractResponse removeConsumecardReceiptcontract(RemoveConsumecardReceiptcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1387,7 +1387,7 @@ public class Client {
 
     /**
      * Description: 来账协议解约接口
-     * Summary: 来账协议签约
+     * Summary: 数字商品-消费卡服务-个人协议解约
      */
     public RemoveConsumecardReceiptcontractResponse removeConsumecardReceiptcontractEx(RemoveConsumecardReceiptcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1396,7 +1396,7 @@ public class Client {
 
     /**
      * Description: 来账协议查询接口
-     * Summary: 来账协议查询
+     * Summary: 数字商品-消费卡服务-个人协议查询
      */
     public QueryConsumecardReceiptcontractResponse queryConsumecardReceiptcontract(QueryConsumecardReceiptcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1406,7 +1406,7 @@ public class Client {
 
     /**
      * Description: 来账协议查询接口
-     * Summary: 来账协议查询
+     * Summary: 数字商品-消费卡服务-个人协议查询
      */
     public QueryConsumecardReceiptcontractResponse queryConsumecardReceiptcontractEx(QueryConsumecardReceiptcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1414,8 +1414,8 @@ public class Client {
     }
 
     /**
-     * Description: 首单协议首次签约
-     * Summary: 首单协议首次签约
+     * Description: 收单协议签约
+     * Summary: 数字商品-消费卡服务-商家用户签约
      */
     public CreateConsumecardBillingcontractResponse createConsumecardBillingcontract(CreateConsumecardBillingcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1424,8 +1424,8 @@ public class Client {
     }
 
     /**
-     * Description: 首单协议首次签约
-     * Summary: 首单协议首次签约
+     * Description: 收单协议签约
+     * Summary: 数字商品-消费卡服务-商家用户签约
      */
     public CreateConsumecardBillingcontractResponse createConsumecardBillingcontractEx(CreateConsumecardBillingcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1434,7 +1434,7 @@ public class Client {
 
     /**
      * Description: 收单协议解约
-     * Summary: 收单协议解约
+     * Summary: 数字商品-消费卡服务-商家协议解约
      */
     public RemoveConsumecardBillingcontractResponse removeConsumecardBillingcontract(RemoveConsumecardBillingcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1444,7 +1444,7 @@ public class Client {
 
     /**
      * Description: 收单协议解约
-     * Summary: 收单协议解约
+     * Summary: 数字商品-消费卡服务-商家协议解约
      */
     public RemoveConsumecardBillingcontractResponse removeConsumecardBillingcontractEx(RemoveConsumecardBillingcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1453,7 +1453,7 @@ public class Client {
 
     /**
      * Description: 收单协议签约查询
-     * Summary: 收单协议签约查询
+     * Summary: 数字商品-消费卡服务-商家协议查询
      */
     public QueryConsumecardBillingcontractResponse queryConsumecardBillingcontract(QueryConsumecardBillingcontractRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1463,7 +1463,7 @@ public class Client {
 
     /**
      * Description: 收单协议签约查询
-     * Summary: 收单协议签约查询
+     * Summary: 数字商品-消费卡服务-商家协议查询
      */
     public QueryConsumecardBillingcontractResponse queryConsumecardBillingcontractEx(QueryConsumecardBillingcontractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3767,7 +3767,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+     * Description: 版权方进件信息的单个查询
      * Summary: 数字商品-IP授权交易服务-申请信息查询
      */
     public PullIpAccountResponse pullIpAccount(PullIpAccountRequest request) throws Exception {
@@ -3777,7 +3777,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+     * Description: 版权方进件信息的单个查询
      * Summary: 数字商品-IP授权交易服务-申请信息查询
      */
     public PullIpAccountResponse pullIpAccountEx(PullIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -3843,7 +3843,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-批量查询商家信息
+     * Description: 版权方进件信息的批量查询
      * Summary: 数字商品-IP授权服务-批量查询商家信息
      */
     public BatchqueryIpAccountResponse batchqueryIpAccount(BatchqueryIpAccountRequest request) throws Exception {
@@ -3853,7 +3853,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-批量查询商家信息
+     * Description: 版权方进件信息的批量查询
      * Summary: 数字商品-IP授权服务-批量查询商家信息
      */
     public BatchqueryIpAccountResponse batchqueryIpAccountEx(BatchqueryIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -3862,7 +3862,7 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权-版权方申请批量查询
+     * Description: 版权方待审批的批量查询
      * Summary: 数字商品-IP授权-版权方申请批量查询
      */
     public BatchqueryIpSellerResponse batchqueryIpSeller(BatchqueryIpSellerRequest request) throws Exception {
@@ -3872,12 +3872,202 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权-版权方申请批量查询
+     * Description: 版权方待审批的批量查询
      * Summary: 数字商品-IP授权-版权方申请批量查询
      */
     public BatchqueryIpSellerResponse batchqueryIpSellerEx(BatchqueryIpSellerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.seller.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryIpSellerResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码申请
+     * Summary: 数字商品服务-IP授权交易-正版码申请
+     */
+    public ApplyIpCodeResponse applyIpCode(ApplyIpCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyIpCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码申请
+     * Summary: 数字商品服务-IP授权交易-正版码申请
+     */
+    public ApplyIpCodeResponse applyIpCodeEx(ApplyIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyIpCodeResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码分页查询
+     * Summary: 数字商品服务-IP授权交易-正版码查询
+     */
+    public PagequeryIpCodeResponse pagequeryIpCode(PagequeryIpCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryIpCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码分页查询
+     * Summary: 数字商品服务-IP授权交易-正版码查询
+     */
+    public PagequeryIpCodeResponse pagequeryIpCodeEx(PagequeryIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIpCodeResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码校验
+     * Summary: 数字商品服务-IP授权交易-正版码校验
+     */
+    public CheckIpCodeResponse checkIpCode(CheckIpCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkIpCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-正版码校验
+     * Summary: 数字商品服务-IP授权交易-正版码校验
+     */
+    public CheckIpCodeResponse checkIpCodeEx(CheckIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIpCodeResponse());
+    }
+
+    /**
+     * Description: 对商品的更新进行审核
+     * Summary: 数字商品-IP授权交易-商品更新审核
+     */
+    public ConfirmIpUpdateapprovalResponse confirmIpUpdateapproval(ConfirmIpUpdateapprovalRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIpUpdateapprovalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 对商品的更新进行审核
+     * Summary: 数字商品-IP授权交易-商品更新审核
+     */
+    public ConfirmIpUpdateapprovalResponse confirmIpUpdateapprovalEx(ConfirmIpUpdateapprovalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.updateapproval.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIpUpdateapprovalResponse());
+    }
+
+    /**
+     * Description: ip商品sku信息设置
+     * Summary: 数字商品-IP授权交易-sku信息设置
+     */
+    public SetIpSkuResponse setIpSku(SetIpSkuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setIpSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ip商品sku信息设置
+     * Summary: 数字商品-IP授权交易-sku信息设置
+     */
+    public SetIpSkuResponse setIpSkuEx(SetIpSkuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.sku.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetIpSkuResponse());
+    }
+
+    /**
+     * Description: 查询商品基础信息的更新数据
+     * Summary: 数字商品-IP授权交易-查询更新数据
+     */
+    public QueryIpGoodsupdateResponse queryIpGoodsupdate(QueryIpGoodsupdateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpGoodsupdateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询商品基础信息的更新数据
+     * Summary: 数字商品-IP授权交易-查询更新数据
+     */
+    public QueryIpGoodsupdateResponse queryIpGoodsupdateEx(QueryIpGoodsupdateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.goodsupdate.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpGoodsupdateResponse());
+    }
+
+    /**
+     * Description: 查询账单信息，分页查询
+     * Summary: 数字商品服务-IP授权服务-查询账单列表
+     */
+    public PagequeryIpBillResponse pagequeryIpBill(PagequeryIpBillRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryIpBillEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询账单信息，分页查询
+     * Summary: 数字商品服务-IP授权服务-查询账单列表
+     */
+    public PagequeryIpBillResponse pagequeryIpBillEx(PagequeryIpBillRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.bill.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIpBillResponse());
+    }
+
+    /**
+     * Description: ip商品某个渠道默认sku查询
+     * Summary: 数字商品-IP授权交易-默认sku查询
+     */
+    public QueryIpSkuconfigResponse queryIpSkuconfig(QueryIpSkuconfigRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpSkuconfigEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ip商品某个渠道默认sku查询
+     * Summary: 数字商品-IP授权交易-默认sku查询
+     */
+    public QueryIpSkuconfigResponse queryIpSkuconfigEx(QueryIpSkuconfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.skuconfig.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpSkuconfigResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+     * Summary: 数字商品服务-IP授权交易-版权方导入
+     */
+    public ImportIpAccountResponse importIpAccount(ImportIpAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIpAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+     * Summary: 数字商品服务-IP授权交易-版权方导入
+     */
+    public ImportIpAccountResponse importIpAccountEx(ImportIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.account.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIpAccountResponse());
+    }
+
+    /**
+     * Description: 商品特定渠道的sku信息清空
+     * Summary: 数字商品-IP授权交易-sku信息清空
+     */
+    public RemoveIpSkuResponse removeIpSku(RemoveIpSkuRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeIpSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品特定渠道的sku信息清空
+     * Summary: 数字商品-IP授权交易-sku信息清空
+     */
+    public RemoveIpSkuResponse removeIpSkuEx(RemoveIpSkuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.sku.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveIpSkuResponse());
     }
 
     /**

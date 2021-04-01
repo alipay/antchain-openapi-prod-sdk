@@ -109,10 +109,71 @@ public class IPOrder extends TeaModel {
     @Validation(required = true)
     public Long status;
 
+    // 订单创建时间，时间戳（毫秒）
+    @NameInMap("create_time")
+    @Validation(required = true)
+    public Long createTime;
+
     // 订单最近更新时间
     @NameInMap("update_time")
     @Validation(required = true)
     public Long updateTime;
+
+    // 收费模式：0 销售抽佣, 1 按量付费
+    @NameInMap("charge_type")
+    @Validation(required = true)
+    public Long chargeType;
+
+    // 按量付费的收费单价（按量付费模式必填）
+    @NameInMap("auth_price")
+    @Validation(required = true)
+    public String authPrice;
+
+    // 是否有保底金
+    @NameInMap("guaranteed")
+    @Validation(required = true)
+    public Boolean guaranteed;
+
+    // 保底金金额
+    @NameInMap("guaranteed_amount")
+    @Validation(required = true)
+    public String guaranteedAmount;
+
+    // 保底商品个数（按量付费）
+    @NameInMap("guaranteed_goods_amount")
+    @Validation(required = true)
+    public Long guaranteedGoodsAmount;
+
+    // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+    @NameInMap("used_guaranteed_goods_amount")
+    @Validation(required = true)
+    public Long usedGuaranteedGoodsAmount;
+
+    // 保底商品销售金额（销售抽佣）
+    @NameInMap("guaranteed_sales")
+    @Validation(required = true)
+    public String guaranteedSales;
+
+    // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+    // 
+    @NameInMap("used_guaranteed_sales")
+    @Validation(required = true)
+    public String usedGuaranteedSales;
+
+    // 授权产品范围
+    @NameInMap("auth_product_scope")
+    @Validation(required = true)
+    public String authProductScope;
+
+    // 授权地域范围
+    @NameInMap("auth_area_scope")
+    @Validation(required = true)
+    public String authAreaScope;
+
+    // 商品销售渠道
+    @NameInMap("sales_channel")
+    @Validation(required = true)
+    public String salesChannel;
 
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
@@ -287,12 +348,108 @@ public class IPOrder extends TeaModel {
         return this.status;
     }
 
+    public IPOrder setCreateTime(Long createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+    public Long getCreateTime() {
+        return this.createTime;
+    }
+
     public IPOrder setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
         return this;
     }
     public Long getUpdateTime() {
         return this.updateTime;
+    }
+
+    public IPOrder setChargeType(Long chargeType) {
+        this.chargeType = chargeType;
+        return this;
+    }
+    public Long getChargeType() {
+        return this.chargeType;
+    }
+
+    public IPOrder setAuthPrice(String authPrice) {
+        this.authPrice = authPrice;
+        return this;
+    }
+    public String getAuthPrice() {
+        return this.authPrice;
+    }
+
+    public IPOrder setGuaranteed(Boolean guaranteed) {
+        this.guaranteed = guaranteed;
+        return this;
+    }
+    public Boolean getGuaranteed() {
+        return this.guaranteed;
+    }
+
+    public IPOrder setGuaranteedAmount(String guaranteedAmount) {
+        this.guaranteedAmount = guaranteedAmount;
+        return this;
+    }
+    public String getGuaranteedAmount() {
+        return this.guaranteedAmount;
+    }
+
+    public IPOrder setGuaranteedGoodsAmount(Long guaranteedGoodsAmount) {
+        this.guaranteedGoodsAmount = guaranteedGoodsAmount;
+        return this;
+    }
+    public Long getGuaranteedGoodsAmount() {
+        return this.guaranteedGoodsAmount;
+    }
+
+    public IPOrder setUsedGuaranteedGoodsAmount(Long usedGuaranteedGoodsAmount) {
+        this.usedGuaranteedGoodsAmount = usedGuaranteedGoodsAmount;
+        return this;
+    }
+    public Long getUsedGuaranteedGoodsAmount() {
+        return this.usedGuaranteedGoodsAmount;
+    }
+
+    public IPOrder setGuaranteedSales(String guaranteedSales) {
+        this.guaranteedSales = guaranteedSales;
+        return this;
+    }
+    public String getGuaranteedSales() {
+        return this.guaranteedSales;
+    }
+
+    public IPOrder setUsedGuaranteedSales(String usedGuaranteedSales) {
+        this.usedGuaranteedSales = usedGuaranteedSales;
+        return this;
+    }
+    public String getUsedGuaranteedSales() {
+        return this.usedGuaranteedSales;
+    }
+
+    public IPOrder setAuthProductScope(String authProductScope) {
+        this.authProductScope = authProductScope;
+        return this;
+    }
+    public String getAuthProductScope() {
+        return this.authProductScope;
+    }
+
+    public IPOrder setAuthAreaScope(String authAreaScope) {
+        this.authAreaScope = authAreaScope;
+        return this;
+    }
+    public String getAuthAreaScope() {
+        return this.authAreaScope;
+    }
+
+    public IPOrder setSalesChannel(String salesChannel) {
+        this.salesChannel = salesChannel;
+        return this;
+    }
+    public String getSalesChannel() {
+        return this.salesChannel;
     }
 
 }

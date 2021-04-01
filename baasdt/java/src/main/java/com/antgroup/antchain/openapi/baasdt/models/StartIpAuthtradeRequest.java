@@ -8,7 +8,6 @@ public class StartIpAuthtradeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -27,10 +26,17 @@ public class StartIpAuthtradeRequest extends TeaModel {
     @Validation(required = true)
     public String ipId;
 
+    // 收费模式：0 销售抽佣, 1 按量付费
+    @NameInMap("charge_type")
+    public Long chargeType;
+
     // 授权计费比例
     @NameInMap("auth_rate")
-    @Validation(required = true)
     public String authRate;
+
+    // 按量付费的收费单价（按量付费模式必填）
+    @NameInMap("auth_price")
+    public String authPrice;
 
     // 授权合作开始期限（毫秒时间戳）
     @NameInMap("auth_begin_time")
@@ -49,13 +55,41 @@ public class StartIpAuthtradeRequest extends TeaModel {
 
     // 设计稿（文件URL）
     @NameInMap("design_draft")
-    @Validation(required = true)
     public String designDraft;
+
+    // 授权产品范围
+    @NameInMap("auth_product_scope")
+    public String authProductScope;
+
+    // 授权地域范围
+    @NameInMap("auth_area_scope")
+    public String authAreaScope;
+
+    // 商品销售渠道
+    @NameInMap("sales_channel")
+    public String salesChannel;
 
     // 备注消息(不超过256个字符)
     @NameInMap("memo")
     @Validation(required = true)
     public String memo;
+
+    // 是否有保底金
+    @NameInMap("guaranteed")
+    @Validation(required = true)
+    public Boolean guaranteed;
+
+    // 支付的保底金金额
+    @NameInMap("guaranteed_fund")
+    public String guaranteedFund;
+
+    // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+    @NameInMap("guaranteed_goods_amount")
+    public Long guaranteedGoodsAmount;
+
+    // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+    @NameInMap("guaranteed_sales")
+    public String guaranteedSales;
 
     public static StartIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpAuthtradeRequest self = new StartIpAuthtradeRequest();
@@ -102,12 +136,28 @@ public class StartIpAuthtradeRequest extends TeaModel {
         return this.ipId;
     }
 
+    public StartIpAuthtradeRequest setChargeType(Long chargeType) {
+        this.chargeType = chargeType;
+        return this;
+    }
+    public Long getChargeType() {
+        return this.chargeType;
+    }
+
     public StartIpAuthtradeRequest setAuthRate(String authRate) {
         this.authRate = authRate;
         return this;
     }
     public String getAuthRate() {
         return this.authRate;
+    }
+
+    public StartIpAuthtradeRequest setAuthPrice(String authPrice) {
+        this.authPrice = authPrice;
+        return this;
+    }
+    public String getAuthPrice() {
+        return this.authPrice;
     }
 
     public StartIpAuthtradeRequest setAuthBeginTime(Long authBeginTime) {
@@ -142,12 +192,68 @@ public class StartIpAuthtradeRequest extends TeaModel {
         return this.designDraft;
     }
 
+    public StartIpAuthtradeRequest setAuthProductScope(String authProductScope) {
+        this.authProductScope = authProductScope;
+        return this;
+    }
+    public String getAuthProductScope() {
+        return this.authProductScope;
+    }
+
+    public StartIpAuthtradeRequest setAuthAreaScope(String authAreaScope) {
+        this.authAreaScope = authAreaScope;
+        return this;
+    }
+    public String getAuthAreaScope() {
+        return this.authAreaScope;
+    }
+
+    public StartIpAuthtradeRequest setSalesChannel(String salesChannel) {
+        this.salesChannel = salesChannel;
+        return this;
+    }
+    public String getSalesChannel() {
+        return this.salesChannel;
+    }
+
     public StartIpAuthtradeRequest setMemo(String memo) {
         this.memo = memo;
         return this;
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public StartIpAuthtradeRequest setGuaranteed(Boolean guaranteed) {
+        this.guaranteed = guaranteed;
+        return this;
+    }
+    public Boolean getGuaranteed() {
+        return this.guaranteed;
+    }
+
+    public StartIpAuthtradeRequest setGuaranteedFund(String guaranteedFund) {
+        this.guaranteedFund = guaranteedFund;
+        return this;
+    }
+    public String getGuaranteedFund() {
+        return this.guaranteedFund;
+    }
+
+    public StartIpAuthtradeRequest setGuaranteedGoodsAmount(Long guaranteedGoodsAmount) {
+        this.guaranteedGoodsAmount = guaranteedGoodsAmount;
+        return this;
+    }
+    public Long getGuaranteedGoodsAmount() {
+        return this.guaranteedGoodsAmount;
+    }
+
+    public StartIpAuthtradeRequest setGuaranteedSales(String guaranteedSales) {
+        this.guaranteedSales = guaranteedSales;
+        return this;
+    }
+    public String getGuaranteedSales() {
+        return this.guaranteedSales;
     }
 
 }

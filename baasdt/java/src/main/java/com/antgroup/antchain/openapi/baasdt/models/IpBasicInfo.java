@@ -120,6 +120,10 @@ public class IpBasicInfo extends TeaModel {
     @Validation(required = true)
     public Long copyRightEndTime;
 
+    // 账户名称
+    @NameInMap("account_name")
+    public String accountName;
+
     public static IpBasicInfo build(java.util.Map<String, ?> map) throws Exception {
         IpBasicInfo self = new IpBasicInfo();
         return TeaModel.build(map, self);
@@ -307,6 +311,14 @@ public class IpBasicInfo extends TeaModel {
     }
     public Long getCopyRightEndTime() {
         return this.copyRightEndTime;
+    }
+
+    public IpBasicInfo setAccountName(String accountName) {
+        this.accountName = accountName;
+        return this;
+    }
+    public String getAccountName() {
+        return this.accountName;
     }
 
 }

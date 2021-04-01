@@ -8,7 +8,6 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -45,6 +44,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @NameInMap("seller_name")
     public String sellerName;
 
+    // 交易类型：1 套餐交易， 2 定向授权
+    @NameInMap("trade_type")
+    public Long tradeType;
+
+    // 收费模式：0 销售抽拥，1 按量计费
+    @NameInMap("charge_type")
+    public Long chargeType;
+
     // 查询订单授权开始时间
     @NameInMap("auth_start_time")
     public Long authStartTime;
@@ -58,7 +65,7 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @Validation(required = true)
     public String orderBy;
 
-    // 正序还是倒叙
+    // 数据排序顺序：正序还是倒序
     @NameInMap("order")
     @Validation(required = true)
     public String order;
@@ -156,6 +163,22 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public String getSellerName() {
         return this.sellerName;
+    }
+
+    public QueryIpOrderlistRequest setTradeType(Long tradeType) {
+        this.tradeType = tradeType;
+        return this;
+    }
+    public Long getTradeType() {
+        return this.tradeType;
+    }
+
+    public QueryIpOrderlistRequest setChargeType(Long chargeType) {
+        this.chargeType = chargeType;
+        return this;
+    }
+    public Long getChargeType() {
+        return this.chargeType;
     }
 
     public QueryIpOrderlistRequest setAuthStartTime(Long authStartTime) {

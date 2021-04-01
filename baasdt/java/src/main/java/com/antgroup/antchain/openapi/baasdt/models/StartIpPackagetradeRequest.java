@@ -8,7 +8,6 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -61,6 +60,18 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("memo")
     @Validation(required = true)
     public String memo;
+
+    // 授权产品范围
+    @NameInMap("auth_product_scope")
+    public String authProductScope;
+
+    // 授权地域范围
+    @NameInMap("auth_area_scope")
+    public String authAreaScope;
+
+    // 商品销售渠道
+    @NameInMap("sales_channel")
+    public String salesChannel;
 
     public static StartIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpPackagetradeRequest self = new StartIpPackagetradeRequest();
@@ -161,6 +172,30 @@ public class StartIpPackagetradeRequest extends TeaModel {
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public StartIpPackagetradeRequest setAuthProductScope(String authProductScope) {
+        this.authProductScope = authProductScope;
+        return this;
+    }
+    public String getAuthProductScope() {
+        return this.authProductScope;
+    }
+
+    public StartIpPackagetradeRequest setAuthAreaScope(String authAreaScope) {
+        this.authAreaScope = authAreaScope;
+        return this;
+    }
+    public String getAuthAreaScope() {
+        return this.authAreaScope;
+    }
+
+    public StartIpPackagetradeRequest setSalesChannel(String salesChannel) {
+        this.salesChannel = salesChannel;
+        return this;
+    }
+    public String getSalesChannel() {
+        return this.salesChannel;
     }
 
 }

@@ -8,7 +8,6 @@ public class UpdateIpGoodsRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -111,6 +110,10 @@ public class UpdateIpGoodsRequest extends TeaModel {
     @NameInMap("copy_right_end_time")
     @Validation(required = true)
     public Long copyRightEndTime;
+
+    // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+    @NameInMap("need_approval")
+    public Boolean needApproval;
 
     public static UpdateIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIpGoodsRequest self = new UpdateIpGoodsRequest();
@@ -291,6 +294,14 @@ public class UpdateIpGoodsRequest extends TeaModel {
     }
     public Long getCopyRightEndTime() {
         return this.copyRightEndTime;
+    }
+
+    public UpdateIpGoodsRequest setNeedApproval(Boolean needApproval) {
+        this.needApproval = needApproval;
+        return this;
+    }
+    public Boolean getNeedApproval() {
+        return this.needApproval;
     }
 
 }

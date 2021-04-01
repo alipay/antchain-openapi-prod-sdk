@@ -8,7 +8,6 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -34,8 +33,11 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
 
     // 授权佣金比例
     @NameInMap("auth_rate")
-    @Validation(required = true)
     public String authRate;
+
+    // 定向授权按量付费单价
+    @NameInMap("auth_price")
+    public String authPrice;
 
     // 本次结算周期开始时间
     @NameInMap("settlement_begin_time")
@@ -46,6 +48,11 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     @NameInMap("settlement_end_time")
     @Validation(required = true)
     public Long settlementEndTime;
+
+    // 零售价
+    @NameInMap("price")
+    @Validation(required = true)
+    public String price;
 
     // 终端商品销售数量
     @NameInMap("amount")
@@ -61,6 +68,23 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     @NameInMap("payment")
     @Validation(required = true)
     public String payment;
+
+    // 终端商品名称
+    @NameInMap("goods_name")
+    @Validation(required = true)
+    public String goodsName;
+
+    // 终端商品图片
+    @NameInMap("goods_image")
+    public String goodsImage;
+
+    // 终端销售渠道
+    @NameInMap("sales_channel")
+    public String salesChannel;
+
+    // 终端商品链接
+    @NameInMap("goods_url")
+    public String goodsUrl;
 
     // 商品信息
     @NameInMap("goods_info")
@@ -137,6 +161,14 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
         return this.authRate;
     }
 
+    public UploadIpAuthtradesalesRequest setAuthPrice(String authPrice) {
+        this.authPrice = authPrice;
+        return this;
+    }
+    public String getAuthPrice() {
+        return this.authPrice;
+    }
+
     public UploadIpAuthtradesalesRequest setSettlementBeginTime(Long settlementBeginTime) {
         this.settlementBeginTime = settlementBeginTime;
         return this;
@@ -151,6 +183,14 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     }
     public Long getSettlementEndTime() {
         return this.settlementEndTime;
+    }
+
+    public UploadIpAuthtradesalesRequest setPrice(String price) {
+        this.price = price;
+        return this;
+    }
+    public String getPrice() {
+        return this.price;
     }
 
     public UploadIpAuthtradesalesRequest setAmount(Long amount) {
@@ -175,6 +215,38 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     }
     public String getPayment() {
         return this.payment;
+    }
+
+    public UploadIpAuthtradesalesRequest setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+        return this;
+    }
+    public String getGoodsName() {
+        return this.goodsName;
+    }
+
+    public UploadIpAuthtradesalesRequest setGoodsImage(String goodsImage) {
+        this.goodsImage = goodsImage;
+        return this;
+    }
+    public String getGoodsImage() {
+        return this.goodsImage;
+    }
+
+    public UploadIpAuthtradesalesRequest setSalesChannel(String salesChannel) {
+        this.salesChannel = salesChannel;
+        return this;
+    }
+    public String getSalesChannel() {
+        return this.salesChannel;
+    }
+
+    public UploadIpAuthtradesalesRequest setGoodsUrl(String goodsUrl) {
+        this.goodsUrl = goodsUrl;
+        return this;
+    }
+    public String getGoodsUrl() {
+        return this.goodsUrl;
     }
 
     public UploadIpAuthtradesalesRequest setGoodsInfo(String goodsInfo) {

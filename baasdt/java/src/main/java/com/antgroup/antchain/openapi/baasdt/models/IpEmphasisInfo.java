@@ -49,6 +49,10 @@ public class IpEmphasisInfo extends TeaModel {
     @Validation(required = true)
     public String ipName;
 
+    // 商户名称
+    @NameInMap("account_name")
+    public String accountName;
+
     public static IpEmphasisInfo build(java.util.Map<String, ?> map) throws Exception {
         IpEmphasisInfo self = new IpEmphasisInfo();
         return TeaModel.build(map, self);
@@ -124,6 +128,14 @@ public class IpEmphasisInfo extends TeaModel {
     }
     public String getIpName() {
         return this.ipName;
+    }
+
+    public IpEmphasisInfo setAccountName(String accountName) {
+        this.accountName = accountName;
+        return this;
+    }
+    public String getAccountName() {
+        return this.accountName;
     }
 
 }

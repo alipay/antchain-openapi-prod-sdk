@@ -39,6 +39,21 @@ public class IPApplyInfo extends TeaModel {
     @Validation(required = true)
     public Long status;
 
+    // 用户的外系统识别Id
+    @NameInMap("external_user_id")
+    @Validation(required = true)
+    public String externalUserId;
+
+    // 外部系统用户名
+    @NameInMap("external_user_name")
+    @Validation(required = true)
+    public String externalUserName;
+
+    // 申请时间(毫秒时间戳)
+    @NameInMap("apply_date")
+    @Validation(required = true)
+    public Long applyDate;
+
     public static IPApplyInfo build(java.util.Map<String, ?> map) throws Exception {
         IPApplyInfo self = new IPApplyInfo();
         return TeaModel.build(map, self);
@@ -98,6 +113,30 @@ public class IPApplyInfo extends TeaModel {
     }
     public Long getStatus() {
         return this.status;
+    }
+
+    public IPApplyInfo setExternalUserId(String externalUserId) {
+        this.externalUserId = externalUserId;
+        return this;
+    }
+    public String getExternalUserId() {
+        return this.externalUserId;
+    }
+
+    public IPApplyInfo setExternalUserName(String externalUserName) {
+        this.externalUserName = externalUserName;
+        return this;
+    }
+    public String getExternalUserName() {
+        return this.externalUserName;
+    }
+
+    public IPApplyInfo setApplyDate(Long applyDate) {
+        this.applyDate = applyDate;
+        return this;
+    }
+    public Long getApplyDate() {
+        return this.applyDate;
     }
 
 }

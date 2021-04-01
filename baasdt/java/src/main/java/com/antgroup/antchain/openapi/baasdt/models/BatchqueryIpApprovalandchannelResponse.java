@@ -8,16 +8,17 @@ public class BatchqueryIpApprovalandchannelResponse extends TeaModel {
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
-    // 异常信息的文本描述
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
     // ip信息
     @NameInMap("ip_list")
-    public java.util.List<IpBasicInfoWithChannelInfo> ipList;
+    public java.util.List<IpAllInfo> ipList;
 
     // 总数
     @NameInMap("all_count")
@@ -52,11 +53,11 @@ public class BatchqueryIpApprovalandchannelResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public BatchqueryIpApprovalandchannelResponse setIpList(java.util.List<IpBasicInfoWithChannelInfo> ipList) {
+    public BatchqueryIpApprovalandchannelResponse setIpList(java.util.List<IpAllInfo> ipList) {
         this.ipList = ipList;
         return this;
     }
-    public java.util.List<IpBasicInfoWithChannelInfo> getIpList() {
+    public java.util.List<IpAllInfo> getIpList() {
         return this.ipList;
     }
 
