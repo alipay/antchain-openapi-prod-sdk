@@ -5,12 +5,12 @@ import time
 from Tea.exceptions import TeaException, UnretryableException
 from Tea.request import TeaRequest
 from Tea.core import TeaCore
+from antchain_alipay_util.antchain_utils import AntchainUtils
 from typing import Dict
 
 from antchain_sdk_baasdt import models as baasdt_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_tea_util import models as util_models
-from antchain_alipay_util.client import Client as AntchainUtilClient
 from alibabacloud_rpc_util.client import Client as RPCUtilClient
 
 
@@ -131,11 +131,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1'
+                    'sdk_version': '1.2.18'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -148,14 +148,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = TeaCore.do_action(_request, _runtime)
                 raw = UtilClient.read_as_string(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -233,11 +233,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1'
+                    'sdk_version': '1.2.18'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -250,14 +250,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = await TeaCore.async_do_action(_request, _runtime)
                 raw = await UtilClient.read_as_string_async(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -3679,7 +3679,7 @@ class Client:
     ) -> baasdt_models.CreateConsumecardReceiptcontractResponse:
         """
         Description: 个人用户来账付款协议签约
-        Summary: 个人用户来账付款协议签约
+        Summary: 数字商品-消费卡服务-个人用户签约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3691,7 +3691,7 @@ class Client:
     ) -> baasdt_models.CreateConsumecardReceiptcontractResponse:
         """
         Description: 个人用户来账付款协议签约
-        Summary: 个人用户来账付款协议签约
+        Summary: 数字商品-消费卡服务-个人用户签约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3705,7 +3705,7 @@ class Client:
     ) -> baasdt_models.CreateConsumecardReceiptcontractResponse:
         """
         Description: 个人用户来账付款协议签约
-        Summary: 个人用户来账付款协议签约
+        Summary: 数字商品-消费卡服务-个人用户签约
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateConsumecardReceiptcontractResponse().from_map(
@@ -3720,7 +3720,7 @@ class Client:
     ) -> baasdt_models.CreateConsumecardReceiptcontractResponse:
         """
         Description: 个人用户来账付款协议签约
-        Summary: 个人用户来账付款协议签约
+        Summary: 数字商品-消费卡服务-个人用户签约
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateConsumecardReceiptcontractResponse().from_map(
@@ -3733,7 +3733,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardReceiptcontractResponse:
         """
         Description: 来账协议解约接口
-        Summary: 来账协议签约
+        Summary: 数字商品-消费卡服务-个人协议解约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3745,7 +3745,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardReceiptcontractResponse:
         """
         Description: 来账协议解约接口
-        Summary: 来账协议签约
+        Summary: 数字商品-消费卡服务-个人协议解约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3759,7 +3759,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardReceiptcontractResponse:
         """
         Description: 来账协议解约接口
-        Summary: 来账协议签约
+        Summary: 数字商品-消费卡服务-个人协议解约
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveConsumecardReceiptcontractResponse().from_map(
@@ -3774,7 +3774,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardReceiptcontractResponse:
         """
         Description: 来账协议解约接口
-        Summary: 来账协议签约
+        Summary: 数字商品-消费卡服务-个人协议解约
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveConsumecardReceiptcontractResponse().from_map(
@@ -3787,7 +3787,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardReceiptcontractResponse:
         """
         Description: 来账协议查询接口
-        Summary: 来账协议查询
+        Summary: 数字商品-消费卡服务-个人协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3799,7 +3799,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardReceiptcontractResponse:
         """
         Description: 来账协议查询接口
-        Summary: 来账协议查询
+        Summary: 数字商品-消费卡服务-个人协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3813,7 +3813,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardReceiptcontractResponse:
         """
         Description: 来账协议查询接口
-        Summary: 来账协议查询
+        Summary: 数字商品-消费卡服务-个人协议查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryConsumecardReceiptcontractResponse().from_map(
@@ -3828,7 +3828,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardReceiptcontractResponse:
         """
         Description: 来账协议查询接口
-        Summary: 来账协议查询
+        Summary: 数字商品-消费卡服务-个人协议查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryConsumecardReceiptcontractResponse().from_map(
@@ -3840,8 +3840,8 @@ class Client:
         request: baasdt_models.CreateConsumecardBillingcontractRequest,
     ) -> baasdt_models.CreateConsumecardBillingcontractResponse:
         """
-        Description: 首单协议首次签约
-        Summary: 首单协议首次签约
+        Description: 收单协议签约
+        Summary: 数字商品-消费卡服务-商家用户签约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3852,8 +3852,8 @@ class Client:
         request: baasdt_models.CreateConsumecardBillingcontractRequest,
     ) -> baasdt_models.CreateConsumecardBillingcontractResponse:
         """
-        Description: 首单协议首次签约
-        Summary: 首单协议首次签约
+        Description: 收单协议签约
+        Summary: 数字商品-消费卡服务-商家用户签约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3866,8 +3866,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CreateConsumecardBillingcontractResponse:
         """
-        Description: 首单协议首次签约
-        Summary: 首单协议首次签约
+        Description: 收单协议签约
+        Summary: 数字商品-消费卡服务-商家用户签约
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateConsumecardBillingcontractResponse().from_map(
@@ -3881,8 +3881,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CreateConsumecardBillingcontractResponse:
         """
-        Description: 首单协议首次签约
-        Summary: 首单协议首次签约
+        Description: 收单协议签约
+        Summary: 数字商品-消费卡服务-商家用户签约
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateConsumecardBillingcontractResponse().from_map(
@@ -3895,7 +3895,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardBillingcontractResponse:
         """
         Description: 收单协议解约
-        Summary: 收单协议解约
+        Summary: 数字商品-消费卡服务-商家协议解约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3907,7 +3907,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardBillingcontractResponse:
         """
         Description: 收单协议解约
-        Summary: 收单协议解约
+        Summary: 数字商品-消费卡服务-商家协议解约
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3921,7 +3921,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardBillingcontractResponse:
         """
         Description: 收单协议解约
-        Summary: 收单协议解约
+        Summary: 数字商品-消费卡服务-商家协议解约
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveConsumecardBillingcontractResponse().from_map(
@@ -3936,7 +3936,7 @@ class Client:
     ) -> baasdt_models.RemoveConsumecardBillingcontractResponse:
         """
         Description: 收单协议解约
-        Summary: 收单协议解约
+        Summary: 数字商品-消费卡服务-商家协议解约
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveConsumecardBillingcontractResponse().from_map(
@@ -3949,7 +3949,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardBillingcontractResponse:
         """
         Description: 收单协议签约查询
-        Summary: 收单协议签约查询
+        Summary: 数字商品-消费卡服务-商家协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3961,7 +3961,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardBillingcontractResponse:
         """
         Description: 收单协议签约查询
-        Summary: 收单协议签约查询
+        Summary: 数字商品-消费卡服务-商家协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3975,7 +3975,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardBillingcontractResponse:
         """
         Description: 收单协议签约查询
-        Summary: 收单协议签约查询
+        Summary: 数字商品-消费卡服务-商家协议查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryConsumecardBillingcontractResponse().from_map(
@@ -3990,7 +3990,7 @@ class Client:
     ) -> baasdt_models.QueryConsumecardBillingcontractResponse:
         """
         Description: 收单协议签约查询
-        Summary: 收单协议签约查询
+        Summary: 数字商品-消费卡服务-商家协议查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryConsumecardBillingcontractResponse().from_map(
@@ -10514,7 +10514,7 @@ class Client:
         request: baasdt_models.PullIpAccountRequest,
     ) -> baasdt_models.PullIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+        Description: 版权方进件信息的单个查询
         Summary: 数字商品-IP授权交易服务-申请信息查询
         """
         runtime = util_models.RuntimeOptions()
@@ -10526,7 +10526,7 @@ class Client:
         request: baasdt_models.PullIpAccountRequest,
     ) -> baasdt_models.PullIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+        Description: 版权方进件信息的单个查询
         Summary: 数字商品-IP授权交易服务-申请信息查询
         """
         runtime = util_models.RuntimeOptions()
@@ -10540,7 +10540,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PullIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+        Description: 版权方进件信息的单个查询
         Summary: 数字商品-IP授权交易服务-申请信息查询
         """
         UtilClient.validate_model(request)
@@ -10555,7 +10555,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PullIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+        Description: 版权方进件信息的单个查询
         Summary: 数字商品-IP授权交易服务-申请信息查询
         """
         UtilClient.validate_model(request)
@@ -10730,7 +10730,7 @@ class Client:
         request: baasdt_models.BatchqueryIpAccountRequest,
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-批量查询商家信息
+        Description: 版权方进件信息的批量查询
         Summary: 数字商品-IP授权服务-批量查询商家信息
         """
         runtime = util_models.RuntimeOptions()
@@ -10742,7 +10742,7 @@ class Client:
         request: baasdt_models.BatchqueryIpAccountRequest,
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-批量查询商家信息
+        Description: 版权方进件信息的批量查询
         Summary: 数字商品-IP授权服务-批量查询商家信息
         """
         runtime = util_models.RuntimeOptions()
@@ -10756,7 +10756,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-批量查询商家信息
+        Description: 版权方进件信息的批量查询
         Summary: 数字商品-IP授权服务-批量查询商家信息
         """
         UtilClient.validate_model(request)
@@ -10771,7 +10771,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易服务-批量查询商家信息
+        Description: 版权方进件信息的批量查询
         Summary: 数字商品-IP授权服务-批量查询商家信息
         """
         UtilClient.validate_model(request)
@@ -10784,7 +10784,7 @@ class Client:
         request: baasdt_models.BatchqueryIpSellerRequest,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 数字商品-IP授权-版权方申请批量查询
+        Description: 版权方待审批的批量查询
         Summary: 数字商品-IP授权-版权方申请批量查询
         """
         runtime = util_models.RuntimeOptions()
@@ -10796,7 +10796,7 @@ class Client:
         request: baasdt_models.BatchqueryIpSellerRequest,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 数字商品-IP授权-版权方申请批量查询
+        Description: 版权方待审批的批量查询
         Summary: 数字商品-IP授权-版权方申请批量查询
         """
         runtime = util_models.RuntimeOptions()
@@ -10810,7 +10810,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 数字商品-IP授权-版权方申请批量查询
+        Description: 版权方待审批的批量查询
         Summary: 数字商品-IP授权-版权方申请批量查询
         """
         UtilClient.validate_model(request)
@@ -10825,12 +10825,552 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 数字商品-IP授权-版权方申请批量查询
+        Description: 版权方待审批的批量查询
         Summary: 数字商品-IP授权-版权方申请批量查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpSellerResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.seller.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_ip_code(
+        self,
+        request: baasdt_models.ApplyIpCodeRequest,
+    ) -> baasdt_models.ApplyIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码申请
+        Summary: 数字商品服务-IP授权交易-正版码申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_ip_code_ex(request, headers, runtime)
+
+    async def apply_ip_code_async(
+        self,
+        request: baasdt_models.ApplyIpCodeRequest,
+    ) -> baasdt_models.ApplyIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码申请
+        Summary: 数字商品服务-IP授权交易-正版码申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_ip_code_ex_async(request, headers, runtime)
+
+    def apply_ip_code_ex(
+        self,
+        request: baasdt_models.ApplyIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码申请
+        Summary: 数字商品服务-IP授权交易-正版码申请
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpCodeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.code.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_ip_code_ex_async(
+        self,
+        request: baasdt_models.ApplyIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码申请
+        Summary: 数字商品服务-IP授权交易-正版码申请
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpCodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.code.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_ip_code(
+        self,
+        request: baasdt_models.PagequeryIpCodeRequest,
+    ) -> baasdt_models.PagequeryIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码分页查询
+        Summary: 数字商品服务-IP授权交易-正版码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_ip_code_ex(request, headers, runtime)
+
+    async def pagequery_ip_code_async(
+        self,
+        request: baasdt_models.PagequeryIpCodeRequest,
+    ) -> baasdt_models.PagequeryIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码分页查询
+        Summary: 数字商品服务-IP授权交易-正版码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_ip_code_ex_async(request, headers, runtime)
+
+    def pagequery_ip_code_ex(
+        self,
+        request: baasdt_models.PagequeryIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码分页查询
+        Summary: 数字商品服务-IP授权交易-正版码查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpCodeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.code.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_ip_code_ex_async(
+        self,
+        request: baasdt_models.PagequeryIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码分页查询
+        Summary: 数字商品服务-IP授权交易-正版码查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpCodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.code.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_ip_code(
+        self,
+        request: baasdt_models.CheckIpCodeRequest,
+    ) -> baasdt_models.CheckIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码校验
+        Summary: 数字商品服务-IP授权交易-正版码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_ip_code_ex(request, headers, runtime)
+
+    async def check_ip_code_async(
+        self,
+        request: baasdt_models.CheckIpCodeRequest,
+    ) -> baasdt_models.CheckIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码校验
+        Summary: 数字商品服务-IP授权交易-正版码校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_ip_code_ex_async(request, headers, runtime)
+
+    def check_ip_code_ex(
+        self,
+        request: baasdt_models.CheckIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.CheckIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码校验
+        Summary: 数字商品服务-IP授权交易-正版码校验
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.CheckIpCodeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.code.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_ip_code_ex_async(
+        self,
+        request: baasdt_models.CheckIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.CheckIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权交易-正版码校验
+        Summary: 数字商品服务-IP授权交易-正版码校验
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.CheckIpCodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.code.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_ip_updateapproval(
+        self,
+        request: baasdt_models.ConfirmIpUpdateapprovalRequest,
+    ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
+        """
+        Description: 对商品的更新进行审核
+        Summary: 数字商品-IP授权交易-商品更新审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_ip_updateapproval_ex(request, headers, runtime)
+
+    async def confirm_ip_updateapproval_async(
+        self,
+        request: baasdt_models.ConfirmIpUpdateapprovalRequest,
+    ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
+        """
+        Description: 对商品的更新进行审核
+        Summary: 数字商品-IP授权交易-商品更新审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_ip_updateapproval_ex_async(request, headers, runtime)
+
+    def confirm_ip_updateapproval_ex(
+        self,
+        request: baasdt_models.ConfirmIpUpdateapprovalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
+        """
+        Description: 对商品的更新进行审核
+        Summary: 数字商品-IP授权交易-商品更新审核
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.updateapproval.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_ip_updateapproval_ex_async(
+        self,
+        request: baasdt_models.ConfirmIpUpdateapprovalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
+        """
+        Description: 对商品的更新进行审核
+        Summary: 数字商品-IP授权交易-商品更新审核
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.updateapproval.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_ip_sku(
+        self,
+        request: baasdt_models.SetIpSkuRequest,
+    ) -> baasdt_models.SetIpSkuResponse:
+        """
+        Description: ip商品sku信息设置
+        Summary: 数字商品-IP授权交易-sku信息设置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_ip_sku_ex(request, headers, runtime)
+
+    async def set_ip_sku_async(
+        self,
+        request: baasdt_models.SetIpSkuRequest,
+    ) -> baasdt_models.SetIpSkuResponse:
+        """
+        Description: ip商品sku信息设置
+        Summary: 数字商品-IP授权交易-sku信息设置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_ip_sku_ex_async(request, headers, runtime)
+
+    def set_ip_sku_ex(
+        self,
+        request: baasdt_models.SetIpSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SetIpSkuResponse:
+        """
+        Description: ip商品sku信息设置
+        Summary: 数字商品-IP授权交易-sku信息设置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SetIpSkuResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.sku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_ip_sku_ex_async(
+        self,
+        request: baasdt_models.SetIpSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SetIpSkuResponse:
+        """
+        Description: ip商品sku信息设置
+        Summary: 数字商品-IP授权交易-sku信息设置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SetIpSkuResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.sku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_goodsupdate(
+        self,
+        request: baasdt_models.QueryIpGoodsupdateRequest,
+    ) -> baasdt_models.QueryIpGoodsupdateResponse:
+        """
+        Description: 查询商品基础信息的更新数据
+        Summary: 数字商品-IP授权交易-查询更新数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_goodsupdate_ex(request, headers, runtime)
+
+    async def query_ip_goodsupdate_async(
+        self,
+        request: baasdt_models.QueryIpGoodsupdateRequest,
+    ) -> baasdt_models.QueryIpGoodsupdateResponse:
+        """
+        Description: 查询商品基础信息的更新数据
+        Summary: 数字商品-IP授权交易-查询更新数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_goodsupdate_ex_async(request, headers, runtime)
+
+    def query_ip_goodsupdate_ex(
+        self,
+        request: baasdt_models.QueryIpGoodsupdateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpGoodsupdateResponse:
+        """
+        Description: 查询商品基础信息的更新数据
+        Summary: 数字商品-IP授权交易-查询更新数据
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpGoodsupdateResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.goodsupdate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_goodsupdate_ex_async(
+        self,
+        request: baasdt_models.QueryIpGoodsupdateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpGoodsupdateResponse:
+        """
+        Description: 查询商品基础信息的更新数据
+        Summary: 数字商品-IP授权交易-查询更新数据
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpGoodsupdateResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.goodsupdate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_ip_bill(
+        self,
+        request: baasdt_models.PagequeryIpBillRequest,
+    ) -> baasdt_models.PagequeryIpBillResponse:
+        """
+        Description: 查询账单信息，分页查询
+        Summary: 数字商品服务-IP授权服务-查询账单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_ip_bill_ex(request, headers, runtime)
+
+    async def pagequery_ip_bill_async(
+        self,
+        request: baasdt_models.PagequeryIpBillRequest,
+    ) -> baasdt_models.PagequeryIpBillResponse:
+        """
+        Description: 查询账单信息，分页查询
+        Summary: 数字商品服务-IP授权服务-查询账单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_ip_bill_ex_async(request, headers, runtime)
+
+    def pagequery_ip_bill_ex(
+        self,
+        request: baasdt_models.PagequeryIpBillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpBillResponse:
+        """
+        Description: 查询账单信息，分页查询
+        Summary: 数字商品服务-IP授权服务-查询账单列表
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpBillResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.bill.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_ip_bill_ex_async(
+        self,
+        request: baasdt_models.PagequeryIpBillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpBillResponse:
+        """
+        Description: 查询账单信息，分页查询
+        Summary: 数字商品服务-IP授权服务-查询账单列表
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpBillResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.bill.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_skuconfig(
+        self,
+        request: baasdt_models.QueryIpSkuconfigRequest,
+    ) -> baasdt_models.QueryIpSkuconfigResponse:
+        """
+        Description: ip商品某个渠道默认sku查询
+        Summary: 数字商品-IP授权交易-默认sku查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_skuconfig_ex(request, headers, runtime)
+
+    async def query_ip_skuconfig_async(
+        self,
+        request: baasdt_models.QueryIpSkuconfigRequest,
+    ) -> baasdt_models.QueryIpSkuconfigResponse:
+        """
+        Description: ip商品某个渠道默认sku查询
+        Summary: 数字商品-IP授权交易-默认sku查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_skuconfig_ex_async(request, headers, runtime)
+
+    def query_ip_skuconfig_ex(
+        self,
+        request: baasdt_models.QueryIpSkuconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpSkuconfigResponse:
+        """
+        Description: ip商品某个渠道默认sku查询
+        Summary: 数字商品-IP授权交易-默认sku查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpSkuconfigResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.skuconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_skuconfig_ex_async(
+        self,
+        request: baasdt_models.QueryIpSkuconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpSkuconfigResponse:
+        """
+        Description: ip商品某个渠道默认sku查询
+        Summary: 数字商品-IP授权交易-默认sku查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpSkuconfigResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.skuconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_ip_account(
+        self,
+        request: baasdt_models.ImportIpAccountRequest,
+    ) -> baasdt_models.ImportIpAccountResponse:
+        """
+        Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+        Summary: 数字商品服务-IP授权交易-版权方导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_ip_account_ex(request, headers, runtime)
+
+    async def import_ip_account_async(
+        self,
+        request: baasdt_models.ImportIpAccountRequest,
+    ) -> baasdt_models.ImportIpAccountResponse:
+        """
+        Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+        Summary: 数字商品服务-IP授权交易-版权方导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_ip_account_ex_async(request, headers, runtime)
+
+    def import_ip_account_ex(
+        self,
+        request: baasdt_models.ImportIpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ImportIpAccountResponse:
+        """
+        Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+        Summary: 数字商品服务-IP授权交易-版权方导入
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ImportIpAccountResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.account.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_ip_account_ex_async(
+        self,
+        request: baasdt_models.ImportIpAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ImportIpAccountResponse:
+        """
+        Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+        Summary: 数字商品服务-IP授权交易-版权方导入
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ImportIpAccountResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.account.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def remove_ip_sku(
+        self,
+        request: baasdt_models.RemoveIpSkuRequest,
+    ) -> baasdt_models.RemoveIpSkuResponse:
+        """
+        Description: 商品特定渠道的sku信息清空
+        Summary: 数字商品-IP授权交易-sku信息清空
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_ip_sku_ex(request, headers, runtime)
+
+    async def remove_ip_sku_async(
+        self,
+        request: baasdt_models.RemoveIpSkuRequest,
+    ) -> baasdt_models.RemoveIpSkuResponse:
+        """
+        Description: 商品特定渠道的sku信息清空
+        Summary: 数字商品-IP授权交易-sku信息清空
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.remove_ip_sku_ex_async(request, headers, runtime)
+
+    def remove_ip_sku_ex(
+        self,
+        request: baasdt_models.RemoveIpSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.RemoveIpSkuResponse:
+        """
+        Description: 商品特定渠道的sku信息清空
+        Summary: 数字商品-IP授权交易-sku信息清空
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.RemoveIpSkuResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def remove_ip_sku_ex_async(
+        self,
+        request: baasdt_models.RemoveIpSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.RemoveIpSkuResponse:
+        """
+        Description: 商品特定渠道的sku信息清空
+        Summary: 数字商品-IP授权交易-sku信息清空
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.RemoveIpSkuResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(

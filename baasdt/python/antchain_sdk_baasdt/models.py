@@ -1534,6 +1534,7 @@ class IpBasicInfo(TeaModel):
         copy_right_begin_time: int = None,
         account_id: str = None,
         copy_right_end_time: int = None,
+        account_name: str = None,
     ):
         # ip名字
         self.ip_name = ip_name
@@ -1589,6 +1590,8 @@ class IpBasicInfo(TeaModel):
         self.account_id = account_id
         # 资质生效的结束时间
         self.copy_right_end_time = copy_right_end_time
+        # 账户名称
+        self.account_name = account_name
 
     def validate(self):
         self.validate_required(self.ip_name, 'ip_name')
@@ -1662,6 +1665,8 @@ class IpBasicInfo(TeaModel):
             result['account_id'] = self.account_id
         if self.copy_right_end_time is not None:
             result['copy_right_end_time'] = self.copy_right_end_time
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
         return result
 
     def from_map(self, m: dict = None):
@@ -1715,6 +1720,8 @@ class IpBasicInfo(TeaModel):
             self.account_id = m.get('account_id')
         if m.get('copy_right_end_time') is not None:
             self.copy_right_end_time = m.get('copy_right_end_time')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
         return self
 
 
@@ -3434,6 +3441,134 @@ class IPMerchantApplyInfo(TeaModel):
         return self
 
 
+class IPBill(TeaModel):
+    def __init__(
+        self,
+        ip_order_id: str = None,
+        ip_bill_id: str = None,
+        biz_id: str = None,
+        seller_id: str = None,
+        buyer_id: str = None,
+        status: int = None,
+        create_time: int = None,
+        memo: str = None,
+        trade_type: int = None,
+        pay_url: str = None,
+        bill_pay_amount: str = None,
+        bill_sales: str = None,
+        cycle_start_time: int = None,
+        cycle_end_time: int = None,
+    ):
+        # 订单ID
+        self.ip_order_id = ip_order_id
+        # 账单ID
+        self.ip_bill_id = ip_bill_id
+        # 上传销售数据时的bizId
+        self.biz_id = biz_id
+        # 收款方
+        self.seller_id = seller_id
+        # 付款方
+        self.buyer_id = buyer_id
+        # 账单状态
+        self.status = status
+        # 账单创建时间，时间戳（毫秒）
+        self.create_time = create_time
+        # 备注信息
+        self.memo = memo
+        # 交易类型：0套餐交易，1定向授权
+        self.trade_type = trade_type
+        # 支付链接
+        self.pay_url = pay_url
+        # 账单金额，支付金额
+        self.bill_pay_amount = bill_pay_amount
+        # 销售金额
+        self.bill_sales = bill_sales
+        # 账单周期开始时间，时间戳（毫秒）
+        self.cycle_start_time = cycle_start_time
+        # 账单周期结束时间，时间戳（毫秒）
+        self.cycle_end_time = cycle_end_time
+
+    def validate(self):
+        self.validate_required(self.ip_order_id, 'ip_order_id')
+        self.validate_required(self.ip_bill_id, 'ip_bill_id')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.seller_id, 'seller_id')
+        self.validate_required(self.buyer_id, 'buyer_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.create_time, 'create_time')
+        self.validate_required(self.memo, 'memo')
+        self.validate_required(self.trade_type, 'trade_type')
+        self.validate_required(self.pay_url, 'pay_url')
+        self.validate_required(self.bill_pay_amount, 'bill_pay_amount')
+        self.validate_required(self.bill_sales, 'bill_sales')
+        self.validate_required(self.cycle_start_time, 'cycle_start_time')
+        self.validate_required(self.cycle_end_time, 'cycle_end_time')
+
+    def to_map(self):
+        result = dict()
+        if self.ip_order_id is not None:
+            result['ip_order_id'] = self.ip_order_id
+        if self.ip_bill_id is not None:
+            result['ip_bill_id'] = self.ip_bill_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.seller_id is not None:
+            result['seller_id'] = self.seller_id
+        if self.buyer_id is not None:
+            result['buyer_id'] = self.buyer_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.memo is not None:
+            result['memo'] = self.memo
+        if self.trade_type is not None:
+            result['trade_type'] = self.trade_type
+        if self.pay_url is not None:
+            result['pay_url'] = self.pay_url
+        if self.bill_pay_amount is not None:
+            result['bill_pay_amount'] = self.bill_pay_amount
+        if self.bill_sales is not None:
+            result['bill_sales'] = self.bill_sales
+        if self.cycle_start_time is not None:
+            result['cycle_start_time'] = self.cycle_start_time
+        if self.cycle_end_time is not None:
+            result['cycle_end_time'] = self.cycle_end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('ip_order_id') is not None:
+            self.ip_order_id = m.get('ip_order_id')
+        if m.get('ip_bill_id') is not None:
+            self.ip_bill_id = m.get('ip_bill_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('seller_id') is not None:
+            self.seller_id = m.get('seller_id')
+        if m.get('buyer_id') is not None:
+            self.buyer_id = m.get('buyer_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        if m.get('trade_type') is not None:
+            self.trade_type = m.get('trade_type')
+        if m.get('pay_url') is not None:
+            self.pay_url = m.get('pay_url')
+        if m.get('bill_pay_amount') is not None:
+            self.bill_pay_amount = m.get('bill_pay_amount')
+        if m.get('bill_sales') is not None:
+            self.bill_sales = m.get('bill_sales')
+        if m.get('cycle_start_time') is not None:
+            self.cycle_start_time = m.get('cycle_start_time')
+        if m.get('cycle_end_time') is not None:
+            self.cycle_end_time = m.get('cycle_end_time')
+        return self
+
+
 class CouponCollection(TeaModel):
     def __init__(
         self,
@@ -3554,7 +3689,19 @@ class IPOrder(TeaModel):
         operator: str = None,
         operator_name: str = None,
         status: int = None,
+        create_time: int = None,
         update_time: int = None,
+        charge_type: int = None,
+        auth_price: str = None,
+        guaranteed: bool = None,
+        guaranteed_amount: str = None,
+        guaranteed_goods_amount: int = None,
+        used_guaranteed_goods_amount: int = None,
+        guaranteed_sales: str = None,
+        used_guaranteed_sales: str = None,
+        auth_product_scope: str = None,
+        auth_area_scope: str = None,
+        sales_channel: str = None,
     ):
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -3598,8 +3745,33 @@ class IPOrder(TeaModel):
         self.operator_name = operator_name
         # 订单状态。TODO 补充枚举信息
         self.status = status
+        # 订单创建时间，时间戳（毫秒）
+        self.create_time = create_time
         # 订单最近更新时间
         self.update_time = update_time
+        # 收费模式：0 销售抽佣, 1 按量付费
+        self.charge_type = charge_type
+        # 按量付费的收费单价（按量付费模式必填）
+        self.auth_price = auth_price
+        # 是否有保底金
+        self.guaranteed = guaranteed
+        # 保底金金额
+        self.guaranteed_amount = guaranteed_amount
+        # 保底商品个数（按量付费）
+        self.guaranteed_goods_amount = guaranteed_goods_amount
+        # 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+        self.used_guaranteed_goods_amount = used_guaranteed_goods_amount
+        # 保底商品销售金额（销售抽佣）
+        self.guaranteed_sales = guaranteed_sales
+        # 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+        # 
+        self.used_guaranteed_sales = used_guaranteed_sales
+        # 授权产品范围
+        self.auth_product_scope = auth_product_scope
+        # 授权地域范围
+        self.auth_area_scope = auth_area_scope
+        # 商品销售渠道
+        self.sales_channel = sales_channel
 
     def validate(self):
         self.validate_required(self.ip_order_id, 'ip_order_id')
@@ -3623,7 +3795,19 @@ class IPOrder(TeaModel):
         self.validate_required(self.operator, 'operator')
         self.validate_required(self.operator_name, 'operator_name')
         self.validate_required(self.status, 'status')
+        self.validate_required(self.create_time, 'create_time')
         self.validate_required(self.update_time, 'update_time')
+        self.validate_required(self.charge_type, 'charge_type')
+        self.validate_required(self.auth_price, 'auth_price')
+        self.validate_required(self.guaranteed, 'guaranteed')
+        self.validate_required(self.guaranteed_amount, 'guaranteed_amount')
+        self.validate_required(self.guaranteed_goods_amount, 'guaranteed_goods_amount')
+        self.validate_required(self.used_guaranteed_goods_amount, 'used_guaranteed_goods_amount')
+        self.validate_required(self.guaranteed_sales, 'guaranteed_sales')
+        self.validate_required(self.used_guaranteed_sales, 'used_guaranteed_sales')
+        self.validate_required(self.auth_product_scope, 'auth_product_scope')
+        self.validate_required(self.auth_area_scope, 'auth_area_scope')
+        self.validate_required(self.sales_channel, 'sales_channel')
 
     def to_map(self):
         result = dict()
@@ -3669,8 +3853,32 @@ class IPOrder(TeaModel):
             result['operator_name'] = self.operator_name
         if self.status is not None:
             result['status'] = self.status
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
         if self.update_time is not None:
             result['update_time'] = self.update_time
+        if self.charge_type is not None:
+            result['charge_type'] = self.charge_type
+        if self.auth_price is not None:
+            result['auth_price'] = self.auth_price
+        if self.guaranteed is not None:
+            result['guaranteed'] = self.guaranteed
+        if self.guaranteed_amount is not None:
+            result['guaranteed_amount'] = self.guaranteed_amount
+        if self.guaranteed_goods_amount is not None:
+            result['guaranteed_goods_amount'] = self.guaranteed_goods_amount
+        if self.used_guaranteed_goods_amount is not None:
+            result['used_guaranteed_goods_amount'] = self.used_guaranteed_goods_amount
+        if self.guaranteed_sales is not None:
+            result['guaranteed_sales'] = self.guaranteed_sales
+        if self.used_guaranteed_sales is not None:
+            result['used_guaranteed_sales'] = self.used_guaranteed_sales
+        if self.auth_product_scope is not None:
+            result['auth_product_scope'] = self.auth_product_scope
+        if self.auth_area_scope is not None:
+            result['auth_area_scope'] = self.auth_area_scope
+        if self.sales_channel is not None:
+            result['sales_channel'] = self.sales_channel
         return result
 
     def from_map(self, m: dict = None):
@@ -3717,8 +3925,72 @@ class IPOrder(TeaModel):
             self.operator_name = m.get('operator_name')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
         if m.get('update_time') is not None:
             self.update_time = m.get('update_time')
+        if m.get('charge_type') is not None:
+            self.charge_type = m.get('charge_type')
+        if m.get('auth_price') is not None:
+            self.auth_price = m.get('auth_price')
+        if m.get('guaranteed') is not None:
+            self.guaranteed = m.get('guaranteed')
+        if m.get('guaranteed_amount') is not None:
+            self.guaranteed_amount = m.get('guaranteed_amount')
+        if m.get('guaranteed_goods_amount') is not None:
+            self.guaranteed_goods_amount = m.get('guaranteed_goods_amount')
+        if m.get('used_guaranteed_goods_amount') is not None:
+            self.used_guaranteed_goods_amount = m.get('used_guaranteed_goods_amount')
+        if m.get('guaranteed_sales') is not None:
+            self.guaranteed_sales = m.get('guaranteed_sales')
+        if m.get('used_guaranteed_sales') is not None:
+            self.used_guaranteed_sales = m.get('used_guaranteed_sales')
+        if m.get('auth_product_scope') is not None:
+            self.auth_product_scope = m.get('auth_product_scope')
+        if m.get('auth_area_scope') is not None:
+            self.auth_area_scope = m.get('auth_area_scope')
+        if m.get('sales_channel') is not None:
+            self.sales_channel = m.get('sales_channel')
+        return self
+
+
+class IpSkuEmphasisInfo(TeaModel):
+    def __init__(
+        self,
+        price_range: str = None,
+        purchase_price: str = None,
+        sale_num: str = None,
+    ):
+        # 价格区间，不做校验
+        self.price_range = price_range
+        # 单价
+        self.purchase_price = purchase_price
+        # 套餐数量
+        self.sale_num = sale_num
+
+    def validate(self):
+        self.validate_required(self.price_range, 'price_range')
+        self.validate_required(self.purchase_price, 'purchase_price')
+        self.validate_required(self.sale_num, 'sale_num')
+
+    def to_map(self):
+        result = dict()
+        if self.price_range is not None:
+            result['price_range'] = self.price_range
+        if self.purchase_price is not None:
+            result['purchase_price'] = self.purchase_price
+        if self.sale_num is not None:
+            result['sale_num'] = self.sale_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('price_range') is not None:
+            self.price_range = m.get('price_range')
+        if m.get('purchase_price') is not None:
+            self.purchase_price = m.get('purchase_price')
+        if m.get('sale_num') is not None:
+            self.sale_num = m.get('sale_num')
         return self
 
 
@@ -4262,6 +4534,7 @@ class IpEmphasisInfo(TeaModel):
         account_id: str = None,
         create_time: str = None,
         ip_name: str = None,
+        account_name: str = None,
     ):
         # ip的链上id
         self.ip_id = ip_id
@@ -4281,6 +4554,8 @@ class IpEmphasisInfo(TeaModel):
         self.create_time = create_time
         # ip名字
         self.ip_name = ip_name
+        # 商户名称
+        self.account_name = account_name
 
     def validate(self):
         self.validate_required(self.ip_id, 'ip_id')
@@ -4315,6 +4590,8 @@ class IpEmphasisInfo(TeaModel):
             result['create_time'] = self.create_time
         if self.ip_name is not None:
             result['ip_name'] = self.ip_name
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
         return result
 
     def from_map(self, m: dict = None):
@@ -4337,6 +4614,8 @@ class IpEmphasisInfo(TeaModel):
             self.create_time = m.get('create_time')
         if m.get('ip_name') is not None:
             self.ip_name = m.get('ip_name')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
         return self
 
 
@@ -4949,6 +5228,58 @@ class IpBasicInfoWithChannelInfo(TeaModel):
             for k in m.get('ip_channal_infos'):
                 temp_model = IpChannelWithSku()
                 self.ip_channal_infos.append(temp_model.from_map(k))
+        return self
+
+
+class IpAllInfo(TeaModel):
+    def __init__(
+        self,
+        ip_basic_info: IpBasicInfo = None,
+        ip_channal_info: List[IpChannelWithSku] = None,
+        is_update: bool = None,
+    ):
+        # ip的基础信息
+        self.ip_basic_info = ip_basic_info
+        # ip的渠道信息带上sku信息
+        self.ip_channal_info = ip_channal_info
+        # 是否有更新数据
+        self.is_update = is_update
+
+    def validate(self):
+        self.validate_required(self.ip_basic_info, 'ip_basic_info')
+        if self.ip_basic_info:
+            self.ip_basic_info.validate()
+        self.validate_required(self.ip_channal_info, 'ip_channal_info')
+        if self.ip_channal_info:
+            for k in self.ip_channal_info:
+                if k:
+                    k.validate()
+        self.validate_required(self.is_update, 'is_update')
+
+    def to_map(self):
+        result = dict()
+        if self.ip_basic_info is not None:
+            result['ip_basic_info'] = self.ip_basic_info.to_map()
+        result['ip_channal_info'] = []
+        if self.ip_channal_info is not None:
+            for k in self.ip_channal_info:
+                result['ip_channal_info'].append(k.to_map() if k else None)
+        if self.is_update is not None:
+            result['is_update'] = self.is_update
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('ip_basic_info') is not None:
+            temp_model = IpBasicInfo()
+            self.ip_basic_info = temp_model.from_map(m['ip_basic_info'])
+        self.ip_channal_info = []
+        if m.get('ip_channal_info') is not None:
+            for k in m.get('ip_channal_info'):
+                temp_model = IpChannelWithSku()
+                self.ip_channal_info.append(temp_model.from_map(k))
+        if m.get('is_update') is not None:
+            self.is_update = m.get('is_update')
         return self
 
 
@@ -5845,6 +6176,9 @@ class IPApplyInfo(TeaModel):
         phone_number: str = None,
         role: int = None,
         status: int = None,
+        external_user_id: str = None,
+        external_user_name: str = None,
+        apply_date: int = None,
     ):
         # 账户Id
         self.account_id = account_id
@@ -5860,6 +6194,12 @@ class IPApplyInfo(TeaModel):
         self.role = role
         # 状态
         self.status = status
+        # 用户的外系统识别Id
+        self.external_user_id = external_user_id
+        # 外部系统用户名
+        self.external_user_name = external_user_name
+        # 申请时间(毫秒时间戳)
+        self.apply_date = apply_date
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -5869,6 +6209,9 @@ class IPApplyInfo(TeaModel):
         self.validate_required(self.phone_number, 'phone_number')
         self.validate_required(self.role, 'role')
         self.validate_required(self.status, 'status')
+        self.validate_required(self.external_user_id, 'external_user_id')
+        self.validate_required(self.external_user_name, 'external_user_name')
+        self.validate_required(self.apply_date, 'apply_date')
 
     def to_map(self):
         result = dict()
@@ -5886,6 +6229,12 @@ class IPApplyInfo(TeaModel):
             result['role'] = self.role
         if self.status is not None:
             result['status'] = self.status
+        if self.external_user_id is not None:
+            result['external_user_id'] = self.external_user_id
+        if self.external_user_name is not None:
+            result['external_user_name'] = self.external_user_name
+        if self.apply_date is not None:
+            result['apply_date'] = self.apply_date
         return result
 
     def from_map(self, m: dict = None):
@@ -5904,6 +6253,12 @@ class IPApplyInfo(TeaModel):
             self.role = m.get('role')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('external_user_id') is not None:
+            self.external_user_id = m.get('external_user_id')
+        if m.get('external_user_name') is not None:
+            self.external_user_name = m.get('external_user_name')
+        if m.get('apply_date') is not None:
+            self.apply_date = m.get('apply_date')
         return self
 
 
@@ -6388,6 +6743,59 @@ class Merchant(TeaModel):
         return self
 
 
+class IPCodeScannedInfo(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        user_name: str = None,
+        phone_number: str = None,
+        gps: str = None,
+        timestamp: int = None,
+    ):
+        # 扫码用户的ID
+        self.user_id = user_id
+        # 扫码用户的名称
+        self.user_name = user_name
+        # 扫码用户的手机号
+        self.phone_number = phone_number
+        # 扫码用户的位置信息
+        self.gps = gps
+        # 扫码的时间(毫秒时间戳)
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.gps is not None:
+            result['gps'] = self.gps
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('gps') is not None:
+            self.gps = m.get('gps')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
 class User(TeaModel):
     def __init__(
         self,
@@ -6462,7 +6870,6 @@ class ExecCardCreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6512,8 +6919,9 @@ class ExecCardCreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 卡密ID
         self.card_id = card_id
@@ -6562,7 +6970,6 @@ class ExecCardQueryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6611,8 +7018,9 @@ class ExecCardQueryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 卡密信息对象
         self.card = card
@@ -6657,7 +7065,6 @@ class ExecCardBindnameRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6705,8 +7112,9 @@ class ExecCardBindnameResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -6743,7 +7151,6 @@ class ExecCardChargeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6791,8 +7198,9 @@ class ExecCardChargeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -6829,7 +7237,6 @@ class ExecCardWriteoffRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6877,8 +7284,9 @@ class ExecCardWriteoffResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -6915,7 +7323,6 @@ class ExecCardExpiredRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -6963,8 +7370,9 @@ class ExecCardExpiredResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7001,7 +7409,6 @@ class ExecCardForbiddenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -7049,8 +7456,9 @@ class ExecCardForbiddenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7087,7 +7495,6 @@ class ExecCardChargeresetRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -7135,8 +7542,9 @@ class ExecCardChargeresetResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7191,7 +7599,6 @@ class CreateConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权函地址
         self.authorization_address = authorization_address
@@ -7358,8 +7765,9 @@ class CreateConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户/机构的链上账户Id
         self.account_id = account_id
@@ -7402,7 +7810,6 @@ class OfflineConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -7449,8 +7856,9 @@ class OfflineConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7488,7 +7896,6 @@ class ReclaimConsumecardWalletRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 回退金额(元)
         self.amount = amount
@@ -7543,8 +7950,9 @@ class ReclaimConsumecardWalletResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7581,7 +7989,6 @@ class FreezeConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -7628,8 +8035,9 @@ class FreezeConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7666,7 +8074,6 @@ class UnfreezeConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -7713,8 +8120,9 @@ class UnfreezeConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7752,7 +8160,6 @@ class UpdateConsumecardRiskcontrolRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否加值(false为减)
         self.add = add
@@ -7807,8 +8214,9 @@ class UpdateConsumecardRiskcontrolResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -7845,7 +8253,6 @@ class QueryConsumecardBillRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -7894,8 +8301,9 @@ class QueryConsumecardBillResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 消费卡的单条交易记录数据
         self.block_instruction = block_instruction
@@ -7940,7 +8348,6 @@ class ChargeConsumecardWalletRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -7988,8 +8395,9 @@ class ChargeConsumecardWalletResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8037,7 +8445,6 @@ class UpdateConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权函地址
         self.authorization_address = authorization_address
@@ -8158,8 +8565,9 @@ class UpdateConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8209,7 +8617,6 @@ class CreateConsumecardBillRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8348,8 +8755,9 @@ class CreateConsumecardBillResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账单ID
         self.order_id = order_id
@@ -8394,7 +8802,6 @@ class ConfirmConsumecardBillcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8455,8 +8862,9 @@ class ConfirmConsumecardBillcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8494,7 +8902,6 @@ class CancelConsumecardBillRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8548,8 +8955,9 @@ class CancelConsumecardBillResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8588,7 +8996,6 @@ class ExecConsumecardBillpayRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8649,8 +9056,9 @@ class ExecConsumecardBillpayResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8689,7 +9097,6 @@ class ExecConsumecardOrderwriteoffRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8752,8 +9159,9 @@ class ExecConsumecardOrderwriteoffResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块高度
         self.block_number = block_number
@@ -8804,7 +9212,6 @@ class ConfirmConsumecardBillrefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否接受退款申请，true同意退款，false拒绝退款
         self.accept = accept
@@ -8865,8 +9272,9 @@ class ConfirmConsumecardBillrefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -8903,7 +9311,6 @@ class QueryConsumecardAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -8951,8 +9358,9 @@ class QueryConsumecardAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户信息
         self.account = account
@@ -8999,7 +9407,6 @@ class OpenConsumecardWalletRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9061,8 +9468,9 @@ class OpenConsumecardWalletResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9099,7 +9507,6 @@ class QueryConsumecardWalletRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9147,8 +9554,9 @@ class QueryConsumecardWalletResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 钱包信息数据
         self.wallet_info = wallet_info
@@ -9193,7 +9601,6 @@ class ExecConsumecardWalletchargetotokenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9243,8 +9650,9 @@ class ExecConsumecardWalletchargetotokenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块高度
         self.block_number = block_number
@@ -9293,7 +9701,6 @@ class ExecConsumecardWalletredeemtokenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9342,8 +9749,9 @@ class ExecConsumecardWalletredeemtokenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块高度
         self.block_number = block_number
@@ -9401,7 +9809,6 @@ class StartConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9513,8 +9920,9 @@ class StartConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易ID
         self.order_id = order_id
@@ -9558,7 +9966,6 @@ class CancelConsumecardBuyerpurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9612,8 +10019,9 @@ class CancelConsumecardBuyerpurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9651,7 +10059,6 @@ class ApplyConsumecardPurchaserefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9706,8 +10113,9 @@ class ApplyConsumecardPurchaserefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9745,7 +10153,6 @@ class ApplyConsumecardPurchasereplaceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9799,8 +10206,9 @@ class ApplyConsumecardPurchasereplaceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9838,7 +10246,6 @@ class ExecConsumecardPurchasereceiveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9892,8 +10299,9 @@ class ExecConsumecardPurchasereceiveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9931,7 +10339,6 @@ class RefuseConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -9985,8 +10392,9 @@ class RefuseConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10025,7 +10433,6 @@ class SetConsumecardPurchaserefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否同意退款。true同意，false拒绝。
         self.accept = accept
@@ -10086,8 +10493,9 @@ class SetConsumecardPurchaserefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10126,7 +10534,6 @@ class SetConsumecardPurchasereplaceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否同意换货。true同意，false拒绝
         self.accept = accept
@@ -10187,8 +10594,9 @@ class SetConsumecardPurchasereplaceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10226,7 +10634,6 @@ class ConfirmConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -10280,8 +10687,9 @@ class ConfirmConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10319,7 +10727,6 @@ class SendConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -10374,8 +10781,9 @@ class SendConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10413,7 +10821,6 @@ class ReplaceConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -10468,8 +10875,9 @@ class ReplaceConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -10521,7 +10929,6 @@ class CreateConsumecardGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商品授权类型
         self.auth_type = auth_type
@@ -10674,8 +11081,9 @@ class CreateConsumecardGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 异步发布商品返回的查询ID。使用该ID查询发布结果。
         self.request_id = request_id
@@ -10729,7 +11137,6 @@ class UpdateConsumecardGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -10855,8 +11262,9 @@ class UpdateConsumecardGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 异步更新商品信息，根据该ID查询更新结果
         self.request_id = request_id
@@ -10901,7 +11309,6 @@ class OpenConsumecardGoodstocustomRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -10963,8 +11370,9 @@ class OpenConsumecardGoodstocustomResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -11003,7 +11411,6 @@ class CreateConsumecardGoodscategoryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11065,8 +11472,9 @@ class CreateConsumecardGoodscategoryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -11105,7 +11513,6 @@ class SetConsumecardGoodscustompriceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11167,8 +11574,9 @@ class SetConsumecardGoodscustompriceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -11207,7 +11615,6 @@ class UploadConsumecardGoodsimageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -11268,8 +11675,9 @@ class UploadConsumecardGoodsimageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 临时可访问的url列表，过期时间2小时
         self.temporary_urls = temporary_urls
@@ -11320,7 +11728,6 @@ class ExecConsumecardOrdertrywithdrawRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11381,8 +11788,9 @@ class ExecConsumecardOrdertrywithdrawResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 试算总提现金额(单位:元,精确到分)
         self.withdraw_total_amount = withdraw_total_amount
@@ -11432,7 +11840,6 @@ class ExecConsumecardOrderwithdrawbyblocknumRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11488,8 +11895,9 @@ class ExecConsumecardOrderwithdrawbyblocknumResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 提现单编号(跟踪提现任务)
         self.withdraw_biz_id = withdraw_biz_id
@@ -11532,7 +11940,6 @@ class ExecConsumecardOrderwithdrawbyidsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11581,8 +11988,9 @@ class ExecConsumecardOrderwithdrawbyidsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 提现单编号(跟踪提现任务)
         self.withdraw_biz_id = withdraw_biz_id
@@ -11625,7 +12033,6 @@ class GetConsumecardOrderwithdrawresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11679,8 +12086,9 @@ class GetConsumecardOrderwithdrawresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 提现任务期望提现的金额(单位:元,精确到分)
         self.expected_withdraw_amount = expected_withdraw_amount
@@ -11753,7 +12161,6 @@ class QueryConsumecardWalletredeemableRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11801,8 +12208,9 @@ class QueryConsumecardWalletredeemableResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可回退的金额
         self.redeemable_amount = redeemable_amount
@@ -11845,7 +12253,6 @@ class QueryConsumecardGoodscreateresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11894,8 +12301,9 @@ class QueryConsumecardGoodscreateresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品ID
         self.goods_id = goods_id
@@ -11938,7 +12346,6 @@ class QueryConsumecardGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -11987,8 +12394,9 @@ class QueryConsumecardGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品信息
         self.goods = goods
@@ -12034,7 +12442,6 @@ class ApplyConsumecardBillrefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12088,8 +12495,9 @@ class ApplyConsumecardBillrefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -12126,7 +12534,6 @@ class QueryConsumecardPurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12175,8 +12582,9 @@ class QueryConsumecardPurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易信息
         self.block_instruction = block_instruction
@@ -12222,7 +12630,6 @@ class QueryConsumecardBlockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块高度
         self.block_number = block_number
@@ -12278,8 +12685,9 @@ class QueryConsumecardBlockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块信息
         self.block = block
@@ -12347,7 +12755,6 @@ class QueryConsumecardLastblocknumberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -12386,8 +12793,9 @@ class QueryConsumecardLastblocknumberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链最高区块高度
         self.block_number = block_number
@@ -12430,7 +12838,6 @@ class QueryConsumecardGoodsupdateresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 异步更新商品返回的查询ID。使用该ID查询更新结果。
         self.request_id = request_id
@@ -12478,8 +12885,9 @@ class QueryConsumecardGoodsupdateresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -12517,7 +12925,6 @@ class CancelConsumecardSellerpurchaseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12571,8 +12978,9 @@ class CancelConsumecardSellerpurchaseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -12613,7 +13021,6 @@ class SetConsumecardCommissionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12698,8 +13105,9 @@ class SetConsumecardCommissionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -12738,7 +13146,6 @@ class RemoveConsumecardCommissionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12800,8 +13207,9 @@ class RemoveConsumecardCommissionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -12840,7 +13248,6 @@ class QueryConsumecardCommissionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -12907,8 +13314,9 @@ class QueryConsumecardCommissionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 手续费规则结果
         self.commission_rules = commission_rules
@@ -12983,7 +13391,6 @@ class SetConsumecardCommissionmanagerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -13030,8 +13437,9 @@ class SetConsumecardCommissionmanagerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13069,7 +13477,6 @@ class SetConsumecardGoodsstatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -13124,8 +13531,9 @@ class SetConsumecardGoodsstatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13162,7 +13570,6 @@ class CreateConsumecardReceiptcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求对象
         self.base_request = base_request
@@ -13210,8 +13617,9 @@ class CreateConsumecardReceiptcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13248,7 +13656,6 @@ class RemoveConsumecardReceiptcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息对象
         self.base_request = base_request
@@ -13296,8 +13703,9 @@ class RemoveConsumecardReceiptcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13334,7 +13742,6 @@ class QueryConsumecardReceiptcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求对象
         self.base_request = base_request
@@ -13395,8 +13802,9 @@ class QueryConsumecardReceiptcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签约ID= platform_tenant_id+product_code+certification_id+sales_plan(分库分表路由)
         self.uid = uid
@@ -13528,7 +13936,6 @@ class CreateConsumecardBillingcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求结构
         self.base_request = base_request
@@ -13632,8 +14039,9 @@ class CreateConsumecardBillingcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13670,7 +14078,6 @@ class RemoveConsumecardBillingcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求对象
         self.base_request = base_request
@@ -13718,8 +14125,9 @@ class RemoveConsumecardBillingcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13756,7 +14164,6 @@ class QueryConsumecardBillingcontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求结构
         self.base_request = base_request
@@ -13813,8 +14220,9 @@ class QueryConsumecardBillingcontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 基础响应对象
         self.base_response = base_response
@@ -13910,7 +14318,6 @@ class AddConsumecardCommissionpartyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求对象
         self.base_request = base_request
@@ -13982,8 +14389,9 @@ class AddConsumecardCommissionpartyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14023,7 +14431,6 @@ class RemoveConsumecardCommissionpartyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求结构
         self.base_request = base_request
@@ -14092,8 +14499,9 @@ class RemoveConsumecardCommissionpartyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14134,7 +14542,6 @@ class AddConsumecardCommissionperiodRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础结构体
         self.base_request = base_request
@@ -14213,8 +14620,9 @@ class AddConsumecardCommissionperiodResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14255,7 +14663,6 @@ class RemoveConsumecardCommissionperiodRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求对象
         self.base_request = base_request
@@ -14331,8 +14738,9 @@ class RemoveConsumecardCommissionperiodResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14371,7 +14779,6 @@ class QueryConsumecardCounterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础结构体
         self.base_request = base_request
@@ -14439,8 +14846,9 @@ class QueryConsumecardCounterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询的类别（0 商家，1 商品）
         self.type = type
@@ -14528,7 +14936,6 @@ class SetConsumecardProductcodeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -14600,8 +15007,9 @@ class SetConsumecardProductcodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14637,7 +15045,6 @@ class QueryConsumecardProductcodeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要查询的租户信息，不传查全部信息
         self.tenant_id = tenant_id
@@ -14676,8 +15083,9 @@ class QueryConsumecardProductcodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 场景码配置信息列表
         self.product_code_infos = product_code_infos
@@ -14729,7 +15137,6 @@ class RemoveConsumecardProductcodeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -14782,8 +15189,9 @@ class RemoveConsumecardProductcodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14821,7 +15229,6 @@ class QueryConsumecardGoodsimageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -14874,8 +15281,9 @@ class QueryConsumecardGoodsimageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 图片的临时可访问url列表，url过期时间2小时
         self.temporary_urls = temporary_urls
@@ -14920,7 +15328,6 @@ class QueryCouponRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -14981,8 +15388,9 @@ class QueryCouponResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 电子券详细信息
         self.coupon = coupon
@@ -15034,7 +15442,6 @@ class CreateCouponRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15091,8 +15498,9 @@ class CreateCouponResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易块高
         self.block_number = block_number
@@ -15143,7 +15551,6 @@ class ExecCouponForbiddenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15203,8 +15610,9 @@ class ExecCouponForbiddenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15249,7 +15657,6 @@ class ExecCouponEnableRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15309,8 +15716,9 @@ class ExecCouponEnableResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15355,7 +15763,6 @@ class ExecCouponExpireRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15415,8 +15822,9 @@ class ExecCouponExpireResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15461,7 +15869,6 @@ class ExecCouponWriteoffRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15521,8 +15928,9 @@ class ExecCouponWriteoffResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15567,7 +15975,6 @@ class ExecCouponTimeoutRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15627,8 +16034,9 @@ class ExecCouponTimeoutResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15675,7 +16083,6 @@ class ExecCouponActivateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15748,8 +16155,9 @@ class ExecCouponActivateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15797,7 +16205,6 @@ class ExecCouponTransferRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -15878,8 +16285,9 @@ class ExecCouponTransferResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -15926,7 +16334,6 @@ class ExecCouponSignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16000,8 +16407,9 @@ class ExecCouponSignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -16050,7 +16458,6 @@ class ExecCouponBindRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16135,8 +16542,9 @@ class ExecCouponBindResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -16181,7 +16589,6 @@ class BatchcreateCouponRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16245,8 +16652,9 @@ class BatchcreateCouponResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易块高
         self.block_number = block_number
@@ -16296,7 +16704,6 @@ class CreateCouponListRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16359,8 +16766,9 @@ class CreateCouponListResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 电子券创建结果：电子券ID列表
         self.coupon_id_list = coupon_id_list
@@ -16415,7 +16823,6 @@ class CreateCouponCollectionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16503,8 +16910,9 @@ class CreateCouponCollectionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易区块高度
         self.block_number = block_number
@@ -16547,7 +16955,6 @@ class QueryCouponCollectionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16594,8 +17001,9 @@ class QueryCouponCollectionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 批次详情
         self.coupon_collection = coupon_collection
@@ -16646,7 +17054,6 @@ class QueryMerchantUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16692,8 +17099,9 @@ class QueryMerchantUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户完整信息
         # {
@@ -16749,7 +17157,6 @@ class CreateMerchantUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16807,8 +17214,9 @@ class CreateMerchantUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16846,7 +17254,6 @@ class QueryMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -16898,8 +17305,9 @@ class QueryMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商户完整信息
         # {
@@ -16969,7 +17377,6 @@ class UploadImageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -17029,8 +17436,9 @@ class UploadImageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 临时可访问的url，过期时间2小时
         self.temporary_url = temporary_url
@@ -17079,7 +17487,6 @@ class GetPkiPublickeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户管理员/其用户的链上账户ID
         self.account_id = account_id
@@ -17125,8 +17532,9 @@ class GetPkiPublickeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 公钥字符串（base64）
         self.public_key = public_key
@@ -17170,7 +17578,6 @@ class ExecPkiEncryptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户管理员/其用户的链上账户ID
         self.account_id = account_id
@@ -17223,8 +17630,9 @@ class ExecPkiEncryptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 密文 base64编码
         self.encrypted_content = encrypted_content
@@ -17268,7 +17676,6 @@ class ExecPkiDecryptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户管理员/其用户的链上账户ID
         self.account_id = account_id
@@ -17320,8 +17727,9 @@ class ExecPkiDecryptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 明文
         self.content = content
@@ -17366,7 +17774,6 @@ class UpdateMerchantFriendRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -17425,8 +17832,9 @@ class UpdateMerchantFriendResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17484,7 +17892,6 @@ class CreateEquityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权类型 0 Auto，1Contract
         self.auth_type = auth_type
@@ -17676,8 +18083,9 @@ class CreateEquityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 请求ID，用于查询异步发布权益结果
         self.create_equity_request_id = create_equity_request_id
@@ -17721,7 +18129,6 @@ class OfflineEquityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -17773,8 +18180,9 @@ class OfflineEquityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17812,7 +18220,6 @@ class FreezeEquityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -17864,8 +18271,9 @@ class FreezeEquityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17906,7 +18314,6 @@ class OpenEquityMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -17978,8 +18385,9 @@ class OpenEquityMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18021,7 +18429,6 @@ class AuthEquityMerchantuserpriceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户兑换价格（单位：元）。价格和比例二选一，且只能填写一个。
         self.amount = amount
@@ -18097,8 +18504,9 @@ class AuthEquityMerchantuserpriceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18138,7 +18546,6 @@ class UpdateEquityDefaultpriceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 价格
         self.amount = amount
@@ -18203,8 +18610,9 @@ class UpdateEquityDefaultpriceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18245,7 +18653,6 @@ class UpdateEquityTenantpriceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 价格（单位：元）
         self.amount = amount
@@ -18317,8 +18724,9 @@ class UpdateEquityTenantpriceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18358,7 +18766,6 @@ class AddEquityCountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 权益库存数量
         self.amount = amount
@@ -18423,8 +18830,9 @@ class AddEquityCountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18467,7 +18875,6 @@ class UpdateEquityExchangelimitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -18549,8 +18956,9 @@ class UpdateEquityExchangelimitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18593,7 +19001,6 @@ class UpdateEquityValidtimeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -18675,8 +19082,9 @@ class UpdateEquityValidtimeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18717,7 +19125,6 @@ class QueryEquityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -18788,8 +19195,9 @@ class QueryEquityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权益商品完整信息: equityType 权益类型：0积分，1卡券，2实物。 status 权益状态：0可用状态，1下线，2冻结。 authType 权益授权类型：0自动，1合约。
         # { "equity_id": "6041f851f4d", "tenant_id": "ZEJEZKUA", "admin_id": "ed7b3ac3c061", "equity_type": 1, "equity_name": "FDCardtest", "description": "FDCard", "total_count": "1000000", "status": 0, "auth_type": 0, "currency": "CNY", "value": "10.0000", "default_price": "1.0000", "images": "oss://myexchange/12593acf32dd6d4257fa0.jpeg", "desc_images": "", "memo": "", "is_public": true, "valid_not_before": 112692, "valid_not_after": 112654365244, "use_valid_not_before": 112612, "use_valid_not_after": 11265436524415235, "limit_per_user_and_day": 1000000, "limit_per_user_and_month": 100000, "limit_per_merchant_and_day": 1000000, "limit_per_merchant_and_month": 1000000, "equity_ext_info": { "open_to_tenant_id": "", "tenant_price": "", "tenant_user_price": { "snapshot_tenant_price": "", "user_price_type": 0, "price": "", "ratio": "" }, "target_date": "", "limit_per_day_used": 0, "limit_per_month_used": 0 } }
@@ -18850,7 +19258,6 @@ class ExecExchangeByuserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 资产ID
         self.asset_id = asset_id
@@ -18956,8 +19363,9 @@ class ExecExchangeByuserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19001,7 +19409,6 @@ class ExecExchangeBymerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 资产ID
         self.asset_id = asset_id
@@ -19094,8 +19501,9 @@ class ExecExchangeBymerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19136,7 +19544,6 @@ class ConfirmExchangeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19207,8 +19614,9 @@ class ConfirmExchangeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19249,7 +19657,6 @@ class ExecExchangeOutofstoreRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19321,8 +19728,9 @@ class ExecExchangeOutofstoreResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19363,7 +19771,6 @@ class SendExchangeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19434,8 +19841,9 @@ class SendExchangeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19476,7 +19884,6 @@ class ExecExchangeReceivebyuserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19548,8 +19955,9 @@ class ExecExchangeReceivebyuserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19591,7 +19999,6 @@ class ExecAssetExpireRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数量
         self.amount = amount
@@ -19670,8 +20077,9 @@ class ExecAssetExpireResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -19708,7 +20116,6 @@ class QueryAssetInstructionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19754,8 +20161,9 @@ class QueryAssetInstructionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 资产流水完整信息的json字符串。
         # direction 交易方向:：0正向交易，1反向交易。
@@ -19803,7 +20211,6 @@ class QueryExchangeInstructionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -19863,8 +20270,9 @@ class QueryExchangeInstructionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权益兑换流水完整信息
         self.instruction = instruction
@@ -19913,7 +20321,6 @@ class ExecAssetIssueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 充值数量
         self.amount = amount
@@ -19986,8 +20393,9 @@ class ExecAssetIssueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20028,7 +20436,6 @@ class ExecAssetRedeemRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 赎回数量
         self.amount = amount
@@ -20101,8 +20508,9 @@ class ExecAssetRedeemResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20145,7 +20553,6 @@ class ExecAssetGrantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数量
         self.amount = amount
@@ -20231,8 +20638,9 @@ class ExecAssetGrantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20274,7 +20682,6 @@ class ExecAssetGrantrefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数量
         self.amount = amount
@@ -20354,8 +20761,9 @@ class ExecAssetGrantrefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20396,7 +20804,6 @@ class ExecAssetAdjustRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 风控调整数量
         self.amount = amount
@@ -20468,8 +20875,9 @@ class ExecAssetAdjustResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20508,7 +20916,6 @@ class QueryAssetRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 资产ID
         self.asset_id = asset_id
@@ -20566,8 +20973,9 @@ class QueryAssetResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 资产完整信息
         # {
@@ -20635,7 +21043,6 @@ class ExecExchangeReceivebymerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -20700,8 +21107,9 @@ class ExecExchangeReceivebymerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -20738,7 +21146,6 @@ class QueryBlockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链高度
         self.block_number = block_number
@@ -20788,8 +21195,9 @@ class QueryBlockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块信息
         self.block = block
@@ -20857,7 +21265,6 @@ class QueryBlockLastblocknumberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -20896,8 +21303,9 @@ class QueryBlockLastblocknumberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 最新区块高度
         self.last_block_number = last_block_number
@@ -20962,7 +21370,6 @@ class UpdateEquityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权类型：0 Auto，1 Contract。不可修改，如需修改需重新发布商品
         self.auth_type = auth_type
@@ -21159,8 +21566,9 @@ class UpdateEquityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -21198,7 +21606,6 @@ class QueryEquityCreateresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21250,8 +21657,9 @@ class QueryEquityCreateresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权益商品创建成功，返回权益ID
         self.equity_id = equity_id
@@ -21297,7 +21705,6 @@ class QueryEquityInstructionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21363,8 +21770,9 @@ class QueryEquityInstructionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品兑换流水信息
         self.instruction = instruction
@@ -21408,7 +21816,6 @@ class QueryImageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要查询的图片数组，填入不可访问的url
         self.urls = urls
@@ -21447,8 +21854,9 @@ class QueryImageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 临时可访问的oss图片链接，每张图片会返回四个url，对应原图和不同的比例缩小，每一张图片的四个url用;隔开。
         self.urls = urls
@@ -21502,7 +21910,6 @@ class UpdateEquityStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21567,8 +21974,9 @@ class UpdateEquityStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -21613,7 +22021,6 @@ class SetMerchantProvisionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21708,8 +22115,9 @@ class SetMerchantProvisionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -21752,7 +22160,6 @@ class UpdateMerchantProvisionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21836,8 +22243,9 @@ class UpdateMerchantProvisionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -21877,7 +22285,6 @@ class ExecEquityInstructionwriteoffRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -21942,8 +22349,9 @@ class ExecEquityInstructionwriteoffResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -21981,7 +22389,6 @@ class QueryMerchantProvisionsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 行为
         self.business_action = business_action
@@ -22034,8 +22441,9 @@ class QueryMerchantProvisionsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户的备付金列表信息
         self.discrete_values = discrete_values
@@ -22087,7 +22495,6 @@ class QueryMerchantExchangeableequitylistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -22139,8 +22546,9 @@ class QueryMerchantExchangeableequitylistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可兑换商品信息列表
         self.object = object
@@ -22185,7 +22593,6 @@ class QueryMerchantExchangeableequitydetailRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -22231,8 +22638,9 @@ class QueryMerchantExchangeableequitydetailResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可兑换的商品详情信息
         self.equity = equity
@@ -22282,7 +22690,6 @@ class ExecAssetCreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 资产ID
         self.asset_id = asset_id
@@ -22362,8 +22769,9 @@ class ExecAssetCreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -22402,7 +22810,6 @@ class ExecAssetGenerateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 铸币数量
         self.amount = amount
@@ -22461,8 +22868,9 @@ class ExecAssetGenerateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -22505,7 +22913,6 @@ class CreateMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -22591,8 +22998,9 @@ class CreateMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -22631,7 +23039,6 @@ class SetMerchantFundmanagerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 外部交易ID
         self.out_tx_id = out_tx_id
@@ -22690,8 +23097,9 @@ class SetMerchantFundmanagerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -22730,7 +23138,6 @@ class CreateMerchantProvisionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 外部交易ID，确保幂等
         self.out_tx_id = out_tx_id
@@ -22789,8 +23196,9 @@ class CreateMerchantProvisionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -22826,7 +23234,6 @@ class QueryConfigDelegaterelationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被代理的租户ID
         self.delegated_tenant_id = delegated_tenant_id
@@ -22865,8 +23272,9 @@ class QueryConfigDelegaterelationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 代理授权关系信息
         self.delegate_relation_infos = delegate_relation_infos
@@ -22918,7 +23326,6 @@ class UpdateConfigDelegaterelationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被代理的租户ID
         self.delegated_tenant_id = delegated_tenant_id
@@ -22970,8 +23377,9 @@ class UpdateConfigDelegaterelationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23008,7 +23416,6 @@ class QueryConfigWhitelistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询链的白名单信息
         self.chain_id = chain_id
@@ -23053,8 +23460,9 @@ class QueryConfigWhitelistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 接口白名单信息
         self.white_list = white_list
@@ -23106,7 +23514,6 @@ class UpdateConfigWhitelistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -23158,8 +23565,9 @@ class UpdateConfigWhitelistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23199,7 +23607,6 @@ class ApplyExchangeAftersaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.chain_id = chain_id
@@ -23264,8 +23671,9 @@ class ApplyExchangeAftersaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23306,7 +23714,6 @@ class ExecExchangeAgreeaftersaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.chain_id = chain_id
@@ -23377,8 +23784,9 @@ class ExecExchangeAgreeaftersaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23419,7 +23827,6 @@ class RefuseExchangeAftersaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # l链id
         self.chain_id = chain_id
@@ -23490,8 +23897,9 @@ class RefuseExchangeAftersaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23532,7 +23940,6 @@ class SendExchangeAftersaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.chain_id = chain_id
@@ -23603,8 +24010,9 @@ class SendExchangeAftersaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23644,7 +24052,6 @@ class ConfirmExchangeAftersaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.chain_id = chain_id
@@ -23709,8 +24116,9 @@ class ConfirmExchangeAftersaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -23747,7 +24155,6 @@ class ExecDataDepositRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -23796,8 +24203,9 @@ class ExecDataDepositResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证交易哈希
         self.tx_hash = tx_hash
@@ -23844,7 +24252,6 @@ class SetCommissionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -23925,8 +24332,9 @@ class SetCommissionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 手续费ID
         self.commission_id = commission_id
@@ -23972,7 +24380,6 @@ class QueryCommissionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -24039,8 +24446,9 @@ class QueryCommissionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 手续费信息列表
         self.commissions = commissions
@@ -24092,7 +24500,6 @@ class SetCommissionMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 收取手续费的商户对应的租户ID
         self.opt_tenant_id = opt_tenant_id
@@ -24144,8 +24551,9 @@ class SetCommissionMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -24181,7 +24589,6 @@ class QueryCommissionMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -24220,8 +24627,9 @@ class QueryCommissionMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 收取手续费的商户 租户ID
         self.tenant_id = tenant_id
@@ -24265,7 +24673,6 @@ class CreateConfigChainaccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -24321,8 +24728,9 @@ class CreateConfigChainaccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户ID
         self.tenant_id = tenant_id
@@ -24388,10 +24796,12 @@ class StartIpPackagetradeRequest(TeaModel):
         auth_begin_time: int = None,
         auth_end_time: int = None,
         memo: str = None,
+        auth_product_scope: str = None,
+        auth_area_scope: str = None,
+        sales_channel: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
@@ -24413,6 +24823,12 @@ class StartIpPackagetradeRequest(TeaModel):
         self.auth_end_time = auth_end_time
         # 备注信息
         self.memo = memo
+        # 授权产品范围
+        self.auth_product_scope = auth_product_scope
+        # 授权地域范围
+        self.auth_area_scope = auth_area_scope
+        # 商品销售渠道
+        self.sales_channel = sales_channel
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -24454,6 +24870,12 @@ class StartIpPackagetradeRequest(TeaModel):
             result['auth_end_time'] = self.auth_end_time
         if self.memo is not None:
             result['memo'] = self.memo
+        if self.auth_product_scope is not None:
+            result['auth_product_scope'] = self.auth_product_scope
+        if self.auth_area_scope is not None:
+            result['auth_area_scope'] = self.auth_area_scope
+        if self.sales_channel is not None:
+            result['sales_channel'] = self.sales_channel
         return result
 
     def from_map(self, m: dict = None):
@@ -24483,6 +24905,12 @@ class StartIpPackagetradeRequest(TeaModel):
             self.auth_end_time = m.get('auth_end_time')
         if m.get('memo') is not None:
             self.memo = m.get('memo')
+        if m.get('auth_product_scope') is not None:
+            self.auth_product_scope = m.get('auth_product_scope')
+        if m.get('auth_area_scope') is not None:
+            self.auth_area_scope = m.get('auth_area_scope')
+        if m.get('sales_channel') is not None:
+            self.sales_channel = m.get('sales_channel')
         return self
 
 
@@ -24498,8 +24926,9 @@ class StartIpPackagetradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -24556,7 +24985,6 @@ class CancelIpPackagetradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -24617,8 +25045,9 @@ class CancelIpPackagetradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -24657,7 +25086,6 @@ class UploadIpPackagetradesalesRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -24728,8 +25156,9 @@ class UploadIpPackagetradesalesResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -24764,16 +25193,24 @@ class StartIpAuthtradeRequest(TeaModel):
         base_request: BaseRequestInfo = None,
         account_id: str = None,
         ip_id: str = None,
+        charge_type: int = None,
         auth_rate: str = None,
+        auth_price: str = None,
         auth_begin_time: int = None,
         auth_end_time: int = None,
         contract: str = None,
         design_draft: str = None,
+        auth_product_scope: str = None,
+        auth_area_scope: str = None,
+        sales_channel: str = None,
         memo: str = None,
+        guaranteed: bool = None,
+        guaranteed_fund: str = None,
+        guaranteed_goods_amount: int = None,
+        guaranteed_sales: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -24781,8 +25218,12 @@ class StartIpAuthtradeRequest(TeaModel):
         self.account_id = account_id
         # IP ID
         self.ip_id = ip_id
+        # 收费模式：0 销售抽佣, 1 按量付费
+        self.charge_type = charge_type
         # 授权计费比例
         self.auth_rate = auth_rate
+        # 按量付费的收费单价（按量付费模式必填）
+        self.auth_price = auth_price
         # 授权合作开始期限（毫秒时间戳）
         self.auth_begin_time = auth_begin_time
         # 授权合作结束期限（毫秒时间戳）
@@ -24791,8 +25232,22 @@ class StartIpAuthtradeRequest(TeaModel):
         self.contract = contract
         # 设计稿（文件URL）
         self.design_draft = design_draft
+        # 授权产品范围
+        self.auth_product_scope = auth_product_scope
+        # 授权地域范围
+        self.auth_area_scope = auth_area_scope
+        # 商品销售渠道
+        self.sales_channel = sales_channel
         # 备注消息(不超过256个字符)
         self.memo = memo
+        # 是否有保底金
+        self.guaranteed = guaranteed
+        # 支付的保底金金额
+        self.guaranteed_fund = guaranteed_fund
+        # 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+        self.guaranteed_goods_amount = guaranteed_goods_amount
+        # 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+        self.guaranteed_sales = guaranteed_sales
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -24800,12 +25255,11 @@ class StartIpAuthtradeRequest(TeaModel):
             self.base_request.validate()
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.ip_id, 'ip_id')
-        self.validate_required(self.auth_rate, 'auth_rate')
         self.validate_required(self.auth_begin_time, 'auth_begin_time')
         self.validate_required(self.auth_end_time, 'auth_end_time')
         self.validate_required(self.contract, 'contract')
-        self.validate_required(self.design_draft, 'design_draft')
         self.validate_required(self.memo, 'memo')
+        self.validate_required(self.guaranteed, 'guaranteed')
 
     def to_map(self):
         result = dict()
@@ -24819,8 +25273,12 @@ class StartIpAuthtradeRequest(TeaModel):
             result['account_id'] = self.account_id
         if self.ip_id is not None:
             result['ip_id'] = self.ip_id
+        if self.charge_type is not None:
+            result['charge_type'] = self.charge_type
         if self.auth_rate is not None:
             result['auth_rate'] = self.auth_rate
+        if self.auth_price is not None:
+            result['auth_price'] = self.auth_price
         if self.auth_begin_time is not None:
             result['auth_begin_time'] = self.auth_begin_time
         if self.auth_end_time is not None:
@@ -24829,8 +25287,22 @@ class StartIpAuthtradeRequest(TeaModel):
             result['contract'] = self.contract
         if self.design_draft is not None:
             result['design_draft'] = self.design_draft
+        if self.auth_product_scope is not None:
+            result['auth_product_scope'] = self.auth_product_scope
+        if self.auth_area_scope is not None:
+            result['auth_area_scope'] = self.auth_area_scope
+        if self.sales_channel is not None:
+            result['sales_channel'] = self.sales_channel
         if self.memo is not None:
             result['memo'] = self.memo
+        if self.guaranteed is not None:
+            result['guaranteed'] = self.guaranteed
+        if self.guaranteed_fund is not None:
+            result['guaranteed_fund'] = self.guaranteed_fund
+        if self.guaranteed_goods_amount is not None:
+            result['guaranteed_goods_amount'] = self.guaranteed_goods_amount
+        if self.guaranteed_sales is not None:
+            result['guaranteed_sales'] = self.guaranteed_sales
         return result
 
     def from_map(self, m: dict = None):
@@ -24846,8 +25318,12 @@ class StartIpAuthtradeRequest(TeaModel):
             self.account_id = m.get('account_id')
         if m.get('ip_id') is not None:
             self.ip_id = m.get('ip_id')
+        if m.get('charge_type') is not None:
+            self.charge_type = m.get('charge_type')
         if m.get('auth_rate') is not None:
             self.auth_rate = m.get('auth_rate')
+        if m.get('auth_price') is not None:
+            self.auth_price = m.get('auth_price')
         if m.get('auth_begin_time') is not None:
             self.auth_begin_time = m.get('auth_begin_time')
         if m.get('auth_end_time') is not None:
@@ -24856,8 +25332,22 @@ class StartIpAuthtradeRequest(TeaModel):
             self.contract = m.get('contract')
         if m.get('design_draft') is not None:
             self.design_draft = m.get('design_draft')
+        if m.get('auth_product_scope') is not None:
+            self.auth_product_scope = m.get('auth_product_scope')
+        if m.get('auth_area_scope') is not None:
+            self.auth_area_scope = m.get('auth_area_scope')
+        if m.get('sales_channel') is not None:
+            self.sales_channel = m.get('sales_channel')
         if m.get('memo') is not None:
             self.memo = m.get('memo')
+        if m.get('guaranteed') is not None:
+            self.guaranteed = m.get('guaranteed')
+        if m.get('guaranteed_fund') is not None:
+            self.guaranteed_fund = m.get('guaranteed_fund')
+        if m.get('guaranteed_goods_amount') is not None:
+            self.guaranteed_goods_amount = m.get('guaranteed_goods_amount')
+        if m.get('guaranteed_sales') is not None:
+            self.guaranteed_sales = m.get('guaranteed_sales')
         return self
 
 
@@ -24868,14 +25358,21 @@ class StartIpAuthtradeResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         ip_order_id: str = None,
+        pay_url: str = None,
+        ip_bill_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 订单ID
         self.ip_order_id = ip_order_id
+        # 保底金支付链接
+        self.pay_url = pay_url
+        # 保底金账单ID
+        self.ip_bill_id = ip_bill_id
 
     def validate(self):
         pass
@@ -24890,6 +25387,10 @@ class StartIpAuthtradeResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.ip_order_id is not None:
             result['ip_order_id'] = self.ip_order_id
+        if self.pay_url is not None:
+            result['pay_url'] = self.pay_url
+        if self.ip_bill_id is not None:
+            result['ip_bill_id'] = self.ip_bill_id
         return result
 
     def from_map(self, m: dict = None):
@@ -24902,6 +25403,10 @@ class StartIpAuthtradeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('ip_order_id') is not None:
             self.ip_order_id = m.get('ip_order_id')
+        if m.get('pay_url') is not None:
+            self.pay_url = m.get('pay_url')
+        if m.get('ip_bill_id') is not None:
+            self.ip_bill_id = m.get('ip_bill_id')
         return self
 
 
@@ -24915,18 +25420,23 @@ class UploadIpAuthtradesalesRequest(TeaModel):
         ip_order_id: str = None,
         only_call_blockchain: bool = None,
         auth_rate: str = None,
+        auth_price: str = None,
         settlement_begin_time: int = None,
         settlement_end_time: int = None,
+        price: str = None,
         amount: int = None,
         sales: str = None,
         payment: str = None,
+        goods_name: str = None,
+        goods_image: str = None,
+        sales_channel: str = None,
+        goods_url: str = None,
         goods_info: str = None,
         operator: str = None,
         memo: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -24938,16 +25448,28 @@ class UploadIpAuthtradesalesRequest(TeaModel):
         self.only_call_blockchain = only_call_blockchain
         # 授权佣金比例
         self.auth_rate = auth_rate
+        # 定向授权按量付费单价
+        self.auth_price = auth_price
         # 本次结算周期开始时间
         self.settlement_begin_time = settlement_begin_time
         # 本次结算周期结束时间
         self.settlement_end_time = settlement_end_time
+        # 零售价
+        self.price = price
         # 终端商品销售数量
         self.amount = amount
         # 销售金额
         self.sales = sales
         # 实付金额
         self.payment = payment
+        # 终端商品名称
+        self.goods_name = goods_name
+        # 终端商品图片
+        self.goods_image = goods_image
+        # 终端销售渠道
+        self.sales_channel = sales_channel
+        # 终端商品链接
+        self.goods_url = goods_url
         # 商品信息
         self.goods_info = goods_info
         # 数据上传操作者
@@ -24962,12 +25484,13 @@ class UploadIpAuthtradesalesRequest(TeaModel):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.ip_order_id, 'ip_order_id')
         self.validate_required(self.only_call_blockchain, 'only_call_blockchain')
-        self.validate_required(self.auth_rate, 'auth_rate')
         self.validate_required(self.settlement_begin_time, 'settlement_begin_time')
         self.validate_required(self.settlement_end_time, 'settlement_end_time')
+        self.validate_required(self.price, 'price')
         self.validate_required(self.amount, 'amount')
         self.validate_required(self.sales, 'sales')
         self.validate_required(self.payment, 'payment')
+        self.validate_required(self.goods_name, 'goods_name')
         self.validate_required(self.goods_info, 'goods_info')
         self.validate_required(self.operator, 'operator')
 
@@ -24987,16 +25510,28 @@ class UploadIpAuthtradesalesRequest(TeaModel):
             result['only_call_blockchain'] = self.only_call_blockchain
         if self.auth_rate is not None:
             result['auth_rate'] = self.auth_rate
+        if self.auth_price is not None:
+            result['auth_price'] = self.auth_price
         if self.settlement_begin_time is not None:
             result['settlement_begin_time'] = self.settlement_begin_time
         if self.settlement_end_time is not None:
             result['settlement_end_time'] = self.settlement_end_time
+        if self.price is not None:
+            result['price'] = self.price
         if self.amount is not None:
             result['amount'] = self.amount
         if self.sales is not None:
             result['sales'] = self.sales
         if self.payment is not None:
             result['payment'] = self.payment
+        if self.goods_name is not None:
+            result['goods_name'] = self.goods_name
+        if self.goods_image is not None:
+            result['goods_image'] = self.goods_image
+        if self.sales_channel is not None:
+            result['sales_channel'] = self.sales_channel
+        if self.goods_url is not None:
+            result['goods_url'] = self.goods_url
         if self.goods_info is not None:
             result['goods_info'] = self.goods_info
         if self.operator is not None:
@@ -25022,16 +25557,28 @@ class UploadIpAuthtradesalesRequest(TeaModel):
             self.only_call_blockchain = m.get('only_call_blockchain')
         if m.get('auth_rate') is not None:
             self.auth_rate = m.get('auth_rate')
+        if m.get('auth_price') is not None:
+            self.auth_price = m.get('auth_price')
         if m.get('settlement_begin_time') is not None:
             self.settlement_begin_time = m.get('settlement_begin_time')
         if m.get('settlement_end_time') is not None:
             self.settlement_end_time = m.get('settlement_end_time')
+        if m.get('price') is not None:
+            self.price = m.get('price')
         if m.get('amount') is not None:
             self.amount = m.get('amount')
         if m.get('sales') is not None:
             self.sales = m.get('sales')
         if m.get('payment') is not None:
             self.payment = m.get('payment')
+        if m.get('goods_name') is not None:
+            self.goods_name = m.get('goods_name')
+        if m.get('goods_image') is not None:
+            self.goods_image = m.get('goods_image')
+        if m.get('sales_channel') is not None:
+            self.sales_channel = m.get('sales_channel')
+        if m.get('goods_url') is not None:
+            self.goods_url = m.get('goods_url')
         if m.get('goods_info') is not None:
             self.goods_info = m.get('goods_info')
         if m.get('operator') is not None:
@@ -25052,8 +25599,9 @@ class UploadIpAuthtradesalesResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 支付信息
         self.pay_url = pay_url
@@ -25104,7 +25652,6 @@ class CancelIpAuthtradebillRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -25165,8 +25712,9 @@ class CancelIpAuthtradebillResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -25203,7 +25751,6 @@ class QueryIpBillstatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -25252,8 +25799,9 @@ class QueryIpBillstatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易状态
         # (1: "交易创建,等待买家付款"),
@@ -25302,6 +25850,8 @@ class QueryIpOrderlistRequest(TeaModel):
         order_status: int = None,
         ip_name: str = None,
         seller_name: str = None,
+        trade_type: int = None,
+        charge_type: int = None,
         auth_start_time: int = None,
         auth_end_time: int = None,
         order_by: str = None,
@@ -25311,7 +25861,6 @@ class QueryIpOrderlistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -25329,13 +25878,17 @@ class QueryIpOrderlistRequest(TeaModel):
         self.ip_name = ip_name
         # 卖方名称，根据卖方名称模糊查询
         self.seller_name = seller_name
+        # 交易类型：1 套餐交易， 2 定向授权
+        self.trade_type = trade_type
+        # 收费模式：0 销售抽拥，1 按量计费
+        self.charge_type = charge_type
         # 查询订单授权开始时间
         self.auth_start_time = auth_start_time
         # 查询订单授权结束时间
         self.auth_end_time = auth_end_time
         # 排序字段
         self.order_by = order_by
-        # 正序还是倒叙
+        # 数据排序顺序：正序还是倒序
         self.order = order
         # 页码
         self.page_number = page_number
@@ -25373,6 +25926,10 @@ class QueryIpOrderlistRequest(TeaModel):
             result['ip_name'] = self.ip_name
         if self.seller_name is not None:
             result['seller_name'] = self.seller_name
+        if self.trade_type is not None:
+            result['trade_type'] = self.trade_type
+        if self.charge_type is not None:
+            result['charge_type'] = self.charge_type
         if self.auth_start_time is not None:
             result['auth_start_time'] = self.auth_start_time
         if self.auth_end_time is not None:
@@ -25410,6 +25967,10 @@ class QueryIpOrderlistRequest(TeaModel):
             self.ip_name = m.get('ip_name')
         if m.get('seller_name') is not None:
             self.seller_name = m.get('seller_name')
+        if m.get('trade_type') is not None:
+            self.trade_type = m.get('trade_type')
+        if m.get('charge_type') is not None:
+            self.charge_type = m.get('charge_type')
         if m.get('auth_start_time') is not None:
             self.auth_start_time = m.get('auth_start_time')
         if m.get('auth_end_time') is not None:
@@ -25441,8 +26002,9 @@ class QueryIpOrderlistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 页码
         self.page_number = page_number
@@ -25547,7 +26109,6 @@ class CreateIpGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -25731,8 +26292,9 @@ class CreateIpGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip的链上id
         self.ip_id = ip_id
@@ -25779,7 +26341,6 @@ class AddIpChannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -25855,8 +26416,9 @@ class AddIpChannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -25893,7 +26455,6 @@ class QueryIpOrderinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求参数
         self.base_request = base_request
@@ -25943,8 +26504,9 @@ class QueryIpOrderinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 订单信息
         self.ip_order = ip_order
@@ -26014,7 +26576,6 @@ class BatchqueryIpGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
@@ -26133,8 +26694,9 @@ class BatchqueryIpGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip重要信息
         self.ip_list = ip_list
@@ -26192,7 +26754,6 @@ class QueryIpGoodsdetailwithchannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础结构
         self.base_request = base_request
@@ -26248,8 +26809,9 @@ class QueryIpGoodsdetailwithchannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip的信息详情
         self.ips = ips
@@ -26300,7 +26862,6 @@ class QueryIpDetailRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -26349,8 +26910,9 @@ class QueryIpDetailResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip的信息列表
         self.ips = ips
@@ -26416,10 +26978,10 @@ class UpdateIpGoodsRequest(TeaModel):
         memo: str = None,
         copy_right_begin_time: int = None,
         copy_right_end_time: int = None,
+        need_approval: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -26469,6 +27031,8 @@ class UpdateIpGoodsRequest(TeaModel):
         self.copy_right_begin_time = copy_right_begin_time
         # 资质生效的结束时间
         self.copy_right_end_time = copy_right_end_time
+        # 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+        self.need_approval = need_approval
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -26538,6 +27102,8 @@ class UpdateIpGoodsRequest(TeaModel):
             result['copy_right_begin_time'] = self.copy_right_begin_time
         if self.copy_right_end_time is not None:
             result['copy_right_end_time'] = self.copy_right_end_time
+        if self.need_approval is not None:
+            result['need_approval'] = self.need_approval
         return result
 
     def from_map(self, m: dict = None):
@@ -26590,6 +27156,8 @@ class UpdateIpGoodsRequest(TeaModel):
             self.copy_right_begin_time = m.get('copy_right_begin_time')
         if m.get('copy_right_end_time') is not None:
             self.copy_right_end_time = m.get('copy_right_end_time')
+        if m.get('need_approval') is not None:
+            self.need_approval = m.get('need_approval')
         return self
 
 
@@ -26602,8 +27170,9 @@ class UpdateIpGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -26644,7 +27213,6 @@ class UpdateIpChannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -26720,8 +27288,9 @@ class UpdateIpChannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -26759,7 +27328,6 @@ class OnlineIpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -26814,8 +27382,9 @@ class OnlineIpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -26853,7 +27422,6 @@ class OfflineIpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ip基础信息
         self.base_request = base_request
@@ -26908,8 +27476,9 @@ class OfflineIpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -26948,7 +27517,6 @@ class CreateIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
@@ -27011,8 +27579,9 @@ class CreateIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建成功后, 为该用户生成的链上账户Id
         self.account_id = account_id
@@ -27055,7 +27624,6 @@ class FreezeIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
@@ -27103,8 +27671,9 @@ class FreezeIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27141,7 +27710,6 @@ class UnfreezeIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础请求参数
         self.base_request = base_request
@@ -27189,8 +27757,9 @@ class UnfreezeIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27227,7 +27796,6 @@ class QueryIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -27279,8 +27847,9 @@ class QueryIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 该用户的在外部系统的用户Id
         self.external_user_id = external_user_id
@@ -27358,7 +27927,6 @@ class ApplyIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -27517,8 +28085,9 @@ class ApplyIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27555,7 +28124,6 @@ class CheckIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -27606,8 +28174,9 @@ class CheckIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 申请状态(0:运营审核中, 1:运营审核失败, 2:进件审核中, 3:进件审核失败, 4:进件审核成功)
         self.status = status
@@ -27664,7 +28233,6 @@ class ConfirmIpGoodsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
@@ -27726,8 +28294,9 @@ class ConfirmIpGoodsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27774,7 +28343,6 @@ class BatchqueryIpApprovalRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
@@ -27892,8 +28460,9 @@ class BatchqueryIpApprovalResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip信息
         self.ip_list = ip_list
@@ -27950,7 +28519,6 @@ class ConfirmIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -27998,8 +28566,9 @@ class ConfirmIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28037,7 +28606,6 @@ class RefuseIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -28092,8 +28660,9 @@ class RefuseIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28130,7 +28699,6 @@ class PullIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -28192,8 +28760,9 @@ class PullIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 支付宝的登陆用户名(必须实名制)
         self.alipay_login_name = alipay_login_name
@@ -28325,7 +28894,6 @@ class QueryIpMccRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础字段
         self.base_request = base_request
@@ -28373,8 +28941,9 @@ class QueryIpMccResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # mcc类别列表
         self.mcc_list = mcc_list
@@ -28425,7 +28994,6 @@ class QueryIpTypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
@@ -28474,8 +29042,9 @@ class QueryIpTypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip的type列表
         self.type = type
@@ -28534,7 +29103,6 @@ class BatchqueryIpApprovalandchannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
@@ -28648,13 +29216,14 @@ class BatchqueryIpApprovalandchannelResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        ip_list: List[IpBasicInfoWithChannelInfo] = None,
+        ip_list: List[IpAllInfo] = None,
         all_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # ip信息
         self.ip_list = ip_list
@@ -28694,7 +29263,7 @@ class BatchqueryIpApprovalandchannelResponse(TeaModel):
         self.ip_list = []
         if m.get('ip_list') is not None:
             for k in m.get('ip_list'):
-                temp_model = IpBasicInfoWithChannelInfo()
+                temp_model = IpAllInfo()
                 self.ip_list.append(temp_model.from_map(k))
         if m.get('all_count') is not None:
             self.all_count = m.get('all_count')
@@ -28711,7 +29280,6 @@ class BatchqueryIpAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础参数
         # 
@@ -28761,8 +29329,9 @@ class BatchqueryIpAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 批量查询商家信息
         self.apply_infos = apply_infos
@@ -28815,7 +29384,6 @@ class BatchqueryIpSellerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 基础信息
         self.base_request = base_request
@@ -28879,8 +29447,9 @@ class BatchqueryIpSellerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 结果总数，不是列表值，用于分页
         # 
@@ -28928,6 +29497,1224 @@ class BatchqueryIpSellerResponse(TeaModel):
         return self
 
 
+class ApplyIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+        order_id: str = None,
+        count: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # IP商家的链上账户ID
+        self.account_id = account_id
+        # 套餐交易/授权交易的订单ID
+        self.order_id = order_id
+        # 申请数量
+        self.count = count
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.count, 'count')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
+class ApplyIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code_batch_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 正版码的批次ID
+        self.code_batch_id = code_batch_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code_batch_id is not None:
+            result['code_batch_id'] = self.code_batch_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code_batch_id') is not None:
+            self.code_batch_id = m.get('code_batch_id')
+        return self
+
+
+class PagequeryIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        code_batch_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 正版码批次编码
+        self.code_batch_id = code_batch_id
+        # 分页参数:页码
+        self.page_index = page_index
+        # 分页参数:每页条目数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.code_batch_id, 'code_batch_id')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.code_batch_id is not None:
+            result['code_batch_id'] = self.code_batch_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('code_batch_id') is not None:
+            self.code_batch_id = m.get('code_batch_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code_list: List[str] = None,
+        order_id: str = None,
+        buyer_account_id: str = None,
+        seller_account_id: str = None,
+        ip_id: str = None,
+        ip_name: str = None,
+        ip_image: str = None,
+        ip_desc: str = None,
+        expired_date: int = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 正版码列表
+        self.code_list = code_list
+        # 交易订单ID
+        self.order_id = order_id
+        # IP商家的链上账户ID
+        self.buyer_account_id = buyer_account_id
+        # IP版权方的链上账户ID
+        self.seller_account_id = seller_account_id
+        # IPID
+        self.ip_id = ip_id
+        # IP名称
+        self.ip_name = ip_name
+        # IP主图的OSS地址
+        self.ip_image = ip_image
+        # IP描述
+        self.ip_desc = ip_desc
+        # 该批次正版码的过期时间戳(毫秒)
+        self.expired_date = expired_date
+        # 总数量
+        self.total_count = total_count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code_list is not None:
+            result['code_list'] = self.code_list
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.buyer_account_id is not None:
+            result['buyer_account_id'] = self.buyer_account_id
+        if self.seller_account_id is not None:
+            result['seller_account_id'] = self.seller_account_id
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.ip_name is not None:
+            result['ip_name'] = self.ip_name
+        if self.ip_image is not None:
+            result['ip_image'] = self.ip_image
+        if self.ip_desc is not None:
+            result['ip_desc'] = self.ip_desc
+        if self.expired_date is not None:
+            result['expired_date'] = self.expired_date
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code_list') is not None:
+            self.code_list = m.get('code_list')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('buyer_account_id') is not None:
+            self.buyer_account_id = m.get('buyer_account_id')
+        if m.get('seller_account_id') is not None:
+            self.seller_account_id = m.get('seller_account_id')
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('ip_name') is not None:
+            self.ip_name = m.get('ip_name')
+        if m.get('ip_image') is not None:
+            self.ip_image = m.get('ip_image')
+        if m.get('ip_desc') is not None:
+            self.ip_desc = m.get('ip_desc')
+        if m.get('expired_date') is not None:
+            self.expired_date = m.get('expired_date')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        return self
+
+
+class CheckIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        code: str = None,
+        user_id: str = None,
+        user_name: str = None,
+        phone_number: str = None,
+        gps: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 正版码的编码
+        self.code = code
+        # 扫码用户的ID
+        self.user_id = user_id
+        # 扫码用户的名称
+        self.user_name = user_name
+        # 扫码用户的手机号
+        self.phone_number = phone_number
+        # 扫码用户的位置信息
+        self.gps = gps
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.user_id, 'user_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.gps is not None:
+            result['gps'] = self.gps
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('gps') is not None:
+            self.gps = m.get('gps')
+        return self
+
+
+class CheckIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        scanned_count: int = None,
+        scanned_list: List[IPCodeScannedInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 被扫描的次数(包含本次)
+        self.scanned_count = scanned_count
+        # 扫描历史列表(仅展示最近扫描的50次信息)
+        self.scanned_list = scanned_list
+
+    def validate(self):
+        if self.scanned_list:
+            for k in self.scanned_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.scanned_count is not None:
+            result['scanned_count'] = self.scanned_count
+        result['scanned_list'] = []
+        if self.scanned_list is not None:
+            for k in self.scanned_list:
+                result['scanned_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('scanned_count') is not None:
+            self.scanned_count = m.get('scanned_count')
+        self.scanned_list = []
+        if m.get('scanned_list') is not None:
+            for k in m.get('scanned_list'):
+                temp_model = IPCodeScannedInfo()
+                self.scanned_list.append(temp_model.from_map(k))
+        return self
+
+
+class ConfirmIpUpdateapprovalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_id: str = None,
+        is_approval: bool = None,
+        approval_comments: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # ip的id
+        self.ip_id = ip_id
+        # 是否审批通过
+        self.is_approval = is_approval
+        # 审批信息
+        self.approval_comments = approval_comments
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_id, 'ip_id')
+        self.validate_required(self.is_approval, 'is_approval')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.is_approval is not None:
+            result['is_approval'] = self.is_approval
+        if self.approval_comments is not None:
+            result['approval_comments'] = self.approval_comments
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('is_approval') is not None:
+            self.is_approval = m.get('is_approval')
+        if m.get('approval_comments') is not None:
+            self.approval_comments = m.get('approval_comments')
+        return self
+
+
+class ConfirmIpUpdateapprovalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SetIpSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_id: str = None,
+        channel_name: str = None,
+        skus: List[IpSkuEmphasisInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # ip的id
+        self.ip_id = ip_id
+        # 渠道名字
+        self.channel_name = channel_name
+        # sku数组
+        self.skus = skus
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_id, 'ip_id')
+        self.validate_required(self.channel_name, 'channel_name')
+        self.validate_required(self.skus, 'skus')
+        if self.skus:
+            for k in self.skus:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.channel_name is not None:
+            result['channel_name'] = self.channel_name
+        result['skus'] = []
+        if self.skus is not None:
+            for k in self.skus:
+                result['skus'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('channel_name') is not None:
+            self.channel_name = m.get('channel_name')
+        self.skus = []
+        if m.get('skus') is not None:
+            for k in m.get('skus'):
+                temp_model = IpSkuEmphasisInfo()
+                self.skus.append(temp_model.from_map(k))
+        return self
+
+
+class SetIpSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryIpGoodsupdateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_ids: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # ipid的列表，最多20个
+        self.ip_ids = ip_ids
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_ids, 'ip_ids')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_ids is not None:
+            result['ip_ids'] = self.ip_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_ids') is not None:
+            self.ip_ids = m.get('ip_ids')
+        return self
+
+
+class QueryIpGoodsupdateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        ip_list: List[IpBasicInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # ip的更新数据
+        self.ip_list = ip_list
+
+    def validate(self):
+        if self.ip_list:
+            for k in self.ip_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['ip_list'] = []
+        if self.ip_list is not None:
+            for k in self.ip_list:
+                result['ip_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.ip_list = []
+        if m.get('ip_list') is not None:
+            for k in m.get('ip_list'):
+                temp_model = IpBasicInfo()
+                self.ip_list.append(temp_model.from_map(k))
+        return self
+
+
+class PagequeryIpBillRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_order_id: str = None,
+        bill_status: int = None,
+        order_by: str = None,
+        order: str = None,
+        page_number: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础请求参数
+        self.base_request = base_request
+        # 订单ID
+        self.ip_order_id = ip_order_id
+        # 账单状态，预留字段
+        self.bill_status = bill_status
+        # 排序字段
+        self.order_by = order_by
+        # 排序顺序：正序还是倒序
+        self.order = order
+        # 页码
+        self.page_number = page_number
+        # 每页数据量大小
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_order_id, 'ip_order_id')
+        self.validate_required(self.order_by, 'order_by')
+        self.validate_required(self.order, 'order')
+        self.validate_required(self.page_number, 'page_number')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_order_id is not None:
+            result['ip_order_id'] = self.ip_order_id
+        if self.bill_status is not None:
+            result['bill_status'] = self.bill_status
+        if self.order_by is not None:
+            result['order_by'] = self.order_by
+        if self.order is not None:
+            result['order'] = self.order
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_order_id') is not None:
+            self.ip_order_id = m.get('ip_order_id')
+        if m.get('bill_status') is not None:
+            self.bill_status = m.get('bill_status')
+        if m.get('order_by') is not None:
+            self.order_by = m.get('order_by')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryIpBillResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_number: int = None,
+        page_size: int = None,
+        select_bill_count: int = None,
+        bill_list: List[IPBill] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页码
+        self.page_number = page_number
+        # 页面数据量大小
+        self.page_size = page_size
+        # 筛选条件下账单总数
+        self.select_bill_count = select_bill_count
+        # 账单信息列表
+        self.bill_list = bill_list
+
+    def validate(self):
+        if self.bill_list:
+            for k in self.bill_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.select_bill_count is not None:
+            result['select_bill_count'] = self.select_bill_count
+        result['bill_list'] = []
+        if self.bill_list is not None:
+            for k in self.bill_list:
+                result['bill_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('select_bill_count') is not None:
+            self.select_bill_count = m.get('select_bill_count')
+        self.bill_list = []
+        if m.get('bill_list') is not None:
+            for k in m.get('bill_list'):
+                temp_model = IPBill()
+                self.bill_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIpSkuconfigRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        channel_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 渠道名称
+        self.channel_name = channel_name
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.channel_name, 'channel_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.channel_name is not None:
+            result['channel_name'] = self.channel_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('channel_name') is not None:
+            self.channel_name = m.get('channel_name')
+        return self
+
+
+class QueryIpSkuconfigResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        skus: List[IpSkuEmphasisInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # sku信息
+        self.skus = skus
+
+    def validate(self):
+        if self.skus:
+            for k in self.skus:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['skus'] = []
+        if self.skus is not None:
+            for k in self.skus:
+                result['skus'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.skus = []
+        if m.get('skus') is not None:
+            for k in m.get('skus'):
+                temp_model = IpSkuEmphasisInfo()
+                self.skus.append(temp_model.from_map(k))
+        return self
+
+
+class ImportIpAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        alipay_login_name: str = None,
+        merchant_type: int = None,
+        merchant_alias_name: str = None,
+        legal_name: str = None,
+        legal_cert_no: str = None,
+        settle_target: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础入参
+        self.base_request = base_request
+        # 支付宝的登陆用户名(必须实名制)
+        self.alipay_login_name = alipay_login_name
+        # 商户类型(本期仅支持: 1:企业, 6:个人商户)
+        self.merchant_type = merchant_type
+        # 商户别名, 会展示在账单以及支付结果页中
+        self.merchant_alias_name = merchant_alias_name
+        # 商户法人名称, merchant_type = 1时必填
+        self.legal_name = legal_name
+        # 商户法人身份证号码, merchant_type = 1时必填
+        self.legal_cert_no = legal_cert_no
+        # 结算目标账户(银行卡/支付宝)
+        self.settle_target = settle_target
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.alipay_login_name, 'alipay_login_name')
+        self.validate_required(self.merchant_type, 'merchant_type')
+        self.validate_required(self.merchant_alias_name, 'merchant_alias_name')
+        self.validate_required(self.settle_target, 'settle_target')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.alipay_login_name is not None:
+            result['alipay_login_name'] = self.alipay_login_name
+        if self.merchant_type is not None:
+            result['merchant_type'] = self.merchant_type
+        if self.merchant_alias_name is not None:
+            result['merchant_alias_name'] = self.merchant_alias_name
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_cert_no is not None:
+            result['legal_cert_no'] = self.legal_cert_no
+        if self.settle_target is not None:
+            result['settle_target'] = self.settle_target
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('alipay_login_name') is not None:
+            self.alipay_login_name = m.get('alipay_login_name')
+        if m.get('merchant_type') is not None:
+            self.merchant_type = m.get('merchant_type')
+        if m.get('merchant_alias_name') is not None:
+            self.merchant_alias_name = m.get('merchant_alias_name')
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_cert_no') is not None:
+            self.legal_cert_no = m.get('legal_cert_no')
+        if m.get('settle_target') is not None:
+            self.settle_target = m.get('settle_target')
+        return self
+
+
+class ImportIpAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        account_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 导入后的新链上账户Id
+        self.account_id = account_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        return self
+
+
+class RemoveIpSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_id: str = None,
+        channel_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # IP id
+        self.ip_id = ip_id
+        # 渠道名称
+        self.channel_name = channel_name
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_id, 'ip_id')
+        self.validate_required(self.channel_name, 'channel_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.channel_name is not None:
+            result['channel_name'] = self.channel_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('channel_name') is not None:
+            self.channel_name = m.get('channel_name')
+        return self
+
+
+class RemoveIpSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class QueryBlockanalysisBlockRequest(TeaModel):
     def __init__(
         self,
@@ -28939,7 +30726,6 @@ class QueryBlockanalysisBlockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块高度
         self.block_number = block_number
@@ -28995,8 +30781,9 @@ class QueryBlockanalysisBlockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块信息
         self.block = block
@@ -29064,7 +30851,6 @@ class QueryBlockanalysisLastblocknumberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -29103,8 +30889,9 @@ class QueryBlockanalysisLastblocknumberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链最高区块高度
         self.block_number = block_number
@@ -29148,7 +30935,6 @@ class QueryBlockanalysisOpenedequitiesRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -29199,8 +30985,9 @@ class QueryBlockanalysisOpenedequitiesResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权益商品信息详细信息list
         self.equities = equities
@@ -29252,7 +31039,6 @@ class QueryBlockanalysisUserpriceupdatedequitiesRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -29303,8 +31089,9 @@ class QueryBlockanalysisUserpriceupdatedequitiesResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权益商品信息详细信息list
         self.equities = equities
@@ -29356,7 +31143,6 @@ class QueryBlockanalysisUnwriteoffvalueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 资产ID
         self.asset_id = asset_id
@@ -29411,8 +31197,9 @@ class QueryBlockanalysisUnwriteoffvalueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 资产ID
         self.asset_id = asset_id
@@ -29468,7 +31255,6 @@ class UpdateBlockanalysisDelegaterelationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被代理的租户ID
         self.delegated_tenant_id = delegated_tenant_id
@@ -29520,8 +31306,9 @@ class UpdateBlockanalysisDelegaterelationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29559,7 +31346,6 @@ class UpdateBlockanalysisWhitelistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -29611,8 +31397,9 @@ class UpdateBlockanalysisWhitelistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29648,7 +31435,6 @@ class QueryBlockanalysisDelegaterelationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被代理的租户ID
         self.delegated_tenant_id = delegated_tenant_id
@@ -29687,8 +31473,9 @@ class QueryBlockanalysisDelegaterelationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 代理授权关系信息
         self.delegate_relation_infos = delegate_relation_infos
@@ -29739,7 +31526,6 @@ class QueryBlockanalysisWhitelistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询该租户的白名单信息
         self.tenant_id = tenant_id
@@ -29784,8 +31570,9 @@ class QueryBlockanalysisWhitelistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 接口白名单信息
         self.white_list = white_list
@@ -29836,7 +31623,6 @@ class QueryBlockanalysisTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -29889,8 +31675,9 @@ class QueryBlockanalysisTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块高度
         self.block_number = block_number
@@ -29980,7 +31767,6 @@ class QueryBlockanalysisEquityauthlistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -30047,8 +31833,9 @@ class QueryBlockanalysisEquityauthlistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品授权信息（一客一价信息）列表
         self.equity_auth_list = equity_auth_list
@@ -30101,7 +31888,6 @@ class QueryBlockanalysisNextblockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块高度
         self.block_number = block_number
@@ -30165,8 +31951,9 @@ class QueryBlockanalysisNextblockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块信息
         self.block = block
@@ -30241,7 +32028,6 @@ class QueryMypointsSkuRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链ID
         self.chain_id = chain_id
@@ -30287,8 +32073,9 @@ class QueryMypointsSkuResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品列表
         self.skus = skus
@@ -30339,7 +32126,6 @@ class QueryMypointsMerchantbalanceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -30391,8 +32177,9 @@ class QueryMypointsMerchantbalanceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 积分库可用余额
         self.budget_available_balance = budget_available_balance
@@ -30476,7 +32263,6 @@ class ExecMypointsPreorderskuRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -30562,8 +32348,9 @@ class ExecMypointsPreorderskuResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数量
         self.count = count
@@ -30646,7 +32433,6 @@ class ExecMypointsOrderskuRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -30723,8 +32509,9 @@ class ExecMypointsOrderskuResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 卡密ID
         self.card_id = card_id
@@ -30789,7 +32576,6 @@ class QueryMypointsSkufeeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -30866,8 +32652,9 @@ class QueryMypointsSkufeeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预下单的数量
         self.count = count
@@ -30936,7 +32723,6 @@ class QueryMypointsPreorderinstructionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -31013,8 +32799,9 @@ class QueryMypointsPreorderinstructionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务请求单号
         self.biz_id = biz_id
@@ -31161,7 +32948,6 @@ class QueryMypointsOrderinstructionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.chain_id = chain_id
@@ -31231,8 +33017,9 @@ class QueryMypointsOrderinstructionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务请求单号
         self.biz_id = biz_id
