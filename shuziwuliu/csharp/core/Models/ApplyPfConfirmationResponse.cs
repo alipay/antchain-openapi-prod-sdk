@@ -58,6 +58,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string Repayment { get; set; }
 
+        // 贷款利率
+        [NameInMap("etrd_ln_int_rt")]
+        [Validation(Required=false)]
+        public string EtrdLnIntRt { get; set; }
+
     }
 
 }
