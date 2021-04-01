@@ -8,7 +8,6 @@ public class QueryOcpProductRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 

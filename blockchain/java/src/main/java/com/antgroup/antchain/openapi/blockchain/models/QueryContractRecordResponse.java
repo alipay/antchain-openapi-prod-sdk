@@ -8,10 +8,11 @@ public class QueryContractRecordResponse extends TeaModel {
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
-    // 异常信息的文本描述
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
