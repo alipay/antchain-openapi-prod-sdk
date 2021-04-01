@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_blockchain.
 
-Created on 24/03/2021
+Created on 01/04/2021
 
 @author: Ant Chain SDK
 """

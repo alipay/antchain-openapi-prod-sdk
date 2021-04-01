@@ -8791,7 +8791,6 @@ class StartAccountMappingRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 映射账户详细信息
         self.account = account
@@ -8840,8 +8839,9 @@ class StartAccountMappingResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 映射结果
         self.data = data
@@ -8885,7 +8885,6 @@ class BatchcreateAccountMappingRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 待映射处理的账户信息列表
         self.data = data
@@ -8933,8 +8932,9 @@ class BatchcreateAccountMappingResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前请求分配的请求ID，可以通过这个值查询映射结果
         self.batch_id = batch_id
@@ -8979,7 +8979,6 @@ class StartAccountSignatureRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 加密算法
         self.algorithm = algorithm
@@ -9039,8 +9038,9 @@ class StartAccountSignatureResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名
         self.signature = signature
@@ -9082,7 +9082,6 @@ class QueryAccountMappingresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询之前对应批量映射请求的映射结果
         self.batch_id = batch_id
@@ -9121,8 +9120,9 @@ class QueryAccountMappingresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 映射结果列表
         self.data = data
@@ -9173,7 +9173,6 @@ class QueryAccountMappingRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要映射的链对应的唯一id
         self.bizid = bizid
@@ -9219,8 +9218,9 @@ class QueryAccountMappingResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 该用户信息
         self.data = data
@@ -9266,7 +9266,6 @@ class BatchqueryAccountMappingRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要映射的链对应的唯一id
         self.bizid = bizid
@@ -9323,8 +9322,9 @@ class BatchqueryAccountMappingResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回查询的数据
         self.data = data
@@ -9384,7 +9384,6 @@ class CreateAccountMappingInfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 注册地址
         self.address = address
@@ -9522,8 +9521,9 @@ class CreateAccountMappingInfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回id
         self.account_id = account_id
@@ -9565,7 +9565,6 @@ class BatchcreateAccountMappingInfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 批量上传的用户信息
         self.list = list
@@ -9613,8 +9612,9 @@ class BatchcreateAccountMappingInfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户id列表
         self.accounts = accounts
@@ -9657,7 +9657,6 @@ class GetAkdfUserbizkeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链id
         self.bizid = bizid
@@ -9704,8 +9703,9 @@ class GetAkdfUserbizkeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链id
         self.bizid = bizid
@@ -9753,7 +9753,6 @@ class ListAkdfUserbizkeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链id
         self.bizid = bizid
@@ -9793,8 +9792,9 @@ class ListAkdfUserbizkeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链id
         self.bizid = bizid
@@ -9852,7 +9852,6 @@ class CheckBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参数
         self.data = data
@@ -9903,8 +9902,9 @@ class CheckBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云订单结果
         self.result = result
@@ -9950,7 +9950,6 @@ class VerifyBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参数信息
         self.data = data
@@ -10001,8 +10000,9 @@ class VerifyBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云请求返回结果
         self.result = result
@@ -10048,7 +10048,6 @@ class InvalidateBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参数
         self.data = data
@@ -10099,8 +10098,9 @@ class InvalidateBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云请求参数
         self.result = result
@@ -10153,7 +10153,6 @@ class ReleaseBlockchainOrderPhysicalRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bid
         self.bid = bid
@@ -10262,8 +10261,9 @@ class ReleaseBlockchainOrderPhysicalResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # bid
         self.bid = bid
@@ -10400,7 +10400,6 @@ class ReleaseBlockchainOrderLogicalRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bid
         self.bid = bid
@@ -10510,8 +10509,9 @@ class ReleaseBlockchainOrderLogicalResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # bid
         self.bid = bid
@@ -10654,7 +10654,6 @@ class CheckBlockchainResourceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bid
         self.bid = bid
@@ -10763,8 +10762,9 @@ class CheckBlockchainResourceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # bid
         self.bid = bid
@@ -10894,7 +10894,6 @@ class ConfirmBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # data
         self.data = data
@@ -10945,8 +10944,9 @@ class ConfirmBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云接口返回结果
         self.result = result
@@ -10991,7 +10991,6 @@ class ConnectBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # message
         self.message = message
@@ -11036,8 +11035,9 @@ class ConnectBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云请求参数
         self.result = result
@@ -11083,7 +11083,6 @@ class ExecBlockchainOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # data
         self.data = data
@@ -11134,8 +11133,9 @@ class ExecBlockchainOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -11181,7 +11181,6 @@ class CreateUnionUnionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟描述
         self.consortium_description = consortium_description
@@ -11232,8 +11231,9 @@ class CreateUnionUnionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 联盟信息
         self.result = result
@@ -11278,7 +11278,6 @@ class DeleteUnionUnionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.consortium_id = consortium_id
@@ -11323,8 +11322,9 @@ class DeleteUnionUnionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 结果信息
         self.result = result
@@ -11369,7 +11369,6 @@ class UpdateUnionUnionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟id
         self.consortium_id = consortium_id
@@ -11427,8 +11426,9 @@ class UpdateUnionUnionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 结果信息
         self.result = result
@@ -11472,7 +11472,6 @@ class QueryUnionUnionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 分页编号
         self.page_number = page_number
@@ -11523,8 +11522,9 @@ class QueryUnionUnionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云联盟查询结果
         self.result = result
@@ -11571,7 +11571,6 @@ class ApplyUnionMemberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟id
         self.consortium_id = consortium_id
@@ -11628,8 +11627,9 @@ class ApplyUnionMemberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 邀请联盟的结果
         self.result = result
@@ -11672,7 +11672,6 @@ class ConfirmUnionMemberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 邀请码
         self.code = code
@@ -11717,8 +11716,9 @@ class ConfirmUnionMemberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 阿里云联盟成员加入
         self.result = result
@@ -11763,7 +11763,6 @@ class QueryUnionChainRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟id
         self.consortium_id = consortium_id
@@ -11821,8 +11820,9 @@ class QueryUnionChainResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 联盟内链数据
         self.result = result
@@ -11869,7 +11869,6 @@ class QueryUnionMemberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟id
         self.consortium_id = consortium_id
@@ -11927,8 +11926,9 @@ class QueryUnionMemberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 结果信息
         self.result = result
@@ -11975,7 +11975,6 @@ class UpdateUnionMemberRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -12034,8 +12033,9 @@ class UpdateUnionMemberResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12079,7 +12079,6 @@ class UpdateChainNameAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -12131,8 +12130,9 @@ class UpdateChainNameAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12176,7 +12176,6 @@ class CreateChainCertAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -12228,8 +12227,9 @@ class CreateChainCertAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12280,7 +12280,6 @@ class ApplyChainCertAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -12381,8 +12380,9 @@ class ApplyChainCertAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12429,7 +12429,6 @@ class CreateChainPublicCertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -12486,8 +12485,9 @@ class CreateChainPublicCertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12537,7 +12537,6 @@ class ApplyChainPublicCertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -12624,8 +12623,9 @@ class ApplyChainPublicCertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12670,7 +12670,6 @@ class ReinitChainPublicCertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -12715,8 +12714,9 @@ class ReinitChainPublicCertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12762,7 +12762,6 @@ class CreateChainPublicAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -12825,8 +12824,9 @@ class CreateChainPublicAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12872,7 +12872,6 @@ class ApplyChainPublicAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -12935,8 +12934,9 @@ class ApplyChainPublicAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -12980,7 +12980,6 @@ class QueryChainPublicRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -13019,8 +13018,9 @@ class QueryChainPublicResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13065,7 +13065,6 @@ class DownloadChainPublicCertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -13110,8 +13109,9 @@ class DownloadChainPublicCertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13158,7 +13158,6 @@ class CreateChainAccountAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -13215,8 +13214,9 @@ class CreateChainAccountAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13263,7 +13263,6 @@ class ApplyChainAccountAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -13320,8 +13319,9 @@ class ApplyChainAccountAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13367,7 +13367,6 @@ class QueryChainAccountAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -13419,8 +13418,9 @@ class QueryChainAccountAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13465,7 +13465,6 @@ class DownloadChainCertAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -13510,8 +13509,9 @@ class DownloadChainCertAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13556,7 +13556,6 @@ class QueryChainNodeAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -13601,8 +13600,9 @@ class QueryChainNodeAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13646,7 +13646,6 @@ class FreezeChainAccountAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -13698,8 +13697,9 @@ class FreezeChainAccountAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13743,7 +13743,6 @@ class UnfreezeChainAccountAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # account
         self.account = account
@@ -13795,8 +13794,9 @@ class UnfreezeChainAccountAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13840,7 +13840,6 @@ class ReinitChainCertAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -13891,8 +13890,9 @@ class ReinitChainCertAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -13938,7 +13938,6 @@ class QueryChainCertAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14004,8 +14003,9 @@ class QueryChainCertAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14050,7 +14050,6 @@ class QueryChainBrowserInfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14095,8 +14094,9 @@ class QueryChainBrowserInfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14141,7 +14141,6 @@ class QueryChainBrowserBlocksRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14186,8 +14185,9 @@ class QueryChainBrowserBlocksResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14240,7 +14240,6 @@ class QueryChainBrowserTransactionsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -14297,8 +14296,9 @@ class QueryChainBrowserTransactionsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14349,7 +14349,6 @@ class BatchqueryChainBrowserTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14394,8 +14393,9 @@ class BatchqueryChainBrowserTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14447,7 +14447,6 @@ class QueryChainBrowserReceiptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14499,8 +14498,9 @@ class QueryChainBrowserReceiptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14546,7 +14546,6 @@ class QueryChainBrowserTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14598,8 +14597,9 @@ class QueryChainBrowserTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14645,7 +14645,6 @@ class QueryChainBrowserBlockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -14696,8 +14695,9 @@ class QueryChainBrowserBlockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14742,7 +14742,6 @@ class QueryChainResouceRegionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -14787,8 +14786,9 @@ class QueryChainResouceRegionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14838,7 +14838,6 @@ class QueryChainResourceTypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -14877,8 +14876,9 @@ class QueryChainResourceTypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -14928,7 +14928,6 @@ class QueryChainResouceSaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -14967,8 +14966,9 @@ class QueryChainResouceSaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # reslut
         self.reslut = reslut
@@ -15013,7 +15013,6 @@ class QueryChainResourceConfigRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # purpose
         self.purpose = purpose
@@ -15058,8 +15057,9 @@ class QueryChainResourceConfigResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15112,7 +15112,6 @@ class QueryChainBrowserStatisticsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -15169,8 +15168,9 @@ class QueryChainBrowserStatisticsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15222,7 +15222,6 @@ class ExecChainPublicContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -15273,8 +15272,9 @@ class ExecChainPublicContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15317,7 +15317,6 @@ class QueryChainPublicIdeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -15362,8 +15361,9 @@ class QueryChainPublicIdeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15413,7 +15413,6 @@ class QueryChainPublicContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -15452,8 +15451,9 @@ class QueryChainPublicContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15499,7 +15499,6 @@ class CreateChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -15562,8 +15561,9 @@ class CreateChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15609,7 +15609,6 @@ class DeleteChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # project_id
         self.project_id = project_id
@@ -15660,8 +15659,9 @@ class DeleteChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15708,7 +15708,6 @@ class CloneChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # project_description
         self.project_description = project_description
@@ -15781,8 +15780,9 @@ class CloneChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15829,7 +15829,6 @@ class QueryChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # consortium_id
         self.consortium_id = consortium_id
@@ -15888,8 +15887,9 @@ class QueryChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -15938,7 +15938,6 @@ class RetryChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # description
         self.description = description
@@ -16007,8 +16006,9 @@ class RetryChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16057,7 +16057,6 @@ class UpdateChainContractProjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # project_description
         self.project_description = project_description
@@ -16127,8 +16126,9 @@ class UpdateChainContractProjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16176,7 +16176,6 @@ class CreateChainContractContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # content
         self.content = content
@@ -16254,8 +16253,9 @@ class CreateChainContractContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16304,7 +16304,6 @@ class UpdateChainContractContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # content
         self.content = content
@@ -16373,8 +16372,9 @@ class UpdateChainContractContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16418,7 +16418,6 @@ class QueryChainContractContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # project_id
         self.project_id = project_id
@@ -16469,8 +16468,9 @@ class QueryChainContractContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16514,7 +16514,6 @@ class ExecChainContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -16566,8 +16565,9 @@ class ExecChainContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16610,7 +16610,6 @@ class QueryChainIdeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # consortium_id
         self.consortium_id = consortium_id
@@ -16655,8 +16654,9 @@ class QueryChainIdeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16708,7 +16708,6 @@ class DeleteChainContractContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # content_id
         self.content_id = content_id
@@ -16760,8 +16759,9 @@ class DeleteChainContractContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16804,7 +16804,6 @@ class BatchcreateChainMiniappUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -16849,8 +16848,9 @@ class BatchcreateChainMiniappUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16893,7 +16893,6 @@ class DeleteChainMiniappUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # AntChainId
         self.ant_chain_id = ant_chain_id
@@ -16938,8 +16937,9 @@ class DeleteChainMiniappUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -16984,7 +16984,6 @@ class BatchqueryChainMiniappUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17044,8 +17043,9 @@ class BatchqueryChainMiniappUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17090,7 +17090,6 @@ class QueryChainMiniappAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17136,8 +17135,9 @@ class QueryChainMiniappAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17183,7 +17183,6 @@ class UpdateChainMiniappAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17234,8 +17233,9 @@ class UpdateChainMiniappAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17279,7 +17279,6 @@ class QueryChainMiniappTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17332,8 +17331,9 @@ class QueryChainMiniappTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17378,7 +17378,6 @@ class QueryChainMiniappLogRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17424,8 +17423,9 @@ class QueryChainMiniappLogResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17471,7 +17471,6 @@ class CreateChainMiniappCodeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -17524,8 +17523,9 @@ class CreateChainMiniappCodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17570,7 +17570,6 @@ class QueryUnionBuyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # region_id
         self.region_id = region_id
@@ -17615,8 +17614,9 @@ class QueryUnionBuyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17667,7 +17667,6 @@ class QueryChainPublicRestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -17712,8 +17711,9 @@ class QueryChainPublicRestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # AccessId
         self.result = result
@@ -17764,7 +17764,6 @@ class ApplyChainPublicRestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -17809,8 +17808,9 @@ class ApplyChainPublicRestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17857,7 +17857,6 @@ class ReinitChainPublicRestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # access_id
         self.access_id = access_id
@@ -17916,8 +17915,9 @@ class ReinitChainPublicRestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -17963,7 +17963,6 @@ class QueryChainRestAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -18015,8 +18014,9 @@ class QueryChainRestAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -18068,7 +18068,6 @@ class ApplyChainRestAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # ant_chain_id
         self.ant_chain_id = ant_chain_id
@@ -18120,8 +18119,9 @@ class ApplyChainRestAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -18169,7 +18169,6 @@ class ReinitChainRestAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # access_id
         self.access_id = access_id
@@ -18235,8 +18234,9 @@ class ReinitChainRestAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -18282,7 +18282,6 @@ class SendChainPublicRestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # access_id
         self.access_id = access_id
@@ -18334,8 +18333,9 @@ class SendChainPublicRestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -18380,7 +18380,6 @@ class SendChainRestAntRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # access_id
         self.access_id = access_id
@@ -18439,8 +18438,9 @@ class SendChainRestAntResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -18485,7 +18485,6 @@ class StartAmlCorporationJoinprepareRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业加入BaaS创建的反洗钱联盟时使用的邮箱地址
         self.email = email
@@ -18545,8 +18544,9 @@ class StartAmlCorporationJoinprepareResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业在反洗钱联盟中的唯一区块链标示，后续和平台的交互都要通过该标示
         self.did = did
@@ -18602,7 +18602,6 @@ class StartAmlCorporationJoincommitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻准备阶段得到的数字标识
         self.did = did
@@ -18652,8 +18651,9 @@ class StartAmlCorporationJoincommitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18691,7 +18691,6 @@ class StartAmlPersonTwofactorRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 完整证件号，与证件类型配对
         self.cert_no = cert_no
@@ -18746,8 +18745,9 @@ class StartAmlPersonTwofactorResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 如果验证通过会为用户创建did
         self.did = did
@@ -18792,7 +18792,6 @@ class SaveBusinessDepositRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -18854,8 +18853,9 @@ class SaveBusinessDepositResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # bizid+accountid+keyId/txHash 组成的唯一id，用户可以根据该id到服务中查询链上内容
         self.deposit_id = deposit_id
@@ -18912,7 +18912,6 @@ class SaveBusinessDepositMetadataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -18983,8 +18982,9 @@ class SaveBusinessDepositMetadataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证id，由bizId+accountId+keyId组成
         self.deposit_id = deposit_id
@@ -19041,7 +19041,6 @@ class SaveBusinessDepositEncryptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -19102,8 +19101,9 @@ class SaveBusinessDepositEncryptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可以用该id到服务上查询链的信息
         self.deposit_id = deposit_id
@@ -19161,7 +19161,6 @@ class SaveBusinessDepositEncryptmetadataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -19235,8 +19234,9 @@ class SaveBusinessDepositEncryptmetadataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证id，由bizId+accountId+keyId组成
         self.deposit_id = deposit_id
@@ -19292,7 +19292,6 @@ class CreateBusinessDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户身份证号
         self.id_card_number = id_card_number
@@ -19348,8 +19347,9 @@ class CreateBusinessDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链的业务编号
         self.biz_id = biz_id
@@ -19410,7 +19410,6 @@ class CreateBusinessBizaccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -19459,8 +19458,9 @@ class CreateBusinessBizaccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did地址
         self.did = did
@@ -19524,7 +19524,6 @@ class QueryBusinessDepositRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -19587,8 +19586,9 @@ class QueryBusinessDepositResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 具体存证数据
         self.deposit_data = deposit_data
@@ -19652,7 +19652,6 @@ class AuthBusinessDepositdataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -19721,8 +19720,9 @@ class AuthBusinessDepositdataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 被授权的逻辑交易
         self.deposit_id = deposit_id
@@ -19775,7 +19775,6 @@ class CreateBusinessContractDeployRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -19850,8 +19849,9 @@ class CreateBusinessContractDeployResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 部署合约返回值
         self.data = data
@@ -19911,7 +19911,6 @@ class CreateBusinessContractnormalcallRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         # 
@@ -19995,8 +19994,9 @@ class CreateBusinessContractnormalcallResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 调用合约接口返回值
         self.data = data
@@ -20056,7 +20056,6 @@ class CreateBusinessContractencryptcallRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -20148,8 +20147,9 @@ class CreateBusinessContractencryptcallResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约返回参数
         self.data = data
@@ -20205,7 +20205,6 @@ class QueryBusinessContractreceiptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链的bizId
         self.biz_id = biz_id
@@ -20260,8 +20259,9 @@ class QueryBusinessContractreceiptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上txHash对应的内容
         self.data = data
@@ -20318,7 +20318,6 @@ class QueryBusinessContractencryptreceiptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链的业务bizId
         self.biz_id = biz_id
@@ -20380,8 +20379,9 @@ class QueryBusinessContractencryptreceiptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # txHash对应的交易内容
         self.data = data
@@ -20440,7 +20440,6 @@ class QueryBusinessContractencryptmethodRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约链所在地址
         self.biz_id = biz_id
@@ -20516,8 +20515,9 @@ class QueryBusinessContractencryptmethodResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询方法返回值
         self.data = data
@@ -20573,7 +20573,6 @@ class DeployBusinessAgreementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链的id编号
         self.biz_id = biz_id
@@ -20628,8 +20627,9 @@ class DeployBusinessAgreementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回值
         self.data = data
@@ -20686,7 +20686,6 @@ class CreateBusinessAgreementRegistertemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -20748,8 +20747,9 @@ class CreateBusinessAgreementRegistertemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 注册合约模板，链上合约返回值
         self.data = data
@@ -20809,7 +20809,6 @@ class CreateBusinessAgreementRegisterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链的bizId
         self.biz_id = biz_id
@@ -20892,8 +20891,9 @@ class CreateBusinessAgreementRegisterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约调用返回值
         self.data = data
@@ -20952,7 +20952,6 @@ class CreateBusinessAgreementSignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链bizId
         self.biz_id = biz_id
@@ -21028,8 +21027,9 @@ class CreateBusinessAgreementSignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 该合约调用返回值
         self.data = data
@@ -21087,7 +21087,6 @@ class QueryBusinessAgreementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务共识链id
         self.biz_id = biz_id
@@ -21156,8 +21155,9 @@ class QueryBusinessAgreementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前该共识的状态信息
         self.data = data
@@ -21216,7 +21216,6 @@ class CreateBusinessContractGrantdidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户业务链地址biz_id
         self.biz_id = biz_id
@@ -21293,8 +21292,9 @@ class CreateBusinessContractGrantdidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 成功被授权的字段
         self.data = data
@@ -21345,7 +21345,6 @@ class QueryBusinessDepositEncryptedmetadataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链的业务id
         self.biz_id = biz_id
@@ -21407,8 +21406,9 @@ class QueryBusinessDepositEncryptedmetadataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 被存证的数据
         self.deposit_data = deposit_data
@@ -21473,7 +21473,6 @@ class AuthBusinessDepositdataCorpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被授权的存证数据所在的链
         self.biz_id = biz_id
@@ -21551,8 +21550,9 @@ class AuthBusinessDepositdataCorpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 被授权的逻辑主字段(biz_id与key_id的拼接）
         self.deposit_id = deposit_id
@@ -21609,7 +21609,6 @@ class CancelBusinessDepositGrantdidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证数据的发起者did身份
         self.did = did
@@ -21670,8 +21669,9 @@ class CancelBusinessDepositGrantdidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 取消授权的主键
         self.deposit_id = deposit_id
@@ -21723,7 +21723,6 @@ class CancelBusinessDepositGrantcorpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据存证所在链的业务id
         self.biz_id = biz_id
@@ -21791,8 +21790,9 @@ class CancelBusinessDepositGrantcorpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证数据的逻辑主id(biz_id与key_id的拼接)
         self.deposit_id = deposit_id
@@ -21845,7 +21845,6 @@ class CreateBusinessContractGrantcorpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据所在的链业务id
         self.biz_id = biz_id
@@ -21922,8 +21921,9 @@ class CreateBusinessContractGrantcorpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权的字段列表
         self.data = data
@@ -21975,7 +21975,6 @@ class CancelBusinessContractGrantdidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约所在链的业务id
         self.biz_id = biz_id
@@ -22043,8 +22042,9 @@ class CancelBusinessContractGrantdidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 取消授权成功的字段列表
         self.data = data
@@ -22096,7 +22096,6 @@ class CancelBusinessContractGrantcorpRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约所在的业务链id
         self.biz_id = biz_id
@@ -22164,8 +22163,9 @@ class CancelBusinessContractGrantcorpResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 成功取消授权的字段
         self.data = data
@@ -22215,7 +22215,6 @@ class ImportPlatformTestregionTestfuncRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 123
         self.test_param_1 = test_param_1
@@ -22277,8 +22276,9 @@ class ImportPlatformTestregionTestfuncResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 123
         self.test_response = test_response
@@ -22321,7 +22321,6 @@ class CreatePlatformDepositAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -22370,8 +22369,9 @@ class CreatePlatformDepositAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did地址
         self.did = did
@@ -22433,7 +22433,6 @@ class CreatePlatformDepositDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户身份证号
         self.id_card_number = id_card_number
@@ -22488,8 +22487,9 @@ class CreatePlatformDepositDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户did
         self.did = did
@@ -22546,7 +22546,6 @@ class SavePlatformDepositDepositRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务链对应的bizId
         self.biz_id = biz_id
@@ -22608,8 +22607,9 @@ class SavePlatformDepositDepositResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # bizid+accountid+keyId/txHash 组成的唯一id，用户可以根据该id到服务中查询链上内容
         self.deposit_id = deposit_id
@@ -22665,7 +22665,6 @@ class CreatePlatformDepositCorpdidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         # 
@@ -22721,8 +22720,9 @@ class CreatePlatformDepositCorpdidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业did
         self.did = did
@@ -22778,7 +22778,6 @@ class CreateDigitalassetartAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户手机号
         self.phone = phone
@@ -22831,8 +22830,9 @@ class CreateDigitalassetartAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户链账户地址
         self.account_id = account_id
@@ -22874,7 +22874,6 @@ class BatchcreateDigitalassetartAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 批量用户账户、姓名、手机号等信息
         self.users = users
@@ -22924,8 +22923,9 @@ class BatchcreateDigitalassetartAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 失败的账户
         self.fail_list = fail_list
@@ -22989,7 +22989,6 @@ class CreateDigitalassetartArtCreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 艺术品锚定物
         self.art_anchor = art_anchor
@@ -23099,8 +23098,9 @@ class CreateDigitalassetartArtCreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品唯一id
         self.art_id = art_id
@@ -23149,7 +23149,6 @@ class SetDigitalassetartArtIssueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 拥有者链上账户地址
         self.account_id = account_id
@@ -23196,8 +23195,9 @@ class SetDigitalassetartArtIssueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品id
         self.art_id = art_id
@@ -23247,7 +23247,6 @@ class SetDigitalassetartArtIssuetoexchangeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 拥有者账户地址
         self.account_id = account_id
@@ -23301,8 +23300,9 @@ class SetDigitalassetartArtIssuetoexchangeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品id
         self.art_id = art_id
@@ -23351,7 +23351,6 @@ class SetDigitalassetartArtTradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 拥有者链上地址
         self.account_id = account_id
@@ -23397,8 +23396,9 @@ class SetDigitalassetartArtTradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品交易成功
         self.art_id = art_id
@@ -23442,7 +23442,6 @@ class SetDigitalassetartArtTradeonexchangeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易所代码
         self.exchange_code = exchange_code
@@ -23495,8 +23494,9 @@ class SetDigitalassetartArtTradeonexchangeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0 在交易成功
         # 1 在交易失败
@@ -23540,7 +23540,6 @@ class FreezeDigitalassetartArtAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 管理员账户
         self.account_id = account_id
@@ -23587,8 +23586,9 @@ class FreezeDigitalassetartArtAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品id
         self.art_id = art_id
@@ -23637,7 +23637,6 @@ class UnfreezeDigitalassetartArtAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 管理员账户id
         self.account_id = account_id
@@ -23684,8 +23683,9 @@ class UnfreezeDigitalassetartArtAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品id
         self.art_id = art_id
@@ -23735,7 +23735,6 @@ class SetDigitalassetartArtUnissuetoexchangeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 管理员账户地址
         self.account_id = account_id
@@ -23789,8 +23788,9 @@ class SetDigitalassetartArtUnissuetoexchangeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 取消在交易所发布艺术品成功或者失败原因详情
         self.reason = reason
@@ -23840,7 +23840,6 @@ class QueryDigitalassetartArtRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 管理员账户
         self.account_id = account_id
@@ -23898,8 +23897,9 @@ class QueryDigitalassetartArtResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 艺术品id
         self.art_id = art_id
@@ -24020,7 +24020,6 @@ class CreateDigitalassetExchangeAccountmapRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易所代码
         self.exchange_code = exchange_code
@@ -24080,8 +24079,9 @@ class CreateDigitalassetExchangeAccountmapResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回调用结果 正常为 success
         self.result = result
@@ -24124,7 +24124,6 @@ class BatchcreateDigitalassetExchangeAccountmapRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务方需映射的账户列表
         self.account_map_params = account_map_params
@@ -24181,8 +24180,9 @@ class BatchcreateDigitalassetExchangeAccountmapResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回失败账户列表
         self.fail_list = fail_list
@@ -24239,7 +24239,6 @@ class StartDigitalassetExchangeUnfreezeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通代码
         self.ep_code = ep_code
@@ -24299,8 +24298,9 @@ class StartDigitalassetExchangeUnfreezeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果 success 为正常
         self.result = result
@@ -24345,7 +24345,6 @@ class StartDigitalassetExchangeLockpositionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通代码
         self.ep_code = ep_code
@@ -24403,8 +24402,9 @@ class StartDigitalassetExchangeLockpositionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果 success 为正常
         self.result = result
@@ -24460,7 +24460,6 @@ class CreateDigitalassetExchangeEpissueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通锚定物
         self.ep_anchor = ep_anchor
@@ -24596,8 +24595,9 @@ class CreateDigitalassetExchangeEpissueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果 success 为成功
         self.result = result
@@ -24644,7 +24644,6 @@ class CreateDigitalassetExchangeEpstockissueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通代码
         self.ep_code = ep_code
@@ -24718,8 +24717,9 @@ class CreateDigitalassetExchangeEpstockissueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果 success 为成功
         self.result = result
@@ -24764,7 +24764,6 @@ class StartDigitalassetExchangeEpwholesaleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 批发账户信息列表
         self.account_list = account_list
@@ -24835,8 +24834,9 @@ class StartDigitalassetExchangeEpwholesaleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 失败账户列表
         self.fail_list = fail_list
@@ -24891,7 +24891,6 @@ class QueryDigitalassetExchangeEpinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通代码
         self.ep_code = ep_code
@@ -24952,8 +24951,9 @@ class QueryDigitalassetExchangeEpinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 版通锚定物
         self.ep_anchor = ep_anchor
@@ -25099,7 +25099,6 @@ class QueryDigitalassetExchangeEptradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询截止时间
         self.end_date = end_date
@@ -25181,8 +25180,9 @@ class QueryDigitalassetExchangeEptradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 页数 从1开始
         self.page_num = page_num
@@ -25251,7 +25251,6 @@ class QueryDigitalassetExchangeEpaccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易所代码
         self.exchange_code = exchange_code
@@ -25300,8 +25299,9 @@ class QueryDigitalassetExchangeEpaccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户状态 0:正常 1:锁定
         self.account_status = account_status
@@ -25391,7 +25391,6 @@ class StartDigitalassetExchangeEptradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易数量
         self.ep_amount = ep_amount
@@ -25458,8 +25457,9 @@ class StartDigitalassetExchangeEptradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易号
         self.tx_code = tx_code
@@ -25504,7 +25504,6 @@ class StartDigitalassetExchangeEpbuybackRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 版通回购数量
         self.ep_amount = ep_amount
@@ -25564,8 +25563,9 @@ class StartDigitalassetExchangeEpbuybackResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果 success 为成功
         self.result = result
@@ -25610,7 +25610,6 @@ class CreateDistributionUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户在ISV中的唯一标识
         self.identity = identity
@@ -25670,8 +25669,9 @@ class CreateDistributionUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户创建时间
         self.create_time = create_time
@@ -25723,7 +25723,6 @@ class QueryDistributionUserTeamRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商品唯一标识
         self.item_id = item_id
@@ -25792,8 +25791,9 @@ class QueryDistributionUserTeamResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 一级会员信息
         self.members = members
@@ -25875,7 +25875,6 @@ class CreateDistributionShopRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户在ISV中的标识
         self.identity = identity
@@ -25929,8 +25928,9 @@ class CreateDistributionShopResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商户管理员唯一标识
         self.admin_user_id = admin_user_id
@@ -25988,7 +25988,6 @@ class CreateDistributionUserRelationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 上级用户唯一标识
         self.from_user_id = from_user_id
@@ -26053,8 +26052,9 @@ class CreateDistributionUserRelationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链交易hash
         self.tx_hash = tx_hash
@@ -26096,7 +26096,6 @@ class InitDistributionContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 初始化合约名称
         self.name = name
@@ -26135,8 +26134,9 @@ class InitDistributionContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约链上地址
         self.tx_hash = tx_hash
@@ -26187,7 +26187,6 @@ class CreateDistributionProductItemRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 分销比例  10 表示 10%\
         self.distribution_rate = distribution_rate
@@ -26291,8 +26290,9 @@ class CreateDistributionProductItemResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品id
         self.product_id = product_id
@@ -26347,7 +26347,6 @@ class QueryDistributionProductItemRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商品id
         self.product_id = product_id
@@ -26392,8 +26391,9 @@ class QueryDistributionProductItemResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 商品列表
         self.products = products
@@ -26446,7 +26446,6 @@ class UpdateDistributionFundPromoterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 可提现余额
         self.balance = balance
@@ -26506,8 +26505,9 @@ class UpdateDistributionFundPromoterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上地址
         self.tx_hash = tx_hash
@@ -26552,7 +26552,6 @@ class UpdateDistributionFundShopRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审批中额度
         self.approve_quota = approve_quota
@@ -26612,8 +26611,9 @@ class UpdateDistributionFundShopResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上地址
         self.tx_hash = tx_hash
@@ -26657,7 +26657,6 @@ class QueryDistributionFundPromoterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 分页号
         self.page_num = page_num
@@ -26714,8 +26713,9 @@ class QueryDistributionFundPromoterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 推广人账户列表
         self.fund_list = fund_list
@@ -26789,7 +26789,6 @@ class QueryDistributionFundShopRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户id
         self.shop_id = shop_id
@@ -26831,8 +26830,9 @@ class QueryDistributionFundShopResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 审批中额度
         self.approve_quota = approve_quota
@@ -26895,7 +26895,6 @@ class QueryDistributionFundPromoterflowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 分页号
         self.page_num = page_num
@@ -26958,8 +26957,9 @@ class QueryDistributionFundPromoterflowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 流水信息列表
         self.capital_flows = capital_flows
@@ -27035,7 +27035,6 @@ class CreateDistributionOrderPromoterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 购买用户id
         self.buyer_id = buyer_id
@@ -27130,8 +27129,9 @@ class CreateDistributionOrderPromoterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上地址
         self.tx_hash = tx_hash
@@ -27211,7 +27211,6 @@ class CreateDistributionOrderTradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 买家id
         self.buyer_id = buyer_id
@@ -27516,8 +27515,9 @@ class CreateDistributionOrderTradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上地址
         self.tx_hash = tx_hash
@@ -27559,7 +27559,6 @@ class QueryDistributionOrderPromoterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 订单id
         self.order_id = order_id
@@ -27606,8 +27605,9 @@ class QueryDistributionOrderPromoterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 佣金
         self.commission = commission
@@ -27697,7 +27697,6 @@ class QueryDistributionOrderRakebackRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 订单id
         self.order_id = order_id
@@ -27737,8 +27736,9 @@ class QueryDistributionOrderRakebackResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 订单id
         self.order_id = order_id
@@ -27794,7 +27794,6 @@ class QueryDistributionOrderTradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 订单id
         self.order_id = order_id
@@ -27870,8 +27869,9 @@ class QueryDistributionOrderTradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 买家id
         self.buyer_id = buyer_id
@@ -28137,7 +28137,6 @@ class CreateLogisticFinanceDisRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extend = extend
@@ -28188,8 +28187,9 @@ class CreateLogisticFinanceDisResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的分布式数字身份id
         self.did = did
@@ -28230,7 +28230,6 @@ class ListLogisticFinanceDisRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -28263,8 +28262,9 @@ class ListLogisticFinanceDisResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 分布式数字身份列表
         self.did_list = did_list
@@ -28316,7 +28316,6 @@ class CreateLogisticFinanceDisvcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定可验证声明颁发对象的分布式数字身份id
         self.dest_did = dest_did
@@ -28367,8 +28366,9 @@ class CreateLogisticFinanceDisvcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明id
         self.vc_id = vc_id
@@ -28411,7 +28411,6 @@ class QueryLogisticFinanceDisvcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 代理申请的分布式数字身份，缺省时为自己的分布式数字身份
         self.agent_did = agent_did
@@ -28456,8 +28455,9 @@ class QueryLogisticFinanceDisvcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明完整内容
         self.vc = vc
@@ -28502,7 +28502,6 @@ class CreateLogisticFinanceAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定的分布式数字身份，缺省时默认为自己的分布式数字身份
         self.did = did
@@ -28561,8 +28560,9 @@ class CreateLogisticFinanceAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 平台内唯一标识，格式为 org_id:user_id:drawee_tax_no
         self.account_id = account_id
@@ -28605,7 +28605,6 @@ class BatchcreateLogisticFinanceAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定的分布式数字身份，缺省时为自己的分布式数字身份
         self.did = did
@@ -28662,8 +28661,9 @@ class BatchcreateLogisticFinanceAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 失败列表
         self.fail_list = fail_list
@@ -28774,7 +28774,6 @@ class CreateLogisticFinanceOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户链上账户
         # 与司机did 二选一填写
@@ -29095,8 +29094,9 @@ class CreateLogisticFinanceOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上凭证
         self.tx_code = tx_code
@@ -29183,7 +29183,6 @@ class FinishLogisticFinanceOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链上账号
         # 与司机did 二选一填写
@@ -29515,8 +29514,9 @@ class FinishLogisticFinanceOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上凭证
         self.tx_code = tx_code
@@ -29577,7 +29577,6 @@ class CreateLogisticFinancePayorderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 确认到账时间
         self.arrive_time = arrive_time
@@ -29746,8 +29745,9 @@ class CreateLogisticFinancePayorderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上凭证
         self.tx_code = tx_code
@@ -29790,7 +29790,6 @@ class QueryLogisticFinanceOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 无车承运平台分布式数字身份，缺省时为自己的分布式数字身份
         self.platform_did = platform_did
@@ -29835,8 +29834,9 @@ class QueryLogisticFinanceOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 运单状态
         self.status = status
@@ -29884,7 +29884,6 @@ class CreateLogisticFinanceBillorderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 受票方名称
         self.drawee = drawee
@@ -29962,8 +29961,9 @@ class CreateLogisticFinanceBillorderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上凭证
         self.tx_code = tx_code
@@ -30008,7 +30008,6 @@ class ImportLogisticFinanceLocationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 描述信息
         self.desc = desc
@@ -30074,8 +30073,9 @@ class ImportLogisticFinanceLocationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -30116,7 +30116,6 @@ class CreateLogisticFinanceConsignorRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -30189,8 +30188,9 @@ class CreateLogisticFinanceConsignorResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回货主did信息
         self.did = did
@@ -30236,7 +30236,6 @@ class CreateLogisticFinancePlatformRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -30302,8 +30301,9 @@ class CreateLogisticFinancePlatformResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回无车承运平台DIS
         self.did = did
@@ -30350,7 +30350,6 @@ class CreateLogistFinanceAgentplatformRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 代理创建者did
         self.agent_did = agent_did
@@ -30423,8 +30422,9 @@ class CreateLogistFinanceAgentplatformResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回无车承运平台did
         self.did = did
@@ -30470,7 +30470,6 @@ class CreateLogisticFinanceDriverRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -30536,8 +30535,9 @@ class CreateLogisticFinanceDriverResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回司机did
         self.did = did
@@ -30588,7 +30588,6 @@ class CreateLogisticFinanceCargoorderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 运费
         self.all_freight = all_freight
@@ -30689,8 +30688,9 @@ class CreateLogisticFinanceCargoorderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 货源链上凭证
         self.tx_code = tx_code
@@ -30739,7 +30739,6 @@ class CreateLogisticFinanceCargopayorderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 银行流水号
         self.bank_no = bank_no
@@ -30826,8 +30825,9 @@ class CreateLogisticFinanceCargopayorderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 货源支付链上凭证
         self.tx_code = tx_code
@@ -30878,7 +30878,6 @@ class CreateOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟Id
         self.baas_alliance = baas_alliance
@@ -30979,8 +30978,9 @@ class CreateOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31018,7 +31018,6 @@ class UpdateOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 产品实例Id
         self.instance_id = instance_id
@@ -31071,8 +31070,9 @@ class UpdateOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名结果
         self.sign = sign
@@ -31115,7 +31115,6 @@ class CloseOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 产品实例Id列
         self.instance_id = instance_id
@@ -31160,8 +31159,9 @@ class CloseOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31198,7 +31198,6 @@ class EnableOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 产品实例Id
         self.instance_id = instance_id
@@ -31244,8 +31243,9 @@ class EnableOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名结果
         self.sign = sign
@@ -31288,7 +31288,6 @@ class StopOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 产品实例Id
         self.instance_id = instance_id
@@ -31334,8 +31333,9 @@ class StopOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名结果
         self.sign = sign
@@ -31381,7 +31381,6 @@ class InitOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 加载业务的场景
         self.business_action = business_action
@@ -31447,8 +31446,9 @@ class InitOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 组合内容
         self.discrete_values = discrete_values
@@ -31506,7 +31506,6 @@ class QueryOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实例id
         self.instance_id = instance_id
@@ -31559,8 +31558,9 @@ class QueryOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态描述：未开通（UN_OPEN）、初始化（INIT）、开通（OPEN）、释放\关闭（CLOSE）、未知（UNKNOWN）、暂停（STOP）。
         self.info = info
@@ -31603,7 +31603,6 @@ class OpenOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实例id
         self.instance_id = instance_id
@@ -31648,8 +31647,9 @@ class OpenOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31687,7 +31687,6 @@ class CreateOcpProductsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实例id
         self.instance_id = instance_id
@@ -31739,8 +31738,9 @@ class CreateOcpProductsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31780,7 +31780,6 @@ class CallbackOcpProductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 任务状态变更，是否成功；
         self.downstatus = downstatus
@@ -31846,8 +31845,9 @@ class CallbackOcpProductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31887,7 +31887,6 @@ class CheckOcpTaskRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 事件类型：开通（AF_OPEN）、变更（AF_MODIFY）、释放（AF_RELEASE）、创建（AF_PROVISION）、停止（AF_STOP）、恢复（AF_RESUME）等。
         self.event = event
@@ -31954,8 +31953,9 @@ class CheckOcpTaskResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 任务是否成功
         self.task_result = task_result
@@ -32003,7 +32003,6 @@ class ExecOcpTaskRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 事件类型：开通（AF_OPEN）、变更（AF_MODIFY）、释放（AF_RELEASE）、创建（AF_PROVISION）、停止（AF_STOP）、恢复（AF_RESUME）等。
         self.event = event
@@ -32084,8 +32083,9 @@ class ExecOcpTaskResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 任务是否成功
         self.task_result = task_result
@@ -32135,7 +32135,6 @@ class CreateBlockchainInstanceInnerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链名称
         self.blockchain_name = blockchain_name
@@ -32230,8 +32229,9 @@ class CreateBlockchainInstanceInnerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # instanceId
         self.result = result
@@ -32273,7 +32273,6 @@ class QueryBlockchainInstanceBizidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 内部建链的实例id
         self.instance_id = instance_id
@@ -32312,8 +32311,9 @@ class QueryBlockchainInstanceBizidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 区块链的相关信息
         self.result = result
@@ -32364,7 +32364,6 @@ class CreateApiConsortiumRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 某某联盟的使用场景描述
         self.description = description
@@ -32411,8 +32410,9 @@ class CreateApiConsortiumResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 请求id
         self.request_id = request_id
@@ -32462,7 +32462,6 @@ class QueryApiMiniappbrowserAuthtypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链 ID
         self.ant_chain_id = ant_chain_id
@@ -32502,8 +32501,9 @@ class QueryApiMiniappbrowserAuthtypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 请求 ID
         self.request_id = request_id
@@ -32553,7 +32553,6 @@ class QueryStatisticsPortHeightRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.bizid = bizid
@@ -32592,8 +32591,9 @@ class QueryStatisticsPortHeightResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前块高
         self.height = height
@@ -32634,7 +32634,6 @@ class QueryStatisticPortBizidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -32667,8 +32666,9 @@ class QueryStatisticPortBizidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链授权列表
         self.biz_list = biz_list
@@ -32720,7 +32720,6 @@ class AddStatisticsPortTaskRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.bizid = bizid
@@ -32772,8 +32771,9 @@ class AddStatisticsPortTaskResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -32818,7 +32818,6 @@ class QueryApiDwhTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链bizid
         self.biz_id = biz_id
@@ -32913,8 +32912,9 @@ class QueryApiDwhTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # transaction_list
         self.transaction_list = transaction_list
@@ -32969,7 +32969,6 @@ class QueryApiDwhAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 账户hash ，如果根据账户hash查询账户信息可以填写该字段
         self.account_hash = account_hash
@@ -33041,8 +33040,9 @@ class QueryApiDwhAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户列表
         self.account_list = account_list
@@ -33097,7 +33097,6 @@ class QueryApiDwhContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # biz_id 链id
         self.biz_id = biz_id
@@ -33168,8 +33167,9 @@ class QueryApiDwhContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约列表
         self.contract_list = contract_list
@@ -33220,7 +33220,6 @@ class QueryApiDwhbTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # biz_id
         self.biz_id = biz_id
@@ -33266,8 +33265,9 @@ class QueryApiDwhbTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # transaction
         self.transaction_list = transaction_list
@@ -33324,7 +33324,6 @@ class CreateContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # abi对应oss key
         self.abi_oss_key = abi_oss_key
@@ -33416,8 +33415,9 @@ class CreateContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.result = result
@@ -33460,7 +33460,6 @@ class GetContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -33508,8 +33507,9 @@ class GetContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约部署记录
         self.result = result
@@ -33556,7 +33556,6 @@ class UpdateContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # abi对应oss key
         self.abi_oss_key = abi_oss_key
@@ -33616,8 +33615,9 @@ class UpdateContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.result = result
@@ -33660,7 +33660,6 @@ class OnlineContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -33706,8 +33705,9 @@ class OnlineContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.result = result
@@ -33750,7 +33750,6 @@ class OfflineContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -33796,8 +33795,9 @@ class OfflineContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.result = result
@@ -33842,7 +33842,6 @@ class QueryContractRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -33905,8 +33904,9 @@ class QueryContractRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前页元素列表
         self.content = content
@@ -33981,7 +33981,6 @@ class ExecContractDelegateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -34027,8 +34026,9 @@ class ExecContractDelegateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回结果
         self.result = result
@@ -34072,7 +34072,6 @@ class ExecContractServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链唯一标识
         self.bizid = bizid
@@ -34125,8 +34124,9 @@ class ExecContractServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 执行结果
         self.result = result
@@ -34167,7 +34167,6 @@ class GetContractConfigChainRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -34200,8 +34199,9 @@ class GetContractConfigChainResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前租户具有访问权限的合约链配置信息列表
         self.result = result
@@ -34244,7 +34244,6 @@ class GetContractAbiUrlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -34277,8 +34276,9 @@ class GetContractAbiUrlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可用于上传文件到oss的相关oss client字段配置，包括服务端的签名，url超期时间等。
         self.result = result
@@ -34321,7 +34321,6 @@ class GetContractBytecodeUrlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -34354,8 +34353,9 @@ class GetContractBytecodeUrlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可用于上传文件到oss的相关oss client字段配置，包括服务端的签名，url超期时间等。
         self.result = result
@@ -34408,7 +34408,6 @@ class CreateDataauthorizationParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 账户名称
         self.account = account
@@ -34509,8 +34508,9 @@ class CreateDataauthorizationParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 参与方信息
         self.participant = participant
@@ -34554,7 +34554,6 @@ class DeleteDataauthorizationParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参与方ID
         self.participant_id = participant_id
@@ -34592,8 +34591,9 @@ class DeleteDataauthorizationParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -34635,7 +34635,6 @@ class UpdateDataauthorizationParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展参数，标准JSON格式
         self.extension_info = extension_info
@@ -34717,8 +34716,9 @@ class UpdateDataauthorizationParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -34754,7 +34754,6 @@ class QueryDataauthorizationParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参与方ID
         self.participant_id = participant_id
@@ -34795,8 +34794,9 @@ class QueryDataauthorizationParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 参与方信息
         self.participant = participant
@@ -34841,7 +34841,6 @@ class ListDataauthorizationParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 空间ID
         self.space_id = space_id
@@ -34886,8 +34885,9 @@ class ListDataauthorizationParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 参与方列表
         self.participants = participants
@@ -34944,7 +34944,6 @@ class CreateDataauthorizationDataEntityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务系统数据对象唯一标示
         self.biz_uid = biz_uid
@@ -35045,8 +35044,9 @@ class CreateDataauthorizationDataEntityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据对象ID
         self.data_id = data_id
@@ -35088,7 +35088,6 @@ class QueryDataauthorizationDataEntityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据ID
         self.data_id = data_id
@@ -35129,8 +35128,9 @@ class QueryDataauthorizationDataEntityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据目录详细信息
         self.data_entity = data_entity
@@ -35174,7 +35174,6 @@ class UpdateDataauthorizationPublicKeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 公钥列表
         self.public_keys = public_keys
@@ -35221,8 +35220,9 @@ class UpdateDataauthorizationPublicKeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -35258,7 +35258,6 @@ class ListDataauthorizationPublicKeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 生成公钥时的关联关系
         self.public_key_relations = public_key_relations
@@ -35306,8 +35305,9 @@ class ListDataauthorizationPublicKeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 公钥列表
         self.public_keys = public_keys
@@ -35359,7 +35359,6 @@ class OpenDataauthorizationAuthorizationServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户ID
         self.tenant_id = tenant_id
@@ -35415,8 +35414,9 @@ class OpenDataauthorizationAuthorizationServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户AK
         self.tenant_access_key = tenant_access_key
@@ -35465,7 +35465,6 @@ class CloseDataauthorizationAuthorizationServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户ID
         self.tenant_id = tenant_id
@@ -35509,8 +35508,9 @@ class CloseDataauthorizationAuthorizationServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -35551,7 +35551,6 @@ class ApplyDataauthorizationAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 申请人ID
         self.applicant_id = applicant_id
@@ -35624,8 +35623,9 @@ class ApplyDataauthorizationAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 申请处理结果
         self.process_result = process_result
@@ -35675,7 +35675,6 @@ class ExecDataauthorizationProcessRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审批操作意见
         self.comment = comment
@@ -35753,8 +35752,9 @@ class ExecDataauthorizationProcessResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -35791,7 +35791,6 @@ class CancelDataauthorizationAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 权限凭证
         self.authority_cert = authority_cert
@@ -35836,8 +35835,9 @@ class CancelDataauthorizationAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -35875,7 +35875,6 @@ class CheckDataauthorizationAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 权限凭证
         self.authority_cert = authority_cert
@@ -35928,8 +35927,9 @@ class CheckDataauthorizationAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否有权限
         self.authority = authority
@@ -35971,7 +35971,6 @@ class QueryDataauthorizationProcessRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程ID
         self.process_id = process_id
@@ -36010,8 +36009,9 @@ class QueryDataauthorizationProcessResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 流程详细信息
         self.process_info = process_info
@@ -36057,7 +36057,6 @@ class SendDataauthorizationDepositDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 通知人列表
         self.notification_ids = notification_ids
@@ -36108,8 +36107,9 @@ class SendDataauthorizationDepositDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证交易hash
         self.tx_hash = tx_hash
@@ -36151,7 +36151,6 @@ class QueryDataauthorizationDepositDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证交易hash
         self.tx_hash = tx_hash
@@ -36190,8 +36189,9 @@ class QueryDataauthorizationDepositDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证交易内容
         self.tx_data = tx_data
@@ -36234,7 +36234,6 @@ class ResumeDataauthorizationAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 权限凭证
         self.authority_cert = authority_cert
@@ -36279,8 +36278,9 @@ class ResumeDataauthorizationAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -36322,7 +36322,6 @@ class UpdateDataauthorizationDataEntityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据类别
         self.category = category
@@ -36408,8 +36407,9 @@ class UpdateDataauthorizationDataEntityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -36445,7 +36445,6 @@ class DeleteDataauthorizationDataEntityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据ID
         self.data_id = data_id
@@ -36483,8 +36482,9 @@ class DeleteDataauthorizationDataEntityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -36529,7 +36529,6 @@ class CreateDataauthorizationCustomParticipantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链ID
         self.blockchain_id = blockchain_id
@@ -36626,8 +36625,9 @@ class CreateDataauthorizationCustomParticipantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 参与方ID
         self.participant_id = participant_id
@@ -36675,7 +36675,6 @@ class CreateDataauthorizationCustomDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链ID
         self.blockchain_id = blockchain_id
@@ -36763,8 +36762,9 @@ class CreateDataauthorizationCustomDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据对象ID
         self.data_id = data_id
@@ -36808,7 +36808,6 @@ class ApplyDataauthorizationAuthorizationWithsignatureRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 申请ID
         self.biz_uid = biz_uid
@@ -36861,8 +36860,9 @@ class ApplyDataauthorizationAuthorizationWithsignatureResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作结果
         self.process_result = process_result
@@ -36907,7 +36907,6 @@ class ExecDataauthorizationProcessWithsignatureRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链ID
         self.blockchain_id = blockchain_id
@@ -36953,8 +36952,9 @@ class ExecDataauthorizationProcessWithsignatureResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 流程处理结果
         self.process_result = process_result
@@ -37004,7 +37004,6 @@ class CreateDataauthorizationDataModelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务系统唯一标示
         self.biz_uid = biz_uid
@@ -37081,8 +37080,9 @@ class CreateDataauthorizationDataModelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据模型ID
         self.data_model_id = data_model_id
@@ -37128,7 +37128,6 @@ class UpdateDataauthorizationDataModelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据模型ID
         self.data_model_id = data_model_id
@@ -37192,8 +37191,9 @@ class UpdateDataauthorizationDataModelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -37229,7 +37229,6 @@ class DeleteDataauthorizationDataModelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据模型ID
         self.data_model_id = data_model_id
@@ -37267,8 +37266,9 @@ class DeleteDataauthorizationDataModelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -37310,7 +37310,6 @@ class ListDataauthorizationParticipantPageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 信用代码编号
         self.credit_number = credit_number
@@ -37394,8 +37393,9 @@ class ListDataauthorizationParticipantPageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 参与方列表
         self.data = data
@@ -37475,7 +37475,6 @@ class QueryDataauthorizationDataModelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据模型ID
         self.data_model_id = data_model_id
@@ -37514,8 +37513,9 @@ class QueryDataauthorizationDataModelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据模型详细信息
         self.data_model = data_model
@@ -37564,7 +37564,6 @@ class ListDataauthorizationDatamodelPageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 模型业务ID
         self.model_biz_id = model_biz_id
@@ -37642,8 +37641,9 @@ class ListDataauthorizationDatamodelPageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据模型列表
         self.data = data
@@ -37723,7 +37723,6 @@ class ListDataauthorizationAvailableDatamodelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 参与方DID
         self.participant_id = participant_id
@@ -37762,8 +37761,9 @@ class ListDataauthorizationAvailableDatamodelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据模型列表
         self.data_models = data_models
@@ -37818,7 +37818,6 @@ class ListDataauthorizationDataentityPageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权状态
         self.auth_status = auth_status
@@ -37896,8 +37895,9 @@ class ListDataauthorizationDataentityPageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 分页数据列表
         self.data = data
@@ -37983,7 +37983,6 @@ class CreateDataauthorizationDirectAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务UUID,业务系统唯一标示
         self.biz_uid = biz_uid
@@ -38063,8 +38062,9 @@ class CreateDataauthorizationDirectAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 权限凭证
         self.authority_cert = authority_cert
@@ -38116,7 +38116,6 @@ class ListDataauthorizationAuthorizationPageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权时间终点
         self.end_time = end_time
@@ -38222,8 +38221,9 @@ class ListDataauthorizationAuthorizationPageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权明细列表
         self.data = data
@@ -38305,7 +38305,6 @@ class ListDataauthorizationAuthparticipantPageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据资产ID
         self.data_id = data_id
@@ -38365,8 +38364,9 @@ class ListDataauthorizationAuthparticipantPageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权列表
         self.data = data
@@ -38453,7 +38453,6 @@ class CreateDataauthorizationDataAssertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务系统数据唯一标示
         self.biz_uid = biz_uid
@@ -38546,8 +38545,9 @@ class CreateDataauthorizationDataAssertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据资产ID
         self.data_id = data_id
@@ -38594,7 +38594,6 @@ class UpdateDataauthorizationDataAssertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据资产类别
         self.category = category
@@ -38673,8 +38672,9 @@ class UpdateDataauthorizationDataAssertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -38710,7 +38710,6 @@ class DeleteDataauthorizationDataAssertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据资产ID
         self.data_id = data_id
@@ -38748,8 +38747,9 @@ class DeleteDataauthorizationDataAssertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -38792,7 +38792,6 @@ class CreateDataauthorizationAgentAuthorizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务UUID
         self.biz_uid = biz_uid
@@ -38881,8 +38880,9 @@ class CreateDataauthorizationAgentAuthorizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权凭证
         self.authority_cert = authority_cert
@@ -38924,7 +38924,6 @@ class ListDataauthorizationAuthorityCertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权凭证ID列表
         self.authority_cert_ids = authority_cert_ids
@@ -38963,8 +38962,9 @@ class ListDataauthorizationAuthorityCertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权详情列表
         self.data = data
@@ -39019,7 +39019,6 @@ class QueryTraceabilityTxCheckRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 接入业务标识，一接入方有条链或者必须区分统计业务类型情况下必填。
         self.biz_type = biz_type
@@ -39092,8 +39091,9 @@ class QueryTraceabilityTxCheckResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 溯源项列表
         self.items = items
@@ -39161,7 +39161,6 @@ class QueryTraceabilityBlockchainInfosRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链id
         self.bizid = bizid
@@ -39210,8 +39209,9 @@ class QueryTraceabilityBlockchainInfosResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 异常的节点数
         self.abnormal_nodes = abnormal_nodes
@@ -39324,7 +39324,6 @@ class SaveBlockchainBrowserPrivilegeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.bizid = bizid
@@ -39369,8 +39368,9 @@ class SaveBlockchainBrowserPrivilegeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -39407,7 +39407,6 @@ class QueryBlockchainBrowserPrivilegeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.bizid = bizid
@@ -39452,8 +39451,9 @@ class QueryBlockchainBrowserPrivilegeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -39490,7 +39490,6 @@ class DeleteBlockchainBrowserPrivilegeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链id
         self.bizid = bizid
@@ -39535,8 +39534,9 @@ class DeleteBlockchainBrowserPrivilegeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -39574,7 +39574,6 @@ class GetBlockchainMiniprogramRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 蚂蚁区块链的唯一链id
         self.bizid = bizid
@@ -39626,8 +39625,9 @@ class GetBlockchainMiniprogramResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易二维码
         self.qrcode = qrcode
@@ -39670,7 +39670,6 @@ class AddBlockchainMiniprogramRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 蚂蚁区块链的唯一链id
         self.bizid = bizid
@@ -39715,8 +39714,9 @@ class AddBlockchainMiniprogramResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -39754,7 +39754,6 @@ class QueryBrowserTransactionStatisticRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -39807,8 +39806,9 @@ class QueryBrowserTransactionStatisticResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -39858,7 +39858,6 @@ class QueryBrowserBlockLatestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -39897,8 +39896,9 @@ class QueryBrowserBlockLatestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -39948,7 +39948,6 @@ class QueryBrowserTransactionLatestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -39987,8 +39986,9 @@ class QueryBrowserTransactionLatestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -40039,7 +40039,6 @@ class QueryBrowserBlockRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -40085,8 +40084,9 @@ class QueryBrowserBlockResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # BlockchainBrowserTransaction
         self.result = result
@@ -40131,7 +40131,6 @@ class QueryBrowserTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -40177,8 +40176,9 @@ class QueryBrowserTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -40223,7 +40223,6 @@ class QueryBrowserTransactionReceiptRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -40269,8 +40268,9 @@ class QueryBrowserTransactionReceiptResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # BlockchainBrowserTransactionReceipt
         self.result = result
@@ -40314,7 +40314,6 @@ class QueryBrowserNodeOwnerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # bizid
         self.bizid = bizid
@@ -40353,8 +40352,9 @@ class QueryBrowserNodeOwnerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # result
         self.result = result
@@ -40405,7 +40405,6 @@ class QueryCreditTransferApplyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 货主分布式数字身份
         self.consignor_did = consignor_did
@@ -40452,8 +40451,9 @@ class QueryCreditTransferApplyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询结果信息，失败时为失败原因信息
         self.query_msg = query_msg
@@ -40504,7 +40504,6 @@ class QueryCreditTransferBalanceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 货主分布式数字身份
         self.consignor_did = consignor_did
@@ -40557,8 +40556,9 @@ class QueryCreditTransferBalanceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否有信用流转额度
         self.has_balance = has_balance
@@ -40606,7 +40606,6 @@ class QueryCreditTransferIssuebyidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 信用流转发行批次号，与issueId信用流转发行结果查询号不可同时为空
         self.batch_id = batch_id
@@ -40689,8 +40688,9 @@ class QueryCreditTransferIssuebyidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 凭证所属did
         self.did = did
@@ -40770,7 +40770,6 @@ class QueryCreditTransferIssuebytimeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需查询对象的分布式数字身份
         self.did = did
@@ -40855,8 +40854,9 @@ class QueryCreditTransferIssuebytimeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 凭证所属did
         self.did = did
@@ -40935,7 +40935,6 @@ class QueryCreditTransferStatementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需查询对象的分布式数字身份
         self.did = did
@@ -41013,8 +41012,9 @@ class QueryCreditTransferStatementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 需查询对象的分布式数字身份
         self.did = did
@@ -41089,7 +41089,6 @@ class CallbackCreditTransferRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 回调消息内容
         self.msg_data = msg_data
@@ -41135,8 +41134,9 @@ class CallbackCreditTransferResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否已接收
         self.is_recv = is_recv
@@ -41182,7 +41182,6 @@ class PushAuthUserVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪。
         self.biz_id = biz_id
@@ -41257,8 +41256,9 @@ class PushAuthUserVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否推送成功到DIS的C端应用
         self.result = result
@@ -41307,7 +41307,6 @@ class PushAuthClaimVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -41397,8 +41396,9 @@ class PushAuthClaimVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否推送成功到DIS的C端应用
         self.result = result
@@ -41442,7 +41442,6 @@ class PullAuthUserDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪、查询。
         self.biz_id = biz_id
@@ -41498,8 +41497,9 @@ class PullAuthUserDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，与请求中的biz_id一致方便业务方使用。
         self.biz_id = biz_id
@@ -41549,7 +41549,6 @@ class PullAuthClaimVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪、查询。
         self.biz_id = biz_id
@@ -41608,8 +41607,9 @@ class PullAuthClaimVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，与请求中的biz_id一致方便业务方使用。
         self.biz_id = biz_id
@@ -41684,7 +41684,6 @@ class CreateAuthUserDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 通常为业务方持有的企业did身份
         self.did = did
@@ -41748,8 +41747,9 @@ class CreateAuthUserDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回给指定用户创建的did结果，如果入参对应userId的did之前已经存在，则不会新建did，直接返回已有did。
         self.result = result
@@ -41793,7 +41793,6 @@ class CreateAuthCorporateDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 对企业描述的扩展字段，用于传递更多企业信息，支持业务。
         self.extension_info = extension_info
@@ -41845,8 +41844,9 @@ class CreateAuthCorporateDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 为企业创建的DID结果
         self.did = did
@@ -41889,7 +41889,6 @@ class PullAuthWebpageVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业B类的唯一ID，对应的did在返回值vc_content中的subject字段
         self.pk_id = pk_id
@@ -41940,8 +41939,9 @@ class PullAuthWebpageVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # C类用户实际授权发生的时间，GMT标准时间
         self.gmt_auth_time = gmt_auth_time
@@ -42018,7 +42018,6 @@ class PullAuthWebpageUrlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实人认证使用的biz_id，长度不超过64字符的业务唯一id
         self.biz_id = biz_id
@@ -42092,8 +42091,9 @@ class PullAuthWebpageUrlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可用的H5的Url，并且已经携带授权宝侧相关的参数：token、bizId等.
         self.auth_url = auth_url
@@ -42155,7 +42155,6 @@ class StartAuthVcAuthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -42252,8 +42251,9 @@ class StartAuthVcAuthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 输入参数的bizId返回
         self.biz_id = biz_id
@@ -42336,7 +42336,6 @@ class StartAuthVcShareRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 非托管的情况下必选，业务方持有的did身份。
         self.did = did
@@ -42408,8 +42407,9 @@ class StartAuthVcShareResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 分享可验证声明的目标方DID
         self.target_did = target_did
@@ -42458,7 +42458,6 @@ class QueryAuthVcContentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 如果此字段为空，则默认使用当前请求租户在授权宝配置的did来进行查询(此did需授权有权限)，此外情况都需要指定目标vc_id的owner_did
         self.owner_did = owner_did
@@ -42505,8 +42504,9 @@ class QueryAuthVcContentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 目标查询的可验证声明的完整内容，如果有权限则返回明文内容，否则获取失败，此内容为空。
         self.vc_content = vc_content
@@ -42564,7 +42564,6 @@ class CreateAuthUserinfoDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型，通常需要与授权宝服务沟通确定，业务类型可能影响此接口内部实现逻辑，长度不超过32字符。
         self.biz_type = biz_type
@@ -42628,8 +42627,9 @@ class CreateAuthUserinfoDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回给指定用户创建的did结果，如果入参对应的did之前已经存在，则不会新建did，直接返回已有did。
         self.result = result
@@ -42674,7 +42674,6 @@ class StartAuthVcRevokeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 在type参数为1时，此did参数不需要传递，默认调用方吊销给用户颁发的卡证。
         self.did = did
@@ -42734,8 +42733,9 @@ class StartAuthVcRevokeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # true:吊销成功，false:吊销失败
         self.result = result
@@ -42787,7 +42787,6 @@ class StartAuthVcGiveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -42896,8 +42895,9 @@ class StartAuthVcGiveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 入参返回
         self.biz_id = biz_id
@@ -42978,7 +42978,6 @@ class StartAuthVcSharebatchRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 非托管的情况下必选，业务方持有的did身份。
         self.did = did
@@ -43045,8 +43044,9 @@ class StartAuthVcSharebatchResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # VC分享的结果列表，分别带有结果tx_hash
         self.vc_share_results = vc_share_results
@@ -43097,7 +43097,6 @@ class StartAuthCorporateSignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需要进行签名的字符串，按规定方式进行传参拼接并sha256
         self.data = data
@@ -43143,8 +43142,9 @@ class StartAuthCorporateSignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名结果
         self.signature = signature
@@ -43192,7 +43192,6 @@ class StartAuthVcBatchauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -43282,8 +43281,9 @@ class StartAuthVcBatchauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 输入参数的bizId返回
         self.biz_id = biz_id
@@ -43360,7 +43360,6 @@ class StartAuthVcReplaceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务流水唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -43464,8 +43463,9 @@ class StartAuthVcReplaceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 输入参数的bizId返回
         self.biz_id = biz_id
@@ -43555,7 +43555,6 @@ class PushAuthInsurancePolicyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 投保人证件号码
         self.cert_no = cert_no
@@ -43675,8 +43674,9 @@ class PushAuthInsurancePolicyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -43713,7 +43713,6 @@ class GetAuthFrontendAccesstokenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型
         self.biz_type = biz_type
@@ -43762,8 +43761,9 @@ class GetAuthFrontendAccesstokenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 访问令牌
         self.access_token = access_token
@@ -43828,7 +43828,6 @@ class CreateAuthClaimUrlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型
         self.biz_type = biz_type
@@ -43905,8 +43904,9 @@ class CreateAuthClaimUrlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 待认证的业务id
         self.biz_id = biz_id
@@ -43960,7 +43960,6 @@ class StartAuthVerifyCarinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -44045,8 +44044,9 @@ class StartAuthVerifyCarinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务流水号，输入参数的bizId返回。
         self.biz_id = biz_id
@@ -44122,7 +44122,6 @@ class StartAuthVerifyDriverinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务流水号，长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -44199,8 +44198,9 @@ class StartAuthVerifyDriverinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务流水号，输入参数的bizId返回。
         self.biz_id = biz_id
@@ -44274,7 +44274,6 @@ class StartAuthVerifyCarinspectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 长度不超过64字符的业务唯一ID，用于对一个业务流的追踪，查询等。
         self.biz_id = biz_id
@@ -44334,8 +44333,9 @@ class StartAuthVerifyCarinspectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 年检有效期止。
         self.inspection_date = inspection_date
@@ -44383,7 +44383,6 @@ class GetAuthClaimTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型
         self.biz_type = biz_type
@@ -44422,8 +44421,9 @@ class GetAuthClaimTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权声明模版
         self.claim_template = claim_template
@@ -44471,7 +44471,6 @@ class CreateAuthClaimVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型
         self.biz_type = biz_type
@@ -44553,8 +44552,9 @@ class CreateAuthClaimVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务id
         self.biz_id = biz_id
@@ -44603,7 +44603,6 @@ class QueryAuthClaimVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 可验证声明id
         self.vc_id = vc_id
@@ -44654,8 +44653,9 @@ class QueryAuthClaimVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明id
         self.vc_id = vc_id
@@ -44736,7 +44736,6 @@ class QueryAuthVehicleinsuranceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 车牌号
         self.vehicle_no = vehicle_no
@@ -44817,8 +44816,9 @@ class QueryAuthVehicleinsuranceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 上次交强险投保年月
         self.last_insurance_date = last_insurance_date
@@ -44895,7 +44895,6 @@ class QueryAuthVehicleinsuranceVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 车牌号
         self.vehicle_no = vehicle_no
@@ -44977,8 +44976,9 @@ class QueryAuthVehicleinsuranceVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 上次交强险投保年月
         self.last_insurance_date = last_insurance_date
@@ -45057,7 +45057,6 @@ class QueryAuthVcStatisticsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务场景码，通常特定的业务场景需要与授权宝约定使用
         self.biz_type = biz_type
@@ -45104,8 +45103,9 @@ class QueryAuthVcStatisticsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务场景值，与入参相同
         self.biz_type = biz_type
@@ -45168,7 +45168,6 @@ class QueryAuthVcRealtimeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询目标业务的实时凭证颁发情况
         self.biz_type = biz_type
@@ -45215,8 +45214,9 @@ class QueryAuthVcRealtimeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务类型场景码，与入参相同。
         self.biz_type = biz_type
@@ -45283,7 +45283,6 @@ class QueryAuthOrgStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务类型说明，当前查询的业务类型，不同业务的机构列表不同。
         self.biz_type = biz_type
@@ -45323,8 +45322,9 @@ class QueryAuthOrgStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务场景码类型
         self.biz_type = biz_type
@@ -45394,7 +45394,6 @@ class StartDidCorporateAgentcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -45474,8 +45473,9 @@ class StartDidCorporateAgentcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -45522,7 +45522,6 @@ class StartDidPersonAgentcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业自定信息
         self.extension_info = extension_info
@@ -45600,8 +45599,9 @@ class StartDidPersonAgentcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -45646,7 +45646,6 @@ class StartDidCorporateSelfcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展信息
         self.extension = extension
@@ -45711,8 +45710,9 @@ class StartDidCorporateSelfcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -45757,7 +45757,6 @@ class StartDidPersonSelfcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension_info = extension_info
@@ -45823,8 +45822,9 @@ class StartDidPersonSelfcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -45872,7 +45872,6 @@ class StartDidVerifiableclaimIssureRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 颁发证书声明
         self.bare_claim = bare_claim
@@ -45954,8 +45953,9 @@ class StartDidVerifiableclaimIssureResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -46005,7 +46005,6 @@ class StartDidVerifiableclaimVerifierRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用于零知识证明类型的可验证声明的验证。index是对应于完整VC的一个json字符串，其中key值保持和原始VC一致，value如果是1表示verificate_claim对应key携带的是对应field的原始值，而如果Key的value是0表示verificate_claim对应key携带的是对应field的merkle root值。
         self.indexs = indexs
@@ -46055,8 +46054,9 @@ class StartDidVerifiableclaimVerifierResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -46093,7 +46093,6 @@ class QueryDidDocRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求者did
         self.did = did
@@ -46138,8 +46137,9 @@ class QueryDidDocResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did对应的doc
         self.doc = doc
@@ -46184,7 +46184,6 @@ class UpdateDidVerifiableclaimStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -46241,8 +46240,9 @@ class UpdateDidVerifiableclaimStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -46280,7 +46280,6 @@ class UpdateDidCorporateExtensionserviceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需要更新的did doc对应的did字段；该did必须为调用者自己的did，或者托管给调用者的did
         self.did = did
@@ -46331,8 +46330,9 @@ class UpdateDidCorporateExtensionserviceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -46369,7 +46369,6 @@ class StartDidCorporateCustomerservicetypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 自定义的扩展服务类型
         self.service_types = service_types
@@ -46422,8 +46421,9 @@ class StartDidCorporateCustomerservicetypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -46463,7 +46463,6 @@ class StartDidCertificationThreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         # 
@@ -46532,8 +46531,9 @@ class StartDidCertificationThreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         # 
@@ -46579,7 +46579,6 @@ class StartDidCertificationTwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -46638,8 +46637,9 @@ class StartDidCertificationTwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         self.vc_id = vc_id
@@ -46683,7 +46683,6 @@ class QueryDidVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # vc id，可通过该字符串来查询vc具体内容
         self.vc_id = vc_id
@@ -46734,8 +46733,9 @@ class QueryDidVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.vc_content = vc_content
@@ -46781,7 +46781,6 @@ class StartDidIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证类型,枚举值 PC_AUTH、APP_AUTH
         self.auth_type = auth_type
@@ -46850,8 +46849,9 @@ class StartDidIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证ID
         self.certify_id = certify_id
@@ -46900,7 +46900,6 @@ class QueryDidIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证ID，用于查询认证结果
         self.certify_id = certify_id
@@ -46945,8 +46944,9 @@ class QueryDidIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         self.vc_id = vc_id
@@ -46991,7 +46991,6 @@ class StartDidNotificationConsumerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 事件发生时的回调路径，必须满足：
         # metho：POST
@@ -47054,8 +47053,9 @@ class StartDidNotificationConsumerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 分配的消费者id，当需要重新注册时，需要使用这个consumer_id;
         self.consumer_id = consumer_id
@@ -47100,7 +47100,6 @@ class RebootDidNotificationConsumerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # method： POST
         # applicatoin/json
@@ -47160,8 +47159,9 @@ class RebootDidNotificationConsumerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 如果成功，会返回consumer_id
         self.consumer_id = consumer_id
@@ -47208,7 +47208,6 @@ class InitDidCorporateDirectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension = extension
@@ -47289,8 +47288,9 @@ class InitDidCorporateDirectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -47347,7 +47347,6 @@ class PushDidCorporateDirectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did
         self.did = did
@@ -47405,8 +47404,9 @@ class PushDidCorporateDirectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -47445,7 +47445,6 @@ class InitDidCorporateIdentityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension_info = extension_info
@@ -47502,8 +47501,9 @@ class InitDidCorporateIdentityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -47548,7 +47548,6 @@ class StartDidAgentChallengeresponseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -47606,8 +47605,9 @@ class StartDidAgentChallengeresponseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # {
         # ''challenge":xxxx, //待签名的明文
@@ -47655,7 +47655,6 @@ class StartDidAgentVerifyauthresponseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # { ''challenge":xxxx, //待签名的明文
         # “expired”：xxxx,//签名有效时间
@@ -47709,8 +47708,9 @@ class StartDidAgentVerifyauthresponseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -47750,7 +47750,6 @@ class StartDidCertificationMaskRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -47816,8 +47815,9 @@ class StartDidCertificationMaskResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         self.vc_id = vc_id
@@ -47862,7 +47862,6 @@ class OpenDidAdminServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -47919,8 +47918,9 @@ class OpenDidAdminServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 分配给该租户的访问密钥
         self.dis_access_key = dis_access_key
@@ -47964,7 +47964,6 @@ class StopDidAdminServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -48014,8 +48013,9 @@ class StopDidAdminServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -48054,7 +48054,6 @@ class StartDidSignatureAgentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -48113,8 +48112,9 @@ class StartDidSignatureAgentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 签名之后的结果
         self.signature = signature
@@ -48159,7 +48159,6 @@ class CheckDidSignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需要验签的字符串
         self.check_data = check_data
@@ -48217,8 +48216,9 @@ class CheckDidSignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -48257,7 +48257,6 @@ class StartDidZkpverifiableclaimVisibilityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # vc颁发者
         self.issuer = issuer
@@ -48318,8 +48317,9 @@ class StartDidZkpverifiableclaimVisibilityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 索引字段，标示哪些字段是原始值，哪些字段是hash值
         self.index = index
@@ -48369,7 +48369,6 @@ class StartDidAgentSidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定did进行外键关联
         self.did = did
@@ -48420,8 +48419,9 @@ class StartDidAgentSidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -48460,7 +48460,6 @@ class UpdateDidAgentSidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 新增的外键
         self.add_indexs = add_indexs
@@ -48516,8 +48515,9 @@ class UpdateDidAgentSidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -48557,7 +48557,6 @@ class StartDidCorporateAgentcreatewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # {
         # "自定义服务相关字段": 自定义字符串,
@@ -48635,8 +48634,9 @@ class StartDidCorporateAgentcreatewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -48682,7 +48682,6 @@ class UpdateDidCorporateExtensionservicewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 新增的外键
         self.add_indexs = add_indexs
@@ -48745,8 +48744,9 @@ class UpdateDidCorporateExtensionservicewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -48786,7 +48786,6 @@ class QueryDidDocSidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否需要分页返回
         self.need_page = need_page
@@ -48853,8 +48852,9 @@ class QueryDidDocSidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # side可以查找到的所有did doc数组，以json方式输出
         self.doc = doc
@@ -48912,7 +48912,6 @@ class StartDidPersonAgentcreatewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # { "自定义服务相关字段": 自定义字符串, "nation": "CN", "certType": "身份证", "name": "演示用户名", "certNo": "1111"}
         self.extension_info = extension_info
@@ -48976,8 +48975,9 @@ class StartDidPersonAgentcreatewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -49024,7 +49024,6 @@ class StartDidIotAgentcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # { "自定义服务相关字段": 自定义字符串, "type": "IOT设备类型", "name": "演示用户名", "licenceNo": "设备唯一号", "address": "1111" }
         self.extension_info = extension_info
@@ -49103,8 +49102,9 @@ class StartDidIotAgentcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -49150,7 +49150,6 @@ class StartDidIotAgentcreatewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # { "自定义服务相关字段": 自定义字符串, "type": "IOT设备类型", "name": "演示用户名", "licenceNo": "设备唯一号", "address": "1111" }
         self.extension_info = extension_info
@@ -49214,8 +49213,9 @@ class StartDidIotAgentcreatewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的iot did字符串
         self.did = did
@@ -49261,7 +49261,6 @@ class UpdateDidIotExtensionservicewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 新增的外键
         self.add_indexs = add_indexs
@@ -49324,8 +49323,9 @@ class UpdateDidIotExtensionservicewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -49365,7 +49365,6 @@ class UpdateDidPersonExtensionservicewithsidekeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 新增的外键
         self.add_indexs = add_indexs
@@ -49429,8 +49428,9 @@ class UpdateDidPersonExtensionservicewithsidekeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -49472,7 +49472,6 @@ class CreateDidPersonWiththreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -49551,8 +49550,9 @@ class CreateDidPersonWiththreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -49606,7 +49606,6 @@ class CreateDidCorporateWiththreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -49685,8 +49684,9 @@ class CreateDidCorporateWiththreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         self.did = did
@@ -49743,7 +49743,6 @@ class StartDidVcrepositoryIssueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 配置此列表，则说明需要DIS对证书声明内容加密处理，并且控制访问权限，此列表为初始配置的did名单，拥有对此颁发证书的读取权限。
         # 如果不配置此列表，则DIS默认将明文存储此证书，任何did都可以访问此证书声明内容。
@@ -49850,8 +49849,9 @@ class StartDidVcrepositoryIssueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -49906,7 +49906,6 @@ class StartDidVcrepositoryReadRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求读取数据的did。
         self.did = did
@@ -49991,8 +49990,9 @@ class StartDidVcrepositoryReadResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -50040,7 +50040,6 @@ class StartDidVcrepositoryAuthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 配置此did列表，为这些did分配读取目标VC的权限，如果目标VC存储时是明文存储，则操作失败（无需做此权限管控）。
         self.auth_did_list = auth_did_list
@@ -50116,8 +50115,9 @@ class StartDidVcrepositoryAuthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -50158,7 +50158,6 @@ class StartDidVcrepositoryFilterandreadRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求读取数据的did。
         self.did = did
@@ -50230,8 +50229,9 @@ class StartDidVcrepositoryFilterandreadResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -50277,7 +50277,6 @@ class StartDidVcrepositoryReadwithvcidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求读取数据的did。
         self.did = did
@@ -50341,8 +50340,9 @@ class StartDidVcrepositoryReadwithvcidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -50389,7 +50389,6 @@ class StartDidVcrepositoryReadwithdefineidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 自定义的业务id，通常此字段不是"vc:mychain:"前缀开头，会使用如下规则生成最终verifiable_claim_id： verifiable_claim_id = "vc:mychain:" + SHA256(Joiner.on(":").join(issuer_did, subject_did, define_id)); 此表达式参与SHA256的 define_id 为用户指定的当前参数。
         self.define_id = define_id
@@ -50461,8 +50460,9 @@ class StartDidVcrepositoryReadwithdefineidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -50508,7 +50508,6 @@ class StartDidVcrepositoryAuthwithvcidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 配置此did列表，为这些did分配读取目标VC的权限，如果目标VC存储时是明文存储，则操作失败（无需做此权限管控）。
         self.auth_did_list = auth_did_list
@@ -50572,8 +50571,9 @@ class StartDidVcrepositoryAuthwithvcidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -50615,7 +50615,6 @@ class StartDidVcrepositoryAuthwithdefineidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 配置此did列表，为这些did分配读取目标VC的权限，如果目标VC存储时是明文存储，则操作失败（无需做此权限管控）。
         self.auth_did_list = auth_did_list
@@ -50693,8 +50692,9 @@ class StartDidVcrepositoryAuthwithdefineidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -50736,7 +50736,6 @@ class StartDidAgentServicetypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 枚举类型，描述访问服务的方式
         self.access_mode = access_mode
@@ -50820,8 +50819,9 @@ class StartDidAgentServicetypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建成功之后，返回服务类型名
         self.service_type = service_type
@@ -50865,7 +50865,6 @@ class QueryDidAgentServicetypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询者did
         self.did = did
@@ -50919,8 +50918,9 @@ class QueryDidAgentServicetypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 服务类型定义列表
         self.service_types = service_types
@@ -50978,7 +50978,6 @@ class UpdateDidServicesRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 新增的服务信息
         self.add_sevices = add_sevices
@@ -51051,8 +51050,9 @@ class UpdateDidServicesResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新后的did doc
         self.did_doc = did_doc
@@ -51096,7 +51096,6 @@ class QueryDidAgentServicediscoveryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询页数
         self.page_num = page_num
@@ -51152,8 +51151,9 @@ class QueryDidAgentServicediscoveryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前页数
         self.current_page = current_page
@@ -51227,7 +51227,6 @@ class StartDidVerifiableclaimIssuerandsaveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 颁发证书声明
         self.bare_claim = bare_claim
@@ -51309,8 +51308,9 @@ class StartDidVerifiableclaimIssuerandsaveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
         self.verifiable_claim_content = verifiable_claim_content
@@ -51360,7 +51360,6 @@ class StartDidVcrepositoryVctransmitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户did标示
         self.did = did
@@ -51415,8 +51414,9 @@ class StartDidVcrepositoryVctransmitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 具体传输结果
         self.result = result
@@ -51471,7 +51471,6 @@ class CreateDidPersonWithtwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -51543,8 +51542,9 @@ class CreateDidPersonWithtwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -51597,7 +51597,6 @@ class CreateDidCorporateWithtwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -51684,8 +51683,9 @@ class CreateDidCorporateWithtwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         # 
@@ -51741,7 +51741,6 @@ class CreateDidCorporateWithfourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         # 
@@ -51832,8 +51831,9 @@ class CreateDidCorporateWithfourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         # 
@@ -51890,7 +51890,6 @@ class CreateDidPersonWithfourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 银行卡号
         self.bank_card = bank_card
@@ -51981,8 +51980,9 @@ class CreateDidPersonWithfourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         # 
@@ -52035,7 +52035,6 @@ class StartDidCorporateTwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 颁发证书的subject did
         # 
@@ -52096,8 +52095,9 @@ class StartDidCorporateTwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         self.vc_id = vc_id
@@ -52143,7 +52143,6 @@ class StartDidCorporateThreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 证书的subject did
         # 
@@ -52213,8 +52212,9 @@ class StartDidCorporateThreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         # 
@@ -52262,7 +52262,6 @@ class StartDidCorporateFourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 颁发证书的subject did
         # 
@@ -52340,8 +52339,9 @@ class StartDidCorporateFourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         # 
@@ -52389,7 +52389,6 @@ class StartDidCertificationFourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 银行卡号
         # 
@@ -52467,8 +52466,9 @@ class StartDidCertificationFourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc id，可通过该字符串来查询vc具体内容
         # 
@@ -52515,7 +52515,6 @@ class QueryDidVcrepositoryFuzzyquerywithdefinedidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 自定义的业务id，通常此字段不是"vc:mychain:"前缀开头，会使用如下规则生成最终verifiable_claim_id： verifiable_claim_id = "vc:mychain:" + SHA256(Joiner.on(":").join(issuer_did, subject_did, define_id)); 此表达式参与SHA256的 define_id 为用户指定的当前参数。查询时使用verifiable_claim_id*\
         self.define_id = define_id
@@ -52582,8 +52581,9 @@ class QueryDidVcrepositoryFuzzyquerywithdefinedidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可验证声明的完整声明列表
         self.verifiable_claim_content = verifiable_claim_content
@@ -52631,7 +52631,6 @@ class StartDidCommonAgentcreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -52716,8 +52715,9 @@ class StartDidCommonAgentcreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did字符串
         self.did = did
@@ -52769,7 +52769,6 @@ class StartDidCorporateFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 回调通知地址
         self.call_back_url = call_back_url
@@ -52873,8 +52872,9 @@ class StartDidCorporateFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证ID
         self.certify_id = certify_id
@@ -52923,7 +52923,6 @@ class QueryDidCorporateFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证ID，用于查询认证结果
         # 
@@ -52970,8 +52969,9 @@ class QueryDidCorporateFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         self.did = did
@@ -53021,7 +53021,6 @@ class DeleteDidVcrepositoryVcRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要删除的vc owner
         self.did = did
@@ -53072,8 +53071,9 @@ class DeleteDidVcrepositoryVcResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -53112,7 +53112,6 @@ class StartDidZkpverifiableclaimProofRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -53180,8 +53179,9 @@ class StartDidZkpverifiableclaimProofResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 替换为zkp证明的VC
         self.zkp_vc = zkp_vc
@@ -53225,7 +53225,6 @@ class VerifyDidZkpverifiableclaimProofRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -53285,8 +53284,9 @@ class VerifyDidZkpverifiableclaimProofResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -53328,7 +53328,6 @@ class StartMydidcommunAgencySettleinRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -53408,8 +53407,9 @@ class StartMydidcommunAgencySettleinResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         self.did = did
@@ -53461,7 +53461,6 @@ class StartMydidcommunAgencyChoicetappRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻时候生成的did
         self.did = did
@@ -53531,8 +53530,9 @@ class StartMydidcommunAgencyChoicetappResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # doc当前版本
         self.pre_version = pre_version
@@ -53606,7 +53606,6 @@ class StartMydidcommunAgencyuserPersonjoinRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 身份证号码
         self.cert_no = cert_no
@@ -53695,8 +53694,9 @@ class StartMydidcommunAgencyuserPersonjoinResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         self.did = did
@@ -53751,7 +53751,6 @@ class StartMydidcommunAgencyuserCorporatejoinRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -53847,8 +53846,9 @@ class StartMydidcommunAgencyuserCorporatejoinResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 生成的did
         self.did = did
@@ -53899,7 +53899,6 @@ class UpdateMydidcommunAgencyDocRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻时候生成的did
         self.did = did
@@ -53967,8 +53966,9 @@ class UpdateMydidcommunAgencyDocResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -54012,7 +54012,6 @@ class StartMydidcommunAgencyDatatransmitstartRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发送者的did
         self.did = did
@@ -54104,8 +54103,9 @@ class StartMydidcommunAgencyDatatransmitstartResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 发起之后返回的任务ID
         self.task_id = task_id
@@ -54149,7 +54149,6 @@ class StartMydidcommunAgencyDatatransmitcontinueRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 调用tapp时传输的参数
         self.params = params
@@ -54202,8 +54201,9 @@ class StartMydidcommunAgencyDatatransmitcontinueResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 主动发起数据传输流程的task id
         self.task_id = task_id
@@ -54250,7 +54250,6 @@ class StartMydidcommunAgencyDataapplicationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 申请的数据ID，该字段由两部分组成ownerdid#service-id(did doc中表示对应数据资产的serviceid)
         self.data_id = data_id
@@ -54325,8 +54324,9 @@ class StartMydidcommunAgencyDataapplicationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 本次请求对应的任务ID，后续消息通知时会携带该字段，方便业务系统进行对应
         self.task_id = task_id
@@ -54369,7 +54369,6 @@ class StartMydidcommunAgencyChoicetapplistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻时候生成的did
         self.did = did
@@ -54425,8 +54424,9 @@ class StartMydidcommunAgencyChoicetapplistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 之前did的版本号，在更新时会使用到
         self.pre_version = pre_version
@@ -54484,7 +54484,6 @@ class StartMydidcommunAgencyDataassertregisterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审批流程节点
         self.approvers = approvers
@@ -54537,8 +54536,9 @@ class StartMydidcommunAgencyDataassertregisterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据资产ID
         self.data_id = data_id
@@ -54582,7 +54582,6 @@ class StartMydidcommunAgencyAuthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -54634,8 +54633,9 @@ class StartMydidcommunAgencyAuthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权返回值
         self.result = result
@@ -54678,7 +54678,6 @@ class StartMydidcommunAgencyProcessauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 处理人did
         self.did = did
@@ -54724,8 +54723,9 @@ class StartMydidcommunAgencyProcessauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 授权处理后的结果
         self.result = result
@@ -54768,7 +54768,6 @@ class QueryMydidcommunAgencyProcessauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审批流水号
         self.process_id = process_id
@@ -54814,8 +54813,9 @@ class QueryMydidcommunAgencyProcessauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 审批流当前状态
         self.result = result
@@ -54857,7 +54857,6 @@ class QueryMydidcommunAgencyServicetypeinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 带查询的服务类型
         self.service_type = service_type
@@ -54900,8 +54899,9 @@ class QueryMydidcommunAgencyServicetypeinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 对应算法的入口函数名
         self.method = method
@@ -54969,7 +54969,6 @@ class QueryMydidcommunAgencyTaskresultfileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文件在数据隐私服务中标示
         self.file_mark = file_mark
@@ -55015,8 +55014,9 @@ class QueryMydidcommunAgencyTaskresultfileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件临时路径
         self.file_url = file_url
@@ -55060,7 +55060,6 @@ class ApplyMydidcommunTaskServicetypeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 需要被授权人的DID
         self.target_did = target_did
@@ -55113,8 +55112,9 @@ class ApplyMydidcommunTaskServicetypeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用于查询异步处理流程的任务ID
         self.task_id = task_id
@@ -55157,7 +55157,6 @@ class GetMydidcommunTaskTaskresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 任务ID
         self.task_id = task_id
@@ -55205,8 +55204,9 @@ class GetMydidcommunTaskTaskresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 任务ID
         self.task_id = task_id
@@ -55269,7 +55269,6 @@ class AddMydidcommunAssetDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据实际存储路径
         self.data_path = data_path
@@ -55335,8 +55334,9 @@ class AddMydidcommunAssetDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据DID，用于唯一标示数据
         self.data_did = data_did
@@ -55381,7 +55381,6 @@ class StartMydidcommunTaskGetdataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要获取的数据ID
         self.data_did = data_did
@@ -55441,8 +55440,9 @@ class StartMydidcommunTaskGetdataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 对应任务的ID
         self.task_id = task_id
@@ -55489,7 +55489,6 @@ class StartMydidcommunInstitutionSettleinRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻时选择的业务码，这个码需要在机构入驻时与数据隐私服务确认之后填写
         self.biz_code = biz_code
@@ -55561,8 +55560,9 @@ class StartMydidcommunInstitutionSettleinResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 机构入驻后，会为其分配唯一的区块链数字身份，这里是数字身份的ID，后续接口都需要用这个id作为参数
         self.did = did
@@ -55612,7 +55612,6 @@ class GetMydidcommunWorkergroupSyncRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 计算集群群组代号
         self.group_code = group_code
@@ -55665,8 +55664,9 @@ class GetMydidcommunWorkergroupSyncResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 序列化后的同步任务
         self.data = data
@@ -55708,7 +55708,6 @@ class GetMydidcommunWorkergroupPodRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 部署ID
         self.pod_id = pod_id
@@ -55747,8 +55746,9 @@ class GetMydidcommunWorkergroupPodResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 序列化后的部署
         self.data = data
@@ -55794,7 +55794,6 @@ class FinishMydidcommunWorkergroupSyncRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 部署ID
         self.pod_id = pod_id
@@ -55860,8 +55859,9 @@ class FinishMydidcommunWorkergroupSyncResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -55897,7 +55897,6 @@ class GetMydidcommunWorkergroupTappRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # TAPPInstance所对应的部署ID
         self.pod_id = pod_id
@@ -55936,8 +55935,9 @@ class GetMydidcommunWorkergroupTappResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # TAPP部署详情
         self.data = data
@@ -55982,7 +55982,6 @@ class UpdateMydidcommunWorkergroupTappRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # TAPP部署实例ID
         self.tapp_instance_id = tapp_instance_id
@@ -56042,8 +56041,9 @@ class UpdateMydidcommunWorkergroupTappResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功 1 成功 2 失败
         self.data = data
@@ -56086,7 +56086,6 @@ class QueryMydidcommunWorkergroupWorkflowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 工作流对应的部署Id
         self.pod_id = pod_id
@@ -56132,8 +56131,9 @@ class QueryMydidcommunWorkergroupWorkflowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 工作流配置
         self.data = data
@@ -56179,7 +56179,6 @@ class SyncMydidcommunWorkergroupGroupRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 计算集群明称
         self.worker_group = worker_group
@@ -56246,8 +56245,9 @@ class SyncMydidcommunWorkergroupGroupResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.data = data
@@ -56289,7 +56289,6 @@ class ListMydidcommunWorkergroupPodversionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 部署id
         self.pod_id = pod_id
@@ -56328,8 +56327,9 @@ class ListMydidcommunWorkergroupPodversionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 版本列表
         self.data = data
@@ -56371,7 +56371,6 @@ class SaveMydidIdaasDidserviceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # uuid
         self.uuid = uuid
@@ -56410,8 +56409,9 @@ class SaveMydidIdaasDidserviceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -56455,7 +56455,6 @@ class QueryDidNotificationDideventRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定关注的did
         self.did = did
@@ -56509,8 +56508,9 @@ class QueryDidNotificationDideventResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 相关事件列表
         self.events = events
@@ -56574,7 +56574,6 @@ class QueryDidNotificationVceventRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定关注的did
         self.did = did
@@ -56628,8 +56627,9 @@ class QueryDidNotificationVceventResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc事件列表
         self.events = events
@@ -56694,7 +56694,6 @@ class QueryDidNotificationFulldidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did描述符
         self.did = did
@@ -56757,8 +56756,9 @@ class QueryDidNotificationFulldidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did详情
         self.list = list
@@ -56825,7 +56825,6 @@ class CreateDidIdentityCorporateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension_info = extension_info
@@ -56896,8 +56895,9 @@ class CreateDidIdentityCorporateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -56942,7 +56942,6 @@ class InitDidAdddidHashRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 客户did
         self.did = did
@@ -57001,8 +57000,9 @@ class InitDidAdddidHashResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 待签名的交易hash
         self.hash = hash
@@ -57048,7 +57048,6 @@ class StartDidAdddidExecuteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did
         self.did = did
@@ -57116,8 +57115,9 @@ class StartDidAdddidExecuteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -57160,7 +57160,6 @@ class InitDidAddvcHashRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 可验证声明hash
         self.content_hash = content_hash
@@ -57247,8 +57246,9 @@ class InitDidAddvcHashResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 添加vc的交易hash值
         self.hash = hash
@@ -57294,7 +57294,6 @@ class StartDidAddvcExecuteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起该交易的did
         self.did = did
@@ -57362,8 +57361,9 @@ class StartDidAddvcExecuteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -57403,7 +57403,6 @@ class InitDidUpdatevcstatusHashRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易发起者did
         self.did = did
@@ -57469,8 +57468,9 @@ class InitDidUpdatevcstatusHashResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易hash
         self.hash = hash
@@ -57517,7 +57517,6 @@ class StartDidUpdatevcstatusExecuteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 交易发起者did
         self.did = did
@@ -57589,8 +57588,9 @@ class StartDidUpdatevcstatusExecuteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -57629,7 +57629,6 @@ class InitDidUpdatedidHashRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -57688,8 +57687,9 @@ class InitDidUpdatedidHashResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易hash
         self.hash = hash
@@ -57735,7 +57735,6 @@ class StartDidUpdatedidExecuteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did
         self.did = did
@@ -57800,8 +57799,9 @@ class StartDidUpdatedidExecuteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -57840,7 +57840,6 @@ class QueryDidDiddocDirectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -57899,8 +57898,9 @@ class QueryDidDiddocDirectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did doc
         self.doc = doc
@@ -57945,7 +57945,6 @@ class QueryDidVcDirectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -58005,8 +58004,9 @@ class QueryDidVcDirectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc内容hash值
         self.content_hash = content_hash
@@ -58059,7 +58059,6 @@ class CreateDidIdentityPersonRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension_info = extension_info
@@ -58130,8 +58129,9 @@ class CreateDidIdentityPersonResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -58177,7 +58177,6 @@ class UpdateDidUpdatedidAuthkeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did描述符
         self.did = did
@@ -58245,8 +58244,9 @@ class UpdateDidUpdatedidAuthkeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58286,7 +58286,6 @@ class UpdateDidUpdatedidServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did描述符
         self.did = did
@@ -58354,8 +58353,9 @@ class UpdateDidUpdatedidServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58395,7 +58395,6 @@ class AddDidUpdatedidServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 待处理did
         self.did = did
@@ -58463,8 +58462,9 @@ class AddDidUpdatedidServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58504,7 +58504,6 @@ class DeleteDidUpdatedidServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 待处理did
         self.did = did
@@ -58572,8 +58571,9 @@ class DeleteDidUpdatedidServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58613,7 +58613,6 @@ class UpdateDidUpdatevcStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # did描述符
         self.did = did
@@ -58681,8 +58680,9 @@ class UpdateDidUpdatevcStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58720,7 +58720,6 @@ class OpenDidResolverServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.specification = specification
@@ -58770,8 +58769,9 @@ class OpenDidResolverServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58809,7 +58809,6 @@ class StopDidResolverServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.specification = specification
@@ -58859,8 +58858,9 @@ class StopDidResolverServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -58900,7 +58900,6 @@ class StartDidDerivedidExecuteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起该交易的根DID
         self.did = did
@@ -58968,8 +58967,9 @@ class StartDidDerivedidExecuteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -59009,7 +59009,6 @@ class ExecDidAccesscontrolAuthorizeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起授权的did
         self.fromdid = fromdid
@@ -59074,8 +59073,9 @@ class ExecDidAccesscontrolAuthorizeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -59115,7 +59115,6 @@ class ExecDidAccesscontrolCheckRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起鉴权请求的did
         self.fromdid = fromdid
@@ -59180,8 +59179,9 @@ class ExecDidAccesscontrolCheckResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -59221,7 +59221,6 @@ class ExecDidAccesscontrolUpdateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起请求的did
         self.fromdid = fromdid
@@ -59286,8 +59285,9 @@ class ExecDidAccesscontrolUpdateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -59328,7 +59328,6 @@ class CreateDidIdentityIotRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展字段
         self.extension_info = extension_info
@@ -59399,8 +59398,9 @@ class CreateDidIdentityIotResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回创建的did
         self.did = did
@@ -59446,7 +59446,6 @@ class ExecDidServicetypeCreateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起该交易的did
         self.did = did
@@ -59524,8 +59523,9 @@ class ExecDidServicetypeCreateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 服务注册成功之后返回注册的服务类型名
         self.service_type = service_type
@@ -59573,7 +59573,6 @@ class CreateDidIdentityCommonRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -59650,8 +59649,9 @@ class CreateDidIdentityCommonResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # did
         self.did = did
@@ -59697,7 +59697,6 @@ class ConfirmVcVcrepoVctransmitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求发起者did
         self.did = did
@@ -59772,8 +59771,9 @@ class ConfirmVcVcrepoVctransmitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 传输结果
         self.result = result
@@ -59827,7 +59827,6 @@ class UpdateDidUpdatedidPubkeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -59892,8 +59891,9 @@ class UpdateDidUpdatedidPubkeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -59933,7 +59933,6 @@ class AddDidUpdatedidServicelistRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
@@ -60001,8 +60000,9 @@ class AddDidUpdatedidServicelistResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -60043,7 +60043,6 @@ class StartVcVcrepositoryWriteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定情况跟随 auth_did_list，如果auth_did_list不指定，则此字段无需指定，否则是与auth_did_list长度相同，并且对应auth_did_list的did的公钥加密AES密钥的结果
         self.auth_access_key_list = auth_access_key_list
@@ -60115,8 +60114,9 @@ class StartVcVcrepositoryWriteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # true:操作成功，false:操作失败
         self.result = result
@@ -60161,7 +60161,6 @@ class StartVcVcrepositoryReadRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 提交请求的did，通常是在授权列表中的did才具有读取权限。
         self.did = did
@@ -60222,8 +60221,9 @@ class StartVcVcrepositoryReadResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 密文加密16进制表示的字符串，是请求方did对应的didDoc中的公钥加密AES密钥的结果，使用标准信封加密的方式，AES密钥用于解密verifiable_claim_content的claim字段，如果此auth_access_key是空字符串，则说明verifiable_claim_content的内容是明文。
         self.auth_access_key = auth_access_key
@@ -60276,7 +60276,6 @@ class StartVcVcrepositoryAuthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 指定情况跟随 auth_did_list，如果auth_did_list不指定，则此字段无需指定，否则是与auth_did_list长度相同，并且对应auth_did_list的did的公钥加密AES密钥的结果。
         self.auth_access_key_list = auth_access_key_list
@@ -60350,8 +60349,9 @@ class StartVcVcrepositoryAuthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # true：操作成功，false：操作失败
         self.result = result
@@ -60396,7 +60396,6 @@ class StartVcVcrepoUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户did标示
         self.did = did
@@ -60458,8 +60457,9 @@ class StartVcVcrepoUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -60498,7 +60498,6 @@ class UpdateVcVcrepoUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户did标示
         self.did = did
@@ -60560,8 +60559,9 @@ class UpdateVcVcrepoUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -60600,7 +60600,6 @@ class StartVcVcrepoVctransmitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户did标示
         self.did = did
@@ -60663,8 +60662,9 @@ class StartVcVcrepoVctransmitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 具体传输结果
         self.result = result
@@ -60717,7 +60717,6 @@ class StartVcVcrepoControlleradduserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # controller did标示
         self.controller = controller
@@ -60779,8 +60778,9 @@ class StartVcVcrepoControlleradduserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -60819,7 +60819,6 @@ class StartVcVcrepoVccontentsaveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -60878,8 +60877,9 @@ class StartVcVcrepoVccontentsaveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -60918,7 +60918,6 @@ class StartVcRepoReadwithvcidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起者did
         self.did = did
@@ -60978,8 +60977,9 @@ class StartVcRepoReadwithvcidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vc原文
         self.vc = vc
@@ -61025,7 +61025,6 @@ class InitVcVcrepoVctransmitRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # vc传输发起人did
         self.did = did
@@ -61101,8 +61100,9 @@ class InitVcVcrepoVctransmitResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 非托管模式下传输vc初始化结果
         self.init_result = init_result
@@ -61154,7 +61154,6 @@ class InitIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证类型,枚举值
         # PC_AUTH、APP_AUTH
@@ -61216,8 +61215,9 @@ class InitIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证ID
         self.certify_id = certify_id
@@ -61266,7 +61266,6 @@ class QueryIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证ID，用于查询认证结果
         self.certify_id = certify_id
@@ -61306,8 +61305,9 @@ class QueryIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证ID
         self.certify_id = certify_id
@@ -61361,7 +61361,6 @@ class InitNotaryTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 客户的身份信息
         self.customer = customer
@@ -61424,8 +61423,9 @@ class InitNotaryTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回全局唯⼀的事务ID
         self.token = token
@@ -61467,7 +61467,6 @@ class GetNotaryTransactionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证事务ID
         self.token = token
@@ -61506,8 +61505,9 @@ class GetNotaryTransactionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证信息下载地址
         self.download_url = download_url
@@ -61551,7 +61551,6 @@ class SendNotaryTransactionTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证元数据
         self.meta = meta
@@ -61606,8 +61605,9 @@ class SendNotaryTransactionTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证凭据txHash，通过此凭据查询存证
         self.transaction_hash = transaction_hash
@@ -61649,7 +61649,6 @@ class GetNotaryTransactionTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证凭据
         self.transaction_hash = transaction_hash
@@ -61688,8 +61687,9 @@ class GetNotaryTransactionTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证文本
         self.content = content
@@ -61735,7 +61735,6 @@ class CreateNotaryTokenRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户身份识别信息
         self.customer = customer
@@ -61805,8 +61804,9 @@ class CreateNotaryTokenResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回事务ID，全局唯一
         self.transaction_id = transaction_id
@@ -61856,7 +61856,6 @@ class GetNotaryTransRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证事务ID
         self.token = token
@@ -61896,8 +61895,9 @@ class GetNotaryTransResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回文件下载路径列表
         self.file_url = file_url
@@ -61950,7 +61950,6 @@ class CreateNotaryTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62026,8 +62025,9 @@ class CreateNotaryTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -62081,7 +62081,6 @@ class GetNotaryTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62148,8 +62147,9 @@ class GetNotaryTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证信息
         self.content = content
@@ -62205,7 +62205,6 @@ class CreateNotaryFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62287,8 +62286,9 @@ class CreateNotaryFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -62342,7 +62342,6 @@ class GetNotaryFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62410,8 +62409,9 @@ class GetNotaryFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件下载地址
         self.oss_path = oss_path
@@ -62460,7 +62460,6 @@ class CreateNotarySourceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62549,8 +62548,9 @@ class CreateNotarySourceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -62604,7 +62604,6 @@ class GetNotarySourceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -62672,8 +62671,9 @@ class GetNotarySourceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件下载地址
         self.oss_path = oss_path
@@ -62715,7 +62715,6 @@ class QueryNotaryTestRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # test
         self.user_name = user_name
@@ -62754,8 +62753,9 @@ class QueryNotaryTestResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # test
         self.resp = resp
@@ -62807,7 +62807,6 @@ class InitNotaryOpenapiMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证来源，PC_AUTH或APP_AUTH
         self.auth_type = auth_type
@@ -62915,8 +62914,9 @@ class InitNotaryOpenapiMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 本次认证的唯一标识，商户需要记录，后续的操作都需要用到
         self.biz_no = biz_no
@@ -62964,7 +62964,6 @@ class QueryNotaryOpenapiMerchantRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询唯一ID，初始化获取认证地址时生成
         self.biz_no = biz_no
@@ -63004,8 +63003,9 @@ class QueryNotaryOpenapiMerchantResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询的biz_no
         self.biz_no = biz_no
@@ -63053,7 +63053,6 @@ class DeployNotaryLeaseContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁服务平台部署的合约Id名称
         self.contract_id = contract_id
@@ -63094,8 +63093,9 @@ class DeployNotaryLeaseContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -63151,7 +63151,6 @@ class CreateOpenchainWebsitServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户code,如法人的唯一id
         self.merchant_code = merchant_code
@@ -63203,8 +63202,9 @@ class CreateOpenchainWebsitServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -63251,7 +63251,6 @@ class CheckOpenchainCorporateFaceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -63365,8 +63364,9 @@ class CheckOpenchainCorporateFaceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证id
         self.certify_id = certify_id
@@ -63416,7 +63416,6 @@ class QueryOpenchainCorporateFaceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证id
         self.certify_id = certify_id
@@ -63469,8 +63468,9 @@ class QueryOpenchainCorporateFaceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 访问授权宝的url
         self.authed_url = authed_url
@@ -63516,7 +63516,6 @@ class QueryOpenchainUserDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户code
         self.tenant_id = tenant_id
@@ -63587,8 +63586,9 @@ class QueryOpenchainUserDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户数据
         self.user_data = user_data
@@ -63640,7 +63640,6 @@ class QueryIdentificationRiskThreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被核验人身份证号码
         self.cert_no = cert_no
@@ -63694,8 +63693,9 @@ class QueryIdentificationRiskThreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否通过
         self.accepted = accepted
@@ -63743,7 +63743,6 @@ class CheckContentRiskTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文本内容
         self.content = content
@@ -63783,8 +63782,9 @@ class CheckContentRiskTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 风险等级
         self.risk_level = risk_level
@@ -63833,7 +63833,6 @@ class QueryIdentificationRiskTwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被核验人身份证号码
         self.cert_no = cert_no
@@ -63880,8 +63879,9 @@ class QueryIdentificationRiskTwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否通过
         self.accepted = accepted
@@ -63932,7 +63932,6 @@ class QueryIdentificationRiskFourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被核验人银行卡号
         self.bank_card_no = bank_card_no
@@ -63993,8 +63992,9 @@ class QueryIdentificationRiskFourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否通过
         self.accepted = accepted
@@ -64044,7 +64044,6 @@ class CreateNotaryRawTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 如果已经在链上有账户，可以直接使用已有的账户进行存证。如果为空，服务端会在链上创建一个
         self.account_id = account_id
@@ -64097,8 +64096,9 @@ class CreateNotaryRawTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证使用的链上账户
         self.account_id = account_id
@@ -64147,7 +64147,6 @@ class GetNotaryRawTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链的唯一性标示
         self.bizid = bizid
@@ -64194,8 +64193,9 @@ class GetNotaryRawTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证内容
         self.content = content
@@ -64246,7 +64246,6 @@ class QueryIdentificationRiskMaskRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被核验人身份证号码后四位
         self.cert_no = cert_no
@@ -64300,8 +64299,9 @@ class QueryIdentificationRiskMaskResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否通过
         # 
@@ -64357,7 +64357,6 @@ class InitIdentificationEnterpriseFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用于内部统计的参数，外部用户请忽略
         self.biz_info = biz_info
@@ -64446,8 +64445,9 @@ class InitIdentificationEnterpriseFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 本次认证的业务唯一性标示
         self.biz_no = biz_no
@@ -64495,7 +64495,6 @@ class QueryIdentificationEnterpriseFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证的唯一性标示
         self.biz_no = biz_no
@@ -64537,8 +64536,9 @@ class QueryIdentificationEnterpriseFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证的唯一性标示
         self.biz_no = biz_no
@@ -64602,7 +64602,6 @@ class QueryIdentificationEnterpriseFourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -64671,8 +64670,9 @@ class QueryIdentificationEnterpriseFourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 经营状态
         self.enterprise_status = enterprise_status
@@ -64729,7 +64729,6 @@ class QueryIdentificationEnterpriseThreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -64791,8 +64790,9 @@ class QueryIdentificationEnterpriseThreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 经营状态
         self.enterprise_status = enterprise_status
@@ -64848,7 +64848,6 @@ class QueryIdentificationEnterpriseTwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -64903,8 +64902,9 @@ class QueryIdentificationEnterpriseTwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 经营状态
         self.enterprise_status = enterprise_status
@@ -64961,7 +64961,6 @@ class StartMydidDidThreeelementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 客户自有用户的唯一id
         self.custumor_uid = custumor_uid
@@ -65029,8 +65028,9 @@ class StartMydidDidThreeelementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 如果创建成功，会返回创建之后的did
         self.did = did
