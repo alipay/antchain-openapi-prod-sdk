@@ -199,6 +199,14 @@ class IpBasicInfo extends Model
      * @var int
      */
     public $copyRightEndTime;
+
+    // 账户名称
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $accountName;
     protected $_name = [
         'ipName'             => 'ip_name',
         'ipId'               => 'ip_id',
@@ -223,6 +231,7 @@ class IpBasicInfo extends Model
         'copyRightBeginTime' => 'copy_right_begin_time',
         'accountId'          => 'account_id',
         'copyRightEndTime'   => 'copy_right_end_time',
+        'accountName'        => 'account_name',
     ];
 
     public function validate()
@@ -323,6 +332,9 @@ class IpBasicInfo extends Model
         if (null !== $this->copyRightEndTime) {
             $res['copy_right_end_time'] = $this->copyRightEndTime;
         }
+        if (null !== $this->accountName) {
+            $res['account_name'] = $this->accountName;
+        }
 
         return $res;
     }
@@ -409,6 +421,9 @@ class IpBasicInfo extends Model
         }
         if (isset($map['copy_right_end_time'])) {
             $model->copyRightEndTime = $map['copy_right_end_time'];
+        }
+        if (isset($map['account_name'])) {
+            $model->accountName = $map['account_name'];
         }
 
         return $model;

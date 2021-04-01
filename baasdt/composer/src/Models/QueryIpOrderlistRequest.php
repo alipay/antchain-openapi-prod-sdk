@@ -14,7 +14,6 @@ class QueryIpOrderlistRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -68,6 +67,18 @@ class QueryIpOrderlistRequest extends Model
      */
     public $sellerName;
 
+    // 交易类型：1 套餐交易， 2 定向授权
+    /**
+     * @var int
+     */
+    public $tradeType;
+
+    // 收费模式：0 销售抽拥，1 按量计费
+    /**
+     * @var int
+     */
+    public $chargeType;
+
     // 查询订单授权开始时间
     /**
      * @var int
@@ -86,7 +97,7 @@ class QueryIpOrderlistRequest extends Model
      */
     public $orderBy;
 
-    // 正序还是倒叙
+    // 数据排序顺序：正序还是倒序
     /**
      * @var string
      */
@@ -114,6 +125,8 @@ class QueryIpOrderlistRequest extends Model
         'orderStatus'       => 'order_status',
         'ipName'            => 'ip_name',
         'sellerName'        => 'seller_name',
+        'tradeType'         => 'trade_type',
+        'chargeType'        => 'charge_type',
         'authStartTime'     => 'auth_start_time',
         'authEndTime'       => 'auth_end_time',
         'orderBy'           => 'order_by',
@@ -163,6 +176,12 @@ class QueryIpOrderlistRequest extends Model
         }
         if (null !== $this->sellerName) {
             $res['seller_name'] = $this->sellerName;
+        }
+        if (null !== $this->tradeType) {
+            $res['trade_type'] = $this->tradeType;
+        }
+        if (null !== $this->chargeType) {
+            $res['charge_type'] = $this->chargeType;
         }
         if (null !== $this->authStartTime) {
             $res['auth_start_time'] = $this->authStartTime;
@@ -223,6 +242,12 @@ class QueryIpOrderlistRequest extends Model
         }
         if (isset($map['seller_name'])) {
             $model->sellerName = $map['seller_name'];
+        }
+        if (isset($map['trade_type'])) {
+            $model->tradeType = $map['trade_type'];
+        }
+        if (isset($map['charge_type'])) {
+            $model->chargeType = $map['charge_type'];
         }
         if (isset($map['auth_start_time'])) {
             $model->authStartTime = $map['auth_start_time'];

@@ -79,6 +79,14 @@ class IpEmphasisInfo extends Model
      * @var string
      */
     public $ipName;
+
+    // 商户名称
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $accountName;
     protected $_name = [
         'ipId'          => 'ip_id',
         'description'   => 'description',
@@ -89,6 +97,7 @@ class IpEmphasisInfo extends Model
         'accountId'     => 'account_id',
         'createTime'    => 'create_time',
         'ipName'        => 'ip_name',
+        'accountName'   => 'account_name',
     ];
 
     public function validate()
@@ -135,6 +144,9 @@ class IpEmphasisInfo extends Model
         if (null !== $this->ipName) {
             $res['ip_name'] = $this->ipName;
         }
+        if (null !== $this->accountName) {
+            $res['account_name'] = $this->accountName;
+        }
 
         return $res;
     }
@@ -173,6 +185,9 @@ class IpEmphasisInfo extends Model
         }
         if (isset($map['ip_name'])) {
             $model->ipName = $map['ip_name'];
+        }
+        if (isset($map['account_name'])) {
+            $model->accountName = $map['account_name'];
         }
 
         return $model;

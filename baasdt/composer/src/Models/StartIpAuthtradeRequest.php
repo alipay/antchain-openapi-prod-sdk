@@ -14,7 +14,6 @@ class StartIpAuthtradeRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -38,11 +37,23 @@ class StartIpAuthtradeRequest extends Model
      */
     public $ipId;
 
+    // 收费模式：0 销售抽佣, 1 按量付费
+    /**
+     * @var int
+     */
+    public $chargeType;
+
     // 授权计费比例
     /**
      * @var string
      */
     public $authRate;
+
+    // 按量付费的收费单价（按量付费模式必填）
+    /**
+     * @var string
+     */
+    public $authPrice;
 
     // 授权合作开始期限（毫秒时间戳）
     /**
@@ -68,23 +79,74 @@ class StartIpAuthtradeRequest extends Model
      */
     public $designDraft;
 
+    // 授权产品范围
+    /**
+     * @var string
+     */
+    public $authProductScope;
+
+    // 授权地域范围
+    /**
+     * @var string
+     */
+    public $authAreaScope;
+
+    // 商品销售渠道
+    /**
+     * @var string
+     */
+    public $salesChannel;
+
     // 备注消息(不超过256个字符)
     /**
      * @var string
      */
     public $memo;
+
+    // 是否有保底金
+    /**
+     * @var bool
+     */
+    public $guaranteed;
+
+    // 支付的保底金金额
+    /**
+     * @var string
+     */
+    public $guaranteedFund;
+
+    // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+    /**
+     * @var int
+     */
+    public $guaranteedGoodsAmount;
+
+    // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+    /**
+     * @var string
+     */
+    public $guaranteedSales;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'baseRequest'       => 'base_request',
-        'accountId'         => 'account_id',
-        'ipId'              => 'ip_id',
-        'authRate'          => 'auth_rate',
-        'authBeginTime'     => 'auth_begin_time',
-        'authEndTime'       => 'auth_end_time',
-        'contract'          => 'contract',
-        'designDraft'       => 'design_draft',
-        'memo'              => 'memo',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'baseRequest'           => 'base_request',
+        'accountId'             => 'account_id',
+        'ipId'                  => 'ip_id',
+        'chargeType'            => 'charge_type',
+        'authRate'              => 'auth_rate',
+        'authPrice'             => 'auth_price',
+        'authBeginTime'         => 'auth_begin_time',
+        'authEndTime'           => 'auth_end_time',
+        'contract'              => 'contract',
+        'designDraft'           => 'design_draft',
+        'authProductScope'      => 'auth_product_scope',
+        'authAreaScope'         => 'auth_area_scope',
+        'salesChannel'          => 'sales_channel',
+        'memo'                  => 'memo',
+        'guaranteed'            => 'guaranteed',
+        'guaranteedFund'        => 'guaranteed_fund',
+        'guaranteedGoodsAmount' => 'guaranteed_goods_amount',
+        'guaranteedSales'       => 'guaranteed_sales',
     ];
 
     public function validate()
@@ -92,12 +154,11 @@ class StartIpAuthtradeRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('ipId', $this->ipId, true);
-        Model::validateRequired('authRate', $this->authRate, true);
         Model::validateRequired('authBeginTime', $this->authBeginTime, true);
         Model::validateRequired('authEndTime', $this->authEndTime, true);
         Model::validateRequired('contract', $this->contract, true);
-        Model::validateRequired('designDraft', $this->designDraft, true);
         Model::validateRequired('memo', $this->memo, true);
+        Model::validateRequired('guaranteed', $this->guaranteed, true);
     }
 
     public function toMap()
@@ -118,8 +179,14 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->ipId) {
             $res['ip_id'] = $this->ipId;
         }
+        if (null !== $this->chargeType) {
+            $res['charge_type'] = $this->chargeType;
+        }
         if (null !== $this->authRate) {
             $res['auth_rate'] = $this->authRate;
+        }
+        if (null !== $this->authPrice) {
+            $res['auth_price'] = $this->authPrice;
         }
         if (null !== $this->authBeginTime) {
             $res['auth_begin_time'] = $this->authBeginTime;
@@ -133,8 +200,29 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->designDraft) {
             $res['design_draft'] = $this->designDraft;
         }
+        if (null !== $this->authProductScope) {
+            $res['auth_product_scope'] = $this->authProductScope;
+        }
+        if (null !== $this->authAreaScope) {
+            $res['auth_area_scope'] = $this->authAreaScope;
+        }
+        if (null !== $this->salesChannel) {
+            $res['sales_channel'] = $this->salesChannel;
+        }
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
+        }
+        if (null !== $this->guaranteed) {
+            $res['guaranteed'] = $this->guaranteed;
+        }
+        if (null !== $this->guaranteedFund) {
+            $res['guaranteed_fund'] = $this->guaranteedFund;
+        }
+        if (null !== $this->guaranteedGoodsAmount) {
+            $res['guaranteed_goods_amount'] = $this->guaranteedGoodsAmount;
+        }
+        if (null !== $this->guaranteedSales) {
+            $res['guaranteed_sales'] = $this->guaranteedSales;
         }
 
         return $res;
@@ -163,8 +251,14 @@ class StartIpAuthtradeRequest extends Model
         if (isset($map['ip_id'])) {
             $model->ipId = $map['ip_id'];
         }
+        if (isset($map['charge_type'])) {
+            $model->chargeType = $map['charge_type'];
+        }
         if (isset($map['auth_rate'])) {
             $model->authRate = $map['auth_rate'];
+        }
+        if (isset($map['auth_price'])) {
+            $model->authPrice = $map['auth_price'];
         }
         if (isset($map['auth_begin_time'])) {
             $model->authBeginTime = $map['auth_begin_time'];
@@ -178,8 +272,29 @@ class StartIpAuthtradeRequest extends Model
         if (isset($map['design_draft'])) {
             $model->designDraft = $map['design_draft'];
         }
+        if (isset($map['auth_product_scope'])) {
+            $model->authProductScope = $map['auth_product_scope'];
+        }
+        if (isset($map['auth_area_scope'])) {
+            $model->authAreaScope = $map['auth_area_scope'];
+        }
+        if (isset($map['sales_channel'])) {
+            $model->salesChannel = $map['sales_channel'];
+        }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['guaranteed'])) {
+            $model->guaranteed = $map['guaranteed'];
+        }
+        if (isset($map['guaranteed_fund'])) {
+            $model->guaranteedFund = $map['guaranteed_fund'];
+        }
+        if (isset($map['guaranteed_goods_amount'])) {
+            $model->guaranteedGoodsAmount = $map['guaranteed_goods_amount'];
+        }
+        if (isset($map['guaranteed_sales'])) {
+            $model->guaranteedSales = $map['guaranteed_sales'];
         }
 
         return $model;

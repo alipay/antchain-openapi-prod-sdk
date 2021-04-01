@@ -14,7 +14,6 @@ class UpdateIpGoodsRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -147,6 +146,12 @@ class UpdateIpGoodsRequest extends Model
      * @var int
      */
     public $copyRightEndTime;
+
+    // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+    /**
+     * @var bool
+     */
+    public $needApproval;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -170,6 +175,7 @@ class UpdateIpGoodsRequest extends Model
         'memo'               => 'memo',
         'copyRightBeginTime' => 'copy_right_begin_time',
         'copyRightEndTime'   => 'copy_right_end_time',
+        'needApproval'       => 'need_approval',
     ];
 
     public function validate()
@@ -263,6 +269,9 @@ class UpdateIpGoodsRequest extends Model
         if (null !== $this->copyRightEndTime) {
             $res['copy_right_end_time'] = $this->copyRightEndTime;
         }
+        if (null !== $this->needApproval) {
+            $res['need_approval'] = $this->needApproval;
+        }
 
         return $res;
     }
@@ -346,6 +355,9 @@ class UpdateIpGoodsRequest extends Model
         }
         if (isset($map['copy_right_end_time'])) {
             $model->copyRightEndTime = $map['copy_right_end_time'];
+        }
+        if (isset($map['need_approval'])) {
+            $model->needApproval = $map['need_approval'];
         }
 
         return $model;

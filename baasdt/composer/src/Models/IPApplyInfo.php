@@ -63,14 +63,41 @@ class IPApplyInfo extends Model
      * @var int
      */
     public $status;
+
+    // 用户的外系统识别Id
+    /**
+     * @example User001
+     *
+     * @var string
+     */
+    public $externalUserId;
+
+    // 外部系统用户名
+    /**
+     * @example 用户名
+     *
+     * @var string
+     */
+    public $externalUserName;
+
+    // 申请时间(毫秒时间戳)
+    /**
+     * @example 3810551857
+     *
+     * @var int
+     */
+    public $applyDate;
     protected $_name = [
-        'accountId'       => 'account_id',
-        'loginName'       => 'login_name',
-        'alipayLoginName' => 'alipay_login_name',
-        'legalName'       => 'legal_name',
-        'phoneNumber'     => 'phone_number',
-        'role'            => 'role',
-        'status'          => 'status',
+        'accountId'        => 'account_id',
+        'loginName'        => 'login_name',
+        'alipayLoginName'  => 'alipay_login_name',
+        'legalName'        => 'legal_name',
+        'phoneNumber'      => 'phone_number',
+        'role'             => 'role',
+        'status'           => 'status',
+        'externalUserId'   => 'external_user_id',
+        'externalUserName' => 'external_user_name',
+        'applyDate'        => 'apply_date',
     ];
 
     public function validate()
@@ -82,6 +109,9 @@ class IPApplyInfo extends Model
         Model::validateRequired('phoneNumber', $this->phoneNumber, true);
         Model::validateRequired('role', $this->role, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('externalUserId', $this->externalUserId, true);
+        Model::validateRequired('externalUserName', $this->externalUserName, true);
+        Model::validateRequired('applyDate', $this->applyDate, true);
     }
 
     public function toMap()
@@ -107,6 +137,15 @@ class IPApplyInfo extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->externalUserId) {
+            $res['external_user_id'] = $this->externalUserId;
+        }
+        if (null !== $this->externalUserName) {
+            $res['external_user_name'] = $this->externalUserName;
+        }
+        if (null !== $this->applyDate) {
+            $res['apply_date'] = $this->applyDate;
         }
 
         return $res;
@@ -140,6 +179,15 @@ class IPApplyInfo extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['external_user_id'])) {
+            $model->externalUserId = $map['external_user_id'];
+        }
+        if (isset($map['external_user_name'])) {
+            $model->externalUserName = $map['external_user_name'];
+        }
+        if (isset($map['apply_date'])) {
+            $model->applyDate = $map['apply_date'];
         }
 
         return $model;

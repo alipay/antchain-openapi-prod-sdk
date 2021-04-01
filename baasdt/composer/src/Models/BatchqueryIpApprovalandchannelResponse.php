@@ -14,12 +14,13 @@ class BatchqueryIpApprovalandchannelResponse extends Model
      */
     public $reqMsgId;
 
-    // 异常信息的文本描述
+    // 结果码，一般OK表示调用成功
     /**
      * @var string
      */
     public $resultCode;
 
+    // 异常信息的文本描述
     /**
      * @var string
      */
@@ -27,7 +28,7 @@ class BatchqueryIpApprovalandchannelResponse extends Model
 
     // ip信息
     /**
-     * @var IpBasicInfoWithChannelInfo[]
+     * @var IpAllInfo[]
      */
     public $ipList;
 
@@ -98,7 +99,7 @@ class BatchqueryIpApprovalandchannelResponse extends Model
                 $model->ipList = [];
                 $n             = 0;
                 foreach ($map['ip_list'] as $item) {
-                    $model->ipList[$n++] = null !== $item ? IpBasicInfoWithChannelInfo::fromMap($item) : $item;
+                    $model->ipList[$n++] = null !== $item ? IpAllInfo::fromMap($item) : $item;
                 }
             }
         }

@@ -14,12 +14,13 @@ class StartIpAuthtradeResponse extends Model
      */
     public $reqMsgId;
 
-    // 异常信息的文本描述
+    // 结果码，一般OK表示调用成功
     /**
      * @var string
      */
     public $resultCode;
 
+    // 异常信息的文本描述
     /**
      * @var string
      */
@@ -30,11 +31,25 @@ class StartIpAuthtradeResponse extends Model
      * @var string
      */
     public $ipOrderId;
+
+    // 保底金支付链接
+    /**
+     * @var string
+     */
+    public $payUrl;
+
+    // 保底金账单ID
+    /**
+     * @var string
+     */
+    public $ipBillId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'ipOrderId'  => 'ip_order_id',
+        'payUrl'     => 'pay_url',
+        'ipBillId'   => 'ip_bill_id',
     ];
 
     public function validate()
@@ -55,6 +70,12 @@ class StartIpAuthtradeResponse extends Model
         }
         if (null !== $this->ipOrderId) {
             $res['ip_order_id'] = $this->ipOrderId;
+        }
+        if (null !== $this->payUrl) {
+            $res['pay_url'] = $this->payUrl;
+        }
+        if (null !== $this->ipBillId) {
+            $res['ip_bill_id'] = $this->ipBillId;
         }
 
         return $res;
@@ -79,6 +100,12 @@ class StartIpAuthtradeResponse extends Model
         }
         if (isset($map['ip_order_id'])) {
             $model->ipOrderId = $map['ip_order_id'];
+        }
+        if (isset($map['pay_url'])) {
+            $model->payUrl = $map['pay_url'];
+        }
+        if (isset($map['ip_bill_id'])) {
+            $model->ipBillId = $map['ip_bill_id'];
         }
 
         return $model;

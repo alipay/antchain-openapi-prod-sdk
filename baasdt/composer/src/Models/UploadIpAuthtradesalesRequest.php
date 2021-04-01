@@ -14,7 +14,6 @@ class UploadIpAuthtradesalesRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -50,6 +49,12 @@ class UploadIpAuthtradesalesRequest extends Model
      */
     public $authRate;
 
+    // 定向授权按量付费单价
+    /**
+     * @var string
+     */
+    public $authPrice;
+
     // 本次结算周期开始时间
     /**
      * @var int
@@ -61,6 +66,12 @@ class UploadIpAuthtradesalesRequest extends Model
      * @var int
      */
     public $settlementEndTime;
+
+    // 零售价
+    /**
+     * @var string
+     */
+    public $price;
 
     // 终端商品销售数量
     /**
@@ -79,6 +90,30 @@ class UploadIpAuthtradesalesRequest extends Model
      * @var string
      */
     public $payment;
+
+    // 终端商品名称
+    /**
+     * @var string
+     */
+    public $goodsName;
+
+    // 终端商品图片
+    /**
+     * @var string
+     */
+    public $goodsImage;
+
+    // 终端销售渠道
+    /**
+     * @var string
+     */
+    public $salesChannel;
+
+    // 终端商品链接
+    /**
+     * @var string
+     */
+    public $goodsUrl;
 
     // 商品信息
     /**
@@ -105,11 +140,17 @@ class UploadIpAuthtradesalesRequest extends Model
         'ipOrderId'           => 'ip_order_id',
         'onlyCallBlockchain'  => 'only_call_blockchain',
         'authRate'            => 'auth_rate',
+        'authPrice'           => 'auth_price',
         'settlementBeginTime' => 'settlement_begin_time',
         'settlementEndTime'   => 'settlement_end_time',
+        'price'               => 'price',
         'amount'              => 'amount',
         'sales'               => 'sales',
         'payment'             => 'payment',
+        'goodsName'           => 'goods_name',
+        'goodsImage'          => 'goods_image',
+        'salesChannel'        => 'sales_channel',
+        'goodsUrl'            => 'goods_url',
         'goodsInfo'           => 'goods_info',
         'operator'            => 'operator',
         'memo'                => 'memo',
@@ -121,12 +162,13 @@ class UploadIpAuthtradesalesRequest extends Model
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('ipOrderId', $this->ipOrderId, true);
         Model::validateRequired('onlyCallBlockchain', $this->onlyCallBlockchain, true);
-        Model::validateRequired('authRate', $this->authRate, true);
         Model::validateRequired('settlementBeginTime', $this->settlementBeginTime, true);
         Model::validateRequired('settlementEndTime', $this->settlementEndTime, true);
+        Model::validateRequired('price', $this->price, true);
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('sales', $this->sales, true);
         Model::validateRequired('payment', $this->payment, true);
+        Model::validateRequired('goodsName', $this->goodsName, true);
         Model::validateRequired('goodsInfo', $this->goodsInfo, true);
         Model::validateRequired('operator', $this->operator, true);
     }
@@ -155,11 +197,17 @@ class UploadIpAuthtradesalesRequest extends Model
         if (null !== $this->authRate) {
             $res['auth_rate'] = $this->authRate;
         }
+        if (null !== $this->authPrice) {
+            $res['auth_price'] = $this->authPrice;
+        }
         if (null !== $this->settlementBeginTime) {
             $res['settlement_begin_time'] = $this->settlementBeginTime;
         }
         if (null !== $this->settlementEndTime) {
             $res['settlement_end_time'] = $this->settlementEndTime;
+        }
+        if (null !== $this->price) {
+            $res['price'] = $this->price;
         }
         if (null !== $this->amount) {
             $res['amount'] = $this->amount;
@@ -169,6 +217,18 @@ class UploadIpAuthtradesalesRequest extends Model
         }
         if (null !== $this->payment) {
             $res['payment'] = $this->payment;
+        }
+        if (null !== $this->goodsName) {
+            $res['goods_name'] = $this->goodsName;
+        }
+        if (null !== $this->goodsImage) {
+            $res['goods_image'] = $this->goodsImage;
+        }
+        if (null !== $this->salesChannel) {
+            $res['sales_channel'] = $this->salesChannel;
+        }
+        if (null !== $this->goodsUrl) {
+            $res['goods_url'] = $this->goodsUrl;
         }
         if (null !== $this->goodsInfo) {
             $res['goods_info'] = $this->goodsInfo;
@@ -212,11 +272,17 @@ class UploadIpAuthtradesalesRequest extends Model
         if (isset($map['auth_rate'])) {
             $model->authRate = $map['auth_rate'];
         }
+        if (isset($map['auth_price'])) {
+            $model->authPrice = $map['auth_price'];
+        }
         if (isset($map['settlement_begin_time'])) {
             $model->settlementBeginTime = $map['settlement_begin_time'];
         }
         if (isset($map['settlement_end_time'])) {
             $model->settlementEndTime = $map['settlement_end_time'];
+        }
+        if (isset($map['price'])) {
+            $model->price = $map['price'];
         }
         if (isset($map['amount'])) {
             $model->amount = $map['amount'];
@@ -226,6 +292,18 @@ class UploadIpAuthtradesalesRequest extends Model
         }
         if (isset($map['payment'])) {
             $model->payment = $map['payment'];
+        }
+        if (isset($map['goods_name'])) {
+            $model->goodsName = $map['goods_name'];
+        }
+        if (isset($map['goods_image'])) {
+            $model->goodsImage = $map['goods_image'];
+        }
+        if (isset($map['sales_channel'])) {
+            $model->salesChannel = $map['sales_channel'];
+        }
+        if (isset($map['goods_url'])) {
+            $model->goodsUrl = $map['goods_url'];
         }
         if (isset($map['goods_info'])) {
             $model->goodsInfo = $map['goods_info'];

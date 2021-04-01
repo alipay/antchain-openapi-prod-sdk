@@ -176,6 +176,14 @@ class IPOrder extends Model
      */
     public $status;
 
+    // 订单创建时间，时间戳（毫秒）
+    /**
+     * @example 1684896477580
+     *
+     * @var int
+     */
+    public $createTime;
+
     // 订单最近更新时间
     /**
      * @example 1604896477580
@@ -183,29 +191,130 @@ class IPOrder extends Model
      * @var int
      */
     public $updateTime;
+
+    // 收费模式：0 销售抽佣, 1 按量付费
+    /**
+     * @example 0
+     *
+     * @var int
+     */
+    public $chargeType;
+
+    // 按量付费的收费单价（按量付费模式必填）
+    /**
+     * @example 1.11
+     *
+     * @var string
+     */
+    public $authPrice;
+
+    // 是否有保底金
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $guaranteed;
+
+    // 保底金金额
+    /**
+     * @example 10000.00
+     *
+     * @var string
+     */
+    public $guaranteedAmount;
+
+    // 保底商品个数（按量付费）
+    /**
+     * @example 1000
+     *
+     * @var int
+     */
+    public $guaranteedGoodsAmount;
+
+    // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+    /**
+     * @example 5000
+     *
+     * @var int
+     */
+    public $usedGuaranteedGoodsAmount;
+
+    // 保底商品销售金额（销售抽佣）
+    /**
+     * @example 10000.00
+     *
+     * @var string
+     */
+    public $guaranteedSales;
+
+    // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+    //
+    /**
+     * @example 5000.00
+     *
+     * @var string
+     */
+    public $usedGuaranteedSales;
+
+    // 授权产品范围
+    /**
+     * @example 食品 | 家居百货
+     *
+     * @var string
+     */
+    public $authProductScope;
+
+    // 授权地域范围
+    /**
+     * @example 中国大陆
+     *
+     * @var string
+     */
+    public $authAreaScope;
+
+    // 商品销售渠道
+    /**
+     * @example 电商平台、社交电商、直播、线下实体、代理商
+     *
+     * @var string
+     */
+    public $salesChannel;
     protected $_name = [
-        'ipOrderId'     => 'ip_order_id',
-        'sellerId'      => 'seller_id',
-        'sellerName'    => 'seller_name',
-        'buyerId'       => 'buyer_id',
-        'buyerName'     => 'buyer_name',
-        'type'          => 'type',
-        'ipId'          => 'ip_id',
-        'ipName'        => 'ip_name',
-        'channelId'     => 'channel_id',
-        'totalAmount'   => 'total_amount',
-        'usedAmount'    => 'used_amount',
-        'priceRange'    => 'price_range',
-        'totalPrice'    => 'total_price',
-        'authRate'      => 'auth_rate',
-        'authStartTime' => 'auth_start_time',
-        'authEndTime'   => 'auth_end_time',
-        'contract'      => 'contract',
-        'designDraft'   => 'design_draft',
-        'operator'      => 'operator',
-        'operatorName'  => 'operator_name',
-        'status'        => 'status',
-        'updateTime'    => 'update_time',
+        'ipOrderId'                 => 'ip_order_id',
+        'sellerId'                  => 'seller_id',
+        'sellerName'                => 'seller_name',
+        'buyerId'                   => 'buyer_id',
+        'buyerName'                 => 'buyer_name',
+        'type'                      => 'type',
+        'ipId'                      => 'ip_id',
+        'ipName'                    => 'ip_name',
+        'channelId'                 => 'channel_id',
+        'totalAmount'               => 'total_amount',
+        'usedAmount'                => 'used_amount',
+        'priceRange'                => 'price_range',
+        'totalPrice'                => 'total_price',
+        'authRate'                  => 'auth_rate',
+        'authStartTime'             => 'auth_start_time',
+        'authEndTime'               => 'auth_end_time',
+        'contract'                  => 'contract',
+        'designDraft'               => 'design_draft',
+        'operator'                  => 'operator',
+        'operatorName'              => 'operator_name',
+        'status'                    => 'status',
+        'createTime'                => 'create_time',
+        'updateTime'                => 'update_time',
+        'chargeType'                => 'charge_type',
+        'authPrice'                 => 'auth_price',
+        'guaranteed'                => 'guaranteed',
+        'guaranteedAmount'          => 'guaranteed_amount',
+        'guaranteedGoodsAmount'     => 'guaranteed_goods_amount',
+        'usedGuaranteedGoodsAmount' => 'used_guaranteed_goods_amount',
+        'guaranteedSales'           => 'guaranteed_sales',
+        'usedGuaranteedSales'       => 'used_guaranteed_sales',
+        'authProductScope'          => 'auth_product_scope',
+        'authAreaScope'             => 'auth_area_scope',
+        'salesChannel'              => 'sales_channel',
     ];
 
     public function validate()
@@ -231,7 +340,19 @@ class IPOrder extends Model
         Model::validateRequired('operator', $this->operator, true);
         Model::validateRequired('operatorName', $this->operatorName, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('createTime', $this->createTime, true);
         Model::validateRequired('updateTime', $this->updateTime, true);
+        Model::validateRequired('chargeType', $this->chargeType, true);
+        Model::validateRequired('authPrice', $this->authPrice, true);
+        Model::validateRequired('guaranteed', $this->guaranteed, true);
+        Model::validateRequired('guaranteedAmount', $this->guaranteedAmount, true);
+        Model::validateRequired('guaranteedGoodsAmount', $this->guaranteedGoodsAmount, true);
+        Model::validateRequired('usedGuaranteedGoodsAmount', $this->usedGuaranteedGoodsAmount, true);
+        Model::validateRequired('guaranteedSales', $this->guaranteedSales, true);
+        Model::validateRequired('usedGuaranteedSales', $this->usedGuaranteedSales, true);
+        Model::validateRequired('authProductScope', $this->authProductScope, true);
+        Model::validateRequired('authAreaScope', $this->authAreaScope, true);
+        Model::validateRequired('salesChannel', $this->salesChannel, true);
     }
 
     public function toMap()
@@ -300,8 +421,44 @@ class IPOrder extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
+        if (null !== $this->createTime) {
+            $res['create_time'] = $this->createTime;
+        }
         if (null !== $this->updateTime) {
             $res['update_time'] = $this->updateTime;
+        }
+        if (null !== $this->chargeType) {
+            $res['charge_type'] = $this->chargeType;
+        }
+        if (null !== $this->authPrice) {
+            $res['auth_price'] = $this->authPrice;
+        }
+        if (null !== $this->guaranteed) {
+            $res['guaranteed'] = $this->guaranteed;
+        }
+        if (null !== $this->guaranteedAmount) {
+            $res['guaranteed_amount'] = $this->guaranteedAmount;
+        }
+        if (null !== $this->guaranteedGoodsAmount) {
+            $res['guaranteed_goods_amount'] = $this->guaranteedGoodsAmount;
+        }
+        if (null !== $this->usedGuaranteedGoodsAmount) {
+            $res['used_guaranteed_goods_amount'] = $this->usedGuaranteedGoodsAmount;
+        }
+        if (null !== $this->guaranteedSales) {
+            $res['guaranteed_sales'] = $this->guaranteedSales;
+        }
+        if (null !== $this->usedGuaranteedSales) {
+            $res['used_guaranteed_sales'] = $this->usedGuaranteedSales;
+        }
+        if (null !== $this->authProductScope) {
+            $res['auth_product_scope'] = $this->authProductScope;
+        }
+        if (null !== $this->authAreaScope) {
+            $res['auth_area_scope'] = $this->authAreaScope;
+        }
+        if (null !== $this->salesChannel) {
+            $res['sales_channel'] = $this->salesChannel;
         }
 
         return $res;
@@ -378,8 +535,44 @@ class IPOrder extends Model
         if (isset($map['status'])) {
             $model->status = $map['status'];
         }
+        if (isset($map['create_time'])) {
+            $model->createTime = $map['create_time'];
+        }
         if (isset($map['update_time'])) {
             $model->updateTime = $map['update_time'];
+        }
+        if (isset($map['charge_type'])) {
+            $model->chargeType = $map['charge_type'];
+        }
+        if (isset($map['auth_price'])) {
+            $model->authPrice = $map['auth_price'];
+        }
+        if (isset($map['guaranteed'])) {
+            $model->guaranteed = $map['guaranteed'];
+        }
+        if (isset($map['guaranteed_amount'])) {
+            $model->guaranteedAmount = $map['guaranteed_amount'];
+        }
+        if (isset($map['guaranteed_goods_amount'])) {
+            $model->guaranteedGoodsAmount = $map['guaranteed_goods_amount'];
+        }
+        if (isset($map['used_guaranteed_goods_amount'])) {
+            $model->usedGuaranteedGoodsAmount = $map['used_guaranteed_goods_amount'];
+        }
+        if (isset($map['guaranteed_sales'])) {
+            $model->guaranteedSales = $map['guaranteed_sales'];
+        }
+        if (isset($map['used_guaranteed_sales'])) {
+            $model->usedGuaranteedSales = $map['used_guaranteed_sales'];
+        }
+        if (isset($map['auth_product_scope'])) {
+            $model->authProductScope = $map['auth_product_scope'];
+        }
+        if (isset($map['auth_area_scope'])) {
+            $model->authAreaScope = $map['auth_area_scope'];
+        }
+        if (isset($map['sales_channel'])) {
+            $model->salesChannel = $map['sales_channel'];
         }
 
         return $model;

@@ -14,7 +14,6 @@ class StartIpPackagetradeRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -79,6 +78,24 @@ class StartIpPackagetradeRequest extends Model
      * @var string
      */
     public $memo;
+
+    // 授权产品范围
+    /**
+     * @var string
+     */
+    public $authProductScope;
+
+    // 授权地域范围
+    /**
+     * @var string
+     */
+    public $authAreaScope;
+
+    // 商品销售渠道
+    /**
+     * @var string
+     */
+    public $salesChannel;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -92,6 +109,9 @@ class StartIpPackagetradeRequest extends Model
         'authBeginTime'      => 'auth_begin_time',
         'authEndTime'        => 'auth_end_time',
         'memo'               => 'memo',
+        'authProductScope'   => 'auth_product_scope',
+        'authAreaScope'      => 'auth_area_scope',
+        'salesChannel'       => 'sales_channel',
     ];
 
     public function validate()
@@ -147,6 +167,15 @@ class StartIpPackagetradeRequest extends Model
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
         }
+        if (null !== $this->authProductScope) {
+            $res['auth_product_scope'] = $this->authProductScope;
+        }
+        if (null !== $this->authAreaScope) {
+            $res['auth_area_scope'] = $this->authAreaScope;
+        }
+        if (null !== $this->salesChannel) {
+            $res['sales_channel'] = $this->salesChannel;
+        }
 
         return $res;
     }
@@ -194,6 +223,15 @@ class StartIpPackagetradeRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['auth_product_scope'])) {
+            $model->authProductScope = $map['auth_product_scope'];
+        }
+        if (isset($map['auth_area_scope'])) {
+            $model->authAreaScope = $map['auth_area_scope'];
+        }
+        if (isset($map['sales_channel'])) {
+            $model->salesChannel = $map['sales_channel'];
         }
 
         return $model;
