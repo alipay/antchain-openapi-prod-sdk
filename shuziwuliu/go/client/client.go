@@ -18767,6 +18767,8 @@ type ApplyPfConfirmationResponse struct {
 	//
 	//
 	Repayment *string `json:"repayment,omitempty" xml:"repayment,omitempty"`
+	// 贷款利率
+	EtrdLnIntRt *string `json:"etrd_ln_int_rt,omitempty" xml:"etrd_ln_int_rt,omitempty"`
 }
 
 func (s ApplyPfConfirmationResponse) String() string {
@@ -18814,6 +18816,11 @@ func (s *ApplyPfConfirmationResponse) SetLoanEndTime(v string) *ApplyPfConfirmat
 
 func (s *ApplyPfConfirmationResponse) SetRepayment(v string) *ApplyPfConfirmationResponse {
 	s.Repayment = &v
+	return s
+}
+
+func (s *ApplyPfConfirmationResponse) SetEtrdLnIntRt(v string) *ApplyPfConfirmationResponse {
+	s.EtrdLnIntRt = &v
 	return s
 }
 
@@ -25643,7 +25650,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.95"),
+				"sdk_version":      tea.String("1.3.96"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
