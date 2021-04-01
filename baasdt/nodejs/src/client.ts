@@ -979,6 +979,8 @@ export class IpBasicInfo extends $tea.Model {
   accountId: string;
   // 资质生效的结束时间
   copyRightEndTime: number;
+  // 账户名称
+  accountName?: string;
   static names(): { [key: string]: string } {
     return {
       ipName: 'ip_name',
@@ -1004,6 +1006,7 @@ export class IpBasicInfo extends $tea.Model {
       copyRightBeginTime: 'copy_right_begin_time',
       accountId: 'account_id',
       copyRightEndTime: 'copy_right_end_time',
+      accountName: 'account_name',
     };
   }
 
@@ -1032,6 +1035,7 @@ export class IpBasicInfo extends $tea.Model {
       copyRightBeginTime: 'number',
       accountId: 'string',
       copyRightEndTime: 'number',
+      accountName: 'string',
     };
   }
 
@@ -2079,6 +2083,79 @@ export class IPMerchantApplyInfo extends $tea.Model {
   }
 }
 
+// IP授权交易的账单信息
+export class IPBill extends $tea.Model {
+  // 订单ID
+  ipOrderId: string;
+  // 账单ID
+  ipBillId: string;
+  // 上传销售数据时的bizId
+  bizId: string;
+  // 收款方
+  sellerId: string;
+  // 付款方
+  buyerId: string;
+  // 账单状态
+  status: number;
+  // 账单创建时间，时间戳（毫秒）
+  createTime: number;
+  // 备注信息
+  memo: string;
+  // 交易类型：0套餐交易，1定向授权
+  tradeType: number;
+  // 支付链接
+  payUrl: string;
+  // 账单金额，支付金额
+  billPayAmount: string;
+  // 销售金额
+  billSales: string;
+  // 账单周期开始时间，时间戳（毫秒）
+  cycleStartTime: number;
+  // 账单周期结束时间，时间戳（毫秒）
+  cycleEndTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      ipOrderId: 'ip_order_id',
+      ipBillId: 'ip_bill_id',
+      bizId: 'biz_id',
+      sellerId: 'seller_id',
+      buyerId: 'buyer_id',
+      status: 'status',
+      createTime: 'create_time',
+      memo: 'memo',
+      tradeType: 'trade_type',
+      payUrl: 'pay_url',
+      billPayAmount: 'bill_pay_amount',
+      billSales: 'bill_sales',
+      cycleStartTime: 'cycle_start_time',
+      cycleEndTime: 'cycle_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ipOrderId: 'string',
+      ipBillId: 'string',
+      bizId: 'string',
+      sellerId: 'string',
+      buyerId: 'string',
+      status: 'number',
+      createTime: 'number',
+      memo: 'string',
+      tradeType: 'number',
+      payUrl: 'string',
+      billPayAmount: 'string',
+      billSales: 'string',
+      cycleStartTime: 'number',
+      cycleEndTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电子券批次信息
 export class CouponCollection extends $tea.Model {
   // 批次ID
@@ -2180,8 +2257,33 @@ export class IPOrder extends $tea.Model {
   operatorName: string;
   // 订单状态。TODO 补充枚举信息
   status: number;
+  // 订单创建时间，时间戳（毫秒）
+  createTime: number;
   // 订单最近更新时间
   updateTime: number;
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType: number;
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice: string;
+  // 是否有保底金
+  guaranteed: boolean;
+  // 保底金金额
+  guaranteedAmount: string;
+  // 保底商品个数（按量付费）
+  guaranteedGoodsAmount: number;
+  // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  usedGuaranteedGoodsAmount: number;
+  // 保底商品销售金额（销售抽佣）
+  guaranteedSales: string;
+  // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  // 
+  usedGuaranteedSales: string;
+  // 授权产品范围
+  authProductScope: string;
+  // 授权地域范围
+  authAreaScope: string;
+  // 商品销售渠道
+  salesChannel: string;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2205,7 +2307,19 @@ export class IPOrder extends $tea.Model {
       operator: 'operator',
       operatorName: 'operator_name',
       status: 'status',
+      createTime: 'create_time',
       updateTime: 'update_time',
+      chargeType: 'charge_type',
+      authPrice: 'auth_price',
+      guaranteed: 'guaranteed',
+      guaranteedAmount: 'guaranteed_amount',
+      guaranteedGoodsAmount: 'guaranteed_goods_amount',
+      usedGuaranteedGoodsAmount: 'used_guaranteed_goods_amount',
+      guaranteedSales: 'guaranteed_sales',
+      usedGuaranteedSales: 'used_guaranteed_sales',
+      authProductScope: 'auth_product_scope',
+      authAreaScope: 'auth_area_scope',
+      salesChannel: 'sales_channel',
     };
   }
 
@@ -2232,7 +2346,48 @@ export class IPOrder extends $tea.Model {
       operator: 'string',
       operatorName: 'string',
       status: 'number',
+      createTime: 'number',
       updateTime: 'number',
+      chargeType: 'number',
+      authPrice: 'string',
+      guaranteed: 'boolean',
+      guaranteedAmount: 'string',
+      guaranteedGoodsAmount: 'number',
+      usedGuaranteedGoodsAmount: 'number',
+      guaranteedSales: 'string',
+      usedGuaranteedSales: 'string',
+      authProductScope: 'string',
+      authAreaScope: 'string',
+      salesChannel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// sku的基础信息
+export class IpSkuEmphasisInfo extends $tea.Model {
+  // 价格区间，不做校验
+  priceRange: string;
+  // 单价
+  purchasePrice: string;
+  // 套餐数量
+  saleNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      priceRange: 'price_range',
+      purchasePrice: 'purchase_price',
+      saleNum: 'sale_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      priceRange: 'string',
+      purchasePrice: 'string',
+      saleNum: 'string',
     };
   }
 
@@ -2570,6 +2725,8 @@ export class IpEmphasisInfo extends $tea.Model {
   createTime: string;
   // ip名字
   ipName: string;
+  // 商户名称
+  accountName?: string;
   static names(): { [key: string]: string } {
     return {
       ipId: 'ip_id',
@@ -2581,6 +2738,7 @@ export class IpEmphasisInfo extends $tea.Model {
       accountId: 'account_id',
       createTime: 'create_time',
       ipName: 'ip_name',
+      accountName: 'account_name',
     };
   }
 
@@ -2595,6 +2753,7 @@ export class IpEmphasisInfo extends $tea.Model {
       accountId: 'string',
       createTime: 'string',
       ipName: 'string',
+      accountName: 'string',
     };
   }
 
@@ -2925,6 +3084,35 @@ export class IpBasicInfoWithChannelInfo extends $tea.Model {
     return {
       ipBasicInfo: IpBasicInfo,
       ipChannalInfos: { 'type': 'array', 'itemType': IpChannelWithSku },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ip的所有信息，加上更新的flag信息
+export class IpAllInfo extends $tea.Model {
+  // ip的基础信息
+  ipBasicInfo: IpBasicInfo;
+  // ip的渠道信息带上sku信息
+  ipChannalInfo: IpChannelWithSku[];
+  // 是否有更新数据
+  isUpdate: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      ipBasicInfo: 'ip_basic_info',
+      ipChannalInfo: 'ip_channal_info',
+      isUpdate: 'is_update',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ipBasicInfo: IpBasicInfo,
+      ipChannalInfo: { 'type': 'array', 'itemType': IpChannelWithSku },
+      isUpdate: 'boolean',
     };
   }
 
@@ -3443,6 +3631,12 @@ export class IPApplyInfo extends $tea.Model {
   role: number;
   // 状态
   status: number;
+  // 用户的外系统识别Id
+  externalUserId: string;
+  // 外部系统用户名
+  externalUserName: string;
+  // 申请时间(毫秒时间戳)
+  applyDate: number;
   static names(): { [key: string]: string } {
     return {
       accountId: 'account_id',
@@ -3452,6 +3646,9 @@ export class IPApplyInfo extends $tea.Model {
       phoneNumber: 'phone_number',
       role: 'role',
       status: 'status',
+      externalUserId: 'external_user_id',
+      externalUserName: 'external_user_name',
+      applyDate: 'apply_date',
     };
   }
 
@@ -3464,6 +3661,9 @@ export class IPApplyInfo extends $tea.Model {
       phoneNumber: 'string',
       role: 'number',
       status: 'number',
+      externalUserId: 'string',
+      externalUserName: 'string',
+      applyDate: 'number',
     };
   }
 
@@ -3762,6 +3962,43 @@ export class Merchant extends $tea.Model {
   }
 }
 
+// 正版码被扫描的信息
+export class IPCodeScannedInfo extends $tea.Model {
+  // 扫码用户的ID
+  userId: string;
+  // 扫码用户的名称
+  userName?: string;
+  // 扫码用户的手机号
+  phoneNumber?: string;
+  // 扫码用户的位置信息
+  gps?: string;
+  // 扫码的时间(毫秒时间戳)
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userName: 'user_name',
+      phoneNumber: 'phone_number',
+      gps: 'gps',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userName: 'string',
+      phoneNumber: 'string',
+      gps: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户
 export class User extends $tea.Model {
   // 用户分布式身份ID
@@ -3806,7 +4043,6 @@ export class User extends $tea.Model {
 export class ExecCardCreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -3838,8 +4074,9 @@ export class ExecCardCreateRequest extends $tea.Model {
 export class ExecCardCreateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 卡密ID
   cardId?: string;
@@ -3873,7 +4110,6 @@ export class ExecCardCreateResponse extends $tea.Model {
 export class ExecCardQueryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -3905,8 +4141,9 @@ export class ExecCardQueryRequest extends $tea.Model {
 export class ExecCardQueryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 卡密信息对象
   card?: Card;
@@ -3936,7 +4173,6 @@ export class ExecCardQueryResponse extends $tea.Model {
 export class ExecCardBindnameRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -3968,8 +4204,9 @@ export class ExecCardBindnameRequest extends $tea.Model {
 export class ExecCardBindnameResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3995,7 +4232,6 @@ export class ExecCardBindnameResponse extends $tea.Model {
 export class ExecCardChargeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -4027,8 +4263,9 @@ export class ExecCardChargeRequest extends $tea.Model {
 export class ExecCardChargeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4054,7 +4291,6 @@ export class ExecCardChargeResponse extends $tea.Model {
 export class ExecCardWriteoffRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -4086,8 +4322,9 @@ export class ExecCardWriteoffRequest extends $tea.Model {
 export class ExecCardWriteoffResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4113,7 +4350,6 @@ export class ExecCardWriteoffResponse extends $tea.Model {
 export class ExecCardExpiredRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -4145,8 +4381,9 @@ export class ExecCardExpiredRequest extends $tea.Model {
 export class ExecCardExpiredResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4172,7 +4409,6 @@ export class ExecCardExpiredResponse extends $tea.Model {
 export class ExecCardForbiddenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -4204,8 +4440,9 @@ export class ExecCardForbiddenRequest extends $tea.Model {
 export class ExecCardForbiddenResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4231,7 +4468,6 @@ export class ExecCardForbiddenResponse extends $tea.Model {
 export class ExecCardChargeresetRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -4263,8 +4499,9 @@ export class ExecCardChargeresetRequest extends $tea.Model {
 export class ExecCardChargeresetResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4290,7 +4527,6 @@ export class ExecCardChargeresetResponse extends $tea.Model {
 export class CreateConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 授权函地址
   authorizationAddress?: string;
@@ -4394,8 +4630,9 @@ export class CreateConsumecardAccountRequest extends $tea.Model {
 export class CreateConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 用户/机构的链上账户Id
   accountId?: string;
@@ -4425,7 +4662,6 @@ export class CreateConsumecardAccountResponse extends $tea.Model {
 export class OfflineConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -4457,8 +4693,9 @@ export class OfflineConsumecardAccountRequest extends $tea.Model {
 export class OfflineConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4484,7 +4721,6 @@ export class OfflineConsumecardAccountResponse extends $tea.Model {
 export class ReclaimConsumecardWalletRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 回退金额(元)
   amount: string;
@@ -4520,8 +4756,9 @@ export class ReclaimConsumecardWalletRequest extends $tea.Model {
 export class ReclaimConsumecardWalletResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4547,7 +4784,6 @@ export class ReclaimConsumecardWalletResponse extends $tea.Model {
 export class FreezeConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -4579,8 +4815,9 @@ export class FreezeConsumecardAccountRequest extends $tea.Model {
 export class FreezeConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4606,7 +4843,6 @@ export class FreezeConsumecardAccountResponse extends $tea.Model {
 export class UnfreezeConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -4638,8 +4874,9 @@ export class UnfreezeConsumecardAccountRequest extends $tea.Model {
 export class UnfreezeConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4665,7 +4902,6 @@ export class UnfreezeConsumecardAccountResponse extends $tea.Model {
 export class UpdateConsumecardRiskcontrolRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 是否加值(false为减)
   add: boolean;
@@ -4701,8 +4937,9 @@ export class UpdateConsumecardRiskcontrolRequest extends $tea.Model {
 export class UpdateConsumecardRiskcontrolResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4728,7 +4965,6 @@ export class UpdateConsumecardRiskcontrolResponse extends $tea.Model {
 export class QueryConsumecardBillRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -4760,8 +4996,9 @@ export class QueryConsumecardBillRequest extends $tea.Model {
 export class QueryConsumecardBillResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 消费卡的单条交易记录数据
   blockInstruction?: BlockInstruction;
@@ -4791,7 +5028,6 @@ export class QueryConsumecardBillResponse extends $tea.Model {
 export class ChargeConsumecardWalletRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -4823,8 +5059,9 @@ export class ChargeConsumecardWalletRequest extends $tea.Model {
 export class ChargeConsumecardWalletResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4850,7 +5087,6 @@ export class ChargeConsumecardWalletResponse extends $tea.Model {
 export class UpdateConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 授权函地址
   authorizationAddress?: string;
@@ -4926,8 +5162,9 @@ export class UpdateConsumecardAccountRequest extends $tea.Model {
 export class UpdateConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4953,7 +5190,6 @@ export class UpdateConsumecardAccountResponse extends $tea.Model {
 export class CreateConsumecardBillRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5037,8 +5273,9 @@ export class CreateConsumecardBillRequest extends $tea.Model {
 export class CreateConsumecardBillResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 账单ID
   orderId?: string;
@@ -5068,7 +5305,6 @@ export class CreateConsumecardBillResponse extends $tea.Model {
 export class ConfirmConsumecardBillcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5108,8 +5344,9 @@ export class ConfirmConsumecardBillcreateRequest extends $tea.Model {
 export class ConfirmConsumecardBillcreateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5135,7 +5372,6 @@ export class ConfirmConsumecardBillcreateResponse extends $tea.Model {
 export class CancelConsumecardBillRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5171,8 +5407,9 @@ export class CancelConsumecardBillRequest extends $tea.Model {
 export class CancelConsumecardBillResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5198,7 +5435,6 @@ export class CancelConsumecardBillResponse extends $tea.Model {
 export class ExecConsumecardBillpayRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5238,8 +5474,9 @@ export class ExecConsumecardBillpayRequest extends $tea.Model {
 export class ExecConsumecardBillpayResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5265,7 +5502,6 @@ export class ExecConsumecardBillpayResponse extends $tea.Model {
 export class ExecConsumecardOrderwriteoffRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5305,8 +5541,9 @@ export class ExecConsumecardOrderwriteoffRequest extends $tea.Model {
 export class ExecConsumecardOrderwriteoffResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块高度
   blockNumber?: number;
@@ -5340,7 +5577,6 @@ export class ExecConsumecardOrderwriteoffResponse extends $tea.Model {
 export class ConfirmConsumecardBillrefundRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 是否接受退款申请，true同意退款，false拒绝退款
   accept: boolean;
@@ -5380,8 +5616,9 @@ export class ConfirmConsumecardBillrefundRequest extends $tea.Model {
 export class ConfirmConsumecardBillrefundResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5407,7 +5644,6 @@ export class ConfirmConsumecardBillrefundResponse extends $tea.Model {
 export class QueryConsumecardAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5439,8 +5675,9 @@ export class QueryConsumecardAccountRequest extends $tea.Model {
 export class QueryConsumecardAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 账户信息
   account?: ConsumeCardAccount;
@@ -5470,7 +5707,6 @@ export class QueryConsumecardAccountResponse extends $tea.Model {
 export class OpenConsumecardWalletRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5510,8 +5746,9 @@ export class OpenConsumecardWalletRequest extends $tea.Model {
 export class OpenConsumecardWalletResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5537,7 +5774,6 @@ export class OpenConsumecardWalletResponse extends $tea.Model {
 export class QueryConsumecardWalletRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5569,8 +5805,9 @@ export class QueryConsumecardWalletRequest extends $tea.Model {
 export class QueryConsumecardWalletResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 钱包信息数据
   walletInfo?: WalletInfo;
@@ -5600,7 +5837,6 @@ export class QueryConsumecardWalletResponse extends $tea.Model {
 export class ExecConsumecardWalletchargetotokenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5632,8 +5868,9 @@ export class ExecConsumecardWalletchargetotokenRequest extends $tea.Model {
 export class ExecConsumecardWalletchargetotokenResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块高度
   blockNumber?: number;
@@ -5667,7 +5904,6 @@ export class ExecConsumecardWalletchargetotokenResponse extends $tea.Model {
 export class ExecConsumecardWalletredeemtokenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5699,8 +5935,9 @@ export class ExecConsumecardWalletredeemtokenRequest extends $tea.Model {
 export class ExecConsumecardWalletredeemtokenResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块高度
   blockNumber?: number;
@@ -5734,7 +5971,6 @@ export class ExecConsumecardWalletredeemtokenResponse extends $tea.Model {
 export class StartConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5802,8 +6038,9 @@ export class StartConsumecardPurchaseRequest extends $tea.Model {
 export class StartConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易ID
   orderId?: string;
@@ -5833,7 +6070,6 @@ export class StartConsumecardPurchaseResponse extends $tea.Model {
 export class CancelConsumecardBuyerpurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5869,8 +6105,9 @@ export class CancelConsumecardBuyerpurchaseRequest extends $tea.Model {
 export class CancelConsumecardBuyerpurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5896,7 +6133,6 @@ export class CancelConsumecardBuyerpurchaseResponse extends $tea.Model {
 export class ApplyConsumecardPurchaserefundRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5932,8 +6168,9 @@ export class ApplyConsumecardPurchaserefundRequest extends $tea.Model {
 export class ApplyConsumecardPurchaserefundResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5959,7 +6196,6 @@ export class ApplyConsumecardPurchaserefundResponse extends $tea.Model {
 export class ApplyConsumecardPurchasereplaceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -5995,8 +6231,9 @@ export class ApplyConsumecardPurchasereplaceRequest extends $tea.Model {
 export class ApplyConsumecardPurchasereplaceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6022,7 +6259,6 @@ export class ApplyConsumecardPurchasereplaceResponse extends $tea.Model {
 export class ExecConsumecardPurchasereceiveRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6058,8 +6294,9 @@ export class ExecConsumecardPurchasereceiveRequest extends $tea.Model {
 export class ExecConsumecardPurchasereceiveResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6085,7 +6322,6 @@ export class ExecConsumecardPurchasereceiveResponse extends $tea.Model {
 export class RefuseConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6121,8 +6357,9 @@ export class RefuseConsumecardPurchaseRequest extends $tea.Model {
 export class RefuseConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6148,7 +6385,6 @@ export class RefuseConsumecardPurchaseResponse extends $tea.Model {
 export class SetConsumecardPurchaserefundRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 是否同意退款。true同意，false拒绝。
   accept: boolean;
@@ -6188,8 +6424,9 @@ export class SetConsumecardPurchaserefundRequest extends $tea.Model {
 export class SetConsumecardPurchaserefundResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6215,7 +6452,6 @@ export class SetConsumecardPurchaserefundResponse extends $tea.Model {
 export class SetConsumecardPurchasereplaceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 是否同意换货。true同意，false拒绝
   accept: boolean;
@@ -6255,8 +6491,9 @@ export class SetConsumecardPurchasereplaceRequest extends $tea.Model {
 export class SetConsumecardPurchasereplaceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6282,7 +6519,6 @@ export class SetConsumecardPurchasereplaceResponse extends $tea.Model {
 export class ConfirmConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6318,8 +6554,9 @@ export class ConfirmConsumecardPurchaseRequest extends $tea.Model {
 export class ConfirmConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6345,7 +6582,6 @@ export class ConfirmConsumecardPurchaseResponse extends $tea.Model {
 export class SendConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6381,8 +6617,9 @@ export class SendConsumecardPurchaseRequest extends $tea.Model {
 export class SendConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6408,7 +6645,6 @@ export class SendConsumecardPurchaseResponse extends $tea.Model {
 export class ReplaceConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6444,8 +6680,9 @@ export class ReplaceConsumecardPurchaseRequest extends $tea.Model {
 export class ReplaceConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6471,7 +6708,6 @@ export class ReplaceConsumecardPurchaseResponse extends $tea.Model {
 export class CreateConsumecardGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 商品授权类型
   authType: number;
@@ -6563,8 +6799,9 @@ export class CreateConsumecardGoodsRequest extends $tea.Model {
 export class CreateConsumecardGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 异步发布商品返回的查询ID。使用该ID查询发布结果。
   requestId?: string;
@@ -6594,7 +6831,6 @@ export class CreateConsumecardGoodsResponse extends $tea.Model {
 export class UpdateConsumecardGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6670,8 +6906,9 @@ export class UpdateConsumecardGoodsRequest extends $tea.Model {
 export class UpdateConsumecardGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 异步更新商品信息，根据该ID查询更新结果
   requestId?: string;
@@ -6701,7 +6938,6 @@ export class UpdateConsumecardGoodsResponse extends $tea.Model {
 export class OpenConsumecardGoodstocustomRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6741,8 +6977,9 @@ export class OpenConsumecardGoodstocustomRequest extends $tea.Model {
 export class OpenConsumecardGoodstocustomResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6768,7 +7005,6 @@ export class OpenConsumecardGoodstocustomResponse extends $tea.Model {
 export class CreateConsumecardGoodscategoryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6808,8 +7044,9 @@ export class CreateConsumecardGoodscategoryRequest extends $tea.Model {
 export class CreateConsumecardGoodscategoryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6835,7 +7072,6 @@ export class CreateConsumecardGoodscategoryResponse extends $tea.Model {
 export class SetConsumecardGoodscustompriceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -6875,8 +7111,9 @@ export class SetConsumecardGoodscustompriceRequest extends $tea.Model {
 export class SetConsumecardGoodscustompriceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6902,7 +7139,6 @@ export class SetConsumecardGoodscustompriceResponse extends $tea.Model {
 export class UploadConsumecardGoodsimageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -6942,8 +7178,9 @@ export class UploadConsumecardGoodsimageRequest extends $tea.Model {
 export class UploadConsumecardGoodsimageResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 临时可访问的url列表，过期时间2小时
   temporaryUrls?: string[];
@@ -6977,7 +7214,6 @@ export class UploadConsumecardGoodsimageResponse extends $tea.Model {
 export class ExecConsumecardOrdertrywithdrawRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7017,8 +7253,9 @@ export class ExecConsumecardOrdertrywithdrawRequest extends $tea.Model {
 export class ExecConsumecardOrdertrywithdrawResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 试算总提现金额(单位:元,精确到分)
   withdrawTotalAmount?: string;
@@ -7052,7 +7289,6 @@ export class ExecConsumecardOrdertrywithdrawResponse extends $tea.Model {
 export class ExecConsumecardOrderwithdrawbyblocknumRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7088,8 +7324,9 @@ export class ExecConsumecardOrderwithdrawbyblocknumRequest extends $tea.Model {
 export class ExecConsumecardOrderwithdrawbyblocknumResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 提现单编号(跟踪提现任务)
   withdrawBizId?: string;
@@ -7119,7 +7356,6 @@ export class ExecConsumecardOrderwithdrawbyblocknumResponse extends $tea.Model {
 export class ExecConsumecardOrderwithdrawbyidsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7151,8 +7387,9 @@ export class ExecConsumecardOrderwithdrawbyidsRequest extends $tea.Model {
 export class ExecConsumecardOrderwithdrawbyidsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 提现单编号(跟踪提现任务)
   withdrawBizId?: string;
@@ -7182,7 +7419,6 @@ export class ExecConsumecardOrderwithdrawbyidsResponse extends $tea.Model {
 export class GetConsumecardOrderwithdrawresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7214,8 +7450,9 @@ export class GetConsumecardOrderwithdrawresultRequest extends $tea.Model {
 export class GetConsumecardOrderwithdrawresultResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 提现任务期望提现的金额(单位:元,精确到分)
   expectedWithdrawAmount?: string;
@@ -7265,7 +7502,6 @@ export class GetConsumecardOrderwithdrawresultResponse extends $tea.Model {
 export class QueryConsumecardWalletredeemableRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7297,8 +7533,9 @@ export class QueryConsumecardWalletredeemableRequest extends $tea.Model {
 export class QueryConsumecardWalletredeemableResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 可回退的金额
   redeemableAmount?: string;
@@ -7328,7 +7565,6 @@ export class QueryConsumecardWalletredeemableResponse extends $tea.Model {
 export class QueryConsumecardGoodscreateresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7360,8 +7596,9 @@ export class QueryConsumecardGoodscreateresultRequest extends $tea.Model {
 export class QueryConsumecardGoodscreateresultResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商品ID
   goodsId?: string;
@@ -7391,7 +7628,6 @@ export class QueryConsumecardGoodscreateresultResponse extends $tea.Model {
 export class QueryConsumecardGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7423,8 +7659,9 @@ export class QueryConsumecardGoodsRequest extends $tea.Model {
 export class QueryConsumecardGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商品信息
   goods?: GoodsResponse;
@@ -7454,7 +7691,6 @@ export class QueryConsumecardGoodsResponse extends $tea.Model {
 export class ApplyConsumecardBillrefundRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7490,8 +7726,9 @@ export class ApplyConsumecardBillrefundRequest extends $tea.Model {
 export class ApplyConsumecardBillrefundResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7517,7 +7754,6 @@ export class ApplyConsumecardBillrefundResponse extends $tea.Model {
 export class QueryConsumecardPurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7549,8 +7785,9 @@ export class QueryConsumecardPurchaseRequest extends $tea.Model {
 export class QueryConsumecardPurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易信息
   blockInstruction?: BlockInstruction;
@@ -7580,7 +7817,6 @@ export class QueryConsumecardPurchaseResponse extends $tea.Model {
 export class QueryConsumecardBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块高度
   blockNumber: number;
@@ -7616,8 +7852,9 @@ export class QueryConsumecardBlockRequest extends $tea.Model {
 export class QueryConsumecardBlockResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块信息
   block?: Block;
@@ -7663,7 +7900,6 @@ export class QueryConsumecardBlockResponse extends $tea.Model {
 export class QueryConsumecardLastblocknumberRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -7691,8 +7927,9 @@ export class QueryConsumecardLastblocknumberRequest extends $tea.Model {
 export class QueryConsumecardLastblocknumberResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块链最高区块高度
   blockNumber?: number;
@@ -7722,7 +7959,6 @@ export class QueryConsumecardLastblocknumberResponse extends $tea.Model {
 export class QueryConsumecardGoodsupdateresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 异步更新商品返回的查询ID。使用该ID查询更新结果。
   requestId: string;
@@ -7754,8 +7990,9 @@ export class QueryConsumecardGoodsupdateresultRequest extends $tea.Model {
 export class QueryConsumecardGoodsupdateresultResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7781,7 +8018,6 @@ export class QueryConsumecardGoodsupdateresultResponse extends $tea.Model {
 export class CancelConsumecardSellerpurchaseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7817,8 +8053,9 @@ export class CancelConsumecardSellerpurchaseRequest extends $tea.Model {
 export class CancelConsumecardSellerpurchaseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7844,7 +8081,6 @@ export class CancelConsumecardSellerpurchaseResponse extends $tea.Model {
 export class SetConsumecardCommissionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7892,8 +8128,9 @@ export class SetConsumecardCommissionRequest extends $tea.Model {
 export class SetConsumecardCommissionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7919,7 +8156,6 @@ export class SetConsumecardCommissionResponse extends $tea.Model {
 export class RemoveConsumecardCommissionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -7959,8 +8195,9 @@ export class RemoveConsumecardCommissionRequest extends $tea.Model {
 export class RemoveConsumecardCommissionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -7986,7 +8223,6 @@ export class RemoveConsumecardCommissionResponse extends $tea.Model {
 export class QueryConsumecardCommissionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -8026,8 +8262,9 @@ export class QueryConsumecardCommissionRequest extends $tea.Model {
 export class QueryConsumecardCommissionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 手续费规则结果
   commissionRules?: CommissionRuleResponse[];
@@ -8073,7 +8310,6 @@ export class QueryConsumecardCommissionResponse extends $tea.Model {
 export class SetConsumecardCommissionmanagerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -8105,8 +8341,9 @@ export class SetConsumecardCommissionmanagerRequest extends $tea.Model {
 export class SetConsumecardCommissionmanagerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8132,7 +8369,6 @@ export class SetConsumecardCommissionmanagerResponse extends $tea.Model {
 export class SetConsumecardGoodsstatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequest;
@@ -8168,8 +8404,9 @@ export class SetConsumecardGoodsstatusRequest extends $tea.Model {
 export class SetConsumecardGoodsstatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8195,7 +8432,6 @@ export class SetConsumecardGoodsstatusResponse extends $tea.Model {
 export class CreateConsumecardReceiptcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求对象
   baseRequest: BaseRequest;
@@ -8227,8 +8463,9 @@ export class CreateConsumecardReceiptcontractRequest extends $tea.Model {
 export class CreateConsumecardReceiptcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8254,7 +8491,6 @@ export class CreateConsumecardReceiptcontractResponse extends $tea.Model {
 export class RemoveConsumecardReceiptcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息对象
   baseRequest: BaseRequest;
@@ -8286,8 +8522,9 @@ export class RemoveConsumecardReceiptcontractRequest extends $tea.Model {
 export class RemoveConsumecardReceiptcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8313,7 +8550,6 @@ export class RemoveConsumecardReceiptcontractResponse extends $tea.Model {
 export class QueryConsumecardReceiptcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求对象
   baseRequest: BaseRequest;
@@ -8345,8 +8581,9 @@ export class QueryConsumecardReceiptcontractRequest extends $tea.Model {
 export class QueryConsumecardReceiptcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 签约ID= platform_tenant_id+product_code+certification_id+sales_plan(分库分表路由)
   uid?: string;
@@ -8433,7 +8670,6 @@ export class QueryConsumecardReceiptcontractResponse extends $tea.Model {
 export class CreateConsumecardBillingcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求结构
   baseRequest: BaseRequest;
@@ -8497,8 +8733,9 @@ export class CreateConsumecardBillingcontractRequest extends $tea.Model {
 export class CreateConsumecardBillingcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8524,7 +8761,6 @@ export class CreateConsumecardBillingcontractResponse extends $tea.Model {
 export class RemoveConsumecardBillingcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求对象
   baseRequest: BaseRequest;
@@ -8556,8 +8792,9 @@ export class RemoveConsumecardBillingcontractRequest extends $tea.Model {
 export class RemoveConsumecardBillingcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8583,7 +8820,6 @@ export class RemoveConsumecardBillingcontractResponse extends $tea.Model {
 export class QueryConsumecardBillingcontractRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求结构
   baseRequest: BaseRequest;
@@ -8615,8 +8851,9 @@ export class QueryConsumecardBillingcontractRequest extends $tea.Model {
 export class QueryConsumecardBillingcontractResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 基础响应对象
   baseResponse?: BaseResponseData;
@@ -8678,7 +8915,6 @@ export class QueryConsumecardBillingcontractResponse extends $tea.Model {
 export class AddConsumecardCommissionpartyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求对象
   baseRequest: BaseRequest;
@@ -8722,8 +8958,9 @@ export class AddConsumecardCommissionpartyRequest extends $tea.Model {
 export class AddConsumecardCommissionpartyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8749,7 +8986,6 @@ export class AddConsumecardCommissionpartyResponse extends $tea.Model {
 export class RemoveConsumecardCommissionpartyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求结构
   baseRequest: BaseRequest;
@@ -8793,8 +9029,9 @@ export class RemoveConsumecardCommissionpartyRequest extends $tea.Model {
 export class RemoveConsumecardCommissionpartyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8820,7 +9057,6 @@ export class RemoveConsumecardCommissionpartyResponse extends $tea.Model {
 export class AddConsumecardCommissionperiodRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础结构体
   baseRequest: BaseRequest;
@@ -8868,8 +9104,9 @@ export class AddConsumecardCommissionperiodRequest extends $tea.Model {
 export class AddConsumecardCommissionperiodResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8895,7 +9132,6 @@ export class AddConsumecardCommissionperiodResponse extends $tea.Model {
 export class RemoveConsumecardCommissionperiodRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求对象
   baseRequest: BaseRequest;
@@ -8943,8 +9179,9 @@ export class RemoveConsumecardCommissionperiodRequest extends $tea.Model {
 export class RemoveConsumecardCommissionperiodResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8970,7 +9207,6 @@ export class RemoveConsumecardCommissionperiodResponse extends $tea.Model {
 export class QueryConsumecardCounterRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础结构体
   baseRequest: BaseRequest;
@@ -9010,8 +9246,9 @@ export class QueryConsumecardCounterRequest extends $tea.Model {
 export class QueryConsumecardCounterResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 查询的类别（0 商家，1 商品）
   type?: number;
@@ -9061,7 +9298,6 @@ export class QueryConsumecardCounterResponse extends $tea.Model {
 export class SetConsumecardProductcodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9109,8 +9345,9 @@ export class SetConsumecardProductcodeRequest extends $tea.Model {
 export class SetConsumecardProductcodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -9136,7 +9373,6 @@ export class SetConsumecardProductcodeResponse extends $tea.Model {
 export class QueryConsumecardProductcodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 要查询的租户信息，不传查全部信息
   tenantId?: string;
@@ -9164,8 +9400,9 @@ export class QueryConsumecardProductcodeRequest extends $tea.Model {
 export class QueryConsumecardProductcodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 场景码配置信息列表
   productCodeInfos?: ProductCodeInfo[];
@@ -9195,7 +9432,6 @@ export class QueryConsumecardProductcodeResponse extends $tea.Model {
 export class RemoveConsumecardProductcodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9232,8 +9468,9 @@ export class RemoveConsumecardProductcodeRequest extends $tea.Model {
 export class RemoveConsumecardProductcodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -9259,7 +9496,6 @@ export class RemoveConsumecardProductcodeResponse extends $tea.Model {
 export class QueryConsumecardGoodsimageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9295,8 +9531,9 @@ export class QueryConsumecardGoodsimageRequest extends $tea.Model {
 export class QueryConsumecardGoodsimageResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 图片的临时可访问url列表，url过期时间2小时
   temporaryUrls?: string[];
@@ -9326,7 +9563,6 @@ export class QueryConsumecardGoodsimageResponse extends $tea.Model {
 export class QueryCouponRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9366,8 +9602,9 @@ export class QueryCouponRequest extends $tea.Model {
 export class QueryCouponResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 电子券详细信息
   coupon?: Coupon;
@@ -9401,7 +9638,6 @@ export class QueryCouponResponse extends $tea.Model {
 export class CreateCouponRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9437,8 +9673,9 @@ export class CreateCouponRequest extends $tea.Model {
 export class CreateCouponResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易块高
   blockNumber?: number;
@@ -9472,7 +9709,6 @@ export class CreateCouponResponse extends $tea.Model {
 export class ExecCouponForbiddenRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9512,8 +9748,9 @@ export class ExecCouponForbiddenRequest extends $tea.Model {
 export class ExecCouponForbiddenResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9543,7 +9780,6 @@ export class ExecCouponForbiddenResponse extends $tea.Model {
 export class ExecCouponEnableRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9583,8 +9819,9 @@ export class ExecCouponEnableRequest extends $tea.Model {
 export class ExecCouponEnableResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9614,7 +9851,6 @@ export class ExecCouponEnableResponse extends $tea.Model {
 export class ExecCouponExpireRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9654,8 +9890,9 @@ export class ExecCouponExpireRequest extends $tea.Model {
 export class ExecCouponExpireResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9685,7 +9922,6 @@ export class ExecCouponExpireResponse extends $tea.Model {
 export class ExecCouponWriteoffRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9725,8 +9961,9 @@ export class ExecCouponWriteoffRequest extends $tea.Model {
 export class ExecCouponWriteoffResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9756,7 +9993,6 @@ export class ExecCouponWriteoffResponse extends $tea.Model {
 export class ExecCouponTimeoutRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9796,8 +10032,9 @@ export class ExecCouponTimeoutRequest extends $tea.Model {
 export class ExecCouponTimeoutResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9827,7 +10064,6 @@ export class ExecCouponTimeoutResponse extends $tea.Model {
 export class ExecCouponActivateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9875,8 +10111,9 @@ export class ExecCouponActivateRequest extends $tea.Model {
 export class ExecCouponActivateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9906,7 +10143,6 @@ export class ExecCouponActivateResponse extends $tea.Model {
 export class ExecCouponTransferRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -9958,8 +10194,9 @@ export class ExecCouponTransferRequest extends $tea.Model {
 export class ExecCouponTransferResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -9989,7 +10226,6 @@ export class ExecCouponTransferResponse extends $tea.Model {
 export class ExecCouponSignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10037,8 +10273,9 @@ export class ExecCouponSignRequest extends $tea.Model {
 export class ExecCouponSignResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -10068,7 +10305,6 @@ export class ExecCouponSignResponse extends $tea.Model {
 export class ExecCouponBindRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10124,8 +10360,9 @@ export class ExecCouponBindRequest extends $tea.Model {
 export class ExecCouponBindResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -10155,7 +10392,6 @@ export class ExecCouponBindResponse extends $tea.Model {
 export class BatchcreateCouponRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10195,8 +10431,9 @@ export class BatchcreateCouponRequest extends $tea.Model {
 export class BatchcreateCouponResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易块高
   blockNumber?: number;
@@ -10230,7 +10467,6 @@ export class BatchcreateCouponResponse extends $tea.Model {
 export class CreateCouponListRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10266,8 +10502,9 @@ export class CreateCouponListRequest extends $tea.Model {
 export class CreateCouponListResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 电子券创建结果：电子券ID列表
   couponIdList?: string[];
@@ -10301,7 +10538,6 @@ export class CreateCouponListResponse extends $tea.Model {
 export class CreateCouponCollectionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10357,8 +10593,9 @@ export class CreateCouponCollectionRequest extends $tea.Model {
 export class CreateCouponCollectionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易区块高度
   blockNumber?: number;
@@ -10388,7 +10625,6 @@ export class CreateCouponCollectionResponse extends $tea.Model {
 export class QueryCouponCollectionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10420,8 +10656,9 @@ export class QueryCouponCollectionRequest extends $tea.Model {
 export class QueryCouponCollectionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 批次详情
   couponCollection?: CouponCollection;
@@ -10455,7 +10692,6 @@ export class QueryCouponCollectionResponse extends $tea.Model {
 export class QueryMerchantUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10487,8 +10723,9 @@ export class QueryMerchantUserRequest extends $tea.Model {
 export class QueryMerchantUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 用户完整信息
   // {
@@ -10527,7 +10764,6 @@ export class QueryMerchantUserResponse extends $tea.Model {
 export class CreateMerchantUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10567,8 +10803,9 @@ export class CreateMerchantUserRequest extends $tea.Model {
 export class CreateMerchantUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -10594,7 +10831,6 @@ export class CreateMerchantUserResponse extends $tea.Model {
 export class QueryMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10630,8 +10866,9 @@ export class QueryMerchantRequest extends $tea.Model {
 export class QueryMerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商户完整信息
   // {
@@ -10682,7 +10919,6 @@ export class QueryMerchantResponse extends $tea.Model {
 export class UploadImageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10722,8 +10958,9 @@ export class UploadImageRequest extends $tea.Model {
 export class UploadImageResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 临时可访问的url，过期时间2小时
   temporaryUrl?: string;
@@ -10757,7 +10994,6 @@ export class UploadImageResponse extends $tea.Model {
 export class GetPkiPublickeyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 商户管理员/其用户的链上账户ID
   accountId: string;
@@ -10789,8 +11025,9 @@ export class GetPkiPublickeyRequest extends $tea.Model {
 export class GetPkiPublickeyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 公钥字符串（base64）
   publicKey?: string;
@@ -10820,7 +11057,6 @@ export class GetPkiPublickeyResponse extends $tea.Model {
 export class ExecPkiEncryptRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 商户管理员/其用户的链上账户ID
   accountId: string;
@@ -10856,8 +11092,9 @@ export class ExecPkiEncryptRequest extends $tea.Model {
 export class ExecPkiEncryptResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 密文 base64编码 
   encryptedContent?: string;
@@ -10887,7 +11124,6 @@ export class ExecPkiEncryptResponse extends $tea.Model {
 export class ExecPkiDecryptRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 商户管理员/其用户的链上账户ID
   accountId: string;
@@ -10923,8 +11159,9 @@ export class ExecPkiDecryptRequest extends $tea.Model {
 export class ExecPkiDecryptResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 明文
   content?: string;
@@ -10954,7 +11191,6 @@ export class ExecPkiDecryptResponse extends $tea.Model {
 export class UpdateMerchantFriendRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -10994,8 +11230,9 @@ export class UpdateMerchantFriendRequest extends $tea.Model {
 export class UpdateMerchantFriendResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11021,7 +11258,6 @@ export class UpdateMerchantFriendResponse extends $tea.Model {
 export class CreateEquityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 授权类型 0 Auto，1Contract
   authType: number;
@@ -11138,8 +11374,9 @@ export class CreateEquityRequest extends $tea.Model {
 export class CreateEquityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 请求ID，用于查询异步发布权益结果
   createEquityRequestId?: string;
@@ -11169,7 +11406,6 @@ export class CreateEquityResponse extends $tea.Model {
 export class OfflineEquityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11205,8 +11441,9 @@ export class OfflineEquityRequest extends $tea.Model {
 export class OfflineEquityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11232,7 +11469,6 @@ export class OfflineEquityResponse extends $tea.Model {
 export class FreezeEquityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11268,8 +11504,9 @@ export class FreezeEquityRequest extends $tea.Model {
 export class FreezeEquityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11295,7 +11532,6 @@ export class FreezeEquityResponse extends $tea.Model {
 export class OpenEquityMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11343,8 +11579,9 @@ export class OpenEquityMerchantRequest extends $tea.Model {
 export class OpenEquityMerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11370,7 +11607,6 @@ export class OpenEquityMerchantResponse extends $tea.Model {
 export class AuthEquityMerchantuserpriceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 用户兑换价格（单位：元）。价格和比例二选一，且只能填写一个。
   amount?: string;
@@ -11422,8 +11658,9 @@ export class AuthEquityMerchantuserpriceRequest extends $tea.Model {
 export class AuthEquityMerchantuserpriceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11449,7 +11686,6 @@ export class AuthEquityMerchantuserpriceResponse extends $tea.Model {
 export class UpdateEquityDefaultpriceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 价格
   amount: string;
@@ -11493,8 +11729,9 @@ export class UpdateEquityDefaultpriceRequest extends $tea.Model {
 export class UpdateEquityDefaultpriceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11520,7 +11757,6 @@ export class UpdateEquityDefaultpriceResponse extends $tea.Model {
 export class UpdateEquityTenantpriceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 价格（单位：元）
   amount: string;
@@ -11568,8 +11804,9 @@ export class UpdateEquityTenantpriceRequest extends $tea.Model {
 export class UpdateEquityTenantpriceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11595,7 +11832,6 @@ export class UpdateEquityTenantpriceResponse extends $tea.Model {
 export class AddEquityCountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 权益库存数量
   amount: number;
@@ -11639,8 +11875,9 @@ export class AddEquityCountRequest extends $tea.Model {
 export class AddEquityCountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11666,7 +11903,6 @@ export class AddEquityCountResponse extends $tea.Model {
 export class UpdateEquityExchangelimitRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11722,8 +11958,9 @@ export class UpdateEquityExchangelimitRequest extends $tea.Model {
 export class UpdateEquityExchangelimitResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11749,7 +11986,6 @@ export class UpdateEquityExchangelimitResponse extends $tea.Model {
 export class UpdateEquityValidtimeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11805,8 +12041,9 @@ export class UpdateEquityValidtimeRequest extends $tea.Model {
 export class UpdateEquityValidtimeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11832,7 +12069,6 @@ export class UpdateEquityValidtimeResponse extends $tea.Model {
 export class QueryEquityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -11880,8 +12116,9 @@ export class QueryEquityRequest extends $tea.Model {
 export class QueryEquityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权益商品完整信息: equityType 权益类型：0积分，1卡券，2实物。 status 权益状态：0可用状态，1下线，2冻结。 authType 权益授权类型：0自动，1合约。
   //  { "equity_id": "6041f851f4d", "tenant_id": "ZEJEZKUA", "admin_id": "ed7b3ac3c061", "equity_type": 1, "equity_name": "FDCardtest", "description": "FDCard", "total_count": "1000000", "status": 0, "auth_type": 0, "currency": "CNY", "value": "10.0000", "default_price": "1.0000", "images": "oss://myexchange/12593acf32dd6d4257fa0.jpeg", "desc_images": "", "memo": "", "is_public": true, "valid_not_before": 112692, "valid_not_after": 112654365244, "use_valid_not_before": 112612, "use_valid_not_after": 11265436524415235, "limit_per_user_and_day": 1000000, "limit_per_user_and_month": 100000, "limit_per_merchant_and_day": 1000000, "limit_per_merchant_and_month": 1000000, "equity_ext_info": { "open_to_tenant_id": "", "tenant_price": "", "tenant_user_price": { "snapshot_tenant_price": "", "user_price_type": 0, "price": "", "ratio": "" }, "target_date": "", "limit_per_day_used": 0, "limit_per_month_used": 0 } }
@@ -11916,7 +12153,6 @@ export class QueryEquityResponse extends $tea.Model {
 export class ExecExchangeByuserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 资产ID
   assetId: string;
@@ -11984,8 +12220,9 @@ export class ExecExchangeByuserRequest extends $tea.Model {
 export class ExecExchangeByuserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12011,7 +12248,6 @@ export class ExecExchangeByuserResponse extends $tea.Model {
 export class ExecExchangeBymerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 资产ID
   assetId: string;
@@ -12072,8 +12308,9 @@ export class ExecExchangeBymerchantRequest extends $tea.Model {
 export class ExecExchangeBymerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12099,7 +12336,6 @@ export class ExecExchangeBymerchantResponse extends $tea.Model {
 export class ConfirmExchangeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12147,8 +12383,9 @@ export class ConfirmExchangeRequest extends $tea.Model {
 export class ConfirmExchangeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12174,7 +12411,6 @@ export class ConfirmExchangeResponse extends $tea.Model {
 export class ExecExchangeOutofstoreRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12222,8 +12458,9 @@ export class ExecExchangeOutofstoreRequest extends $tea.Model {
 export class ExecExchangeOutofstoreResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12249,7 +12486,6 @@ export class ExecExchangeOutofstoreResponse extends $tea.Model {
 export class SendExchangeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12297,8 +12533,9 @@ export class SendExchangeRequest extends $tea.Model {
 export class SendExchangeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12324,7 +12561,6 @@ export class SendExchangeResponse extends $tea.Model {
 export class ExecExchangeReceivebyuserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12372,8 +12608,9 @@ export class ExecExchangeReceivebyuserRequest extends $tea.Model {
 export class ExecExchangeReceivebyuserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12399,7 +12636,6 @@ export class ExecExchangeReceivebyuserResponse extends $tea.Model {
 export class ExecAssetExpireRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 数量
   amount: number;
@@ -12451,8 +12687,9 @@ export class ExecAssetExpireRequest extends $tea.Model {
 export class ExecAssetExpireResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12478,7 +12715,6 @@ export class ExecAssetExpireResponse extends $tea.Model {
 export class QueryAssetInstructionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12510,8 +12746,9 @@ export class QueryAssetInstructionRequest extends $tea.Model {
 export class QueryAssetInstructionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 资产流水完整信息的json字符串。
   // direction 交易方向:：0正向交易，1反向交易。
@@ -12544,7 +12781,6 @@ export class QueryAssetInstructionResponse extends $tea.Model {
 export class QueryExchangeInstructionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -12584,8 +12820,9 @@ export class QueryExchangeInstructionRequest extends $tea.Model {
 export class QueryExchangeInstructionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权益兑换流水完整信息
   instruction?: EInstruction;
@@ -12615,7 +12852,6 @@ export class QueryExchangeInstructionResponse extends $tea.Model {
 export class ExecAssetIssueRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 充值数量
   amount: number;
@@ -12663,8 +12899,9 @@ export class ExecAssetIssueRequest extends $tea.Model {
 export class ExecAssetIssueResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12690,7 +12927,6 @@ export class ExecAssetIssueResponse extends $tea.Model {
 export class ExecAssetRedeemRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 赎回数量
   amount: number;
@@ -12738,8 +12974,9 @@ export class ExecAssetRedeemRequest extends $tea.Model {
 export class ExecAssetRedeemResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12765,7 +13002,6 @@ export class ExecAssetRedeemResponse extends $tea.Model {
 export class ExecAssetGrantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 数量
   amount: string;
@@ -12821,8 +13057,9 @@ export class ExecAssetGrantRequest extends $tea.Model {
 export class ExecAssetGrantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12848,7 +13085,6 @@ export class ExecAssetGrantResponse extends $tea.Model {
 export class ExecAssetGrantrefundRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 数量
   amount: number;
@@ -12900,8 +13136,9 @@ export class ExecAssetGrantrefundRequest extends $tea.Model {
 export class ExecAssetGrantrefundResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -12927,7 +13164,6 @@ export class ExecAssetGrantrefundResponse extends $tea.Model {
 export class ExecAssetAdjustRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 风控调整数量
   amount: number;
@@ -12975,8 +13211,9 @@ export class ExecAssetAdjustRequest extends $tea.Model {
 export class ExecAssetAdjustResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13002,7 +13239,6 @@ export class ExecAssetAdjustResponse extends $tea.Model {
 export class QueryAssetRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 资产ID
   assetId: string;
@@ -13042,8 +13278,9 @@ export class QueryAssetRequest extends $tea.Model {
 export class QueryAssetResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 资产完整信息
   // {
@@ -13093,7 +13330,6 @@ export class QueryAssetResponse extends $tea.Model {
 export class ExecExchangeReceivebymerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13137,8 +13373,9 @@ export class ExecExchangeReceivebymerchantRequest extends $tea.Model {
 export class ExecExchangeReceivebymerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13164,7 +13401,6 @@ export class ExecExchangeReceivebymerchantResponse extends $tea.Model {
 export class QueryBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链高度
   blockNumber: number;
@@ -13196,8 +13432,9 @@ export class QueryBlockRequest extends $tea.Model {
 export class QueryBlockResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块信息
   block?: Block;
@@ -13243,7 +13480,6 @@ export class QueryBlockResponse extends $tea.Model {
 export class QueryBlockLastblocknumberRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13271,8 +13507,9 @@ export class QueryBlockLastblocknumberRequest extends $tea.Model {
 export class QueryBlockLastblocknumberResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 最新区块高度
   lastBlockNumber?: number;
@@ -13302,7 +13539,6 @@ export class QueryBlockLastblocknumberResponse extends $tea.Model {
 export class UpdateEquityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 授权类型：0 Auto，1 Contract。不可修改，如需修改需重新发布商品
   authType: number;
@@ -13422,8 +13658,9 @@ export class UpdateEquityRequest extends $tea.Model {
 export class UpdateEquityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13449,7 +13686,6 @@ export class UpdateEquityResponse extends $tea.Model {
 export class QueryEquityCreateresultRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13485,8 +13721,9 @@ export class QueryEquityCreateresultRequest extends $tea.Model {
 export class QueryEquityCreateresultResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权益商品创建成功，返回权益ID
   equityId?: string;
@@ -13516,7 +13753,6 @@ export class QueryEquityCreateresultResponse extends $tea.Model {
 export class QueryEquityInstructionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13560,8 +13796,9 @@ export class QueryEquityInstructionRequest extends $tea.Model {
 export class QueryEquityInstructionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商品兑换流水信息
   instruction?: EInstruction;
@@ -13591,7 +13828,6 @@ export class QueryEquityInstructionResponse extends $tea.Model {
 export class QueryImageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 要查询的图片数组，填入不可访问的url
   urls: string[];
@@ -13619,8 +13855,9 @@ export class QueryImageRequest extends $tea.Model {
 export class QueryImageResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 临时可访问的oss图片链接，每张图片会返回四个url，对应原图和不同的比例缩小，每一张图片的四个url用;隔开。
   urls?: MultiURL[];
@@ -13650,7 +13887,6 @@ export class QueryImageResponse extends $tea.Model {
 export class UpdateEquityStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13694,8 +13930,9 @@ export class UpdateEquityStatusRequest extends $tea.Model {
 export class UpdateEquityStatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13721,7 +13958,6 @@ export class UpdateEquityStatusResponse extends $tea.Model {
 export class SetMerchantProvisionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13785,8 +14021,9 @@ export class SetMerchantProvisionRequest extends $tea.Model {
 export class SetMerchantProvisionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13812,7 +14049,6 @@ export class SetMerchantProvisionResponse extends $tea.Model {
 export class UpdateMerchantProvisionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13868,8 +14104,9 @@ export class UpdateMerchantProvisionRequest extends $tea.Model {
 export class UpdateMerchantProvisionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13895,7 +14132,6 @@ export class UpdateMerchantProvisionResponse extends $tea.Model {
 export class ExecEquityInstructionwriteoffRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -13939,8 +14175,9 @@ export class ExecEquityInstructionwriteoffRequest extends $tea.Model {
 export class ExecEquityInstructionwriteoffResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13966,7 +14203,6 @@ export class ExecEquityInstructionwriteoffResponse extends $tea.Model {
 export class QueryMerchantProvisionsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 行为
   businessAction: string;
@@ -14002,8 +14238,9 @@ export class QueryMerchantProvisionsRequest extends $tea.Model {
 export class QueryMerchantProvisionsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 租户的备付金列表信息
   discreteValues?: DiscreteValue[];
@@ -14033,7 +14270,6 @@ export class QueryMerchantProvisionsResponse extends $tea.Model {
 export class QueryMerchantExchangeableequitylistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -14069,8 +14305,9 @@ export class QueryMerchantExchangeableequitylistRequest extends $tea.Model {
 export class QueryMerchantExchangeableequitylistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 可兑换商品信息列表
   object?: ExchangeableEquityList;
@@ -14100,7 +14337,6 @@ export class QueryMerchantExchangeableequitylistResponse extends $tea.Model {
 export class QueryMerchantExchangeableequitydetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -14132,8 +14368,9 @@ export class QueryMerchantExchangeableequitydetailRequest extends $tea.Model {
 export class QueryMerchantExchangeableequitydetailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 可兑换的商品详情信息
   equity?: EquityDetail;
@@ -14163,7 +14400,6 @@ export class QueryMerchantExchangeableequitydetailResponse extends $tea.Model {
 export class ExecAssetCreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 资产ID
   assetId: string;
@@ -14215,8 +14451,9 @@ export class ExecAssetCreateRequest extends $tea.Model {
 export class ExecAssetCreateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14242,7 +14479,6 @@ export class ExecAssetCreateResponse extends $tea.Model {
 export class ExecAssetGenerateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 铸币数量
   amount: string;
@@ -14282,8 +14518,9 @@ export class ExecAssetGenerateRequest extends $tea.Model {
 export class ExecAssetGenerateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14309,7 +14546,6 @@ export class ExecAssetGenerateResponse extends $tea.Model {
 export class CreateMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -14365,8 +14601,9 @@ export class CreateMerchantRequest extends $tea.Model {
 export class CreateMerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14392,7 +14629,6 @@ export class CreateMerchantResponse extends $tea.Model {
 export class SetMerchantFundmanagerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 外部交易ID
   outTxId: string;
@@ -14432,8 +14668,9 @@ export class SetMerchantFundmanagerRequest extends $tea.Model {
 export class SetMerchantFundmanagerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14459,7 +14696,6 @@ export class SetMerchantFundmanagerResponse extends $tea.Model {
 export class CreateMerchantProvisionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 外部交易ID，确保幂等
   outTxId: string;
@@ -14499,8 +14735,9 @@ export class CreateMerchantProvisionRequest extends $tea.Model {
 export class CreateMerchantProvisionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14526,7 +14763,6 @@ export class CreateMerchantProvisionResponse extends $tea.Model {
 export class QueryConfigDelegaterelationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 被代理的租户ID
   delegatedTenantId: string;
@@ -14554,8 +14790,9 @@ export class QueryConfigDelegaterelationRequest extends $tea.Model {
 export class QueryConfigDelegaterelationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 代理授权关系信息
   delegateRelationInfos?: DelegateRelationInfo[];
@@ -14585,7 +14822,6 @@ export class QueryConfigDelegaterelationResponse extends $tea.Model {
 export class UpdateConfigDelegaterelationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 被代理的租户ID
   delegatedTenantId: string;
@@ -14621,8 +14857,9 @@ export class UpdateConfigDelegaterelationRequest extends $tea.Model {
 export class UpdateConfigDelegaterelationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14648,7 +14885,6 @@ export class UpdateConfigDelegaterelationResponse extends $tea.Model {
 export class QueryConfigWhitelistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 查询链的白名单信息
   chainId?: string;
@@ -14680,8 +14916,9 @@ export class QueryConfigWhitelistRequest extends $tea.Model {
 export class QueryConfigWhitelistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 接口白名单信息
   whiteList?: APIWhiteListInfo[];
@@ -14711,7 +14948,6 @@ export class QueryConfigWhitelistResponse extends $tea.Model {
 export class UpdateConfigWhitelistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -14747,8 +14983,9 @@ export class UpdateConfigWhitelistRequest extends $tea.Model {
 export class UpdateConfigWhitelistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14774,7 +15011,6 @@ export class UpdateConfigWhitelistResponse extends $tea.Model {
 export class ApplyExchangeAftersaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链id
   chainId: string;
@@ -14818,8 +15054,9 @@ export class ApplyExchangeAftersaleRequest extends $tea.Model {
 export class ApplyExchangeAftersaleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14845,7 +15082,6 @@ export class ApplyExchangeAftersaleResponse extends $tea.Model {
 export class ExecExchangeAgreeaftersaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链id
   chainId: string;
@@ -14893,8 +15129,9 @@ export class ExecExchangeAgreeaftersaleRequest extends $tea.Model {
 export class ExecExchangeAgreeaftersaleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14920,7 +15157,6 @@ export class ExecExchangeAgreeaftersaleResponse extends $tea.Model {
 export class RefuseExchangeAftersaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // l链id
   chainId: string;
@@ -14968,8 +15204,9 @@ export class RefuseExchangeAftersaleRequest extends $tea.Model {
 export class RefuseExchangeAftersaleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14995,7 +15232,6 @@ export class RefuseExchangeAftersaleResponse extends $tea.Model {
 export class SendExchangeAftersaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链id
   chainId: string;
@@ -15043,8 +15279,9 @@ export class SendExchangeAftersaleRequest extends $tea.Model {
 export class SendExchangeAftersaleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15070,7 +15307,6 @@ export class SendExchangeAftersaleResponse extends $tea.Model {
 export class ConfirmExchangeAftersaleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链id
   chainId: string;
@@ -15114,8 +15350,9 @@ export class ConfirmExchangeAftersaleRequest extends $tea.Model {
 export class ConfirmExchangeAftersaleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15141,7 +15378,6 @@ export class ConfirmExchangeAftersaleResponse extends $tea.Model {
 export class ExecDataDepositRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -15173,8 +15409,9 @@ export class ExecDataDepositRequest extends $tea.Model {
 export class ExecDataDepositResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 存证交易哈希
   txHash?: string;
@@ -15204,7 +15441,6 @@ export class ExecDataDepositResponse extends $tea.Model {
 export class SetCommissionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -15252,8 +15488,9 @@ export class SetCommissionRequest extends $tea.Model {
 export class SetCommissionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 手续费ID
   commissionId?: string;
@@ -15283,7 +15520,6 @@ export class SetCommissionResponse extends $tea.Model {
 export class QueryCommissionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -15327,8 +15563,9 @@ export class QueryCommissionRequest extends $tea.Model {
 export class QueryCommissionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 手续费信息列表
   commissions?: CommissionResult[];
@@ -15358,7 +15595,6 @@ export class QueryCommissionResponse extends $tea.Model {
 export class SetCommissionMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 收取手续费的商户对应的租户ID
   optTenantId: string;
@@ -15394,8 +15630,9 @@ export class SetCommissionMerchantRequest extends $tea.Model {
 export class SetCommissionMerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15421,7 +15658,6 @@ export class SetCommissionMerchantResponse extends $tea.Model {
 export class QueryCommissionMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -15449,8 +15685,9 @@ export class QueryCommissionMerchantRequest extends $tea.Model {
 export class QueryCommissionMerchantResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 收取手续费的商户 租户ID
   tenantId?: string;
@@ -15480,7 +15717,6 @@ export class QueryCommissionMerchantResponse extends $tea.Model {
 export class CreateConfigChainaccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -15516,8 +15752,9 @@ export class CreateConfigChainaccountRequest extends $tea.Model {
 export class CreateConfigChainaccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 租户ID
   tenantId?: string;
@@ -15559,7 +15796,6 @@ export class CreateConfigChainaccountResponse extends $tea.Model {
 export class StartIpPackagetradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
@@ -15581,6 +15817,12 @@ export class StartIpPackagetradeRequest extends $tea.Model {
   authEndTime: number;
   // 备注信息
   memo: string;
+  // 授权产品范围
+  authProductScope?: string;
+  // 授权地域范围
+  authAreaScope?: string;
+  // 商品销售渠道
+  salesChannel?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15595,6 +15837,9 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'auth_begin_time',
       authEndTime: 'auth_end_time',
       memo: 'memo',
+      authProductScope: 'auth_product_scope',
+      authAreaScope: 'auth_area_scope',
+      salesChannel: 'sales_channel',
     };
   }
 
@@ -15612,6 +15857,9 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'number',
       authEndTime: 'number',
       memo: 'string',
+      authProductScope: 'string',
+      authAreaScope: 'string',
+      salesChannel: 'string',
     };
   }
 
@@ -15623,8 +15871,9 @@ export class StartIpPackagetradeRequest extends $tea.Model {
 export class StartIpPackagetradeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 订单ID
   ipOrderId?: string;
@@ -15662,7 +15911,6 @@ export class StartIpPackagetradeResponse extends $tea.Model {
 export class CancelIpPackagetradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -15702,8 +15950,9 @@ export class CancelIpPackagetradeRequest extends $tea.Model {
 export class CancelIpPackagetradeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15729,7 +15978,6 @@ export class CancelIpPackagetradeResponse extends $tea.Model {
 export class UploadIpPackagetradesalesRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -15769,8 +16017,9 @@ export class UploadIpPackagetradesalesRequest extends $tea.Model {
 export class UploadIpPackagetradesalesResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -15796,7 +16045,6 @@ export class UploadIpPackagetradesalesResponse extends $tea.Model {
 export class StartIpAuthtradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -15804,8 +16052,12 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   accountId: string;
   // IP ID
   ipId: string;
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType?: number;
   // 授权计费比例
-  authRate: string;
+  authRate?: string;
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice?: string;
   // 授权合作开始期限（毫秒时间戳）
   authBeginTime: number;
   // 授权合作结束期限（毫秒时间戳）
@@ -15813,9 +16065,23 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   // 合同（文件URL）
   contract: string;
   // 设计稿（文件URL）
-  designDraft: string;
+  designDraft?: string;
+  // 授权产品范围
+  authProductScope?: string;
+  // 授权地域范围
+  authAreaScope?: string;
+  // 商品销售渠道
+  salesChannel?: string;
   // 备注消息(不超过256个字符)
   memo: string;
+  // 是否有保底金
+  guaranteed: boolean;
+  // 支付的保底金金额
+  guaranteedFund?: string;
+  // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  guaranteedGoodsAmount?: number;
+  // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  guaranteedSales?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15823,12 +16089,21 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       baseRequest: 'base_request',
       accountId: 'account_id',
       ipId: 'ip_id',
+      chargeType: 'charge_type',
       authRate: 'auth_rate',
+      authPrice: 'auth_price',
       authBeginTime: 'auth_begin_time',
       authEndTime: 'auth_end_time',
       contract: 'contract',
       designDraft: 'design_draft',
+      authProductScope: 'auth_product_scope',
+      authAreaScope: 'auth_area_scope',
+      salesChannel: 'sales_channel',
       memo: 'memo',
+      guaranteed: 'guaranteed',
+      guaranteedFund: 'guaranteed_fund',
+      guaranteedGoodsAmount: 'guaranteed_goods_amount',
+      guaranteedSales: 'guaranteed_sales',
     };
   }
 
@@ -15839,12 +16114,21 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       accountId: 'string',
       ipId: 'string',
+      chargeType: 'number',
       authRate: 'string',
+      authPrice: 'string',
       authBeginTime: 'number',
       authEndTime: 'number',
       contract: 'string',
       designDraft: 'string',
+      authProductScope: 'string',
+      authAreaScope: 'string',
+      salesChannel: 'string',
       memo: 'string',
+      guaranteed: 'boolean',
+      guaranteedFund: 'string',
+      guaranteedGoodsAmount: 'number',
+      guaranteedSales: 'string',
     };
   }
 
@@ -15856,17 +16140,24 @@ export class StartIpAuthtradeRequest extends $tea.Model {
 export class StartIpAuthtradeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 订单ID
   ipOrderId?: string;
+  // 保底金支付链接
+  payUrl?: string;
+  // 保底金账单ID
+  ipBillId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       ipOrderId: 'ip_order_id',
+      payUrl: 'pay_url',
+      ipBillId: 'ip_bill_id',
     };
   }
 
@@ -15876,6 +16167,8 @@ export class StartIpAuthtradeResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       ipOrderId: 'string',
+      payUrl: 'string',
+      ipBillId: 'string',
     };
   }
 
@@ -15887,7 +16180,6 @@ export class StartIpAuthtradeResponse extends $tea.Model {
 export class UploadIpAuthtradesalesRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -15898,17 +16190,29 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean;
   // 授权佣金比例
-  authRate: string;
+  authRate?: string;
+  // 定向授权按量付费单价
+  authPrice?: string;
   // 本次结算周期开始时间
   settlementBeginTime: number;
   // 本次结算周期结束时间
   settlementEndTime: number;
+  // 零售价
+  price: string;
   // 终端商品销售数量
   amount: number;
   // 销售金额
   sales: string;
   // 实付金额
   payment: string;
+  // 终端商品名称
+  goodsName: string;
+  // 终端商品图片
+  goodsImage?: string;
+  // 终端销售渠道
+  salesChannel?: string;
+  // 终端商品链接
+  goodsUrl?: string;
   // 商品信息
   goodsInfo: string;
   // 数据上传操作者
@@ -15924,11 +16228,17 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       ipOrderId: 'ip_order_id',
       onlyCallBlockchain: 'only_call_blockchain',
       authRate: 'auth_rate',
+      authPrice: 'auth_price',
       settlementBeginTime: 'settlement_begin_time',
       settlementEndTime: 'settlement_end_time',
+      price: 'price',
       amount: 'amount',
       sales: 'sales',
       payment: 'payment',
+      goodsName: 'goods_name',
+      goodsImage: 'goods_image',
+      salesChannel: 'sales_channel',
+      goodsUrl: 'goods_url',
       goodsInfo: 'goods_info',
       operator: 'operator',
       memo: 'memo',
@@ -15944,11 +16254,17 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       ipOrderId: 'string',
       onlyCallBlockchain: 'boolean',
       authRate: 'string',
+      authPrice: 'string',
       settlementBeginTime: 'number',
       settlementEndTime: 'number',
+      price: 'string',
       amount: 'number',
       sales: 'string',
       payment: 'string',
+      goodsName: 'string',
+      goodsImage: 'string',
+      salesChannel: 'string',
+      goodsUrl: 'string',
       goodsInfo: 'string',
       operator: 'string',
       memo: 'string',
@@ -15963,8 +16279,9 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
 export class UploadIpAuthtradesalesResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 支付信息
   payUrl?: string;
@@ -15998,7 +16315,6 @@ export class UploadIpAuthtradesalesResponse extends $tea.Model {
 export class CancelIpAuthtradebillRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -16038,8 +16354,9 @@ export class CancelIpAuthtradebillRequest extends $tea.Model {
 export class CancelIpAuthtradebillResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -16065,7 +16382,6 @@ export class CancelIpAuthtradebillResponse extends $tea.Model {
 export class QueryIpBillstatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -16097,8 +16413,9 @@ export class QueryIpBillstatusRequest extends $tea.Model {
 export class QueryIpBillstatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易状态
   // (1: "交易创建,等待买家付款"),
@@ -16131,7 +16448,6 @@ export class QueryIpBillstatusResponse extends $tea.Model {
 export class QueryIpOrderlistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -16149,13 +16465,17 @@ export class QueryIpOrderlistRequest extends $tea.Model {
   ipName?: string;
   // 卖方名称，根据卖方名称模糊查询
   sellerName?: string;
+  // 交易类型：1 套餐交易， 2 定向授权
+  tradeType?: number;
+  // 收费模式：0 销售抽拥，1 按量计费
+  chargeType?: number;
   // 查询订单授权开始时间
   authStartTime?: number;
   // 查询订单授权结束时间
   authEndTime?: number;
   // 排序字段
   orderBy: string;
-  // 正序还是倒叙
+  // 数据排序顺序：正序还是倒序
   order: string;
   // 页码
   pageNumber: number;
@@ -16173,6 +16493,8 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       orderStatus: 'order_status',
       ipName: 'ip_name',
       sellerName: 'seller_name',
+      tradeType: 'trade_type',
+      chargeType: 'charge_type',
       authStartTime: 'auth_start_time',
       authEndTime: 'auth_end_time',
       orderBy: 'order_by',
@@ -16194,6 +16516,8 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       orderStatus: 'number',
       ipName: 'string',
       sellerName: 'string',
+      tradeType: 'number',
+      chargeType: 'number',
       authStartTime: 'number',
       authEndTime: 'number',
       orderBy: 'string',
@@ -16211,8 +16535,9 @@ export class QueryIpOrderlistRequest extends $tea.Model {
 export class QueryIpOrderlistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 页码
   pageNumber?: number;
@@ -16266,7 +16591,6 @@ export class QueryIpOrderlistResponse extends $tea.Model {
 export class CreateIpGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -16378,8 +16702,9 @@ export class CreateIpGoodsRequest extends $tea.Model {
 export class CreateIpGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip的链上id
   ipId?: string;
@@ -16409,7 +16734,6 @@ export class CreateIpGoodsResponse extends $tea.Model {
 export class AddIpChannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -16457,8 +16781,9 @@ export class AddIpChannelRequest extends $tea.Model {
 export class AddIpChannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -16484,7 +16809,6 @@ export class AddIpChannelResponse extends $tea.Model {
 export class QueryIpOrderinfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 请求参数
   baseRequest: BaseRequestInfo;
@@ -16516,8 +16840,9 @@ export class QueryIpOrderinfoRequest extends $tea.Model {
 export class QueryIpOrderinfoResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 订单信息
   ipOrder?: IPOrder;
@@ -16551,7 +16876,6 @@ export class QueryIpOrderinfoResponse extends $tea.Model {
 export class BatchqueryIpGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
@@ -16623,8 +16947,9 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
 export class BatchqueryIpGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip重要信息
   ipList?: IpEmphasisInfo[];
@@ -16658,7 +16983,6 @@ export class BatchqueryIpGoodsResponse extends $tea.Model {
 export class QueryIpGoodsdetailwithchannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础结构
   baseRequest: BaseRequestInfo;
@@ -16694,8 +17018,9 @@ export class QueryIpGoodsdetailwithchannelRequest extends $tea.Model {
 export class QueryIpGoodsdetailwithchannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip的信息详情
   ips?: IpBasicInfoWithChannelInfo[];
@@ -16725,7 +17050,6 @@ export class QueryIpGoodsdetailwithchannelResponse extends $tea.Model {
 export class QueryIpDetailRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -16757,8 +17081,9 @@ export class QueryIpDetailRequest extends $tea.Model {
 export class QueryIpDetailResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip的信息列表
   ips?: IpBasicInfoWithChannelInfo[];
@@ -16788,7 +17113,6 @@ export class QueryIpDetailResponse extends $tea.Model {
 export class UpdateIpGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -16838,6 +17162,8 @@ export class UpdateIpGoodsRequest extends $tea.Model {
   copyRightBeginTime: number;
   // 资质生效的结束时间
   copyRightEndTime: number;
+  // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+  needApproval?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16862,6 +17188,7 @@ export class UpdateIpGoodsRequest extends $tea.Model {
       memo: 'memo',
       copyRightBeginTime: 'copy_right_begin_time',
       copyRightEndTime: 'copy_right_end_time',
+      needApproval: 'need_approval',
     };
   }
 
@@ -16889,6 +17216,7 @@ export class UpdateIpGoodsRequest extends $tea.Model {
       memo: 'string',
       copyRightBeginTime: 'number',
       copyRightEndTime: 'number',
+      needApproval: 'boolean',
     };
   }
 
@@ -16900,8 +17228,9 @@ export class UpdateIpGoodsRequest extends $tea.Model {
 export class UpdateIpGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -16927,7 +17256,6 @@ export class UpdateIpGoodsResponse extends $tea.Model {
 export class UpdateIpChannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -16975,8 +17303,9 @@ export class UpdateIpChannelRequest extends $tea.Model {
 export class UpdateIpChannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17002,7 +17331,6 @@ export class UpdateIpChannelResponse extends $tea.Model {
 export class OnlineIpRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -17038,8 +17366,9 @@ export class OnlineIpRequest extends $tea.Model {
 export class OnlineIpResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17065,7 +17394,6 @@ export class OnlineIpResponse extends $tea.Model {
 export class OfflineIpRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // ip基础信息
   baseRequest: BaseRequestInfo;
@@ -17101,8 +17429,9 @@ export class OfflineIpRequest extends $tea.Model {
 export class OfflineIpResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17128,7 +17457,6 @@ export class OfflineIpResponse extends $tea.Model {
 export class CreateIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
@@ -17168,8 +17496,9 @@ export class CreateIpAccountRequest extends $tea.Model {
 export class CreateIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 创建成功后, 为该用户生成的链上账户Id
   accountId?: string;
@@ -17199,7 +17528,6 @@ export class CreateIpAccountResponse extends $tea.Model {
 export class FreezeIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
@@ -17231,8 +17559,9 @@ export class FreezeIpAccountRequest extends $tea.Model {
 export class FreezeIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17258,7 +17587,6 @@ export class FreezeIpAccountResponse extends $tea.Model {
 export class UnfreezeIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础请求参数
   baseRequest: BaseRequestInfo;
@@ -17290,8 +17618,9 @@ export class UnfreezeIpAccountRequest extends $tea.Model {
 export class UnfreezeIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17317,7 +17646,6 @@ export class UnfreezeIpAccountResponse extends $tea.Model {
 export class QueryIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17349,8 +17677,9 @@ export class QueryIpAccountRequest extends $tea.Model {
 export class QueryIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 该用户的在外部系统的用户Id
   externalUserId?: string;
@@ -17394,7 +17723,6 @@ export class QueryIpAccountResponse extends $tea.Model {
 export class ApplyIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17487,8 +17815,9 @@ export class ApplyIpAccountRequest extends $tea.Model {
 export class ApplyIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17514,7 +17843,6 @@ export class ApplyIpAccountResponse extends $tea.Model {
 export class CheckIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17546,8 +17874,9 @@ export class CheckIpAccountRequest extends $tea.Model {
 export class CheckIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 申请状态(0:运营审核中, 1:运营审核失败, 2:进件审核中, 3:进件审核失败, 4:进件审核成功)
   status?: string;
@@ -17585,7 +17914,6 @@ export class CheckIpAccountResponse extends $tea.Model {
 export class ConfirmIpGoodsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
@@ -17625,8 +17953,9 @@ export class ConfirmIpGoodsRequest extends $tea.Model {
 export class ConfirmIpGoodsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17652,7 +17981,6 @@ export class ConfirmIpGoodsResponse extends $tea.Model {
 export class BatchqueryIpApprovalRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
@@ -17724,8 +18052,9 @@ export class BatchqueryIpApprovalRequest extends $tea.Model {
 export class BatchqueryIpApprovalResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip信息
   ipList?: IpBasicInfo[];
@@ -17759,7 +18088,6 @@ export class BatchqueryIpApprovalResponse extends $tea.Model {
 export class ConfirmIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17791,8 +18119,9 @@ export class ConfirmIpAccountRequest extends $tea.Model {
 export class ConfirmIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17818,7 +18147,6 @@ export class ConfirmIpAccountResponse extends $tea.Model {
 export class RefuseIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17854,8 +18182,9 @@ export class RefuseIpAccountRequest extends $tea.Model {
 export class RefuseIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -17881,7 +18210,6 @@ export class RefuseIpAccountResponse extends $tea.Model {
 export class PullIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -17913,8 +18241,9 @@ export class PullIpAccountRequest extends $tea.Model {
 export class PullIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 支付宝的登陆用户名(必须实名制)
   alipayLoginName?: string;
@@ -17996,7 +18325,6 @@ export class PullIpAccountResponse extends $tea.Model {
 export class QueryIpMccRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础字段
   baseRequest: BaseRequestInfo;
@@ -18028,8 +18356,9 @@ export class QueryIpMccRequest extends $tea.Model {
 export class QueryIpMccResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // mcc类别列表
   mccList?: IPMCC[];
@@ -18059,7 +18388,6 @@ export class QueryIpMccResponse extends $tea.Model {
 export class QueryIpTypeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
@@ -18091,8 +18419,9 @@ export class QueryIpTypeRequest extends $tea.Model {
 export class QueryIpTypeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip的type列表
   type?: string[];
@@ -18126,7 +18455,6 @@ export class QueryIpTypeResponse extends $tea.Model {
 export class BatchqueryIpApprovalandchannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
@@ -18199,11 +18527,12 @@ export class BatchqueryIpApprovalandchannelRequest extends $tea.Model {
 export class BatchqueryIpApprovalandchannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // ip信息
-  ipList?: IpBasicInfoWithChannelInfo[];
+  ipList?: IpAllInfo[];
   // 总数
   allCount?: number;
   static names(): { [key: string]: string } {
@@ -18221,7 +18550,7 @@ export class BatchqueryIpApprovalandchannelResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      ipList: { 'type': 'array', 'itemType': IpBasicInfoWithChannelInfo },
+      ipList: { 'type': 'array', 'itemType': IpAllInfo },
       allCount: 'number',
     };
   }
@@ -18234,7 +18563,6 @@ export class BatchqueryIpApprovalandchannelResponse extends $tea.Model {
 export class BatchqueryIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础参数
   // 
@@ -18267,8 +18595,9 @@ export class BatchqueryIpAccountRequest extends $tea.Model {
 export class BatchqueryIpAccountResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 批量查询商家信息
   applyInfos?: IPMerchantApplyInfo[];
@@ -18298,7 +18627,6 @@ export class BatchqueryIpAccountResponse extends $tea.Model {
 export class BatchqueryIpSellerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
@@ -18338,8 +18666,9 @@ export class BatchqueryIpSellerRequest extends $tea.Model {
 export class BatchqueryIpSellerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 结果总数，不是列表值，用于分页
   // 
@@ -18371,10 +18700,771 @@ export class BatchqueryIpSellerResponse extends $tea.Model {
   }
 }
 
+export class ApplyIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // IP商家的链上账户ID
+  accountId: string;
+  // 套餐交易/授权交易的订单ID
+  orderId: string;
+  // 申请数量
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      orderId: 'order_id',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      orderId: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 正版码的批次ID
+  codeBatchId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      codeBatchId: 'code_batch_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      codeBatchId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 正版码批次编码
+  codeBatchId: string;
+  // 分页参数:页码
+  pageIndex: number;
+  // 分页参数:每页条目数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      codeBatchId: 'code_batch_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      codeBatchId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 正版码列表
+  codeList?: string[];
+  // 交易订单ID
+  orderId?: string;
+  // IP商家的链上账户ID
+  buyerAccountId?: string;
+  // IP版权方的链上账户ID
+  sellerAccountId?: string;
+  // IPID
+  ipId?: string;
+  // IP名称
+  ipName?: string;
+  // IP主图的OSS地址
+  ipImage?: string;
+  // IP描述
+  ipDesc?: string;
+  // 该批次正版码的过期时间戳(毫秒)
+  expiredDate?: number;
+  // 总数量
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      codeList: 'code_list',
+      orderId: 'order_id',
+      buyerAccountId: 'buyer_account_id',
+      sellerAccountId: 'seller_account_id',
+      ipId: 'ip_id',
+      ipName: 'ip_name',
+      ipImage: 'ip_image',
+      ipDesc: 'ip_desc',
+      expiredDate: 'expired_date',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      codeList: { 'type': 'array', 'itemType': 'string' },
+      orderId: 'string',
+      buyerAccountId: 'string',
+      sellerAccountId: 'string',
+      ipId: 'string',
+      ipName: 'string',
+      ipImage: 'string',
+      ipDesc: 'string',
+      expiredDate: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 正版码的编码
+  code: string;
+  // 扫码用户的ID
+  userId: string;
+  // 扫码用户的名称
+  userName?: string;
+  // 扫码用户的手机号
+  phoneNumber?: string;
+  // 扫码用户的位置信息
+  gps?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+      userId: 'user_id',
+      userName: 'user_name',
+      phoneNumber: 'phone_number',
+      gps: 'gps',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+      userId: 'string',
+      userName: 'string',
+      phoneNumber: 'string',
+      gps: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 被扫描的次数(包含本次)
+  scannedCount?: number;
+  // 扫描历史列表(仅展示最近扫描的50次信息)
+  scannedList?: IPCodeScannedInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      scannedCount: 'scanned_count',
+      scannedList: 'scanned_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      scannedCount: 'number',
+      scannedList: { 'type': 'array', 'itemType': IPCodeScannedInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpUpdateapprovalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // ip的id
+  ipId: string;
+  // 是否审批通过
+  isApproval: boolean;
+  // 审批信息
+  approvalComments?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipId: 'ip_id',
+      isApproval: 'is_approval',
+      approvalComments: 'approval_comments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipId: 'string',
+      isApproval: 'boolean',
+      approvalComments: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpUpdateapprovalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // ip的id
+  ipId: string;
+  // 渠道名字
+  channelName: string;
+  // sku数组
+  skus: IpSkuEmphasisInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipId: 'ip_id',
+      channelName: 'channel_name',
+      skus: 'skus',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipId: 'string',
+      channelName: 'string',
+      skus: { 'type': 'array', 'itemType': IpSkuEmphasisInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpGoodsupdateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // ipid的列表，最多20个
+  ipIds: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipIds: 'ip_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpGoodsupdateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // ip的更新数据
+  ipList?: IpBasicInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipList: 'ip_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipList: { 'type': 'array', 'itemType': IpBasicInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpBillRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单ID
+  ipOrderId: string;
+  // 账单状态，预留字段
+  billStatus?: number;
+  // 排序字段
+  orderBy: string;
+  // 排序顺序：正序还是倒序
+  order: string;
+  // 页码
+  pageNumber: number;
+  // 每页数据量大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipOrderId: 'ip_order_id',
+      billStatus: 'bill_status',
+      orderBy: 'order_by',
+      order: 'order',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipOrderId: 'string',
+      billStatus: 'number',
+      orderBy: 'string',
+      order: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpBillResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码
+  pageNumber?: number;
+  // 页面数据量大小
+  pageSize?: number;
+  // 筛选条件下账单总数
+  selectBillCount?: number;
+  // 账单信息列表
+  billList?: IPBill[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      selectBillCount: 'select_bill_count',
+      billList: 'bill_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      selectBillCount: 'number',
+      billList: { 'type': 'array', 'itemType': IPBill },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpSkuconfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 渠道名称
+  channelName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      channelName: 'channel_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      channelName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpSkuconfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // sku信息
+  skus?: IpSkuEmphasisInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skus: 'skus',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skus: { 'type': 'array', 'itemType': IpSkuEmphasisInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIpAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础入参
+  baseRequest: BaseRequestInfo;
+  // 支付宝的登陆用户名(必须实名制)
+  alipayLoginName: string;
+  // 商户类型(本期仅支持: 1:企业, 6:个人商户)	
+  merchantType: number;
+  // 商户别名, 会展示在账单以及支付结果页中
+  merchantAliasName: string;
+  // 商户法人名称, merchant_type = 1时必填	
+  legalName?: string;
+  // 商户法人身份证号码, merchant_type = 1时必填	
+  legalCertNo?: string;
+  // 结算目标账户(银行卡/支付宝)
+  settleTarget: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      alipayLoginName: 'alipay_login_name',
+      merchantType: 'merchant_type',
+      merchantAliasName: 'merchant_alias_name',
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      settleTarget: 'settle_target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      alipayLoginName: 'string',
+      merchantType: 'number',
+      merchantAliasName: 'string',
+      legalName: 'string',
+      legalCertNo: 'string',
+      settleTarget: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIpAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 导入后的新链上账户Id
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveIpSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // IP id
+  ipId: string;
+  // 渠道名称
+  channelName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipId: 'ip_id',
+      channelName: 'channel_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipId: 'string',
+      channelName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveIpSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块高度
   blockNumber: number;
@@ -18410,8 +19500,9 @@ export class QueryBlockanalysisBlockRequest extends $tea.Model {
 export class QueryBlockanalysisBlockResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块信息
   block?: Block;
@@ -18457,7 +19548,6 @@ export class QueryBlockanalysisBlockResponse extends $tea.Model {
 export class QueryBlockanalysisLastblocknumberRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -18485,8 +19575,9 @@ export class QueryBlockanalysisLastblocknumberRequest extends $tea.Model {
 export class QueryBlockanalysisLastblocknumberResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块链最高区块高度
   blockNumber?: number;
@@ -18516,7 +19607,6 @@ export class QueryBlockanalysisLastblocknumberResponse extends $tea.Model {
 export class QueryBlockanalysisOpenedequitiesRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -18552,8 +19642,9 @@ export class QueryBlockanalysisOpenedequitiesRequest extends $tea.Model {
 export class QueryBlockanalysisOpenedequitiesResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权益商品信息详细信息list
   equities?: OpenedEquity[];
@@ -18583,7 +19674,6 @@ export class QueryBlockanalysisOpenedequitiesResponse extends $tea.Model {
 export class QueryBlockanalysisUserpriceupdatedequitiesRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -18619,8 +19709,9 @@ export class QueryBlockanalysisUserpriceupdatedequitiesRequest extends $tea.Mode
 export class QueryBlockanalysisUserpriceupdatedequitiesResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 权益商品信息详细信息list
   equities?: UserPriceEquity[];
@@ -18650,7 +19741,6 @@ export class QueryBlockanalysisUserpriceupdatedequitiesResponse extends $tea.Mod
 export class QueryBlockanalysisUnwriteoffvalueRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 资产ID
   assetId: string;
@@ -18686,8 +19776,9 @@ export class QueryBlockanalysisUnwriteoffvalueRequest extends $tea.Model {
 export class QueryBlockanalysisUnwriteoffvalueResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 资产ID
   assetId?: string;
@@ -18725,7 +19816,6 @@ export class QueryBlockanalysisUnwriteoffvalueResponse extends $tea.Model {
 export class UpdateBlockanalysisDelegaterelationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 被代理的租户ID
   delegatedTenantId: string;
@@ -18761,8 +19851,9 @@ export class UpdateBlockanalysisDelegaterelationRequest extends $tea.Model {
 export class UpdateBlockanalysisDelegaterelationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -18788,7 +19879,6 @@ export class UpdateBlockanalysisDelegaterelationResponse extends $tea.Model {
 export class UpdateBlockanalysisWhitelistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -18824,8 +19914,9 @@ export class UpdateBlockanalysisWhitelistRequest extends $tea.Model {
 export class UpdateBlockanalysisWhitelistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -18851,7 +19942,6 @@ export class UpdateBlockanalysisWhitelistResponse extends $tea.Model {
 export class QueryBlockanalysisDelegaterelationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 被代理的租户ID
   delegatedTenantId: string;
@@ -18879,8 +19969,9 @@ export class QueryBlockanalysisDelegaterelationRequest extends $tea.Model {
 export class QueryBlockanalysisDelegaterelationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 代理授权关系信息
   delegateRelationInfos?: DelegateRelationInfo[];
@@ -18910,7 +20001,6 @@ export class QueryBlockanalysisDelegaterelationResponse extends $tea.Model {
 export class QueryBlockanalysisWhitelistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 查询该租户的白名单信息
   tenantId?: string;
@@ -18942,8 +20032,9 @@ export class QueryBlockanalysisWhitelistRequest extends $tea.Model {
 export class QueryBlockanalysisWhitelistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 接口白名单信息
   whiteList?: APIWhiteListInfo[];
@@ -18973,7 +20064,6 @@ export class QueryBlockanalysisWhitelistResponse extends $tea.Model {
 export class QueryBlockanalysisTransactionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19005,8 +20095,9 @@ export class QueryBlockanalysisTransactionRequest extends $tea.Model {
 export class QueryBlockanalysisTransactionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块高度
   blockNumber?: number;
@@ -19064,7 +20155,6 @@ export class QueryBlockanalysisTransactionResponse extends $tea.Model {
 export class QueryBlockanalysisEquityauthlistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19108,8 +20198,9 @@ export class QueryBlockanalysisEquityauthlistRequest extends $tea.Model {
 export class QueryBlockanalysisEquityauthlistResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商品授权信息（一客一价信息）列表
   equityAuthList?: EquityAuthInfo[];
@@ -19139,7 +20230,6 @@ export class QueryBlockanalysisEquityauthlistResponse extends $tea.Model {
 export class QueryBlockanalysisNextblockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块高度
   blockNumber: number;
@@ -19179,8 +20269,9 @@ export class QueryBlockanalysisNextblockRequest extends $tea.Model {
 export class QueryBlockanalysisNextblockResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 区块信息
   block?: Block;
@@ -19230,7 +20321,6 @@ export class QueryBlockanalysisNextblockResponse extends $tea.Model {
 export class QueryMypointsSkuRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链ID
   chainId: string;
@@ -19262,8 +20352,9 @@ export class QueryMypointsSkuRequest extends $tea.Model {
 export class QueryMypointsSkuResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 商品列表
   skus?: SKUItem[];
@@ -19293,7 +20384,6 @@ export class QueryMypointsSkuResponse extends $tea.Model {
 export class QueryMypointsMerchantbalanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19325,8 +20415,9 @@ export class QueryMypointsMerchantbalanceRequest extends $tea.Model {
 export class QueryMypointsMerchantbalanceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 积分库可用余额
   budgetAvailableBalance?: number;
@@ -19380,7 +20471,6 @@ export class QueryMypointsMerchantbalanceResponse extends $tea.Model {
 export class ExecMypointsPreorderskuRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19432,8 +20522,9 @@ export class ExecMypointsPreorderskuRequest extends $tea.Model {
 export class ExecMypointsPreorderskuResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 数量
   count?: number;
@@ -19487,7 +20578,6 @@ export class ExecMypointsPreorderskuResponse extends $tea.Model {
 export class ExecMypointsOrderskuRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19535,8 +20625,9 @@ export class ExecMypointsOrderskuRequest extends $tea.Model {
 export class ExecMypointsOrderskuResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 卡密ID
   cardId?: string;
@@ -19578,7 +20669,6 @@ export class ExecMypointsOrderskuResponse extends $tea.Model {
 export class QueryMypointsSkufeeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19626,8 +20716,9 @@ export class QueryMypointsSkufeeRequest extends $tea.Model {
 export class QueryMypointsSkufeeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预下单的数量
   count?: number;
@@ -19673,7 +20764,6 @@ export class QueryMypointsSkufeeResponse extends $tea.Model {
 export class QueryMypointsPreorderinstructionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19713,8 +20803,9 @@ export class QueryMypointsPreorderinstructionRequest extends $tea.Model {
 export class QueryMypointsPreorderinstructionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 业务请求单号
   bizId?: string;
@@ -19812,7 +20903,6 @@ export class QueryMypointsPreorderinstructionResponse extends $tea.Model {
 export class QueryMypointsOrderinstructionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   chainId: string;
@@ -19852,8 +20942,9 @@ export class QueryMypointsOrderinstructionRequest extends $tea.Model {
 export class QueryMypointsOrderinstructionResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 业务请求单号
   bizId?: string;
@@ -20033,7 +21124,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.2.18",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -21278,7 +22369,7 @@ export default class Client {
 
   /**
    * Description: 个人用户来账付款协议签约
-   * Summary: 个人用户来账付款协议签约
+   * Summary: 数字商品-消费卡服务-个人用户签约
    */
   async createConsumecardReceiptcontract(request: CreateConsumecardReceiptcontractRequest): Promise<CreateConsumecardReceiptcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21288,7 +22379,7 @@ export default class Client {
 
   /**
    * Description: 个人用户来账付款协议签约
-   * Summary: 个人用户来账付款协议签约
+   * Summary: 数字商品-消费卡服务-个人用户签约
    */
   async createConsumecardReceiptcontractEx(request: CreateConsumecardReceiptcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateConsumecardReceiptcontractResponse> {
     Util.validateModel(request);
@@ -21297,7 +22388,7 @@ export default class Client {
 
   /**
    * Description: 来账协议解约接口
-   * Summary: 来账协议签约
+   * Summary: 数字商品-消费卡服务-个人协议解约
    */
   async removeConsumecardReceiptcontract(request: RemoveConsumecardReceiptcontractRequest): Promise<RemoveConsumecardReceiptcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21307,7 +22398,7 @@ export default class Client {
 
   /**
    * Description: 来账协议解约接口
-   * Summary: 来账协议签约
+   * Summary: 数字商品-消费卡服务-个人协议解约
    */
   async removeConsumecardReceiptcontractEx(request: RemoveConsumecardReceiptcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveConsumecardReceiptcontractResponse> {
     Util.validateModel(request);
@@ -21316,7 +22407,7 @@ export default class Client {
 
   /**
    * Description: 来账协议查询接口
-   * Summary: 来账协议查询
+   * Summary: 数字商品-消费卡服务-个人协议查询
    */
   async queryConsumecardReceiptcontract(request: QueryConsumecardReceiptcontractRequest): Promise<QueryConsumecardReceiptcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21326,7 +22417,7 @@ export default class Client {
 
   /**
    * Description: 来账协议查询接口
-   * Summary: 来账协议查询
+   * Summary: 数字商品-消费卡服务-个人协议查询
    */
   async queryConsumecardReceiptcontractEx(request: QueryConsumecardReceiptcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryConsumecardReceiptcontractResponse> {
     Util.validateModel(request);
@@ -21334,8 +22425,8 @@ export default class Client {
   }
 
   /**
-   * Description: 首单协议首次签约
-   * Summary: 首单协议首次签约
+   * Description: 收单协议签约
+   * Summary: 数字商品-消费卡服务-商家用户签约
    */
   async createConsumecardBillingcontract(request: CreateConsumecardBillingcontractRequest): Promise<CreateConsumecardBillingcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21344,8 +22435,8 @@ export default class Client {
   }
 
   /**
-   * Description: 首单协议首次签约
-   * Summary: 首单协议首次签约
+   * Description: 收单协议签约
+   * Summary: 数字商品-消费卡服务-商家用户签约
    */
   async createConsumecardBillingcontractEx(request: CreateConsumecardBillingcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateConsumecardBillingcontractResponse> {
     Util.validateModel(request);
@@ -21354,7 +22445,7 @@ export default class Client {
 
   /**
    * Description: 收单协议解约
-   * Summary: 收单协议解约
+   * Summary: 数字商品-消费卡服务-商家协议解约
    */
   async removeConsumecardBillingcontract(request: RemoveConsumecardBillingcontractRequest): Promise<RemoveConsumecardBillingcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21364,7 +22455,7 @@ export default class Client {
 
   /**
    * Description: 收单协议解约
-   * Summary: 收单协议解约
+   * Summary: 数字商品-消费卡服务-商家协议解约
    */
   async removeConsumecardBillingcontractEx(request: RemoveConsumecardBillingcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveConsumecardBillingcontractResponse> {
     Util.validateModel(request);
@@ -21373,7 +22464,7 @@ export default class Client {
 
   /**
    * Description: 收单协议签约查询
-   * Summary: 收单协议签约查询
+   * Summary: 数字商品-消费卡服务-商家协议查询
    */
   async queryConsumecardBillingcontract(request: QueryConsumecardBillingcontractRequest): Promise<QueryConsumecardBillingcontractResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -21383,7 +22474,7 @@ export default class Client {
 
   /**
    * Description: 收单协议签约查询
-   * Summary: 收单协议签约查询
+   * Summary: 数字商品-消费卡服务-商家协议查询
    */
   async queryConsumecardBillingcontractEx(request: QueryConsumecardBillingcontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryConsumecardBillingcontractResponse> {
     Util.validateModel(request);
@@ -23687,7 +24778,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+   * Description: 版权方进件信息的单个查询
    * Summary: 数字商品-IP授权交易服务-申请信息查询
    */
   async pullIpAccount(request: PullIpAccountRequest): Promise<PullIpAccountResponse> {
@@ -23697,7 +24788,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+   * Description: 版权方进件信息的单个查询
    * Summary: 数字商品-IP授权交易服务-申请信息查询
    */
   async pullIpAccountEx(request: PullIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullIpAccountResponse> {
@@ -23763,7 +24854,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-批量查询商家信息
+   * Description: 版权方进件信息的批量查询
    * Summary: 数字商品-IP授权服务-批量查询商家信息
    */
   async batchqueryIpAccount(request: BatchqueryIpAccountRequest): Promise<BatchqueryIpAccountResponse> {
@@ -23773,7 +24864,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-批量查询商家信息
+   * Description: 版权方进件信息的批量查询
    * Summary: 数字商品-IP授权服务-批量查询商家信息
    */
   async batchqueryIpAccountEx(request: BatchqueryIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpAccountResponse> {
@@ -23782,7 +24873,7 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权-版权方申请批量查询
+   * Description: 版权方待审批的批量查询
    * Summary: 数字商品-IP授权-版权方申请批量查询
    */
   async batchqueryIpSeller(request: BatchqueryIpSellerRequest): Promise<BatchqueryIpSellerResponse> {
@@ -23792,12 +24883,202 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权-版权方申请批量查询
+   * Description: 版权方待审批的批量查询
    * Summary: 数字商品-IP授权-版权方申请批量查询
    */
   async batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpSellerResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryIpSellerResponse>(await this.doRequest("1.0", "baas.antdao.ip.seller.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryIpSellerResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码申请
+   * Summary: 数字商品服务-IP授权交易-正版码申请
+   */
+  async applyIpCode(request: ApplyIpCodeRequest): Promise<ApplyIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码申请
+   * Summary: 数字商品服务-IP授权交易-正版码申请
+   */
+  async applyIpCodeEx(request: ApplyIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyIpCodeResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码分页查询
+   * Summary: 数字商品服务-IP授权交易-正版码查询
+   */
+  async pagequeryIpCode(request: PagequeryIpCodeRequest): Promise<PagequeryIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码分页查询
+   * Summary: 数字商品服务-IP授权交易-正版码查询
+   */
+  async pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpCodeResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码校验
+   * Summary: 数字商品服务-IP授权交易-正版码校验
+   */
+  async checkIpCode(request: CheckIpCodeRequest): Promise<CheckIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-正版码校验
+   * Summary: 数字商品服务-IP授权交易-正版码校验
+   */
+  async checkIpCodeEx(request: CheckIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckIpCodeResponse({}));
+  }
+
+  /**
+   * Description: 对商品的更新进行审核
+   * Summary: 数字商品-IP授权交易-商品更新审核
+   */
+  async confirmIpUpdateapproval(request: ConfirmIpUpdateapprovalRequest): Promise<ConfirmIpUpdateapprovalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpUpdateapprovalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对商品的更新进行审核
+   * Summary: 数字商品-IP授权交易-商品更新审核
+   */
+  async confirmIpUpdateapprovalEx(request: ConfirmIpUpdateapprovalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpUpdateapprovalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpUpdateapprovalResponse>(await this.doRequest("1.0", "baas.antdao.ip.updateapproval.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpUpdateapprovalResponse({}));
+  }
+
+  /**
+   * Description: ip商品sku信息设置
+   * Summary: 数字商品-IP授权交易-sku信息设置
+   */
+  async setIpSku(request: SetIpSkuRequest): Promise<SetIpSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setIpSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ip商品sku信息设置
+   * Summary: 数字商品-IP授权交易-sku信息设置
+   */
+  async setIpSkuEx(request: SetIpSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetIpSkuResponse>(await this.doRequest("1.0", "baas.antdao.ip.sku.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetIpSkuResponse({}));
+  }
+
+  /**
+   * Description: 查询商品基础信息的更新数据
+   * Summary: 数字商品-IP授权交易-查询更新数据
+   */
+  async queryIpGoodsupdate(request: QueryIpGoodsupdateRequest): Promise<QueryIpGoodsupdateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpGoodsupdateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询商品基础信息的更新数据
+   * Summary: 数字商品-IP授权交易-查询更新数据
+   */
+  async queryIpGoodsupdateEx(request: QueryIpGoodsupdateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpGoodsupdateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpGoodsupdateResponse>(await this.doRequest("1.0", "baas.antdao.ip.goodsupdate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpGoodsupdateResponse({}));
+  }
+
+  /**
+   * Description: 查询账单信息，分页查询
+   * Summary: 数字商品服务-IP授权服务-查询账单列表
+   */
+  async pagequeryIpBill(request: PagequeryIpBillRequest): Promise<PagequeryIpBillResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpBillEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询账单信息，分页查询
+   * Summary: 数字商品服务-IP授权服务-查询账单列表
+   */
+  async pagequeryIpBillEx(request: PagequeryIpBillRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpBillResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpBillResponse>(await this.doRequest("1.0", "baas.antdao.ip.bill.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpBillResponse({}));
+  }
+
+  /**
+   * Description: ip商品某个渠道默认sku查询
+   * Summary: 数字商品-IP授权交易-默认sku查询
+   */
+  async queryIpSkuconfig(request: QueryIpSkuconfigRequest): Promise<QueryIpSkuconfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpSkuconfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ip商品某个渠道默认sku查询
+   * Summary: 数字商品-IP授权交易-默认sku查询
+   */
+  async queryIpSkuconfigEx(request: QueryIpSkuconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpSkuconfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpSkuconfigResponse>(await this.doRequest("1.0", "baas.antdao.ip.skuconfig.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpSkuconfigResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+   * Summary: 数字商品服务-IP授权交易-版权方导入
+   */
+  async importIpAccount(request: ImportIpAccountRequest): Promise<ImportIpAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIpAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+   * Summary: 数字商品服务-IP授权交易-版权方导入
+   */
+  async importIpAccountEx(request: ImportIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIpAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIpAccountResponse>(await this.doRequest("1.0", "baas.antdao.ip.account.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIpAccountResponse({}));
+  }
+
+  /**
+   * Description: 商品特定渠道的sku信息清空
+   * Summary: 数字商品-IP授权交易-sku信息清空
+   */
+  async removeIpSku(request: RemoveIpSkuRequest): Promise<RemoveIpSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeIpSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商品特定渠道的sku信息清空
+   * Summary: 数字商品-IP授权交易-sku信息清空
+   */
+  async removeIpSkuEx(request: RemoveIpSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveIpSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveIpSkuResponse>(await this.doRequest("1.0", "baas.antdao.ip.sku.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveIpSkuResponse({}));
   }
 
   /**
