@@ -64,6 +64,12 @@ class ApplyPfConfirmationResponse extends Model
      * @var string
      */
     public $repayment;
+
+    // 贷款利率
+    /**
+     * @var string
+     */
+    public $etrdLnIntRt;
     protected $_name = [
         'reqMsgId'           => 'req_msg_id',
         'resultCode'         => 'result_code',
@@ -73,6 +79,7 @@ class ApplyPfConfirmationResponse extends Model
         'loanStartTime'      => 'loan_start_time',
         'loanEndTime'        => 'loan_end_time',
         'repayment'          => 'repayment',
+        'etrdLnIntRt'        => 'etrd_ln_int_rt',
     ];
 
     public function validate()
@@ -105,6 +112,9 @@ class ApplyPfConfirmationResponse extends Model
         }
         if (null !== $this->repayment) {
             $res['repayment'] = $this->repayment;
+        }
+        if (null !== $this->etrdLnIntRt) {
+            $res['etrd_ln_int_rt'] = $this->etrdLnIntRt;
         }
 
         return $res;
@@ -141,6 +151,9 @@ class ApplyPfConfirmationResponse extends Model
         }
         if (isset($map['repayment'])) {
             $model->repayment = $map['repayment'];
+        }
+        if (isset($map['etrd_ln_int_rt'])) {
+            $model->etrdLnIntRt = $map['etrd_ln_int_rt'];
         }
 
         return $model;
