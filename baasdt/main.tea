@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.2.18',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -539,6 +539,8 @@ model IpBasicInfo {
   accountId: string(name='account_id', example='xxxxxx'),
   // 资质生效的结束时间
   copyRightEndTime: long(name='copy_right_end_time', example=''),
+  // 账户名称
+  accountName?: string(name='account_name', example='xxxx'),
 }
 
 // IP授权服务: ContactInfo
@@ -966,6 +968,38 @@ model IPMerchantApplyInfo {
   cardInfo: IPCardInfo(name='card_info', example=''),
 }
 
+// IP授权交易的账单信息
+model IPBill {
+  // 订单ID
+  ipOrderId: string(name='ip_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 账单ID
+  ipBillId: string(name='ip_bill_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16534523'),
+  // 上传销售数据时的bizId
+  bizId: string(name='biz_id', example='bizId0000001'),
+  // 收款方
+  sellerId: string(name='seller_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb165345237549274'),
+  // 付款方
+  buyerId: string(name='buyer_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb163472346869786987'),
+  // 账单状态
+  status: long(name='status', example='4'),
+  // 账单创建时间，时间戳（毫秒）
+  createTime: long(name='create_time', example='1694896477580'),
+  // 备注信息
+  memo: string(name='memo', example='备注信息'),
+  // 交易类型：0套餐交易，1定向授权
+  tradeType: long(name='trade_type', example='0'),
+  // 支付链接
+  payUrl: string(name='pay_url', example='https://....'),
+  // 账单金额，支付金额
+  billPayAmount: string(name='bill_pay_amount', example='100.11'),
+  // 销售金额
+  billSales: string(name='bill_sales', example='10011.00'),
+  // 账单周期开始时间，时间戳（毫秒）
+  cycleStartTime: long(name='cycle_start_time', example='1694896477580'),
+  // 账单周期结束时间，时间戳（毫秒）
+  cycleEndTime: long(name='cycle_end_time', example='1594896477580'),
+}
+
 // 电子券批次信息
 model CouponCollection {
   // 批次ID
@@ -1034,8 +1068,43 @@ model IPOrder {
   operatorName: string(name='operator_name', example='操作者名称'),
   // 订单状态。TODO 补充枚举信息
   status: long(name='status', example='1'),
+  // 订单创建时间，时间戳（毫秒）
+  createTime: long(name='create_time', example='1684896477580'),
   // 订单最近更新时间
   updateTime: long(name='update_time', example='1604896477580'),
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType: long(name='charge_type', example='0'),
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice: string(name='auth_price', example='1.11'),
+  // 是否有保底金
+  guaranteed: boolean(name='guaranteed', example='true, false'),
+  // 保底金金额
+  guaranteedAmount: string(name='guaranteed_amount', example='10000.00'),
+  // 保底商品个数（按量付费）
+  guaranteedGoodsAmount: long(name='guaranteed_goods_amount', example='1000'),
+  // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  usedGuaranteedGoodsAmount: long(name='used_guaranteed_goods_amount', example='5000'),
+  // 保底商品销售金额（销售抽佣）
+  guaranteedSales: string(name='guaranteed_sales', example='10000.00'),
+  // 已使用的保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  // 
+  usedGuaranteedSales: string(name='used_guaranteed_sales', example='5000.00'),
+  // 授权产品范围
+  authProductScope: string(name='auth_product_scope', example='食品 | 家居百货'),
+  // 授权地域范围
+  authAreaScope: string(name='auth_area_scope', example='中国大陆'),
+  // 商品销售渠道
+  salesChannel: string(name='sales_channel', example='电商平台、社交电商、直播、线下实体、代理商'),
+}
+
+// sku的基础信息
+model IpSkuEmphasisInfo {
+  // 价格区间，不做校验
+  priceRange: string(name='price_range', example='x x x x x'),
+  // 单价
+  purchasePrice: string(name='purchase_price', example='1.1'),
+  // 套餐数量
+  saleNum: string(name='sale_num', example='1111'),
 }
 
 // 商品授权信息（一客一价信息）
@@ -1190,6 +1259,8 @@ model IpEmphasisInfo {
   createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
   // ip名字
   ipName: string(name='ip_name', example='aaaa'),
+  // 商户名称
+  accountName?: string(name='account_name', example='xxxx'),
 }
 
 // 消费卡的单条交易记录数据
@@ -1340,6 +1411,16 @@ model IpBasicInfoWithChannelInfo {
   ipBasicInfo: IpBasicInfo(name='ip_basic_info', example=''),
   // ip的渠道信息和sku信息
   ipChannalInfos: [ IpChannelWithSku ](name='ip_channal_infos', example=''),
+}
+
+// ip的所有信息，加上更新的flag信息
+model IpAllInfo {
+  // ip的基础信息
+  ipBasicInfo: IpBasicInfo(name='ip_basic_info', example=''),
+  // ip的渠道信息带上sku信息
+  ipChannalInfo: [ IpChannelWithSku ](name='ip_channal_info', example=''),
+  // 是否有更新数据
+  isUpdate: boolean(name='is_update', example='true, false'),
 }
 
 // 权益
@@ -1578,6 +1659,12 @@ model IPApplyInfo {
   role: long(name='role', example='1'),
   // 状态
   status: long(name='status', example='1'),
+  // 用户的外系统识别Id
+  externalUserId: string(name='external_user_id', example='User001'),
+  // 外部系统用户名
+  externalUserName: string(name='external_user_name', example='用户名'),
+  // 申请时间(毫秒时间戳)
+  applyDate: long(name='apply_date', example='3810551857'),
 }
 
 // 商户积分库和与预算库信息
@@ -1698,6 +1785,20 @@ model Merchant {
   profitLossBalance: string(name='profit_loss_balance', example='0.0050000000000000'),
 }
 
+// 正版码被扫描的信息
+model IPCodeScannedInfo {
+  // 扫码用户的ID
+  userId: string(name='user_id', example='2d96fAB65b3a49cAc8b878184Cb16'),
+  // 扫码用户的名称
+  userName?: string(name='user_name', example='张三'),
+  // 扫码用户的手机号
+  phoneNumber?: string(name='phone_number', example='13291887615'),
+  // 扫码用户的位置信息
+  gps?: string(name='gps', example='浙江省杭州市西湖区'),
+  // 扫码的时间(毫秒时间戳)
+  timestamp: long(name='timestamp', example='713471745'),
+}
+
 // 用户
 model User {
   // 用户分布式身份ID
@@ -1717,7 +1818,6 @@ model User {
 model ExecCardCreateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1728,8 +1828,9 @@ model ExecCardCreateRequest = {
 model ExecCardCreateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 卡密ID
   cardId?: string(name='card_id'),
@@ -1759,7 +1860,6 @@ async function execCardCreateEx(request: ExecCardCreateRequest, headers: map[str
 model ExecCardQueryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1770,8 +1870,9 @@ model ExecCardQueryRequest = {
 model ExecCardQueryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 卡密信息对象
   card?: Card(name='card'),
@@ -1799,7 +1900,6 @@ async function execCardQueryEx(request: ExecCardQueryRequest, headers: map[strin
 model ExecCardBindnameRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1810,8 +1910,9 @@ model ExecCardBindnameRequest = {
 model ExecCardBindnameResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1837,7 +1938,6 @@ async function execCardBindnameEx(request: ExecCardBindnameRequest, headers: map
 model ExecCardChargeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1848,8 +1948,9 @@ model ExecCardChargeRequest = {
 model ExecCardChargeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1875,7 +1976,6 @@ async function execCardChargeEx(request: ExecCardChargeRequest, headers: map[str
 model ExecCardWriteoffRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1886,8 +1986,9 @@ model ExecCardWriteoffRequest = {
 model ExecCardWriteoffResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1913,7 +2014,6 @@ async function execCardWriteoffEx(request: ExecCardWriteoffRequest, headers: map
 model ExecCardExpiredRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1924,8 +2024,9 @@ model ExecCardExpiredRequest = {
 model ExecCardExpiredResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1951,7 +2052,6 @@ async function execCardExpiredEx(request: ExecCardExpiredRequest, headers: map[s
 model ExecCardForbiddenRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -1962,8 +2062,9 @@ model ExecCardForbiddenRequest = {
 model ExecCardForbiddenResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1989,7 +2090,6 @@ async function execCardForbiddenEx(request: ExecCardForbiddenRequest, headers: m
 model ExecCardChargeresetRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -2000,8 +2100,9 @@ model ExecCardChargeresetRequest = {
 model ExecCardChargeresetResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2027,7 +2128,6 @@ async function execCardChargeresetEx(request: ExecCardChargeresetRequest, header
 model CreateConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授权函地址
   authorizationAddress?: string(name='authorization_address'),
@@ -2074,8 +2174,9 @@ model CreateConsumecardAccountRequest = {
 model CreateConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 用户/机构的链上账户Id
   accountId?: string(name='account_id'),
@@ -2103,7 +2204,6 @@ async function createConsumecardAccountEx(request: CreateConsumecardAccountReque
 model OfflineConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2114,8 +2214,9 @@ model OfflineConsumecardAccountRequest = {
 model OfflineConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2141,7 +2242,6 @@ async function offlineConsumecardAccountEx(request: OfflineConsumecardAccountReq
 model ReclaimConsumecardWalletRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 回退金额(元)
   amount: string(name='amount'),
@@ -2154,8 +2254,9 @@ model ReclaimConsumecardWalletRequest = {
 model ReclaimConsumecardWalletResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2181,7 +2282,6 @@ async function reclaimConsumecardWalletEx(request: ReclaimConsumecardWalletReque
 model FreezeConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2192,8 +2292,9 @@ model FreezeConsumecardAccountRequest = {
 model FreezeConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2219,7 +2320,6 @@ async function freezeConsumecardAccountEx(request: FreezeConsumecardAccountReque
 model UnfreezeConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2230,8 +2330,9 @@ model UnfreezeConsumecardAccountRequest = {
 model UnfreezeConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2257,7 +2358,6 @@ async function unfreezeConsumecardAccountEx(request: UnfreezeConsumecardAccountR
 model UpdateConsumecardRiskcontrolRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否加值(false为减)
   add: boolean(name='add'),
@@ -2270,8 +2370,9 @@ model UpdateConsumecardRiskcontrolRequest = {
 model UpdateConsumecardRiskcontrolResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2297,7 +2398,6 @@ async function updateConsumecardRiskcontrolEx(request: UpdateConsumecardRiskcont
 model QueryConsumecardBillRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2308,8 +2408,9 @@ model QueryConsumecardBillRequest = {
 model QueryConsumecardBillResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 消费卡的单条交易记录数据
   blockInstruction?: BlockInstruction(name='block_instruction'),
@@ -2337,7 +2438,6 @@ async function queryConsumecardBillEx(request: QueryConsumecardBillRequest, head
 model ChargeConsumecardWalletRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2348,8 +2448,9 @@ model ChargeConsumecardWalletRequest = {
 model ChargeConsumecardWalletResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2375,7 +2476,6 @@ async function chargeConsumecardWalletEx(request: ChargeConsumecardWalletRequest
 model UpdateConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授权函地址
   authorizationAddress?: string(name='authorization_address'),
@@ -2408,8 +2508,9 @@ model UpdateConsumecardAccountRequest = {
 model UpdateConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2435,7 +2536,6 @@ async function updateConsumecardAccountEx(request: UpdateConsumecardAccountReque
 model CreateConsumecardBillRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2472,8 +2572,9 @@ model CreateConsumecardBillRequest = {
 model CreateConsumecardBillResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 账单ID
   orderId?: string(name='order_id'),
@@ -2501,7 +2602,6 @@ async function createConsumecardBillEx(request: CreateConsumecardBillRequest, he
 model ConfirmConsumecardBillcreateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2516,8 +2616,9 @@ model ConfirmConsumecardBillcreateRequest = {
 model ConfirmConsumecardBillcreateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2543,7 +2644,6 @@ async function confirmConsumecardBillcreateEx(request: ConfirmConsumecardBillcre
 model CancelConsumecardBillRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2556,8 +2656,9 @@ model CancelConsumecardBillRequest = {
 model CancelConsumecardBillResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2583,7 +2684,6 @@ async function cancelConsumecardBillEx(request: CancelConsumecardBillRequest, he
 model ExecConsumecardBillpayRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2598,8 +2698,9 @@ model ExecConsumecardBillpayRequest = {
 model ExecConsumecardBillpayResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2625,7 +2726,6 @@ async function execConsumecardBillpayEx(request: ExecConsumecardBillpayRequest, 
 model ExecConsumecardOrderwriteoffRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2640,8 +2740,9 @@ model ExecConsumecardOrderwriteoffRequest = {
 model ExecConsumecardOrderwriteoffResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块高度
   blockNumber?: long(name='block_number'),
@@ -2671,7 +2772,6 @@ async function execConsumecardOrderwriteoffEx(request: ExecConsumecardOrderwrite
 model ConfirmConsumecardBillrefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否接受退款申请，true同意退款，false拒绝退款
   accept: boolean(name='accept'),
@@ -2686,8 +2786,9 @@ model ConfirmConsumecardBillrefundRequest = {
 model ConfirmConsumecardBillrefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2713,7 +2814,6 @@ async function confirmConsumecardBillrefundEx(request: ConfirmConsumecardBillref
 model QueryConsumecardAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2724,8 +2824,9 @@ model QueryConsumecardAccountRequest = {
 model QueryConsumecardAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 账户信息
   account?: ConsumeCardAccount(name='account'),
@@ -2753,7 +2854,6 @@ async function queryConsumecardAccountEx(request: QueryConsumecardAccountRequest
 model OpenConsumecardWalletRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2768,8 +2868,9 @@ model OpenConsumecardWalletRequest = {
 model OpenConsumecardWalletResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -2795,7 +2896,6 @@ async function openConsumecardWalletEx(request: OpenConsumecardWalletRequest, he
 model QueryConsumecardWalletRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2806,8 +2906,9 @@ model QueryConsumecardWalletRequest = {
 model QueryConsumecardWalletResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 钱包信息数据
   walletInfo?: WalletInfo(name='wallet_info'),
@@ -2835,7 +2936,6 @@ async function queryConsumecardWalletEx(request: QueryConsumecardWalletRequest, 
 model ExecConsumecardWalletchargetotokenRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2846,8 +2946,9 @@ model ExecConsumecardWalletchargetotokenRequest = {
 model ExecConsumecardWalletchargetotokenResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块高度
   blockNumber?: long(name='block_number'),
@@ -2877,7 +2978,6 @@ async function execConsumecardWalletchargetotokenEx(request: ExecConsumecardWall
 model ExecConsumecardWalletredeemtokenRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2888,8 +2988,9 @@ model ExecConsumecardWalletredeemtokenRequest = {
 model ExecConsumecardWalletredeemtokenResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块高度
   blockNumber?: long(name='block_number'),
@@ -2919,7 +3020,6 @@ async function execConsumecardWalletredeemtokenEx(request: ExecConsumecardWallet
 model StartConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2948,8 +3048,9 @@ model StartConsumecardPurchaseRequest = {
 model StartConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易ID
   orderId?: string(name='order_id'),
@@ -2977,7 +3078,6 @@ async function startConsumecardPurchaseEx(request: StartConsumecardPurchaseReque
 model CancelConsumecardBuyerpurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -2990,8 +3090,9 @@ model CancelConsumecardBuyerpurchaseRequest = {
 model CancelConsumecardBuyerpurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3017,7 +3118,6 @@ async function cancelConsumecardBuyerpurchaseEx(request: CancelConsumecardBuyerp
 model ApplyConsumecardPurchaserefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3030,8 +3130,9 @@ model ApplyConsumecardPurchaserefundRequest = {
 model ApplyConsumecardPurchaserefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3057,7 +3158,6 @@ async function applyConsumecardPurchaserefundEx(request: ApplyConsumecardPurchas
 model ApplyConsumecardPurchasereplaceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3070,8 +3170,9 @@ model ApplyConsumecardPurchasereplaceRequest = {
 model ApplyConsumecardPurchasereplaceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3097,7 +3198,6 @@ async function applyConsumecardPurchasereplaceEx(request: ApplyConsumecardPurcha
 model ExecConsumecardPurchasereceiveRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3110,8 +3210,9 @@ model ExecConsumecardPurchasereceiveRequest = {
 model ExecConsumecardPurchasereceiveResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3137,7 +3238,6 @@ async function execConsumecardPurchasereceiveEx(request: ExecConsumecardPurchase
 model RefuseConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3150,8 +3250,9 @@ model RefuseConsumecardPurchaseRequest = {
 model RefuseConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3177,7 +3278,6 @@ async function refuseConsumecardPurchaseEx(request: RefuseConsumecardPurchaseReq
 model SetConsumecardPurchaserefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否同意退款。true同意，false拒绝。
   accept: boolean(name='accept'),
@@ -3192,8 +3292,9 @@ model SetConsumecardPurchaserefundRequest = {
 model SetConsumecardPurchaserefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3219,7 +3320,6 @@ async function setConsumecardPurchaserefundEx(request: SetConsumecardPurchaseref
 model SetConsumecardPurchasereplaceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否同意换货。true同意，false拒绝
   accept: boolean(name='accept'),
@@ -3234,8 +3334,9 @@ model SetConsumecardPurchasereplaceRequest = {
 model SetConsumecardPurchasereplaceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3261,7 +3362,6 @@ async function setConsumecardPurchasereplaceEx(request: SetConsumecardPurchasere
 model ConfirmConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3274,8 +3374,9 @@ model ConfirmConsumecardPurchaseRequest = {
 model ConfirmConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3301,7 +3402,6 @@ async function confirmConsumecardPurchaseEx(request: ConfirmConsumecardPurchaseR
 model SendConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3314,8 +3414,9 @@ model SendConsumecardPurchaseRequest = {
 model SendConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3341,7 +3442,6 @@ async function sendConsumecardPurchaseEx(request: SendConsumecardPurchaseRequest
 model ReplaceConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3354,8 +3454,9 @@ model ReplaceConsumecardPurchaseRequest = {
 model ReplaceConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3381,7 +3482,6 @@ async function replaceConsumecardPurchaseEx(request: ReplaceConsumecardPurchaseR
 model CreateConsumecardGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商品授权类型
   authType: long(name='auth_type'),
@@ -3422,8 +3522,9 @@ model CreateConsumecardGoodsRequest = {
 model CreateConsumecardGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 异步发布商品返回的查询ID。使用该ID查询发布结果。
   requestId?: string(name='request_id'),
@@ -3451,7 +3552,6 @@ async function createConsumecardGoodsEx(request: CreateConsumecardGoodsRequest, 
 model UpdateConsumecardGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3484,8 +3584,9 @@ model UpdateConsumecardGoodsRequest = {
 model UpdateConsumecardGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 异步更新商品信息，根据该ID查询更新结果
   requestId?: string(name='request_id'),
@@ -3513,7 +3614,6 @@ async function updateConsumecardGoodsEx(request: UpdateConsumecardGoodsRequest, 
 model OpenConsumecardGoodstocustomRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3528,8 +3628,9 @@ model OpenConsumecardGoodstocustomRequest = {
 model OpenConsumecardGoodstocustomResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3555,7 +3656,6 @@ async function openConsumecardGoodstocustomEx(request: OpenConsumecardGoodstocus
 model CreateConsumecardGoodscategoryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3570,8 +3670,9 @@ model CreateConsumecardGoodscategoryRequest = {
 model CreateConsumecardGoodscategoryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3597,7 +3698,6 @@ async function createConsumecardGoodscategoryEx(request: CreateConsumecardGoodsc
 model SetConsumecardGoodscustompriceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3612,8 +3712,9 @@ model SetConsumecardGoodscustompriceRequest = {
 model SetConsumecardGoodscustompriceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3639,7 +3740,6 @@ async function setConsumecardGoodscustompriceEx(request: SetConsumecardGoodscust
 model UploadConsumecardGoodsimageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -3654,8 +3754,9 @@ model UploadConsumecardGoodsimageRequest = {
 model UploadConsumecardGoodsimageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 临时可访问的url列表，过期时间2小时
   temporaryUrls?: [ string ](name='temporary_urls'),
@@ -3685,7 +3786,6 @@ async function uploadConsumecardGoodsimageEx(request: UploadConsumecardGoodsimag
 model ExecConsumecardOrdertrywithdrawRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3700,8 +3800,9 @@ model ExecConsumecardOrdertrywithdrawRequest = {
 model ExecConsumecardOrdertrywithdrawResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 试算总提现金额(单位:元,精确到分)
   withdrawTotalAmount?: string(name='withdraw_total_amount'),
@@ -3731,7 +3832,6 @@ async function execConsumecardOrdertrywithdrawEx(request: ExecConsumecardOrdertr
 model ExecConsumecardOrderwithdrawbyblocknumRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3744,8 +3844,9 @@ model ExecConsumecardOrderwithdrawbyblocknumRequest = {
 model ExecConsumecardOrderwithdrawbyblocknumResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 提现单编号(跟踪提现任务)
   withdrawBizId?: string(name='withdraw_biz_id'),
@@ -3773,7 +3874,6 @@ async function execConsumecardOrderwithdrawbyblocknumEx(request: ExecConsumecard
 model ExecConsumecardOrderwithdrawbyidsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3784,8 +3884,9 @@ model ExecConsumecardOrderwithdrawbyidsRequest = {
 model ExecConsumecardOrderwithdrawbyidsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 提现单编号(跟踪提现任务)
   withdrawBizId?: string(name='withdraw_biz_id'),
@@ -3813,7 +3914,6 @@ async function execConsumecardOrderwithdrawbyidsEx(request: ExecConsumecardOrder
 model GetConsumecardOrderwithdrawresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3824,8 +3924,9 @@ model GetConsumecardOrderwithdrawresultRequest = {
 model GetConsumecardOrderwithdrawresultResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 提现任务期望提现的金额(单位:元,精确到分)
   expectedWithdrawAmount?: string(name='expected_withdraw_amount'),
@@ -3863,7 +3964,6 @@ async function getConsumecardOrderwithdrawresultEx(request: GetConsumecardOrderw
 model QueryConsumecardWalletredeemableRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3874,8 +3974,9 @@ model QueryConsumecardWalletredeemableRequest = {
 model QueryConsumecardWalletredeemableResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可回退的金额
   redeemableAmount?: string(name='redeemable_amount'),
@@ -3903,7 +4004,6 @@ async function queryConsumecardWalletredeemableEx(request: QueryConsumecardWalle
 model QueryConsumecardGoodscreateresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3914,8 +4014,9 @@ model QueryConsumecardGoodscreateresultRequest = {
 model QueryConsumecardGoodscreateresultResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商品ID
   goodsId?: string(name='goods_id'),
@@ -3943,7 +4044,6 @@ async function queryConsumecardGoodscreateresultEx(request: QueryConsumecardGood
 model QueryConsumecardGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3954,8 +4054,9 @@ model QueryConsumecardGoodsRequest = {
 model QueryConsumecardGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商品信息
   goods?: GoodsResponse(name='goods'),
@@ -3983,7 +4084,6 @@ async function queryConsumecardGoodsEx(request: QueryConsumecardGoodsRequest, he
 model ApplyConsumecardBillrefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -3996,8 +4096,9 @@ model ApplyConsumecardBillrefundRequest = {
 model ApplyConsumecardBillrefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4023,7 +4124,6 @@ async function applyConsumecardBillrefundEx(request: ApplyConsumecardBillrefundR
 model QueryConsumecardPurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4034,8 +4134,9 @@ model QueryConsumecardPurchaseRequest = {
 model QueryConsumecardPurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易信息
   blockInstruction?: BlockInstruction(name='block_instruction'),
@@ -4063,7 +4164,6 @@ async function queryConsumecardPurchaseEx(request: QueryConsumecardPurchaseReque
 model QueryConsumecardBlockRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块高度
   blockNumber: long(name='block_number'),
@@ -4076,8 +4176,9 @@ model QueryConsumecardBlockRequest = {
 model QueryConsumecardBlockResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块信息
   block?: Block(name='block'),
@@ -4113,7 +4214,6 @@ async function queryConsumecardBlockEx(request: QueryConsumecardBlockRequest, he
 model QueryConsumecardLastblocknumberRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -4122,8 +4222,9 @@ model QueryConsumecardLastblocknumberRequest = {
 model QueryConsumecardLastblocknumberResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块链最高区块高度
   blockNumber?: long(name='block_number'),
@@ -4151,7 +4252,6 @@ async function queryConsumecardLastblocknumberEx(request: QueryConsumecardLastbl
 model QueryConsumecardGoodsupdateresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 异步更新商品返回的查询ID。使用该ID查询更新结果。
   requestId: string(name='request_id'),
@@ -4162,8 +4262,9 @@ model QueryConsumecardGoodsupdateresultRequest = {
 model QueryConsumecardGoodsupdateresultResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4189,7 +4290,6 @@ async function queryConsumecardGoodsupdateresultEx(request: QueryConsumecardGood
 model CancelConsumecardSellerpurchaseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4202,8 +4302,9 @@ model CancelConsumecardSellerpurchaseRequest = {
 model CancelConsumecardSellerpurchaseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4229,7 +4330,6 @@ async function cancelConsumecardSellerpurchaseEx(request: CancelConsumecardSelle
 model SetConsumecardCommissionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4248,8 +4348,9 @@ model SetConsumecardCommissionRequest = {
 model SetConsumecardCommissionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4275,7 +4376,6 @@ async function setConsumecardCommissionEx(request: SetConsumecardCommissionReque
 model RemoveConsumecardCommissionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4290,8 +4390,9 @@ model RemoveConsumecardCommissionRequest = {
 model RemoveConsumecardCommissionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4317,7 +4418,6 @@ async function removeConsumecardCommissionEx(request: RemoveConsumecardCommissio
 model QueryConsumecardCommissionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4332,8 +4432,9 @@ model QueryConsumecardCommissionRequest = {
 model QueryConsumecardCommissionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 手续费规则结果
   commissionRules?: [ CommissionRuleResponse ](name='commission_rules'),
@@ -4369,7 +4470,6 @@ async function queryConsumecardCommissionEx(request: QueryConsumecardCommissionR
 model SetConsumecardCommissionmanagerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4380,8 +4480,9 @@ model SetConsumecardCommissionmanagerRequest = {
 model SetConsumecardCommissionmanagerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4407,7 +4508,6 @@ async function setConsumecardCommissionmanagerEx(request: SetConsumecardCommissi
 model SetConsumecardGoodsstatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequest(name='base_request'),
@@ -4420,8 +4520,9 @@ model SetConsumecardGoodsstatusRequest = {
 model SetConsumecardGoodsstatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4447,7 +4548,6 @@ async function setConsumecardGoodsstatusEx(request: SetConsumecardGoodsstatusReq
 model CreateConsumecardReceiptcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4458,14 +4558,15 @@ model CreateConsumecardReceiptcontractRequest = {
 model CreateConsumecardReceiptcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
 /**
  * Description: 个人用户来账付款协议签约
- * Summary: 个人用户来账付款协议签约
+ * Summary: 数字商品-消费卡服务-个人用户签约
  */
 async function createConsumecardReceiptcontract(request: CreateConsumecardReceiptcontractRequest): CreateConsumecardReceiptcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4475,7 +4576,7 @@ async function createConsumecardReceiptcontract(request: CreateConsumecardReceip
 
 /**
  * Description: 个人用户来账付款协议签约
- * Summary: 个人用户来账付款协议签约
+ * Summary: 数字商品-消费卡服务-个人用户签约
  */
 async function createConsumecardReceiptcontractEx(request: CreateConsumecardReceiptcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateConsumecardReceiptcontractResponse {
   Util.validateModel(request);
@@ -4485,7 +4586,6 @@ async function createConsumecardReceiptcontractEx(request: CreateConsumecardRece
 model RemoveConsumecardReceiptcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4496,14 +4596,15 @@ model RemoveConsumecardReceiptcontractRequest = {
 model RemoveConsumecardReceiptcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
 /**
  * Description: 来账协议解约接口
- * Summary: 来账协议签约
+ * Summary: 数字商品-消费卡服务-个人协议解约
  */
 async function removeConsumecardReceiptcontract(request: RemoveConsumecardReceiptcontractRequest): RemoveConsumecardReceiptcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4513,7 +4614,7 @@ async function removeConsumecardReceiptcontract(request: RemoveConsumecardReceip
 
 /**
  * Description: 来账协议解约接口
- * Summary: 来账协议签约
+ * Summary: 数字商品-消费卡服务-个人协议解约
  */
 async function removeConsumecardReceiptcontractEx(request: RemoveConsumecardReceiptcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveConsumecardReceiptcontractResponse {
   Util.validateModel(request);
@@ -4523,7 +4624,6 @@ async function removeConsumecardReceiptcontractEx(request: RemoveConsumecardRece
 model QueryConsumecardReceiptcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4534,8 +4634,9 @@ model QueryConsumecardReceiptcontractRequest = {
 model QueryConsumecardReceiptcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 签约ID= platform_tenant_id+product_code+certification_id+sales_plan(分库分表路由)
   uid?: string(name='uid'),
@@ -4576,7 +4677,7 @@ model QueryConsumecardReceiptcontractResponse = {
 
 /**
  * Description: 来账协议查询接口
- * Summary: 来账协议查询
+ * Summary: 数字商品-消费卡服务-个人协议查询
  */
 async function queryConsumecardReceiptcontract(request: QueryConsumecardReceiptcontractRequest): QueryConsumecardReceiptcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4586,7 +4687,7 @@ async function queryConsumecardReceiptcontract(request: QueryConsumecardReceiptc
 
 /**
  * Description: 来账协议查询接口
- * Summary: 来账协议查询
+ * Summary: 数字商品-消费卡服务-个人协议查询
  */
 async function queryConsumecardReceiptcontractEx(request: QueryConsumecardReceiptcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryConsumecardReceiptcontractResponse {
   Util.validateModel(request);
@@ -4596,7 +4697,6 @@ async function queryConsumecardReceiptcontractEx(request: QueryConsumecardReceip
 model CreateConsumecardBillingcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求结构
   baseRequest: BaseRequest(name='base_request'),
@@ -4623,14 +4723,15 @@ model CreateConsumecardBillingcontractRequest = {
 model CreateConsumecardBillingcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
 /**
- * Description: 首单协议首次签约
- * Summary: 首单协议首次签约
+ * Description: 收单协议签约
+ * Summary: 数字商品-消费卡服务-商家用户签约
  */
 async function createConsumecardBillingcontract(request: CreateConsumecardBillingcontractRequest): CreateConsumecardBillingcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4639,8 +4740,8 @@ async function createConsumecardBillingcontract(request: CreateConsumecardBillin
 }
 
 /**
- * Description: 首单协议首次签约
- * Summary: 首单协议首次签约
+ * Description: 收单协议签约
+ * Summary: 数字商品-消费卡服务-商家用户签约
  */
 async function createConsumecardBillingcontractEx(request: CreateConsumecardBillingcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateConsumecardBillingcontractResponse {
   Util.validateModel(request);
@@ -4650,7 +4751,6 @@ async function createConsumecardBillingcontractEx(request: CreateConsumecardBill
 model RemoveConsumecardBillingcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4661,14 +4761,15 @@ model RemoveConsumecardBillingcontractRequest = {
 model RemoveConsumecardBillingcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
 /**
  * Description: 收单协议解约
- * Summary: 收单协议解约
+ * Summary: 数字商品-消费卡服务-商家协议解约
  */
 async function removeConsumecardBillingcontract(request: RemoveConsumecardBillingcontractRequest): RemoveConsumecardBillingcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4678,7 +4779,7 @@ async function removeConsumecardBillingcontract(request: RemoveConsumecardBillin
 
 /**
  * Description: 收单协议解约
- * Summary: 收单协议解约
+ * Summary: 数字商品-消费卡服务-商家协议解约
  */
 async function removeConsumecardBillingcontractEx(request: RemoveConsumecardBillingcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveConsumecardBillingcontractResponse {
   Util.validateModel(request);
@@ -4688,7 +4789,6 @@ async function removeConsumecardBillingcontractEx(request: RemoveConsumecardBill
 model QueryConsumecardBillingcontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求结构
   baseRequest: BaseRequest(name='base_request'),
@@ -4699,8 +4799,9 @@ model QueryConsumecardBillingcontractRequest = {
 model QueryConsumecardBillingcontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 基础响应对象
   baseResponse?: BaseResponseData(name='base_response'),
@@ -4724,7 +4825,7 @@ model QueryConsumecardBillingcontractResponse = {
 
 /**
  * Description: 收单协议签约查询
- * Summary: 收单协议签约查询
+ * Summary: 数字商品-消费卡服务-商家协议查询
  */
 async function queryConsumecardBillingcontract(request: QueryConsumecardBillingcontractRequest): QueryConsumecardBillingcontractResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4734,7 +4835,7 @@ async function queryConsumecardBillingcontract(request: QueryConsumecardBillingc
 
 /**
  * Description: 收单协议签约查询
- * Summary: 收单协议签约查询
+ * Summary: 数字商品-消费卡服务-商家协议查询
  */
 async function queryConsumecardBillingcontractEx(request: QueryConsumecardBillingcontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryConsumecardBillingcontractResponse {
   Util.validateModel(request);
@@ -4744,7 +4845,6 @@ async function queryConsumecardBillingcontractEx(request: QueryConsumecardBillin
 model AddConsumecardCommissionpartyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4761,8 +4861,9 @@ model AddConsumecardCommissionpartyRequest = {
 model AddConsumecardCommissionpartyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4788,7 +4889,6 @@ async function addConsumecardCommissionpartyEx(request: AddConsumecardCommission
 model RemoveConsumecardCommissionpartyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求结构
   baseRequest: BaseRequest(name='base_request'),
@@ -4805,8 +4905,9 @@ model RemoveConsumecardCommissionpartyRequest = {
 model RemoveConsumecardCommissionpartyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4832,7 +4933,6 @@ async function removeConsumecardCommissionpartyEx(request: RemoveConsumecardComm
 model AddConsumecardCommissionperiodRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础结构体
   baseRequest: BaseRequest(name='base_request'),
@@ -4851,8 +4951,9 @@ model AddConsumecardCommissionperiodRequest = {
 model AddConsumecardCommissionperiodResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4878,7 +4979,6 @@ async function addConsumecardCommissionperiodEx(request: AddConsumecardCommissio
 model RemoveConsumecardCommissionperiodRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求对象
   baseRequest: BaseRequest(name='base_request'),
@@ -4897,8 +4997,9 @@ model RemoveConsumecardCommissionperiodRequest = {
 model RemoveConsumecardCommissionperiodResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4924,7 +5025,6 @@ async function removeConsumecardCommissionperiodEx(request: RemoveConsumecardCom
 model QueryConsumecardCounterRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础结构体
   baseRequest: BaseRequest(name='base_request'),
@@ -4939,8 +5039,9 @@ model QueryConsumecardCounterRequest = {
 model QueryConsumecardCounterResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 查询的类别（0 商家，1 商品）
   type?: long(name='type'),
@@ -4978,7 +5079,6 @@ async function queryConsumecardCounterEx(request: QueryConsumecardCounterRequest
 model SetConsumecardProductcodeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -4997,8 +5097,9 @@ model SetConsumecardProductcodeRequest = {
 model SetConsumecardProductcodeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5024,7 +5125,6 @@ async function setConsumecardProductcodeEx(request: SetConsumecardProductcodeReq
 model QueryConsumecardProductcodeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 要查询的租户信息，不传查全部信息
   tenantId?: string(name='tenant_id'),
@@ -5033,8 +5133,9 @@ model QueryConsumecardProductcodeRequest = {
 model QueryConsumecardProductcodeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 场景码配置信息列表
   productCodeInfos?: [ ProductCodeInfo ](name='product_code_infos'),
@@ -5062,7 +5163,6 @@ async function queryConsumecardProductcodeEx(request: QueryConsumecardProductcod
 model RemoveConsumecardProductcodeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5076,8 +5176,9 @@ model RemoveConsumecardProductcodeRequest = {
 model RemoveConsumecardProductcodeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5103,7 +5204,6 @@ async function removeConsumecardProductcodeEx(request: RemoveConsumecardProductc
 model QueryConsumecardGoodsimageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5116,8 +5216,9 @@ model QueryConsumecardGoodsimageRequest = {
 model QueryConsumecardGoodsimageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 图片的临时可访问url列表，url过期时间2小时
   temporaryUrls?: [ string ](name='temporary_urls'),
@@ -5145,7 +5246,6 @@ async function queryConsumecardGoodsimageEx(request: QueryConsumecardGoodsimageR
 model QueryCouponRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5160,8 +5260,9 @@ model QueryCouponRequest = {
 model QueryCouponResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 电子券详细信息
   coupon?: Coupon(name='coupon'),
@@ -5191,7 +5292,6 @@ async function queryCouponEx(request: QueryCouponRequest, headers: map[string]st
 model CreateCouponRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5204,8 +5304,9 @@ model CreateCouponRequest = {
 model CreateCouponResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易块高
   blockNumber?: long(name='block_number'),
@@ -5235,7 +5336,6 @@ async function createCouponEx(request: CreateCouponRequest, headers: map[string]
 model ExecCouponForbiddenRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5250,8 +5350,9 @@ model ExecCouponForbiddenRequest = {
 model ExecCouponForbiddenResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5279,7 +5380,6 @@ async function execCouponForbiddenEx(request: ExecCouponForbiddenRequest, header
 model ExecCouponEnableRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5294,8 +5394,9 @@ model ExecCouponEnableRequest = {
 model ExecCouponEnableResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5323,7 +5424,6 @@ async function execCouponEnableEx(request: ExecCouponEnableRequest, headers: map
 model ExecCouponExpireRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5338,8 +5438,9 @@ model ExecCouponExpireRequest = {
 model ExecCouponExpireResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5367,7 +5468,6 @@ async function execCouponExpireEx(request: ExecCouponExpireRequest, headers: map
 model ExecCouponWriteoffRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5382,8 +5482,9 @@ model ExecCouponWriteoffRequest = {
 model ExecCouponWriteoffResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5411,7 +5512,6 @@ async function execCouponWriteoffEx(request: ExecCouponWriteoffRequest, headers:
 model ExecCouponTimeoutRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5426,8 +5526,9 @@ model ExecCouponTimeoutRequest = {
 model ExecCouponTimeoutResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5455,7 +5556,6 @@ async function execCouponTimeoutEx(request: ExecCouponTimeoutRequest, headers: m
 model ExecCouponActivateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5474,8 +5574,9 @@ model ExecCouponActivateRequest = {
 model ExecCouponActivateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5503,7 +5604,6 @@ async function execCouponActivateEx(request: ExecCouponActivateRequest, headers:
 model ExecCouponTransferRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5524,8 +5624,9 @@ model ExecCouponTransferRequest = {
 model ExecCouponTransferResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5553,7 +5654,6 @@ async function execCouponTransferEx(request: ExecCouponTransferRequest, headers:
 model ExecCouponSignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5572,8 +5672,9 @@ model ExecCouponSignRequest = {
 model ExecCouponSignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5601,7 +5702,6 @@ async function execCouponSignEx(request: ExecCouponSignRequest, headers: map[str
 model ExecCouponBindRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5624,8 +5724,9 @@ model ExecCouponBindRequest = {
 model ExecCouponBindResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5653,7 +5754,6 @@ async function execCouponBindEx(request: ExecCouponBindRequest, headers: map[str
 model BatchcreateCouponRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5668,8 +5768,9 @@ model BatchcreateCouponRequest = {
 model BatchcreateCouponResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易块高
   blockNumber?: long(name='block_number'),
@@ -5699,7 +5800,6 @@ async function batchcreateCouponEx(request: BatchcreateCouponRequest, headers: m
 model CreateCouponListRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5712,8 +5812,9 @@ model CreateCouponListRequest = {
 model CreateCouponListResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 电子券创建结果：电子券ID列表
   couponIdList?: [ string ](name='coupon_id_list'),
@@ -5743,7 +5844,6 @@ async function createCouponListEx(request: CreateCouponListRequest, headers: map
 model CreateCouponCollectionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5766,8 +5866,9 @@ model CreateCouponCollectionRequest = {
 model CreateCouponCollectionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易区块高度
   blockNumber?: long(name='block_number'),
@@ -5795,7 +5896,6 @@ async function createCouponCollectionEx(request: CreateCouponCollectionRequest, 
 model QueryCouponCollectionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5806,8 +5906,9 @@ model QueryCouponCollectionRequest = {
 model QueryCouponCollectionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 批次详情
   couponCollection?: CouponCollection(name='coupon_collection'),
@@ -5837,7 +5938,6 @@ async function queryCouponCollectionEx(request: QueryCouponCollectionRequest, he
 model QueryMerchantUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5848,8 +5948,9 @@ model QueryMerchantUserRequest = {
 model QueryMerchantUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 用户完整信息
   // {
@@ -5886,7 +5987,6 @@ async function queryMerchantUserEx(request: QueryMerchantUserRequest, headers: m
 model CreateMerchantUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5901,8 +6001,9 @@ model CreateMerchantUserRequest = {
 model CreateMerchantUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5928,7 +6029,6 @@ async function createMerchantUserEx(request: CreateMerchantUserRequest, headers:
 model QueryMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -5941,8 +6041,9 @@ model QueryMerchantRequest = {
 model QueryMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商户完整信息
   // {
@@ -5989,7 +6090,6 @@ async function queryMerchantEx(request: QueryMerchantRequest, headers: map[strin
 model UploadImageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6004,8 +6104,9 @@ model UploadImageRequest = {
 model UploadImageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 临时可访问的url，过期时间2小时
   temporaryUrl?: string(name='temporary_url'),
@@ -6035,7 +6136,6 @@ async function uploadImageEx(request: UploadImageRequest, headers: map[string]st
 model GetPkiPublickeyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户管理员/其用户的链上账户ID
   accountId: string(name='account_id'),
@@ -6046,8 +6146,9 @@ model GetPkiPublickeyRequest = {
 model GetPkiPublickeyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 公钥字符串（base64）
   publicKey?: string(name='public_key'),
@@ -6075,7 +6176,6 @@ async function getPkiPublickeyEx(request: GetPkiPublickeyRequest, headers: map[s
 model ExecPkiEncryptRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户管理员/其用户的链上账户ID
   accountId: string(name='account_id'),
@@ -6088,8 +6188,9 @@ model ExecPkiEncryptRequest = {
 model ExecPkiEncryptResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 密文 base64编码 
   encryptedContent?: string(name='encrypted_content'),
@@ -6117,7 +6218,6 @@ async function execPkiEncryptEx(request: ExecPkiEncryptRequest, headers: map[str
 model ExecPkiDecryptRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户管理员/其用户的链上账户ID
   accountId: string(name='account_id'),
@@ -6130,8 +6230,9 @@ model ExecPkiDecryptRequest = {
 model ExecPkiDecryptResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 明文
   content?: string(name='content'),
@@ -6159,7 +6260,6 @@ async function execPkiDecryptEx(request: ExecPkiDecryptRequest, headers: map[str
 model UpdateMerchantFriendRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6174,8 +6274,9 @@ model UpdateMerchantFriendRequest = {
 model UpdateMerchantFriendResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6201,7 +6302,6 @@ async function updateMerchantFriendEx(request: UpdateMerchantFriendRequest, head
 model CreateEquityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授权类型 0 Auto，1Contract
   authType: long(name='auth_type'),
@@ -6255,8 +6355,9 @@ model CreateEquityRequest = {
 model CreateEquityResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 请求ID，用于查询异步发布权益结果
   createEquityRequestId?: string(name='create_equity_request_id'),
@@ -6284,7 +6385,6 @@ async function createEquityEx(request: CreateEquityRequest, headers: map[string]
 model OfflineEquityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6297,8 +6397,9 @@ model OfflineEquityRequest = {
 model OfflineEquityResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6326,7 +6427,6 @@ async function offlineEquityEx(request: OfflineEquityRequest, headers: map[strin
 model FreezeEquityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6339,8 +6439,9 @@ model FreezeEquityRequest = {
 model FreezeEquityResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6368,7 +6469,6 @@ async function freezeEquityEx(request: FreezeEquityRequest, headers: map[string]
 model OpenEquityMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6387,8 +6487,9 @@ model OpenEquityMerchantRequest = {
 model OpenEquityMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6414,7 +6515,6 @@ async function openEquityMerchantEx(request: OpenEquityMerchantRequest, headers:
 model AuthEquityMerchantuserpriceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 用户兑换价格（单位：元）。价格和比例二选一，且只能填写一个。
   amount?: string(name='amount'),
@@ -6435,8 +6535,9 @@ model AuthEquityMerchantuserpriceRequest = {
 model AuthEquityMerchantuserpriceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6462,7 +6563,6 @@ async function authEquityMerchantuserpriceEx(request: AuthEquityMerchantuserpric
 model UpdateEquityDefaultpriceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 价格
   amount: string(name='amount'),
@@ -6479,8 +6579,9 @@ model UpdateEquityDefaultpriceRequest = {
 model UpdateEquityDefaultpriceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6508,7 +6609,6 @@ async function updateEquityDefaultpriceEx(request: UpdateEquityDefaultpriceReque
 model UpdateEquityTenantpriceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 价格（单位：元）
   amount: string(name='amount'),
@@ -6527,8 +6627,9 @@ model UpdateEquityTenantpriceRequest = {
 model UpdateEquityTenantpriceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6554,7 +6655,6 @@ async function updateEquityTenantpriceEx(request: UpdateEquityTenantpriceRequest
 model AddEquityCountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 权益库存数量
   amount: long(name='amount'),
@@ -6571,8 +6671,9 @@ model AddEquityCountRequest = {
 model AddEquityCountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6600,7 +6701,6 @@ async function addEquityCountEx(request: AddEquityCountRequest, headers: map[str
 model UpdateEquityExchangelimitRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6623,8 +6723,9 @@ model UpdateEquityExchangelimitRequest = {
 model UpdateEquityExchangelimitResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6652,7 +6753,6 @@ async function updateEquityExchangelimitEx(request: UpdateEquityExchangelimitReq
 model UpdateEquityValidtimeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6675,8 +6775,9 @@ model UpdateEquityValidtimeRequest = {
 model UpdateEquityValidtimeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6704,7 +6805,6 @@ async function updateEquityValidtimeEx(request: UpdateEquityValidtimeRequest, he
 model QueryEquityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6723,8 +6823,9 @@ model QueryEquityRequest = {
 model QueryEquityResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 权益商品完整信息: equityType 权益类型：0积分，1卡券，2实物。 status 权益状态：0可用状态，1下线，2冻结。 authType 权益授权类型：0自动，1合约。
   //  { "equity_id": "6041f851f4d", "tenant_id": "ZEJEZKUA", "admin_id": "ed7b3ac3c061", "equity_type": 1, "equity_name": "FDCardtest", "description": "FDCard", "total_count": "1000000", "status": 0, "auth_type": 0, "currency": "CNY", "value": "10.0000", "default_price": "1.0000", "images": "oss://myexchange/12593acf32dd6d4257fa0.jpeg", "desc_images": "", "memo": "", "is_public": true, "valid_not_before": 112692, "valid_not_after": 112654365244, "use_valid_not_before": 112612, "use_valid_not_after": 11265436524415235, "limit_per_user_and_day": 1000000, "limit_per_user_and_month": 100000, "limit_per_merchant_and_day": 1000000, "limit_per_merchant_and_month": 1000000, "equity_ext_info": { "open_to_tenant_id": "", "tenant_price": "", "tenant_user_price": { "snapshot_tenant_price": "", "user_price_type": 0, "price": "", "ratio": "" }, "target_date": "", "limit_per_day_used": 0, "limit_per_month_used": 0 } }
@@ -6755,7 +6856,6 @@ async function queryEquityEx(request: QueryEquityRequest, headers: map[string]st
 model ExecExchangeByuserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 资产ID
   assetId: string(name='asset_id'),
@@ -6784,8 +6884,9 @@ model ExecExchangeByuserRequest = {
 model ExecExchangeByuserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6811,7 +6912,6 @@ async function execExchangeByuserEx(request: ExecExchangeByuserRequest, headers:
 model ExecExchangeBymerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 资产ID
   assetId: string(name='asset_id'),
@@ -6837,8 +6937,9 @@ model ExecExchangeBymerchantRequest = {
 model ExecExchangeBymerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6864,7 +6965,6 @@ async function execExchangeBymerchantEx(request: ExecExchangeBymerchantRequest, 
 model ConfirmExchangeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6883,8 +6983,9 @@ model ConfirmExchangeRequest = {
 model ConfirmExchangeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6910,7 +7011,6 @@ async function confirmExchangeEx(request: ConfirmExchangeRequest, headers: map[s
 model ExecExchangeOutofstoreRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6929,8 +7029,9 @@ model ExecExchangeOutofstoreRequest = {
 model ExecExchangeOutofstoreResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6956,7 +7057,6 @@ async function execExchangeOutofstoreEx(request: ExecExchangeOutofstoreRequest, 
 model SendExchangeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -6975,8 +7075,9 @@ model SendExchangeRequest = {
 model SendExchangeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7002,7 +7103,6 @@ async function sendExchangeEx(request: SendExchangeRequest, headers: map[string]
 model ExecExchangeReceivebyuserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7021,8 +7121,9 @@ model ExecExchangeReceivebyuserRequest = {
 model ExecExchangeReceivebyuserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7048,7 +7149,6 @@ async function execExchangeReceivebyuserEx(request: ExecExchangeReceivebyuserReq
 model ExecAssetExpireRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 数量
   amount: long(name='amount'),
@@ -7069,8 +7169,9 @@ model ExecAssetExpireRequest = {
 model ExecAssetExpireResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7096,7 +7197,6 @@ async function execAssetExpireEx(request: ExecAssetExpireRequest, headers: map[s
 model QueryAssetInstructionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7107,8 +7207,9 @@ model QueryAssetInstructionRequest = {
 model QueryAssetInstructionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 资产流水完整信息的json字符串。
   // direction 交易方向:：0正向交易，1反向交易。
@@ -7139,7 +7240,6 @@ async function queryAssetInstructionEx(request: QueryAssetInstructionRequest, he
 model QueryExchangeInstructionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7154,8 +7254,9 @@ model QueryExchangeInstructionRequest = {
 model QueryExchangeInstructionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 权益兑换流水完整信息
   instruction?: EInstruction(name='instruction'),
@@ -7185,7 +7286,6 @@ async function queryExchangeInstructionEx(request: QueryExchangeInstructionReque
 model ExecAssetIssueRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 充值数量
   amount: long(name='amount'),
@@ -7204,8 +7304,9 @@ model ExecAssetIssueRequest = {
 model ExecAssetIssueResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7231,7 +7332,6 @@ async function execAssetIssueEx(request: ExecAssetIssueRequest, headers: map[str
 model ExecAssetRedeemRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 赎回数量
   amount: long(name='amount'),
@@ -7250,8 +7350,9 @@ model ExecAssetRedeemRequest = {
 model ExecAssetRedeemResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7277,7 +7378,6 @@ async function execAssetRedeemEx(request: ExecAssetRedeemRequest, headers: map[s
 model ExecAssetGrantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 数量
   amount: string(name='amount'),
@@ -7300,8 +7400,9 @@ model ExecAssetGrantRequest = {
 model ExecAssetGrantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7327,7 +7428,6 @@ async function execAssetGrantEx(request: ExecAssetGrantRequest, headers: map[str
 model ExecAssetGrantrefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 数量
   amount: long(name='amount'),
@@ -7348,8 +7448,9 @@ model ExecAssetGrantrefundRequest = {
 model ExecAssetGrantrefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7375,7 +7476,6 @@ async function execAssetGrantrefundEx(request: ExecAssetGrantrefundRequest, head
 model ExecAssetAdjustRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 风控调整数量
   amount: long(name='amount'),
@@ -7394,8 +7494,9 @@ model ExecAssetAdjustRequest = {
 model ExecAssetAdjustResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7421,7 +7522,6 @@ async function execAssetAdjustEx(request: ExecAssetAdjustRequest, headers: map[s
 model QueryAssetRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 资产ID
   assetId: string(name='asset_id'),
@@ -7436,8 +7536,9 @@ model QueryAssetRequest = {
 model QueryAssetResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 资产完整信息
   // {
@@ -7485,7 +7586,6 @@ async function queryAssetEx(request: QueryAssetRequest, headers: map[string]stri
 model ExecExchangeReceivebymerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7502,8 +7602,9 @@ model ExecExchangeReceivebymerchantRequest = {
 model ExecExchangeReceivebymerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7529,7 +7630,6 @@ async function execExchangeReceivebymerchantEx(request: ExecExchangeReceivebymer
 model QueryBlockRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链高度
   blockNumber: long(name='block_number'),
@@ -7540,8 +7640,9 @@ model QueryBlockRequest = {
 model QueryBlockResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块信息
   block?: Block(name='block'),
@@ -7577,7 +7678,6 @@ async function queryBlockEx(request: QueryBlockRequest, headers: map[string]stri
 model QueryBlockLastblocknumberRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7586,8 +7686,9 @@ model QueryBlockLastblocknumberRequest = {
 model QueryBlockLastblocknumberResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 最新区块高度
   lastBlockNumber?: long(name='last_block_number'),
@@ -7615,7 +7716,6 @@ async function queryBlockLastblocknumberEx(request: QueryBlockLastblocknumberReq
 model UpdateEquityRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授权类型：0 Auto，1 Contract。不可修改，如需修改需重新发布商品
   authType: long(name='auth_type'),
@@ -7670,8 +7770,9 @@ model UpdateEquityRequest = {
 model UpdateEquityResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7697,7 +7798,6 @@ async function updateEquityEx(request: UpdateEquityRequest, headers: map[string]
 model QueryEquityCreateresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7710,8 +7810,9 @@ model QueryEquityCreateresultRequest = {
 model QueryEquityCreateresultResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 权益商品创建成功，返回权益ID
   equityId?: string(name='equity_id'),
@@ -7739,7 +7840,6 @@ async function queryEquityCreateresultEx(request: QueryEquityCreateresultRequest
 model QueryEquityInstructionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7756,8 +7856,9 @@ model QueryEquityInstructionRequest = {
 model QueryEquityInstructionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商品兑换流水信息
   instruction?: EInstruction(name='instruction'),
@@ -7785,7 +7886,6 @@ async function queryEquityInstructionEx(request: QueryEquityInstructionRequest, 
 model QueryImageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 要查询的图片数组，填入不可访问的url
   urls: [ string ](name='urls'),
@@ -7794,8 +7894,9 @@ model QueryImageRequest = {
 model QueryImageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 临时可访问的oss图片链接，每张图片会返回四个url，对应原图和不同的比例缩小，每一张图片的四个url用;隔开。
   urls?: [ MultiURL ](name='urls'),
@@ -7823,7 +7924,6 @@ async function queryImageEx(request: QueryImageRequest, headers: map[string]stri
 model UpdateEquityStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7840,8 +7940,9 @@ model UpdateEquityStatusRequest = {
 model UpdateEquityStatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7867,7 +7968,6 @@ async function updateEquityStatusEx(request: UpdateEquityStatusRequest, headers:
 model SetMerchantProvisionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7894,8 +7994,9 @@ model SetMerchantProvisionRequest = {
 model SetMerchantProvisionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7921,7 +8022,6 @@ async function setMerchantProvisionEx(request: SetMerchantProvisionRequest, head
 model UpdateMerchantProvisionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7944,8 +8044,9 @@ model UpdateMerchantProvisionRequest = {
 model UpdateMerchantProvisionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -7971,7 +8072,6 @@ async function updateMerchantProvisionEx(request: UpdateMerchantProvisionRequest
 model ExecEquityInstructionwriteoffRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -7988,8 +8088,9 @@ model ExecEquityInstructionwriteoffRequest = {
 model ExecEquityInstructionwriteoffResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8015,7 +8116,6 @@ async function execEquityInstructionwriteoffEx(request: ExecEquityInstructionwri
 model QueryMerchantProvisionsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 行为
   businessAction: string(name='business_action'),
@@ -8028,8 +8128,9 @@ model QueryMerchantProvisionsRequest = {
 model QueryMerchantProvisionsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租户的备付金列表信息
   discreteValues?: [ DiscreteValue ](name='discrete_values'),
@@ -8057,7 +8158,6 @@ async function queryMerchantProvisionsEx(request: QueryMerchantProvisionsRequest
 model QueryMerchantExchangeableequitylistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8070,8 +8170,9 @@ model QueryMerchantExchangeableequitylistRequest = {
 model QueryMerchantExchangeableequitylistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可兑换商品信息列表
   object?: ExchangeableEquityList(name='object'),
@@ -8099,7 +8200,6 @@ async function queryMerchantExchangeableequitylistEx(request: QueryMerchantExcha
 model QueryMerchantExchangeableequitydetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8110,8 +8210,9 @@ model QueryMerchantExchangeableequitydetailRequest = {
 model QueryMerchantExchangeableequitydetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可兑换的商品详情信息
   equity?: EquityDetail(name='equity'),
@@ -8139,7 +8240,6 @@ async function queryMerchantExchangeableequitydetailEx(request: QueryMerchantExc
 model ExecAssetCreateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 资产ID
   assetId: string(name='asset_id'),
@@ -8160,8 +8260,9 @@ model ExecAssetCreateRequest = {
 model ExecAssetCreateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8187,7 +8288,6 @@ async function execAssetCreateEx(request: ExecAssetCreateRequest, headers: map[s
 model ExecAssetGenerateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 铸币数量
   amount: string(name='amount'),
@@ -8202,8 +8302,9 @@ model ExecAssetGenerateRequest = {
 model ExecAssetGenerateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8229,7 +8330,6 @@ async function execAssetGenerateEx(request: ExecAssetGenerateRequest, headers: m
 model CreateMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8252,8 +8352,9 @@ model CreateMerchantRequest = {
 model CreateMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8279,7 +8380,6 @@ async function createMerchantEx(request: CreateMerchantRequest, headers: map[str
 model SetMerchantFundmanagerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 外部交易ID
   outTxId: string(name='out_tx_id'),
@@ -8294,8 +8394,9 @@ model SetMerchantFundmanagerRequest = {
 model SetMerchantFundmanagerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8321,7 +8422,6 @@ async function setMerchantFundmanagerEx(request: SetMerchantFundmanagerRequest, 
 model CreateMerchantProvisionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 外部交易ID，确保幂等
   outTxId: string(name='out_tx_id'),
@@ -8336,8 +8436,9 @@ model CreateMerchantProvisionRequest = {
 model CreateMerchantProvisionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8363,7 +8464,6 @@ async function createMerchantProvisionEx(request: CreateMerchantProvisionRequest
 model QueryConfigDelegaterelationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被代理的租户ID
   delegatedTenantId: string(name='delegated_tenant_id'),
@@ -8372,8 +8472,9 @@ model QueryConfigDelegaterelationRequest = {
 model QueryConfigDelegaterelationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 代理授权关系信息
   delegateRelationInfos?: [ DelegateRelationInfo ](name='delegate_relation_infos'),
@@ -8401,7 +8502,6 @@ async function queryConfigDelegaterelationEx(request: QueryConfigDelegaterelatio
 model UpdateConfigDelegaterelationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被代理的租户ID
   delegatedTenantId: string(name='delegated_tenant_id'),
@@ -8414,8 +8514,9 @@ model UpdateConfigDelegaterelationRequest = {
 model UpdateConfigDelegaterelationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8441,7 +8542,6 @@ async function updateConfigDelegaterelationEx(request: UpdateConfigDelegaterelat
 model QueryConfigWhitelistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 查询链的白名单信息
   chainId?: string(name='chain_id'),
@@ -8452,8 +8552,9 @@ model QueryConfigWhitelistRequest = {
 model QueryConfigWhitelistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 接口白名单信息
   whiteList?: [ APIWhiteListInfo ](name='white_list'),
@@ -8481,7 +8582,6 @@ async function queryConfigWhitelistEx(request: QueryConfigWhitelistRequest, head
 model UpdateConfigWhitelistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8494,8 +8594,9 @@ model UpdateConfigWhitelistRequest = {
 model UpdateConfigWhitelistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8521,7 +8622,6 @@ async function updateConfigWhitelistEx(request: UpdateConfigWhitelistRequest, he
 model ApplyExchangeAftersaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链id
   chainId: string(name='chain_id'),
@@ -8538,8 +8638,9 @@ model ApplyExchangeAftersaleRequest = {
 model ApplyExchangeAftersaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8565,7 +8666,6 @@ async function applyExchangeAftersaleEx(request: ApplyExchangeAftersaleRequest, 
 model ExecExchangeAgreeaftersaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链id
   chainId: string(name='chain_id'),
@@ -8584,8 +8684,9 @@ model ExecExchangeAgreeaftersaleRequest = {
 model ExecExchangeAgreeaftersaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8611,7 +8712,6 @@ async function execExchangeAgreeaftersaleEx(request: ExecExchangeAgreeaftersaleR
 model RefuseExchangeAftersaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // l链id
   chainId: string(name='chain_id'),
@@ -8630,8 +8730,9 @@ model RefuseExchangeAftersaleRequest = {
 model RefuseExchangeAftersaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8657,7 +8758,6 @@ async function refuseExchangeAftersaleEx(request: RefuseExchangeAftersaleRequest
 model SendExchangeAftersaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链id
   chainId: string(name='chain_id'),
@@ -8676,8 +8776,9 @@ model SendExchangeAftersaleRequest = {
 model SendExchangeAftersaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8703,7 +8804,6 @@ async function sendExchangeAftersaleEx(request: SendExchangeAftersaleRequest, he
 model ConfirmExchangeAftersaleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链id
   chainId: string(name='chain_id'),
@@ -8720,8 +8820,9 @@ model ConfirmExchangeAftersaleRequest = {
 model ConfirmExchangeAftersaleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8747,7 +8848,6 @@ async function confirmExchangeAftersaleEx(request: ConfirmExchangeAftersaleReque
 model ExecDataDepositRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8758,8 +8858,9 @@ model ExecDataDepositRequest = {
 model ExecDataDepositResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证交易哈希
   txHash?: string(name='tx_hash'),
@@ -8787,7 +8888,6 @@ async function execDataDepositEx(request: ExecDataDepositRequest, headers: map[s
 model SetCommissionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8806,8 +8906,9 @@ model SetCommissionRequest = {
 model SetCommissionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 手续费ID
   commissionId?: string(name='commission_id'),
@@ -8835,7 +8936,6 @@ async function setCommissionEx(request: SetCommissionRequest, headers: map[strin
 model QueryCommissionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8852,8 +8952,9 @@ model QueryCommissionRequest = {
 model QueryCommissionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 手续费信息列表
   commissions?: [ CommissionResult ](name='commissions'),
@@ -8881,7 +8982,6 @@ async function queryCommissionEx(request: QueryCommissionRequest, headers: map[s
 model SetCommissionMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 收取手续费的商户对应的租户ID
   optTenantId: string(name='opt_tenant_id'),
@@ -8894,8 +8994,9 @@ model SetCommissionMerchantRequest = {
 model SetCommissionMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8921,7 +9022,6 @@ async function setCommissionMerchantEx(request: SetCommissionMerchantRequest, he
 model QueryCommissionMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8930,8 +9030,9 @@ model QueryCommissionMerchantRequest = {
 model QueryCommissionMerchantResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 收取手续费的商户 租户ID
   tenantId?: string(name='tenant_id'),
@@ -8959,7 +9060,6 @@ async function queryCommissionMerchantEx(request: QueryCommissionMerchantRequest
 model CreateConfigChainaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -8972,8 +9072,9 @@ model CreateConfigChainaccountRequest = {
 model CreateConfigChainaccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租户ID
   tenantId?: string(name='tenant_id'),
@@ -9007,7 +9108,6 @@ async function createConfigChainaccountEx(request: CreateConfigChainaccountReque
 model StartIpPackagetradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9029,13 +9129,20 @@ model StartIpPackagetradeRequest = {
   authEndTime: long(name='auth_end_time'),
   // 备注信息
   memo: string(name='memo'),
+  // 授权产品范围
+  authProductScope?: string(name='auth_product_scope'),
+  // 授权地域范围
+  authAreaScope?: string(name='auth_area_scope'),
+  // 商品销售渠道
+  salesChannel?: string(name='sales_channel'),
 }
 
 model StartIpPackagetradeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 订单ID
   ipOrderId?: string(name='ip_order_id'),
@@ -9067,7 +9174,6 @@ async function startIpPackagetradeEx(request: StartIpPackagetradeRequest, header
 model CancelIpPackagetradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9082,8 +9188,9 @@ model CancelIpPackagetradeRequest = {
 model CancelIpPackagetradeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9109,7 +9216,6 @@ async function cancelIpPackagetradeEx(request: CancelIpPackagetradeRequest, head
 model UploadIpPackagetradesalesRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9124,8 +9230,9 @@ model UploadIpPackagetradesalesRequest = {
 model UploadIpPackagetradesalesResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9151,7 +9258,6 @@ async function uploadIpPackagetradesalesEx(request: UploadIpPackagetradesalesReq
 model StartIpAuthtradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9159,8 +9265,12 @@ model StartIpAuthtradeRequest = {
   accountId: string(name='account_id'),
   // IP ID
   ipId: string(name='ip_id'),
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType?: long(name='charge_type'),
   // 授权计费比例
-  authRate: string(name='auth_rate'),
+  authRate?: string(name='auth_rate'),
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice?: string(name='auth_price'),
   // 授权合作开始期限（毫秒时间戳）
   authBeginTime: long(name='auth_begin_time'),
   // 授权合作结束期限（毫秒时间戳）
@@ -9168,19 +9278,38 @@ model StartIpAuthtradeRequest = {
   // 合同（文件URL）
   contract: string(name='contract'),
   // 设计稿（文件URL）
-  designDraft: string(name='design_draft'),
+  designDraft?: string(name='design_draft'),
+  // 授权产品范围
+  authProductScope?: string(name='auth_product_scope'),
+  // 授权地域范围
+  authAreaScope?: string(name='auth_area_scope'),
+  // 商品销售渠道
+  salesChannel?: string(name='sales_channel'),
   // 备注消息(不超过256个字符)
   memo: string(name='memo'),
+  // 是否有保底金
+  guaranteed: boolean(name='guaranteed'),
+  // 支付的保底金金额
+  guaranteedFund?: string(name='guaranteed_fund'),
+  // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  guaranteedGoodsAmount?: long(name='guaranteed_goods_amount'),
+  // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  guaranteedSales?: string(name='guaranteed_sales'),
 }
 
 model StartIpAuthtradeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 订单ID
   ipOrderId?: string(name='ip_order_id'),
+  // 保底金支付链接
+  payUrl?: string(name='pay_url'),
+  // 保底金账单ID
+  ipBillId?: string(name='ip_bill_id'),
 }
 
 /**
@@ -9205,7 +9334,6 @@ async function startIpAuthtradeEx(request: StartIpAuthtradeRequest, headers: map
 model UploadIpAuthtradesalesRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9216,17 +9344,29 @@ model UploadIpAuthtradesalesRequest = {
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean(name='only_call_blockchain'),
   // 授权佣金比例
-  authRate: string(name='auth_rate'),
+  authRate?: string(name='auth_rate'),
+  // 定向授权按量付费单价
+  authPrice?: string(name='auth_price'),
   // 本次结算周期开始时间
   settlementBeginTime: long(name='settlement_begin_time'),
   // 本次结算周期结束时间
   settlementEndTime: long(name='settlement_end_time'),
+  // 零售价
+  price: string(name='price'),
   // 终端商品销售数量
   amount: long(name='amount'),
   // 销售金额
   sales: string(name='sales'),
   // 实付金额
   payment: string(name='payment'),
+  // 终端商品名称
+  goodsName: string(name='goods_name'),
+  // 终端商品图片
+  goodsImage?: string(name='goods_image'),
+  // 终端销售渠道
+  salesChannel?: string(name='sales_channel'),
+  // 终端商品链接
+  goodsUrl?: string(name='goods_url'),
   // 商品信息
   goodsInfo: string(name='goods_info'),
   // 数据上传操作者
@@ -9238,8 +9378,9 @@ model UploadIpAuthtradesalesRequest = {
 model UploadIpAuthtradesalesResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 支付信息
   payUrl?: string(name='pay_url'),
@@ -9269,7 +9410,6 @@ async function uploadIpAuthtradesalesEx(request: UploadIpAuthtradesalesRequest, 
 model CancelIpAuthtradebillRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9284,8 +9424,9 @@ model CancelIpAuthtradebillRequest = {
 model CancelIpAuthtradebillResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9311,7 +9452,6 @@ async function cancelIpAuthtradebillEx(request: CancelIpAuthtradebillRequest, he
 model QueryIpBillstatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9322,8 +9462,9 @@ model QueryIpBillstatusRequest = {
 model QueryIpBillstatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易状态
   // (1: "交易创建,等待买家付款"),
@@ -9354,7 +9495,6 @@ async function queryIpBillstatusEx(request: QueryIpBillstatusRequest, headers: m
 model QueryIpOrderlistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9372,13 +9512,17 @@ model QueryIpOrderlistRequest = {
   ipName?: string(name='ip_name'),
   // 卖方名称，根据卖方名称模糊查询
   sellerName?: string(name='seller_name'),
+  // 交易类型：1 套餐交易， 2 定向授权
+  tradeType?: long(name='trade_type'),
+  // 收费模式：0 销售抽拥，1 按量计费
+  chargeType?: long(name='charge_type'),
   // 查询订单授权开始时间
   authStartTime?: long(name='auth_start_time'),
   // 查询订单授权结束时间
   authEndTime?: long(name='auth_end_time'),
   // 排序字段
   orderBy: string(name='order_by'),
-  // 正序还是倒叙
+  // 数据排序顺序：正序还是倒序
   order: string(name='order'),
   // 页码
   pageNumber: long(name='page_number'),
@@ -9389,8 +9533,9 @@ model QueryIpOrderlistRequest = {
 model QueryIpOrderlistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 页码
   pageNumber?: long(name='page_number'),
@@ -9430,7 +9575,6 @@ async function queryIpOrderlistEx(request: QueryIpOrderlistRequest, headers: map
 model CreateIpGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9485,8 +9629,9 @@ model CreateIpGoodsRequest = {
 model CreateIpGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip的链上id
   ipId?: string(name='ip_id'),
@@ -9514,7 +9659,6 @@ async function createIpGoodsEx(request: CreateIpGoodsRequest, headers: map[strin
 model AddIpChannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9533,8 +9677,9 @@ model AddIpChannelRequest = {
 model AddIpChannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9560,7 +9705,6 @@ async function addIpChannelEx(request: AddIpChannelRequest, headers: map[string]
 model QueryIpOrderinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9571,8 +9715,9 @@ model QueryIpOrderinfoRequest = {
 model QueryIpOrderinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 订单信息
   ipOrder?: IPOrder(name='ip_order'),
@@ -9602,7 +9747,6 @@ async function queryIpOrderinfoEx(request: QueryIpOrderinfoRequest, headers: map
 model BatchqueryIpGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9633,8 +9777,9 @@ model BatchqueryIpGoodsRequest = {
 model BatchqueryIpGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip重要信息
   ipList?: [ IpEmphasisInfo ](name='ip_list'),
@@ -9664,7 +9809,6 @@ async function batchqueryIpGoodsEx(request: BatchqueryIpGoodsRequest, headers: m
 model QueryIpGoodsdetailwithchannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础结构
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9677,8 +9821,9 @@ model QueryIpGoodsdetailwithchannelRequest = {
 model QueryIpGoodsdetailwithchannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip的信息详情
   ips?: [ IpBasicInfoWithChannelInfo ](name='ips'),
@@ -9706,7 +9851,6 @@ async function queryIpGoodsdetailwithchannelEx(request: QueryIpGoodsdetailwithch
 model QueryIpDetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9717,8 +9861,9 @@ model QueryIpDetailRequest = {
 model QueryIpDetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip的信息列表
   ips?: [ IpBasicInfoWithChannelInfo ](name='ips'),
@@ -9746,7 +9891,6 @@ async function queryIpDetailEx(request: QueryIpDetailRequest, headers: map[strin
 model UpdateIpGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9796,13 +9940,16 @@ model UpdateIpGoodsRequest = {
   copyRightBeginTime: long(name='copy_right_begin_time'),
   // 资质生效的结束时间
   copyRightEndTime: long(name='copy_right_end_time'),
+  // 如果商品是审批通过状态，是否需要审批，默认false。该字段提供给运营使用，慎用！！！
+  needApproval?: boolean(name='need_approval'),
 }
 
 model UpdateIpGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9828,7 +9975,6 @@ async function updateIpGoodsEx(request: UpdateIpGoodsRequest, headers: map[strin
 model UpdateIpChannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9847,8 +9993,9 @@ model UpdateIpChannelRequest = {
 model UpdateIpChannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9874,7 +10021,6 @@ async function updateIpChannelEx(request: UpdateIpChannelRequest, headers: map[s
 model OnlineIpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9887,8 +10033,9 @@ model OnlineIpRequest = {
 model OnlineIpResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9914,7 +10061,6 @@ async function onlineIpEx(request: OnlineIpRequest, headers: map[string]string, 
 model OfflineIpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // ip基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9927,8 +10073,9 @@ model OfflineIpRequest = {
 model OfflineIpResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9954,7 +10101,6 @@ async function offlineIpEx(request: OfflineIpRequest, headers: map[string]string
 model CreateIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -9969,8 +10115,9 @@ model CreateIpAccountRequest = {
 model CreateIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建成功后, 为该用户生成的链上账户Id
   accountId?: string(name='account_id'),
@@ -9998,7 +10145,6 @@ async function createIpAccountEx(request: CreateIpAccountRequest, headers: map[s
 model FreezeIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10009,8 +10155,9 @@ model FreezeIpAccountRequest = {
 model FreezeIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10036,7 +10183,6 @@ async function freezeIpAccountEx(request: FreezeIpAccountRequest, headers: map[s
 model UnfreezeIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础请求参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10047,8 +10193,9 @@ model UnfreezeIpAccountRequest = {
 model UnfreezeIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10074,7 +10221,6 @@ async function unfreezeIpAccountEx(request: UnfreezeIpAccountRequest, headers: m
 model QueryIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10085,8 +10231,9 @@ model QueryIpAccountRequest = {
 model QueryIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 该用户的在外部系统的用户Id
   externalUserId?: string(name='external_user_id'),
@@ -10122,7 +10269,6 @@ async function queryIpAccountEx(request: QueryIpAccountRequest, headers: map[str
 model ApplyIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10164,8 +10310,9 @@ model ApplyIpAccountRequest = {
 model ApplyIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10191,7 +10338,6 @@ async function applyIpAccountEx(request: ApplyIpAccountRequest, headers: map[str
 model CheckIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10202,8 +10348,9 @@ model CheckIpAccountRequest = {
 model CheckIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 申请状态(0:运营审核中, 1:运营审核失败, 2:进件审核中, 3:进件审核失败, 4:进件审核成功)
   status?: string(name='status'),
@@ -10235,7 +10382,6 @@ async function checkIpAccountEx(request: CheckIpAccountRequest, headers: map[str
 model ConfirmIpGoodsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10250,8 +10396,9 @@ model ConfirmIpGoodsRequest = {
 model ConfirmIpGoodsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10277,7 +10424,6 @@ async function confirmIpGoodsEx(request: ConfirmIpGoodsRequest, headers: map[str
 model BatchqueryIpApprovalRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10308,8 +10454,9 @@ model BatchqueryIpApprovalRequest = {
 model BatchqueryIpApprovalResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip信息
   ipList?: [ IpBasicInfo ](name='ip_list'),
@@ -10341,7 +10488,6 @@ async function batchqueryIpApprovalEx(request: BatchqueryIpApprovalRequest, head
 model ConfirmIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10352,8 +10498,9 @@ model ConfirmIpAccountRequest = {
 model ConfirmIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10379,7 +10526,6 @@ async function confirmIpAccountEx(request: ConfirmIpAccountRequest, headers: map
 model RefuseIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10392,8 +10538,9 @@ model RefuseIpAccountRequest = {
 model RefuseIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10419,7 +10566,6 @@ async function refuseIpAccountEx(request: RefuseIpAccountRequest, headers: map[s
 model PullIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10430,8 +10576,9 @@ model PullIpAccountRequest = {
 model PullIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 支付宝的登陆用户名(必须实名制)
   alipayLoginName?: string(name='alipay_login_name'),
@@ -10464,7 +10611,7 @@ model PullIpAccountResponse = {
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+ * Description: 版权方进件信息的单个查询
  * Summary: 数字商品-IP授权交易服务-申请信息查询
  */
 async function pullIpAccount(request: PullIpAccountRequest): PullIpAccountResponse {
@@ -10474,7 +10621,7 @@ async function pullIpAccount(request: PullIpAccountRequest): PullIpAccountRespon
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-版权方申请信息查询: 查询版权方当前的申请信息
+ * Description: 版权方进件信息的单个查询
  * Summary: 数字商品-IP授权交易服务-申请信息查询
  */
 async function pullIpAccountEx(request: PullIpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullIpAccountResponse {
@@ -10485,7 +10632,6 @@ async function pullIpAccountEx(request: PullIpAccountRequest, headers: map[strin
 model QueryIpMccRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础字段
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10496,8 +10642,9 @@ model QueryIpMccRequest = {
 model QueryIpMccResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // mcc类别列表
   mccList?: [ IPMCC ](name='mcc_list'),
@@ -10525,7 +10672,6 @@ async function queryIpMccEx(request: QueryIpMccRequest, headers: map[string]stri
 model QueryIpTypeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10536,8 +10682,9 @@ model QueryIpTypeRequest = {
 model QueryIpTypeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip的type列表
   type?: [ string ](name='type'),
@@ -10567,7 +10714,6 @@ async function queryIpTypeEx(request: QueryIpTypeRequest, headers: map[string]st
 model BatchqueryIpApprovalandchannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10599,11 +10745,12 @@ model BatchqueryIpApprovalandchannelRequest = {
 model BatchqueryIpApprovalandchannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // ip信息
-  ipList?: [ IpBasicInfoWithChannelInfo ](name='ip_list'),
+  ipList?: [ IpAllInfo ](name='ip_list'),
   // 总数
   allCount?: long(name='all_count'),
 }
@@ -10630,7 +10777,6 @@ async function batchqueryIpApprovalandchannelEx(request: BatchqueryIpApprovaland
 model BatchqueryIpAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   // 
@@ -10642,15 +10788,16 @@ model BatchqueryIpAccountRequest = {
 model BatchqueryIpAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 批量查询商家信息
   applyInfos?: [ IPMerchantApplyInfo ](name='apply_infos'),
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-批量查询商家信息
+ * Description: 版权方进件信息的批量查询
  * Summary: 数字商品-IP授权服务-批量查询商家信息
  */
 async function batchqueryIpAccount(request: BatchqueryIpAccountRequest): BatchqueryIpAccountResponse {
@@ -10660,7 +10807,7 @@ async function batchqueryIpAccount(request: BatchqueryIpAccountRequest): Batchqu
 }
 
 /**
- * Description: 数字商品-IP授权交易服务-批量查询商家信息
+ * Description: 版权方进件信息的批量查询
  * Summary: 数字商品-IP授权服务-批量查询商家信息
  */
 async function batchqueryIpAccountEx(request: BatchqueryIpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryIpAccountResponse {
@@ -10671,7 +10818,6 @@ async function batchqueryIpAccountEx(request: BatchqueryIpAccountRequest, header
 model BatchqueryIpSellerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 基础信息
   baseRequest: BaseRequestInfo(name='base_request'),
@@ -10686,8 +10832,9 @@ model BatchqueryIpSellerRequest = {
 model BatchqueryIpSellerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 结果总数，不是列表值，用于分页
   // 
@@ -10697,7 +10844,7 @@ model BatchqueryIpSellerResponse = {
 }
 
 /**
- * Description: 数字商品-IP授权-版权方申请批量查询
+ * Description: 版权方待审批的批量查询
  * Summary: 数字商品-IP授权-版权方申请批量查询
  */
 async function batchqueryIpSeller(request: BatchqueryIpSellerRequest): BatchqueryIpSellerResponse {
@@ -10707,7 +10854,7 @@ async function batchqueryIpSeller(request: BatchqueryIpSellerRequest): Batchquer
 }
 
 /**
- * Description: 数字商品-IP授权-版权方申请批量查询
+ * Description: 版权方待审批的批量查询
  * Summary: 数字商品-IP授权-版权方申请批量查询
  */
 async function batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryIpSellerResponse {
@@ -10715,10 +10862,475 @@ async function batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers:
   return doRequest('1.0' ,'baas.antdao.ip.seller.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ApplyIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // IP商家的链上账户ID
+  accountId: string(name='account_id'),
+  // 套餐交易/授权交易的订单ID
+  orderId: string(name='order_id'),
+  // 申请数量
+  count: long(name='count'),
+}
+
+model ApplyIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码的批次ID
+  codeBatchId?: string(name='code_batch_id'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码申请
+ * Summary: 数字商品服务-IP授权交易-正版码申请
+ */
+async function applyIpCode(request: ApplyIpCodeRequest): ApplyIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码申请
+ * Summary: 数字商品服务-IP授权交易-正版码申请
+ */
+async function applyIpCodeEx(request: ApplyIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码批次编码
+  codeBatchId: string(name='code_batch_id'),
+  // 分页参数:页码
+  pageIndex: long(name='page_index'),
+  // 分页参数:每页条目数
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码列表
+  codeList?: [ string ](name='code_list'),
+  // 交易订单ID
+  orderId?: string(name='order_id'),
+  // IP商家的链上账户ID
+  buyerAccountId?: string(name='buyer_account_id'),
+  // IP版权方的链上账户ID
+  sellerAccountId?: string(name='seller_account_id'),
+  // IPID
+  ipId?: string(name='ip_id'),
+  // IP名称
+  ipName?: string(name='ip_name'),
+  // IP主图的OSS地址
+  ipImage?: string(name='ip_image'),
+  // IP描述
+  ipDesc?: string(name='ip_desc'),
+  // 该批次正版码的过期时间戳(毫秒)
+  expiredDate?: long(name='expired_date'),
+  // 总数量
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码分页查询
+ * Summary: 数字商品服务-IP授权交易-正版码查询
+ */
+async function pagequeryIpCode(request: PagequeryIpCodeRequest): PagequeryIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码分页查询
+ * Summary: 数字商品服务-IP授权交易-正版码查询
+ */
+async function pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码的编码
+  code: string(name='code'),
+  // 扫码用户的ID
+  userId: string(name='user_id'),
+  // 扫码用户的名称
+  userName?: string(name='user_name'),
+  // 扫码用户的手机号
+  phoneNumber?: string(name='phone_number'),
+  // 扫码用户的位置信息
+  gps?: string(name='gps'),
+}
+
+model CheckIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 被扫描的次数(包含本次)
+  scannedCount?: long(name='scanned_count'),
+  // 扫描历史列表(仅展示最近扫描的50次信息)
+  scannedList?: [ IPCodeScannedInfo ](name='scanned_list'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码校验
+ * Summary: 数字商品服务-IP授权交易-正版码校验
+ */
+async function checkIpCode(request: CheckIpCodeRequest): CheckIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-正版码校验
+ * Summary: 数字商品服务-IP授权交易-正版码校验
+ */
+async function checkIpCodeEx(request: CheckIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmIpUpdateapprovalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // ip的id
+  ipId: string(name='ip_id'),
+  // 是否审批通过
+  isApproval: boolean(name='is_approval'),
+  // 审批信息
+  approvalComments?: string(name='approval_comments'),
+}
+
+model ConfirmIpUpdateapprovalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 对商品的更新进行审核
+ * Summary: 数字商品-IP授权交易-商品更新审核
+ */
+async function confirmIpUpdateapproval(request: ConfirmIpUpdateapprovalRequest): ConfirmIpUpdateapprovalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmIpUpdateapprovalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对商品的更新进行审核
+ * Summary: 数字商品-IP授权交易-商品更新审核
+ */
+async function confirmIpUpdateapprovalEx(request: ConfirmIpUpdateapprovalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmIpUpdateapprovalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.updateapproval.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetIpSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // ip的id
+  ipId: string(name='ip_id'),
+  // 渠道名字
+  channelName: string(name='channel_name'),
+  // sku数组
+  skus: [ IpSkuEmphasisInfo ](name='skus'),
+}
+
+model SetIpSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: ip商品sku信息设置
+ * Summary: 数字商品-IP授权交易-sku信息设置
+ */
+async function setIpSku(request: SetIpSkuRequest): SetIpSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setIpSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: ip商品sku信息设置
+ * Summary: 数字商品-IP授权交易-sku信息设置
+ */
+async function setIpSkuEx(request: SetIpSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetIpSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.sku.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpGoodsupdateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // ipid的列表，最多20个
+  ipIds: [ string ](name='ip_ids'),
+}
+
+model QueryIpGoodsupdateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ip的更新数据
+  ipList?: [ IpBasicInfo ](name='ip_list'),
+}
+
+/**
+ * Description: 查询商品基础信息的更新数据
+ * Summary: 数字商品-IP授权交易-查询更新数据
+ */
+async function queryIpGoodsupdate(request: QueryIpGoodsupdateRequest): QueryIpGoodsupdateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpGoodsupdateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询商品基础信息的更新数据
+ * Summary: 数字商品-IP授权交易-查询更新数据
+ */
+async function queryIpGoodsupdateEx(request: QueryIpGoodsupdateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpGoodsupdateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.goodsupdate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpBillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // 账单状态，预留字段
+  billStatus?: long(name='bill_status'),
+  // 排序字段
+  orderBy: string(name='order_by'),
+  // 排序顺序：正序还是倒序
+  order: string(name='order'),
+  // 页码
+  pageNumber: long(name='page_number'),
+  // 每页数据量大小
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryIpBillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNumber?: long(name='page_number'),
+  // 页面数据量大小
+  pageSize?: long(name='page_size'),
+  // 筛选条件下账单总数
+  selectBillCount?: long(name='select_bill_count'),
+  // 账单信息列表
+  billList?: [ IPBill ](name='bill_list'),
+}
+
+/**
+ * Description: 查询账单信息，分页查询
+ * Summary: 数字商品服务-IP授权服务-查询账单列表
+ */
+async function pagequeryIpBill(request: PagequeryIpBillRequest): PagequeryIpBillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpBillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询账单信息，分页查询
+ * Summary: 数字商品服务-IP授权服务-查询账单列表
+ */
+async function pagequeryIpBillEx(request: PagequeryIpBillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpBillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.bill.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpSkuconfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 渠道名称
+  channelName: string(name='channel_name'),
+}
+
+model QueryIpSkuconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // sku信息
+  skus?: [ IpSkuEmphasisInfo ](name='skus'),
+}
+
+/**
+ * Description: ip商品某个渠道默认sku查询
+ * Summary: 数字商品-IP授权交易-默认sku查询
+ */
+async function queryIpSkuconfig(request: QueryIpSkuconfigRequest): QueryIpSkuconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpSkuconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: ip商品某个渠道默认sku查询
+ * Summary: 数字商品-IP授权交易-默认sku查询
+ */
+async function queryIpSkuconfigEx(request: QueryIpSkuconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpSkuconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.skuconfig.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIpAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础入参
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 支付宝的登陆用户名(必须实名制)
+  alipayLoginName: string(name='alipay_login_name'),
+  // 商户类型(本期仅支持: 1:企业, 6:个人商户)	
+  merchantType: long(name='merchant_type'),
+  // 商户别名, 会展示在账单以及支付结果页中
+  merchantAliasName: string(name='merchant_alias_name'),
+  // 商户法人名称, merchant_type = 1时必填	
+  legalName?: string(name='legal_name'),
+  // 商户法人身份证号码, merchant_type = 1时必填	
+  legalCertNo?: string(name='legal_cert_no'),
+  // 结算目标账户(银行卡/支付宝)
+  settleTarget: string(name='settle_target'),
+}
+
+model ImportIpAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 导入后的新链上账户Id
+  accountId?: string(name='account_id'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+ * Summary: 数字商品服务-IP授权交易-版权方导入
+ */
+async function importIpAccount(request: ImportIpAccountRequest): ImportIpAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIpAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
+ * Summary: 数字商品服务-IP授权交易-版权方导入
+ */
+async function importIpAccountEx(request: ImportIpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIpAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.account.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveIpSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // IP id
+  ipId: string(name='ip_id'),
+  // 渠道名称
+  channelName: string(name='channel_name'),
+}
+
+model RemoveIpSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商品特定渠道的sku信息清空
+ * Summary: 数字商品-IP授权交易-sku信息清空
+ */
+async function removeIpSku(request: RemoveIpSkuRequest): RemoveIpSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeIpSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品特定渠道的sku信息清空
+ * Summary: 数字商品-IP授权交易-sku信息清空
+ */
+async function removeIpSkuEx(request: RemoveIpSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveIpSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryBlockanalysisBlockRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块高度
   blockNumber: long(name='block_number'),
@@ -10731,8 +11343,9 @@ model QueryBlockanalysisBlockRequest = {
 model QueryBlockanalysisBlockResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块信息
   block?: Block(name='block'),
@@ -10768,7 +11381,6 @@ async function queryBlockanalysisBlockEx(request: QueryBlockanalysisBlockRequest
 model QueryBlockanalysisLastblocknumberRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -10777,8 +11389,9 @@ model QueryBlockanalysisLastblocknumberRequest = {
 model QueryBlockanalysisLastblocknumberResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块链最高区块高度
   blockNumber?: long(name='block_number'),
@@ -10806,7 +11419,6 @@ async function queryBlockanalysisLastblocknumberEx(request: QueryBlockanalysisLa
 model QueryBlockanalysisOpenedequitiesRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -10819,8 +11431,9 @@ model QueryBlockanalysisOpenedequitiesRequest = {
 model QueryBlockanalysisOpenedequitiesResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 权益商品信息详细信息list
   equities?: [ OpenedEquity ](name='equities'),
@@ -10848,7 +11461,6 @@ async function queryBlockanalysisOpenedequitiesEx(request: QueryBlockanalysisOpe
 model QueryBlockanalysisUserpriceupdatedequitiesRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -10861,8 +11473,9 @@ model QueryBlockanalysisUserpriceupdatedequitiesRequest = {
 model QueryBlockanalysisUserpriceupdatedequitiesResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 权益商品信息详细信息list
   equities?: [ UserPriceEquity ](name='equities'),
@@ -10890,7 +11503,6 @@ async function queryBlockanalysisUserpriceupdatedequitiesEx(request: QueryBlocka
 model QueryBlockanalysisUnwriteoffvalueRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 资产ID
   assetId: string(name='asset_id'),
@@ -10903,8 +11515,9 @@ model QueryBlockanalysisUnwriteoffvalueRequest = {
 model QueryBlockanalysisUnwriteoffvalueResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 资产ID
   assetId?: string(name='asset_id'),
@@ -10936,7 +11549,6 @@ async function queryBlockanalysisUnwriteoffvalueEx(request: QueryBlockanalysisUn
 model UpdateBlockanalysisDelegaterelationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被代理的租户ID
   delegatedTenantId: string(name='delegated_tenant_id'),
@@ -10949,8 +11561,9 @@ model UpdateBlockanalysisDelegaterelationRequest = {
 model UpdateBlockanalysisDelegaterelationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10976,7 +11589,6 @@ async function updateBlockanalysisDelegaterelationEx(request: UpdateBlockanalysi
 model UpdateBlockanalysisWhitelistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -10989,8 +11601,9 @@ model UpdateBlockanalysisWhitelistRequest = {
 model UpdateBlockanalysisWhitelistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11016,7 +11629,6 @@ async function updateBlockanalysisWhitelistEx(request: UpdateBlockanalysisWhitel
 model QueryBlockanalysisDelegaterelationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被代理的租户ID
   delegatedTenantId: string(name='delegated_tenant_id'),
@@ -11025,8 +11637,9 @@ model QueryBlockanalysisDelegaterelationRequest = {
 model QueryBlockanalysisDelegaterelationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 代理授权关系信息
   delegateRelationInfos?: [ DelegateRelationInfo ](name='delegate_relation_infos'),
@@ -11054,7 +11667,6 @@ async function queryBlockanalysisDelegaterelationEx(request: QueryBlockanalysisD
 model QueryBlockanalysisWhitelistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 查询该租户的白名单信息
   tenantId?: string(name='tenant_id'),
@@ -11065,8 +11677,9 @@ model QueryBlockanalysisWhitelistRequest = {
 model QueryBlockanalysisWhitelistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 接口白名单信息
   whiteList?: [ APIWhiteListInfo ](name='white_list'),
@@ -11094,7 +11707,6 @@ async function queryBlockanalysisWhitelistEx(request: QueryBlockanalysisWhitelis
 model QueryBlockanalysisTransactionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11105,8 +11717,9 @@ model QueryBlockanalysisTransactionRequest = {
 model QueryBlockanalysisTransactionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块高度
   blockNumber?: long(name='block_number'),
@@ -11148,7 +11761,6 @@ async function queryBlockanalysisTransactionEx(request: QueryBlockanalysisTransa
 model QueryBlockanalysisEquityauthlistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11165,8 +11777,9 @@ model QueryBlockanalysisEquityauthlistRequest = {
 model QueryBlockanalysisEquityauthlistResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商品授权信息（一客一价信息）列表
   equityAuthList?: [ EquityAuthInfo ](name='equity_auth_list'),
@@ -11194,7 +11807,6 @@ async function queryBlockanalysisEquityauthlistEx(request: QueryBlockanalysisEqu
 model QueryBlockanalysisNextblockRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块高度
   blockNumber: long(name='block_number'),
@@ -11209,8 +11821,9 @@ model QueryBlockanalysisNextblockRequest = {
 model QueryBlockanalysisNextblockResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 区块信息
   block?: Block(name='block'),
@@ -11248,7 +11861,6 @@ async function queryBlockanalysisNextblockEx(request: QueryBlockanalysisNextbloc
 model QueryMypointsSkuRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链ID
   chainId: string(name='chain_id'),
@@ -11259,8 +11871,9 @@ model QueryMypointsSkuRequest = {
 model QueryMypointsSkuResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 商品列表
   skus?: [ SKUItem ](name='skus'),
@@ -11288,7 +11901,6 @@ async function queryMypointsSkuEx(request: QueryMypointsSkuRequest, headers: map
 model QueryMypointsMerchantbalanceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11299,8 +11911,9 @@ model QueryMypointsMerchantbalanceRequest = {
 model QueryMypointsMerchantbalanceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 积分库可用余额
   budgetAvailableBalance?: long(name='budget_available_balance'),
@@ -11340,7 +11953,6 @@ async function queryMypointsMerchantbalanceEx(request: QueryMypointsMerchantbala
 model ExecMypointsPreorderskuRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11361,8 +11973,9 @@ model ExecMypointsPreorderskuRequest = {
 model ExecMypointsPreorderskuResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 数量
   count?: long(name='count'),
@@ -11402,7 +12015,6 @@ async function execMypointsPreorderskuEx(request: ExecMypointsPreorderskuRequest
 model ExecMypointsOrderskuRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11421,8 +12033,9 @@ model ExecMypointsOrderskuRequest = {
 model ExecMypointsOrderskuResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 卡密ID
   cardId?: string(name='card_id'),
@@ -11456,7 +12069,6 @@ async function execMypointsOrderskuEx(request: ExecMypointsOrderskuRequest, head
 model QueryMypointsSkufeeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11475,8 +12087,9 @@ model QueryMypointsSkufeeRequest = {
 model QueryMypointsSkufeeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 预下单的数量
   count?: long(name='count'),
@@ -11512,7 +12125,6 @@ async function queryMypointsSkufeeEx(request: QueryMypointsSkufeeRequest, header
 model QueryMypointsPreorderinstructionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11527,8 +12139,9 @@ model QueryMypointsPreorderinstructionRequest = {
 model QueryMypointsPreorderinstructionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务请求单号
   bizId?: string(name='biz_id'),
@@ -11590,7 +12203,6 @@ async function queryMypointsPreorderinstructionEx(request: QueryMypointsPreorder
 model QueryMypointsOrderinstructionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   chainId: string(name='chain_id'),
@@ -11605,8 +12217,9 @@ model QueryMypointsOrderinstructionRequest = {
 model QueryMypointsOrderinstructionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务请求单号
   bizId?: string(name='biz_id'),
