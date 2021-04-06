@@ -2268,7 +2268,7 @@ export class IPOrder extends $tea.Model {
   // 是否有保底金
   guaranteed: boolean;
   // 保底金金额
-  guaranteedAmount: string;
+  guaranteedFund: string;
   // 保底商品个数（按量付费）
   guaranteedGoodsAmount: number;
   // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
@@ -2312,7 +2312,7 @@ export class IPOrder extends $tea.Model {
       chargeType: 'charge_type',
       authPrice: 'auth_price',
       guaranteed: 'guaranteed',
-      guaranteedAmount: 'guaranteed_amount',
+      guaranteedFund: 'guaranteed_fund',
       guaranteedGoodsAmount: 'guaranteed_goods_amount',
       usedGuaranteedGoodsAmount: 'used_guaranteed_goods_amount',
       guaranteedSales: 'guaranteed_sales',
@@ -2351,7 +2351,7 @@ export class IPOrder extends $tea.Model {
       chargeType: 'number',
       authPrice: 'string',
       guaranteed: 'boolean',
-      guaranteedAmount: 'string',
+      guaranteedFund: 'string',
       guaranteedGoodsAmount: 'number',
       usedGuaranteedGoodsAmount: 'number',
       guaranteedSales: 'string',
@@ -21124,7 +21124,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.18",
+          sdk_version: "1.2.19",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
