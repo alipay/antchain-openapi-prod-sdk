@@ -135,9 +135,9 @@ public class IPOrder extends TeaModel {
     public Boolean guaranteed;
 
     // 保底金金额
-    @NameInMap("guaranteed_amount")
+    @NameInMap("guaranteed_fund")
     @Validation(required = true)
-    public String guaranteedAmount;
+    public String guaranteedFund;
 
     // 保底商品个数（按量付费）
     @NameInMap("guaranteed_goods_amount")
@@ -388,12 +388,12 @@ public class IPOrder extends TeaModel {
         return this.guaranteed;
     }
 
-    public IPOrder setGuaranteedAmount(String guaranteedAmount) {
-        this.guaranteedAmount = guaranteedAmount;
+    public IPOrder setGuaranteedFund(String guaranteedFund) {
+        this.guaranteedFund = guaranteedFund;
         return this;
     }
-    public String getGuaranteedAmount() {
-        return this.guaranteedAmount;
+    public String getGuaranteedFund() {
+        return this.guaranteedFund;
     }
 
     public IPOrder setGuaranteedGoodsAmount(Long guaranteedGoodsAmount) {
