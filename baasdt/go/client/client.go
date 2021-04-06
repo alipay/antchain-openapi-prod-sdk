@@ -3094,7 +3094,7 @@ type IPOrder struct {
 	// 是否有保底金
 	Guaranteed *bool `json:"guaranteed,omitempty" xml:"guaranteed,omitempty" require:"true"`
 	// 保底金金额
-	GuaranteedAmount *string `json:"guaranteed_amount,omitempty" xml:"guaranteed_amount,omitempty" require:"true"`
+	GuaranteedFund *string `json:"guaranteed_fund,omitempty" xml:"guaranteed_fund,omitempty" require:"true"`
 	// 保底商品个数（按量付费）
 	GuaranteedGoodsAmount *int64 `json:"guaranteed_goods_amount,omitempty" xml:"guaranteed_goods_amount,omitempty" require:"true"`
 	// 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
@@ -3250,8 +3250,8 @@ func (s *IPOrder) SetGuaranteed(v bool) *IPOrder {
 	return s
 }
 
-func (s *IPOrder) SetGuaranteedAmount(v string) *IPOrder {
-	s.GuaranteedAmount = &v
+func (s *IPOrder) SetGuaranteedFund(v string) *IPOrder {
+	s.GuaranteedFund = &v
 	return s
 }
 
@@ -28042,7 +28042,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.18"),
+				"sdk_version":      tea.String("1.2.19"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
