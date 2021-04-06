@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTenantStatusRequest extends Model
+class RemoveTenantBusinesstagRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,35 +14,35 @@ class QueryTenantStatusRequest extends Model
      */
     public $authToken;
 
-    // 渠道码，接入时需要申请
-    /**
-     * @var string
-     */
-    public $channelCode;
-
-    // 业务场景码，接入时需要申请
-    /**
-     * @var string
-     */
-    public $sceneCode;
-
-    // 智科租户id（支付宝会员id)
+    // 租户ID
     /**
      * @var string
      */
     public $tenantId;
+
+    // 业务场景码
+    /**
+     * @var string
+     */
+    public $businessCode;
+
+    // 业务场景的权限吗
+    /**
+     * @var string
+     */
+    public $authCode;
     protected $_name = [
-        'authToken'   => 'auth_token',
-        'channelCode' => 'channel_code',
-        'sceneCode'   => 'scene_code',
-        'tenantId'    => 'tenant_id',
+        'authToken'    => 'auth_token',
+        'tenantId'     => 'tenant_id',
+        'businessCode' => 'business_code',
+        'authCode'     => 'auth_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('channelCode', $this->channelCode, true);
-        Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('businessCode', $this->businessCode, true);
+        Model::validateRequired('authCode', $this->authCode, true);
     }
 
     public function toMap()
@@ -51,14 +51,14 @@ class QueryTenantStatusRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
-        }
-        if (null !== $this->sceneCode) {
-            $res['scene_code'] = $this->sceneCode;
-        }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->businessCode) {
+            $res['business_code'] = $this->businessCode;
+        }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
         }
 
         return $res;
@@ -67,7 +67,7 @@ class QueryTenantStatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryTenantStatusRequest
+     * @return RemoveTenantBusinesstagRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,14 +75,14 @@ class QueryTenantStatusRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
-        }
-        if (isset($map['scene_code'])) {
-            $model->sceneCode = $map['scene_code'];
-        }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['business_code'])) {
+            $model->businessCode = $map['business_code'];
+        }
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
         }
 
         return $model;

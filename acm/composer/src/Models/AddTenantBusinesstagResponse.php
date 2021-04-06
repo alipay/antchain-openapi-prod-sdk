@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddTenantMemberResponse extends Model
+class AddTenantBusinesstagResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class AddTenantMemberResponse extends Model
     /**
      * @param array $map
      *
-     * @return AddTenantMemberResponse
+     * @return AddTenantBusinesstagResponse
      */
     public static function fromMap($map = [])
     {

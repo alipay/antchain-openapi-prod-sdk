@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class CreateOperatorRequest extends Model
 {
+    // OAuth模式下的授权token
     /**
      * @var string
      */

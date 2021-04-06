@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddTenantMemberResponse extends Model
+class QueryTenantTagResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class AddTenantMemberResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 标签列表
+    /**
+     * @var Tag[]
+     */
+    public $tags;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'tags'       => 'tags',
     ];
 
     public function validate()
@@ -47,6 +54,15 @@ class AddTenantMemberResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->tags) {
+            $res['tags'] = [];
+            if (null !== $this->tags && \is_array($this->tags)) {
+                $n = 0;
+                foreach ($this->tags as $item) {
+                    $res['tags'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -54,7 +70,7 @@ class AddTenantMemberResponse extends Model
     /**
      * @param array $map
      *
-     * @return AddTenantMemberResponse
+     * @return QueryTenantTagResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +83,15 @@ class AddTenantMemberResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['tags'])) {
+            if (!empty($map['tags'])) {
+                $model->tags = [];
+                $n           = 0;
+                foreach ($map['tags'] as $item) {
+                    $model->tags[$n++] = null !== $item ? Tag::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

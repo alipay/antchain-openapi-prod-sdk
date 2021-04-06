@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Acm\Models\AddTenantBusinesstagRequest;
+use AntChain\Acm\Models\AddTenantBusinesstagResponse;
 use AntChain\Acm\Models\AddTenantMemberRequest;
 use AntChain\Acm\Models\AddTenantMemberResponse;
 use AntChain\Acm\Models\CheckAlipayTenantRequest;
@@ -57,6 +59,10 @@ use AntChain\Acm\Models\QueryTenantRequest;
 use AntChain\Acm\Models\QueryTenantResponse;
 use AntChain\Acm\Models\QueryTenantStatusRequest;
 use AntChain\Acm\Models\QueryTenantStatusResponse;
+use AntChain\Acm\Models\QueryTenantTagRequest;
+use AntChain\Acm\Models\QueryTenantTagResponse;
+use AntChain\Acm\Models\RemoveTenantBusinesstagRequest;
+use AntChain\Acm\Models\RemoveTenantBusinesstagResponse;
 use AntChain\Acm\Models\SearchOperatorRequest;
 use AntChain\Acm\Models\SearchOperatorResponse;
 use AntChain\Acm\Models\UpdateCustomerIdentityRequest;
@@ -210,7 +216,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.17',
+                    'sdk_version'      => '1.0.19',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1112,5 +1118,104 @@ class Client
         Utils::validateModel($request);
 
         return CheckLoginnameResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.loginname.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户的标签
+     * Summary: 查询租户的标签列表.
+     *
+     * @param QueryTenantTagRequest $request
+     *
+     * @return QueryTenantTagResponse
+     */
+    public function queryTenantTag($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTenantTagEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户的标签
+     * Summary: 查询租户的标签列表.
+     *
+     * @param QueryTenantTagRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryTenantTagResponse
+     */
+    public function queryTenantTagEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTenantTagResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租户增加业务标签
+     * Summary: 租户增加业务标签.
+     *
+     * @param AddTenantBusinesstagRequest $request
+     *
+     * @return AddTenantBusinesstagResponse
+     */
+    public function addTenantBusinesstag($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addTenantBusinesstagEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租户增加业务标签
+     * Summary: 租户增加业务标签.
+     *
+     * @param AddTenantBusinesstagRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return AddTenantBusinesstagResponse
+     */
+    public function addTenantBusinesstagEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddTenantBusinesstagResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除业务标签
+     * Summary: 删除业务标签.
+     *
+     * @param RemoveTenantBusinesstagRequest $request
+     *
+     * @return RemoveTenantBusinesstagResponse
+     */
+    public function removeTenantBusinesstag($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->removeTenantBusinesstagEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除业务标签
+     * Summary: 删除业务标签.
+     *
+     * @param RemoveTenantBusinesstagRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return RemoveTenantBusinesstagResponse
+     */
+    public function removeTenantBusinesstagEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RemoveTenantBusinesstagResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
