@@ -5,12 +5,12 @@ import time
 from Tea.exceptions import TeaException, UnretryableException
 from Tea.request import TeaRequest
 from Tea.core import TeaCore
+from antchain_alipay_util.antchain_utils import AntchainUtils
 from typing import Dict
 
 from antchain_sdk_acm import models as acm_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_tea_util import models as util_models
-from antchain_alipay_util.client import Client as AntchainUtilClient
 from alibabacloud_rpc_util.client import Client as RPCUtilClient
 
 
@@ -131,11 +131,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.17'
+                    'sdk_version': '1.0.19'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -148,14 +148,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = TeaCore.do_action(_request, _runtime)
                 raw = UtilClient.read_as_string(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -233,11 +233,11 @@ class Client:
                     'method': action,
                     'version': version,
                     'sign_type': 'HmacSHA1',
-                    'req_time': AntchainUtilClient.get_timestamp(),
-                    'req_msg_id': AntchainUtilClient.get_nonce(),
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.17'
+                    'sdk_version': '1.0.19'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -250,14 +250,14 @@ class Client:
                 _request.headers['content-type'] = 'application/x-www-form-urlencoded'
                 signed_param = TeaCore.merge(_request.query,
                     RPCUtilClient.query(request))
-                _request.query['sign'] = AntchainUtilClient.get_signature(signed_param, self._access_key_secret)
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
                 _last_request = _request
                 _response = await TeaCore.async_do_action(_request, _runtime)
                 raw = await UtilClient.read_as_string_async(_response.body)
                 obj = UtilClient.parse_json(raw)
                 res = UtilClient.assert_as_map(obj)
                 resp = UtilClient.assert_as_map(res.get('response'))
-                if AntchainUtilClient.has_error(raw, self._access_key_secret):
+                if AntchainUtils.has_error(raw, self._access_key_secret):
                     raise TeaException({
                         'message': resp.get('result_msg'),
                         'data': resp,
@@ -1673,4 +1673,166 @@ class Client:
         UtilClient.validate_model(request)
         return acm_models.CheckLoginnameResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.acm.loginname.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tenant_tag(
+        self,
+        request: acm_models.QueryTenantTagRequest,
+    ) -> acm_models.QueryTenantTagResponse:
+        """
+        Description: 查询租户的标签
+        Summary: 查询租户的标签列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tenant_tag_ex(request, headers, runtime)
+
+    async def query_tenant_tag_async(
+        self,
+        request: acm_models.QueryTenantTagRequest,
+    ) -> acm_models.QueryTenantTagResponse:
+        """
+        Description: 查询租户的标签
+        Summary: 查询租户的标签列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tenant_tag_ex_async(request, headers, runtime)
+
+    def query_tenant_tag_ex(
+        self,
+        request: acm_models.QueryTenantTagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryTenantTagResponse:
+        """
+        Description: 查询租户的标签
+        Summary: 查询租户的标签列表
+        """
+        UtilClient.validate_model(request)
+        return acm_models.QueryTenantTagResponse().from_map(
+            self.do_request('1.0', 'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tenant_tag_ex_async(
+        self,
+        request: acm_models.QueryTenantTagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryTenantTagResponse:
+        """
+        Description: 查询租户的标签
+        Summary: 查询租户的标签列表
+        """
+        UtilClient.validate_model(request)
+        return acm_models.QueryTenantTagResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_tenant_businesstag(
+        self,
+        request: acm_models.AddTenantBusinesstagRequest,
+    ) -> acm_models.AddTenantBusinesstagResponse:
+        """
+        Description: 租户增加业务标签
+        Summary: 租户增加业务标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_tenant_businesstag_ex(request, headers, runtime)
+
+    async def add_tenant_businesstag_async(
+        self,
+        request: acm_models.AddTenantBusinesstagRequest,
+    ) -> acm_models.AddTenantBusinesstagResponse:
+        """
+        Description: 租户增加业务标签
+        Summary: 租户增加业务标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_tenant_businesstag_ex_async(request, headers, runtime)
+
+    def add_tenant_businesstag_ex(
+        self,
+        request: acm_models.AddTenantBusinesstagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.AddTenantBusinesstagResponse:
+        """
+        Description: 租户增加业务标签
+        Summary: 租户增加业务标签
+        """
+        UtilClient.validate_model(request)
+        return acm_models.AddTenantBusinesstagResponse().from_map(
+            self.do_request('1.0', 'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_tenant_businesstag_ex_async(
+        self,
+        request: acm_models.AddTenantBusinesstagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.AddTenantBusinesstagResponse:
+        """
+        Description: 租户增加业务标签
+        Summary: 租户增加业务标签
+        """
+        UtilClient.validate_model(request)
+        return acm_models.AddTenantBusinesstagResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def remove_tenant_businesstag(
+        self,
+        request: acm_models.RemoveTenantBusinesstagRequest,
+    ) -> acm_models.RemoveTenantBusinesstagResponse:
+        """
+        Description: 删除业务标签
+        Summary: 删除业务标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_tenant_businesstag_ex(request, headers, runtime)
+
+    async def remove_tenant_businesstag_async(
+        self,
+        request: acm_models.RemoveTenantBusinesstagRequest,
+    ) -> acm_models.RemoveTenantBusinesstagResponse:
+        """
+        Description: 删除业务标签
+        Summary: 删除业务标签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.remove_tenant_businesstag_ex_async(request, headers, runtime)
+
+    def remove_tenant_businesstag_ex(
+        self,
+        request: acm_models.RemoveTenantBusinesstagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.RemoveTenantBusinesstagResponse:
+        """
+        Description: 删除业务标签
+        Summary: 删除业务标签
+        """
+        UtilClient.validate_model(request)
+        return acm_models.RemoveTenantBusinesstagResponse().from_map(
+            self.do_request('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def remove_tenant_businesstag_ex_async(
+        self,
+        request: acm_models.RemoveTenantBusinesstagRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.RemoveTenantBusinesstagResponse:
+        """
+        Description: 删除业务标签
+        Summary: 删除业务标签
+        """
+        UtilClient.validate_model(request)
+        return acm_models.RemoveTenantBusinesstagResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

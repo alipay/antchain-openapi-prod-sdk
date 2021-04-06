@@ -397,6 +397,38 @@ class AccessKey(TeaModel):
         return self
 
 
+class Tag(TeaModel):
+    def __init__(
+        self,
+        tag_type: str = None,
+        tag_value: str = None,
+    ):
+        # 标签类型
+        self.tag_type = tag_type
+        # 标签值
+        self.tag_value = tag_value
+
+    def validate(self):
+        self.validate_required(self.tag_type, 'tag_type')
+        self.validate_required(self.tag_value, 'tag_value')
+
+    def to_map(self):
+        result = dict()
+        if self.tag_type is not None:
+            result['tag_type'] = self.tag_type
+        if self.tag_value is not None:
+            result['tag_value'] = self.tag_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tag_type') is not None:
+            self.tag_type = m.get('tag_type')
+        if m.get('tag_value') is not None:
+            self.tag_value = m.get('tag_value')
+        return self
+
+
 class Accessor(TeaModel):
     def __init__(
         self,
@@ -507,6 +539,7 @@ class GetCustomerRequest(TeaModel):
         auth_token: str = None,
         customer: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业ID
         self.customer = customer
@@ -542,8 +575,11 @@ class GetCustomerResponse(TeaModel):
         name: str = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建时间，ISO8601格式
         self.create_time = create_time
@@ -602,6 +638,7 @@ class GetOperatorRequest(TeaModel):
         login_name: str = None,
         operator_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 操作员登录名
         self.login_name = login_name
@@ -652,8 +689,11 @@ class GetOperatorResponse(TeaModel):
         tenants: List[str] = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员创建时间，ISO8601格式
         self.create_time = create_time
@@ -778,6 +818,7 @@ class QueryOperatorRequest(TeaModel):
         real_name: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业ID
         self.customer = customer
@@ -837,8 +878,11 @@ class QueryOperatorResponse(TeaModel):
         page_size: int = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员列表
         self.operators = operators
@@ -913,6 +957,7 @@ class SearchOperatorRequest(TeaModel):
         real_name: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业ID
         self.customer = customer
@@ -984,8 +1029,11 @@ class SearchOperatorResponse(TeaModel):
         page_size: int = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员列表
         self.operators = operators
@@ -1062,6 +1110,7 @@ class CreateOperatorRequest(TeaModel):
         tenant: str = None,
         bussiness_code: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业唯一标识
         self.customer = customer
@@ -1143,8 +1192,11 @@ class CreateOperatorResponse(TeaModel):
         result_msg: str = None,
         operator_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员唯一ID
         self.operator_id = operator_id
@@ -1187,6 +1239,7 @@ class UpdateOperatorRequest(TeaModel):
         operator_id: str = None,
         real_name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 邮箱
         self.email = email
@@ -1253,8 +1306,11 @@ class UpdateOperatorResponse(TeaModel):
         tenants: List[str] = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员创建时间，ISO8601格式
         self.create_time = create_time
@@ -1361,6 +1417,7 @@ class DeleteOperatorRequest(TeaModel):
         auth_token: str = None,
         operator_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 操作员唯一id
         self.operator_id = operator_id
@@ -1392,8 +1449,11 @@ class DeleteOperatorResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -1427,6 +1487,7 @@ class AddTenantMemberRequest(TeaModel):
         operator_id: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 操作员唯一id
         self.operator_id = operator_id
@@ -1465,8 +1526,11 @@ class AddTenantMemberResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -1500,6 +1564,7 @@ class CreateTenantRequest(TeaModel):
         ant_uid: str = None,
         business_owner_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 蚂蚁通行证uid
         self.ant_uid = ant_uid
@@ -1538,8 +1603,11 @@ class CreateTenantResponse(TeaModel):
         result_msg: str = None,
         tenant: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户唯一标识
         self.tenant = tenant
@@ -1578,6 +1646,7 @@ class GetTenantRequest(TeaModel):
         auth_token: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 租户唯一标识
         self.tenant = tenant
@@ -1619,8 +1688,11 @@ class GetTenantResponse(TeaModel):
         name: str = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 蚂蚁通行证签约账户
         self.ant_account = ant_account
@@ -1717,6 +1789,7 @@ class QueryTenantRequest(TeaModel):
         page_num: int = None,
         page_size: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业唯一标识
         self.customer = customer
@@ -1764,8 +1837,11 @@ class QueryTenantResponse(TeaModel):
         tenants: List[Tenant] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 传入的页码, 如果没有传入, 则取默认值1
         self.page_num = page_num
@@ -1834,6 +1910,7 @@ class GetAntpassportTenantRequest(TeaModel):
         auth_token: str = None,
         ant_uid: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 蚂蚁通行证uid
         self.ant_uid = ant_uid
@@ -1866,8 +1943,11 @@ class GetAntpassportTenantResponse(TeaModel):
         result_msg: str = None,
         tenant: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         self.tenant = tenant
 
@@ -1905,6 +1985,7 @@ class ListAccesskeyRequest(TeaModel):
         auth_token: str = None,
         user_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 操作员或服务账号唯一ID
         self.user_id = user_id
@@ -1937,8 +2018,11 @@ class ListAccesskeyResponse(TeaModel):
         result_msg: str = None,
         access_keys: List[AccessKey] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # AccessKey列表
         self.access_keys = access_keys
@@ -1985,6 +2069,7 @@ class GetCurrentidRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -2015,8 +2100,11 @@ class GetCurrentidResponse(TeaModel):
         type: str = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建时间，ISO8601格式
         self.create_time = create_time
@@ -2085,6 +2173,7 @@ class GetAccessorRequest(TeaModel):
         tenant: str = None,
         user_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # Accessor关联的accessKey
         self.access_key_id = access_key_id
@@ -2136,8 +2225,11 @@ class GetAccessorResponse(TeaModel):
         type: str = None,
         user_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # Accessor关联的AccessKey
         self.access_key = access_key
@@ -2219,6 +2311,7 @@ class GetTenantDingtokenRequest(TeaModel):
         product: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 入驻金融云的产品码
         self.product = product
@@ -2263,8 +2356,11 @@ class GetTenantDingtokenResponse(TeaModel):
         js_ticket: str = None,
         update_time: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 钉钉企业授权token
         self.access_token = access_token
@@ -2336,6 +2432,7 @@ class QueryAdminRequest(TeaModel):
         auth_token: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 租户唯一标识
         self.tenant = tenant
@@ -2368,8 +2465,11 @@ class QueryAdminResponse(TeaModel):
         result_msg: str = None,
         operators: List[Operator] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作员列表
         self.operators = operators
@@ -2417,6 +2517,7 @@ class GetTenantIaasaccountRequest(TeaModel):
         auth_token: str = None,
         tenant: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 租户唯一标识
         self.tenant = tenant
@@ -2453,8 +2554,11 @@ class GetTenantIaasaccountResponse(TeaModel):
         create_time: str = None,
         id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户关联的AccessKey
         self.access_key = access_key
@@ -2516,6 +2620,7 @@ class ListCustomerRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -2542,8 +2647,11 @@ class ListCustomerResponse(TeaModel):
         result_msg: str = None,
         customers: List[Customer] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业列表
         self.customers = customers
@@ -2596,6 +2704,7 @@ class CheckAlipayTenantRequest(TeaModel):
         scene_code: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 支付宝账号关联的证件号
         self.cert_no = cert_no
@@ -2660,8 +2769,11 @@ class CheckAlipayTenantResponse(TeaModel):
         result_msg: str = None,
         tenant_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 智科租户id(支付宝会员id)
         self.tenant_id = tenant_id
@@ -2702,6 +2814,7 @@ class QueryTenantStatusRequest(TeaModel):
         scene_code: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 渠道码，接入时需要申请
         self.channel_code = channel_code
@@ -2749,8 +2862,11 @@ class QueryTenantStatusResponse(TeaModel):
         status: str = None,
         tenant_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户入住状态
         self.status = status
@@ -2807,6 +2923,7 @@ class CreateAntchainTenantRequest(TeaModel):
         is_alipay_tenant: bool = None,
         antchain_certified: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 企业名称或个人名称
         self.name = name
@@ -2917,8 +3034,11 @@ class CreateAntchainTenantResponse(TeaModel):
         tenant_id: str = None,
         customer_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租户id
         self.tenant_id = tenant_id
@@ -2972,6 +3092,7 @@ class UpdateCustomerIdentityRequest(TeaModel):
         business_code: str = None,
         bussiness_role: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 客户id
         self.customer_id = customer_id
@@ -3061,8 +3182,11 @@ class UpdateCustomerIdentityResponse(TeaModel):
         result_msg: str = None,
         customer_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回客户id
         self.customer_id = customer_id
@@ -3101,6 +3225,7 @@ class CheckLoginIdRequest(TeaModel):
         auth_token: str = None,
         login_name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 登录id
         self.login_name = login_name
@@ -3134,8 +3259,11 @@ class CheckLoginIdResponse(TeaModel):
         exist: bool = None,
         tenant_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.exist = exist
@@ -3180,6 +3308,7 @@ class GetMasterTenantRequest(TeaModel):
         auth_token: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 主账号id
         self.tenant_id = tenant_id
@@ -3219,8 +3348,11 @@ class GetMasterTenantResponse(TeaModel):
         update_time: str = None,
         user_type: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 蚂蚁通行证签约账户
         self.login_name = login_name
@@ -3301,6 +3433,7 @@ class CheckLoginnameRequest(TeaModel):
         auth_token: str = None,
         login_name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 邮箱名称
         self.login_name = login_name
@@ -3334,8 +3467,11 @@ class CheckLoginnameResponse(TeaModel):
         exist: bool = None,
         tenant_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.exist = exist
@@ -3371,6 +3507,260 @@ class CheckLoginnameResponse(TeaModel):
             self.exist = m.get('exist')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryTenantTagRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryTenantTagResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tags: List[Tag] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 标签列表
+        self.tags = tags
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = Tag()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
+class AddTenantBusinesstagRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        tenant_id: str = None,
+        business_code: str = None,
+        auth_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 业务场景码
+        self.business_code = business_code
+        # 业务场景的权限码，区分大小写
+        self.auth_code = auth_code
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.auth_code, 'auth_code')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        return self
+
+
+class AddTenantBusinesstagResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class RemoveTenantBusinesstagRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        tenant_id: str = None,
+        business_code: str = None,
+        auth_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 业务场景码
+        self.business_code = business_code
+        # 业务场景的权限吗
+        self.auth_code = auth_code
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.auth_code, 'auth_code')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        return self
+
+
+class RemoveTenantBusinesstagResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
