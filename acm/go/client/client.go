@@ -380,6 +380,32 @@ func (s *AccessKey) SetUpdateTime(v string) *AccessKey {
 	return s
 }
 
+// 标签实体
+type Tag struct {
+	// 标签类型
+	TagType *string `json:"tag_type,omitempty" xml:"tag_type,omitempty" require:"true"`
+	// 标签值
+	TagValue *string `json:"tag_value,omitempty" xml:"tag_value,omitempty" require:"true"`
+}
+
+func (s Tag) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Tag) GoString() string {
+	return s.String()
+}
+
+func (s *Tag) SetTagType(v string) *Tag {
+	s.TagType = &v
+	return s
+}
+
+func (s *Tag) SetTagValue(v string) *Tag {
+	s.TagValue = &v
+	return s
+}
+
 // 访问IaaS层的身份
 type Accessor struct {
 	// Accessor关联的AccessKey
@@ -475,6 +501,7 @@ func (s *Customer) SetUpdateTime(v string) *Customer {
 }
 
 type GetCustomerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业ID
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
@@ -499,9 +526,12 @@ func (s *GetCustomerRequest) SetCustomer(v string) *GetCustomerRequest {
 }
 
 type GetCustomerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// 企业ID
@@ -556,6 +586,7 @@ func (s *GetCustomerResponse) SetUpdateTime(v string) *GetCustomerResponse {
 }
 
 type GetOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员登录名
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
@@ -587,9 +618,12 @@ func (s *GetOperatorRequest) SetOperatorId(v string) *GetOperatorRequest {
 }
 
 type GetOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// 操作员所在的企业
@@ -707,6 +741,7 @@ func (s *GetOperatorResponse) SetUpdateTime(v string) *GetOperatorResponse {
 }
 
 type QueryOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业ID
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
@@ -759,9 +794,12 @@ func (s *QueryOperatorRequest) SetTenant(v string) *QueryOperatorRequest {
 }
 
 type QueryOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员列表
 	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" require:"true" type:"Repeated"`
 	// 传入的页码, 如果没有传入, 则取默认值1
@@ -816,6 +854,7 @@ func (s *QueryOperatorResponse) SetTotalCount(v int64) *QueryOperatorResponse {
 }
 
 type SearchOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业ID
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
@@ -882,9 +921,12 @@ func (s *SearchOperatorRequest) SetTenant(v string) *SearchOperatorRequest {
 }
 
 type SearchOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员列表
 	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" require:"true" type:"Repeated"`
 	// 传入的页码, 如果没有传入, 则取默认值1
@@ -939,6 +981,7 @@ func (s *SearchOperatorResponse) SetTotalCount(v int64) *SearchOperatorResponse 
 }
 
 type CreateOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业唯一标识
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
@@ -1019,9 +1062,12 @@ func (s *CreateOperatorRequest) SetBussinessCode(v string) *CreateOperatorReques
 }
 
 type CreateOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员唯一ID
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
 }
@@ -1055,6 +1101,7 @@ func (s *CreateOperatorResponse) SetOperatorId(v string) *CreateOperatorResponse
 }
 
 type UpdateOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 邮箱
 	Email *string `json:"email,omitempty" xml:"email,omitempty"`
@@ -1107,9 +1154,12 @@ func (s *UpdateOperatorRequest) SetRealName(v string) *UpdateOperatorRequest {
 }
 
 type UpdateOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// 操作员所在的企业
@@ -1213,6 +1263,7 @@ func (s *UpdateOperatorResponse) SetUpdateTime(v string) *UpdateOperatorResponse
 }
 
 type DeleteOperatorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员唯一id
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -1237,9 +1288,12 @@ func (s *DeleteOperatorRequest) SetOperatorId(v string) *DeleteOperatorRequest {
 }
 
 type DeleteOperatorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteOperatorResponse) String() string {
@@ -1266,6 +1320,7 @@ func (s *DeleteOperatorResponse) SetResultMsg(v string) *DeleteOperatorResponse 
 }
 
 type AddTenantMemberRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员唯一id
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
@@ -1297,9 +1352,12 @@ func (s *AddTenantMemberRequest) SetTenant(v string) *AddTenantMemberRequest {
 }
 
 type AddTenantMemberResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AddTenantMemberResponse) String() string {
@@ -1326,6 +1384,7 @@ func (s *AddTenantMemberResponse) SetResultMsg(v string) *AddTenantMemberRespons
 }
 
 type CreateTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 蚂蚁通行证uid
 	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty" require:"true"`
@@ -1357,9 +1416,12 @@ func (s *CreateTenantRequest) SetBusinessOwnerId(v string) *CreateTenantRequest 
 }
 
 type CreateTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
 }
@@ -1393,6 +1455,7 @@ func (s *CreateTenantResponse) SetTenant(v string) *CreateTenantResponse {
 }
 
 type GetTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
@@ -1417,9 +1480,12 @@ func (s *GetTenantRequest) SetTenant(v string) *GetTenantRequest {
 }
 
 type GetTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 蚂蚁通行证签约账户
 	AntAccount *string `json:"ant_account,omitempty" xml:"ant_account,omitempty" require:"true"`
 	// 蚂蚁通行证uid
@@ -1516,6 +1582,7 @@ func (s *GetTenantResponse) SetUpdateTime(v string) *GetTenantResponse {
 }
 
 type QueryTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业唯一标识
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
@@ -1554,9 +1621,12 @@ func (s *QueryTenantRequest) SetPageSize(v int64) *QueryTenantRequest {
 }
 
 type QueryTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 传入的页码, 如果没有传入, 则取默认值1
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 传入的页大小, 如果没有传入, 则取默认值10
@@ -1611,6 +1681,7 @@ func (s *QueryTenantResponse) SetTotalCount(v int64) *QueryTenantResponse {
 }
 
 type GetAntpassportTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 蚂蚁通行证uid
 	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty" require:"true"`
@@ -1635,10 +1706,13 @@ func (s *GetAntpassportTenantRequest) SetAntUid(v string) *GetAntpassportTenantR
 }
 
 type GetAntpassportTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	Tenant     *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Tenant    *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
 }
 
 func (s GetAntpassportTenantResponse) String() string {
@@ -1670,6 +1744,7 @@ func (s *GetAntpassportTenantResponse) SetTenant(v string) *GetAntpassportTenant
 }
 
 type ListAccesskeyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 操作员或服务账号唯一ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
@@ -1694,9 +1769,12 @@ func (s *ListAccesskeyRequest) SetUserId(v string) *ListAccesskeyRequest {
 }
 
 type ListAccesskeyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// AccessKey列表
 	AccessKeys []*AccessKey `json:"access_keys,omitempty" xml:"access_keys,omitempty" require:"true" type:"Repeated"`
 }
@@ -1730,6 +1808,7 @@ func (s *ListAccesskeyResponse) SetAccessKeys(v []*AccessKey) *ListAccesskeyResp
 }
 
 type GetCurrentidRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -1747,9 +1826,12 @@ func (s *GetCurrentidRequest) SetAuthToken(v string) *GetCurrentidRequest {
 }
 
 type GetCurrentidResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
 	// 身份实体所属企业
@@ -1811,6 +1893,7 @@ func (s *GetCurrentidResponse) SetUpdateTime(v string) *GetCurrentidResponse {
 }
 
 type GetAccessorRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// Accessor关联的accessKey
 	AccessKeyId *string `json:"access_key_id,omitempty" xml:"access_key_id,omitempty"`
@@ -1849,9 +1932,12 @@ func (s *GetAccessorRequest) SetUserId(v string) *GetAccessorRequest {
 }
 
 type GetAccessorResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// Accessor关联的AccessKey
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
@@ -1934,6 +2020,7 @@ func (s *GetAccessorResponse) SetUserId(v string) *GetAccessorResponse {
 }
 
 type GetTenantDingtokenRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 入驻金融云的产品码
 	Product *string `json:"product,omitempty" xml:"product,omitempty" require:"true"`
@@ -1965,9 +2052,12 @@ func (s *GetTenantDingtokenRequest) SetTenant(v string) *GetTenantDingtokenReque
 }
 
 type GetTenantDingtokenResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 钉钉企业授权token
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 	// 	钉钉企业授权应用ID
@@ -2036,6 +2126,7 @@ func (s *GetTenantDingtokenResponse) SetUpdateTime(v string) *GetTenantDingtoken
 }
 
 type QueryAdminRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
@@ -2060,9 +2151,12 @@ func (s *QueryAdminRequest) SetTenant(v string) *QueryAdminRequest {
 }
 
 type QueryAdminResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作员列表
 	Operators []*Operator `json:"operators,omitempty" xml:"operators,omitempty" require:"true" type:"Repeated"`
 }
@@ -2096,6 +2190,7 @@ func (s *QueryAdminResponse) SetOperators(v []*Operator) *QueryAdminResponse {
 }
 
 type GetTenantIaasaccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 租户唯一标识
 	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
@@ -2120,9 +2215,12 @@ func (s *GetTenantIaasaccountRequest) SetTenant(v string) *GetTenantIaasaccountR
 }
 
 type GetTenantIaasaccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 账户关联的AccessKey
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// 账户关联的AccessSecret
@@ -2184,6 +2282,7 @@ func (s *GetTenantIaasaccountResponse) SetId(v string) *GetTenantIaasaccountResp
 }
 
 type ListCustomerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -2201,9 +2300,12 @@ func (s *ListCustomerRequest) SetAuthToken(v string) *ListCustomerRequest {
 }
 
 type ListCustomerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 企业列表
 	Customers []*Customer `json:"customers,omitempty" xml:"customers,omitempty" require:"true" type:"Repeated"`
 }
@@ -2237,6 +2339,7 @@ func (s *ListCustomerResponse) SetCustomers(v []*Customer) *ListCustomerResponse
 }
 
 type CheckAlipayTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 支付宝账号关联的证件号
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
@@ -2296,9 +2399,12 @@ func (s *CheckAlipayTenantRequest) SetTenantId(v string) *CheckAlipayTenantReque
 }
 
 type CheckAlipayTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 智科租户id(支付宝会员id)
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 }
@@ -2332,6 +2438,7 @@ func (s *CheckAlipayTenantResponse) SetTenantId(v string) *CheckAlipayTenantResp
 }
 
 type QueryTenantStatusRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 渠道码，接入时需要申请
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
@@ -2370,9 +2477,12 @@ func (s *QueryTenantStatusRequest) SetTenantId(v string) *QueryTenantStatusReque
 }
 
 type QueryTenantStatusResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 租户入住状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 智科租户id（支付宝会员id）
@@ -2413,6 +2523,7 @@ func (s *QueryTenantStatusResponse) SetTenantId(v string) *QueryTenantStatusResp
 }
 
 type CreateAntchainTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业名称或个人名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -2523,9 +2634,12 @@ func (s *CreateAntchainTenantRequest) SetAntchainCertified(v bool) *CreateAntcha
 }
 
 type CreateAntchainTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 客户id
@@ -2566,6 +2680,7 @@ func (s *CreateAntchainTenantResponse) SetCustomerId(v string) *CreateAntchainTe
 }
 
 type UpdateCustomerIdentityRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 客户id
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
@@ -2653,9 +2768,12 @@ func (s *UpdateCustomerIdentityRequest) SetBussinessRole(v string) *UpdateCustom
 }
 
 type UpdateCustomerIdentityResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回客户id
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
 }
@@ -2689,6 +2807,7 @@ func (s *UpdateCustomerIdentityResponse) SetCustomerId(v string) *UpdateCustomer
 }
 
 type CheckLoginIdRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 登录id
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
@@ -2713,9 +2832,12 @@ func (s *CheckLoginIdRequest) SetLoginName(v string) *CheckLoginIdRequest {
 }
 
 type CheckLoginIdResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Exist *bool `json:"exist,omitempty" xml:"exist,omitempty"`
 	// 所属的租户id
@@ -2756,6 +2878,7 @@ func (s *CheckLoginIdResponse) SetTenantId(v string) *CheckLoginIdResponse {
 }
 
 type GetMasterTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 主账号id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
@@ -2780,9 +2903,12 @@ func (s *GetMasterTenantRequest) SetTenantId(v string) *GetMasterTenantRequest {
 }
 
 type GetMasterTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 蚂蚁通行证签约账户
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
 	// 租户id
@@ -2865,6 +2991,7 @@ func (s *GetMasterTenantResponse) SetUserType(v string) *GetMasterTenantResponse
 }
 
 type CheckLoginnameRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 邮箱名称
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
@@ -2889,9 +3016,12 @@ func (s *CheckLoginnameRequest) SetLoginName(v string) *CheckLoginnameRequest {
 }
 
 type CheckLoginnameResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Exist *bool `json:"exist,omitempty" xml:"exist,omitempty"`
 	// 所属租户ID
@@ -2928,6 +3058,212 @@ func (s *CheckLoginnameResponse) SetExist(v bool) *CheckLoginnameResponse {
 
 func (s *CheckLoginnameResponse) SetTenantId(v string) *CheckLoginnameResponse {
 	s.TenantId = &v
+	return s
+}
+
+type QueryTenantTagRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryTenantTagRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTenantTagRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTenantTagRequest) SetAuthToken(v string) *QueryTenantTagRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTenantTagRequest) SetTenantId(v string) *QueryTenantTagRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryTenantTagResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 标签列表
+	Tags []*Tag `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
+}
+
+func (s QueryTenantTagResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTenantTagResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTenantTagResponse) SetReqMsgId(v string) *QueryTenantTagResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTenantTagResponse) SetResultCode(v string) *QueryTenantTagResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTenantTagResponse) SetResultMsg(v string) *QueryTenantTagResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTenantTagResponse) SetTags(v []*Tag) *QueryTenantTagResponse {
+	s.Tags = v
+	return s
+}
+
+type AddTenantBusinesstagRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 业务场景码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 业务场景的权限码，区分大小写
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s AddTenantBusinesstagRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddTenantBusinesstagRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddTenantBusinesstagRequest) SetAuthToken(v string) *AddTenantBusinesstagRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddTenantBusinesstagRequest) SetTenantId(v string) *AddTenantBusinesstagRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AddTenantBusinesstagRequest) SetBusinessCode(v string) *AddTenantBusinesstagRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *AddTenantBusinesstagRequest) SetAuthCode(v string) *AddTenantBusinesstagRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type AddTenantBusinesstagResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddTenantBusinesstagResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddTenantBusinesstagResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddTenantBusinesstagResponse) SetReqMsgId(v string) *AddTenantBusinesstagResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddTenantBusinesstagResponse) SetResultCode(v string) *AddTenantBusinesstagResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddTenantBusinesstagResponse) SetResultMsg(v string) *AddTenantBusinesstagResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RemoveTenantBusinesstagRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 业务场景码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 业务场景的权限吗
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s RemoveTenantBusinesstagRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveTenantBusinesstagRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveTenantBusinesstagRequest) SetAuthToken(v string) *RemoveTenantBusinesstagRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveTenantBusinesstagRequest) SetTenantId(v string) *RemoveTenantBusinesstagRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *RemoveTenantBusinesstagRequest) SetBusinessCode(v string) *RemoveTenantBusinesstagRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *RemoveTenantBusinesstagRequest) SetAuthCode(v string) *RemoveTenantBusinesstagRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type RemoveTenantBusinesstagResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RemoveTenantBusinesstagResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveTenantBusinesstagResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveTenantBusinesstagResponse) SetReqMsgId(v string) *RemoveTenantBusinesstagResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveTenantBusinesstagResponse) SetResultCode(v string) *RemoveTenantBusinesstagResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveTenantBusinesstagResponse) SetResultMsg(v string) *RemoveTenantBusinesstagResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -3053,7 +3389,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.17"),
+				"sdk_version":      tea.String("1.0.19"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3978,6 +4314,108 @@ func (client *Client) CheckLoginnameEx(request *CheckLoginnameRequest, headers m
 	}
 	_result = &CheckLoginnameResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.loginname.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户的标签
+ * Summary: 查询租户的标签列表
+ */
+func (client *Client) QueryTenantTag(request *QueryTenantTagRequest) (_result *QueryTenantTagResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTenantTagResponse{}
+	_body, _err := client.QueryTenantTagEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户的标签
+ * Summary: 查询租户的标签列表
+ */
+func (client *Client) QueryTenantTagEx(request *QueryTenantTagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTenantTagResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTenantTagResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.tag.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租户增加业务标签
+ * Summary: 租户增加业务标签
+ */
+func (client *Client) AddTenantBusinesstag(request *AddTenantBusinesstagRequest) (_result *AddTenantBusinesstagResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddTenantBusinesstagResponse{}
+	_body, _err := client.AddTenantBusinesstagEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租户增加业务标签
+ * Summary: 租户增加业务标签
+ */
+func (client *Client) AddTenantBusinesstagEx(request *AddTenantBusinesstagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddTenantBusinesstagResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddTenantBusinesstagResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.businesstag.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除业务标签
+ * Summary: 删除业务标签
+ */
+func (client *Client) RemoveTenantBusinesstag(request *RemoveTenantBusinesstagRequest) (_result *RemoveTenantBusinesstagResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveTenantBusinesstagResponse{}
+	_body, _err := client.RemoveTenantBusinesstagEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除业务标签
+ * Summary: 删除业务标签
+ */
+func (client *Client) RemoveTenantBusinesstagEx(request *RemoveTenantBusinesstagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveTenantBusinesstagResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveTenantBusinesstagResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.businesstag.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
