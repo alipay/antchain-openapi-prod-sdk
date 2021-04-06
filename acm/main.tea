@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.17',
+    sdk_version = '1.0.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -227,6 +227,14 @@ model AccessKey {
   updateTime?: string(name='update_time', example=''),
 }
 
+// 标签实体
+model Tag {
+  // 标签类型
+  tagType: string(name='tag_type', example='CHANNEL_SCENE'),
+  // 标签值
+  tagValue: string(name='tag_value', example='BAASDT_IPAE'),
+}
+
 // 访问IaaS层的身份
 model Accessor {
   // Accessor关联的AccessKey
@@ -256,14 +264,18 @@ model Customer {
 }
 
 model GetCustomerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业ID
   customer: string(name='customer'),
 }
 
 model GetCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建时间，ISO8601格式
   createTime?: string(name='create_time'),
@@ -295,6 +307,7 @@ async function getCustomerEx(request: GetCustomerRequest, headers: map[string]st
 }
 
 model GetOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 操作员登录名
   loginName?: string(name='login_name'),
@@ -303,8 +316,11 @@ model GetOperatorRequest = {
 }
 
 model GetOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员创建时间，ISO8601格式
   createTime?: string(name='create_time'),
@@ -354,6 +370,7 @@ async function getOperatorEx(request: GetOperatorRequest, headers: map[string]st
 }
 
 model QueryOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业ID
   customer: string(name='customer'),
@@ -368,8 +385,11 @@ model QueryOperatorRequest = {
 }
 
 model QueryOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员列表
   operators: [ Operator ](name='operators'),
@@ -401,6 +421,7 @@ async function queryOperatorEx(request: QueryOperatorRequest, headers: map[strin
 }
 
 model SearchOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业ID
   customer: string(name='customer'),
@@ -419,8 +440,11 @@ model SearchOperatorRequest = {
 }
 
 model SearchOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员列表
   operators: [ Operator ](name='operators'),
@@ -452,6 +476,7 @@ async function searchOperatorEx(request: SearchOperatorRequest, headers: map[str
 }
 
 model CreateOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业唯一标识
   customer?: string(name='customer'),
@@ -474,8 +499,11 @@ model CreateOperatorRequest = {
 }
 
 model CreateOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员唯一ID
   operatorId?: string(name='operator_id'),
@@ -501,6 +529,7 @@ async function createOperatorEx(request: CreateOperatorRequest, headers: map[str
 }
 
 model UpdateOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 邮箱
   email?: string(name='email'),
@@ -515,8 +544,11 @@ model UpdateOperatorRequest = {
 }
 
 model UpdateOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员创建时间，ISO8601格式
   createTime?: string(name='create_time'),
@@ -562,14 +594,18 @@ async function updateOperatorEx(request: UpdateOperatorRequest, headers: map[str
 }
 
 model DeleteOperatorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 操作员唯一id
   operatorId: string(name='operator_id'),
 }
 
 model DeleteOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -593,6 +629,7 @@ async function deleteOperatorEx(request: DeleteOperatorRequest, headers: map[str
 }
 
 model AddTenantMemberRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 操作员唯一id
   operatorId: string(name='operator_id'),
@@ -601,8 +638,11 @@ model AddTenantMemberRequest = {
 }
 
 model AddTenantMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -626,6 +666,7 @@ async function addTenantMemberEx(request: AddTenantMemberRequest, headers: map[s
 }
 
 model CreateTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 蚂蚁通行证uid
   antUid: string(name='ant_uid'),
@@ -634,8 +675,11 @@ model CreateTenantRequest = {
 }
 
 model CreateTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租户唯一标识
   tenant: string(name='tenant'),
@@ -661,14 +705,18 @@ async function createTenantEx(request: CreateTenantRequest, headers: map[string]
 }
 
 model GetTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 租户唯一标识
   tenant: string(name='tenant'),
 }
 
 model GetTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 蚂蚁通行证签约账户
   antAccount: string(name='ant_account'),
@@ -712,6 +760,7 @@ async function getTenantEx(request: GetTenantRequest, headers: map[string]string
 }
 
 model QueryTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业唯一标识
   customer: string(name='customer'),
@@ -722,8 +771,11 @@ model QueryTenantRequest = {
 }
 
 model QueryTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 传入的页码, 如果没有传入, 则取默认值1
   pageNum: long(name='page_num'),
@@ -755,14 +807,18 @@ async function queryTenantEx(request: QueryTenantRequest, headers: map[string]st
 }
 
 model GetAntpassportTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 蚂蚁通行证uid
   antUid: string(name='ant_uid'),
 }
 
 model GetAntpassportTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   tenant: string(name='tenant'),
 }
@@ -787,14 +843,18 @@ async function getAntpassportTenantEx(request: GetAntpassportTenantRequest, head
 }
 
 model ListAccesskeyRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 操作员或服务账号唯一ID
   userId: string(name='user_id'),
 }
 
 model ListAccesskeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // AccessKey列表
   accessKeys: [ AccessKey ](name='access_keys'),
@@ -820,12 +880,16 @@ async function listAccesskeyEx(request: ListAccesskeyRequest, headers: map[strin
 }
 
 model GetCurrentidRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model GetCurrentidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建时间，ISO8601格式
   createTime: string(name='create_time'),
@@ -859,6 +923,7 @@ async function getCurrentidEx(request: GetCurrentidRequest, headers: map[string]
 }
 
 model GetAccessorRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // Accessor关联的accessKey
   accessKeyId?: string(name='access_key_id'),
@@ -869,8 +934,11 @@ model GetAccessorRequest = {
 }
 
 model GetAccessorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // Accessor关联的AccessKey
   accessKey?: string(name='access_key'),
@@ -910,6 +978,7 @@ async function getAccessorEx(request: GetAccessorRequest, headers: map[string]st
 }
 
 model GetTenantDingtokenRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 入驻金融云的产品码
   product: string(name='product'),
@@ -918,8 +987,11 @@ model GetTenantDingtokenRequest = {
 }
 
 model GetTenantDingtokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 钉钉企业授权token
   accessToken: string(name='access_token'),
@@ -955,14 +1027,18 @@ async function getTenantDingtokenEx(request: GetTenantDingtokenRequest, headers:
 }
 
 model QueryAdminRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 租户唯一标识
   tenant: string(name='tenant'),
 }
 
 model QueryAdminResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作员列表
   operators: [ Operator ](name='operators'),
@@ -988,14 +1064,18 @@ async function queryAdminEx(request: QueryAdminRequest, headers: map[string]stri
 }
 
 model GetTenantIaasaccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 租户唯一标识
   tenant: string(name='tenant'),
 }
 
 model GetTenantIaasaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 账户关联的AccessKey
   accessKey?: string(name='access_key'),
@@ -1029,12 +1109,16 @@ async function getTenantIaasaccountEx(request: GetTenantIaasaccountRequest, head
 }
 
 model ListCustomerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model ListCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 企业列表
   customers: [ Customer ](name='customers'),
@@ -1060,6 +1144,7 @@ async function listCustomerEx(request: ListCustomerRequest, headers: map[string]
 }
 
 model CheckAlipayTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 支付宝账号关联的证件号
   certNo?: string(name='cert_no'),
@@ -1076,8 +1161,11 @@ model CheckAlipayTenantRequest = {
 }
 
 model CheckAlipayTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 智科租户id(支付宝会员id)
   tenantId?: string(name='tenant_id'),
@@ -1103,6 +1191,7 @@ async function checkAlipayTenantEx(request: CheckAlipayTenantRequest, headers: m
 }
 
 model QueryTenantStatusRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 渠道码，接入时需要申请
   channelCode: string(name='channel_code'),
@@ -1113,8 +1202,11 @@ model QueryTenantStatusRequest = {
 }
 
 model QueryTenantStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租户入住状态
   status?: string(name='status'),
@@ -1142,6 +1234,7 @@ async function queryTenantStatusEx(request: QueryTenantStatusRequest, headers: m
 }
 
 model CreateAntchainTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业名称或个人名称
   name: string(name='name'),
@@ -1174,8 +1267,11 @@ model CreateAntchainTenantRequest = {
 }
 
 model CreateAntchainTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租户id
   tenantId?: string(name='tenant_id'),
@@ -1203,6 +1299,7 @@ async function createAntchainTenantEx(request: CreateAntchainTenantRequest, head
 }
 
 model UpdateCustomerIdentityRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 客户id
   customerId?: string(name='customer_id'),
@@ -1227,8 +1324,11 @@ model UpdateCustomerIdentityRequest = {
 }
 
 model UpdateCustomerIdentityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回客户id
   customerId?: string(name='customer_id'),
@@ -1254,14 +1354,18 @@ async function updateCustomerIdentityEx(request: UpdateCustomerIdentityRequest, 
 }
 
 model CheckLoginIdRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 登录id
   loginName: string(name='login_name'),
 }
 
 model CheckLoginIdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   exist?: boolean(name='exist'),
@@ -1289,14 +1393,18 @@ async function checkLoginIdEx(request: CheckLoginIdRequest, headers: map[string]
 }
 
 model GetMasterTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 主账号id
   tenantId: string(name='tenant_id'),
 }
 
 model GetMasterTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 蚂蚁通行证签约账户
   loginName?: string(name='login_name'),
@@ -1336,14 +1444,18 @@ async function getMasterTenantEx(request: GetMasterTenantRequest, headers: map[s
 }
 
 model CheckLoginnameRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 邮箱名称
   loginName: string(name='login_name'),
 }
 
 model CheckLoginnameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   exist?: boolean(name='exist'),
@@ -1368,5 +1480,120 @@ async function checkLoginname(request: CheckLoginnameRequest): CheckLoginnameRes
 async function checkLoginnameEx(request: CheckLoginnameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckLoginnameResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.acm.loginname.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTenantTagRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryTenantTagResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 标签列表
+  tags?: [ Tag ](name='tags'),
+}
+
+/**
+ * Description: 查询租户的标签
+ * Summary: 查询租户的标签列表
+ */
+async function queryTenantTag(request: QueryTenantTagRequest): QueryTenantTagResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTenantTagEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户的标签
+ * Summary: 查询租户的标签列表
+ */
+async function queryTenantTagEx(request: QueryTenantTagRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTenantTagResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.tag.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddTenantBusinesstagRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 业务场景码
+  businessCode: string(name='business_code'),
+  // 业务场景的权限码，区分大小写
+  authCode: string(name='auth_code'),
+}
+
+model AddTenantBusinesstagResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租户增加业务标签
+ * Summary: 租户增加业务标签
+ */
+async function addTenantBusinesstag(request: AddTenantBusinesstagRequest): AddTenantBusinesstagResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addTenantBusinesstagEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租户增加业务标签
+ * Summary: 租户增加业务标签
+ */
+async function addTenantBusinesstagEx(request: AddTenantBusinesstagRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddTenantBusinesstagResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.businesstag.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveTenantBusinesstagRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 业务场景码
+  businessCode: string(name='business_code'),
+  // 业务场景的权限吗
+  authCode: string(name='auth_code'),
+}
+
+model RemoveTenantBusinesstagResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除业务标签
+ * Summary: 删除业务标签
+ */
+async function removeTenantBusinesstag(request: RemoveTenantBusinesstagRequest): RemoveTenantBusinesstagResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeTenantBusinesstagEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除业务标签
+ * Summary: 删除业务标签
+ */
+async function removeTenantBusinesstagEx(request: RemoveTenantBusinesstagRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveTenantBusinesstagResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.tenant.businesstag.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
