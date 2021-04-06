@@ -3694,7 +3694,7 @@ class IPOrder(TeaModel):
         charge_type: int = None,
         auth_price: str = None,
         guaranteed: bool = None,
-        guaranteed_amount: str = None,
+        guaranteed_fund: str = None,
         guaranteed_goods_amount: int = None,
         used_guaranteed_goods_amount: int = None,
         guaranteed_sales: str = None,
@@ -3756,7 +3756,7 @@ class IPOrder(TeaModel):
         # 是否有保底金
         self.guaranteed = guaranteed
         # 保底金金额
-        self.guaranteed_amount = guaranteed_amount
+        self.guaranteed_fund = guaranteed_fund
         # 保底商品个数（按量付费）
         self.guaranteed_goods_amount = guaranteed_goods_amount
         # 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
@@ -3800,7 +3800,7 @@ class IPOrder(TeaModel):
         self.validate_required(self.charge_type, 'charge_type')
         self.validate_required(self.auth_price, 'auth_price')
         self.validate_required(self.guaranteed, 'guaranteed')
-        self.validate_required(self.guaranteed_amount, 'guaranteed_amount')
+        self.validate_required(self.guaranteed_fund, 'guaranteed_fund')
         self.validate_required(self.guaranteed_goods_amount, 'guaranteed_goods_amount')
         self.validate_required(self.used_guaranteed_goods_amount, 'used_guaranteed_goods_amount')
         self.validate_required(self.guaranteed_sales, 'guaranteed_sales')
@@ -3863,8 +3863,8 @@ class IPOrder(TeaModel):
             result['auth_price'] = self.auth_price
         if self.guaranteed is not None:
             result['guaranteed'] = self.guaranteed
-        if self.guaranteed_amount is not None:
-            result['guaranteed_amount'] = self.guaranteed_amount
+        if self.guaranteed_fund is not None:
+            result['guaranteed_fund'] = self.guaranteed_fund
         if self.guaranteed_goods_amount is not None:
             result['guaranteed_goods_amount'] = self.guaranteed_goods_amount
         if self.used_guaranteed_goods_amount is not None:
@@ -3935,8 +3935,8 @@ class IPOrder(TeaModel):
             self.auth_price = m.get('auth_price')
         if m.get('guaranteed') is not None:
             self.guaranteed = m.get('guaranteed')
-        if m.get('guaranteed_amount') is not None:
-            self.guaranteed_amount = m.get('guaranteed_amount')
+        if m.get('guaranteed_fund') is not None:
+            self.guaranteed_fund = m.get('guaranteed_fund')
         if m.get('guaranteed_goods_amount') is not None:
             self.guaranteed_goods_amount = m.get('guaranteed_goods_amount')
         if m.get('used_guaranteed_goods_amount') is not None:
