@@ -222,7 +222,7 @@ class IPOrder extends Model
      *
      * @var string
      */
-    public $guaranteedAmount;
+    public $guaranteedFund;
 
     // 保底商品个数（按量付费）
     /**
@@ -307,7 +307,7 @@ class IPOrder extends Model
         'chargeType'                => 'charge_type',
         'authPrice'                 => 'auth_price',
         'guaranteed'                => 'guaranteed',
-        'guaranteedAmount'          => 'guaranteed_amount',
+        'guaranteedFund'            => 'guaranteed_fund',
         'guaranteedGoodsAmount'     => 'guaranteed_goods_amount',
         'usedGuaranteedGoodsAmount' => 'used_guaranteed_goods_amount',
         'guaranteedSales'           => 'guaranteed_sales',
@@ -345,7 +345,7 @@ class IPOrder extends Model
         Model::validateRequired('chargeType', $this->chargeType, true);
         Model::validateRequired('authPrice', $this->authPrice, true);
         Model::validateRequired('guaranteed', $this->guaranteed, true);
-        Model::validateRequired('guaranteedAmount', $this->guaranteedAmount, true);
+        Model::validateRequired('guaranteedFund', $this->guaranteedFund, true);
         Model::validateRequired('guaranteedGoodsAmount', $this->guaranteedGoodsAmount, true);
         Model::validateRequired('usedGuaranteedGoodsAmount', $this->usedGuaranteedGoodsAmount, true);
         Model::validateRequired('guaranteedSales', $this->guaranteedSales, true);
@@ -436,8 +436,8 @@ class IPOrder extends Model
         if (null !== $this->guaranteed) {
             $res['guaranteed'] = $this->guaranteed;
         }
-        if (null !== $this->guaranteedAmount) {
-            $res['guaranteed_amount'] = $this->guaranteedAmount;
+        if (null !== $this->guaranteedFund) {
+            $res['guaranteed_fund'] = $this->guaranteedFund;
         }
         if (null !== $this->guaranteedGoodsAmount) {
             $res['guaranteed_goods_amount'] = $this->guaranteedGoodsAmount;
@@ -550,8 +550,8 @@ class IPOrder extends Model
         if (isset($map['guaranteed'])) {
             $model->guaranteed = $map['guaranteed'];
         }
-        if (isset($map['guaranteed_amount'])) {
-            $model->guaranteedAmount = $map['guaranteed_amount'];
+        if (isset($map['guaranteed_fund'])) {
+            $model->guaranteedFund = $map['guaranteed_fund'];
         }
         if (isset($map['guaranteed_goods_amount'])) {
             $model->guaranteedGoodsAmount = $map['guaranteed_goods_amount'];
