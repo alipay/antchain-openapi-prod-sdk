@@ -141,9 +141,9 @@ namespace AntChain.SDK.BAASDT.Models
         public bool? Guaranteed { get; set; }
 
         // 保底金金额
-        [NameInMap("guaranteed_amount")]
+        [NameInMap("guaranteed_fund")]
         [Validation(Required=true)]
-        public string GuaranteedAmount { get; set; }
+        public string GuaranteedFund { get; set; }
 
         // 保底商品个数（按量付费）
         [NameInMap("guaranteed_goods_amount")]
