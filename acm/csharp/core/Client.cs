@@ -133,11 +133,11 @@ namespace AntChain.SDK.Acm
                         {"method", action},
                         {"version", version},
                         {"sign_type", "HmacSHA1"},
-                        {"req_time", AntChain.AlipayUtil.Client.GetTimestamp()},
-                        {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
+                        {"req_time", AntChain.AlipayUtil.AntchainUtils.GetTimestamp()},
+                        {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.17"},
+                        {"sdk_version", "1.0.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -160,7 +160,7 @@ namespace AntChain.SDK.Acm
                         request_.Query,
                         AlibabaCloud.Commons.Common.Query(request)
                     );
-                    request_.Query["sign"] = AntChain.AlipayUtil.Client.GetSignature(signedParam, _accessKeySecret);
+                    request_.Query["sign"] = AntChain.AlipayUtil.AntchainUtils.GetSignature(signedParam, _accessKeySecret);
                     _lastRequest = request_;
                     TeaResponse response_ = TeaCore.DoAction(request_, runtime_);
 
@@ -168,7 +168,7 @@ namespace AntChain.SDK.Acm
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.AntchainUtils.HasError(raw, _accessKeySecret))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
@@ -257,11 +257,11 @@ namespace AntChain.SDK.Acm
                         {"method", action},
                         {"version", version},
                         {"sign_type", "HmacSHA1"},
-                        {"req_time", AntChain.AlipayUtil.Client.GetTimestamp()},
-                        {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
+                        {"req_time", AntChain.AlipayUtil.AntchainUtils.GetTimestamp()},
+                        {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.17"},
+                        {"sdk_version", "1.0.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -284,7 +284,7 @@ namespace AntChain.SDK.Acm
                         request_.Query,
                         AlibabaCloud.Commons.Common.Query(request)
                     );
-                    request_.Query["sign"] = AntChain.AlipayUtil.Client.GetSignature(signedParam, _accessKeySecret);
+                    request_.Query["sign"] = AntChain.AlipayUtil.AntchainUtils.GetSignature(signedParam, _accessKeySecret);
                     _lastRequest = request_;
                     TeaResponse response_ = await TeaCore.DoActionAsync(request_, runtime_);
 
@@ -292,7 +292,7 @@ namespace AntChain.SDK.Acm
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.AntchainUtils.HasError(raw, _accessKeySecret))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
@@ -1407,6 +1407,132 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckLoginnameResponse>(await DoRequestAsync("1.0", "antcloud.acm.loginname.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询租户的标签
+         * Summary: 查询租户的标签列表
+         */
+        public QueryTenantTagResponse QueryTenantTag(QueryTenantTagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTenantTagEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户的标签
+         * Summary: 查询租户的标签列表
+         */
+        public async Task<QueryTenantTagResponse> QueryTenantTagAsync(QueryTenantTagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTenantTagExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户的标签
+         * Summary: 查询租户的标签列表
+         */
+        public QueryTenantTagResponse QueryTenantTagEx(QueryTenantTagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTenantTagResponse>(DoRequest("1.0", "antcloud.acm.tenant.tag.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询租户的标签
+         * Summary: 查询租户的标签列表
+         */
+        public async Task<QueryTenantTagResponse> QueryTenantTagExAsync(QueryTenantTagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTenantTagResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.tag.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租户增加业务标签
+         * Summary: 租户增加业务标签
+         */
+        public AddTenantBusinesstagResponse AddTenantBusinesstag(AddTenantBusinesstagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddTenantBusinesstagEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租户增加业务标签
+         * Summary: 租户增加业务标签
+         */
+        public async Task<AddTenantBusinesstagResponse> AddTenantBusinesstagAsync(AddTenantBusinesstagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddTenantBusinesstagExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租户增加业务标签
+         * Summary: 租户增加业务标签
+         */
+        public AddTenantBusinesstagResponse AddTenantBusinesstagEx(AddTenantBusinesstagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddTenantBusinesstagResponse>(DoRequest("1.0", "antcloud.acm.tenant.businesstag.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租户增加业务标签
+         * Summary: 租户增加业务标签
+         */
+        public async Task<AddTenantBusinesstagResponse> AddTenantBusinesstagExAsync(AddTenantBusinesstagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddTenantBusinesstagResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.businesstag.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除业务标签
+         * Summary: 删除业务标签
+         */
+        public RemoveTenantBusinesstagResponse RemoveTenantBusinesstag(RemoveTenantBusinesstagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RemoveTenantBusinesstagEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除业务标签
+         * Summary: 删除业务标签
+         */
+        public async Task<RemoveTenantBusinesstagResponse> RemoveTenantBusinesstagAsync(RemoveTenantBusinesstagRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RemoveTenantBusinesstagExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除业务标签
+         * Summary: 删除业务标签
+         */
+        public RemoveTenantBusinesstagResponse RemoveTenantBusinesstagEx(RemoveTenantBusinesstagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveTenantBusinesstagResponse>(DoRequest("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除业务标签
+         * Summary: 删除业务标签
+         */
+        public async Task<RemoveTenantBusinesstagResponse> RemoveTenantBusinesstagExAsync(RemoveTenantBusinesstagRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RemoveTenantBusinesstagResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

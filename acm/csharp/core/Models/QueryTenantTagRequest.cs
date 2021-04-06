@@ -8,16 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class DeleteOperatorRequest : TeaModel {
+    public class QueryTenantTagRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 操作员唯一id
-        [NameInMap("operator_id")]
+        // 租户id
+        [NameInMap("tenant_id")]
         [Validation(Required=true)]
-        public string OperatorId { get; set; }
+        public string TenantId { get; set; }
 
     }
 
