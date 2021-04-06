@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.acm.models;
 
 import com.aliyun.tea.*;
 
-public class CheckLoginIdResponse extends TeaModel {
+public class QueryTenantTagResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class CheckLoginIdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否存在
-    @NameInMap("exist")
-    public Boolean exist;
+    // 标签列表
+    @NameInMap("tags")
+    public java.util.List<Tag> tags;
 
-    // 所属的租户id
-    @NameInMap("tenant_id")
-    public String tenantId;
-
-    public static CheckLoginIdResponse build(java.util.Map<String, ?> map) throws Exception {
-        CheckLoginIdResponse self = new CheckLoginIdResponse();
+    public static QueryTenantTagResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTenantTagResponse self = new QueryTenantTagResponse();
         return TeaModel.build(map, self);
     }
 
-    public CheckLoginIdResponse setReqMsgId(String reqMsgId) {
+    public QueryTenantTagResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CheckLoginIdResponse setResultCode(String resultCode) {
+    public QueryTenantTagResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CheckLoginIdResponse setResultMsg(String resultMsg) {
+    public QueryTenantTagResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class CheckLoginIdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CheckLoginIdResponse setExist(Boolean exist) {
-        this.exist = exist;
+    public QueryTenantTagResponse setTags(java.util.List<Tag> tags) {
+        this.tags = tags;
         return this;
     }
-    public Boolean getExist() {
-        return this.exist;
-    }
-
-    public CheckLoginIdResponse setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
+    public java.util.List<Tag> getTags() {
+        return this.tags;
     }
 
 }

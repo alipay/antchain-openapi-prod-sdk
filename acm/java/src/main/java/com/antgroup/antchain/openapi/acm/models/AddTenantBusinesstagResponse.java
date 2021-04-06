@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.acm.models;
 
 import com.aliyun.tea.*;
 
-public class ListCustomerResponse extends TeaModel {
+public class AddTenantBusinesstagResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,17 +16,12 @@ public class ListCustomerResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 企业列表
-    @NameInMap("customers")
-    @Validation(required = true)
-    public java.util.List<Customer> customers;
-
-    public static ListCustomerResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListCustomerResponse self = new ListCustomerResponse();
+    public static AddTenantBusinesstagResponse build(java.util.Map<String, ?> map) throws Exception {
+        AddTenantBusinesstagResponse self = new AddTenantBusinesstagResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListCustomerResponse setReqMsgId(String reqMsgId) {
+    public AddTenantBusinesstagResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -34,7 +29,7 @@ public class ListCustomerResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ListCustomerResponse setResultCode(String resultCode) {
+    public AddTenantBusinesstagResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -42,20 +37,12 @@ public class ListCustomerResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ListCustomerResponse setResultMsg(String resultMsg) {
+    public AddTenantBusinesstagResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public ListCustomerResponse setCustomers(java.util.List<Customer> customers) {
-        this.customers = customers;
-        return this;
-    }
-    public java.util.List<Customer> getCustomers() {
-        return this.customers;
     }
 
 }

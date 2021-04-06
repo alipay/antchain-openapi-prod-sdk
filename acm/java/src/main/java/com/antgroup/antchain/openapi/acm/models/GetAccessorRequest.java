@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.acm.models;
 import com.aliyun.tea.*;
 
 public class GetAccessorRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 

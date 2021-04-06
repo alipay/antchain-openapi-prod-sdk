@@ -106,11 +106,11 @@ public class Client {
                     new TeaPair("method", action),
                     new TeaPair("version", version),
                     new TeaPair("sign_type", "HmacSHA1"),
-                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.Client.getTimestamp()),
-                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.Client.getNonce()),
+                    new TeaPair("req_time", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getTimestamp()),
+                    new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.17")
+                    new TeaPair("sdk_version", "1.0.19")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -130,7 +130,7 @@ public class Client {
                     request_.query,
                     com.aliyun.common.Common.query(request)
                 );
-                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.Client.getSignature(signedParam, _accessKeySecret));
+                request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
                 TeaResponse response_ = Tea.doAction(request_, runtime_);
 
@@ -138,7 +138,7 @@ public class Client {
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
                 java.util.Map<String, Object> res = com.aliyun.teautil.Common.assertAsMap(obj);
                 java.util.Map<String, Object> resp = com.aliyun.teautil.Common.assertAsMap(res.get("response"));
-                if (com.antgroup.antchain.openapi.antchain.util.Client.hasError(raw, _accessKeySecret)) {
+                if (com.antgroup.antchain.openapi.antchain.util.AntchainUtils.hasError(raw, _accessKeySecret)) {
                     throw new TeaException(TeaConverter.buildMap(
                         new TeaPair("message", resp.get("result_msg")),
                         new TeaPair("data", resp),
@@ -651,5 +651,62 @@ public class Client {
     public CheckLoginnameResponse checkLoginnameEx(CheckLoginnameRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.loginname.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckLoginnameResponse());
+    }
+
+    /**
+     * Description: 查询租户的标签
+     * Summary: 查询租户的标签列表
+     */
+    public QueryTenantTagResponse queryTenantTag(QueryTenantTagRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTenantTagEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询租户的标签
+     * Summary: 查询租户的标签列表
+     */
+    public QueryTenantTagResponse queryTenantTagEx(QueryTenantTagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.tag.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTenantTagResponse());
+    }
+
+    /**
+     * Description: 租户增加业务标签
+     * Summary: 租户增加业务标签
+     */
+    public AddTenantBusinesstagResponse addTenantBusinesstag(AddTenantBusinesstagRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addTenantBusinesstagEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租户增加业务标签
+     * Summary: 租户增加业务标签
+     */
+    public AddTenantBusinesstagResponse addTenantBusinesstagEx(AddTenantBusinesstagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.businesstag.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddTenantBusinesstagResponse());
+    }
+
+    /**
+     * Description: 删除业务标签
+     * Summary: 删除业务标签
+     */
+    public RemoveTenantBusinesstagResponse removeTenantBusinesstag(RemoveTenantBusinesstagRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeTenantBusinesstagEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除业务标签
+     * Summary: 删除业务标签
+     */
+    public RemoveTenantBusinesstagResponse removeTenantBusinesstagEx(RemoveTenantBusinesstagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveTenantBusinesstagResponse());
     }
 }
