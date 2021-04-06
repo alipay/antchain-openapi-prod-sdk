@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.18',
+    sdk_version = '1.2.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1079,7 +1079,7 @@ model IPOrder {
   // 是否有保底金
   guaranteed: boolean(name='guaranteed', example='true, false'),
   // 保底金金额
-  guaranteedAmount: string(name='guaranteed_amount', example='10000.00'),
+  guaranteedFund: string(name='guaranteed_fund', example='10000.00'),
   // 保底商品个数（按量付费）
   guaranteedGoodsAmount: long(name='guaranteed_goods_amount', example='1000'),
   // 已使用的保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
