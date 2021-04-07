@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ListComputerRequest extends Model
 {
+    // OAuth模式下的授权token
     /**
      * @var string
      */
@@ -42,13 +43,27 @@ class ListComputerRequest extends Model
      * @var string
      */
     public $workspace;
+
+    // CMP模式下使用的token，一般场景勿用
+    /**
+     * @var string
+     */
+    public $cloudManageToken;
+
+    // vpc_iaas_id
+    /**
+     * @var string
+     */
+    public $vpcIaasId;
     protected $_name = [
-        'authToken'     => 'auth_token',
-        'appServiceIds' => 'app_service_ids',
-        'currentPage'   => 'current_page',
-        'name'          => 'name',
-        'pageSize'      => 'page_size',
-        'workspace'     => 'workspace',
+        'authToken'        => 'auth_token',
+        'appServiceIds'    => 'app_service_ids',
+        'currentPage'      => 'current_page',
+        'name'             => 'name',
+        'pageSize'         => 'page_size',
+        'workspace'        => 'workspace',
+        'cloudManageToken' => 'cloud_manage_token',
+        'vpcIaasId'        => 'vpc_iaas_id',
     ];
 
     public function validate()
@@ -76,6 +91,12 @@ class ListComputerRequest extends Model
         }
         if (null !== $this->workspace) {
             $res['workspace'] = $this->workspace;
+        }
+        if (null !== $this->cloudManageToken) {
+            $res['cloud_manage_token'] = $this->cloudManageToken;
+        }
+        if (null !== $this->vpcIaasId) {
+            $res['vpc_iaas_id'] = $this->vpcIaasId;
         }
 
         return $res;
@@ -108,6 +129,12 @@ class ListComputerRequest extends Model
         }
         if (isset($map['workspace'])) {
             $model->workspace = $map['workspace'];
+        }
+        if (isset($map['cloud_manage_token'])) {
+            $model->cloudManageToken = $map['cloud_manage_token'];
+        }
+        if (isset($map['vpc_iaas_id'])) {
+            $model->vpcIaasId = $map['vpc_iaas_id'];
         }
 
         return $model;

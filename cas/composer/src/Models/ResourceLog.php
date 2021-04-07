@@ -133,7 +133,7 @@ class ResourceLog extends Model
         Model::validateRequired('message', $this->message, true);
         Model::validateRequired('taskId', $this->taskId, true);
         Model::validateRequired('taskTimes', $this->taskTimes, true);
-        Model::validatePattern('logTime', $this->logTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]');
+        Model::validatePattern('logTime', $this->logTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

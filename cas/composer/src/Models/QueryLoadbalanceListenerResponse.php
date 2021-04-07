@@ -8,16 +8,19 @@ use AlibabaCloud\Tea\Model;
 
 class QueryLoadbalanceListenerResponse extends Model
 {
+    // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
      */
     public $reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     /**
      * @var string
      */
     public $resultCode;
 
+    // 异常信息的文本描述
     /**
      * @var string
      */

@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class CreateComputerRequest extends Model
 {
+    // OAuth模式下的授权token
     /**
      * @var string
      */
@@ -203,6 +204,18 @@ class CreateComputerRequest extends Model
      * @var MapStringToStringEntity[]
      */
     public $tags;
+
+    // cmp模式下使用的vpc，一般场景勿用
+    /**
+     * @var string
+     */
+    public $vpcIaasId;
+
+    // cmp模式下传的token，一般场景勿用
+    /**
+     * @var string
+     */
+    public $cloudManageToken;
     protected $_name = [
         'authToken'             => 'auth_token',
         'appId'                 => 'app_id',
@@ -233,6 +246,8 @@ class CreateComputerRequest extends Model
         'zone'                  => 'zone',
         'zoneId'                => 'zone_id',
         'tags'                  => 'tags',
+        'vpcIaasId'             => 'vpc_iaas_id',
+        'cloudManageToken'      => 'cloud_manage_token',
     ];
 
     public function validate()
@@ -351,6 +366,12 @@ class CreateComputerRequest extends Model
                 }
             }
         }
+        if (null !== $this->vpcIaasId) {
+            $res['vpc_iaas_id'] = $this->vpcIaasId;
+        }
+        if (null !== $this->cloudManageToken) {
+            $res['cloud_manage_token'] = $this->cloudManageToken;
+        }
 
         return $res;
     }
@@ -461,6 +482,12 @@ class CreateComputerRequest extends Model
                     $model->tags[$n++] = null !== $item ? MapStringToStringEntity::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['vpc_iaas_id'])) {
+            $model->vpcIaasId = $map['vpc_iaas_id'];
+        }
+        if (isset($map['cloud_manage_token'])) {
+            $model->cloudManageToken = $map['cloud_manage_token'];
         }
 
         return $model;
