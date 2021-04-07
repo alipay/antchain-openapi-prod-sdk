@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.cas.models;
 import com.aliyun.tea.*;
 
 public class CreateComputerRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -149,6 +150,14 @@ public class CreateComputerRequest extends TeaModel {
     // 公有云上标签
     @NameInMap("tags")
     public java.util.List<MapStringToStringEntity> tags;
+
+    // cmp模式下使用的vpc，一般场景勿用
+    @NameInMap("vpc_iaas_id")
+    public String vpcIaasId;
+
+    // cmp模式下传的token，一般场景勿用
+    @NameInMap("cloud_manage_token")
+    public String cloudManageToken;
 
     public static CreateComputerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateComputerRequest self = new CreateComputerRequest();
@@ -385,6 +394,22 @@ public class CreateComputerRequest extends TeaModel {
     }
     public java.util.List<MapStringToStringEntity> getTags() {
         return this.tags;
+    }
+
+    public CreateComputerRequest setVpcIaasId(String vpcIaasId) {
+        this.vpcIaasId = vpcIaasId;
+        return this;
+    }
+    public String getVpcIaasId() {
+        return this.vpcIaasId;
+    }
+
+    public CreateComputerRequest setCloudManageToken(String cloudManageToken) {
+        this.cloudManageToken = cloudManageToken;
+        return this;
+    }
+    public String getCloudManageToken() {
+        return this.cloudManageToken;
     }
 
 }

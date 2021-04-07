@@ -6,7 +6,7 @@ import com.aliyun.tea.*;
 public class RouteTable extends TeaModel {
     // 路由表的创建时间。
     @NameInMap("creation_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String creationTime;
 
     // 路由表所属的路由器类型，取值：

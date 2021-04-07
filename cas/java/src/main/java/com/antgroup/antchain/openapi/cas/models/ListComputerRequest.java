@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.cas.models;
 import com.aliyun.tea.*;
 
 public class ListComputerRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -27,6 +28,14 @@ public class ListComputerRequest extends TeaModel {
     @NameInMap("workspace")
     @Validation(required = true)
     public String workspace;
+
+    // CMP模式下使用的token，一般场景勿用
+    @NameInMap("cloud_manage_token")
+    public String cloudManageToken;
+
+    // vpc_iaas_id
+    @NameInMap("vpc_iaas_id")
+    public String vpcIaasId;
 
     public static ListComputerRequest build(java.util.Map<String, ?> map) throws Exception {
         ListComputerRequest self = new ListComputerRequest();
@@ -79,6 +88,22 @@ public class ListComputerRequest extends TeaModel {
     }
     public String getWorkspace() {
         return this.workspace;
+    }
+
+    public ListComputerRequest setCloudManageToken(String cloudManageToken) {
+        this.cloudManageToken = cloudManageToken;
+        return this;
+    }
+    public String getCloudManageToken() {
+        return this.cloudManageToken;
+    }
+
+    public ListComputerRequest setVpcIaasId(String vpcIaasId) {
+        this.vpcIaasId = vpcIaasId;
+        return this;
+    }
+    public String getVpcIaasId() {
+        return this.vpcIaasId;
     }
 
 }
