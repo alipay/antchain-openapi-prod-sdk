@@ -231,9 +231,9 @@ type Database struct {
 	// type
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// vpc_id
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
 	// v_switch_iaas_id
@@ -650,9 +650,9 @@ type DatabaseAccount struct {
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s DatabaseAccount) String() string {
@@ -754,11 +754,11 @@ type UserInfo struct {
 	// 个人照片路径
 	PersonalPhoto *string `json:"personal_photo,omitempty" xml:"personal_photo,omitempty"`
 	// 上次登录时间.
-	LastLogonTime *string `json:"last_logon_time,omitempty" xml:"last_logon_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	LastLogonTime *string `json:"last_logon_time,omitempty" xml:"last_logon_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s UserInfo) String() string {
@@ -1161,9 +1161,9 @@ type CodeCommit struct {
 	// 仓库名称
 	RepoName *string `json:"repo_name,omitempty" xml:"repo_name,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s CodeCommit) String() string {
@@ -1512,9 +1512,9 @@ type Disk struct {
 	// SYSTEM, DATA
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspaceId
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 	// zoneId
@@ -1649,13 +1649,13 @@ type AppLifeCycle struct {
 	// 上次发布版本
 	LastDeployVersion *string `json:"last_deploy_version,omitempty" xml:"last_deploy_version,omitempty" require:"true"`
 	// 上次发布时间
-	LastDeployTime *string `json:"last_deploy_time,omitempty" xml:"last_deploy_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	LastDeployTime *string `json:"last_deploy_time,omitempty" xml:"last_deploy_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 上线时间
-	OnlineTime *string `json:"online_time,omitempty" xml:"online_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	OnlineTime *string `json:"online_time,omitempty" xml:"online_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 创建时间
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s AppLifeCycle) String() string {
@@ -1731,9 +1731,9 @@ type AppExtraInfo struct {
 	// 模板类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 应用扩展信息ID
 	AppExtrainfoId *string `json:"app_extrainfo_id,omitempty" xml:"app_extrainfo_id,omitempty"`
 	// 应用ID
@@ -1906,9 +1906,9 @@ type LoadBalancer struct {
 	// lb状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// vip_addresses
 	VipAddresses []*string `json:"vip_addresses,omitempty" xml:"vip_addresses,omitempty" type:"Repeated"`
 	// vip_address_type
@@ -2160,9 +2160,9 @@ type AppLevel struct {
 	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s AppLevel) String() string {
@@ -2543,7 +2543,7 @@ type Resource struct {
 	// instance_charge_type
 	InstanceChargeType *string `json:"instance_charge_type,omitempty" xml:"instance_charge_type,omitempty"`
 	// expiredTime
-	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// auto_renew
 	AutoRenew *bool `json:"auto_renew,omitempty" xml:"auto_renew,omitempty"`
 	// autoRenewPeriod
@@ -2559,9 +2559,9 @@ type Resource struct {
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s Resource) String() string {
@@ -2658,9 +2658,9 @@ type AppManifest struct {
 	// store_location
 	StoreLocation *string `json:"store_location,omitempty" xml:"store_location,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
@@ -2837,9 +2837,9 @@ type AppDomain struct {
 	// toRootPath
 	ToRootPath *string `json:"to_root_path,omitempty" xml:"to_root_path,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s AppDomain) String() string {
@@ -2955,9 +2955,9 @@ type AppView struct {
 	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 工作空间ID
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 	// 负责人名称
@@ -3205,9 +3205,9 @@ type AppService struct {
 	// techstack_name
 	TechstackName *string `json:"techstack_name,omitempty" xml:"techstack_name,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
@@ -4228,9 +4228,9 @@ type Task struct {
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 	// request
@@ -4332,9 +4332,9 @@ type WorkspaceDc struct {
 	// datacenterType
 	DatacenterType *string `json:"datacenter_type,omitempty" xml:"datacenter_type,omitempty" require:"true"`
 	// gmtCreate
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// gmtModified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s WorkspaceDc) String() string {
@@ -4443,7 +4443,7 @@ type Computer struct {
 	// cpu_shared
 	CpuShared *bool `json:"cpu_shared,omitempty" xml:"cpu_shared,omitempty"`
 	// 实例创建时间
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// data_disk
 	DataDisks []*Disk `json:"data_disks,omitempty" xml:"data_disks,omitempty" type:"Repeated"`
 	// 这是SIGMA模式下的专用字段，阿里云模式下无意义
@@ -4453,7 +4453,7 @@ type Computer struct {
 	// elastic_ip
 	ElasticIp *string `json:"elastic_ip,omitempty" xml:"elastic_ip,omitempty"`
 	// 过期时间
-	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// ecs iaas id
 	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
 	// iaasStatus
@@ -4521,9 +4521,9 @@ type Computer struct {
 	// CPU线程数。
 	ThreadsPerCore *int64 `json:"threads_per_core,omitempty" xml:"threads_per_core,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// vpcId
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty"`
 	// vSwitchIaasId
@@ -4906,9 +4906,9 @@ type ZoneDto struct {
 	// description
 	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s ZoneDto) String() string {
@@ -4993,9 +4993,9 @@ type DbSchema struct {
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s DbSchema) String() string {
@@ -5124,9 +5124,9 @@ type Buildpack struct {
 	// 已退役 RETIRED
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 创建日期
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近修改时间
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 技术栈信息汇总
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 可用 USABLE
@@ -5629,9 +5629,9 @@ type UserDTO struct {
 	// 用户ID
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 客户ID
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
 	// 用户类型
@@ -5708,7 +5708,7 @@ type VSwitchVO struct {
 	// 换机的IPv4网段
 	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty"`
 	// 交换机创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 可用ip数目
 	AvailableIpAddressCount *int64 `json:"available_ip_address_count,omitempty" xml:"available_ip_address_count,omitempty"`
 }
@@ -6044,9 +6044,9 @@ type TaskVO struct {
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
 	// resource
@@ -6121,7 +6121,7 @@ type ResourceLog struct {
 	// host
 	Host *string `json:"host,omitempty" xml:"host,omitempty"`
 	// log_time
-	LogTime *string `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	LogTime *string `json:"log_time,omitempty" xml:"log_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// message
 	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
 	// resource_id
@@ -6285,9 +6285,9 @@ type RequestVO struct {
 	// type
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utc_modified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// tasks
 	Tasks []*Task `json:"tasks,omitempty" xml:"tasks,omitempty" type:"Repeated"`
 }
@@ -6475,7 +6475,7 @@ type Connection struct {
 	// access_secret
 	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
 	// created_time
-	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	CreatedTime *string `json:"created_time,omitempty" xml:"created_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// executor
 	Executor *string `json:"executor,omitempty" xml:"executor,omitempty"`
 	// id
@@ -6483,7 +6483,7 @@ type Connection struct {
 	// identity
 	Identity *string `json:"identity,omitempty" xml:"identity,omitempty"`
 	// 修改时间
-	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	ModifiedTime *string `json:"modified_time,omitempty" xml:"modified_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// plug
@@ -6587,7 +6587,7 @@ type ComputerImportVO struct {
 	// joined security group infos
 	JoinedSecurityGroup []*JoinedSecurityGroupVO `json:"joined_security_group,omitempty" xml:"joined_security_group,omitempty" type:"Repeated"`
 	// creation time
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// import info
 	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty"`
 }
@@ -6713,7 +6713,7 @@ type AppDomainQuery struct {
 	// tenantId
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 分页大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// query_type
@@ -6870,7 +6870,7 @@ type LoadBalancerImportVO struct {
 	// public_ip_address
 	PublicIpAddress []*string `json:"public_ip_address,omitempty" xml:"public_ip_address,omitempty" type:"Repeated"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// import_info
 	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
 }
@@ -6959,7 +6959,7 @@ type AppQuery struct {
 	// slbCount
 	SlbCount *string `json:"slb_count,omitempty" xml:"slb_count,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// isOnePartyRequest
 	IsOnePartyRequest *bool `json:"is_one_party_request,omitempty" xml:"is_one_party_request,omitempty"`
 	// 分页大小
@@ -8026,7 +8026,7 @@ type DatabaseImportVO struct {
 	// net_type
 	NetType *string `json:"net_type,omitempty" xml:"net_type,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// importInfo
 	ImportInfo *ImportVO `json:"import_info,omitempty" xml:"import_info,omitempty" require:"true"`
 }
@@ -8413,9 +8413,9 @@ type WorkspaceDto struct {
 	// type
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspaceRegionDto
 	WorkspaceRegionDto *WorkspaceRegionDto `json:"workspace_region_dto,omitempty" xml:"workspace_region_dto,omitempty"`
 }
@@ -8733,7 +8733,7 @@ type AppLevelQuery struct {
 	// tenant_id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// utc_create
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 当前页数
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// orders
@@ -8885,7 +8885,7 @@ func (s *ComputerType) SetStatus(v string) *ComputerType {
 // 路由表信息
 type RouteTable struct {
 	// 路由表的创建时间。
-	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 路由表所属的路由器类型，取值：
 	//
 	// VRouter：VPC路由器。
@@ -9262,9 +9262,9 @@ type RegionDto struct {
 	// state
 	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// utcModified
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// zoneDtos
 	ZoneDtos []*ZoneDto `json:"zone_dtos,omitempty" xml:"zone_dtos,omitempty" require:"true" type:"Repeated"`
 }
@@ -9363,9 +9363,9 @@ type TenantWorkspace struct {
 	// displayName
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
 	// gmtCreate
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// gmtModified
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 	// name
@@ -9533,9 +9533,9 @@ type VpcVO struct {
 	// vpc id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 最近一次修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s VpcVO) String() string {
@@ -9810,7 +9810,7 @@ type SecurityGroupVO struct {
 	// type
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// utcCreate
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// instanceCount
 	InstanceCount *int64 `json:"instance_count,omitempty" xml:"instance_count,omitempty"`
 }
@@ -9944,6 +9944,7 @@ func (s *VPCParam) SetVpcName(v string) *VPCParam {
 }
 
 type BatchdeleteApplicationBuildRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -9975,9 +9976,12 @@ func (s *BatchdeleteApplicationBuildRequest) SetBuildIds(v []*string) *Batchdele
 }
 
 type BatchdeleteApplicationBuildResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// Map<String, Boolean>
 	Data []*MapStringToBooleanEntity `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -10011,6 +10015,7 @@ func (s *BatchdeleteApplicationBuildResponse) SetData(v []*MapStringToBooleanEnt
 }
 
 type ListApplicationManifestRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10049,9 +10054,12 @@ func (s *ListApplicationManifestRequest) SetWorkspaceId(v string) *ListApplicati
 }
 
 type ListApplicationManifestResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// List<AppManifest>
 	Data []*AppManifest `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 总数
@@ -10092,6 +10100,7 @@ func (s *ListApplicationManifestResponse) SetTotalCount(v int64) *ListApplicatio
 }
 
 type BatchdeleteApplicationPackageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10123,9 +10132,12 @@ func (s *BatchdeleteApplicationPackageRequest) SetVersionIds(v []*string) *Batch
 }
 
 type BatchdeleteApplicationPackageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// Map<String, Boolean>
 	Data []*MapStringToBooleanEntity `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -10159,6 +10171,7 @@ func (s *BatchdeleteApplicationPackageResponse) SetData(v []*MapStringToBooleanE
 }
 
 type CreateApplicationPackageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10190,9 +10203,12 @@ func (s *CreateApplicationPackageRequest) SetManifest(v *AppManifest) *CreateApp
 }
 
 type CreateApplicationPackageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10226,6 +10242,7 @@ func (s *CreateApplicationPackageResponse) SetData(v string) *CreateApplicationP
 }
 
 type DeleteApplicationPackageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// version_id
 	VersionId *string `json:"version_id,omitempty" xml:"version_id,omitempty" require:"true"`
@@ -10257,9 +10274,12 @@ func (s *DeleteApplicationPackageRequest) SetAppId(v string) *DeleteApplicationP
 }
 
 type DeleteApplicationPackageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10293,6 +10313,7 @@ func (s *DeleteApplicationPackageResponse) SetData(v bool) *DeleteApplicationPac
 }
 
 type ListApplicationPackageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 工作空间id，用于做鉴权
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -10331,9 +10352,12 @@ func (s *ListApplicationPackageRequest) SetQuery(v *AppQuery) *ListApplicationPa
 }
 
 type ListApplicationPackageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// List<AppPackageListView>
 	Data []*AppPackageListView `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 总数
@@ -10374,6 +10398,7 @@ func (s *ListApplicationPackageResponse) SetTotalCount(v int64) *ListApplication
 }
 
 type UploadApplicationPackageconfigRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -10405,9 +10430,12 @@ func (s *UploadApplicationPackageconfigRequest) SetAppId(v string) *UploadApplic
 }
 
 type UploadApplicationPackageconfigResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// Map<String, Boolean>
 	Data []*MapStringToBooleanEntity `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -10441,6 +10469,7 @@ func (s *UploadApplicationPackageconfigResponse) SetData(v []*MapStringToBoolean
 }
 
 type ListAppserviceCellRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -10465,9 +10494,12 @@ func (s *ListAppserviceCellRequest) SetWorkspaceId(v string) *ListAppserviceCell
 }
 
 type ListAppserviceCellResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// List<CellView>
 	Data []*CellView `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -10501,6 +10533,7 @@ func (s *ListAppserviceCellResponse) SetData(v []*CellView) *ListAppserviceCellR
 }
 
 type CreateAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_service
 	AppService *AppService `json:"app_service,omitempty" xml:"app_service,omitempty" require:"true"`
@@ -10532,9 +10565,12 @@ func (s *CreateAppserviceRequest) SetWorkspaceId(v string) *CreateAppserviceRequ
 }
 
 type CreateAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建结果
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10568,6 +10604,7 @@ func (s *CreateAppserviceResponse) SetData(v string) *CreateAppserviceResponse {
 }
 
 type GetAppserviceDefaultRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10599,9 +10636,12 @@ func (s *GetAppserviceDefaultRequest) SetWorkspaceId(v string) *GetAppserviceDef
 }
 
 type GetAppserviceDefaultResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// AppService
 	Data *AppService `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10635,6 +10675,7 @@ func (s *GetAppserviceDefaultResponse) SetData(v *AppService) *GetAppserviceDefa
 }
 
 type ExistAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10673,9 +10714,12 @@ func (s *ExistAppserviceRequest) SetWorkspaceId(v string) *ExistAppserviceReques
 }
 
 type ExistAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10709,6 +10753,7 @@ func (s *ExistAppserviceResponse) SetData(v bool) *ExistAppserviceResponse {
 }
 
 type UpdateAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_service
 	AppService *AppService `json:"app_service,omitempty" xml:"app_service,omitempty" require:"true"`
@@ -10740,9 +10785,12 @@ func (s *UpdateAppserviceRequest) SetWorkspaceId(v string) *UpdateAppserviceRequ
 }
 
 type UpdateAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 更新结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -10776,6 +10824,7 @@ func (s *UpdateAppserviceResponse) SetData(v bool) *UpdateAppserviceResponse {
 }
 
 type QueryBuildpackRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 技术栈版本
 	BpVersion *string `json:"bp_version,omitempty" xml:"bp_version,omitempty"`
@@ -10904,9 +10953,12 @@ func (s *QueryBuildpackRequest) SetWorkspace(v string) *QueryBuildpackRequest {
 }
 
 type QueryBuildpackResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 当前页码
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// 技术栈列表
@@ -10968,6 +11020,7 @@ func (s *QueryBuildpackResponse) SetTotalSize(v int64) *QueryBuildpackResponse {
 }
 
 type GetApplicationDetailRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用ID
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -10999,9 +11052,12 @@ func (s *GetApplicationDetailRequest) SetWorkspaceId(v string) *GetApplicationDe
 }
 
 type GetApplicationDetailResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用详情信息
 	Data *AppView `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11035,6 +11091,7 @@ func (s *GetApplicationDetailResponse) SetData(v *AppView) *GetApplicationDetail
 }
 
 type QueryUserRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 当前页码
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -11171,9 +11228,12 @@ func (s *QueryUserRequest) SetTypes(v []*string) *QueryUserRequest {
 }
 
 type QueryUserResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用户列表
 	Data []*UserDTO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 页数
@@ -11228,6 +11288,7 @@ func (s *QueryUserResponse) SetTotalCount(v int64) *QueryUserResponse {
 }
 
 type ListAppgroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 动态查询
 	DynamicQuery *DynamicQuery `json:"dynamic_query,omitempty" xml:"dynamic_query,omitempty"`
@@ -11259,9 +11320,12 @@ func (s *ListAppgroupRequest) SetQuery(v *AppDomainQuery) *ListAppgroupRequest {
 }
 
 type ListAppgroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*AppDomainView `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// totalCount
@@ -11302,6 +11366,7 @@ func (s *ListAppgroupResponse) SetTotalCount(v int64) *ListAppgroupResponse {
 }
 
 type ExistAppgroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -11333,9 +11398,12 @@ func (s *ExistAppgroupRequest) SetParentId(v string) *ExistAppgroupRequest {
 }
 
 type ExistAppgroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11369,6 +11437,7 @@ func (s *ExistAppgroupResponse) SetData(v bool) *ExistAppgroupResponse {
 }
 
 type CreateAppgroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// domain tree
 	Domain *AppDomainFlatten `json:"domain,omitempty" xml:"domain,omitempty" require:"true"`
@@ -11400,9 +11469,12 @@ func (s *CreateAppgroupRequest) SetTenantId(v string) *CreateAppgroupRequest {
 }
 
 type CreateAppgroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11436,6 +11508,7 @@ func (s *CreateAppgroupResponse) SetData(v string) *CreateAppgroupResponse {
 }
 
 type ListAppgroupOwnerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 用户查询
 	Query *UserQuery `json:"query,omitempty" xml:"query,omitempty" require:"true"`
@@ -11467,9 +11540,12 @@ func (s *ListAppgroupOwnerRequest) SetTenantId(v string) *ListAppgroupOwnerReque
 }
 
 type ListAppgroupOwnerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用户列表
 	Data []*UserDTO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 总数
@@ -11510,6 +11586,7 @@ func (s *ListAppgroupOwnerResponse) SetTotalCount(v int64) *ListAppgroupOwnerRes
 }
 
 type GetAppgroupTreeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -11527,9 +11604,12 @@ func (s *GetAppgroupTreeRequest) SetAuthToken(v string) *GetAppgroupTreeRequest 
 }
 
 type GetAppgroupTreeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用列表，包含依赖关系
 	Data []*AppDomainFlatten `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -11563,6 +11643,7 @@ func (s *GetAppgroupTreeResponse) SetData(v []*AppDomainFlatten) *GetAppgroupTre
 }
 
 type GetAppgroupSystemtreeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -11580,9 +11661,12 @@ func (s *GetAppgroupSystemtreeRequest) SetAuthToken(v string) *GetAppgroupSystem
 }
 
 type GetAppgroupSystemtreeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用分组结构
 	Data []*AppDomainFlatten `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -11616,6 +11700,7 @@ func (s *GetAppgroupSystemtreeResponse) SetData(v []*AppDomainFlatten) *GetAppgr
 }
 
 type DeleteAppgroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 分组 id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -11640,9 +11725,12 @@ func (s *DeleteAppgroupRequest) SetId(v string) *DeleteAppgroupRequest {
 }
 
 type DeleteAppgroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11676,6 +11764,7 @@ func (s *DeleteAppgroupResponse) SetData(v bool) *DeleteAppgroupResponse {
 }
 
 type UpdateAppgroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 更新内容
 	Domain *AppDomainFlatten `json:"domain,omitempty" xml:"domain,omitempty" require:"true"`
@@ -11707,9 +11796,12 @@ func (s *UpdateAppgroupRequest) SetId(v string) *UpdateAppgroupRequest {
 }
 
 type UpdateAppgroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 更新结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11743,6 +11835,7 @@ func (s *UpdateAppgroupResponse) SetData(v bool) *UpdateAppgroupResponse {
 }
 
 type ListApplevelRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 动态查询
 	DynamicQuery *DynamicQuery `json:"dynamic_query,omitempty" xml:"dynamic_query,omitempty"`
@@ -11774,9 +11867,12 @@ func (s *ListApplevelRequest) SetQuery(v *AppLevelQuery) *ListApplevelRequest {
 }
 
 type ListApplevelResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用等级列表
 	Data []*AppLevelView `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 总数
@@ -11817,6 +11913,7 @@ func (s *ListApplevelResponse) SetTotalCount(v int64) *ListApplevelResponse {
 }
 
 type ExistApplevelRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用等级名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -11841,9 +11938,12 @@ func (s *ExistApplevelRequest) SetName(v string) *ExistApplevelRequest {
 }
 
 type ExistApplevelResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11877,6 +11977,7 @@ func (s *ExistApplevelResponse) SetData(v bool) *ExistApplevelResponse {
 }
 
 type CreateApplevelRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用等级
 	Level *AppLevel `json:"level,omitempty" xml:"level,omitempty" require:"true"`
@@ -11908,9 +12009,12 @@ func (s *CreateApplevelRequest) SetTenantId(v string) *CreateApplevelRequest {
 }
 
 type CreateApplevelResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建结果
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -11944,6 +12048,7 @@ func (s *CreateApplevelResponse) SetData(v string) *CreateApplevelResponse {
 }
 
 type DeleteApplevelRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用等级 id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -11968,9 +12073,12 @@ func (s *DeleteApplevelRequest) SetId(v string) *DeleteApplevelRequest {
 }
 
 type DeleteApplevelResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12004,6 +12112,7 @@ func (s *DeleteApplevelResponse) SetData(v bool) *DeleteApplevelResponse {
 }
 
 type UpdateApplevelRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用等级id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -12035,9 +12144,12 @@ func (s *UpdateApplevelRequest) SetName(v string) *UpdateApplevelRequest {
 }
 
 type UpdateApplevelResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 更新结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12071,6 +12183,7 @@ func (s *UpdateApplevelResponse) SetData(v bool) *UpdateApplevelResponse {
 }
 
 type ListApplicationRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 动态查询
 	DynamicQuery *DynamicQuery `json:"dynamic_query,omitempty" xml:"dynamic_query,omitempty"`
@@ -12102,9 +12215,12 @@ func (s *ListApplicationRequest) SetQuery(v *AppQuery) *ListApplicationRequest {
 }
 
 type ListApplicationResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用列表
 	Data []*AppView `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 总数量
@@ -12159,6 +12275,7 @@ func (s *ListApplicationResponse) SetPageSize(v int64) *ListApplicationResponse 
 }
 
 type UpdateApplicationRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// appDomainId
 	AppDomainId *string `json:"app_domain_id,omitempty" xml:"app_domain_id,omitempty"`
@@ -12195,9 +12312,9 @@ type UpdateApplicationRequest struct {
 	// tags
 	Tags *string `json:"tags,omitempty" xml:"tags,omitempty"`
 	// 创建时间
-	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
-	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
@@ -12316,9 +12433,12 @@ func (s *UpdateApplicationRequest) SetWorkspaceId(v string) *UpdateApplicationRe
 }
 
 type UpdateApplicationResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 更新结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12352,6 +12472,7 @@ func (s *UpdateApplicationResponse) SetData(v bool) *UpdateApplicationResponse {
 }
 
 type ListAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 动态查询
 	DynamicQuery *DynamicQuery `json:"dynamic_query,omitempty" xml:"dynamic_query,omitempty"`
@@ -12390,9 +12511,12 @@ func (s *ListAppserviceRequest) SetWorkspaceId(v string) *ListAppserviceRequest 
 }
 
 type ListAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 当前页面
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// PaginationResult<AppServiceViewModel>
@@ -12447,6 +12571,7 @@ func (s *ListAppserviceResponse) SetTotalCount(v int64) *ListAppserviceResponse 
 }
 
 type DeleteAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -12478,9 +12603,12 @@ func (s *DeleteAppserviceRequest) SetWorkspaceId(v string) *DeleteAppserviceRequ
 }
 
 type DeleteAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12514,6 +12642,7 @@ func (s *DeleteAppserviceResponse) SetData(v int64) *DeleteAppserviceResponse {
 }
 
 type GetAppserviceDetailRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用服务id
 	AppServiceId *string `json:"app_service_id,omitempty" xml:"app_service_id,omitempty" require:"true"`
@@ -12545,9 +12674,12 @@ func (s *GetAppserviceDetailRequest) SetWorkspaceId(v string) *GetAppserviceDeta
 }
 
 type GetAppserviceDetailResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用服务详情
 	Data *AppServiceViewModel `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12581,6 +12713,7 @@ func (s *GetAppserviceDetailResponse) SetData(v *AppServiceViewModel) *GetAppser
 }
 
 type ExistApplicationPackageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -12619,9 +12752,12 @@ func (s *ExistApplicationPackageRequest) SetWorkspaceId(v string) *ExistApplicat
 }
 
 type ExistApplicationPackageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12655,6 +12791,7 @@ func (s *ExistApplicationPackageResponse) SetData(v bool) *ExistApplicationPacka
 }
 
 type GetApplicationPackageuploadpolicyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
@@ -12693,9 +12830,12 @@ func (s *GetApplicationPackageuploadpolicyRequest) SetAppVersion(v string) *GetA
 }
 
 type GetApplicationPackageuploadpolicyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 发布包上传策略
 	Data *PackageUploadPolicy `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12729,6 +12869,7 @@ func (s *GetApplicationPackageuploadpolicyResponse) SetData(v *PackageUploadPoli
 }
 
 type GetApplicationPackagedownloadurlRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// versionId
 	VersionId *string `json:"version_id,omitempty" xml:"version_id,omitempty" require:"true"`
@@ -12760,9 +12901,12 @@ func (s *GetApplicationPackagedownloadurlRequest) SetAppId(v string) *GetApplica
 }
 
 type GetApplicationPackagedownloadurlResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 下载链接
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12796,6 +12940,7 @@ func (s *GetApplicationPackagedownloadurlResponse) SetData(v string) *GetApplica
 }
 
 type ExistApplicationRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用名称
 	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
@@ -12820,9 +12965,12 @@ func (s *ExistApplicationRequest) SetAppName(v string) *ExistApplicationRequest 
 }
 
 type ExistApplicationResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否存在
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -12856,6 +13004,7 @@ func (s *ExistApplicationResponse) SetData(v bool) *ExistApplicationResponse {
 }
 
 type QueryAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用服务 id 数组
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -12887,9 +13036,12 @@ func (s *QueryAppserviceRequest) SetWorkspaceId(v string) *QueryAppserviceReques
 }
 
 type QueryAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用服务数组
 	Data []*AppService `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -12923,6 +13075,7 @@ func (s *QueryAppserviceResponse) SetData(v []*AppService) *QueryAppserviceRespo
 }
 
 type GetAppgrayconfigsRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -12940,9 +13093,12 @@ func (s *GetAppgrayconfigsRequest) SetAuthToken(v string) *GetAppgrayconfigsRequ
 }
 
 type GetAppgrayconfigsResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 开关配置清单
 	Data []*MapStringToBooleanEntity `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -12976,6 +13132,7 @@ func (s *GetAppgrayconfigsResponse) SetData(v []*MapStringToBooleanEntity) *GetA
 }
 
 type CreateComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
@@ -13056,6 +13213,10 @@ type CreateComputerRequest struct {
 	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
 	// 公有云上标签
 	Tags []*MapStringToStringEntity `json:"tags,omitempty" xml:"tags,omitempty" type:"Repeated"`
+	// cmp模式下使用的vpc，一般场景勿用
+	VpcIaasId *string `json:"vpc_iaas_id,omitempty" xml:"vpc_iaas_id,omitempty"`
+	// cmp模式下传的token，一般场景勿用
+	CloudManageToken *string `json:"cloud_manage_token,omitempty" xml:"cloud_manage_token,omitempty"`
 }
 
 func (s CreateComputerRequest) String() string {
@@ -13211,10 +13372,23 @@ func (s *CreateComputerRequest) SetTags(v []*MapStringToStringEntity) *CreateCom
 	return s
 }
 
+func (s *CreateComputerRequest) SetVpcIaasId(v string) *CreateComputerRequest {
+	s.VpcIaasId = &v
+	return s
+}
+
+func (s *CreateComputerRequest) SetCloudManageToken(v string) *CreateComputerRequest {
+	s.CloudManageToken = &v
+	return s
+}
+
 type CreateComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer_sequences
 	ComputerSequences []*string `json:"computer_sequences,omitempty" xml:"computer_sequences,omitempty" type:"Repeated"`
 	// paas_request_id，可以根据这个值查询日志
@@ -13255,6 +13429,7 @@ func (s *CreateComputerResponse) SetPaasRequestId(v string) *CreateComputerRespo
 }
 
 type DeleteComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer_sequences
 	ComputerSequences []*string `json:"computer_sequences,omitempty" xml:"computer_sequences,omitempty" require:"true" type:"Repeated"`
@@ -13293,9 +13468,12 @@ func (s *DeleteComputerRequest) SetForce(v bool) *DeleteComputerRequest {
 }
 
 type DeleteComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -13329,6 +13507,7 @@ func (s *DeleteComputerResponse) SetPaasRequestId(v string) *DeleteComputerRespo
 }
 
 type ImportComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer iaas ids
 	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" require:"true" type:"Repeated"`
@@ -13367,9 +13546,12 @@ func (s *ImportComputerRequest) SetZone(v string) *ImportComputerRequest {
 }
 
 type ImportComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入的 computer 序列号
 	ComputerIdMapping *string `json:"computer_id_mapping,omitempty" xml:"computer_id_mapping,omitempty"`
 }
@@ -13403,6 +13585,7 @@ func (s *ImportComputerResponse) SetComputerIdMapping(v string) *ImportComputerR
 }
 
 type CreateDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 数据库账户
 	DatabaseAccounts []*DatabaseAccount `json:"database_accounts,omitempty" xml:"database_accounts,omitempty" type:"Repeated"`
@@ -13511,9 +13694,12 @@ func (s *CreateDatabaseRequest) SetAppIds(v []*string) *CreateDatabaseRequest {
 }
 
 type CreateDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// database 实例 ids
 	DatabaseSequences []*string `json:"database_sequences,omitempty" xml:"database_sequences,omitempty" type:"Repeated"`
 }
@@ -13547,6 +13733,7 @@ func (s *CreateDatabaseResponse) SetDatabaseSequences(v []*string) *CreateDataba
 }
 
 type ImportDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// database iaas ids
 	DatabaseIds []*string `json:"database_ids,omitempty" xml:"database_ids,omitempty" require:"true" type:"Repeated"`
@@ -13585,9 +13772,12 @@ func (s *ImportDatabaseRequest) SetWorkspace(v string) *ImportDatabaseRequest {
 }
 
 type ImportDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入的 computer 序列号
 	DatabaseIdMapping *string `json:"database_id_mapping,omitempty" xml:"database_id_mapping,omitempty"`
 }
@@ -13621,6 +13811,7 @@ func (s *ImportDatabaseResponse) SetDatabaseIdMapping(v string) *ImportDatabaseR
 }
 
 type DeleteDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// database 序列号
 	DatabaseSequences []*string `json:"database_sequences,omitempty" xml:"database_sequences,omitempty" require:"true" type:"Repeated"`
@@ -13645,9 +13836,12 @@ func (s *DeleteDatabaseRequest) SetDatabaseSequences(v []*string) *DeleteDatabas
 }
 
 type DeleteDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteDatabaseResponse) String() string {
@@ -13674,6 +13868,7 @@ func (s *DeleteDatabaseResponse) SetResultMsg(v string) *DeleteDatabaseResponse 
 }
 
 type CreateLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 负载均衡实例的网络类型。有 INTERNET 和 INTRANET
 	AddressType *string `json:"address_type,omitempty" xml:"address_type,omitempty"`
@@ -13809,9 +14004,12 @@ func (s *CreateLoadbalanceRequest) SetLoadBalancerSpec(v string) *CreateLoadbala
 }
 
 type CreateLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 实例 id
 	LoadbalanceSequences []*string `json:"loadbalance_sequences,omitempty" xml:"loadbalance_sequences,omitempty" type:"Repeated"`
 	// paas_request_id
@@ -13852,6 +14050,7 @@ func (s *CreateLoadbalanceResponse) SetPaasRequestId(v string) *CreateLoadbalanc
 }
 
 type DeleteLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// loadbalance 序列号
 	LoadbalanceSequences []*string `json:"loadbalance_sequences,omitempty" xml:"loadbalance_sequences,omitempty" require:"true" type:"Repeated"`
@@ -13876,9 +14075,12 @@ func (s *DeleteLoadbalanceRequest) SetLoadbalanceSequences(v []*string) *DeleteL
 }
 
 type DeleteLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -13912,6 +14114,7 @@ func (s *DeleteLoadbalanceResponse) SetPaasRequestId(v string) *DeleteLoadbalanc
 }
 
 type ImportLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// loadbalance iaas ids
 	LoadbalanceIds []*string `json:"loadbalance_ids,omitempty" xml:"loadbalance_ids,omitempty" require:"true" type:"Repeated"`
@@ -13943,9 +14146,12 @@ func (s *ImportLoadbalanceRequest) SetWorkspace(v string) *ImportLoadbalanceRequ
 }
 
 type ImportLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入的 loadbalance 序列号
 	LoadbalanceIdMapping *string `json:"loadbalance_id_mapping,omitempty" xml:"loadbalance_id_mapping,omitempty"`
 }
@@ -13979,6 +14185,7 @@ func (s *ImportLoadbalanceResponse) SetLoadbalanceIdMapping(v string) *ImportLoa
 }
 
 type CreateVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 专有网络网段
 	CidrLock *string `json:"cidr_lock,omitempty" xml:"cidr_lock,omitempty" require:"true"`
@@ -14017,9 +14224,12 @@ func (s *CreateVpcRequest) SetWorkspace(v string) *CreateVpcRequest {
 }
 
 type CreateVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 专有网络序列号
 	VpcSequence *string `json:"vpc_sequence,omitempty" xml:"vpc_sequence,omitempty"`
 }
@@ -14053,6 +14263,7 @@ func (s *CreateVpcResponse) SetVpcSequence(v string) *CreateVpcResponse {
 }
 
 type DeleteVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 专有网络序列号
 	VpcSequence *string `json:"vpc_sequence,omitempty" xml:"vpc_sequence,omitempty" require:"true"`
@@ -14077,9 +14288,12 @@ func (s *DeleteVpcRequest) SetVpcSequence(v string) *DeleteVpcRequest {
 }
 
 type DeleteVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteVpcResponse) String() string {
@@ -14106,6 +14320,7 @@ func (s *DeleteVpcResponse) SetResultMsg(v string) *DeleteVpcResponse {
 }
 
 type ReleaseComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需要释放的 computer ids
 	ComputerSequences []*string `json:"computer_sequences,omitempty" xml:"computer_sequences,omitempty" require:"true" type:"Repeated"`
@@ -14130,9 +14345,12 @@ func (s *ReleaseComputerRequest) SetComputerSequences(v []*string) *ReleaseCompu
 }
 
 type ReleaseComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ReleaseComputerResponse) String() string {
@@ -14159,6 +14377,7 @@ func (s *ReleaseComputerResponse) SetResultMsg(v string) *ReleaseComputerRespons
 }
 
 type ReinitComputerPasswordRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer_sequence
 	ComputerSequence *string `json:"computer_sequence,omitempty" xml:"computer_sequence,omitempty" require:"true"`
@@ -14190,9 +14409,12 @@ func (s *ReinitComputerPasswordRequest) SetPassword(v string) *ReinitComputerPas
 }
 
 type ReinitComputerPasswordResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ReinitComputerPasswordResponse) String() string {
@@ -14219,6 +14441,7 @@ func (s *ReinitComputerPasswordResponse) SetResultMsg(v string) *ReinitComputerP
 }
 
 type ReleaseDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需要释放的应用 ids
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
@@ -14257,9 +14480,12 @@ func (s *ReleaseDatabaseRequest) SetDatabaseSequences(v []*string) *ReleaseDatab
 }
 
 type ReleaseDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ReleaseDatabaseResponse) String() string {
@@ -14286,6 +14512,7 @@ func (s *ReleaseDatabaseResponse) SetResultMsg(v string) *ReleaseDatabaseRespons
 }
 
 type RemoveComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer ids
 	ComputerSequences []*string `json:"computer_sequences,omitempty" xml:"computer_sequences,omitempty" require:"true" type:"Repeated"`
@@ -14310,9 +14537,12 @@ func (s *RemoveComputerRequest) SetComputerSequences(v []*string) *RemoveCompute
 }
 
 type RemoveComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveComputerResponse) String() string {
@@ -14339,6 +14569,7 @@ func (s *RemoveComputerResponse) SetResultMsg(v string) *RemoveComputerResponse 
 }
 
 type RemoveLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb ids
 	LoadbalanceSequences []*string `json:"loadbalance_sequences,omitempty" xml:"loadbalance_sequences,omitempty" require:"true" type:"Repeated"`
@@ -14363,9 +14594,12 @@ func (s *RemoveLoadbalanceRequest) SetLoadbalanceSequences(v []*string) *RemoveL
 }
 
 type RemoveLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveLoadbalanceResponse) String() string {
@@ -14392,6 +14626,7 @@ func (s *RemoveLoadbalanceResponse) SetResultMsg(v string) *RemoveLoadbalanceRes
 }
 
 type RemoveDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// database ids
 	DatabaseSequences []*string `json:"database_sequences,omitempty" xml:"database_sequences,omitempty" require:"true" type:"Repeated"`
@@ -14416,9 +14651,12 @@ func (s *RemoveDatabaseRequest) SetDatabaseSequences(v []*string) *RemoveDatabas
 }
 
 type RemoveDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveDatabaseResponse) String() string {
@@ -14445,6 +14683,7 @@ func (s *RemoveDatabaseResponse) SetResultMsg(v string) *RemoveDatabaseResponse 
 }
 
 type ReleaseLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// loadbalance ids
 	LoadbalanceSequences []*string `json:"loadbalance_sequences,omitempty" xml:"loadbalance_sequences,omitempty" require:"true" type:"Repeated"`
@@ -14469,9 +14708,12 @@ func (s *ReleaseLoadbalanceRequest) SetLoadbalanceSequences(v []*string) *Releas
 }
 
 type ReleaseLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ReleaseLoadbalanceResponse) String() string {
@@ -14498,6 +14740,7 @@ func (s *ReleaseLoadbalanceResponse) SetResultMsg(v string) *ReleaseLoadbalanceR
 }
 
 type CreateDatabaseAccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// database 序列号
 	DatabaseSequence *string `json:"database_sequence,omitempty" xml:"database_sequence,omitempty" require:"true"`
@@ -14536,9 +14779,12 @@ func (s *CreateDatabaseAccountRequest) SetPassword(v string) *CreateDatabaseAcco
 }
 
 type CreateDatabaseAccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 账户序列号
 	AccountSequence *string `json:"account_sequence,omitempty" xml:"account_sequence,omitempty"`
 }
@@ -14572,6 +14818,7 @@ func (s *CreateDatabaseAccountResponse) SetAccountSequence(v string) *CreateData
 }
 
 type CreateSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
@@ -14625,9 +14872,12 @@ func (s *CreateSecuritygroupRequest) SetType(v string) *CreateSecuritygroupReque
 }
 
 type CreateSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全组/域 序列号
 	SecurityGroupSequence *string `json:"security_group_sequence,omitempty" xml:"security_group_sequence,omitempty"`
 }
@@ -14661,6 +14911,7 @@ func (s *CreateSecuritygroupResponse) SetSecurityGroupSequence(v string) *Create
 }
 
 type ImportSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// sg-zm042uh9f8gb1lfcsng6 的 iaas 层 id
 	SecuritygroupId *string `json:"securitygroup_id,omitempty" xml:"securitygroup_id,omitempty" require:"true"`
@@ -14699,9 +14950,12 @@ func (s *ImportSecuritygroupRequest) SetWorkspace(v string) *ImportSecuritygroup
 }
 
 type ImportSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ImportSecuritygroupResponse) String() string {
@@ -14728,6 +14982,7 @@ func (s *ImportSecuritygroupResponse) SetResultMsg(v string) *ImportSecuritygrou
 }
 
 type RemoveSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组 id
 	SecurityGroupSequence *string `json:"security_group_sequence,omitempty" xml:"security_group_sequence,omitempty" require:"true"`
@@ -14752,9 +15007,12 @@ func (s *RemoveSecuritygroupRequest) SetSecurityGroupSequence(v string) *RemoveS
 }
 
 type RemoveSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveSecuritygroupResponse) String() string {
@@ -14781,6 +15039,7 @@ func (s *RemoveSecuritygroupResponse) SetResultMsg(v string) *RemoveSecuritygrou
 }
 
 type DeleteSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需要删除的 security group id
 	SecurityGroupSequence *string `json:"security_group_sequence,omitempty" xml:"security_group_sequence,omitempty" require:"true"`
@@ -14805,9 +15064,12 @@ func (s *DeleteSecuritygroupRequest) SetSecurityGroupSequence(v string) *DeleteS
 }
 
 type DeleteSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteSecuritygroupResponse) String() string {
@@ -14834,6 +15096,7 @@ func (s *DeleteSecuritygroupResponse) SetResultMsg(v string) *DeleteSecuritygrou
 }
 
 type DeleteDatabaseSchemaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 欲删除的的 schema id
 	SchemaSequence *string `json:"schema_sequence,omitempty" xml:"schema_sequence,omitempty" require:"true"`
@@ -14858,9 +15121,12 @@ func (s *DeleteDatabaseSchemaRequest) SetSchemaSequence(v string) *DeleteDatabas
 }
 
 type DeleteDatabaseSchemaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteDatabaseSchemaResponse) String() string {
@@ -14887,6 +15153,7 @@ func (s *DeleteDatabaseSchemaResponse) SetResultMsg(v string) *DeleteDatabaseSch
 }
 
 type DeleteDatabaseAccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// account id
 	AccountSequence *string `json:"account_sequence,omitempty" xml:"account_sequence,omitempty" require:"true"`
@@ -14911,9 +15178,12 @@ func (s *DeleteDatabaseAccountRequest) SetAccountSequence(v string) *DeleteDatab
 }
 
 type DeleteDatabaseAccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteDatabaseAccountResponse) String() string {
@@ -14940,6 +15210,7 @@ func (s *DeleteDatabaseAccountResponse) SetResultMsg(v string) *DeleteDatabaseAc
 }
 
 type DeleteVpcVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// vpc id
 	VpcSequence *string `json:"vpc_sequence,omitempty" xml:"vpc_sequence,omitempty" require:"true"`
@@ -14971,9 +15242,12 @@ func (s *DeleteVpcVswitchRequest) SetVswitchIds(v []*string) *DeleteVpcVswitchRe
 }
 
 type DeleteVpcVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteVpcVswitchResponse) String() string {
@@ -15000,6 +15274,7 @@ func (s *DeleteVpcVswitchResponse) SetResultMsg(v string) *DeleteVpcVswitchRespo
 }
 
 type DeleteLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// listener 端口
 	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
@@ -15031,9 +15306,12 @@ func (s *DeleteLoadbalanceListenerRequest) SetLoadbalanceSequence(v string) *Del
 }
 
 type DeleteLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -15067,6 +15345,7 @@ func (s *DeleteLoadbalanceListenerResponse) SetPaasRequestId(v string) *DeleteLo
 }
 
 type DeleteVpcVroutertableRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 目标网段
 	DestinationCidrBlock *string `json:"destination_cidr_block,omitempty" xml:"destination_cidr_block,omitempty" require:"true"`
@@ -15112,9 +15391,12 @@ func (s *DeleteVpcVroutertableRequest) SetVpcSequence(v string) *DeleteVpcVroute
 }
 
 type DeleteVpcVroutertableResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteVpcVroutertableResponse) String() string {
@@ -15141,6 +15423,7 @@ func (s *DeleteVpcVroutertableResponse) SetResultMsg(v string) *DeleteVpcVrouter
 }
 
 type RemoveSecuritygroupInstanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组 paas id
 	SecurityGroupSequence *string `json:"security_group_sequence,omitempty" xml:"security_group_sequence,omitempty" require:"true"`
@@ -15172,9 +15455,12 @@ func (s *RemoveSecuritygroupInstanceRequest) SetInstanceSequences(v []*string) *
 }
 
 type RemoveSecuritygroupInstanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveSecuritygroupInstanceResponse) String() string {
@@ -15201,6 +15487,7 @@ func (s *RemoveSecuritygroupInstanceResponse) SetResultMsg(v string) *RemoveSecu
 }
 
 type DeleteSecuritygroupPermissionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组 paas id
 	SecurityGroupSequence *string `json:"security_group_sequence,omitempty" xml:"security_group_sequence,omitempty" require:"true"`
@@ -15232,9 +15519,12 @@ func (s *DeleteSecuritygroupPermissionRequest) SetPermissionHash(v string) *Dele
 }
 
 type DeleteSecuritygroupPermissionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteSecuritygroupPermissionResponse) String() string {
@@ -15261,6 +15551,7 @@ func (s *DeleteSecuritygroupPermissionResponse) SetResultMsg(v string) *DeleteSe
 }
 
 type RemoveLoadbalanceSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要删除的 ip
 	Ips []*string `json:"ips,omitempty" xml:"ips,omitempty" require:"true" type:"Repeated"`
@@ -15299,9 +15590,12 @@ func (s *RemoveLoadbalanceSecurityipRequest) SetLoadbalanceSequence(v string) *R
 }
 
 type RemoveLoadbalanceSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RemoveLoadbalanceSecurityipResponse) String() string {
@@ -15328,6 +15622,7 @@ func (s *RemoveLoadbalanceSecurityipResponse) SetResultMsg(v string) *RemoveLoad
 }
 
 type CreateApplicationRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 应用分组 id
 	AppDomainId *string `json:"app_domain_id,omitempty" xml:"app_domain_id,omitempty"`
@@ -15443,9 +15738,12 @@ func (s *CreateApplicationRequest) SetWorkspace(v string) *CreateApplicationRequ
 }
 
 type CreateApplicationResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 应用 id
 	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty"`
 }
@@ -15479,6 +15777,7 @@ func (s *CreateApplicationResponse) SetApplicationId(v string) *CreateApplicatio
 }
 
 type DeleteApplicationRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 欲删除的应用 id
 	ApplicationIds []*string `json:"application_ids,omitempty" xml:"application_ids,omitempty" type:"Repeated"`
@@ -15510,9 +15809,12 @@ func (s *DeleteApplicationRequest) SetDeleteCodeRepo(v bool) *DeleteApplicationR
 }
 
 type DeleteApplicationResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteApplicationResponse) String() string {
@@ -15539,6 +15841,7 @@ func (s *DeleteApplicationResponse) SetResultMsg(v string) *DeleteApplicationRes
 }
 
 type CreateVpcVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 网段
 	CidrBlock *string `json:"cidr_block,omitempty" xml:"cidr_block,omitempty" require:"true"`
@@ -15591,9 +15894,12 @@ func (s *CreateVpcVswitchRequest) SetZone(v string) *CreateVpcVswitchRequest {
 }
 
 type CreateVpcVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// switch paas id
 	VswitchSequence *string `json:"vswitch_sequence,omitempty" xml:"vswitch_sequence,omitempty"`
 }
@@ -15627,6 +15933,7 @@ func (s *CreateVpcVswitchResponse) SetVswitchSequence(v string) *CreateVpcVswitc
 }
 
 type CreateVpcVroutertableRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 目标网端
 	DestinationCidrBlock *string `json:"destination_cidr_block,omitempty" xml:"destination_cidr_block,omitempty" require:"true"`
@@ -15679,9 +15986,12 @@ func (s *CreateVpcVroutertableRequest) SetVpcSequence(v string) *CreateVpcVroute
 }
 
 type CreateVpcVroutertableResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s CreateVpcVroutertableResponse) String() string {
@@ -15708,6 +16018,7 @@ func (s *CreateVpcVroutertableResponse) SetResultMsg(v string) *CreateVpcVrouter
 }
 
 type AddSecuritygroupInstanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需向安全组中添加的实例 paas 序列号
 	InstanceSequences []*string `json:"instance_sequences,omitempty" xml:"instance_sequences,omitempty" require:"true" type:"Repeated"`
@@ -15739,9 +16050,12 @@ func (s *AddSecuritygroupInstanceRequest) SetSecurityGroupSequence(v string) *Ad
 }
 
 type AddSecuritygroupInstanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AddSecuritygroupInstanceResponse) String() string {
@@ -15768,6 +16082,7 @@ func (s *AddSecuritygroupInstanceResponse) SetResultMsg(v string) *AddSecuritygr
 }
 
 type UpdateDatabaseSpecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// db paas id
 	DatabaseSequences []*string `json:"database_sequences,omitempty" xml:"database_sequences,omitempty" require:"true" type:"Repeated"`
@@ -15806,9 +16121,12 @@ func (s *UpdateDatabaseSpecRequest) SetStorageSize(v int64) *UpdateDatabaseSpecR
 }
 
 type UpdateDatabaseSpecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateDatabaseSpecResponse) String() string {
@@ -15835,6 +16153,7 @@ func (s *UpdateDatabaseSpecResponse) SetResultMsg(v string) *UpdateDatabaseSpecR
 }
 
 type UpdateLoadbalanceAccesscontrolRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb paas id
 	LoadbalanceSequence *string `json:"loadbalance_sequence,omitempty" xml:"loadbalance_sequence,omitempty" require:"true"`
@@ -15873,9 +16192,12 @@ func (s *UpdateLoadbalanceAccesscontrolRequest) SetAccessControl(v bool) *Update
 }
 
 type UpdateLoadbalanceAccesscontrolResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanceAccesscontrolResponse) String() string {
@@ -15902,6 +16224,7 @@ func (s *UpdateLoadbalanceAccesscontrolResponse) SetResultMsg(v string) *UpdateL
 }
 
 type UpdateLoadbalanceSpecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 公网类型实例的付费方式。取值： PAY_BY_BANDWIDTH：按带宽计费。 PAY_BY_TRAFFIC：按流量计费（默认值）。
 	InternetChargeType *string `json:"internet_charge_type,omitempty" xml:"internet_charge_type,omitempty" require:"true"`
@@ -15940,9 +16263,12 @@ func (s *UpdateLoadbalanceSpecRequest) SetLoadbalanceSequence(v string) *UpdateL
 }
 
 type UpdateLoadbalanceSpecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanceSpecResponse) String() string {
@@ -15969,6 +16295,7 @@ func (s *UpdateLoadbalanceSpecResponse) SetResultMsg(v string) *UpdateLoadbalanc
 }
 
 type UpdateVpcVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 修改会的 vswitch 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -16014,9 +16341,12 @@ func (s *UpdateVpcVswitchRequest) SetDescription(v string) *UpdateVpcVswitchRequ
 }
 
 type UpdateVpcVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateVpcVswitchResponse) String() string {
@@ -16043,6 +16373,7 @@ func (s *UpdateVpcVswitchResponse) SetResultMsg(v string) *UpdateVpcVswitchRespo
 }
 
 type CreateWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace 显示名称
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
@@ -16095,9 +16426,12 @@ func (s *CreateWorkspaceRequest) SetZones(v []*string) *CreateWorkspaceRequest {
 }
 
 type CreateWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// workspace id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
@@ -16131,6 +16465,7 @@ func (s *CreateWorkspaceResponse) SetWorkspaceId(v string) *CreateWorkspaceRespo
 }
 
 type CreateMetaWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace 显示名称
 	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
@@ -16183,9 +16518,12 @@ func (s *CreateMetaWorkspaceRequest) SetZones(v []*string) *CreateMetaWorkspaceR
 }
 
 type CreateMetaWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// workspace id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
 }
@@ -16219,6 +16557,7 @@ func (s *CreateMetaWorkspaceResponse) SetWorkspaceId(v string) *CreateMetaWorksp
 }
 
 type QueryMetaWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -16243,9 +16582,12 @@ func (s *QueryMetaWorkspaceRequest) SetWorkspaceId(v string) *QueryMetaWorkspace
 }
 
 type QueryMetaWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// workspace 信息
 	Data *Workspace `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -16279,6 +16621,7 @@ func (s *QueryMetaWorkspaceResponse) SetData(v *Workspace) *QueryMetaWorkspaceRe
 }
 
 type DeleteMetaWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -16303,9 +16646,12 @@ func (s *DeleteMetaWorkspaceRequest) SetWorkspaceId(v string) *DeleteMetaWorkspa
 }
 
 type DeleteMetaWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -16339,6 +16685,7 @@ func (s *DeleteMetaWorkspaceResponse) SetSuccess(v bool) *DeleteMetaWorkspaceRes
 }
 
 type CreateResourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// VPC的网段。您可以使用以下网段或其子集作为VPC的网段：
 	//
@@ -16402,9 +16749,12 @@ func (s *CreateResourceVpcRequest) SetWorkspace(v string) *CreateResourceVpcRequ
 }
 
 type CreateResourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建VPC后，系统自动创建的路由表的ID。
 	RouteTableId *string `json:"route_table_id,omitempty" xml:"route_table_id,omitempty"`
 	// 创建的VPC的ID
@@ -16452,6 +16802,7 @@ func (s *CreateResourceVpcResponse) SetVRouterId(v string) *CreateResourceVpcRes
 }
 
 type QueryResourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 是否使用缓存进行查询，默认false，使用缓存查询
 	DisableCache *bool `json:"disable_cache,omitempty" xml:"disable_cache,omitempty"`
@@ -16490,9 +16841,12 @@ func (s *QueryResourceVpcRequest) SetVpcId(v string) *QueryResourceVpcRequest {
 }
 
 type QueryResourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 列表条目数
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 	// VPC详细信息
@@ -16533,6 +16887,7 @@ func (s *QueryResourceVpcResponse) SetVpcs(v []*VPC) *QueryResourceVpcResponse {
 }
 
 type DeleteResourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要删除的VPC所在的地域identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -16571,9 +16926,12 @@ func (s *DeleteResourceVpcRequest) SetWorkspace(v string) *DeleteResourceVpcRequ
 }
 
 type DeleteResourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除VPC是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -16607,6 +16965,7 @@ func (s *DeleteResourceVpcResponse) SetSuccess(v bool) *DeleteResourceVpcRespons
 }
 
 type CreateResourceVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 交换机的网段。交换机网段要求如下：
 	//
@@ -16679,9 +17038,12 @@ func (s *CreateResourceVswitchRequest) SetZone(v string) *CreateResourceVswitchR
 }
 
 type CreateResourceVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建的交换机的ID。
 	VSwitchId *string `json:"v_switch_id,omitempty" xml:"v_switch_id,omitempty"`
 }
@@ -16715,6 +17077,7 @@ func (s *CreateResourceVswitchResponse) SetVSwitchId(v string) *CreateResourceVs
 }
 
 type QueryResourceVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 交换机所属地域的identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -16753,9 +17116,12 @@ func (s *QueryResourceVswitchRequest) SetVSwitchId(v string) *QueryResourceVswit
 }
 
 type QueryResourceVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 列表条目数
 	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
 	// 交换机的详细信息
@@ -16796,6 +17162,7 @@ func (s *QueryResourceVswitchResponse) SetVSwitches(v []*VSwitch) *QueryResource
 }
 
 type DeleteResourceVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要删除的交换机的地域identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -16834,9 +17201,12 @@ func (s *DeleteResourceVswitchRequest) SetVSwitchId(v string) *DeleteResourceVsw
 }
 
 type DeleteResourceVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除交换机是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -16870,6 +17240,7 @@ func (s *DeleteResourceVswitchResponse) SetSuccess(v bool) *DeleteResourceVswitc
 }
 
 type QueryResourceSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// disable cache
 	DisableCache *bool `json:"disable_cache,omitempty" xml:"disable_cache,omitempty"`
@@ -16915,9 +17286,12 @@ func (s *QueryResourceSecuritygroupRequest) SetVpcId(v string) *QueryResourceSec
 }
 
 type QueryResourceSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全组详细信息。
 	SecurityGroups []*SecurityGroup `json:"security_groups,omitempty" xml:"security_groups,omitempty" type:"Repeated"`
 	// 安全组的总数。
@@ -16958,6 +17332,7 @@ func (s *QueryResourceSecuritygroupResponse) SetTotalCount(v int64) *QueryResour
 }
 
 type ListMetaWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -16975,9 +17350,12 @@ func (s *ListMetaWorkspaceRequest) SetAuthToken(v string) *ListMetaWorkspaceRequ
 }
 
 type ListMetaWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 工作空间详细信息列表
 	Data []*Workspace `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -17011,6 +17389,7 @@ func (s *ListMetaWorkspaceResponse) SetData(v []*Workspace) *ListMetaWorkspaceRe
 }
 
 type CreateResourceSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组描述信息。长度为2~256个英文或中文字符，不能以http://和https://开头。
 	//
@@ -17079,9 +17458,12 @@ func (s *CreateResourceSecuritygroupRequest) SetWorkspace(v string) *CreateResou
 }
 
 type CreateResourceSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全组ID。
 	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty"`
 }
@@ -17115,6 +17497,7 @@ func (s *CreateResourceSecuritygroupResponse) SetSecurityGroupId(v string) *Crea
 }
 
 type DeleteResourceSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 地域identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -17153,9 +17536,12 @@ func (s *DeleteResourceSecuritygroupRequest) SetVpcId(v string) *DeleteResourceS
 }
 
 type DeleteResourceSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除安全组是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -17189,6 +17575,7 @@ func (s *DeleteResourceSecuritygroupResponse) SetSuccess(v bool) *DeleteResource
 }
 
 type CreateResourceComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 实例所属的部署单元
 	Cell *string `json:"cell,omitempty" xml:"cell,omitempty" require:"true"`
@@ -17307,9 +17694,12 @@ func (s *CreateResourceComputerRequest) SetSystemDiskSize(v int64) *CreateResour
 }
 
 type CreateResourceComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 实例ID。
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
 	// 异步任务ID
@@ -17364,6 +17754,7 @@ func (s *CreateResourceComputerResponse) SetMessage(v string) *CreateResourceCom
 }
 
 type QueryResourceComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// iaas id
 	IaasId *string `json:"iaas_id,omitempty" xml:"iaas_id,omitempty"`
@@ -17456,9 +17847,12 @@ func (s *QueryResourceComputerRequest) SetWorkspace(v string) *QueryResourceComp
 }
 
 type QueryResourceComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 查询的实例集合
 	Instances []*Computer `json:"instances,omitempty" xml:"instances,omitempty" type:"Repeated"`
 	// 实例列表的页码。
@@ -17520,6 +17914,7 @@ func (s *QueryResourceComputerResponse) SetTotalCount(v int64) *QueryResourceCom
 }
 
 type QueryResourceComputerspecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 机器规格族
 	InstanceTypeGroups *string `json:"instance_type_groups,omitempty" xml:"instance_type_groups,omitempty"`
@@ -17572,9 +17967,12 @@ func (s *QueryResourceComputerspecRequest) SetMinMem(v int64) *QueryResourceComp
 }
 
 type QueryResourceComputerspecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 符合筛选条件的机器规格
 	ComputerSpecs []*ComputerSpec `json:"computer_specs,omitempty" xml:"computer_specs,omitempty" type:"Repeated"`
 	// 返回的数量
@@ -17615,6 +18013,7 @@ func (s *QueryResourceComputerspecResponse) SetTotalCount(v int64) *QueryResourc
 }
 
 type DeleteResourceComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要删除的机器ID
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
@@ -17646,9 +18045,12 @@ func (s *DeleteResourceComputerRequest) SetForce(v bool) *DeleteResourceComputer
 }
 
 type DeleteResourceComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 0表示正常，非0表示异常
 	RetCode *int64 `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
 	// 错误描述信息
@@ -17696,6 +18098,7 @@ func (s *DeleteResourceComputerResponse) SetJobId(v string) *DeleteResourceCompu
 }
 
 type ReinitResourceComputerpasswordRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需要修改的机器Id
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
@@ -17727,9 +18130,12 @@ func (s *ReinitResourceComputerpasswordRequest) SetPassword(v string) *ReinitRes
 }
 
 type ReinitResourceComputerpasswordResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 0表示正常，非0表示异常
 	RetCode *int64 `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
 	// 错误描述信息
@@ -17777,6 +18183,7 @@ func (s *ReinitResourceComputerpasswordResponse) SetJobId(v string) *ReinitResou
 }
 
 type StartResourceComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 机器id
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
@@ -17801,9 +18208,12 @@ func (s *StartResourceComputerRequest) SetInstanceId(v string) *StartResourceCom
 }
 
 type StartResourceComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 0表示正常，非0表示异常
 	RetCode *int64 `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
 	// 异步任务执行id
@@ -17851,6 +18261,7 @@ func (s *StartResourceComputerResponse) SetMessage(v string) *StartResourceCompu
 }
 
 type StopResourceComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 需要停止的机器id
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
@@ -17882,9 +18293,12 @@ func (s *StopResourceComputerRequest) SetForce(v bool) *StopResourceComputerRequ
 }
 
 type StopResourceComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 非0表示异常，0表示正常
 	RetCode *int64 `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
 	// 异步执行的任务ID
@@ -17932,6 +18346,7 @@ func (s *StopResourceComputerResponse) SetMessage(v string) *StopResourceCompute
 }
 
 type CreateSlsProjectRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 日志项目名称
 	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
@@ -17970,9 +18385,12 @@ func (s *CreateSlsProjectRequest) SetTenantId(v string) *CreateSlsProjectRequest
 }
 
 type CreateSlsProjectResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建日志项目结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18006,6 +18424,7 @@ func (s *CreateSlsProjectResponse) SetData(v bool) *CreateSlsProjectResponse {
 }
 
 type ListSlsProjectRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 区域id
 	SlsRegionId *string `json:"sls_region_id,omitempty" xml:"sls_region_id,omitempty"`
@@ -18037,9 +18456,12 @@ func (s *ListSlsProjectRequest) SetTenantId(v string) *ListSlsProjectRequest {
 }
 
 type ListSlsProjectResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 日志项目数组
 	Data []*SLSProject `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -18073,6 +18495,7 @@ func (s *ListSlsProjectResponse) SetData(v []*SLSProject) *ListSlsProjectRespons
 }
 
 type CreateSlsLogstoreRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 日志库名称，在Project下必须唯一
 	LogstoreName *string `json:"logstore_name,omitempty" xml:"logstore_name,omitempty" require:"true"`
@@ -18139,9 +18562,12 @@ func (s *CreateSlsLogstoreRequest) SetAddIndex(v bool) *CreateSlsLogstoreRequest
 }
 
 type CreateSlsLogstoreResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 日志库创建结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18175,6 +18601,7 @@ func (s *CreateSlsLogstoreResponse) SetData(v bool) *CreateSlsLogstoreResponse {
 }
 
 type ListSlsLogstoreRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 用于请求的 Logstore 名称（支持部分匹配）。
 	LogstoreName *string `json:"logstore_name,omitempty" xml:"logstore_name,omitempty"`
@@ -18220,9 +18647,12 @@ func (s *ListSlsLogstoreRequest) SetTenantId(v string) *ListSlsLogstoreRequest {
 }
 
 type ListSlsLogstoreResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 日志库名称列表
 	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -18256,6 +18686,7 @@ func (s *ListSlsLogstoreResponse) SetData(v []*string) *ListSlsLogstoreResponse 
 }
 
 type GetSlsLogstoreRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 日志库名称，在Project下必须唯一
 	LogstoreName *string `json:"logstore_name,omitempty" xml:"logstore_name,omitempty" require:"true"`
@@ -18301,9 +18732,12 @@ func (s *GetSlsLogstoreRequest) SetTenantId(v string) *GetSlsLogstoreRequest {
 }
 
 type GetSlsLogstoreResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 单个日志库信息
 	Data *SLSLogStore `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18337,6 +18771,7 @@ func (s *GetSlsLogstoreResponse) SetData(v *SLSLogStore) *GetSlsLogstoreResponse
 }
 
 type CreateSlsConfigRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 日志配置详情
 	Config *SLSConfig `json:"config,omitempty" xml:"config,omitempty" require:"true"`
@@ -18382,9 +18817,12 @@ func (s *CreateSlsConfigRequest) SetTenantId(v string) *CreateSlsConfigRequest {
 }
 
 type CreateSlsConfigResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 创建日志配置结果
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18418,6 +18856,7 @@ func (s *CreateSlsConfigResponse) SetData(v bool) *CreateSlsConfigResponse {
 }
 
 type ListSlsConfigRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 日志项目名称
 	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
@@ -18456,9 +18895,12 @@ func (s *ListSlsConfigRequest) SetTenantId(v string) *ListSlsConfigRequest {
 }
 
 type ListSlsConfigResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 日志配置名称列表
 	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -18492,6 +18934,7 @@ func (s *ListSlsConfigResponse) SetData(v []*string) *ListSlsConfigResponse {
 }
 
 type UpdateSlsConfigRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要更新的日志配置详情
 	Config *SLSConfig `json:"config,omitempty" xml:"config,omitempty" require:"true"`
@@ -18537,9 +18980,12 @@ func (s *UpdateSlsConfigRequest) SetTenantId(v string) *UpdateSlsConfigRequest {
 }
 
 type UpdateSlsConfigResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 更新日志配置是否成功
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18573,6 +19019,7 @@ func (s *UpdateSlsConfigResponse) SetData(v bool) *UpdateSlsConfigResponse {
 }
 
 type DeleteSlsConfigRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要删除的日志配置名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -18618,9 +19065,12 @@ func (s *DeleteSlsConfigRequest) SetTenantId(v string) *DeleteSlsConfigRequest {
 }
 
 type DeleteSlsConfigResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 删除日志配置是否成功
 	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -18654,6 +19104,7 @@ func (s *DeleteSlsConfigResponse) SetData(v bool) *DeleteSlsConfigResponse {
 }
 
 type QuerySlsLogRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 查询开始时间点（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
 	From *int64 `json:"from,omitempty" xml:"from,omitempty" require:"true"`
@@ -18755,9 +19206,12 @@ func (s *QuerySlsLogRequest) SetType(v string) *QuerySlsLogRequest {
 }
 
 type QuerySlsLogResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// GetLogs的响应body是一个数组，数组中每个元素是一条日志结果
 	Data []*SLSLogItem `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// 页数
@@ -18812,6 +19266,7 @@ func (s *QuerySlsLogResponse) SetTotal(v int64) *QuerySlsLogResponse {
 }
 
 type BatchcreateResourceIngressrulesRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组入口规则
 	IngressRules []*SecurityGroupRule `json:"ingress_rules,omitempty" xml:"ingress_rules,omitempty" require:"true" type:"Repeated"`
@@ -18850,9 +19305,12 @@ func (s *BatchcreateResourceIngressrulesRequest) SetSecurityGroupId(v string) *B
 }
 
 type BatchcreateResourceIngressrulesResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全组入方向规则是否添加成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -18886,6 +19344,7 @@ func (s *BatchcreateResourceIngressrulesResponse) SetSuccess(v bool) *Batchcreat
 }
 
 type BatchcreateResourceEgressrulesRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 安全组出方向规则
 	EgressRules []*SecurityGroupRule `json:"egress_rules,omitempty" xml:"egress_rules,omitempty" require:"true" type:"Repeated"`
@@ -18924,9 +19383,12 @@ func (s *BatchcreateResourceEgressrulesRequest) SetSecurityGroupId(v string) *Ba
 }
 
 type BatchcreateResourceEgressrulesResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 安全组出方向规则是否添加成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -18960,6 +19422,7 @@ func (s *BatchcreateResourceEgressrulesResponse) SetSuccess(v bool) *Batchcreate
 }
 
 type QueryLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_ids
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
@@ -19110,9 +19573,12 @@ func (s *QueryLoadbalanceRequest) SetWorkspace(v string) *QueryLoadbalanceReques
 }
 
 type QueryLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回的lb
 	Data []*LoadBalancer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -19167,6 +19633,7 @@ func (s *QueryLoadbalanceResponse) SetPageSize(v int64) *QueryLoadbalanceRespons
 }
 
 type GetLoadbalanceHealthRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb_id
 	LbId *string `json:"lb_id,omitempty" xml:"lb_id,omitempty" require:"true"`
@@ -19191,9 +19658,12 @@ func (s *GetLoadbalanceHealthRequest) SetLbId(v string) *GetLoadbalanceHealthReq
 }
 
 type GetLoadbalanceHealthResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// statuses
 	Data []*LoadBalanceHealthStatus `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19227,6 +19697,7 @@ func (s *GetLoadbalanceHealthResponse) SetData(v []*LoadBalanceHealthStatus) *Ge
 }
 
 type AllLoadbalanceViptypeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -19244,9 +19715,12 @@ func (s *AllLoadbalanceViptypeRequest) SetAuthToken(v string) *AllLoadbalanceVip
 }
 
 type AllLoadbalanceViptypeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vip_types
 	Data []*VipType `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19280,6 +19754,7 @@ func (s *AllLoadbalanceViptypeResponse) SetData(v []*VipType) *AllLoadbalanceVip
 }
 
 type AllLoadbalanceClusterRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -19311,9 +19786,12 @@ func (s *AllLoadbalanceClusterRequest) SetZoneId(v string) *AllLoadbalanceCluste
 }
 
 type AllLoadbalanceClusterResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*LbCluster `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19347,6 +19825,7 @@ func (s *AllLoadbalanceClusterResponse) SetData(v []*LbCluster) *AllLoadbalanceC
 }
 
 type QueryVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// vpc id
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
@@ -19378,9 +19857,12 @@ func (s *QueryVpcRequest) SetWorkspace(v string) *QueryVpcRequest {
 }
 
 type QueryVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vpc detail info
 	Data *VpcVO `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -19414,6 +19896,7 @@ func (s *QueryVpcResponse) SetData(v *VpcVO) *QueryVpcResponse {
 }
 
 type ListVpcImportRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -19445,9 +19928,12 @@ func (s *ListVpcImportRequest) SetWorkspace(v string) *ListVpcImportRequest {
 }
 
 type ListVpcImportResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vpc import infos
 	Data []*VpcImport `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19481,6 +19967,7 @@ func (s *ListVpcImportResponse) SetData(v []*VpcImport) *ListVpcImportResponse {
 }
 
 type ListVpcCidrblockRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region
 	Region *string `json:"region,omitempty" xml:"region,omitempty"`
@@ -19505,9 +19992,12 @@ func (s *ListVpcCidrblockRequest) SetRegion(v string) *ListVpcCidrblockRequest {
 }
 
 type ListVpcCidrblockResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// cidr block list
 	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19541,6 +20031,7 @@ func (s *ListVpcCidrblockResponse) SetData(v []*string) *ListVpcCidrblockRespons
 }
 
 type QueryVpcVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// vpc paas id
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
@@ -19572,9 +20063,12 @@ func (s *QueryVpcVswitchRequest) SetVswitchId(v string) *QueryVpcVswitchRequest 
 }
 
 type QueryVpcVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vswitch detail infos
 	Data []*VSwitchVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19608,6 +20102,7 @@ func (s *QueryVpcVswitchResponse) SetData(v []*VSwitchVO) *QueryVpcVswitchRespon
 }
 
 type QueryVpcVroutertableRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// vpc id
 	VpcId *string `json:"vpc_id,omitempty" xml:"vpc_id,omitempty" require:"true"`
@@ -19646,9 +20141,12 @@ func (s *QueryVpcVroutertableRequest) SetWorkspace(v string) *QueryVpcVroutertab
 }
 
 type QueryVpcVroutertableResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	//
 	// 路由表的详细信息。
 	Data []*RouteTable `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
@@ -19683,6 +20181,7 @@ func (s *QueryVpcVroutertableResponse) SetData(v []*RouteTable) *QueryVpcVrouter
 }
 
 type GetLoadbalanceRuleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// rule id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -19714,9 +20213,12 @@ func (s *GetLoadbalanceRuleRequest) SetWorkspace(v string) *GetLoadbalanceRuleRe
 }
 
 type GetLoadbalanceRuleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// rule
 	Data *LoadBalancerRule `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -19750,6 +20252,7 @@ func (s *GetLoadbalanceRuleResponse) SetData(v *LoadBalancerRule) *GetLoadbalanc
 }
 
 type QueryLoadbalanceRuleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_ids
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
@@ -19858,9 +20361,12 @@ func (s *QueryLoadbalanceRuleRequest) SetWorkspace(v string) *QueryLoadbalanceRu
 }
 
 type QueryLoadbalanceRuleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// rules
 	Data []*LoadBalancerRule `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -19894,6 +20400,7 @@ func (s *QueryLoadbalanceRuleResponse) SetData(v []*LoadBalancerRule) *QueryLoad
 }
 
 type GetLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -19918,9 +20425,12 @@ func (s *GetLoadbalanceRequest) SetId(v string) *GetLoadbalanceRequest {
 }
 
 type GetLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *LoadBalancer `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -19954,6 +20464,7 @@ func (s *GetLoadbalanceResponse) SetData(v *LoadBalancer) *GetLoadbalanceRespons
 }
 
 type AllLoadbalanceMountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// loadbalance_id
 	LoadbalanceId *string `json:"loadbalance_id,omitempty" xml:"loadbalance_id,omitempty" require:"true"`
@@ -19985,9 +20496,12 @@ func (s *AllLoadbalanceMountRequest) SetWorkspace(v string) *AllLoadbalanceMount
 }
 
 type AllLoadbalanceMountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*MountComputer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -20021,6 +20535,7 @@ func (s *AllLoadbalanceMountResponse) SetData(v []*MountComputer) *AllLoadbalanc
 }
 
 type QueryLoadbalanceMountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_ids
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
@@ -20129,9 +20644,12 @@ func (s *QueryLoadbalanceMountRequest) SetName(v string) *QueryLoadbalanceMountR
 }
 
 type QueryLoadbalanceMountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// data
@@ -20186,6 +20704,7 @@ func (s *QueryLoadbalanceMountResponse) SetTotalCount(v int64) *QueryLoadbalance
 }
 
 type GetLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -20217,9 +20736,12 @@ func (s *GetLoadbalanceVcomputergroupRequest) SetWorkspace(v string) *GetLoadbal
 }
 
 type GetLoadbalanceVcomputergroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *VComputerGroup `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -20253,6 +20775,7 @@ func (s *GetLoadbalanceVcomputergroupResponse) SetData(v *VComputerGroup) *GetLo
 }
 
 type QueryLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// load_balance_ids
 	LoadBalanceIds []*string `json:"load_balance_ids,omitempty" xml:"load_balance_ids,omitempty" require:"true" type:"Repeated"`
@@ -20298,9 +20821,12 @@ func (s *QueryLoadbalanceVcomputergroupRequest) SetWorkspace(v string) *QueryLoa
 }
 
 type QueryLoadbalanceVcomputergroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*VComputerGroup `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -20334,6 +20860,7 @@ func (s *QueryLoadbalanceVcomputergroupResponse) SetData(v []*VComputerGroup) *Q
 }
 
 type AllLoadbalanceVcomputergroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -20358,9 +20885,12 @@ func (s *AllLoadbalanceVcomputergroupRequest) SetWorkspace(v string) *AllLoadbal
 }
 
 type AllLoadbalanceVcomputergroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*VComputerGroup `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -20394,6 +20924,7 @@ func (s *AllLoadbalanceVcomputergroupResponse) SetData(v []*VComputerGroup) *All
 }
 
 type QueryLoadbalanceVcomputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer_ids
 	ComputerIds []*string `json:"computer_ids,omitempty" xml:"computer_ids,omitempty" type:"Repeated"`
@@ -20488,9 +21019,12 @@ func (s *QueryLoadbalanceVcomputerRequest) SetWorkspace(v string) *QueryLoadbala
 }
 
 type QueryLoadbalanceVcomputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// v_computers
 	Data []*VComputer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -20524,6 +21058,7 @@ func (s *QueryLoadbalanceVcomputerResponse) SetData(v []*VComputer) *QueryLoadba
 }
 
 type QueryLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// backend_server_ports
 	BackendServerPorts []*int64 `json:"backend_server_ports,omitempty" xml:"backend_server_ports,omitempty" type:"Repeated"`
@@ -20625,9 +21160,12 @@ func (s *QueryLoadbalanceListenerRequest) SetWorkspace(v string) *QueryLoadbalan
 }
 
 type QueryLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// listeners
 	Data []*Listener `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -20668,6 +21206,7 @@ func (s *QueryLoadbalanceListenerResponse) SetTotalCount(v int64) *QueryLoadbala
 }
 
 type AllLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb_id
 	LbId *string `json:"lb_id,omitempty" xml:"lb_id,omitempty" require:"true"`
@@ -20699,9 +21238,12 @@ func (s *AllLoadbalanceListenerRequest) SetWorkspace(v string) *AllLoadbalanceLi
 }
 
 type AllLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*Listener `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -20735,6 +21277,7 @@ func (s *AllLoadbalanceListenerResponse) SetData(v []*Listener) *AllLoadbalanceL
 }
 
 type QueryLoadbalanceSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// listener_port
 	ListenerPort *int64 `json:"listener_port,omitempty" xml:"listener_port,omitempty" require:"true"`
@@ -20773,9 +21316,12 @@ func (s *QueryLoadbalanceSecurityipRequest) SetWorkspace(v string) *QueryLoadbal
 }
 
 type QueryLoadbalanceSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// security_ips
 	Data *ListenerSecurityIp `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -20809,6 +21355,7 @@ func (s *QueryLoadbalanceSecurityipResponse) SetData(v *ListenerSecurityIp) *Que
 }
 
 type GetDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -20840,9 +21387,12 @@ func (s *GetDatabaseRequest) SetWorkspace(v string) *GetDatabaseRequest {
 }
 
 type GetDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *Database `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -20876,6 +21426,7 @@ func (s *GetDatabaseResponse) SetData(v *Database) *GetDatabaseResponse {
 }
 
 type AllDatabaseMasterzoneRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -20900,9 +21451,12 @@ func (s *AllDatabaseMasterzoneRequest) SetWorkspace(v string) *AllDatabaseMaster
 }
 
 type AllDatabaseMasterzoneResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// master_zones
 	MasterZones []*string `json:"master_zones,omitempty" xml:"master_zones,omitempty" type:"Repeated"`
 }
@@ -20936,6 +21490,7 @@ func (s *AllDatabaseMasterzoneResponse) SetMasterZones(v []*string) *AllDatabase
 }
 
 type QueryDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_ids
 	AppIds []*string `json:"app_ids,omitempty" xml:"app_ids,omitempty" type:"Repeated"`
@@ -21163,9 +21718,12 @@ func (s *QueryDatabaseRequest) SetWorkspaceIds(v []*string) *QueryDatabaseReques
 }
 
 type QueryDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*Database `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -21220,6 +21778,7 @@ func (s *QueryDatabaseResponse) SetPageSize(v int64) *QueryDatabaseResponse {
 }
 
 type QueryDatabaseSpecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -21370,9 +21929,12 @@ func (s *QueryDatabaseSpecRequest) SetIaasTypes(v []*string) *QueryDatabaseSpecR
 }
 
 type QueryDatabaseSpecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DatabaseSpec `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -21406,6 +21968,7 @@ func (s *QueryDatabaseSpecResponse) SetData(v []*DatabaseSpec) *QueryDatabaseSpe
 }
 
 type AllDatabaseEngineRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -21423,9 +21986,12 @@ func (s *AllDatabaseEngineRequest) SetAuthToken(v string) *AllDatabaseEngineRequ
 }
 
 type AllDatabaseEngineResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DatabaseEngine `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -21459,6 +22025,7 @@ func (s *AllDatabaseEngineResponse) SetData(v []*DatabaseEngine) *AllDatabaseEng
 }
 
 type AllDatabaseQuotaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -21483,9 +22050,12 @@ func (s *AllDatabaseQuotaRequest) SetWorkspace(v string) *AllDatabaseQuotaReques
 }
 
 type AllDatabaseQuotaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// quotas
 	Quotas []*QuotaKv `json:"quotas,omitempty" xml:"quotas,omitempty" type:"Repeated"`
 }
@@ -21519,6 +22089,7 @@ func (s *AllDatabaseQuotaResponse) SetQuotas(v []*QuotaKv) *AllDatabaseQuotaResp
 }
 
 type AllDatabaseSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 数据库id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -21550,9 +22121,12 @@ func (s *AllDatabaseSecurityipRequest) SetWorkspace(v string) *AllDatabaseSecuri
 }
 
 type AllDatabaseSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// security_ips
 	Data []*DatabaseSecurityIp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -21586,6 +22160,7 @@ func (s *AllDatabaseSecurityipResponse) SetData(v []*DatabaseSecurityIp) *AllDat
 }
 
 type QueryDatabaseSchemeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// char_sets
 	CharSets []*string `json:"char_sets,omitempty" xml:"char_sets,omitempty" type:"Repeated"`
@@ -21666,9 +22241,12 @@ func (s *QueryDatabaseSchemeRequest) SetWorkspace(v string) *QueryDatabaseScheme
 }
 
 type QueryDatabaseSchemeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DbSchema `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -21702,6 +22280,7 @@ func (s *QueryDatabaseSchemeResponse) SetData(v []*DbSchema) *QueryDatabaseSchem
 }
 
 type AllDatabaseImportRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -21726,9 +22305,12 @@ func (s *AllDatabaseImportRequest) SetWorkspace(v string) *AllDatabaseImportRequ
 }
 
 type AllDatabaseImportResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// imports
 	Imports []*DatabaseImportVO `json:"imports,omitempty" xml:"imports,omitempty" type:"Repeated"`
 }
@@ -21762,6 +22344,7 @@ func (s *AllDatabaseImportResponse) SetImports(v []*DatabaseImportVO) *AllDataba
 }
 
 type QueryComputerAgentstatusRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer serial numbers
 	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" require:"true" type:"Repeated"`
@@ -21793,9 +22376,12 @@ func (s *QueryComputerAgentstatusRequest) SetWorkspace(v string) *QueryComputerA
 }
 
 type QueryComputerAgentstatusResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// staragent info
 	Data []*StarAgentInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -21829,6 +22415,7 @@ func (s *QueryComputerAgentstatusResponse) SetData(v []*StarAgentInfo) *QueryCom
 }
 
 type QueryComputerAgentsetupcommandRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer serial numbers
 	Sn []*string `json:"sn,omitempty" xml:"sn,omitempty" require:"true" type:"Repeated"`
@@ -21860,9 +22447,12 @@ func (s *QueryComputerAgentsetupcommandRequest) SetWorkspace(v string) *QueryCom
 }
 
 type QueryComputerAgentsetupcommandResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// operation tasks
 	Results []*OperationTask `json:"results,omitempty" xml:"results,omitempty" type:"Repeated"`
 }
@@ -21896,6 +22486,7 @@ func (s *QueryComputerAgentsetupcommandResponse) SetResults(v []*OperationTask) 
 }
 
 type QueryComputerImportRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -21941,9 +22532,12 @@ func (s *QueryComputerImportRequest) SetCurrentPage(v int64) *QueryComputerImpor
 }
 
 type QueryComputerImportResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer import infos
 	Data []*ComputerImportVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total count
@@ -21984,6 +22578,7 @@ func (s *QueryComputerImportResponse) SetTotalCount(v int64) *QueryComputerImpor
 }
 
 type ListComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// appserviceIds
 	AppServiceIds []*string `json:"app_service_ids,omitempty" xml:"app_service_ids,omitempty" type:"Repeated"`
@@ -21995,6 +22590,10 @@ type ListComputerRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
+	// CMP模式下使用的token，一般场景勿用
+	CloudManageToken *string `json:"cloud_manage_token,omitempty" xml:"cloud_manage_token,omitempty"`
+	// vpc_iaas_id
+	VpcIaasId *string `json:"vpc_iaas_id,omitempty" xml:"vpc_iaas_id,omitempty"`
 }
 
 func (s ListComputerRequest) String() string {
@@ -22035,10 +22634,23 @@ func (s *ListComputerRequest) SetWorkspace(v string) *ListComputerRequest {
 	return s
 }
 
+func (s *ListComputerRequest) SetCloudManageToken(v string) *ListComputerRequest {
+	s.CloudManageToken = &v
+	return s
+}
+
+func (s *ListComputerRequest) SetVpcIaasId(v string) *ListComputerRequest {
+	s.VpcIaasId = &v
+	return s
+}
+
 type ListComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer infos
 	Data []*Computer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total count
@@ -22093,6 +22705,7 @@ func (s *ListComputerResponse) SetCurrentPage(v int64) *ListComputerResponse {
 }
 
 type QueryComputerSpecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// prviderIds
 	ProviderIds []*string `json:"provider_ids,omitempty" xml:"provider_ids,omitempty" require:"true" type:"Repeated"`
@@ -22131,9 +22744,12 @@ func (s *QueryComputerSpecRequest) SetWorkspace(v string) *QueryComputerSpecRequ
 }
 
 type QueryComputerSpecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer spec list
 	Data []*ComputerSpec `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22167,6 +22783,7 @@ func (s *QueryComputerSpecResponse) SetData(v []*ComputerSpec) *QueryComputerSpe
 }
 
 type QueryComputerCommonimageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// providerIds
 	ProviderIds []*string `json:"provider_ids,omitempty" xml:"provider_ids,omitempty" require:"true" type:"Repeated"`
@@ -22198,9 +22815,12 @@ func (s *QueryComputerCommonimageRequest) SetRegionIds(v []*string) *QueryComput
 }
 
 type QueryComputerCommonimageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// common images
 	Data []*CommonImage `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22234,6 +22854,7 @@ func (s *QueryComputerCommonimageResponse) SetData(v []*CommonImage) *QueryCompu
 }
 
 type AllLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_ids
 	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" require:"true" type:"Repeated"`
@@ -22258,9 +22879,12 @@ func (s *AllLoadbalanceRequest) SetWorkspaceIds(v []*string) *AllLoadbalanceRequ
 }
 
 type AllLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*LoadBalancer `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22294,6 +22918,7 @@ func (s *AllLoadbalanceResponse) SetData(v []*LoadBalancer) *AllLoadbalanceRespo
 }
 
 type QueryLoadbalanceImportRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -22339,9 +22964,12 @@ func (s *QueryLoadbalanceImportRequest) SetZoneId(v string) *QueryLoadbalanceImp
 }
 
 type QueryLoadbalanceImportResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*LoadBalancerImportVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -22382,6 +23010,7 @@ func (s *QueryLoadbalanceImportResponse) SetTotalCount(v int64) *QueryLoadbalanc
 }
 
 type QueryDatabaseImportRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -22427,9 +23056,12 @@ func (s *QueryDatabaseImportRequest) SetWorkspace(v string) *QueryDatabaseImport
 }
 
 type QueryDatabaseImportResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DatabaseImportVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -22470,6 +23102,7 @@ func (s *QueryDatabaseImportResponse) SetTotalCount(v int64) *QueryDatabaseImpor
 }
 
 type QueryDatabaseMasterzoneRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -22494,9 +23127,12 @@ func (s *QueryDatabaseMasterzoneRequest) SetWorkspace(v string) *QueryDatabaseMa
 }
 
 type QueryDatabaseMasterzoneResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22530,6 +23166,7 @@ func (s *QueryDatabaseMasterzoneResponse) SetData(v []*string) *QueryDatabaseMas
 }
 
 type QueryDatabaseQuotaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -22554,9 +23191,12 @@ func (s *QueryDatabaseQuotaRequest) SetWorkspace(v string) *QueryDatabaseQuotaRe
 }
 
 type QueryDatabaseQuotaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*QuotaKv `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22590,6 +23230,7 @@ func (s *QueryDatabaseQuotaResponse) SetData(v []*QuotaKv) *QueryDatabaseQuotaRe
 }
 
 type QueryDatabaseSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -22621,9 +23262,12 @@ func (s *QueryDatabaseSecurityipRequest) SetWorkspace(v string) *QueryDatabaseSe
 }
 
 type QueryDatabaseSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DatabaseSecurityIp `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22657,6 +23301,7 @@ func (s *QueryDatabaseSecurityipResponse) SetData(v []*DatabaseSecurityIp) *Quer
 }
 
 type QueryDatabaseSchemaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// char_sets
 	CharSets []*string `json:"char_sets,omitempty" xml:"char_sets,omitempty" type:"Repeated"`
@@ -22737,9 +23382,12 @@ func (s *QueryDatabaseSchemaRequest) SetWorkspace(v string) *QueryDatabaseSchema
 }
 
 type QueryDatabaseSchemaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DbSchema `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -22780,6 +23428,7 @@ func (s *QueryDatabaseSchemaResponse) SetTotalCount(v int64) *QueryDatabaseSchem
 }
 
 type QueryDatabaseAccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -22818,9 +23467,12 @@ func (s *QueryDatabaseAccountRequest) SetPageSize(v int64) *QueryDatabaseAccount
 }
 
 type QueryDatabaseAccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*DatabaseAccount `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -22861,6 +23513,7 @@ func (s *QueryDatabaseAccountResponse) SetTotalCount(v int64) *QueryDatabaseAcco
 }
 
 type GetWorkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -22885,9 +23538,12 @@ func (s *GetWorkspaceRequest) SetId(v string) *GetWorkspaceRequest {
 }
 
 type GetWorkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// workspaceDto
 	Data *WorkspaceDto `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -22921,6 +23577,7 @@ func (s *GetWorkspaceResponse) SetData(v *WorkspaceDto) *GetWorkspaceResponse {
 }
 
 type ListRegionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -22938,9 +23595,12 @@ func (s *ListRegionRequest) SetAuthToken(v string) *ListRegionRequest {
 }
 
 type ListRegionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// list
 	Data []*RegionDto `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -22974,6 +23634,7 @@ func (s *ListRegionResponse) SetData(v []*RegionDto) *ListRegionResponse {
 }
 
 type ListRegionAccessibleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -22991,9 +23652,12 @@ func (s *ListRegionAccessibleRequest) SetAuthToken(v string) *ListRegionAccessib
 }
 
 type ListRegionAccessibleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*RegionDto `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -23027,6 +23691,7 @@ func (s *ListRegionAccessibleResponse) SetData(v []*RegionDto) *ListRegionAccess
 }
 
 type UpdateDatabaseInfoRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
@@ -23065,9 +23730,12 @@ func (s *UpdateDatabaseInfoRequest) SetId(v string) *UpdateDatabaseInfoRequest {
 }
 
 type UpdateDatabaseInfoResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateDatabaseInfoResponse) String() string {
@@ -23094,6 +23762,7 @@ func (s *UpdateDatabaseInfoResponse) SetResultMsg(v string) *UpdateDatabaseInfoR
 }
 
 type SetDatabaseAssignRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_service_ids
 	AppServiceIds []*string `json:"app_service_ids,omitempty" xml:"app_service_ids,omitempty" type:"Repeated"`
@@ -23139,9 +23808,12 @@ func (s *SetDatabaseAssignRequest) SetIds(v []*string) *SetDatabaseAssignRequest
 }
 
 type SetDatabaseAssignResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SetDatabaseAssignResponse) String() string {
@@ -23168,6 +23840,7 @@ func (s *SetDatabaseAssignResponse) SetResultMsg(v string) *SetDatabaseAssignRes
 }
 
 type SetDatabaseShareRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_ids
 	WorkspaceIds []*string `json:"workspace_ids,omitempty" xml:"workspace_ids,omitempty" require:"true" type:"Repeated"`
@@ -23199,9 +23872,12 @@ func (s *SetDatabaseShareRequest) SetIds(v []*string) *SetDatabaseShareRequest {
 }
 
 type SetDatabaseShareResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SetDatabaseShareResponse) String() string {
@@ -23228,6 +23904,7 @@ func (s *SetDatabaseShareResponse) SetResultMsg(v string) *SetDatabaseShareRespo
 }
 
 type RebootDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -23252,9 +23929,12 @@ func (s *RebootDatabaseRequest) SetId(v string) *RebootDatabaseRequest {
 }
 
 type RebootDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s RebootDatabaseResponse) String() string {
@@ -23281,6 +23961,7 @@ func (s *RebootDatabaseResponse) SetResultMsg(v string) *RebootDatabaseResponse 
 }
 
 type UpdateDatabaseAccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// description
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
@@ -23312,9 +23993,12 @@ func (s *UpdateDatabaseAccountRequest) SetId(v string) *UpdateDatabaseAccountReq
 }
 
 type UpdateDatabaseAccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateDatabaseAccountResponse) String() string {
@@ -23341,6 +24025,7 @@ func (s *UpdateDatabaseAccountResponse) SetResultMsg(v string) *UpdateDatabaseAc
 }
 
 type SetDatabaseAccountpasswordRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -23372,9 +24057,12 @@ func (s *SetDatabaseAccountpasswordRequest) SetPassword(v string) *SetDatabaseAc
 }
 
 type SetDatabaseAccountpasswordResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SetDatabaseAccountpasswordResponse) String() string {
@@ -23401,6 +24089,7 @@ func (s *SetDatabaseAccountpasswordResponse) SetResultMsg(v string) *SetDatabase
 }
 
 type AuthDatabaseAccountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// schema_id
 	SchemaId *string `json:"schema_id,omitempty" xml:"schema_id,omitempty" require:"true"`
@@ -23439,9 +24128,12 @@ func (s *AuthDatabaseAccountRequest) SetId(v string) *AuthDatabaseAccountRequest
 }
 
 type AuthDatabaseAccountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AuthDatabaseAccountResponse) String() string {
@@ -23468,6 +24160,7 @@ func (s *AuthDatabaseAccountResponse) SetResultMsg(v string) *AuthDatabaseAccoun
 }
 
 type GetRegionTenantRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 }
 
@@ -23485,9 +24178,12 @@ func (s *GetRegionTenantRequest) SetAuthToken(v string) *GetRegionTenantRequest 
 }
 
 type GetRegionTenantResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// regionDto
 	Data *RegionDto `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -23521,6 +24217,7 @@ func (s *GetRegionTenantResponse) SetData(v *RegionDto) *GetRegionTenantResponse
 }
 
 type GetRegionAliasbyidRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region_id
 	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
@@ -23559,9 +24256,12 @@ func (s *GetRegionAliasbyidRequest) SetIaasConnType(v string) *GetRegionAliasbyi
 }
 
 type GetRegionAliasbyidResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// region alias
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -23595,6 +24295,7 @@ func (s *GetRegionAliasbyidResponse) SetData(v string) *GetRegionAliasbyidRespon
 }
 
 type QueryDiskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -23689,9 +24390,12 @@ func (s *QueryDiskRequest) SetName(v string) *QueryDiskRequest {
 }
 
 type QueryDiskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// disk detail infos
 	Data []*Disk `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total count
@@ -23746,6 +24450,7 @@ func (s *QueryDiskResponse) SetCurrentPage(v int64) *QueryDiskResponse {
 }
 
 type QueryImageRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
@@ -23791,9 +24496,12 @@ func (s *QueryImageRequest) SetStatuses(v string) *QueryImageRequest {
 }
 
 type QueryImageResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// image infos
 	Data []*CommonImage `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total count
@@ -23834,6 +24542,7 @@ func (s *QueryImageResponse) SetTotalCount(v int64) *QueryImageResponse {
 }
 
 type CreateDatabaseSchemaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// char_set
 	CharSet *string `json:"char_set,omitempty" xml:"char_set,omitempty" require:"true"`
@@ -23886,9 +24595,12 @@ func (s *CreateDatabaseSchemaRequest) SetName(v string) *CreateDatabaseSchemaReq
 }
 
 type CreateDatabaseSchemaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回的schemaid
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -23922,6 +24634,7 @@ func (s *CreateDatabaseSchemaResponse) SetData(v string) *CreateDatabaseSchemaRe
 }
 
 type CreateLoadbalanceMountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// mount_map
 	MountMap []*MapStringToIntegerEntity `json:"mount_map,omitempty" xml:"mount_map,omitempty" require:"true" type:"Repeated"`
@@ -23960,9 +24673,12 @@ func (s *CreateLoadbalanceMountRequest) SetId(v string) *CreateLoadbalanceMountR
 }
 
 type CreateLoadbalanceMountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s CreateLoadbalanceMountResponse) String() string {
@@ -23989,6 +24705,7 @@ func (s *CreateLoadbalanceMountResponse) SetResultMsg(v string) *CreateLoadbalan
 }
 
 type CreateLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// backend_server_port
 	BackendServerPort *int64 `json:"backend_server_port,omitempty" xml:"backend_server_port,omitempty"`
@@ -24139,9 +24856,12 @@ func (s *CreateLoadbalanceListenerRequest) SetXForwardedFor(v string) *CreateLoa
 }
 
 type CreateLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -24175,6 +24895,7 @@ func (s *CreateLoadbalanceListenerResponse) SetData(v string) *CreateLoadbalance
 }
 
 type StopLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// load_balancer_id
 	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty" require:"true"`
@@ -24206,9 +24927,12 @@ func (s *StopLoadbalanceListenerRequest) SetListenerPort(v int64) *StopLoadbalan
 }
 
 type StopLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s StopLoadbalanceListenerResponse) String() string {
@@ -24235,6 +24959,7 @@ func (s *StopLoadbalanceListenerResponse) SetResultMsg(v string) *StopLoadbalanc
 }
 
 type StartLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// load_balancer_id
 	LoadBalancerId *string `json:"load_balancer_id,omitempty" xml:"load_balancer_id,omitempty" require:"true"`
@@ -24266,9 +24991,12 @@ func (s *StartLoadbalanceListenerRequest) SetListenerPort(v int64) *StartLoadbal
 }
 
 type StartLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s StartLoadbalanceListenerResponse) String() string {
@@ -24295,6 +25023,7 @@ func (s *StartLoadbalanceListenerResponse) SetResultMsg(v string) *StartLoadbala
 }
 
 type UpdateLoadbalanceListenerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// bandwidth
 	Bandwidth *int64 `json:"bandwidth,omitempty" xml:"bandwidth,omitempty"`
@@ -24431,9 +25160,12 @@ func (s *UpdateLoadbalanceListenerRequest) SetVComputerGroupId(v string) *Update
 }
 
 type UpdateLoadbalanceListenerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanceListenerResponse) String() string {
@@ -24460,6 +25192,7 @@ func (s *UpdateLoadbalanceListenerResponse) SetResultMsg(v string) *UpdateLoadba
 }
 
 type QueryDiskspecRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// provider id
 	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
@@ -24491,9 +25224,12 @@ func (s *QueryDiskspecRequest) SetEnable(v bool) *QueryDiskspecRequest {
 }
 
 type QueryDiskspecResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// disk spec infos
 	Data []*DiskSpec `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -24527,6 +25263,7 @@ func (s *QueryDiskspecResponse) SetData(v []*DiskSpec) *QueryDiskspecResponse {
 }
 
 type QueryComputerquotaRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -24551,9 +25288,12 @@ func (s *QueryComputerquotaRequest) SetWorkspace(v string) *QueryComputerquotaRe
 }
 
 type QueryComputerquotaResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer quota info jsonstring
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -24587,6 +25327,7 @@ func (s *QueryComputerquotaResponse) SetData(v string) *QueryComputerquotaRespon
 }
 
 type StopComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -24618,9 +25359,12 @@ func (s *StopComputerRequest) SetWorkspaceId(v string) *StopComputerRequest {
 }
 
 type StopComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -24654,6 +25398,7 @@ func (s *StopComputerResponse) SetPaasRequestId(v string) *StopComputerResponse 
 }
 
 type RebootComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -24685,9 +25430,12 @@ func (s *RebootComputerRequest) SetWorkspaceId(v string) *RebootComputerRequest 
 }
 
 type RebootComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -24721,6 +25469,7 @@ func (s *RebootComputerResponse) SetPaasRequestId(v string) *RebootComputerRespo
 }
 
 type QueryComputerSecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -24745,9 +25494,12 @@ func (s *QueryComputerSecuritygroupRequest) SetId(v string) *QueryComputerSecuri
 }
 
 type QueryComputerSecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// security group info
 	Data []*JoinedSecurityGroupVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -24781,6 +25533,7 @@ func (s *QueryComputerSecuritygroupResponse) SetData(v []*JoinedSecurityGroupVO)
 }
 
 type QuerySecuritygroupRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -24819,9 +25572,12 @@ func (s *QuerySecuritygroupRequest) SetPageSize(v int64) *QuerySecuritygroupRequ
 }
 
 type QuerySecuritygroupResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// currentPage
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// pageSize
@@ -24876,6 +25632,7 @@ func (s *QuerySecuritygroupResponse) SetData(v []*SecurityGroupVO) *QuerySecurit
 }
 
 type CreateSecuritygroupPermissionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// PermissionVO
 	Permission *PermissionVO `json:"permission,omitempty" xml:"permission,omitempty" require:"true"`
@@ -24907,9 +25664,12 @@ func (s *CreateSecuritygroupPermissionRequest) SetSecurityGroupId(v string) *Cre
 }
 
 type CreateSecuritygroupPermissionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -24943,6 +25703,7 @@ func (s *CreateSecuritygroupPermissionResponse) SetData(v string) *CreateSecurit
 }
 
 type QuerySecuritygroupPermissionRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// securityGroupId
 	SecurityGroupId *string `json:"security_group_id,omitempty" xml:"security_group_id,omitempty" require:"true"`
@@ -24988,9 +25749,12 @@ func (s *QuerySecuritygroupPermissionRequest) SetDirection(v string) *QuerySecur
 }
 
 type QuerySecuritygroupPermissionResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// securitygroup permission infos
 	Data []*PermissionVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -25024,6 +25788,7 @@ func (s *QuerySecuritygroupPermissionResponse) SetData(v []*PermissionVO) *Query
 }
 
 type UpdateLoadbalanaceSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -25062,9 +25827,12 @@ func (s *UpdateLoadbalanaceSecurityipRequest) SetAccessControl(v bool) *UpdateLo
 }
 
 type UpdateLoadbalanaceSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanaceSecurityipResponse) String() string {
@@ -25091,6 +25859,7 @@ func (s *UpdateLoadbalanaceSecurityipResponse) SetResultMsg(v string) *UpdateLoa
 }
 
 type CreateLoadbalanceSecurityipRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// lb id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -25129,9 +25898,12 @@ func (s *CreateLoadbalanceSecurityipRequest) SetIps(v []*string) *CreateLoadbala
 }
 
 type CreateLoadbalanceSecurityipResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s CreateLoadbalanceSecurityipResponse) String() string {
@@ -25158,6 +25930,7 @@ func (s *CreateLoadbalanceSecurityipResponse) SetResultMsg(v string) *CreateLoad
 }
 
 type UpdateDatabaseRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -25196,9 +25969,12 @@ func (s *UpdateDatabaseRequest) SetDescription(v string) *UpdateDatabaseRequest 
 }
 
 type UpdateDatabaseResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateDatabaseResponse) String() string {
@@ -25225,6 +26001,7 @@ func (s *UpdateDatabaseResponse) SetResultMsg(v string) *UpdateDatabaseResponse 
 }
 
 type UpdateLoadbalanceMountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -25263,9 +26040,12 @@ func (s *UpdateLoadbalanceMountRequest) SetDomain(v string) *UpdateLoadbalanceMo
 }
 
 type UpdateLoadbalanceMountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanceMountResponse) String() string {
@@ -25292,6 +26072,7 @@ func (s *UpdateLoadbalanceMountResponse) SetResultMsg(v string) *UpdateLoadbalan
 }
 
 type DeleteLoadbalanceMountRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -25323,9 +26104,12 @@ func (s *DeleteLoadbalanceMountRequest) SetComputerIds(v []*string) *DeleteLoadb
 }
 
 type DeleteLoadbalanceMountResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteLoadbalanceMountResponse) String() string {
@@ -25352,15 +26136,16 @@ func (s *DeleteLoadbalanceMountResponse) SetResultMsg(v string) *DeleteLoadbalan
 }
 
 type QueryRequestRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" type:"Repeated"`
 	// max_time
-	MaxTime *string `json:"max_time,omitempty" xml:"max_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	MaxTime *string `json:"max_time,omitempty" xml:"max_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// min_time
-	MinTime *string `json:"min_time,omitempty" xml:"min_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	MinTime *string `json:"min_time,omitempty" xml:"min_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// operators
 	Operators []*string `json:"operators,omitempty" xml:"operators,omitempty" type:"Repeated"`
 	// operator_type
@@ -25474,9 +26259,12 @@ func (s *QueryRequestRequest) SetWorkspaceIds(v []*string) *QueryRequestRequest 
 }
 
 type QueryRequestResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*RequestVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -25531,6 +26319,7 @@ func (s *QueryRequestResponse) SetPageSize(v int64) *QueryRequestResponse {
 }
 
 type GetRequestRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -25562,9 +26351,12 @@ func (s *GetRequestRequest) SetId(v string) *GetRequestRequest {
 }
 
 type GetRequestResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *RequestVO `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -25598,15 +26390,16 @@ func (s *GetRequestResponse) SetData(v *RequestVO) *GetRequestResponse {
 }
 
 type QueryRequestTaskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// current_page
 	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" type:"Repeated"`
 	// max_time
-	MaxTime *string `json:"max_time,omitempty" xml:"max_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	MaxTime *string `json:"max_time,omitempty" xml:"max_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// min_time
-	MinTime *string `json:"min_time,omitempty" xml:"min_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]"`
+	MinTime *string `json:"min_time,omitempty" xml:"min_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// operators
 	Operators []*string `json:"operators,omitempty" xml:"operators,omitempty" type:"Repeated"`
 	// operatorType
@@ -25713,9 +26506,12 @@ func (s *QueryRequestTaskRequest) SetWorkspaceIds(v []*string) *QueryRequestTask
 }
 
 type QueryRequestTaskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*Task `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -25756,6 +26552,7 @@ func (s *QueryRequestTaskResponse) SetTotalCount(v int64) *QueryRequestTaskRespo
 }
 
 type QueryTaskLogRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// execution_times
 	ExecutionTimes *int64 `json:"execution_times,omitempty" xml:"execution_times,omitempty"`
@@ -25787,9 +26584,12 @@ func (s *QueryTaskLogRequest) SetTaskId(v string) *QueryTaskLogRequest {
 }
 
 type QueryTaskLogResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*ResourceLog `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -25823,6 +26623,7 @@ func (s *QueryTaskLogResponse) SetData(v []*ResourceLog) *QueryTaskLogResponse {
 }
 
 type ListTenantworkspaceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
@@ -25847,9 +26648,12 @@ func (s *ListTenantworkspaceRequest) SetStatus(v string) *ListTenantworkspaceReq
 }
 
 type ListTenantworkspaceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// worksapce列表
 	Data []*TenantWorkspace `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -25883,6 +26687,7 @@ func (s *ListTenantworkspaceResponse) SetData(v []*TenantWorkspace) *ListTenantw
 }
 
 type QueryTenantworkspaceFilterRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// statuses
 	Statuses *string `json:"statuses,omitempty" xml:"statuses,omitempty"`
@@ -25907,9 +26712,12 @@ func (s *QueryTenantworkspaceFilterRequest) SetStatuses(v string) *QueryTenantwo
 }
 
 type QueryTenantworkspaceFilterResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// workspaces
 	Data []*TenantWorkspace `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -25943,6 +26751,7 @@ func (s *QueryTenantworkspaceFilterResponse) SetData(v []*TenantWorkspace) *Quer
 }
 
 type ListRegionGroupbyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// status
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
@@ -25967,9 +26776,12 @@ func (s *ListRegionGroupbyRequest) SetStatus(v string) *ListRegionGroupbyRequest
 }
 
 type ListRegionGroupbyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// RegionWorkspaceVO
 	Data []*RegionWorkspaceVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -26003,6 +26815,7 @@ func (s *ListRegionGroupbyResponse) SetData(v []*RegionWorkspaceVO) *ListRegionG
 }
 
 type QueryRequestFinaltaskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// request_id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -26034,9 +26847,12 @@ func (s *QueryRequestFinaltaskRequest) SetWorkspaceId(v string) *QueryRequestFin
 }
 
 type QueryRequestFinaltaskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*TaskVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -26070,6 +26886,7 @@ func (s *QueryRequestFinaltaskResponse) SetData(v []*TaskVO) *QueryRequestFinalt
 }
 
 type QueryFeatureRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region_id
 	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
@@ -26101,9 +26918,12 @@ func (s *QueryFeatureRequest) SetProjectId(v string) *QueryFeatureRequest {
 }
 
 type QueryFeatureResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -26137,6 +26957,7 @@ func (s *QueryFeatureResponse) SetData(v string) *QueryFeatureResponse {
 }
 
 type StartComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -26168,9 +26989,12 @@ func (s *StartComputerRequest) SetWorkspaceId(v string) *StartComputerRequest {
 }
 
 type StartComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// paas_request_id
 	PaasRequestId *string `json:"paas_request_id,omitempty" xml:"paas_request_id,omitempty"`
 }
@@ -26204,6 +27028,7 @@ func (s *StartComputerResponse) SetPaasRequestId(v string) *StartComputerRespons
 }
 
 type StartLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -26228,9 +27053,12 @@ func (s *StartLoadbalanceRequest) SetIds(v []*string) *StartLoadbalanceRequest {
 }
 
 type StartLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s StartLoadbalanceResponse) String() string {
@@ -26257,6 +27085,7 @@ func (s *StartLoadbalanceResponse) SetResultMsg(v string) *StartLoadbalanceRespo
 }
 
 type StopLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -26281,9 +27110,12 @@ func (s *StopLoadbalanceRequest) SetIds(v []*string) *StopLoadbalanceRequest {
 }
 
 type StopLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s StopLoadbalanceResponse) String() string {
@@ -26310,6 +27142,7 @@ func (s *StopLoadbalanceResponse) SetResultMsg(v string) *StopLoadbalanceRespons
 }
 
 type UpdateLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -26348,9 +27181,12 @@ func (s *UpdateLoadbalanceRequest) SetDescription(v string) *UpdateLoadbalanceRe
 }
 
 type UpdateLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateLoadbalanceResponse) String() string {
@@ -26377,6 +27213,7 @@ func (s *UpdateLoadbalanceResponse) SetResultMsg(v string) *UpdateLoadbalanceRes
 }
 
 type AddLoadbalanceAssignRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
@@ -26415,9 +27252,12 @@ func (s *AddLoadbalanceAssignRequest) SetIds(v []*string) *AddLoadbalanceAssignR
 }
 
 type AddLoadbalanceAssignResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s AddLoadbalanceAssignResponse) String() string {
@@ -26444,6 +27284,7 @@ func (s *AddLoadbalanceAssignResponse) SetResultMsg(v string) *AddLoadbalanceAss
 }
 
 type QueryCertificateRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -26475,9 +27316,12 @@ func (s *QueryCertificateRequest) SetZoneId(v string) *QueryCertificateRequest {
 }
 
 type QueryCertificateResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data []*BasicCertificate `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 	// total_count
@@ -26518,6 +27362,7 @@ func (s *QueryCertificateResponse) SetTotalCount(v int64) *QueryCertificateRespo
 }
 
 type CreateCertificateRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -26584,9 +27429,12 @@ func (s *CreateCertificateRequest) SetCertType(v int64) *CreateCertificateReques
 }
 
 type CreateCertificateResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -26620,6 +27468,7 @@ func (s *CreateCertificateResponse) SetData(v string) *CreateCertificateResponse
 }
 
 type DeleteCertificateRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -26658,9 +27507,12 @@ func (s *DeleteCertificateRequest) SetZoneId(v string) *DeleteCertificateRequest
 }
 
 type DeleteCertificateResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s DeleteCertificateResponse) String() string {
@@ -26687,6 +27539,7 @@ func (s *DeleteCertificateResponse) SetResultMsg(v string) *DeleteCertificateRes
 }
 
 type DescribeUnifiedresourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 提供商类型
 	ProviderType *string `json:"provider_type,omitempty" xml:"provider_type,omitempty" require:"true"`
@@ -26725,9 +27578,12 @@ func (s *DescribeUnifiedresourceVpcRequest) SetWorkspace(v string) *DescribeUnif
 }
 
 type DescribeUnifiedresourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vpc对象
 	Vpc *VPC `json:"vpc,omitempty" xml:"vpc,omitempty"`
 }
@@ -26761,6 +27617,7 @@ func (s *DescribeUnifiedresourceVpcResponse) SetVpc(v *VPC) *DescribeUnifiedreso
 }
 
 type ListUnifiedresourceInstancefamiliesRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region id
 	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
@@ -26792,9 +27649,12 @@ func (s *ListUnifiedresourceInstancefamiliesRequest) SetProviderType(v string) *
 }
 
 type ListUnifiedresourceInstancefamiliesResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ListUnifiedresourceInstancefamiliesResponse) String() string {
@@ -26821,6 +27681,7 @@ func (s *ListUnifiedresourceInstancefamiliesResponse) SetResultMsg(v string) *Li
 }
 
 type ListUnifiedresourceInstancetypeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -26845,9 +27706,12 @@ func (s *ListUnifiedresourceInstancetypeRequest) SetRegion(v string) *ListUnifie
 }
 
 type ListUnifiedresourceInstancetypeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// instancetype详细信息，jsonstring
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -26881,6 +27745,7 @@ func (s *ListUnifiedresourceInstancetypeResponse) SetData(v string) *ListUnified
 }
 
 type QueryComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// computer id
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
@@ -26912,9 +27777,12 @@ func (s *QueryComputerRequest) SetWorkspaceId(v string) *QueryComputerRequest {
 }
 
 type QueryComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer info
 	Data *Computer `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -26948,6 +27816,7 @@ func (s *QueryComputerResponse) SetData(v *Computer) *QueryComputerResponse {
 }
 
 type ListResourceComputertypeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -26986,9 +27855,12 @@ func (s *ListResourceComputertypeRequest) SetInstanceTypeFamily(v string) *ListR
 }
 
 type ListResourceComputertypeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 可用computer type列表
 	Data []*ComputerType `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27022,6 +27894,7 @@ func (s *ListResourceComputertypeResponse) SetData(v []*ComputerType) *ListResou
 }
 
 type ListResourceDiskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 要查询的云盘或本地盘类型。取值范围：
 	//
@@ -27065,9 +27938,12 @@ func (s *ListResourceDiskRequest) SetRegion(v string) *ListResourceDiskRequest {
 }
 
 type ListResourceDiskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// disk infos
 	Data []*Disk `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27101,6 +27977,7 @@ func (s *ListResourceDiskResponse) SetData(v []*Disk) *ListResourceDiskResponse 
 }
 
 type ListResourceComputertypefamilyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27125,9 +28002,12 @@ func (s *ListResourceComputertypefamilyRequest) SetRegion(v string) *ListResourc
 }
 
 type ListResourceComputertypefamilyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// computer 规格族
 	Data []*ComputerTypeFamily `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27161,6 +28041,7 @@ func (s *ListResourceComputertypefamilyResponse) SetData(v []*ComputerTypeFamily
 }
 
 type ListUnifiedresourceVswitchRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27199,9 +28080,12 @@ func (s *ListUnifiedresourceVswitchRequest) SetVSwitchId(v string) *ListUnifiedr
 }
 
 type ListUnifiedresourceVswitchResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 交换机的详细信息
 	Data []*VSwitch `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27235,6 +28119,7 @@ func (s *ListUnifiedresourceVswitchResponse) SetData(v []*VSwitch) *ListUnifiedr
 }
 
 type ListUnifiedresourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27259,9 +28144,12 @@ func (s *ListUnifiedresourceVpcRequest) SetRegion(v string) *ListUnifiedresource
 }
 
 type ListUnifiedresourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vpc list
 	Data []*VPC `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27295,6 +28183,7 @@ func (s *ListUnifiedresourceVpcResponse) SetData(v []*VPC) *ListUnifiedresourceV
 }
 
 type ImportResourceVpcRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region identity
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27354,9 +28243,12 @@ func (s *ImportResourceVpcRequest) SetCidrBlock(v string) *ImportResourceVpcRequ
 }
 
 type ImportResourceVpcResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// vpc关联到workspace是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -27390,6 +28282,7 @@ func (s *ImportResourceVpcResponse) SetSuccess(v bool) *ImportResourceVpcRespons
 }
 
 type DeleteResourceRuleRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 传输层协议。参数值大小写敏感。取值范围：
 	//
@@ -27469,9 +28362,12 @@ func (s *DeleteResourceRuleRequest) SetDestCidrIp(v string) *DeleteResourceRuleR
 }
 
 type DeleteResourceRuleResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 操作是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -27505,6 +28401,7 @@ func (s *DeleteResourceRuleResponse) SetSuccess(v bool) *DeleteResourceRuleRespo
 }
 
 type ListRouteEntryRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 所属地域
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27536,9 +28433,12 @@ func (s *ListRouteEntryRequest) SetRouterId(v string) *ListRouteEntryRequest {
 }
 
 type ListRouteEntryResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 路由条目信息
 	Data []*VRouteEntry `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
@@ -27572,6 +28472,7 @@ func (s *ListRouteEntryResponse) SetData(v []*VRouteEntry) *ListRouteEntryRespon
 }
 
 type ListAvailableDiskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27612,9 +28513,12 @@ func (s *ListAvailableDiskRequest) SetInstanceType(v string) *ListAvailableDiskR
 }
 
 type ListAvailableDiskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 磁盘类型详细信息，jsonstring
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -27648,6 +28552,7 @@ func (s *ListAvailableDiskResponse) SetData(v string) *ListAvailableDiskResponse
 }
 
 type ListAvailableInstancetypeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// region name
 	Region *string `json:"region,omitempty" xml:"region,omitempty" require:"true"`
@@ -27672,9 +28577,12 @@ func (s *ListAvailableInstancetypeRequest) SetRegion(v string) *ListAvailableIns
 }
 
 type ListAvailableInstancetypeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 实例类型详细信息，jsonstring
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -27708,6 +28616,7 @@ func (s *ListAvailableInstancetypeResponse) SetData(v string) *ListAvailableInst
 }
 
 type QueryResourcemetaNodeRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -27732,9 +28641,12 @@ func (s *QueryResourcemetaNodeRequest) SetWorkspace(v string) *QueryResourcemeta
 }
 
 type QueryResourcemetaNodeResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// node meta list jsonstring
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -27768,6 +28680,7 @@ func (s *QueryResourcemetaNodeResponse) SetData(v string) *QueryResourcemetaNode
 }
 
 type QueryResourcemetaAppserviceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace name
 	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty" require:"true"`
@@ -27792,9 +28705,12 @@ func (s *QueryResourcemetaAppserviceRequest) SetWorkspace(v string) *QueryResour
 }
 
 type QueryResourcemetaAppserviceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// app service metadata json
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -27828,6 +28744,7 @@ func (s *QueryResourcemetaAppserviceResponse) SetData(v string) *QueryResourceme
 }
 
 type SyncComputerRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 工作空间
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -27859,9 +28776,12 @@ func (s *SyncComputerRequest) SetComputerId(v string) *SyncComputerRequest {
 }
 
 type SyncComputerResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SyncComputerResponse) String() string {
@@ -27888,6 +28808,7 @@ func (s *SyncComputerResponse) SetResultMsg(v string) *SyncComputerResponse {
 }
 
 type SyncLoadbalanceRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// workspace_id
 	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
@@ -27919,9 +28840,12 @@ func (s *SyncLoadbalanceRequest) SetLbId(v string) *SyncLoadbalanceRequest {
 }
 
 type SyncLoadbalanceResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SyncLoadbalanceResponse) String() string {
@@ -27948,6 +28872,7 @@ func (s *SyncLoadbalanceResponse) SetResultMsg(v string) *SyncLoadbalanceRespons
 }
 
 type UpdateComputerInfoRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// name
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
@@ -27993,9 +28918,12 @@ func (s *UpdateComputerInfoRequest) SetComputerId(v string) *UpdateComputerInfoR
 }
 
 type UpdateComputerInfoResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateComputerInfoResponse) String() string {
@@ -28022,6 +28950,7 @@ func (s *UpdateComputerInfoResponse) SetResultMsg(v string) *UpdateComputerInfoR
 }
 
 type SetComputerAssignRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// app_id
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
@@ -28074,9 +29003,12 @@ func (s *SetComputerAssignRequest) SetCell(v []*MapStringToStringEntity) *SetCom
 }
 
 type SetComputerAssignResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s SetComputerAssignResponse) String() string {
@@ -28103,6 +29035,7 @@ func (s *SetComputerAssignResponse) SetResultMsg(v string) *SetComputerAssignRes
 }
 
 type ExecRequestTaskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// rmc_request_id，注意区分OPENAPI自身的request_id
 	RmcRequestId *string `json:"rmc_request_id,omitempty" xml:"rmc_request_id,omitempty" require:"true"`
@@ -28134,9 +29067,12 @@ func (s *ExecRequestTaskRequest) SetTaskIds(v []*string) *ExecRequestTaskRequest
 }
 
 type ExecRequestTaskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ExecRequestTaskResponse) String() string {
@@ -28163,6 +29099,7 @@ func (s *ExecRequestTaskResponse) SetResultMsg(v string) *ExecRequestTaskRespons
 }
 
 type ReinitDiskRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// ids
 	Ids []*string `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
@@ -28194,9 +29131,12 @@ func (s *ReinitDiskRequest) SetWorkspaceId(v string) *ReinitDiskRequest {
 }
 
 type ReinitDiskResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ReinitDiskResponse) String() string {
@@ -28223,6 +29163,7 @@ func (s *ReinitDiskResponse) SetResultMsg(v string) *ReinitDiskResponse {
 }
 
 type UpdateDiskStrategyRequest struct {
+	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// delete_with_computer
 	DeleteWithComputer *bool `json:"delete_with_computer,omitempty" xml:"delete_with_computer,omitempty"`
@@ -28268,9 +29209,12 @@ func (s *UpdateDiskStrategyRequest) SetIds(v []*string) *UpdateDiskStrategyReque
 }
 
 type UpdateDiskStrategyResponse struct {
-	ReqMsgId   *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s UpdateDiskStrategyResponse) String() string {
@@ -28418,7 +29362,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.17"),
+				"sdk_version":      tea.String("1.3.19"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
