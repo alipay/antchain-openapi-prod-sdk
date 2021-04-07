@@ -292,9 +292,9 @@ class Database(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.status, 'status')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -739,9 +739,9 @@ class DatabaseAccount(TeaModel):
         self.validate_required(self.password, 'password')
         self.validate_required(self.privilege, 'privilege')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -867,11 +867,11 @@ class UserInfo(TeaModel):
     def validate(self):
         self.validate_required(self.id, 'id')
         if self.last_logon_time is not None:
-            self.validate_pattern(self.last_logon_time, 'last_logon_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.last_logon_time, 'last_logon_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -1309,9 +1309,9 @@ class CodeCommit(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -1782,9 +1782,9 @@ class Disk(TeaModel):
         if self.computer:
             self.computer.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -1919,13 +1919,13 @@ class AppLifeCycle(TeaModel):
         self.validate_required(self.last_deploy_version, 'last_deploy_version')
         self.validate_required(self.last_deploy_time, 'last_deploy_time')
         if self.last_deploy_time is not None:
-            self.validate_pattern(self.last_deploy_time, 'last_deploy_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.last_deploy_time, 'last_deploy_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.online_time is not None:
-            self.validate_pattern(self.online_time, 'online_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.online_time, 'online_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2016,9 +2016,9 @@ class AppExtraInfo(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2244,9 +2244,9 @@ class LoadBalancer(TeaModel):
         if self.scope:
             self.scope.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.options:
             for k in self.options:
                 if k:
@@ -2478,9 +2478,9 @@ class AppLevel(TeaModel):
     def validate(self):
         self.validate_required(self.id, 'id')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2963,13 +2963,13 @@ class Resource(TeaModel):
     def validate(self):
         self.validate_required(self.name, 'name')
         if self.expired_time is not None:
-            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.zone_id, 'zone_id')
         self.validate_required(self.id, 'id')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -3077,9 +3077,9 @@ class AppManifest(TeaModel):
         if self.code_commit:
             self.code_commit.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -3265,9 +3265,9 @@ class AppDomain(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -3466,9 +3466,9 @@ class AppView(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.stack_id, 'stack_id')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.real_owner_name, 'real_owner_name')
         self.validate_required(self.app_domain_name, 'app_domain_name')
         self.validate_required(self.app_level_name, 'app_level_name')
@@ -3700,9 +3700,9 @@ class AppService(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -4881,9 +4881,9 @@ class Task(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.request:
             self.request.validate()
 
@@ -4999,10 +4999,10 @@ class WorkspaceDc(TeaModel):
         self.validate_required(self.datacenter_type, 'datacenter_type')
         self.validate_required(self.gmt_create, 'gmt_create')
         if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -5258,13 +5258,13 @@ class Computer(TeaModel):
 
     def validate(self):
         if self.creation_time is not None:
-            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.data_disks:
             for k in self.data_disks:
                 if k:
                     k.validate()
         if self.expired_time is not None:
-            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.id, 'id')
         if self.options:
             for k in self.options:
@@ -5277,9 +5277,9 @@ class Computer(TeaModel):
                 if k:
                     k.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -5657,10 +5657,10 @@ class ZoneDto(TeaModel):
         self.validate_required(self.description, 'description')
         self.validate_required(self.utc_create, 'utc_create')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.utc_modified, 'utc_modified')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -5762,9 +5762,9 @@ class DbSchema(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.status, 'status')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -5930,9 +5930,9 @@ class Buildpack(TeaModel):
 
     def validate(self):
         if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.instances:
             self.instances.validate()
 
@@ -6483,9 +6483,9 @@ class UserDTO(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -6567,7 +6567,7 @@ class VSwitchVO(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -6940,9 +6940,9 @@ class TaskVO(TeaModel):
             self.request.validate()
         self.validate_required(self.status, 'status')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.workspace_id, 'workspace_id')
         self.validate_required(self.resource, 'resource')
         if self.resource:
@@ -7050,7 +7050,7 @@ class ResourceLog(TeaModel):
     def validate(self):
         self.validate_required(self.log_time, 'log_time')
         if self.log_time is not None:
-            self.validate_pattern(self.log_time, 'log_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.log_time, 'log_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.message, 'message')
         self.validate_required(self.task_id, 'task_id')
         self.validate_required(self.task_times, 'task_times')
@@ -7230,9 +7230,9 @@ class RequestVO(TeaModel):
         self.validate_required(self.id, 'id')
         self.validate_required(self.operator_name, 'operator_name')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.tasks:
             for k in self.tasks:
                 if k:
@@ -7470,9 +7470,9 @@ class Connection(TeaModel):
 
     def validate(self):
         if self.created_time is not None:
-            self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.created_time, 'created_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.modified_time is not None:
-            self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.modified_time, 'modified_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.plug:
             self.plug.validate()
         if self.socket:
@@ -7584,7 +7584,7 @@ class ComputerImportVO(TeaModel):
                 if k:
                     k.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.import_info:
             self.import_info.validate()
 
@@ -7733,7 +7733,7 @@ class AppDomainQuery(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -7893,7 +7893,7 @@ class LoadBalancerImportVO(TeaModel):
     def validate(self):
         self.validate_required(self.name, 'name')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.import_info, 'import_info')
         if self.import_info:
             self.import_info.validate()
@@ -8018,7 +8018,7 @@ class AppQuery(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -9190,7 +9190,7 @@ class DatabaseImportVO(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.import_info, 'import_info')
         if self.import_info:
             self.import_info.validate()
@@ -9630,9 +9630,9 @@ class WorkspaceDto(TeaModel):
         self.validate_required(self.status, 'status')
         self.validate_required(self.utc_create, 'utc_create')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.workspace_region_dto:
             self.workspace_region_dto.validate()
 
@@ -10026,7 +10026,7 @@ class AppLevelQuery(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -10205,7 +10205,7 @@ class RouteTable(TeaModel):
 
     def validate(self):
         if self.creation_time is not None:
-            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.entry_vos:
             for k in self.entry_vos:
                 if k:
@@ -10638,10 +10638,10 @@ class RegionDto(TeaModel):
         self.validate_required(self.state, 'state')
         self.validate_required(self.utc_create, 'utc_create')
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.utc_modified, 'utc_modified')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.zone_dtos, 'zone_dtos')
         if self.zone_dtos:
             for k in self.zone_dtos:
@@ -10780,10 +10780,10 @@ class TenantWorkspace(TeaModel):
         self.validate_required(self.display_name, 'display_name')
         self.validate_required(self.gmt_create, 'gmt_create')
         if self.gmt_create is not None:
-            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.gmt_modified, 'gmt_modified')
         if self.gmt_modified is not None:
-            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.id, 'id')
         self.validate_required(self.name, 'name')
         self.validate_required(self.network_type, 'network_type')
@@ -10987,9 +10987,9 @@ class VpcVO(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -11322,7 +11322,7 @@ class SecurityGroupVO(TeaModel):
 
     def validate(self):
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -11464,6 +11464,7 @@ class BatchdeleteApplicationBuildRequest(TeaModel):
         app_id: str = None,
         build_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -11503,8 +11504,11 @@ class BatchdeleteApplicationBuildResponse(TeaModel):
         result_msg: str = None,
         data: List[MapStringToBooleanEntity] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # Map<String, Boolean>
         self.data = data
@@ -11553,6 +11557,7 @@ class ListApplicationManifestRequest(TeaModel):
         query: DynamicQuery = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -11603,8 +11608,11 @@ class ListApplicationManifestResponse(TeaModel):
         data: List[AppManifest] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # List<AppManifest>
         self.data = data
@@ -11658,6 +11666,7 @@ class BatchdeleteApplicationPackageRequest(TeaModel):
         app_id: str = None,
         version_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -11697,8 +11706,11 @@ class BatchdeleteApplicationPackageResponse(TeaModel):
         result_msg: str = None,
         data: List[MapStringToBooleanEntity] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # Map<String, Boolean>
         self.data = data
@@ -11746,6 +11758,7 @@ class CreateApplicationPackageRequest(TeaModel):
         app_id: str = None,
         manifest: AppManifest = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -11788,8 +11801,11 @@ class CreateApplicationPackageResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -11829,6 +11845,7 @@ class DeleteApplicationPackageRequest(TeaModel):
         version_id: str = None,
         app_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # version_id
         self.version_id = version_id
@@ -11868,8 +11885,11 @@ class DeleteApplicationPackageResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除结果
         self.data = data
@@ -11910,6 +11930,7 @@ class ListApplicationPackageRequest(TeaModel):
         dynamic_query: DynamicQuery = None,
         query: AppQuery = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 工作空间id，用于做鉴权
         self.workspace_id = workspace_id
@@ -11961,8 +11982,11 @@ class ListApplicationPackageResponse(TeaModel):
         data: List[AppPackageListView] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # List<AppPackageListView>
         self.data = data
@@ -12016,6 +12040,7 @@ class UploadApplicationPackageconfigRequest(TeaModel):
         workspace_id: str = None,
         app_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_id
         self.workspace_id = workspace_id
@@ -12055,8 +12080,11 @@ class UploadApplicationPackageconfigResponse(TeaModel):
         result_msg: str = None,
         data: List[MapStringToBooleanEntity] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # Map<String, Boolean>
         self.data = data
@@ -12103,6 +12131,7 @@ class ListAppserviceCellRequest(TeaModel):
         auth_token: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_id
         self.workspace_id = workspace_id
@@ -12135,8 +12164,11 @@ class ListAppserviceCellResponse(TeaModel):
         result_msg: str = None,
         data: List[CellView] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # List<CellView>
         self.data = data
@@ -12184,6 +12216,7 @@ class CreateAppserviceRequest(TeaModel):
         app_service: AppService = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_service
         self.app_service = app_service
@@ -12226,8 +12259,11 @@ class CreateAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建结果
         self.data = data
@@ -12267,6 +12303,7 @@ class GetAppserviceDefaultRequest(TeaModel):
         app_id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -12306,8 +12343,11 @@ class GetAppserviceDefaultResponse(TeaModel):
         result_msg: str = None,
         data: AppService = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # AppService
         self.data = data
@@ -12350,6 +12390,7 @@ class ExistAppserviceRequest(TeaModel):
         name: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -12396,8 +12437,11 @@ class ExistAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.data = data
@@ -12437,6 +12481,7 @@ class UpdateAppserviceRequest(TeaModel):
         app_service: AppService = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_service
         self.app_service = app_service
@@ -12479,8 +12524,11 @@ class UpdateAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新结果
         self.data = data
@@ -12533,6 +12581,7 @@ class QueryBuildpackRequest(TeaModel):
         types: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 技术栈版本
         self.bp_version = bp_version
@@ -12659,8 +12708,11 @@ class QueryBuildpackResponse(TeaModel):
         start_index: int = None,
         total_size: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前页码
         self.current_page = current_page
@@ -12732,6 +12784,7 @@ class GetApplicationDetailRequest(TeaModel):
         app_id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用ID
         self.app_id = app_id
@@ -12771,8 +12824,11 @@ class GetApplicationDetailResponse(TeaModel):
         result_msg: str = None,
         data: AppView = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用详情信息
         self.data = data
@@ -12828,6 +12884,7 @@ class QueryUserRequest(TeaModel):
         type: str = None,
         types: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 当前页码
         self.current_page = current_page
@@ -12960,8 +13017,11 @@ class QueryUserResponse(TeaModel):
         page_size: int = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户列表
         self.data = data
@@ -13027,6 +13087,7 @@ class ListAppgroupRequest(TeaModel):
         dynamic_query: DynamicQuery = None,
         query: AppDomainQuery = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 动态查询
         self.dynamic_query = dynamic_query
@@ -13071,8 +13132,11 @@ class ListAppgroupResponse(TeaModel):
         data: List[AppDomainView] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -13126,6 +13190,7 @@ class ExistAppgroupRequest(TeaModel):
         name: str = None,
         parent_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # name
         self.name = name
@@ -13164,8 +13229,11 @@ class ExistAppgroupResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.data = data
@@ -13205,6 +13273,7 @@ class CreateAppgroupRequest(TeaModel):
         domain: AppDomainFlatten = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # domain tree
         self.domain = domain
@@ -13246,8 +13315,11 @@ class CreateAppgroupResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -13287,6 +13359,7 @@ class ListAppgroupOwnerRequest(TeaModel):
         query: UserQuery = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 用户查询
         self.query = query
@@ -13329,8 +13402,11 @@ class ListAppgroupOwnerResponse(TeaModel):
         data: List[UserDTO] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户列表
         self.data = data
@@ -13382,6 +13458,7 @@ class GetAppgroupTreeRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -13408,8 +13485,11 @@ class GetAppgroupTreeResponse(TeaModel):
         result_msg: str = None,
         data: List[AppDomainFlatten] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用列表，包含依赖关系
         self.data = data
@@ -13455,6 +13535,7 @@ class GetAppgroupSystemtreeRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -13481,8 +13562,11 @@ class GetAppgroupSystemtreeResponse(TeaModel):
         result_msg: str = None,
         data: List[AppDomainFlatten] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用分组结构
         self.data = data
@@ -13529,6 +13613,7 @@ class DeleteAppgroupRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 分组 id
         self.id = id
@@ -13561,8 +13646,11 @@ class DeleteAppgroupResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除结果
         self.data = data
@@ -13602,6 +13690,7 @@ class UpdateAppgroupRequest(TeaModel):
         domain: AppDomainFlatten = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 更新内容
         self.domain = domain
@@ -13644,8 +13733,11 @@ class UpdateAppgroupResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新结果
         self.data = data
@@ -13685,6 +13777,7 @@ class ListApplevelRequest(TeaModel):
         dynamic_query: DynamicQuery = None,
         query: AppLevelQuery = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 动态查询
         self.dynamic_query = dynamic_query
@@ -13729,8 +13822,11 @@ class ListApplevelResponse(TeaModel):
         data: List[AppLevelView] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用等级列表
         self.data = data
@@ -13783,6 +13879,7 @@ class ExistApplevelRequest(TeaModel):
         auth_token: str = None,
         name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用等级名称
         self.name = name
@@ -13815,8 +13912,11 @@ class ExistApplevelResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.data = data
@@ -13856,6 +13956,7 @@ class CreateApplevelRequest(TeaModel):
         level: AppLevel = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用等级
         self.level = level
@@ -13897,8 +13998,11 @@ class CreateApplevelResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建结果
         self.data = data
@@ -13937,6 +14041,7 @@ class DeleteApplevelRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用等级 id
         self.id = id
@@ -13969,8 +14074,11 @@ class DeleteApplevelResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除结果
         self.data = data
@@ -14010,6 +14118,7 @@ class UpdateApplevelRequest(TeaModel):
         id: str = None,
         name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用等级id
         self.id = id
@@ -14049,8 +14158,11 @@ class UpdateApplevelResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新结果
         self.data = data
@@ -14090,6 +14202,7 @@ class ListApplicationRequest(TeaModel):
         dynamic_query: DynamicQuery = None,
         query: AppQuery = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 动态查询
         self.dynamic_query = dynamic_query
@@ -14136,8 +14249,11 @@ class ListApplicationResponse(TeaModel):
         page_num: int = None,
         page_size: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用列表
         self.data = data
@@ -14221,6 +14337,7 @@ class UpdateApplicationRequest(TeaModel):
         utc_modified: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # appDomainId
         self.app_domain_id = app_domain_id
@@ -14277,9 +14394,9 @@ class UpdateApplicationRequest(TeaModel):
         if self.code_repository:
             self.code_repository.validate()
         if self.utc_create is not None:
-            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.utc_modified is not None:
-            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -14391,8 +14508,11 @@ class UpdateApplicationResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新结果
         self.data = data
@@ -14433,6 +14553,7 @@ class ListAppserviceRequest(TeaModel):
         query: AppServiceQuery = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 动态查询
         self.dynamic_query = dynamic_query
@@ -14486,8 +14607,11 @@ class ListAppserviceResponse(TeaModel):
         page_size: int = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 当前页面
         self.current_page = current_page
@@ -14553,6 +14677,7 @@ class DeleteAppserviceRequest(TeaModel):
         id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -14592,8 +14717,11 @@ class DeleteAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -14633,6 +14761,7 @@ class GetAppserviceDetailRequest(TeaModel):
         app_service_id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用服务id
         self.app_service_id = app_service_id
@@ -14672,8 +14801,11 @@ class GetAppserviceDetailResponse(TeaModel):
         result_msg: str = None,
         data: AppServiceViewModel = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用服务详情
         self.data = data
@@ -14716,6 +14848,7 @@ class ExistApplicationPackageRequest(TeaModel):
         app_version: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # appId
         self.app_id = app_id
@@ -14762,8 +14895,11 @@ class ExistApplicationPackageResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -14804,6 +14940,7 @@ class GetApplicationPackageuploadpolicyRequest(TeaModel):
         workspace_id: str = None,
         app_version: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # appId
         self.app_id = app_id
@@ -14850,8 +14987,11 @@ class GetApplicationPackageuploadpolicyResponse(TeaModel):
         result_msg: str = None,
         data: PackageUploadPolicy = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 发布包上传策略
         self.data = data
@@ -14893,6 +15033,7 @@ class GetApplicationPackagedownloadurlRequest(TeaModel):
         version_id: str = None,
         app_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # versionId
         self.version_id = version_id
@@ -14932,8 +15073,11 @@ class GetApplicationPackagedownloadurlResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 下载链接
         self.data = data
@@ -14972,6 +15116,7 @@ class ExistApplicationRequest(TeaModel):
         auth_token: str = None,
         app_name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用名称
         self.app_name = app_name
@@ -15004,8 +15149,11 @@ class ExistApplicationResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在
         self.data = data
@@ -15045,6 +15193,7 @@ class QueryAppserviceRequest(TeaModel):
         ids: List[str] = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用服务 id 数组
         self.ids = ids
@@ -15084,8 +15233,11 @@ class QueryAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: List[AppService] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用服务数组
         self.data = data
@@ -15131,6 +15283,7 @@ class GetAppgrayconfigsRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -15157,8 +15310,11 @@ class GetAppgrayconfigsResponse(TeaModel):
         result_msg: str = None,
         data: List[MapStringToBooleanEntity] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 开关配置清单
         self.data = data
@@ -15231,7 +15387,10 @@ class CreateComputerRequest(TeaModel):
         zone: str = None,
         zone_id: str = None,
         tags: List[MapStringToStringEntity] = None,
+        vpc_iaas_id: str = None,
+        cloud_manage_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app id
         self.app_id = app_id
@@ -15312,6 +15471,10 @@ class CreateComputerRequest(TeaModel):
         self.zone_id = zone_id
         # 公有云上标签
         self.tags = tags
+        # cmp模式下使用的vpc，一般场景勿用
+        self.vpc_iaas_id = vpc_iaas_id
+        # cmp模式下传的token，一般场景勿用
+        self.cloud_manage_token = cloud_manage_token
 
     def validate(self):
         if self.data_disks:
@@ -15397,6 +15560,10 @@ class CreateComputerRequest(TeaModel):
         if self.tags is not None:
             for k in self.tags:
                 result['tags'].append(k.to_map() if k else None)
+        if self.vpc_iaas_id is not None:
+            result['vpc_iaas_id'] = self.vpc_iaas_id
+        if self.cloud_manage_token is not None:
+            result['cloud_manage_token'] = self.cloud_manage_token
         return result
 
     def from_map(self, m: dict = None):
@@ -15465,6 +15632,10 @@ class CreateComputerRequest(TeaModel):
             for k in m.get('tags'):
                 temp_model = MapStringToStringEntity()
                 self.tags.append(temp_model.from_map(k))
+        if m.get('vpc_iaas_id') is not None:
+            self.vpc_iaas_id = m.get('vpc_iaas_id')
+        if m.get('cloud_manage_token') is not None:
+            self.cloud_manage_token = m.get('cloud_manage_token')
         return self
 
 
@@ -15477,8 +15648,11 @@ class CreateComputerResponse(TeaModel):
         computer_sequences: List[str] = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer_sequences
         self.computer_sequences = computer_sequences
@@ -15525,6 +15699,7 @@ class DeleteComputerRequest(TeaModel):
         workspace_id: str = None,
         force: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer_sequences
         self.computer_sequences = computer_sequences
@@ -15569,8 +15744,11 @@ class DeleteComputerResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -15611,6 +15789,7 @@ class ImportComputerRequest(TeaModel):
         workspace: str = None,
         zone: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer iaas ids
         self.computer_ids = computer_ids
@@ -15656,8 +15835,11 @@ class ImportComputerResponse(TeaModel):
         result_msg: str = None,
         computer_id_mapping: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 导入的 computer 序列号
         self.computer_id_mapping = computer_id_mapping
@@ -15708,6 +15890,7 @@ class CreateDatabaseRequest(TeaModel):
         app_service_ids: List[str] = None,
         app_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 数据库账户
         self.database_accounts = database_accounts
@@ -15826,8 +16009,11 @@ class CreateDatabaseResponse(TeaModel):
         result_msg: str = None,
         database_sequences: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # database 实例 ids
         self.database_sequences = database_sequences
@@ -15868,6 +16054,7 @@ class ImportDatabaseRequest(TeaModel):
         type: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # database iaas ids
         self.database_ids = database_ids
@@ -15913,8 +16100,11 @@ class ImportDatabaseResponse(TeaModel):
         result_msg: str = None,
         database_id_mapping: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 导入的 computer 序列号
         self.database_id_mapping = database_id_mapping
@@ -15953,6 +16143,7 @@ class DeleteDatabaseRequest(TeaModel):
         auth_token: str = None,
         database_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # database 序列号
         self.database_sequences = database_sequences
@@ -15984,8 +16175,11 @@ class DeleteDatabaseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16032,6 +16226,7 @@ class CreateLoadbalanceRequest(TeaModel):
         zone_id: str = None,
         load_balancer_spec: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 负载均衡实例的网络类型。有 INTERNET 和 INTRANET
         self.address_type = address_type
@@ -16163,8 +16358,11 @@ class CreateLoadbalanceResponse(TeaModel):
         loadbalance_sequences: List[str] = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 实例 id
         self.loadbalance_sequences = loadbalance_sequences
@@ -16209,6 +16407,7 @@ class DeleteLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         loadbalance_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # loadbalance 序列号
         self.loadbalance_sequences = loadbalance_sequences
@@ -16241,8 +16440,11 @@ class DeleteLoadbalanceResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -16282,6 +16484,7 @@ class ImportLoadbalanceRequest(TeaModel):
         loadbalance_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # loadbalance iaas ids
         self.loadbalance_ids = loadbalance_ids
@@ -16321,8 +16524,11 @@ class ImportLoadbalanceResponse(TeaModel):
         result_msg: str = None,
         loadbalance_id_mapping: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 导入的 loadbalance 序列号
         self.loadbalance_id_mapping = loadbalance_id_mapping
@@ -16363,6 +16569,7 @@ class CreateVpcRequest(TeaModel):
         name: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 专有网络网段
         self.cidr_lock = cidr_lock
@@ -16409,8 +16616,11 @@ class CreateVpcResponse(TeaModel):
         result_msg: str = None,
         vpc_sequence: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 专有网络序列号
         self.vpc_sequence = vpc_sequence
@@ -16449,6 +16659,7 @@ class DeleteVpcRequest(TeaModel):
         auth_token: str = None,
         vpc_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 专有网络序列号
         self.vpc_sequence = vpc_sequence
@@ -16480,8 +16691,11 @@ class DeleteVpcResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16514,6 +16728,7 @@ class ReleaseComputerRequest(TeaModel):
         auth_token: str = None,
         computer_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需要释放的 computer ids
         self.computer_sequences = computer_sequences
@@ -16545,8 +16760,11 @@ class ReleaseComputerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16580,6 +16798,7 @@ class ReinitComputerPasswordRequest(TeaModel):
         computer_sequence: str = None,
         password: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer_sequence
         self.computer_sequence = computer_sequence
@@ -16618,8 +16837,11 @@ class ReinitComputerPasswordResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16654,6 +16876,7 @@ class ReleaseDatabaseRequest(TeaModel):
         app_service_ids: List[str] = None,
         database_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需要释放的应用 ids
         self.app_ids = app_ids
@@ -16697,8 +16920,11 @@ class ReleaseDatabaseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16731,6 +16957,7 @@ class RemoveComputerRequest(TeaModel):
         auth_token: str = None,
         computer_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer ids
         self.computer_sequences = computer_sequences
@@ -16762,8 +16989,11 @@ class RemoveComputerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16796,6 +17026,7 @@ class RemoveLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         loadbalance_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb ids
         self.loadbalance_sequences = loadbalance_sequences
@@ -16827,8 +17058,11 @@ class RemoveLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16861,6 +17095,7 @@ class RemoveDatabaseRequest(TeaModel):
         auth_token: str = None,
         database_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # database ids
         self.database_sequences = database_sequences
@@ -16892,8 +17127,11 @@ class RemoveDatabaseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16926,6 +17164,7 @@ class ReleaseLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         loadbalance_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # loadbalance ids
         self.loadbalance_sequences = loadbalance_sequences
@@ -16957,8 +17196,11 @@ class ReleaseLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -16993,6 +17235,7 @@ class CreateDatabaseAccountRequest(TeaModel):
         name: str = None,
         password: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # database 序列号
         self.database_sequence = database_sequence
@@ -17039,8 +17282,11 @@ class CreateDatabaseAccountResponse(TeaModel):
         result_msg: str = None,
         account_sequence: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户序列号
         self.account_sequence = account_sequence
@@ -17083,6 +17329,7 @@ class CreateSecuritygroupRequest(TeaModel):
         workspace: str = None,
         type: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 描述
         self.description = description
@@ -17142,8 +17389,11 @@ class CreateSecuritygroupResponse(TeaModel):
         result_msg: str = None,
         security_group_sequence: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 安全组/域 序列号
         self.security_group_sequence = security_group_sequence
@@ -17184,6 +17434,7 @@ class ImportSecuritygroupRequest(TeaModel):
         name: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # sg-zm042uh9f8gb1lfcsng6 的 iaas 层 id
         self.securitygroup_id = securitygroup_id
@@ -17229,8 +17480,11 @@ class ImportSecuritygroupResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17263,6 +17517,7 @@ class RemoveSecuritygroupRequest(TeaModel):
         auth_token: str = None,
         security_group_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组 id
         self.security_group_sequence = security_group_sequence
@@ -17294,8 +17549,11 @@ class RemoveSecuritygroupResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17328,6 +17586,7 @@ class DeleteSecuritygroupRequest(TeaModel):
         auth_token: str = None,
         security_group_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需要删除的 security group id
         self.security_group_sequence = security_group_sequence
@@ -17359,8 +17618,11 @@ class DeleteSecuritygroupResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17393,6 +17655,7 @@ class DeleteDatabaseSchemaRequest(TeaModel):
         auth_token: str = None,
         schema_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 欲删除的的 schema id
         self.schema_sequence = schema_sequence
@@ -17424,8 +17687,11 @@ class DeleteDatabaseSchemaResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17458,6 +17724,7 @@ class DeleteDatabaseAccountRequest(TeaModel):
         auth_token: str = None,
         account_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # account id
         self.account_sequence = account_sequence
@@ -17489,8 +17756,11 @@ class DeleteDatabaseAccountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17524,6 +17794,7 @@ class DeleteVpcVswitchRequest(TeaModel):
         vpc_sequence: str = None,
         vswitch_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # vpc id
         self.vpc_sequence = vpc_sequence
@@ -17562,8 +17833,11 @@ class DeleteVpcVswitchResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17597,6 +17871,7 @@ class DeleteLoadbalanceListenerRequest(TeaModel):
         listener_port: int = None,
         loadbalance_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # listener 端口
         self.listener_port = listener_port
@@ -17636,8 +17911,11 @@ class DeleteLoadbalanceListenerResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -17679,6 +17957,7 @@ class DeleteVpcVroutertableRequest(TeaModel):
         v_route_table_id: str = None,
         vpc_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 目标网段
         self.destination_cidr_block = destination_cidr_block
@@ -17731,8 +18010,11 @@ class DeleteVpcVroutertableResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17766,6 +18048,7 @@ class RemoveSecuritygroupInstanceRequest(TeaModel):
         security_group_sequence: str = None,
         instance_sequences: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组 paas id
         self.security_group_sequence = security_group_sequence
@@ -17804,8 +18087,11 @@ class RemoveSecuritygroupInstanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17839,6 +18125,7 @@ class DeleteSecuritygroupPermissionRequest(TeaModel):
         security_group_sequence: str = None,
         permission_hash: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组 paas id
         self.security_group_sequence = security_group_sequence
@@ -17877,8 +18164,11 @@ class DeleteSecuritygroupPermissionResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -17913,6 +18203,7 @@ class RemoveLoadbalanceSecurityipRequest(TeaModel):
         listener_port: int = None,
         loadbalance_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要删除的 ip
         self.ips = ips
@@ -17958,8 +18249,11 @@ class RemoveLoadbalanceSecurityipResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18005,6 +18299,7 @@ class CreateApplicationRequest(TeaModel):
         stack_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 应用分组 id
         self.app_domain_id = app_domain_id
@@ -18115,8 +18410,11 @@ class CreateApplicationResponse(TeaModel):
         result_msg: str = None,
         application_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用 id
         self.application_id = application_id
@@ -18156,6 +18454,7 @@ class DeleteApplicationRequest(TeaModel):
         application_ids: List[str] = None,
         delete_code_repo: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 欲删除的应用 id
         self.application_ids = application_ids
@@ -18193,8 +18492,11 @@ class DeleteApplicationResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18231,6 +18533,7 @@ class CreateVpcVswitchRequest(TeaModel):
         vpc_sequence: str = None,
         zone: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 网段
         self.cidr_block = cidr_block
@@ -18291,8 +18594,11 @@ class CreateVpcVswitchResponse(TeaModel):
         result_msg: str = None,
         vswitch_sequence: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # switch paas id
         self.vswitch_sequence = vswitch_sequence
@@ -18335,6 +18641,7 @@ class CreateVpcVroutertableRequest(TeaModel):
         v_route_table_id: str = None,
         vpc_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 目标网端
         self.destination_cidr_block = destination_cidr_block
@@ -18394,8 +18701,11 @@ class CreateVpcVroutertableResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18429,6 +18739,7 @@ class AddSecuritygroupInstanceRequest(TeaModel):
         instance_sequences: List[str] = None,
         security_group_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需向安全组中添加的实例 paas 序列号
         self.instance_sequences = instance_sequences
@@ -18467,8 +18778,11 @@ class AddSecuritygroupInstanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18503,6 +18817,7 @@ class UpdateDatabaseSpecRequest(TeaModel):
         spec_id: str = None,
         storage_size: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # db paas id
         self.database_sequences = database_sequences
@@ -18548,8 +18863,11 @@ class UpdateDatabaseSpecResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18584,6 +18902,7 @@ class UpdateLoadbalanceAccesscontrolRequest(TeaModel):
         listener_port: int = None,
         access_control: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb paas id
         self.loadbalance_sequence = loadbalance_sequence
@@ -18629,8 +18948,11 @@ class UpdateLoadbalanceAccesscontrolResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18665,6 +18987,7 @@ class UpdateLoadbalanceSpecRequest(TeaModel):
         bandwidth: int = None,
         loadbalance_sequence: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 公网类型实例的付费方式。取值： PAY_BY_BANDWIDTH：按带宽计费。 PAY_BY_TRAFFIC：按流量计费（默认值）。
         self.internet_charge_type = internet_charge_type
@@ -18709,8 +19032,11 @@ class UpdateLoadbalanceSpecResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18746,6 +19072,7 @@ class UpdateVpcVswitchRequest(TeaModel):
         vpc_sequence: str = None,
         description: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 修改会的 vswitch 名称
         self.name = name
@@ -18797,8 +19124,11 @@ class UpdateVpcVswitchResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -18835,6 +19165,7 @@ class CreateWorkspaceRequest(TeaModel):
         region: str = None,
         zones: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace 显示名称
         self.display_name = display_name
@@ -18894,8 +19225,11 @@ class CreateWorkspaceResponse(TeaModel):
         result_msg: str = None,
         workspace_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # workspace id
         self.workspace_id = workspace_id
@@ -18938,6 +19272,7 @@ class CreateMetaWorkspaceRequest(TeaModel):
         region: str = None,
         zones: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace 显示名称
         self.display_name = display_name
@@ -18997,8 +19332,11 @@ class CreateMetaWorkspaceResponse(TeaModel):
         result_msg: str = None,
         workspace_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # workspace id
         self.workspace_id = workspace_id
@@ -19037,6 +19375,7 @@ class QueryMetaWorkspaceRequest(TeaModel):
         auth_token: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace id
         self.workspace_id = workspace_id
@@ -19069,8 +19408,11 @@ class QueryMetaWorkspaceResponse(TeaModel):
         result_msg: str = None,
         data: Workspace = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # workspace 信息
         self.data = data
@@ -19111,6 +19453,7 @@ class DeleteMetaWorkspaceRequest(TeaModel):
         auth_token: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace id
         self.workspace_id = workspace_id
@@ -19143,8 +19486,11 @@ class DeleteMetaWorkspaceResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除是否成功
         self.success = success
@@ -19188,6 +19534,7 @@ class CreateResourceVpcRequest(TeaModel):
         user_cidr: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # VPC的网段。您可以使用以下网段或其子集作为VPC的网段：
         # 
@@ -19258,8 +19605,11 @@ class CreateResourceVpcResponse(TeaModel):
         vpc_id: str = None,
         v_router_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建VPC后，系统自动创建的路由表的ID。
         self.route_table_id = route_table_id
@@ -19312,6 +19662,7 @@ class QueryResourceVpcRequest(TeaModel):
         region: str = None,
         vpc_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 是否使用缓存进行查询，默认false，使用缓存查询
         self.disable_cache = disable_cache
@@ -19357,8 +19708,11 @@ class QueryResourceVpcResponse(TeaModel):
         total_count: int = None,
         vpcs: List[VPC] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 列表条目数
         self.total_count = total_count
@@ -19413,6 +19767,7 @@ class DeleteResourceVpcRequest(TeaModel):
         vpc_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要删除的VPC所在的地域identity
         self.region = region
@@ -19459,8 +19814,11 @@ class DeleteResourceVpcResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除VPC是否成功
         self.success = success
@@ -19505,6 +19863,7 @@ class CreateResourceVswitchRequest(TeaModel):
         workspace: str = None,
         zone: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 交换机的网段。交换机网段要求如下：
         # 
@@ -19584,8 +19943,11 @@ class CreateResourceVswitchResponse(TeaModel):
         result_msg: str = None,
         v_switch_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建的交换机的ID。
         self.v_switch_id = v_switch_id
@@ -19626,6 +19988,7 @@ class QueryResourceVswitchRequest(TeaModel):
         vpc_id: str = None,
         v_switch_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 交换机所属地域的identity
         self.region = region
@@ -19671,8 +20034,11 @@ class QueryResourceVswitchResponse(TeaModel):
         total_count: int = None,
         v_switches: List[VSwitch] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 列表条目数
         self.total_count = total_count
@@ -19727,6 +20093,7 @@ class DeleteResourceVswitchRequest(TeaModel):
         vpc_id: str = None,
         v_switch_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要删除的交换机的地域identity
         self.region = region
@@ -19773,8 +20140,11 @@ class DeleteResourceVswitchResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除交换机是否成功
         self.success = success
@@ -19816,6 +20186,7 @@ class QueryResourceSecuritygroupRequest(TeaModel):
         security_group_id: str = None,
         vpc_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # disable cache
         self.disable_cache = disable_cache
@@ -19867,8 +20238,11 @@ class QueryResourceSecuritygroupResponse(TeaModel):
         security_groups: List[SecurityGroup] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 安全组详细信息。
         self.security_groups = security_groups
@@ -19920,6 +20294,7 @@ class ListMetaWorkspaceRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -19946,8 +20321,11 @@ class ListMetaWorkspaceResponse(TeaModel):
         result_msg: str = None,
         data: List[Workspace] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 工作空间详细信息列表
         self.data = data
@@ -20000,6 +20378,7 @@ class CreateResourceSecuritygroupRequest(TeaModel):
         vpc_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组描述信息。长度为2~256个英文或中文字符，不能以http://和https://开头。
         # 
@@ -20091,8 +20470,11 @@ class CreateResourceSecuritygroupResponse(TeaModel):
         result_msg: str = None,
         security_group_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 安全组ID。
         self.security_group_id = security_group_id
@@ -20133,6 +20515,7 @@ class DeleteResourceSecuritygroupRequest(TeaModel):
         security_group_id: str = None,
         vpc_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 地域identity
         self.region = region
@@ -20179,8 +20562,11 @@ class DeleteResourceSecuritygroupResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除安全组是否成功
         self.success = success
@@ -20229,6 +20615,7 @@ class CreateResourceComputerRequest(TeaModel):
         system_disk_category: str = None,
         system_disk_size: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 实例所属的部署单元
         self.cell = cell
@@ -20355,8 +20742,11 @@ class CreateResourceComputerResponse(TeaModel):
         ret_code: int = None,
         message: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 实例ID。
         self.instance_id = instance_id
@@ -20422,6 +20812,7 @@ class QueryResourceComputerRequest(TeaModel):
         status: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # iaas id
         self.iaas_id = iaas_id
@@ -20517,8 +20908,11 @@ class QueryResourceComputerResponse(TeaModel):
         request_id: str = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询的实例集合
         self.instances = instances
@@ -20593,6 +20987,7 @@ class QueryResourceComputerspecRequest(TeaModel):
         min_cpu: int = None,
         min_mem: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 机器规格族
         self.instance_type_groups = instance_type_groups
@@ -20650,8 +21045,11 @@ class QueryResourceComputerspecResponse(TeaModel):
         computer_specs: List[ComputerSpec] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 符合筛选条件的机器规格
         self.computer_specs = computer_specs
@@ -20705,6 +21103,7 @@ class DeleteResourceComputerRequest(TeaModel):
         instance_id: str = None,
         force: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要删除的机器ID
         self.instance_id = instance_id
@@ -20745,8 +21144,11 @@ class DeleteResourceComputerResponse(TeaModel):
         message: str = None,
         job_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示正常，非0表示异常
         self.ret_code = ret_code
@@ -20798,6 +21200,7 @@ class ReinitResourceComputerpasswordRequest(TeaModel):
         instance_id: str = None,
         password: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需要修改的机器Id
         self.instance_id = instance_id
@@ -20839,8 +21242,11 @@ class ReinitResourceComputerpasswordResponse(TeaModel):
         message: str = None,
         job_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示正常，非0表示异常
         self.ret_code = ret_code
@@ -20891,6 +21297,7 @@ class StartResourceComputerRequest(TeaModel):
         auth_token: str = None,
         instance_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 机器id
         self.instance_id = instance_id
@@ -20925,8 +21332,11 @@ class StartResourceComputerResponse(TeaModel):
         job_id: str = None,
         message: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示正常，非0表示异常
         self.ret_code = ret_code
@@ -20978,6 +21388,7 @@ class StopResourceComputerRequest(TeaModel):
         instance_id: str = None,
         force: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 需要停止的机器id
         self.instance_id = instance_id
@@ -21018,8 +21429,11 @@ class StopResourceComputerResponse(TeaModel):
         job_id: str = None,
         message: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 非0表示异常，0表示正常
         self.ret_code = ret_code
@@ -21072,6 +21486,7 @@ class CreateSlsProjectRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 日志项目名称
         self.project_name = project_name
@@ -21116,8 +21531,11 @@ class CreateSlsProjectResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建日志项目结果
         self.data = data
@@ -21157,6 +21575,7 @@ class ListSlsProjectRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 区域id
         self.sls_region_id = sls_region_id
@@ -21195,8 +21614,11 @@ class ListSlsProjectResponse(TeaModel):
         result_msg: str = None,
         data: List[SLSProject] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 日志项目数组
         self.data = data
@@ -21249,6 +21671,7 @@ class CreateSlsLogstoreRequest(TeaModel):
         ttl: int = None,
         add_index: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 日志库名称，在Project下必须唯一
         self.logstore_name = logstore_name
@@ -21320,8 +21743,11 @@ class CreateSlsLogstoreResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 日志库创建结果
         self.data = data
@@ -21363,6 +21789,7 @@ class ListSlsLogstoreRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 用于请求的 Logstore 名称（支持部分匹配）。
         self.logstore_name = logstore_name
@@ -21413,8 +21840,11 @@ class ListSlsLogstoreResponse(TeaModel):
         result_msg: str = None,
         data: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 日志库名称列表
         self.data = data
@@ -21456,6 +21886,7 @@ class GetSlsLogstoreRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 日志库名称，在Project下必须唯一
         self.logstore_name = logstore_name
@@ -21507,8 +21938,11 @@ class GetSlsLogstoreResponse(TeaModel):
         result_msg: str = None,
         data: SLSLogStore = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 单个日志库信息
         self.data = data
@@ -21552,6 +21986,7 @@ class CreateSlsConfigRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 日志配置详情
         self.config = config
@@ -21606,8 +22041,11 @@ class CreateSlsConfigResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建日志配置结果
         self.data = data
@@ -21648,6 +22086,7 @@ class ListSlsConfigRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 日志项目名称
         self.project_name = project_name
@@ -21692,8 +22131,11 @@ class ListSlsConfigResponse(TeaModel):
         result_msg: str = None,
         data: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 日志配置名称列表
         self.data = data
@@ -21735,6 +22177,7 @@ class UpdateSlsConfigRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要更新的日志配置详情
         self.config = config
@@ -21789,8 +22232,11 @@ class UpdateSlsConfigResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 更新日志配置是否成功
         self.data = data
@@ -21832,6 +22278,7 @@ class DeleteSlsConfigRequest(TeaModel):
         sls_region_id: str = None,
         tenant_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要删除的日志配置名称
         self.name = name
@@ -21883,8 +22330,11 @@ class DeleteSlsConfigResponse(TeaModel):
         result_msg: str = None,
         data: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 删除日志配置是否成功
         self.data = data
@@ -21934,6 +22384,7 @@ class QuerySlsLogRequest(TeaModel):
         topic: str = None,
         type: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 查询开始时间点（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
         self.from_ = from_
@@ -22038,8 +22489,11 @@ class QuerySlsLogResponse(TeaModel):
         page_size: int = None,
         total: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # GetLogs的响应body是一个数组，数组中每个元素是一条日志结果
         self.data = data
@@ -22106,6 +22560,7 @@ class BatchcreateResourceIngressrulesRequest(TeaModel):
         region: str = None,
         security_group_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组入口规则
         self.ingress_rules = ingress_rules
@@ -22161,8 +22616,11 @@ class BatchcreateResourceIngressrulesResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 安全组入方向规则是否添加成功
         self.success = success
@@ -22203,6 +22661,7 @@ class BatchcreateResourceEgressrulesRequest(TeaModel):
         region: str = None,
         security_group_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 安全组出方向规则
         self.egress_rules = egress_rules
@@ -22258,8 +22717,11 @@ class BatchcreateResourceEgressrulesResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 安全组出方向规则是否添加成功
         self.success = success
@@ -22316,6 +22778,7 @@ class QueryLoadbalanceRequest(TeaModel):
         vswitch_iaas_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_ids
         self.app_ids = app_ids
@@ -22459,8 +22922,11 @@ class QueryLoadbalanceResponse(TeaModel):
         current_page: int = None,
         page_size: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回的lb
         self.data = data
@@ -22525,6 +22991,7 @@ class GetLoadbalanceHealthRequest(TeaModel):
         auth_token: str = None,
         lb_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb_id
         self.lb_id = lb_id
@@ -22557,8 +23024,11 @@ class GetLoadbalanceHealthResponse(TeaModel):
         result_msg: str = None,
         data: List[LoadBalanceHealthStatus] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # statuses
         self.data = data
@@ -22604,6 +23074,7 @@ class AllLoadbalanceViptypeRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -22630,8 +23101,11 @@ class AllLoadbalanceViptypeResponse(TeaModel):
         result_msg: str = None,
         data: List[VipType] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vip_types
         self.data = data
@@ -22679,6 +23153,7 @@ class AllLoadbalanceClusterRequest(TeaModel):
         workspace: str = None,
         zone_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -22717,8 +23192,11 @@ class AllLoadbalanceClusterResponse(TeaModel):
         result_msg: str = None,
         data: List[LbCluster] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -22766,6 +23244,7 @@ class QueryVpcRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # vpc id
         self.id = id
@@ -22804,8 +23283,11 @@ class QueryVpcResponse(TeaModel):
         result_msg: str = None,
         data: VpcVO = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vpc detail info
         self.data = data
@@ -22847,6 +23329,7 @@ class ListVpcImportRequest(TeaModel):
         region: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -22886,8 +23369,11 @@ class ListVpcImportResponse(TeaModel):
         result_msg: str = None,
         data: List[VpcImport] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vpc import infos
         self.data = data
@@ -22934,6 +23420,7 @@ class ListVpcCidrblockRequest(TeaModel):
         auth_token: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region
         self.region = region
@@ -22966,8 +23453,11 @@ class ListVpcCidrblockResponse(TeaModel):
         result_msg: str = None,
         data: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # cidr block list
         self.data = data
@@ -23007,6 +23497,7 @@ class QueryVpcVswitchRequest(TeaModel):
         vpc_id: str = None,
         vswitch_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # vpc paas id
         self.vpc_id = vpc_id
@@ -23045,8 +23536,11 @@ class QueryVpcVswitchResponse(TeaModel):
         result_msg: str = None,
         data: List[VSwitchVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vswitch detail infos
         self.data = data
@@ -23095,6 +23589,7 @@ class QueryVpcVroutertableRequest(TeaModel):
         v_router_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # vpc id
         self.vpc_id = vpc_id
@@ -23141,8 +23636,11 @@ class QueryVpcVroutertableResponse(TeaModel):
         result_msg: str = None,
         data: List[RouteTable] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 
         # 路由表的详细信息。
@@ -23191,6 +23689,7 @@ class GetLoadbalanceRuleRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # rule id
         self.id = id
@@ -23230,8 +23729,11 @@ class GetLoadbalanceRuleResponse(TeaModel):
         result_msg: str = None,
         data: LoadBalancerRule = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # rule
         self.data = data
@@ -23284,6 +23786,7 @@ class QueryLoadbalanceRuleRequest(TeaModel):
         vcomputer_group_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_ids
         self.app_ids = app_ids
@@ -23388,8 +23891,11 @@ class QueryLoadbalanceRuleResponse(TeaModel):
         result_msg: str = None,
         data: List[LoadBalancerRule] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # rules
         self.data = data
@@ -23436,6 +23942,7 @@ class GetLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -23468,8 +23975,11 @@ class GetLoadbalanceResponse(TeaModel):
         result_msg: str = None,
         data: LoadBalancer = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -23511,6 +24021,7 @@ class AllLoadbalanceMountRequest(TeaModel):
         loadbalance_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # loadbalance_id
         self.loadbalance_id = loadbalance_id
@@ -23550,8 +24061,11 @@ class AllLoadbalanceMountResponse(TeaModel):
         result_msg: str = None,
         data: List[MountComputer] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -23610,6 +24124,7 @@ class QueryLoadbalanceMountRequest(TeaModel):
         zone_ids: List[str] = None,
         name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_ids
         self.app_ids = app_ids
@@ -23718,8 +24233,11 @@ class QueryLoadbalanceMountResponse(TeaModel):
         page_size: int = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # current_page
         self.current_page = current_page
@@ -23785,6 +24303,7 @@ class GetLoadbalanceVcomputergroupRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -23824,8 +24343,11 @@ class GetLoadbalanceVcomputergroupResponse(TeaModel):
         result_msg: str = None,
         data: VComputerGroup = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -23869,6 +24391,7 @@ class QueryLoadbalanceVcomputergroupRequest(TeaModel):
         statuses: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # load_balance_ids
         self.load_balance_ids = load_balance_ids
@@ -23920,8 +24443,11 @@ class QueryLoadbalanceVcomputergroupResponse(TeaModel):
         result_msg: str = None,
         data: List[VComputerGroup] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -23968,6 +24494,7 @@ class AllLoadbalanceVcomputergroupRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -24000,8 +24527,11 @@ class AllLoadbalanceVcomputergroupResponse(TeaModel):
         result_msg: str = None,
         data: List[VComputerGroup] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -24058,6 +24588,7 @@ class QueryLoadbalanceVcomputerRequest(TeaModel):
         v_computer_group_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer_ids
         self.computer_ids = computer_ids
@@ -24150,8 +24681,11 @@ class QueryLoadbalanceVcomputerResponse(TeaModel):
         result_msg: str = None,
         data: List[VComputer] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # v_computers
         self.data = data
@@ -24209,6 +24743,7 @@ class QueryLoadbalanceListenerRequest(TeaModel):
         v_computer_group_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # backend_server_ports
         self.backend_server_ports = backend_server_ports
@@ -24308,8 +24843,11 @@ class QueryLoadbalanceListenerResponse(TeaModel):
         data: List[Listener] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # listeners
         self.data = data
@@ -24363,6 +24901,7 @@ class AllLoadbalanceListenerRequest(TeaModel):
         lb_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb_id
         self.lb_id = lb_id
@@ -24402,8 +24941,11 @@ class AllLoadbalanceListenerResponse(TeaModel):
         result_msg: str = None,
         data: List[Listener] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -24452,6 +24994,7 @@ class QueryLoadbalanceSecurityipRequest(TeaModel):
         load_balancer_id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # listener_port
         self.listener_port = listener_port
@@ -24498,8 +25041,11 @@ class QueryLoadbalanceSecurityipResponse(TeaModel):
         result_msg: str = None,
         data: ListenerSecurityIp = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # security_ips
         self.data = data
@@ -24541,6 +25087,7 @@ class GetDatabaseRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -24579,8 +25126,11 @@ class GetDatabaseResponse(TeaModel):
         result_msg: str = None,
         data: Database = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -24621,6 +25171,7 @@ class AllDatabaseMasterzoneRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -24653,8 +25204,11 @@ class AllDatabaseMasterzoneResponse(TeaModel):
         result_msg: str = None,
         master_zones: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # master_zones
         self.master_zones = master_zones
@@ -24722,6 +25276,7 @@ class QueryDatabaseRequest(TeaModel):
         v_switch_iaas_ids: List[str] = None,
         workspace_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_ids
         self.app_ids = app_ids
@@ -24931,8 +25486,11 @@ class QueryDatabaseResponse(TeaModel):
         current_page: int = None,
         page_size: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -25015,6 +25573,7 @@ class QueryDatabaseSpecRequest(TeaModel):
         enable: bool = None,
         iaas_types: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -25155,8 +25714,11 @@ class QueryDatabaseSpecResponse(TeaModel):
         result_msg: str = None,
         data: List[DatabaseSpec] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -25202,6 +25764,7 @@ class AllDatabaseEngineRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -25228,8 +25791,11 @@ class AllDatabaseEngineResponse(TeaModel):
         result_msg: str = None,
         data: List[DatabaseEngine] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -25276,6 +25842,7 @@ class AllDatabaseQuotaRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -25308,8 +25875,11 @@ class AllDatabaseQuotaResponse(TeaModel):
         result_msg: str = None,
         quotas: List[QuotaKv] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # quotas
         self.quotas = quotas
@@ -25357,6 +25927,7 @@ class AllDatabaseSecurityipRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 数据库id
         self.id = id
@@ -25395,8 +25966,11 @@ class AllDatabaseSecurityipResponse(TeaModel):
         result_msg: str = None,
         data: List[DatabaseSecurityIp] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # security_ips
         self.data = data
@@ -25451,6 +26025,7 @@ class QueryDatabaseSchemeRequest(TeaModel):
         statuses: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # char_sets
         self.char_sets = char_sets
@@ -25532,8 +26107,11 @@ class QueryDatabaseSchemeResponse(TeaModel):
         result_msg: str = None,
         data: List[DbSchema] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -25580,6 +26158,7 @@ class AllDatabaseImportRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -25612,8 +26191,11 @@ class AllDatabaseImportResponse(TeaModel):
         result_msg: str = None,
         imports: List[DatabaseImportVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # imports
         self.imports = imports
@@ -25661,6 +26243,7 @@ class QueryComputerAgentstatusRequest(TeaModel):
         sn: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer serial numbers
         self.sn = sn
@@ -25700,8 +26283,11 @@ class QueryComputerAgentstatusResponse(TeaModel):
         result_msg: str = None,
         data: List[StarAgentInfo] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # staragent info
         self.data = data
@@ -25749,6 +26335,7 @@ class QueryComputerAgentsetupcommandRequest(TeaModel):
         sn: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer serial numbers
         self.sn = sn
@@ -25788,8 +26375,11 @@ class QueryComputerAgentsetupcommandResponse(TeaModel):
         result_msg: str = None,
         results: List[OperationTask] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # operation tasks
         self.results = results
@@ -25839,6 +26429,7 @@ class QueryComputerImportRequest(TeaModel):
         page_size: int = None,
         current_page: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace name
         self.workspace = workspace
@@ -25892,8 +26483,11 @@ class QueryComputerImportResponse(TeaModel):
         data: List[ComputerImportVO] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer import infos
         self.data = data
@@ -25949,7 +26543,10 @@ class ListComputerRequest(TeaModel):
         name: str = None,
         page_size: int = None,
         workspace: str = None,
+        cloud_manage_token: str = None,
+        vpc_iaas_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # appserviceIds
         self.app_service_ids = app_service_ids
@@ -25961,6 +26558,10 @@ class ListComputerRequest(TeaModel):
         self.page_size = page_size
         # workspace name
         self.workspace = workspace
+        # CMP模式下使用的token，一般场景勿用
+        self.cloud_manage_token = cloud_manage_token
+        # vpc_iaas_id
+        self.vpc_iaas_id = vpc_iaas_id
 
     def validate(self):
         self.validate_required(self.workspace, 'workspace')
@@ -25979,6 +26580,10 @@ class ListComputerRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.workspace is not None:
             result['workspace'] = self.workspace
+        if self.cloud_manage_token is not None:
+            result['cloud_manage_token'] = self.cloud_manage_token
+        if self.vpc_iaas_id is not None:
+            result['vpc_iaas_id'] = self.vpc_iaas_id
         return result
 
     def from_map(self, m: dict = None):
@@ -25995,6 +26600,10 @@ class ListComputerRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('workspace') is not None:
             self.workspace = m.get('workspace')
+        if m.get('cloud_manage_token') is not None:
+            self.cloud_manage_token = m.get('cloud_manage_token')
+        if m.get('vpc_iaas_id') is not None:
+            self.vpc_iaas_id = m.get('vpc_iaas_id')
         return self
 
 
@@ -26009,8 +26618,11 @@ class ListComputerResponse(TeaModel):
         page_size: int = None,
         current_page: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer infos
         self.data = data
@@ -26077,6 +26689,7 @@ class QueryComputerSpecRequest(TeaModel):
         zone_ids: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # prviderIds
         self.provider_ids = provider_ids
@@ -26123,8 +26736,11 @@ class QueryComputerSpecResponse(TeaModel):
         result_msg: str = None,
         data: List[ComputerSpec] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer spec list
         self.data = data
@@ -26172,6 +26788,7 @@ class QueryComputerCommonimageRequest(TeaModel):
         provider_ids: List[str] = None,
         region_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # providerIds
         self.provider_ids = provider_ids
@@ -26211,8 +26828,11 @@ class QueryComputerCommonimageResponse(TeaModel):
         result_msg: str = None,
         data: List[CommonImage] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # common images
         self.data = data
@@ -26259,6 +26879,7 @@ class AllLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         workspace_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_ids
         self.workspace_ids = workspace_ids
@@ -26291,8 +26912,11 @@ class AllLoadbalanceResponse(TeaModel):
         result_msg: str = None,
         data: List[LoadBalancer] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26342,6 +26966,7 @@ class QueryLoadbalanceImportRequest(TeaModel):
         workspace: str = None,
         zone_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -26393,8 +27018,11 @@ class QueryLoadbalanceImportResponse(TeaModel):
         data: List[LoadBalancerImportVO] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26450,6 +27078,7 @@ class QueryDatabaseImportRequest(TeaModel):
         page_size: int = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -26502,8 +27131,11 @@ class QueryDatabaseImportResponse(TeaModel):
         data: List[DatabaseImportVO] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26556,6 +27188,7 @@ class QueryDatabaseMasterzoneRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -26588,8 +27221,11 @@ class QueryDatabaseMasterzoneResponse(TeaModel):
         result_msg: str = None,
         data: List[str] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26628,6 +27264,7 @@ class QueryDatabaseQuotaRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -26660,8 +27297,11 @@ class QueryDatabaseQuotaResponse(TeaModel):
         result_msg: str = None,
         data: List[QuotaKv] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26709,6 +27349,7 @@ class QueryDatabaseSecurityipRequest(TeaModel):
         id: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -26748,8 +27389,11 @@ class QueryDatabaseSecurityipResponse(TeaModel):
         result_msg: str = None,
         data: List[DatabaseSecurityIp] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26804,6 +27448,7 @@ class QueryDatabaseSchemaRequest(TeaModel):
         statuses: List[str] = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # char_sets
         self.char_sets = char_sets
@@ -26885,8 +27530,11 @@ class QueryDatabaseSchemaResponse(TeaModel):
         data: List[DbSchema] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -26941,6 +27589,7 @@ class QueryDatabaseAccountRequest(TeaModel):
         database_id: str = None,
         page_size: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -26986,8 +27635,11 @@ class QueryDatabaseAccountResponse(TeaModel):
         data: List[DatabaseAccount] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -27040,6 +27692,7 @@ class GetWorkspaceRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -27072,8 +27725,11 @@ class GetWorkspaceResponse(TeaModel):
         result_msg: str = None,
         data: WorkspaceDto = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # workspaceDto
         self.data = data
@@ -27113,6 +27769,7 @@ class ListRegionRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -27139,8 +27796,11 @@ class ListRegionResponse(TeaModel):
         result_msg: str = None,
         data: List[RegionDto] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # list
         self.data = data
@@ -27186,6 +27846,7 @@ class ListRegionAccessibleRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -27212,8 +27873,11 @@ class ListRegionAccessibleResponse(TeaModel):
         result_msg: str = None,
         data: List[RegionDto] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -27262,6 +27926,7 @@ class UpdateDatabaseInfoRequest(TeaModel):
         description: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # name
         self.name = name
@@ -27305,8 +27970,11 @@ class UpdateDatabaseInfoResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27342,6 +28010,7 @@ class SetDatabaseAssignRequest(TeaModel):
         workspace: str = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_service_ids
         self.app_service_ids = app_service_ids
@@ -27391,8 +28060,11 @@ class SetDatabaseAssignResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27426,6 +28098,7 @@ class SetDatabaseShareRequest(TeaModel):
         workspace_ids: List[str] = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_ids
         self.workspace_ids = workspace_ids
@@ -27464,8 +28137,11 @@ class SetDatabaseShareResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27498,6 +28174,7 @@ class RebootDatabaseRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -27529,8 +28206,11 @@ class RebootDatabaseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27564,6 +28244,7 @@ class UpdateDatabaseAccountRequest(TeaModel):
         description: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # description
         self.description = description
@@ -27601,8 +28282,11 @@ class UpdateDatabaseAccountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27636,6 +28320,7 @@ class SetDatabaseAccountpasswordRequest(TeaModel):
         id: str = None,
         password: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -27674,8 +28359,11 @@ class SetDatabaseAccountpasswordResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27710,6 +28398,7 @@ class AuthDatabaseAccountRequest(TeaModel):
         privilege: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # schema_id
         self.schema_id = schema_id
@@ -27755,8 +28444,11 @@ class AuthDatabaseAccountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -27788,6 +28480,7 @@ class GetRegionTenantRequest(TeaModel):
         self,
         auth_token: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
 
     def validate(self):
@@ -27814,8 +28507,11 @@ class GetRegionTenantResponse(TeaModel):
         result_msg: str = None,
         data: RegionDto = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # regionDto
         self.data = data
@@ -27858,6 +28554,7 @@ class GetRegionAliasbyidRequest(TeaModel):
         provider_id: str = None,
         iaas_conn_type: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region_id
         self.region_id = region_id
@@ -27904,8 +28601,11 @@ class GetRegionAliasbyidResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # region alias
         self.data = data
@@ -27954,6 +28654,7 @@ class QueryDiskRequest(TeaModel):
         workspace_ids: List[str] = None,
         name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current page
         self.current_page = current_page
@@ -28049,8 +28750,11 @@ class QueryDiskResponse(TeaModel):
         page_size: int = None,
         current_page: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # disk detail infos
         self.data = data
@@ -28118,6 +28822,7 @@ class QueryImageRequest(TeaModel):
         workspace: str = None,
         statuses: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current page
         self.current_page = current_page
@@ -28169,8 +28874,11 @@ class QueryImageResponse(TeaModel):
         data: List[CommonImage] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # image infos
         self.data = data
@@ -28227,6 +28935,7 @@ class CreateDatabaseSchemaRequest(TeaModel):
         id: str = None,
         name: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # char_set
         self.char_set = char_set
@@ -28294,8 +29003,11 @@ class CreateDatabaseSchemaResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回的schemaid
         self.data = data
@@ -28336,6 +29048,7 @@ class CreateLoadbalanceMountRequest(TeaModel):
         domain: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # mount_map
         self.mount_map = mount_map
@@ -28389,8 +29102,11 @@ class CreateLoadbalanceMountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28441,6 +29157,7 @@ class CreateLoadbalanceListenerRequest(TeaModel):
         v_computer_group_id: str = None,
         x_forwarded_for: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # backend_server_port
         self.backend_server_port = backend_server_port
@@ -28585,8 +29302,11 @@ class CreateLoadbalanceListenerResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -28626,6 +29346,7 @@ class StopLoadbalanceListenerRequest(TeaModel):
         load_balancer_id: str = None,
         listener_port: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # load_balancer_id
         self.load_balancer_id = load_balancer_id
@@ -28664,8 +29385,11 @@ class StopLoadbalanceListenerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28699,6 +29423,7 @@ class StartLoadbalanceListenerRequest(TeaModel):
         load_balancer_id: str = None,
         listener_port: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # load_balancer_id
         self.load_balancer_id = load_balancer_id
@@ -28737,8 +29462,11 @@ class StartLoadbalanceListenerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28787,6 +29515,7 @@ class UpdateLoadbalanceListenerRequest(TeaModel):
         use_vcomputer_group: bool = None,
         v_computer_group_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # bandwidth
         self.bandwidth = bandwidth
@@ -28918,8 +29647,11 @@ class UpdateLoadbalanceListenerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -28953,6 +29685,7 @@ class QueryDiskspecRequest(TeaModel):
         provider_id: str = None,
         enable: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # provider id
         self.provider_id = provider_id
@@ -28991,8 +29724,11 @@ class QueryDiskspecResponse(TeaModel):
         result_msg: str = None,
         data: List[DiskSpec] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # disk spec infos
         self.data = data
@@ -29039,6 +29775,7 @@ class QueryComputerquotaRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace name
         self.workspace = workspace
@@ -29071,8 +29808,11 @@ class QueryComputerquotaResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer quota info jsonstring
         self.data = data
@@ -29112,6 +29852,7 @@ class StopComputerRequest(TeaModel):
         ids: List[str] = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer ids
         self.ids = ids
@@ -29150,8 +29891,11 @@ class StopComputerResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -29191,6 +29935,7 @@ class RebootComputerRequest(TeaModel):
         ids: List[str] = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # ids
         self.ids = ids
@@ -29229,8 +29974,11 @@ class RebootComputerResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -29269,6 +30017,7 @@ class QueryComputerSecuritygroupRequest(TeaModel):
         auth_token: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer id
         self.id = id
@@ -29301,8 +30050,11 @@ class QueryComputerSecuritygroupResponse(TeaModel):
         result_msg: str = None,
         data: List[JoinedSecurityGroupVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # security group info
         self.data = data
@@ -29351,6 +30103,7 @@ class QuerySecuritygroupRequest(TeaModel):
         current_page: int = None,
         page_size: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace name
         self.workspace = workspace
@@ -29398,8 +30151,11 @@ class QuerySecuritygroupResponse(TeaModel):
         total_count: int = None,
         data: List[SecurityGroupVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # currentPage
         self.current_page = current_page
@@ -29465,6 +30221,7 @@ class CreateSecuritygroupPermissionRequest(TeaModel):
         permission: PermissionVO = None,
         security_group_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # PermissionVO
         self.permission = permission
@@ -29507,8 +30264,11 @@ class CreateSecuritygroupPermissionResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -29550,6 +30310,7 @@ class QuerySecuritygroupPermissionRequest(TeaModel):
         nic_type: str = None,
         direction: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # securityGroupId
         self.security_group_id = security_group_id
@@ -29600,8 +30361,11 @@ class QuerySecuritygroupPermissionResponse(TeaModel):
         result_msg: str = None,
         data: List[PermissionVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # securitygroup permission infos
         self.data = data
@@ -29650,6 +30414,7 @@ class UpdateLoadbalanaceSecurityipRequest(TeaModel):
         listener_port: int = None,
         access_control: bool = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb id
         self.id = id
@@ -29695,8 +30460,11 @@ class UpdateLoadbalanaceSecurityipResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29731,6 +30499,7 @@ class CreateLoadbalanceSecurityipRequest(TeaModel):
         listener_port: int = None,
         ips: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # lb id
         self.id = id
@@ -29776,8 +30545,11 @@ class CreateLoadbalanceSecurityipResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29812,6 +30584,7 @@ class UpdateDatabaseRequest(TeaModel):
         name: str = None,
         description: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -29855,8 +30628,11 @@ class UpdateDatabaseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29891,6 +30667,7 @@ class UpdateLoadbalanceMountRequest(TeaModel):
         mount_map: List[MapStringToIntegerEntity] = None,
         domain: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -29943,8 +30720,11 @@ class UpdateLoadbalanceMountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -29978,6 +30758,7 @@ class DeleteLoadbalanceMountRequest(TeaModel):
         id: str = None,
         computer_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -30016,8 +30797,11 @@ class DeleteLoadbalanceMountResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -30064,6 +30848,7 @@ class QueryRequestRequest(TeaModel):
         types: List[str] = None,
         workspace_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -30098,9 +30883,9 @@ class QueryRequestRequest(TeaModel):
 
     def validate(self):
         if self.max_time is not None:
-            self.validate_pattern(self.max_time, 'max_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.max_time, 'max_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.min_time is not None:
-            self.validate_pattern(self.min_time, 'min_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.min_time, 'min_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -30186,8 +30971,11 @@ class QueryRequestResponse(TeaModel):
         current_page: int = None,
         page_size: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -30253,6 +31041,7 @@ class GetRequestRequest(TeaModel):
         workspace: str = None,
         id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace
         self.workspace = workspace
@@ -30292,8 +31081,11 @@ class GetRequestResponse(TeaModel):
         result_msg: str = None,
         data: RequestVO = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -30347,6 +31139,7 @@ class QueryRequestTaskRequest(TeaModel):
         statuses: List[str] = None,
         workspace_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # current_page
         self.current_page = current_page
@@ -30379,9 +31172,9 @@ class QueryRequestTaskRequest(TeaModel):
 
     def validate(self):
         if self.max_time is not None:
-            self.validate_pattern(self.max_time, 'max_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.max_time, 'max_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.min_time is not None:
-            self.validate_pattern(self.min_time, 'min_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]')
+            self.validate_pattern(self.min_time, 'min_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -30461,8 +31254,11 @@ class QueryRequestTaskResponse(TeaModel):
         data: List[Task] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -30516,6 +31312,7 @@ class QueryTaskLogRequest(TeaModel):
         execution_times: int = None,
         task_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # execution_times
         self.execution_times = execution_times
@@ -30554,8 +31351,11 @@ class QueryTaskLogResponse(TeaModel):
         result_msg: str = None,
         data: List[ResourceLog] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -30602,6 +31402,7 @@ class ListTenantworkspaceRequest(TeaModel):
         auth_token: str = None,
         status: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # status
         self.status = status
@@ -30634,8 +31435,11 @@ class ListTenantworkspaceResponse(TeaModel):
         result_msg: str = None,
         data: List[TenantWorkspace] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # worksapce列表
         self.data = data
@@ -30682,6 +31486,7 @@ class QueryTenantworkspaceFilterRequest(TeaModel):
         auth_token: str = None,
         statuses: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # statuses
         self.statuses = statuses
@@ -30714,8 +31519,11 @@ class QueryTenantworkspaceFilterResponse(TeaModel):
         result_msg: str = None,
         data: List[TenantWorkspace] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # workspaces
         self.data = data
@@ -30762,6 +31570,7 @@ class ListRegionGroupbyRequest(TeaModel):
         auth_token: str = None,
         status: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # status
         self.status = status
@@ -30794,8 +31603,11 @@ class ListRegionGroupbyResponse(TeaModel):
         result_msg: str = None,
         data: List[RegionWorkspaceVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # RegionWorkspaceVO
         self.data = data
@@ -30843,6 +31655,7 @@ class QueryRequestFinaltaskRequest(TeaModel):
         id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # request_id
         self.id = id
@@ -30882,8 +31695,11 @@ class QueryRequestFinaltaskResponse(TeaModel):
         result_msg: str = None,
         data: List[TaskVO] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -30931,6 +31747,7 @@ class QueryFeatureRequest(TeaModel):
         region_id: str = None,
         project_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region_id
         self.region_id = region_id
@@ -30970,8 +31787,11 @@ class QueryFeatureResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -31011,6 +31831,7 @@ class StartComputerRequest(TeaModel):
         ids: List[str] = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer ids
         self.ids = ids
@@ -31049,8 +31870,11 @@ class StartComputerResponse(TeaModel):
         result_msg: str = None,
         paas_request_id: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # paas_request_id
         self.paas_request_id = paas_request_id
@@ -31089,6 +31913,7 @@ class StartLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # ids
         self.ids = ids
@@ -31120,8 +31945,11 @@ class StartLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31154,6 +31982,7 @@ class StopLoadbalanceRequest(TeaModel):
         auth_token: str = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # ids
         self.ids = ids
@@ -31185,8 +32014,11 @@ class StopLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31221,6 +32053,7 @@ class UpdateLoadbalanceRequest(TeaModel):
         name: str = None,
         description: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -31266,8 +32099,11 @@ class UpdateLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31302,6 +32138,7 @@ class AddLoadbalanceAssignRequest(TeaModel):
         app_service_id: str = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -31345,8 +32182,11 @@ class AddLoadbalanceAssignResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31380,6 +32220,7 @@ class QueryCertificateRequest(TeaModel):
         workspace_id: str = None,
         zone_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_id
         self.workspace_id = workspace_id
@@ -31420,8 +32261,11 @@ class QueryCertificateResponse(TeaModel):
         data: List[BasicCertificate] = None,
         total_count: int = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -31480,6 +32324,7 @@ class CreateCertificateRequest(TeaModel):
         private_key: str = None,
         cert_type: int = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_id
         self.workspace_id = workspace_id
@@ -31552,8 +32397,11 @@ class CreateCertificateResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # data
         self.data = data
@@ -31594,6 +32442,7 @@ class DeleteCertificateRequest(TeaModel):
         workspace_id: str = None,
         zone_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # id
         self.id = id
@@ -31639,8 +32488,11 @@ class DeleteCertificateResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31675,6 +32527,7 @@ class DescribeUnifiedresourceVpcRequest(TeaModel):
         region: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 提供商类型
         self.provider_type = provider_type
@@ -31721,8 +32574,11 @@ class DescribeUnifiedresourceVpcResponse(TeaModel):
         result_msg: str = None,
         vpc: VPC = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vpc对象
         self.vpc = vpc
@@ -31764,6 +32620,7 @@ class ListUnifiedresourceInstancefamiliesRequest(TeaModel):
         region_id: str = None,
         provider_type: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region id
         self.region_id = region_id
@@ -31802,8 +32659,11 @@ class ListUnifiedresourceInstancefamiliesResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -31836,6 +32696,7 @@ class ListUnifiedresourceInstancetypeRequest(TeaModel):
         auth_token: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -31868,8 +32729,11 @@ class ListUnifiedresourceInstancetypeResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # instancetype详细信息，jsonstring
         self.data = data
@@ -31909,6 +32773,7 @@ class QueryComputerRequest(TeaModel):
         id: str = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # computer id
         self.id = id
@@ -31947,8 +32812,11 @@ class QueryComputerResponse(TeaModel):
         result_msg: str = None,
         data: Computer = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer info
         self.data = data
@@ -31991,6 +32859,7 @@ class ListResourceComputertypeRequest(TeaModel):
         zone: str = None,
         instance_type_family: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32036,8 +32905,11 @@ class ListResourceComputertypeResponse(TeaModel):
         result_msg: str = None,
         data: List[ComputerType] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可用computer type列表
         self.data = data
@@ -32086,6 +32958,7 @@ class ListResourceDiskRequest(TeaModel):
         instance_type: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 要查询的云盘或本地盘类型。取值范围：
         # 
@@ -32136,8 +33009,11 @@ class ListResourceDiskResponse(TeaModel):
         result_msg: str = None,
         data: List[Disk] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # disk infos
         self.data = data
@@ -32184,6 +33060,7 @@ class ListResourceComputertypefamilyRequest(TeaModel):
         auth_token: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32216,8 +33093,11 @@ class ListResourceComputertypefamilyResponse(TeaModel):
         result_msg: str = None,
         data: List[ComputerTypeFamily] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # computer 规格族
         self.data = data
@@ -32266,6 +33146,7 @@ class ListUnifiedresourceVswitchRequest(TeaModel):
         vpc_id: str = None,
         v_switch_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32310,8 +33191,11 @@ class ListUnifiedresourceVswitchResponse(TeaModel):
         result_msg: str = None,
         data: List[VSwitch] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交换机的详细信息
         self.data = data
@@ -32358,6 +33242,7 @@ class ListUnifiedresourceVpcRequest(TeaModel):
         auth_token: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32390,8 +33275,11 @@ class ListUnifiedresourceVpcResponse(TeaModel):
         result_msg: str = None,
         data: List[VPC] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vpc list
         self.data = data
@@ -32443,6 +33331,7 @@ class ImportResourceVpcRequest(TeaModel):
         vpc_name: str = None,
         cidr_block: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region identity
         self.region = region
@@ -32510,8 +33399,11 @@ class ImportResourceVpcResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # vpc关联到workspace是否成功
         self.success = success
@@ -32556,6 +33448,7 @@ class DeleteResourceRuleRequest(TeaModel):
         source_cidr_ip: str = None,
         dest_cidr_ip: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 传输层协议。参数值大小写敏感。取值范围：
         # 
@@ -32641,8 +33534,11 @@ class DeleteResourceRuleResponse(TeaModel):
         result_msg: str = None,
         success: bool = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 操作是否成功
         self.success = success
@@ -32682,6 +33578,7 @@ class ListRouteEntryRequest(TeaModel):
         region: str = None,
         router_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 所属地域
         self.region = region
@@ -32721,8 +33618,11 @@ class ListRouteEntryResponse(TeaModel):
         result_msg: str = None,
         data: List[VRouteEntry] = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 路由条目信息
         self.data = data
@@ -32771,6 +33671,7 @@ class ListAvailableDiskRequest(TeaModel):
         disk_type: str = None,
         instance_type: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32819,8 +33720,11 @@ class ListAvailableDiskResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 磁盘类型详细信息，jsonstring
         self.data = data
@@ -32859,6 +33763,7 @@ class ListAvailableInstancetypeRequest(TeaModel):
         auth_token: str = None,
         region: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # region name
         self.region = region
@@ -32891,8 +33796,11 @@ class ListAvailableInstancetypeResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 实例类型详细信息，jsonstring
         self.data = data
@@ -32931,6 +33839,7 @@ class QueryResourcemetaNodeRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace name
         self.workspace = workspace
@@ -32963,8 +33872,11 @@ class QueryResourcemetaNodeResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # node meta list jsonstring
         self.data = data
@@ -33003,6 +33915,7 @@ class QueryResourcemetaAppserviceRequest(TeaModel):
         auth_token: str = None,
         workspace: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace name
         self.workspace = workspace
@@ -33035,8 +33948,11 @@ class QueryResourcemetaAppserviceResponse(TeaModel):
         result_msg: str = None,
         data: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # app service metadata json
         self.data = data
@@ -33076,6 +33992,7 @@ class SyncComputerRequest(TeaModel):
         workspace_id: str = None,
         computer_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # 工作空间
         self.workspace_id = workspace_id
@@ -33114,8 +34031,11 @@ class SyncComputerResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33149,6 +34069,7 @@ class SyncLoadbalanceRequest(TeaModel):
         workspace_id: str = None,
         lb_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # workspace_id
         self.workspace_id = workspace_id
@@ -33187,8 +34108,11 @@ class SyncLoadbalanceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33224,6 +34148,7 @@ class UpdateComputerInfoRequest(TeaModel):
         workspace_id: str = None,
         computer_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # name
         self.name = name
@@ -33275,8 +34200,11 @@ class UpdateComputerInfoResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33313,6 +34241,7 @@ class SetComputerAssignRequest(TeaModel):
         workspace_id: str = None,
         cell: List[MapStringToStringEntity] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # app_id
         self.app_id = app_id
@@ -33379,8 +34308,11 @@ class SetComputerAssignResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33414,6 +34346,7 @@ class ExecRequestTaskRequest(TeaModel):
         rmc_request_id: str = None,
         task_ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # rmc_request_id，注意区分OPENAPI自身的request_id
         self.rmc_request_id = rmc_request_id
@@ -33452,8 +34385,11 @@ class ExecRequestTaskResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33487,6 +34423,7 @@ class ReinitDiskRequest(TeaModel):
         ids: List[str] = None,
         workspace_id: str = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # ids
         self.ids = ids
@@ -33524,8 +34461,11 @@ class ReinitDiskResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -33561,6 +34501,7 @@ class UpdateDiskStrategyRequest(TeaModel):
         enable_auto_snapshot: bool = None,
         ids: List[str] = None,
     ):
+        # OAuth模式下的授权token
         self.auth_token = auth_token
         # delete_with_computer
         self.delete_with_computer = delete_with_computer
@@ -33610,8 +34551,11 @@ class UpdateDiskStrategyResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
     ):
+        # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
