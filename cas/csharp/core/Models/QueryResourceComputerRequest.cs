@@ -9,6 +9,7 @@ using Tea;
 namespace AntChain.SDK.CAS.Models
 {
     public class QueryResourceComputerRequest : TeaModel {
+        // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }

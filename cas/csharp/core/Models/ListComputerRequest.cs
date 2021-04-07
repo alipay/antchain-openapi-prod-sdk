@@ -9,6 +9,7 @@ using Tea;
 namespace AntChain.SDK.CAS.Models
 {
     public class ListComputerRequest : TeaModel {
+        // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
@@ -37,6 +38,16 @@ namespace AntChain.SDK.CAS.Models
         [NameInMap("workspace")]
         [Validation(Required=true)]
         public string Workspace { get; set; }
+
+        // CMP模式下使用的token，一般场景勿用
+        [NameInMap("cloud_manage_token")]
+        [Validation(Required=false)]
+        public string CloudManageToken { get; set; }
+
+        // vpc_iaas_id
+        [NameInMap("vpc_iaas_id")]
+        [Validation(Required=false)]
+        public string VpcIaasId { get; set; }
 
     }
 

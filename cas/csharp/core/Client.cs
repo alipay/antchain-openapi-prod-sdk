@@ -133,11 +133,11 @@ namespace AntChain.SDK.CAS
                         {"method", action},
                         {"version", version},
                         {"sign_type", "HmacSHA1"},
-                        {"req_time", AntChain.AlipayUtil.Client.GetTimestamp()},
-                        {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
+                        {"req_time", AntChain.AlipayUtil.AntchainUtils.GetTimestamp()},
+                        {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.17"},
+                        {"sdk_version", "1.3.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -160,7 +160,7 @@ namespace AntChain.SDK.CAS
                         request_.Query,
                         AlibabaCloud.Commons.Common.Query(request)
                     );
-                    request_.Query["sign"] = AntChain.AlipayUtil.Client.GetSignature(signedParam, _accessKeySecret);
+                    request_.Query["sign"] = AntChain.AlipayUtil.AntchainUtils.GetSignature(signedParam, _accessKeySecret);
                     _lastRequest = request_;
                     TeaResponse response_ = TeaCore.DoAction(request_, runtime_);
 
@@ -168,7 +168,7 @@ namespace AntChain.SDK.CAS
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.AntchainUtils.HasError(raw, _accessKeySecret))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
@@ -257,11 +257,11 @@ namespace AntChain.SDK.CAS
                         {"method", action},
                         {"version", version},
                         {"sign_type", "HmacSHA1"},
-                        {"req_time", AntChain.AlipayUtil.Client.GetTimestamp()},
-                        {"req_msg_id", AntChain.AlipayUtil.Client.GetNonce()},
+                        {"req_time", AntChain.AlipayUtil.AntchainUtils.GetTimestamp()},
+                        {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.17"},
+                        {"sdk_version", "1.3.19"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -284,7 +284,7 @@ namespace AntChain.SDK.CAS
                         request_.Query,
                         AlibabaCloud.Commons.Common.Query(request)
                     );
-                    request_.Query["sign"] = AntChain.AlipayUtil.Client.GetSignature(signedParam, _accessKeySecret);
+                    request_.Query["sign"] = AntChain.AlipayUtil.AntchainUtils.GetSignature(signedParam, _accessKeySecret);
                     _lastRequest = request_;
                     TeaResponse response_ = await TeaCore.DoActionAsync(request_, runtime_);
 
@@ -292,7 +292,7 @@ namespace AntChain.SDK.CAS
                     object obj = AlibabaCloud.TeaUtil.Common.ParseJSON(raw);
                     Dictionary<string, object> res = AlibabaCloud.TeaUtil.Common.AssertAsMap(obj);
                     Dictionary<string, object> resp = AlibabaCloud.TeaUtil.Common.AssertAsMap(res.Get("response"));
-                    if (AntChain.AlipayUtil.Client.HasError(raw, _accessKeySecret))
+                    if (AntChain.AlipayUtil.AntchainUtils.HasError(raw, _accessKeySecret))
                     {
                         throw new TeaException(new Dictionary<string, object>
                         {
