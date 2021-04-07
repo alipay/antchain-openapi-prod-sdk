@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.17',
+    sdk_version = '1.3.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -224,9 +224,9 @@ model Database {
   // type
   type?: string(name='type', example='type'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // vpc_id
   vpcId?: string(name='vpc_id', example='vpc_id'),
   // v_switch_iaas_id
@@ -320,9 +320,9 @@ model DatabaseAccount {
   // status
   status?: string(name='status', example='status'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 用户信息
@@ -366,11 +366,11 @@ model UserInfo {
   // 个人照片路径
   personalPhoto?: string(name='personal_photo', example='http://*/*.png'),
   // 上次登录时间.
-  lastLogonTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='last_logon_time', example='2018-10-10T10:10:00Z'),
+  lastLogonTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_logon_time', example='2018-10-10T10:10:00Z'),
   // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // 修改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // WorkspaceView
@@ -468,9 +468,9 @@ model CodeCommit {
   // 仓库名称
   repoName?: string(name='repo_name', example='repo_name'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // Zone视图
@@ -586,9 +586,9 @@ model Disk {
   // SYSTEM, DATA
   type?: string(name='type', example='SYSTEM'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // workspaceId
   workspaceId?: string(name='workspace_id', example='000000001'),
   // zoneId
@@ -610,13 +610,13 @@ model AppLifeCycle {
   // 上次发布版本
   lastDeployVersion: string(name='last_deploy_version', example='123'),
   // 上次发布时间
-  lastDeployTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='last_deploy_time', example='2018-10-10T10:10:00Z'),
+  lastDeployTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_deploy_time', example='2018-10-10T10:10:00Z'),
   // 上线时间
-  onlineTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='online_time', example='2018-10-10T10:10:00Z'),
+  onlineTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='online_time', example='2018-10-10T10:10:00Z'),
   // 创建时间
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 应用扩展信息
@@ -634,9 +634,9 @@ model AppExtraInfo {
   // 模板类型
   type?: string(name='type', example='TEXT, AppTemplateTypeEnum, USER'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // 应用扩展信息ID
   appExtrainfoId?: string(name='app_extrainfo_id', example='123'),
   // 应用ID
@@ -708,9 +708,9 @@ model LoadBalancer {
   // lb状态
   status?: string(name='status', example='status'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // vip_addresses
   vipAddresses?: [ string ](name='vip_addresses', example=''),
   // vip_address_type
@@ -766,9 +766,9 @@ model AppLevel {
   // 租户ID
   tenantId?: string(name='tenant_id', example='123'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // WorkspaceGroupView
@@ -878,7 +878,7 @@ model Resource {
   // instance_charge_type
   instanceChargeType?: string(name='instance_charge_type', example='instance_charge_type'),
   // expiredTime
-  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='expired_time', example='expiredTime'),
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time', example='expiredTime'),
   // auto_renew
   autoRenew?: boolean(name='auto_renew', example='true, false'),
   // autoRenewPeriod
@@ -894,9 +894,9 @@ model Resource {
   // id
   id: string(name='id', example='id'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // AppManifest
@@ -920,9 +920,9 @@ model AppManifest {
   // store_location
   storeLocation?: string(name='store_location', example='store_location'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='utc_modified'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='utc_modified'),
   // workspace_id
   workspaceId?: string(name='workspace_id', example='workspace_id'),
 }
@@ -968,9 +968,9 @@ model AppDomain {
   // toRootPath
   toRootPath?: string(name='to_root_path', example='toRootPath'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 阿里云日志服务(SLS)-日志配置-输出类型配置
@@ -1020,9 +1020,9 @@ model AppView {
   // 租户ID
   tenantId?: string(name='tenant_id', example='123'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // 工作空间ID
   workspaceId?: string(name='workspace_id', example='123'),
   // 负责人名称
@@ -1092,9 +1092,9 @@ model AppService {
   // techstack_name
   techstackName?: string(name='techstack_name', example='techstack_name'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // workspace_id
   workspaceId?: string(name='workspace_id', example='workspace_id'),
 }
@@ -1419,9 +1419,9 @@ model Task {
   // status
   status?: string(name='status', example='status'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='utc_create'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utc_create'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='utc_modified'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='utc_modified'),
   // workspace_id
   workspaceId?: string(name='workspace_id', example='workspace_id'),
   // request
@@ -1447,9 +1447,9 @@ model WorkspaceDc {
   // datacenterType
   datacenterType: string(name='datacenter_type', example='MAIN'),
   // gmtCreate
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // gmtModified
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // IaasErrorInfo
@@ -1487,7 +1487,7 @@ model Computer {
   // cpu_shared
   cpuShared?: boolean(name='cpu_shared', example='true, false'),
   // 实例创建时间
-  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='creation_time', example='2018-10-10T10:10:00Z'),
+  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time', example='2018-10-10T10:10:00Z'),
   // data_disk
   dataDisks?: [ Disk ](name='data_disks', example=''),
   // 这是SIGMA模式下的专用字段，阿里云模式下无意义
@@ -1497,7 +1497,7 @@ model Computer {
   // elastic_ip
   elasticIp?: string(name='elastic_ip', example='elastic_ip'),
   // 过期时间
-  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='expired_time', example='2018-10-10T10:10:00Z'),
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time', example='2018-10-10T10:10:00Z'),
   // ecs iaas id
   iaasId?: string(name='iaas_id', example='i-salf23rjnjk23***'),
   // iaasStatus
@@ -1565,9 +1565,9 @@ model Computer {
   // CPU线程数。
   threadsPerCore?: long(name='threads_per_core', example='2'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // vpcId
   vpcId?: string(name='vpc_id', example='0000000001'),
   // vSwitchIaasId
@@ -1621,9 +1621,9 @@ model ZoneDto {
   // description
   description: string(name='description', example='description'),
   // utcCreate
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // 查询用的DbSchema
@@ -1645,9 +1645,9 @@ model DbSchema {
   // status
   status: string(name='status', example='status'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // property
@@ -1700,9 +1700,9 @@ model Buildpack {
   // 已退役 RETIRED
   status?: string(name='status', example='DRAFT | COMMITED | PUBLISHED | RETIRED'),
   // 创建日期
-  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  gmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
-  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  gmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
   // 技术栈信息汇总
   resultMsg?: string(name='result_msg', example='message content'),
   // 可用 USABLE
@@ -1827,9 +1827,9 @@ model UserDTO {
   // 用户ID
   id?: string(name='id', example='123'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 最近修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // 客户ID
   customerId?: string(name='customer_id', example='123'),
   // 用户类型
@@ -1863,7 +1863,7 @@ model VSwitchVO {
   // 换机的IPv4网段
   cidrBlock?: string(name='cidr_block', example='172.16.0.0/24'),
   // 交换机创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 可用ip数目
   availableIpAddressCount?: long(name='available_ip_address_count', example=''),
 }
@@ -1957,9 +1957,9 @@ model TaskVO {
   // status
   status: string(name='status', example='status'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // workspace_id
   workspaceId: string(name='workspace_id', example='workspace_id'),
   // resource
@@ -1971,7 +1971,7 @@ model ResourceLog {
   // host
   host?: string(name='host', example='host'),
   // log_time
-  logTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='log_time', example='2018-10-10T10:10:00Z'),
+  logTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='log_time', example='2018-10-10T10:10:00Z'),
   // message
   message: string(name='message', example='message'),
   // resource_id
@@ -2029,9 +2029,9 @@ model RequestVO {
   // type
   type?: string(name='type', example='type'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utc_modified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // tasks
   tasks?: [ Task ](name='tasks', example=''),
 }
@@ -2077,7 +2077,7 @@ model Connection {
   // access_secret
   accessSecret?: string(name='access_secret', example='access_secret'),
   // created_time
-  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='created_time', example='2018-10-10T10:10:00Z'),
+  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
   // executor
   executor?: string(name='executor', example='executor'),
   // id
@@ -2085,7 +2085,7 @@ model Connection {
   // identity
   identity?: string(name='identity', example='identity'),
   // 修改时间
-  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='modified_time', example='2018-10-10T10:10:00Z'),
+  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
   // name
   name?: string(name='name', example='name'),
   // plug
@@ -2121,7 +2121,7 @@ model ComputerImportVO {
   // joined security group infos
   joinedSecurityGroup?: [ JoinedSecurityGroupVO ](name='joined_security_group', example=''),
   // creation time
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // import info
   importInfo?: ImportVO(name='import_info', example=''),
 }
@@ -2151,7 +2151,7 @@ model AppDomainQuery {
   // tenantId
   tenantId?: string(name='tenant_id', example='tenantId'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='utcCreate'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utcCreate'),
   // 分页大小
   pageSize?: long(name='page_size', example=''),
   // query_type
@@ -2197,7 +2197,7 @@ model LoadBalancerImportVO {
   // public_ip_address
   publicIpAddress?: [ string ](name='public_ip_address', example=''),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // import_info
   importInfo: ImportVO(name='import_info', example=''),
 }
@@ -2243,7 +2243,7 @@ model AppQuery {
   // slbCount
   slbCount?: string(name='slb_count', example='slbCount'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // isOnePartyRequest
   isOnePartyRequest?: boolean(name='is_one_party_request', example='true, false'),
   // 分页大小
@@ -2540,7 +2540,7 @@ model DatabaseImportVO {
   // net_type
   netType?: string(name='net_type', example='net_type'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // importInfo
   importInfo: ImportVO(name='import_info', example=''),
 }
@@ -2656,9 +2656,9 @@ model WorkspaceDto {
   // type
   type?: string(name='type', example='NORMAL'),
   // utcCreate
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // workspaceRegionDto
   workspaceRegionDto?: WorkspaceRegionDto(name='workspace_region_dto', example=''),
 }
@@ -2748,7 +2748,7 @@ model AppLevelQuery {
   // tenant_id
   tenantId?: string(name='tenant_id', example='tenant_id'),
   // utc_create
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='utc_create'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='utc_create'),
   // 当前页数
   currentPage?: long(name='current_page', example=''),
   // orders
@@ -2786,7 +2786,7 @@ model ComputerType {
 // 路由表信息
 model RouteTable {
   // 路由表的创建时间。
-  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='creation_time', example='2018-10-10T10:10:00Z'),
+  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time', example='2018-10-10T10:10:00Z'),
   // 路由表所属的路由器类型，取值：
   // 
   // VRouter：VPC路由器。
@@ -2913,9 +2913,9 @@ model RegionDto {
   // state
   state: string(name='state', example='state'),
   // utcCreate
-  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // utcModified
-  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // zoneDtos
   zoneDtos: [ ZoneDto ](name='zone_dtos', example=''),
 }
@@ -2933,9 +2933,9 @@ model TenantWorkspace {
   // displayName
   displayName: string(name='display_name', example='test'),
   // gmtCreate
-  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // gmtModified
-  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
   // id
   id: string(name='id', example='001'),
   // name
@@ -3002,9 +3002,9 @@ model VpcVO {
   // vpc id
   id?: string(name='id', example='0000000001'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // 最近一次修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified', example='2018-10-10T10:10:00Z'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
 }
 
 // vpc import info
@@ -3074,7 +3074,7 @@ model SecurityGroupVO {
   // type
   type?: string(name='type', example='type'),
   // utcCreate
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create', example='2018-10-10T10:10:00Z'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
   // instanceCount
   instanceCount?: long(name='instance_count', example=''),
 }
@@ -3104,6 +3104,7 @@ model VPCParam {
 }
 
 model BatchdeleteApplicationBuildRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3112,8 +3113,11 @@ model BatchdeleteApplicationBuildRequest = {
 }
 
 model BatchdeleteApplicationBuildResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // Map<String, Boolean>
   data?: [ MapStringToBooleanEntity ](name='data'),
@@ -3139,6 +3143,7 @@ async function batchdeleteApplicationBuildEx(request: BatchdeleteApplicationBuil
 }
 
 model ListApplicationManifestRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3149,8 +3154,11 @@ model ListApplicationManifestRequest = {
 }
 
 model ListApplicationManifestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // List<AppManifest>
   data?: [ AppManifest ](name='data'),
@@ -3178,6 +3186,7 @@ async function listApplicationManifestEx(request: ListApplicationManifestRequest
 }
 
 model BatchdeleteApplicationPackageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3186,8 +3195,11 @@ model BatchdeleteApplicationPackageRequest = {
 }
 
 model BatchdeleteApplicationPackageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // Map<String, Boolean>
   data?: [ MapStringToBooleanEntity ](name='data'),
@@ -3213,6 +3225,7 @@ async function batchdeleteApplicationPackageEx(request: BatchdeleteApplicationPa
 }
 
 model CreateApplicationPackageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3221,8 +3234,11 @@ model CreateApplicationPackageRequest = {
 }
 
 model CreateApplicationPackageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -3248,6 +3264,7 @@ async function createApplicationPackageEx(request: CreateApplicationPackageReque
 }
 
 model DeleteApplicationPackageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // version_id
   versionId: string(name='version_id'),
@@ -3256,8 +3273,11 @@ model DeleteApplicationPackageRequest = {
 }
 
 model DeleteApplicationPackageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除结果
   data?: boolean(name='data'),
@@ -3283,6 +3303,7 @@ async function deleteApplicationPackageEx(request: DeleteApplicationPackageReque
 }
 
 model ListApplicationPackageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 工作空间id，用于做鉴权
   workspaceId: string(name='workspace_id'),
@@ -3293,8 +3314,11 @@ model ListApplicationPackageRequest = {
 }
 
 model ListApplicationPackageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // List<AppPackageListView>
   data?: [ AppPackageListView ](name='data'),
@@ -3322,6 +3346,7 @@ async function listApplicationPackageEx(request: ListApplicationPackageRequest, 
 }
 
 model UploadApplicationPackageconfigRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_id
   workspaceId: string(name='workspace_id'),
@@ -3330,8 +3355,11 @@ model UploadApplicationPackageconfigRequest = {
 }
 
 model UploadApplicationPackageconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // Map<String, Boolean>
   data?: [ MapStringToBooleanEntity ](name='data'),
@@ -3357,14 +3385,18 @@ async function uploadApplicationPackageconfigEx(request: UploadApplicationPackag
 }
 
 model ListAppserviceCellRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_id
   workspaceId: string(name='workspace_id'),
 }
 
 model ListAppserviceCellResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // List<CellView>
   data?: [ CellView ](name='data'),
@@ -3390,6 +3422,7 @@ async function listAppserviceCellEx(request: ListAppserviceCellRequest, headers:
 }
 
 model CreateAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_service
   appService: AppService(name='app_service'),
@@ -3398,8 +3431,11 @@ model CreateAppserviceRequest = {
 }
 
 model CreateAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建结果
   data?: string(name='data'),
@@ -3425,6 +3461,7 @@ async function createAppserviceEx(request: CreateAppserviceRequest, headers: map
 }
 
 model GetAppserviceDefaultRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3433,8 +3470,11 @@ model GetAppserviceDefaultRequest = {
 }
 
 model GetAppserviceDefaultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // AppService
   data?: AppService(name='data'),
@@ -3460,6 +3500,7 @@ async function getAppserviceDefaultEx(request: GetAppserviceDefaultRequest, head
 }
 
 model ExistAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId: string(name='app_id'),
@@ -3470,8 +3511,11 @@ model ExistAppserviceRequest = {
 }
 
 model ExistAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   data?: boolean(name='data'),
@@ -3497,6 +3541,7 @@ async function existAppserviceEx(request: ExistAppserviceRequest, headers: map[s
 }
 
 model UpdateAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_service
   appService: AppService(name='app_service'),
@@ -3505,8 +3550,11 @@ model UpdateAppserviceRequest = {
 }
 
 model UpdateAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 更新结果
   data?: boolean(name='data'),
@@ -3532,6 +3580,7 @@ async function updateAppserviceEx(request: UpdateAppserviceRequest, headers: map
 }
 
 model QueryBuildpackRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 技术栈版本
   bpVersion?: string(name='bp_version'),
@@ -3572,8 +3621,11 @@ model QueryBuildpackRequest = {
 }
 
 model QueryBuildpackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 当前页码
   currentPage?: long(name='current_page'),
@@ -3607,6 +3659,7 @@ async function queryBuildpackEx(request: QueryBuildpackRequest, headers: map[str
 }
 
 model GetApplicationDetailRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用ID
   appId: string(name='app_id'),
@@ -3615,8 +3668,11 @@ model GetApplicationDetailRequest = {
 }
 
 model GetApplicationDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用详情信息
   data?: AppView(name='data'),
@@ -3642,6 +3698,7 @@ async function getApplicationDetailEx(request: GetApplicationDetailRequest, head
 }
 
 model QueryUserRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 当前页码
   currentPage?: long(name='current_page'),
@@ -3685,8 +3742,11 @@ model QueryUserRequest = {
 }
 
 model QueryUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 用户列表
   data?: [ UserDTO ](name='data'),
@@ -3718,6 +3778,7 @@ async function queryUserEx(request: QueryUserRequest, headers: map[string]string
 }
 
 model ListAppgroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 动态查询
   dynamicQuery?: DynamicQuery(name='dynamic_query'),
@@ -3726,8 +3787,11 @@ model ListAppgroupRequest = {
 }
 
 model ListAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ AppDomainView ](name='data'),
@@ -3755,6 +3819,7 @@ async function listAppgroupEx(request: ListAppgroupRequest, headers: map[string]
 }
 
 model ExistAppgroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // name
   name: string(name='name'),
@@ -3763,8 +3828,11 @@ model ExistAppgroupRequest = {
 }
 
 model ExistAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   data?: boolean(name='data'),
@@ -3790,6 +3858,7 @@ async function existAppgroupEx(request: ExistAppgroupRequest, headers: map[strin
 }
 
 model CreateAppgroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // domain tree
   domain: AppDomainFlatten(name='domain'),
@@ -3798,8 +3867,11 @@ model CreateAppgroupRequest = {
 }
 
 model CreateAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -3825,6 +3897,7 @@ async function createAppgroupEx(request: CreateAppgroupRequest, headers: map[str
 }
 
 model ListAppgroupOwnerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 用户查询
   query: UserQuery(name='query'),
@@ -3833,8 +3906,11 @@ model ListAppgroupOwnerRequest = {
 }
 
 model ListAppgroupOwnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 用户列表
   data?: [ UserDTO ](name='data'),
@@ -3862,12 +3938,16 @@ async function listAppgroupOwnerEx(request: ListAppgroupOwnerRequest, headers: m
 }
 
 model GetAppgroupTreeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model GetAppgroupTreeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用列表，包含依赖关系
   data?: [ AppDomainFlatten ](name='data'),
@@ -3893,12 +3973,16 @@ async function getAppgroupTreeEx(request: GetAppgroupTreeRequest, headers: map[s
 }
 
 model GetAppgroupSystemtreeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model GetAppgroupSystemtreeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用分组结构
   data?: [ AppDomainFlatten ](name='data'),
@@ -3924,14 +4008,18 @@ async function getAppgroupSystemtreeEx(request: GetAppgroupSystemtreeRequest, he
 }
 
 model DeleteAppgroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 分组 id
   id: string(name='id'),
 }
 
 model DeleteAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除结果
   data?: boolean(name='data'),
@@ -3957,6 +4045,7 @@ async function deleteAppgroupEx(request: DeleteAppgroupRequest, headers: map[str
 }
 
 model UpdateAppgroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 更新内容
   domain: AppDomainFlatten(name='domain'),
@@ -3965,8 +4054,11 @@ model UpdateAppgroupRequest = {
 }
 
 model UpdateAppgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 更新结果
   data?: boolean(name='data'),
@@ -3992,6 +4084,7 @@ async function updateAppgroupEx(request: UpdateAppgroupRequest, headers: map[str
 }
 
 model ListApplevelRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 动态查询
   dynamicQuery?: DynamicQuery(name='dynamic_query'),
@@ -4000,8 +4093,11 @@ model ListApplevelRequest = {
 }
 
 model ListApplevelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用等级列表
   data?: [ AppLevelView ](name='data'),
@@ -4029,14 +4125,18 @@ async function listApplevelEx(request: ListApplevelRequest, headers: map[string]
 }
 
 model ExistApplevelRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用等级名称
   name: string(name='name'),
 }
 
 model ExistApplevelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   data?: boolean(name='data'),
@@ -4062,6 +4162,7 @@ async function existApplevelEx(request: ExistApplevelRequest, headers: map[strin
 }
 
 model CreateApplevelRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用等级
   level: AppLevel(name='level'),
@@ -4070,8 +4171,11 @@ model CreateApplevelRequest = {
 }
 
 model CreateApplevelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建结果
   data?: string(name='data'),
@@ -4097,14 +4201,18 @@ async function createApplevelEx(request: CreateApplevelRequest, headers: map[str
 }
 
 model DeleteApplevelRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用等级 id
   id: string(name='id'),
 }
 
 model DeleteApplevelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除结果
   data?: boolean(name='data'),
@@ -4130,6 +4238,7 @@ async function deleteApplevelEx(request: DeleteApplevelRequest, headers: map[str
 }
 
 model UpdateApplevelRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用等级id
   id: string(name='id'),
@@ -4138,8 +4247,11 @@ model UpdateApplevelRequest = {
 }
 
 model UpdateApplevelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 更新结果
   data?: boolean(name='data'),
@@ -4165,6 +4277,7 @@ async function updateApplevelEx(request: UpdateApplevelRequest, headers: map[str
 }
 
 model ListApplicationRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 动态查询
   dynamicQuery?: DynamicQuery(name='dynamic_query'),
@@ -4173,8 +4286,11 @@ model ListApplicationRequest = {
 }
 
 model ListApplicationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用列表
   data?: [ AppView ](name='data'),
@@ -4206,6 +4322,7 @@ async function listApplicationEx(request: ListApplicationRequest, headers: map[s
 }
 
 model UpdateApplicationRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // appDomainId
   appDomainId?: string(name='app_domain_id'),
@@ -4242,16 +4359,19 @@ model UpdateApplicationRequest = {
   // tags
   tags?: string(name='tags'),
   // 创建时间
-  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_create'),
+  utcCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create'),
   // 修改时间
-  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='utc_modified'),
+  utcModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified'),
   // workspace_id
   workspaceId?: string(name='workspace_id'),
 }
 
 model UpdateApplicationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 更新结果
   data?: boolean(name='data'),
@@ -4277,6 +4397,7 @@ async function updateApplicationEx(request: UpdateApplicationRequest, headers: m
 }
 
 model ListAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 动态查询
   dynamicQuery?: DynamicQuery(name='dynamic_query'),
@@ -4287,8 +4408,11 @@ model ListAppserviceRequest = {
 }
 
 model ListAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 当前页面
   currentPage?: long(name='current_page'),
@@ -4320,6 +4444,7 @@ async function listAppserviceEx(request: ListAppserviceRequest, headers: map[str
 }
 
 model DeleteAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -4328,8 +4453,11 @@ model DeleteAppserviceRequest = {
 }
 
 model DeleteAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: long(name='data'),
@@ -4355,6 +4483,7 @@ async function deleteAppserviceEx(request: DeleteAppserviceRequest, headers: map
 }
 
 model GetAppserviceDetailRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用服务id
   appServiceId: string(name='app_service_id'),
@@ -4363,8 +4492,11 @@ model GetAppserviceDetailRequest = {
 }
 
 model GetAppserviceDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用服务详情
   data?: AppServiceViewModel(name='data'),
@@ -4390,6 +4522,7 @@ async function getAppserviceDetailEx(request: GetAppserviceDetailRequest, header
 }
 
 model ExistApplicationPackageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // appId
   appId: string(name='app_id'),
@@ -4400,8 +4533,11 @@ model ExistApplicationPackageRequest = {
 }
 
 model ExistApplicationPackageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: boolean(name='data'),
@@ -4427,6 +4563,7 @@ async function existApplicationPackageEx(request: ExistApplicationPackageRequest
 }
 
 model GetApplicationPackageuploadpolicyRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // appId
   appId: string(name='app_id'),
@@ -4437,8 +4574,11 @@ model GetApplicationPackageuploadpolicyRequest = {
 }
 
 model GetApplicationPackageuploadpolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 发布包上传策略
   data?: PackageUploadPolicy(name='data'),
@@ -4464,6 +4604,7 @@ async function getApplicationPackageuploadpolicyEx(request: GetApplicationPackag
 }
 
 model GetApplicationPackagedownloadurlRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // versionId
   versionId: string(name='version_id'),
@@ -4472,8 +4613,11 @@ model GetApplicationPackagedownloadurlRequest = {
 }
 
 model GetApplicationPackagedownloadurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 下载链接
   data?: string(name='data'),
@@ -4499,14 +4643,18 @@ async function getApplicationPackagedownloadurlEx(request: GetApplicationPackage
 }
 
 model ExistApplicationRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用名称
   appName: string(name='app_name'),
 }
 
 model ExistApplicationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在
   data?: boolean(name='data'),
@@ -4532,6 +4680,7 @@ async function existApplicationEx(request: ExistApplicationRequest, headers: map
 }
 
 model QueryAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用服务 id 数组
   ids: [ string ](name='ids'),
@@ -4540,8 +4689,11 @@ model QueryAppserviceRequest = {
 }
 
 model QueryAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用服务数组
   data?: [ AppService ](name='data'),
@@ -4567,12 +4719,16 @@ async function queryAppserviceEx(request: QueryAppserviceRequest, headers: map[s
 }
 
 model GetAppgrayconfigsRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model GetAppgrayconfigsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 开关配置清单
   data?: [ MapStringToBooleanEntity ](name='data'),
@@ -4598,6 +4754,7 @@ async function getAppgrayconfigsEx(request: GetAppgrayconfigsRequest, headers: m
 }
 
 model CreateComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app id
   appId?: string(name='app_id'),
@@ -4678,11 +4835,18 @@ model CreateComputerRequest = {
   zoneId?: string(name='zone_id'),
   // 公有云上标签
   tags?: [ MapStringToStringEntity ](name='tags'),
+  // cmp模式下使用的vpc，一般场景勿用
+  vpcIaasId?: string(name='vpc_iaas_id'),
+  // cmp模式下传的token，一般场景勿用
+  cloudManageToken?: string(name='cloud_manage_token'),
 }
 
 model CreateComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer_sequences
   computerSequences?: [ string ](name='computer_sequences'),
@@ -4710,6 +4874,7 @@ async function createComputerEx(request: CreateComputerRequest, headers: map[str
 }
 
 model DeleteComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer_sequences
   computerSequences: [ string ](name='computer_sequences'),
@@ -4720,8 +4885,11 @@ model DeleteComputerRequest = {
 }
 
 model DeleteComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -4747,6 +4915,7 @@ async function deleteComputerEx(request: DeleteComputerRequest, headers: map[str
 }
 
 model ImportComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer iaas ids
   computerIds: [ string ](name='computer_ids'),
@@ -4757,8 +4926,11 @@ model ImportComputerRequest = {
 }
 
 model ImportComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 导入的 computer 序列号
   computerIdMapping?: string(name='computer_id_mapping'),
@@ -4784,6 +4956,7 @@ async function importComputerEx(request: ImportComputerRequest, headers: map[str
 }
 
 model CreateDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 数据库账户
   databaseAccounts?: [ DatabaseAccount ](name='database_accounts'),
@@ -4814,8 +4987,11 @@ model CreateDatabaseRequest = {
 }
 
 model CreateDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // database 实例 ids
   databaseSequences?: [ string ](name='database_sequences'),
@@ -4841,6 +5017,7 @@ async function createDatabaseEx(request: CreateDatabaseRequest, headers: map[str
 }
 
 model ImportDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // database iaas ids
   databaseIds: [ string ](name='database_ids'),
@@ -4851,8 +5028,11 @@ model ImportDatabaseRequest = {
 }
 
 model ImportDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 导入的 computer 序列号
   databaseIdMapping?: string(name='database_id_mapping'),
@@ -4878,14 +5058,18 @@ async function importDatabaseEx(request: ImportDatabaseRequest, headers: map[str
 }
 
 model DeleteDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // database 序列号
   databaseSequences: [ string ](name='database_sequences'),
 }
 
 model DeleteDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -4909,6 +5093,7 @@ async function deleteDatabaseEx(request: DeleteDatabaseRequest, headers: map[str
 }
 
 model CreateLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 负载均衡实例的网络类型。有 INTERNET 和 INTRANET
   addressType?: string(name='address_type'),
@@ -4956,8 +5141,11 @@ model CreateLoadbalanceRequest = {
 }
 
 model CreateLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 实例 id
   loadbalanceSequences?: [ string ](name='loadbalance_sequences'),
@@ -4985,14 +5173,18 @@ async function createLoadbalanceEx(request: CreateLoadbalanceRequest, headers: m
 }
 
 model DeleteLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // loadbalance 序列号
   loadbalanceSequences: [ string ](name='loadbalance_sequences'),
 }
 
 model DeleteLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -5018,6 +5210,7 @@ async function deleteLoadbalanceEx(request: DeleteLoadbalanceRequest, headers: m
 }
 
 model ImportLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // loadbalance iaas ids
   loadbalanceIds: [ string ](name='loadbalance_ids'),
@@ -5026,8 +5219,11 @@ model ImportLoadbalanceRequest = {
 }
 
 model ImportLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 导入的 loadbalance 序列号
   loadbalanceIdMapping?: string(name='loadbalance_id_mapping'),
@@ -5053,6 +5249,7 @@ async function importLoadbalanceEx(request: ImportLoadbalanceRequest, headers: m
 }
 
 model CreateVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 专有网络网段
   cidrLock: string(name='cidr_lock'),
@@ -5063,8 +5260,11 @@ model CreateVpcRequest = {
 }
 
 model CreateVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 专有网络序列号
   vpcSequence?: string(name='vpc_sequence'),
@@ -5090,14 +5290,18 @@ async function createVpcEx(request: CreateVpcRequest, headers: map[string]string
 }
 
 model DeleteVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 专有网络序列号
   vpcSequence: string(name='vpc_sequence'),
 }
 
 model DeleteVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5121,14 +5325,18 @@ async function deleteVpcEx(request: DeleteVpcRequest, headers: map[string]string
 }
 
 model ReleaseComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需要释放的 computer ids
   computerSequences: [ string ](name='computer_sequences'),
 }
 
 model ReleaseComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5152,6 +5360,7 @@ async function releaseComputerEx(request: ReleaseComputerRequest, headers: map[s
 }
 
 model ReinitComputerPasswordRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer_sequence
   computerSequence: string(name='computer_sequence'),
@@ -5160,8 +5369,11 @@ model ReinitComputerPasswordRequest = {
 }
 
 model ReinitComputerPasswordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5185,6 +5397,7 @@ async function reinitComputerPasswordEx(request: ReinitComputerPasswordRequest, 
 }
 
 model ReleaseDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需要释放的应用 ids
   appIds?: [ string ](name='app_ids'),
@@ -5195,8 +5408,11 @@ model ReleaseDatabaseRequest = {
 }
 
 model ReleaseDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5220,14 +5436,18 @@ async function releaseDatabaseEx(request: ReleaseDatabaseRequest, headers: map[s
 }
 
 model RemoveComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer ids
   computerSequences: [ string ](name='computer_sequences'),
 }
 
 model RemoveComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5251,14 +5471,18 @@ async function removeComputerEx(request: RemoveComputerRequest, headers: map[str
 }
 
 model RemoveLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb ids
   loadbalanceSequences: [ string ](name='loadbalance_sequences'),
 }
 
 model RemoveLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5282,14 +5506,18 @@ async function removeLoadbalanceEx(request: RemoveLoadbalanceRequest, headers: m
 }
 
 model RemoveDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // database ids
   databaseSequences: [ string ](name='database_sequences'),
 }
 
 model RemoveDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5313,14 +5541,18 @@ async function removeDatabaseEx(request: RemoveDatabaseRequest, headers: map[str
 }
 
 model ReleaseLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // loadbalance ids
   loadbalanceSequences: [ string ](name='loadbalance_sequences'),
 }
 
 model ReleaseLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5344,6 +5576,7 @@ async function releaseLoadbalanceEx(request: ReleaseLoadbalanceRequest, headers:
 }
 
 model CreateDatabaseAccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // database 序列号
   databaseSequence: string(name='database_sequence'),
@@ -5354,8 +5587,11 @@ model CreateDatabaseAccountRequest = {
 }
 
 model CreateDatabaseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 账户序列号
   accountSequence?: string(name='account_sequence'),
@@ -5381,6 +5617,7 @@ async function createDatabaseAccountEx(request: CreateDatabaseAccountRequest, he
 }
 
 model CreateSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 描述
   description?: string(name='description'),
@@ -5396,8 +5633,11 @@ model CreateSecuritygroupRequest = {
 }
 
 model CreateSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 安全组/域 序列号
   securityGroupSequence?: string(name='security_group_sequence'),
@@ -5423,6 +5663,7 @@ async function createSecuritygroupEx(request: CreateSecuritygroupRequest, header
 }
 
 model ImportSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // sg-zm042uh9f8gb1lfcsng6 的 iaas 层 id
   securitygroupId: string(name='securitygroup_id'),
@@ -5433,8 +5674,11 @@ model ImportSecuritygroupRequest = {
 }
 
 model ImportSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5458,14 +5702,18 @@ async function importSecuritygroupEx(request: ImportSecuritygroupRequest, header
 }
 
 model RemoveSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组 id
   securityGroupSequence: string(name='security_group_sequence'),
 }
 
 model RemoveSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5489,14 +5737,18 @@ async function removeSecuritygroupEx(request: RemoveSecuritygroupRequest, header
 }
 
 model DeleteSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需要删除的 security group id
   securityGroupSequence: string(name='security_group_sequence'),
 }
 
 model DeleteSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5520,14 +5772,18 @@ async function deleteSecuritygroupEx(request: DeleteSecuritygroupRequest, header
 }
 
 model DeleteDatabaseSchemaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 欲删除的的 schema id
   schemaSequence: string(name='schema_sequence'),
 }
 
 model DeleteDatabaseSchemaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5551,14 +5807,18 @@ async function deleteDatabaseSchemaEx(request: DeleteDatabaseSchemaRequest, head
 }
 
 model DeleteDatabaseAccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // account id
   accountSequence: string(name='account_sequence'),
 }
 
 model DeleteDatabaseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5582,6 +5842,7 @@ async function deleteDatabaseAccountEx(request: DeleteDatabaseAccountRequest, he
 }
 
 model DeleteVpcVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // vpc id
   vpcSequence: string(name='vpc_sequence'),
@@ -5590,8 +5851,11 @@ model DeleteVpcVswitchRequest = {
 }
 
 model DeleteVpcVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5615,6 +5879,7 @@ async function deleteVpcVswitchEx(request: DeleteVpcVswitchRequest, headers: map
 }
 
 model DeleteLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // listener 端口
   listenerPort: long(name='listener_port'),
@@ -5623,8 +5888,11 @@ model DeleteLoadbalanceListenerRequest = {
 }
 
 model DeleteLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -5650,6 +5918,7 @@ async function deleteLoadbalanceListenerEx(request: DeleteLoadbalanceListenerReq
 }
 
 model DeleteVpcVroutertableRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 目标网段
   destinationCidrBlock: string(name='destination_cidr_block'),
@@ -5662,8 +5931,11 @@ model DeleteVpcVroutertableRequest = {
 }
 
 model DeleteVpcVroutertableResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5687,6 +5959,7 @@ async function deleteVpcVroutertableEx(request: DeleteVpcVroutertableRequest, he
 }
 
 model RemoveSecuritygroupInstanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组 paas id
   securityGroupSequence: string(name='security_group_sequence'),
@@ -5695,8 +5968,11 @@ model RemoveSecuritygroupInstanceRequest = {
 }
 
 model RemoveSecuritygroupInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5720,6 +5996,7 @@ async function removeSecuritygroupInstanceEx(request: RemoveSecuritygroupInstanc
 }
 
 model DeleteSecuritygroupPermissionRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组 paas id
   securityGroupSequence: string(name='security_group_sequence'),
@@ -5728,8 +6005,11 @@ model DeleteSecuritygroupPermissionRequest = {
 }
 
 model DeleteSecuritygroupPermissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5753,6 +6033,7 @@ async function deleteSecuritygroupPermissionEx(request: DeleteSecuritygroupPermi
 }
 
 model RemoveLoadbalanceSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要删除的 ip
   ips: [ string ](name='ips'),
@@ -5763,8 +6044,11 @@ model RemoveLoadbalanceSecurityipRequest = {
 }
 
 model RemoveLoadbalanceSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5788,6 +6072,7 @@ async function removeLoadbalanceSecurityipEx(request: RemoveLoadbalanceSecurityi
 }
 
 model CreateApplicationRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 应用分组 id
   appDomainId?: string(name='app_domain_id'),
@@ -5820,8 +6105,11 @@ model CreateApplicationRequest = {
 }
 
 model CreateApplicationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用 id
   applicationId?: string(name='application_id'),
@@ -5847,6 +6135,7 @@ async function createApplicationEx(request: CreateApplicationRequest, headers: m
 }
 
 model DeleteApplicationRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 欲删除的应用 id
   applicationIds?: [ string ](name='application_ids'),
@@ -5855,8 +6144,11 @@ model DeleteApplicationRequest = {
 }
 
 model DeleteApplicationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5880,6 +6172,7 @@ async function deleteApplicationEx(request: DeleteApplicationRequest, headers: m
 }
 
 model CreateVpcVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 网段
   cidrBlock: string(name='cidr_block'),
@@ -5894,8 +6187,11 @@ model CreateVpcVswitchRequest = {
 }
 
 model CreateVpcVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // switch paas id
   vswitchSequence?: string(name='vswitch_sequence'),
@@ -5921,6 +6217,7 @@ async function createVpcVswitchEx(request: CreateVpcVswitchRequest, headers: map
 }
 
 model CreateVpcVroutertableRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 目标网端
   destinationCidrBlock: string(name='destination_cidr_block'),
@@ -5935,8 +6232,11 @@ model CreateVpcVroutertableRequest = {
 }
 
 model CreateVpcVroutertableResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5960,6 +6260,7 @@ async function createVpcVroutertableEx(request: CreateVpcVroutertableRequest, he
 }
 
 model AddSecuritygroupInstanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需向安全组中添加的实例 paas 序列号
   instanceSequences: [ string ](name='instance_sequences'),
@@ -5968,8 +6269,11 @@ model AddSecuritygroupInstanceRequest = {
 }
 
 model AddSecuritygroupInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5993,6 +6297,7 @@ async function addSecuritygroupInstanceEx(request: AddSecuritygroupInstanceReque
 }
 
 model UpdateDatabaseSpecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // db paas id
   databaseSequences: [ string ](name='database_sequences'),
@@ -6003,8 +6308,11 @@ model UpdateDatabaseSpecRequest = {
 }
 
 model UpdateDatabaseSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6028,6 +6336,7 @@ async function updateDatabaseSpecEx(request: UpdateDatabaseSpecRequest, headers:
 }
 
 model UpdateLoadbalanceAccesscontrolRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb paas id
   loadbalanceSequence: string(name='loadbalance_sequence'),
@@ -6038,8 +6347,11 @@ model UpdateLoadbalanceAccesscontrolRequest = {
 }
 
 model UpdateLoadbalanceAccesscontrolResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6063,6 +6375,7 @@ async function updateLoadbalanceAccesscontrolEx(request: UpdateLoadbalanceAccess
 }
 
 model UpdateLoadbalanceSpecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 公网类型实例的付费方式。取值： PAY_BY_BANDWIDTH：按带宽计费。 PAY_BY_TRAFFIC：按流量计费（默认值）。
   internetChargeType: string(name='internet_charge_type'),
@@ -6073,8 +6386,11 @@ model UpdateLoadbalanceSpecRequest = {
 }
 
 model UpdateLoadbalanceSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6098,6 +6414,7 @@ async function updateLoadbalanceSpecEx(request: UpdateLoadbalanceSpecRequest, he
 }
 
 model UpdateVpcVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 修改会的 vswitch 名称
   name: string(name='name'),
@@ -6110,8 +6427,11 @@ model UpdateVpcVswitchRequest = {
 }
 
 model UpdateVpcVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -6135,6 +6455,7 @@ async function updateVpcVswitchEx(request: UpdateVpcVswitchRequest, headers: map
 }
 
 model CreateWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace 显示名称
   displayName: string(name='display_name'),
@@ -6149,8 +6470,11 @@ model CreateWorkspaceRequest = {
 }
 
 model CreateWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // workspace id
   workspaceId?: string(name='workspace_id'),
@@ -6176,6 +6500,7 @@ async function createWorkspaceEx(request: CreateWorkspaceRequest, headers: map[s
 }
 
 model CreateMetaWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace 显示名称
   displayName: string(name='display_name'),
@@ -6190,8 +6515,11 @@ model CreateMetaWorkspaceRequest = {
 }
 
 model CreateMetaWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // workspace id
   workspaceId?: string(name='workspace_id'),
@@ -6217,14 +6545,18 @@ async function createMetaWorkspaceEx(request: CreateMetaWorkspaceRequest, header
 }
 
 model QueryMetaWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace id
   workspaceId: string(name='workspace_id'),
 }
 
 model QueryMetaWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // workspace 信息
   data?: Workspace(name='data'),
@@ -6250,14 +6582,18 @@ async function queryMetaWorkspaceEx(request: QueryMetaWorkspaceRequest, headers:
 }
 
 model DeleteMetaWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace id
   workspaceId: string(name='workspace_id'),
 }
 
 model DeleteMetaWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除是否成功
   success?: boolean(name='success'),
@@ -6283,6 +6619,7 @@ async function deleteMetaWorkspaceEx(request: DeleteMetaWorkspaceRequest, header
 }
 
 model CreateResourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // VPC的网段。您可以使用以下网段或其子集作为VPC的网段：
   // 
@@ -6303,8 +6640,11 @@ model CreateResourceVpcRequest = {
 }
 
 model CreateResourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建VPC后，系统自动创建的路由表的ID。
   routeTableId?: string(name='route_table_id'),
@@ -6334,6 +6674,7 @@ async function createResourceVpcEx(request: CreateResourceVpcRequest, headers: m
 }
 
 model QueryResourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 是否使用缓存进行查询，默认false，使用缓存查询
   disableCache?: boolean(name='disable_cache'),
@@ -6344,8 +6685,11 @@ model QueryResourceVpcRequest = {
 }
 
 model QueryResourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 列表条目数
   totalCount?: long(name='total_count'),
@@ -6373,6 +6717,7 @@ async function queryResourceVpcEx(request: QueryResourceVpcRequest, headers: map
 }
 
 model DeleteResourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要删除的VPC所在的地域identity
   region: string(name='region'),
@@ -6383,8 +6728,11 @@ model DeleteResourceVpcRequest = {
 }
 
 model DeleteResourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除VPC是否成功
   success?: boolean(name='success'),
@@ -6410,6 +6758,7 @@ async function deleteResourceVpcEx(request: DeleteResourceVpcRequest, headers: m
 }
 
 model CreateResourceVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 交换机的网段。交换机网段要求如下：
   // 
@@ -6434,8 +6783,11 @@ model CreateResourceVswitchRequest = {
 }
 
 model CreateResourceVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建的交换机的ID。
   vSwitchId?: string(name='v_switch_id'),
@@ -6461,6 +6813,7 @@ async function createResourceVswitchEx(request: CreateResourceVswitchRequest, he
 }
 
 model QueryResourceVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 交换机所属地域的identity
   region: string(name='region'),
@@ -6471,8 +6824,11 @@ model QueryResourceVswitchRequest = {
 }
 
 model QueryResourceVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 列表条目数
   totalCount?: long(name='total_count'),
@@ -6500,6 +6856,7 @@ async function queryResourceVswitchEx(request: QueryResourceVswitchRequest, head
 }
 
 model DeleteResourceVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要删除的交换机的地域identity
   region: string(name='region'),
@@ -6510,8 +6867,11 @@ model DeleteResourceVswitchRequest = {
 }
 
 model DeleteResourceVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除交换机是否成功
   success?: boolean(name='success'),
@@ -6537,6 +6897,7 @@ async function deleteResourceVswitchEx(request: DeleteResourceVswitchRequest, he
 }
 
 model QueryResourceSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // disable cache
   disableCache?: boolean(name='disable_cache'),
@@ -6549,8 +6910,11 @@ model QueryResourceSecuritygroupRequest = {
 }
 
 model QueryResourceSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 安全组详细信息。
   securityGroups?: [ SecurityGroup ](name='security_groups'),
@@ -6578,12 +6942,16 @@ async function queryResourceSecuritygroupEx(request: QueryResourceSecuritygroupR
 }
 
 model ListMetaWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model ListMetaWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 工作空间详细信息列表
   data?: [ Workspace ](name='data'),
@@ -6609,6 +6977,7 @@ async function listMetaWorkspaceEx(request: ListMetaWorkspaceRequest, headers: m
 }
 
 model CreateResourceSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组描述信息。长度为2~256个英文或中文字符，不能以http://和https://开头。
   // 
@@ -6629,8 +6998,11 @@ model CreateResourceSecuritygroupRequest = {
 }
 
 model CreateResourceSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 安全组ID。
   securityGroupId?: string(name='security_group_id'),
@@ -6656,6 +7028,7 @@ async function createResourceSecuritygroupEx(request: CreateResourceSecuritygrou
 }
 
 model DeleteResourceSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 地域identity
   region: string(name='region'),
@@ -6666,8 +7039,11 @@ model DeleteResourceSecuritygroupRequest = {
 }
 
 model DeleteResourceSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除安全组是否成功
   success?: boolean(name='success'),
@@ -6693,6 +7069,7 @@ async function deleteResourceSecuritygroupEx(request: DeleteResourceSecuritygrou
 }
 
 model CreateResourceComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 实例所属的部署单元
   cell: string(name='cell'),
@@ -6743,8 +7120,11 @@ model CreateResourceComputerRequest = {
 }
 
 model CreateResourceComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 实例ID。
   instanceId?: string(name='instance_id'),
@@ -6776,6 +7156,7 @@ async function createResourceComputerEx(request: CreateResourceComputerRequest, 
 }
 
 model QueryResourceComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // iaas id
   iaasId?: string(name='iaas_id'),
@@ -6805,8 +7186,11 @@ model QueryResourceComputerRequest = {
 }
 
 model QueryResourceComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 查询的实例集合
   instances?: [ Computer ](name='instances'),
@@ -6840,6 +7224,7 @@ async function queryResourceComputerEx(request: QueryResourceComputerRequest, he
 }
 
 model QueryResourceComputerspecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 机器规格族
   instanceTypeGroups?: string(name='instance_type_groups'),
@@ -6854,8 +7239,11 @@ model QueryResourceComputerspecRequest = {
 }
 
 model QueryResourceComputerspecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 符合筛选条件的机器规格
   computerSpecs?: [ ComputerSpec ](name='computer_specs'),
@@ -6883,6 +7271,7 @@ async function queryResourceComputerspecEx(request: QueryResourceComputerspecReq
 }
 
 model DeleteResourceComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要删除的机器ID
   instanceId: string(name='instance_id'),
@@ -6891,8 +7280,11 @@ model DeleteResourceComputerRequest = {
 }
 
 model DeleteResourceComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示正常，非0表示异常
   retCode?: long(name='ret_code'),
@@ -6922,6 +7314,7 @@ async function deleteResourceComputerEx(request: DeleteResourceComputerRequest, 
 }
 
 model ReinitResourceComputerpasswordRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需要修改的机器Id
   instanceId: string(name='instance_id'),
@@ -6930,8 +7323,11 @@ model ReinitResourceComputerpasswordRequest = {
 }
 
 model ReinitResourceComputerpasswordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示正常，非0表示异常
   retCode?: long(name='ret_code'),
@@ -6961,14 +7357,18 @@ async function reinitResourceComputerpasswordEx(request: ReinitResourceComputerp
 }
 
 model StartResourceComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 机器id
   instanceId: string(name='instance_id'),
 }
 
 model StartResourceComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示正常，非0表示异常
   retCode?: long(name='ret_code'),
@@ -6998,6 +7398,7 @@ async function startResourceComputerEx(request: StartResourceComputerRequest, he
 }
 
 model StopResourceComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 需要停止的机器id
   instanceId: string(name='instance_id'),
@@ -7006,8 +7407,11 @@ model StopResourceComputerRequest = {
 }
 
 model StopResourceComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 非0表示异常，0表示正常
   retCode?: long(name='ret_code'),
@@ -7037,6 +7441,7 @@ async function stopResourceComputerEx(request: StopResourceComputerRequest, head
 }
 
 model CreateSlsProjectRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 日志项目名称
   projectName: string(name='project_name'),
@@ -7047,8 +7452,11 @@ model CreateSlsProjectRequest = {
 }
 
 model CreateSlsProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建日志项目结果
   data?: boolean(name='data'),
@@ -7074,6 +7482,7 @@ async function createSlsProjectEx(request: CreateSlsProjectRequest, headers: map
 }
 
 model ListSlsProjectRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 区域id
   slsRegionId?: string(name='sls_region_id'),
@@ -7082,8 +7491,11 @@ model ListSlsProjectRequest = {
 }
 
 model ListSlsProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 日志项目数组
   data?: [ SLSProject ](name='data'),
@@ -7109,6 +7521,7 @@ async function listSlsProjectEx(request: ListSlsProjectRequest, headers: map[str
 }
 
 model CreateSlsLogstoreRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 日志库名称，在Project下必须唯一
   logstoreName: string(name='logstore_name'),
@@ -7127,8 +7540,11 @@ model CreateSlsLogstoreRequest = {
 }
 
 model CreateSlsLogstoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 日志库创建结果
   data?: boolean(name='data'),
@@ -7154,6 +7570,7 @@ async function createSlsLogstoreEx(request: CreateSlsLogstoreRequest, headers: m
 }
 
 model ListSlsLogstoreRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 用于请求的 Logstore 名称（支持部分匹配）。
   logstoreName?: string(name='logstore_name'),
@@ -7166,8 +7583,11 @@ model ListSlsLogstoreRequest = {
 }
 
 model ListSlsLogstoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 日志库名称列表
   data?: [ string ](name='data'),
@@ -7193,6 +7613,7 @@ async function listSlsLogstoreEx(request: ListSlsLogstoreRequest, headers: map[s
 }
 
 model GetSlsLogstoreRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 日志库名称，在Project下必须唯一
   logstoreName: string(name='logstore_name'),
@@ -7205,8 +7626,11 @@ model GetSlsLogstoreRequest = {
 }
 
 model GetSlsLogstoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 单个日志库信息
   data?: SLSLogStore(name='data'),
@@ -7232,6 +7656,7 @@ async function getSlsLogstoreEx(request: GetSlsLogstoreRequest, headers: map[str
 }
 
 model CreateSlsConfigRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 日志配置详情
   config: SLSConfig(name='config'),
@@ -7244,8 +7669,11 @@ model CreateSlsConfigRequest = {
 }
 
 model CreateSlsConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建日志配置结果
   data?: boolean(name='data'),
@@ -7271,6 +7699,7 @@ async function createSlsConfigEx(request: CreateSlsConfigRequest, headers: map[s
 }
 
 model ListSlsConfigRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 日志项目名称
   projectName: string(name='project_name'),
@@ -7281,8 +7710,11 @@ model ListSlsConfigRequest = {
 }
 
 model ListSlsConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 日志配置名称列表
   data?: [ string ](name='data'),
@@ -7308,6 +7740,7 @@ async function listSlsConfigEx(request: ListSlsConfigRequest, headers: map[strin
 }
 
 model UpdateSlsConfigRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要更新的日志配置详情
   config: SLSConfig(name='config'),
@@ -7320,8 +7753,11 @@ model UpdateSlsConfigRequest = {
 }
 
 model UpdateSlsConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 更新日志配置是否成功
   data?: boolean(name='data'),
@@ -7347,6 +7783,7 @@ async function updateSlsConfigEx(request: UpdateSlsConfigRequest, headers: map[s
 }
 
 model DeleteSlsConfigRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要删除的日志配置名称
   name: string(name='name'),
@@ -7359,8 +7796,11 @@ model DeleteSlsConfigRequest = {
 }
 
 model DeleteSlsConfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 删除日志配置是否成功
   data?: boolean(name='data'),
@@ -7386,6 +7826,7 @@ async function deleteSlsConfigEx(request: DeleteSlsConfigRequest, headers: map[s
 }
 
 model QuerySlsLogRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 查询开始时间点（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
   from: long(name='from'),
@@ -7414,8 +7855,11 @@ model QuerySlsLogRequest = {
 }
 
 model QuerySlsLogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // GetLogs的响应body是一个数组，数组中每个元素是一条日志结果
   data?: [ SLSLogItem ](name='data'),
@@ -7447,6 +7891,7 @@ async function querySlsLogEx(request: QuerySlsLogRequest, headers: map[string]st
 }
 
 model BatchcreateResourceIngressrulesRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组入口规则
   ingressRules: [ SecurityGroupRule ](name='ingress_rules'),
@@ -7457,8 +7902,11 @@ model BatchcreateResourceIngressrulesRequest = {
 }
 
 model BatchcreateResourceIngressrulesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 安全组入方向规则是否添加成功
   success?: boolean(name='success'),
@@ -7484,6 +7932,7 @@ async function batchcreateResourceIngressrulesEx(request: BatchcreateResourceIng
 }
 
 model BatchcreateResourceEgressrulesRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 安全组出方向规则
   egressRules: [ SecurityGroupRule ](name='egress_rules'),
@@ -7494,8 +7943,11 @@ model BatchcreateResourceEgressrulesRequest = {
 }
 
 model BatchcreateResourceEgressrulesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 安全组出方向规则是否添加成功
   success?: boolean(name='success'),
@@ -7521,6 +7973,7 @@ async function batchcreateResourceEgressrulesEx(request: BatchcreateResourceEgre
 }
 
 model QueryLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_ids
   appIds?: [ string ](name='app_ids'),
@@ -7563,8 +8016,11 @@ model QueryLoadbalanceRequest = {
 }
 
 model QueryLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回的lb
   data?: [ LoadBalancer ](name='data'),
@@ -7596,14 +8052,18 @@ async function queryLoadbalanceEx(request: QueryLoadbalanceRequest, headers: map
 }
 
 model GetLoadbalanceHealthRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb_id
   lbId: string(name='lb_id'),
 }
 
 model GetLoadbalanceHealthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // statuses
   data?: [ LoadBalanceHealthStatus ](name='data'),
@@ -7629,12 +8089,16 @@ async function getLoadbalanceHealthEx(request: GetLoadbalanceHealthRequest, head
 }
 
 model AllLoadbalanceViptypeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model AllLoadbalanceViptypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vip_types
   data?: [ VipType ](name='data'),
@@ -7660,6 +8124,7 @@ async function allLoadbalanceViptypeEx(request: AllLoadbalanceViptypeRequest, he
 }
 
 model AllLoadbalanceClusterRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
@@ -7668,8 +8133,11 @@ model AllLoadbalanceClusterRequest = {
 }
 
 model AllLoadbalanceClusterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ LbCluster ](name='data'),
@@ -7695,6 +8163,7 @@ async function allLoadbalanceClusterEx(request: AllLoadbalanceClusterRequest, he
 }
 
 model QueryVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // vpc id
   id?: string(name='id'),
@@ -7703,8 +8172,11 @@ model QueryVpcRequest = {
 }
 
 model QueryVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vpc detail info
   data?: VpcVO(name='data'),
@@ -7730,6 +8202,7 @@ async function queryVpcEx(request: QueryVpcRequest, headers: map[string]string, 
 }
 
 model ListVpcImportRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
@@ -7738,8 +8211,11 @@ model ListVpcImportRequest = {
 }
 
 model ListVpcImportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vpc import infos
   data?: [ VpcImport ](name='data'),
@@ -7765,14 +8241,18 @@ async function listVpcImportEx(request: ListVpcImportRequest, headers: map[strin
 }
 
 model ListVpcCidrblockRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region
   region?: string(name='region'),
 }
 
 model ListVpcCidrblockResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // cidr block list
   data?: [ string ](name='data'),
@@ -7798,6 +8278,7 @@ async function listVpcCidrblockEx(request: ListVpcCidrblockRequest, headers: map
 }
 
 model QueryVpcVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // vpc paas id
   vpcId: string(name='vpc_id'),
@@ -7806,8 +8287,11 @@ model QueryVpcVswitchRequest = {
 }
 
 model QueryVpcVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vswitch detail infos
   data?: [ VSwitchVO ](name='data'),
@@ -7833,6 +8317,7 @@ async function queryVpcVswitchEx(request: QueryVpcVswitchRequest, headers: map[s
 }
 
 model QueryVpcVroutertableRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // vpc id
   vpcId: string(name='vpc_id'),
@@ -7843,8 +8328,11 @@ model QueryVpcVroutertableRequest = {
 }
 
 model QueryVpcVroutertableResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 	
   // 路由表的详细信息。
@@ -7871,6 +8359,7 @@ async function queryVpcVroutertableEx(request: QueryVpcVroutertableRequest, head
 }
 
 model GetLoadbalanceRuleRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // rule id
   id: string(name='id'),
@@ -7879,8 +8368,11 @@ model GetLoadbalanceRuleRequest = {
 }
 
 model GetLoadbalanceRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // rule
   data?: LoadBalancerRule(name='data'),
@@ -7906,6 +8398,7 @@ async function getLoadbalanceRuleEx(request: GetLoadbalanceRuleRequest, headers:
 }
 
 model QueryLoadbalanceRuleRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_ids
   appIds?: [ string ](name='app_ids'),
@@ -7936,8 +8429,11 @@ model QueryLoadbalanceRuleRequest = {
 }
 
 model QueryLoadbalanceRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // rules
   data?: [ LoadBalancerRule ](name='data'),
@@ -7963,14 +8459,18 @@ async function queryLoadbalanceRuleEx(request: QueryLoadbalanceRuleRequest, head
 }
 
 model GetLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
 }
 
 model GetLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: LoadBalancer(name='data'),
@@ -7996,6 +8496,7 @@ async function getLoadbalanceEx(request: GetLoadbalanceRequest, headers: map[str
 }
 
 model AllLoadbalanceMountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // loadbalance_id
   loadbalanceId: string(name='loadbalance_id'),
@@ -8004,8 +8505,11 @@ model AllLoadbalanceMountRequest = {
 }
 
 model AllLoadbalanceMountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ MountComputer ](name='data'),
@@ -8031,6 +8535,7 @@ async function allLoadbalanceMountEx(request: AllLoadbalanceMountRequest, header
 }
 
 model QueryLoadbalanceMountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_ids
   appIds?: [ string ](name='app_ids'),
@@ -8061,8 +8566,11 @@ model QueryLoadbalanceMountRequest = {
 }
 
 model QueryLoadbalanceMountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // current_page
   currentPage?: long(name='current_page'),
@@ -8094,6 +8602,7 @@ async function queryLoadbalanceMountEx(request: QueryLoadbalanceMountRequest, he
 }
 
 model GetLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -8102,8 +8611,11 @@ model GetLoadbalanceVcomputergroupRequest = {
 }
 
 model GetLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: VComputerGroup(name='data'),
@@ -8129,6 +8641,7 @@ async function getLoadbalanceVcomputergroupEx(request: GetLoadbalanceVcomputergr
 }
 
 model QueryLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // load_balance_ids
   loadBalanceIds: [ string ](name='load_balance_ids'),
@@ -8141,8 +8654,11 @@ model QueryLoadbalanceVcomputergroupRequest = {
 }
 
 model QueryLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ VComputerGroup ](name='data'),
@@ -8168,14 +8684,18 @@ async function queryLoadbalanceVcomputergroupEx(request: QueryLoadbalanceVcomput
 }
 
 model AllLoadbalanceVcomputergroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model AllLoadbalanceVcomputergroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ VComputerGroup ](name='data'),
@@ -8201,6 +8721,7 @@ async function allLoadbalanceVcomputergroupEx(request: AllLoadbalanceVcomputergr
 }
 
 model QueryLoadbalanceVcomputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer_ids
   computerIds?: [ string ](name='computer_ids'),
@@ -8227,8 +8748,11 @@ model QueryLoadbalanceVcomputerRequest = {
 }
 
 model QueryLoadbalanceVcomputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // v_computers
   data?: [ VComputer ](name='data'),
@@ -8254,6 +8778,7 @@ async function queryLoadbalanceVcomputerEx(request: QueryLoadbalanceVcomputerReq
 }
 
 model QueryLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // backend_server_ports
   backendServerPorts?: [ long ](name='backend_server_ports'),
@@ -8282,8 +8807,11 @@ model QueryLoadbalanceListenerRequest = {
 }
 
 model QueryLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // listeners
   data?: [ Listener ](name='data'),
@@ -8311,6 +8839,7 @@ async function queryLoadbalanceListenerEx(request: QueryLoadbalanceListenerReque
 }
 
 model AllLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb_id
   lbId: string(name='lb_id'),
@@ -8319,8 +8848,11 @@ model AllLoadbalanceListenerRequest = {
 }
 
 model AllLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ Listener ](name='data'),
@@ -8346,6 +8878,7 @@ async function allLoadbalanceListenerEx(request: AllLoadbalanceListenerRequest, 
 }
 
 model QueryLoadbalanceSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // listener_port
   listenerPort: long(name='listener_port'),
@@ -8356,8 +8889,11 @@ model QueryLoadbalanceSecurityipRequest = {
 }
 
 model QueryLoadbalanceSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // security_ips
   data?: ListenerSecurityIp(name='data'),
@@ -8383,6 +8919,7 @@ async function queryLoadbalanceSecurityipEx(request: QueryLoadbalanceSecurityipR
 }
 
 model GetDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -8391,8 +8928,11 @@ model GetDatabaseRequest = {
 }
 
 model GetDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: Database(name='data'),
@@ -8418,14 +8958,18 @@ async function getDatabaseEx(request: GetDatabaseRequest, headers: map[string]st
 }
 
 model AllDatabaseMasterzoneRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model AllDatabaseMasterzoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // master_zones
   masterZones?: [ string ](name='master_zones'),
@@ -8451,6 +8995,7 @@ async function allDatabaseMasterzoneEx(request: AllDatabaseMasterzoneRequest, he
 }
 
 model QueryDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_ids
   appIds?: [ string ](name='app_ids'),
@@ -8515,8 +9060,11 @@ model QueryDatabaseRequest = {
 }
 
 model QueryDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ Database ](name='data'),
@@ -8548,6 +9096,7 @@ async function queryDatabaseEx(request: QueryDatabaseRequest, headers: map[strin
 }
 
 model QueryDatabaseSpecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
@@ -8590,8 +9139,11 @@ model QueryDatabaseSpecRequest = {
 }
 
 model QueryDatabaseSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DatabaseSpec ](name='data'),
@@ -8617,12 +9169,16 @@ async function queryDatabaseSpecEx(request: QueryDatabaseSpecRequest, headers: m
 }
 
 model AllDatabaseEngineRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model AllDatabaseEngineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DatabaseEngine ](name='data'),
@@ -8648,14 +9204,18 @@ async function allDatabaseEngineEx(request: AllDatabaseEngineRequest, headers: m
 }
 
 model AllDatabaseQuotaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model AllDatabaseQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // quotas
   quotas?: [ QuotaKv ](name='quotas'),
@@ -8681,6 +9241,7 @@ async function allDatabaseQuotaEx(request: AllDatabaseQuotaRequest, headers: map
 }
 
 model AllDatabaseSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 数据库id
   id: string(name='id'),
@@ -8689,8 +9250,11 @@ model AllDatabaseSecurityipRequest = {
 }
 
 model AllDatabaseSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // security_ips
   data?: [ DatabaseSecurityIp ](name='data'),
@@ -8716,6 +9280,7 @@ async function allDatabaseSecurityipEx(request: AllDatabaseSecurityipRequest, he
 }
 
 model QueryDatabaseSchemeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // char_sets
   charSets?: [ string ](name='char_sets'),
@@ -8738,8 +9303,11 @@ model QueryDatabaseSchemeRequest = {
 }
 
 model QueryDatabaseSchemeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DbSchema ](name='data'),
@@ -8765,14 +9333,18 @@ async function queryDatabaseSchemeEx(request: QueryDatabaseSchemeRequest, header
 }
 
 model AllDatabaseImportRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model AllDatabaseImportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // imports
   imports?: [ DatabaseImportVO ](name='imports'),
@@ -8798,6 +9370,7 @@ async function allDatabaseImportEx(request: AllDatabaseImportRequest, headers: m
 }
 
 model QueryComputerAgentstatusRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer serial numbers
   sn: [ string ](name='sn'),
@@ -8806,8 +9379,11 @@ model QueryComputerAgentstatusRequest = {
 }
 
 model QueryComputerAgentstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // staragent info
   data?: [ StarAgentInfo ](name='data'),
@@ -8833,6 +9409,7 @@ async function queryComputerAgentstatusEx(request: QueryComputerAgentstatusReque
 }
 
 model QueryComputerAgentsetupcommandRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer serial numbers
   sn: [ string ](name='sn'),
@@ -8841,8 +9418,11 @@ model QueryComputerAgentsetupcommandRequest = {
 }
 
 model QueryComputerAgentsetupcommandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // operation tasks
   results?: [ OperationTask ](name='results'),
@@ -8868,6 +9448,7 @@ async function queryComputerAgentsetupcommandEx(request: QueryComputerAgentsetup
 }
 
 model QueryComputerImportRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
@@ -8880,8 +9461,11 @@ model QueryComputerImportRequest = {
 }
 
 model QueryComputerImportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer import infos
   data?: [ ComputerImportVO ](name='data'),
@@ -8909,6 +9493,7 @@ async function queryComputerImportEx(request: QueryComputerImportRequest, header
 }
 
 model ListComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // appserviceIds
   appServiceIds?: [ string ](name='app_service_ids'),
@@ -8920,11 +9505,18 @@ model ListComputerRequest = {
   pageSize?: long(name='page_size'),
   // workspace name
   workspace: string(name='workspace'),
+  // CMP模式下使用的token，一般场景勿用
+  cloudManageToken?: string(name='cloud_manage_token'),
+  // vpc_iaas_id
+  vpcIaasId?: string(name='vpc_iaas_id'),
 }
 
 model ListComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer infos
   data?: [ Computer ](name='data'),
@@ -8956,6 +9548,7 @@ async function listComputerEx(request: ListComputerRequest, headers: map[string]
 }
 
 model QueryComputerSpecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // prviderIds
   providerIds: [ string ](name='provider_ids'),
@@ -8966,8 +9559,11 @@ model QueryComputerSpecRequest = {
 }
 
 model QueryComputerSpecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer spec list
   data?: [ ComputerSpec ](name='data'),
@@ -8993,6 +9589,7 @@ async function queryComputerSpecEx(request: QueryComputerSpecRequest, headers: m
 }
 
 model QueryComputerCommonimageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // providerIds
   providerIds: [ string ](name='provider_ids'),
@@ -9001,8 +9598,11 @@ model QueryComputerCommonimageRequest = {
 }
 
 model QueryComputerCommonimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // common images
   data?: [ CommonImage ](name='data'),
@@ -9028,14 +9628,18 @@ async function queryComputerCommonimageEx(request: QueryComputerCommonimageReque
 }
 
 model AllLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_ids
   workspaceIds: [ string ](name='workspace_ids'),
 }
 
 model AllLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ LoadBalancer ](name='data'),
@@ -9061,6 +9665,7 @@ async function allLoadbalanceEx(request: AllLoadbalanceRequest, headers: map[str
 }
 
 model QueryLoadbalanceImportRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
@@ -9073,8 +9678,11 @@ model QueryLoadbalanceImportRequest = {
 }
 
 model QueryLoadbalanceImportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ LoadBalancerImportVO ](name='data'),
@@ -9102,6 +9710,7 @@ async function queryLoadbalanceImportEx(request: QueryLoadbalanceImportRequest, 
 }
 
 model QueryDatabaseImportRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
@@ -9114,8 +9723,11 @@ model QueryDatabaseImportRequest = {
 }
 
 model QueryDatabaseImportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DatabaseImportVO ](name='data'),
@@ -9143,14 +9755,18 @@ async function queryDatabaseImportEx(request: QueryDatabaseImportRequest, header
 }
 
 model QueryDatabaseMasterzoneRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model QueryDatabaseMasterzoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ string ](name='data'),
@@ -9176,14 +9792,18 @@ async function queryDatabaseMasterzoneEx(request: QueryDatabaseMasterzoneRequest
 }
 
 model QueryDatabaseQuotaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
 }
 
 model QueryDatabaseQuotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ QuotaKv ](name='data'),
@@ -9209,6 +9829,7 @@ async function queryDatabaseQuotaEx(request: QueryDatabaseQuotaRequest, headers:
 }
 
 model QueryDatabaseSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -9217,8 +9838,11 @@ model QueryDatabaseSecurityipRequest = {
 }
 
 model QueryDatabaseSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DatabaseSecurityIp ](name='data'),
@@ -9244,6 +9868,7 @@ async function queryDatabaseSecurityipEx(request: QueryDatabaseSecurityipRequest
 }
 
 model QueryDatabaseSchemaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // char_sets
   charSets?: [ string ](name='char_sets'),
@@ -9266,8 +9891,11 @@ model QueryDatabaseSchemaRequest = {
 }
 
 model QueryDatabaseSchemaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DbSchema ](name='data'),
@@ -9295,6 +9923,7 @@ async function queryDatabaseSchemaEx(request: QueryDatabaseSchemaRequest, header
 }
 
 model QueryDatabaseAccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
@@ -9305,8 +9934,11 @@ model QueryDatabaseAccountRequest = {
 }
 
 model QueryDatabaseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ DatabaseAccount ](name='data'),
@@ -9334,14 +9966,18 @@ async function queryDatabaseAccountEx(request: QueryDatabaseAccountRequest, head
 }
 
 model GetWorkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
 }
 
 model GetWorkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // workspaceDto
   data?: WorkspaceDto(name='data'),
@@ -9367,12 +10003,16 @@ async function getWorkspaceEx(request: GetWorkspaceRequest, headers: map[string]
 }
 
 model ListRegionRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model ListRegionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // list
   data?: [ RegionDto ](name='data'),
@@ -9398,12 +10038,16 @@ async function listRegionEx(request: ListRegionRequest, headers: map[string]stri
 }
 
 model ListRegionAccessibleRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model ListRegionAccessibleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ RegionDto ](name='data'),
@@ -9429,6 +10073,7 @@ async function listRegionAccessibleEx(request: ListRegionAccessibleRequest, head
 }
 
 model UpdateDatabaseInfoRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // name
   name?: string(name='name'),
@@ -9439,8 +10084,11 @@ model UpdateDatabaseInfoRequest = {
 }
 
 model UpdateDatabaseInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9464,6 +10112,7 @@ async function updateDatabaseInfoEx(request: UpdateDatabaseInfoRequest, headers:
 }
 
 model SetDatabaseAssignRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_service_ids
   appServiceIds?: [ string ](name='app_service_ids'),
@@ -9476,8 +10125,11 @@ model SetDatabaseAssignRequest = {
 }
 
 model SetDatabaseAssignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9501,6 +10153,7 @@ async function setDatabaseAssignEx(request: SetDatabaseAssignRequest, headers: m
 }
 
 model SetDatabaseShareRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_ids
   workspaceIds: [ string ](name='workspace_ids'),
@@ -9509,8 +10162,11 @@ model SetDatabaseShareRequest = {
 }
 
 model SetDatabaseShareResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9534,14 +10190,18 @@ async function setDatabaseShareEx(request: SetDatabaseShareRequest, headers: map
 }
 
 model RebootDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
 }
 
 model RebootDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9565,6 +10225,7 @@ async function rebootDatabaseEx(request: RebootDatabaseRequest, headers: map[str
 }
 
 model UpdateDatabaseAccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // description
   description?: string(name='description'),
@@ -9573,8 +10234,11 @@ model UpdateDatabaseAccountRequest = {
 }
 
 model UpdateDatabaseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9598,6 +10262,7 @@ async function updateDatabaseAccountEx(request: UpdateDatabaseAccountRequest, he
 }
 
 model SetDatabaseAccountpasswordRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -9606,8 +10271,11 @@ model SetDatabaseAccountpasswordRequest = {
 }
 
 model SetDatabaseAccountpasswordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9631,6 +10299,7 @@ async function setDatabaseAccountpasswordEx(request: SetDatabaseAccountpasswordR
 }
 
 model AuthDatabaseAccountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // schema_id
   schemaId: string(name='schema_id'),
@@ -9641,8 +10310,11 @@ model AuthDatabaseAccountRequest = {
 }
 
 model AuthDatabaseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9666,12 +10338,16 @@ async function authDatabaseAccountEx(request: AuthDatabaseAccountRequest, header
 }
 
 model GetRegionTenantRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
 }
 
 model GetRegionTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // regionDto
   data?: RegionDto(name='data'),
@@ -9697,6 +10373,7 @@ async function getRegionTenantEx(request: GetRegionTenantRequest, headers: map[s
 }
 
 model GetRegionAliasbyidRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region_id
   regionId: string(name='region_id'),
@@ -9707,8 +10384,11 @@ model GetRegionAliasbyidRequest = {
 }
 
 model GetRegionAliasbyidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // region alias
   data?: string(name='data'),
@@ -9734,6 +10414,7 @@ async function getRegionAliasbyidEx(request: GetRegionAliasbyidRequest, headers:
 }
 
 model QueryDiskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current page
   currentPage?: long(name='current_page'),
@@ -9760,8 +10441,11 @@ model QueryDiskRequest = {
 }
 
 model QueryDiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // disk detail infos
   data?: [ Disk ](name='data'),
@@ -9793,6 +10477,7 @@ async function queryDiskEx(request: QueryDiskRequest, headers: map[string]string
 }
 
 model QueryImageRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current page
   currentPage?: long(name='current_page'),
@@ -9805,8 +10490,11 @@ model QueryImageRequest = {
 }
 
 model QueryImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // image infos
   data?: [ CommonImage ](name='data'),
@@ -9834,6 +10522,7 @@ async function queryImageEx(request: QueryImageRequest, headers: map[string]stri
 }
 
 model CreateDatabaseSchemaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // char_set
   charSet: string(name='char_set'),
@@ -9848,8 +10537,11 @@ model CreateDatabaseSchemaRequest = {
 }
 
 model CreateDatabaseSchemaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回的schemaid
   data?: string(name='data'),
@@ -9875,6 +10567,7 @@ async function createDatabaseSchemaEx(request: CreateDatabaseSchemaRequest, head
 }
 
 model CreateLoadbalanceMountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // mount_map
   mountMap: [ MapStringToIntegerEntity ](name='mount_map'),
@@ -9885,8 +10578,11 @@ model CreateLoadbalanceMountRequest = {
 }
 
 model CreateLoadbalanceMountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -9910,6 +10606,7 @@ async function createLoadbalanceMountEx(request: CreateLoadbalanceMountRequest, 
 }
 
 model CreateLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // backend_server_port
   backendServerPort?: long(name='backend_server_port'),
@@ -9952,8 +10649,11 @@ model CreateLoadbalanceListenerRequest = {
 }
 
 model CreateLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -9979,6 +10679,7 @@ async function createLoadbalanceListenerEx(request: CreateLoadbalanceListenerReq
 }
 
 model StopLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // load_balancer_id
   loadBalancerId: string(name='load_balancer_id'),
@@ -9987,8 +10688,11 @@ model StopLoadbalanceListenerRequest = {
 }
 
 model StopLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10012,6 +10716,7 @@ async function stopLoadbalanceListenerEx(request: StopLoadbalanceListenerRequest
 }
 
 model StartLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // load_balancer_id
   loadBalancerId: string(name='load_balancer_id'),
@@ -10020,8 +10725,11 @@ model StartLoadbalanceListenerRequest = {
 }
 
 model StartLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10045,6 +10753,7 @@ async function startLoadbalanceListenerEx(request: StartLoadbalanceListenerReque
 }
 
 model UpdateLoadbalanceListenerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // bandwidth
   bandwidth?: long(name='bandwidth'),
@@ -10083,8 +10792,11 @@ model UpdateLoadbalanceListenerRequest = {
 }
 
 model UpdateLoadbalanceListenerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10108,6 +10820,7 @@ async function updateLoadbalanceListenerEx(request: UpdateLoadbalanceListenerReq
 }
 
 model QueryDiskspecRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // provider id
   providerId?: string(name='provider_id'),
@@ -10116,8 +10829,11 @@ model QueryDiskspecRequest = {
 }
 
 model QueryDiskspecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // disk spec infos
   data?: [ DiskSpec ](name='data'),
@@ -10143,14 +10859,18 @@ async function queryDiskspecEx(request: QueryDiskspecRequest, headers: map[strin
 }
 
 model QueryComputerquotaRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
 }
 
 model QueryComputerquotaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer quota info jsonstring
   data?: string(name='data'),
@@ -10176,6 +10896,7 @@ async function queryComputerquotaEx(request: QueryComputerquotaRequest, headers:
 }
 
 model StopComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer ids
   ids: [ string ](name='ids'),
@@ -10184,8 +10905,11 @@ model StopComputerRequest = {
 }
 
 model StopComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -10211,6 +10935,7 @@ async function stopComputerEx(request: StopComputerRequest, headers: map[string]
 }
 
 model RebootComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // ids
   ids: [ string ](name='ids'),
@@ -10219,8 +10944,11 @@ model RebootComputerRequest = {
 }
 
 model RebootComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -10246,14 +10974,18 @@ async function rebootComputerEx(request: RebootComputerRequest, headers: map[str
 }
 
 model QueryComputerSecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer id
   id: string(name='id'),
 }
 
 model QueryComputerSecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // security group info
   data?: [ JoinedSecurityGroupVO ](name='data'),
@@ -10279,6 +11011,7 @@ async function queryComputerSecuritygroupEx(request: QueryComputerSecuritygroupR
 }
 
 model QuerySecuritygroupRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
@@ -10289,8 +11022,11 @@ model QuerySecuritygroupRequest = {
 }
 
 model QuerySecuritygroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // currentPage
   currentPage?: long(name='current_page'),
@@ -10322,6 +11058,7 @@ async function querySecuritygroupEx(request: QuerySecuritygroupRequest, headers:
 }
 
 model CreateSecuritygroupPermissionRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // PermissionVO
   permission: PermissionVO(name='permission'),
@@ -10330,8 +11067,11 @@ model CreateSecuritygroupPermissionRequest = {
 }
 
 model CreateSecuritygroupPermissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -10357,6 +11097,7 @@ async function createSecuritygroupPermissionEx(request: CreateSecuritygroupPermi
 }
 
 model QuerySecuritygroupPermissionRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // securityGroupId
   securityGroupId: string(name='security_group_id'),
@@ -10369,8 +11110,11 @@ model QuerySecuritygroupPermissionRequest = {
 }
 
 model QuerySecuritygroupPermissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // securitygroup permission infos
   data?: [ PermissionVO ](name='data'),
@@ -10396,6 +11140,7 @@ async function querySecuritygroupPermissionEx(request: QuerySecuritygroupPermiss
 }
 
 model UpdateLoadbalanaceSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb id
   id: string(name='id'),
@@ -10406,8 +11151,11 @@ model UpdateLoadbalanaceSecurityipRequest = {
 }
 
 model UpdateLoadbalanaceSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10431,6 +11179,7 @@ async function updateLoadbalanaceSecurityipEx(request: UpdateLoadbalanaceSecurit
 }
 
 model CreateLoadbalanceSecurityipRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // lb id
   id: string(name='id'),
@@ -10441,8 +11190,11 @@ model CreateLoadbalanceSecurityipRequest = {
 }
 
 model CreateLoadbalanceSecurityipResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10466,6 +11218,7 @@ async function createLoadbalanceSecurityipEx(request: CreateLoadbalanceSecurityi
 }
 
 model UpdateDatabaseRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -10476,8 +11229,11 @@ model UpdateDatabaseRequest = {
 }
 
 model UpdateDatabaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10501,6 +11257,7 @@ async function updateDatabaseEx(request: UpdateDatabaseRequest, headers: map[str
 }
 
 model UpdateLoadbalanceMountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -10511,8 +11268,11 @@ model UpdateLoadbalanceMountRequest = {
 }
 
 model UpdateLoadbalanceMountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10536,6 +11296,7 @@ async function updateLoadbalanceMountEx(request: UpdateLoadbalanceMountRequest, 
 }
 
 model DeleteLoadbalanceMountRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -10544,8 +11305,11 @@ model DeleteLoadbalanceMountRequest = {
 }
 
 model DeleteLoadbalanceMountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -10569,15 +11333,16 @@ async function deleteLoadbalanceMountEx(request: DeleteLoadbalanceMountRequest, 
 }
 
 model QueryRequestRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
   // ids
   ids?: [ string ](name='ids'),
   // max_time
-  maxTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='max_time'),
+  maxTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='max_time'),
   // min_time
-  minTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='min_time'),
+  minTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='min_time'),
   // operators
   operators?: [ string ](name='operators'),
   // operator_type
@@ -10603,8 +11368,11 @@ model QueryRequestRequest = {
 }
 
 model QueryRequestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ RequestVO ](name='data'),
@@ -10636,6 +11404,7 @@ async function queryRequestEx(request: QueryRequestRequest, headers: map[string]
 }
 
 model GetRequestRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace
   workspace: string(name='workspace'),
@@ -10644,8 +11413,11 @@ model GetRequestRequest = {
 }
 
 model GetRequestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: RequestVO(name='data'),
@@ -10671,15 +11443,16 @@ async function getRequestEx(request: GetRequestRequest, headers: map[string]stri
 }
 
 model QueryRequestTaskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // current_page
   currentPage?: long(name='current_page'),
   // ids
   ids?: [ string ](name='ids'),
   // max_time
-  maxTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='max_time'),
+  maxTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='max_time'),
   // min_time
-  minTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}[Z]', name='min_time'),
+  minTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='min_time'),
   // operators
   operators?: [ string ](name='operators'),
   // operatorType
@@ -10703,8 +11476,11 @@ model QueryRequestTaskRequest = {
 }
 
 model QueryRequestTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ Task ](name='data'),
@@ -10732,6 +11508,7 @@ async function queryRequestTaskEx(request: QueryRequestTaskRequest, headers: map
 }
 
 model QueryTaskLogRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // execution_times
   executionTimes?: long(name='execution_times'),
@@ -10740,8 +11517,11 @@ model QueryTaskLogRequest = {
 }
 
 model QueryTaskLogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ ResourceLog ](name='data'),
@@ -10767,14 +11547,18 @@ async function queryTaskLogEx(request: QueryTaskLogRequest, headers: map[string]
 }
 
 model ListTenantworkspaceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // status
   status?: string(name='status'),
 }
 
 model ListTenantworkspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // worksapce列表
   data?: [ TenantWorkspace ](name='data'),
@@ -10800,14 +11584,18 @@ async function listTenantworkspaceEx(request: ListTenantworkspaceRequest, header
 }
 
 model QueryTenantworkspaceFilterRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // statuses
   statuses?: string(name='statuses'),
 }
 
 model QueryTenantworkspaceFilterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // workspaces
   data?: [ TenantWorkspace ](name='data'),
@@ -10833,14 +11621,18 @@ async function queryTenantworkspaceFilterEx(request: QueryTenantworkspaceFilterR
 }
 
 model ListRegionGroupbyRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // status
   status?: string(name='status'),
 }
 
 model ListRegionGroupbyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // RegionWorkspaceVO
   data?: [ RegionWorkspaceVO ](name='data'),
@@ -10866,6 +11658,7 @@ async function listRegionGroupbyEx(request: ListRegionGroupbyRequest, headers: m
 }
 
 model QueryRequestFinaltaskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // request_id
   id: string(name='id'),
@@ -10874,8 +11667,11 @@ model QueryRequestFinaltaskRequest = {
 }
 
 model QueryRequestFinaltaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ TaskVO ](name='data'),
@@ -10901,6 +11697,7 @@ async function queryRequestFinaltaskEx(request: QueryRequestFinaltaskRequest, he
 }
 
 model QueryFeatureRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region_id
   regionId: string(name='region_id'),
@@ -10909,8 +11706,11 @@ model QueryFeatureRequest = {
 }
 
 model QueryFeatureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -10936,6 +11736,7 @@ async function queryFeatureEx(request: QueryFeatureRequest, headers: map[string]
 }
 
 model StartComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer ids
   ids: [ string ](name='ids'),
@@ -10944,8 +11745,11 @@ model StartComputerRequest = {
 }
 
 model StartComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // paas_request_id
   paasRequestId?: string(name='paas_request_id'),
@@ -10971,14 +11775,18 @@ async function startComputerEx(request: StartComputerRequest, headers: map[strin
 }
 
 model StartLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // ids
   ids: [ string ](name='ids'),
 }
 
 model StartLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11002,14 +11810,18 @@ async function startLoadbalanceEx(request: StartLoadbalanceRequest, headers: map
 }
 
 model StopLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // ids
   ids: [ string ](name='ids'),
 }
 
 model StopLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11033,6 +11845,7 @@ async function stopLoadbalanceEx(request: StopLoadbalanceRequest, headers: map[s
 }
 
 model UpdateLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -11043,8 +11856,11 @@ model UpdateLoadbalanceRequest = {
 }
 
 model UpdateLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11068,6 +11884,7 @@ async function updateLoadbalanceEx(request: UpdateLoadbalanceRequest, headers: m
 }
 
 model AddLoadbalanceAssignRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId?: string(name='app_id'),
@@ -11078,8 +11895,11 @@ model AddLoadbalanceAssignRequest = {
 }
 
 model AddLoadbalanceAssignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11103,6 +11923,7 @@ async function addLoadbalanceAssignEx(request: AddLoadbalanceAssignRequest, head
 }
 
 model QueryCertificateRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_id
   workspaceId: string(name='workspace_id'),
@@ -11111,8 +11932,11 @@ model QueryCertificateRequest = {
 }
 
 model QueryCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: [ BasicCertificate ](name='data'),
@@ -11140,6 +11964,7 @@ async function queryCertificateEx(request: QueryCertificateRequest, headers: map
 }
 
 model CreateCertificateRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_id
   workspaceId: string(name='workspace_id'),
@@ -11158,8 +11983,11 @@ model CreateCertificateRequest = {
 }
 
 model CreateCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
   data?: string(name='data'),
@@ -11185,6 +12013,7 @@ async function createCertificateEx(request: CreateCertificateRequest, headers: m
 }
 
 model DeleteCertificateRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // id
   id: string(name='id'),
@@ -11195,8 +12024,11 @@ model DeleteCertificateRequest = {
 }
 
 model DeleteCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11220,6 +12052,7 @@ async function deleteCertificateEx(request: DeleteCertificateRequest, headers: m
 }
 
 model DescribeUnifiedresourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 提供商类型
   providerType: string(name='provider_type'),
@@ -11230,8 +12063,11 @@ model DescribeUnifiedresourceVpcRequest = {
 }
 
 model DescribeUnifiedresourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vpc对象
   vpc?: VPC(name='vpc'),
@@ -11257,6 +12093,7 @@ async function describeUnifiedresourceVpcEx(request: DescribeUnifiedresourceVpcR
 }
 
 model ListUnifiedresourceInstancefamiliesRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region id
   regionId: string(name='region_id'),
@@ -11265,8 +12102,11 @@ model ListUnifiedresourceInstancefamiliesRequest = {
 }
 
 model ListUnifiedresourceInstancefamiliesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11290,14 +12130,18 @@ async function listUnifiedresourceInstancefamiliesEx(request: ListUnifiedresourc
 }
 
 model ListUnifiedresourceInstancetypeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
 }
 
 model ListUnifiedresourceInstancetypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // instancetype详细信息，jsonstring
   data?: string(name='data'),
@@ -11323,6 +12167,7 @@ async function listUnifiedresourceInstancetypeEx(request: ListUnifiedresourceIns
 }
 
 model QueryComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // computer id
   id: string(name='id'),
@@ -11331,8 +12176,11 @@ model QueryComputerRequest = {
 }
 
 model QueryComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer info
   data?: Computer(name='data'),
@@ -11358,6 +12206,7 @@ async function queryComputerEx(request: QueryComputerRequest, headers: map[strin
 }
 
 model ListResourceComputertypeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
@@ -11368,8 +12217,11 @@ model ListResourceComputertypeRequest = {
 }
 
 model ListResourceComputertypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可用computer type列表
   data?: [ ComputerType ](name='data'),
@@ -11395,6 +12247,7 @@ async function listResourceComputertypeEx(request: ListResourceComputertypeReque
 }
 
 model ListResourceDiskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 要查询的云盘或本地盘类型。取值范围：
   // 
@@ -11410,8 +12263,11 @@ model ListResourceDiskRequest = {
 }
 
 model ListResourceDiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // disk infos
   data?: [ Disk ](name='data'),
@@ -11437,14 +12293,18 @@ async function listResourceDiskEx(request: ListResourceDiskRequest, headers: map
 }
 
 model ListResourceComputertypefamilyRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
 }
 
 model ListResourceComputertypefamilyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // computer 规格族
   data?: [ ComputerTypeFamily ](name='data'),
@@ -11470,6 +12330,7 @@ async function listResourceComputertypefamilyEx(request: ListResourceComputertyp
 }
 
 model ListUnifiedresourceVswitchRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
@@ -11480,8 +12341,11 @@ model ListUnifiedresourceVswitchRequest = {
 }
 
 model ListUnifiedresourceVswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交换机的详细信息
   data?: [ VSwitch ](name='data'),
@@ -11507,14 +12371,18 @@ async function listUnifiedresourceVswitchEx(request: ListUnifiedresourceVswitchR
 }
 
 model ListUnifiedresourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
 }
 
 model ListUnifiedresourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vpc list
   data?: [ VPC ](name='data'),
@@ -11540,6 +12408,7 @@ async function listUnifiedresourceVpcEx(request: ListUnifiedresourceVpcRequest, 
 }
 
 model ImportResourceVpcRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region identity
   region: string(name='region'),
@@ -11556,8 +12425,11 @@ model ImportResourceVpcRequest = {
 }
 
 model ImportResourceVpcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // vpc关联到workspace是否成功
   success?: boolean(name='success'),
@@ -11583,6 +12455,7 @@ async function importResourceVpcEx(request: ImportResourceVpcRequest, headers: m
 }
 
 model DeleteResourceRuleRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 传输层协议。参数值大小写敏感。取值范围：
   // 
@@ -11614,8 +12487,11 @@ model DeleteResourceRuleRequest = {
 }
 
 model DeleteResourceRuleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 操作是否成功
   success?: boolean(name='success'),
@@ -11641,6 +12517,7 @@ async function deleteResourceRuleEx(request: DeleteResourceRuleRequest, headers:
 }
 
 model ListRouteEntryRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 所属地域
   region: string(name='region'),
@@ -11649,8 +12526,11 @@ model ListRouteEntryRequest = {
 }
 
 model ListRouteEntryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 路由条目信息
   data?: [ VRouteEntry ](name='data'),
@@ -11676,6 +12556,7 @@ async function listRouteEntryEx(request: ListRouteEntryRequest, headers: map[str
 }
 
 model ListAvailableDiskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
@@ -11688,8 +12569,11 @@ model ListAvailableDiskRequest = {
 }
 
 model ListAvailableDiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 磁盘类型详细信息，jsonstring
   data?: string(name='data'),
@@ -11715,14 +12599,18 @@ async function listAvailableDiskEx(request: ListAvailableDiskRequest, headers: m
 }
 
 model ListAvailableInstancetypeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // region name
   region: string(name='region'),
 }
 
 model ListAvailableInstancetypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 实例类型详细信息，jsonstring
   data?: string(name='data'),
@@ -11748,14 +12636,18 @@ async function listAvailableInstancetypeEx(request: ListAvailableInstancetypeReq
 }
 
 model QueryResourcemetaNodeRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
 }
 
 model QueryResourcemetaNodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // node meta list jsonstring
   data?: string(name='data'),
@@ -11781,14 +12673,18 @@ async function queryResourcemetaNodeEx(request: QueryResourcemetaNodeRequest, he
 }
 
 model QueryResourcemetaAppserviceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace name
   workspace: string(name='workspace'),
 }
 
 model QueryResourcemetaAppserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // app service metadata json
   data?: string(name='data'),
@@ -11814,6 +12710,7 @@ async function queryResourcemetaAppserviceEx(request: QueryResourcemetaAppservic
 }
 
 model SyncComputerRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 工作空间
   workspaceId: string(name='workspace_id'),
@@ -11822,8 +12719,11 @@ model SyncComputerRequest = {
 }
 
 model SyncComputerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11847,6 +12747,7 @@ async function syncComputerEx(request: SyncComputerRequest, headers: map[string]
 }
 
 model SyncLoadbalanceRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // workspace_id
   workspaceId: string(name='workspace_id'),
@@ -11855,8 +12756,11 @@ model SyncLoadbalanceRequest = {
 }
 
 model SyncLoadbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11880,6 +12784,7 @@ async function syncLoadbalanceEx(request: SyncLoadbalanceRequest, headers: map[s
 }
 
 model UpdateComputerInfoRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // name
   name: string(name='name'),
@@ -11892,8 +12797,11 @@ model UpdateComputerInfoRequest = {
 }
 
 model UpdateComputerInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11917,6 +12825,7 @@ async function updateComputerInfoEx(request: UpdateComputerInfoRequest, headers:
 }
 
 model SetComputerAssignRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // app_id
   appId?: string(name='app_id'),
@@ -11931,8 +12840,11 @@ model SetComputerAssignRequest = {
 }
 
 model SetComputerAssignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11956,6 +12868,7 @@ async function setComputerAssignEx(request: SetComputerAssignRequest, headers: m
 }
 
 model ExecRequestTaskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // rmc_request_id，注意区分OPENAPI自身的request_id
   rmcRequestId: string(name='rmc_request_id'),
@@ -11964,8 +12877,11 @@ model ExecRequestTaskRequest = {
 }
 
 model ExecRequestTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -11989,6 +12905,7 @@ async function execRequestTaskEx(request: ExecRequestTaskRequest, headers: map[s
 }
 
 model ReinitDiskRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // ids
   ids: [ string ](name='ids'),
@@ -11997,8 +12914,11 @@ model ReinitDiskRequest = {
 }
 
 model ReinitDiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -12022,6 +12942,7 @@ async function reinitDiskEx(request: ReinitDiskRequest, headers: map[string]stri
 }
 
 model UpdateDiskStrategyRequest = {
+  // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // delete_with_computer
   deleteWithComputer?: boolean(name='delete_with_computer'),
@@ -12034,8 +12955,11 @@ model UpdateDiskStrategyRequest = {
 }
 
 model UpdateDiskStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 

@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-cas:1.3.17",
-    "go": "github.com/antchain-openapi-sdk-go/cas/client:v1.3.17",
-    "csharp": "AntChain.SDK.CAS:0.0.1",
-    "ts": "@antchain/cas:1.3.17",
-    "php": "antchain/cas:1.3.17",
-    "python": "antchain_sdk_cas:1.3.17"
+    "java": "com.antgroup.antchain.openapi:openapi-cas:1.3.19",
+    "go": "github.com/antchain-openapi-sdk-go/cas/client:v1.3.19",
+    "csharp": "AntChain.SDK.CAS:1.3.19",
+    "ts": "@antchain/cas:1.3.19",
+    "php": "antchain/cas:1.3.19",
+    "python": "antchain_sdk_cas:1.3.19"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
