@@ -94,6 +94,11 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
+    // 设备型号
+    @NameInMap("device_name")
+    @Validation(required = true)
+    public String deviceName;
+
     public static CreateDistributedeviceBydeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDistributedeviceBydeviceRequest self = new CreateDistributedeviceBydeviceRequest();
         return TeaModel.build(map, self);
@@ -193,6 +198,14 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     }
     public String getReleaseTime() {
         return this.releaseTime;
+    }
+
+    public CreateDistributedeviceBydeviceRequest setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+        return this;
+    }
+    public String getDeviceName() {
+        return this.deviceName;
     }
 
 }

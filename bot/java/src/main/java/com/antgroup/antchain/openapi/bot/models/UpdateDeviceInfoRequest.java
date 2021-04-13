@@ -72,6 +72,10 @@ public class UpdateDeviceInfoRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
+    // 设备型号
+    @NameInMap("device_name")
+    public String deviceName;
+
     public static UpdateDeviceInfoRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDeviceInfoRequest self = new UpdateDeviceInfoRequest();
         return TeaModel.build(map, self);
@@ -155,6 +159,14 @@ public class UpdateDeviceInfoRequest extends TeaModel {
     }
     public String getReleaseTime() {
         return this.releaseTime;
+    }
+
+    public UpdateDeviceInfoRequest setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+        return this;
+    }
+    public String getDeviceName() {
+        return this.deviceName;
     }
 
 }
