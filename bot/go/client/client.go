@@ -2325,6 +2325,8 @@ type UpdateDeviceInfoRequest struct {
 	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 投放时间
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备型号
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
 }
 
 func (s UpdateDeviceInfoRequest) String() string {
@@ -2382,6 +2384,11 @@ func (s *UpdateDeviceInfoRequest) SetFactoryTime(v string) *UpdateDeviceInfoRequ
 
 func (s *UpdateDeviceInfoRequest) SetReleaseTime(v string) *UpdateDeviceInfoRequest {
 	s.ReleaseTime = &v
+	return s
+}
+
+func (s *UpdateDeviceInfoRequest) SetDeviceName(v string) *UpdateDeviceInfoRequest {
+	s.DeviceName = &v
 	return s
 }
 
@@ -4287,6 +4294,8 @@ type CreateDistributedeviceBydeviceRequest struct {
 	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 投放时间
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备型号
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
 }
 
 func (s CreateDistributedeviceBydeviceRequest) String() string {
@@ -4354,6 +4363,11 @@ func (s *CreateDistributedeviceBydeviceRequest) SetFactoryTime(v string) *Create
 
 func (s *CreateDistributedeviceBydeviceRequest) SetReleaseTime(v string) *CreateDistributedeviceBydeviceRequest {
 	s.ReleaseTime = &v
+	return s
+}
+
+func (s *CreateDistributedeviceBydeviceRequest) SetDeviceName(v string) *CreateDistributedeviceBydeviceRequest {
+	s.DeviceName = &v
 	return s
 }
 
@@ -4906,6 +4920,8 @@ type UpdateDeviceInfobydeviceRequest struct {
 	// 投放时间
 	//
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备型号
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
 }
 
 func (s UpdateDeviceInfobydeviceRequest) String() string {
@@ -4973,6 +4989,11 @@ func (s *UpdateDeviceInfobydeviceRequest) SetFactoryTime(v string) *UpdateDevice
 
 func (s *UpdateDeviceInfobydeviceRequest) SetReleaseTime(v string) *UpdateDeviceInfobydeviceRequest {
 	s.ReleaseTime = &v
+	return s
+}
+
+func (s *UpdateDeviceInfobydeviceRequest) SetDeviceName(v string) *UpdateDeviceInfobydeviceRequest {
+	s.DeviceName = &v
 	return s
 }
 
@@ -6545,7 +6566,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.14"),
+				"sdk_version":      tea.String("1.3.15"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
