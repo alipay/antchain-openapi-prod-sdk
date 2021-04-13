@@ -1776,6 +1776,8 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
   factoryTime?: string;
   // 投放时间
   releaseTime?: string;
+  // 设备型号
+  deviceName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1788,6 +1790,7 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
       initialPrice: 'initial_price',
       factoryTime: 'factory_time',
       releaseTime: 'release_time',
+      deviceName: 'device_name',
     };
   }
 
@@ -1803,6 +1806,7 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
       initialPrice: 'number',
       factoryTime: 'string',
       releaseTime: 'string',
+      deviceName: 'string',
     };
   }
 
@@ -3349,6 +3353,8 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
   factoryTime?: string;
   // 投放时间
   releaseTime?: string;
+  // 设备型号
+  deviceName: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3363,6 +3369,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       initialPrice: 'initial_price',
       factoryTime: 'factory_time',
       releaseTime: 'release_time',
+      deviceName: 'device_name',
     };
   }
 
@@ -3380,6 +3387,7 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
       initialPrice: 'number',
       factoryTime: 'string',
       releaseTime: 'string',
+      deviceName: 'string',
     };
   }
 
@@ -3845,6 +3853,8 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
   // 投放时间
   // 
   releaseTime: string;
+  // 设备型号
+  deviceName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3859,6 +3869,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       initialPrice: 'initial_price',
       factoryTime: 'factory_time',
       releaseTime: 'release_time',
+      deviceName: 'device_name',
     };
   }
 
@@ -3876,6 +3887,7 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
       initialPrice: 'number',
       factoryTime: 'string',
       releaseTime: 'string',
+      deviceName: 'string',
     };
   }
 
@@ -5125,7 +5137,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.14",
+          sdk_version: "1.3.15",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
