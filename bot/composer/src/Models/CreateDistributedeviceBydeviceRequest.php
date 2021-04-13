@@ -113,6 +113,12 @@ class CreateDistributedeviceBydeviceRequest extends Model
      * @var string
      */
     public $releaseTime;
+
+    // 设备型号
+    /**
+     * @var string
+     */
+    public $deviceName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -126,6 +132,7 @@ class CreateDistributedeviceBydeviceRequest extends Model
         'initialPrice'      => 'initial_price',
         'factoryTime'       => 'factory_time',
         'releaseTime'       => 'release_time',
+        'deviceName'        => 'device_name',
     ];
 
     public function validate()
@@ -136,6 +143,7 @@ class CreateDistributedeviceBydeviceRequest extends Model
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('signature', $this->signature, true);
         Model::validateRequired('sdkId', $this->sdkId, true);
+        Model::validateRequired('deviceName', $this->deviceName, true);
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -178,6 +186,9 @@ class CreateDistributedeviceBydeviceRequest extends Model
         }
         if (null !== $this->releaseTime) {
             $res['release_time'] = $this->releaseTime;
+        }
+        if (null !== $this->deviceName) {
+            $res['device_name'] = $this->deviceName;
         }
 
         return $res;
@@ -226,6 +237,9 @@ class CreateDistributedeviceBydeviceRequest extends Model
         }
         if (isset($map['release_time'])) {
             $model->releaseTime = $map['release_time'];
+        }
+        if (isset($map['device_name'])) {
+            $model->deviceName = $map['device_name'];
         }
 
         return $model;
