@@ -2594,6 +2594,7 @@ class UpdateDeviceInfoRequest(TeaModel):
         initial_price: int = None,
         factory_time: str = None,
         release_time: str = None,
+        device_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2640,6 +2641,8 @@ class UpdateDeviceInfoRequest(TeaModel):
         self.factory_time = factory_time
         # 投放时间
         self.release_time = release_time
+        # 设备型号
+        self.device_name = device_name
 
     def validate(self):
         self.validate_required(self.chain_device_id, 'chain_device_id')
@@ -2670,6 +2673,8 @@ class UpdateDeviceInfoRequest(TeaModel):
             result['factory_time'] = self.factory_time
         if self.release_time is not None:
             result['release_time'] = self.release_time
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
         return result
 
     def from_map(self, m: dict = None):
@@ -2694,6 +2699,8 @@ class UpdateDeviceInfoRequest(TeaModel):
             self.factory_time = m.get('factory_time')
         if m.get('release_time') is not None:
             self.release_time = m.get('release_time')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
         return self
 
 
@@ -4919,6 +4926,7 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
         initial_price: int = None,
         factory_time: str = None,
         release_time: str = None,
+        device_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4978,6 +4986,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
         self.factory_time = factory_time
         # 投放时间
         self.release_time = release_time
+        # 设备型号
+        self.device_name = device_name
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -4990,6 +5000,7 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
             self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         if self.release_time is not None:
             self.validate_pattern(self.release_time, 'release_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.device_name, 'device_name')
 
     def to_map(self):
         result = dict()
@@ -5017,6 +5028,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
             result['factory_time'] = self.factory_time
         if self.release_time is not None:
             result['release_time'] = self.release_time
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
         return result
 
     def from_map(self, m: dict = None):
@@ -5045,6 +5058,8 @@ class CreateDistributedeviceBydeviceRequest(TeaModel):
             self.factory_time = m.get('factory_time')
         if m.get('release_time') is not None:
             self.release_time = m.get('release_time')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
         return self
 
 
@@ -5647,6 +5662,7 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
         initial_price: int = None,
         factory_time: str = None,
         release_time: str = None,
+        device_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5705,6 +5721,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
         # 投放时间
         # 
         self.release_time = release_time
+        # 设备型号
+        self.device_name = device_name
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -5748,6 +5766,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
             result['factory_time'] = self.factory_time
         if self.release_time is not None:
             result['release_time'] = self.release_time
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
         return result
 
     def from_map(self, m: dict = None):
@@ -5776,6 +5796,8 @@ class UpdateDeviceInfobydeviceRequest(TeaModel):
             self.factory_time = m.get('factory_time')
         if m.get('release_time') is not None:
             self.release_time = m.get('release_time')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
         return self
 
 
