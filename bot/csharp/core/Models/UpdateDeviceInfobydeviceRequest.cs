@@ -102,6 +102,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string ReleaseTime { get; set; }
 
+        // 设备型号
+        [NameInMap("device_name")]
+        [Validation(Required=false)]
+        public string DeviceName { get; set; }
+
     }
 
 }
