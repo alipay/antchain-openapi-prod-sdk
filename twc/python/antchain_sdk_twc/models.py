@@ -3115,7 +3115,6 @@ class CallbackArbitrationStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 案件文书号
         self.acceptance_number = acceptance_number
@@ -3184,8 +3183,9 @@ class CallbackArbitrationStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -3226,7 +3226,6 @@ class CreateContractAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 邮箱地址，默认空
         self.email = email
@@ -3300,8 +3299,9 @@ class CreateContractAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 个人账号ID
         self.account_id = account_id
@@ -3360,7 +3360,6 @@ class CreateContractAccountsealRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 电子合同用户ID（在twc.notary.contract.account.create接口中创建）
         self.account_id = account_id
@@ -3435,8 +3434,9 @@ class CreateContractAccountsealResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -3508,7 +3508,6 @@ class CreateContractOrganizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 创建人个人账号ID，也就是调用个人账号创建接口（twc.notary.contract.account.create
         # ）返回的accountId
@@ -3590,8 +3589,9 @@ class CreateContractOrganizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -3653,7 +3653,6 @@ class CreateContractOrgsealRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 印章别名
         self.alias = alias
@@ -3747,8 +3746,9 @@ class CreateContractOrgsealResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -3815,7 +3815,6 @@ class AuthContractSignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授权人ID，即个人账号ID或机构账号ID
         self.account_id = account_id
@@ -3862,8 +3861,9 @@ class AuthContractSignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -3920,7 +3920,6 @@ class CreateContractTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 模板文件md5值，再做base64编码
         self.content_md_5 = content_md_5
@@ -3983,8 +3982,9 @@ class CreateContractTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4051,7 +4051,6 @@ class CreateContractFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否自动归档，默认false。如设置为true，则在调用签署流程开启(twc.notary.contract.flow.start)后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用签署流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
         self.auto_archive = auto_archive
@@ -4137,8 +4136,9 @@ class CreateContractFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4193,7 +4193,6 @@ class AddContractDocumentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程ID
         self.flow_id = flow_id
@@ -4249,8 +4248,9 @@ class AddContractDocumentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4299,7 +4299,6 @@ class AddContractSignfieldRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署流程ID
         self.flow_id = flow_id
@@ -4356,8 +4355,9 @@ class AddContractSignfieldResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4419,7 +4419,6 @@ class StartContractFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程ID
         self.flow_id = flow_id
@@ -4459,8 +4458,9 @@ class StartContractFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4508,7 +4508,6 @@ class SaveContractFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程ID
         self.flow_id = flow_id
@@ -4548,8 +4547,9 @@ class SaveContractFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4597,7 +4597,6 @@ class DownloadContractDocumentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程ID
         self.flow_id = flow_id
@@ -4638,8 +4637,9 @@ class DownloadContractDocumentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -4703,7 +4703,6 @@ class AddContractFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文件名称
         self.name = name
@@ -4760,8 +4759,9 @@ class AddContractFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件下载地址，有效期一小时
         self.download_url = download_url
@@ -4828,7 +4828,6 @@ class CreateContractPlatformRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 平台方经办人信息
         self.creator = creator
@@ -4884,8 +4883,9 @@ class CreateContractPlatformResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 创建人ID
         self.creator_id = creator_id
@@ -4953,7 +4953,6 @@ class CreateContractUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户类型为机构时，填写机构信息
         self.organization = organization
@@ -5014,8 +5013,9 @@ class CreateContractUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 机构账号
         self.organization_id = organization_id
@@ -5089,7 +5089,6 @@ class StartContractHandsignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 代理商户账户
         self.agent_account_id = agent_account_id
@@ -5233,8 +5232,9 @@ class StartContractHandsignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -5300,7 +5300,6 @@ class QueryContractFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程id
         self.flow_id = flow_id
@@ -5353,8 +5352,9 @@ class QueryContractFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否自动归档
         self.auto_archive = auto_archive
@@ -5488,7 +5488,6 @@ class CreateContractAccountsealimageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户id
         self.account_id = account_id
@@ -5571,8 +5570,9 @@ class CreateContractAccountsealimageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -5655,7 +5655,6 @@ class GetContractFileuploadurlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 所属账号id，即个人账号id或机构账号id，如不传，则默认属于对接平台
         self.account_id = account_id
@@ -5731,8 +5730,9 @@ class GetContractFileuploadurlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -5793,7 +5793,6 @@ class AddContractPlatformsignfieldsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程id
         self.flow_id = flow_id
@@ -5844,8 +5843,9 @@ class AddContractPlatformsignfieldsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -5907,7 +5907,6 @@ class GetContractFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文件id
         self.file_id = file_id
@@ -5953,8 +5952,9 @@ class GetContractFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6040,7 +6040,6 @@ class QueryContractAccountsealsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户id
         self.account_id = account_id
@@ -6096,8 +6095,9 @@ class QueryContractAccountsealsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6167,7 +6167,6 @@ class QueryContractOrganizationsealsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 机构id
         self.org_id = org_id
@@ -6223,8 +6222,9 @@ class QueryContractOrganizationsealsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6292,7 +6292,6 @@ class QueryContractFlowsignerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程id
         self.flow_id = flow_id
@@ -6333,8 +6332,9 @@ class QueryContractFlowsignerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6398,7 +6398,6 @@ class QueryContractSignfieldsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程id
         self.flow_id = flow_id
@@ -6451,8 +6450,9 @@ class QueryContractSignfieldsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6514,7 +6514,6 @@ class QueryContractAccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 个人账号id
         self.account_id = account_id
@@ -6561,8 +6560,9 @@ class QueryContractAccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6652,7 +6652,6 @@ class QueryContractOrganizationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 机构账号id
         self.org_id = org_id
@@ -6699,8 +6698,9 @@ class QueryContractOrganizationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6790,7 +6790,6 @@ class QueryContractTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 模板id
         self.template_id = template_id
@@ -6837,8 +6836,9 @@ class QueryContractTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -6946,7 +6946,6 @@ class CreateContractSignflowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
         self.auto_archive = auto_archive
@@ -7059,8 +7058,9 @@ class CreateContractSignflowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -7155,7 +7155,6 @@ class CreateContractRegisterzftRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 地址。商户详细经营地址或人员所在地点
         self.address = address
@@ -7492,8 +7491,9 @@ class CreateContractRegisterzftResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -7542,7 +7542,6 @@ class CreateContractPlatformtemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否包含代扣规则，如果设置为true，则在创建手动签署流程时，必须传入代扣规则。默认为false
         self.auto_deduction = auto_deduction
@@ -7639,8 +7638,9 @@ class CreateContractPlatformtemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -7700,7 +7700,6 @@ class QueryContractMerchantzftRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 代理商户账户
         self.agent_account_id = agent_account_id
@@ -7741,8 +7740,9 @@ class QueryContractMerchantzftResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示成功，其他为失败
         self.code = code
@@ -7798,7 +7798,6 @@ class ListContractOuttradeidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同id
         self.flow_id = flow_id
@@ -7854,8 +7853,9 @@ class ListContractOuttradeidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -7916,7 +7916,6 @@ class QueryContractTradedetailRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同id
         self.flow_id = flow_id
@@ -7964,8 +7963,9 @@ class QueryContractTradedetailResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -8022,7 +8022,6 @@ class CreateContractMerchantrefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同id
         self.flow_id = flow_id
@@ -8085,8 +8084,9 @@ class CreateContractMerchantrefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -8145,7 +8145,6 @@ class CreateContractAdminaccountRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -8179,8 +8178,9 @@ class CreateContractAdminaccountResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -8230,7 +8230,6 @@ class ListContractTradeidsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同id
         self.flow_id = flow_id
@@ -8286,8 +8285,9 @@ class ListContractTradeidsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示成功
         self.code = code
@@ -8349,7 +8349,6 @@ class CreateContractCommontriggerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 代扣规则详情
         self.repayment_order_info = repayment_order_info
@@ -8415,8 +8414,9 @@ class CreateContractCommontriggerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -8482,7 +8482,6 @@ class CreateContractMerchantindirectzftRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 入驻材料
         self.biz_content = biz_content
@@ -8526,8 +8525,9 @@ class CreateContractMerchantindirectzftResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 传入参数内容
         self.body = body
@@ -8599,7 +8599,6 @@ class QueryContractMerchantindirectzftRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户入驻查询订单id
         self.order_id = order_id
@@ -8646,8 +8645,9 @@ class QueryContractMerchantindirectzftResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误状态码，0表示成功
         self.code = code
@@ -8738,7 +8738,6 @@ class QueryPayresultfileurlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 对账日期
         self.bill_date = bill_date
@@ -8784,8 +8783,9 @@ class QueryPayresultfileurlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 对账文件的下载地址
         self.pay_url = pay_url
@@ -8828,7 +8828,6 @@ class CreateContractMerchantimageRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 图片内容，base64
         self.content = content
@@ -8874,8 +8873,9 @@ class CreateContractMerchantimageResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 图片在oss上的id
         self.image_id = image_id
@@ -8917,7 +8917,6 @@ class CancelContractPaytradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 智能合同id
         self.flow_id = flow_id
@@ -8958,8 +8957,9 @@ class CancelContractPaytradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -9020,7 +9020,6 @@ class CreateContractHandsignflowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否自动归档，默认false。如设置为true，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用签署流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件。
         self.auto_archive = auto_archive
@@ -9106,8 +9105,9 @@ class CreateContractHandsignflowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -9162,7 +9162,6 @@ class CreateContractHandsignfieldRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 流程id
         self.flow_id = flow_id
@@ -9219,8 +9218,9 @@ class CreateContractHandsignfieldResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -9285,7 +9285,6 @@ class GetContractSignurlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署人账号id
         self.account_id = account_id
@@ -9346,8 +9345,9 @@ class GetContractSignurlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -9416,7 +9416,6 @@ class CreateWithholdAgreementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 授信总金额，单位元
         self.credit_amount = credit_amount
@@ -9515,8 +9514,9 @@ class CreateWithholdAgreementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9553,7 +9553,6 @@ class QueryWithholdAgreementRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）
         self.external_agreement_no = external_agreement_no
@@ -9607,8 +9606,9 @@ class QueryWithholdAgreementResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 总授信金额
         self.credit_amount = credit_amount
@@ -9699,7 +9699,6 @@ class QueryWithholdAgreementurlRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）
         self.external_agreement_no = external_agreement_no
@@ -9746,8 +9745,9 @@ class QueryWithholdAgreementurlResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 成功
         self.result_message = result_message
@@ -9798,7 +9798,6 @@ class CreateWithholdOverduetimeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 首款方id
         self.merchant_id = merchant_id
@@ -9857,8 +9856,9 @@ class CreateWithholdOverduetimeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -9900,7 +9900,6 @@ class SendWithholdDeductRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 委托支付订单总金额，单位为元，精确到小数点后两位
         self.amount = amount
@@ -9979,8 +9978,9 @@ class SendWithholdDeductResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 该笔转账在支付宝系统内部的单据ID
         self.entrust_order_id = entrust_order_id
@@ -10031,7 +10031,6 @@ class QueryWithholdPayresultRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 请求扣款时，返回的委托单号,该笔转账在支付宝系统内部的单据ID
         self.entrust_order_id = entrust_order_id
@@ -10080,8 +10079,9 @@ class QueryWithholdPayresultResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 支付完成日期
         self.pay_date = pay_date
@@ -10146,7 +10146,6 @@ class SendWithholdRefundRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 支付宝支付单据号
         self.order_id = order_id
@@ -10209,8 +10208,9 @@ class SendWithholdRefundResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
         self.refund_amount = refund_amount
@@ -10285,7 +10285,6 @@ class SendContractInvitationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务方id，重定向和回调时都回传这个id
         self.biz_process_id = biz_process_id
@@ -10417,8 +10416,9 @@ class SendContractInvitationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -10478,7 +10478,6 @@ class ListContractPayruleRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # flowId
         self.flow_id = flow_id
@@ -10519,8 +10518,9 @@ class ListContractPayruleResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码，0表示成功
         self.code = code
@@ -10575,7 +10575,6 @@ class CreateWithholdQrcodeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 第三方的用户id
         self.third_party_id = third_party_id
@@ -10621,8 +10620,9 @@ class CreateWithholdQrcodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 二维码图片链接地址
         self.qr_code_url = qr_code_url
@@ -10665,7 +10665,6 @@ class CancelContractPaysingletradeRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 智能合同id
         self.flow_id = flow_id
@@ -10713,8 +10712,9 @@ class CancelContractPaysingletradeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码，0表示成功
         self.code = code
@@ -10767,7 +10767,6 @@ class ApplyContractCallbackkeyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -10802,8 +10801,9 @@ class ApplyContractCallbackkeyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 加签使用的key
         self.key = key
@@ -10867,7 +10867,6 @@ class CreateContractOnestepflowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 是否自动归档，默认false。
         self.auto_archive = auto_archive
@@ -10989,8 +10988,9 @@ class CreateContractOnestepflowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -11044,7 +11044,6 @@ class QueryContractNotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署流程ID
         self.flow_id = flow_id
@@ -11085,8 +11084,9 @@ class QueryContractNotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -11151,7 +11151,6 @@ class CreateEcocontractTransRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证关联实体（个人/企业）的身份识别信息
         self.customer = customer
@@ -11212,8 +11211,9 @@ class CreateEcocontractTransResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回事务ID，全局唯一
         self.transaction_id = transaction_id
@@ -11269,7 +11269,6 @@ class CreateEcocontractTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署结束信息，phase为FINISH时必选
         self.finish_info = finish_info
@@ -11358,8 +11357,9 @@ class CreateEcocontractTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证凭据,
         self.tx_hash = tx_hash
@@ -11402,7 +11402,6 @@ class QueryContractWordspositionRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文档id
         self.file_id = file_id
@@ -11451,8 +11450,9 @@ class QueryContractWordspositionResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -11521,7 +11521,6 @@ class DeleteContractSignerRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署流程ID
         self.flow_id = flow_id
@@ -11568,8 +11567,9 @@ class DeleteContractSignerResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -11617,7 +11617,6 @@ class GetContractCertificateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署流程ID
         self.flow_id = flow_id
@@ -11658,8 +11657,9 @@ class GetContractCertificateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 下载文件地址(一小时内有效)
         self.url = url
@@ -11714,7 +11714,6 @@ class CheckEpidentityTwometaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证企业名称。
         self.ep_cert_name = ep_cert_name
@@ -11763,8 +11762,9 @@ class CheckEpidentityTwometaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业状态。
         self.enterprise_status = enterprise_status
@@ -11826,7 +11826,6 @@ class CheckEpidentityThreemetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证企业名称。
         self.ep_cert_name = ep_cert_name
@@ -11882,8 +11881,9 @@ class CheckEpidentityThreemetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业状态。
         self.enterprise_status = enterprise_status
@@ -11946,7 +11946,6 @@ class CheckEpidentityFourmetaRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证企业名称。
         self.ep_cert_name = ep_cert_name
@@ -12009,8 +12008,9 @@ class CheckEpidentityFourmetaResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 企业状态。
         self.enterprise_status = enterprise_status
@@ -12070,7 +12070,6 @@ class CheckNotarizationOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 公证订单ID号
         self.order_id = order_id
@@ -12113,8 +12112,9 @@ class CheckNotarizationOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 下单的业务类型ID列表
         self.biz_id = biz_id
@@ -12182,7 +12182,6 @@ class UpdateNotarizationOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 公证订单ID
         self.order_id = order_id
@@ -12235,8 +12234,9 @@ class UpdateNotarizationOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态是否更新成功
         self.accepted = accepted
@@ -12287,7 +12287,6 @@ class SetNotarizationOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 公证事项ID
         self.biz_code = biz_code
@@ -12347,8 +12346,9 @@ class SetNotarizationOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否设置成功
         self.accepted = accepted
@@ -12398,7 +12398,6 @@ class InitIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 认证人的姓名
         self.cert_name = cert_name
@@ -12450,8 +12449,9 @@ class InitIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 发起一个实人认证流程，获取到流程ID
         self.certify_id = certify_id
@@ -12496,7 +12496,6 @@ class CertifyIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实人认证流程ID
         self.certify_id = certify_id
@@ -12554,8 +12553,9 @@ class CertifyIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 实人认证流程ID
         self.certify_id = certify_id
@@ -12604,7 +12604,6 @@ class QueryIdentificationFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实人认证流程ID
         self.certify_id = certify_id
@@ -12650,8 +12649,9 @@ class QueryIdentificationFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 实人认证流程ID
         self.certify_id = certify_id
@@ -12699,7 +12699,6 @@ class QueryEnterpriseFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业法人认证查询
         self.biz_no = biz_no
@@ -12740,8 +12739,9 @@ class QueryEnterpriseFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 认证唯一性标识
         self.biz_no = biz_no
@@ -12799,7 +12799,6 @@ class InitEnterpriseFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 企业名称
         self.ep_cert_name = ep_cert_name
@@ -12866,8 +12865,9 @@ class InitEnterpriseFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 本次认证的业务唯一性标示
         self.biz_no = biz_no
@@ -12911,7 +12911,6 @@ class CertifyEnterpriseFaceauthRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务唯一性标识
         self.biz_no = biz_no
@@ -12963,8 +12962,9 @@ class CertifyEnterpriseFaceauthResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务唯一性标识
         self.biz_no = biz_no
@@ -13034,7 +13034,6 @@ class CreateLeaseOrderRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 账号标识，可弃用
         self.account_id = account_id
@@ -13230,8 +13229,9 @@ class CreateLeaseOrderResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
         self.success = success
@@ -13291,7 +13291,6 @@ class CreateNotarizationBillRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 支付宝交易订单号
         self.alipay_order_no = alipay_order_no
@@ -13441,8 +13440,9 @@ class CreateNotarizationBillResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 计费订单是否创建成功
         self.accepted = accepted
@@ -13486,7 +13486,6 @@ class InitCertificationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 申请人的身份信息
         self.applier = applier
@@ -13553,8 +13552,9 @@ class InitCertificationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回值状态码，0000则为成功
         self.code = code
@@ -13614,7 +13614,6 @@ class QueryCertificationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证证明申请的订单ID
         self.order_id = order_id
@@ -13655,8 +13654,9 @@ class QueryCertificationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证证明的证书信息列表
         self.certificate_info = certificate_info
@@ -13717,7 +13717,6 @@ class GetTsrCertificateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -13749,8 +13748,9 @@ class GetTsrCertificateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -13807,7 +13807,6 @@ class SaveJointconstraintRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 收款账户
         self.beneficiary_account_code = beneficiary_account_code
@@ -14030,8 +14029,9 @@ class SaveJointconstraintRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14071,7 +14071,6 @@ class DeleteJointconstraintRecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同编号
         # 
@@ -14151,8 +14150,9 @@ class DeleteJointconstraintRecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -14190,7 +14190,6 @@ class QueryJointconstraintBreachrecordRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询对象实体类型
         # 
@@ -14254,8 +14253,9 @@ class QueryJointconstraintBreachrecordResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否存在履行记录
         # 
@@ -14309,7 +14309,6 @@ class ApplyJusticeMediationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 机构码 由蚂蚁分配
         self.product_code = product_code
@@ -14363,8 +14362,9 @@ class ApplyJusticeMediationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -14413,7 +14413,6 @@ class QueryJusticeMediationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 产品码 由蚂蚁分配
         # 
@@ -14462,8 +14461,9 @@ class QueryJusticeMediationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务码，0表示成功
         self.code = code
@@ -14508,6 +14508,136 @@ class QueryJusticeMediationResponse(TeaModel):
         return self
 
 
+class CreateLeaseAssetagentregisterRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_lease_id: str = None,
+        contract_id: str = None,
+        lease_corp_id: str = None,
+        lease_corp_name: str = None,
+        lease_corp_owner_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被代理机构的金融科技租户id
+        self.agent_lease_id = agent_lease_id
+        # 代理合同id，作为存证使用
+        self.contract_id = contract_id
+        # 被代理租赁机构统一社会信用码
+        # 
+        # 
+        self.lease_corp_id = lease_corp_id
+        # 被代理租赁机构名称
+        self.lease_corp_name = lease_corp_name
+        # 被代理租赁机构法人姓名
+        self.lease_corp_owner_name = lease_corp_owner_name
+
+    def validate(self):
+        self.validate_required(self.agent_lease_id, 'agent_lease_id')
+        self.validate_required(self.contract_id, 'contract_id')
+        self.validate_required(self.lease_corp_id, 'lease_corp_id')
+        self.validate_required(self.lease_corp_name, 'lease_corp_name')
+        self.validate_required(self.lease_corp_owner_name, 'lease_corp_owner_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_lease_id is not None:
+            result['agent_lease_id'] = self.agent_lease_id
+        if self.contract_id is not None:
+            result['contract_id'] = self.contract_id
+        if self.lease_corp_id is not None:
+            result['lease_corp_id'] = self.lease_corp_id
+        if self.lease_corp_name is not None:
+            result['lease_corp_name'] = self.lease_corp_name
+        if self.lease_corp_owner_name is not None:
+            result['lease_corp_owner_name'] = self.lease_corp_owner_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_lease_id') is not None:
+            self.agent_lease_id = m.get('agent_lease_id')
+        if m.get('contract_id') is not None:
+            self.contract_id = m.get('contract_id')
+        if m.get('lease_corp_id') is not None:
+            self.lease_corp_id = m.get('lease_corp_id')
+        if m.get('lease_corp_name') is not None:
+            self.lease_corp_name = m.get('lease_corp_name')
+        if m.get('lease_corp_owner_name') is not None:
+            self.lease_corp_owner_name = m.get('lease_corp_owner_name')
+        return self
+
+
+class CreateLeaseAssetagentregisterResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_error_code: str = None,
+        biz_error_msg: str = None,
+        tx_hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务层错误码
+        self.biz_error_code = biz_error_code
+        # 错误信息描述
+        self.biz_error_msg = biz_error_msg
+        # 代理关系链上存证哈希
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_error_code is not None:
+            result['biz_error_code'] = self.biz_error_code
+        if self.biz_error_msg is not None:
+            result['biz_error_msg'] = self.biz_error_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_error_code') is not None:
+            self.biz_error_code = m.get('biz_error_code')
+        if m.get('biz_error_msg') is not None:
+            self.biz_error_msg = m.get('biz_error_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
 class CreateWitnessFlowRequest(TeaModel):
     def __init__(
         self,
@@ -14531,7 +14661,6 @@ class CreateWitnessFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务场景，最大255长度
         self.business_scene = business_scene
@@ -14662,8 +14791,9 @@ class CreateWitnessFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -14730,7 +14860,6 @@ class SaveWitnessSnapshotRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 快照数据
         self.data = data
@@ -14805,8 +14934,9 @@ class SaveWitnessSnapshotResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -14869,7 +14999,6 @@ class CheckWitnessSignaccessRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审批流程id
         self.approval_flow_id = approval_flow_id
@@ -15018,8 +15147,9 @@ class CheckWitnessSignaccessResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 有权限的印章id列表
         self.access_seal_ids = access_seal_ids
@@ -15108,7 +15238,6 @@ class AuthWitnessFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起请求的实例应用ID
         self.app_id = app_id
@@ -15248,8 +15377,9 @@ class AuthWitnessFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -15347,7 +15477,6 @@ class ConfirmWitnessFlowRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署确认数据
         self.confirm_datas = confirm_datas
@@ -15436,8 +15565,9 @@ class ConfirmWitnessFlowResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -15488,7 +15618,6 @@ class CreateTransRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证关联实体（个人/企业）的身份识别信息
         self.customer = customer
@@ -15549,8 +15678,9 @@ class CreateTransResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回事务ID，全局唯一
         self.transaction_id = transaction_id
@@ -15600,7 +15730,6 @@ class GetTransRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证事务ID
         self.transaction_id = transaction_id
@@ -15640,8 +15769,9 @@ class GetTransResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回文件下载路径列表
         self.file_url = file_url
@@ -15696,7 +15826,6 @@ class CreateTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -15783,8 +15912,9 @@ class CreateTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -15838,7 +15968,6 @@ class GetTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -15907,8 +16036,9 @@ class GetTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证信息
         self.content = content
@@ -15978,7 +16108,6 @@ class CreateFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文件存证模式，目前仅支持 FILE_RAW 和 FILE_HASH
         self.file_notary_type = file_notary_type
@@ -16072,8 +16201,9 @@ class CreateFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -16127,7 +16257,6 @@ class GetFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -16196,8 +16325,9 @@ class GetFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件哈希，当 file_notary_type 为 FILE_HASH 时才有此值。
         self.file_hash = file_hash
@@ -16264,7 +16394,6 @@ class CreateSourceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -16353,8 +16482,9 @@ class CreateSourceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -16408,7 +16538,6 @@ class GetSourceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
         self.location = location
@@ -16474,8 +16603,9 @@ class GetSourceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件下载地址
         self.oss_path = oss_path
@@ -16517,7 +16647,6 @@ class CheckStatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证核验数据组
         self.notary_check_meta_list = notary_check_meta_list
@@ -16565,8 +16694,9 @@ class CheckStatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证核验结果
         self.notary_check_results = notary_check_results
@@ -16616,7 +16746,6 @@ class DeployLeaseContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁服务平台对应的合约ID
         self.contract_id = contract_id
@@ -16657,8 +16786,9 @@ class DeployLeaseContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0表示成功
@@ -16726,7 +16856,6 @@ class CreateLeaseProductinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约id
         self.application_id = application_id
@@ -16863,8 +16992,9 @@ class CreateLeaseProductinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -16918,7 +17048,6 @@ class AuthLeaseContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资服务平台ID 长度不可超过50
         self.credit_id = credit_id
@@ -16959,8 +17088,9 @@ class AuthLeaseContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0表示成功
@@ -17034,7 +17164,6 @@ class CreateLeaseUserinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 支付宝账号信息
         self.alipay_uid = alipay_uid
@@ -17202,8 +17331,9 @@ class CreateLeaseUserinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -17307,7 +17437,6 @@ class CreateLeaseOrderinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 实际预授权金额，芝麻信用免押金额 精确到毫厘，即123400表示12.34元
         self.acutal_pre_auth_free = acutal_pre_auth_free
@@ -17678,8 +17807,9 @@ class CreateLeaseOrderinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0 表示成功
@@ -17748,7 +17878,6 @@ class CreateLeasePromiseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成返回
         self.application_id = application_id
@@ -17884,8 +18013,9 @@ class CreateLeasePromiseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         self.code = code
@@ -17959,7 +18089,6 @@ class CreateLeaseVerifyinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成返回
         self.application_id = application_id
@@ -18122,8 +18251,9 @@ class CreateLeaseVerifyinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0表示成功
@@ -18193,7 +18323,6 @@ class CreateLeaseCreditpromiseRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台创建返回
         self.application_id = application_id
@@ -18330,8 +18459,9 @@ class CreateLeaseCreditpromiseResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0表示成功
@@ -18402,7 +18532,6 @@ class CreateLeaseDisburseinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 共管账户，网商清分
         self.active_account = active_account
@@ -18555,8 +18684,9 @@ class CreateLeaseDisburseinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 0表示成功
@@ -18614,7 +18744,6 @@ class QueryLeaseOrderinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成返回
         self.application_id = application_id
@@ -18674,8 +18803,9 @@ class QueryLeaseOrderinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         # 0表示成功
@@ -18740,7 +18870,6 @@ class CreateFinanceTextnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 反欺诈查询对应的身份证号码
         self.cert_no = cert_no
@@ -18847,8 +18976,9 @@ class CreateFinanceTextnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 反欺诈对应的信用值
         self.credit_risk_score = credit_risk_score
@@ -18908,7 +19038,6 @@ class GetFinanceTextnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 位置信息
         self.location = location
@@ -18978,8 +19107,9 @@ class GetFinanceTextnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 哈希算法
         self.hash_algorithm = hash_algorithm
@@ -19063,7 +19193,6 @@ class CreateFinanceFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 反欺诈需要的证件号码
         self.cert_no = cert_no
@@ -19209,8 +19338,9 @@ class CreateFinanceFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 反欺诈查询返回的信用值
         self.credit_risk_score = credit_risk_score
@@ -19270,7 +19400,6 @@ class GetFinanceFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 位置信息
         self.location = location
@@ -19342,8 +19471,9 @@ class GetFinanceFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证文件名称
         self.file_name = file_name
@@ -19424,7 +19554,6 @@ class CheckIndustryNotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 行业类型
         self.industry_type = industry_type
@@ -19479,8 +19608,9 @@ class CheckIndustryNotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 核验结果数组
         self.notary_check_results = notary_check_results
@@ -19531,7 +19661,6 @@ class UpdateLeaseContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被升级的合约名称
         self.contract_id = contract_id
@@ -19578,8 +19707,9 @@ class UpdateLeaseContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -19648,7 +19778,6 @@ class CreateSueBreakpromiseinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同唯一标识
         # 
@@ -19790,8 +19919,9 @@ class CreateSueBreakpromiseinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 成功插入违约数据到区块链的交易哈希
         self.response_data = response_data
@@ -19854,7 +19984,6 @@ class UpdateSueBreakpromiseinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同唯一标识，不可更新
         # 
@@ -19954,8 +20083,9 @@ class UpdateSueBreakpromiseinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 违约案件信息提交对应的区块链交易哈希
         self.response_data = response_data
@@ -20011,7 +20141,6 @@ class DeleteSueBreakpromiseinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合同唯一标识，不可更新
         self.order_id = order_id
@@ -20059,8 +20188,9 @@ class DeleteSueBreakpromiseinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 违约案件信息提交对应的区块链交易哈希
         self.response_data = response_data
@@ -20114,7 +20244,6 @@ class QuerySueUserinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被查者身份证号
         self.user_id = user_id
@@ -20155,8 +20284,9 @@ class QuerySueUserinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -20210,7 +20340,6 @@ class UpdateSueExeplarycontractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约名称
         self.contract_id = contract_id
@@ -20251,8 +20380,9 @@ class UpdateSueExeplarycontractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0xabcdef123324234
         self.response_data = response_data
@@ -20306,7 +20436,6 @@ class UpdateSueExemplaryrevertRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 用户管理合约id
         self.contract_id = contract_id
@@ -20347,8 +20476,9 @@ class UpdateSueExemplaryrevertResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 回退合约所对应的区块链交易哈希
         self.response_data = response_data
@@ -20412,7 +20542,6 @@ class CreateLeaseAuditRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台创建返回
         self.application_id = application_id
@@ -20518,8 +20647,9 @@ class CreateLeaseAuditResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示成功
         self.code = code
@@ -20582,7 +20712,6 @@ class CreateLeasePaymentfileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成
         self.application_id = application_id
@@ -20673,8 +20802,9 @@ class CreateLeasePaymentfileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         # 
@@ -20744,7 +20874,6 @@ class CreateLeaseRentalRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成返回
         self.application_id = application_id
@@ -20880,8 +21009,9 @@ class CreateLeaseRentalResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -20948,7 +21078,6 @@ class CreateLeaseClearingRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台创建返回
         self.application_id = application_id
@@ -21069,8 +21198,9 @@ class CreateLeaseClearingResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -21145,7 +21275,6 @@ class CreateLeaseRepaymentRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 融资租赁业务id，由资方控制台生成返回
         self.application_id = application_id
@@ -21314,8 +21443,9 @@ class CreateLeaseRepaymentResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码 0表示成功
         self.code = code
@@ -21368,7 +21498,6 @@ class CreateLeaseNotifyregisterRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
 
     def validate(self):
@@ -21402,8 +21531,9 @@ class CreateLeaseNotifyregisterResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 0表示成功
         self.code = code
@@ -21453,7 +21583,6 @@ class QueryLeaseIotinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 查询截止时间
         self.end_time = end_time
@@ -21508,8 +21637,9 @@ class QueryLeaseIotinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -21580,7 +21710,6 @@ class CreateCourtTextnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 对应的法院编号
         self.agency_code = agency_code
@@ -21679,8 +21808,9 @@ class CreateCourtTextnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间戳
         self.tsr = tsr
@@ -21734,7 +21864,6 @@ class GetCourtTextnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 地理位置信息
         self.location = location
@@ -21805,8 +21934,9 @@ class GetCourtTextnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务类型标识
         self.business_type = business_type
@@ -21891,7 +22021,6 @@ class CreateCourtFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 对应的法院编号
         self.agency_code = agency_code
@@ -22004,8 +22133,9 @@ class CreateCourtFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间戳
         self.tsr = tsr
@@ -22059,7 +22189,6 @@ class GetCourtFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 地理位置信息
         self.location = location
@@ -22131,8 +22260,9 @@ class GetCourtFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 业务类型标识
         self.business_type = business_type
@@ -22213,7 +22343,6 @@ class CreateLeaseRouteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 方法名
         self.route = route
@@ -22261,8 +22390,9 @@ class CreateLeaseRouteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         # 
@@ -22321,7 +22451,6 @@ class QueryLeaseEncryptedinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 被查询的租赁公司对应的租户ID
         self.lease_id = lease_id
@@ -22375,8 +22504,9 @@ class QueryLeaseEncryptedinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -22436,7 +22566,6 @@ class CreateContractTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署结束信息，phase为FINISH时必选
         self.finish_info = finish_info
@@ -22525,8 +22654,9 @@ class CreateContractTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证凭据
         self.tx_hash = tx_hash
@@ -22573,7 +22703,6 @@ class ApplyContractReportRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署文件存档阶段存证核验信息
         self.document_info = document_info
@@ -22670,8 +22799,9 @@ class ApplyContractReportResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 出证报告授权码，通过核验后获得
         self.auth_code = auth_code
@@ -22713,7 +22843,6 @@ class GetContractTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证凭据
         self.tx_hash = tx_hash
@@ -22752,8 +22881,9 @@ class GetContractTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证信息对象的JSON序列化形式
         self.notary_data = notary_data
@@ -22799,7 +22929,6 @@ class CreateInternalTransRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证关联实体（个人/企业）的身份识别信息
         self.customer = customer
@@ -22866,8 +22995,9 @@ class CreateInternalTransResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回事务ID，全局唯一
         self.transaction_id = transaction_id
@@ -22925,7 +23055,6 @@ class CreateInternalTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 哈希算法，目前仅支持 SHA256
         self.hash_algorithm = hash_algorithm
@@ -23018,8 +23147,9 @@ class CreateInternalTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -23075,7 +23205,6 @@ class CreateLeaseTextRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 哈希算法，目前仅支持 SHA256
         self.hash_algorithm = hash_algorithm
@@ -23155,8 +23284,9 @@ class CreateLeaseTextResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 入参中传入的存证阶段，可同用于租赁存证列表(twc.notary.lease.notary.list)的记录对账
         self.phase = phase
@@ -23205,7 +23335,6 @@ class CreateLeaseFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 文件存证模式，目前仅支持 FILE_RAW 和 FILE_HASH
         self.file_notary_type = file_notary_type
@@ -23292,8 +23421,9 @@ class CreateLeaseFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 入参中的存证阶段信息，可同用于租赁存证列表(twc.notary.lease.notary.list)的记录对账
         self.phase = phase
@@ -23337,7 +23467,6 @@ class ListLeaseNotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 商户订单号，需要同twc.notary.lease.order.create接口的传参一致
         self.merchant_order_no = merchant_order_no
@@ -23388,8 +23517,9 @@ class ListLeaseNotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证记录列表
         self.records = records
@@ -23440,7 +23570,6 @@ class QueryLeaseApplicationRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 每页的大小
         self.page_size = page_size
@@ -23488,8 +23617,9 @@ class QueryLeaseApplicationResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -23543,7 +23673,6 @@ class QueryLeaseApplicationdetailinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约id
         self.application_id = application_id
@@ -23584,8 +23713,9 @@ class QueryLeaseApplicationdetailinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码
         self.code = code
@@ -23642,7 +23772,6 @@ class SetLeaseRepaymentstatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁机构金融科技租户Id
         self.lease_id = lease_id
@@ -23703,8 +23832,9 @@ class SetLeaseRepaymentstatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态重置对应的链上交易哈希
         self.response_data = response_data
@@ -23766,7 +23896,6 @@ class CreateLeaseSupplierinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁方及资方定义的合约id
         self.application_id = application_id
@@ -23871,8 +24000,9 @@ class CreateLeaseSupplierinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码，0表示成功
         self.code = code
@@ -23926,7 +24056,6 @@ class DeployMytfTappRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # tappId
         self.tapp_id = tapp_id
@@ -23964,8 +24093,9 @@ class DeployMytfTappResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -24009,7 +24139,6 @@ class CreateLeaseSupplierdynamicinfoRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 合约id
         self.application_id = application_id
@@ -24101,8 +24230,9 @@ class CreateLeaseSupplierdynamicinfoResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 状态码
         self.code = code
@@ -24157,7 +24287,6 @@ class CreateLeaseBizRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁订单相关内容，以json形式发送
         self.biz_content = biz_content
@@ -24205,8 +24334,9 @@ class CreateLeaseBizResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 租赁信息上链后，链上对应的txHash
         self.response_data = response_data
@@ -24261,7 +24391,6 @@ class QueryLeaseProofRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务逻辑的订单id
         self.order_id = order_id
@@ -24307,8 +24436,9 @@ class QueryLeaseProofResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 核验结果数据
         self.response_data = response_data
@@ -24356,7 +24486,6 @@ class CreateLargefileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 上传至中枢文件扩展服务后得到的文件ID
         self.file_id = file_id
@@ -24438,8 +24567,9 @@ class CreateLargefileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 可信时间信息
         self.tsr = tsr
@@ -24490,7 +24620,6 @@ class QueryLeaseBizRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租赁订单相关内容，以json形式发送
         self.biz_content = biz_content
@@ -24536,8 +24665,9 @@ class QueryLeaseBizResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 返回的查询值
         self.response_data = response_data
@@ -24582,7 +24712,6 @@ class CreateLeaseBiznotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 要存证的文件哈希
         self.hash = hash
@@ -24643,8 +24772,9 @@ class CreateLeaseBiznotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否租赁宝存证哈希成功，成功则为0，否则不为0
         self.code = code
@@ -24698,7 +24828,6 @@ class CreateInternalContractRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 签署结束信息，phase为FINISH时必选
         self.finish_info = finish_info
@@ -24787,8 +24916,9 @@ class CreateInternalContractResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证凭据
         self.tx_hash = tx_hash
@@ -24838,7 +24968,6 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 订单id
         self.order_id = order_id
@@ -24931,8 +25060,9 @@ class CreateLeaseZftagreementsignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码描述
         self.err_message = err_message
@@ -24990,7 +25120,6 @@ class CreateLeaseZftagreementunsignRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 订单id
         self.order_id = order_id
@@ -25059,8 +25188,9 @@ class CreateLeaseZftagreementunsignResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 错误码描述信息
         self.err_message = err_message
@@ -25114,7 +25244,6 @@ class GetCertificateDetailRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 存证哈希地址
         self.tx_hash = tx_hash
@@ -25155,8 +25284,9 @@ class GetCertificateDetailResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证证明下载地址
         self.url = url

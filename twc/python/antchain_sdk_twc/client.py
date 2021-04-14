@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.145'
+                    'sdk_version': '1.4.147'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.145'
+                    'sdk_version': '1.4.147'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5029,6 +5029,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryJusticeMediationResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.justice.mediation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_assetagentregister(
+        self,
+        request: twc_models.CreateLeaseAssetagentregisterRequest,
+    ) -> twc_models.CreateLeaseAssetagentregisterResponse:
+        """
+        Description: 租赁平台isv模式代理商户入驻
+        Summary: 租赁平台isv模式代理商户入驻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_assetagentregister_ex(request, headers, runtime)
+
+    async def create_lease_assetagentregister_async(
+        self,
+        request: twc_models.CreateLeaseAssetagentregisterRequest,
+    ) -> twc_models.CreateLeaseAssetagentregisterResponse:
+        """
+        Description: 租赁平台isv模式代理商户入驻
+        Summary: 租赁平台isv模式代理商户入驻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_assetagentregister_ex_async(request, headers, runtime)
+
+    def create_lease_assetagentregister_ex(
+        self,
+        request: twc_models.CreateLeaseAssetagentregisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAssetagentregisterResponse:
+        """
+        Description: 租赁平台isv模式代理商户入驻
+        Summary: 租赁平台isv模式代理商户入驻
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseAssetagentregisterResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_assetagentregister_ex_async(
+        self,
+        request: twc_models.CreateLeaseAssetagentregisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseAssetagentregisterResponse:
+        """
+        Description: 租赁平台isv模式代理商户入驻
+        Summary: 租赁平台isv模式代理商户入驻
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateLeaseAssetagentregisterResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
