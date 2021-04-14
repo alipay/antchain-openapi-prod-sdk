@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateLeaseContractResponse extends Model
+class CreateLeaseAssetagentregisterResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,31 +26,30 @@ class UpdateLeaseContractResponse extends Model
      */
     public $resultMsg;
 
-    // 状态码 0表示成功
-    /**
-     * @var int
-     */
-    public $code;
-
-    // 错误信息
-    //
+    // 业务层错误码
     /**
      * @var string
      */
-    public $errMessage;
+    public $bizErrorCode;
 
-    // 升级合约所在的区块链交易哈希
+    // 错误信息描述
     /**
      * @var string
      */
-    public $responseData;
+    public $bizErrorMsg;
+
+    // 代理关系链上存证哈希
+    /**
+     * @var string
+     */
+    public $txHash;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
-        'code'         => 'code',
-        'errMessage'   => 'err_message',
-        'responseData' => 'response_data',
+        'bizErrorCode' => 'biz_error_code',
+        'bizErrorMsg'  => 'biz_error_msg',
+        'txHash'       => 'tx_hash',
     ];
 
     public function validate()
@@ -69,14 +68,14 @@ class UpdateLeaseContractResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
+        if (null !== $this->bizErrorCode) {
+            $res['biz_error_code'] = $this->bizErrorCode;
         }
-        if (null !== $this->errMessage) {
-            $res['err_message'] = $this->errMessage;
+        if (null !== $this->bizErrorMsg) {
+            $res['biz_error_msg'] = $this->bizErrorMsg;
         }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
         }
 
         return $res;
@@ -85,7 +84,7 @@ class UpdateLeaseContractResponse extends Model
     /**
      * @param array $map
      *
-     * @return UpdateLeaseContractResponse
+     * @return CreateLeaseAssetagentregisterResponse
      */
     public static function fromMap($map = [])
     {
@@ -99,14 +98,14 @@ class UpdateLeaseContractResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
+        if (isset($map['biz_error_code'])) {
+            $model->bizErrorCode = $map['biz_error_code'];
         }
-        if (isset($map['err_message'])) {
-            $model->errMessage = $map['err_message'];
+        if (isset($map['biz_error_msg'])) {
+            $model->bizErrorMsg = $map['biz_error_msg'];
         }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
+        if (isset($map['tx_hash'])) {
+            $model->txHash = $map['tx_hash'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseBiznotaryRequest extends Model
+class CreateLeaseAssetagentregisterRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,33 @@ class CreateLeaseBiznotaryRequest extends Model
      */
     public $productInstanceId;
 
-    // 要存证的文件哈希
+    // 被代理机构的金融科技租户id
     /**
      * @var string
      */
-    public $hash;
+    public $agentLeaseId;
 
-    // 租赁机构社会统一信用码
+    // 代理合同id，作为存证使用
+    /**
+     * @var string
+     */
+    public $contractId;
+
+    // 被代理租赁机构统一社会信用码
+    //
+    //
     /**
      * @var string
      */
     public $leaseCorpId;
 
-    // 租赁机构公司名称
+    // 被代理租赁机构名称
     /**
      * @var string
      */
     public $leaseCorpName;
 
-    // 租赁机构法人姓名
+    // 被代理租赁机构法人姓名
     /**
      * @var string
      */
@@ -45,7 +53,8 @@ class CreateLeaseBiznotaryRequest extends Model
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
-        'hash'               => 'hash',
+        'agentLeaseId'       => 'agent_lease_id',
+        'contractId'         => 'contract_id',
         'leaseCorpId'        => 'lease_corp_id',
         'leaseCorpName'      => 'lease_corp_name',
         'leaseCorpOwnerName' => 'lease_corp_owner_name',
@@ -53,7 +62,8 @@ class CreateLeaseBiznotaryRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('hash', $this->hash, true);
+        Model::validateRequired('agentLeaseId', $this->agentLeaseId, true);
+        Model::validateRequired('contractId', $this->contractId, true);
         Model::validateRequired('leaseCorpId', $this->leaseCorpId, true);
         Model::validateRequired('leaseCorpName', $this->leaseCorpName, true);
         Model::validateRequired('leaseCorpOwnerName', $this->leaseCorpOwnerName, true);
@@ -68,8 +78,11 @@ class CreateLeaseBiznotaryRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->hash) {
-            $res['hash'] = $this->hash;
+        if (null !== $this->agentLeaseId) {
+            $res['agent_lease_id'] = $this->agentLeaseId;
+        }
+        if (null !== $this->contractId) {
+            $res['contract_id'] = $this->contractId;
         }
         if (null !== $this->leaseCorpId) {
             $res['lease_corp_id'] = $this->leaseCorpId;
@@ -87,7 +100,7 @@ class CreateLeaseBiznotaryRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateLeaseBiznotaryRequest
+     * @return CreateLeaseAssetagentregisterRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,8 +111,11 @@ class CreateLeaseBiznotaryRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['hash'])) {
-            $model->hash = $map['hash'];
+        if (isset($map['agent_lease_id'])) {
+            $model->agentLeaseId = $map['agent_lease_id'];
+        }
+        if (isset($map['contract_id'])) {
+            $model->contractId = $map['contract_id'];
         }
         if (isset($map['lease_corp_id'])) {
             $model->leaseCorpId = $map['lease_corp_id'];

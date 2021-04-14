@@ -14,7 +14,6 @@ class CreateLeasePromiseRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

@@ -14,7 +14,6 @@ class CreateLeaseTextRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */

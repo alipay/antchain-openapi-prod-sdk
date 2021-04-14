@@ -121,6 +121,8 @@ use AntChain\TWC\Models\CreateInternalTransRequest;
 use AntChain\TWC\Models\CreateInternalTransResponse;
 use AntChain\TWC\Models\CreateLargefileRequest;
 use AntChain\TWC\Models\CreateLargefileResponse;
+use AntChain\TWC\Models\CreateLeaseAssetagentregisterRequest;
+use AntChain\TWC\Models\CreateLeaseAssetagentregisterResponse;
 use AntChain\TWC\Models\CreateLeaseAuditRequest;
 use AntChain\TWC\Models\CreateLeaseAuditResponse;
 use AntChain\TWC\Models\CreateLeaseBiznotaryRequest;
@@ -478,7 +480,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.145',
+                    'sdk_version'      => '1.4.147',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3430,6 +3432,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryJusticeMediationResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.mediation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁平台isv模式代理商户入驻
+     * Summary: 租赁平台isv模式代理商户入驻.
+     *
+     * @param CreateLeaseAssetagentregisterRequest $request
+     *
+     * @return CreateLeaseAssetagentregisterResponse
+     */
+    public function createLeaseAssetagentregister($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseAssetagentregisterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁平台isv模式代理商户入驻
+     * Summary: 租赁平台isv模式代理商户入驻.
+     *
+     * @param CreateLeaseAssetagentregisterRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateLeaseAssetagentregisterResponse
+     */
+    public function createLeaseAssetagentregisterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseAssetagentregisterResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
