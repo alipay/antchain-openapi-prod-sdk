@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.145',
+    sdk_version = '1.4.147',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -942,7 +942,6 @@ model TsrResponse {
 model CallbackArbitrationStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 案件文书号
   acceptanceNumber?: string(name='acceptance_number'),
@@ -961,8 +960,9 @@ model CallbackArbitrationStatusRequest = {
 model CallbackArbitrationStatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -988,7 +988,6 @@ async function callbackArbitrationStatusEx(request: CallbackArbitrationStatusReq
 model CreateContractAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 邮箱地址，默认空	
   email?: string(name='email'),
@@ -1007,8 +1006,9 @@ model CreateContractAccountRequest = {
 model CreateContractAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 个人账号ID
   accountId?: string(name='account_id'),
@@ -1040,7 +1040,6 @@ async function createContractAccountEx(request: CreateContractAccountRequest, he
 model CreateContractAccountsealRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 电子合同用户ID（在twc.notary.contract.account.create接口中创建）
   accountId: string(name='account_id'),
@@ -1059,8 +1058,9 @@ model CreateContractAccountsealRequest = {
 model CreateContractAccountsealResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1096,7 +1096,6 @@ async function createContractAccountsealEx(request: CreateContractAccountsealReq
 model CreateContractOrganizationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 创建人个人账号ID，也就是调用个人账号创建接口（twc.notary.contract.account.create
   // ）返回的accountId
@@ -1118,8 +1117,9 @@ model CreateContractOrganizationRequest = {
 model CreateContractOrganizationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1153,7 +1153,6 @@ async function createContractOrganizationEx(request: CreateContractOrganizationR
 model CreateContractOrgsealRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 印章别名
   alias?: string(name='alias'),
@@ -1178,8 +1177,9 @@ model CreateContractOrgsealRequest = {
 model CreateContractOrgsealResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1215,7 +1215,6 @@ async function createContractOrgsealEx(request: CreateContractOrgsealRequest, he
 model AuthContractSignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授权人ID，即个人账号ID或机构账号ID
   accountId: string(name='account_id'),
@@ -1226,8 +1225,9 @@ model AuthContractSignRequest = {
 model AuthContractSignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1259,7 +1259,6 @@ async function authContractSignEx(request: AuthContractSignRequest, headers: map
 model CreateContractTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 模板文件md5值，再做base64编码
   contentMd5: string(name='content_md5'),
@@ -1274,8 +1273,9 @@ model CreateContractTemplateRequest = {
 model CreateContractTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1309,7 +1309,6 @@ async function createContractTemplateEx(request: CreateContractTemplateRequest, 
 model CreateContractFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否自动归档，默认false。如设置为true，则在调用签署流程开启(twc.notary.contract.flow.start)后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用签署流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
   autoArchive?: boolean(name='auto_archive'),
@@ -1332,8 +1331,9 @@ model CreateContractFlowRequest = {
 model CreateContractFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1365,7 +1365,6 @@ async function createContractFlowEx(request: CreateContractFlowRequest, headers:
 model AddContractDocumentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程ID
   flowId: string(name='flow_id'),
@@ -1376,8 +1375,9 @@ model AddContractDocumentRequest = {
 model AddContractDocumentResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1407,7 +1407,6 @@ async function addContractDocumentEx(request: AddContractDocumentRequest, header
 model AddContractSignfieldRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署流程ID
   flowId: string(name='flow_id'),
@@ -1418,8 +1417,9 @@ model AddContractSignfieldRequest = {
 model AddContractSignfieldResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1451,7 +1451,6 @@ async function addContractSignfieldEx(request: AddContractSignfieldRequest, head
 model StartContractFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程ID
   flowId: string(name='flow_id'),
@@ -1460,8 +1459,9 @@ model StartContractFlowRequest = {
 model StartContractFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1491,7 +1491,6 @@ async function startContractFlowEx(request: StartContractFlowRequest, headers: m
 model SaveContractFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程ID
   flowId: string(name='flow_id'),
@@ -1500,8 +1499,9 @@ model SaveContractFlowRequest = {
 model SaveContractFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1531,7 +1531,6 @@ async function saveContractFlowEx(request: SaveContractFlowRequest, headers: map
 model DownloadContractDocumentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程ID
   flowId: string(name='flow_id'),
@@ -1540,8 +1539,9 @@ model DownloadContractDocumentRequest = {
 model DownloadContractDocumentResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1573,7 +1573,6 @@ async function downloadContractDocumentEx(request: DownloadContractDocumentReque
 model AddContractFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 文件名称
   name: string(name='name'),
@@ -1586,8 +1585,9 @@ model AddContractFileRequest = {
 model AddContractFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件下载地址，有效期一小时
   downloadUrl?: string(name='download_url'),
@@ -1623,7 +1623,6 @@ async function addContractFileEx(request: AddContractFileRequest, headers: map[s
 model CreateContractPlatformRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 平台方经办人信息
   creator: ContractAccountApplication(name='creator'),
@@ -1634,8 +1633,9 @@ model CreateContractPlatformRequest = {
 model CreateContractPlatformResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 创建人ID
   creatorId?: string(name='creator_id'),
@@ -1671,7 +1671,6 @@ async function createContractPlatformEx(request: CreateContractPlatformRequest, 
 model CreateContractUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 用户类型为机构时，填写机构信息
   organization?: ContractOrganizationApplication(name='organization'),
@@ -1684,8 +1683,9 @@ model CreateContractUserRequest = {
 model CreateContractUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 机构账号
   organizationId?: string(name='organization_id'),
@@ -1719,7 +1719,6 @@ async function createContractUserEx(request: CreateContractUserRequest, headers:
 model StartContractHandsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 代理商户账户
   agentAccountId?: string(name='agent_account_id'),
@@ -1758,8 +1757,9 @@ model StartContractHandsignRequest = {
 model StartContractHandsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1795,7 +1795,6 @@ async function startContractHandsignEx(request: StartContractHandsignRequest, he
 model QueryContractFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程id
   flowId: string(name='flow_id'),
@@ -1804,8 +1803,9 @@ model QueryContractFlowRequest = {
 model QueryContractFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否自动归档
   autoArchive?: boolean(name='auto_archive'),
@@ -1861,7 +1861,6 @@ async function queryContractFlowEx(request: QueryContractFlowRequest, headers: m
 model CreateContractAccountsealimageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 用户id
   accountId: string(name='account_id'),
@@ -1882,8 +1881,9 @@ model CreateContractAccountsealimageRequest = {
 model CreateContractAccountsealimageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1923,7 +1923,6 @@ async function createContractAccountsealimageEx(request: CreateContractAccountse
 model GetContractFileuploadurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 所属账号id，即个人账号id或机构账号id，如不传，则默认属于对接平台
   accountId?: string(name='account_id'),
@@ -1942,8 +1941,9 @@ model GetContractFileuploadurlRequest = {
 model GetContractFileuploadurlResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -1977,7 +1977,6 @@ async function getContractFileuploadurlEx(request: GetContractFileuploadurlReque
 model AddContractPlatformsignfieldsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程id
   flowId: string(name='flow_id'),
@@ -1988,8 +1987,9 @@ model AddContractPlatformsignfieldsRequest = {
 model AddContractPlatformsignfieldsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2023,7 +2023,6 @@ async function addContractPlatformsignfieldsEx(request: AddContractPlatformsignf
 model GetContractFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 文件id
   fileId: string(name='file_id'),
@@ -2032,8 +2031,9 @@ model GetContractFileRequest = {
 model GetContractFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2075,7 +2075,6 @@ async function getContractFileEx(request: GetContractFileRequest, headers: map[s
 model QueryContractAccountsealsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 用户id
   accountId: string(name='account_id'),
@@ -2088,8 +2087,9 @@ model QueryContractAccountsealsRequest = {
 model QueryContractAccountsealsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2123,7 +2123,6 @@ async function queryContractAccountsealsEx(request: QueryContractAccountsealsReq
 model QueryContractOrganizationsealsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 机构id
   orgId: string(name='org_id'),
@@ -2136,8 +2135,9 @@ model QueryContractOrganizationsealsRequest = {
 model QueryContractOrganizationsealsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2171,7 +2171,6 @@ async function queryContractOrganizationsealsEx(request: QueryContractOrganizati
 model QueryContractFlowsignerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程id
   flowId: string(name='flow_id'),
@@ -2180,8 +2179,9 @@ model QueryContractFlowsignerRequest = {
 model QueryContractFlowsignerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2213,7 +2213,6 @@ async function queryContractFlowsignerEx(request: QueryContractFlowsignerRequest
 model QueryContractSignfieldsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程id
   flowId: string(name='flow_id'),
@@ -2226,8 +2225,9 @@ model QueryContractSignfieldsRequest = {
 model QueryContractSignfieldsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2259,7 +2259,6 @@ async function queryContractSignfieldsEx(request: QueryContractSignfieldsRequest
 model QueryContractAccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 个人账号id
   accountId: string(name='account_id'),
@@ -2268,8 +2267,9 @@ model QueryContractAccountRequest = {
 model QueryContractAccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2313,7 +2313,6 @@ async function queryContractAccountEx(request: QueryContractAccountRequest, head
 model QueryContractOrganizationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 机构账号id
   orgId: string(name='org_id'),
@@ -2322,8 +2321,9 @@ model QueryContractOrganizationRequest = {
 model QueryContractOrganizationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2367,7 +2367,6 @@ async function queryContractOrganizationEx(request: QueryContractOrganizationReq
 model QueryContractTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 模板id
   templateId: string(name='template_id'),
@@ -2376,8 +2375,9 @@ model QueryContractTemplateRequest = {
 model QueryContractTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2421,7 +2421,6 @@ async function queryContractTemplateEx(request: QueryContractTemplateRequest, he
 model CreateContractSignflowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
   autoArchive?: boolean(name='auto_archive'),
@@ -2450,8 +2449,9 @@ model CreateContractSignflowRequest = {
 model CreateContractSignflowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2483,7 +2483,6 @@ async function createContractSignflowEx(request: CreateContractSignflowRequest, 
 model CreateContractRegisterzftRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 地址。商户详细经营地址或人员所在地点
   address: string(name='address'),
@@ -2585,8 +2584,9 @@ model CreateContractRegisterzftRequest = {
 model CreateContractRegisterzftResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: string(name='code'),
@@ -2614,7 +2614,6 @@ async function createContractRegisterzftEx(request: CreateContractRegisterzftReq
 model CreateContractPlatformtemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否包含代扣规则，如果设置为true，则在创建手动签署流程时，必须传入代扣规则。默认为false
   autoDeduction?: boolean(name='auto_deduction'),
@@ -2637,8 +2636,9 @@ model CreateContractPlatformtemplateRequest = {
 model CreateContractPlatformtemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -2672,7 +2672,6 @@ async function createContractPlatformtemplateEx(request: CreateContractPlatformt
 model QueryContractMerchantzftRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 代理商户账户
   agentAccountId?: string(name='agent_account_id'),
@@ -2681,8 +2680,9 @@ model QueryContractMerchantzftRequest = {
 model QueryContractMerchantzftResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示成功，其他为失败
   code?: long(name='code'),
@@ -2714,7 +2714,6 @@ async function queryContractMerchantzftEx(request: QueryContractMerchantzftReque
 model ListContractOuttradeidRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同id
   flowId: string(name='flow_id'),
@@ -2727,8 +2726,9 @@ model ListContractOuttradeidRequest = {
 model ListContractOuttradeidResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -2762,7 +2762,6 @@ async function listContractOuttradeidEx(request: ListContractOuttradeidRequest, 
 model QueryContractTradedetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同id
   flowId: string(name='flow_id'),
@@ -2773,8 +2772,9 @@ model QueryContractTradedetailRequest = {
 model QueryContractTradedetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -2806,7 +2806,6 @@ async function queryContractTradedetailEx(request: QueryContractTradedetailReque
 model CreateContractMerchantrefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同id
   flowId: string(name='flow_id'),
@@ -2821,8 +2820,9 @@ model CreateContractMerchantrefundRequest = {
 model CreateContractMerchantrefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -2856,15 +2856,15 @@ async function createContractMerchantrefundEx(request: CreateContractMerchantref
 model CreateContractAdminaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model CreateContractAdminaccountResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -2894,7 +2894,6 @@ async function createContractAdminaccountEx(request: CreateContractAdminaccountR
 model ListContractTradeidsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同id
   flowId: string(name='flow_id'),
@@ -2907,8 +2906,9 @@ model ListContractTradeidsRequest = {
 model ListContractTradeidsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示成功
   code?: long(name='code'),
@@ -2942,7 +2942,6 @@ async function listContractTradeidsEx(request: ListContractTradeidsRequest, head
 model CreateContractCommontriggerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 代扣规则详情
   repaymentOrderInfo: [ RepaymentOrderRequest ](name='repayment_order_info'),
@@ -2955,8 +2954,9 @@ model CreateContractCommontriggerRequest = {
 model CreateContractCommontriggerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -2992,7 +2992,6 @@ async function createContractCommontriggerEx(request: CreateContractCommontrigge
 model CreateContractMerchantindirectzftRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 入驻材料
   bizContent: string(name='biz_content'),
@@ -3001,8 +3000,9 @@ model CreateContractMerchantindirectzftRequest = {
 model CreateContractMerchantindirectzftResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 传入参数内容
   body?: string(name='body'),
@@ -3040,7 +3040,6 @@ async function createContractMerchantindirectzftEx(request: CreateContractMercha
 model QueryContractMerchantindirectzftRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户入驻查询订单id
   orderId: string(name='order_id'),
@@ -3049,8 +3048,9 @@ model QueryContractMerchantindirectzftRequest = {
 model QueryContractMerchantindirectzftResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误状态码，0表示成功
   code?: long(name='code'),
@@ -3094,7 +3094,6 @@ async function queryContractMerchantindirectzftEx(request: QueryContractMerchant
 model QueryPayresultfileurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 对账日期
   billDate: string(name='bill_date'),
@@ -3105,8 +3104,9 @@ model QueryPayresultfileurlRequest = {
 model QueryPayresultfileurlResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 对账文件的下载地址
   payUrl?: string(name='pay_url'),
@@ -3134,7 +3134,6 @@ async function queryPayresultfileurlEx(request: QueryPayresultfileurlRequest, he
 model CreateContractMerchantimageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 图片内容，base64
   content: string(name='content'),
@@ -3145,8 +3144,9 @@ model CreateContractMerchantimageRequest = {
 model CreateContractMerchantimageResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 图片在oss上的id
   imageId?: string(name='image_id'),
@@ -3174,7 +3174,6 @@ async function createContractMerchantimageEx(request: CreateContractMerchantimag
 model CancelContractPaytradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 智能合同id
   flowId: string(name='flow_id'),
@@ -3183,8 +3182,9 @@ model CancelContractPaytradeRequest = {
 model CancelContractPaytradeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -3216,7 +3216,6 @@ async function cancelContractPaytradeEx(request: CancelContractPaytradeRequest, 
 model CreateContractHandsignflowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否自动归档，默认false。如设置为true，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用签署流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件。
   autoArchive?: boolean(name='auto_archive'),
@@ -3239,8 +3238,9 @@ model CreateContractHandsignflowRequest = {
 model CreateContractHandsignflowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -3272,7 +3272,6 @@ async function createContractHandsignflowEx(request: CreateContractHandsignflowR
 model CreateContractHandsignfieldRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 流程id
   flowId: string(name='flow_id'),
@@ -3283,8 +3282,9 @@ model CreateContractHandsignfieldRequest = {
 model CreateContractHandsignfieldResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -3316,7 +3316,6 @@ async function createContractHandsignfieldEx(request: CreateContractHandsignfiel
 model GetContractSignurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署人账号id
   accountId: string(name='account_id'),
@@ -3331,8 +3330,9 @@ model GetContractSignurlRequest = {
 model GetContractSignurlResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -3366,7 +3366,6 @@ async function getContractSignurlEx(request: GetContractSignurlRequest, headers:
 model CreateWithholdAgreementRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 授信总金额，单位元
   creditAmount: string(name='credit_amount'),
@@ -3393,8 +3392,9 @@ model CreateWithholdAgreementRequest = {
 model CreateWithholdAgreementResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3420,7 +3420,6 @@ async function createWithholdAgreementEx(request: CreateWithholdAgreementRequest
 model QueryWithholdAgreementRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）
   externalAgreementNo: string(name='external_agreement_no'),
@@ -3431,8 +3430,9 @@ model QueryWithholdAgreementRequest = {
 model QueryWithholdAgreementResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 总授信金额
   creditAmount?: string(name='credit_amount'),
@@ -3476,7 +3476,6 @@ async function queryWithholdAgreementEx(request: QueryWithholdAgreementRequest, 
 model QueryWithholdAgreementurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）
   externalAgreementNo: string(name='external_agreement_no'),
@@ -3487,8 +3486,9 @@ model QueryWithholdAgreementurlRequest = {
 model QueryWithholdAgreementurlResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 成功
   resultMessage?: string(name='result_message'),
@@ -3518,7 +3518,6 @@ async function queryWithholdAgreementurlEx(request: QueryWithholdAgreementurlReq
 model CreateWithholdOverduetimeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 首款方id
   merchantId: string(name='merchant_id'),
@@ -3533,8 +3532,9 @@ model CreateWithholdOverduetimeRequest = {
 model CreateWithholdOverduetimeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -3560,7 +3560,6 @@ async function createWithholdOverduetimeEx(request: CreateWithholdOverduetimeReq
 model SendWithholdDeductRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 委托支付订单总金额，单位为元，精确到小数点后两位
   amount: string(name='amount'),
@@ -3581,8 +3580,9 @@ model SendWithholdDeductRequest = {
 model SendWithholdDeductResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 该笔转账在支付宝系统内部的单据ID
   entrustOrderId?: string(name='entrust_order_id'),
@@ -3614,7 +3614,6 @@ async function sendWithholdDeductEx(request: SendWithholdDeductRequest, headers:
 model QueryWithholdPayresultRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 请求扣款时，返回的委托单号,该笔转账在支付宝系统内部的单据ID
   entrustOrderId: string(name='entrust_order_id'),
@@ -3625,8 +3624,9 @@ model QueryWithholdPayresultRequest = {
 model QueryWithholdPayresultResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 支付完成日期
   payDate?: string(name='pay_date'),
@@ -3662,7 +3662,6 @@ async function queryWithholdPayresultEx(request: QueryWithholdPayresultRequest, 
 model SendWithholdRefundRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 支付宝支付单据号
   orderId: string(name='order_id'),
@@ -3677,8 +3676,9 @@ model SendWithholdRefundRequest = {
 model SendWithholdRefundResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
   refundAmount?: string(name='refund_amount'),
@@ -3712,7 +3712,6 @@ async function sendWithholdRefundEx(request: SendWithholdRefundRequest, headers:
 model SendContractInvitationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 业务方id，重定向和回调时都回传这个id
   bizProcessId?: string(name='biz_process_id'),
@@ -3751,8 +3750,9 @@ model SendContractInvitationRequest = {
 model SendContractInvitationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -3786,7 +3786,6 @@ async function sendContractInvitationEx(request: SendContractInvitationRequest, 
 model ListContractPayruleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // flowId
   flowId: string(name='flow_id'),
@@ -3795,8 +3794,9 @@ model ListContractPayruleRequest = {
 model ListContractPayruleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码，0表示成功
   code?: long(name='code'),
@@ -3828,7 +3828,6 @@ async function listContractPayruleEx(request: ListContractPayruleRequest, header
 model CreateWithholdQrcodeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 第三方的用户id
   thirdPartyId: string(name='third_party_id'),
@@ -3839,8 +3838,9 @@ model CreateWithholdQrcodeRequest = {
 model CreateWithholdQrcodeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 二维码图片链接地址
   qrCodeUrl?: string(name='qr_code_url'),
@@ -3868,7 +3868,6 @@ async function createWithholdQrcodeEx(request: CreateWithholdQrcodeRequest, head
 model CancelContractPaysingletradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 智能合同id
   flowId: string(name='flow_id'),
@@ -3879,8 +3878,9 @@ model CancelContractPaysingletradeRequest = {
 model CancelContractPaysingletradeResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码，0表示成功
   code?: long(name='code'),
@@ -3912,15 +3912,15 @@ async function cancelContractPaysingletradeEx(request: CancelContractPaysingletr
 model ApplyContractCallbackkeyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model ApplyContractCallbackkeyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 加签使用的key
   key?: string(name='key'),
@@ -3952,7 +3952,6 @@ async function applyContractCallbackkeyEx(request: ApplyContractCallbackkeyReque
 model CreateContractOnestepflowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 是否自动归档，默认false。
   autoArchive?: boolean(name='auto_archive'),
@@ -3981,8 +3980,9 @@ model CreateContractOnestepflowRequest = {
 model CreateContractOnestepflowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -4014,7 +4014,6 @@ async function createContractOnestepflowEx(request: CreateContractOnestepflowReq
 model QueryContractNotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署流程ID
   flowId: string(name='flow_id'),
@@ -4023,8 +4022,9 @@ model QueryContractNotaryRequest = {
 model QueryContractNotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -4056,7 +4056,6 @@ async function queryContractNotaryEx(request: QueryContractNotaryRequest, header
 model CreateEcocontractTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证关联实体（个人/企业）的身份识别信息
   customer: Identity(name='customer'),
@@ -4071,8 +4070,9 @@ model CreateEcocontractTransRequest = {
 model CreateEcocontractTransResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回事务ID，全局唯一
   transactionId?: string(name='transaction_id'),
@@ -4102,7 +4102,6 @@ async function createEcocontractTransEx(request: CreateEcocontractTransRequest, 
 model CreateEcocontractTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署结束信息，phase为FINISH时必选
   finishInfo?: ContractNotaryFinishInfo(name='finish_info'),
@@ -4123,8 +4122,9 @@ model CreateEcocontractTextRequest = {
 model CreateEcocontractTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证凭据,
   txHash?: string(name='tx_hash'),
@@ -4152,7 +4152,6 @@ async function createEcocontractTextEx(request: CreateEcocontractTextRequest, he
 model QueryContractWordspositionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 文档id
   fileId: string(name='file_id'),
@@ -4163,8 +4162,9 @@ model QueryContractWordspositionRequest = {
 model QueryContractWordspositionResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -4198,7 +4198,6 @@ async function queryContractWordspositionEx(request: QueryContractWordspositionR
 model DeleteContractSignerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署流程ID
   flowId: string(name='flow_id'),
@@ -4209,8 +4208,9 @@ model DeleteContractSignerRequest = {
 model DeleteContractSignerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -4240,7 +4240,6 @@ async function deleteContractSignerEx(request: DeleteContractSignerRequest, head
 model GetContractCertificateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署流程ID
   flowId: string(name='flow_id'),
@@ -4249,8 +4248,9 @@ model GetContractCertificateRequest = {
 model GetContractCertificateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 下载文件地址(一小时内有效)
   url?: string(name='url'),
@@ -4282,7 +4282,6 @@ async function getContractCertificateEx(request: GetContractCertificateRequest, 
 model CheckEpidentityTwometaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 认证企业名称。
   epCertName: string(name='ep_cert_name'),
@@ -4293,8 +4292,9 @@ model CheckEpidentityTwometaRequest = {
 model CheckEpidentityTwometaResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 企业状态。
   enterpriseStatus?: string(name='enterprise_status'),
@@ -4328,7 +4328,6 @@ async function checkEpidentityTwometaEx(request: CheckEpidentityTwometaRequest, 
 model CheckEpidentityThreemetaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 认证企业名称。
   epCertName: string(name='ep_cert_name'),
@@ -4341,8 +4340,9 @@ model CheckEpidentityThreemetaRequest = {
 model CheckEpidentityThreemetaResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 企业状态。
   enterpriseStatus?: string(name='enterprise_status'),
@@ -4376,7 +4376,6 @@ async function checkEpidentityThreemetaEx(request: CheckEpidentityThreemetaReque
 model CheckEpidentityFourmetaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 认证企业名称。
   epCertName: string(name='ep_cert_name'),
@@ -4391,8 +4390,9 @@ model CheckEpidentityFourmetaRequest = {
 model CheckEpidentityFourmetaResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 企业状态。
   enterpriseStatus?: string(name='enterprise_status'),
@@ -4426,7 +4426,6 @@ async function checkEpidentityFourmetaEx(request: CheckEpidentityFourmetaRequest
 model CheckNotarizationOrderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 公证订单ID号
   orderId: string(name='order_id'),
@@ -4435,8 +4434,9 @@ model CheckNotarizationOrderRequest = {
 model CheckNotarizationOrderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 下单的业务类型ID列表
   bizId?: [ string ](name='biz_id'),
@@ -4472,7 +4472,6 @@ async function checkNotarizationOrderEx(request: CheckNotarizationOrderRequest, 
 model UpdateNotarizationOrderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 公证订单ID
   orderId: string(name='order_id'),
@@ -4485,8 +4484,9 @@ model UpdateNotarizationOrderRequest = {
 model UpdateNotarizationOrderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态是否更新成功
   accepted?: boolean(name='accepted'),
@@ -4516,7 +4516,6 @@ async function updateNotarizationOrderEx(request: UpdateNotarizationOrderRequest
 model SetNotarizationOrderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 公证事项ID
   bizCode?: string(name='biz_code'),
@@ -4531,8 +4530,9 @@ model SetNotarizationOrderRequest = {
 model SetNotarizationOrderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否设置成功
   accepted?: boolean(name='accepted'),
@@ -4562,7 +4562,6 @@ async function setNotarizationOrderEx(request: SetNotarizationOrderRequest, head
 model InitIdentificationFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 认证人的姓名
   certName: string(name='cert_name'),
@@ -4575,8 +4574,9 @@ model InitIdentificationFaceauthRequest = {
 model InitIdentificationFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 发起一个实人认证流程，获取到流程ID
   certifyId?: string(name='certify_id'),
@@ -4604,7 +4604,6 @@ async function initIdentificationFaceauthEx(request: InitIdentificationFaceauthR
 model CertifyIdentificationFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 实人认证流程ID
   certifyId: string(name='certify_id'),
@@ -4619,8 +4618,9 @@ model CertifyIdentificationFaceauthRequest = {
 model CertifyIdentificationFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 实人认证流程ID
   certifyId?: string(name='certify_id'),
@@ -4650,7 +4650,6 @@ async function certifyIdentificationFaceauthEx(request: CertifyIdentificationFac
 model QueryIdentificationFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 实人认证流程ID
   certifyId: string(name='certify_id'),
@@ -4661,8 +4660,9 @@ model QueryIdentificationFaceauthRequest = {
 model QueryIdentificationFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 实人认证流程ID
   certifyId?: string(name='certify_id'),
@@ -4692,7 +4692,6 @@ async function queryIdentificationFaceauthEx(request: QueryIdentificationFaceaut
 model QueryEnterpriseFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 企业法人认证查询
   bizNo: string(name='biz_no'),
@@ -4701,8 +4700,9 @@ model QueryEnterpriseFaceauthRequest = {
 model QueryEnterpriseFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 认证唯一性标识
   bizNo?: string(name='biz_no'),
@@ -4734,7 +4734,6 @@ async function queryEnterpriseFaceauthEx(request: QueryEnterpriseFaceauthRequest
 model InitEnterpriseFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 企业名称
   epCertName: string(name='ep_cert_name'),
@@ -4751,8 +4750,9 @@ model InitEnterpriseFaceauthRequest = {
 model InitEnterpriseFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 本次认证的业务唯一性标示
   bizNo?: string(name='biz_no'),
@@ -4780,7 +4780,6 @@ async function initEnterpriseFaceauthEx(request: InitEnterpriseFaceauthRequest, 
 model CertifyEnterpriseFaceauthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 业务唯一性标识
   bizNo: string(name='biz_no'),
@@ -4793,8 +4792,9 @@ model CertifyEnterpriseFaceauthRequest = {
 model CertifyEnterpriseFaceauthResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务唯一性标识
   bizNo?: string(name='biz_no'),
@@ -4824,7 +4824,6 @@ async function certifyEnterpriseFaceauthEx(request: CertifyEnterpriseFaceauthReq
 model CreateLeaseOrderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 账号标识，可弃用
   accountId?: string(name='account_id'),
@@ -4877,8 +4876,9 @@ model CreateLeaseOrderRequest = {
 model CreateLeaseOrderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否成功
   success?: boolean(name='success'),
@@ -4906,7 +4906,6 @@ async function createLeaseOrderEx(request: CreateLeaseOrderRequest, headers: map
 model CreateNotarizationBillRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 支付宝交易订单号
   alipayOrderNo?: string(name='alipay_order_no'),
@@ -4951,8 +4950,9 @@ model CreateNotarizationBillRequest = {
 model CreateNotarizationBillResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 计费订单是否创建成功
   accepted?: boolean(name='accepted'),
@@ -4980,7 +4980,6 @@ async function createNotarizationBillEx(request: CreateNotarizationBillRequest, 
 model InitCertificationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 申请人的身份信息
   applier: Identity(name='applier'),
@@ -4993,8 +4992,9 @@ model InitCertificationRequest = {
 model InitCertificationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回值状态码，0000则为成功
   code?: string(name='code'),
@@ -5028,7 +5028,6 @@ async function initCertificationEx(request: InitCertificationRequest, headers: m
 model QueryCertificationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证证明申请的订单ID
   orderId: string(name='order_id'),
@@ -5037,8 +5036,9 @@ model QueryCertificationRequest = {
 model QueryCertificationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证证明的证书信息列表
   certificateInfo?: [ CertificateInfo ](name='certificate_info'),
@@ -5070,15 +5070,15 @@ async function queryCertificationEx(request: QueryCertificationRequest, headers:
 model GetTsrCertificateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model GetTsrCertificateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5104,7 +5104,6 @@ async function getTsrCertificateEx(request: GetTsrCertificateRequest, headers: m
 model SaveJointconstraintRecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 收款账户
   beneficiaryAccountCode?: string(name='beneficiary_account_code'),
@@ -5199,8 +5198,9 @@ model SaveJointconstraintRecordRequest = {
 model SaveJointconstraintRecordResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5226,7 +5226,6 @@ async function saveJointconstraintRecordEx(request: SaveJointconstraintRecordReq
 model DeleteJointconstraintRecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同编号
   // 
@@ -5257,8 +5256,9 @@ model DeleteJointconstraintRecordRequest = {
 model DeleteJointconstraintRecordResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -5284,7 +5284,6 @@ async function deleteJointconstraintRecordEx(request: DeleteJointconstraintRecor
 model QueryJointconstraintBreachrecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 查询对象实体类型
   // 
@@ -5307,8 +5306,9 @@ model QueryJointconstraintBreachrecordRequest = {
 model QueryJointconstraintBreachrecordResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否存在履行记录
   // 
@@ -5342,7 +5342,6 @@ async function queryJointconstraintBreachrecordEx(request: QueryJointconstraintB
 model ApplyJusticeMediationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 机构码 由蚂蚁分配
   productCode: string(name='product_code'),
@@ -5355,8 +5354,9 @@ model ApplyJusticeMediationRequest = {
 model ApplyJusticeMediationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -5386,7 +5386,6 @@ async function applyJusticeMediationEx(request: ApplyJusticeMediationRequest, he
 model QueryJusticeMediationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 产品码 由蚂蚁分配
   // 
@@ -5398,8 +5397,9 @@ model QueryJusticeMediationRequest = {
 model QueryJusticeMediationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务码，0表示成功
   code?: long(name='code'),
@@ -5428,10 +5428,61 @@ async function queryJusticeMediationEx(request: QueryJusticeMediationRequest, he
   return doRequest('1.0' ,'twc.notary.justice.mediation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateLeaseAssetagentregisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被代理机构的金融科技租户id
+  agentLeaseId: string(name='agent_lease_id'),
+  // 代理合同id，作为存证使用
+  contractId: string(name='contract_id'),
+  // 被代理租赁机构统一社会信用码
+  // 
+  // 
+  leaseCorpId: string(name='lease_corp_id'),
+  // 被代理租赁机构名称
+  leaseCorpName: string(name='lease_corp_name'),
+  // 被代理租赁机构法人姓名
+  leaseCorpOwnerName: string(name='lease_corp_owner_name'),
+}
+
+model CreateLeaseAssetagentregisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务层错误码
+  bizErrorCode?: string(name='biz_error_code'),
+  // 错误信息描述
+  bizErrorMsg?: string(name='biz_error_msg'),
+  // 代理关系链上存证哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 租赁平台isv模式代理商户入驻
+ * Summary: 租赁平台isv模式代理商户入驻
+ */
+async function createLeaseAssetagentregister(request: CreateLeaseAssetagentregisterRequest): CreateLeaseAssetagentregisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseAssetagentregisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁平台isv模式代理商户入驻
+ * Summary: 租赁平台isv模式代理商户入驻
+ */
+async function createLeaseAssetagentregisterEx(request: CreateLeaseAssetagentregisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseAssetagentregisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateWitnessFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 业务场景，最大255长度
   businessScene: string(name='business_scene'),
@@ -5468,8 +5519,9 @@ model CreateWitnessFlowRequest = {
 model CreateWitnessFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -5503,7 +5555,6 @@ async function createWitnessFlowEx(request: CreateWitnessFlowRequest, headers: m
 model SaveWitnessSnapshotRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 快照数据
   data: string(name='data'),
@@ -5522,8 +5573,9 @@ model SaveWitnessSnapshotRequest = {
 model SaveWitnessSnapshotResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -5553,7 +5605,6 @@ async function saveWitnessSnapshotEx(request: SaveWitnessSnapshotRequest, header
 model CheckWitnessSignaccessRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 审批流程id
   approvalFlowId?: string(name='approval_flow_id'),
@@ -5592,8 +5643,9 @@ model CheckWitnessSignaccessRequest = {
 model CheckWitnessSignaccessResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 有权限的印章id列表
   accessSealIds?: [ string ](name='access_seal_ids'),
@@ -5629,7 +5681,6 @@ async function checkWitnessSignaccessEx(request: CheckWitnessSignaccessRequest, 
 model AuthWitnessFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 发起请求的实例应用ID
   appId: string(name='app_id'),
@@ -5668,8 +5719,9 @@ model AuthWitnessFlowRequest = {
 model AuthWitnessFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -5711,7 +5763,6 @@ async function authWitnessFlowEx(request: AuthWitnessFlowRequest, headers: map[s
 model ConfirmWitnessFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署确认数据
   confirmDatas: [ WitnessConfirmData ](name='confirm_datas'),
@@ -5732,8 +5783,9 @@ model ConfirmWitnessFlowRequest = {
 model ConfirmWitnessFlowResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -5763,7 +5815,6 @@ async function confirmWitnessFlowEx(request: ConfirmWitnessFlowRequest, headers:
 model CreateTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证关联实体（个人/企业）的身份识别信息
   customer: Identity(name='customer'),
@@ -5778,8 +5829,9 @@ model CreateTransRequest = {
 model CreateTransResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回事务ID，全局唯一
   transactionId?: string(name='transaction_id'),
@@ -5809,7 +5861,6 @@ async function createTransEx(request: CreateTransRequest, headers: map[string]st
 model GetTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证事务ID
   transactionId: string(name='transaction_id'),
@@ -5818,8 +5869,9 @@ model GetTransRequest = {
 model GetTransResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回文件下载路径列表
   fileUrl?: [ string ](name='file_url'),
@@ -5849,7 +5901,6 @@ async function getTransEx(request: GetTransRequest, headers: map[string]string, 
 model CreateTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
   location?: Location(name='location'),
@@ -5872,8 +5923,9 @@ model CreateTextRequest = {
 model CreateTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间信息
   tsr?: TsrResponse(name='tsr'),
@@ -5903,7 +5955,6 @@ async function createTextEx(request: CreateTextRequest, headers: map[string]stri
 model GetTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
   location?: Location(name='location'),
@@ -5920,8 +5971,9 @@ model GetTextRequest = {
 model GetTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证信息
   content?: string(name='content'),
@@ -5955,7 +6007,6 @@ async function getTextEx(request: GetTextRequest, headers: map[string]string, ru
 model CreateFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 文件存证模式，目前仅支持 FILE_RAW 和 FILE_HASH
   fileNotaryType?: string(name='file_notary_type'),
@@ -5980,8 +6031,9 @@ model CreateFileRequest = {
 model CreateFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间信息
   tsr?: TsrResponse(name='tsr'),
@@ -6011,7 +6063,6 @@ async function createFileEx(request: CreateFileRequest, headers: map[string]stri
 model GetFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
   location?: Location(name='location'),
@@ -6028,8 +6079,9 @@ model GetFileRequest = {
 model GetFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件哈希，当 file_notary_type 为 FILE_HASH 时才有此值。
   fileHash?: string(name='file_hash'),
@@ -6063,7 +6115,6 @@ async function getFileEx(request: GetFileRequest, headers: map[string]string, ru
 model CreateSourceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
   location?: Location(name='location'),
@@ -6086,8 +6137,9 @@ model CreateSourceRequest = {
 model CreateSourceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间信息
   tsr?: TsrResponse(name='tsr'),
@@ -6117,7 +6169,6 @@ async function createSourceEx(request: CreateSourceRequest, headers: map[string]
 model GetSourceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
   location?: Location(name='location'),
@@ -6134,8 +6185,9 @@ model GetSourceRequest = {
 model GetSourceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件下载地址
   ossPath?: string(name='oss_path'),
@@ -6163,7 +6215,6 @@ async function getSourceEx(request: GetSourceRequest, headers: map[string]string
 model CheckStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证核验数据组
   notaryCheckMetaList: [ NotaryCheckMeta ](name='notary_check_meta_list'),
@@ -6172,8 +6223,9 @@ model CheckStatusRequest = {
 model CheckStatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证核验结果
   notaryCheckResults?: [ NotaryCheckResult ](name='notary_check_results'),
@@ -6201,7 +6253,6 @@ async function checkStatusEx(request: CheckStatusRequest, headers: map[string]st
 model DeployLeaseContractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 租赁服务平台对应的合约ID
   contractId: string(name='contract_id'),
@@ -6210,8 +6261,9 @@ model DeployLeaseContractRequest = {
 model DeployLeaseContractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0表示成功
@@ -6244,7 +6296,6 @@ async function deployLeaseContractEx(request: DeployLeaseContractRequest, header
 model CreateLeaseProductinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合约id
   applicationId?: string(name='application_id'),
@@ -6279,8 +6330,9 @@ model CreateLeaseProductinfoRequest = {
 model CreateLeaseProductinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -6312,7 +6364,6 @@ async function createLeaseProductinfoEx(request: CreateLeaseProductinfoRequest, 
 model AuthLeaseContractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资服务平台ID 长度不可超过50
   creditId: string(name='credit_id'),
@@ -6321,8 +6372,9 @@ model AuthLeaseContractRequest = {
 model AuthLeaseContractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0表示成功
@@ -6355,7 +6407,6 @@ async function authLeaseContractEx(request: AuthLeaseContractRequest, headers: m
 model CreateLeaseUserinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 支付宝账号信息
   alipayUid: string(name='alipay_uid'),
@@ -6402,8 +6453,9 @@ model CreateLeaseUserinfoRequest = {
 model CreateLeaseUserinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -6435,7 +6487,6 @@ async function createLeaseUserinfoEx(request: CreateLeaseUserinfoRequest, header
 model CreateLeaseOrderinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 实际预授权金额，芝麻信用免押金额 精确到毫厘，即123400表示12.34元
   acutalPreAuthFree: long(name='acutal_pre_auth_free'),
@@ -6545,8 +6596,9 @@ model CreateLeaseOrderinfoRequest = {
 model CreateLeaseOrderinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0 表示成功
@@ -6579,7 +6631,6 @@ async function createLeaseOrderinfoEx(request: CreateLeaseOrderinfoRequest, head
 model CreateLeasePromiseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成返回
   applicationId?: string(name='application_id'),
@@ -6617,8 +6668,9 @@ model CreateLeasePromiseRequest = {
 model CreateLeasePromiseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   code?: long(name='code'),
@@ -6650,7 +6702,6 @@ async function createLeasePromiseEx(request: CreateLeasePromiseRequest, headers:
 model CreateLeaseVerifyinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成返回
   applicationId?: string(name='application_id'),
@@ -6699,8 +6750,9 @@ model CreateLeaseVerifyinfoRequest = {
 model CreateLeaseVerifyinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0表示成功
@@ -6733,7 +6785,6 @@ async function createLeaseVerifyinfoEx(request: CreateLeaseVerifyinfoRequest, he
 model CreateLeaseCreditpromiseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台创建返回
   applicationId?: string(name='application_id'),
@@ -6772,8 +6823,9 @@ model CreateLeaseCreditpromiseRequest = {
 model CreateLeaseCreditpromiseResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0表示成功
@@ -6806,7 +6858,6 @@ async function createLeaseCreditpromiseEx(request: CreateLeaseCreditpromiseReque
 model CreateLeaseDisburseinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 共管账户，网商清分
   activeAccount: string(name='active_account'),
@@ -6847,8 +6898,9 @@ model CreateLeaseDisburseinfoRequest = {
 model CreateLeaseDisburseinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 0表示成功
@@ -6881,7 +6933,6 @@ async function createLeaseDisburseinfoEx(request: CreateLeaseDisburseinfoRequest
 model QueryLeaseOrderinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成返回
   applicationId?: string(name='application_id'),
@@ -6896,8 +6947,9 @@ model QueryLeaseOrderinfoRequest = {
 model QueryLeaseOrderinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   // 0表示成功
@@ -6930,7 +6982,6 @@ async function queryLeaseOrderinfoEx(request: QueryLeaseOrderinfoRequest, header
 model CreateFinanceTextnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 反欺诈查询对应的身份证号码
   certNo?: string(name='cert_no'),
@@ -6959,8 +7010,9 @@ model CreateFinanceTextnotaryRequest = {
 model CreateFinanceTextnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 反欺诈对应的信用值
   creditRiskScore?: string(name='credit_risk_score'),
@@ -6992,7 +7044,6 @@ async function createFinanceTextnotaryEx(request: CreateFinanceTextnotaryRequest
 model GetFinanceTextnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 位置信息
   location?: Location(name='location'),
@@ -7009,8 +7060,9 @@ model GetFinanceTextnotaryRequest = {
 model GetFinanceTextnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 哈希算法
   hashAlgorithm?: string(name='hash_algorithm'),
@@ -7046,7 +7098,6 @@ async function getFinanceTextnotaryEx(request: GetFinanceTextnotaryRequest, head
 model CreateFinanceFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 反欺诈需要的证件号码
   certNo?: string(name='cert_no'),
@@ -7087,8 +7138,9 @@ model CreateFinanceFilenotaryRequest = {
 model CreateFinanceFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 反欺诈查询返回的信用值
   creditRiskScore?: string(name='credit_risk_score'),
@@ -7120,7 +7172,6 @@ async function createFinanceFilenotaryEx(request: CreateFinanceFilenotaryRequest
 model GetFinanceFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 位置信息
   location?: Location(name='location'),
@@ -7137,8 +7188,9 @@ model GetFinanceFilenotaryRequest = {
 model GetFinanceFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证文件名称
   fileName?: string(name='file_name'),
@@ -7178,7 +7230,6 @@ async function getFinanceFilenotaryEx(request: GetFinanceFilenotaryRequest, head
 model CheckIndustryNotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 行业类型
   industryType: string(name='industry_type'),
@@ -7189,8 +7240,9 @@ model CheckIndustryNotaryRequest = {
 model CheckIndustryNotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 核验结果数组
   notaryCheckResults?: [ NotaryCheckResult ](name='notary_check_results'),
@@ -7218,7 +7270,6 @@ async function checkIndustryNotaryEx(request: CheckIndustryNotaryRequest, header
 model UpdateLeaseContractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被升级的合约名称
   contractId: string(name='contract_id'),
@@ -7229,8 +7280,9 @@ model UpdateLeaseContractRequest = {
 model UpdateLeaseContractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -7263,7 +7315,6 @@ async function updateLeaseContractEx(request: UpdateLeaseContractRequest, header
 model CreateSueBreakpromiseinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同唯一标识
   // 
@@ -7303,8 +7354,9 @@ model CreateSueBreakpromiseinfoRequest = {
 model CreateSueBreakpromiseinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 成功插入违约数据到区块链的交易哈希
   responseData?: string(name='response_data'),
@@ -7337,7 +7389,6 @@ async function createSueBreakpromiseinfoEx(request: CreateSueBreakpromiseinfoReq
 model UpdateSueBreakpromiseinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同唯一标识，不可更新
   // 
@@ -7365,8 +7416,9 @@ model UpdateSueBreakpromiseinfoRequest = {
 model UpdateSueBreakpromiseinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 违约案件信息提交对应的区块链交易哈希
   responseData?: string(name='response_data'),
@@ -7399,7 +7451,6 @@ async function updateSueBreakpromiseinfoEx(request: UpdateSueBreakpromiseinfoReq
 model DeleteSueBreakpromiseinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合同唯一标识，不可更新
   orderId: string(name='order_id'),
@@ -7410,8 +7461,9 @@ model DeleteSueBreakpromiseinfoRequest = {
 model DeleteSueBreakpromiseinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 违约案件信息提交对应的区块链交易哈希
   responseData?: string(name='response_data'),
@@ -7443,7 +7495,6 @@ async function deleteSueBreakpromiseinfoEx(request: DeleteSueBreakpromiseinfoReq
 model QuerySueUserinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被查者身份证号
   userId: string(name='user_id'),
@@ -7452,8 +7503,9 @@ model QuerySueUserinfoRequest = {
 model QuerySueUserinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -7485,7 +7537,6 @@ async function querySueUserinfoEx(request: QuerySueUserinfoRequest, headers: map
 model UpdateSueExeplarycontractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合约名称
   contractId: string(name='contract_id'),
@@ -7494,8 +7545,9 @@ model UpdateSueExeplarycontractRequest = {
 model UpdateSueExeplarycontractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0xabcdef123324234
   responseData?: string(name='response_data'),
@@ -7527,7 +7579,6 @@ async function updateSueExeplarycontractEx(request: UpdateSueExeplarycontractReq
 model UpdateSueExemplaryrevertRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 用户管理合约id
   contractId: string(name='contract_id'),
@@ -7536,8 +7587,9 @@ model UpdateSueExemplaryrevertRequest = {
 model UpdateSueExemplaryrevertResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 回退合约所对应的区块链交易哈希
   responseData?: string(name='response_data'),
@@ -7569,7 +7621,6 @@ async function updateSueExemplaryrevertEx(request: UpdateSueExemplaryrevertReque
 model CreateLeaseAuditRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台创建返回
   applicationId?: string(name='application_id'),
@@ -7601,8 +7652,9 @@ model CreateLeaseAuditRequest = {
 model CreateLeaseAuditResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示成功
   code?: long(name='code'),
@@ -7635,7 +7687,6 @@ async function createLeaseAuditEx(request: CreateLeaseAuditRequest, headers: map
 model CreateLeasePaymentfileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成
   applicationId?: string(name='application_id'),
@@ -7661,8 +7712,9 @@ model CreateLeasePaymentfileRequest = {
 model CreateLeasePaymentfileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   // 
@@ -7696,7 +7748,6 @@ async function createLeasePaymentfileEx(request: CreateLeasePaymentfileRequest, 
 model CreateLeaseRentalRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成返回
   applicationId?: string(name='application_id'),
@@ -7733,8 +7784,9 @@ model CreateLeaseRentalRequest = {
 model CreateLeaseRentalResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -7767,7 +7819,6 @@ async function createLeaseRentalEx(request: CreateLeaseRentalRequest, headers: m
 model CreateLeaseClearingRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台创建返回
   applicationId?: string(name='application_id'),
@@ -7801,8 +7852,9 @@ model CreateLeaseClearingRequest = {
 model CreateLeaseClearingResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -7836,7 +7888,6 @@ async function createLeaseClearingEx(request: CreateLeaseClearingRequest, header
 model CreateLeaseRepaymentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 融资租赁业务id，由资方控制台生成返回
   applicationId?: string(name='application_id'),
@@ -7886,8 +7937,9 @@ model CreateLeaseRepaymentRequest = {
 model CreateLeaseRepaymentResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码 0表示成功
   code?: long(name='code'),
@@ -7919,15 +7971,15 @@ async function createLeaseRepaymentEx(request: CreateLeaseRepaymentRequest, head
 model CreateLeaseNotifyregisterRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
 }
 
 model CreateLeaseNotifyregisterResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 0表示成功
   code?: long(name='code'),
@@ -7957,7 +8009,6 @@ async function createLeaseNotifyregisterEx(request: CreateLeaseNotifyregisterReq
 model QueryLeaseIotinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 查询截止时间
   endTime: string(name='end_time'),
@@ -7970,8 +8021,9 @@ model QueryLeaseIotinfoRequest = {
 model QueryLeaseIotinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -8003,7 +8055,6 @@ async function queryLeaseIotinfoEx(request: QueryLeaseIotinfoRequest, headers: m
 model CreateCourtTextnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 对应的法院编号
   agencyCode?: string(name='agency_code'),
@@ -8030,8 +8081,9 @@ model CreateCourtTextnotaryRequest = {
 model CreateCourtTextnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间戳
   tsr?: TsrResponse(name='tsr'),
@@ -8061,7 +8113,6 @@ async function createCourtTextnotaryEx(request: CreateCourtTextnotaryRequest, he
 model GetCourtTextnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 地理位置信息
   location?: Location(name='location'),
@@ -8078,8 +8129,9 @@ model GetCourtTextnotaryRequest = {
 model GetCourtTextnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务类型标识
   businessType?: string(name='business_type'),
@@ -8117,7 +8169,6 @@ async function getCourtTextnotaryEx(request: GetCourtTextnotaryRequest, headers:
 model CreateCourtFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 对应的法院编号
   agencyCode?: string(name='agency_code'),
@@ -8148,8 +8199,9 @@ model CreateCourtFilenotaryRequest = {
 model CreateCourtFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间戳
   tsr?: TsrResponse(name='tsr'),
@@ -8179,7 +8231,6 @@ async function createCourtFilenotaryEx(request: CreateCourtFilenotaryRequest, he
 model GetCourtFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 地理位置信息
   location?: Location(name='location'),
@@ -8196,8 +8247,9 @@ model GetCourtFilenotaryRequest = {
 model GetCourtFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 业务类型标识
   businessType?: string(name='business_type'),
@@ -8237,7 +8289,6 @@ async function getCourtFilenotaryEx(request: GetCourtFilenotaryRequest, headers:
 model CreateLeaseRouteRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 方法名
   route: string(name='route'),
@@ -8248,8 +8299,9 @@ model CreateLeaseRouteRequest = {
 model CreateLeaseRouteResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   // 
@@ -8284,7 +8336,6 @@ async function createLeaseRouteEx(request: CreateLeaseRouteRequest, headers: map
 model QueryLeaseEncryptedinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 被查询的租赁公司对应的租户ID
   leaseId: string(name='lease_id'),
@@ -8297,8 +8348,9 @@ model QueryLeaseEncryptedinfoRequest = {
 model QueryLeaseEncryptedinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -8330,7 +8382,6 @@ async function queryLeaseEncryptedinfoEx(request: QueryLeaseEncryptedinfoRequest
 model CreateContractTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署结束信息，phase为FINISH时必选
   finishInfo?: ContractNotaryFinishInfo(name='finish_info'),
@@ -8351,8 +8402,9 @@ model CreateContractTextRequest = {
 model CreateContractTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证凭据
   txHash?: string(name='tx_hash'),
@@ -8380,7 +8432,6 @@ async function createContractTextEx(request: CreateContractTextRequest, headers:
 model ApplyContractReportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署文件存档阶段存证核验信息
   documentInfo?: [ ContractNotaryDocumentInfo ](name='document_info'),
@@ -8399,8 +8450,9 @@ model ApplyContractReportRequest = {
 model ApplyContractReportResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 出证报告授权码，通过核验后获得
   authCode?: string(name='auth_code'),
@@ -8428,7 +8480,6 @@ async function applyContractReportEx(request: ApplyContractReportRequest, header
 model GetContractTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证凭据
   txHash: string(name='tx_hash'),
@@ -8437,8 +8488,9 @@ model GetContractTextRequest = {
 model GetContractTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证信息对象的JSON序列化形式
   notaryData?: string(name='notary_data'),
@@ -8466,7 +8518,6 @@ async function getContractTextEx(request: GetContractTextRequest, headers: map[s
 model CreateInternalTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证关联实体（个人/企业）的身份识别信息
   customer: Identity(name='customer'),
@@ -8483,8 +8534,9 @@ model CreateInternalTransRequest = {
 model CreateInternalTransResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回事务ID，全局唯一
   transactionId?: string(name='transaction_id'),
@@ -8514,7 +8566,6 @@ async function createInternalTransEx(request: CreateInternalTransRequest, header
 model CreateInternalTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 哈希算法，目前仅支持 SHA256
   hashAlgorithm?: string(name='hash_algorithm'),
@@ -8539,8 +8590,9 @@ model CreateInternalTextRequest = {
 model CreateInternalTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间信息
   tsr?: TsrResponse(name='tsr'),
@@ -8570,7 +8622,6 @@ async function createInternalTextEx(request: CreateInternalTextRequest, headers:
 model CreateLeaseTextRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 哈希算法，目前仅支持 SHA256
   hashAlgorithm?: string(name='hash_algorithm'),
@@ -8591,8 +8642,9 @@ model CreateLeaseTextRequest = {
 model CreateLeaseTextResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 入参中传入的存证阶段，可同用于租赁存证列表(twc.notary.lease.notary.list)的记录对账
   phase?: string(name='phase'),
@@ -8620,7 +8672,6 @@ async function createLeaseTextEx(request: CreateLeaseTextRequest, headers: map[s
 model CreateLeaseFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 文件存证模式，目前仅支持 FILE_RAW 和 FILE_HASH
   fileNotaryType?: string(name='file_notary_type'),
@@ -8643,8 +8694,9 @@ model CreateLeaseFileRequest = {
 model CreateLeaseFileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 入参中的存证阶段信息，可同用于租赁存证列表(twc.notary.lease.notary.list)的记录对账
   phase?: string(name='phase'),
@@ -8672,7 +8724,6 @@ async function createLeaseFileEx(request: CreateLeaseFileRequest, headers: map[s
 model ListLeaseNotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 商户订单号，需要同twc.notary.lease.order.create接口的传参一致
   merchantOrderNo?: string(name='merchant_order_no'),
@@ -8685,8 +8736,9 @@ model ListLeaseNotaryRequest = {
 model ListLeaseNotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证记录列表
   records?: [ LeaseNotaryRecord ](name='records'),
@@ -8714,7 +8766,6 @@ async function listLeaseNotaryEx(request: ListLeaseNotaryRequest, headers: map[s
 model QueryLeaseApplicationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 每页的大小
   pageSize: long(name='page_size'),
@@ -8725,8 +8776,9 @@ model QueryLeaseApplicationRequest = {
 model QueryLeaseApplicationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -8758,7 +8810,6 @@ async function queryLeaseApplicationEx(request: QueryLeaseApplicationRequest, he
 model QueryLeaseApplicationdetailinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合约id
   applicationId: string(name='application_id'),
@@ -8767,8 +8818,9 @@ model QueryLeaseApplicationdetailinfoRequest = {
 model QueryLeaseApplicationdetailinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码
   code?: long(name='code'),
@@ -8800,7 +8852,6 @@ async function queryLeaseApplicationdetailinfoEx(request: QueryLeaseApplicationd
 model SetLeaseRepaymentstatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 租赁机构金融科技租户Id
   leaseId: string(name='lease_id'),
@@ -8815,8 +8866,9 @@ model SetLeaseRepaymentstatusRequest = {
 model SetLeaseRepaymentstatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态重置对应的链上交易哈希
   responseData?: string(name='response_data'),
@@ -8848,7 +8900,6 @@ async function setLeaseRepaymentstatusEx(request: SetLeaseRepaymentstatusRequest
 model CreateLeaseSupplierinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 租赁方及资方定义的合约id
   applicationId: string(name='application_id'),
@@ -8873,8 +8924,9 @@ model CreateLeaseSupplierinfoRequest = {
 model CreateLeaseSupplierinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码，0表示成功
   code?: long(name='code'),
@@ -8906,7 +8958,6 @@ async function createLeaseSupplierinfoEx(request: CreateLeaseSupplierinfoRequest
 model DeployMytfTappRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // tappId
   tappId: string(name='tapp_id'),
@@ -8915,8 +8966,9 @@ model DeployMytfTappRequest = {
 model DeployMytfTappResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -8942,7 +8994,6 @@ async function deployMytfTappEx(request: DeployMytfTappRequest, headers: map[str
 model CreateLeaseSupplierdynamicinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 合约id
   applicationId: string(name='application_id'),
@@ -8967,8 +9018,9 @@ model CreateLeaseSupplierdynamicinfoRequest = {
 model CreateLeaseSupplierdynamicinfoResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 状态码
   code?: long(name='code'),
@@ -9000,7 +9052,6 @@ async function createLeaseSupplierdynamicinfoEx(request: CreateLeaseSupplierdyna
 model CreateLeaseBizRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 租赁订单相关内容，以json形式发送
   bizContent: string(name='biz_content'),
@@ -9011,8 +9062,9 @@ model CreateLeaseBizRequest = {
 model CreateLeaseBizResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 租赁信息上链后，链上对应的txHash
   responseData?: string(name='response_data'),
@@ -9044,7 +9096,6 @@ async function createLeaseBizEx(request: CreateLeaseBizRequest, headers: map[str
 model QueryLeaseProofRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 业务逻辑的订单id
   orderId: string(name='order_id'),
@@ -9055,8 +9106,9 @@ model QueryLeaseProofRequest = {
 model QueryLeaseProofResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 核验结果数据
   responseData?: string(name='response_data'),
@@ -9084,7 +9136,6 @@ async function queryLeaseProofEx(request: QueryLeaseProofRequest, headers: map[s
 model CreateLargefileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 上传至中枢文件扩展服务后得到的文件ID
   fileId: string(name='file_id'),
@@ -9105,8 +9156,9 @@ model CreateLargefileRequest = {
 model CreateLargefileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 可信时间信息
   tsr?: TsrResponse(name='tsr'),
@@ -9136,7 +9188,6 @@ async function createLargefileEx(request: CreateLargefileRequest, headers: map[s
 model QueryLeaseBizRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 租赁订单相关内容，以json形式发送
   bizContent: string(name='biz_content'),
@@ -9147,8 +9198,9 @@ model QueryLeaseBizRequest = {
 model QueryLeaseBizResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 返回的查询值
   responseData?: string(name='response_data'),
@@ -9176,7 +9228,6 @@ async function queryLeaseBizEx(request: QueryLeaseBizRequest, headers: map[strin
 model CreateLeaseBiznotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 要存证的文件哈希
   hash: string(name='hash'),
@@ -9191,8 +9242,9 @@ model CreateLeaseBiznotaryRequest = {
 model CreateLeaseBiznotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否租赁宝存证哈希成功，成功则为0，否则不为0
   code?: long(name='code'),
@@ -9222,7 +9274,6 @@ async function createLeaseBiznotaryEx(request: CreateLeaseBiznotaryRequest, head
 model CreateInternalContractRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 签署结束信息，phase为FINISH时必选
   finishInfo?: ContractNotaryFinishInfo(name='finish_info'),
@@ -9243,8 +9294,9 @@ model CreateInternalContractRequest = {
 model CreateInternalContractResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证凭据
   txHash?: string(name='tx_hash'),
@@ -9272,7 +9324,6 @@ async function createInternalContractEx(request: CreateInternalContractRequest, 
 model CreateLeaseZftagreementsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 订单id
   orderId: string(name='order_id'),
@@ -9297,8 +9348,9 @@ model CreateLeaseZftagreementsignRequest = {
 model CreateLeaseZftagreementsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码描述
   errMessage?: string(name='err_message'),
@@ -9330,7 +9382,6 @@ async function createLeaseZftagreementsignEx(request: CreateLeaseZftagreementsig
 model CreateLeaseZftagreementunsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 订单id
   orderId: string(name='order_id'),
@@ -9347,8 +9398,9 @@ model CreateLeaseZftagreementunsignRequest = {
 model CreateLeaseZftagreementunsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 错误码描述信息
   errMessage?: string(name='err_message'),
@@ -9380,7 +9432,6 @@ async function createLeaseZftagreementunsignEx(request: CreateLeaseZftagreementu
 model GetCertificateDetailRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 存证哈希地址
   txHash: string(name='tx_hash'),
@@ -9389,8 +9440,9 @@ model GetCertificateDetailRequest = {
 model GetCertificateDetailResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证证明下载地址
   url?: string(name='url'),
