@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.141"},
+                        {"sdk_version", "1.4.147"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.141"},
+                        {"sdk_version", "1.4.147"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3056,6 +3056,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 获取区块链合同存证证明
+         * Summary: 获取区块链合同存证证明
+         */
+        public GetContractCertificateResponse GetContractCertificate(GetContractCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetContractCertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取区块链合同存证证明
+         * Summary: 获取区块链合同存证证明
+         */
+        public async Task<GetContractCertificateResponse> GetContractCertificateAsync(GetContractCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetContractCertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取区块链合同存证证明
+         * Summary: 获取区块链合同存证证明
+         */
+        public GetContractCertificateResponse GetContractCertificateEx(GetContractCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractCertificateResponse>(DoRequest("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取区块链合同存证证明
+         * Summary: 获取区块链合同存证证明
+         */
+        public async Task<GetContractCertificateResponse> GetContractCertificateExAsync(GetContractCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractCertificateResponse>(await DoRequestAsync("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 输入企业名+证件号，发起企业二要素认证请求。
          * Summary: 企业二要素认证
          */
@@ -3977,6 +4019,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryJusticeMediationResponse>(await DoRequestAsync("1.0", "twc.notary.justice.mediation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁平台isv模式代理商户入驻
+         * Summary: 租赁平台isv模式代理商户入驻
+         */
+        public CreateLeaseAssetagentregisterResponse CreateLeaseAssetagentregister(CreateLeaseAssetagentregisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseAssetagentregisterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁平台isv模式代理商户入驻
+         * Summary: 租赁平台isv模式代理商户入驻
+         */
+        public async Task<CreateLeaseAssetagentregisterResponse> CreateLeaseAssetagentregisterAsync(CreateLeaseAssetagentregisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseAssetagentregisterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁平台isv模式代理商户入驻
+         * Summary: 租赁平台isv模式代理商户入驻
+         */
+        public CreateLeaseAssetagentregisterResponse CreateLeaseAssetagentregisterEx(CreateLeaseAssetagentregisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAssetagentregisterResponse>(DoRequest("1.0", "twc.notary.lease.assetagentregister.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁平台isv模式代理商户入驻
+         * Summary: 租赁平台isv模式代理商户入驻
+         */
+        public async Task<CreateLeaseAssetagentregisterResponse> CreateLeaseAssetagentregisterExAsync(CreateLeaseAssetagentregisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseAssetagentregisterResponse>(await DoRequestAsync("1.0", "twc.notary.lease.assetagentregister.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -6959,48 +7043,6 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateLeaseZftagreementunsignResponse>(await DoRequestAsync("1.0", "twc.notary.lease.zftagreementunsign.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 获取区块链合同存证证明
-         * Summary: 获取区块链合同存证证明
-         */
-        public GetContractCertificateResponse GetContractCertificate(GetContractCertificateRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetContractCertificateEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取区块链合同存证证明
-         * Summary: 获取区块链合同存证证明
-         */
-        public async Task<GetContractCertificateResponse> GetContractCertificateAsync(GetContractCertificateRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetContractCertificateExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 获取区块链合同存证证明
-         * Summary: 获取区块链合同存证证明
-         */
-        public GetContractCertificateResponse GetContractCertificateEx(GetContractCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetContractCertificateResponse>(DoRequest("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 获取区块链合同存证证明
-         * Summary: 获取区块链合同存证证明
-         */
-        public async Task<GetContractCertificateResponse> GetContractCertificateExAsync(GetContractCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetContractCertificateResponse>(await DoRequestAsync("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

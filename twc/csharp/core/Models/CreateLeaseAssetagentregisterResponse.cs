@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class CheckEpidentityThreemetaResponse : TeaModel {
+    public class CreateLeaseAssetagentregisterResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 企业状态。
-        [NameInMap("enterprise_status")]
+        // 业务层错误码
+        [NameInMap("biz_error_code")]
         [Validation(Required=false)]
-        public string EnterpriseStatus { get; set; }
+        public string BizErrorCode { get; set; }
 
-        // 营业期限。
-        [NameInMap("open_time")]
+        // 错误信息描述
+        [NameInMap("biz_error_msg")]
         [Validation(Required=false)]
-        public string OpenTime { get; set; }
+        public string BizErrorMsg { get; set; }
 
-        // 核验是否通过。
-        [NameInMap("passed")]
+        // 代理关系链上存证哈希
+        [NameInMap("tx_hash")]
         [Validation(Required=false)]
-        public bool? Passed { get; set; }
-
-        // 0:核验成功 1:企业信息有误 2:企业非正常营业
-        [NameInMap("code")]
-        [Validation(Required=false)]
-        public string Code { get; set; }
+        public string TxHash { get; set; }
 
     }
 

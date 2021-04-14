@@ -14,11 +14,12 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ReqMsgId { get; set; }
 
-        // 异常信息的文本描述
+        // 结果码，一般OK表示调用成功
         [NameInMap("result_code")]
         [Validation(Required=false)]
         public string ResultCode { get; set; }
 
+        // 异常信息的文本描述
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }

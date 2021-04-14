@@ -14,7 +14,6 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -38,6 +37,11 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("tsr")]
         [Validation(Required=false)]
         public bool? Tsr { get; set; }
+
+        // 代理客户存证时，实际用户的租户ID
+        [NameInMap("real_tenant")]
+        [Validation(Required=false)]
+        public string RealTenant { get; set; }
 
     }
 
