@@ -130,7 +130,7 @@ class QueryProjectInfoResponse extends Model
 
     // 项目参与用户数
     /**
-     * @var bool
+     * @var int
      */
     public $projectUserNum;
 
