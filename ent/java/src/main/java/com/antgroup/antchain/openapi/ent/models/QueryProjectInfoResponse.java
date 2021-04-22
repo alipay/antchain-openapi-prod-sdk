@@ -90,7 +90,7 @@ public class QueryProjectInfoResponse extends TeaModel {
 
     // 项目参与用户数
     @NameInMap("project_user_num")
-    public Boolean projectUserNum;
+    public Long projectUserNum;
 
     // 项目订单总数
     @NameInMap("project_order_num")
@@ -265,11 +265,11 @@ public class QueryProjectInfoResponse extends TeaModel {
         return this.allStages;
     }
 
-    public QueryProjectInfoResponse setProjectUserNum(Boolean projectUserNum) {
+    public QueryProjectInfoResponse setProjectUserNum(Long projectUserNum) {
         this.projectUserNum = projectUserNum;
         return this;
     }
-    public Boolean getProjectUserNum() {
+    public Long getProjectUserNum() {
         return this.projectUserNum;
     }
 
