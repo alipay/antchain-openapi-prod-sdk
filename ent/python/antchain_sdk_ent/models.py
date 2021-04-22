@@ -1426,7 +1426,7 @@ class QueryProjectInfoResponse(TeaModel):
         min_token_price: Money = None,
         current_stage: Stage = None,
         all_stages: List[Stage] = None,
-        project_user_num: bool = None,
+        project_user_num: int = None,
         project_order_num: int = None,
         project_item_num: int = None,
     ):
