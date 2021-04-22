@@ -1225,7 +1225,7 @@ type QueryProjectInfoResponse struct {
 	// 所有发放区间信息
 	AllStages []*Stage `json:"all_stages,omitempty" xml:"all_stages,omitempty" type:"Repeated"`
 	// 项目参与用户数
-	ProjectUserNum *bool `json:"project_user_num,omitempty" xml:"project_user_num,omitempty"`
+	ProjectUserNum *int64 `json:"project_user_num,omitempty" xml:"project_user_num,omitempty"`
 	// 项目订单总数
 	ProjectOrderNum *int64 `json:"project_order_num,omitempty" xml:"project_order_num,omitempty"`
 	// 项目已售商品总数
@@ -1340,7 +1340,7 @@ func (s *QueryProjectInfoResponse) SetAllStages(v []*Stage) *QueryProjectInfoRes
 	return s
 }
 
-func (s *QueryProjectInfoResponse) SetProjectUserNum(v bool) *QueryProjectInfoResponse {
+func (s *QueryProjectInfoResponse) SetProjectUserNum(v int64) *QueryProjectInfoResponse {
 	s.ProjectUserNum = &v
 	return s
 }
@@ -2884,7 +2884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.5"),
+				"sdk_version":      tea.String("1.4.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
