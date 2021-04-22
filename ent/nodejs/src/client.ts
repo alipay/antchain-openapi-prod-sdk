@@ -928,7 +928,7 @@ export class QueryProjectInfoResponse extends $tea.Model {
   // 所有发放区间信息
   allStages?: Stage[];
   // 项目参与用户数
-  projectUserNum?: boolean;
+  projectUserNum?: number;
   // 项目订单总数
   projectOrderNum?: number;
   // 项目已售商品总数
@@ -983,7 +983,7 @@ export class QueryProjectInfoResponse extends $tea.Model {
       minTokenPrice: Money,
       currentStage: Stage,
       allStages: { 'type': 'array', 'itemType': Stage },
-      projectUserNum: 'boolean',
+      projectUserNum: 'number',
       projectOrderNum: 'number',
       projectItemNum: 'number',
     };
@@ -2177,7 +2177,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.5",
+          sdk_version: "1.4.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
