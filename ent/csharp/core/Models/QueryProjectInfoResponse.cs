@@ -112,7 +112,7 @@ namespace AntChain.SDK.ENT.Models
         // 项目参与用户数
         [NameInMap("project_user_num")]
         [Validation(Required=false)]
-        public bool? ProjectUserNum { get; set; }
+        public long? ProjectUserNum { get; set; }
 
         // 项目订单总数
         [NameInMap("project_order_num")]
