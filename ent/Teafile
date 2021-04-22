@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ENT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ent:1.4.5",
-    "go": "github.com/antchain-openapi-sdk-go/ent/client:v1.4.5",
-    "csharp": "AntChain.SDK.ENT:1.4.5",
-    "ts": "@antchain/ent:1.4.5",
-    "php": "antchain/ent:1.4.5",
-    "python": "antchain_sdk_ent:1.4.5"
+    "java": "com.antgroup.antchain.openapi:openapi-ent:1.4.6",
+    "go": "github.com/antchain-openapi-sdk-go/ent/client:v1.4.6",
+    "csharp": "AntChain.SDK.ENT:1.4.6",
+    "ts": "@antchain/ent:1.4.6",
+    "php": "antchain/ent:1.4.6",
+    "python": "antchain_sdk_ent:1.4.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.5',
+    sdk_version = '1.4.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -576,7 +576,7 @@ model QueryProjectInfoResponse = {
   // 所有发放区间信息
   allStages?: [ Stage ](name='all_stages'),
   // 项目参与用户数
-  projectUserNum?: boolean(name='project_user_num'),
+  projectUserNum?: long(name='project_user_num'),
   // 项目订单总数
   projectOrderNum?: long(name='project_order_num'),
   // 项目已售商品总数
