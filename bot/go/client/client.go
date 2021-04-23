@@ -1737,6 +1737,111 @@ func (s *Device) SetFactoryTime(v string) *Device {
 	return s
 }
 
+type QueryIotplatformPurchaseorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 设备串号
+	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty" require:"true"`
+}
+
+func (s QueryIotplatformPurchaseorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotplatformPurchaseorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotplatformPurchaseorderRequest) SetAuthToken(v string) *QueryIotplatformPurchaseorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderRequest) SetProductInstanceId(v string) *QueryIotplatformPurchaseorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderRequest) SetTenantId(v string) *QueryIotplatformPurchaseorderRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderRequest) SetSerialNumber(v string) *QueryIotplatformPurchaseorderRequest {
+	s.SerialNumber = &v
+	return s
+}
+
+type QueryIotplatformPurchaseorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否为链上采购商品，true：是，false：否
+	GoodsFromChain *bool `json:"goods_from_chain,omitempty" xml:"goods_from_chain,omitempty"`
+	// 采购时间
+	PurchaseTime *string `json:"purchase_time,omitempty" xml:"purchase_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 采购商名称
+	LeaseName *string `json:"lease_name,omitempty" xml:"lease_name,omitempty"`
+	// 采购价
+	PurchaseOrderPrice *string `json:"purchase_order_price,omitempty" xml:"purchase_order_price,omitempty"`
+	// 商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty"`
+}
+
+func (s QueryIotplatformPurchaseorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotplatformPurchaseorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetReqMsgId(v string) *QueryIotplatformPurchaseorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetResultCode(v string) *QueryIotplatformPurchaseorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetResultMsg(v string) *QueryIotplatformPurchaseorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetGoodsFromChain(v bool) *QueryIotplatformPurchaseorderResponse {
+	s.GoodsFromChain = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetPurchaseTime(v string) *QueryIotplatformPurchaseorderResponse {
+	s.PurchaseTime = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetLeaseName(v string) *QueryIotplatformPurchaseorderResponse {
+	s.LeaseName = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetPurchaseOrderPrice(v string) *QueryIotplatformPurchaseorderResponse {
+	s.PurchaseOrderPrice = &v
+	return s
+}
+
+func (s *QueryIotplatformPurchaseorderResponse) SetGoodsName(v string) *QueryIotplatformPurchaseorderResponse {
+	s.GoodsName = &v
+	return s
+}
+
 type CreateDeviceDatamodelRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6566,7 +6671,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.15"),
+				"sdk_version":      tea.String("1.3.16"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -6612,6 +6717,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 根据设备串号查询采购设备
+ * Summary: 根据设备串号查询采购设备
+ */
+func (client *Client) QueryIotplatformPurchaseorder(request *QueryIotplatformPurchaseorderRequest) (_result *QueryIotplatformPurchaseorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotplatformPurchaseorderResponse{}
+	_body, _err := client.QueryIotplatformPurchaseorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据设备串号查询采购设备
+ * Summary: 根据设备串号查询采购设备
+ */
+func (client *Client) QueryIotplatformPurchaseorderEx(request *QueryIotplatformPurchaseorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotplatformPurchaseorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotplatformPurchaseorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplatform.purchaseorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
