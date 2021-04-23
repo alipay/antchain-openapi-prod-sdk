@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.15'
+                    'sdk_version': '1.3.16'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.15'
+                    'sdk_version': '1.3.16'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,60 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_iotplatform_purchaseorder(
+        self,
+        request: bot_models.QueryIotplatformPurchaseorderRequest,
+    ) -> bot_models.QueryIotplatformPurchaseorderResponse:
+        """
+        Description: 根据设备串号查询采购设备
+        Summary: 根据设备串号查询采购设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_iotplatform_purchaseorder_ex(request, headers, runtime)
+
+    async def query_iotplatform_purchaseorder_async(
+        self,
+        request: bot_models.QueryIotplatformPurchaseorderRequest,
+    ) -> bot_models.QueryIotplatformPurchaseorderResponse:
+        """
+        Description: 根据设备串号查询采购设备
+        Summary: 根据设备串号查询采购设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_iotplatform_purchaseorder_ex_async(request, headers, runtime)
+
+    def query_iotplatform_purchaseorder_ex(
+        self,
+        request: bot_models.QueryIotplatformPurchaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotplatformPurchaseorderResponse:
+        """
+        Description: 根据设备串号查询采购设备
+        Summary: 根据设备串号查询采购设备
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryIotplatformPurchaseorderResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_iotplatform_purchaseorder_ex_async(
+        self,
+        request: bot_models.QueryIotplatformPurchaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotplatformPurchaseorderResponse:
+        """
+        Description: 根据设备串号查询采购设备
+        Summary: 根据设备串号查询采购设备
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryIotplatformPurchaseorderResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def create_device_datamodel(
         self,

@@ -1934,6 +1934,125 @@ class Device(TeaModel):
         return self
 
 
+class QueryIotplatformPurchaseorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        serial_number: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 设备串号
+        self.serial_number = serial_number
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.serial_number, 'serial_number')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.serial_number is not None:
+            result['serial_number'] = self.serial_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('serial_number') is not None:
+            self.serial_number = m.get('serial_number')
+        return self
+
+
+class QueryIotplatformPurchaseorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        goods_from_chain: bool = None,
+        purchase_time: str = None,
+        lease_name: str = None,
+        purchase_order_price: str = None,
+        goods_name: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否为链上采购商品，true：是，false：否
+        self.goods_from_chain = goods_from_chain
+        # 采购时间
+        self.purchase_time = purchase_time
+        # 采购商名称
+        self.lease_name = lease_name
+        # 采购价
+        self.purchase_order_price = purchase_order_price
+        # 商品名称
+        self.goods_name = goods_name
+
+    def validate(self):
+        if self.purchase_time is not None:
+            self.validate_pattern(self.purchase_time, 'purchase_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.goods_from_chain is not None:
+            result['goods_from_chain'] = self.goods_from_chain
+        if self.purchase_time is not None:
+            result['purchase_time'] = self.purchase_time
+        if self.lease_name is not None:
+            result['lease_name'] = self.lease_name
+        if self.purchase_order_price is not None:
+            result['purchase_order_price'] = self.purchase_order_price
+        if self.goods_name is not None:
+            result['goods_name'] = self.goods_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('goods_from_chain') is not None:
+            self.goods_from_chain = m.get('goods_from_chain')
+        if m.get('purchase_time') is not None:
+            self.purchase_time = m.get('purchase_time')
+        if m.get('lease_name') is not None:
+            self.lease_name = m.get('lease_name')
+        if m.get('purchase_order_price') is not None:
+            self.purchase_order_price = m.get('purchase_order_price')
+        if m.get('goods_name') is not None:
+            self.goods_name = m.get('goods_name')
+        return self
+
+
 class CreateDeviceDatamodelRequest(TeaModel):
     def __init__(
         self,
