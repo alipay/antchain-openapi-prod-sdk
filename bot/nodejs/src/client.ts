@@ -1296,6 +1296,85 @@ export class Device extends $tea.Model {
   }
 }
 
+export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 设备串号
+  serialNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      serialNumber: 'serial_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      serialNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotplatformPurchaseorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否为链上采购商品，true：是，false：否
+  goodsFromChain?: boolean;
+  // 采购时间
+  purchaseTime?: string;
+  // 采购商名称
+  leaseName?: string;
+  // 采购价
+  purchaseOrderPrice?: string;
+  // 商品名称
+  goodsName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      goodsFromChain: 'goods_from_chain',
+      purchaseTime: 'purchase_time',
+      leaseName: 'lease_name',
+      purchaseOrderPrice: 'purchase_order_price',
+      goodsName: 'goods_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      goodsFromChain: 'boolean',
+      purchaseTime: 'string',
+      leaseName: 'string',
+      purchaseOrderPrice: 'string',
+      goodsName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateDeviceDatamodelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5137,7 +5216,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.15",
+          sdk_version: "1.3.16",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -5181,6 +5260,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 根据设备串号查询采购设备
+   * Summary: 根据设备串号查询采购设备
+   */
+  async queryIotplatformPurchaseorder(request: QueryIotplatformPurchaseorderRequest): Promise<QueryIotplatformPurchaseorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotplatformPurchaseorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据设备串号查询采购设备
+   * Summary: 根据设备串号查询采购设备
+   */
+  async queryIotplatformPurchaseorderEx(request: QueryIotplatformPurchaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotplatformPurchaseorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotplatformPurchaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotplatform.purchaseorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotplatformPurchaseorderResponse({}));
   }
 
   /**
