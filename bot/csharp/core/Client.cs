@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.15"},
+                        {"sdk_version", "1.3.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.15"},
+                        {"sdk_version", "1.3.16"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,48 @@ namespace AntChain.SDK.BOT
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 根据设备串号查询采购设备
+         * Summary: 根据设备串号查询采购设备
+         */
+        public QueryIotplatformPurchaseorderResponse QueryIotplatformPurchaseorder(QueryIotplatformPurchaseorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIotplatformPurchaseorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据设备串号查询采购设备
+         * Summary: 根据设备串号查询采购设备
+         */
+        public async Task<QueryIotplatformPurchaseorderResponse> QueryIotplatformPurchaseorderAsync(QueryIotplatformPurchaseorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIotplatformPurchaseorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据设备串号查询采购设备
+         * Summary: 根据设备串号查询采购设备
+         */
+        public QueryIotplatformPurchaseorderResponse QueryIotplatformPurchaseorderEx(QueryIotplatformPurchaseorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIotplatformPurchaseorderResponse>(DoRequest("1.0", "blockchain.bot.iotplatform.purchaseorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据设备串号查询采购设备
+         * Summary: 根据设备串号查询采购设备
+         */
+        public async Task<QueryIotplatformPurchaseorderResponse> QueryIotplatformPurchaseorderExAsync(QueryIotplatformPurchaseorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIotplatformPurchaseorderResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplatform.purchaseorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
