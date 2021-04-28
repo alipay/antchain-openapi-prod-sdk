@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.147',
+    sdk_version = '1.4.151',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -9237,6 +9237,10 @@ model CreateLeaseBiznotaryRequest = {
   leaseCorpName: string(name='lease_corp_name'),
   // 租赁机构法人姓名
   leaseCorpOwnerName: string(name='lease_corp_owner_name'),
+  // 被代理机构金融科技租户id
+  agentLeaseId?: string(name='agent_lease_id'),
+  // 模式，代理模式为isvMode
+  mode?: string(name='mode'),
 }
 
 model CreateLeaseBiznotaryResponse = {
@@ -9343,6 +9347,10 @@ model CreateLeaseZftagreementsignRequest = {
   leaseId: string(name='lease_id'),
   // 核验结果，1表示通过，-1表示不通过
   agreementStatus: long(name='agreement_status'),
+  // 租赁机构支付宝uid
+  leaseCorpAlipayUid?: string(name='lease_corp_alipay_uid'),
+  // 直付通代扣协议核验结果说明
+  failMessage?: string(name='fail_message'),
 }
 
 model CreateLeaseZftagreementsignResponse = {
@@ -9469,5 +9477,61 @@ async function getCertificateDetail(request: GetCertificateDetailRequest): GetCe
 async function getCertificateDetailEx(request: GetCertificateDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCertificateDetailResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.certificate.detail.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetInternalTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location(name='location'),
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase?: string(name='phase'),
+  // 扩展属性
+  properties?: string(name='properties'),
+  // 存证事务id
+  transactionId?: string(name='transaction_id'),
+  // 存证凭据
+  txHash: string(name='tx_hash'),
+  // 租户
+  realTenant: string(name='real_tenant'),
+  // 系统之间约定的
+  token: string(name='token'),
+}
+
+model GetInternalTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证信息
+  content?: string(name='content'),
+  // 可信信息
+  tsr?: TsrResponse(name='tsr'),
+  // 文本存证类型
+  textNotaryType?: string(name='text_notary_type'),
+  // 哈希算法
+  hashAlgorithm?: string(name='hash_algorithm'),
+}
+
+/**
+ * Description: 用户通过交易哈希获取自己上传的文本存证内容
+ * Summary: 获取文本存证内容
+ */
+async function getInternalText(request: GetInternalTextRequest): GetInternalTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInternalTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户通过交易哈希获取自己上传的文本存证内容
+ * Summary: 获取文本存证内容
+ */
+async function getInternalTextEx(request: GetInternalTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInternalTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.internal.text.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
