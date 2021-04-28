@@ -38,6 +38,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string LeaseCorpOwnerName { get; set; }
 
+        // 被代理机构金融科技租户id
+        [NameInMap("agent_lease_id")]
+        [Validation(Required=false)]
+        public string AgentLeaseId { get; set; }
+
+        // 模式，代理模式为isvMode
+        [NameInMap("mode")]
+        [Validation(Required=false)]
+        public string Mode { get; set; }
+
     }
 
 }

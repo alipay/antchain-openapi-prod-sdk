@@ -63,6 +63,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public long? AgreementStatus { get; set; }
 
+        // 租赁机构支付宝uid
+        [NameInMap("lease_corp_alipay_uid")]
+        [Validation(Required=false)]
+        public string LeaseCorpAlipayUid { get; set; }
+
+        // 直付通代扣协议核验结果说明
+        [NameInMap("fail_message")]
+        [Validation(Required=false)]
+        public string FailMessage { get; set; }
+
     }
 
 }

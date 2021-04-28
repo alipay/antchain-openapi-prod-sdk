@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.147"},
+                        {"sdk_version", "1.4.151"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.147"},
+                        {"sdk_version", "1.4.151"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -7085,6 +7085,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetCertificateDetailResponse>(await DoRequestAsync("1.0", "twc.notary.certificate.detail.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户通过交易哈希获取自己上传的文本存证内容
+         * Summary: 获取文本存证内容
+         */
+        public GetInternalTextResponse GetInternalText(GetInternalTextRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInternalTextEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户通过交易哈希获取自己上传的文本存证内容
+         * Summary: 获取文本存证内容
+         */
+        public async Task<GetInternalTextResponse> GetInternalTextAsync(GetInternalTextRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInternalTextExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户通过交易哈希获取自己上传的文本存证内容
+         * Summary: 获取文本存证内容
+         */
+        public GetInternalTextResponse GetInternalTextEx(GetInternalTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternalTextResponse>(DoRequest("1.0", "twc.notary.internal.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户通过交易哈希获取自己上传的文本存证内容
+         * Summary: 获取文本存证内容
+         */
+        public async Task<GetInternalTextResponse> GetInternalTextExAsync(GetInternalTextRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternalTextResponse>(await DoRequestAsync("1.0", "twc.notary.internal.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
