@@ -31,6 +31,14 @@ public class CreateLeaseBiznotaryRequest extends TeaModel {
     @Validation(required = true)
     public String leaseCorpOwnerName;
 
+    // 被代理机构金融科技租户id
+    @NameInMap("agent_lease_id")
+    public String agentLeaseId;
+
+    // 模式，代理模式为isvMode
+    @NameInMap("mode")
+    public String mode;
+
     public static CreateLeaseBiznotaryRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseBiznotaryRequest self = new CreateLeaseBiznotaryRequest();
         return TeaModel.build(map, self);
@@ -82,6 +90,22 @@ public class CreateLeaseBiznotaryRequest extends TeaModel {
     }
     public String getLeaseCorpOwnerName() {
         return this.leaseCorpOwnerName;
+    }
+
+    public CreateLeaseBiznotaryRequest setAgentLeaseId(String agentLeaseId) {
+        this.agentLeaseId = agentLeaseId;
+        return this;
+    }
+    public String getAgentLeaseId() {
+        return this.agentLeaseId;
+    }
+
+    public CreateLeaseBiznotaryRequest setMode(String mode) {
+        this.mode = mode;
+        return this;
+    }
+    public String getMode() {
+        return this.mode;
     }
 
 }

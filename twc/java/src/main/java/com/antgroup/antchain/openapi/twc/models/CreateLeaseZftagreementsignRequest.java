@@ -52,6 +52,14 @@ public class CreateLeaseZftagreementsignRequest extends TeaModel {
     @Validation(required = true)
     public Long agreementStatus;
 
+    // 租赁机构支付宝uid
+    @NameInMap("lease_corp_alipay_uid")
+    public String leaseCorpAlipayUid;
+
+    // 直付通代扣协议核验结果说明
+    @NameInMap("fail_message")
+    public String failMessage;
+
     public static CreateLeaseZftagreementsignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseZftagreementsignRequest self = new CreateLeaseZftagreementsignRequest();
         return TeaModel.build(map, self);
@@ -143,6 +151,22 @@ public class CreateLeaseZftagreementsignRequest extends TeaModel {
     }
     public Long getAgreementStatus() {
         return this.agreementStatus;
+    }
+
+    public CreateLeaseZftagreementsignRequest setLeaseCorpAlipayUid(String leaseCorpAlipayUid) {
+        this.leaseCorpAlipayUid = leaseCorpAlipayUid;
+        return this;
+    }
+    public String getLeaseCorpAlipayUid() {
+        return this.leaseCorpAlipayUid;
+    }
+
+    public CreateLeaseZftagreementsignRequest setFailMessage(String failMessage) {
+        this.failMessage = failMessage;
+        return this;
+    }
+    public String getFailMessage() {
+        return this.failMessage;
     }
 
 }
