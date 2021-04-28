@@ -24709,6 +24709,8 @@ class CreateLeaseBiznotaryRequest(TeaModel):
         lease_corp_id: str = None,
         lease_corp_name: str = None,
         lease_corp_owner_name: str = None,
+        agent_lease_id: str = None,
+        mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24721,6 +24723,10 @@ class CreateLeaseBiznotaryRequest(TeaModel):
         self.lease_corp_name = lease_corp_name
         # 租赁机构法人姓名
         self.lease_corp_owner_name = lease_corp_owner_name
+        # 被代理机构金融科技租户id
+        self.agent_lease_id = agent_lease_id
+        # 模式，代理模式为isvMode
+        self.mode = mode
 
     def validate(self):
         self.validate_required(self.hash, 'hash')
@@ -24742,6 +24748,10 @@ class CreateLeaseBiznotaryRequest(TeaModel):
             result['lease_corp_name'] = self.lease_corp_name
         if self.lease_corp_owner_name is not None:
             result['lease_corp_owner_name'] = self.lease_corp_owner_name
+        if self.agent_lease_id is not None:
+            result['agent_lease_id'] = self.agent_lease_id
+        if self.mode is not None:
+            result['mode'] = self.mode
         return result
 
     def from_map(self, m: dict = None):
@@ -24758,6 +24768,10 @@ class CreateLeaseBiznotaryRequest(TeaModel):
             self.lease_corp_name = m.get('lease_corp_name')
         if m.get('lease_corp_owner_name') is not None:
             self.lease_corp_owner_name = m.get('lease_corp_owner_name')
+        if m.get('agent_lease_id') is not None:
+            self.agent_lease_id = m.get('agent_lease_id')
+        if m.get('mode') is not None:
+            self.mode = m.get('mode')
         return self
 
 
@@ -24965,6 +24979,8 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
         invalid_time: str = None,
         lease_id: str = None,
         agreement_status: int = None,
+        lease_corp_alipay_uid: str = None,
+        fail_message: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24987,6 +25003,10 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
         self.lease_id = lease_id
         # 核验结果，1表示通过，-1表示不通过
         self.agreement_status = agreement_status
+        # 租赁机构支付宝uid
+        self.lease_corp_alipay_uid = lease_corp_alipay_uid
+        # 直付通代扣协议核验结果说明
+        self.fail_message = fail_message
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -25019,6 +25039,10 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
             result['lease_id'] = self.lease_id
         if self.agreement_status is not None:
             result['agreement_status'] = self.agreement_status
+        if self.lease_corp_alipay_uid is not None:
+            result['lease_corp_alipay_uid'] = self.lease_corp_alipay_uid
+        if self.fail_message is not None:
+            result['fail_message'] = self.fail_message
         return result
 
     def from_map(self, m: dict = None):
@@ -25045,6 +25069,10 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
             self.lease_id = m.get('lease_id')
         if m.get('agreement_status') is not None:
             self.agreement_status = m.get('agreement_status')
+        if m.get('lease_corp_alipay_uid') is not None:
+            self.lease_corp_alipay_uid = m.get('lease_corp_alipay_uid')
+        if m.get('fail_message') is not None:
+            self.fail_message = m.get('fail_message')
         return self
 
 
@@ -25328,6 +25356,158 @@ class GetCertificateDetailResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class GetInternalTextRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        location: Location = None,
+        phase: str = None,
+        properties: str = None,
+        transaction_id: str = None,
+        tx_hash: str = None,
+        real_tenant: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+        self.location = location
+        # 描述本条存证在存证事务中的阶段，用户可自行维护
+        self.phase = phase
+        # 扩展属性
+        self.properties = properties
+        # 存证事务id
+        self.transaction_id = transaction_id
+        # 存证凭据
+        self.tx_hash = tx_hash
+        # 租户
+        self.real_tenant = real_tenant
+        # 系统之间约定的
+        self.token = token
+
+    def validate(self):
+        if self.location:
+            self.location.validate()
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.real_tenant, 'real_tenant')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.location is not None:
+            result['location'] = self.location.to_map()
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.real_tenant is not None:
+            result['real_tenant'] = self.real_tenant
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('location') is not None:
+            temp_model = Location()
+            self.location = temp_model.from_map(m['location'])
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('real_tenant') is not None:
+            self.real_tenant = m.get('real_tenant')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class GetInternalTextResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        content: str = None,
+        tsr: TsrResponse = None,
+        text_notary_type: str = None,
+        hash_algorithm: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证信息
+        self.content = content
+        # 可信信息
+        self.tsr = tsr
+        # 文本存证类型
+        self.text_notary_type = text_notary_type
+        # 哈希算法
+        self.hash_algorithm = hash_algorithm
+
+    def validate(self):
+        if self.tsr:
+            self.tsr.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.content is not None:
+            result['content'] = self.content
+        if self.tsr is not None:
+            result['tsr'] = self.tsr.to_map()
+        if self.text_notary_type is not None:
+            result['text_notary_type'] = self.text_notary_type
+        if self.hash_algorithm is not None:
+            result['hash_algorithm'] = self.hash_algorithm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('tsr') is not None:
+            temp_model = TsrResponse()
+            self.tsr = temp_model.from_map(m['tsr'])
+        if m.get('text_notary_type') is not None:
+            self.text_notary_type = m.get('text_notary_type')
+        if m.get('hash_algorithm') is not None:
+            self.hash_algorithm = m.get('hash_algorithm')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.147'
+                    'sdk_version': '1.4.151'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.147'
+                    'sdk_version': '1.4.151'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8971,4 +8971,58 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.GetCertificateDetailResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.certificate.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_internal_text(
+        self,
+        request: twc_models.GetInternalTextRequest,
+    ) -> twc_models.GetInternalTextResponse:
+        """
+        Description: 用户通过交易哈希获取自己上传的文本存证内容
+        Summary: 获取文本存证内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_internal_text_ex(request, headers, runtime)
+
+    async def get_internal_text_async(
+        self,
+        request: twc_models.GetInternalTextRequest,
+    ) -> twc_models.GetInternalTextResponse:
+        """
+        Description: 用户通过交易哈希获取自己上传的文本存证内容
+        Summary: 获取文本存证内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_internal_text_ex_async(request, headers, runtime)
+
+    def get_internal_text_ex(
+        self,
+        request: twc_models.GetInternalTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetInternalTextResponse:
+        """
+        Description: 用户通过交易哈希获取自己上传的文本存证内容
+        Summary: 获取文本存证内容
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetInternalTextResponse().from_map(
+            self.do_request('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_internal_text_ex_async(
+        self,
+        request: twc_models.GetInternalTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetInternalTextResponse:
+        """
+        Description: 用户通过交易哈希获取自己上传的文本存证内容
+        Summary: 获取文本存证内容
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetInternalTextResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
