@@ -21638,6 +21638,10 @@ type CreateLeaseBiznotaryRequest struct {
 	LeaseCorpName *string `json:"lease_corp_name,omitempty" xml:"lease_corp_name,omitempty" require:"true"`
 	// 租赁机构法人姓名
 	LeaseCorpOwnerName *string `json:"lease_corp_owner_name,omitempty" xml:"lease_corp_owner_name,omitempty" require:"true"`
+	// 被代理机构金融科技租户id
+	AgentLeaseId *string `json:"agent_lease_id,omitempty" xml:"agent_lease_id,omitempty"`
+	// 模式，代理模式为isvMode
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
 }
 
 func (s CreateLeaseBiznotaryRequest) String() string {
@@ -21675,6 +21679,16 @@ func (s *CreateLeaseBiznotaryRequest) SetLeaseCorpName(v string) *CreateLeaseBiz
 
 func (s *CreateLeaseBiznotaryRequest) SetLeaseCorpOwnerName(v string) *CreateLeaseBiznotaryRequest {
 	s.LeaseCorpOwnerName = &v
+	return s
+}
+
+func (s *CreateLeaseBiznotaryRequest) SetAgentLeaseId(v string) *CreateLeaseBiznotaryRequest {
+	s.AgentLeaseId = &v
+	return s
+}
+
+func (s *CreateLeaseBiznotaryRequest) SetMode(v string) *CreateLeaseBiznotaryRequest {
+	s.Mode = &v
 	return s
 }
 
@@ -21858,6 +21872,10 @@ type CreateLeaseZftagreementsignRequest struct {
 	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
 	// 核验结果，1表示通过，-1表示不通过
 	AgreementStatus *int64 `json:"agreement_status,omitempty" xml:"agreement_status,omitempty" require:"true"`
+	// 租赁机构支付宝uid
+	LeaseCorpAlipayUid *string `json:"lease_corp_alipay_uid,omitempty" xml:"lease_corp_alipay_uid,omitempty"`
+	// 直付通代扣协议核验结果说明
+	FailMessage *string `json:"fail_message,omitempty" xml:"fail_message,omitempty"`
 }
 
 func (s CreateLeaseZftagreementsignRequest) String() string {
@@ -21920,6 +21938,16 @@ func (s *CreateLeaseZftagreementsignRequest) SetLeaseId(v string) *CreateLeaseZf
 
 func (s *CreateLeaseZftagreementsignRequest) SetAgreementStatus(v int64) *CreateLeaseZftagreementsignRequest {
 	s.AgreementStatus = &v
+	return s
+}
+
+func (s *CreateLeaseZftagreementsignRequest) SetLeaseCorpAlipayUid(v string) *CreateLeaseZftagreementsignRequest {
+	s.LeaseCorpAlipayUid = &v
+	return s
+}
+
+func (s *CreateLeaseZftagreementsignRequest) SetFailMessage(v string) *CreateLeaseZftagreementsignRequest {
+	s.FailMessage = &v
 	return s
 }
 
@@ -22172,6 +22200,139 @@ func (s *GetCertificateDetailResponse) SetMessage(v string) *GetCertificateDetai
 	return s
 }
 
+type GetInternalTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+	Location *Location `json:"location,omitempty" xml:"location,omitempty"`
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 存证事务id
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+	// 存证凭据
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 租户
+	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty" require:"true"`
+	// 系统之间约定的
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s GetInternalTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternalTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternalTextRequest) SetAuthToken(v string) *GetInternalTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetProductInstanceId(v string) *GetInternalTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetLocation(v *Location) *GetInternalTextRequest {
+	s.Location = v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetPhase(v string) *GetInternalTextRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetProperties(v string) *GetInternalTextRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetTransactionId(v string) *GetInternalTextRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetTxHash(v string) *GetInternalTextRequest {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetRealTenant(v string) *GetInternalTextRequest {
+	s.RealTenant = &v
+	return s
+}
+
+func (s *GetInternalTextRequest) SetToken(v string) *GetInternalTextRequest {
+	s.Token = &v
+	return s
+}
+
+type GetInternalTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证信息
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 可信信息
+	Tsr *TsrResponse `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 文本存证类型
+	TextNotaryType *string `json:"text_notary_type,omitempty" xml:"text_notary_type,omitempty"`
+	// 哈希算法
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+}
+
+func (s GetInternalTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternalTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternalTextResponse) SetReqMsgId(v string) *GetInternalTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetResultCode(v string) *GetInternalTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetResultMsg(v string) *GetInternalTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetContent(v string) *GetInternalTextResponse {
+	s.Content = &v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetTsr(v *TsrResponse) *GetInternalTextResponse {
+	s.Tsr = v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetTextNotaryType(v string) *GetInternalTextResponse {
+	s.TextNotaryType = &v
+	return s
+}
+
+func (s *GetInternalTextResponse) SetHashAlgorithm(v string) *GetInternalTextResponse {
+	s.HashAlgorithm = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -22294,7 +22455,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.147"),
+				"sdk_version":      tea.String("1.4.151"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -27813,6 +27974,40 @@ func (client *Client) GetCertificateDetailEx(request *GetCertificateDetailReques
 	}
 	_result = &GetCertificateDetailResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.certificate.detail.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户通过交易哈希获取自己上传的文本存证内容
+ * Summary: 获取文本存证内容
+ */
+func (client *Client) GetInternalText(request *GetInternalTextRequest) (_result *GetInternalTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInternalTextResponse{}
+	_body, _err := client.GetInternalTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户通过交易哈希获取自己上传的文本存证内容
+ * Summary: 获取文本存证内容
+ */
+func (client *Client) GetInternalTextEx(request *GetInternalTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInternalTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInternalTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.text.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
