@@ -15818,6 +15818,10 @@ export class CreateLeaseBiznotaryRequest extends $tea.Model {
   leaseCorpName: string;
   // 租赁机构法人姓名
   leaseCorpOwnerName: string;
+  // 被代理机构金融科技租户id
+  agentLeaseId?: string;
+  // 模式，代理模式为isvMode
+  mode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15826,6 +15830,8 @@ export class CreateLeaseBiznotaryRequest extends $tea.Model {
       leaseCorpId: 'lease_corp_id',
       leaseCorpName: 'lease_corp_name',
       leaseCorpOwnerName: 'lease_corp_owner_name',
+      agentLeaseId: 'agent_lease_id',
+      mode: 'mode',
     };
   }
 
@@ -15837,6 +15843,8 @@ export class CreateLeaseBiznotaryRequest extends $tea.Model {
       leaseCorpId: 'string',
       leaseCorpName: 'string',
       leaseCorpOwnerName: 'string',
+      agentLeaseId: 'string',
+      mode: 'string',
     };
   }
 
@@ -15986,6 +15994,10 @@ export class CreateLeaseZftagreementsignRequest extends $tea.Model {
   leaseId: string;
   // 核验结果，1表示通过，-1表示不通过
   agreementStatus: number;
+  // 租赁机构支付宝uid
+  leaseCorpAlipayUid?: string;
+  // 直付通代扣协议核验结果说明
+  failMessage?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15999,6 +16011,8 @@ export class CreateLeaseZftagreementsignRequest extends $tea.Model {
       invalidTime: 'invalid_time',
       leaseId: 'lease_id',
       agreementStatus: 'agreement_status',
+      leaseCorpAlipayUid: 'lease_corp_alipay_uid',
+      failMessage: 'fail_message',
     };
   }
 
@@ -16015,6 +16029,8 @@ export class CreateLeaseZftagreementsignRequest extends $tea.Model {
       invalidTime: 'string',
       leaseId: 'string',
       agreementStatus: 'number',
+      leaseCorpAlipayUid: 'string',
+      failMessage: 'string',
     };
   }
 
@@ -16213,6 +16229,101 @@ export class GetCertificateDetailResponse extends $tea.Model {
   }
 }
 
+export class GetInternalTextRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location;
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase?: string;
+  // 扩展属性
+  properties?: string;
+  // 存证事务id
+  transactionId?: string;
+  // 存证凭据
+  txHash: string;
+  // 租户
+  realTenant: string;
+  // 系统之间约定的
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      location: 'location',
+      phase: 'phase',
+      properties: 'properties',
+      transactionId: 'transaction_id',
+      txHash: 'tx_hash',
+      realTenant: 'real_tenant',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      location: Location,
+      phase: 'string',
+      properties: 'string',
+      transactionId: 'string',
+      txHash: 'string',
+      realTenant: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInternalTextResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证信息
+  content?: string;
+  // 可信信息
+  tsr?: TsrResponse;
+  // 文本存证类型
+  textNotaryType?: string;
+  // 哈希算法
+  hashAlgorithm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+      tsr: 'tsr',
+      textNotaryType: 'text_notary_type',
+      hashAlgorithm: 'hash_algorithm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+      tsr: TsrResponse,
+      textNotaryType: 'string',
+      hashAlgorithm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -16326,7 +16437,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.147",
+          sdk_version: "1.4.151",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -19433,6 +19544,25 @@ export default class Client {
   async getCertificateDetailEx(request: GetCertificateDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetCertificateDetailResponse> {
     Util.validateModel(request);
     return $tea.cast<GetCertificateDetailResponse>(await this.doRequest("1.0", "twc.notary.certificate.detail.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetCertificateDetailResponse({}));
+  }
+
+  /**
+   * Description: 用户通过交易哈希获取自己上传的文本存证内容
+   * Summary: 获取文本存证内容
+   */
+  async getInternalText(request: GetInternalTextRequest): Promise<GetInternalTextResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInternalTextEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户通过交易哈希获取自己上传的文本存证内容
+   * Summary: 获取文本存证内容
+   */
+  async getInternalTextEx(request: GetInternalTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInternalTextResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInternalTextResponse>(await this.doRequest("1.0", "twc.notary.internal.text.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInternalTextResponse({}));
   }
 
 }
