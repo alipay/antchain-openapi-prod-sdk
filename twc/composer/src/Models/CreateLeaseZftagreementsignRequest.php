@@ -72,18 +72,32 @@ class CreateLeaseZftagreementsignRequest extends Model
      * @var int
      */
     public $agreementStatus;
+
+    // 租赁机构支付宝uid
+    /**
+     * @var string
+     */
+    public $leaseCorpAlipayUid;
+
+    // 直付通代扣协议核验结果说明
+    /**
+     * @var string
+     */
+    public $failMessage;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'applicationId'     => 'application_id',
-        'agreementNo'       => 'agreement_no',
-        'alipayUserId'      => 'alipay_user_id',
-        'signTime'          => 'sign_time',
-        'validTime'         => 'valid_time',
-        'invalidTime'       => 'invalid_time',
-        'leaseId'           => 'lease_id',
-        'agreementStatus'   => 'agreement_status',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'orderId'            => 'order_id',
+        'applicationId'      => 'application_id',
+        'agreementNo'        => 'agreement_no',
+        'alipayUserId'       => 'alipay_user_id',
+        'signTime'           => 'sign_time',
+        'validTime'          => 'valid_time',
+        'invalidTime'        => 'invalid_time',
+        'leaseId'            => 'lease_id',
+        'agreementStatus'    => 'agreement_status',
+        'leaseCorpAlipayUid' => 'lease_corp_alipay_uid',
+        'failMessage'        => 'fail_message',
     ];
 
     public function validate()
@@ -131,6 +145,12 @@ class CreateLeaseZftagreementsignRequest extends Model
         if (null !== $this->agreementStatus) {
             $res['agreement_status'] = $this->agreementStatus;
         }
+        if (null !== $this->leaseCorpAlipayUid) {
+            $res['lease_corp_alipay_uid'] = $this->leaseCorpAlipayUid;
+        }
+        if (null !== $this->failMessage) {
+            $res['fail_message'] = $this->failMessage;
+        }
 
         return $res;
     }
@@ -175,6 +195,12 @@ class CreateLeaseZftagreementsignRequest extends Model
         }
         if (isset($map['agreement_status'])) {
             $model->agreementStatus = $map['agreement_status'];
+        }
+        if (isset($map['lease_corp_alipay_uid'])) {
+            $model->leaseCorpAlipayUid = $map['lease_corp_alipay_uid'];
+        }
+        if (isset($map['fail_message'])) {
+            $model->failMessage = $map['fail_message'];
         }
 
         return $model;

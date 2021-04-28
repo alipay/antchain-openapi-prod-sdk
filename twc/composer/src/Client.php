@@ -221,6 +221,8 @@ use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
 use AntChain\TWC\Models\GetFinanceFilenotaryResponse;
 use AntChain\TWC\Models\GetFinanceTextnotaryRequest;
 use AntChain\TWC\Models\GetFinanceTextnotaryResponse;
+use AntChain\TWC\Models\GetInternalTextRequest;
+use AntChain\TWC\Models\GetInternalTextResponse;
 use AntChain\TWC\Models\GetSourceRequest;
 use AntChain\TWC\Models\GetSourceResponse;
 use AntChain\TWC\Models\GetTextRequest;
@@ -480,7 +482,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.147',
+                    'sdk_version'      => '1.4.151',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5841,5 +5843,38 @@ class Client
         Utils::validateModel($request);
 
         return GetCertificateDetailResponse::fromMap($this->doRequest('1.0', 'twc.notary.certificate.detail.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证内容.
+     *
+     * @param GetInternalTextRequest $request
+     *
+     * @return GetInternalTextResponse
+     */
+    public function getInternalText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInternalTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户通过交易哈希获取自己上传的文本存证内容
+     * Summary: 获取文本存证内容.
+     *
+     * @param GetInternalTextRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetInternalTextResponse
+     */
+    public function getInternalTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInternalTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

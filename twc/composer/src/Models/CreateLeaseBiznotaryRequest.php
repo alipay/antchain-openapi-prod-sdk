@@ -42,6 +42,18 @@ class CreateLeaseBiznotaryRequest extends Model
      * @var string
      */
     public $leaseCorpOwnerName;
+
+    // 被代理机构金融科技租户id
+    /**
+     * @var string
+     */
+    public $agentLeaseId;
+
+    // 模式，代理模式为isvMode
+    /**
+     * @var string
+     */
+    public $mode;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -49,6 +61,8 @@ class CreateLeaseBiznotaryRequest extends Model
         'leaseCorpId'        => 'lease_corp_id',
         'leaseCorpName'      => 'lease_corp_name',
         'leaseCorpOwnerName' => 'lease_corp_owner_name',
+        'agentLeaseId'       => 'agent_lease_id',
+        'mode'               => 'mode',
     ];
 
     public function validate()
@@ -80,6 +94,12 @@ class CreateLeaseBiznotaryRequest extends Model
         if (null !== $this->leaseCorpOwnerName) {
             $res['lease_corp_owner_name'] = $this->leaseCorpOwnerName;
         }
+        if (null !== $this->agentLeaseId) {
+            $res['agent_lease_id'] = $this->agentLeaseId;
+        }
+        if (null !== $this->mode) {
+            $res['mode'] = $this->mode;
+        }
 
         return $res;
     }
@@ -109,6 +129,12 @@ class CreateLeaseBiznotaryRequest extends Model
         }
         if (isset($map['lease_corp_owner_name'])) {
             $model->leaseCorpOwnerName = $map['lease_corp_owner_name'];
+        }
+        if (isset($map['agent_lease_id'])) {
+            $model->agentLeaseId = $map['agent_lease_id'];
+        }
+        if (isset($map['mode'])) {
+            $model->mode = $map['mode'];
         }
 
         return $model;
