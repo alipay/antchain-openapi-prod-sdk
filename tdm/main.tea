@@ -1,0 +1,1203 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.8',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 链的信息
+model ChainInfo {
+  // 块高
+  blockHeight?: string(name='block_height', example='13232424234'),
+  // 交易时间
+  translateDate?: string(name='translate_date', example='2020-07-24 03:07:50'),
+  // hash(64位)
+  txHash?: string(name='tx_hash', example='0x233242342'),
+}
+
+// 授权协议
+model AuthAgreement {
+  // 授权协议code
+  authAgreementCode: string(name='auth_agreement_code', example='000000000001'),
+  // 授权协议类型：
+  // TIME、时间授权
+  // COUNT、次数授权
+  // TIME_COUNT、时间范围内次数授权
+  authAgreementType: string(name='auth_agreement_type', example='TIME'),
+  // 授权开始ishi见
+  authBeginTime?: string(name='auth_begin_time', example='2020-07-24 03:07:50'),
+  // 授权截止日期
+  // 
+  // 
+  authEndTime?: string(name='auth_end_time', example='2020-07-24 03:07:50'),
+  // 授权次数
+  // 
+  // 
+  authCount?: long(name='auth_count', example='10'),
+  // 剩余授权次数
+  authBalanceCount?: long(name='auth_balance_count', example='1'),
+}
+
+// 证明文件使用记录保存参数 extendParams
+model CertUseParams {
+  // 证明文件ID
+  issueId: string(name='issue_id', example='20201125010000RD831500012865'),
+}
+
+// 授权使用记录
+// 
+// 
+model AuthUsedRecord {
+  // 被授权租户名称：
+  // 
+  // 身份证号/统一社会组织机构信用码
+  // 
+  // 
+  authorizedName: string(name='authorized_name', example='xxxx农商行'),
+  // 授权码
+  // 
+  // 
+  authCode: string(name='auth_code', example='0x32423443234'),
+  // 链的信息
+  chainInfo: ChainInfo(name='chain_info', example=''),
+  // 扩展字段
+  extendParams: string(name='extend_params', example='{  "districtName":"太原公积金",  "file":"",  "assets":""  }'),
+  // 标的物,产品码名称
+  // 
+  // 
+  targetName: string(name='target_name', example='异地公积金缴存证明'),
+  // 授权可信内容
+  teeData?: string(name='tee_data', example='sdkfsldfk'),
+  // 数据使用时间
+  // 
+  // 
+  useDate: string(name='use_date', example='2014-07-24 03:07:50'),
+}
+
+// 证明列表查询返回
+model CertSummaryVO {
+  // 证明文件ID
+  issueId: string(name='issue_id', example='20201125010000RD831500012865'),
+  // 证明文件类型
+  issueCertType: string(name='issue_cert_type', example='JCZM'),
+  // 证明文件描述
+  issueCertTypeDesc: string(name='issue_cert_type_desc', example='xx公积金中心xx证明'),
+  // 证明开具时间
+  issueTime: string(name='issue_time', example='2021-05-06 20:54:29'),
+  // 证明图标（未使用）
+  issueIcon?: string(name='issue_icon', example='证明图标'),
+}
+
+// 授权记录
+model AuthRecord {
+  // 被授权租户名称：
+  // 身份证号/统一社会组织机构信用码
+  authorizedName: string(name='authorized_name', example='xxxx农商行'),
+  // 授权协议规则
+  authAgreement: AuthAgreement(name='auth_agreement', example=''),
+  // 授权码
+  // 
+  // 
+  authCode: string(name='auth_code', example='02xeeewr'),
+  // 授权时间	
+  // 
+  authDate: string(name='auth_date', example='2014-07-24 03:07:50'),
+  // 授权有效状态：
+  // 1、生效中、
+  // 0、失效
+  // 
+  // 
+  authStatus: string(name='auth_status', example='1'),
+  // 链的信息
+  chainInfo: ChainInfo(name='chain_info', example=''),
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity', example='3408012000xxxxx/95xxxxxxx'),
+  // 授权用户名称
+  dataOwnerName: string(name='data_owner_name', example='张三/张三集团有限公司'),
+  // 扩展字段，与target_name拼成可见的授权详情name
+  // 
+  // 
+  extendParams: string(name='extend_params', example='{  "district":"太原",  "file":"",  "assets":""  }'),
+  // 标的物名称
+  // 
+  // 
+  targetName: string(name='target_name', example='公积金缴存证明'),
+  // 授权可信数据
+  teeData?: string(name='tee_data', example='dsfsfds'),
+}
+
+// 证明使用记录返回结果
+model CertUsageLogVO {
+  // 使用方名称
+  userName: string(name='user_name', example='招商银行'),
+  // 使用时间
+  usageTime: string(name='usage_time', example='2021-05-06 20:54:29'),
+  // 证明类型
+  issueCertType: string(name='issue_cert_type', example='JCZM'),
+  // 证明类型描述
+  issueCertTypeDesc: string(name='issue_cert_type_desc', example='缴存证明'),
+  // 证明开具时间
+  issueTime: string(name='issue_time', example='2021-05-06 20:54:29'),
+  // 用途
+  purpose: string(name='purpose', example='住房贷款'),
+  // 业务流水号
+  bizId: string(name='biz_id', example='20201125010000RD831500012865'),
+}
+
+// 证明开具信息
+model IssueCertInfo {
+  // 证明文件ID
+  issueId: string(name='issue_id', example='20201125010000RD831500012865'),
+  // 证明开具时间
+  issueTime: string(name='issue_time', example='2021-05-06 20:54:29'),
+  // 证明开具单位
+  providerName?: string(name='provider_name', example='xx公积金中心'),
+  // 证明类型
+  issueCertType: string(name='issue_cert_type', example='JCZM: 缴存证明  DKJQZM ：贷款结清证明 '),
+  // 证明抬头
+  depositCertTag?: string(name='deposit_cert_tag', example='xx公积金中心xx证明'),
+  // 证明文件png图片存储地址
+  depositCert?: string(name='deposit_cert', example='https://mdgwdev.alipay.net/gov_dataprod/afts/file/A*zDYwTIKrebkAAAAAAAAAAAAAJ2N3AA?t=dvWzYDIu5BQn49_cmtLjpAAAAABkd2MAAAAA'),
+  // 证明文件pdf获取地址(不带二维码)
+  depositCertPdf?: string(name='deposit_cert_pdf', example='https://mdgwdev.alipay.net/gov_dataprod/afts/file/A*zDYwTIKrebkAAAAAAAAAAAAAJ2N3AA?t=dvWzYDIu5BQn49_cmtLjpAAAAABkd2MAAAAA'),
+  // 证明文件pdf获取地址(带验真码)
+  depositCertPdfQr?: string(name='deposit_cert_pdf_qr', example='https://mdgwdev.alipay.net/gov_dataprod/afts/file/A*zDYwTIKrebkAAAAAAAAAAAAAJ2N3AA?t=dvWzYDIu5BQn49_cmtLjpAAAAABkd2MAAAAA'),
+}
+
+// 属性
+model AuthProperty {
+  // 地区
+  key: string(name='key', example='district'),
+  // {"山西","广东"}
+  value: [ string ](name='value', example='{"山西","广东"}'),
+}
+
+// 证明开具参数，填入证明开具接口的 extendParams 部分
+model IssueCertParams {
+  // 贷款合同编号
+  dkhtbh?: string(name='dkhtbh', example='11410000005184603J'),
+}
+
+// 核身初始化请求信息
+model CertificationRequest {
+  // 认证模式
+  bizCode: string(name='biz_code', example='CLOUD_FACE_SDK'),
+}
+
+// 机构用数记录查询结果（公积金业务）
+model CpfDataUsageLogVO {
+  // 使用方名称
+  userName: string(name='user_name', example='招商银行'),
+  // 使用时间
+  usageTime: string(name='usage_time', example='2021-05-06 20:54:29'),
+  // 数据项描述
+  dataDesc: string(name='data_desc', example='缴存证明'),
+  // 用途
+  purpose: string(name='purpose', example='住房贷款'),
+  // 业务流水号
+  bizId: string(name='biz_id', example='20201125010000RD831500012865'),
+}
+
+// 核身初始化结果
+model CertificationInitResponse {
+  // 核身认证唯一标识
+  certifyId: string(name='certify_id', example='cwek23dw24geor89230hf2rw'),
+  // 商户请求唯一标识
+  outerOrderNo: string(name='outer_order_no', example='METL202004041220123456'),
+  // 场景ID
+  sceneId: string(name='scene_id', example='1000048'),
+}
+
+model OpenCpfCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 证明类型
+  issueCertType: string(name='issue_cert_type'),
+  // 公积金中心ID
+  providerId: string(name='provider_id'),
+  // 数据拥有者ID（身份证ID）
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 数据拥有者姓名（真实姓名）
+  dataOwnerName: string(name='data_owner_name'),
+  // 请求结构体序列化
+  extendParams?: string(name='extend_params'),
+}
+
+model OpenCpfCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证明文件ID
+  issueId?: string(name='issue_id'),
+  // 证明文件获取地址
+  depositCert?: string(name='deposit_cert'),
+}
+
+/**
+ * Description: 公积金证明开具接口
+ * Summary: 公积金证明开具接口
+ */
+async function openCpfCert(request: OpenCpfCertRequest): OpenCpfCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openCpfCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 公积金证明开具接口
+ * Summary: 公积金证明开具接口
+ */
+async function openCpfCertEx(request: OpenCpfCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenCpfCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.cert.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCpfCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 证明类型
+  issueCertType: string(name='issue_cert_type'),
+  // 当前页码，默认1
+  currentPage?: long(name='current_page'),
+  // 每页展示数量，默认10
+  pageSize?: long(name='page_size'),
+  // 时间筛选枚举类型，默认全部
+  optionTime?: string(name='option_time'),
+}
+
+model ListCpfCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+  // 记录总数
+  total?: long(name='total'),
+  // 证明开具信息列表
+  certList?: [ CertSummaryVO ](name='cert_list'),
+}
+
+/**
+ * Description: 证明列表查询接口
+ * Summary: 证明列表查询接口
+ */
+async function listCpfCert(request: ListCpfCertRequest): ListCpfCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCpfCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证明列表查询接口
+ * Summary: 证明列表查询接口
+ */
+async function listCpfCertEx(request: ListCpfCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.cert.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckCpfCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部业务流水
+  bizId?: string(name='biz_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 证明ID
+  issueId: string(name='issue_id'),
+  // 身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 使用方ID
+  dataUserIdentity?: string(name='data_user_identity'),
+  // 使用方名称
+  dataUserName?: string(name='data_user_name'),
+  // 用途
+  purpose?: string(name='purpose'),
+  // 使用时间
+  useTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='use_time'),
+  // 扩展字段
+  extendParams: string(name='extend_params'),
+}
+
+model CheckCpfCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证明ID
+  issueId?: string(name='issue_id'),
+  // 证明文件获取地址
+  depositCert?: string(name='deposit_cert'),
+}
+
+/**
+ * Description: 扫码验真
+ * Summary: 扫码验真
+ */
+async function checkCpfCert(request: CheckCpfCertRequest): CheckCpfCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkCpfCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 扫码验真
+ * Summary: 扫码验真
+ */
+async function checkCpfCertEx(request: CheckCpfCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCpfCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.cert.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveCpfCertuseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId: string(name='biz_id'),
+  // 身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 姓名
+  dataOwnerName: string(name='data_owner_name'),
+  // 用数机构ID
+  dataUserIdentity: string(name='data_user_identity'),
+  // 用数机构名称
+  dataUserName: string(name='data_user_name'),
+  // 用数端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 用数目的
+  purpose: string(name='purpose'),
+  // 用数时间
+  operateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operate_time'),
+  // 扩展字段
+  extendParams?: string(name='extend_params'),
+}
+
+model SaveCpfCertuseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 证明使用记录保存
+ * Summary: 证明使用记录保存
+ */
+async function saveCpfCertuse(request: SaveCpfCertuseRequest): SaveCpfCertuseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveCpfCertuseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证明使用记录保存
+ * Summary: 证明使用记录保存
+ */
+async function saveCpfCertuseEx(request: SaveCpfCertuseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveCpfCertuseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.certuse.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCpfCertuseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 用数机构ID
+  dataUserIdentity: string(name='data_user_identity'),
+  // 用数机构
+  dataUserName: string(name='data_user_name'),
+  // 证明文件ID
+  issueId: string(name='issue_id'),
+  // 使用目的
+  purpose?: string(name='purpose'),
+  // 使用时间
+  useTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='use_time'),
+}
+
+model GetCpfCertuseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 原始文件pdf
+  depositCert?: string(name='deposit_cert'),
+}
+
+/**
+ * Description: 机构扫码用证
+ * Summary: 扫码用证接口
+ */
+async function getCpfCertuse(request: GetCpfCertuseRequest): GetCpfCertuseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCpfCertuseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构扫码用证
+ * Summary: 扫码用证接口
+ */
+async function getCpfCertuseEx(request: GetCpfCertuseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCpfCertuseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.certuse.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCpfCertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 证明文件ID
+  issueId: string(name='issue_id'),
+  // 证明文件存储类型
+  fileType: string(name='file_type'),
+}
+
+model GetCpfCertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证明文件ID
+  issueId?: string(name='issue_id'),
+  // 证明文件获取地址
+  depositCert?: string(name='deposit_cert'),
+}
+
+/**
+ * Description: 已开具证明查询
+ * Summary: 已开具证明查询
+ */
+async function getCpfCert(request: GetCpfCertRequest): GetCpfCertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCpfCertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已开具证明查询
+ * Summary: 已开具证明查询
+ */
+async function getCpfCertEx(request: GetCpfCertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCpfCertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.cert.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCpfCertuseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 证明ID
+  issueId: string(name='issue_id'),
+  // 筛选时间 按月份筛选
+  optionTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='option_time'),
+}
+
+model ListCpfCertuseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用证记录列表
+  useRecords?: [ CertUsageLogVO ](name='use_records'),
+}
+
+/**
+ * Description: 证明使用记录查询
+ * Summary: 证明使用记录查询
+ */
+async function listCpfCertuse(request: ListCpfCertuseRequest): ListCpfCertuseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCpfCertuseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证明使用记录查询
+ * Summary: 证明使用记录查询
+ */
+async function listCpfCertuseEx(request: ListCpfCertuseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfCertuseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.certuse.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetCpfDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号
+  bizId?: string(name='biz_id'),
+  // 使用方ID
+  dataUserIdentity: string(name='data_user_identity'),
+  // 使用方名称
+  dataUserName: string(name='data_user_name'),
+  // 用户ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 用户姓名
+  dataOwnerName: string(name='data_owner_name'),
+  // 数据源ID
+  providerId: string(name='provider_id'),
+  // 数据项code
+  dataCode: string(name='data_code'),
+  // 扩展字段。
+  extendParams?: string(name='extend_params'),
+}
+
+model GetCpfDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // PDF、或结构化信息、或加密数据
+  trustData?: string(name='trust_data'),
+  // 数据hash，数据验真时用
+  dataHash?: string(name='data_hash'),
+}
+
+/**
+ * Description: 机构获取用户公积金数据（授权、用数分离时接口）
+ * Summary: 数据使用
+ */
+async function getCpfData(request: GetCpfDataRequest): GetCpfDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getCpfDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构获取用户公积金数据（授权、用数分离时接口）
+ * Summary: 数据使用
+ */
+async function getCpfDataEx(request: GetCpfDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetCpfDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.data.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCpfDatauseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 使用方ID
+  dataUserIdentity: string(name='data_user_identity'),
+  // 筛选时间，按月份筛选，默认当前月份
+  optionTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='option_time'),
+}
+
+model ListCpfDatauseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 机构用数记录
+  useRecords?: [ CpfDataUsageLogVO ](name='use_records'),
+}
+
+/**
+ * Description: 机构用数记录查询
+ * Summary: 数据使用记录查询
+ */
+async function listCpfDatause(request: ListCpfDatauseRequest): ListCpfDatauseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCpfDatauseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构用数记录查询
+ * Summary: 数据使用记录查询
+ */
+async function listCpfDatauseEx(request: ListCpfDatauseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfDatauseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.datause.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权租户身份ID：
+  // 
+  // 身份证号/统一社会组织机构信用码
+  authorizedIdentity: string(name='authorized_identity'),
+  // 分配code
+  // 
+  // 
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 授权协议
+  authAgreement: AuthAgreement(name='auth_agreement'),
+  // 扩展字段,目前是一个json串，传入相关附加信息，如果对应的附加信息key不需要，可以不传，
+  // 
+  // key对应的value数据字典由平台提供
+  content: string(name='content'),
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  // 
+  // 
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 请求流水号(64位 由平台方定义)_
+  // 幂等标示
+  requestId: string(name='request_id'),
+  // 标的物
+  // 
+  // 
+  targetCode: string(name='target_code'),
+  // 核身产品类型
+  certificationType?: string(name='certification_type'),
+  // 核身信息
+  // 
+  // 
+  certificationInfo?: string(name='certification_info'),
+}
+
+model ExecAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权码
+  // 
+  // 
+  authCode?: string(name='auth_code'),
+}
+
+/**
+ * Description: 可信数据流转授权
+ * Summary: 授权
+ */
+async function execAuth(request: ExecAuthRequest): ExecAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信数据流转授权
+ * Summary: 授权
+ */
+async function execAuthEx(request: ExecAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.auth.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 分配code
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 标的物，查询授权接口返回
+  // 
+  // 
+  authCode: string(name='auth_code'),
+  // 核身信息
+  // 
+  certificationInfo: string(name='certification_info'),
+  // 请求流水号
+  // 
+  // 幂等标示
+  // 
+  // 
+  requestId: string(name='request_id'),
+}
+
+model CancelAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 取消授权
+ * Summary: 取消授权
+ */
+async function cancelAuth(request: CancelAuthRequest): CancelAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消授权
+ * Summary: 取消授权
+ */
+async function cancelAuthEx(request: CancelAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.auth.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  authorizedIdentity: string(name='authorized_identity'),
+  // 分配code
+  // 
+  // 
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 扩展信息
+  extendParams: string(name='extend_params'),
+  // 标的物
+  // 
+  // 
+  targetCode: string(name='target_code'),
+  // 请求流水号幂等标示
+  requestId: string(name='request_id'),
+}
+
+model QueryAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 缴存证明数据(json格式数据)
+  trustData?: string(name='trust_data'),
+}
+
+/**
+ * Description: 用权
+ * Summary: 用权
+ */
+async function queryAuth(request: QueryAuthRequest): QueryAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用权
+ * Summary: 用权
+ */
+async function queryAuthEx(request: QueryAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.auth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthOwnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 被授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  authorizedIdentity?: string(name='authorized_identity'),
+  // 分配code
+  // 
+  // 
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 标的物
+  // 
+  // 
+  targetCode?: string(name='target_code'),
+  // 扩展字段
+  // 
+  // 
+  extendParams?: string(name='extend_params'),
+  // "1", "授权激活状态"
+  // "2", "授权取消"
+  // "3", "授权过期"
+  authState: string(name='auth_state'),
+}
+
+model QueryAuthOwnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权记录集合
+  authRecords?: [ AuthRecord ](name='auth_records'),
+}
+
+/**
+ * Description: 授权记录查询（个人授权记录查询）
+ * Summary: 授权记录查询
+ */
+async function queryAuthOwner(request: QueryAuthOwnerRequest): QueryAuthOwnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthOwnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权记录查询（个人授权记录查询）
+ * Summary: 授权记录查询
+ */
+async function queryAuthOwnerEx(request: QueryAuthOwnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthOwnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.auth.owner.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthuseOwnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分配code
+  // 
+  // 
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 授权码
+  // 
+  // 
+  authCode: string(name='auth_code'),
+  // 授权租户身份ID：
+  // 
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 扩展字段
+  extendParams?: string(name='extend_params'),
+}
+
+model QueryAuthuseOwnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权使用记录
+  // 
+  // 
+  useRecords?: [ AuthUsedRecord ](name='use_records'),
+}
+
+/**
+ * Description: 授权使用记录查询（个人查询维度）
+ * Summary: 授权使用记录查询
+ */
+async function queryAuthuseOwner(request: QueryAuthuseOwnerRequest): QueryAuthuseOwnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthuseOwnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权使用记录查询（个人查询维度）
+ * Summary: 授权使用记录查询
+ */
+async function queryAuthuseOwnerEx(request: QueryAuthuseOwnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthuseOwnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.authuse.owner.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAuthuseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权租户身份ID：
+  // 
+  // 身份证号/统一社会组织机构信用码
+  // 
+  // 
+  authorizedIdentity: string(name='authorized_identity'),
+  // 分配code
+  // 
+  // 
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 授权租户身份ID：
+  // 身份证号/统一社会组织机构信用码
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 扩展字段
+  // 
+  // 
+  extendParams: string(name='extend_params'),
+  // 请求流水号
+  // 
+  // 幂等标示
+  // 
+  // 
+  requestId: string(name='request_id'),
+  // 标的物
+  // 
+  // 
+  targetCode: string(name='target_code'),
+}
+
+model ExecAuthuseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 缴存证明数据
+  // 
+  // 
+  trustData?: string(name='trust_data'),
+}
+
+/**
+ * Description: 授权数据使用
+ * Summary: 授权数据使用
+ */
+async function execAuthuse(request: ExecAuthuseRequest): ExecAuthuseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAuthuseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权数据使用
+ * Summary: 授权数据使用
+ */
+async function execAuthuseEx(request: ExecAuthuseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAuthuseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.authuse.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitVerifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权机构ID（统一社会信用代码）
+  authorizedIdentity: string(name='authorized_identity'),
+  // 核身发起端
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 刷脸产品类型
+  certificationType: string(name='certification_type'),
+  // 核身初始化请求信息
+  certificationRequest: string(name='certification_request'),
+}
+
+model InitVerifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核身初始化返回信息
+  resultObj?: string(name='result_obj'),
+}
+
+/**
+ * Description: 核身初始化接口
+ * Summary: 核身初始化接口
+ */
+async function initVerify(request: InitVerifyRequest): InitVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核身初始化接口
+ * Summary: 核身初始化接口
+ */
+async function initVerifyEx(request: InitVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.verify.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
