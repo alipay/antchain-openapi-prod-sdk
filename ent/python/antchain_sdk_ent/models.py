@@ -2322,6 +2322,7 @@ class ImportNftMetaRequest(TeaModel):
         author: str = None,
         description: str = None,
         item_url: str = None,
+        publish_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2340,6 +2341,8 @@ class ImportNftMetaRequest(TeaModel):
         self.description = description
         # 商品详情页url
         self.item_url = item_url
+        # 资产发行时间
+        self.publish_time = publish_time
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
@@ -2348,6 +2351,9 @@ class ImportNftMetaRequest(TeaModel):
         self.validate_required(self.origin_image_url, 'origin_image_url')
         self.validate_required(self.author, 'author')
         self.validate_required(self.item_url, 'item_url')
+        self.validate_required(self.publish_time, 'publish_time')
+        if self.publish_time is not None:
+            self.validate_pattern(self.publish_time, 'publish_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2369,6 +2375,8 @@ class ImportNftMetaRequest(TeaModel):
             result['description'] = self.description
         if self.item_url is not None:
             result['item_url'] = self.item_url
+        if self.publish_time is not None:
+            result['publish_time'] = self.publish_time
         return result
 
     def from_map(self, m: dict = None):
@@ -2391,6 +2399,8 @@ class ImportNftMetaRequest(TeaModel):
             self.description = m.get('description')
         if m.get('item_url') is not None:
             self.item_url = m.get('item_url')
+        if m.get('publish_time') is not None:
+            self.publish_time = m.get('publish_time')
         return self
 
 
@@ -2448,6 +2458,7 @@ class ExecNftTransferRequest(TeaModel):
         project_id: str = None,
         order_no: str = None,
         price_cent: int = None,
+        order_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2460,12 +2471,17 @@ class ExecNftTransferRequest(TeaModel):
         self.order_no = order_no
         # 拍品成交价（单位：分）
         self.price_cent = price_cent
+        # 订单成功时间
+        self.order_time = order_time
 
     def validate(self):
         self.validate_required(self.alipay_uid, 'alipay_uid')
         self.validate_required(self.project_id, 'project_id')
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.price_cent, 'price_cent')
+        self.validate_required(self.order_time, 'order_time')
+        if self.order_time is not None:
+            self.validate_pattern(self.order_time, 'order_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2481,6 +2497,8 @@ class ExecNftTransferRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.price_cent is not None:
             result['price_cent'] = self.price_cent
+        if self.order_time is not None:
+            result['order_time'] = self.order_time
         return result
 
     def from_map(self, m: dict = None):
@@ -2497,6 +2515,8 @@ class ExecNftTransferRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('price_cent') is not None:
             self.price_cent = m.get('price_cent')
+        if m.get('order_time') is not None:
+            self.order_time = m.get('order_time')
         return self
 
 
