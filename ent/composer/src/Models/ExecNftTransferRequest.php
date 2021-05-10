@@ -42,6 +42,12 @@ class ExecNftTransferRequest extends Model
      * @var int
      */
     public $priceCent;
+
+    // 订单成功时间
+    /**
+     * @var string
+     */
+    public $orderTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class ExecNftTransferRequest extends Model
         'projectId'         => 'project_id',
         'orderNo'           => 'order_no',
         'priceCent'         => 'price_cent',
+        'orderTime'         => 'order_time',
     ];
 
     public function validate()
@@ -57,6 +64,8 @@ class ExecNftTransferRequest extends Model
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('priceCent', $this->priceCent, true);
+        Model::validateRequired('orderTime', $this->orderTime, true);
+        Model::validatePattern('orderTime', $this->orderTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -79,6 +88,9 @@ class ExecNftTransferRequest extends Model
         }
         if (null !== $this->priceCent) {
             $res['price_cent'] = $this->priceCent;
+        }
+        if (null !== $this->orderTime) {
+            $res['order_time'] = $this->orderTime;
         }
 
         return $res;
@@ -109,6 +121,9 @@ class ExecNftTransferRequest extends Model
         }
         if (isset($map['price_cent'])) {
             $model->priceCent = $map['price_cent'];
+        }
+        if (isset($map['order_time'])) {
+            $model->orderTime = $map['order_time'];
         }
 
         return $model;

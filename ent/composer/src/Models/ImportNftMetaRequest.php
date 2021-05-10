@@ -60,6 +60,12 @@ class ImportNftMetaRequest extends Model
      * @var string
      */
     public $itemUrl;
+
+    // 资产发行时间
+    /**
+     * @var string
+     */
+    public $publishTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class ImportNftMetaRequest extends Model
         'author'            => 'author',
         'description'       => 'description',
         'itemUrl'           => 'item_url',
+        'publishTime'       => 'publish_time',
     ];
 
     public function validate()
@@ -80,6 +87,8 @@ class ImportNftMetaRequest extends Model
         Model::validateRequired('originImageUrl', $this->originImageUrl, true);
         Model::validateRequired('author', $this->author, true);
         Model::validateRequired('itemUrl', $this->itemUrl, true);
+        Model::validateRequired('publishTime', $this->publishTime, true);
+        Model::validatePattern('publishTime', $this->publishTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -111,6 +120,9 @@ class ImportNftMetaRequest extends Model
         }
         if (null !== $this->itemUrl) {
             $res['item_url'] = $this->itemUrl;
+        }
+        if (null !== $this->publishTime) {
+            $res['publish_time'] = $this->publishTime;
         }
 
         return $res;
@@ -150,6 +162,9 @@ class ImportNftMetaRequest extends Model
         }
         if (isset($map['item_url'])) {
             $model->itemUrl = $map['item_url'];
+        }
+        if (isset($map['publish_time'])) {
+            $model->publishTime = $map['publish_time'];
         }
 
         return $model;
