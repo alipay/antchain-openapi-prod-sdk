@@ -1954,6 +1954,8 @@ type ImportNftMetaRequest struct {
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 商品详情页url
 	ItemUrl *string `json:"item_url,omitempty" xml:"item_url,omitempty" require:"true"`
+	// 资产发行时间
+	PublishTime *string `json:"publish_time,omitempty" xml:"publish_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s ImportNftMetaRequest) String() string {
@@ -2009,6 +2011,11 @@ func (s *ImportNftMetaRequest) SetItemUrl(v string) *ImportNftMetaRequest {
 	return s
 }
 
+func (s *ImportNftMetaRequest) SetPublishTime(v string) *ImportNftMetaRequest {
+	s.PublishTime = &v
+	return s
+}
+
 type ImportNftMetaResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2060,6 +2067,8 @@ type ExecNftTransferRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 拍品成交价（单位：分）
 	PriceCent *int64 `json:"price_cent,omitempty" xml:"price_cent,omitempty" require:"true"`
+	// 订单成功时间
+	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s ExecNftTransferRequest) String() string {
@@ -2097,6 +2106,11 @@ func (s *ExecNftTransferRequest) SetOrderNo(v string) *ExecNftTransferRequest {
 
 func (s *ExecNftTransferRequest) SetPriceCent(v int64) *ExecNftTransferRequest {
 	s.PriceCent = &v
+	return s
+}
+
+func (s *ExecNftTransferRequest) SetOrderTime(v string) *ExecNftTransferRequest {
+	s.OrderTime = &v
 	return s
 }
 
@@ -2884,7 +2898,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.6"),
+				"sdk_version":      tea.String("1.4.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
