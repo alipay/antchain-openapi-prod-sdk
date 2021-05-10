@@ -31,6 +31,11 @@ public class ExecNftTransferRequest extends TeaModel {
     @Validation(required = true)
     public Long priceCent;
 
+    // 订单成功时间
+    @NameInMap("order_time")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String orderTime;
+
     public static ExecNftTransferRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecNftTransferRequest self = new ExecNftTransferRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class ExecNftTransferRequest extends TeaModel {
     }
     public Long getPriceCent() {
         return this.priceCent;
+    }
+
+    public ExecNftTransferRequest setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+        return this;
+    }
+    public String getOrderTime() {
+        return this.orderTime;
     }
 
 }

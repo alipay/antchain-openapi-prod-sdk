@@ -45,6 +45,11 @@ public class ImportNftMetaRequest extends TeaModel {
     @Validation(required = true)
     public String itemUrl;
 
+    // 资产发行时间
+    @NameInMap("publish_time")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String publishTime;
+
     public static ImportNftMetaRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportNftMetaRequest self = new ImportNftMetaRequest();
         return TeaModel.build(map, self);
@@ -120,6 +125,14 @@ public class ImportNftMetaRequest extends TeaModel {
     }
     public String getItemUrl() {
         return this.itemUrl;
+    }
+
+    public ImportNftMetaRequest setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+        return this;
+    }
+    public String getPublishTime() {
+        return this.publishTime;
     }
 
 }

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-ent</artifactId>
-  <version>1.4.6</version>
+  <version>1.4.8</version>
   <packaging>jar</packaging>
   <name>openapi-ent</name>
   <description>Ant Chain ENT SDK for Java
