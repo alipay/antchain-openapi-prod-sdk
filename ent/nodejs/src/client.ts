@@ -1439,6 +1439,8 @@ export class ImportNftMetaRequest extends $tea.Model {
   description?: string;
   // 商品详情页url
   itemUrl: string;
+  // 资产发行时间
+  publishTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1450,6 +1452,7 @@ export class ImportNftMetaRequest extends $tea.Model {
       author: 'author',
       description: 'description',
       itemUrl: 'item_url',
+      publishTime: 'publish_time',
     };
   }
 
@@ -1464,6 +1467,7 @@ export class ImportNftMetaRequest extends $tea.Model {
       author: 'string',
       description: 'string',
       itemUrl: 'string',
+      publishTime: 'string',
     };
   }
 
@@ -1516,6 +1520,8 @@ export class ExecNftTransferRequest extends $tea.Model {
   orderNo: string;
   // 拍品成交价（单位：分）
   priceCent: number;
+  // 订单成功时间
+  orderTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1524,6 +1530,7 @@ export class ExecNftTransferRequest extends $tea.Model {
       projectId: 'project_id',
       orderNo: 'order_no',
       priceCent: 'price_cent',
+      orderTime: 'order_time',
     };
   }
 
@@ -1535,6 +1542,7 @@ export class ExecNftTransferRequest extends $tea.Model {
       projectId: 'string',
       orderNo: 'string',
       priceCent: 'number',
+      orderTime: 'string',
     };
   }
 
@@ -2177,7 +2185,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.6",
+          sdk_version: "1.4.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
