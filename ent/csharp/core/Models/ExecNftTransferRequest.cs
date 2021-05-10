@@ -38,6 +38,11 @@ namespace AntChain.SDK.ENT.Models
         [Validation(Required=true)]
         public long? PriceCent { get; set; }
 
+        // 订单成功时间
+        [NameInMap("order_time")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string OrderTime { get; set; }
+
     }
 
 }
