@@ -233,7 +233,7 @@ export class AuthUsedRecord extends $tea.Model {
 }
 
 // 证明列表查询返回
-export class CertSummaryVO extends $tea.Model {
+export class CertSummary extends $tea.Model {
   // 证明文件ID
   issueId: string;
   // 证明文件类型
@@ -714,7 +714,7 @@ export class ListCpfCertResponse extends $tea.Model {
   // 记录总数
   total?: number;
   // 证明开具信息列表
-  certList?: CertSummaryVO[];
+  certList?: CertSummary[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -735,7 +735,7 @@ export class ListCpfCertResponse extends $tea.Model {
       current: 'number',
       pageSize: 'number',
       total: 'number',
-      certList: { 'type': 'array', 'itemType': CertSummaryVO },
+      certList: { 'type': 'array', 'itemType': CertSummary },
     };
   }
 
@@ -2021,7 +2021,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
