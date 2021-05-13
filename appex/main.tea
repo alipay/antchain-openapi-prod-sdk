@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.19',
+    sdk_version = '1.2.20',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -271,7 +271,6 @@ model FormIndexDTO {
 model CreateUserDidRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟标识（联盟ID）
   unionId: long(name='union_id'),
@@ -282,8 +281,9 @@ model CreateUserDidRequest = {
 model CreateUserDidResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 用户创建的账户身份DID，用于向区块链上发交易
   userDid?: string(name='user_did'),
@@ -311,7 +311,6 @@ async function createUserDidEx(request: CreateUserDidRequest, headers: map[strin
 model CreateUnionApplyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 协作联盟名称
   name: string(name='name'),
@@ -322,8 +321,9 @@ model CreateUnionApplyRequest = {
 model CreateUnionApplyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -349,7 +349,6 @@ async function createUnionApplyEx(request: CreateUnionApplyRequest, headers: map
 model ConfirmUnionApplyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 审核是否通过，SUCCESS,FAILURE,FREEZE
   status: string(name='status'),
@@ -370,8 +369,9 @@ model ConfirmUnionApplyRequest = {
 model ConfirmUnionApplyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -397,7 +397,6 @@ async function confirmUnionApplyEx(request: ConfirmUnionApplyRequest, headers: m
 model CreateUnionChannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: long(name='union_id'),
@@ -412,8 +411,9 @@ model CreateUnionChannelRequest = {
 model CreateUnionChannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -439,7 +439,6 @@ async function createUnionChannelEx(request: CreateUnionChannelRequest, headers:
 model ListUserChannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: long(name='union_id'),
@@ -456,8 +455,9 @@ model ListUserChannelRequest = {
 model ListUserChannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 页码
   pageNum?: long(name='page_num'),
@@ -491,7 +491,6 @@ async function listUserChannelEx(request: ListUserChannelRequest, headers: map[s
 model ListUnionPubchannelRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: long(name='union_id'),
@@ -506,8 +505,9 @@ model ListUnionPubchannelRequest = {
 model ListUnionPubchannelResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 页码
   pageNum?: long(name='page_num'),
@@ -541,7 +541,6 @@ async function listUnionPubchannelEx(request: ListUnionPubchannelRequest, header
 model AuthChannelUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: long(name='union_id'),
@@ -562,8 +561,9 @@ model AuthChannelUserRequest = {
 model AuthChannelUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -589,7 +589,6 @@ async function authChannelUserEx(request: AuthChannelUserRequest, headers: map[s
 model CancelChannelUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: long(name='union_id'),
@@ -606,8 +605,9 @@ model CancelChannelUserRequest = {
 model CancelChannelUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -633,7 +633,6 @@ async function cancelChannelUserEx(request: CancelChannelUserRequest, headers: m
 model CreateUnionFormRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 上链账户
   userDid: string(name='user_did'),
@@ -662,8 +661,9 @@ model CreateUnionFormRequest = {
 model CreateUnionFormResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 链上交易Hash
   txHash?: string(name='tx_hash'),
@@ -691,7 +691,6 @@ async function createUnionFormEx(request: CreateUnionFormRequest, headers: map[s
 model QueryUnionFormRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 发起方账户
   userDid: string(name='user_did'),
@@ -706,8 +705,9 @@ model QueryUnionFormRequest = {
 model QueryUnionFormResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 块高
   blockHeight?: long(name='block_height'),
@@ -745,7 +745,6 @@ async function queryUnionFormEx(request: QueryUnionFormRequest, headers: map[str
 model ListChannelUserformRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 发起方的账户
   userDid: string(name='user_did'),
@@ -762,8 +761,9 @@ model ListChannelUserformRequest = {
 model ListChannelUserformResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 页码
   pageNum?: long(name='page_num'),
@@ -797,7 +797,6 @@ async function listChannelUserformEx(request: ListChannelUserformRequest, header
 model CreateObjectRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链身份
   // 
@@ -818,8 +817,9 @@ model CreateObjectRequest = {
 model CreateObjectResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易哈希，物的链上身份
   objectHash?: string(name='object_hash'),
@@ -847,7 +847,6 @@ async function createObjectEx(request: CreateObjectRequest, headers: map[string]
 model CreateObjectTransferRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链身份
   userDid: string(name='user_did'),
@@ -864,8 +863,9 @@ model CreateObjectTransferRequest = {
 model CreateObjectTransferResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易Hash
   // 
@@ -894,7 +894,6 @@ async function createObjectTransferEx(request: CreateObjectTransferRequest, head
 model ListObjectTransferRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链身份
   userDid: string(name='user_did'),
@@ -907,8 +906,9 @@ model ListObjectTransferRequest = {
 model ListObjectTransferResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 数据归属权流转列表
   // 
@@ -937,7 +937,6 @@ async function listObjectTransferEx(request: ListObjectTransferRequest, headers:
 model CreateStatusflowTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: string(name='union_id'),
@@ -950,8 +949,9 @@ model CreateStatusflowTemplateRequest = {
 model CreateStatusflowTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -977,7 +977,6 @@ async function createStatusflowTemplateEx(request: CreateStatusflowTemplateReque
 model DeleteStatusflowTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: string(name='union_id'),
@@ -988,8 +987,9 @@ model DeleteStatusflowTemplateRequest = {
 model DeleteStatusflowTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
 }
 
@@ -1015,7 +1015,6 @@ async function deleteStatusflowTemplateEx(request: DeleteStatusflowTemplateReque
 model QueryStatusflowTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 联盟ID
   unionId: string(name='union_id'),
@@ -1026,8 +1025,9 @@ model QueryStatusflowTemplateRequest = {
 model QueryStatusflowTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 联盟ID
   unionId?: string(name='union_id'),
@@ -1059,7 +1059,6 @@ async function queryStatusflowTemplateEx(request: QueryStatusflowTemplateRequest
 model StartDatastatusDriveRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链身份
   userDid: string(name='user_did'),
@@ -1078,8 +1077,9 @@ model StartDatastatusDriveRequest = {
 model StartDatastatusDriveResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易Hash
   txHash?: string(name='tx_hash'),
@@ -1107,7 +1107,6 @@ async function startDatastatusDriveEx(request: StartDatastatusDriveRequest, head
 model ListDatastatusDriveRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 区块链身份
   // 
@@ -1123,8 +1122,9 @@ model ListDatastatusDriveRequest = {
 model ListDatastatusDriveResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 数据状态流转
   // 
@@ -1150,10 +1150,191 @@ async function listDatastatusDriveEx(request: ListDatastatusDriveRequest, header
   return doRequest('1.0' ,'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateAsynformFormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上链账户
+  userDid: string(name='user_did'),
+  // 联盟ID
+  // 
+  unionId: long(name='union_id'),
+  // Channel名称
+  // 
+  channelName: string(name='channel_name'),
+  // 业务单据号
+  // 
+  formId: string(name='form_id'),
+  // 业务单据类型
+  // 
+  formType: string(name='form_type'),
+  // 原生单据json字符串
+  formBody: string(name='form_body'),
+  // 用户自定义的图ID，开启图功能时传入
+  // 
+  graphId?: string(name='graph_id'),
+  // 用户自定义的LineNode名称
+  // 
+  lineNode?: string(name='line_node'),
+  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+  traceId?: string(name='trace_id'),
+  // 表单的直接上游节点formId
+  // 
+  parentFormIdList?: [ string ](name='parent_form_id_list'),
+  // 表单的直接下游节点formId
+  // 
+  childFormIdList?: [ string ](name='child_form_id_list'),
+}
+
+model CreateAsynformFormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易Hash
+  // 
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+ * Summary: 单据加密异步上链
+ */
+async function createAsynformForm(request: CreateAsynformFormRequest): CreateAsynformFormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAsynformFormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+ * Summary: 单据加密异步上链
+ */
+async function createAsynformFormEx(request: CreateAsynformFormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAsynformFormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryUnionFormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  // 
+  unionId: long(name='union_id'),
+  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+  traceId?: string(name='trace_id'),
+  // 过滤时间段开始时间点
+  startTime?: string(name='start_time'),
+  // 过滤时间段结束时间点
+  endTime?: string(name='end_time'),
+  // 页码，默认从1开始
+  pageNum: long(name='page_num'),
+  // 页大小，默认100，最大值限制为100
+  pageSize?: long(name='page_size'),
+}
+
+model PagequeryUnionFormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 单据索引列表
+  formList?: [ FormIndexDTO ](name='form_list'),
+}
+
+/**
+ * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+ * Summary: 单据分页查询
+ */
+async function pagequeryUnionForm(request: PagequeryUnionFormRequest): PagequeryUnionFormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryUnionFormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+ * Summary: 单据分页查询
+ */
+async function pagequeryUnionFormEx(request: PagequeryUnionFormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryUnionFormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAsynformStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发起方账户
+  // 
+  userDid: string(name='user_did'),
+  // 联盟ID
+  // 
+  unionId: long(name='union_id'),
+  // 业务单据ID
+  // 
+  formId: string(name='form_id'),
+  // 业务单据类型
+  // 
+  formType: string(name='form_type'),
+}
+
+model QueryAsynformStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 块高
+  // 
+  blockHeight?: long(name='block_height'),
+  // 交易hash
+  // 
+  txHash?: string(name='tx_hash'),
+  // 上传时间
+  // 
+  createTime?: string(name='create_time'),
+  // SUCCESS:上链成功, FAILURE:上链失败，UPLOADING:上链中
+  status?: string(name='status'),
+  // 交易时间戳，成功上链时间
+  // 
+  txTimestamp?: string(name='tx_timestamp'),
+}
+
+/**
+ * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+ * Summary: 单据上链状态查询
+ */
+async function queryAsynformStatus(request: QueryAsynformStatusRequest): QueryAsynformStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAsynformStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+ * Summary: 单据上链状态查询
+ */
+async function queryAsynformStatusEx(request: QueryAsynformStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAsynformStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QuerySolutionFastnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   // 
@@ -1168,8 +1349,9 @@ model QuerySolutionFastnotaryRequest = {
 model QuerySolutionFastnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证记录
   notaryRecord?: NotaryRecord(name='notary_record'),
@@ -1197,7 +1379,6 @@ async function querySolutionFastnotaryEx(request: QuerySolutionFastnotaryRequest
 model SaveSolutionFastnotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   // 
@@ -1211,8 +1392,9 @@ model SaveSolutionFastnotaryRequest = {
 model SaveSolutionFastnotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 交易哈希
   // 
@@ -1241,7 +1423,6 @@ async function saveSolutionFastnotaryEx(request: SaveSolutionFastnotaryRequest, 
 model InitSolutionFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   appDid: string(name='app_did'),
@@ -1250,8 +1431,9 @@ model InitSolutionFilenotaryRequest = {
 model InitSolutionFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件存证id
   fileNotaryId?: string(name='file_notary_id'),
@@ -1281,7 +1463,6 @@ async function initSolutionFilenotaryEx(request: InitSolutionFilenotaryRequest, 
 model SyncSolutionFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   // 
@@ -1294,8 +1475,9 @@ model SyncSolutionFilenotaryRequest = {
 model SyncSolutionFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否被接收
   // 
@@ -1330,7 +1512,6 @@ async function syncSolutionFilenotaryEx(request: SyncSolutionFilenotaryRequest, 
 model GetSolutionFilenotarystatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   // 
@@ -1343,8 +1524,9 @@ model GetSolutionFilenotarystatusRequest = {
 model GetSolutionFilenotarystatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 存证是否接受
   // 
@@ -1384,7 +1566,6 @@ async function getSolutionFilenotarystatusEx(request: GetSolutionFilenotarystatu
 model QuerySolutionFilenotaryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   // 
@@ -1397,8 +1578,9 @@ model QuerySolutionFilenotaryRequest = {
 model QuerySolutionFilenotaryResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 文件sha256哈希
   // 
@@ -1432,7 +1614,6 @@ async function querySolutionFilenotaryEx(request: QuerySolutionFilenotaryRequest
 model ExecContractServiceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 应用did
   appDid: string(maxLength=128, name='app_did'),
@@ -1450,8 +1631,9 @@ model ExecContractServiceRequest = {
 model ExecContractServiceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 合约执行结果
   responseBody?: string(name='response_body'),
@@ -1481,7 +1663,6 @@ async function execContractServiceEx(request: ExecContractServiceRequest, header
 model InitSolutionBmsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   bizid: string(name='bizid'),
@@ -1498,8 +1679,9 @@ model InitSolutionBmsRequest = {
 model InitSolutionBmsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 应用ID
   appDid?: string(name='app_did'),
@@ -1527,7 +1709,6 @@ async function initSolutionBmsEx(request: InitSolutionBmsRequest, headers: map[s
 model QuerySolutionBmsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 集群ID
   productInstanceId?: string(name='product_instance_id'),
   // 链ID
   bizid: string(name='bizid'),
@@ -1540,8 +1721,9 @@ model QuerySolutionBmsRequest = {
 model QuerySolutionBmsResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 合约oss存储url
   tempContractUrl?: string(name='temp_contract_url'),
