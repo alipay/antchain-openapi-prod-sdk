@@ -387,7 +387,6 @@ export class FormIndexDTO extends $tea.Model {
 export class CreateUserDidRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟标识（联盟ID）
   unionId: number;
@@ -419,8 +418,9 @@ export class CreateUserDidRequest extends $tea.Model {
 export class CreateUserDidResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 用户创建的账户身份DID，用于向区块链上发交易
   userDid?: string;
@@ -450,7 +450,6 @@ export class CreateUserDidResponse extends $tea.Model {
 export class CreateUnionApplyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 协作联盟名称
   name: string;
@@ -482,8 +481,9 @@ export class CreateUnionApplyRequest extends $tea.Model {
 export class CreateUnionApplyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -509,7 +509,6 @@ export class CreateUnionApplyResponse extends $tea.Model {
 export class ConfirmUnionApplyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 审核是否通过，SUCCESS,FAILURE,FREEZE
   status: string;
@@ -559,8 +558,9 @@ export class ConfirmUnionApplyRequest extends $tea.Model {
 export class ConfirmUnionApplyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -586,7 +586,6 @@ export class ConfirmUnionApplyResponse extends $tea.Model {
 export class CreateUnionChannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: number;
@@ -626,8 +625,9 @@ export class CreateUnionChannelRequest extends $tea.Model {
 export class CreateUnionChannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -653,7 +653,6 @@ export class CreateUnionChannelResponse extends $tea.Model {
 export class ListUserChannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: number;
@@ -697,8 +696,9 @@ export class ListUserChannelRequest extends $tea.Model {
 export class ListUserChannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 页码
   pageNum?: number;
@@ -740,7 +740,6 @@ export class ListUserChannelResponse extends $tea.Model {
 export class ListUnionPubchannelRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: number;
@@ -780,8 +779,9 @@ export class ListUnionPubchannelRequest extends $tea.Model {
 export class ListUnionPubchannelResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 页码
   pageNum?: number;
@@ -823,7 +823,6 @@ export class ListUnionPubchannelResponse extends $tea.Model {
 export class AuthChannelUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: number;
@@ -873,8 +872,9 @@ export class AuthChannelUserRequest extends $tea.Model {
 export class AuthChannelUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -900,7 +900,6 @@ export class AuthChannelUserResponse extends $tea.Model {
 export class CancelChannelUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: number;
@@ -944,8 +943,9 @@ export class CancelChannelUserRequest extends $tea.Model {
 export class CancelChannelUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -971,7 +971,6 @@ export class CancelChannelUserResponse extends $tea.Model {
 export class CreateUnionFormRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 上链账户
   userDid: string;
@@ -1039,8 +1038,9 @@ export class CreateUnionFormRequest extends $tea.Model {
 export class CreateUnionFormResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 链上交易Hash
   txHash?: string;
@@ -1070,7 +1070,6 @@ export class CreateUnionFormResponse extends $tea.Model {
 export class QueryUnionFormRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 发起方账户
   userDid: string;
@@ -1110,8 +1109,9 @@ export class QueryUnionFormRequest extends $tea.Model {
 export class QueryUnionFormResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 块高
   blockHeight?: number;
@@ -1161,7 +1161,6 @@ export class QueryUnionFormResponse extends $tea.Model {
 export class ListChannelUserformRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 发起方的账户
   userDid: string;
@@ -1205,8 +1204,9 @@ export class ListChannelUserformRequest extends $tea.Model {
 export class ListChannelUserformResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 页码
   pageNum?: number;
@@ -1248,7 +1248,6 @@ export class ListChannelUserformResponse extends $tea.Model {
 export class CreateObjectRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链身份
   // 
@@ -1294,8 +1293,9 @@ export class CreateObjectRequest extends $tea.Model {
 export class CreateObjectResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易哈希，物的链上身份
   objectHash?: string;
@@ -1325,7 +1325,6 @@ export class CreateObjectResponse extends $tea.Model {
 export class CreateObjectTransferRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链身份
   userDid: string;
@@ -1369,8 +1368,9 @@ export class CreateObjectTransferRequest extends $tea.Model {
 export class CreateObjectTransferResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易Hash
   // 
@@ -1401,7 +1401,6 @@ export class CreateObjectTransferResponse extends $tea.Model {
 export class ListObjectTransferRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链身份
   userDid: string;
@@ -1437,8 +1436,9 @@ export class ListObjectTransferRequest extends $tea.Model {
 export class ListObjectTransferResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 数据归属权流转列表
   // 
@@ -1469,7 +1469,6 @@ export class ListObjectTransferResponse extends $tea.Model {
 export class CreateStatusflowTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: string;
@@ -1505,8 +1504,9 @@ export class CreateStatusflowTemplateRequest extends $tea.Model {
 export class CreateStatusflowTemplateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1532,7 +1532,6 @@ export class CreateStatusflowTemplateResponse extends $tea.Model {
 export class DeleteStatusflowTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: string;
@@ -1564,8 +1563,9 @@ export class DeleteStatusflowTemplateRequest extends $tea.Model {
 export class DeleteStatusflowTemplateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1591,7 +1591,6 @@ export class DeleteStatusflowTemplateResponse extends $tea.Model {
 export class QueryStatusflowTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 联盟ID
   unionId: string;
@@ -1623,8 +1622,9 @@ export class QueryStatusflowTemplateRequest extends $tea.Model {
 export class QueryStatusflowTemplateResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 联盟ID
   unionId?: string;
@@ -1662,7 +1662,6 @@ export class QueryStatusflowTemplateResponse extends $tea.Model {
 export class StartDatastatusDriveRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链身份
   userDid: string;
@@ -1710,8 +1709,9 @@ export class StartDatastatusDriveRequest extends $tea.Model {
 export class StartDatastatusDriveResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易Hash
   txHash?: string;
@@ -1741,7 +1741,6 @@ export class StartDatastatusDriveResponse extends $tea.Model {
 export class ListDatastatusDriveRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 区块链身份
   // 
@@ -1780,8 +1779,9 @@ export class ListDatastatusDriveRequest extends $tea.Model {
 export class ListDatastatusDriveResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 数据状态流转
   // 
@@ -1809,10 +1809,304 @@ export class ListDatastatusDriveResponse extends $tea.Model {
   }
 }
 
+export class CreateAsynformFormRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上链账户
+  userDid: string;
+  // 联盟ID
+  // 
+  unionId: number;
+  // Channel名称
+  // 
+  channelName: string;
+  // 业务单据号
+  // 
+  formId: string;
+  // 业务单据类型
+  // 
+  formType: string;
+  // 原生单据json字符串
+  formBody: string;
+  // 用户自定义的图ID，开启图功能时传入
+  // 
+  graphId?: string;
+  // 用户自定义的LineNode名称
+  // 
+  lineNode?: string;
+  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+  traceId?: string;
+  // 表单的直接上游节点formId
+  // 
+  parentFormIdList?: string[];
+  // 表单的直接下游节点formId
+  // 
+  childFormIdList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userDid: 'user_did',
+      unionId: 'union_id',
+      channelName: 'channel_name',
+      formId: 'form_id',
+      formType: 'form_type',
+      formBody: 'form_body',
+      graphId: 'graph_id',
+      lineNode: 'line_node',
+      traceId: 'trace_id',
+      parentFormIdList: 'parent_form_id_list',
+      childFormIdList: 'child_form_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userDid: 'string',
+      unionId: 'number',
+      channelName: 'string',
+      formId: 'string',
+      formType: 'string',
+      formBody: 'string',
+      graphId: 'string',
+      lineNode: 'string',
+      traceId: 'string',
+      parentFormIdList: { 'type': 'array', 'itemType': 'string' },
+      childFormIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAsynformFormResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易Hash
+  // 
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryUnionFormRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联盟ID
+  // 
+  unionId: number;
+  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+  traceId?: string;
+  // 过滤时间段开始时间点
+  startTime?: string;
+  // 过滤时间段结束时间点
+  endTime?: string;
+  // 页码，默认从1开始
+  pageNum: number;
+  // 页大小，默认100，最大值限制为100
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      unionId: 'union_id',
+      traceId: 'trace_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      unionId: 'number',
+      traceId: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryUnionFormResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码
+  pageNum?: number;
+  // 页大小
+  pageSize?: number;
+  // 总页数
+  totalPage?: number;
+  // 单据索引列表
+  formList?: FormIndexDTO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalPage: 'total_page',
+      formList: 'form_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+      totalPage: 'number',
+      formList: { 'type': 'array', 'itemType': FormIndexDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAsynformStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 发起方账户
+  // 
+  userDid: string;
+  // 联盟ID
+  // 
+  unionId: number;
+  // 业务单据ID
+  // 
+  formId: string;
+  // 业务单据类型
+  // 
+  formType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userDid: 'user_did',
+      unionId: 'union_id',
+      formId: 'form_id',
+      formType: 'form_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userDid: 'string',
+      unionId: 'number',
+      formId: 'string',
+      formType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAsynformStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 块高
+  // 
+  blockHeight?: number;
+  // 交易hash
+  // 
+  txHash?: string;
+  // 上传时间
+  // 
+  createTime?: string;
+  // SUCCESS:上链成功, FAILURE:上链失败，UPLOADING:上链中
+  status?: string;
+  // 交易时间戳，成功上链时间
+  // 
+  txTimestamp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      blockHeight: 'block_height',
+      txHash: 'tx_hash',
+      createTime: 'create_time',
+      status: 'status',
+      txTimestamp: 'tx_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      blockHeight: 'number',
+      txHash: 'string',
+      createTime: 'string',
+      status: 'string',
+      txTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QuerySolutionFastnotaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   // 
@@ -1850,8 +2144,9 @@ export class QuerySolutionFastnotaryRequest extends $tea.Model {
 export class QuerySolutionFastnotaryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 存证记录
   notaryRecord?: NotaryRecord;
@@ -1881,7 +2176,6 @@ export class QuerySolutionFastnotaryResponse extends $tea.Model {
 export class SaveSolutionFastnotaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   // 
@@ -1918,8 +2212,9 @@ export class SaveSolutionFastnotaryRequest extends $tea.Model {
 export class SaveSolutionFastnotaryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 交易哈希
   // 
@@ -1950,7 +2245,6 @@ export class SaveSolutionFastnotaryResponse extends $tea.Model {
 export class InitSolutionFilenotaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   appDid: string;
@@ -1978,8 +2272,9 @@ export class InitSolutionFilenotaryRequest extends $tea.Model {
 export class InitSolutionFilenotaryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 文件存证id
   fileNotaryId?: string;
@@ -2013,7 +2308,6 @@ export class InitSolutionFilenotaryResponse extends $tea.Model {
 export class SyncSolutionFilenotaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   // 
@@ -2047,8 +2341,9 @@ export class SyncSolutionFilenotaryRequest extends $tea.Model {
 export class SyncSolutionFilenotaryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 是否被接收
   // 
@@ -2089,7 +2384,6 @@ export class SyncSolutionFilenotaryResponse extends $tea.Model {
 export class GetSolutionFilenotarystatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   // 
@@ -2123,8 +2417,9 @@ export class GetSolutionFilenotarystatusRequest extends $tea.Model {
 export class GetSolutionFilenotarystatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 存证是否接受
   // 
@@ -2174,7 +2469,6 @@ export class GetSolutionFilenotarystatusResponse extends $tea.Model {
 export class QuerySolutionFilenotaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   // 
@@ -2208,8 +2502,9 @@ export class QuerySolutionFilenotaryRequest extends $tea.Model {
 export class QuerySolutionFilenotaryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 文件sha256哈希
   // 
@@ -2249,7 +2544,6 @@ export class QuerySolutionFilenotaryResponse extends $tea.Model {
 export class ExecContractServiceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 应用did
   appDid: string;
@@ -2294,8 +2588,9 @@ export class ExecContractServiceRequest extends $tea.Model {
 export class ExecContractServiceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 合约执行结果
   responseBody?: string;
@@ -2329,7 +2624,6 @@ export class ExecContractServiceResponse extends $tea.Model {
 export class InitSolutionBmsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   bizid: string;
@@ -2373,8 +2667,9 @@ export class InitSolutionBmsRequest extends $tea.Model {
 export class InitSolutionBmsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 应用ID
   appDid?: string;
@@ -2404,7 +2699,6 @@ export class InitSolutionBmsResponse extends $tea.Model {
 export class QuerySolutionBmsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 链ID
   bizid: string;
@@ -2440,8 +2734,9 @@ export class QuerySolutionBmsRequest extends $tea.Model {
 export class QuerySolutionBmsResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 合约oss存储url
   tempContractUrl?: string;
@@ -2581,7 +2876,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.19",
+          sdk_version: "1.2.20",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2986,6 +3281,63 @@ export default class Client {
   async listDatastatusDriveEx(request: ListDatastatusDriveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDatastatusDriveResponse> {
     Util.validateModel(request);
     return $tea.cast<ListDatastatusDriveResponse>(await this.doRequest("1.0", "blockchain.appex.datastatus.drive.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDatastatusDriveResponse({}));
+  }
+
+  /**
+   * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+   * Summary: 单据加密异步上链
+   */
+  async createAsynformForm(request: CreateAsynformFormRequest): Promise<CreateAsynformFormResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAsynformFormEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+   * Summary: 单据加密异步上链
+   */
+  async createAsynformFormEx(request: CreateAsynformFormRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAsynformFormResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAsynformFormResponse>(await this.doRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAsynformFormResponse({}));
+  }
+
+  /**
+   * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+   * Summary: 单据分页查询
+   */
+  async pagequeryUnionForm(request: PagequeryUnionFormRequest): Promise<PagequeryUnionFormResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryUnionFormEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+   * Summary: 单据分页查询
+   */
+  async pagequeryUnionFormEx(request: PagequeryUnionFormRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryUnionFormResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryUnionFormResponse>(await this.doRequest("1.0", "blockchain.appex.union.form.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryUnionFormResponse({}));
+  }
+
+  /**
+   * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+   * Summary: 单据上链状态查询
+   */
+  async queryAsynformStatus(request: QueryAsynformStatusRequest): Promise<QueryAsynformStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAsynformStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+   * Summary: 单据上链状态查询
+   */
+  async queryAsynformStatusEx(request: QueryAsynformStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAsynformStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAsynformStatusResponse>(await this.doRequest("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAsynformStatusResponse({}));
   }
 
   /**
