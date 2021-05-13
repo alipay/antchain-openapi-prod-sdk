@@ -335,7 +335,7 @@ func (s *AuthUsedRecord) SetUseDate(v string) *AuthUsedRecord {
 }
 
 // 证明列表查询返回
-type CertSummaryVO struct {
+type CertSummary struct {
 	// 证明文件ID
 	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
 	// 证明文件类型
@@ -348,35 +348,35 @@ type CertSummaryVO struct {
 	IssueIcon *string `json:"issue_icon,omitempty" xml:"issue_icon,omitempty"`
 }
 
-func (s CertSummaryVO) String() string {
+func (s CertSummary) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CertSummaryVO) GoString() string {
+func (s CertSummary) GoString() string {
 	return s.String()
 }
 
-func (s *CertSummaryVO) SetIssueId(v string) *CertSummaryVO {
+func (s *CertSummary) SetIssueId(v string) *CertSummary {
 	s.IssueId = &v
 	return s
 }
 
-func (s *CertSummaryVO) SetIssueCertType(v string) *CertSummaryVO {
+func (s *CertSummary) SetIssueCertType(v string) *CertSummary {
 	s.IssueCertType = &v
 	return s
 }
 
-func (s *CertSummaryVO) SetIssueCertTypeDesc(v string) *CertSummaryVO {
+func (s *CertSummary) SetIssueCertTypeDesc(v string) *CertSummary {
 	s.IssueCertTypeDesc = &v
 	return s
 }
 
-func (s *CertSummaryVO) SetIssueTime(v string) *CertSummaryVO {
+func (s *CertSummary) SetIssueTime(v string) *CertSummary {
 	s.IssueTime = &v
 	return s
 }
 
-func (s *CertSummaryVO) SetIssueIcon(v string) *CertSummaryVO {
+func (s *CertSummary) SetIssueIcon(v string) *CertSummary {
 	s.IssueIcon = &v
 	return s
 }
@@ -948,7 +948,7 @@ type ListCpfCertResponse struct {
 	// 记录总数
 	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 	// 证明开具信息列表
-	CertList []*CertSummaryVO `json:"cert_list,omitempty" xml:"cert_list,omitempty" type:"Repeated"`
+	CertList []*CertSummary `json:"cert_list,omitempty" xml:"cert_list,omitempty" type:"Repeated"`
 }
 
 func (s ListCpfCertResponse) String() string {
@@ -989,7 +989,7 @@ func (s *ListCpfCertResponse) SetTotal(v int64) *ListCpfCertResponse {
 	return s
 }
 
-func (s *ListCpfCertResponse) SetCertList(v []*CertSummaryVO) *ListCpfCertResponse {
+func (s *ListCpfCertResponse) SetCertList(v []*CertSummary) *ListCpfCertResponse {
 	s.CertList = v
 	return s
 }
@@ -2638,7 +2638,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
