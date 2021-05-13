@@ -30,7 +30,7 @@ public class ListCpfCertResponse extends TeaModel {
 
     // 证明开具信息列表
     @NameInMap("cert_list")
-    public java.util.List<CertSummaryVO> certList;
+    public java.util.List<CertSummary> certList;
 
     public static ListCpfCertResponse build(java.util.Map<String, ?> map) throws Exception {
         ListCpfCertResponse self = new ListCpfCertResponse();
@@ -85,11 +85,11 @@ public class ListCpfCertResponse extends TeaModel {
         return this.total;
     }
 
-    public ListCpfCertResponse setCertList(java.util.List<CertSummaryVO> certList) {
+    public ListCpfCertResponse setCertList(java.util.List<CertSummary> certList) {
         this.certList = certList;
         return this;
     }
-    public java.util.List<CertSummaryVO> getCertList() {
+    public java.util.List<CertSummary> getCertList() {
         return this.certList;
     }
 

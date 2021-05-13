@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tdm.models;
 
 import com.aliyun.tea.*;
 
-public class CertSummaryVO extends TeaModel {
+public class CertSummary extends TeaModel {
     // 证明文件ID
     @NameInMap("issue_id")
     @Validation(required = true)
@@ -28,12 +28,12 @@ public class CertSummaryVO extends TeaModel {
     @NameInMap("issue_icon")
     public String issueIcon;
 
-    public static CertSummaryVO build(java.util.Map<String, ?> map) throws Exception {
-        CertSummaryVO self = new CertSummaryVO();
+    public static CertSummary build(java.util.Map<String, ?> map) throws Exception {
+        CertSummary self = new CertSummary();
         return TeaModel.build(map, self);
     }
 
-    public CertSummaryVO setIssueId(String issueId) {
+    public CertSummary setIssueId(String issueId) {
         this.issueId = issueId;
         return this;
     }
@@ -41,7 +41,7 @@ public class CertSummaryVO extends TeaModel {
         return this.issueId;
     }
 
-    public CertSummaryVO setIssueCertType(String issueCertType) {
+    public CertSummary setIssueCertType(String issueCertType) {
         this.issueCertType = issueCertType;
         return this;
     }
@@ -49,7 +49,7 @@ public class CertSummaryVO extends TeaModel {
         return this.issueCertType;
     }
 
-    public CertSummaryVO setIssueCertTypeDesc(String issueCertTypeDesc) {
+    public CertSummary setIssueCertTypeDesc(String issueCertTypeDesc) {
         this.issueCertTypeDesc = issueCertTypeDesc;
         return this;
     }
@@ -57,7 +57,7 @@ public class CertSummaryVO extends TeaModel {
         return this.issueCertTypeDesc;
     }
 
-    public CertSummaryVO setIssueTime(String issueTime) {
+    public CertSummary setIssueTime(String issueTime) {
         this.issueTime = issueTime;
         return this;
     }
@@ -65,7 +65,7 @@ public class CertSummaryVO extends TeaModel {
         return this.issueTime;
     }
 
-    public CertSummaryVO setIssueIcon(String issueIcon) {
+    public CertSummary setIssueIcon(String issueIcon) {
         this.issueIcon = issueIcon;
         return this;
     }
