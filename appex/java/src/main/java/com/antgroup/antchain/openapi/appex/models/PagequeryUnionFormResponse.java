@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.appex.models;
 
 import com.aliyun.tea.*;
 
-public class ListUnionPubchannelResponse extends TeaModel {
+public class PagequeryUnionFormResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -28,16 +28,16 @@ public class ListUnionPubchannelResponse extends TeaModel {
     @NameInMap("total_page")
     public Long totalPage;
 
-    // 公开可访问Channel列表
-    @NameInMap("channel_list")
-    public java.util.List<ChannelDTO> channelList;
+    // 单据索引列表
+    @NameInMap("form_list")
+    public java.util.List<FormIndexDTO> formList;
 
-    public static ListUnionPubchannelResponse build(java.util.Map<String, ?> map) throws Exception {
-        ListUnionPubchannelResponse self = new ListUnionPubchannelResponse();
+    public static PagequeryUnionFormResponse build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryUnionFormResponse self = new PagequeryUnionFormResponse();
         return TeaModel.build(map, self);
     }
 
-    public ListUnionPubchannelResponse setReqMsgId(String reqMsgId) {
+    public PagequeryUnionFormResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +45,7 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ListUnionPubchannelResponse setResultCode(String resultCode) {
+    public PagequeryUnionFormResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +53,7 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ListUnionPubchannelResponse setResultMsg(String resultMsg) {
+    public PagequeryUnionFormResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,7 +61,7 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ListUnionPubchannelResponse setPageNum(Long pageNum) {
+    public PagequeryUnionFormResponse setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
     }
@@ -69,7 +69,7 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.pageNum;
     }
 
-    public ListUnionPubchannelResponse setPageSize(Long pageSize) {
+    public PagequeryUnionFormResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -77,7 +77,7 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public ListUnionPubchannelResponse setTotalPage(Long totalPage) {
+    public PagequeryUnionFormResponse setTotalPage(Long totalPage) {
         this.totalPage = totalPage;
         return this;
     }
@@ -85,12 +85,12 @@ public class ListUnionPubchannelResponse extends TeaModel {
         return this.totalPage;
     }
 
-    public ListUnionPubchannelResponse setChannelList(java.util.List<ChannelDTO> channelList) {
-        this.channelList = channelList;
+    public PagequeryUnionFormResponse setFormList(java.util.List<FormIndexDTO> formList) {
+        this.formList = formList;
         return this;
     }
-    public java.util.List<ChannelDTO> getChannelList() {
-        return this.channelList;
+    public java.util.List<FormIndexDTO> getFormList() {
+        return this.formList;
     }
 
 }

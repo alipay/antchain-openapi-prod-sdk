@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.appex.models;
 
 import com.aliyun.tea.*;
 
-public class QueryUnionFormRequest extends TeaModel {
+public class QueryAsynformStatusRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -12,31 +12,35 @@ public class QueryUnionFormRequest extends TeaModel {
     public String productInstanceId;
 
     // 发起方账户
+    // 
     @NameInMap("user_did")
     @Validation(required = true)
     public String userDid;
 
     // 联盟ID
+    // 
     @NameInMap("union_id")
     @Validation(required = true)
     public Long unionId;
 
     // 业务单据ID
+    // 
     @NameInMap("form_id")
     @Validation(required = true)
     public String formId;
 
     // 业务单据类型
+    // 
     @NameInMap("form_type")
     @Validation(required = true)
     public String formType;
 
-    public static QueryUnionFormRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryUnionFormRequest self = new QueryUnionFormRequest();
+    public static QueryAsynformStatusRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryAsynformStatusRequest self = new QueryAsynformStatusRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryUnionFormRequest setAuthToken(String authToken) {
+    public QueryAsynformStatusRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +48,7 @@ public class QueryUnionFormRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryUnionFormRequest setProductInstanceId(String productInstanceId) {
+    public QueryAsynformStatusRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +56,7 @@ public class QueryUnionFormRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryUnionFormRequest setUserDid(String userDid) {
+    public QueryAsynformStatusRequest setUserDid(String userDid) {
         this.userDid = userDid;
         return this;
     }
@@ -60,7 +64,7 @@ public class QueryUnionFormRequest extends TeaModel {
         return this.userDid;
     }
 
-    public QueryUnionFormRequest setUnionId(Long unionId) {
+    public QueryAsynformStatusRequest setUnionId(Long unionId) {
         this.unionId = unionId;
         return this;
     }
@@ -68,7 +72,7 @@ public class QueryUnionFormRequest extends TeaModel {
         return this.unionId;
     }
 
-    public QueryUnionFormRequest setFormId(String formId) {
+    public QueryAsynformStatusRequest setFormId(String formId) {
         this.formId = formId;
         return this;
     }
@@ -76,7 +80,7 @@ public class QueryUnionFormRequest extends TeaModel {
         return this.formId;
     }
 
-    public QueryUnionFormRequest setFormType(String formType) {
+    public QueryAsynformStatusRequest setFormType(String formType) {
         this.formType = formType;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.appex.models;
 
 import com.aliyun.tea.*;
 
-public class CreateUnionFormRequest extends TeaModel {
+public class CreateAsynformFormRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -17,21 +17,25 @@ public class CreateUnionFormRequest extends TeaModel {
     public String userDid;
 
     // 联盟ID
+    // 
     @NameInMap("union_id")
     @Validation(required = true)
     public Long unionId;
 
     // Channel名称
+    // 
     @NameInMap("channel_name")
     @Validation(required = true)
     public String channelName;
 
     // 业务单据号
+    // 
     @NameInMap("form_id")
     @Validation(required = true)
     public String formId;
 
     // 业务单据类型
+    // 
     @NameInMap("form_type")
     @Validation(required = true)
     public String formType;
@@ -42,10 +46,12 @@ public class CreateUnionFormRequest extends TeaModel {
     public String formBody;
 
     // 用户自定义的图ID，开启图功能时传入
+    // 
     @NameInMap("graph_id")
     public String graphId;
 
     // 用户自定义的LineNode名称
+    // 
     @NameInMap("line_node")
     public String lineNode;
 
@@ -54,19 +60,21 @@ public class CreateUnionFormRequest extends TeaModel {
     public String traceId;
 
     // 表单的直接上游节点formId
+    // 
     @NameInMap("parent_form_id_list")
     public java.util.List<String> parentFormIdList;
 
     // 表单的直接下游节点formId
+    // 
     @NameInMap("child_form_id_list")
     public java.util.List<String> childFormIdList;
 
-    public static CreateUnionFormRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateUnionFormRequest self = new CreateUnionFormRequest();
+    public static CreateAsynformFormRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateAsynformFormRequest self = new CreateAsynformFormRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateUnionFormRequest setAuthToken(String authToken) {
+    public CreateAsynformFormRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -74,7 +82,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateUnionFormRequest setProductInstanceId(String productInstanceId) {
+    public CreateAsynformFormRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -82,7 +90,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateUnionFormRequest setUserDid(String userDid) {
+    public CreateAsynformFormRequest setUserDid(String userDid) {
         this.userDid = userDid;
         return this;
     }
@@ -90,7 +98,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.userDid;
     }
 
-    public CreateUnionFormRequest setUnionId(Long unionId) {
+    public CreateAsynformFormRequest setUnionId(Long unionId) {
         this.unionId = unionId;
         return this;
     }
@@ -98,7 +106,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.unionId;
     }
 
-    public CreateUnionFormRequest setChannelName(String channelName) {
+    public CreateAsynformFormRequest setChannelName(String channelName) {
         this.channelName = channelName;
         return this;
     }
@@ -106,7 +114,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.channelName;
     }
 
-    public CreateUnionFormRequest setFormId(String formId) {
+    public CreateAsynformFormRequest setFormId(String formId) {
         this.formId = formId;
         return this;
     }
@@ -114,7 +122,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.formId;
     }
 
-    public CreateUnionFormRequest setFormType(String formType) {
+    public CreateAsynformFormRequest setFormType(String formType) {
         this.formType = formType;
         return this;
     }
@@ -122,7 +130,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.formType;
     }
 
-    public CreateUnionFormRequest setFormBody(String formBody) {
+    public CreateAsynformFormRequest setFormBody(String formBody) {
         this.formBody = formBody;
         return this;
     }
@@ -130,7 +138,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.formBody;
     }
 
-    public CreateUnionFormRequest setGraphId(String graphId) {
+    public CreateAsynformFormRequest setGraphId(String graphId) {
         this.graphId = graphId;
         return this;
     }
@@ -138,7 +146,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.graphId;
     }
 
-    public CreateUnionFormRequest setLineNode(String lineNode) {
+    public CreateAsynformFormRequest setLineNode(String lineNode) {
         this.lineNode = lineNode;
         return this;
     }
@@ -146,7 +154,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.lineNode;
     }
 
-    public CreateUnionFormRequest setTraceId(String traceId) {
+    public CreateAsynformFormRequest setTraceId(String traceId) {
         this.traceId = traceId;
         return this;
     }
@@ -154,7 +162,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.traceId;
     }
 
-    public CreateUnionFormRequest setParentFormIdList(java.util.List<String> parentFormIdList) {
+    public CreateAsynformFormRequest setParentFormIdList(java.util.List<String> parentFormIdList) {
         this.parentFormIdList = parentFormIdList;
         return this;
     }
@@ -162,7 +170,7 @@ public class CreateUnionFormRequest extends TeaModel {
         return this.parentFormIdList;
     }
 
-    public CreateUnionFormRequest setChildFormIdList(java.util.List<String> childFormIdList) {
+    public CreateAsynformFormRequest setChildFormIdList(java.util.List<String> childFormIdList) {
         this.childFormIdList = childFormIdList;
         return this;
     }

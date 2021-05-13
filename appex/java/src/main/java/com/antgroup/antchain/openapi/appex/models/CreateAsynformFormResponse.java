@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.appex.models;
 
 import com.aliyun.tea.*;
 
-public class SaveSolutionFastnotaryResponse extends TeaModel {
+public class CreateAsynformFormResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,17 +16,17 @@ public class SaveSolutionFastnotaryResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 交易哈希
+    // 交易Hash
     // 
     @NameInMap("tx_hash")
     public String txHash;
 
-    public static SaveSolutionFastnotaryResponse build(java.util.Map<String, ?> map) throws Exception {
-        SaveSolutionFastnotaryResponse self = new SaveSolutionFastnotaryResponse();
+    public static CreateAsynformFormResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateAsynformFormResponse self = new CreateAsynformFormResponse();
         return TeaModel.build(map, self);
     }
 
-    public SaveSolutionFastnotaryResponse setReqMsgId(String reqMsgId) {
+    public CreateAsynformFormResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -34,7 +34,7 @@ public class SaveSolutionFastnotaryResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SaveSolutionFastnotaryResponse setResultCode(String resultCode) {
+    public CreateAsynformFormResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -42,7 +42,7 @@ public class SaveSolutionFastnotaryResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SaveSolutionFastnotaryResponse setResultMsg(String resultMsg) {
+    public CreateAsynformFormResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -50,7 +50,7 @@ public class SaveSolutionFastnotaryResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SaveSolutionFastnotaryResponse setTxHash(String txHash) {
+    public CreateAsynformFormResponse setTxHash(String txHash) {
         this.txHash = txHash;
         return this;
     }

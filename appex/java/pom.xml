@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-appex</artifactId>
-  <version>1.2.19</version>
+  <version>1.2.20</version>
   <packaging>jar</packaging>
   <name>openapi-appex</name>
   <description>Ant Chain APPEX SDK for Java

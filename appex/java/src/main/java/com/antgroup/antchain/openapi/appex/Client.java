@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.19")
+                    new TeaPair("sdk_version", "1.2.20")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -518,6 +518,63 @@ public class Client {
     public ListDatastatusDriveResponse listDatastatusDriveEx(ListDatastatusDriveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.datastatus.drive.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListDatastatusDriveResponse());
+    }
+
+    /**
+     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+     * Summary: 单据加密异步上链
+     */
+    public CreateAsynformFormResponse createAsynformForm(CreateAsynformFormRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAsynformFormEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+     * Summary: 单据加密异步上链
+     */
+    public CreateAsynformFormResponse createAsynformFormEx(CreateAsynformFormRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAsynformFormResponse());
+    }
+
+    /**
+     * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+     * Summary: 单据分页查询
+     */
+    public PagequeryUnionFormResponse pagequeryUnionForm(PagequeryUnionFormRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryUnionFormEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+     * Summary: 单据分页查询
+     */
+    public PagequeryUnionFormResponse pagequeryUnionFormEx(PagequeryUnionFormRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.union.form.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryUnionFormResponse());
+    }
+
+    /**
+     * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+     * Summary: 单据上链状态查询
+     */
+    public QueryAsynformStatusResponse queryAsynformStatus(QueryAsynformStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAsynformStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+     * Summary: 单据上链状态查询
+     */
+    public QueryAsynformStatusResponse queryAsynformStatusEx(QueryAsynformStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAsynformStatusResponse());
     }
 
     /**
