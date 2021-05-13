@@ -42,7 +42,7 @@ namespace AntChain.SDK.TDM.Models
         // 证明开具信息列表
         [NameInMap("cert_list")]
         [Validation(Required=false)]
-        public List<CertSummaryVO> CertList { get; set; }
+        public List<CertSummary> CertList { get; set; }
 
     }
 

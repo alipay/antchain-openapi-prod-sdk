@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.TDM.Models
 {
     // 证明列表查询返回
-    public class CertSummaryVO : TeaModel {
+    public class CertSummary : TeaModel {
         // 证明文件ID
         [NameInMap("issue_id")]
         [Validation(Required=true)]
