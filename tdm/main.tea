@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.0.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -229,7 +229,7 @@ model AuthUsedRecord {
 }
 
 // 证明列表查询返回
-model CertSummaryVO {
+model CertSummary {
   // 证明文件ID
   issueId: string(name='issue_id', example='20201125010000RD831500012865'),
   // 证明文件类型
@@ -445,7 +445,7 @@ model ListCpfCertResponse = {
   // 记录总数
   total?: long(name='total'),
   // 证明开具信息列表
-  certList?: [ CertSummaryVO ](name='cert_list'),
+  certList?: [ CertSummary ](name='cert_list'),
 }
 
 /**
