@@ -363,7 +363,7 @@ class AuthUsedRecord(TeaModel):
         return self
 
 
-class CertSummaryVO(TeaModel):
+class CertSummary(TeaModel):
     def __init__(
         self,
         issue_id: str = None,
@@ -1074,7 +1074,7 @@ class ListCpfCertResponse(TeaModel):
         current: int = None,
         page_size: int = None,
         total: int = None,
-        cert_list: List[CertSummaryVO] = None,
+        cert_list: List[CertSummary] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1134,7 +1134,7 @@ class ListCpfCertResponse(TeaModel):
         self.cert_list = []
         if m.get('cert_list') is not None:
             for k in m.get('cert_list'):
-                temp_model = CertSummaryVO()
+                temp_model = CertSummary()
                 self.cert_list.append(temp_model.from_map(k))
         return self
 
