@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APPEX.Models
 {
-    public class QuerySolutionFilenotaryResponse : TeaModel {
+    public class PagequeryUnionFormResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,22 +24,25 @@ namespace AntChain.SDK.APPEX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 文件sha256哈希
-        // 
-        [NameInMap("file_content_hash")]
+        // 页码
+        [NameInMap("page_num")]
         [Validation(Required=false)]
-        public string FileContentHash { get; set; }
+        public long? PageNum { get; set; }
 
-        // 小程序二维码对应的url
-        // 
-        [NameInMap("qr_code_url")]
+        // 页大小
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public string QrCodeUrl { get; set; }
+        public long? PageSize { get; set; }
 
-        // 下载url
-        [NameInMap("url")]
+        // 总页数
+        [NameInMap("total_page")]
         [Validation(Required=false)]
-        public string Url { get; set; }
+        public long? TotalPage { get; set; }
+
+        // 单据索引列表
+        [NameInMap("form_list")]
+        [Validation(Required=false)]
+        public List<FormIndexDTO> FormList { get; set; }
 
     }
 

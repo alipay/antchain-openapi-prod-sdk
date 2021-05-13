@@ -137,7 +137,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.19"},
+                        {"sdk_version", "1.2.20"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.19"},
+                        {"sdk_version", "1.2.20"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1113,6 +1113,132 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListDatastatusDriveResponse>(await DoRequestAsync("1.0", "blockchain.appex.datastatus.drive.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+         * Summary: 单据加密异步上链
+         */
+        public CreateAsynformFormResponse CreateAsynformForm(CreateAsynformFormRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAsynformFormEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+         * Summary: 单据加密异步上链
+         */
+        public async Task<CreateAsynformFormResponse> CreateAsynformFormAsync(CreateAsynformFormRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAsynformFormExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+         * Summary: 单据加密异步上链
+         */
+        public CreateAsynformFormResponse CreateAsynformFormEx(CreateAsynformFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAsynformFormResponse>(DoRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+         * Summary: 单据加密异步上链
+         */
+        public async Task<CreateAsynformFormResponse> CreateAsynformFormExAsync(CreateAsynformFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAsynformFormResponse>(await DoRequestAsync("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+         * Summary: 单据分页查询
+         */
+        public PagequeryUnionFormResponse PagequeryUnionForm(PagequeryUnionFormRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryUnionFormEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+         * Summary: 单据分页查询
+         */
+        public async Task<PagequeryUnionFormResponse> PagequeryUnionFormAsync(PagequeryUnionFormRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryUnionFormExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+         * Summary: 单据分页查询
+         */
+        public PagequeryUnionFormResponse PagequeryUnionFormEx(PagequeryUnionFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryUnionFormResponse>(DoRequest("1.0", "blockchain.appex.union.form.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+         * Summary: 单据分页查询
+         */
+        public async Task<PagequeryUnionFormResponse> PagequeryUnionFormExAsync(PagequeryUnionFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryUnionFormResponse>(await DoRequestAsync("1.0", "blockchain.appex.union.form.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+         * Summary: 单据上链状态查询
+         */
+        public QueryAsynformStatusResponse QueryAsynformStatus(QueryAsynformStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAsynformStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+         * Summary: 单据上链状态查询
+         */
+        public async Task<QueryAsynformStatusResponse> QueryAsynformStatusAsync(QueryAsynformStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAsynformStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+         * Summary: 单据上链状态查询
+         */
+        public QueryAsynformStatusResponse QueryAsynformStatusEx(QueryAsynformStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAsynformStatusResponse>(DoRequest("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+         * Summary: 单据上链状态查询
+         */
+        public async Task<QueryAsynformStatusResponse> QueryAsynformStatusExAsync(QueryAsynformStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAsynformStatusResponse>(await DoRequestAsync("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

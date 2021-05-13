@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APPEX.Models
 {
-    public class QuerySolutionFilenotaryResponse : TeaModel {
+    public class QueryAsynformStatusResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,22 +24,34 @@ namespace AntChain.SDK.APPEX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 文件sha256哈希
+        // 块高
         // 
-        [NameInMap("file_content_hash")]
+        [NameInMap("block_height")]
         [Validation(Required=false)]
-        public string FileContentHash { get; set; }
+        public long? BlockHeight { get; set; }
 
-        // 小程序二维码对应的url
+        // 交易hash
         // 
-        [NameInMap("qr_code_url")]
+        [NameInMap("tx_hash")]
         [Validation(Required=false)]
-        public string QrCodeUrl { get; set; }
+        public string TxHash { get; set; }
 
-        // 下载url
-        [NameInMap("url")]
+        // 上传时间
+        // 
+        [NameInMap("create_time")]
         [Validation(Required=false)]
-        public string Url { get; set; }
+        public string CreateTime { get; set; }
+
+        // SUCCESS:上链成功, FAILURE:上链失败，UPLOADING:上链中
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
+        // 交易时间戳，成功上链时间
+        // 
+        [NameInMap("tx_timestamp")]
+        [Validation(Required=false)]
+        public string TxTimestamp { get; set; }
 
     }
 
