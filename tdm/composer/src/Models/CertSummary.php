@@ -6,7 +6,7 @@ namespace AntChain\TDM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CertSummaryVO extends Model
+class CertSummary extends Model
 {
     // 证明文件ID
     /**
@@ -88,7 +88,7 @@ class CertSummaryVO extends Model
     /**
      * @param array $map
      *
-     * @return CertSummaryVO
+     * @return CertSummary
      */
     public static function fromMap($map = [])
     {

@@ -46,7 +46,7 @@ class ListCpfCertResponse extends Model
 
     // 证明开具信息列表
     /**
-     * @var CertSummaryVO[]
+     * @var CertSummary[]
      */
     public $certList;
     protected $_name = [
@@ -128,7 +128,7 @@ class ListCpfCertResponse extends Model
                 $model->certList = [];
                 $n               = 0;
                 foreach ($map['cert_list'] as $item) {
-                    $model->certList[$n++] = null !== $item ? CertSummaryVO::fromMap($item) : $item;
+                    $model->certList[$n++] = null !== $item ? CertSummary::fromMap($item) : $item;
                 }
             }
         }
