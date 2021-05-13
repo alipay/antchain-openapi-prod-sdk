@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.19'
+                    'sdk_version': '1.2.20'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.19'
+                    'sdk_version': '1.2.20'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1295,6 +1295,168 @@ class Client:
         UtilClient.validate_model(request)
         return appex_models.ListDatastatusDriveResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_asynform_form(
+        self,
+        request: appex_models.CreateAsynformFormRequest,
+    ) -> appex_models.CreateAsynformFormResponse:
+        """
+        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+        Summary: 单据加密异步上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_asynform_form_ex(request, headers, runtime)
+
+    async def create_asynform_form_async(
+        self,
+        request: appex_models.CreateAsynformFormRequest,
+    ) -> appex_models.CreateAsynformFormResponse:
+        """
+        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+        Summary: 单据加密异步上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_asynform_form_ex_async(request, headers, runtime)
+
+    def create_asynform_form_ex(
+        self,
+        request: appex_models.CreateAsynformFormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateAsynformFormResponse:
+        """
+        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+        Summary: 单据加密异步上链
+        """
+        UtilClient.validate_model(request)
+        return appex_models.CreateAsynformFormResponse().from_map(
+            self.do_request('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_asynform_form_ex_async(
+        self,
+        request: appex_models.CreateAsynformFormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateAsynformFormResponse:
+        """
+        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+        Summary: 单据加密异步上链
+        """
+        UtilClient.validate_model(request)
+        return appex_models.CreateAsynformFormResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_union_form(
+        self,
+        request: appex_models.PagequeryUnionFormRequest,
+    ) -> appex_models.PagequeryUnionFormResponse:
+        """
+        Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+        Summary: 单据分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_union_form_ex(request, headers, runtime)
+
+    async def pagequery_union_form_async(
+        self,
+        request: appex_models.PagequeryUnionFormRequest,
+    ) -> appex_models.PagequeryUnionFormResponse:
+        """
+        Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+        Summary: 单据分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_union_form_ex_async(request, headers, runtime)
+
+    def pagequery_union_form_ex(
+        self,
+        request: appex_models.PagequeryUnionFormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.PagequeryUnionFormResponse:
+        """
+        Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+        Summary: 单据分页查询
+        """
+        UtilClient.validate_model(request)
+        return appex_models.PagequeryUnionFormResponse().from_map(
+            self.do_request('1.0', 'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_union_form_ex_async(
+        self,
+        request: appex_models.PagequeryUnionFormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.PagequeryUnionFormResponse:
+        """
+        Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+        Summary: 单据分页查询
+        """
+        UtilClient.validate_model(request)
+        return appex_models.PagequeryUnionFormResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_asynform_status(
+        self,
+        request: appex_models.QueryAsynformStatusRequest,
+    ) -> appex_models.QueryAsynformStatusResponse:
+        """
+        Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+        Summary: 单据上链状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_asynform_status_ex(request, headers, runtime)
+
+    async def query_asynform_status_async(
+        self,
+        request: appex_models.QueryAsynformStatusRequest,
+    ) -> appex_models.QueryAsynformStatusResponse:
+        """
+        Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+        Summary: 单据上链状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_asynform_status_ex_async(request, headers, runtime)
+
+    def query_asynform_status_ex(
+        self,
+        request: appex_models.QueryAsynformStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryAsynformStatusResponse:
+        """
+        Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+        Summary: 单据上链状态查询
+        """
+        UtilClient.validate_model(request)
+        return appex_models.QueryAsynformStatusResponse().from_map(
+            self.do_request('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_asynform_status_ex_async(
+        self,
+        request: appex_models.QueryAsynformStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryAsynformStatusResponse:
+        """
+        Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+        Summary: 单据上链状态查询
+        """
+        UtilClient.validate_model(request)
+        return appex_models.QueryAsynformStatusResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_solution_fastnotary(

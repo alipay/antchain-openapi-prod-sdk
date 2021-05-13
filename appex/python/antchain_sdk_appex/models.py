@@ -604,7 +604,6 @@ class CreateUserDidRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟标识（联盟ID）
         self.union_id = union_id
@@ -650,8 +649,9 @@ class CreateUserDidResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 用户创建的账户身份DID，用于向区块链上发交易
         self.user_did = user_did
@@ -694,7 +694,6 @@ class CreateUnionApplyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 协作联盟名称
         self.name = name
@@ -739,8 +738,9 @@ class CreateUnionApplyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -781,7 +781,6 @@ class ConfirmUnionApplyRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 审核是否通过，SUCCESS,FAILURE,FREEZE
         self.status = status
@@ -852,8 +851,9 @@ class ConfirmUnionApplyResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -892,7 +892,6 @@ class CreateUnionChannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -951,8 +950,9 @@ class CreateUnionChannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -992,7 +992,6 @@ class ListUserChannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -1060,8 +1059,9 @@ class ListUserChannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 页码
         self.page_num = page_num
@@ -1132,7 +1132,6 @@ class ListUnionPubchannelRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -1194,8 +1193,9 @@ class ListUnionPubchannelResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 页码
         self.page_num = page_num
@@ -1268,7 +1268,6 @@ class AuthChannelUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -1344,8 +1343,9 @@ class AuthChannelUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -1385,7 +1385,6 @@ class CancelChannelUserRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -1451,8 +1450,9 @@ class CancelChannelUserResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -1498,7 +1498,6 @@ class CreateUnionFormRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 上链账户
         self.user_did = user_did
@@ -1602,8 +1601,9 @@ class CreateUnionFormResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 链上交易Hash
         self.tx_hash = tx_hash
@@ -1648,7 +1648,6 @@ class QueryUnionFormRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起方账户
         self.user_did = user_did
@@ -1713,8 +1712,9 @@ class QueryUnionFormResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 块高
         self.block_height = block_height
@@ -1790,7 +1790,6 @@ class ListChannelUserformRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 发起方的账户
         self.user_did = user_did
@@ -1859,8 +1858,9 @@ class ListChannelUserformResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 页码
         self.page_num = page_num
@@ -1931,7 +1931,6 @@ class CreateObjectRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链身份
         # 
@@ -1997,8 +1996,9 @@ class CreateObjectResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易哈希，物的链上身份
         self.object_hash = object_hash
@@ -2044,7 +2044,6 @@ class CreateObjectTransferRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链身份
         self.user_did = user_did
@@ -2110,8 +2109,9 @@ class CreateObjectTransferResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易Hash
         # 
@@ -2156,7 +2156,6 @@ class ListObjectTransferRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链身份
         self.user_did = user_did
@@ -2209,8 +2208,9 @@ class ListObjectTransferResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据归属权流转列表
         # 
@@ -2263,7 +2263,6 @@ class CreateStatusflowTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -2324,8 +2323,9 @@ class CreateStatusflowTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -2362,7 +2362,6 @@ class DeleteStatusflowTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -2407,8 +2406,9 @@ class DeleteStatusflowTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -2445,7 +2445,6 @@ class QueryStatusflowTemplateRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 联盟ID
         self.union_id = union_id
@@ -2493,8 +2492,9 @@ class QueryStatusflowTemplateResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 联盟ID
         self.union_id = union_id
@@ -2561,7 +2561,6 @@ class StartDatastatusDriveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链身份
         self.user_did = user_did
@@ -2635,8 +2634,9 @@ class StartDatastatusDriveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易Hash
         self.tx_hash = tx_hash
@@ -2680,7 +2680,6 @@ class ListDatastatusDriveRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 区块链身份
         # 
@@ -2736,8 +2735,9 @@ class ListDatastatusDriveResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 数据状态流转
         # 
@@ -2779,6 +2779,462 @@ class ListDatastatusDriveResponse(TeaModel):
         return self
 
 
+class CreateAsynformFormRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_did: str = None,
+        union_id: int = None,
+        channel_name: str = None,
+        form_id: str = None,
+        form_type: str = None,
+        form_body: str = None,
+        graph_id: str = None,
+        line_node: str = None,
+        trace_id: str = None,
+        parent_form_id_list: List[str] = None,
+        child_form_id_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 上链账户
+        self.user_did = user_did
+        # 联盟ID
+        # 
+        self.union_id = union_id
+        # Channel名称
+        # 
+        self.channel_name = channel_name
+        # 业务单据号
+        # 
+        self.form_id = form_id
+        # 业务单据类型
+        # 
+        self.form_type = form_type
+        # 原生单据json字符串
+        self.form_body = form_body
+        # 用户自定义的图ID，开启图功能时传入
+        # 
+        self.graph_id = graph_id
+        # 用户自定义的LineNode名称
+        # 
+        self.line_node = line_node
+        # 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+        self.trace_id = trace_id
+        # 表单的直接上游节点formId
+        # 
+        self.parent_form_id_list = parent_form_id_list
+        # 表单的直接下游节点formId
+        # 
+        self.child_form_id_list = child_form_id_list
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.channel_name, 'channel_name')
+        self.validate_required(self.form_id, 'form_id')
+        self.validate_required(self.form_type, 'form_type')
+        self.validate_required(self.form_body, 'form_body')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.channel_name is not None:
+            result['channel_name'] = self.channel_name
+        if self.form_id is not None:
+            result['form_id'] = self.form_id
+        if self.form_type is not None:
+            result['form_type'] = self.form_type
+        if self.form_body is not None:
+            result['form_body'] = self.form_body
+        if self.graph_id is not None:
+            result['graph_id'] = self.graph_id
+        if self.line_node is not None:
+            result['line_node'] = self.line_node
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.parent_form_id_list is not None:
+            result['parent_form_id_list'] = self.parent_form_id_list
+        if self.child_form_id_list is not None:
+            result['child_form_id_list'] = self.child_form_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('channel_name') is not None:
+            self.channel_name = m.get('channel_name')
+        if m.get('form_id') is not None:
+            self.form_id = m.get('form_id')
+        if m.get('form_type') is not None:
+            self.form_type = m.get('form_type')
+        if m.get('form_body') is not None:
+            self.form_body = m.get('form_body')
+        if m.get('graph_id') is not None:
+            self.graph_id = m.get('graph_id')
+        if m.get('line_node') is not None:
+            self.line_node = m.get('line_node')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('parent_form_id_list') is not None:
+            self.parent_form_id_list = m.get('parent_form_id_list')
+        if m.get('child_form_id_list') is not None:
+            self.child_form_id_list = m.get('child_form_id_list')
+        return self
+
+
+class CreateAsynformFormResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易Hash
+        # 
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class PagequeryUnionFormRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        union_id: int = None,
+        trace_id: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联盟ID
+        # 
+        self.union_id = union_id
+        # 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
+        self.trace_id = trace_id
+        # 过滤时间段开始时间点
+        self.start_time = start_time
+        # 过滤时间段结束时间点
+        self.end_time = end_time
+        # 页码，默认从1开始
+        self.page_num = page_num
+        # 页大小，默认100，最大值限制为100
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.page_num, 'page_num')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryUnionFormResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        total_page: int = None,
+        form_list: List[FormIndexDTO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页码
+        self.page_num = page_num
+        # 页大小
+        self.page_size = page_size
+        # 总页数
+        self.total_page = total_page
+        # 单据索引列表
+        self.form_list = form_list
+
+    def validate(self):
+        if self.form_list:
+            for k in self.form_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        result['form_list'] = []
+        if self.form_list is not None:
+            for k in self.form_list:
+                result['form_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        self.form_list = []
+        if m.get('form_list') is not None:
+            for k in m.get('form_list'):
+                temp_model = FormIndexDTO()
+                self.form_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAsynformStatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_did: str = None,
+        union_id: int = None,
+        form_id: str = None,
+        form_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 发起方账户
+        # 
+        self.user_did = user_did
+        # 联盟ID
+        # 
+        self.union_id = union_id
+        # 业务单据ID
+        # 
+        self.form_id = form_id
+        # 业务单据类型
+        # 
+        self.form_type = form_type
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.union_id, 'union_id')
+        self.validate_required(self.form_id, 'form_id')
+        self.validate_required(self.form_type, 'form_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.union_id is not None:
+            result['union_id'] = self.union_id
+        if self.form_id is not None:
+            result['form_id'] = self.form_id
+        if self.form_type is not None:
+            result['form_type'] = self.form_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('union_id') is not None:
+            self.union_id = m.get('union_id')
+        if m.get('form_id') is not None:
+            self.form_id = m.get('form_id')
+        if m.get('form_type') is not None:
+            self.form_type = m.get('form_type')
+        return self
+
+
+class QueryAsynformStatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        block_height: int = None,
+        tx_hash: str = None,
+        create_time: str = None,
+        status: str = None,
+        tx_timestamp: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 块高
+        # 
+        self.block_height = block_height
+        # 交易hash
+        # 
+        self.tx_hash = tx_hash
+        # 上传时间
+        # 
+        self.create_time = create_time
+        # SUCCESS:上链成功, FAILURE:上链失败，UPLOADING:上链中
+        self.status = status
+        # 交易时间戳，成功上链时间
+        # 
+        self.tx_timestamp = tx_timestamp
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.block_height is not None:
+            result['block_height'] = self.block_height
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.tx_timestamp is not None:
+            result['tx_timestamp'] = self.tx_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('block_height') is not None:
+            self.block_height = m.get('block_height')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('tx_timestamp') is not None:
+            self.tx_timestamp = m.get('tx_timestamp')
+        return self
+
+
 class QuerySolutionFastnotaryRequest(TeaModel):
     def __init__(
         self,
@@ -2790,7 +3246,6 @@ class QuerySolutionFastnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         # 
@@ -2845,8 +3300,9 @@ class QuerySolutionFastnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证记录
         self.notary_record = notary_record
@@ -2892,7 +3348,6 @@ class SaveSolutionFastnotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         # 
@@ -2955,8 +3410,9 @@ class SaveSolutionFastnotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 交易哈希
         # 
@@ -2999,7 +3455,6 @@ class InitSolutionFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         self.app_did = app_did
@@ -3039,8 +3494,9 @@ class InitSolutionFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件存证id
         self.file_notary_id = file_notary_id
@@ -3089,7 +3545,6 @@ class SyncSolutionFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         # 
@@ -3139,8 +3594,9 @@ class SyncSolutionFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否被接收
         # 
@@ -3198,7 +3654,6 @@ class GetSolutionFilenotarystatusRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         # 
@@ -3250,8 +3705,9 @@ class GetSolutionFilenotarystatusResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 存证是否接受
         # 
@@ -3322,7 +3778,6 @@ class QuerySolutionFilenotaryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         # 
@@ -3372,8 +3827,9 @@ class QuerySolutionFilenotaryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 文件sha256哈希
         # 
@@ -3433,7 +3889,6 @@ class ExecContractServiceRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 应用did
         self.app_did = app_did
@@ -3508,8 +3963,9 @@ class ExecContractServiceResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约执行结果
         self.response_body = response_body
@@ -3561,7 +4017,6 @@ class InitSolutionBmsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.bizid = bizid
@@ -3628,8 +4083,9 @@ class InitSolutionBmsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 应用ID
         self.app_did = app_did
@@ -3673,7 +4129,6 @@ class QuerySolutionBmsRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 链ID
         self.bizid = bizid
@@ -3726,8 +4181,9 @@ class QuerySolutionBmsResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 合约oss存储url
         self.temp_contract_url = temp_contract_url
