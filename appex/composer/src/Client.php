@@ -17,6 +17,8 @@ use AntChain\APPEX\Models\CancelChannelUserRequest;
 use AntChain\APPEX\Models\CancelChannelUserResponse;
 use AntChain\APPEX\Models\ConfirmUnionApplyRequest;
 use AntChain\APPEX\Models\ConfirmUnionApplyResponse;
+use AntChain\APPEX\Models\CreateAsynformFormRequest;
+use AntChain\APPEX\Models\CreateAsynformFormResponse;
 use AntChain\APPEX\Models\CreateObjectRequest;
 use AntChain\APPEX\Models\CreateObjectResponse;
 use AntChain\APPEX\Models\CreateObjectTransferRequest;
@@ -51,6 +53,10 @@ use AntChain\APPEX\Models\ListUnionPubchannelRequest;
 use AntChain\APPEX\Models\ListUnionPubchannelResponse;
 use AntChain\APPEX\Models\ListUserChannelRequest;
 use AntChain\APPEX\Models\ListUserChannelResponse;
+use AntChain\APPEX\Models\PagequeryUnionFormRequest;
+use AntChain\APPEX\Models\PagequeryUnionFormResponse;
+use AntChain\APPEX\Models\QueryAsynformStatusRequest;
+use AntChain\APPEX\Models\QueryAsynformStatusResponse;
 use AntChain\APPEX\Models\QuerySolutionBmsRequest;
 use AntChain\APPEX\Models\QuerySolutionBmsResponse;
 use AntChain\APPEX\Models\QuerySolutionFastnotaryRequest;
@@ -214,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.19',
+                    'sdk_version'      => '1.2.20',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -885,6 +891,105 @@ class Client
         Utils::validateModel($request);
 
         return ListDatastatusDriveResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+     * Summary: 单据加密异步上链.
+     *
+     * @param CreateAsynformFormRequest $request
+     *
+     * @return CreateAsynformFormResponse
+     */
+    public function createAsynformForm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAsynformFormEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
+     * Summary: 单据加密异步上链.
+     *
+     * @param CreateAsynformFormRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateAsynformFormResponse
+     */
+    public function createAsynformFormEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAsynformFormResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+     * Summary: 单据分页查询.
+     *
+     * @param PagequeryUnionFormRequest $request
+     *
+     * @return PagequeryUnionFormResponse
+     */
+    public function pagequeryUnionForm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryUnionFormEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单据分页查询，支持关联ID(trace_id)和时间段过滤
+     * Summary: 单据分页查询.
+     *
+     * @param PagequeryUnionFormRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PagequeryUnionFormResponse
+     */
+    public function pagequeryUnionFormEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryUnionFormResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+     * Summary: 单据上链状态查询.
+     *
+     * @param QueryAsynformStatusRequest $request
+     *
+     * @return QueryAsynformStatusResponse
+     */
+    public function queryAsynformStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAsynformStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
+     * Summary: 单据上链状态查询.
+     *
+     * @param QueryAsynformStatusRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryAsynformStatusResponse
+     */
+    public function queryAsynformStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAsynformStatusResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

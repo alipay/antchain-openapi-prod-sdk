@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateUnionFormRequest extends Model
+class CreateAsynformFormRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -26,24 +26,28 @@ class CreateUnionFormRequest extends Model
     public $userDid;
 
     // 联盟ID
+    //
     /**
      * @var int
      */
     public $unionId;
 
     // Channel名称
+    //
     /**
      * @var string
      */
     public $channelName;
 
     // 业务单据号
+    //
     /**
      * @var string
      */
     public $formId;
 
     // 业务单据类型
+    //
     /**
      * @var string
      */
@@ -56,12 +60,14 @@ class CreateUnionFormRequest extends Model
     public $formBody;
 
     // 用户自定义的图ID，开启图功能时传入
+    //
     /**
      * @var string
      */
     public $graphId;
 
     // 用户自定义的LineNode名称
+    //
     /**
      * @var string
      */
@@ -74,12 +80,14 @@ class CreateUnionFormRequest extends Model
     public $traceId;
 
     // 表单的直接上游节点formId
+    //
     /**
      * @var string[]
      */
     public $parentFormIdList;
 
     // 表单的直接下游节点formId
+    //
     /**
      * @var string[]
      */
@@ -159,7 +167,7 @@ class CreateUnionFormRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateUnionFormRequest
+     * @return CreateAsynformFormRequest
      */
     public static function fromMap($map = [])
     {

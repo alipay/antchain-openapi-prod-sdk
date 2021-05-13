@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QuerySolutionFastnotaryResponse extends Model
+class CreateAsynformFormResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,17 @@ class QuerySolutionFastnotaryResponse extends Model
      */
     public $resultMsg;
 
-    // 存证记录
+    // 交易Hash
+    //
     /**
-     * @var NotaryRecord
+     * @var string
      */
-    public $notaryRecord;
+    public $txHash;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'notaryRecord' => 'notary_record',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'txHash'     => 'tx_hash',
     ];
 
     public function validate()
@@ -54,8 +55,8 @@ class QuerySolutionFastnotaryResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->notaryRecord) {
-            $res['notary_record'] = null !== $this->notaryRecord ? $this->notaryRecord->toMap() : null;
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class QuerySolutionFastnotaryResponse extends Model
     /**
      * @param array $map
      *
-     * @return QuerySolutionFastnotaryResponse
+     * @return CreateAsynformFormResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +79,8 @@ class QuerySolutionFastnotaryResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['notary_record'])) {
-            $model->notaryRecord = NotaryRecord::fromMap($map['notary_record']);
+        if (isset($map['tx_hash'])) {
+            $model->txHash = $map['tx_hash'];
         }
 
         return $model;

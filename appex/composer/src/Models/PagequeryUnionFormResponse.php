@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListUserChannelResponse extends Model
+class PagequeryUnionFormResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -44,19 +44,19 @@ class ListUserChannelResponse extends Model
      */
     public $totalPage;
 
-    // 用户有读或写权限的非公开访问通道列表
+    // 单据索引列表
     /**
-     * @var UserChannelDTO[]
+     * @var FormIndexDTO[]
      */
-    public $channelList;
+    public $formList;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'pageNum'     => 'page_num',
-        'pageSize'    => 'page_size',
-        'totalPage'   => 'total_page',
-        'channelList' => 'channel_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'pageNum'    => 'page_num',
+        'pageSize'   => 'page_size',
+        'totalPage'  => 'total_page',
+        'formList'   => 'form_list',
     ];
 
     public function validate()
@@ -84,12 +84,12 @@ class ListUserChannelResponse extends Model
         if (null !== $this->totalPage) {
             $res['total_page'] = $this->totalPage;
         }
-        if (null !== $this->channelList) {
-            $res['channel_list'] = [];
-            if (null !== $this->channelList && \is_array($this->channelList)) {
+        if (null !== $this->formList) {
+            $res['form_list'] = [];
+            if (null !== $this->formList && \is_array($this->formList)) {
                 $n = 0;
-                foreach ($this->channelList as $item) {
-                    $res['channel_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->formList as $item) {
+                    $res['form_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -100,7 +100,7 @@ class ListUserChannelResponse extends Model
     /**
      * @param array $map
      *
-     * @return ListUserChannelResponse
+     * @return PagequeryUnionFormResponse
      */
     public static function fromMap($map = [])
     {
@@ -123,12 +123,12 @@ class ListUserChannelResponse extends Model
         if (isset($map['total_page'])) {
             $model->totalPage = $map['total_page'];
         }
-        if (isset($map['channel_list'])) {
-            if (!empty($map['channel_list'])) {
-                $model->channelList = [];
-                $n                  = 0;
-                foreach ($map['channel_list'] as $item) {
-                    $model->channelList[$n++] = null !== $item ? UserChannelDTO::fromMap($item) : $item;
+        if (isset($map['form_list'])) {
+            if (!empty($map['form_list'])) {
+                $model->formList = [];
+                $n               = 0;
+                foreach ($map['form_list'] as $item) {
+                    $model->formList[$n++] = null !== $item ? FormIndexDTO::fromMap($item) : $item;
                 }
             }
         }

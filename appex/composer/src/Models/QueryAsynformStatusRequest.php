@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListObjectTransferRequest extends Model
+class QueryAsynformStatusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,48 @@ class ListObjectTransferRequest extends Model
      */
     public $productInstanceId;
 
-    // 区块链身份
+    // 发起方账户
+    //
     /**
      * @var string
      */
     public $userDid;
 
-    // 联盟标识（联盟码）
+    // 联盟ID
+    //
     /**
-     * @var string
+     * @var int
      */
     public $unionId;
 
-    // 链上物体的身份
+    // 业务单据ID
+    //
     /**
      * @var string
      */
-    public $objectHash;
+    public $formId;
+
+    // 业务单据类型
+    //
+    /**
+     * @var string
+     */
+    public $formType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'userDid'           => 'user_did',
         'unionId'           => 'union_id',
-        'objectHash'        => 'object_hash',
+        'formId'            => 'form_id',
+        'formType'          => 'form_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('userDid', $this->userDid, true);
         Model::validateRequired('unionId', $this->unionId, true);
-        Model::validateRequired('objectHash', $this->objectHash, true);
+        Model::validateRequired('formId', $this->formId, true);
+        Model::validateRequired('formType', $this->formType, true);
     }
 
     public function toMap()
@@ -66,8 +78,11 @@ class ListObjectTransferRequest extends Model
         if (null !== $this->unionId) {
             $res['union_id'] = $this->unionId;
         }
-        if (null !== $this->objectHash) {
-            $res['object_hash'] = $this->objectHash;
+        if (null !== $this->formId) {
+            $res['form_id'] = $this->formId;
+        }
+        if (null !== $this->formType) {
+            $res['form_type'] = $this->formType;
         }
 
         return $res;
@@ -76,7 +91,7 @@ class ListObjectTransferRequest extends Model
     /**
      * @param array $map
      *
-     * @return ListObjectTransferRequest
+     * @return QueryAsynformStatusRequest
      */
     public static function fromMap($map = [])
     {
@@ -93,8 +108,11 @@ class ListObjectTransferRequest extends Model
         if (isset($map['union_id'])) {
             $model->unionId = $map['union_id'];
         }
-        if (isset($map['object_hash'])) {
-            $model->objectHash = $map['object_hash'];
+        if (isset($map['form_id'])) {
+            $model->formId = $map['form_id'];
+        }
+        if (isset($map['form_type'])) {
+            $model->formType = $map['form_type'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelChannelUserRequest extends Model
+class PagequeryUnionFormRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,51 +20,56 @@ class CancelChannelUserRequest extends Model
     public $productInstanceId;
 
     // 联盟ID
+    //
     /**
      * @var int
      */
     public $unionId;
 
-    // Channel名称
+    // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
     /**
      * @var string
      */
-    public $channelName;
+    public $traceId;
 
-    // 发起方账户
+    // 过滤时间段开始时间点
     /**
      * @var string
      */
-    public $userDid;
+    public $startTime;
 
-    // 要取消授权的账户
+    // 过滤时间段结束时间点
     /**
      * @var string
      */
-    public $targetUserDid;
+    public $endTime;
 
-    // 要取消的操作权限类型
+    // 页码，默认从1开始
     /**
-     * @var string
+     * @var int
      */
-    public $operateType;
+    public $pageNum;
+
+    // 页大小，默认100，最大值限制为100
+    /**
+     * @var int
+     */
+    public $pageSize;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'unionId'           => 'union_id',
-        'channelName'       => 'channel_name',
-        'userDid'           => 'user_did',
-        'targetUserDid'     => 'target_user_did',
-        'operateType'       => 'operate_type',
+        'traceId'           => 'trace_id',
+        'startTime'         => 'start_time',
+        'endTime'           => 'end_time',
+        'pageNum'           => 'page_num',
+        'pageSize'          => 'page_size',
     ];
 
     public function validate()
     {
         Model::validateRequired('unionId', $this->unionId, true);
-        Model::validateRequired('channelName', $this->channelName, true);
-        Model::validateRequired('userDid', $this->userDid, true);
-        Model::validateRequired('targetUserDid', $this->targetUserDid, true);
-        Model::validateRequired('operateType', $this->operateType, true);
+        Model::validateRequired('pageNum', $this->pageNum, true);
     }
 
     public function toMap()
@@ -79,17 +84,20 @@ class CancelChannelUserRequest extends Model
         if (null !== $this->unionId) {
             $res['union_id'] = $this->unionId;
         }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
-        if (null !== $this->userDid) {
-            $res['user_did'] = $this->userDid;
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
         }
-        if (null !== $this->targetUserDid) {
-            $res['target_user_did'] = $this->targetUserDid;
+        if (null !== $this->endTime) {
+            $res['end_time'] = $this->endTime;
         }
-        if (null !== $this->operateType) {
-            $res['operate_type'] = $this->operateType;
+        if (null !== $this->pageNum) {
+            $res['page_num'] = $this->pageNum;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
 
         return $res;
@@ -98,7 +106,7 @@ class CancelChannelUserRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelChannelUserRequest
+     * @return PagequeryUnionFormRequest
      */
     public static function fromMap($map = [])
     {
@@ -112,17 +120,20 @@ class CancelChannelUserRequest extends Model
         if (isset($map['union_id'])) {
             $model->unionId = $map['union_id'];
         }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
+        if (isset($map['trace_id'])) {
+            $model->traceId = $map['trace_id'];
         }
-        if (isset($map['user_did'])) {
-            $model->userDid = $map['user_did'];
+        if (isset($map['start_time'])) {
+            $model->startTime = $map['start_time'];
         }
-        if (isset($map['target_user_did'])) {
-            $model->targetUserDid = $map['target_user_did'];
+        if (isset($map['end_time'])) {
+            $model->endTime = $map['end_time'];
         }
-        if (isset($map['operate_type'])) {
-            $model->operateType = $map['operate_type'];
+        if (isset($map['page_num'])) {
+            $model->pageNum = $map['page_num'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
 
         return $model;
