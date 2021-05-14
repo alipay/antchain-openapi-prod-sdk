@@ -62,7 +62,6 @@ class UpdateDidPersonExtensionservicewithsidekeyRequest extends Model
     public function validate()
     {
         Model::validateRequired('did', $this->did, true);
-        Model::validateRequired('extension', $this->extension, true);
     }
 
     public function toMap()

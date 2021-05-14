@@ -84,6 +84,12 @@ class StartDidCorporateFaceauthRequest extends Model
      * @var string
      */
     public $bizCode;
+
+    // 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+    /**
+     * @var string
+     */
+    public $group;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -98,6 +104,7 @@ class StartDidCorporateFaceauthRequest extends Model
         'ownerName'           => 'owner_name',
         'ownerUid'            => 'owner_uid',
         'bizCode'             => 'biz_code',
+        'group'               => 'group',
     ];
 
     public function validate()
@@ -151,6 +158,9 @@ class StartDidCorporateFaceauthRequest extends Model
         if (null !== $this->bizCode) {
             $res['biz_code'] = $this->bizCode;
         }
+        if (null !== $this->group) {
+            $res['group'] = $this->group;
+        }
 
         return $res;
     }
@@ -201,6 +211,9 @@ class StartDidCorporateFaceauthRequest extends Model
         }
         if (isset($map['biz_code'])) {
             $model->bizCode = $map['biz_code'];
+        }
+        if (isset($map['group'])) {
+            $model->group = $map['group'];
         }
 
         return $model;

@@ -48,6 +48,12 @@ class CreateAuthUserinfoDidRequest extends Model
      * @var string
      */
     public $userInfo;
+
+    // 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+    /**
+     * @var string[]
+     */
+    public $indexes;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class CreateAuthUserinfoDidRequest extends Model
         'extension'         => 'extension',
         'signature'         => 'signature',
         'userInfo'          => 'user_info',
+        'indexes'           => 'indexes',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class CreateAuthUserinfoDidRequest extends Model
         }
         if (null !== $this->userInfo) {
             $res['user_info'] = $this->userInfo;
+        }
+        if (null !== $this->indexes) {
+            $res['indexes'] = $this->indexes;
         }
 
         return $res;
@@ -120,6 +130,11 @@ class CreateAuthUserinfoDidRequest extends Model
         }
         if (isset($map['user_info'])) {
             $model->userInfo = $map['user_info'];
+        }
+        if (isset($map['indexes'])) {
+            if (!empty($map['indexes'])) {
+                $model->indexes = $map['indexes'];
+            }
         }
 
         return $model;

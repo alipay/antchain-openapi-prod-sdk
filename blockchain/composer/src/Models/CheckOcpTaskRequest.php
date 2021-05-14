@@ -48,6 +48,12 @@ class CheckOcpTaskRequest extends Model
      * @var string
      */
     public $tenantId;
+
+    // 商品码
+    /**
+     * @var string
+     */
+    public $accessCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class CheckOcpTaskRequest extends Model
         'platform'          => 'platform',
         'productCode'       => 'product_code',
         'tenantId'          => 'tenant_id',
+        'accessCode'        => 'access_code',
     ];
 
     public function validate()
@@ -65,6 +72,7 @@ class CheckOcpTaskRequest extends Model
         Model::validateRequired('platform', $this->platform, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('accessCode', $this->accessCode, true);
     }
 
     public function toMap()
@@ -90,6 +98,9 @@ class CheckOcpTaskRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->accessCode) {
+            $res['access_code'] = $this->accessCode;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class CheckOcpTaskRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['access_code'])) {
+            $model->accessCode = $map['access_code'];
         }
 
         return $model;
