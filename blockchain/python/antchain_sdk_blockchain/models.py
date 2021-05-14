@@ -31884,6 +31884,7 @@ class CheckOcpTaskRequest(TeaModel):
         platform: str = None,
         product_code: str = None,
         tenant_id: str = None,
+        access_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -31898,6 +31899,8 @@ class CheckOcpTaskRequest(TeaModel):
         self.product_code = product_code
         # 租户id
         self.tenant_id = tenant_id
+        # 商品码
+        self.access_code = access_code
 
     def validate(self):
         self.validate_required(self.event, 'event')
@@ -31905,6 +31908,7 @@ class CheckOcpTaskRequest(TeaModel):
         self.validate_required(self.platform, 'platform')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.access_code, 'access_code')
 
     def to_map(self):
         result = dict()
@@ -31922,6 +31926,8 @@ class CheckOcpTaskRequest(TeaModel):
             result['product_code'] = self.product_code
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.access_code is not None:
+            result['access_code'] = self.access_code
         return result
 
     def from_map(self, m: dict = None):
@@ -31940,6 +31946,8 @@ class CheckOcpTaskRequest(TeaModel):
             self.product_code = m.get('product_code')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('access_code') is not None:
+            self.access_code = m.get('access_code')
         return self
 
 
@@ -32000,6 +32008,7 @@ class ExecOcpTaskRequest(TeaModel):
         product_code: str = None,
         specification: str = None,
         tenant_id: str = None,
+        access_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -32018,6 +32027,8 @@ class ExecOcpTaskRequest(TeaModel):
         self.specification = specification
         # 租户Id
         self.tenant_id = tenant_id
+        # 商品码
+        self.access_code = access_code
 
     def validate(self):
         self.validate_required(self.event, 'event')
@@ -32027,6 +32038,7 @@ class ExecOcpTaskRequest(TeaModel):
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.specification, 'specification')
         self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.access_code, 'access_code')
 
     def to_map(self):
         result = dict()
@@ -32048,6 +32060,8 @@ class ExecOcpTaskRequest(TeaModel):
             result['specification'] = self.specification
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.access_code is not None:
+            result['access_code'] = self.access_code
         return result
 
     def from_map(self, m: dict = None):
@@ -32070,6 +32084,8 @@ class ExecOcpTaskRequest(TeaModel):
             self.specification = m.get('specification')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('access_code') is not None:
+            self.access_code = m.get('access_code')
         return self
 
 
@@ -42561,6 +42577,7 @@ class CreateAuthUserinfoDidRequest(TeaModel):
         extension: str = None,
         signature: str = None,
         user_info: str = None,
+        indexes: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -42575,6 +42592,8 @@ class CreateAuthUserinfoDidRequest(TeaModel):
         self.signature = signature
         # 目标用户的相关信息描述，用于创建DID绑定
         self.user_info = user_info
+        # 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+        self.indexes = indexes
 
     def validate(self):
         self.validate_required(self.biz_type, 'biz_type')
@@ -42596,6 +42615,8 @@ class CreateAuthUserinfoDidRequest(TeaModel):
             result['signature'] = self.signature
         if self.user_info is not None:
             result['user_info'] = self.user_info
+        if self.indexes is not None:
+            result['indexes'] = self.indexes
         return result
 
     def from_map(self, m: dict = None):
@@ -42614,6 +42635,8 @@ class CreateAuthUserinfoDidRequest(TeaModel):
             self.signature = m.get('signature')
         if m.get('user_info') is not None:
             self.user_info = m.get('user_info')
+        if m.get('indexes') is not None:
+            self.indexes = m.get('indexes')
         return self
 
 
@@ -49380,7 +49403,6 @@ class UpdateDidPersonExtensionservicewithsidekeyRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.did, 'did')
-        self.validate_required(self.extension, 'extension')
 
     def to_map(self):
         result = dict()
@@ -52766,6 +52788,7 @@ class StartDidCorporateFaceauthRequest(TeaModel):
         owner_name: str = None,
         owner_uid: str = None,
         biz_code: str = None,
+        group: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -52792,6 +52815,8 @@ class StartDidCorporateFaceauthRequest(TeaModel):
         self.owner_uid = owner_uid
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
+        # 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+        self.group = group
 
     def validate(self):
         self.validate_required(self.ep_cert_name, 'ep_cert_name')
@@ -52828,6 +52853,8 @@ class StartDidCorporateFaceauthRequest(TeaModel):
             result['owner_uid'] = self.owner_uid
         if self.biz_code is not None:
             result['biz_code'] = self.biz_code
+        if self.group is not None:
+            result['group'] = self.group
         return result
 
     def from_map(self, m: dict = None):
@@ -52858,6 +52885,8 @@ class StartDidCorporateFaceauthRequest(TeaModel):
             self.owner_uid = m.get('owner_uid')
         if m.get('biz_code') is not None:
             self.biz_code = m.get('biz_code')
+        if m.get('group') is not None:
+            self.group = m.get('group')
         return self
 
 
@@ -52920,6 +52949,7 @@ class QueryDidCorporateFaceauthRequest(TeaModel):
         product_instance_id: str = None,
         certify_id: str = None,
         biz_code: str = None,
+        group: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -52929,6 +52959,8 @@ class QueryDidCorporateFaceauthRequest(TeaModel):
         self.certify_id = certify_id
         # 场景码，找dis工作人员进行分配
         self.biz_code = biz_code
+        # 产品渲染方式：H5、NATIVE 或 PC
+        self.group = group
 
     def validate(self):
         self.validate_required(self.certify_id, 'certify_id')
@@ -52943,6 +52975,8 @@ class QueryDidCorporateFaceauthRequest(TeaModel):
             result['certify_id'] = self.certify_id
         if self.biz_code is not None:
             result['biz_code'] = self.biz_code
+        if self.group is not None:
+            result['group'] = self.group
         return result
 
     def from_map(self, m: dict = None):
@@ -52955,6 +52989,8 @@ class QueryDidCorporateFaceauthRequest(TeaModel):
             self.certify_id = m.get('certify_id')
         if m.get('biz_code') is not None:
             self.biz_code = m.get('biz_code')
+        if m.get('group') is not None:
+            self.group = m.get('group')
         return self
 
 
