@@ -36,7 +36,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // 修改后的全量扩展字段
         // 
         [NameInMap("extension")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Extension { get; set; }
 
         // 场景码，找dis工作人员进行分配

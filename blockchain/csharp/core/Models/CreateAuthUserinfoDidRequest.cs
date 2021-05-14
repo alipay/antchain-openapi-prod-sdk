@@ -43,6 +43,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string UserInfo { get; set; }
 
+        // 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+        [NameInMap("indexes")]
+        [Validation(Required=false)]
+        public List<string> Indexes { get; set; }
+
     }
 
 }

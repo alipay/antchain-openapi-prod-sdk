@@ -29,6 +29,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string BizCode { get; set; }
 
+        // 产品渲染方式：H5、NATIVE 或 PC
+        [NameInMap("group")]
+        [Validation(Required=false)]
+        public string Group { get; set; }
+
     }
 
 }

@@ -53,6 +53,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
+        // 商品码
+        [NameInMap("access_code")]
+        [Validation(Required=true)]
+        public string AccessCode { get; set; }
+
     }
 
 }
