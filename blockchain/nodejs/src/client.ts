@@ -20932,6 +20932,8 @@ export class CheckOcpTaskRequest extends $tea.Model {
   productCode: string;
   // 租户id
   tenantId: string;
+  // 商品码
+  accessCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -20941,6 +20943,7 @@ export class CheckOcpTaskRequest extends $tea.Model {
       platform: 'platform',
       productCode: 'product_code',
       tenantId: 'tenant_id',
+      accessCode: 'access_code',
     };
   }
 
@@ -20953,6 +20956,7 @@ export class CheckOcpTaskRequest extends $tea.Model {
       platform: 'string',
       productCode: 'string',
       tenantId: 'string',
+      accessCode: 'string',
     };
   }
 
@@ -21011,6 +21015,8 @@ export class ExecOcpTaskRequest extends $tea.Model {
   specification: string;
   // 租户Id
   tenantId: string;
+  // 商品码
+  accessCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21022,6 +21028,7 @@ export class ExecOcpTaskRequest extends $tea.Model {
       productCode: 'product_code',
       specification: 'specification',
       tenantId: 'tenant_id',
+      accessCode: 'access_code',
     };
   }
 
@@ -21036,6 +21043,7 @@ export class ExecOcpTaskRequest extends $tea.Model {
       productCode: 'string',
       specification: 'string',
       tenantId: 'string',
+      accessCode: 'string',
     };
   }
 
@@ -27911,6 +27919,8 @@ export class CreateAuthUserinfoDidRequest extends $tea.Model {
   signature?: string;
   // 目标用户的相关信息描述，用于创建DID绑定
   userInfo: string;
+  // 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+  indexes?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -27920,6 +27930,7 @@ export class CreateAuthUserinfoDidRequest extends $tea.Model {
       extension: 'extension',
       signature: 'signature',
       userInfo: 'user_info',
+      indexes: 'indexes',
     };
   }
 
@@ -27932,6 +27943,7 @@ export class CreateAuthUserinfoDidRequest extends $tea.Model {
       extension: 'string',
       signature: 'string',
       userInfo: 'string',
+      indexes: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -32413,7 +32425,7 @@ export class UpdateDidPersonExtensionservicewithsidekeyRequest extends $tea.Mode
   did: string;
   // 修改后的全量扩展字段
   // 
-  extension: string;
+  extension?: string;
   // 场景码，找dis工作人员进行分配
   bizCode?: string;
   static names(): { [key: string]: string } {
@@ -34667,6 +34679,8 @@ export class StartDidCorporateFaceauthRequest extends $tea.Model {
   ownerUid?: string;
   // 场景码，找dis工作人员进行分配	
   bizCode?: string;
+  // 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+  group?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -34682,6 +34696,7 @@ export class StartDidCorporateFaceauthRequest extends $tea.Model {
       ownerName: 'owner_name',
       ownerUid: 'owner_uid',
       bizCode: 'biz_code',
+      group: 'group',
     };
   }
 
@@ -34700,6 +34715,7 @@ export class StartDidCorporateFaceauthRequest extends $tea.Model {
       ownerName: 'string',
       ownerUid: 'string',
       bizCode: 'string',
+      group: 'string',
     };
   }
 
@@ -34753,12 +34769,15 @@ export class QueryDidCorporateFaceauthRequest extends $tea.Model {
   certifyId: string;
   // 场景码，找dis工作人员进行分配
   bizCode?: string;
+  // 产品渲染方式：H5、NATIVE 或 PC
+  group?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       certifyId: 'certify_id',
       bizCode: 'biz_code',
+      group: 'group',
     };
   }
 
@@ -34768,6 +34787,7 @@ export class QueryDidCorporateFaceauthRequest extends $tea.Model {
       productInstanceId: 'string',
       certifyId: 'string',
       bizCode: 'string',
+      group: 'string',
     };
   }
 
@@ -42872,7 +42892,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.10",
+          sdk_version: "1.25.16",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
