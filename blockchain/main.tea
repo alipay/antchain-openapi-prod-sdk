@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.10',
+    sdk_version = '1.25.16',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -11599,6 +11599,8 @@ model CheckOcpTaskRequest = {
   productCode: string(name='product_code'),
   // 租户id
   tenantId: string(name='tenant_id'),
+  // 商品码
+  accessCode: string(name='access_code'),
 }
 
 model CheckOcpTaskResponse = {
@@ -11649,6 +11651,8 @@ model ExecOcpTaskRequest = {
   specification: string(name='specification'),
   // 租户Id
   tenantId: string(name='tenant_id'),
+  // 商品码
+  accessCode: string(name='access_code'),
 }
 
 model ExecOcpTaskResponse = {
@@ -15912,6 +15916,8 @@ model CreateAuthUserinfoDidRequest = {
   signature?: string(name='signature'),
   // 目标用户的相关信息描述，用于创建DID绑定
   userInfo: string(name='user_info'),
+  // 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+  indexes?: [ string ](name='indexes'),
 }
 
 model CreateAuthUserinfoDidResponse = {
@@ -18700,7 +18706,7 @@ model UpdateDidPersonExtensionservicewithsidekeyRequest = {
   did: string(name='did'),
   // 修改后的全量扩展字段
   // 
-  extension: string(name='extension'),
+  extension?: string(name='extension'),
   // 场景码，找dis工作人员进行分配
   bizCode?: string(name='biz_code'),
 }
@@ -20111,6 +20117,8 @@ model StartDidCorporateFaceauthRequest = {
   ownerUid?: string(name='owner_uid'),
   // 场景码，找dis工作人员进行分配	
   bizCode?: string(name='biz_code'),
+  // 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+  group?: string(name='group'),
 }
 
 model StartDidCorporateFaceauthResponse = {
@@ -20154,6 +20162,8 @@ model QueryDidCorporateFaceauthRequest = {
   certifyId: string(name='certify_id'),
   // 场景码，找dis工作人员进行分配
   bizCode?: string(name='biz_code'),
+  // 产品渲染方式：H5、NATIVE 或 PC
+  group?: string(name='group'),
 }
 
 model QueryDidCorporateFaceauthResponse = {
