@@ -27427,6 +27427,8 @@ type CheckOcpTaskRequest struct {
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商品码
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true"`
 }
 
 func (s CheckOcpTaskRequest) String() string {
@@ -27469,6 +27471,11 @@ func (s *CheckOcpTaskRequest) SetProductCode(v string) *CheckOcpTaskRequest {
 
 func (s *CheckOcpTaskRequest) SetTenantId(v string) *CheckOcpTaskRequest {
 	s.TenantId = &v
+	return s
+}
+
+func (s *CheckOcpTaskRequest) SetAccessCode(v string) *CheckOcpTaskRequest {
+	s.AccessCode = &v
 	return s
 }
 
@@ -27529,6 +27536,8 @@ type ExecOcpTaskRequest struct {
 	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
 	// 租户Id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商品码
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true"`
 }
 
 func (s ExecOcpTaskRequest) String() string {
@@ -27581,6 +27590,11 @@ func (s *ExecOcpTaskRequest) SetSpecification(v string) *ExecOcpTaskRequest {
 
 func (s *ExecOcpTaskRequest) SetTenantId(v string) *ExecOcpTaskRequest {
 	s.TenantId = &v
+	return s
+}
+
+func (s *ExecOcpTaskRequest) SetAccessCode(v string) *ExecOcpTaskRequest {
+	s.AccessCode = &v
 	return s
 }
 
@@ -36437,6 +36451,8 @@ type CreateAuthUserinfoDidRequest struct {
 	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
 	// 目标用户的相关信息描述，用于创建DID绑定
 	UserInfo *string `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+	// 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+	Indexes []*string `json:"indexes,omitempty" xml:"indexes,omitempty" type:"Repeated"`
 }
 
 func (s CreateAuthUserinfoDidRequest) String() string {
@@ -36479,6 +36495,11 @@ func (s *CreateAuthUserinfoDidRequest) SetSignature(v string) *CreateAuthUserinf
 
 func (s *CreateAuthUserinfoDidRequest) SetUserInfo(v string) *CreateAuthUserinfoDidRequest {
 	s.UserInfo = &v
+	return s
+}
+
+func (s *CreateAuthUserinfoDidRequest) SetIndexes(v []*string) *CreateAuthUserinfoDidRequest {
+	s.Indexes = v
 	return s
 }
 
@@ -42324,7 +42345,7 @@ type UpdateDidPersonExtensionservicewithsidekeyRequest struct {
 	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
 	// 修改后的全量扩展字段
 	//
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
 	// 场景码，找dis工作人员进行分配
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
 }
@@ -45307,6 +45328,8 @@ type StartDidCorporateFaceauthRequest struct {
 	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty"`
 	// 场景码，找dis工作人员进行分配
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+	Group *string `json:"group,omitempty" xml:"group,omitempty"`
 }
 
 func (s StartDidCorporateFaceauthRequest) String() string {
@@ -45382,6 +45405,11 @@ func (s *StartDidCorporateFaceauthRequest) SetBizCode(v string) *StartDidCorpora
 	return s
 }
 
+func (s *StartDidCorporateFaceauthRequest) SetGroup(v string) *StartDidCorporateFaceauthRequest {
+	s.Group = &v
+	return s
+}
+
 type StartDidCorporateFaceauthResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -45437,6 +45465,8 @@ type QueryDidCorporateFaceauthRequest struct {
 	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
 	// 场景码，找dis工作人员进行分配
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 产品渲染方式：H5、NATIVE 或 PC
+	Group *string `json:"group,omitempty" xml:"group,omitempty"`
 }
 
 func (s QueryDidCorporateFaceauthRequest) String() string {
@@ -45464,6 +45494,11 @@ func (s *QueryDidCorporateFaceauthRequest) SetCertifyId(v string) *QueryDidCorpo
 
 func (s *QueryDidCorporateFaceauthRequest) SetBizCode(v string) *QueryDidCorporateFaceauthRequest {
 	s.BizCode = &v
+	return s
+}
+
+func (s *QueryDidCorporateFaceauthRequest) SetGroup(v string) *QueryDidCorporateFaceauthRequest {
+	s.Group = &v
 	return s
 }
 
@@ -55894,7 +55929,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.10"),
+				"sdk_version":      tea.String("1.25.16"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
