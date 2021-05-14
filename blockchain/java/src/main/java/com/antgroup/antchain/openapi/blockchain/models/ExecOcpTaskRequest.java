@@ -46,6 +46,11 @@ public class ExecOcpTaskRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 商品码
+    @NameInMap("access_code")
+    @Validation(required = true)
+    public String accessCode;
+
     public static ExecOcpTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecOcpTaskRequest self = new ExecOcpTaskRequest();
         return TeaModel.build(map, self);
@@ -121,6 +126,14 @@ public class ExecOcpTaskRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public ExecOcpTaskRequest setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+        return this;
+    }
+    public String getAccessCode() {
+        return this.accessCode;
     }
 
 }

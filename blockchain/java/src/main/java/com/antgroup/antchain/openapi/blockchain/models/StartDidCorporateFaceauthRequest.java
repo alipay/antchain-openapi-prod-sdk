@@ -60,6 +60,10 @@ public class StartDidCorporateFaceauthRequest extends TeaModel {
     @NameInMap("biz_code")
     public String bizCode;
 
+    // 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+    @NameInMap("group")
+    public String group;
+
     public static StartDidCorporateFaceauthRequest build(java.util.Map<String, ?> map) throws Exception {
         StartDidCorporateFaceauthRequest self = new StartDidCorporateFaceauthRequest();
         return TeaModel.build(map, self);
@@ -167,6 +171,14 @@ public class StartDidCorporateFaceauthRequest extends TeaModel {
     }
     public String getBizCode() {
         return this.bizCode;
+    }
+
+    public StartDidCorporateFaceauthRequest setGroup(String group) {
+        this.group = group;
+        return this;
+    }
+    public String getGroup() {
+        return this.group;
     }
 
 }

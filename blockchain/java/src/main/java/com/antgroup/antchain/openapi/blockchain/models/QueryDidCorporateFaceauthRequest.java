@@ -21,6 +21,10 @@ public class QueryDidCorporateFaceauthRequest extends TeaModel {
     @NameInMap("biz_code")
     public String bizCode;
 
+    // 产品渲染方式：H5、NATIVE 或 PC
+    @NameInMap("group")
+    public String group;
+
     public static QueryDidCorporateFaceauthRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDidCorporateFaceauthRequest self = new QueryDidCorporateFaceauthRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryDidCorporateFaceauthRequest extends TeaModel {
     }
     public String getBizCode() {
         return this.bizCode;
+    }
+
+    public QueryDidCorporateFaceauthRequest setGroup(String group) {
+        this.group = group;
+        return this;
+    }
+    public String getGroup() {
+        return this.group;
     }
 
 }

@@ -33,6 +33,10 @@ public class CreateAuthUserinfoDidRequest extends TeaModel {
     @Validation(required = true)
     public String userInfo;
 
+    // 所有需要关联的外键，外键必须以did auth key controller的did作为前缀+“sidekey:”+外键
+    @NameInMap("indexes")
+    public java.util.List<String> indexes;
+
     public static CreateAuthUserinfoDidRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAuthUserinfoDidRequest self = new CreateAuthUserinfoDidRequest();
         return TeaModel.build(map, self);
@@ -92,6 +96,14 @@ public class CreateAuthUserinfoDidRequest extends TeaModel {
     }
     public String getUserInfo() {
         return this.userInfo;
+    }
+
+    public CreateAuthUserinfoDidRequest setIndexes(java.util.List<String> indexes) {
+        this.indexes = indexes;
+        return this;
+    }
+    public java.util.List<String> getIndexes() {
+        return this.indexes;
     }
 
 }

@@ -27,7 +27,6 @@ public class UpdateDidPersonExtensionservicewithsidekeyRequest extends TeaModel 
     // 修改后的全量扩展字段
     // 
     @NameInMap("extension")
-    @Validation(required = true)
     public String extension;
 
     // 场景码，找dis工作人员进行分配

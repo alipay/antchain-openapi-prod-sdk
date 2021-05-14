@@ -36,6 +36,11 @@ public class CheckOcpTaskRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 商品码
+    @NameInMap("access_code")
+    @Validation(required = true)
+    public String accessCode;
+
     public static CheckOcpTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckOcpTaskRequest self = new CheckOcpTaskRequest();
         return TeaModel.build(map, self);
@@ -95,6 +100,14 @@ public class CheckOcpTaskRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public CheckOcpTaskRequest setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+        return this;
+    }
+    public String getAccessCode() {
+        return this.accessCode;
     }
 
 }
