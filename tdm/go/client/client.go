@@ -483,6 +483,46 @@ func (s *AuthRecord) SetTeeData(v string) *AuthRecord {
 	return s
 }
 
+// 公积金中心用户信息
+type CpfUserAccountInfo struct {
+	// 账户状态
+	AccountStatus *string `json:"account_status,omitempty" xml:"account_status,omitempty" require:"true"`
+	// 账户余额
+	Balance *string `json:"balance,omitempty" xml:"balance,omitempty" require:"true"`
+	// 缴纳单位名称
+	InstName *string `json:"inst_name,omitempty" xml:"inst_name,omitempty" require:"true"`
+	// 个人账户
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+}
+
+func (s CpfUserAccountInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfUserAccountInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CpfUserAccountInfo) SetAccountStatus(v string) *CpfUserAccountInfo {
+	s.AccountStatus = &v
+	return s
+}
+
+func (s *CpfUserAccountInfo) SetBalance(v string) *CpfUserAccountInfo {
+	s.Balance = &v
+	return s
+}
+
+func (s *CpfUserAccountInfo) SetInstName(v string) *CpfUserAccountInfo {
+	s.InstName = &v
+	return s
+}
+
+func (s *CpfUserAccountInfo) SetAccountId(v string) *CpfUserAccountInfo {
+	s.AccountId = &v
+	return s
+}
+
 // 证明使用记录返回结果
 type CertUsageLogVO struct {
 	// 使用方名称
@@ -635,6 +675,67 @@ func (s *AuthProperty) SetKey(v string) *AuthProperty {
 
 func (s *AuthProperty) SetValue(v []*string) *AuthProperty {
 	s.Value = v
+	return s
+}
+
+// 用户贷款信息
+type CpfUserLoanInfo struct {
+	// 用户证件号码
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 证件类型
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// 配偶证件号码
+	PoId *string `json:"po_id,omitempty" xml:"po_id,omitempty" require:"true"`
+	// 配偶姓名
+	PoName *string `json:"po_name,omitempty" xml:"po_name,omitempty" require:"true"`
+	// 贷款合同编号
+	LoanId *string `json:"loan_id,omitempty" xml:"loan_id,omitempty" require:"true"`
+	// 贷款余额
+	LoanBalance *string `json:"loan_balance,omitempty" xml:"loan_balance,omitempty" require:"true"`
+	// 贷款合同状态
+	LoanStatus *string `json:"loan_status,omitempty" xml:"loan_status,omitempty" require:"true"`
+}
+
+func (s CpfUserLoanInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfUserLoanInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CpfUserLoanInfo) SetUserId(v string) *CpfUserLoanInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetUserIdType(v string) *CpfUserLoanInfo {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetPoId(v string) *CpfUserLoanInfo {
+	s.PoId = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetPoName(v string) *CpfUserLoanInfo {
+	s.PoName = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetLoanId(v string) *CpfUserLoanInfo {
+	s.LoanId = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetLoanBalance(v string) *CpfUserLoanInfo {
+	s.LoanBalance = &v
+	return s
+}
+
+func (s *CpfUserLoanInfo) SetLoanStatus(v string) *CpfUserLoanInfo {
+	s.LoanStatus = &v
 	return s
 }
 
@@ -1736,6 +1837,111 @@ func (s *ListCpfDatauseResponse) SetUseRecords(v []*CpfDataUsageLogVO) *ListCpfD
 	return s
 }
 
+type QueryCpfUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
+	// 数据源ID
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// 用户身份证ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
+	// 用户姓名
+	DataOwnerName *string `json:"data_owner_name,omitempty" xml:"data_owner_name,omitempty" require:"true"`
+	// 证件类型
+	DataOwnerIdentifyType *string `json:"data_owner_identify_type,omitempty" xml:"data_owner_identify_type,omitempty" require:"true"`
+}
+
+func (s QueryCpfUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCpfUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCpfUserRequest) SetAuthToken(v string) *QueryCpfUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetProductInstanceId(v string) *QueryCpfUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetTerminalIdentity(v string) *QueryCpfUserRequest {
+	s.TerminalIdentity = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetProviderId(v string) *QueryCpfUserRequest {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetDataOwnerIdentity(v string) *QueryCpfUserRequest {
+	s.DataOwnerIdentity = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetDataOwnerName(v string) *QueryCpfUserRequest {
+	s.DataOwnerName = &v
+	return s
+}
+
+func (s *QueryCpfUserRequest) SetDataOwnerIdentifyType(v string) *QueryCpfUserRequest {
+	s.DataOwnerIdentifyType = &v
+	return s
+}
+
+type QueryCpfUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 个人账户信息
+	UserAccountInfo []*CpfUserAccountInfo `json:"user_account_info,omitempty" xml:"user_account_info,omitempty" type:"Repeated"`
+	// 贷款信息
+	UserLoanInfo []*CpfUserLoanInfo `json:"user_loan_info,omitempty" xml:"user_loan_info,omitempty" type:"Repeated"`
+}
+
+func (s QueryCpfUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCpfUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCpfUserResponse) SetReqMsgId(v string) *QueryCpfUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCpfUserResponse) SetResultCode(v string) *QueryCpfUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCpfUserResponse) SetResultMsg(v string) *QueryCpfUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCpfUserResponse) SetUserAccountInfo(v []*CpfUserAccountInfo) *QueryCpfUserResponse {
+	s.UserAccountInfo = v
+	return s
+}
+
+func (s *QueryCpfUserResponse) SetUserLoanInfo(v []*CpfUserLoanInfo) *QueryCpfUserResponse {
+	s.UserLoanInfo = v
+	return s
+}
+
 type ExecAuthRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2638,7 +2844,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.0.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2985,6 +3191,40 @@ func (client *Client) ListCpfDatauseEx(request *ListCpfDatauseRequest, headers m
 	}
 	_result = &ListCpfDatauseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.datause.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+ * Summary: 公积金中心用户信息查询
+ */
+func (client *Client) QueryCpfUser(request *QueryCpfUserRequest) (_result *QueryCpfUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCpfUserResponse{}
+	_body, _err := client.QueryCpfUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+ * Summary: 公积金中心用户信息查询
+ */
+func (client *Client) QueryCpfUserEx(request *QueryCpfUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCpfUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCpfUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.user.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
