@@ -106,6 +106,20 @@ public class CreateLeaseRepaymentRequest extends TeaModel {
     @NameInMap("async")
     public Long async;
 
+    // 原所有权id
+    // 
+    // 
+    @NameInMap("old_ownership_id")
+    @Validation(required = true)
+    public String oldOwnershipId;
+
+    // 现所有权id
+    // 
+    // 
+    @NameInMap("new_ownership_id")
+    @Validation(required = true)
+    public String newOwnershipId;
+
     public static CreateLeaseRepaymentRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseRepaymentRequest self = new CreateLeaseRepaymentRequest();
         return TeaModel.build(map, self);
@@ -285,6 +299,22 @@ public class CreateLeaseRepaymentRequest extends TeaModel {
     }
     public Long getAsync() {
         return this.async;
+    }
+
+    public CreateLeaseRepaymentRequest setOldOwnershipId(String oldOwnershipId) {
+        this.oldOwnershipId = oldOwnershipId;
+        return this;
+    }
+    public String getOldOwnershipId() {
+        return this.oldOwnershipId;
+    }
+
+    public CreateLeaseRepaymentRequest setNewOwnershipId(String newOwnershipId) {
+        this.newOwnershipId = newOwnershipId;
+        return this;
+    }
+    public String getNewOwnershipId() {
+        return this.newOwnershipId;
     }
 
 }

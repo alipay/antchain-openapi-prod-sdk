@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.151")
+                    new TeaPair("sdk_version", "1.4.152")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1855,6 +1855,25 @@ public class Client {
     }
 
     /**
+     * Description: 融资租赁商品信息查询接口
+     * Summary: 融资租赁商品信息查询接口
+     */
+    public QueryLeaseProductinfoResponse queryLeaseProductinfo(QueryLeaseProductinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseProductinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融资租赁商品信息查询接口
+     * Summary: 融资租赁商品信息查询接口
+     */
+    public QueryLeaseProductinfoResponse queryLeaseProductinfoEx(QueryLeaseProductinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseProductinfoResponse());
+    }
+
+    /**
      * Description: 创建签署见证流程
      * Summary: 创建见证流程
      */
@@ -3239,5 +3258,24 @@ public class Client {
     public GetInternalTextResponse getInternalTextEx(GetInternalTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.text.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInternalTextResponse());
+    }
+
+    /**
+     * Description: 三方服务获取开通权限，标记开通状态。
+     * Summary: 三方服务获取开通权限，标记开通状态。
+     */
+    public OpenInternalTwcResponse openInternalTwc(OpenInternalTwcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openInternalTwcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 三方服务获取开通权限，标记开通状态。
+     * Summary: 三方服务获取开通权限，标记开通状态。
+     */
+    public OpenInternalTwcResponse openInternalTwcEx(OpenInternalTwcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.twc.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenInternalTwcResponse());
     }
 }

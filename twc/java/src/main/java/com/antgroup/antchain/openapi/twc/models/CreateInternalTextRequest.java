@@ -50,6 +50,14 @@ public class CreateInternalTextRequest extends TeaModel {
     @NameInMap("real_tenant")
     public String realTenant;
 
+    // 授权码
+    @NameInMap("auth_code")
+    public String authCode;
+
+    // 授权码对应产品码
+    @NameInMap("product")
+    public String product;
+
     public static CreateInternalTextRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInternalTextRequest self = new CreateInternalTextRequest();
         return TeaModel.build(map, self);
@@ -141,6 +149,22 @@ public class CreateInternalTextRequest extends TeaModel {
     }
     public String getRealTenant() {
         return this.realTenant;
+    }
+
+    public CreateInternalTextRequest setAuthCode(String authCode) {
+        this.authCode = authCode;
+        return this;
+    }
+    public String getAuthCode() {
+        return this.authCode;
+    }
+
+    public CreateInternalTextRequest setProduct(String product) {
+        this.product = product;
+        return this;
+    }
+    public String getProduct() {
+        return this.product;
     }
 
 }
