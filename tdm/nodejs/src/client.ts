@@ -1392,7 +1392,7 @@ export class QueryCpfUserRequest extends $tea.Model {
   // 用户姓名
   dataOwnerName: string;
   // 证件类型
-  dataOwnerIdentifyType: string;
+  dataOwnerIdentityType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1401,7 +1401,7 @@ export class QueryCpfUserRequest extends $tea.Model {
       providerId: 'provider_id',
       dataOwnerIdentity: 'data_owner_identity',
       dataOwnerName: 'data_owner_name',
-      dataOwnerIdentifyType: 'data_owner_identify_type',
+      dataOwnerIdentityType: 'data_owner_identity_type',
     };
   }
 
@@ -1413,7 +1413,7 @@ export class QueryCpfUserRequest extends $tea.Model {
       providerId: 'string',
       dataOwnerIdentity: 'string',
       dataOwnerName: 'string',
-      dataOwnerIdentifyType: 'string',
+      dataOwnerIdentityType: 'string',
     };
   }
 
@@ -2178,7 +2178,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
