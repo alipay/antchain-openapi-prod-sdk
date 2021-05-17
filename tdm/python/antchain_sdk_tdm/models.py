@@ -2142,7 +2142,7 @@ class QueryCpfUserRequest(TeaModel):
         provider_id: str = None,
         data_owner_identity: str = None,
         data_owner_name: str = None,
-        data_owner_identify_type: str = None,
+        data_owner_identity_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2156,14 +2156,14 @@ class QueryCpfUserRequest(TeaModel):
         # 用户姓名
         self.data_owner_name = data_owner_name
         # 证件类型
-        self.data_owner_identify_type = data_owner_identify_type
+        self.data_owner_identity_type = data_owner_identity_type
 
     def validate(self):
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.provider_id, 'provider_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.data_owner_name, 'data_owner_name')
-        self.validate_required(self.data_owner_identify_type, 'data_owner_identify_type')
+        self.validate_required(self.data_owner_identity_type, 'data_owner_identity_type')
 
     def to_map(self):
         result = dict()
@@ -2179,8 +2179,8 @@ class QueryCpfUserRequest(TeaModel):
             result['data_owner_identity'] = self.data_owner_identity
         if self.data_owner_name is not None:
             result['data_owner_name'] = self.data_owner_name
-        if self.data_owner_identify_type is not None:
-            result['data_owner_identify_type'] = self.data_owner_identify_type
+        if self.data_owner_identity_type is not None:
+            result['data_owner_identity_type'] = self.data_owner_identity_type
         return result
 
     def from_map(self, m: dict = None):
@@ -2197,8 +2197,8 @@ class QueryCpfUserRequest(TeaModel):
             self.data_owner_identity = m.get('data_owner_identity')
         if m.get('data_owner_name') is not None:
             self.data_owner_name = m.get('data_owner_name')
-        if m.get('data_owner_identify_type') is not None:
-            self.data_owner_identify_type = m.get('data_owner_identify_type')
+        if m.get('data_owner_identity_type') is not None:
+            self.data_owner_identity_type = m.get('data_owner_identity_type')
         return self
 
 
