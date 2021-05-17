@@ -32,9 +32,9 @@ public class QueryCpfUserRequest extends TeaModel {
     public String dataOwnerName;
 
     // 证件类型
-    @NameInMap("data_owner_identify_type")
+    @NameInMap("data_owner_identity_type")
     @Validation(required = true)
-    public String dataOwnerIdentifyType;
+    public String dataOwnerIdentityType;
 
     public static QueryCpfUserRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCpfUserRequest self = new QueryCpfUserRequest();
@@ -89,12 +89,12 @@ public class QueryCpfUserRequest extends TeaModel {
         return this.dataOwnerName;
     }
 
-    public QueryCpfUserRequest setDataOwnerIdentifyType(String dataOwnerIdentifyType) {
-        this.dataOwnerIdentifyType = dataOwnerIdentifyType;
+    public QueryCpfUserRequest setDataOwnerIdentityType(String dataOwnerIdentityType) {
+        this.dataOwnerIdentityType = dataOwnerIdentityType;
         return this;
     }
-    public String getDataOwnerIdentifyType() {
-        return this.dataOwnerIdentifyType;
+    public String getDataOwnerIdentityType() {
+        return this.dataOwnerIdentityType;
     }
 
 }
