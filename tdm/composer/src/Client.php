@@ -41,6 +41,8 @@ use AntChain\TDM\Models\QueryAuthRequest;
 use AntChain\TDM\Models\QueryAuthResponse;
 use AntChain\TDM\Models\QueryAuthuseOwnerRequest;
 use AntChain\TDM\Models\QueryAuthuseOwnerResponse;
+use AntChain\TDM\Models\QueryCpfUserRequest;
+use AntChain\TDM\Models\QueryCpfUserResponse;
 use AntChain\TDM\Models\SaveCpfCertuseRequest;
 use AntChain\TDM\Models\SaveCpfCertuseResponse;
 use AntChain\Util\UtilClient;
@@ -190,7 +192,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.9',
+                    'sdk_version'      => '1.0.10',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -531,6 +533,39 @@ class Client
         Utils::validateModel($request);
 
         return ListCpfDatauseResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.datause.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+     * Summary: 公积金中心用户信息查询.
+     *
+     * @param QueryCpfUserRequest $request
+     *
+     * @return QueryCpfUserResponse
+     */
+    public function queryCpfUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCpfUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+     * Summary: 公积金中心用户信息查询.
+     *
+     * @param QueryCpfUserRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryCpfUserResponse
+     */
+    public function queryCpfUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCpfUserResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
