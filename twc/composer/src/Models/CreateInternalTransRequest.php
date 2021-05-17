@@ -48,6 +48,18 @@ class CreateInternalTransRequest extends Model
      * @var string
      */
     public $realTenant;
+
+    // 授权码
+    /**
+     * @var string
+     */
+    public $authCode;
+
+    // 授权码对应的产品码
+    /**
+     * @var string
+     */
+    public $product;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +68,8 @@ class CreateInternalTransRequest extends Model
         'subBizId'          => 'sub_biz_id',
         'tsr'               => 'tsr',
         'realTenant'        => 'real_tenant',
+        'authCode'          => 'auth_code',
+        'product'           => 'product',
     ];
 
     public function validate()
@@ -86,6 +100,12 @@ class CreateInternalTransRequest extends Model
         }
         if (null !== $this->realTenant) {
             $res['real_tenant'] = $this->realTenant;
+        }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
+        if (null !== $this->product) {
+            $res['product'] = $this->product;
         }
 
         return $res;
@@ -119,6 +139,12 @@ class CreateInternalTransRequest extends Model
         }
         if (isset($map['real_tenant'])) {
             $model->realTenant = $map['real_tenant'];
+        }
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
+        }
+        if (isset($map['product'])) {
+            $model->product = $map['product'];
         }
 
         return $model;

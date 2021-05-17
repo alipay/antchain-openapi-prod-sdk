@@ -141,6 +141,22 @@ class CreateLeaseRepaymentRequest extends Model
      * @var int
      */
     public $async;
+
+    // 原所有权id
+    //
+    //
+    /**
+     * @var string
+     */
+    public $oldOwnershipId;
+
+    // 现所有权id
+    //
+    //
+    /**
+     * @var string
+     */
+    public $newOwnershipId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -164,6 +180,8 @@ class CreateLeaseRepaymentRequest extends Model
         'source'            => 'source',
         'status'            => 'status',
         'async'             => 'async',
+        'oldOwnershipId'    => 'old_ownership_id',
+        'newOwnershipId'    => 'new_ownership_id',
     ];
 
     public function validate()
@@ -180,6 +198,8 @@ class CreateLeaseRepaymentRequest extends Model
         Model::validateRequired('returnStatus', $this->returnStatus, true);
         Model::validateRequired('returnTime', $this->returnTime, true);
         Model::validateRequired('source', $this->source, true);
+        Model::validateRequired('oldOwnershipId', $this->oldOwnershipId, true);
+        Model::validateRequired('newOwnershipId', $this->newOwnershipId, true);
     }
 
     public function toMap()
@@ -250,6 +270,12 @@ class CreateLeaseRepaymentRequest extends Model
         }
         if (null !== $this->async) {
             $res['async'] = $this->async;
+        }
+        if (null !== $this->oldOwnershipId) {
+            $res['old_ownership_id'] = $this->oldOwnershipId;
+        }
+        if (null !== $this->newOwnershipId) {
+            $res['new_ownership_id'] = $this->newOwnershipId;
         }
 
         return $res;
@@ -328,6 +354,12 @@ class CreateLeaseRepaymentRequest extends Model
         }
         if (isset($map['async'])) {
             $model->async = $map['async'];
+        }
+        if (isset($map['old_ownership_id'])) {
+            $model->oldOwnershipId = $map['old_ownership_id'];
+        }
+        if (isset($map['new_ownership_id'])) {
+            $model->newOwnershipId = $map['new_ownership_id'];
         }
 
         return $model;

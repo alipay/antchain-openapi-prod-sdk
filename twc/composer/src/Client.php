@@ -245,6 +245,8 @@ use AntChain\TWC\Models\ListContractTradeidsRequest;
 use AntChain\TWC\Models\ListContractTradeidsResponse;
 use AntChain\TWC\Models\ListLeaseNotaryRequest;
 use AntChain\TWC\Models\ListLeaseNotaryResponse;
+use AntChain\TWC\Models\OpenInternalTwcRequest;
+use AntChain\TWC\Models\OpenInternalTwcResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
 use AntChain\TWC\Models\QueryCertificationResponse;
 use AntChain\TWC\Models\QueryContractAccountRequest;
@@ -293,6 +295,8 @@ use AntChain\TWC\Models\QueryLeaseIotinfoRequest;
 use AntChain\TWC\Models\QueryLeaseIotinfoResponse;
 use AntChain\TWC\Models\QueryLeaseOrderinfoRequest;
 use AntChain\TWC\Models\QueryLeaseOrderinfoResponse;
+use AntChain\TWC\Models\QueryLeaseProductinfoRequest;
+use AntChain\TWC\Models\QueryLeaseProductinfoResponse;
 use AntChain\TWC\Models\QueryLeaseProofRequest;
 use AntChain\TWC\Models\QueryLeaseProofResponse;
 use AntChain\TWC\Models\QueryPayresultfileurlRequest;
@@ -482,7 +486,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.151',
+                    'sdk_version'      => '1.4.152',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3470,6 +3474,39 @@ class Client
     }
 
     /**
+     * Description: 融资租赁商品信息查询接口
+     * Summary: 融资租赁商品信息查询接口.
+     *
+     * @param QueryLeaseProductinfoRequest $request
+     *
+     * @return QueryLeaseProductinfoResponse
+     */
+    public function queryLeaseProductinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseProductinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资租赁商品信息查询接口
+     * Summary: 融资租赁商品信息查询接口.
+     *
+     * @param QueryLeaseProductinfoRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryLeaseProductinfoResponse
+     */
+    public function queryLeaseProductinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseProductinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 创建签署见证流程
      * Summary: 创建见证流程.
      *
@@ -5876,5 +5913,38 @@ class Client
         Utils::validateModel($request);
 
         return GetInternalTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方服务获取开通权限，标记开通状态。
+     * Summary: 三方服务获取开通权限，标记开通状态。
+     *
+     * @param OpenInternalTwcRequest $request
+     *
+     * @return OpenInternalTwcResponse
+     */
+    public function openInternalTwc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->openInternalTwcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方服务获取开通权限，标记开通状态。
+     * Summary: 三方服务获取开通权限，标记开通状态。
+     *
+     * @param OpenInternalTwcRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return OpenInternalTwcResponse
+     */
+    public function openInternalTwcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OpenInternalTwcResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
