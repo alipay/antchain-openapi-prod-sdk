@@ -39,9 +39,9 @@ namespace AntChain.SDK.TDM.Models
         public string DataOwnerName { get; set; }
 
         // 证件类型
-        [NameInMap("data_owner_identify_type")]
+        [NameInMap("data_owner_identity_type")]
         [Validation(Required=true)]
-        public string DataOwnerIdentifyType { get; set; }
+        public string DataOwnerIdentityType { get; set; }
 
     }
 
