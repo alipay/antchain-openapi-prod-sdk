@@ -137,7 +137,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -693,6 +693,48 @@ namespace AntChain.SDK.TDM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListCpfDatauseResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.datause.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+         * Summary: 公积金中心用户信息查询
+         */
+        public QueryCpfUserResponse QueryCpfUser(QueryCpfUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCpfUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+         * Summary: 公积金中心用户信息查询
+         */
+        public async Task<QueryCpfUserResponse> QueryCpfUserAsync(QueryCpfUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCpfUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+         * Summary: 公积金中心用户信息查询
+         */
+        public QueryCpfUserResponse QueryCpfUserEx(QueryCpfUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfUserResponse>(DoRequest("1.0", "antchain.tdm.cpf.user.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+         * Summary: 公积金中心用户信息查询
+         */
+        public async Task<QueryCpfUserResponse> QueryCpfUserExAsync(QueryCpfUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfUserResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.user.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
