@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.151'
+                    'sdk_version': '1.4.152'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.151'
+                    'sdk_version': '1.4.152'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5085,6 +5085,60 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_lease_productinfo(
+        self,
+        request: twc_models.QueryLeaseProductinfoRequest,
+    ) -> twc_models.QueryLeaseProductinfoResponse:
+        """
+        Description: 融资租赁商品信息查询接口
+        Summary: 融资租赁商品信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_productinfo_ex(request, headers, runtime)
+
+    async def query_lease_productinfo_async(
+        self,
+        request: twc_models.QueryLeaseProductinfoRequest,
+    ) -> twc_models.QueryLeaseProductinfoResponse:
+        """
+        Description: 融资租赁商品信息查询接口
+        Summary: 融资租赁商品信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_productinfo_ex_async(request, headers, runtime)
+
+    def query_lease_productinfo_ex(
+        self,
+        request: twc_models.QueryLeaseProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseProductinfoResponse:
+        """
+        Description: 融资租赁商品信息查询接口
+        Summary: 融资租赁商品信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseProductinfoResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_productinfo_ex_async(
+        self,
+        request: twc_models.QueryLeaseProductinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseProductinfoResponse:
+        """
+        Description: 融资租赁商品信息查询接口
+        Summary: 融资租赁商品信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseProductinfoResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_witness_flow(
         self,
         request: twc_models.CreateWitnessFlowRequest,
@@ -9025,4 +9079,58 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.GetInternalTextResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_internal_twc(
+        self,
+        request: twc_models.OpenInternalTwcRequest,
+    ) -> twc_models.OpenInternalTwcResponse:
+        """
+        Description: 三方服务获取开通权限，标记开通状态。
+        Summary: 三方服务获取开通权限，标记开通状态。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_internal_twc_ex(request, headers, runtime)
+
+    async def open_internal_twc_async(
+        self,
+        request: twc_models.OpenInternalTwcRequest,
+    ) -> twc_models.OpenInternalTwcResponse:
+        """
+        Description: 三方服务获取开通权限，标记开通状态。
+        Summary: 三方服务获取开通权限，标记开通状态。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_internal_twc_ex_async(request, headers, runtime)
+
+    def open_internal_twc_ex(
+        self,
+        request: twc_models.OpenInternalTwcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OpenInternalTwcResponse:
+        """
+        Description: 三方服务获取开通权限，标记开通状态。
+        Summary: 三方服务获取开通权限，标记开通状态。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.OpenInternalTwcResponse().from_map(
+            self.do_request('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_internal_twc_ex_async(
+        self,
+        request: twc_models.OpenInternalTwcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OpenInternalTwcResponse:
+        """
+        Description: 三方服务获取开通权限，标记开通状态。
+        Summary: 三方服务获取开通权限，标记开通状态。
+        """
+        UtilClient.validate_model(request)
+        return twc_models.OpenInternalTwcResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
