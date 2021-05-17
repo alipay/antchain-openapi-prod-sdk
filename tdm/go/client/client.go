@@ -1850,7 +1850,7 @@ type QueryCpfUserRequest struct {
 	// 用户姓名
 	DataOwnerName *string `json:"data_owner_name,omitempty" xml:"data_owner_name,omitempty" require:"true"`
 	// 证件类型
-	DataOwnerIdentifyType *string `json:"data_owner_identify_type,omitempty" xml:"data_owner_identify_type,omitempty" require:"true"`
+	DataOwnerIdentityType *string `json:"data_owner_identity_type,omitempty" xml:"data_owner_identity_type,omitempty" require:"true"`
 }
 
 func (s QueryCpfUserRequest) String() string {
@@ -1891,8 +1891,8 @@ func (s *QueryCpfUserRequest) SetDataOwnerName(v string) *QueryCpfUserRequest {
 	return s
 }
 
-func (s *QueryCpfUserRequest) SetDataOwnerIdentifyType(v string) *QueryCpfUserRequest {
-	s.DataOwnerIdentifyType = &v
+func (s *QueryCpfUserRequest) SetDataOwnerIdentityType(v string) *QueryCpfUserRequest {
+	s.DataOwnerIdentityType = &v
 	return s
 }
 
@@ -2844,7 +2844,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.10"),
+				"sdk_version":      tea.String("1.0.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
