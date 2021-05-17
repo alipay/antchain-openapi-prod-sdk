@@ -540,6 +540,54 @@ class AuthRecord(TeaModel):
         return self
 
 
+class CpfUserAccountInfo(TeaModel):
+    def __init__(
+        self,
+        account_status: str = None,
+        balance: str = None,
+        inst_name: str = None,
+        account_id: str = None,
+    ):
+        # 账户状态
+        self.account_status = account_status
+        # 账户余额
+        self.balance = balance
+        # 缴纳单位名称
+        self.inst_name = inst_name
+        # 个人账户
+        self.account_id = account_id
+
+    def validate(self):
+        self.validate_required(self.account_status, 'account_status')
+        self.validate_required(self.balance, 'balance')
+        self.validate_required(self.inst_name, 'inst_name')
+        self.validate_required(self.account_id, 'account_id')
+
+    def to_map(self):
+        result = dict()
+        if self.account_status is not None:
+            result['account_status'] = self.account_status
+        if self.balance is not None:
+            result['balance'] = self.balance
+        if self.inst_name is not None:
+            result['inst_name'] = self.inst_name
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_status') is not None:
+            self.account_status = m.get('account_status')
+        if m.get('balance') is not None:
+            self.balance = m.get('balance')
+        if m.get('inst_name') is not None:
+            self.inst_name = m.get('inst_name')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        return self
+
+
 class CertUsageLogVO(TeaModel):
     def __init__(
         self,
@@ -716,6 +764,78 @@ class AuthProperty(TeaModel):
             self.key = m.get('key')
         if m.get('value') is not None:
             self.value = m.get('value')
+        return self
+
+
+class CpfUserLoanInfo(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        user_id_type: str = None,
+        po_id: str = None,
+        po_name: str = None,
+        loan_id: str = None,
+        loan_balance: str = None,
+        loan_status: str = None,
+    ):
+        # 用户证件号码
+        self.user_id = user_id
+        # 证件类型
+        self.user_id_type = user_id_type
+        # 配偶证件号码
+        self.po_id = po_id
+        # 配偶姓名
+        self.po_name = po_name
+        # 贷款合同编号
+        self.loan_id = loan_id
+        # 贷款余额
+        self.loan_balance = loan_balance
+        # 贷款合同状态
+        self.loan_status = loan_status
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.po_id, 'po_id')
+        self.validate_required(self.po_name, 'po_name')
+        self.validate_required(self.loan_id, 'loan_id')
+        self.validate_required(self.loan_balance, 'loan_balance')
+        self.validate_required(self.loan_status, 'loan_status')
+
+    def to_map(self):
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.po_id is not None:
+            result['po_id'] = self.po_id
+        if self.po_name is not None:
+            result['po_name'] = self.po_name
+        if self.loan_id is not None:
+            result['loan_id'] = self.loan_id
+        if self.loan_balance is not None:
+            result['loan_balance'] = self.loan_balance
+        if self.loan_status is not None:
+            result['loan_status'] = self.loan_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('po_id') is not None:
+            self.po_id = m.get('po_id')
+        if m.get('po_name') is not None:
+            self.po_name = m.get('po_name')
+        if m.get('loan_id') is not None:
+            self.loan_id = m.get('loan_id')
+        if m.get('loan_balance') is not None:
+            self.loan_balance = m.get('loan_balance')
+        if m.get('loan_status') is not None:
+            self.loan_status = m.get('loan_status')
         return self
 
 
@@ -2010,6 +2130,144 @@ class ListCpfDatauseResponse(TeaModel):
             for k in m.get('use_records'):
                 temp_model = CpfDataUsageLogVO()
                 self.use_records.append(temp_model.from_map(k))
+        return self
+
+
+class QueryCpfUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        terminal_identity: str = None,
+        provider_id: str = None,
+        data_owner_identity: str = None,
+        data_owner_name: str = None,
+        data_owner_identify_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 端ID
+        self.terminal_identity = terminal_identity
+        # 数据源ID
+        self.provider_id = provider_id
+        # 用户身份证ID
+        self.data_owner_identity = data_owner_identity
+        # 用户姓名
+        self.data_owner_name = data_owner_name
+        # 证件类型
+        self.data_owner_identify_type = data_owner_identify_type
+
+    def validate(self):
+        self.validate_required(self.terminal_identity, 'terminal_identity')
+        self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.data_owner_identity, 'data_owner_identity')
+        self.validate_required(self.data_owner_name, 'data_owner_name')
+        self.validate_required(self.data_owner_identify_type, 'data_owner_identify_type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.terminal_identity is not None:
+            result['terminal_identity'] = self.terminal_identity
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.data_owner_identity is not None:
+            result['data_owner_identity'] = self.data_owner_identity
+        if self.data_owner_name is not None:
+            result['data_owner_name'] = self.data_owner_name
+        if self.data_owner_identify_type is not None:
+            result['data_owner_identify_type'] = self.data_owner_identify_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('terminal_identity') is not None:
+            self.terminal_identity = m.get('terminal_identity')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('data_owner_identity') is not None:
+            self.data_owner_identity = m.get('data_owner_identity')
+        if m.get('data_owner_name') is not None:
+            self.data_owner_name = m.get('data_owner_name')
+        if m.get('data_owner_identify_type') is not None:
+            self.data_owner_identify_type = m.get('data_owner_identify_type')
+        return self
+
+
+class QueryCpfUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_account_info: List[CpfUserAccountInfo] = None,
+        user_loan_info: List[CpfUserLoanInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 个人账户信息
+        self.user_account_info = user_account_info
+        # 贷款信息
+        self.user_loan_info = user_loan_info
+
+    def validate(self):
+        if self.user_account_info:
+            for k in self.user_account_info:
+                if k:
+                    k.validate()
+        if self.user_loan_info:
+            for k in self.user_loan_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['user_account_info'] = []
+        if self.user_account_info is not None:
+            for k in self.user_account_info:
+                result['user_account_info'].append(k.to_map() if k else None)
+        result['user_loan_info'] = []
+        if self.user_loan_info is not None:
+            for k in self.user_loan_info:
+                result['user_loan_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.user_account_info = []
+        if m.get('user_account_info') is not None:
+            for k in m.get('user_account_info'):
+                temp_model = CpfUserAccountInfo()
+                self.user_account_info.append(temp_model.from_map(k))
+        self.user_loan_info = []
+        if m.get('user_loan_info') is not None:
+            for k in m.get('user_loan_info'):
+                temp_model = CpfUserLoanInfo()
+                self.user_loan_info.append(temp_model.from_map(k))
         return self
 
 

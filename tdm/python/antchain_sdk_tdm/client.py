@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.0.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9'
+                    'sdk_version': '1.0.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -755,6 +755,60 @@ class Client:
         UtilClient.validate_model(request)
         return tdm_models.ListCpfDatauseResponse().from_map(
             await self.do_request_async('1.0', 'antchain.tdm.cpf.datause.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cpf_user(
+        self,
+        request: tdm_models.QueryCpfUserRequest,
+    ) -> tdm_models.QueryCpfUserResponse:
+        """
+        Description: 查询用户在公积金中心的个人账户、贷款合同信息
+        Summary: 公积金中心用户信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cpf_user_ex(request, headers, runtime)
+
+    async def query_cpf_user_async(
+        self,
+        request: tdm_models.QueryCpfUserRequest,
+    ) -> tdm_models.QueryCpfUserResponse:
+        """
+        Description: 查询用户在公积金中心的个人账户、贷款合同信息
+        Summary: 公积金中心用户信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cpf_user_ex_async(request, headers, runtime)
+
+    def query_cpf_user_ex(
+        self,
+        request: tdm_models.QueryCpfUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfUserResponse:
+        """
+        Description: 查询用户在公积金中心的个人账户、贷款合同信息
+        Summary: 公积金中心用户信息查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfUserResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cpf_user_ex_async(
+        self,
+        request: tdm_models.QueryCpfUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfUserResponse:
+        """
+        Description: 查询用户在公积金中心的个人账户、贷款合同信息
+        Summary: 公积金中心用户信息查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfUserResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_auth(
