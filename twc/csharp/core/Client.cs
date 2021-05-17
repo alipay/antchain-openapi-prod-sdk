@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.151"},
+                        {"sdk_version", "1.4.152"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.151"},
+                        {"sdk_version", "1.4.152"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4064,6 +4064,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 融资租赁商品信息查询接口
+         * Summary: 融资租赁商品信息查询接口
+         */
+        public QueryLeaseProductinfoResponse QueryLeaseProductinfo(QueryLeaseProductinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseProductinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资租赁商品信息查询接口
+         * Summary: 融资租赁商品信息查询接口
+         */
+        public async Task<QueryLeaseProductinfoResponse> QueryLeaseProductinfoAsync(QueryLeaseProductinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseProductinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资租赁商品信息查询接口
+         * Summary: 融资租赁商品信息查询接口
+         */
+        public QueryLeaseProductinfoResponse QueryLeaseProductinfoEx(QueryLeaseProductinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseProductinfoResponse>(DoRequest("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资租赁商品信息查询接口
+         * Summary: 融资租赁商品信息查询接口
+         */
+        public async Task<QueryLeaseProductinfoResponse> QueryLeaseProductinfoExAsync(QueryLeaseProductinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseProductinfoResponse>(await DoRequestAsync("1.0", "twc.notary.lease.productinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 创建签署见证流程
          * Summary: 创建见证流程
          */
@@ -7127,6 +7169,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetInternalTextResponse>(await DoRequestAsync("1.0", "twc.notary.internal.text.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方服务获取开通权限，标记开通状态。
+         * Summary: 三方服务获取开通权限，标记开通状态。
+         */
+        public OpenInternalTwcResponse OpenInternalTwc(OpenInternalTwcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OpenInternalTwcEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方服务获取开通权限，标记开通状态。
+         * Summary: 三方服务获取开通权限，标记开通状态。
+         */
+        public async Task<OpenInternalTwcResponse> OpenInternalTwcAsync(OpenInternalTwcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OpenInternalTwcExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方服务获取开通权限，标记开通状态。
+         * Summary: 三方服务获取开通权限，标记开通状态。
+         */
+        public OpenInternalTwcResponse OpenInternalTwcEx(OpenInternalTwcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenInternalTwcResponse>(DoRequest("1.0", "twc.notary.internal.twc.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方服务获取开通权限，标记开通状态。
+         * Summary: 三方服务获取开通权限，标记开通状态。
+         */
+        public async Task<OpenInternalTwcResponse> OpenInternalTwcExAsync(OpenInternalTwcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OpenInternalTwcResponse>(await DoRequestAsync("1.0", "twc.notary.internal.twc.open", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

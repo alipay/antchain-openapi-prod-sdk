@@ -43,6 +43,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string RealTenant { get; set; }
 
+        // 授权码
+        [NameInMap("auth_code")]
+        [Validation(Required=false)]
+        public string AuthCode { get; set; }
+
+        // 授权码对应的产品码
+        [NameInMap("product")]
+        [Validation(Required=false)]
+        public string Product { get; set; }
+
     }
 
 }

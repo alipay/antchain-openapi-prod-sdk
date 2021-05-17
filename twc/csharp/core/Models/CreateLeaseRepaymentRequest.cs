@@ -121,6 +121,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? Async { get; set; }
 
+        // 原所有权id
+        // 
+        // 
+        [NameInMap("old_ownership_id")]
+        [Validation(Required=true)]
+        public string OldOwnershipId { get; set; }
+
+        // 现所有权id
+        // 
+        // 
+        [NameInMap("new_ownership_id")]
+        [Validation(Required=true)]
+        public string NewOwnershipId { get; set; }
+
     }
 
 }
