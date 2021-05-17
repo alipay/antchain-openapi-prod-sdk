@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.0.10',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -281,6 +281,18 @@ model AuthRecord {
   teeData?: string(name='tee_data', example='dsfsfds'),
 }
 
+// 公积金中心用户信息
+model CpfUserAccountInfo {
+  // 账户状态
+  accountStatus: string(name='account_status', example='正常 ：01   封存：02    欠缴：03   其他：04'),
+  // 账户余额
+  balance: string(name='balance', example='"123.67"'),
+  // 缴纳单位名称
+  instName: string(name='inst_name', example='网易'),
+  // 个人账户
+  accountId: string(name='account_id', example='11410000005184'),
+}
+
 // 证明使用记录返回结果
 model CertUsageLogVO {
   // 使用方名称
@@ -325,6 +337,24 @@ model AuthProperty {
   key: string(name='key', example='district'),
   // {"山西","广东"}
   value: [ string ](name='value', example='{"山西","广东"}'),
+}
+
+// 用户贷款信息
+model CpfUserLoanInfo {
+  // 用户证件号码
+  userId: string(name='user_id', example='用户证件号码'),
+  // 证件类型
+  userIdType: string(name='user_id_type', example='01 身份证'),
+  // 配偶证件号码
+  poId: string(name='po_id', example='370101199601022014'),
+  // 配偶姓名
+  poName: string(name='po_name', example='小敏'),
+  // 贷款合同编号
+  loanId: string(name='loan_id', example='20201125010000RD831500012865'),
+  // 贷款余额
+  loanBalance: string(name='loan_balance', example='"123.56"'),
+  // 贷款合同状态
+  loanStatus: string(name='loan_status', example='贷款结清'),
 }
 
 // 证明开具参数，填入证明开具接口的 extendParams 部分
@@ -803,6 +833,54 @@ async function listCpfDatause(request: ListCpfDatauseRequest): ListCpfDatauseRes
 async function listCpfDatauseEx(request: ListCpfDatauseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfDatauseResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.tdm.cpf.datause.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCpfUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 数据源ID
+  providerId: string(name='provider_id'),
+  // 用户身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 用户姓名
+  dataOwnerName: string(name='data_owner_name'),
+  // 证件类型
+  dataOwnerIdentifyType: string(name='data_owner_identify_type'),
+}
+
+model QueryCpfUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 个人账户信息
+  userAccountInfo?: [ CpfUserAccountInfo ](name='user_account_info'),
+  // 贷款信息
+  userLoanInfo?: [ CpfUserLoanInfo ](name='user_loan_info'),
+}
+
+/**
+ * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+ * Summary: 公积金中心用户信息查询
+ */
+async function queryCpfUser(request: QueryCpfUserRequest): QueryCpfUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCpfUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+ * Summary: 公积金中心用户信息查询
+ */
+async function queryCpfUserEx(request: QueryCpfUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCpfUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecAuthRequest = {
