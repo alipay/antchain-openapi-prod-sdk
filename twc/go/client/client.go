@@ -12827,6 +12827,118 @@ func (s *CreateLeaseAssetagentregisterResponse) SetTxHash(v string) *CreateLease
 	return s
 }
 
+type QueryLeaseProductinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 供应商本版号
+	SupplierVersion *int64 `json:"supplier_version,omitempty" xml:"supplier_version,omitempty" require:"true"`
+	// 合约id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+	// 租赁方id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 资方id
+	CreditId *string `json:"credit_id,omitempty" xml:"credit_id,omitempty" require:"true"`
+}
+
+func (s QueryLeaseProductinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseProductinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseProductinfoRequest) SetAuthToken(v string) *QueryLeaseProductinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetProductInstanceId(v string) *QueryLeaseProductinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetProductId(v string) *QueryLeaseProductinfoRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetSupplierVersion(v int64) *QueryLeaseProductinfoRequest {
+	s.SupplierVersion = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetApplicationId(v string) *QueryLeaseProductinfoRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetLeaseId(v string) *QueryLeaseProductinfoRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoRequest) SetCreditId(v string) *QueryLeaseProductinfoRequest {
+	s.CreditId = &v
+	return s
+}
+
+type QueryLeaseProductinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 错误信息
+	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
+	// 商品信息
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s QueryLeaseProductinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseProductinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseProductinfoResponse) SetReqMsgId(v string) *QueryLeaseProductinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoResponse) SetResultCode(v string) *QueryLeaseProductinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoResponse) SetResultMsg(v string) *QueryLeaseProductinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoResponse) SetCode(v int64) *QueryLeaseProductinfoResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoResponse) SetErrMessage(v string) *QueryLeaseProductinfoResponse {
+	s.ErrMessage = &v
+	return s
+}
+
+func (s *QueryLeaseProductinfoResponse) SetResponseData(v string) *QueryLeaseProductinfoResponse {
+	s.ResponseData = &v
+	return s
+}
+
 type CreateWitnessFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18699,6 +18811,14 @@ type CreateLeaseRepaymentRequest struct {
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
 	// 是否启动订单的异步处理
 	Async *int64 `json:"async,omitempty" xml:"async,omitempty"`
+	// 原所有权id
+	//
+	//
+	OldOwnershipId *string `json:"old_ownership_id,omitempty" xml:"old_ownership_id,omitempty" require:"true"`
+	// 现所有权id
+	//
+	//
+	NewOwnershipId *string `json:"new_ownership_id,omitempty" xml:"new_ownership_id,omitempty" require:"true"`
 }
 
 func (s CreateLeaseRepaymentRequest) String() string {
@@ -18816,6 +18936,16 @@ func (s *CreateLeaseRepaymentRequest) SetStatus(v int64) *CreateLeaseRepaymentRe
 
 func (s *CreateLeaseRepaymentRequest) SetAsync(v int64) *CreateLeaseRepaymentRequest {
 	s.Async = &v
+	return s
+}
+
+func (s *CreateLeaseRepaymentRequest) SetOldOwnershipId(v string) *CreateLeaseRepaymentRequest {
+	s.OldOwnershipId = &v
+	return s
+}
+
+func (s *CreateLeaseRepaymentRequest) SetNewOwnershipId(v string) *CreateLeaseRepaymentRequest {
+	s.NewOwnershipId = &v
 	return s
 }
 
@@ -20100,6 +20230,10 @@ type CreateInternalTransRequest struct {
 	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
 	// 代理客户存证时，实际用户的租户ID
 	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 授权码对应的产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty"`
 }
 
 func (s CreateInternalTransRequest) String() string {
@@ -20142,6 +20276,16 @@ func (s *CreateInternalTransRequest) SetTsr(v bool) *CreateInternalTransRequest 
 
 func (s *CreateInternalTransRequest) SetRealTenant(v string) *CreateInternalTransRequest {
 	s.RealTenant = &v
+	return s
+}
+
+func (s *CreateInternalTransRequest) SetAuthCode(v string) *CreateInternalTransRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *CreateInternalTransRequest) SetProduct(v string) *CreateInternalTransRequest {
+	s.Product = &v
 	return s
 }
 
@@ -20213,6 +20357,10 @@ type CreateInternalTextRequest struct {
 	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
 	// 代理客户存证时，实际用户的租户ID
 	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 授权码对应产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty"`
 }
 
 func (s CreateInternalTextRequest) String() string {
@@ -20275,6 +20423,16 @@ func (s *CreateInternalTextRequest) SetTsr(v bool) *CreateInternalTextRequest {
 
 func (s *CreateInternalTextRequest) SetRealTenant(v string) *CreateInternalTextRequest {
 	s.RealTenant = &v
+	return s
+}
+
+func (s *CreateInternalTextRequest) SetAuthCode(v string) *CreateInternalTextRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *CreateInternalTextRequest) SetProduct(v string) *CreateInternalTextRequest {
+	s.Product = &v
 	return s
 }
 
@@ -22333,6 +22491,104 @@ func (s *GetInternalTextResponse) SetHashAlgorithm(v string) *GetInternalTextRes
 	return s
 }
 
+type OpenInternalTwcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权开通的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 授权开通的产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty" require:"true"`
+	// 授权开通的行业类型（版权/租赁）
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+}
+
+func (s OpenInternalTwcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenInternalTwcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenInternalTwcRequest) SetAuthToken(v string) *OpenInternalTwcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenInternalTwcRequest) SetProductInstanceId(v string) *OpenInternalTwcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenInternalTwcRequest) SetTenantId(v string) *OpenInternalTwcRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OpenInternalTwcRequest) SetProduct(v string) *OpenInternalTwcRequest {
+	s.Product = &v
+	return s
+}
+
+func (s *OpenInternalTwcRequest) SetBizId(v string) *OpenInternalTwcRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *OpenInternalTwcRequest) SetAuthCode(v string) *OpenInternalTwcRequest {
+	s.AuthCode = &v
+	return s
+}
+
+type OpenInternalTwcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态值
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态信息描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s OpenInternalTwcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenInternalTwcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenInternalTwcResponse) SetReqMsgId(v string) *OpenInternalTwcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenInternalTwcResponse) SetResultCode(v string) *OpenInternalTwcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenInternalTwcResponse) SetResultMsg(v string) *OpenInternalTwcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenInternalTwcResponse) SetCode(v string) *OpenInternalTwcResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *OpenInternalTwcResponse) SetMessage(v string) *OpenInternalTwcResponse {
+	s.Message = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -22455,7 +22711,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.151"),
+				"sdk_version":      tea.String("1.4.152"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -25534,6 +25790,40 @@ func (client *Client) CreateLeaseAssetagentregisterEx(request *CreateLeaseAsseta
 }
 
 /**
+ * Description: 融资租赁商品信息查询接口
+ * Summary: 融资租赁商品信息查询接口
+ */
+func (client *Client) QueryLeaseProductinfo(request *QueryLeaseProductinfoRequest) (_result *QueryLeaseProductinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseProductinfoResponse{}
+	_body, _err := client.QueryLeaseProductinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资租赁商品信息查询接口
+ * Summary: 融资租赁商品信息查询接口
+ */
+func (client *Client) QueryLeaseProductinfoEx(request *QueryLeaseProductinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseProductinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseProductinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.productinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 创建签署见证流程
  * Summary: 创建见证流程
  */
@@ -28008,6 +28298,40 @@ func (client *Client) GetInternalTextEx(request *GetInternalTextRequest, headers
 	}
 	_result = &GetInternalTextResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.text.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方服务获取开通权限，标记开通状态。
+ * Summary: 三方服务获取开通权限，标记开通状态。
+ */
+func (client *Client) OpenInternalTwc(request *OpenInternalTwcRequest) (_result *OpenInternalTwcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenInternalTwcResponse{}
+	_body, _err := client.OpenInternalTwcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方服务获取开通权限，标记开通状态。
+ * Summary: 三方服务获取开通权限，标记开通状态。
+ */
+func (client *Client) OpenInternalTwcEx(request *OpenInternalTwcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenInternalTwcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenInternalTwcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.twc.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
