@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/twc",
-  "version": "1.4.151",
+  "version": "1.4.152",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
