@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.151',
+    sdk_version = '1.4.152',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5480,6 +5480,56 @@ async function createLeaseAssetagentregisterEx(request: CreateLeaseAssetagentreg
   return doRequest('1.0' ,'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryLeaseProductinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  productId: string(name='product_id'),
+  // 供应商本版号
+  supplierVersion: long(name='supplier_version'),
+  // 合约id
+  applicationId: string(name='application_id'),
+  // 租赁方id
+  leaseId: string(name='lease_id'),
+  // 资方id
+  creditId: string(name='credit_id'),
+}
+
+model QueryLeaseProductinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码0表示成功
+  code?: long(name='code'),
+  // 错误信息
+  errMessage?: string(name='err_message'),
+  // 商品信息
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 融资租赁商品信息查询接口
+ * Summary: 融资租赁商品信息查询接口
+ */
+async function queryLeaseProductinfo(request: QueryLeaseProductinfoRequest): QueryLeaseProductinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseProductinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资租赁商品信息查询接口
+ * Summary: 融资租赁商品信息查询接口
+ */
+async function queryLeaseProductinfoEx(request: QueryLeaseProductinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseProductinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateWitnessFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7932,6 +7982,14 @@ model CreateLeaseRepaymentRequest = {
   status?: long(name='status'),
   // 是否启动订单的异步处理
   async?: long(name='async'),
+  // 原所有权id
+  // 
+  // 
+  oldOwnershipId: string(name='old_ownership_id'),
+  // 现所有权id
+  // 
+  // 
+  newOwnershipId: string(name='new_ownership_id'),
 }
 
 model CreateLeaseRepaymentResponse = {
@@ -8529,6 +8587,10 @@ model CreateInternalTransRequest = {
   tsr?: boolean(name='tsr'),
   // 代理客户存证时，实际用户的租户ID
   realTenant?: string(name='real_tenant'),
+  // 授权码
+  authCode?: string(name='auth_code'),
+  // 授权码对应的产品码
+  product?: string(name='product'),
 }
 
 model CreateInternalTransResponse = {
@@ -8585,6 +8647,10 @@ model CreateInternalTextRequest = {
   tsr?: boolean(name='tsr'),
   // 代理客户存证时，实际用户的租户ID
   realTenant?: string(name='real_tenant'),
+  // 授权码
+  authCode?: string(name='auth_code'),
+  // 授权码对应产品码
+  product?: string(name='product'),
 }
 
 model CreateInternalTextResponse = {
@@ -9533,5 +9599,51 @@ async function getInternalText(request: GetInternalTextRequest): GetInternalText
 async function getInternalTextEx(request: GetInternalTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInternalTextResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.internal.text.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenInternalTwcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权开通的租户ID
+  tenantId: string(name='tenant_id'),
+  // 授权开通的产品码
+  product: string(name='product'),
+  // 授权开通的行业类型（版权/租赁）
+  bizId: string(name='biz_id'),
+  // 授权码
+  authCode: string(name='auth_code'),
+}
+
+model OpenInternalTwcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态值
+  code?: string(name='code'),
+  // 状态信息描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 三方服务获取开通权限，标记开通状态。
+ * Summary: 三方服务获取开通权限，标记开通状态。
+ */
+async function openInternalTwc(request: OpenInternalTwcRequest): OpenInternalTwcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openInternalTwcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方服务获取开通权限，标记开通状态。
+ * Summary: 三方服务获取开通权限，标记开通状态。
+ */
+async function openInternalTwcEx(request: OpenInternalTwcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenInternalTwcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.internal.twc.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
