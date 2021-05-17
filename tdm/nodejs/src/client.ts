@@ -343,6 +343,39 @@ export class AuthRecord extends $tea.Model {
   }
 }
 
+// 公积金中心用户信息
+export class CpfUserAccountInfo extends $tea.Model {
+  // 账户状态
+  accountStatus: string;
+  // 账户余额
+  balance: string;
+  // 缴纳单位名称
+  instName: string;
+  // 个人账户
+  accountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountStatus: 'account_status',
+      balance: 'balance',
+      instName: 'inst_name',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountStatus: 'string',
+      balance: 'string',
+      instName: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 证明使用记录返回结果
 export class CertUsageLogVO extends $tea.Model {
   // 使用方名称
@@ -454,6 +487,51 @@ export class AuthProperty extends $tea.Model {
     return {
       key: 'string',
       value: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户贷款信息
+export class CpfUserLoanInfo extends $tea.Model {
+  // 用户证件号码
+  userId: string;
+  // 证件类型
+  userIdType: string;
+  // 配偶证件号码
+  poId: string;
+  // 配偶姓名
+  poName: string;
+  // 贷款合同编号
+  loanId: string;
+  // 贷款余额
+  loanBalance: string;
+  // 贷款合同状态
+  loanStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userIdType: 'user_id_type',
+      poId: 'po_id',
+      poName: 'po_name',
+      loanId: 'loan_id',
+      loanBalance: 'loan_balance',
+      loanStatus: 'loan_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userIdType: 'string',
+      poId: 'string',
+      poName: 'string',
+      loanId: 'string',
+      loanBalance: 'string',
+      loanStatus: 'string',
     };
   }
 
@@ -1301,6 +1379,85 @@ export class ListCpfDatauseResponse extends $tea.Model {
   }
 }
 
+export class QueryCpfUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 端ID
+  terminalIdentity: string;
+  // 数据源ID
+  providerId: string;
+  // 用户身份证ID
+  dataOwnerIdentity: string;
+  // 用户姓名
+  dataOwnerName: string;
+  // 证件类型
+  dataOwnerIdentifyType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      terminalIdentity: 'terminal_identity',
+      providerId: 'provider_id',
+      dataOwnerIdentity: 'data_owner_identity',
+      dataOwnerName: 'data_owner_name',
+      dataOwnerIdentifyType: 'data_owner_identify_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      terminalIdentity: 'string',
+      providerId: 'string',
+      dataOwnerIdentity: 'string',
+      dataOwnerName: 'string',
+      dataOwnerIdentifyType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCpfUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 个人账户信息
+  userAccountInfo?: CpfUserAccountInfo[];
+  // 贷款信息
+  userLoanInfo?: CpfUserLoanInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userAccountInfo: 'user_account_info',
+      userLoanInfo: 'user_loan_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userAccountInfo: { 'type': 'array', 'itemType': CpfUserAccountInfo },
+      userLoanInfo: { 'type': 'array', 'itemType': CpfUserLoanInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecAuthRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2021,7 +2178,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.0.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2236,6 +2393,25 @@ export default class Client {
   async listCpfDatauseEx(request: ListCpfDatauseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListCpfDatauseResponse> {
     Util.validateModel(request);
     return $tea.cast<ListCpfDatauseResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.datause.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListCpfDatauseResponse({}));
+  }
+
+  /**
+   * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+   * Summary: 公积金中心用户信息查询
+   */
+  async queryCpfUser(request: QueryCpfUserRequest): Promise<QueryCpfUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCpfUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+   * Summary: 公积金中心用户信息查询
+   */
+  async queryCpfUserEx(request: QueryCpfUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCpfUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCpfUserResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.user.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCpfUserResponse({}));
   }
 
   /**
