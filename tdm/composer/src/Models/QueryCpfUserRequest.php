@@ -47,7 +47,7 @@ class QueryCpfUserRequest extends Model
     /**
      * @var string
      */
-    public $dataOwnerIdentifyType;
+    public $dataOwnerIdentityType;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -55,7 +55,7 @@ class QueryCpfUserRequest extends Model
         'providerId'            => 'provider_id',
         'dataOwnerIdentity'     => 'data_owner_identity',
         'dataOwnerName'         => 'data_owner_name',
-        'dataOwnerIdentifyType' => 'data_owner_identify_type',
+        'dataOwnerIdentityType' => 'data_owner_identity_type',
     ];
 
     public function validate()
@@ -64,7 +64,7 @@ class QueryCpfUserRequest extends Model
         Model::validateRequired('providerId', $this->providerId, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('dataOwnerName', $this->dataOwnerName, true);
-        Model::validateRequired('dataOwnerIdentifyType', $this->dataOwnerIdentifyType, true);
+        Model::validateRequired('dataOwnerIdentityType', $this->dataOwnerIdentityType, true);
     }
 
     public function toMap()
@@ -88,8 +88,8 @@ class QueryCpfUserRequest extends Model
         if (null !== $this->dataOwnerName) {
             $res['data_owner_name'] = $this->dataOwnerName;
         }
-        if (null !== $this->dataOwnerIdentifyType) {
-            $res['data_owner_identify_type'] = $this->dataOwnerIdentifyType;
+        if (null !== $this->dataOwnerIdentityType) {
+            $res['data_owner_identity_type'] = $this->dataOwnerIdentityType;
         }
 
         return $res;
@@ -121,8 +121,8 @@ class QueryCpfUserRequest extends Model
         if (isset($map['data_owner_name'])) {
             $model->dataOwnerName = $map['data_owner_name'];
         }
-        if (isset($map['data_owner_identify_type'])) {
-            $model->dataOwnerIdentifyType = $map['data_owner_identify_type'];
+        if (isset($map['data_owner_identity_type'])) {
+            $model->dataOwnerIdentityType = $map['data_owner_identity_type'];
         }
 
         return $model;
