@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.9")
+                    new TeaPair("sdk_version", "1.0.10")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -328,6 +328,25 @@ public class Client {
     public ListCpfDatauseResponse listCpfDatauseEx(ListCpfDatauseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.datause.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCpfDatauseResponse());
+    }
+
+    /**
+     * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+     * Summary: 公积金中心用户信息查询
+     */
+    public QueryCpfUserResponse queryCpfUser(QueryCpfUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCpfUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户在公积金中心的个人账户、贷款合同信息
+     * Summary: 公积金中心用户信息查询
+     */
+    public QueryCpfUserResponse queryCpfUserEx(QueryCpfUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCpfUserResponse());
     }
 
     /**
