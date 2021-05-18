@@ -21,6 +21,11 @@ public class GetCpfCertRequest extends TeaModel {
     @Validation(required = true)
     public String fileType;
 
+    // 端ID
+    @NameInMap("terminal_identity")
+    @Validation(required = true)
+    public String terminalIdentity;
+
     public static GetCpfCertRequest build(java.util.Map<String, ?> map) throws Exception {
         GetCpfCertRequest self = new GetCpfCertRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class GetCpfCertRequest extends TeaModel {
     }
     public String getFileType() {
         return this.fileType;
+    }
+
+    public GetCpfCertRequest setTerminalIdentity(String terminalIdentity) {
+        this.terminalIdentity = terminalIdentity;
+        return this;
+    }
+    public String getTerminalIdentity() {
+        return this.terminalIdentity;
     }
 
 }
