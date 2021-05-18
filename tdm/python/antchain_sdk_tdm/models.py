@@ -1686,6 +1686,7 @@ class GetCpfCertRequest(TeaModel):
         product_instance_id: str = None,
         issue_id: str = None,
         file_type: str = None,
+        terminal_identity: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1694,10 +1695,13 @@ class GetCpfCertRequest(TeaModel):
         self.issue_id = issue_id
         # 证明文件存储类型
         self.file_type = file_type
+        # 端ID
+        self.terminal_identity = terminal_identity
 
     def validate(self):
         self.validate_required(self.issue_id, 'issue_id')
         self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.terminal_identity, 'terminal_identity')
 
     def to_map(self):
         result = dict()
@@ -1709,6 +1713,8 @@ class GetCpfCertRequest(TeaModel):
             result['issue_id'] = self.issue_id
         if self.file_type is not None:
             result['file_type'] = self.file_type
+        if self.terminal_identity is not None:
+            result['terminal_identity'] = self.terminal_identity
         return result
 
     def from_map(self, m: dict = None):
@@ -1721,6 +1727,8 @@ class GetCpfCertRequest(TeaModel):
             self.issue_id = m.get('issue_id')
         if m.get('file_type') is not None:
             self.file_type = m.get('file_type')
+        if m.get('terminal_identity') is not None:
+            self.terminal_identity = m.get('terminal_identity')
         return self
 
 
