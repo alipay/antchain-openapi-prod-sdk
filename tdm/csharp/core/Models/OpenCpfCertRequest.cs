@@ -33,6 +33,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=true)]
         public string ProviderId { get; set; }
 
+        // 证件类型
+        [NameInMap("data_owner_identity_type")]
+        [Validation(Required=true)]
+        public string DataOwnerIdentityType { get; set; }
+
         // 数据拥有者ID（身份证ID）
         [NameInMap("data_owner_identity")]
         [Validation(Required=true)]
