@@ -771,7 +771,7 @@ class CpfUserLoanInfo(TeaModel):
     def __init__(
         self,
         user_id: str = None,
-        user_id_type: str = None,
+        user_name: str = None,
         po_id: str = None,
         po_name: str = None,
         loan_id: str = None,
@@ -781,7 +781,7 @@ class CpfUserLoanInfo(TeaModel):
         # 用户证件号码
         self.user_id = user_id
         # 证件类型
-        self.user_id_type = user_id_type
+        self.user_name = user_name
         # 配偶证件号码
         self.po_id = po_id
         # 配偶姓名
@@ -795,7 +795,7 @@ class CpfUserLoanInfo(TeaModel):
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.po_id, 'po_id')
         self.validate_required(self.po_name, 'po_name')
         self.validate_required(self.loan_id, 'loan_id')
@@ -806,8 +806,8 @@ class CpfUserLoanInfo(TeaModel):
         result = dict()
         if self.user_id is not None:
             result['user_id'] = self.user_id
-        if self.user_id_type is not None:
-            result['user_id_type'] = self.user_id_type
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
         if self.po_id is not None:
             result['po_id'] = self.po_id
         if self.po_name is not None:
@@ -824,8 +824,8 @@ class CpfUserLoanInfo(TeaModel):
         m = m or dict()
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
-        if m.get('user_id_type') is not None:
-            self.user_id_type = m.get('user_id_type')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
         if m.get('po_id') is not None:
             self.po_id = m.get('po_id')
         if m.get('po_name') is not None:
