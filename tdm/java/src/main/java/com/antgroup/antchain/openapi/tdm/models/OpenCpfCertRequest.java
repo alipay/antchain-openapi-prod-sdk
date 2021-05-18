@@ -26,6 +26,11 @@ public class OpenCpfCertRequest extends TeaModel {
     @Validation(required = true)
     public String providerId;
 
+    // 证件类型
+    @NameInMap("data_owner_identity_type")
+    @Validation(required = true)
+    public String dataOwnerIdentityType;
+
     // 数据拥有者ID（身份证ID）
     @NameInMap("data_owner_identity")
     @Validation(required = true)
@@ -83,6 +88,14 @@ public class OpenCpfCertRequest extends TeaModel {
     }
     public String getProviderId() {
         return this.providerId;
+    }
+
+    public OpenCpfCertRequest setDataOwnerIdentityType(String dataOwnerIdentityType) {
+        this.dataOwnerIdentityType = dataOwnerIdentityType;
+        return this;
+    }
+    public String getDataOwnerIdentityType() {
+        return this.dataOwnerIdentityType;
     }
 
     public OpenCpfCertRequest setDataOwnerIdentity(String dataOwnerIdentity) {
