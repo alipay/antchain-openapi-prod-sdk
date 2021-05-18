@@ -30,17 +30,25 @@ class GetCpfCertRequest extends Model
      * @var string
      */
     public $fileType;
+
+    // 端ID
+    /**
+     * @var string
+     */
+    public $terminalIdentity;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'issueId'           => 'issue_id',
         'fileType'          => 'file_type',
+        'terminalIdentity'  => 'terminal_identity',
     ];
 
     public function validate()
     {
         Model::validateRequired('issueId', $this->issueId, true);
         Model::validateRequired('fileType', $this->fileType, true);
+        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class GetCpfCertRequest extends Model
         }
         if (null !== $this->fileType) {
             $res['file_type'] = $this->fileType;
+        }
+        if (null !== $this->terminalIdentity) {
+            $res['terminal_identity'] = $this->terminalIdentity;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class GetCpfCertRequest extends Model
         }
         if (isset($map['file_type'])) {
             $model->fileType = $map['file_type'];
+        }
+        if (isset($map['terminal_identity'])) {
+            $model->terminalIdentity = $map['terminal_identity'];
         }
 
         return $model;
