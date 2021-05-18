@@ -615,6 +615,83 @@ export class SoNotifyBookingParam extends $tea.Model {
   }
 }
 
+// 接口测试
+export class ApiTest extends $tea.Model {
+  // 测试String
+  testString: string;
+  // 测试Int
+  testInt: number;
+  // 测试Integer
+  testInteger: number;
+  // 测试Long
+  testLong: number;
+  // 测试Boolean
+  testBoolean: boolean;
+  // 测试Date
+  testDate: string;
+  // 凭证列表_stringList
+  stringList: string[];
+  // 凭证列表_ints
+  ints: number[];
+  // 凭证列表_longs
+  longs: number[];
+  // 凭证列表_integerList
+  integerList: number[];
+  // 凭证列表_longList
+  longList: number[];
+  // 凭证列表_booleanList
+  booleanList: boolean[];
+  // 凭证列表_dateList
+  dateList: string[];
+  // 凭证列表_apiTestList
+  apiTestList: ApiTestInfo[];
+  // 测试apiTestInfo
+  apiTestInfo: ApiTest;
+  static names(): { [key: string]: string } {
+    return {
+      testString: 'test_string',
+      testInt: 'test_int',
+      testInteger: 'test_integer',
+      testLong: 'test_long',
+      testBoolean: 'test_boolean',
+      testDate: 'test_date',
+      stringList: 'string_list',
+      ints: 'ints',
+      longs: 'longs',
+      integerList: 'integer_list',
+      longList: 'long_list',
+      booleanList: 'boolean_list',
+      dateList: 'date_list',
+      apiTestList: 'api_test_list',
+      apiTestInfo: 'api_test_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      testString: 'string',
+      testInt: 'number',
+      testInteger: 'number',
+      testLong: 'number',
+      testBoolean: 'boolean',
+      testDate: 'string',
+      stringList: { 'type': 'array', 'itemType': 'string' },
+      ints: { 'type': 'array', 'itemType': 'number' },
+      longs: { 'type': 'array', 'itemType': 'number' },
+      integerList: { 'type': 'array', 'itemType': 'number' },
+      longList: { 'type': 'array', 'itemType': 'number' },
+      booleanList: { 'type': 'array', 'itemType': 'boolean' },
+      dateList: { 'type': 'array', 'itemType': 'string' },
+      apiTestList: { 'type': 'array', 'itemType': ApiTestInfo },
+      apiTestInfo: ApiTest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 资费项账单
 export class ReceiptBillTariffParam extends $tea.Model {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
@@ -732,6 +809,8 @@ export class AuthChainFile extends $tea.Model {
   uploadChainTime: string;
   // 上链文件下载链接
   fileUrl: string;
+  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+  fileName: string;
   static names(): { [key: string]: string } {
     return {
       signFileHash: 'sign_file_hash',
@@ -739,6 +818,7 @@ export class AuthChainFile extends $tea.Model {
       baasUniqCode: 'baas_uniq_code',
       uploadChainTime: 'upload_chain_time',
       fileUrl: 'file_url',
+      fileName: 'file_name',
     };
   }
 
@@ -749,6 +829,7 @@ export class AuthChainFile extends $tea.Model {
       baasUniqCode: 'string',
       uploadChainTime: 'string',
       fileUrl: 'string',
+      fileName: 'string',
     };
   }
 
@@ -1164,11 +1245,75 @@ export class UploadFinancingParam extends $tea.Model {
   }
 }
 
+// 库存货物
+export class InventoryCargo extends $tea.Model {
+  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+  inventoryIndex: number;
+  // sku品名
+  sku: string;
+  // 商品名称
+  // 
+  cargoName?: string;
+  // 商品单品重量(kg)
+  cargoWeight?: string;
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string;
+  // 商品单品货物价值(元),最多支持2位小数
+  cargoWorth?: string;
+  // 当前库存货物数量
+  currentInventoryCargoNum: number;
+  // 客户代码
+  // 
+  customerCode: string;
+  // 关联保单号,需要仓储CP做拆分计算
+  policyNo?: string;
+  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+  // 
+  stockinDate?: string;
+  // 时区,仓储CP上报入库时间所属的时区
+  timezone?: string;
+  static names(): { [key: string]: string } {
+    return {
+      inventoryIndex: 'inventory_index',
+      sku: 'sku',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      cargoDimensions: 'cargo_dimensions',
+      cargoWorth: 'cargo_worth',
+      currentInventoryCargoNum: 'current_inventory_cargo_num',
+      customerCode: 'customer_code',
+      policyNo: 'policy_no',
+      stockinDate: 'stockin_date',
+      timezone: 'timezone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      inventoryIndex: 'number',
+      sku: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      cargoDimensions: 'string',
+      cargoWorth: 'string',
+      currentInventoryCargoNum: 'number',
+      customerCode: 'string',
+      policyNo: 'string',
+      stockinDate: 'string',
+      timezone: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 签署方
 export class AuthParty extends $tea.Model {
   // 签署方名称
   signPartyName: string;
-  // 签署方证件类型
+  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
   signPartyCertType: string;
   // 签署方证件号码
   signPartyCertNum: string;
@@ -1230,6 +1375,47 @@ export class TxDto extends $tea.Model {
   }
 }
 
+// 接口测试
+export class ApiTestInfo extends $tea.Model {
+  // 测试String
+  testString: string;
+  // 测试Int
+  testInt: number;
+  // 测试Integer
+  testInteger: number;
+  // 测试Long
+  testLong: number;
+  // 测试Boolean
+  testBoolean: boolean;
+  // 测试Date
+  testDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      testString: 'test_string',
+      testInt: 'test_int',
+      testInteger: 'test_integer',
+      testLong: 'test_long',
+      testBoolean: 'test_boolean',
+      testDate: 'test_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      testString: 'string',
+      testInt: 'number',
+      testInteger: 'number',
+      testLong: 'number',
+      testBoolean: 'boolean',
+      testDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户凭证信息
 export class UserIssueId extends $tea.Model {
   // 凭证id
@@ -1247,6 +1433,31 @@ export class UserIssueId extends $tea.Model {
     return {
       issueId: 'string',
       balanceAmt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 附加条款
+export class MainItemAdd extends $tea.Model {
+  // 附加条款代码
+  mainItemAddCode?: string;
+  // 附加条款内容
+  mainItemAddContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      mainItemAddCode: 'main_item_add_code',
+      mainItemAddContent: 'main_item_add_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mainItemAddCode: 'string',
+      mainItemAddContent: 'string',
     };
   }
 
@@ -1317,6 +1528,56 @@ export class BookingNoInfo extends $tea.Model {
     return {
       bookingNo: 'string',
       bkgNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 入库货物
+export class StockinCargo extends $tea.Model {
+  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+  stockinIndex: number;
+  // sku品名
+  // 
+  sku: string;
+  // 商品名称
+  cargoName?: string;
+  // 商品单品重量(kg)
+  cargoWeight?: string;
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string;
+  // 商品单品货物价值(元),，最多支持2位小数
+  cargoWorth?: string;
+  // 箱号
+  containerNo?: string;
+  // 实际入库件数
+  actualStockinNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      stockinIndex: 'stockin_index',
+      sku: 'sku',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      cargoDimensions: 'cargo_dimensions',
+      cargoWorth: 'cargo_worth',
+      containerNo: 'container_no',
+      actualStockinNum: 'actual_stockin_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stockinIndex: 'number',
+      sku: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      cargoDimensions: 'string',
+      cargoWorth: 'string',
+      containerNo: 'string',
+      actualStockinNum: 'number',
     };
   }
 
@@ -2190,12 +2451,15 @@ export class CreateReceivableBillRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 测试
-  test: string;
+  test?: AuthParty;
+  // 的撒
+  status: ApiTest;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       test: 'test',
+      status: 'status',
     };
   }
 
@@ -2203,7 +2467,8 @@ export class CreateReceivableBillRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      test: 'string',
+      test: AuthParty,
+      status: ApiTest,
     };
   }
 
@@ -2244,69 +2509,6 @@ export class CreateReceivableBillResponse extends $tea.Model {
   }
 }
 
-export class CreateStandardAccountRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 账户的code
-  accountCode: string;
-  // 账户的公钥
-  publicKey: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      accountCode: 'account_code',
-      publicKey: 'public_key',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      accountCode: 'string',
-      publicKey: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateStandardAccountResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果
-  txCodes?: TxDto[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      txCodes: 'tx_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      txCodes: { 'type': 'array', 'itemType': TxDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CreateStandardVoucherRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2315,45 +2517,42 @@ export class CreateStandardVoucherRequest extends $tea.Model {
   businessCode: string;
   // 资产类型
   assetType: string;
-  // 发行金额
-  amountProof: string;
-  // 发行金额
-  amount: string;
-  // 余额
-  balanceProof: string;
-  // 余额
-  balance: string;
-  // 币种
-  currency: string;
+  // 发行金额_Integer
+  amountInt: number;
+  // 发行金额_Long
+  amountLong: number;
+  // 账户是否存在
+  exist: boolean;
   // 发行时间
-  issueTime: number;
-  // 到期时间
-  expireTime: number;
-  // 清分时间
-  clearingTime: number;
-  // 发布者
-  issuer: string;
-  // 资本者
-  capital: string;
-  // 所属账户
-  voucherOwner: string;
+  issueTime: string;
+  // 签署方
+  apiTest: ApiTest;
+  // 凭证列表_voucherArray
+  voucherArray: number[];
+  // 凭证列表_voucherList
+  voucherList: string[];
+  // 凭证列表_apiTestList
+  apiTestList: ApiTest[];
+  // 凭证列表_booleanList
+  booleanList: boolean[];
+  // 凭证列表_dateList
+  dateList: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       businessCode: 'business_code',
       assetType: 'asset_type',
-      amountProof: 'amount_proof',
-      amount: 'amount',
-      balanceProof: 'balance_proof',
-      balance: 'balance',
-      currency: 'currency',
+      amountInt: 'amount_int',
+      amountLong: 'amount_long',
+      exist: 'exist',
       issueTime: 'issue_time',
-      expireTime: 'expire_time',
-      clearingTime: 'clearing_time',
-      issuer: 'issuer',
-      capital: 'capital',
-      voucherOwner: 'voucher_owner',
+      apiTest: 'api_test',
+      voucherArray: 'voucher_array',
+      voucherList: 'voucher_list',
+      apiTestList: 'api_test_list',
+      booleanList: 'boolean_list',
+      dateList: 'date_list',
     };
   }
 
@@ -2363,17 +2562,16 @@ export class CreateStandardVoucherRequest extends $tea.Model {
       productInstanceId: 'string',
       businessCode: 'string',
       assetType: 'string',
-      amountProof: 'string',
-      amount: 'string',
-      balanceProof: 'string',
-      balance: 'string',
-      currency: 'string',
-      issueTime: 'number',
-      expireTime: 'number',
-      clearingTime: 'number',
-      issuer: 'string',
-      capital: 'string',
-      voucherOwner: 'string',
+      amountInt: 'number',
+      amountLong: 'number',
+      exist: 'boolean',
+      issueTime: 'string',
+      apiTest: ApiTest,
+      voucherArray: { 'type': 'array', 'itemType': 'number' },
+      voucherList: { 'type': 'array', 'itemType': 'string' },
+      apiTestList: { 'type': 'array', 'itemType': ApiTest },
+      booleanList: { 'type': 'array', 'itemType': 'boolean' },
+      dateList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2389,14 +2587,14 @@ export class CreateStandardVoucherResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回结果
-  txCodes?: TxDto[];
+  // 编码
+  code: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      txCodes: 'tx_codes',
+      code: 'code',
     };
   }
 
@@ -2405,236 +2603,7 @@ export class CreateStandardVoucherResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      txCodes: { 'type': 'array', 'itemType': TxDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryStandardVoucherRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数据标识
-  businessCode: string;
-  // 所属账户
-  voucherOwner: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      businessCode: 'business_code',
-      voucherOwner: 'voucher_owner',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      businessCode: 'string',
-      voucherOwner: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryStandardVoucherResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果
-  txCodes?: TxDto[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      txCodes: 'tx_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      txCodes: { 'type': 'array', 'itemType': TxDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ExecStandardVouchertransferRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 所属账户
-  voucherOwner: string;
-  // 数据标识
-  businessCode: string;
-  // 余额
-  balanceSenderTransfer: string;
-  // 余额
-  balanceProof: string;
-  // 余额
-  balanceReceiverAccount: string;
-  // 余额
-  balanceReceiverBusinessCode: string;
-  // 余额
-  balanceReceiverTransfer: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      voucherOwner: 'voucher_owner',
-      businessCode: 'business_code',
-      balanceSenderTransfer: 'balance_sender_transfer',
-      balanceProof: 'balance_proof',
-      balanceReceiverAccount: 'balance_receiver_account',
-      balanceReceiverBusinessCode: 'balance_receiver_business_code',
-      balanceReceiverTransfer: 'balance_receiver_transfer',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      voucherOwner: 'string',
-      businessCode: 'string',
-      balanceSenderTransfer: 'string',
-      balanceProof: 'string',
-      balanceReceiverAccount: 'string',
-      balanceReceiverBusinessCode: 'string',
-      balanceReceiverTransfer: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ExecStandardVouchertransferResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果
-  txCodes?: TxDto[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      txCodes: 'tx_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      txCodes: { 'type': 'array', 'itemType': TxDto },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class RedeemStandardVoucherRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数据标识
-  businessCode: string;
-  // 所属账户
-  voucherOwner: string;
-  // 余额
-  balanceSenderTransfer: string;
-  // 余额
-  balanceProof: string;
-  // 余额
-  balanceReceiverAccount: string;
-  // 余额
-  balanceReceiverBusinessCode: string;
-  // 余额
-  balanceReceiverTransfer: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      businessCode: 'business_code',
-      voucherOwner: 'voucher_owner',
-      balanceSenderTransfer: 'balance_sender_transfer',
-      balanceProof: 'balance_proof',
-      balanceReceiverAccount: 'balance_receiver_account',
-      balanceReceiverBusinessCode: 'balance_receiver_business_code',
-      balanceReceiverTransfer: 'balance_receiver_transfer',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      businessCode: 'string',
-      voucherOwner: 'string',
-      balanceSenderTransfer: 'string',
-      balanceProof: 'string',
-      balanceReceiverAccount: 'string',
-      balanceReceiverBusinessCode: 'string',
-      balanceReceiverTransfer: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class RedeemStandardVoucherResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果
-  txCodes?: TxDto[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      txCodes: 'tx_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      txCodes: { 'type': 'array', 'itemType': TxDto },
+      code: 'string',
     };
   }
 
@@ -12366,6 +12335,367 @@ export class RepayInsuranceCbrfResponse extends $tea.Model {
   }
 }
 
+export class ApplyInsuranceCbecRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投保交易号，调用方生成的唯一编码
+  tradeNo: string;
+  // 保司编码，CPIC---太保
+  externalChannelCode: string;
+  // 险种编码，03--跨境出口货运险
+  externalProductCode: string;
+  // 投保人姓名
+  tbrName: string;
+  // 投保人证件类型，03--营业执照
+  tbrIdType?: string;
+  // 投保人证件号码
+  tbrIdNo?: string;
+  // 被保人姓名
+  bbrName: string;
+  // 被保人证件类型，01--居民身份证，03--营业执照
+  bbrIdType?: string;
+  // 被保人证件号码
+  bbrIdNo?: string;
+  // 出库单号/航次号/运单号
+  relatedOrderNo: string;
+  // 包装及数量
+  cargoQuantity: string;
+  // 货物名称
+  cargoName: string;
+  // 包装代码,参考保司提供样例-包装代码
+  packingCode: string;
+  // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+  cargoTypeCode: string;
+  // 航行区域代码,参考保司提供样例-航行区域代码
+  flightAreaCode: string;
+  // 运输方式代码,参考保司提供样例-运输方式
+  transportTypeCode: string;
+  // 运输工具名称
+  transportMeansName: string;
+  // 航次号
+  voyage?: string;
+  // 出发地
+  startPlace: string;
+  // 中转地
+  transitPoint?: string;
+  // 目的地
+  destination: string;
+  // 理赔代理地代码，参考保司提供样例-理赔代理地
+  claimAgentCode: string;
+  // 主险条款代码
+  mainItemCode: string;
+  // 主险条款内容
+  mainItemContent: string;
+  // 附加条款集合
+  mainItemAdds?: MainItemAdd[];
+  // 特别约定
+  specialize?: string;
+  // 申报货物价值,，最多兼容2位小数，单位（元）
+  cargoWorth: string;
+  // 费率，最多兼容9位小数
+  rate: string;
+  // 保费，最多兼容2位小数，单位（元）
+  premium: string;
+  // 保险起期，日期格式yyyy-mm-dd
+  insureStart: string;
+  // 起运日期，日期格式yyyy-mm-dd
+  saleDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      tbrName: 'tbr_name',
+      tbrIdType: 'tbr_id_type',
+      tbrIdNo: 'tbr_id_no',
+      bbrName: 'bbr_name',
+      bbrIdType: 'bbr_id_type',
+      bbrIdNo: 'bbr_id_no',
+      relatedOrderNo: 'related_order_no',
+      cargoQuantity: 'cargo_quantity',
+      cargoName: 'cargo_name',
+      packingCode: 'packing_code',
+      cargoTypeCode: 'cargo_type_code',
+      flightAreaCode: 'flight_area_code',
+      transportTypeCode: 'transport_type_code',
+      transportMeansName: 'transport_means_name',
+      voyage: 'voyage',
+      startPlace: 'start_place',
+      transitPoint: 'transit_point',
+      destination: 'destination',
+      claimAgentCode: 'claim_agent_code',
+      mainItemCode: 'main_item_code',
+      mainItemContent: 'main_item_content',
+      mainItemAdds: 'main_item_adds',
+      specialize: 'specialize',
+      cargoWorth: 'cargo_worth',
+      rate: 'rate',
+      premium: 'premium',
+      insureStart: 'insure_start',
+      saleDate: 'sale_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      tbrName: 'string',
+      tbrIdType: 'string',
+      tbrIdNo: 'string',
+      bbrName: 'string',
+      bbrIdType: 'string',
+      bbrIdNo: 'string',
+      relatedOrderNo: 'string',
+      cargoQuantity: 'string',
+      cargoName: 'string',
+      packingCode: 'string',
+      cargoTypeCode: 'string',
+      flightAreaCode: 'string',
+      transportTypeCode: 'string',
+      transportMeansName: 'string',
+      voyage: 'string',
+      startPlace: 'string',
+      transitPoint: 'string',
+      destination: 'string',
+      claimAgentCode: 'string',
+      mainItemCode: 'string',
+      mainItemContent: 'string',
+      mainItemAdds: { 'type': 'array', 'itemType': MainItemAdd },
+      specialize: 'string',
+      cargoWorth: 'string',
+      rate: 'string',
+      premium: 'string',
+      insureStart: 'string',
+      saleDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceCbecResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投保交易号
+  tradeNo?: string;
+  // 保单号，保司生成的投保业务号
+  policyNo?: string;
+  // 保费
+  premium?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      policyNo: 'policy_no',
+      premium: 'premium',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      policyNo: 'string',
+      premium: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceStockinRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 入库交易流水号，保持唯一
+  tradeNo: string;
+  // 入库单号，可参考格式：年月日+唯一字符
+  stockinNo: string;
+  // 入库时间，格式：yyyy-MM-dd HH:mm:ss
+  stockinDate: string;
+  // 时区	
+  timezone: string;
+  // 仓库代码
+  repositoryCode: string;
+  // 客户代码
+  customerCode: string;
+  // 保单号,国内起运时投保产生的保单号
+  policyNo?: string;
+  // 入库货物列表
+  stockinCargos: StockinCargo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      stockinNo: 'stockin_no',
+      stockinDate: 'stockin_date',
+      timezone: 'timezone',
+      repositoryCode: 'repository_code',
+      customerCode: 'customer_code',
+      policyNo: 'policy_no',
+      stockinCargos: 'stockin_cargos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      stockinNo: 'string',
+      stockinDate: 'string',
+      timezone: 'string',
+      repositoryCode: 'string',
+      customerCode: 'string',
+      policyNo: 'string',
+      stockinCargos: { 'type': 'array', 'itemType': StockinCargo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceStockinResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入库交易流水号
+  tradeNo?: string;
+  // 入库单号
+  // 
+  // 
+  stockinNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      stockinNo: 'stockin_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      stockinNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceInventoryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 库存申报交易号，调用方生成的唯一编码
+  tradeNo: string;
+  // 库存申报编号
+  inventoryNo: string;
+  // 库存查询时间，yyyy-mm-dd，精确到（天）
+  inventoryQueryDate: string;
+  // 仓库代码
+  // 
+  // 
+  repositoryCode: string;
+  // 库存货物列表
+  inventoryCargos: InventoryCargo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      inventoryNo: 'inventory_no',
+      inventoryQueryDate: 'inventory_query_date',
+      repositoryCode: 'repository_code',
+      inventoryCargos: 'inventory_cargos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      inventoryNo: 'string',
+      inventoryQueryDate: 'string',
+      repositoryCode: 'string',
+      inventoryCargos: { 'type': 'array', 'itemType': InventoryCargo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceInventoryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 库存申报编号
+  inventoryNo?: string;
+  // 库存申报交易流水号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      inventoryNo: 'inventory_no',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      inventoryNo: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushAuthSigninfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -12378,7 +12708,7 @@ export class PushAuthSigninfoRequest extends $tea.Model {
   signTheme?: string;
   // 发起方名称
   initiatorName: string;
-  // 发起方证件类型
+  // 发起方证件类型，可以填写的枚举类型：UNIFIED_SOCIAL_CREDIT_CODE,  BUSINESS_LICENSE_NUMBER。分别表示统一社会信用代码和工商注册号
   initiatorCertType: string;
   // 发起方证件号码
   initiatorCertNum: string;
@@ -12723,6 +13053,8 @@ export class QueryPfQuotaRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 项目标识
+  projectId: string;
   // 证件号
   certNo: string;
   // 证件类型;050 统一社会信用证代码
@@ -12735,6 +13067,7 @@ export class QueryPfQuotaRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
       certNo: 'cert_no',
       certType: 'cert_type',
       customerNo: 'customer_no',
@@ -12746,6 +13079,7 @@ export class QueryPfQuotaRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      projectId: 'string',
       certNo: 'string',
       certType: 'string',
       customerNo: 'string',
@@ -12794,9 +13128,13 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+  requestNo: string;
+  // 项目标识；与对接同学确认对应的标识值
+  projectId: string;
   // 承运商did
   carrierDid: string;
-  // 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+  // 融资支用金额；总长度最长20位，保留2位小数，四舍五入
   financingAmount: string;
   // 支用币种，支持 CNY,USD
   financingCurrency: string;
@@ -12820,8 +13158,6 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
   payeeName: string;
   // 0政府投标 1经营周转 2支付货款 3采购机票，一般默认填 2 
   purpose: string;
-  // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-  requestNo: string;
   // 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
   signature?: string;
   // 转账附言
@@ -12851,6 +13187,8 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      requestNo: 'request_no',
+      projectId: 'project_id',
       carrierDid: 'carrier_did',
       financingAmount: 'financing_amount',
       financingCurrency: 'financing_currency',
@@ -12863,7 +13201,6 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
       payeeIdType: 'payee_id_type',
       payeeName: 'payee_name',
       purpose: 'purpose',
-      requestNo: 'request_no',
       signature: 'signature',
       transferPostscript: 'transfer_postscript',
       voucherCategory: 'voucher_category',
@@ -12880,6 +13217,8 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      requestNo: 'string',
+      projectId: 'string',
       carrierDid: 'string',
       financingAmount: 'string',
       financingCurrency: 'string',
@@ -12892,7 +13231,6 @@ export class ApplyPfWaybillfinancingRequest extends $tea.Model {
       payeeIdType: 'string',
       payeeName: 'string',
       purpose: 'string',
-      requestNo: 'string',
       signature: 'string',
       transferPostscript: 'string',
       voucherCategory: 'string',
@@ -12959,6 +13297,8 @@ export class PushPfPledgeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 项目标识，可联系对接同学提供
+  projectId: string;
   // 账单标识
   billId: string;
   // 融资主体did
@@ -12969,6 +13309,7 @@ export class PushPfPledgeRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
       billId: 'bill_id',
       financingSubjectDid: 'financing_subject_did',
       requestNo: 'request_no',
@@ -12979,6 +13320,7 @@ export class PushPfPledgeRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      projectId: 'string',
       billId: 'string',
       financingSubjectDid: 'string',
       requestNo: 'string',
@@ -13260,6 +13602,8 @@ export class ApplyPfConfirmationRequest extends $tea.Model {
   productInstanceId?: string;
   // 请求号
   requestNo: string;
+  // 项目标识，可联系对接同学获取
+  projectId: string;
   // 客户号
   clientNo: string;
   // 融资主体did
@@ -13315,6 +13659,7 @@ export class ApplyPfConfirmationRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       requestNo: 'request_no',
+      projectId: 'project_id',
       clientNo: 'client_no',
       financingSubjectDid: 'financing_subject_did',
       borrowerCardType: 'borrower_card_type',
@@ -13338,6 +13683,7 @@ export class ApplyPfConfirmationRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       requestNo: 'string',
+      projectId: 'string',
       clientNo: 'string',
       financingSubjectDid: 'string',
       borrowerCardType: 'string',
@@ -13426,6 +13772,8 @@ export class ApplyPfFinancingqualificationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 项目标识，可联系对接同学获取
+  projectId: string;
   // 客户号
   clientNo: string;
   // 融资主体did
@@ -13440,6 +13788,7 @@ export class ApplyPfFinancingqualificationRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
       clientNo: 'client_no',
       financingSubjectDid: 'financing_subject_did',
       borrowerCardType: 'borrower_card_type',
@@ -13451,6 +13800,7 @@ export class ApplyPfFinancingqualificationRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      projectId: 'string',
       clientNo: 'string',
       financingSubjectDid: 'string',
       borrowerCardType: 'string',
@@ -13505,6 +13855,8 @@ export class QueryPfFinancingqualificationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 项目标识，可联系对接同学获取
+  projectId: string;
   // 客户号
   clientNo: string;
   // 融资主体did
@@ -13521,6 +13873,7 @@ export class QueryPfFinancingqualificationRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
       clientNo: 'client_no',
       financingSubjectDid: 'financing_subject_did',
       borrowerCardType: 'borrower_card_type',
@@ -13533,6 +13886,7 @@ export class QueryPfFinancingqualificationRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      projectId: 'string',
       clientNo: 'string',
       financingSubjectDid: 'string',
       borrowerCardType: 'string',
@@ -13602,6 +13956,77 @@ export class QueryPfFinancingqualificationResponse extends $tea.Model {
       proceStatus: 'string',
       failRslt: 'string',
       genReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackPfDefinpfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizType: string;
+  // 回调内容
+  contentInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      contentInfo: 'content_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      contentInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackPfDefinpfResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  result?: boolean;
+  // 错误信息
+  errorMsg?: string;
+  // 返回结果
+  response?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      errorMsg: 'error_msg',
+      response: 'response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+      errorMsg: 'string',
+      response: 'string',
     };
   }
 
@@ -18233,7 +18658,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.96",
+          sdk_version: "1.3.105",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -18299,25 +18724,6 @@ export default class Client {
   }
 
   /**
-   * Description: 创建账户
-   * Summary: 创建账户
-   */
-  async createStandardAccount(request: CreateStandardAccountRequest): Promise<CreateStandardAccountResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createStandardAccountEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 创建账户
-   * Summary: 创建账户
-   */
-  async createStandardAccountEx(request: CreateStandardAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateStandardAccountResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateStandardAccountResponse>(await this.doRequest("1.0", "digital.logistic.standard.account.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateStandardAccountResponse({}));
-  }
-
-  /**
    * Description: 凭证发行
    * Summary: 凭证发行
    */
@@ -18334,63 +18740,6 @@ export default class Client {
   async createStandardVoucherEx(request: CreateStandardVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateStandardVoucherResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateStandardVoucherResponse>(await this.doRequest("1.0", "digital.logistic.standard.voucher.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateStandardVoucherResponse({}));
-  }
-
-  /**
-   * Description: 查询凭证
-   * Summary: 查询凭证
-   */
-  async queryStandardVoucher(request: QueryStandardVoucherRequest): Promise<QueryStandardVoucherResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryStandardVoucherEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 查询凭证
-   * Summary: 查询凭证
-   */
-  async queryStandardVoucherEx(request: QueryStandardVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStandardVoucherResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryStandardVoucherResponse>(await this.doRequest("1.0", "digital.logistic.standard.voucher.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStandardVoucherResponse({}));
-  }
-
-  /**
-   * Description: 凭证转让
-   * Summary: 凭证转让
-   */
-  async execStandardVouchertransfer(request: ExecStandardVouchertransferRequest): Promise<ExecStandardVouchertransferResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.execStandardVouchertransferEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 凭证转让
-   * Summary: 凭证转让
-   */
-  async execStandardVouchertransferEx(request: ExecStandardVouchertransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecStandardVouchertransferResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ExecStandardVouchertransferResponse>(await this.doRequest("1.0", "digital.logistic.standard.vouchertransfer.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecStandardVouchertransferResponse({}));
-  }
-
-  /**
-   * Description: 凭证赎回
-   * Summary: 凭证赎回
-   */
-  async redeemStandardVoucher(request: RedeemStandardVoucherRequest): Promise<RedeemStandardVoucherResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.redeemStandardVoucherEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 凭证赎回
-   * Summary: 凭证赎回
-   */
-  async redeemStandardVoucherEx(request: RedeemStandardVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RedeemStandardVoucherResponse> {
-    Util.validateModel(request);
-    return $tea.cast<RedeemStandardVoucherResponse>(await this.doRequest("1.0", "digital.logistic.standard.voucher.redeem", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RedeemStandardVoucherResponse({}));
   }
 
   /**
@@ -20070,6 +20419,63 @@ export default class Client {
   }
 
   /**
+   * Description: 跨境出口货运险投保
+   * Summary: 跨境出口货运险投保
+   */
+  async applyInsuranceCbec(request: ApplyInsuranceCbecRequest): Promise<ApplyInsuranceCbecResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceCbecEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 跨境出口货运险投保
+   * Summary: 跨境出口货运险投保
+   */
+  async applyInsuranceCbecEx(request: ApplyInsuranceCbecRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceCbecResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceCbecResponse>(await this.doRequest("1.0", "digital.logistic.insurance.cbec.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceCbecResponse({}));
+  }
+
+  /**
+   * Description: 货物入库申报
+   * Summary: 货物入库申报
+   */
+  async applyInsuranceStockin(request: ApplyInsuranceStockinRequest): Promise<ApplyInsuranceStockinResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceStockinEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 货物入库申报
+   * Summary: 货物入库申报
+   */
+  async applyInsuranceStockinEx(request: ApplyInsuranceStockinRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceStockinResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceStockinResponse>(await this.doRequest("1.0", "digital.logistic.insurance.stockin.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceStockinResponse({}));
+  }
+
+  /**
+   * Description: 货物库存申报
+   * Summary: 货物库存申报
+   */
+  async applyInsuranceInventory(request: ApplyInsuranceInventoryRequest): Promise<ApplyInsuranceInventoryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceInventoryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 货物库存申报
+   * Summary: 货物库存申报
+   */
+  async applyInsuranceInventoryEx(request: ApplyInsuranceInventoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceInventoryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceInventoryResponse>(await this.doRequest("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceInventoryResponse({}));
+  }
+
+  /**
    * Description: 授权签署信息推送
    * Summary: 授权签署信息推送
    */
@@ -20146,8 +20552,8 @@ export default class Client {
   }
 
   /**
-   * Description: 基于运单的融资申请
-   * Summary: 运单融资申请
+   * Description: 池融资支用申请
+   * Summary: 池融资支用申请
    */
   async applyPfWaybillfinancing(request: ApplyPfWaybillfinancingRequest): Promise<ApplyPfWaybillfinancingResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -20156,8 +20562,8 @@ export default class Client {
   }
 
   /**
-   * Description: 基于运单的融资申请
-   * Summary: 运单融资申请
+   * Description: 池融资支用申请
+   * Summary: 池融资支用申请
    */
   async applyPfWaybillfinancingEx(request: ApplyPfWaybillfinancingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyPfWaybillfinancingResponse> {
     Util.validateModel(request);
@@ -20295,6 +20701,25 @@ export default class Client {
   async queryPfFinancingqualificationEx(request: QueryPfFinancingqualificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPfFinancingqualificationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryPfFinancingqualificationResponse>(await this.doRequest("1.0", "digital.logistic.pf.financingqualification.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPfFinancingqualificationResponse({}));
+  }
+
+  /**
+   * Description: 池融资主站回调金融云接口
+   * Summary: 池融资主站回调金融云接口
+   */
+  async callbackPfDefinpf(request: CallbackPfDefinpfRequest): Promise<CallbackPfDefinpfResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackPfDefinpfEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 池融资主站回调金融云接口
+   * Summary: 池融资主站回调金融云接口
+   */
+  async callbackPfDefinpfEx(request: CallbackPfDefinpfRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackPfDefinpfResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackPfDefinpfResponse>(await this.doRequest("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackPfDefinpfResponse({}));
   }
 
   /**
