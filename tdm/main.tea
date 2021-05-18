@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.11',
+    sdk_version = '1.0.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -344,7 +344,7 @@ model CpfUserLoanInfo {
   // 用户证件号码
   userId: string(name='user_id', example='用户证件号码'),
   // 证件类型
-  userIdType: string(name='user_id_type', example='01 身份证'),
+  userName: string(name='user_name', example='小明'),
   // 配偶证件号码
   poId: string(name='po_id', example='370101199601022014'),
   // 配偶姓名
