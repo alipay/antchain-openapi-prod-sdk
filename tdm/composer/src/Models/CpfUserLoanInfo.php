@@ -18,11 +18,11 @@ class CpfUserLoanInfo extends Model
 
     // 证件类型
     /**
-     * @example 01 身份证
+     * @example 小明
      *
      * @var string
      */
-    public $userIdType;
+    public $userName;
 
     // 配偶证件号码
     /**
@@ -65,7 +65,7 @@ class CpfUserLoanInfo extends Model
     public $loanStatus;
     protected $_name = [
         'userId'      => 'user_id',
-        'userIdType'  => 'user_id_type',
+        'userName'    => 'user_name',
         'poId'        => 'po_id',
         'poName'      => 'po_name',
         'loanId'      => 'loan_id',
@@ -76,7 +76,7 @@ class CpfUserLoanInfo extends Model
     public function validate()
     {
         Model::validateRequired('userId', $this->userId, true);
-        Model::validateRequired('userIdType', $this->userIdType, true);
+        Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('poId', $this->poId, true);
         Model::validateRequired('poName', $this->poName, true);
         Model::validateRequired('loanId', $this->loanId, true);
@@ -90,8 +90,8 @@ class CpfUserLoanInfo extends Model
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
-        if (null !== $this->userIdType) {
-            $res['user_id_type'] = $this->userIdType;
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
         }
         if (null !== $this->poId) {
             $res['po_id'] = $this->poId;
@@ -123,8 +123,8 @@ class CpfUserLoanInfo extends Model
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
         }
-        if (isset($map['user_id_type'])) {
-            $model->userIdType = $map['user_id_type'];
+        if (isset($map['user_name'])) {
+            $model->userName = $map['user_name'];
         }
         if (isset($map['po_id'])) {
             $model->poId = $map['po_id'];
