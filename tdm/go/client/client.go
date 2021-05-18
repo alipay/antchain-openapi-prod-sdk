@@ -743,6 +743,14 @@ func (s *CpfUserLoanInfo) SetLoanStatus(v string) *CpfUserLoanInfo {
 type IssueCertParams struct {
 	// 贷款合同编号
 	Dkhtbh *string `json:"dkhtbh,omitempty" xml:"dkhtbh,omitempty"`
+	// 公积金中心个人账户
+	Grzh *string `json:"grzh,omitempty" xml:"grzh,omitempty"`
+	// 查询开始日期
+	Ksrq *string `json:"ksrq,omitempty" xml:"ksrq,omitempty"`
+	// 查询结束日期
+	Jsrq *string `json:"jsrq,omitempty" xml:"jsrq,omitempty"`
+	// 公积金贷款中心
+	Gjjdkzx *string `json:"gjjdkzx,omitempty" xml:"gjjdkzx,omitempty"`
 }
 
 func (s IssueCertParams) String() string {
@@ -755,6 +763,26 @@ func (s IssueCertParams) GoString() string {
 
 func (s *IssueCertParams) SetDkhtbh(v string) *IssueCertParams {
 	s.Dkhtbh = &v
+	return s
+}
+
+func (s *IssueCertParams) SetGrzh(v string) *IssueCertParams {
+	s.Grzh = &v
+	return s
+}
+
+func (s *IssueCertParams) SetKsrq(v string) *IssueCertParams {
+	s.Ksrq = &v
+	return s
+}
+
+func (s *IssueCertParams) SetJsrq(v string) *IssueCertParams {
+	s.Jsrq = &v
+	return s
+}
+
+func (s *IssueCertParams) SetGjjdkzx(v string) *IssueCertParams {
+	s.Gjjdkzx = &v
 	return s
 }
 
@@ -867,6 +895,8 @@ type OpenCpfCertRequest struct {
 	IssueCertType *string `json:"issue_cert_type,omitempty" xml:"issue_cert_type,omitempty" require:"true"`
 	// 公积金中心ID
 	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// 证件类型
+	DataOwnerIdentityType *string `json:"data_owner_identity_type,omitempty" xml:"data_owner_identity_type,omitempty" require:"true"`
 	// 数据拥有者ID（身份证ID）
 	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
 	// 数据拥有者姓名（真实姓名）
@@ -905,6 +935,11 @@ func (s *OpenCpfCertRequest) SetIssueCertType(v string) *OpenCpfCertRequest {
 
 func (s *OpenCpfCertRequest) SetProviderId(v string) *OpenCpfCertRequest {
 	s.ProviderId = &v
+	return s
+}
+
+func (s *OpenCpfCertRequest) SetDataOwnerIdentityType(v string) *OpenCpfCertRequest {
+	s.DataOwnerIdentityType = &v
 	return s
 }
 
@@ -2851,7 +2886,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
