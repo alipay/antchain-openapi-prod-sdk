@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.96"},
+                        {"sdk_version", "1.3.105"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.96"},
+                        {"sdk_version", "1.3.105"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -360,48 +360,6 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 创建账户
-         * Summary: 创建账户
-         */
-        public CreateStandardAccountResponse CreateStandardAccount(CreateStandardAccountRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateStandardAccountEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 创建账户
-         * Summary: 创建账户
-         */
-        public async Task<CreateStandardAccountResponse> CreateStandardAccountAsync(CreateStandardAccountRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateStandardAccountExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 创建账户
-         * Summary: 创建账户
-         */
-        public CreateStandardAccountResponse CreateStandardAccountEx(CreateStandardAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateStandardAccountResponse>(DoRequest("1.0", "digital.logistic.standard.account.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 创建账户
-         * Summary: 创建账户
-         */
-        public async Task<CreateStandardAccountResponse> CreateStandardAccountExAsync(CreateStandardAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateStandardAccountResponse>(await DoRequestAsync("1.0", "digital.logistic.standard.account.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 凭证发行
          * Summary: 凭证发行
          */
@@ -441,132 +399,6 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateStandardVoucherResponse>(await DoRequestAsync("1.0", "digital.logistic.standard.voucher.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询凭证
-         * Summary: 查询凭证
-         */
-        public QueryStandardVoucherResponse QueryStandardVoucher(QueryStandardVoucherRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryStandardVoucherEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询凭证
-         * Summary: 查询凭证
-         */
-        public async Task<QueryStandardVoucherResponse> QueryStandardVoucherAsync(QueryStandardVoucherRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryStandardVoucherExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询凭证
-         * Summary: 查询凭证
-         */
-        public QueryStandardVoucherResponse QueryStandardVoucherEx(QueryStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryStandardVoucherResponse>(DoRequest("1.0", "digital.logistic.standard.voucher.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询凭证
-         * Summary: 查询凭证
-         */
-        public async Task<QueryStandardVoucherResponse> QueryStandardVoucherExAsync(QueryStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryStandardVoucherResponse>(await DoRequestAsync("1.0", "digital.logistic.standard.voucher.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 凭证转让
-         * Summary: 凭证转让
-         */
-        public ExecStandardVouchertransferResponse ExecStandardVouchertransfer(ExecStandardVouchertransferRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ExecStandardVouchertransferEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 凭证转让
-         * Summary: 凭证转让
-         */
-        public async Task<ExecStandardVouchertransferResponse> ExecStandardVouchertransferAsync(ExecStandardVouchertransferRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ExecStandardVouchertransferExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 凭证转让
-         * Summary: 凭证转让
-         */
-        public ExecStandardVouchertransferResponse ExecStandardVouchertransferEx(ExecStandardVouchertransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ExecStandardVouchertransferResponse>(DoRequest("1.0", "digital.logistic.standard.vouchertransfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 凭证转让
-         * Summary: 凭证转让
-         */
-        public async Task<ExecStandardVouchertransferResponse> ExecStandardVouchertransferExAsync(ExecStandardVouchertransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ExecStandardVouchertransferResponse>(await DoRequestAsync("1.0", "digital.logistic.standard.vouchertransfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 凭证赎回
-         * Summary: 凭证赎回
-         */
-        public RedeemStandardVoucherResponse RedeemStandardVoucher(RedeemStandardVoucherRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return RedeemStandardVoucherEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 凭证赎回
-         * Summary: 凭证赎回
-         */
-        public async Task<RedeemStandardVoucherResponse> RedeemStandardVoucherAsync(RedeemStandardVoucherRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await RedeemStandardVoucherExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 凭证赎回
-         * Summary: 凭证赎回
-         */
-        public RedeemStandardVoucherResponse RedeemStandardVoucherEx(RedeemStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<RedeemStandardVoucherResponse>(DoRequest("1.0", "digital.logistic.standard.voucher.redeem", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 凭证赎回
-         * Summary: 凭证赎回
-         */
-        public async Task<RedeemStandardVoucherResponse> RedeemStandardVoucherExAsync(RedeemStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<RedeemStandardVoucherResponse>(await DoRequestAsync("1.0", "digital.logistic.standard.voucher.redeem", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4274,6 +4106,132 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
+         * Description: 跨境出口货运险投保
+         * Summary: 跨境出口货运险投保
+         */
+        public ApplyInsuranceCbecResponse ApplyInsuranceCbec(ApplyInsuranceCbecRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceCbecEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 跨境出口货运险投保
+         * Summary: 跨境出口货运险投保
+         */
+        public async Task<ApplyInsuranceCbecResponse> ApplyInsuranceCbecAsync(ApplyInsuranceCbecRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceCbecExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 跨境出口货运险投保
+         * Summary: 跨境出口货运险投保
+         */
+        public ApplyInsuranceCbecResponse ApplyInsuranceCbecEx(ApplyInsuranceCbecRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceCbecResponse>(DoRequest("1.0", "digital.logistic.insurance.cbec.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 跨境出口货运险投保
+         * Summary: 跨境出口货运险投保
+         */
+        public async Task<ApplyInsuranceCbecResponse> ApplyInsuranceCbecExAsync(ApplyInsuranceCbecRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceCbecResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.cbec.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 货物入库申报
+         * Summary: 货物入库申报
+         */
+        public ApplyInsuranceStockinResponse ApplyInsuranceStockin(ApplyInsuranceStockinRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceStockinEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 货物入库申报
+         * Summary: 货物入库申报
+         */
+        public async Task<ApplyInsuranceStockinResponse> ApplyInsuranceStockinAsync(ApplyInsuranceStockinRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceStockinExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 货物入库申报
+         * Summary: 货物入库申报
+         */
+        public ApplyInsuranceStockinResponse ApplyInsuranceStockinEx(ApplyInsuranceStockinRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceStockinResponse>(DoRequest("1.0", "digital.logistic.insurance.stockin.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 货物入库申报
+         * Summary: 货物入库申报
+         */
+        public async Task<ApplyInsuranceStockinResponse> ApplyInsuranceStockinExAsync(ApplyInsuranceStockinRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceStockinResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.stockin.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 货物库存申报
+         * Summary: 货物库存申报
+         */
+        public ApplyInsuranceInventoryResponse ApplyInsuranceInventory(ApplyInsuranceInventoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceInventoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 货物库存申报
+         * Summary: 货物库存申报
+         */
+        public async Task<ApplyInsuranceInventoryResponse> ApplyInsuranceInventoryAsync(ApplyInsuranceInventoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceInventoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 货物库存申报
+         * Summary: 货物库存申报
+         */
+        public ApplyInsuranceInventoryResponse ApplyInsuranceInventoryEx(ApplyInsuranceInventoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceInventoryResponse>(DoRequest("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 货物库存申报
+         * Summary: 货物库存申报
+         */
+        public async Task<ApplyInsuranceInventoryResponse> ApplyInsuranceInventoryExAsync(ApplyInsuranceInventoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceInventoryResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 授权签署信息推送
          * Summary: 授权签署信息推送
          */
@@ -4442,8 +4400,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 基于运单的融资申请
-         * Summary: 运单融资申请
+         * Description: 池融资支用申请
+         * Summary: 池融资支用申请
          */
         public ApplyPfWaybillfinancingResponse ApplyPfWaybillfinancing(ApplyPfWaybillfinancingRequest request)
         {
@@ -4453,8 +4411,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 基于运单的融资申请
-         * Summary: 运单融资申请
+         * Description: 池融资支用申请
+         * Summary: 池融资支用申请
          */
         public async Task<ApplyPfWaybillfinancingResponse> ApplyPfWaybillfinancingAsync(ApplyPfWaybillfinancingRequest request)
         {
@@ -4464,8 +4422,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 基于运单的融资申请
-         * Summary: 运单融资申请
+         * Description: 池融资支用申请
+         * Summary: 池融资支用申请
          */
         public ApplyPfWaybillfinancingResponse ApplyPfWaybillfinancingEx(ApplyPfWaybillfinancingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4474,8 +4432,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 基于运单的融资申请
-         * Summary: 运单融资申请
+         * Description: 池融资支用申请
+         * Summary: 池融资支用申请
          */
         public async Task<ApplyPfWaybillfinancingResponse> ApplyPfWaybillfinancingExAsync(ApplyPfWaybillfinancingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4775,6 +4733,48 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryPfFinancingqualificationResponse>(await DoRequestAsync("1.0", "digital.logistic.pf.financingqualification.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 池融资主站回调金融云接口
+         * Summary: 池融资主站回调金融云接口
+         */
+        public CallbackPfDefinpfResponse CallbackPfDefinpf(CallbackPfDefinpfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackPfDefinpfEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 池融资主站回调金融云接口
+         * Summary: 池融资主站回调金融云接口
+         */
+        public async Task<CallbackPfDefinpfResponse> CallbackPfDefinpfAsync(CallbackPfDefinpfRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackPfDefinpfExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 池融资主站回调金融云接口
+         * Summary: 池融资主站回调金融云接口
+         */
+        public CallbackPfDefinpfResponse CallbackPfDefinpfEx(CallbackPfDefinpfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackPfDefinpfResponse>(DoRequest("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 池融资主站回调金融云接口
+         * Summary: 池融资主站回调金融云接口
+         */
+        public async Task<CallbackPfDefinpfResponse> CallbackPfDefinpfExAsync(CallbackPfDefinpfRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackPfDefinpfResponse>(await DoRequestAsync("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

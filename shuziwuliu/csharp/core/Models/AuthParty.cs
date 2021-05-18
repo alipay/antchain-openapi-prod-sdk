@@ -15,7 +15,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string SignPartyName { get; set; }
 
-        // 签署方证件类型
+        // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
         [NameInMap("sign_party_cert_type")]
         [Validation(Required=true)]
         public string SignPartyCertType { get; set; }

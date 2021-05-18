@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SHUZIWULIU.Models
 {
-    public class CreateStandardAccountRequest : TeaModel {
+    public class CallbackPfDefinpfRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 账户的code
-        [NameInMap("account_code")]
+        // 业务类型
+        [NameInMap("biz_type")]
         [Validation(Required=true)]
-        public string AccountCode { get; set; }
+        public string BizType { get; set; }
 
-        // 账户的公钥
-        [NameInMap("public_key")]
+        // 回调内容
+        [NameInMap("content_info")]
         [Validation(Required=true)]
-        public string PublicKey { get; set; }
+        public string ContentInfo { get; set; }
 
     }
 

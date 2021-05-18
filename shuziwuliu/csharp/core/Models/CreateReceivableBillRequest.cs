@@ -20,8 +20,13 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 测试
         [NameInMap("test")]
+        [Validation(Required=false)]
+        public AuthParty Test { get; set; }
+
+        // 的撒
+        [NameInMap("status")]
         [Validation(Required=true)]
-        public string Test { get; set; }
+        public ApiTest Status { get; set; }
 
     }
 

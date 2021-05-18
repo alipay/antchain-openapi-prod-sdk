@@ -24,10 +24,10 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果
-        [NameInMap("tx_codes")]
-        [Validation(Required=false)]
-        public List<TxDto> TxCodes { get; set; }
+        // 编码
+        [NameInMap("code")]
+        [Validation(Required=true)]
+        public string Code { get; set; }
 
     }
 

@@ -35,6 +35,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string FileUrl { get; set; }
 
+        // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+        [NameInMap("file_name")]
+        [Validation(Required=true)]
+        public string FileName { get; set; }
+
     }
 
 }

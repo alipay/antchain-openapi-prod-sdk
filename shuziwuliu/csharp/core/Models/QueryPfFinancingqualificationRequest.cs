@@ -18,6 +18,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 项目标识，可联系对接同学获取
+        [NameInMap("project_id")]
+        [Validation(Required=true, MaxLength=64)]
+        public string ProjectId { get; set; }
+
         // 客户号
         [NameInMap("client_no")]
         [Validation(Required=true)]

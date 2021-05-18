@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SHUZIWULIU.Models
 {
-    public class QueryStandardVoucherResponse : TeaModel {
+    public class ApplyInsuranceInventoryResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果
-        [NameInMap("tx_codes")]
+        // 库存申报编号
+        [NameInMap("inventory_no")]
         [Validation(Required=false)]
-        public List<TxDto> TxCodes { get; set; }
+        public string InventoryNo { get; set; }
+
+        // 库存申报交易流水号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
 
     }
 

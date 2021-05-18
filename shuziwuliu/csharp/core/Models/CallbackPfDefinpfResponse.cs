@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SHUZIWULIU.Models
 {
-    public class CreateStandardAccountResponse : TeaModel {
+    public class CallbackPfDefinpfResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,20 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果
-        [NameInMap("tx_codes")]
+        // 是否成功
+        [NameInMap("result")]
         [Validation(Required=false)]
-        public List<TxDto> TxCodes { get; set; }
+        public bool? Result { get; set; }
+
+        // 错误信息
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
+        // 返回结果
+        [NameInMap("response")]
+        [Validation(Required=false)]
+        public string Response { get; set; }
 
     }
 

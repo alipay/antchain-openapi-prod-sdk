@@ -18,12 +18,22 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+        [NameInMap("request_no")]
+        [Validation(Required=true, MaxLength=23)]
+        public string RequestNo { get; set; }
+
+        // 项目标识；与对接同学确认对应的标识值
+        [NameInMap("project_id")]
+        [Validation(Required=true, MaxLength=64)]
+        public string ProjectId { get; set; }
+
         // 承运商did
         [NameInMap("carrier_did")]
         [Validation(Required=true, MaxLength=80)]
         public string CarrierDid { get; set; }
 
-        // 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+        // 融资支用金额；总长度最长20位，保留2位小数，四舍五入
         [NameInMap("financing_amount")]
         [Validation(Required=true)]
         public string FinancingAmount { get; set; }
@@ -79,11 +89,6 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("purpose")]
         [Validation(Required=true)]
         public string Purpose { get; set; }
-
-        // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-        [NameInMap("request_no")]
-        [Validation(Required=true, MaxLength=23)]
-        public string RequestNo { get; set; }
 
         // 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
         [NameInMap("signature")]
