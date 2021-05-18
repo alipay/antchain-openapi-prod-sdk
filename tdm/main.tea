@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.12',
+    sdk_version = '1.0.13',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -663,6 +663,8 @@ model GetCpfCertRequest = {
   issueId: string(name='issue_id'),
   // 证明文件存储类型
   fileType: string(name='file_type'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
 }
 
 model GetCpfCertResponse = {
