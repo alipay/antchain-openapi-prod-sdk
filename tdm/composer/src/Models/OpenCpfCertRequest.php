@@ -37,6 +37,12 @@ class OpenCpfCertRequest extends Model
      */
     public $providerId;
 
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $dataOwnerIdentityType;
+
     // 数据拥有者ID（身份证ID）
     /**
      * @var string
@@ -55,14 +61,15 @@ class OpenCpfCertRequest extends Model
      */
     public $extendParams;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'terminalIdentity'  => 'terminal_identity',
-        'issueCertType'     => 'issue_cert_type',
-        'providerId'        => 'provider_id',
-        'dataOwnerIdentity' => 'data_owner_identity',
-        'dataOwnerName'     => 'data_owner_name',
-        'extendParams'      => 'extend_params',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'terminalIdentity'      => 'terminal_identity',
+        'issueCertType'         => 'issue_cert_type',
+        'providerId'            => 'provider_id',
+        'dataOwnerIdentityType' => 'data_owner_identity_type',
+        'dataOwnerIdentity'     => 'data_owner_identity',
+        'dataOwnerName'         => 'data_owner_name',
+        'extendParams'          => 'extend_params',
     ];
 
     public function validate()
@@ -70,6 +77,7 @@ class OpenCpfCertRequest extends Model
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('issueCertType', $this->issueCertType, true);
         Model::validateRequired('providerId', $this->providerId, true);
+        Model::validateRequired('dataOwnerIdentityType', $this->dataOwnerIdentityType, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('dataOwnerName', $this->dataOwnerName, true);
     }
@@ -91,6 +99,9 @@ class OpenCpfCertRequest extends Model
         }
         if (null !== $this->providerId) {
             $res['provider_id'] = $this->providerId;
+        }
+        if (null !== $this->dataOwnerIdentityType) {
+            $res['data_owner_identity_type'] = $this->dataOwnerIdentityType;
         }
         if (null !== $this->dataOwnerIdentity) {
             $res['data_owner_identity'] = $this->dataOwnerIdentity;
@@ -127,6 +138,9 @@ class OpenCpfCertRequest extends Model
         }
         if (isset($map['provider_id'])) {
             $model->providerId = $map['provider_id'];
+        }
+        if (isset($map['data_owner_identity_type'])) {
+            $model->dataOwnerIdentityType = $map['data_owner_identity_type'];
         }
         if (isset($map['data_owner_identity'])) {
             $model->dataOwnerIdentity = $map['data_owner_identity'];
