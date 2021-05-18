@@ -1467,6 +1467,8 @@ type GetCpfCertRequest struct {
 	IssueId *string `json:"issue_id,omitempty" xml:"issue_id,omitempty" require:"true"`
 	// 证明文件存储类型
 	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
 }
 
 func (s GetCpfCertRequest) String() string {
@@ -1494,6 +1496,11 @@ func (s *GetCpfCertRequest) SetIssueId(v string) *GetCpfCertRequest {
 
 func (s *GetCpfCertRequest) SetFileType(v string) *GetCpfCertRequest {
 	s.FileType = &v
+	return s
+}
+
+func (s *GetCpfCertRequest) SetTerminalIdentity(v string) *GetCpfCertRequest {
+	s.TerminalIdentity = &v
 	return s
 }
 
@@ -2844,7 +2851,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
