@@ -29,6 +29,11 @@ public class AuthChainFile extends TeaModel {
     @Validation(required = true)
     public String fileUrl;
 
+    // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+    @NameInMap("file_name")
+    @Validation(required = true)
+    public String fileName;
+
     public static AuthChainFile build(java.util.Map<String, ?> map) throws Exception {
         AuthChainFile self = new AuthChainFile();
         return TeaModel.build(map, self);
@@ -72,6 +77,14 @@ public class AuthChainFile extends TeaModel {
     }
     public String getFileUrl() {
         return this.fileUrl;
+    }
+
+    public AuthChainFile setFileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+    public String getFileName() {
+        return this.fileName;
     }
 
 }

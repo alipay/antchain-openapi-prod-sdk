@@ -11,6 +11,11 @@ public class QueryPfQuotaRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 项目标识
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 64)
+    public String projectId;
+
     // 证件号
     @NameInMap("cert_no")
     @Validation(required = true, maxLength = 20)
@@ -50,6 +55,14 @@ public class QueryPfQuotaRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryPfQuotaRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
     public QueryPfQuotaRequest setCertNo(String certNo) {

@@ -9,7 +9,7 @@ public class AuthParty extends TeaModel {
     @Validation(required = true)
     public String signPartyName;
 
-    // 签署方证件类型
+    // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
     @NameInMap("sign_party_cert_type")
     @Validation(required = true)
     public String signPartyCertType;

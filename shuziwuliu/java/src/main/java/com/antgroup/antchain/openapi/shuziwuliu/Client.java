@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.96")
+                    new TeaPair("sdk_version", "1.3.105")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -179,25 +179,6 @@ public class Client {
     }
 
     /**
-     * Description: 创建账户
-     * Summary: 创建账户
-     */
-    public CreateStandardAccountResponse createStandardAccount(CreateStandardAccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createStandardAccountEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 创建账户
-     * Summary: 创建账户
-     */
-    public CreateStandardAccountResponse createStandardAccountEx(CreateStandardAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.standard.account.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStandardAccountResponse());
-    }
-
-    /**
      * Description: 凭证发行
      * Summary: 凭证发行
      */
@@ -214,63 +195,6 @@ public class Client {
     public CreateStandardVoucherResponse createStandardVoucherEx(CreateStandardVoucherRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.standard.voucher.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStandardVoucherResponse());
-    }
-
-    /**
-     * Description: 查询凭证
-     * Summary: 查询凭证
-     */
-    public QueryStandardVoucherResponse queryStandardVoucher(QueryStandardVoucherRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryStandardVoucherEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 查询凭证
-     * Summary: 查询凭证
-     */
-    public QueryStandardVoucherResponse queryStandardVoucherEx(QueryStandardVoucherRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.standard.voucher.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStandardVoucherResponse());
-    }
-
-    /**
-     * Description: 凭证转让
-     * Summary: 凭证转让
-     */
-    public ExecStandardVouchertransferResponse execStandardVouchertransfer(ExecStandardVouchertransferRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.execStandardVouchertransferEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 凭证转让
-     * Summary: 凭证转让
-     */
-    public ExecStandardVouchertransferResponse execStandardVouchertransferEx(ExecStandardVouchertransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.standard.vouchertransfer.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecStandardVouchertransferResponse());
-    }
-
-    /**
-     * Description: 凭证赎回
-     * Summary: 凭证赎回
-     */
-    public RedeemStandardVoucherResponse redeemStandardVoucher(RedeemStandardVoucherRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.redeemStandardVoucherEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 凭证赎回
-     * Summary: 凭证赎回
-     */
-    public RedeemStandardVoucherResponse redeemStandardVoucherEx(RedeemStandardVoucherRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.standard.voucher.redeem", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RedeemStandardVoucherResponse());
     }
 
     /**
@@ -1950,6 +1874,63 @@ public class Client {
     }
 
     /**
+     * Description: 跨境出口货运险投保
+     * Summary: 跨境出口货运险投保
+     */
+    public ApplyInsuranceCbecResponse applyInsuranceCbec(ApplyInsuranceCbecRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceCbecEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 跨境出口货运险投保
+     * Summary: 跨境出口货运险投保
+     */
+    public ApplyInsuranceCbecResponse applyInsuranceCbecEx(ApplyInsuranceCbecRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.cbec.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceCbecResponse());
+    }
+
+    /**
+     * Description: 货物入库申报
+     * Summary: 货物入库申报
+     */
+    public ApplyInsuranceStockinResponse applyInsuranceStockin(ApplyInsuranceStockinRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceStockinEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 货物入库申报
+     * Summary: 货物入库申报
+     */
+    public ApplyInsuranceStockinResponse applyInsuranceStockinEx(ApplyInsuranceStockinRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.stockin.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceStockinResponse());
+    }
+
+    /**
+     * Description: 货物库存申报
+     * Summary: 货物库存申报
+     */
+    public ApplyInsuranceInventoryResponse applyInsuranceInventory(ApplyInsuranceInventoryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceInventoryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 货物库存申报
+     * Summary: 货物库存申报
+     */
+    public ApplyInsuranceInventoryResponse applyInsuranceInventoryEx(ApplyInsuranceInventoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceInventoryResponse());
+    }
+
+    /**
      * Description: 授权签署信息推送
      * Summary: 授权签署信息推送
      */
@@ -2026,8 +2007,8 @@ public class Client {
     }
 
     /**
-     * Description: 基于运单的融资申请
-     * Summary: 运单融资申请
+     * Description: 池融资支用申请
+     * Summary: 池融资支用申请
      */
     public ApplyPfWaybillfinancingResponse applyPfWaybillfinancing(ApplyPfWaybillfinancingRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2036,8 +2017,8 @@ public class Client {
     }
 
     /**
-     * Description: 基于运单的融资申请
-     * Summary: 运单融资申请
+     * Description: 池融资支用申请
+     * Summary: 池融资支用申请
      */
     public ApplyPfWaybillfinancingResponse applyPfWaybillfinancingEx(ApplyPfWaybillfinancingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2175,6 +2156,25 @@ public class Client {
     public QueryPfFinancingqualificationResponse queryPfFinancingqualificationEx(QueryPfFinancingqualificationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.pf.financingqualification.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPfFinancingqualificationResponse());
+    }
+
+    /**
+     * Description: 池融资主站回调金融云接口
+     * Summary: 池融资主站回调金融云接口
+     */
+    public CallbackPfDefinpfResponse callbackPfDefinpf(CallbackPfDefinpfRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackPfDefinpfEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 池融资主站回调金融云接口
+     * Summary: 池融资主站回调金融云接口
+     */
+    public CallbackPfDefinpfResponse callbackPfDefinpfEx(CallbackPfDefinpfRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.pf.definpf.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackPfDefinpfResponse());
     }
 
     /**

@@ -11,12 +11,22 @@ public class ApplyPfWaybillfinancingRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+    @NameInMap("request_no")
+    @Validation(required = true, maxLength = 23)
+    public String requestNo;
+
+    // 项目标识；与对接同学确认对应的标识值
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 64)
+    public String projectId;
+
     // 承运商did
     @NameInMap("carrier_did")
     @Validation(required = true, maxLength = 80)
     public String carrierDid;
 
-    // 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+    // 融资支用金额；总长度最长20位，保留2位小数，四舍五入
     @NameInMap("financing_amount")
     @Validation(required = true)
     public String financingAmount;
@@ -72,11 +82,6 @@ public class ApplyPfWaybillfinancingRequest extends TeaModel {
     @NameInMap("purpose")
     @Validation(required = true)
     public String purpose;
-
-    // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-    @NameInMap("request_no")
-    @Validation(required = true, maxLength = 23)
-    public String requestNo;
 
     // 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
     @NameInMap("signature")
@@ -145,6 +150,22 @@ public class ApplyPfWaybillfinancingRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public ApplyPfWaybillfinancingRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
+        return this;
+    }
+    public String getRequestNo() {
+        return this.requestNo;
+    }
+
+    public ApplyPfWaybillfinancingRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
     public ApplyPfWaybillfinancingRequest setCarrierDid(String carrierDid) {
@@ -241,14 +262,6 @@ public class ApplyPfWaybillfinancingRequest extends TeaModel {
     }
     public String getPurpose() {
         return this.purpose;
-    }
-
-    public ApplyPfWaybillfinancingRequest setRequestNo(String requestNo) {
-        this.requestNo = requestNo;
-        return this;
-    }
-    public String getRequestNo() {
-        return this.requestNo;
     }
 
     public ApplyPfWaybillfinancingRequest setSignature(String signature) {

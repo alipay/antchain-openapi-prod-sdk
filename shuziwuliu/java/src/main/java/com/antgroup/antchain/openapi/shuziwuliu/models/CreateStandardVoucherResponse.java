@@ -16,9 +16,10 @@ public class CreateStandardVoucherResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回结果
-    @NameInMap("tx_codes")
-    public java.util.List<TxDto> txCodes;
+    // 编码
+    @NameInMap("code")
+    @Validation(required = true)
+    public String code;
 
     public static CreateStandardVoucherResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateStandardVoucherResponse self = new CreateStandardVoucherResponse();
@@ -49,12 +50,12 @@ public class CreateStandardVoucherResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateStandardVoucherResponse setTxCodes(java.util.List<TxDto> txCodes) {
-        this.txCodes = txCodes;
+    public CreateStandardVoucherResponse setCode(String code) {
+        this.code = code;
         return this;
     }
-    public java.util.List<TxDto> getTxCodes() {
-        return this.txCodes;
+    public String getCode() {
+        return this.code;
     }
 
 }

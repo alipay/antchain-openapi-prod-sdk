@@ -11,6 +11,11 @@ public class PushPfPledgeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 项目标识，可联系对接同学提供
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 64)
+    public String projectId;
+
     // 账单标识
     @NameInMap("bill_id")
     @Validation(required = true, maxLength = 128, minLength = 1)
@@ -45,6 +50,14 @@ public class PushPfPledgeRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public PushPfPledgeRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
     public PushPfPledgeRequest setBillId(String billId) {

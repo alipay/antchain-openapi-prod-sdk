@@ -16,6 +16,11 @@ public class ApplyPfConfirmationRequest extends TeaModel {
     @Validation(required = true)
     public String requestNo;
 
+    // 项目标识，可联系对接同学获取
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 64)
+    public String projectId;
+
     // 客户号
     @NameInMap("client_no")
     @Validation(required = true)
@@ -135,6 +140,14 @@ public class ApplyPfConfirmationRequest extends TeaModel {
     }
     public String getRequestNo() {
         return this.requestNo;
+    }
+
+    public ApplyPfConfirmationRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
     public ApplyPfConfirmationRequest setClientNo(String clientNo) {

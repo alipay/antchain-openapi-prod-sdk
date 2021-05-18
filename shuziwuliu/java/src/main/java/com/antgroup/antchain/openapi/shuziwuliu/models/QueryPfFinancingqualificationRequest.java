@@ -11,6 +11,11 @@ public class QueryPfFinancingqualificationRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 项目标识，可联系对接同学获取
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 64)
+    public String projectId;
+
     // 客户号
     @NameInMap("client_no")
     @Validation(required = true)
@@ -57,6 +62,14 @@ public class QueryPfFinancingqualificationRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryPfFinancingqualificationRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
     }
 
     public QueryPfFinancingqualificationRequest setClientNo(String clientNo) {

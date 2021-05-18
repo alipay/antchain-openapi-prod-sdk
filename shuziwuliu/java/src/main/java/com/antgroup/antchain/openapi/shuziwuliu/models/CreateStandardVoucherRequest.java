@@ -13,68 +13,63 @@ public class CreateStandardVoucherRequest extends TeaModel {
 
     // 数据标识
     @NameInMap("business_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 10)
     public String businessCode;
 
     // 资产类型
     @NameInMap("asset_type")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 10)
     public String assetType;
 
-    // 发行金额
-    @NameInMap("amount_proof")
-    @Validation(required = true)
-    public String amountProof;
+    // 发行金额_Integer
+    @NameInMap("amount_int")
+    @Validation(required = true, maximum = 10)
+    public Long amountInt;
 
-    // 发行金额
-    @NameInMap("amount")
-    @Validation(required = true)
-    public String amount;
+    // 发行金额_Long
+    @NameInMap("amount_long")
+    @Validation(required = true, maximum = 10)
+    public Long amountLong;
 
-    // 余额
-    @NameInMap("balance_proof")
+    // 账户是否存在
+    @NameInMap("exist")
     @Validation(required = true)
-    public String balanceProof;
-
-    // 余额
-    @NameInMap("balance")
-    @Validation(required = true)
-    public String balance;
-
-    // 币种
-    @NameInMap("currency")
-    @Validation(required = true)
-    public String currency;
+    public Boolean exist;
 
     // 发行时间
     @NameInMap("issue_time")
-    @Validation(required = true)
-    public Long issueTime;
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String issueTime;
 
-    // 到期时间
-    @NameInMap("expire_time")
+    // 签署方
+    @NameInMap("api_test")
     @Validation(required = true)
-    public Long expireTime;
+    public ApiTest apiTest;
 
-    // 清分时间
-    @NameInMap("clearing_time")
+    // 凭证列表_voucherArray
+    @NameInMap("voucher_array")
     @Validation(required = true)
-    public Long clearingTime;
+    public java.util.List<Long> voucherArray;
 
-    // 发布者
-    @NameInMap("issuer")
+    // 凭证列表_voucherList
+    @NameInMap("voucher_list")
     @Validation(required = true)
-    public String issuer;
+    public java.util.List<String> voucherList;
 
-    // 资本者
-    @NameInMap("capital")
+    // 凭证列表_apiTestList
+    @NameInMap("api_test_list")
     @Validation(required = true)
-    public String capital;
+    public java.util.List<ApiTest> apiTestList;
 
-    // 所属账户
-    @NameInMap("voucher_owner")
+    // 凭证列表_booleanList
+    @NameInMap("boolean_list")
     @Validation(required = true)
-    public String voucherOwner;
+    public java.util.List<Boolean> booleanList;
+
+    // 凭证列表_dateList
+    @NameInMap("date_list")
+    @Validation(required = true)
+    public java.util.List<String> dateList;
 
     public static CreateStandardVoucherRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateStandardVoucherRequest self = new CreateStandardVoucherRequest();
@@ -113,92 +108,84 @@ public class CreateStandardVoucherRequest extends TeaModel {
         return this.assetType;
     }
 
-    public CreateStandardVoucherRequest setAmountProof(String amountProof) {
-        this.amountProof = amountProof;
+    public CreateStandardVoucherRequest setAmountInt(Long amountInt) {
+        this.amountInt = amountInt;
         return this;
     }
-    public String getAmountProof() {
-        return this.amountProof;
+    public Long getAmountInt() {
+        return this.amountInt;
     }
 
-    public CreateStandardVoucherRequest setAmount(String amount) {
-        this.amount = amount;
+    public CreateStandardVoucherRequest setAmountLong(Long amountLong) {
+        this.amountLong = amountLong;
         return this;
     }
-    public String getAmount() {
-        return this.amount;
+    public Long getAmountLong() {
+        return this.amountLong;
     }
 
-    public CreateStandardVoucherRequest setBalanceProof(String balanceProof) {
-        this.balanceProof = balanceProof;
+    public CreateStandardVoucherRequest setExist(Boolean exist) {
+        this.exist = exist;
         return this;
     }
-    public String getBalanceProof() {
-        return this.balanceProof;
+    public Boolean getExist() {
+        return this.exist;
     }
 
-    public CreateStandardVoucherRequest setBalance(String balance) {
-        this.balance = balance;
-        return this;
-    }
-    public String getBalance() {
-        return this.balance;
-    }
-
-    public CreateStandardVoucherRequest setCurrency(String currency) {
-        this.currency = currency;
-        return this;
-    }
-    public String getCurrency() {
-        return this.currency;
-    }
-
-    public CreateStandardVoucherRequest setIssueTime(Long issueTime) {
+    public CreateStandardVoucherRequest setIssueTime(String issueTime) {
         this.issueTime = issueTime;
         return this;
     }
-    public Long getIssueTime() {
+    public String getIssueTime() {
         return this.issueTime;
     }
 
-    public CreateStandardVoucherRequest setExpireTime(Long expireTime) {
-        this.expireTime = expireTime;
+    public CreateStandardVoucherRequest setApiTest(ApiTest apiTest) {
+        this.apiTest = apiTest;
         return this;
     }
-    public Long getExpireTime() {
-        return this.expireTime;
+    public ApiTest getApiTest() {
+        return this.apiTest;
     }
 
-    public CreateStandardVoucherRequest setClearingTime(Long clearingTime) {
-        this.clearingTime = clearingTime;
+    public CreateStandardVoucherRequest setVoucherArray(java.util.List<Long> voucherArray) {
+        this.voucherArray = voucherArray;
         return this;
     }
-    public Long getClearingTime() {
-        return this.clearingTime;
+    public java.util.List<Long> getVoucherArray() {
+        return this.voucherArray;
     }
 
-    public CreateStandardVoucherRequest setIssuer(String issuer) {
-        this.issuer = issuer;
+    public CreateStandardVoucherRequest setVoucherList(java.util.List<String> voucherList) {
+        this.voucherList = voucherList;
         return this;
     }
-    public String getIssuer() {
-        return this.issuer;
+    public java.util.List<String> getVoucherList() {
+        return this.voucherList;
     }
 
-    public CreateStandardVoucherRequest setCapital(String capital) {
-        this.capital = capital;
+    public CreateStandardVoucherRequest setApiTestList(java.util.List<ApiTest> apiTestList) {
+        this.apiTestList = apiTestList;
         return this;
     }
-    public String getCapital() {
-        return this.capital;
+    public java.util.List<ApiTest> getApiTestList() {
+        return this.apiTestList;
     }
 
-    public CreateStandardVoucherRequest setVoucherOwner(String voucherOwner) {
-        this.voucherOwner = voucherOwner;
+    public CreateStandardVoucherRequest setBooleanList(java.util.List<Boolean> booleanList) {
+        this.booleanList = booleanList;
         return this;
     }
-    public String getVoucherOwner() {
-        return this.voucherOwner;
+    public java.util.List<Boolean> getBooleanList() {
+        return this.booleanList;
+    }
+
+    public CreateStandardVoucherRequest setDateList(java.util.List<String> dateList) {
+        this.dateList = dateList;
+        return this;
+    }
+    public java.util.List<String> getDateList() {
+        return this.dateList;
     }
 
 }

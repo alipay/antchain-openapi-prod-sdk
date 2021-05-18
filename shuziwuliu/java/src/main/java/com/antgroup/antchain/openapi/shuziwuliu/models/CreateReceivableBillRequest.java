@@ -13,8 +13,12 @@ public class CreateReceivableBillRequest extends TeaModel {
 
     // 测试
     @NameInMap("test")
+    public AuthParty test;
+
+    // 的撒
+    @NameInMap("status")
     @Validation(required = true)
-    public String test;
+    public ApiTest status;
 
     public static CreateReceivableBillRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateReceivableBillRequest self = new CreateReceivableBillRequest();
@@ -37,12 +41,20 @@ public class CreateReceivableBillRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateReceivableBillRequest setTest(String test) {
+    public CreateReceivableBillRequest setTest(AuthParty test) {
         this.test = test;
         return this;
     }
-    public String getTest() {
+    public AuthParty getTest() {
         return this.test;
+    }
+
+    public CreateReceivableBillRequest setStatus(ApiTest status) {
+        this.status = status;
+        return this;
+    }
+    public ApiTest getStatus() {
+        return this.status;
     }
 
 }
