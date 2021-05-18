@@ -28,6 +28,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=true)]
         public string FileType { get; set; }
 
+        // 端ID
+        [NameInMap("terminal_identity")]
+        [Validation(Required=true)]
+        public string TerminalIdentity { get; set; }
+
     }
 
 }
