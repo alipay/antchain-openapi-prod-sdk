@@ -683,7 +683,7 @@ type CpfUserLoanInfo struct {
 	// 用户证件号码
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 证件类型
-	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 配偶证件号码
 	PoId *string `json:"po_id,omitempty" xml:"po_id,omitempty" require:"true"`
 	// 配偶姓名
@@ -709,8 +709,8 @@ func (s *CpfUserLoanInfo) SetUserId(v string) *CpfUserLoanInfo {
 	return s
 }
 
-func (s *CpfUserLoanInfo) SetUserIdType(v string) *CpfUserLoanInfo {
-	s.UserIdType = &v
+func (s *CpfUserLoanInfo) SetUserName(v string) *CpfUserLoanInfo {
+	s.UserName = &v
 	return s
 }
 
@@ -2844,7 +2844,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.11"),
+				"sdk_version":      tea.String("1.0.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
