@@ -821,6 +821,123 @@ func (s *SoNotifyBookingParam) SetVoyage(v string) *SoNotifyBookingParam {
 	return s
 }
 
+// 接口测试
+type ApiTest struct {
+	// 测试String
+	TestString *string `json:"test_string,omitempty" xml:"test_string,omitempty" require:"true" maxLength:"100" minLength:"0"`
+	// 测试Int
+	TestInt *int64 `json:"test_int,omitempty" xml:"test_int,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Integer
+	TestInteger *int64 `json:"test_integer,omitempty" xml:"test_integer,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Long
+	TestLong *int64 `json:"test_long,omitempty" xml:"test_long,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Boolean
+	TestBoolean *bool `json:"test_boolean,omitempty" xml:"test_boolean,omitempty" require:"true"`
+	// 测试Date
+	TestDate *string `json:"test_date,omitempty" xml:"test_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 凭证列表_stringList
+	StringList []*string `json:"string_list,omitempty" xml:"string_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_ints
+	Ints []*int64 `json:"ints,omitempty" xml:"ints,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_longs
+	Longs []*int64 `json:"longs,omitempty" xml:"longs,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_integerList
+	IntegerList []*int64 `json:"integer_list,omitempty" xml:"integer_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_longList
+	LongList []*int64 `json:"long_list,omitempty" xml:"long_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_booleanList
+	BooleanList []*bool `json:"boolean_list,omitempty" xml:"boolean_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_dateList
+	DateList []*string `json:"date_list,omitempty" xml:"date_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_apiTestList
+	ApiTestList []*ApiTestInfo `json:"api_test_list,omitempty" xml:"api_test_list,omitempty" require:"true" type:"Repeated"`
+	// 测试apiTestInfo
+	ApiTestInfo *ApiTest `json:"api_test_info,omitempty" xml:"api_test_info,omitempty" require:"true"`
+}
+
+func (s ApiTest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiTest) GoString() string {
+	return s.String()
+}
+
+func (s *ApiTest) SetTestString(v string) *ApiTest {
+	s.TestString = &v
+	return s
+}
+
+func (s *ApiTest) SetTestInt(v int64) *ApiTest {
+	s.TestInt = &v
+	return s
+}
+
+func (s *ApiTest) SetTestInteger(v int64) *ApiTest {
+	s.TestInteger = &v
+	return s
+}
+
+func (s *ApiTest) SetTestLong(v int64) *ApiTest {
+	s.TestLong = &v
+	return s
+}
+
+func (s *ApiTest) SetTestBoolean(v bool) *ApiTest {
+	s.TestBoolean = &v
+	return s
+}
+
+func (s *ApiTest) SetTestDate(v string) *ApiTest {
+	s.TestDate = &v
+	return s
+}
+
+func (s *ApiTest) SetStringList(v []*string) *ApiTest {
+	s.StringList = v
+	return s
+}
+
+func (s *ApiTest) SetInts(v []*int64) *ApiTest {
+	s.Ints = v
+	return s
+}
+
+func (s *ApiTest) SetLongs(v []*int64) *ApiTest {
+	s.Longs = v
+	return s
+}
+
+func (s *ApiTest) SetIntegerList(v []*int64) *ApiTest {
+	s.IntegerList = v
+	return s
+}
+
+func (s *ApiTest) SetLongList(v []*int64) *ApiTest {
+	s.LongList = v
+	return s
+}
+
+func (s *ApiTest) SetBooleanList(v []*bool) *ApiTest {
+	s.BooleanList = v
+	return s
+}
+
+func (s *ApiTest) SetDateList(v []*string) *ApiTest {
+	s.DateList = v
+	return s
+}
+
+func (s *ApiTest) SetApiTestList(v []*ApiTestInfo) *ApiTest {
+	s.ApiTestList = v
+	return s
+}
+
+func (s *ApiTest) SetApiTestInfo(v *ApiTest) *ApiTest {
+	s.ApiTestInfo = v
+	return s
+}
+
 // 资费项账单
 type ReceiptBillTariffParam struct {
 	// 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
@@ -962,6 +1079,8 @@ type AuthChainFile struct {
 	UploadChainTime *string `json:"upload_chain_time,omitempty" xml:"upload_chain_time,omitempty" require:"true"`
 	// 上链文件下载链接
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
 }
 
 func (s AuthChainFile) String() string {
@@ -994,6 +1113,11 @@ func (s *AuthChainFile) SetUploadChainTime(v string) *AuthChainFile {
 
 func (s *AuthChainFile) SetFileUrl(v string) *AuthChainFile {
 	s.FileUrl = &v
+	return s
+}
+
+func (s *AuthChainFile) SetFileName(v string) *AuthChainFile {
+	s.FileName = &v
 	return s
 }
 
@@ -1565,11 +1689,103 @@ func (s *UploadFinancingParam) SetAmounts(v string) *UploadFinancingParam {
 	return s
 }
 
+// 库存货物
+type InventoryCargo struct {
+	// 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+	InventoryIndex *int64 `json:"inventory_index,omitempty" xml:"inventory_index,omitempty" require:"true"`
+	// sku品名
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true"`
+	// 商品名称
+	//
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty"`
+	// 商品单品重量(kg)
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty"`
+	// 商品外扩长宽高(cm)
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty"`
+	// 商品单品货物价值(元),最多支持2位小数
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty"`
+	// 当前库存货物数量
+	CurrentInventoryCargoNum *int64 `json:"current_inventory_cargo_num,omitempty" xml:"current_inventory_cargo_num,omitempty" require:"true"`
+	// 客户代码
+	//
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	// 关联保单号,需要仓储CP做拆分计算
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+	//
+	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 时区,仓储CP上报入库时间所属的时区
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty"`
+}
+
+func (s InventoryCargo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InventoryCargo) GoString() string {
+	return s.String()
+}
+
+func (s *InventoryCargo) SetInventoryIndex(v int64) *InventoryCargo {
+	s.InventoryIndex = &v
+	return s
+}
+
+func (s *InventoryCargo) SetSku(v string) *InventoryCargo {
+	s.Sku = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoName(v string) *InventoryCargo {
+	s.CargoName = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoWeight(v string) *InventoryCargo {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoDimensions(v string) *InventoryCargo {
+	s.CargoDimensions = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCargoWorth(v string) *InventoryCargo {
+	s.CargoWorth = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCurrentInventoryCargoNum(v int64) *InventoryCargo {
+	s.CurrentInventoryCargoNum = &v
+	return s
+}
+
+func (s *InventoryCargo) SetCustomerCode(v string) *InventoryCargo {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *InventoryCargo) SetPolicyNo(v string) *InventoryCargo {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *InventoryCargo) SetStockinDate(v string) *InventoryCargo {
+	s.StockinDate = &v
+	return s
+}
+
+func (s *InventoryCargo) SetTimezone(v string) *InventoryCargo {
+	s.Timezone = &v
+	return s
+}
+
 // 签署方
 type AuthParty struct {
 	// 签署方名称
 	SignPartyName *string `json:"sign_party_name,omitempty" xml:"sign_party_name,omitempty" require:"true"`
-	// 签署方证件类型
+	// 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
 	SignPartyCertType *string `json:"sign_party_cert_type,omitempty" xml:"sign_party_cert_type,omitempty" require:"true"`
 	// 签署方证件号码
 	SignPartyCertNum *string `json:"sign_party_cert_num,omitempty" xml:"sign_party_cert_num,omitempty" require:"true"`
@@ -1645,6 +1861,60 @@ func (s *TxDto) SetDataType(v string) *TxDto {
 	return s
 }
 
+// 接口测试
+type ApiTestInfo struct {
+	// 测试String
+	TestString *string `json:"test_string,omitempty" xml:"test_string,omitempty" require:"true" maxLength:"100" minLength:"0"`
+	// 测试Int
+	TestInt *int64 `json:"test_int,omitempty" xml:"test_int,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Integer
+	TestInteger *int64 `json:"test_integer,omitempty" xml:"test_integer,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Long
+	TestLong *int64 `json:"test_long,omitempty" xml:"test_long,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 测试Boolean
+	TestBoolean *bool `json:"test_boolean,omitempty" xml:"test_boolean,omitempty" require:"true"`
+	// 测试Date
+	TestDate *string `json:"test_date,omitempty" xml:"test_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ApiTestInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiTestInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ApiTestInfo) SetTestString(v string) *ApiTestInfo {
+	s.TestString = &v
+	return s
+}
+
+func (s *ApiTestInfo) SetTestInt(v int64) *ApiTestInfo {
+	s.TestInt = &v
+	return s
+}
+
+func (s *ApiTestInfo) SetTestInteger(v int64) *ApiTestInfo {
+	s.TestInteger = &v
+	return s
+}
+
+func (s *ApiTestInfo) SetTestLong(v int64) *ApiTestInfo {
+	s.TestLong = &v
+	return s
+}
+
+func (s *ApiTestInfo) SetTestBoolean(v bool) *ApiTestInfo {
+	s.TestBoolean = &v
+	return s
+}
+
+func (s *ApiTestInfo) SetTestDate(v string) *ApiTestInfo {
+	s.TestDate = &v
+	return s
+}
+
 // 用户凭证信息
 type UserIssueId struct {
 	// 凭证id
@@ -1668,6 +1938,32 @@ func (s *UserIssueId) SetIssueId(v string) *UserIssueId {
 
 func (s *UserIssueId) SetBalanceAmt(v string) *UserIssueId {
 	s.BalanceAmt = &v
+	return s
+}
+
+// 附加条款
+type MainItemAdd struct {
+	// 附加条款代码
+	MainItemAddCode *string `json:"main_item_add_code,omitempty" xml:"main_item_add_code,omitempty"`
+	// 附加条款内容
+	MainItemAddContent *string `json:"main_item_add_content,omitempty" xml:"main_item_add_content,omitempty"`
+}
+
+func (s MainItemAdd) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MainItemAdd) GoString() string {
+	return s.String()
+}
+
+func (s *MainItemAdd) SetMainItemAddCode(v string) *MainItemAdd {
+	s.MainItemAddCode = &v
+	return s
+}
+
+func (s *MainItemAdd) SetMainItemAddContent(v string) *MainItemAdd {
+	s.MainItemAddContent = &v
 	return s
 }
 
@@ -1755,6 +2051,75 @@ func (s *BookingNoInfo) SetBookingNo(v string) *BookingNoInfo {
 
 func (s *BookingNoInfo) SetBkgNo(v string) *BookingNoInfo {
 	s.BkgNo = &v
+	return s
+}
+
+// 入库货物
+type StockinCargo struct {
+	// 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+	StockinIndex *int64 `json:"stockin_index,omitempty" xml:"stockin_index,omitempty" require:"true"`
+	// sku品名
+	//
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true"`
+	// 商品名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty"`
+	// 商品单品重量(kg)
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty"`
+	// 商品外扩长宽高(cm)
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty"`
+	// 商品单品货物价值(元),，最多支持2位小数
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty"`
+	// 箱号
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
+	// 实际入库件数
+	ActualStockinNum *int64 `json:"actual_stockin_num,omitempty" xml:"actual_stockin_num,omitempty" require:"true"`
+}
+
+func (s StockinCargo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StockinCargo) GoString() string {
+	return s.String()
+}
+
+func (s *StockinCargo) SetStockinIndex(v int64) *StockinCargo {
+	s.StockinIndex = &v
+	return s
+}
+
+func (s *StockinCargo) SetSku(v string) *StockinCargo {
+	s.Sku = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoName(v string) *StockinCargo {
+	s.CargoName = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoWeight(v string) *StockinCargo {
+	s.CargoWeight = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoDimensions(v string) *StockinCargo {
+	s.CargoDimensions = &v
+	return s
+}
+
+func (s *StockinCargo) SetCargoWorth(v string) *StockinCargo {
+	s.CargoWorth = &v
+	return s
+}
+
+func (s *StockinCargo) SetContainerNo(v string) *StockinCargo {
+	s.ContainerNo = &v
+	return s
+}
+
+func (s *StockinCargo) SetActualStockinNum(v int64) *StockinCargo {
+	s.ActualStockinNum = &v
 	return s
 }
 
@@ -2884,7 +3249,9 @@ type CreateReceivableBillRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 测试
-	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
+	Test *AuthParty `json:"test,omitempty" xml:"test,omitempty"`
+	// 的撒
+	Status *ApiTest `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s CreateReceivableBillRequest) String() string {
@@ -2905,8 +3272,13 @@ func (s *CreateReceivableBillRequest) SetProductInstanceId(v string) *CreateRece
 	return s
 }
 
-func (s *CreateReceivableBillRequest) SetTest(v string) *CreateReceivableBillRequest {
-	s.Test = &v
+func (s *CreateReceivableBillRequest) SetTest(v *AuthParty) *CreateReceivableBillRequest {
+	s.Test = v
+	return s
+}
+
+func (s *CreateReceivableBillRequest) SetStatus(v *ApiTest) *CreateReceivableBillRequest {
+	s.Status = v
 	return s
 }
 
@@ -2949,113 +3321,34 @@ func (s *CreateReceivableBillResponse) SetTxCodes(v []*TxDto) *CreateReceivableB
 	return s
 }
 
-type CreateStandardAccountRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 账户的code
-	AccountCode *string `json:"account_code,omitempty" xml:"account_code,omitempty" require:"true"`
-	// 账户的公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
-}
-
-func (s CreateStandardAccountRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateStandardAccountRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CreateStandardAccountRequest) SetAuthToken(v string) *CreateStandardAccountRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateStandardAccountRequest) SetProductInstanceId(v string) *CreateStandardAccountRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *CreateStandardAccountRequest) SetAccountCode(v string) *CreateStandardAccountRequest {
-	s.AccountCode = &v
-	return s
-}
-
-func (s *CreateStandardAccountRequest) SetPublicKey(v string) *CreateStandardAccountRequest {
-	s.PublicKey = &v
-	return s
-}
-
-type CreateStandardAccountResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果
-	TxCodes []*TxDto `json:"tx_codes,omitempty" xml:"tx_codes,omitempty" type:"Repeated"`
-}
-
-func (s CreateStandardAccountResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateStandardAccountResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CreateStandardAccountResponse) SetReqMsgId(v string) *CreateStandardAccountResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CreateStandardAccountResponse) SetResultCode(v string) *CreateStandardAccountResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CreateStandardAccountResponse) SetResultMsg(v string) *CreateStandardAccountResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateStandardAccountResponse) SetTxCodes(v []*TxDto) *CreateStandardAccountResponse {
-	s.TxCodes = v
-	return s
-}
-
 type CreateStandardVoucherRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据标识
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true" maxLength:"10" minLength:"0"`
 	// 资产类型
-	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty" require:"true"`
-	// 发行金额
-	AmountProof *string `json:"amount_proof,omitempty" xml:"amount_proof,omitempty" require:"true"`
-	// 发行金额
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 余额
-	BalanceProof *string `json:"balance_proof,omitempty" xml:"balance_proof,omitempty" require:"true"`
-	// 余额
-	Balance *string `json:"balance,omitempty" xml:"balance,omitempty" require:"true"`
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty" require:"true" maxLength:"10" minLength:"0"`
+	// 发行金额_Integer
+	AmountInt *int64 `json:"amount_int,omitempty" xml:"amount_int,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 发行金额_Long
+	AmountLong *int64 `json:"amount_long,omitempty" xml:"amount_long,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 账户是否存在
+	Exist *bool `json:"exist,omitempty" xml:"exist,omitempty" require:"true"`
 	// 发行时间
-	IssueTime *int64 `json:"issue_time,omitempty" xml:"issue_time,omitempty" require:"true"`
-	// 到期时间
-	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true"`
-	// 清分时间
-	ClearingTime *int64 `json:"clearing_time,omitempty" xml:"clearing_time,omitempty" require:"true"`
-	// 发布者
-	Issuer *string `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
-	// 资本者
-	Capital *string `json:"capital,omitempty" xml:"capital,omitempty" require:"true"`
-	// 所属账户
-	VoucherOwner *string `json:"voucher_owner,omitempty" xml:"voucher_owner,omitempty" require:"true"`
+	IssueTime *string `json:"issue_time,omitempty" xml:"issue_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 签署方
+	ApiTest *ApiTest `json:"api_test,omitempty" xml:"api_test,omitempty" require:"true"`
+	// 凭证列表_voucherArray
+	VoucherArray []*int64 `json:"voucher_array,omitempty" xml:"voucher_array,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_voucherList
+	VoucherList []*string `json:"voucher_list,omitempty" xml:"voucher_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_apiTestList
+	ApiTestList []*ApiTest `json:"api_test_list,omitempty" xml:"api_test_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_booleanList
+	BooleanList []*bool `json:"boolean_list,omitempty" xml:"boolean_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_dateList
+	DateList []*string `json:"date_list,omitempty" xml:"date_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateStandardVoucherRequest) String() string {
@@ -3086,58 +3379,53 @@ func (s *CreateStandardVoucherRequest) SetAssetType(v string) *CreateStandardVou
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetAmountProof(v string) *CreateStandardVoucherRequest {
-	s.AmountProof = &v
+func (s *CreateStandardVoucherRequest) SetAmountInt(v int64) *CreateStandardVoucherRequest {
+	s.AmountInt = &v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetAmount(v string) *CreateStandardVoucherRequest {
-	s.Amount = &v
+func (s *CreateStandardVoucherRequest) SetAmountLong(v int64) *CreateStandardVoucherRequest {
+	s.AmountLong = &v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetBalanceProof(v string) *CreateStandardVoucherRequest {
-	s.BalanceProof = &v
+func (s *CreateStandardVoucherRequest) SetExist(v bool) *CreateStandardVoucherRequest {
+	s.Exist = &v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetBalance(v string) *CreateStandardVoucherRequest {
-	s.Balance = &v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetCurrency(v string) *CreateStandardVoucherRequest {
-	s.Currency = &v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetIssueTime(v int64) *CreateStandardVoucherRequest {
+func (s *CreateStandardVoucherRequest) SetIssueTime(v string) *CreateStandardVoucherRequest {
 	s.IssueTime = &v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetExpireTime(v int64) *CreateStandardVoucherRequest {
-	s.ExpireTime = &v
+func (s *CreateStandardVoucherRequest) SetApiTest(v *ApiTest) *CreateStandardVoucherRequest {
+	s.ApiTest = v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetClearingTime(v int64) *CreateStandardVoucherRequest {
-	s.ClearingTime = &v
+func (s *CreateStandardVoucherRequest) SetVoucherArray(v []*int64) *CreateStandardVoucherRequest {
+	s.VoucherArray = v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetIssuer(v string) *CreateStandardVoucherRequest {
-	s.Issuer = &v
+func (s *CreateStandardVoucherRequest) SetVoucherList(v []*string) *CreateStandardVoucherRequest {
+	s.VoucherList = v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetCapital(v string) *CreateStandardVoucherRequest {
-	s.Capital = &v
+func (s *CreateStandardVoucherRequest) SetApiTestList(v []*ApiTest) *CreateStandardVoucherRequest {
+	s.ApiTestList = v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetVoucherOwner(v string) *CreateStandardVoucherRequest {
-	s.VoucherOwner = &v
+func (s *CreateStandardVoucherRequest) SetBooleanList(v []*bool) *CreateStandardVoucherRequest {
+	s.BooleanList = v
+	return s
+}
+
+func (s *CreateStandardVoucherRequest) SetDateList(v []*string) *CreateStandardVoucherRequest {
+	s.DateList = v
 	return s
 }
 
@@ -3148,8 +3436,8 @@ type CreateStandardVoucherResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果
-	TxCodes []*TxDto `json:"tx_codes,omitempty" xml:"tx_codes,omitempty" type:"Repeated"`
+	// 编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 }
 
 func (s CreateStandardVoucherResponse) String() string {
@@ -3175,309 +3463,8 @@ func (s *CreateStandardVoucherResponse) SetResultMsg(v string) *CreateStandardVo
 	return s
 }
 
-func (s *CreateStandardVoucherResponse) SetTxCodes(v []*TxDto) *CreateStandardVoucherResponse {
-	s.TxCodes = v
-	return s
-}
-
-type QueryStandardVoucherRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数据标识
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
-	// 所属账户
-	VoucherOwner *string `json:"voucher_owner,omitempty" xml:"voucher_owner,omitempty" require:"true"`
-}
-
-func (s QueryStandardVoucherRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryStandardVoucherRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryStandardVoucherRequest) SetAuthToken(v string) *QueryStandardVoucherRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryStandardVoucherRequest) SetProductInstanceId(v string) *QueryStandardVoucherRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryStandardVoucherRequest) SetBusinessCode(v string) *QueryStandardVoucherRequest {
-	s.BusinessCode = &v
-	return s
-}
-
-func (s *QueryStandardVoucherRequest) SetVoucherOwner(v string) *QueryStandardVoucherRequest {
-	s.VoucherOwner = &v
-	return s
-}
-
-type QueryStandardVoucherResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果
-	TxCodes []*TxDto `json:"tx_codes,omitempty" xml:"tx_codes,omitempty" type:"Repeated"`
-}
-
-func (s QueryStandardVoucherResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryStandardVoucherResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryStandardVoucherResponse) SetReqMsgId(v string) *QueryStandardVoucherResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryStandardVoucherResponse) SetResultCode(v string) *QueryStandardVoucherResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryStandardVoucherResponse) SetResultMsg(v string) *QueryStandardVoucherResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryStandardVoucherResponse) SetTxCodes(v []*TxDto) *QueryStandardVoucherResponse {
-	s.TxCodes = v
-	return s
-}
-
-type ExecStandardVouchertransferRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 所属账户
-	VoucherOwner *string `json:"voucher_owner,omitempty" xml:"voucher_owner,omitempty" require:"true"`
-	// 数据标识
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
-	// 余额
-	BalanceSenderTransfer *string `json:"balance_sender_transfer,omitempty" xml:"balance_sender_transfer,omitempty" require:"true"`
-	// 余额
-	BalanceProof *string `json:"balance_proof,omitempty" xml:"balance_proof,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverAccount *string `json:"balance_receiver_account,omitempty" xml:"balance_receiver_account,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverBusinessCode *string `json:"balance_receiver_business_code,omitempty" xml:"balance_receiver_business_code,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverTransfer *string `json:"balance_receiver_transfer,omitempty" xml:"balance_receiver_transfer,omitempty" require:"true"`
-}
-
-func (s ExecStandardVouchertransferRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecStandardVouchertransferRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ExecStandardVouchertransferRequest) SetAuthToken(v string) *ExecStandardVouchertransferRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetProductInstanceId(v string) *ExecStandardVouchertransferRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetVoucherOwner(v string) *ExecStandardVouchertransferRequest {
-	s.VoucherOwner = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBusinessCode(v string) *ExecStandardVouchertransferRequest {
-	s.BusinessCode = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBalanceSenderTransfer(v string) *ExecStandardVouchertransferRequest {
-	s.BalanceSenderTransfer = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBalanceProof(v string) *ExecStandardVouchertransferRequest {
-	s.BalanceProof = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBalanceReceiverAccount(v string) *ExecStandardVouchertransferRequest {
-	s.BalanceReceiverAccount = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBalanceReceiverBusinessCode(v string) *ExecStandardVouchertransferRequest {
-	s.BalanceReceiverBusinessCode = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferRequest) SetBalanceReceiverTransfer(v string) *ExecStandardVouchertransferRequest {
-	s.BalanceReceiverTransfer = &v
-	return s
-}
-
-type ExecStandardVouchertransferResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果
-	TxCodes []*TxDto `json:"tx_codes,omitempty" xml:"tx_codes,omitempty" type:"Repeated"`
-}
-
-func (s ExecStandardVouchertransferResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExecStandardVouchertransferResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ExecStandardVouchertransferResponse) SetReqMsgId(v string) *ExecStandardVouchertransferResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferResponse) SetResultCode(v string) *ExecStandardVouchertransferResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferResponse) SetResultMsg(v string) *ExecStandardVouchertransferResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ExecStandardVouchertransferResponse) SetTxCodes(v []*TxDto) *ExecStandardVouchertransferResponse {
-	s.TxCodes = v
-	return s
-}
-
-type RedeemStandardVoucherRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数据标识
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
-	// 所属账户
-	VoucherOwner *string `json:"voucher_owner,omitempty" xml:"voucher_owner,omitempty" require:"true"`
-	// 余额
-	BalanceSenderTransfer *string `json:"balance_sender_transfer,omitempty" xml:"balance_sender_transfer,omitempty" require:"true"`
-	// 余额
-	BalanceProof *string `json:"balance_proof,omitempty" xml:"balance_proof,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverAccount *string `json:"balance_receiver_account,omitempty" xml:"balance_receiver_account,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverBusinessCode *string `json:"balance_receiver_business_code,omitempty" xml:"balance_receiver_business_code,omitempty" require:"true"`
-	// 余额
-	BalanceReceiverTransfer *string `json:"balance_receiver_transfer,omitempty" xml:"balance_receiver_transfer,omitempty" require:"true"`
-}
-
-func (s RedeemStandardVoucherRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RedeemStandardVoucherRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RedeemStandardVoucherRequest) SetAuthToken(v string) *RedeemStandardVoucherRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetProductInstanceId(v string) *RedeemStandardVoucherRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBusinessCode(v string) *RedeemStandardVoucherRequest {
-	s.BusinessCode = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetVoucherOwner(v string) *RedeemStandardVoucherRequest {
-	s.VoucherOwner = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBalanceSenderTransfer(v string) *RedeemStandardVoucherRequest {
-	s.BalanceSenderTransfer = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBalanceProof(v string) *RedeemStandardVoucherRequest {
-	s.BalanceProof = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBalanceReceiverAccount(v string) *RedeemStandardVoucherRequest {
-	s.BalanceReceiverAccount = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBalanceReceiverBusinessCode(v string) *RedeemStandardVoucherRequest {
-	s.BalanceReceiverBusinessCode = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherRequest) SetBalanceReceiverTransfer(v string) *RedeemStandardVoucherRequest {
-	s.BalanceReceiverTransfer = &v
-	return s
-}
-
-type RedeemStandardVoucherResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果
-	TxCodes []*TxDto `json:"tx_codes,omitempty" xml:"tx_codes,omitempty" type:"Repeated"`
-}
-
-func (s RedeemStandardVoucherResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RedeemStandardVoucherResponse) GoString() string {
-	return s.String()
-}
-
-func (s *RedeemStandardVoucherResponse) SetReqMsgId(v string) *RedeemStandardVoucherResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherResponse) SetResultCode(v string) *RedeemStandardVoucherResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherResponse) SetResultMsg(v string) *RedeemStandardVoucherResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *RedeemStandardVoucherResponse) SetTxCodes(v []*TxDto) *RedeemStandardVoucherResponse {
-	s.TxCodes = v
+func (s *CreateStandardVoucherResponse) SetCode(v string) *CreateStandardVoucherResponse {
+	s.Code = &v
 	return s
 }
 
@@ -17355,6 +17342,535 @@ func (s *RepayInsuranceCbrfResponse) SetIdemFlag(v bool) *RepayInsuranceCbrfResp
 	return s
 }
 
+type ApplyInsuranceCbecRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投保交易号，调用方生成的唯一编码
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
+	// 保司编码，CPIC---太保
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
+	// 险种编码，03--跨境出口货运险
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"64"`
+	// 投保人姓名
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
+	// 投保人证件类型，03--营业执照
+	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" maxLength:"40"`
+	// 投保人证件号码
+	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" maxLength:"800"`
+	// 被保人姓名
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
+	// 被保人证件类型，01--居民身份证，03--营业执照
+	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" maxLength:"40"`
+	// 被保人证件号码
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" maxLength:"800"`
+	// 出库单号/航次号/运单号
+	RelatedOrderNo *string `json:"related_order_no,omitempty" xml:"related_order_no,omitempty" require:"true" maxLength:"200"`
+	// 包装及数量
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true" maxLength:"20"`
+	// 货物名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"100"`
+	// 包装代码,参考保司提供样例-包装代码
+	PackingCode *string `json:"packing_code,omitempty" xml:"packing_code,omitempty" require:"true" maxLength:"2"`
+	// 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+	CargoTypeCode *string `json:"cargo_type_code,omitempty" xml:"cargo_type_code,omitempty" require:"true" maxLength:"4"`
+	// 航行区域代码,参考保司提供样例-航行区域代码
+	FlightAreaCode *string `json:"flight_area_code,omitempty" xml:"flight_area_code,omitempty" require:"true" maxLength:"10"`
+	// 运输方式代码,参考保司提供样例-运输方式
+	TransportTypeCode *string `json:"transport_type_code,omitempty" xml:"transport_type_code,omitempty" require:"true" maxLength:"2"`
+	// 运输工具名称
+	TransportMeansName *string `json:"transport_means_name,omitempty" xml:"transport_means_name,omitempty" require:"true" maxLength:"30"`
+	// 航次号
+	Voyage *string `json:"voyage,omitempty" xml:"voyage,omitempty" maxLength:"30"`
+	// 出发地
+	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"200"`
+	// 中转地
+	TransitPoint *string `json:"transit_point,omitempty" xml:"transit_point,omitempty" maxLength:"100"`
+	// 目的地
+	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"200"`
+	// 理赔代理地代码，参考保司提供样例-理赔代理地
+	ClaimAgentCode *string `json:"claim_agent_code,omitempty" xml:"claim_agent_code,omitempty" require:"true" maxLength:"30"`
+	// 主险条款代码
+	MainItemCode *string `json:"main_item_code,omitempty" xml:"main_item_code,omitempty" require:"true" maxLength:"12"`
+	// 主险条款内容
+	MainItemContent *string `json:"main_item_content,omitempty" xml:"main_item_content,omitempty" require:"true" maxLength:"500"`
+	// 附加条款集合
+	MainItemAdds []*MainItemAdd `json:"main_item_adds,omitempty" xml:"main_item_adds,omitempty" type:"Repeated"`
+	// 特别约定
+	Specialize *string `json:"specialize,omitempty" xml:"specialize,omitempty" maxLength:"500"`
+	// 申报货物价值,，最多兼容2位小数，单位（元）
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true" maxLength:"50"`
+	// 费率，最多兼容9位小数
+	Rate *string `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 保费，最多兼容2位小数，单位（元）
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
+	// 保险起期，日期格式yyyy-mm-dd
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 起运日期，日期格式yyyy-mm-dd
+	SaleDate *string `json:"sale_date,omitempty" xml:"sale_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ApplyInsuranceCbecRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceCbecRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceCbecRequest) SetAuthToken(v string) *ApplyInsuranceCbecRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetProductInstanceId(v string) *ApplyInsuranceCbecRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTradeNo(v string) *ApplyInsuranceCbecRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetExternalChannelCode(v string) *ApplyInsuranceCbecRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetExternalProductCode(v string) *ApplyInsuranceCbecRequest {
+	s.ExternalProductCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTbrName(v string) *ApplyInsuranceCbecRequest {
+	s.TbrName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTbrIdType(v string) *ApplyInsuranceCbecRequest {
+	s.TbrIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTbrIdNo(v string) *ApplyInsuranceCbecRequest {
+	s.TbrIdNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetBbrName(v string) *ApplyInsuranceCbecRequest {
+	s.BbrName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetBbrIdType(v string) *ApplyInsuranceCbecRequest {
+	s.BbrIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetBbrIdNo(v string) *ApplyInsuranceCbecRequest {
+	s.BbrIdNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetRelatedOrderNo(v string) *ApplyInsuranceCbecRequest {
+	s.RelatedOrderNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetCargoQuantity(v string) *ApplyInsuranceCbecRequest {
+	s.CargoQuantity = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetCargoName(v string) *ApplyInsuranceCbecRequest {
+	s.CargoName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetPackingCode(v string) *ApplyInsuranceCbecRequest {
+	s.PackingCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetCargoTypeCode(v string) *ApplyInsuranceCbecRequest {
+	s.CargoTypeCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetFlightAreaCode(v string) *ApplyInsuranceCbecRequest {
+	s.FlightAreaCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTransportTypeCode(v string) *ApplyInsuranceCbecRequest {
+	s.TransportTypeCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTransportMeansName(v string) *ApplyInsuranceCbecRequest {
+	s.TransportMeansName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetVoyage(v string) *ApplyInsuranceCbecRequest {
+	s.Voyage = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetStartPlace(v string) *ApplyInsuranceCbecRequest {
+	s.StartPlace = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetTransitPoint(v string) *ApplyInsuranceCbecRequest {
+	s.TransitPoint = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetDestination(v string) *ApplyInsuranceCbecRequest {
+	s.Destination = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetClaimAgentCode(v string) *ApplyInsuranceCbecRequest {
+	s.ClaimAgentCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetMainItemCode(v string) *ApplyInsuranceCbecRequest {
+	s.MainItemCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetMainItemContent(v string) *ApplyInsuranceCbecRequest {
+	s.MainItemContent = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetMainItemAdds(v []*MainItemAdd) *ApplyInsuranceCbecRequest {
+	s.MainItemAdds = v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetSpecialize(v string) *ApplyInsuranceCbecRequest {
+	s.Specialize = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetCargoWorth(v string) *ApplyInsuranceCbecRequest {
+	s.CargoWorth = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetRate(v string) *ApplyInsuranceCbecRequest {
+	s.Rate = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetPremium(v string) *ApplyInsuranceCbecRequest {
+	s.Premium = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetInsureStart(v string) *ApplyInsuranceCbecRequest {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecRequest) SetSaleDate(v string) *ApplyInsuranceCbecRequest {
+	s.SaleDate = &v
+	return s
+}
+
+type ApplyInsuranceCbecResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 投保交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 保单号，保司生成的投保业务号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 保费
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty"`
+}
+
+func (s ApplyInsuranceCbecResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceCbecResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceCbecResponse) SetReqMsgId(v string) *ApplyInsuranceCbecResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecResponse) SetResultCode(v string) *ApplyInsuranceCbecResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecResponse) SetResultMsg(v string) *ApplyInsuranceCbecResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecResponse) SetTradeNo(v string) *ApplyInsuranceCbecResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecResponse) SetPolicyNo(v string) *ApplyInsuranceCbecResponse {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbecResponse) SetPremium(v string) *ApplyInsuranceCbecResponse {
+	s.Premium = &v
+	return s
+}
+
+type ApplyInsuranceStockinRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 入库交易流水号，保持唯一
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 入库单号，可参考格式：年月日+唯一字符
+	StockinNo *string `json:"stockin_no,omitempty" xml:"stockin_no,omitempty" require:"true"`
+	// 入库时间，格式：yyyy-MM-dd HH:mm:ss
+	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 时区
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" require:"true"`
+	// 仓库代码
+	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true"`
+	// 客户代码
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	// 保单号,国内起运时投保产生的保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	// 入库货物列表
+	StockinCargos []*StockinCargo `json:"stockin_cargos,omitempty" xml:"stockin_cargos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyInsuranceStockinRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceStockinRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceStockinRequest) SetAuthToken(v string) *ApplyInsuranceStockinRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetProductInstanceId(v string) *ApplyInsuranceStockinRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetTradeNo(v string) *ApplyInsuranceStockinRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetStockinNo(v string) *ApplyInsuranceStockinRequest {
+	s.StockinNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetStockinDate(v string) *ApplyInsuranceStockinRequest {
+	s.StockinDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetTimezone(v string) *ApplyInsuranceStockinRequest {
+	s.Timezone = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetRepositoryCode(v string) *ApplyInsuranceStockinRequest {
+	s.RepositoryCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetCustomerCode(v string) *ApplyInsuranceStockinRequest {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetPolicyNo(v string) *ApplyInsuranceStockinRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinRequest) SetStockinCargos(v []*StockinCargo) *ApplyInsuranceStockinRequest {
+	s.StockinCargos = v
+	return s
+}
+
+type ApplyInsuranceStockinResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入库交易流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 入库单号
+	//
+	//
+	StockinNo *string `json:"stockin_no,omitempty" xml:"stockin_no,omitempty"`
+}
+
+func (s ApplyInsuranceStockinResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceStockinResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceStockinResponse) SetReqMsgId(v string) *ApplyInsuranceStockinResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinResponse) SetResultCode(v string) *ApplyInsuranceStockinResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinResponse) SetResultMsg(v string) *ApplyInsuranceStockinResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinResponse) SetTradeNo(v string) *ApplyInsuranceStockinResponse {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceStockinResponse) SetStockinNo(v string) *ApplyInsuranceStockinResponse {
+	s.StockinNo = &v
+	return s
+}
+
+type ApplyInsuranceInventoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 库存申报交易号，调用方生成的唯一编码
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 库存申报编号
+	InventoryNo *string `json:"inventory_no,omitempty" xml:"inventory_no,omitempty" require:"true"`
+	// 库存查询时间，yyyy-mm-dd，精确到（天）
+	InventoryQueryDate *string `json:"inventory_query_date,omitempty" xml:"inventory_query_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 仓库代码
+	//
+	//
+	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true"`
+	// 库存货物列表
+	InventoryCargos []*InventoryCargo `json:"inventory_cargos,omitempty" xml:"inventory_cargos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyInsuranceInventoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceInventoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetAuthToken(v string) *ApplyInsuranceInventoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetProductInstanceId(v string) *ApplyInsuranceInventoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetTradeNo(v string) *ApplyInsuranceInventoryRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetInventoryNo(v string) *ApplyInsuranceInventoryRequest {
+	s.InventoryNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetInventoryQueryDate(v string) *ApplyInsuranceInventoryRequest {
+	s.InventoryQueryDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetRepositoryCode(v string) *ApplyInsuranceInventoryRequest {
+	s.RepositoryCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryRequest) SetInventoryCargos(v []*InventoryCargo) *ApplyInsuranceInventoryRequest {
+	s.InventoryCargos = v
+	return s
+}
+
+type ApplyInsuranceInventoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 库存申报编号
+	InventoryNo *string `json:"inventory_no,omitempty" xml:"inventory_no,omitempty"`
+	// 库存申报交易流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s ApplyInsuranceInventoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyInsuranceInventoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyInsuranceInventoryResponse) SetReqMsgId(v string) *ApplyInsuranceInventoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryResponse) SetResultCode(v string) *ApplyInsuranceInventoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryResponse) SetResultMsg(v string) *ApplyInsuranceInventoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryResponse) SetInventoryNo(v string) *ApplyInsuranceInventoryResponse {
+	s.InventoryNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceInventoryResponse) SetTradeNo(v string) *ApplyInsuranceInventoryResponse {
+	s.TradeNo = &v
+	return s
+}
+
 type PushAuthSigninfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -17367,7 +17883,7 @@ type PushAuthSigninfoRequest struct {
 	SignTheme *string `json:"sign_theme,omitempty" xml:"sign_theme,omitempty"`
 	// 发起方名称
 	InitiatorName *string `json:"initiator_name,omitempty" xml:"initiator_name,omitempty" require:"true"`
-	// 发起方证件类型
+	// 发起方证件类型，可以填写的枚举类型：UNIFIED_SOCIAL_CREDIT_CODE,  BUSINESS_LICENSE_NUMBER。分别表示统一社会信用代码和工商注册号
 	InitiatorCertType *string `json:"initiator_cert_type,omitempty" xml:"initiator_cert_type,omitempty" require:"true"`
 	// 发起方证件号码
 	InitiatorCertNum *string `json:"initiator_cert_num,omitempty" xml:"initiator_cert_num,omitempty" require:"true"`
@@ -17877,6 +18393,8 @@ type QueryPfQuotaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目标识
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 证件号
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true" maxLength:"20"`
 	// 证件类型;050 统一社会信用证代码
@@ -17902,6 +18420,11 @@ func (s *QueryPfQuotaRequest) SetAuthToken(v string) *QueryPfQuotaRequest {
 
 func (s *QueryPfQuotaRequest) SetProductInstanceId(v string) *QueryPfQuotaRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPfQuotaRequest) SetProjectId(v string) *QueryPfQuotaRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -17968,9 +18491,13 @@ type ApplyPfWaybillfinancingRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true" maxLength:"23"`
+	// 项目标识；与对接同学确认对应的标识值
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 承运商did
 	CarrierDid *string `json:"carrier_did,omitempty" xml:"carrier_did,omitempty" require:"true" maxLength:"80"`
-	// 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+	// 融资支用金额；总长度最长20位，保留2位小数，四舍五入
 	FinancingAmount *string `json:"financing_amount,omitempty" xml:"financing_amount,omitempty" require:"true"`
 	// 支用币种，支持 CNY,USD
 	FinancingCurrency *string `json:"financing_currency,omitempty" xml:"financing_currency,omitempty" require:"true"`
@@ -17994,8 +18521,6 @@ type ApplyPfWaybillfinancingRequest struct {
 	PayeeName *string `json:"payee_name,omitempty" xml:"payee_name,omitempty" require:"true" maxLength:"200"`
 	// 0政府投标 1经营周转 2支付货款 3采购机票，一般默认填 2
 	Purpose *string `json:"purpose,omitempty" xml:"purpose,omitempty" require:"true"`
-	// 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true" maxLength:"23"`
 	// 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
 	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" maxLength:"800"`
 	// 转账附言
@@ -18038,6 +18563,16 @@ func (s *ApplyPfWaybillfinancingRequest) SetAuthToken(v string) *ApplyPfWaybillf
 
 func (s *ApplyPfWaybillfinancingRequest) SetProductInstanceId(v string) *ApplyPfWaybillfinancingRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyPfWaybillfinancingRequest) SetRequestNo(v string) *ApplyPfWaybillfinancingRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *ApplyPfWaybillfinancingRequest) SetProjectId(v string) *ApplyPfWaybillfinancingRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -18098,11 +18633,6 @@ func (s *ApplyPfWaybillfinancingRequest) SetPayeeName(v string) *ApplyPfWaybillf
 
 func (s *ApplyPfWaybillfinancingRequest) SetPurpose(v string) *ApplyPfWaybillfinancingRequest {
 	s.Purpose = &v
-	return s
-}
-
-func (s *ApplyPfWaybillfinancingRequest) SetRequestNo(v string) *ApplyPfWaybillfinancingRequest {
-	s.RequestNo = &v
 	return s
 }
 
@@ -18210,6 +18740,8 @@ type PushPfPledgeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目标识，可联系对接同学提供
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 账单标识
 	BillId *string `json:"bill_id,omitempty" xml:"bill_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 融资主体did
@@ -18233,6 +18765,11 @@ func (s *PushPfPledgeRequest) SetAuthToken(v string) *PushPfPledgeRequest {
 
 func (s *PushPfPledgeRequest) SetProductInstanceId(v string) *PushPfPledgeRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushPfPledgeRequest) SetProjectId(v string) *PushPfPledgeRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -18591,6 +19128,8 @@ type ApplyPfConfirmationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 请求号
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 项目标识，可联系对接同学获取
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 客户号
 	ClientNo *string `json:"client_no,omitempty" xml:"client_no,omitempty" require:"true"`
 	// 融资主体did
@@ -18663,6 +19202,11 @@ func (s *ApplyPfConfirmationRequest) SetProductInstanceId(v string) *ApplyPfConf
 
 func (s *ApplyPfConfirmationRequest) SetRequestNo(v string) *ApplyPfConfirmationRequest {
 	s.RequestNo = &v
+	return s
+}
+
+func (s *ApplyPfConfirmationRequest) SetProjectId(v string) *ApplyPfConfirmationRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -18828,6 +19372,8 @@ type ApplyPfFinancingqualificationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目标识，可联系对接同学获取
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 客户号
 	ClientNo *string `json:"client_no,omitempty" xml:"client_no,omitempty" require:"true"`
 	// 融资主体did
@@ -18855,6 +19401,11 @@ func (s *ApplyPfFinancingqualificationRequest) SetAuthToken(v string) *ApplyPfFi
 
 func (s *ApplyPfFinancingqualificationRequest) SetProductInstanceId(v string) *ApplyPfFinancingqualificationRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyPfFinancingqualificationRequest) SetProjectId(v string) *ApplyPfFinancingqualificationRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -18930,6 +19481,8 @@ type QueryPfFinancingqualificationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目标识，可联系对接同学获取
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
 	// 客户号
 	ClientNo *string `json:"client_no,omitempty" xml:"client_no,omitempty" require:"true"`
 	// 融资主体did
@@ -18959,6 +19512,11 @@ func (s *QueryPfFinancingqualificationRequest) SetAuthToken(v string) *QueryPfFi
 
 func (s *QueryPfFinancingqualificationRequest) SetProductInstanceId(v string) *QueryPfFinancingqualificationRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPfFinancingqualificationRequest) SetProjectId(v string) *QueryPfFinancingqualificationRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -19073,6 +19631,97 @@ func (s *QueryPfFinancingqualificationResponse) SetFailRslt(v string) *QueryPfFi
 
 func (s *QueryPfFinancingqualificationResponse) SetGenReason(v string) *QueryPfFinancingqualificationResponse {
 	s.GenReason = &v
+	return s
+}
+
+type CallbackPfDefinpfRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 回调内容
+	ContentInfo *string `json:"content_info,omitempty" xml:"content_info,omitempty" require:"true"`
+}
+
+func (s CallbackPfDefinpfRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackPfDefinpfRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackPfDefinpfRequest) SetAuthToken(v string) *CallbackPfDefinpfRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfRequest) SetProductInstanceId(v string) *CallbackPfDefinpfRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfRequest) SetBizType(v string) *CallbackPfDefinpfRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfRequest) SetContentInfo(v string) *CallbackPfDefinpfRequest {
+	s.ContentInfo = &v
+	return s
+}
+
+type CallbackPfDefinpfResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 返回结果
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s CallbackPfDefinpfResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackPfDefinpfResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackPfDefinpfResponse) SetReqMsgId(v string) *CallbackPfDefinpfResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfResponse) SetResultCode(v string) *CallbackPfDefinpfResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfResponse) SetResultMsg(v string) *CallbackPfDefinpfResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfResponse) SetResult(v bool) *CallbackPfDefinpfResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfResponse) SetErrorMsg(v string) *CallbackPfDefinpfResponse {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *CallbackPfDefinpfResponse) SetResponse(v string) *CallbackPfDefinpfResponse {
+	s.Response = &v
 	return s
 }
 
@@ -25650,7 +26299,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.96"),
+				"sdk_version":      tea.String("1.3.105"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -25733,40 +26382,6 @@ func (client *Client) CreateReceivableBillEx(request *CreateReceivableBillReques
 }
 
 /**
- * Description: 创建账户
- * Summary: 创建账户
- */
-func (client *Client) CreateStandardAccount(request *CreateStandardAccountRequest) (_result *CreateStandardAccountResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateStandardAccountResponse{}
-	_body, _err := client.CreateStandardAccountEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 创建账户
- * Summary: 创建账户
- */
-func (client *Client) CreateStandardAccountEx(request *CreateStandardAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateStandardAccountResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateStandardAccountResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.standard.account.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 凭证发行
  * Summary: 凭证发行
  */
@@ -25793,108 +26408,6 @@ func (client *Client) CreateStandardVoucherEx(request *CreateStandardVoucherRequ
 	}
 	_result = &CreateStandardVoucherResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.standard.voucher.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 查询凭证
- * Summary: 查询凭证
- */
-func (client *Client) QueryStandardVoucher(request *QueryStandardVoucherRequest) (_result *QueryStandardVoucherResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryStandardVoucherResponse{}
-	_body, _err := client.QueryStandardVoucherEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 查询凭证
- * Summary: 查询凭证
- */
-func (client *Client) QueryStandardVoucherEx(request *QueryStandardVoucherRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryStandardVoucherResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryStandardVoucherResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.standard.voucher.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 凭证转让
- * Summary: 凭证转让
- */
-func (client *Client) ExecStandardVouchertransfer(request *ExecStandardVouchertransferRequest) (_result *ExecStandardVouchertransferResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ExecStandardVouchertransferResponse{}
-	_body, _err := client.ExecStandardVouchertransferEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 凭证转让
- * Summary: 凭证转让
- */
-func (client *Client) ExecStandardVouchertransferEx(request *ExecStandardVouchertransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecStandardVouchertransferResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ExecStandardVouchertransferResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.standard.vouchertransfer.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 凭证赎回
- * Summary: 凭证赎回
- */
-func (client *Client) RedeemStandardVoucher(request *RedeemStandardVoucherRequest) (_result *RedeemStandardVoucherResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &RedeemStandardVoucherResponse{}
-	_body, _err := client.RedeemStandardVoucherEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 凭证赎回
- * Summary: 凭证赎回
- */
-func (client *Client) RedeemStandardVoucherEx(request *RedeemStandardVoucherRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RedeemStandardVoucherResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &RedeemStandardVoucherResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.standard.voucher.redeem"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -28899,6 +29412,108 @@ func (client *Client) RepayInsuranceCbrfEx(request *RepayInsuranceCbrfRequest, h
 }
 
 /**
+ * Description: 跨境出口货运险投保
+ * Summary: 跨境出口货运险投保
+ */
+func (client *Client) ApplyInsuranceCbec(request *ApplyInsuranceCbecRequest) (_result *ApplyInsuranceCbecResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceCbecResponse{}
+	_body, _err := client.ApplyInsuranceCbecEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 跨境出口货运险投保
+ * Summary: 跨境出口货运险投保
+ */
+func (client *Client) ApplyInsuranceCbecEx(request *ApplyInsuranceCbecRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceCbecResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceCbecResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.cbec.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 货物入库申报
+ * Summary: 货物入库申报
+ */
+func (client *Client) ApplyInsuranceStockin(request *ApplyInsuranceStockinRequest) (_result *ApplyInsuranceStockinResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceStockinResponse{}
+	_body, _err := client.ApplyInsuranceStockinEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 货物入库申报
+ * Summary: 货物入库申报
+ */
+func (client *Client) ApplyInsuranceStockinEx(request *ApplyInsuranceStockinRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceStockinResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceStockinResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.stockin.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 货物库存申报
+ * Summary: 货物库存申报
+ */
+func (client *Client) ApplyInsuranceInventory(request *ApplyInsuranceInventoryRequest) (_result *ApplyInsuranceInventoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyInsuranceInventoryResponse{}
+	_body, _err := client.ApplyInsuranceInventoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 货物库存申报
+ * Summary: 货物库存申报
+ */
+func (client *Client) ApplyInsuranceInventoryEx(request *ApplyInsuranceInventoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyInsuranceInventoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyInsuranceInventoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.inventory.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 授权签署信息推送
  * Summary: 授权签署信息推送
  */
@@ -29035,8 +29650,8 @@ func (client *Client) QueryPfQuotaEx(request *QueryPfQuotaRequest, headers map[s
 }
 
 /**
- * Description: 基于运单的融资申请
- * Summary: 运单融资申请
+ * Description: 池融资支用申请
+ * Summary: 池融资支用申请
  */
 func (client *Client) ApplyPfWaybillfinancing(request *ApplyPfWaybillfinancingRequest) (_result *ApplyPfWaybillfinancingResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -29051,8 +29666,8 @@ func (client *Client) ApplyPfWaybillfinancing(request *ApplyPfWaybillfinancingRe
 }
 
 /**
- * Description: 基于运单的融资申请
- * Summary: 运单融资申请
+ * Description: 池融资支用申请
+ * Summary: 池融资支用申请
  */
 func (client *Client) ApplyPfWaybillfinancingEx(request *ApplyPfWaybillfinancingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyPfWaybillfinancingResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -29299,6 +29914,40 @@ func (client *Client) QueryPfFinancingqualificationEx(request *QueryPfFinancingq
 	}
 	_result = &QueryPfFinancingqualificationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.pf.financingqualification.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 池融资主站回调金融云接口
+ * Summary: 池融资主站回调金融云接口
+ */
+func (client *Client) CallbackPfDefinpf(request *CallbackPfDefinpfRequest) (_result *CallbackPfDefinpfResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackPfDefinpfResponse{}
+	_body, _err := client.CallbackPfDefinpfEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 池融资主站回调金融云接口
+ * Summary: 池融资主站回调金融云接口
+ */
+func (client *Client) CallbackPfDefinpfEx(request *CallbackPfDefinpfRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackPfDefinpfResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackPfDefinpfResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.pf.definpf.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
