@@ -500,7 +500,7 @@ export class CpfUserLoanInfo extends $tea.Model {
   // 用户证件号码
   userId: string;
   // 证件类型
-  userIdType: string;
+  userName: string;
   // 配偶证件号码
   poId: string;
   // 配偶姓名
@@ -514,7 +514,7 @@ export class CpfUserLoanInfo extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
-      userIdType: 'user_id_type',
+      userName: 'user_name',
       poId: 'po_id',
       poName: 'po_name',
       loanId: 'loan_id',
@@ -526,7 +526,7 @@ export class CpfUserLoanInfo extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       userId: 'string',
-      userIdType: 'string',
+      userName: 'string',
       poId: 'string',
       poName: 'string',
       loanId: 'string',
@@ -2178,7 +2178,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.11",
+          sdk_version: "1.0.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
