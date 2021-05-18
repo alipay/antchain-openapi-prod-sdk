@@ -10,9 +10,9 @@ public class CpfUserLoanInfo extends TeaModel {
     public String userId;
 
     // 证件类型
-    @NameInMap("user_id_type")
+    @NameInMap("user_name")
     @Validation(required = true)
-    public String userIdType;
+    public String userName;
 
     // 配偶证件号码
     @NameInMap("po_id")
@@ -52,12 +52,12 @@ public class CpfUserLoanInfo extends TeaModel {
         return this.userId;
     }
 
-    public CpfUserLoanInfo setUserIdType(String userIdType) {
-        this.userIdType = userIdType;
+    public CpfUserLoanInfo setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
-    public String getUserIdType() {
-        return this.userIdType;
+    public String getUserName() {
+        return this.userName;
     }
 
     public CpfUserLoanInfo setPoId(String poId) {
