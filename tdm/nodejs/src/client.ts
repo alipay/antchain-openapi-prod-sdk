@@ -1095,12 +1095,15 @@ export class GetCpfCertRequest extends $tea.Model {
   issueId: string;
   // 证明文件存储类型
   fileType: string;
+  // 端ID
+  terminalIdentity: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       issueId: 'issue_id',
       fileType: 'file_type',
+      terminalIdentity: 'terminal_identity',
     };
   }
 
@@ -1110,6 +1113,7 @@ export class GetCpfCertRequest extends $tea.Model {
       productInstanceId: 'string',
       issueId: 'string',
       fileType: 'string',
+      terminalIdentity: 'string',
     };
   }
 
@@ -2178,7 +2182,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
