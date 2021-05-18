@@ -19,6 +19,12 @@ class QueryPfQuotaRequest extends Model
      */
     public $productInstanceId;
 
+    // 项目标识
+    /**
+     * @var string
+     */
+    public $projectId;
+
     // 证件号
     /**
      * @var string
@@ -45,6 +51,7 @@ class QueryPfQuotaRequest extends Model
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
+        'projectId'           => 'project_id',
         'certNo'              => 'cert_no',
         'certType'            => 'cert_type',
         'customerNo'          => 'customer_no',
@@ -53,10 +60,12 @@ class QueryPfQuotaRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('certType', $this->certType, true);
         Model::validateRequired('customerNo', $this->customerNo, true);
         Model::validateRequired('financingSubjectDid', $this->financingSubjectDid, true);
+        Model::validateMaxLength('projectId', $this->projectId, 64);
         Model::validateMaxLength('certNo', $this->certNo, 20);
         Model::validateMaxLength('certType', $this->certType, 3);
         Model::validateMaxLength('customerNo', $this->customerNo, 20);
@@ -70,6 +79,9 @@ class QueryPfQuotaRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
@@ -100,6 +112,9 @@ class QueryPfQuotaRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];

@@ -31,104 +31,105 @@ class CreateStandardVoucherRequest extends Model
      */
     public $assetType;
 
-    // 发行金额
+    // 发行金额_Integer
     /**
-     * @var string
+     * @var int
      */
-    public $amountProof;
+    public $amountInt;
 
-    // 发行金额
+    // 发行金额_Long
     /**
-     * @var string
+     * @var int
      */
-    public $amount;
+    public $amountLong;
 
-    // 余额
+    // 账户是否存在
     /**
-     * @var string
+     * @var bool
      */
-    public $balanceProof;
-
-    // 余额
-    /**
-     * @var string
-     */
-    public $balance;
-
-    // 币种
-    /**
-     * @var string
-     */
-    public $currency;
+    public $exist;
 
     // 发行时间
     /**
-     * @var int
+     * @var string
      */
     public $issueTime;
 
-    // 到期时间
+    // 签署方
     /**
-     * @var int
+     * @var ApiTest
      */
-    public $expireTime;
+    public $apiTest;
 
-    // 清分时间
+    // 凭证列表_voucherArray
     /**
-     * @var int
+     * @var int[]
      */
-    public $clearingTime;
+    public $voucherArray;
 
-    // 发布者
+    // 凭证列表_voucherList
     /**
-     * @var string
+     * @var string[]
      */
-    public $issuer;
+    public $voucherList;
 
-    // 资本者
+    // 凭证列表_apiTestList
     /**
-     * @var string
+     * @var ApiTest[]
      */
-    public $capital;
+    public $apiTestList;
 
-    // 所属账户
+    // 凭证列表_booleanList
     /**
-     * @var string
+     * @var bool[]
      */
-    public $voucherOwner;
+    public $booleanList;
+
+    // 凭证列表_dateList
+    /**
+     * @var string[]
+     */
+    public $dateList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'businessCode'      => 'business_code',
         'assetType'         => 'asset_type',
-        'amountProof'       => 'amount_proof',
-        'amount'            => 'amount',
-        'balanceProof'      => 'balance_proof',
-        'balance'           => 'balance',
-        'currency'          => 'currency',
+        'amountInt'         => 'amount_int',
+        'amountLong'        => 'amount_long',
+        'exist'             => 'exist',
         'issueTime'         => 'issue_time',
-        'expireTime'        => 'expire_time',
-        'clearingTime'      => 'clearing_time',
-        'issuer'            => 'issuer',
-        'capital'           => 'capital',
-        'voucherOwner'      => 'voucher_owner',
+        'apiTest'           => 'api_test',
+        'voucherArray'      => 'voucher_array',
+        'voucherList'       => 'voucher_list',
+        'apiTestList'       => 'api_test_list',
+        'booleanList'       => 'boolean_list',
+        'dateList'          => 'date_list',
     ];
 
     public function validate()
     {
         Model::validateRequired('businessCode', $this->businessCode, true);
         Model::validateRequired('assetType', $this->assetType, true);
-        Model::validateRequired('amountProof', $this->amountProof, true);
-        Model::validateRequired('amount', $this->amount, true);
-        Model::validateRequired('balanceProof', $this->balanceProof, true);
-        Model::validateRequired('balance', $this->balance, true);
-        Model::validateRequired('currency', $this->currency, true);
+        Model::validateRequired('amountInt', $this->amountInt, true);
+        Model::validateRequired('amountLong', $this->amountLong, true);
+        Model::validateRequired('exist', $this->exist, true);
         Model::validateRequired('issueTime', $this->issueTime, true);
-        Model::validateRequired('expireTime', $this->expireTime, true);
-        Model::validateRequired('clearingTime', $this->clearingTime, true);
-        Model::validateRequired('issuer', $this->issuer, true);
-        Model::validateRequired('capital', $this->capital, true);
-        Model::validateRequired('voucherOwner', $this->voucherOwner, true);
+        Model::validateRequired('apiTest', $this->apiTest, true);
+        Model::validateRequired('voucherArray', $this->voucherArray, true);
+        Model::validateRequired('voucherList', $this->voucherList, true);
+        Model::validateRequired('apiTestList', $this->apiTestList, true);
+        Model::validateRequired('booleanList', $this->booleanList, true);
+        Model::validateRequired('dateList', $this->dateList, true);
+        Model::validateMaxLength('businessCode', $this->businessCode, 10);
+        Model::validateMaxLength('assetType', $this->assetType, 10);
+        Model::validateMinLength('businessCode', $this->businessCode, 0);
+        Model::validateMinLength('assetType', $this->assetType, 0);
+        Model::validateMaximum('amountInt', $this->amountInt, 10);
+        Model::validateMaximum('amountLong', $this->amountLong, 10);
+        Model::validateMinimum('amountInt', $this->amountInt, 0);
+        Model::validateMinimum('amountLong', $this->amountLong, 0);
+        Model::validatePattern('issueTime', $this->issueTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -146,38 +147,41 @@ class CreateStandardVoucherRequest extends Model
         if (null !== $this->assetType) {
             $res['asset_type'] = $this->assetType;
         }
-        if (null !== $this->amountProof) {
-            $res['amount_proof'] = $this->amountProof;
+        if (null !== $this->amountInt) {
+            $res['amount_int'] = $this->amountInt;
         }
-        if (null !== $this->amount) {
-            $res['amount'] = $this->amount;
+        if (null !== $this->amountLong) {
+            $res['amount_long'] = $this->amountLong;
         }
-        if (null !== $this->balanceProof) {
-            $res['balance_proof'] = $this->balanceProof;
-        }
-        if (null !== $this->balance) {
-            $res['balance'] = $this->balance;
-        }
-        if (null !== $this->currency) {
-            $res['currency'] = $this->currency;
+        if (null !== $this->exist) {
+            $res['exist'] = $this->exist;
         }
         if (null !== $this->issueTime) {
             $res['issue_time'] = $this->issueTime;
         }
-        if (null !== $this->expireTime) {
-            $res['expire_time'] = $this->expireTime;
+        if (null !== $this->apiTest) {
+            $res['api_test'] = null !== $this->apiTest ? $this->apiTest->toMap() : null;
         }
-        if (null !== $this->clearingTime) {
-            $res['clearing_time'] = $this->clearingTime;
+        if (null !== $this->voucherArray) {
+            $res['voucher_array'] = $this->voucherArray;
         }
-        if (null !== $this->issuer) {
-            $res['issuer'] = $this->issuer;
+        if (null !== $this->voucherList) {
+            $res['voucher_list'] = $this->voucherList;
         }
-        if (null !== $this->capital) {
-            $res['capital'] = $this->capital;
+        if (null !== $this->apiTestList) {
+            $res['api_test_list'] = [];
+            if (null !== $this->apiTestList && \is_array($this->apiTestList)) {
+                $n = 0;
+                foreach ($this->apiTestList as $item) {
+                    $res['api_test_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
-        if (null !== $this->voucherOwner) {
-            $res['voucher_owner'] = $this->voucherOwner;
+        if (null !== $this->booleanList) {
+            $res['boolean_list'] = $this->booleanList;
+        }
+        if (null !== $this->dateList) {
+            $res['date_list'] = $this->dateList;
         }
 
         return $res;
@@ -203,38 +207,49 @@ class CreateStandardVoucherRequest extends Model
         if (isset($map['asset_type'])) {
             $model->assetType = $map['asset_type'];
         }
-        if (isset($map['amount_proof'])) {
-            $model->amountProof = $map['amount_proof'];
+        if (isset($map['amount_int'])) {
+            $model->amountInt = $map['amount_int'];
         }
-        if (isset($map['amount'])) {
-            $model->amount = $map['amount'];
+        if (isset($map['amount_long'])) {
+            $model->amountLong = $map['amount_long'];
         }
-        if (isset($map['balance_proof'])) {
-            $model->balanceProof = $map['balance_proof'];
-        }
-        if (isset($map['balance'])) {
-            $model->balance = $map['balance'];
-        }
-        if (isset($map['currency'])) {
-            $model->currency = $map['currency'];
+        if (isset($map['exist'])) {
+            $model->exist = $map['exist'];
         }
         if (isset($map['issue_time'])) {
             $model->issueTime = $map['issue_time'];
         }
-        if (isset($map['expire_time'])) {
-            $model->expireTime = $map['expire_time'];
+        if (isset($map['api_test'])) {
+            $model->apiTest = ApiTest::fromMap($map['api_test']);
         }
-        if (isset($map['clearing_time'])) {
-            $model->clearingTime = $map['clearing_time'];
+        if (isset($map['voucher_array'])) {
+            if (!empty($map['voucher_array'])) {
+                $model->voucherArray = $map['voucher_array'];
+            }
         }
-        if (isset($map['issuer'])) {
-            $model->issuer = $map['issuer'];
+        if (isset($map['voucher_list'])) {
+            if (!empty($map['voucher_list'])) {
+                $model->voucherList = $map['voucher_list'];
+            }
         }
-        if (isset($map['capital'])) {
-            $model->capital = $map['capital'];
+        if (isset($map['api_test_list'])) {
+            if (!empty($map['api_test_list'])) {
+                $model->apiTestList = [];
+                $n                  = 0;
+                foreach ($map['api_test_list'] as $item) {
+                    $model->apiTestList[$n++] = null !== $item ? ApiTest::fromMap($item) : $item;
+                }
+            }
         }
-        if (isset($map['voucher_owner'])) {
-            $model->voucherOwner = $map['voucher_owner'];
+        if (isset($map['boolean_list'])) {
+            if (!empty($map['boolean_list'])) {
+                $model->booleanList = $map['boolean_list'];
+            }
+        }
+        if (isset($map['date_list'])) {
+            if (!empty($map['date_list'])) {
+                $model->dateList = $map['date_list'];
+            }
         }
 
         return $model;

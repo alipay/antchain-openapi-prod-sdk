@@ -15,14 +15,20 @@ use AntChain\SHUZIWULIU\Models\ApplyCreditIssueclearRequest;
 use AntChain\SHUZIWULIU\Models\ApplyCreditIssueclearResponse;
 use AntChain\SHUZIWULIU\Models\ApplyCreditmodeIssueclearRequest;
 use AntChain\SHUZIWULIU\Models\ApplyCreditmodeIssueclearResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbecRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbecResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceCbrfResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceInventoryRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceInventoryResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinResponse;
 use AntChain\SHUZIWULIU\Models\ApplyPfConfirmationRequest;
 use AntChain\SHUZIWULIU\Models\ApplyPfConfirmationResponse;
 use AntChain\SHUZIWULIU\Models\ApplyPfFinancingqualificationRequest;
@@ -37,6 +43,8 @@ use AntChain\SHUZIWULIU\Models\BatchcreateCreditmodeIssueRequest;
 use AntChain\SHUZIWULIU\Models\BatchcreateCreditmodeIssueResponse;
 use AntChain\SHUZIWULIU\Models\CallbackCreditCommonRequest;
 use AntChain\SHUZIWULIU\Models\CallbackCreditCommonResponse;
+use AntChain\SHUZIWULIU\Models\CallbackPfDefinpfRequest;
+use AntChain\SHUZIWULIU\Models\CallbackPfDefinpfResponse;
 use AntChain\SHUZIWULIU\Models\CancelCreditIssuebatchbysaasRequest;
 use AntChain\SHUZIWULIU\Models\CancelCreditIssuebatchbysaasResponse;
 use AntChain\SHUZIWULIU\Models\CancelCreditIssuebatchRequest;
@@ -99,8 +107,6 @@ use AntChain\SHUZIWULIU\Models\CreatePlatformDidRequest;
 use AntChain\SHUZIWULIU\Models\CreatePlatformDidResponse;
 use AntChain\SHUZIWULIU\Models\CreateReceivableBillRequest;
 use AntChain\SHUZIWULIU\Models\CreateReceivableBillResponse;
-use AntChain\SHUZIWULIU\Models\CreateStandardAccountRequest;
-use AntChain\SHUZIWULIU\Models\CreateStandardAccountResponse;
 use AntChain\SHUZIWULIU\Models\CreateStandardVoucherRequest;
 use AntChain\SHUZIWULIU\Models\CreateStandardVoucherResponse;
 use AntChain\SHUZIWULIU\Models\CreateTransportWaybillRequest;
@@ -111,8 +117,6 @@ use AntChain\SHUZIWULIU\Models\CreateWaybillOrderRequest;
 use AntChain\SHUZIWULIU\Models\CreateWaybillOrderResponse;
 use AntChain\SHUZIWULIU\Models\CreateWaybillPayRequest;
 use AntChain\SHUZIWULIU\Models\CreateWaybillPayResponse;
-use AntChain\SHUZIWULIU\Models\ExecStandardVouchertransferRequest;
-use AntChain\SHUZIWULIU\Models\ExecStandardVouchertransferResponse;
 use AntChain\SHUZIWULIU\Models\FinishBizAuditRequest;
 use AntChain\SHUZIWULIU\Models\FinishBizAuditResponse;
 use AntChain\SHUZIWULIU\Models\FinishFinanceTransportRequest;
@@ -189,14 +193,10 @@ use AntChain\SHUZIWULIU\Models\QueryPfPledgeRequest;
 use AntChain\SHUZIWULIU\Models\QueryPfPledgeResponse;
 use AntChain\SHUZIWULIU\Models\QueryPfQuotaRequest;
 use AntChain\SHUZIWULIU\Models\QueryPfQuotaResponse;
-use AntChain\SHUZIWULIU\Models\QueryStandardVoucherRequest;
-use AntChain\SHUZIWULIU\Models\QueryStandardVoucherResponse;
 use AntChain\SHUZIWULIU\Models\QueryWaybillInfoRequest;
 use AntChain\SHUZIWULIU\Models\QueryWaybillInfoResponse;
 use AntChain\SHUZIWULIU\Models\QueryWaybillStatusRequest;
 use AntChain\SHUZIWULIU\Models\QueryWaybillStatusResponse;
-use AntChain\SHUZIWULIU\Models\RedeemStandardVoucherRequest;
-use AntChain\SHUZIWULIU\Models\RedeemStandardVoucherResponse;
 use AntChain\SHUZIWULIU\Models\ReopenCreditDriverRequest;
 use AntChain\SHUZIWULIU\Models\ReopenCreditDriverResponse;
 use AntChain\SHUZIWULIU\Models\RepayInsuranceCbrfRequest;
@@ -452,7 +452,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.96',
+                    'sdk_version'      => '1.3.105',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -532,39 +532,6 @@ class Client
     }
 
     /**
-     * Description: 创建账户
-     * Summary: 创建账户.
-     *
-     * @param CreateStandardAccountRequest $request
-     *
-     * @return CreateStandardAccountResponse
-     */
-    public function createStandardAccount($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createStandardAccountEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 创建账户
-     * Summary: 创建账户.
-     *
-     * @param CreateStandardAccountRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return CreateStandardAccountResponse
-     */
-    public function createStandardAccountEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateStandardAccountResponse::fromMap($this->doRequest('1.0', 'digital.logistic.standard.account.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 凭证发行
      * Summary: 凭证发行.
      *
@@ -595,105 +562,6 @@ class Client
         Utils::validateModel($request);
 
         return CreateStandardVoucherResponse::fromMap($this->doRequest('1.0', 'digital.logistic.standard.voucher.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询凭证
-     * Summary: 查询凭证
-     *
-     * @param QueryStandardVoucherRequest $request
-     *
-     * @return QueryStandardVoucherResponse
-     */
-    public function queryStandardVoucher($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryStandardVoucherEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询凭证
-     * Summary: 查询凭证
-     *
-     * @param QueryStandardVoucherRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return QueryStandardVoucherResponse
-     */
-    public function queryStandardVoucherEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryStandardVoucherResponse::fromMap($this->doRequest('1.0', 'digital.logistic.standard.voucher.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 凭证转让
-     * Summary: 凭证转让.
-     *
-     * @param ExecStandardVouchertransferRequest $request
-     *
-     * @return ExecStandardVouchertransferResponse
-     */
-    public function execStandardVouchertransfer($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->execStandardVouchertransferEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 凭证转让
-     * Summary: 凭证转让.
-     *
-     * @param ExecStandardVouchertransferRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
-     *
-     * @return ExecStandardVouchertransferResponse
-     */
-    public function execStandardVouchertransferEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ExecStandardVouchertransferResponse::fromMap($this->doRequest('1.0', 'digital.logistic.standard.vouchertransfer.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 凭证赎回
-     * Summary: 凭证赎回.
-     *
-     * @param RedeemStandardVoucherRequest $request
-     *
-     * @return RedeemStandardVoucherResponse
-     */
-    public function redeemStandardVoucher($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->redeemStandardVoucherEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 凭证赎回
-     * Summary: 凭证赎回.
-     *
-     * @param RedeemStandardVoucherRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return RedeemStandardVoucherResponse
-     */
-    public function redeemStandardVoucherEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return RedeemStandardVoucherResponse::fromMap($this->doRequest('1.0', 'digital.logistic.standard.voucher.redeem', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3605,6 +3473,105 @@ class Client
     }
 
     /**
+     * Description: 跨境出口货运险投保
+     * Summary: 跨境出口货运险投保.
+     *
+     * @param ApplyInsuranceCbecRequest $request
+     *
+     * @return ApplyInsuranceCbecResponse
+     */
+    public function applyInsuranceCbec($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceCbecEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 跨境出口货运险投保
+     * Summary: 跨境出口货运险投保.
+     *
+     * @param ApplyInsuranceCbecRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyInsuranceCbecResponse
+     */
+    public function applyInsuranceCbecEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceCbecResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 货物入库申报
+     * Summary: 货物入库申报.
+     *
+     * @param ApplyInsuranceStockinRequest $request
+     *
+     * @return ApplyInsuranceStockinResponse
+     */
+    public function applyInsuranceStockin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceStockinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 货物入库申报
+     * Summary: 货物入库申报.
+     *
+     * @param ApplyInsuranceStockinRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ApplyInsuranceStockinResponse
+     */
+    public function applyInsuranceStockinEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceStockinResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 货物库存申报
+     * Summary: 货物库存申报.
+     *
+     * @param ApplyInsuranceInventoryRequest $request
+     *
+     * @return ApplyInsuranceInventoryResponse
+     */
+    public function applyInsuranceInventory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceInventoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 货物库存申报
+     * Summary: 货物库存申报.
+     *
+     * @param ApplyInsuranceInventoryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyInsuranceInventoryResponse
+     */
+    public function applyInsuranceInventoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceInventoryResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 授权签署信息推送
      * Summary: 授权签署信息推送
      *
@@ -3737,8 +3704,8 @@ class Client
     }
 
     /**
-     * Description: 基于运单的融资申请
-     * Summary: 运单融资申请.
+     * Description: 池融资支用申请
+     * Summary: 池融资支用申请.
      *
      * @param ApplyPfWaybillfinancingRequest $request
      *
@@ -3753,8 +3720,8 @@ class Client
     }
 
     /**
-     * Description: 基于运单的融资申请
-     * Summary: 运单融资申请.
+     * Description: 池融资支用申请
+     * Summary: 池融资支用申请.
      *
      * @param ApplyPfWaybillfinancingRequest $request
      * @param string[]                       $headers
@@ -3998,6 +3965,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryPfFinancingqualificationResponse::fromMap($this->doRequest('1.0', 'digital.logistic.pf.financingqualification.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 池融资主站回调金融云接口
+     * Summary: 池融资主站回调金融云接口.
+     *
+     * @param CallbackPfDefinpfRequest $request
+     *
+     * @return CallbackPfDefinpfResponse
+     */
+    public function callbackPfDefinpf($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackPfDefinpfEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 池融资主站回调金融云接口
+     * Summary: 池融资主站回调金融云接口.
+     *
+     * @param CallbackPfDefinpfRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CallbackPfDefinpfResponse
+     */
+    public function callbackPfDefinpfEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackPfDefinpfResponse::fromMap($this->doRequest('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

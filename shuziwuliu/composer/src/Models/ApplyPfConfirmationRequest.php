@@ -25,6 +25,12 @@ class ApplyPfConfirmationRequest extends Model
      */
     public $requestNo;
 
+    // 项目标识，可联系对接同学获取
+    /**
+     * @var string
+     */
+    public $projectId;
+
     // 客户号
     /**
      * @var string
@@ -138,6 +144,7 @@ class ApplyPfConfirmationRequest extends Model
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
         'requestNo'            => 'request_no',
+        'projectId'            => 'project_id',
         'clientNo'             => 'client_no',
         'financingSubjectDid'  => 'financing_subject_did',
         'borrowerCardType'     => 'borrower_card_type',
@@ -158,6 +165,7 @@ class ApplyPfConfirmationRequest extends Model
     public function validate()
     {
         Model::validateRequired('requestNo', $this->requestNo, true);
+        Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('clientNo', $this->clientNo, true);
         Model::validateRequired('financingSubjectDid', $this->financingSubjectDid, true);
         Model::validateRequired('borrowerCardType', $this->borrowerCardType, true);
@@ -170,6 +178,7 @@ class ApplyPfConfirmationRequest extends Model
         Model::validateRequired('payeeName', $this->payeeName, true);
         Model::validateRequired('payeeBankNo', $this->payeeBankNo, true);
         Model::validateRequired('purpose', $this->purpose, true);
+        Model::validateMaxLength('projectId', $this->projectId, 64);
     }
 
     public function toMap()
@@ -183,6 +192,9 @@ class ApplyPfConfirmationRequest extends Model
         }
         if (null !== $this->requestNo) {
             $res['request_no'] = $this->requestNo;
+        }
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
         if (null !== $this->clientNo) {
             $res['client_no'] = $this->clientNo;
@@ -249,6 +261,9 @@ class ApplyPfConfirmationRequest extends Model
         }
         if (isset($map['request_no'])) {
             $model->requestNo = $map['request_no'];
+        }
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
         }
         if (isset($map['client_no'])) {
             $model->clientNo = $map['client_no'];

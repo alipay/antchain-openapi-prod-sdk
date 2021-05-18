@@ -19,6 +19,12 @@ class PushPfPledgeRequest extends Model
      */
     public $productInstanceId;
 
+    // 项目标识，可联系对接同学提供
+    /**
+     * @var string
+     */
+    public $projectId;
+
     // 账单标识
     /**
      * @var string
@@ -39,6 +45,7 @@ class PushPfPledgeRequest extends Model
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
+        'projectId'           => 'project_id',
         'billId'              => 'bill_id',
         'financingSubjectDid' => 'financing_subject_did',
         'requestNo'           => 'request_no',
@@ -46,9 +53,11 @@ class PushPfPledgeRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('billId', $this->billId, true);
         Model::validateRequired('financingSubjectDid', $this->financingSubjectDid, true);
         Model::validateRequired('requestNo', $this->requestNo, true);
+        Model::validateMaxLength('projectId', $this->projectId, 64);
         Model::validateMaxLength('billId', $this->billId, 128);
         Model::validateMaxLength('financingSubjectDid', $this->financingSubjectDid, 128);
         Model::validateMaxLength('requestNo', $this->requestNo, 32);
@@ -65,6 +74,9 @@ class PushPfPledgeRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
         if (null !== $this->billId) {
             $res['bill_id'] = $this->billId;
@@ -92,6 +104,9 @@ class PushPfPledgeRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
         }
         if (isset($map['bill_id'])) {
             $model->billId = $map['bill_id'];

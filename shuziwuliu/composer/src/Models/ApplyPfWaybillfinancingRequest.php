@@ -19,13 +19,25 @@ class ApplyPfWaybillfinancingRequest extends Model
      */
     public $productInstanceId;
 
+    // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+    /**
+     * @var string
+     */
+    public $requestNo;
+
+    // 项目标识；与对接同学确认对应的标识值
+    /**
+     * @var string
+     */
+    public $projectId;
+
     // 承运商did
     /**
      * @var string
      */
     public $carrierDid;
 
-    // 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+    // 融资支用金额；总长度最长20位，保留2位小数，四舍五入
     /**
      * @var string
      */
@@ -93,12 +105,6 @@ class ApplyPfWaybillfinancingRequest extends Model
      */
     public $purpose;
 
-    // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-    /**
-     * @var string
-     */
-    public $requestNo;
-
     // 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
     /**
      * @var string
@@ -162,6 +168,8 @@ class ApplyPfWaybillfinancingRequest extends Model
     protected $_name = [
         'authToken'                 => 'auth_token',
         'productInstanceId'         => 'product_instance_id',
+        'requestNo'                 => 'request_no',
+        'projectId'                 => 'project_id',
         'carrierDid'                => 'carrier_did',
         'financingAmount'           => 'financing_amount',
         'financingCurrency'         => 'financing_currency',
@@ -174,7 +182,6 @@ class ApplyPfWaybillfinancingRequest extends Model
         'payeeIdType'               => 'payee_id_type',
         'payeeName'                 => 'payee_name',
         'purpose'                   => 'purpose',
-        'requestNo'                 => 'request_no',
         'signature'                 => 'signature',
         'transferPostscript'        => 'transfer_postscript',
         'voucherCategory'           => 'voucher_category',
@@ -188,6 +195,8 @@ class ApplyPfWaybillfinancingRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('requestNo', $this->requestNo, true);
+        Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('carrierDid', $this->carrierDid, true);
         Model::validateRequired('financingAmount', $this->financingAmount, true);
         Model::validateRequired('financingCurrency', $this->financingCurrency, true);
@@ -200,10 +209,11 @@ class ApplyPfWaybillfinancingRequest extends Model
         Model::validateRequired('payeeIdType', $this->payeeIdType, true);
         Model::validateRequired('payeeName', $this->payeeName, true);
         Model::validateRequired('purpose', $this->purpose, true);
-        Model::validateRequired('requestNo', $this->requestNo, true);
         Model::validateRequired('transferPostscript', $this->transferPostscript, true);
         Model::validateRequired('voucherCategory', $this->voucherCategory, true);
         Model::validateRequired('voucherIds', $this->voucherIds, true);
+        Model::validateMaxLength('requestNo', $this->requestNo, 23);
+        Model::validateMaxLength('projectId', $this->projectId, 64);
         Model::validateMaxLength('carrierDid', $this->carrierDid, 80);
         Model::validateMaxLength('financingSubjectDid', $this->financingSubjectDid, 80);
         Model::validateMaxLength('loanTerm', $this->loanTerm, 6);
@@ -212,7 +222,6 @@ class ApplyPfWaybillfinancingRequest extends Model
         Model::validateMaxLength('payeeIdNumber', $this->payeeIdNumber, 40);
         Model::validateMaxLength('payeeIdType', $this->payeeIdType, 5);
         Model::validateMaxLength('payeeName', $this->payeeName, 200);
-        Model::validateMaxLength('requestNo', $this->requestNo, 23);
         Model::validateMaxLength('signature', $this->signature, 800);
         Model::validateMaxLength('transferPostscript', $this->transferPostscript, 3);
         Model::validateMaxLength('voucherIds', $this->voucherIds, 2000);
@@ -228,6 +237,12 @@ class ApplyPfWaybillfinancingRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->requestNo) {
+            $res['request_no'] = $this->requestNo;
+        }
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
         if (null !== $this->carrierDid) {
             $res['carrier_did'] = $this->carrierDid;
@@ -264,9 +279,6 @@ class ApplyPfWaybillfinancingRequest extends Model
         }
         if (null !== $this->purpose) {
             $res['purpose'] = $this->purpose;
-        }
-        if (null !== $this->requestNo) {
-            $res['request_no'] = $this->requestNo;
         }
         if (null !== $this->signature) {
             $res['signature'] = $this->signature;
@@ -313,6 +325,12 @@ class ApplyPfWaybillfinancingRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['request_no'])) {
+            $model->requestNo = $map['request_no'];
+        }
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
+        }
         if (isset($map['carrier_did'])) {
             $model->carrierDid = $map['carrier_did'];
         }
@@ -348,9 +366,6 @@ class ApplyPfWaybillfinancingRequest extends Model
         }
         if (isset($map['purpose'])) {
             $model->purpose = $map['purpose'];
-        }
-        if (isset($map['request_no'])) {
-            $model->requestNo = $map['request_no'];
         }
         if (isset($map['signature'])) {
             $model->signature = $map['signature'];

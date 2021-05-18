@@ -16,9 +16,9 @@ class AuthParty extends Model
      */
     public $signPartyName;
 
-    // 签署方证件类型
+    // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
     /**
-     * @example 身份证
+     * @example IDENTIFICATION_CARD
      *
      * @var string
      */

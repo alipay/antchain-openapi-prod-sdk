@@ -21,18 +21,25 @@ class CreateReceivableBillRequest extends Model
 
     // 测试
     /**
-     * @var string
+     * @var AuthParty
      */
     public $test;
+
+    // 的撒
+    /**
+     * @var ApiTest
+     */
+    public $status;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'test'              => 'test',
+        'status'            => 'status',
     ];
 
     public function validate()
     {
-        Model::validateRequired('test', $this->test, true);
+        Model::validateRequired('status', $this->status, true);
     }
 
     public function toMap()
@@ -45,7 +52,10 @@ class CreateReceivableBillRequest extends Model
             $res['product_instance_id'] = $this->productInstanceId;
         }
         if (null !== $this->test) {
-            $res['test'] = $this->test;
+            $res['test'] = null !== $this->test ? $this->test->toMap() : null;
+        }
+        if (null !== $this->status) {
+            $res['status'] = null !== $this->status ? $this->status->toMap() : null;
         }
 
         return $res;
@@ -66,7 +76,10 @@ class CreateReceivableBillRequest extends Model
             $model->productInstanceId = $map['product_instance_id'];
         }
         if (isset($map['test'])) {
-            $model->test = $map['test'];
+            $model->test = AuthParty::fromMap($map['test']);
+        }
+        if (isset($map['status'])) {
+            $model->status = ApiTest::fromMap($map['status']);
         }
 
         return $model;

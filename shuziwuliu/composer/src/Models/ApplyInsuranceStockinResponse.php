@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateStandardAccountResponse extends Model
+class ApplyInsuranceStockinResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,25 @@ class CreateStandardAccountResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果
+    // 入库交易流水号
     /**
-     * @var TxDto[]
+     * @var string
      */
-    public $txCodes;
+    public $tradeNo;
+
+    // 入库单号
+    //
+    //
+    /**
+     * @var string
+     */
+    public $stockinNo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'txCodes'    => 'tx_codes',
+        'tradeNo'    => 'trade_no',
+        'stockinNo'  => 'stockin_no',
     ];
 
     public function validate()
@@ -54,14 +63,11 @@ class CreateStandardAccountResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txCodes) {
-            $res['tx_codes'] = [];
-            if (null !== $this->txCodes && \is_array($this->txCodes)) {
-                $n = 0;
-                foreach ($this->txCodes as $item) {
-                    $res['tx_codes'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->stockinNo) {
+            $res['stockin_no'] = $this->stockinNo;
         }
 
         return $res;
@@ -70,7 +76,7 @@ class CreateStandardAccountResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateStandardAccountResponse
+     * @return ApplyInsuranceStockinResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +90,11 @@ class CreateStandardAccountResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_codes'])) {
-            if (!empty($map['tx_codes'])) {
-                $model->txCodes = [];
-                $n              = 0;
-                foreach ($map['tx_codes'] as $item) {
-                    $model->txCodes[$n++] = null !== $item ? TxDto::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['trade_no'])) {
+            $model->tradeNo = $map['trade_no'];
+        }
+        if (isset($map['stockin_no'])) {
+            $model->stockinNo = $map['stockin_no'];
         }
 
         return $model;

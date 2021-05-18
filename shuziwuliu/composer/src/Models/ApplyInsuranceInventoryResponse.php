@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryStandardVoucherResponse extends Model
+class ApplyInsuranceInventoryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryStandardVoucherResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果
+    // 库存申报编号
     /**
-     * @var TxDto[]
+     * @var string
      */
-    public $txCodes;
+    public $inventoryNo;
+
+    // 库存申报交易流水号
+    /**
+     * @var string
+     */
+    public $tradeNo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'txCodes'    => 'tx_codes',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'inventoryNo' => 'inventory_no',
+        'tradeNo'     => 'trade_no',
     ];
 
     public function validate()
@@ -54,14 +61,11 @@ class QueryStandardVoucherResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txCodes) {
-            $res['tx_codes'] = [];
-            if (null !== $this->txCodes && \is_array($this->txCodes)) {
-                $n = 0;
-                foreach ($this->txCodes as $item) {
-                    $res['tx_codes'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->inventoryNo) {
+            $res['inventory_no'] = $this->inventoryNo;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
         }
 
         return $res;
@@ -70,7 +74,7 @@ class QueryStandardVoucherResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryStandardVoucherResponse
+     * @return ApplyInsuranceInventoryResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +88,11 @@ class QueryStandardVoucherResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_codes'])) {
-            if (!empty($map['tx_codes'])) {
-                $model->txCodes = [];
-                $n              = 0;
-                foreach ($map['tx_codes'] as $item) {
-                    $model->txCodes[$n++] = null !== $item ? TxDto::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['inventory_no'])) {
+            $model->inventoryNo = $map['inventory_no'];
+        }
+        if (isset($map['trade_no'])) {
+            $model->tradeNo = $map['trade_no'];
         }
 
         return $model;

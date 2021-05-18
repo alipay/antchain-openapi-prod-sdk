@@ -47,12 +47,21 @@ class AuthChainFile extends Model
      * @var string
      */
     public $fileUrl;
+
+    // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+    /**
+     * @example 上链文件.pdf
+     *
+     * @var string
+     */
+    public $fileName;
     protected $_name = [
         'signFileHash'      => 'sign_file_hash',
         'uploadChainTxCode' => 'upload_chain_tx_code',
         'baasUniqCode'      => 'baas_uniq_code',
         'uploadChainTime'   => 'upload_chain_time',
         'fileUrl'           => 'file_url',
+        'fileName'          => 'file_name',
     ];
 
     public function validate()
@@ -62,6 +71,7 @@ class AuthChainFile extends Model
         Model::validateRequired('baasUniqCode', $this->baasUniqCode, true);
         Model::validateRequired('uploadChainTime', $this->uploadChainTime, true);
         Model::validateRequired('fileUrl', $this->fileUrl, true);
+        Model::validateRequired('fileName', $this->fileName, true);
     }
 
     public function toMap()
@@ -81,6 +91,9 @@ class AuthChainFile extends Model
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
         }
 
         return $res;
@@ -108,6 +121,9 @@ class AuthChainFile extends Model
         }
         if (isset($map['file_url'])) {
             $model->fileUrl = $map['file_url'];
+        }
+        if (isset($map['file_name'])) {
+            $model->fileName = $map['file_name'];
         }
 
         return $model;

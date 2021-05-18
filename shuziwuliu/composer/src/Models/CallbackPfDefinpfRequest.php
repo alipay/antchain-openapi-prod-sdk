@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateStandardAccountRequest extends Model
+class CallbackPfDefinpfRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,28 @@ class CreateStandardAccountRequest extends Model
      */
     public $productInstanceId;
 
-    // 账户的code
+    // 业务类型
     /**
      * @var string
      */
-    public $accountCode;
+    public $bizType;
 
-    // 账户的公钥
+    // 回调内容
     /**
      * @var string
      */
-    public $publicKey;
+    public $contentInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'accountCode'       => 'account_code',
-        'publicKey'         => 'public_key',
+        'bizType'           => 'biz_type',
+        'contentInfo'       => 'content_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accountCode', $this->accountCode, true);
-        Model::validateRequired('publicKey', $this->publicKey, true);
+        Model::validateRequired('bizType', $this->bizType, true);
+        Model::validateRequired('contentInfo', $this->contentInfo, true);
     }
 
     public function toMap()
@@ -52,11 +52,11 @@ class CreateStandardAccountRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->accountCode) {
-            $res['account_code'] = $this->accountCode;
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
         }
-        if (null !== $this->publicKey) {
-            $res['public_key'] = $this->publicKey;
+        if (null !== $this->contentInfo) {
+            $res['content_info'] = $this->contentInfo;
         }
 
         return $res;
@@ -65,7 +65,7 @@ class CreateStandardAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateStandardAccountRequest
+     * @return CallbackPfDefinpfRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +76,11 @@ class CreateStandardAccountRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['account_code'])) {
-            $model->accountCode = $map['account_code'];
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
         }
-        if (isset($map['public_key'])) {
-            $model->publicKey = $map['public_key'];
+        if (isset($map['content_info'])) {
+            $model->contentInfo = $map['content_info'];
         }
 
         return $model;

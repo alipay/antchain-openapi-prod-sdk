@@ -6,7 +6,7 @@ namespace AntChain\SHUZIWULIU\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RedeemStandardVoucherResponse extends Model
+class CallbackPfDefinpfResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,30 @@ class RedeemStandardVoucherResponse extends Model
      */
     public $resultMsg;
 
+    // 是否成功
+    /**
+     * @var bool
+     */
+    public $result;
+
+    // 错误信息
+    /**
+     * @var string
+     */
+    public $errorMsg;
+
     // 返回结果
     /**
-     * @var TxDto[]
+     * @var string
      */
-    public $txCodes;
+    public $response;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'txCodes'    => 'tx_codes',
+        'result'     => 'result',
+        'errorMsg'   => 'error_msg',
+        'response'   => 'response',
     ];
 
     public function validate()
@@ -54,14 +68,14 @@ class RedeemStandardVoucherResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txCodes) {
-            $res['tx_codes'] = [];
-            if (null !== $this->txCodes && \is_array($this->txCodes)) {
-                $n = 0;
-                foreach ($this->txCodes as $item) {
-                    $res['tx_codes'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->result) {
+            $res['result'] = $this->result;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
+        }
+        if (null !== $this->response) {
+            $res['response'] = $this->response;
         }
 
         return $res;
@@ -70,7 +84,7 @@ class RedeemStandardVoucherResponse extends Model
     /**
      * @param array $map
      *
-     * @return RedeemStandardVoucherResponse
+     * @return CallbackPfDefinpfResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +98,14 @@ class RedeemStandardVoucherResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['tx_codes'])) {
-            if (!empty($map['tx_codes'])) {
-                $model->txCodes = [];
-                $n              = 0;
-                foreach ($map['tx_codes'] as $item) {
-                    $model->txCodes[$n++] = null !== $item ? TxDto::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['result'])) {
+            $model->result = $map['result'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
+        }
+        if (isset($map['response'])) {
+            $model->response = $map['response'];
         }
 
         return $model;

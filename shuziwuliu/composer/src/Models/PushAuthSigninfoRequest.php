@@ -43,7 +43,7 @@ class PushAuthSigninfoRequest extends Model
      */
     public $initiatorName;
 
-    // 发起方证件类型
+    // 发起方证件类型，可以填写的枚举类型：UNIFIED_SOCIAL_CREDIT_CODE,  BUSINESS_LICENSE_NUMBER。分别表示统一社会信用代码和工商注册号
     /**
      * @var string
      */
