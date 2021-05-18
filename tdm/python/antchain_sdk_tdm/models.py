@@ -843,9 +843,21 @@ class IssueCertParams(TeaModel):
     def __init__(
         self,
         dkhtbh: str = None,
+        grzh: str = None,
+        ksrq: str = None,
+        jsrq: str = None,
+        gjjdkzx: str = None,
     ):
         # 贷款合同编号
         self.dkhtbh = dkhtbh
+        # 公积金中心个人账户
+        self.grzh = grzh
+        # 查询开始日期
+        self.ksrq = ksrq
+        # 查询结束日期
+        self.jsrq = jsrq
+        # 公积金贷款中心
+        self.gjjdkzx = gjjdkzx
 
     def validate(self):
         pass
@@ -854,12 +866,28 @@ class IssueCertParams(TeaModel):
         result = dict()
         if self.dkhtbh is not None:
             result['dkhtbh'] = self.dkhtbh
+        if self.grzh is not None:
+            result['grzh'] = self.grzh
+        if self.ksrq is not None:
+            result['ksrq'] = self.ksrq
+        if self.jsrq is not None:
+            result['jsrq'] = self.jsrq
+        if self.gjjdkzx is not None:
+            result['gjjdkzx'] = self.gjjdkzx
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('dkhtbh') is not None:
             self.dkhtbh = m.get('dkhtbh')
+        if m.get('grzh') is not None:
+            self.grzh = m.get('grzh')
+        if m.get('ksrq') is not None:
+            self.ksrq = m.get('ksrq')
+        if m.get('jsrq') is not None:
+            self.jsrq = m.get('jsrq')
+        if m.get('gjjdkzx') is not None:
+            self.gjjdkzx = m.get('gjjdkzx')
         return self
 
 
@@ -991,6 +1019,7 @@ class OpenCpfCertRequest(TeaModel):
         terminal_identity: str = None,
         issue_cert_type: str = None,
         provider_id: str = None,
+        data_owner_identity_type: str = None,
         data_owner_identity: str = None,
         data_owner_name: str = None,
         extend_params: str = None,
@@ -1004,6 +1033,8 @@ class OpenCpfCertRequest(TeaModel):
         self.issue_cert_type = issue_cert_type
         # 公积金中心ID
         self.provider_id = provider_id
+        # 证件类型
+        self.data_owner_identity_type = data_owner_identity_type
         # 数据拥有者ID（身份证ID）
         self.data_owner_identity = data_owner_identity
         # 数据拥有者姓名（真实姓名）
@@ -1015,6 +1046,7 @@ class OpenCpfCertRequest(TeaModel):
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.issue_cert_type, 'issue_cert_type')
         self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.data_owner_identity_type, 'data_owner_identity_type')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.data_owner_name, 'data_owner_name')
 
@@ -1030,6 +1062,8 @@ class OpenCpfCertRequest(TeaModel):
             result['issue_cert_type'] = self.issue_cert_type
         if self.provider_id is not None:
             result['provider_id'] = self.provider_id
+        if self.data_owner_identity_type is not None:
+            result['data_owner_identity_type'] = self.data_owner_identity_type
         if self.data_owner_identity is not None:
             result['data_owner_identity'] = self.data_owner_identity
         if self.data_owner_name is not None:
@@ -1050,6 +1084,8 @@ class OpenCpfCertRequest(TeaModel):
             self.issue_cert_type = m.get('issue_cert_type')
         if m.get('provider_id') is not None:
             self.provider_id = m.get('provider_id')
+        if m.get('data_owner_identity_type') is not None:
+            self.data_owner_identity_type = m.get('data_owner_identity_type')
         if m.get('data_owner_identity') is not None:
             self.data_owner_identity = m.get('data_owner_identity')
         if m.get('data_owner_name') is not None:
