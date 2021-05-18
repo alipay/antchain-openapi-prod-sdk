@@ -544,15 +544,31 @@ export class CpfUserLoanInfo extends $tea.Model {
 export class IssueCertParams extends $tea.Model {
   // 贷款合同编号
   dkhtbh?: string;
+  // 公积金中心个人账户
+  grzh?: string;
+  // 查询开始日期
+  ksrq?: string;
+  // 查询结束日期
+  jsrq?: string;
+  // 公积金贷款中心
+  gjjdkzx?: string;
   static names(): { [key: string]: string } {
     return {
       dkhtbh: 'dkhtbh',
+      grzh: 'grzh',
+      ksrq: 'ksrq',
+      jsrq: 'jsrq',
+      gjjdkzx: 'gjjdkzx',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       dkhtbh: 'string',
+      grzh: 'string',
+      ksrq: 'string',
+      jsrq: 'string',
+      gjjdkzx: 'string',
     };
   }
 
@@ -658,6 +674,8 @@ export class OpenCpfCertRequest extends $tea.Model {
   issueCertType: string;
   // 公积金中心ID
   providerId: string;
+  // 证件类型
+  dataOwnerIdentityType: string;
   // 数据拥有者ID（身份证ID）
   dataOwnerIdentity: string;
   // 数据拥有者姓名（真实姓名）
@@ -671,6 +689,7 @@ export class OpenCpfCertRequest extends $tea.Model {
       terminalIdentity: 'terminal_identity',
       issueCertType: 'issue_cert_type',
       providerId: 'provider_id',
+      dataOwnerIdentityType: 'data_owner_identity_type',
       dataOwnerIdentity: 'data_owner_identity',
       dataOwnerName: 'data_owner_name',
       extendParams: 'extend_params',
@@ -684,6 +703,7 @@ export class OpenCpfCertRequest extends $tea.Model {
       terminalIdentity: 'string',
       issueCertType: 'string',
       providerId: 'string',
+      dataOwnerIdentityType: 'string',
       dataOwnerIdentity: 'string',
       dataOwnerName: 'string',
       extendParams: 'string',
@@ -2182,7 +2202,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.13",
+          sdk_version: "1.0.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
