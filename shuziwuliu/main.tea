@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.96',
+    sdk_version = '1.3.105',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -362,6 +362,40 @@ model SoNotifyBookingParam {
   voyage?: string(name='voyage', example='暂无'),
 }
 
+// 接口测试
+model ApiTest {
+  // 测试String
+  testString: string(maxLength=100, minLength=0, name='test_string', example='test'),
+  // 测试Int
+  testInt: long(maximum=100, minimum=0, name='test_int', example='test'),
+  // 测试Integer
+  testInteger: long(maximum=100, minimum=0, name='test_integer', example='test'),
+  // 测试Long
+  testLong: long(maximum=100, minimum=0, name='test_long', example='test'),
+  // 测试Boolean
+  testBoolean: boolean(name='test_boolean', example='test'),
+  // 测试Date
+  testDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='test_date', example='test'),
+  // 凭证列表_stringList
+  stringList: [ string ](name='string_list', example='test'),
+  // 凭证列表_ints
+  ints: [ long ](name='ints', example='test'),
+  // 凭证列表_longs
+  longs: [ long ](name='longs', example='test'),
+  // 凭证列表_integerList
+  integerList: [ long ](name='integer_list', example='test'),
+  // 凭证列表_longList
+  longList: [ long ](name='long_list', example='test'),
+  // 凭证列表_booleanList
+  booleanList: [ boolean ](name='boolean_list', example='test'),
+  // 凭证列表_dateList
+  dateList: [ string ](name='date_list', example='test'),
+  // 凭证列表_apiTestList
+  apiTestList: [ ApiTestInfo ](name='api_test_list', example='test'),
+  // 测试apiTestInfo
+  apiTestInfo: ApiTest(name='api_test_info', example='test'),
+}
+
 // 资费项账单
 model ReceiptBillTariffParam {
   // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
@@ -414,6 +448,8 @@ model AuthChainFile {
   uploadChainTime: string(name='upload_chain_time', example='1628563284015'),
   // 上链文件下载链接
   fileUrl: string(name='file_url', example='https://pic2.zhimg.com/v2-4d91e54c6cc5d225471684987a2061a1_r.jpg'),
+  // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+  fileName: string(name='file_name', example='上链文件.pdf'),
 }
 
 // 池融资授信额度信息
@@ -585,12 +621,41 @@ model UploadFinancingParam {
   amounts: string(name='amounts', example='[{"total_amount";"123.11","currency":“人民币”}]'),
 }
 
+// 库存货物
+model InventoryCargo {
+  // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
+  inventoryIndex: long(name='inventory_index', example='1'),
+  // sku品名
+  sku: string(name='sku', example='80656-RLC-422-5MP'),
+  // 商品名称
+  // 
+  cargoName?: string(name='cargo_name', example='小米手机9'),
+  // 商品单品重量(kg)
+  cargoWeight?: string(name='cargo_weight', example='0.8'),
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string(name='cargo_dimensions', example='20.00*30.00*40.00'),
+  // 商品单品货物价值(元),最多支持2位小数
+  cargoWorth?: string(name='cargo_worth', example='3800.12'),
+  // 当前库存货物数量
+  currentInventoryCargoNum: long(name='current_inventory_cargo_num', example='567'),
+  // 客户代码
+  // 
+  customerCode: string(name='customer_code', example='32112'),
+  // 关联保单号,需要仓储CP做拆分计算
+  policyNo?: string(name='policy_no', example='TB1882881002991'),
+  // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
+  // 
+  stockinDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='stockin_date', example='2021-3-08 13:12:22 '),
+  // 时区,仓储CP上报入库时间所属的时区
+  timezone?: string(name='timezone', example='东八区'),
+}
+
 // 签署方
 model AuthParty {
   // 签署方名称
   signPartyName: string(name='sign_party_name', example='贾玲'),
-  // 签署方证件类型
-  signPartyCertType: string(name='sign_party_cert_type', example='身份证'),
+  // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
+  signPartyCertType: string(name='sign_party_cert_type', example='IDENTIFICATION_CARD'),
   // 签署方证件号码
   signPartyCertNum: string(name='sign_party_cert_num', example='3308199612247856'),
   // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
@@ -609,12 +674,36 @@ model TxDto {
   dataType: string(name='data_type', example='ORDER'),
 }
 
+// 接口测试
+model ApiTestInfo {
+  // 测试String
+  testString: string(maxLength=100, minLength=0, name='test_string', example='test'),
+  // 测试Int
+  testInt: long(maximum=100, minimum=0, name='test_int', example='test'),
+  // 测试Integer
+  testInteger: long(maximum=100, minimum=0, name='test_integer', example='test'),
+  // 测试Long
+  testLong: long(maximum=100, minimum=0, name='test_long', example='test'),
+  // 测试Boolean
+  testBoolean: boolean(name='test_boolean', example='test'),
+  // 测试Date
+  testDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='test_date', example='test'),
+}
+
 // 用户凭证信息
 model UserIssueId {
   // 凭证id
   issueId: string(name='issue_id', example='12123'),
   // 凭证余额
   balanceAmt: string(name='balance_amt', example='87.09'),
+}
+
+// 附加条款
+model MainItemAdd {
+  // 附加条款代码
+  mainItemAddCode?: string(name='main_item_add_code', example='暂无'),
+  // 附加条款内容
+  mainItemAddContent?: string(name='main_item_add_content', example='暂无'),
 }
 
 // 承运人责任险保险标的信息
@@ -641,6 +730,27 @@ model BookingNoInfo {
   bookingNo?: string(name='booking_no', example='暂无'),
   // 订舱号
   bkgNo?: string(name='bkg_no', example='暂无'),
+}
+
+// 入库货物
+model StockinCargo {
+  // 入库序号，在同一次入库请求中，入库序号保持不重复，不能小于0
+  stockinIndex: long(name='stockin_index', example='1'),
+  // sku品名
+  // 
+  sku: string(name='sku', example='80656-RLC-422-5MP'),
+  // 商品名称
+  cargoName?: string(name='cargo_name', example='小米手机米9手机'),
+  // 商品单品重量(kg)
+  cargoWeight?: string(name='cargo_weight', example='0.8'),
+  // 商品外扩长宽高(cm)
+  cargoDimensions?: string(name='cargo_dimensions', example='20.00*30.00*40.00'),
+  // 商品单品货物价值(元),，最多支持2位小数
+  cargoWorth?: string(name='cargo_worth', example='120.00'),
+  // 箱号
+  containerNo?: string(name='container_no', example='1'),
+  // 实际入库件数
+  actualStockinNum: long(name='actual_stockin_num', example='6'),
 }
 
 // 提单货物数据
@@ -991,7 +1101,9 @@ model CreateReceivableBillRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 测试
-  test: string(name='test'),
+  test?: AuthParty(name='test'),
+  // 的撒
+  status: ApiTest(name='status'),
 }
 
 model CreateReceivableBillResponse = {
@@ -1024,76 +1136,34 @@ async function createReceivableBillEx(request: CreateReceivableBillRequest, head
   return doRequest('1.0' ,'digital.logistic.receivable.bill.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreateStandardAccountRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 账户的code
-  accountCode: string(name='account_code'),
-  // 账户的公钥
-  publicKey: string(name='public_key'),
-}
-
-model CreateStandardAccountResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回结果
-  txCodes?: [ TxDto ](name='tx_codes'),
-}
-
-/**
- * Description: 创建账户
- * Summary: 创建账户
- */
-async function createStandardAccount(request: CreateStandardAccountRequest): CreateStandardAccountResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return createStandardAccountEx(request, headers, runtime);
-}
-
-/**
- * Description: 创建账户
- * Summary: 创建账户
- */
-async function createStandardAccountEx(request: CreateStandardAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStandardAccountResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'digital.logistic.standard.account.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model CreateStandardVoucherRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 数据标识
-  businessCode: string(name='business_code'),
+  businessCode: string(maxLength=10, minLength=0, name='business_code'),
   // 资产类型
-  assetType: string(name='asset_type'),
-  // 发行金额
-  amountProof: string(name='amount_proof'),
-  // 发行金额
-  amount: string(name='amount'),
-  // 余额
-  balanceProof: string(name='balance_proof'),
-  // 余额
-  balance: string(name='balance'),
-  // 币种
-  currency: string(name='currency'),
+  assetType: string(maxLength=10, minLength=0, name='asset_type'),
+  // 发行金额_Integer
+  amountInt: long(maximum=10, minimum=0, name='amount_int'),
+  // 发行金额_Long
+  amountLong: long(maximum=10, minimum=0, name='amount_long'),
+  // 账户是否存在
+  exist: boolean(name='exist'),
   // 发行时间
-  issueTime: long(name='issue_time'),
-  // 到期时间
-  expireTime: long(name='expire_time'),
-  // 清分时间
-  clearingTime: long(name='clearing_time'),
-  // 发布者
-  issuer: string(name='issuer'),
-  // 资本者
-  capital: string(name='capital'),
-  // 所属账户
-  voucherOwner: string(name='voucher_owner'),
+  issueTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='issue_time'),
+  // 签署方
+  apiTest: ApiTest(name='api_test'),
+  // 凭证列表_voucherArray
+  voucherArray: [ long ](name='voucher_array'),
+  // 凭证列表_voucherList
+  voucherList: [ string ](name='voucher_list'),
+  // 凭证列表_apiTestList
+  apiTestList: [ ApiTest ](name='api_test_list'),
+  // 凭证列表_booleanList
+  booleanList: [ boolean ](name='boolean_list'),
+  // 凭证列表_dateList
+  dateList: [ string ](name='date_list'),
 }
 
 model CreateStandardVoucherResponse = {
@@ -1103,8 +1173,8 @@ model CreateStandardVoucherResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回结果
-  txCodes?: [ TxDto ](name='tx_codes'),
+  // 编码
+  code: string(name='code'),
 }
 
 /**
@@ -1124,146 +1194,6 @@ async function createStandardVoucher(request: CreateStandardVoucherRequest): Cre
 async function createStandardVoucherEx(request: CreateStandardVoucherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStandardVoucherResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.standard.voucher.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryStandardVoucherRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 数据标识
-  businessCode: string(name='business_code'),
-  // 所属账户
-  voucherOwner: string(name='voucher_owner'),
-}
-
-model QueryStandardVoucherResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回结果
-  txCodes?: [ TxDto ](name='tx_codes'),
-}
-
-/**
- * Description: 查询凭证
- * Summary: 查询凭证
- */
-async function queryStandardVoucher(request: QueryStandardVoucherRequest): QueryStandardVoucherResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryStandardVoucherEx(request, headers, runtime);
-}
-
-/**
- * Description: 查询凭证
- * Summary: 查询凭证
- */
-async function queryStandardVoucherEx(request: QueryStandardVoucherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStandardVoucherResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'digital.logistic.standard.voucher.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ExecStandardVouchertransferRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 所属账户
-  voucherOwner: string(name='voucher_owner'),
-  // 数据标识
-  businessCode: string(name='business_code'),
-  // 余额
-  balanceSenderTransfer: string(name='balance_sender_transfer'),
-  // 余额
-  balanceProof: string(name='balance_proof'),
-  // 余额
-  balanceReceiverAccount: string(name='balance_receiver_account'),
-  // 余额
-  balanceReceiverBusinessCode: string(name='balance_receiver_business_code'),
-  // 余额
-  balanceReceiverTransfer: string(name='balance_receiver_transfer'),
-}
-
-model ExecStandardVouchertransferResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回结果
-  txCodes?: [ TxDto ](name='tx_codes'),
-}
-
-/**
- * Description: 凭证转让
- * Summary: 凭证转让
- */
-async function execStandardVouchertransfer(request: ExecStandardVouchertransferRequest): ExecStandardVouchertransferResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return execStandardVouchertransferEx(request, headers, runtime);
-}
-
-/**
- * Description: 凭证转让
- * Summary: 凭证转让
- */
-async function execStandardVouchertransferEx(request: ExecStandardVouchertransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecStandardVouchertransferResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'digital.logistic.standard.vouchertransfer.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model RedeemStandardVoucherRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 数据标识
-  businessCode: string(name='business_code'),
-  // 所属账户
-  voucherOwner: string(name='voucher_owner'),
-  // 余额
-  balanceSenderTransfer: string(name='balance_sender_transfer'),
-  // 余额
-  balanceProof: string(name='balance_proof'),
-  // 余额
-  balanceReceiverAccount: string(name='balance_receiver_account'),
-  // 余额
-  balanceReceiverBusinessCode: string(name='balance_receiver_business_code'),
-  // 余额
-  balanceReceiverTransfer: string(name='balance_receiver_transfer'),
-}
-
-model RedeemStandardVoucherResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 返回结果
-  txCodes?: [ TxDto ](name='tx_codes'),
-}
-
-/**
- * Description: 凭证赎回
- * Summary: 凭证赎回
- */
-async function redeemStandardVoucher(request: RedeemStandardVoucherRequest): RedeemStandardVoucherResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return redeemStandardVoucherEx(request, headers, runtime);
-}
-
-/**
- * Description: 凭证赎回
- * Summary: 凭证赎回
- */
-async function redeemStandardVoucherEx(request: RedeemStandardVoucherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RedeemStandardVoucherResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'digital.logistic.standard.voucher.redeem', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreatePlatformDidRequest = {
@@ -7023,6 +6953,214 @@ async function repayInsuranceCbrfEx(request: RepayInsuranceCbrfRequest, headers:
   return doRequest('1.0' ,'digital.logistic.insurance.cbrf.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ApplyInsuranceCbecRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投保交易号，调用方生成的唯一编码
+  tradeNo: string(maxLength=50, name='trade_no'),
+  // 保司编码，CPIC---太保
+  externalChannelCode: string(maxLength=64, name='external_channel_code'),
+  // 险种编码，03--跨境出口货运险
+  externalProductCode: string(maxLength=64, name='external_product_code'),
+  // 投保人姓名
+  tbrName: string(maxLength=100, name='tbr_name'),
+  // 投保人证件类型，03--营业执照
+  tbrIdType?: string(maxLength=40, name='tbr_id_type'),
+  // 投保人证件号码
+  tbrIdNo?: string(maxLength=800, name='tbr_id_no'),
+  // 被保人姓名
+  bbrName: string(maxLength=100, name='bbr_name'),
+  // 被保人证件类型，01--居民身份证，03--营业执照
+  bbrIdType?: string(maxLength=40, name='bbr_id_type'),
+  // 被保人证件号码
+  bbrIdNo?: string(maxLength=800, name='bbr_id_no'),
+  // 出库单号/航次号/运单号
+  relatedOrderNo: string(maxLength=200, name='related_order_no'),
+  // 包装及数量
+  cargoQuantity: string(maxLength=20, name='cargo_quantity'),
+  // 货物名称
+  cargoName: string(maxLength=100, name='cargo_name'),
+  // 包装代码,参考保司提供样例-包装代码
+  packingCode: string(maxLength=2, name='packing_code'),
+  // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+  cargoTypeCode: string(maxLength=4, name='cargo_type_code'),
+  // 航行区域代码,参考保司提供样例-航行区域代码
+  flightAreaCode: string(maxLength=10, name='flight_area_code'),
+  // 运输方式代码,参考保司提供样例-运输方式
+  transportTypeCode: string(maxLength=2, name='transport_type_code'),
+  // 运输工具名称
+  transportMeansName: string(maxLength=30, name='transport_means_name'),
+  // 航次号
+  voyage?: string(maxLength=30, name='voyage'),
+  // 出发地
+  startPlace: string(maxLength=200, name='start_place'),
+  // 中转地
+  transitPoint?: string(maxLength=100, name='transit_point'),
+  // 目的地
+  destination: string(maxLength=200, name='destination'),
+  // 理赔代理地代码，参考保司提供样例-理赔代理地
+  claimAgentCode: string(maxLength=30, name='claim_agent_code'),
+  // 主险条款代码
+  mainItemCode: string(maxLength=12, name='main_item_code'),
+  // 主险条款内容
+  mainItemContent: string(maxLength=500, name='main_item_content'),
+  // 附加条款集合
+  mainItemAdds?: [ MainItemAdd ](name='main_item_adds'),
+  // 特别约定
+  specialize?: string(maxLength=500, name='specialize'),
+  // 申报货物价值,，最多兼容2位小数，单位（元）
+  cargoWorth: string(maxLength=50, name='cargo_worth'),
+  // 费率，最多兼容9位小数
+  rate: string(name='rate'),
+  // 保费，最多兼容2位小数，单位（元）
+  premium: string(name='premium'),
+  // 保险起期，日期格式yyyy-mm-dd
+  insureStart: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  // 起运日期，日期格式yyyy-mm-dd
+  saleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sale_date'),
+}
+
+model ApplyInsuranceCbecResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保交易号
+  tradeNo?: string(name='trade_no'),
+  // 保单号，保司生成的投保业务号
+  policyNo?: string(name='policy_no'),
+  // 保费
+  premium?: string(name='premium'),
+}
+
+/**
+ * Description: 跨境出口货运险投保
+ * Summary: 跨境出口货运险投保
+ */
+async function applyInsuranceCbec(request: ApplyInsuranceCbecRequest): ApplyInsuranceCbecResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceCbecEx(request, headers, runtime);
+}
+
+/**
+ * Description: 跨境出口货运险投保
+ * Summary: 跨境出口货运险投保
+ */
+async function applyInsuranceCbecEx(request: ApplyInsuranceCbecRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceCbecResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsuranceStockinRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入库交易流水号，保持唯一
+  tradeNo: string(name='trade_no'),
+  // 入库单号，可参考格式：年月日+唯一字符
+  stockinNo: string(name='stockin_no'),
+  // 入库时间，格式：yyyy-MM-dd HH:mm:ss
+  stockinDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='stockin_date'),
+  // 时区	
+  timezone: string(name='timezone'),
+  // 仓库代码
+  repositoryCode: string(name='repository_code'),
+  // 客户代码
+  customerCode: string(name='customer_code'),
+  // 保单号,国内起运时投保产生的保单号
+  policyNo?: string(name='policy_no'),
+  // 入库货物列表
+  stockinCargos: [ StockinCargo ](name='stockin_cargos'),
+}
+
+model ApplyInsuranceStockinResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 入库交易流水号
+  tradeNo?: string(name='trade_no'),
+  // 入库单号
+  // 
+  // 
+  stockinNo?: string(name='stockin_no'),
+}
+
+/**
+ * Description: 货物入库申报
+ * Summary: 货物入库申报
+ */
+async function applyInsuranceStockin(request: ApplyInsuranceStockinRequest): ApplyInsuranceStockinResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceStockinEx(request, headers, runtime);
+}
+
+/**
+ * Description: 货物入库申报
+ * Summary: 货物入库申报
+ */
+async function applyInsuranceStockinEx(request: ApplyInsuranceStockinRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceStockinResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsuranceInventoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 库存申报交易号，调用方生成的唯一编码
+  tradeNo: string(name='trade_no'),
+  // 库存申报编号
+  inventoryNo: string(name='inventory_no'),
+  // 库存查询时间，yyyy-mm-dd，精确到（天）
+  inventoryQueryDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='inventory_query_date'),
+  // 仓库代码
+  // 
+  // 
+  repositoryCode: string(name='repository_code'),
+  // 库存货物列表
+  inventoryCargos: [ InventoryCargo ](name='inventory_cargos'),
+}
+
+model ApplyInsuranceInventoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 库存申报编号
+  inventoryNo?: string(name='inventory_no'),
+  // 库存申报交易流水号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 货物库存申报
+ * Summary: 货物库存申报
+ */
+async function applyInsuranceInventory(request: ApplyInsuranceInventoryRequest): ApplyInsuranceInventoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsuranceInventoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 货物库存申报
+ * Summary: 货物库存申报
+ */
+async function applyInsuranceInventoryEx(request: ApplyInsuranceInventoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsuranceInventoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model PushAuthSigninfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7035,7 +7173,7 @@ model PushAuthSigninfoRequest = {
   signTheme?: string(name='sign_theme'),
   // 发起方名称
   initiatorName: string(name='initiator_name'),
-  // 发起方证件类型
+  // 发起方证件类型，可以填写的枚举类型：UNIFIED_SOCIAL_CREDIT_CODE,  BUSINESS_LICENSE_NUMBER。分别表示统一社会信用代码和工商注册号
   initiatorCertType: string(name='initiator_cert_type'),
   // 发起方证件号码
   initiatorCertNum: string(name='initiator_cert_num'),
@@ -7229,6 +7367,8 @@ model QueryPfQuotaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 项目标识
+  projectId: string(maxLength=64, name='project_id'),
   // 证件号
   certNo: string(maxLength=20, name='cert_no'),
   // 证件类型;050 统一社会信用证代码
@@ -7273,9 +7413,13 @@ model ApplyPfWaybillfinancingRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
+  requestNo: string(maxLength=23, name='request_no'),
+  // 项目标识；与对接同学确认对应的标识值
+  projectId: string(maxLength=64, name='project_id'),
   // 承运商did
   carrierDid: string(maxLength=80, name='carrier_did'),
-  // 融资支用金额；总长度最长15位，保留2位小数，四舍五入
+  // 融资支用金额；总长度最长20位，保留2位小数，四舍五入
   financingAmount: string(name='financing_amount'),
   // 支用币种，支持 CNY,USD
   financingCurrency: string(name='financing_currency'),
@@ -7299,8 +7443,6 @@ model ApplyPfWaybillfinancingRequest = {
   payeeName: string(maxLength=200, name='payee_name'),
   // 0政府投标 1经营周转 2支付货款 3采购机票，一般默认填 2 
   purpose: string(name='purpose'),
-  // 请求号，以时间串yyyyMMdd 开头，要求该请求号在请求方系统内唯一；同时该字段也是幂等字段
-  requestNo: string(maxLength=23, name='request_no'),
   // 银行端的Ukey签名；使用方调用接口前使用银行Ukey做签名，并将签名后的结果填入该字段；一期，该字段可不传，使用方通过登录网上银行使用网银进行确认
   signature?: string(maxLength=800, name='signature'),
   // 转账附言
@@ -7351,8 +7493,8 @@ model ApplyPfWaybillfinancingResponse = {
 }
 
 /**
- * Description: 基于运单的融资申请
- * Summary: 运单融资申请
+ * Description: 池融资支用申请
+ * Summary: 池融资支用申请
  */
 async function applyPfWaybillfinancing(request: ApplyPfWaybillfinancingRequest): ApplyPfWaybillfinancingResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7361,8 +7503,8 @@ async function applyPfWaybillfinancing(request: ApplyPfWaybillfinancingRequest):
 }
 
 /**
- * Description: 基于运单的融资申请
- * Summary: 运单融资申请
+ * Description: 池融资支用申请
+ * Summary: 池融资支用申请
  */
 async function applyPfWaybillfinancingEx(request: ApplyPfWaybillfinancingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPfWaybillfinancingResponse {
   Util.validateModel(request);
@@ -7373,6 +7515,8 @@ model PushPfPledgeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 项目标识，可联系对接同学提供
+  projectId: string(maxLength=64, name='project_id'),
   // 账单标识
   billId: string(maxLength=128, minLength=1, name='bill_id'),
   // 融资主体did
@@ -7566,6 +7710,8 @@ model ApplyPfConfirmationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 请求号
   requestNo: string(name='request_no'),
+  // 项目标识，可联系对接同学获取
+  projectId: string(maxLength=64, name='project_id'),
   // 客户号
   clientNo: string(name='client_no'),
   // 融资主体did
@@ -7671,6 +7817,8 @@ model ApplyPfFinancingqualificationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 项目标识，可联系对接同学获取
+  projectId: string(maxLength=64, name='project_id'),
   // 客户号
   clientNo: string(name='client_no'),
   // 融资主体did
@@ -7721,6 +7869,8 @@ model QueryPfFinancingqualificationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 项目标识，可联系对接同学获取
+  projectId: string(maxLength=64, name='project_id'),
   // 客户号
   clientNo: string(name='client_no'),
   // 融资主体did
@@ -7783,6 +7933,50 @@ async function queryPfFinancingqualification(request: QueryPfFinancingqualificat
 async function queryPfFinancingqualificationEx(request: QueryPfFinancingqualificationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPfFinancingqualificationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.pf.financingqualification.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackPfDefinpfRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+  // 回调内容
+  contentInfo: string(name='content_info'),
+}
+
+model CallbackPfDefinpfResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  result?: boolean(name='result'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+  // 返回结果
+  response?: string(name='response'),
+}
+
+/**
+ * Description: 池融资主站回调金融云接口
+ * Summary: 池融资主站回调金融云接口
+ */
+async function callbackPfDefinpf(request: CallbackPfDefinpfRequest): CallbackPfDefinpfResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackPfDefinpfEx(request, headers, runtime);
+}
+
+/**
+ * Description: 池融资主站回调金融云接口
+ * Summary: 池融资主站回调金融云接口
+ */
+async function callbackPfDefinpfEx(request: CallbackPfDefinpfRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackPfDefinpfResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDidForwarderRequest = {
