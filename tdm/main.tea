@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.13',
+    sdk_version = '1.0.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -361,6 +361,14 @@ model CpfUserLoanInfo {
 model IssueCertParams {
   // 贷款合同编号
   dkhtbh?: string(name='dkhtbh', example='11410000005184603J'),
+  // 公积金中心个人账户
+  grzh?: string(name='grzh', example='370101199601022014'),
+  // 查询开始日期
+  ksrq?: string(name='ksrq', example='2020-01-01'),
+  // 查询结束日期
+  jsrq?: string(name='jsrq', example='2020-01-01'),
+  // 公积金贷款中心
+  gjjdkzx?: string(name='gjjdkzx', example='中国石油集团东方地球物理勘探有限责任公司住房公积金管理中心'),
 }
 
 // 核身初始化请求信息
@@ -403,6 +411,8 @@ model OpenCpfCertRequest = {
   issueCertType: string(name='issue_cert_type'),
   // 公积金中心ID
   providerId: string(name='provider_id'),
+  // 证件类型
+  dataOwnerIdentityType: string(name='data_owner_identity_type'),
   // 数据拥有者ID（身份证ID）
   dataOwnerIdentity: string(name='data_owner_identity'),
   // 数据拥有者姓名（真实姓名）
