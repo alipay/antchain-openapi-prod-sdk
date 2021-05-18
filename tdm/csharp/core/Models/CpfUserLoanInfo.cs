@@ -16,9 +16,9 @@ namespace AntChain.SDK.TDM.Models
         public string UserId { get; set; }
 
         // 证件类型
-        [NameInMap("user_id_type")]
+        [NameInMap("user_name")]
         [Validation(Required=true)]
-        public string UserIdType { get; set; }
+        public string UserName { get; set; }
 
         // 配偶证件号码
         [NameInMap("po_id")]
