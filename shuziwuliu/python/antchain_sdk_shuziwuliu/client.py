@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.96'
+                    'sdk_version': '1.3.105'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.96'
+                    'sdk_version': '1.3.105'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -325,60 +325,6 @@ class Client:
             await self.do_request_async('1.0', 'digital.logistic.receivable.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def create_standard_account(
-        self,
-        request: shuziwuliu_models.CreateStandardAccountRequest,
-    ) -> shuziwuliu_models.CreateStandardAccountResponse:
-        """
-        Description: 创建账户
-        Summary: 创建账户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_standard_account_ex(request, headers, runtime)
-
-    async def create_standard_account_async(
-        self,
-        request: shuziwuliu_models.CreateStandardAccountRequest,
-    ) -> shuziwuliu_models.CreateStandardAccountResponse:
-        """
-        Description: 创建账户
-        Summary: 创建账户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_standard_account_ex_async(request, headers, runtime)
-
-    def create_standard_account_ex(
-        self,
-        request: shuziwuliu_models.CreateStandardAccountRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.CreateStandardAccountResponse:
-        """
-        Description: 创建账户
-        Summary: 创建账户
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateStandardAccountResponse().from_map(
-            self.do_request('1.0', 'digital.logistic.standard.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_standard_account_ex_async(
-        self,
-        request: shuziwuliu_models.CreateStandardAccountRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.CreateStandardAccountResponse:
-        """
-        Description: 创建账户
-        Summary: 创建账户
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateStandardAccountResponse().from_map(
-            await self.do_request_async('1.0', 'digital.logistic.standard.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def create_standard_voucher(
         self,
         request: shuziwuliu_models.CreateStandardVoucherRequest,
@@ -431,168 +377,6 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.CreateStandardVoucherResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.standard.voucher.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_standard_voucher(
-        self,
-        request: shuziwuliu_models.QueryStandardVoucherRequest,
-    ) -> shuziwuliu_models.QueryStandardVoucherResponse:
-        """
-        Description: 查询凭证
-        Summary: 查询凭证
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_standard_voucher_ex(request, headers, runtime)
-
-    async def query_standard_voucher_async(
-        self,
-        request: shuziwuliu_models.QueryStandardVoucherRequest,
-    ) -> shuziwuliu_models.QueryStandardVoucherResponse:
-        """
-        Description: 查询凭证
-        Summary: 查询凭证
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_standard_voucher_ex_async(request, headers, runtime)
-
-    def query_standard_voucher_ex(
-        self,
-        request: shuziwuliu_models.QueryStandardVoucherRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.QueryStandardVoucherResponse:
-        """
-        Description: 查询凭证
-        Summary: 查询凭证
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryStandardVoucherResponse().from_map(
-            self.do_request('1.0', 'digital.logistic.standard.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_standard_voucher_ex_async(
-        self,
-        request: shuziwuliu_models.QueryStandardVoucherRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.QueryStandardVoucherResponse:
-        """
-        Description: 查询凭证
-        Summary: 查询凭证
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryStandardVoucherResponse().from_map(
-            await self.do_request_async('1.0', 'digital.logistic.standard.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def exec_standard_vouchertransfer(
-        self,
-        request: shuziwuliu_models.ExecStandardVouchertransferRequest,
-    ) -> shuziwuliu_models.ExecStandardVouchertransferResponse:
-        """
-        Description: 凭证转让
-        Summary: 凭证转让
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.exec_standard_vouchertransfer_ex(request, headers, runtime)
-
-    async def exec_standard_vouchertransfer_async(
-        self,
-        request: shuziwuliu_models.ExecStandardVouchertransferRequest,
-    ) -> shuziwuliu_models.ExecStandardVouchertransferResponse:
-        """
-        Description: 凭证转让
-        Summary: 凭证转让
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.exec_standard_vouchertransfer_ex_async(request, headers, runtime)
-
-    def exec_standard_vouchertransfer_ex(
-        self,
-        request: shuziwuliu_models.ExecStandardVouchertransferRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.ExecStandardVouchertransferResponse:
-        """
-        Description: 凭证转让
-        Summary: 凭证转让
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.ExecStandardVouchertransferResponse().from_map(
-            self.do_request('1.0', 'digital.logistic.standard.vouchertransfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def exec_standard_vouchertransfer_ex_async(
-        self,
-        request: shuziwuliu_models.ExecStandardVouchertransferRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.ExecStandardVouchertransferResponse:
-        """
-        Description: 凭证转让
-        Summary: 凭证转让
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.ExecStandardVouchertransferResponse().from_map(
-            await self.do_request_async('1.0', 'digital.logistic.standard.vouchertransfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def redeem_standard_voucher(
-        self,
-        request: shuziwuliu_models.RedeemStandardVoucherRequest,
-    ) -> shuziwuliu_models.RedeemStandardVoucherResponse:
-        """
-        Description: 凭证赎回
-        Summary: 凭证赎回
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.redeem_standard_voucher_ex(request, headers, runtime)
-
-    async def redeem_standard_voucher_async(
-        self,
-        request: shuziwuliu_models.RedeemStandardVoucherRequest,
-    ) -> shuziwuliu_models.RedeemStandardVoucherResponse:
-        """
-        Description: 凭证赎回
-        Summary: 凭证赎回
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.redeem_standard_voucher_ex_async(request, headers, runtime)
-
-    def redeem_standard_voucher_ex(
-        self,
-        request: shuziwuliu_models.RedeemStandardVoucherRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.RedeemStandardVoucherResponse:
-        """
-        Description: 凭证赎回
-        Summary: 凭证赎回
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.RedeemStandardVoucherResponse().from_map(
-            self.do_request('1.0', 'digital.logistic.standard.voucher.redeem', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def redeem_standard_voucher_ex_async(
-        self,
-        request: shuziwuliu_models.RedeemStandardVoucherRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> shuziwuliu_models.RedeemStandardVoucherResponse:
-        """
-        Description: 凭证赎回
-        Summary: 凭证赎回
-        """
-        UtilClient.validate_model(request)
-        return shuziwuliu_models.RedeemStandardVoucherResponse().from_map(
-            await self.do_request_async('1.0', 'digital.logistic.standard.voucher.redeem', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_platform_did(
@@ -5355,6 +5139,168 @@ class Client:
             await self.do_request_async('1.0', 'digital.logistic.insurance.cbrf.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def apply_insurance_cbec(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceCbecRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceCbecResponse:
+        """
+        Description: 跨境出口货运险投保
+        Summary: 跨境出口货运险投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_cbec_ex(request, headers, runtime)
+
+    async def apply_insurance_cbec_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceCbecRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceCbecResponse:
+        """
+        Description: 跨境出口货运险投保
+        Summary: 跨境出口货运险投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_cbec_ex_async(request, headers, runtime)
+
+    def apply_insurance_cbec_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceCbecRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceCbecResponse:
+        """
+        Description: 跨境出口货运险投保
+        Summary: 跨境出口货运险投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceCbecResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_cbec_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceCbecRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceCbecResponse:
+        """
+        Description: 跨境出口货运险投保
+        Summary: 跨境出口货运险投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceCbecResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_stockin(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceStockinRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceStockinResponse:
+        """
+        Description: 货物入库申报
+        Summary: 货物入库申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_stockin_ex(request, headers, runtime)
+
+    async def apply_insurance_stockin_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceStockinRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceStockinResponse:
+        """
+        Description: 货物入库申报
+        Summary: 货物入库申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_stockin_ex_async(request, headers, runtime)
+
+    def apply_insurance_stockin_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceStockinRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceStockinResponse:
+        """
+        Description: 货物入库申报
+        Summary: 货物入库申报
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceStockinResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_stockin_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceStockinRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceStockinResponse:
+        """
+        Description: 货物入库申报
+        Summary: 货物入库申报
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceStockinResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_inventory(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceInventoryRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceInventoryResponse:
+        """
+        Description: 货物库存申报
+        Summary: 货物库存申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_inventory_ex(request, headers, runtime)
+
+    async def apply_insurance_inventory_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceInventoryRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceInventoryResponse:
+        """
+        Description: 货物库存申报
+        Summary: 货物库存申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_inventory_ex_async(request, headers, runtime)
+
+    def apply_insurance_inventory_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceInventoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceInventoryResponse:
+        """
+        Description: 货物库存申报
+        Summary: 货物库存申报
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceInventoryResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_inventory_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceInventoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceInventoryResponse:
+        """
+        Description: 货物库存申报
+        Summary: 货物库存申报
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceInventoryResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def push_auth_signinfo(
         self,
         request: shuziwuliu_models.PushAuthSigninfoRequest,
@@ -5576,8 +5522,8 @@ class Client:
         request: shuziwuliu_models.ApplyPfWaybillfinancingRequest,
     ) -> shuziwuliu_models.ApplyPfWaybillfinancingResponse:
         """
-        Description: 基于运单的融资申请
-        Summary: 运单融资申请
+        Description: 池融资支用申请
+        Summary: 池融资支用申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5588,8 +5534,8 @@ class Client:
         request: shuziwuliu_models.ApplyPfWaybillfinancingRequest,
     ) -> shuziwuliu_models.ApplyPfWaybillfinancingResponse:
         """
-        Description: 基于运单的融资申请
-        Summary: 运单融资申请
+        Description: 池融资支用申请
+        Summary: 池融资支用申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5602,8 +5548,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyPfWaybillfinancingResponse:
         """
-        Description: 基于运单的融资申请
-        Summary: 运单融资申请
+        Description: 池融资支用申请
+        Summary: 池融资支用申请
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.ApplyPfWaybillfinancingResponse().from_map(
@@ -5617,8 +5563,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.ApplyPfWaybillfinancingResponse:
         """
-        Description: 基于运单的融资申请
-        Summary: 运单融资申请
+        Description: 池融资支用申请
+        Summary: 池融资支用申请
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.ApplyPfWaybillfinancingResponse().from_map(
@@ -6001,6 +5947,60 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.QueryPfFinancingqualificationResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.pf.financingqualification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_pf_definpf(
+        self,
+        request: shuziwuliu_models.CallbackPfDefinpfRequest,
+    ) -> shuziwuliu_models.CallbackPfDefinpfResponse:
+        """
+        Description: 池融资主站回调金融云接口
+        Summary: 池融资主站回调金融云接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_pf_definpf_ex(request, headers, runtime)
+
+    async def callback_pf_definpf_async(
+        self,
+        request: shuziwuliu_models.CallbackPfDefinpfRequest,
+    ) -> shuziwuliu_models.CallbackPfDefinpfResponse:
+        """
+        Description: 池融资主站回调金融云接口
+        Summary: 池融资主站回调金融云接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_pf_definpf_ex_async(request, headers, runtime)
+
+    def callback_pf_definpf_ex(
+        self,
+        request: shuziwuliu_models.CallbackPfDefinpfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.CallbackPfDefinpfResponse:
+        """
+        Description: 池融资主站回调金融云接口
+        Summary: 池融资主站回调金融云接口
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.CallbackPfDefinpfResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_pf_definpf_ex_async(
+        self,
+        request: shuziwuliu_models.CallbackPfDefinpfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.CallbackPfDefinpfResponse:
+        """
+        Description: 池融资主站回调金融云接口
+        Summary: 池融资主站回调金融云接口
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.CallbackPfDefinpfResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_did_forwarder(
