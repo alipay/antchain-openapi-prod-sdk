@@ -19,6 +19,12 @@ class GetCpfDataRequest extends Model
      */
     public $productInstanceId;
 
+    // 端ID
+    /**
+     * @var string
+     */
+    public $terminalIdentity;
+
     // 业务流水号
     /**
      * @var string
@@ -69,6 +75,7 @@ class GetCpfDataRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'terminalIdentity'  => 'terminal_identity',
         'bizId'             => 'biz_id',
         'dataUserIdentity'  => 'data_user_identity',
         'dataUserName'      => 'data_user_name',
@@ -81,6 +88,7 @@ class GetCpfDataRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
         Model::validateRequired('dataUserName', $this->dataUserName, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
@@ -97,6 +105,9 @@ class GetCpfDataRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->terminalIdentity) {
+            $res['terminal_identity'] = $this->terminalIdentity;
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
@@ -139,6 +150,9 @@ class GetCpfDataRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['terminal_identity'])) {
+            $model->terminalIdentity = $map['terminal_identity'];
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];

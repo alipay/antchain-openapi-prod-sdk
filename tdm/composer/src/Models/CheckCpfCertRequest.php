@@ -91,8 +91,6 @@ class CheckCpfCertRequest extends Model
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('issueId', $this->issueId, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
-        Model::validateRequired('useTime', $this->useTime, true);
-        Model::validateRequired('extendParams', $this->extendParams, true);
         Model::validatePattern('useTime', $this->useTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
