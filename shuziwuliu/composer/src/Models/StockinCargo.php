@@ -88,6 +88,12 @@ class StockinCargo extends Model
         Model::validateRequired('stockinIndex', $this->stockinIndex, true);
         Model::validateRequired('sku', $this->sku, true);
         Model::validateRequired('actualStockinNum', $this->actualStockinNum, true);
+        Model::validateMaxLength('sku', $this->sku, 200);
+        Model::validateMaxLength('cargoName', $this->cargoName, 200);
+        Model::validateMaxLength('cargoWeight', $this->cargoWeight, 50);
+        Model::validateMaxLength('cargoDimensions', $this->cargoDimensions, 200);
+        Model::validateMaxLength('cargoWorth', $this->cargoWorth, 30);
+        Model::validateMaxLength('containerNo', $this->containerNo, 50);
     }
 
     public function toMap()

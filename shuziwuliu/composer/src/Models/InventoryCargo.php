@@ -118,7 +118,14 @@ class InventoryCargo extends Model
         Model::validateRequired('sku', $this->sku, true);
         Model::validateRequired('currentInventoryCargoNum', $this->currentInventoryCargoNum, true);
         Model::validateRequired('customerCode', $this->customerCode, true);
-        Model::validatePattern('stockinDate', $this->stockinDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMaxLength('sku', $this->sku, 200);
+        Model::validateMaxLength('cargoName', $this->cargoName, 200);
+        Model::validateMaxLength('cargoWeight', $this->cargoWeight, 50);
+        Model::validateMaxLength('cargoDimensions', $this->cargoDimensions, 200);
+        Model::validateMaxLength('cargoWorth', $this->cargoWorth, 30);
+        Model::validateMaxLength('customerCode', $this->customerCode, 50);
+        Model::validateMaxLength('policyNo', $this->policyNo, 64);
+        Model::validateMaxLength('timezone', $this->timezone, 16);
     }
 
     public function toMap()

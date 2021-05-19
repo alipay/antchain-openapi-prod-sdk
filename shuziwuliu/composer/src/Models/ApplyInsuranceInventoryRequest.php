@@ -67,7 +67,9 @@ class ApplyInsuranceInventoryRequest extends Model
         Model::validateRequired('inventoryQueryDate', $this->inventoryQueryDate, true);
         Model::validateRequired('repositoryCode', $this->repositoryCode, true);
         Model::validateRequired('inventoryCargos', $this->inventoryCargos, true);
-        Model::validatePattern('inventoryQueryDate', $this->inventoryQueryDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
+        Model::validateMaxLength('inventoryNo', $this->inventoryNo, 50);
+        Model::validateMaxLength('repositoryCode', $this->repositoryCode, 50);
     }
 
     public function toMap()

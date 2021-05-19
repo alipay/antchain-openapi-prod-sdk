@@ -291,8 +291,6 @@ class ApplyInsuranceCbecRequest extends Model
         Model::validateMaxLength('mainItemContent', $this->mainItemContent, 500);
         Model::validateMaxLength('specialize', $this->specialize, 500);
         Model::validateMaxLength('cargoWorth', $this->cargoWorth, 50);
-        Model::validatePattern('insureStart', $this->insureStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('saleDate', $this->saleDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

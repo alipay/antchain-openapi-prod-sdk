@@ -88,7 +88,12 @@ class ApplyInsuranceStockinRequest extends Model
         Model::validateRequired('repositoryCode', $this->repositoryCode, true);
         Model::validateRequired('customerCode', $this->customerCode, true);
         Model::validateRequired('stockinCargos', $this->stockinCargos, true);
-        Model::validatePattern('stockinDate', $this->stockinDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
+        Model::validateMaxLength('stockinNo', $this->stockinNo, 50);
+        Model::validateMaxLength('timezone', $this->timezone, 16);
+        Model::validateMaxLength('repositoryCode', $this->repositoryCode, 50);
+        Model::validateMaxLength('customerCode', $this->customerCode, 50);
+        Model::validateMaxLength('policyNo', $this->policyNo, 64);
     }
 
     public function toMap()
