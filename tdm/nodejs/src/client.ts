@@ -861,9 +861,9 @@ export class CheckCpfCertRequest extends $tea.Model {
   // 用途
   purpose?: string;
   // 使用时间
-  useTime: string;
+  useTime?: string;
   // 扩展字段
-  extendParams: string;
+  extendParams?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1249,6 +1249,8 @@ export class GetCpfDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 端ID
+  terminalIdentity: string;
   // 业务流水号
   bizId?: string;
   // 使用方ID
@@ -1269,6 +1271,7 @@ export class GetCpfDataRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      terminalIdentity: 'terminal_identity',
       bizId: 'biz_id',
       dataUserIdentity: 'data_user_identity',
       dataUserName: 'data_user_name',
@@ -1284,6 +1287,7 @@ export class GetCpfDataRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      terminalIdentity: 'string',
       bizId: 'string',
       dataUserIdentity: 'string',
       dataUserName: 'string',
@@ -2202,7 +2206,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.14",
+          sdk_version: "1.0.15",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
