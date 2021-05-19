@@ -18,6 +18,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 端ID
+        [NameInMap("terminal_identity")]
+        [Validation(Required=true)]
+        public string TerminalIdentity { get; set; }
+
         // 业务流水号
         [NameInMap("biz_id")]
         [Validation(Required=false)]

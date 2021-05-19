@@ -55,12 +55,12 @@ namespace AntChain.SDK.TDM.Models
 
         // 使用时间
         [NameInMap("use_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string UseTime { get; set; }
 
         // 扩展字段
         [NameInMap("extend_params")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ExtendParams { get; set; }
 
     }
