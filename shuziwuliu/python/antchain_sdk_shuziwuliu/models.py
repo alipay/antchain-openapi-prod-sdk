@@ -2065,10 +2065,24 @@ class InventoryCargo(TeaModel):
     def validate(self):
         self.validate_required(self.inventory_index, 'inventory_index')
         self.validate_required(self.sku, 'sku')
+        if self.sku is not None:
+            self.validate_max_length(self.sku, 'sku', 200)
+        if self.cargo_name is not None:
+            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+        if self.cargo_weight is not None:
+            self.validate_max_length(self.cargo_weight, 'cargo_weight', 50)
+        if self.cargo_dimensions is not None:
+            self.validate_max_length(self.cargo_dimensions, 'cargo_dimensions', 200)
+        if self.cargo_worth is not None:
+            self.validate_max_length(self.cargo_worth, 'cargo_worth', 30)
         self.validate_required(self.current_inventory_cargo_num, 'current_inventory_cargo_num')
         self.validate_required(self.customer_code, 'customer_code')
-        if self.stockin_date is not None:
-            self.validate_pattern(self.stockin_date, 'stockin_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.customer_code is not None:
+            self.validate_max_length(self.customer_code, 'customer_code', 50)
+        if self.policy_no is not None:
+            self.validate_max_length(self.policy_no, 'policy_no', 64)
+        if self.timezone is not None:
+            self.validate_max_length(self.timezone, 'timezone', 16)
 
     def to_map(self):
         result = dict()
@@ -2417,6 +2431,18 @@ class StockinCargo(TeaModel):
     def validate(self):
         self.validate_required(self.stockin_index, 'stockin_index')
         self.validate_required(self.sku, 'sku')
+        if self.sku is not None:
+            self.validate_max_length(self.sku, 'sku', 200)
+        if self.cargo_name is not None:
+            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+        if self.cargo_weight is not None:
+            self.validate_max_length(self.cargo_weight, 'cargo_weight', 50)
+        if self.cargo_dimensions is not None:
+            self.validate_max_length(self.cargo_dimensions, 'cargo_dimensions', 200)
+        if self.cargo_worth is not None:
+            self.validate_max_length(self.cargo_worth, 'cargo_worth', 30)
+        if self.container_no is not None:
+            self.validate_max_length(self.container_no, 'container_no', 50)
         self.validate_required(self.actual_stockin_num, 'actual_stockin_num')
 
     def to_map(self):
@@ -20246,11 +20272,7 @@ class ApplyInsuranceCbecRequest(TeaModel):
         self.validate_required(self.rate, 'rate')
         self.validate_required(self.premium, 'premium')
         self.validate_required(self.insure_start, 'insure_start')
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.sale_date, 'sale_date')
-        if self.sale_date is not None:
-            self.validate_pattern(self.sale_date, 'sale_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -20493,13 +20515,23 @@ class ApplyInsuranceStockinRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
         self.validate_required(self.stockin_no, 'stockin_no')
+        if self.stockin_no is not None:
+            self.validate_max_length(self.stockin_no, 'stockin_no', 50)
         self.validate_required(self.stockin_date, 'stockin_date')
-        if self.stockin_date is not None:
-            self.validate_pattern(self.stockin_date, 'stockin_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.timezone, 'timezone')
+        if self.timezone is not None:
+            self.validate_max_length(self.timezone, 'timezone', 16)
         self.validate_required(self.repository_code, 'repository_code')
+        if self.repository_code is not None:
+            self.validate_max_length(self.repository_code, 'repository_code', 50)
         self.validate_required(self.customer_code, 'customer_code')
+        if self.customer_code is not None:
+            self.validate_max_length(self.customer_code, 'customer_code', 50)
+        if self.policy_no is not None:
+            self.validate_max_length(self.policy_no, 'policy_no', 64)
         self.validate_required(self.stockin_cargos, 'stockin_cargos')
         if self.stockin_cargos:
             for k in self.stockin_cargos:
@@ -20643,11 +20675,15 @@ class ApplyInsuranceInventoryRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
         self.validate_required(self.inventory_no, 'inventory_no')
+        if self.inventory_no is not None:
+            self.validate_max_length(self.inventory_no, 'inventory_no', 50)
         self.validate_required(self.inventory_query_date, 'inventory_query_date')
-        if self.inventory_query_date is not None:
-            self.validate_pattern(self.inventory_query_date, 'inventory_query_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.repository_code, 'repository_code')
+        if self.repository_code is not None:
+            self.validate_max_length(self.repository_code, 'repository_code', 50)
         self.validate_required(self.inventory_cargos, 'inventory_cargos')
         if self.inventory_cargos:
             for k in self.inventory_cargos:
