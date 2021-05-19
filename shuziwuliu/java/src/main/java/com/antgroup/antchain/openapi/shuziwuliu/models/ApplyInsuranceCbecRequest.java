@@ -157,12 +157,12 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
 
     // 保险起期，日期格式yyyy-mm-dd
     @NameInMap("insure_start")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String insureStart;
 
     // 起运日期，日期格式yyyy-mm-dd
     @NameInMap("sale_date")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String saleDate;
 
     public static ApplyInsuranceCbecRequest build(java.util.Map<String, ?> map) throws Exception {

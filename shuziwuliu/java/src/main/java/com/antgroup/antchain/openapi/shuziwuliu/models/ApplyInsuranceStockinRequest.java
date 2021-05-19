@@ -13,36 +13,37 @@ public class ApplyInsuranceStockinRequest extends TeaModel {
 
     // 入库交易流水号，保持唯一
     @NameInMap("trade_no")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
     // 入库单号，可参考格式：年月日+唯一字符
     @NameInMap("stockin_no")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String stockinNo;
 
     // 入库时间，格式：yyyy-MM-dd HH:mm:ss
     @NameInMap("stockin_date")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String stockinDate;
 
     // 时区	
     @NameInMap("timezone")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 16)
     public String timezone;
 
     // 仓库代码
     @NameInMap("repository_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String repositoryCode;
 
     // 客户代码
     @NameInMap("customer_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String customerCode;
 
     // 保单号,国内起运时投保产生的保单号
     @NameInMap("policy_no")
+    @Validation(maxLength = 64)
     public String policyNo;
 
     // 入库货物列表

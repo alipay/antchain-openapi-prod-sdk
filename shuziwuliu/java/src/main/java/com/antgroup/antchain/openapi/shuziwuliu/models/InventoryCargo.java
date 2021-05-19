@@ -11,24 +11,28 @@ public class InventoryCargo extends TeaModel {
 
     // sku品名
     @NameInMap("sku")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 200)
     public String sku;
 
     // 商品名称
     // 
     @NameInMap("cargo_name")
+    @Validation(maxLength = 200)
     public String cargoName;
 
     // 商品单品重量(kg)
     @NameInMap("cargo_weight")
+    @Validation(maxLength = 50)
     public String cargoWeight;
 
     // 商品外扩长宽高(cm)
     @NameInMap("cargo_dimensions")
+    @Validation(maxLength = 200)
     public String cargoDimensions;
 
     // 商品单品货物价值(元),最多支持2位小数
     @NameInMap("cargo_worth")
+    @Validation(maxLength = 30)
     public String cargoWorth;
 
     // 当前库存货物数量
@@ -39,21 +43,22 @@ public class InventoryCargo extends TeaModel {
     // 客户代码
     // 
     @NameInMap("customer_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String customerCode;
 
     // 关联保单号,需要仓储CP做拆分计算
     @NameInMap("policy_no")
+    @Validation(maxLength = 64)
     public String policyNo;
 
     // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
     // 
     @NameInMap("stockin_date")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String stockinDate;
 
     // 时区,仓储CP上报入库时间所属的时区
     @NameInMap("timezone")
+    @Validation(maxLength = 16)
     public String timezone;
 
     public static InventoryCargo build(java.util.Map<String, ?> map) throws Exception {

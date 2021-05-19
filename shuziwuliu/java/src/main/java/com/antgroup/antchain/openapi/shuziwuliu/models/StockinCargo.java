@@ -12,27 +12,32 @@ public class StockinCargo extends TeaModel {
     // sku品名
     // 
     @NameInMap("sku")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 200)
     public String sku;
 
     // 商品名称
     @NameInMap("cargo_name")
+    @Validation(maxLength = 200)
     public String cargoName;
 
     // 商品单品重量(kg)
     @NameInMap("cargo_weight")
+    @Validation(maxLength = 50)
     public String cargoWeight;
 
     // 商品外扩长宽高(cm)
     @NameInMap("cargo_dimensions")
+    @Validation(maxLength = 200)
     public String cargoDimensions;
 
     // 商品单品货物价值(元),，最多支持2位小数
     @NameInMap("cargo_worth")
+    @Validation(maxLength = 30)
     public String cargoWorth;
 
     // 箱号
     @NameInMap("container_no")
+    @Validation(maxLength = 50)
     public String containerNo;
 
     // 实际入库件数
