@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.105',
+    sdk_version = '1.3.106',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -626,28 +626,28 @@ model InventoryCargo {
   // 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
   inventoryIndex: long(name='inventory_index', example='1'),
   // sku品名
-  sku: string(name='sku', example='80656-RLC-422-5MP'),
+  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
   // 商品名称
   // 
-  cargoName?: string(name='cargo_name', example='小米手机9'),
+  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机9'),
   // 商品单品重量(kg)
-  cargoWeight?: string(name='cargo_weight', example='0.8'),
+  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
   // 商品外扩长宽高(cm)
-  cargoDimensions?: string(name='cargo_dimensions', example='20.00*30.00*40.00'),
+  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
   // 商品单品货物价值(元),最多支持2位小数
-  cargoWorth?: string(name='cargo_worth', example='3800.12'),
+  cargoWorth?: string(maxLength=30, name='cargo_worth', example='3800.12'),
   // 当前库存货物数量
   currentInventoryCargoNum: long(name='current_inventory_cargo_num', example='567'),
   // 客户代码
   // 
-  customerCode: string(name='customer_code', example='32112'),
+  customerCode: string(maxLength=50, name='customer_code', example='32112'),
   // 关联保单号,需要仓储CP做拆分计算
-  policyNo?: string(name='policy_no', example='TB1882881002991'),
+  policyNo?: string(maxLength=64, name='policy_no', example='TB1882881002991'),
   // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
   // 
-  stockinDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='stockin_date', example='2021-3-08 13:12:22 '),
+  stockinDate?: string(name='stockin_date', example='2021-3-08 13:12:22 '),
   // 时区,仓储CP上报入库时间所属的时区
-  timezone?: string(name='timezone', example='东八区'),
+  timezone?: string(maxLength=16, name='timezone', example='东八区'),
 }
 
 // 签署方
@@ -738,17 +738,17 @@ model StockinCargo {
   stockinIndex: long(name='stockin_index', example='1'),
   // sku品名
   // 
-  sku: string(name='sku', example='80656-RLC-422-5MP'),
+  sku: string(maxLength=200, name='sku', example='80656-RLC-422-5MP'),
   // 商品名称
-  cargoName?: string(name='cargo_name', example='小米手机米9手机'),
+  cargoName?: string(maxLength=200, name='cargo_name', example='小米手机米9手机'),
   // 商品单品重量(kg)
-  cargoWeight?: string(name='cargo_weight', example='0.8'),
+  cargoWeight?: string(maxLength=50, name='cargo_weight', example='0.8'),
   // 商品外扩长宽高(cm)
-  cargoDimensions?: string(name='cargo_dimensions', example='20.00*30.00*40.00'),
+  cargoDimensions?: string(maxLength=200, name='cargo_dimensions', example='20.00*30.00*40.00'),
   // 商品单品货物价值(元),，最多支持2位小数
-  cargoWorth?: string(name='cargo_worth', example='120.00'),
+  cargoWorth?: string(maxLength=30, name='cargo_worth', example='120.00'),
   // 箱号
-  containerNo?: string(name='container_no', example='1'),
+  containerNo?: string(maxLength=50, name='container_no', example='1'),
   // 实际入库件数
   actualStockinNum: long(name='actual_stockin_num', example='6'),
 }
@@ -7016,9 +7016,9 @@ model ApplyInsuranceCbecRequest = {
   // 保费，最多兼容2位小数，单位（元）
   premium: string(name='premium'),
   // 保险起期，日期格式yyyy-mm-dd
-  insureStart: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  insureStart: string(name='insure_start'),
   // 起运日期，日期格式yyyy-mm-dd
-  saleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sale_date'),
+  saleDate: string(name='sale_date'),
 }
 
 model ApplyInsuranceCbecResponse = {
@@ -7060,19 +7060,19 @@ model ApplyInsuranceStockinRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 入库交易流水号，保持唯一
-  tradeNo: string(name='trade_no'),
+  tradeNo: string(maxLength=50, name='trade_no'),
   // 入库单号，可参考格式：年月日+唯一字符
-  stockinNo: string(name='stockin_no'),
+  stockinNo: string(maxLength=50, name='stockin_no'),
   // 入库时间，格式：yyyy-MM-dd HH:mm:ss
-  stockinDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='stockin_date'),
+  stockinDate: string(name='stockin_date'),
   // 时区	
-  timezone: string(name='timezone'),
+  timezone: string(maxLength=16, name='timezone'),
   // 仓库代码
-  repositoryCode: string(name='repository_code'),
+  repositoryCode: string(maxLength=50, name='repository_code'),
   // 客户代码
-  customerCode: string(name='customer_code'),
+  customerCode: string(maxLength=50, name='customer_code'),
   // 保单号,国内起运时投保产生的保单号
-  policyNo?: string(name='policy_no'),
+  policyNo?: string(maxLength=64, name='policy_no'),
   // 入库货物列表
   stockinCargos: [ StockinCargo ](name='stockin_cargos'),
 }
@@ -7116,15 +7116,15 @@ model ApplyInsuranceInventoryRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 库存申报交易号，调用方生成的唯一编码
-  tradeNo: string(name='trade_no'),
+  tradeNo: string(maxLength=50, name='trade_no'),
   // 库存申报编号
-  inventoryNo: string(name='inventory_no'),
+  inventoryNo: string(maxLength=50, name='inventory_no'),
   // 库存查询时间，yyyy-mm-dd，精确到（天）
-  inventoryQueryDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='inventory_query_date'),
+  inventoryQueryDate: string(name='inventory_query_date'),
   // 仓库代码
   // 
   // 
-  repositoryCode: string(name='repository_code'),
+  repositoryCode: string(maxLength=50, name='repository_code'),
   // 库存货物列表
   inventoryCargos: [ InventoryCargo ](name='inventory_cargos'),
 }
