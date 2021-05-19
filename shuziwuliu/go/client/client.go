@@ -1694,28 +1694,28 @@ type InventoryCargo struct {
 	// 序号，在同一次库存申报请求中，序号保持不重复，不能小于等于0
 	InventoryIndex *int64 `json:"inventory_index,omitempty" xml:"inventory_index,omitempty" require:"true"`
 	// sku品名
-	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true"`
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
 	// 商品名称
 	//
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty"`
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
 	// 商品单品重量(kg)
-	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty"`
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
 	// 商品外扩长宽高(cm)
-	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty"`
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
 	// 商品单品货物价值(元),最多支持2位小数
-	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty"`
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
 	// 当前库存货物数量
 	CurrentInventoryCargoNum *int64 `json:"current_inventory_cargo_num,omitempty" xml:"current_inventory_cargo_num,omitempty" require:"true"`
 	// 客户代码
 	//
-	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true" maxLength:"50"`
 	// 关联保单号,需要仓储CP做拆分计算
-	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" maxLength:"64"`
 	// 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
 	//
-	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty"`
 	// 时区,仓储CP上报入库时间所属的时区
-	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty"`
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" maxLength:"16"`
 }
 
 func (s InventoryCargo) String() string {
@@ -2060,17 +2060,17 @@ type StockinCargo struct {
 	StockinIndex *int64 `json:"stockin_index,omitempty" xml:"stockin_index,omitempty" require:"true"`
 	// sku品名
 	//
-	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true"`
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true" maxLength:"200"`
 	// 商品名称
-	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty"`
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" maxLength:"200"`
 	// 商品单品重量(kg)
-	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty"`
+	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"50"`
 	// 商品外扩长宽高(cm)
-	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty"`
+	CargoDimensions *string `json:"cargo_dimensions,omitempty" xml:"cargo_dimensions,omitempty" maxLength:"200"`
 	// 商品单品货物价值(元),，最多支持2位小数
-	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty"`
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" maxLength:"30"`
 	// 箱号
-	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty"`
+	ContainerNo *string `json:"container_no,omitempty" xml:"container_no,omitempty" maxLength:"50"`
 	// 实际入库件数
 	ActualStockinNum *int64 `json:"actual_stockin_num,omitempty" xml:"actual_stockin_num,omitempty" require:"true"`
 }
@@ -17405,9 +17405,9 @@ type ApplyInsuranceCbecRequest struct {
 	// 保费，最多兼容2位小数，单位（元）
 	Premium *string `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
 	// 保险起期，日期格式yyyy-mm-dd
-	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
 	// 起运日期，日期格式yyyy-mm-dd
-	SaleDate *string `json:"sale_date,omitempty" xml:"sale_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	SaleDate *string `json:"sale_date,omitempty" xml:"sale_date,omitempty" require:"true"`
 }
 
 func (s ApplyInsuranceCbecRequest) String() string {
@@ -17641,19 +17641,19 @@ type ApplyInsuranceStockinRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 入库交易流水号，保持唯一
-	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 入库单号，可参考格式：年月日+唯一字符
-	StockinNo *string `json:"stockin_no,omitempty" xml:"stockin_no,omitempty" require:"true"`
+	StockinNo *string `json:"stockin_no,omitempty" xml:"stockin_no,omitempty" require:"true" maxLength:"50"`
 	// 入库时间，格式：yyyy-MM-dd HH:mm:ss
-	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	StockinDate *string `json:"stockin_date,omitempty" xml:"stockin_date,omitempty" require:"true"`
 	// 时区
-	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" require:"true"`
+	Timezone *string `json:"timezone,omitempty" xml:"timezone,omitempty" require:"true" maxLength:"16"`
 	// 仓库代码
-	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true"`
+	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true" maxLength:"50"`
 	// 客户代码
-	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true" maxLength:"50"`
 	// 保单号,国内起运时投保产生的保单号
-	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty"`
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" maxLength:"64"`
 	// 入库货物列表
 	StockinCargos []*StockinCargo `json:"stockin_cargos,omitempty" xml:"stockin_cargos,omitempty" require:"true" type:"Repeated"`
 }
@@ -17769,15 +17769,15 @@ type ApplyInsuranceInventoryRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 库存申报交易号，调用方生成的唯一编码
-	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 库存申报编号
-	InventoryNo *string `json:"inventory_no,omitempty" xml:"inventory_no,omitempty" require:"true"`
+	InventoryNo *string `json:"inventory_no,omitempty" xml:"inventory_no,omitempty" require:"true" maxLength:"50"`
 	// 库存查询时间，yyyy-mm-dd，精确到（天）
-	InventoryQueryDate *string `json:"inventory_query_date,omitempty" xml:"inventory_query_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InventoryQueryDate *string `json:"inventory_query_date,omitempty" xml:"inventory_query_date,omitempty" require:"true"`
 	// 仓库代码
 	//
 	//
-	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true"`
+	RepositoryCode *string `json:"repository_code,omitempty" xml:"repository_code,omitempty" require:"true" maxLength:"50"`
 	// 库存货物列表
 	InventoryCargos []*InventoryCargo `json:"inventory_cargos,omitempty" xml:"inventory_cargos,omitempty" require:"true" type:"Repeated"`
 }
@@ -26299,7 +26299,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.105"),
+				"sdk_version":      tea.String("1.3.106"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
