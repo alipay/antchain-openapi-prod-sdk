@@ -1336,10 +1336,8 @@ class CheckCpfCertRequest(TeaModel):
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.issue_id, 'issue_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
-        self.validate_required(self.use_time, 'use_time')
         if self.use_time is not None:
             self.validate_pattern(self.use_time, 'use_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.extend_params, 'extend_params')
 
     def to_map(self):
         result = dict()
@@ -1932,6 +1930,7 @@ class GetCpfDataRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        terminal_identity: str = None,
         biz_id: str = None,
         data_user_identity: str = None,
         data_user_name: str = None,
@@ -1944,6 +1943,8 @@ class GetCpfDataRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 端ID
+        self.terminal_identity = terminal_identity
         # 业务流水号
         self.biz_id = biz_id
         # 使用方ID
@@ -1962,6 +1963,7 @@ class GetCpfDataRequest(TeaModel):
         self.extend_params = extend_params
 
     def validate(self):
+        self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.data_user_identity, 'data_user_identity')
         self.validate_required(self.data_user_name, 'data_user_name')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
@@ -1975,6 +1977,8 @@ class GetCpfDataRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.terminal_identity is not None:
+            result['terminal_identity'] = self.terminal_identity
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
         if self.data_user_identity is not None:
@@ -1999,6 +2003,8 @@ class GetCpfDataRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('terminal_identity') is not None:
+            self.terminal_identity = m.get('terminal_identity')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
         if m.get('data_user_identity') is not None:
