@@ -44,12 +44,11 @@ public class CheckCpfCertRequest extends TeaModel {
 
     // 使用时间
     @NameInMap("use_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String useTime;
 
     // 扩展字段
     @NameInMap("extend_params")
-    @Validation(required = true)
     public String extendParams;
 
     public static CheckCpfCertRequest build(java.util.Map<String, ?> map) throws Exception {

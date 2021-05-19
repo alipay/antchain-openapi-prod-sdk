@@ -11,6 +11,11 @@ public class GetCpfDataRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 端ID
+    @NameInMap("terminal_identity")
+    @Validation(required = true)
+    public String terminalIdentity;
+
     // 业务流水号
     @NameInMap("biz_id")
     public String bizId;
@@ -68,6 +73,14 @@ public class GetCpfDataRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public GetCpfDataRequest setTerminalIdentity(String terminalIdentity) {
+        this.terminalIdentity = terminalIdentity;
+        return this;
+    }
+    public String getTerminalIdentity() {
+        return this.terminalIdentity;
     }
 
     public GetCpfDataRequest setBizId(String bizId) {
