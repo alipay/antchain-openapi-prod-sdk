@@ -17,28 +17,28 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // sku品名
         [NameInMap("sku")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=200)]
         public string Sku { get; set; }
 
         // 商品名称
         // 
         [NameInMap("cargo_name")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=200)]
         public string CargoName { get; set; }
 
         // 商品单品重量(kg)
         [NameInMap("cargo_weight")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=50)]
         public string CargoWeight { get; set; }
 
         // 商品外扩长宽高(cm)
         [NameInMap("cargo_dimensions")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=200)]
         public string CargoDimensions { get; set; }
 
         // 商品单品货物价值(元),最多支持2位小数
         [NameInMap("cargo_worth")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=30)]
         public string CargoWorth { get; set; }
 
         // 当前库存货物数量
@@ -49,23 +49,23 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 客户代码
         // 
         [NameInMap("customer_code")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string CustomerCode { get; set; }
 
         // 关联保单号,需要仓储CP做拆分计算
         [NameInMap("policy_no")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=64)]
         public string PolicyNo { get; set; }
 
         // 入库时间, yyyy-MM-dd HH:mm:ss，需要仓储CP做拆分计算
         // 
         [NameInMap("stockin_date")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string StockinDate { get; set; }
 
         // 时区,仓储CP上报入库时间所属的时区
         [NameInMap("timezone")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=16)]
         public string Timezone { get; set; }
 
     }

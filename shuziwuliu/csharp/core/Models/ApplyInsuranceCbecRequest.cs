@@ -165,12 +165,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 保险起期，日期格式yyyy-mm-dd
         [NameInMap("insure_start")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string InsureStart { get; set; }
 
         // 起运日期，日期格式yyyy-mm-dd
         [NameInMap("sale_date")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string SaleDate { get; set; }
 
     }

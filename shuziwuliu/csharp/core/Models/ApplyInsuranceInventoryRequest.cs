@@ -20,24 +20,24 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 库存申报交易号，调用方生成的唯一编码
         [NameInMap("trade_no")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
         // 库存申报编号
         [NameInMap("inventory_no")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string InventoryNo { get; set; }
 
         // 库存查询时间，yyyy-mm-dd，精确到（天）
         [NameInMap("inventory_query_date")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string InventoryQueryDate { get; set; }
 
         // 仓库代码
         // 
         // 
         [NameInMap("repository_code")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string RepositoryCode { get; set; }
 
         // 库存货物列表
