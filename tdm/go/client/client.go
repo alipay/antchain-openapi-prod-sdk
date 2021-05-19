@@ -1149,9 +1149,9 @@ type CheckCpfCertRequest struct {
 	// 用途
 	Purpose *string `json:"purpose,omitempty" xml:"purpose,omitempty"`
 	// 使用时间
-	UseTime *string `json:"use_time,omitempty" xml:"use_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	UseTime *string `json:"use_time,omitempty" xml:"use_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 扩展字段
-	ExtendParams *string `json:"extend_params,omitempty" xml:"extend_params,omitempty" require:"true"`
+	ExtendParams *string `json:"extend_params,omitempty" xml:"extend_params,omitempty"`
 }
 
 func (s CheckCpfCertRequest) String() string {
@@ -1673,6 +1673,8 @@ type GetCpfDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
 	// 业务流水号
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
 	// 使用方ID
@@ -1706,6 +1708,11 @@ func (s *GetCpfDataRequest) SetAuthToken(v string) *GetCpfDataRequest {
 
 func (s *GetCpfDataRequest) SetProductInstanceId(v string) *GetCpfDataRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetCpfDataRequest) SetTerminalIdentity(v string) *GetCpfDataRequest {
+	s.TerminalIdentity = &v
 	return s
 }
 
@@ -2886,7 +2893,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.15"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
