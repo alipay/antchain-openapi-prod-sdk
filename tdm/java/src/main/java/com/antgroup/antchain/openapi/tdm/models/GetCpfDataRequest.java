@@ -30,6 +30,11 @@ public class GetCpfDataRequest extends TeaModel {
     @Validation(required = true)
     public String dataUserName;
 
+    // 证件类型
+    @NameInMap("data_owner_identity_type")
+    @Validation(required = true)
+    public String dataOwnerIdentityType;
+
     // 用户ID
     @NameInMap("data_owner_identity")
     @Validation(required = true)
@@ -110,6 +115,14 @@ public class GetCpfDataRequest extends TeaModel {
     }
     public String getDataUserName() {
         return this.dataUserName;
+    }
+
+    public GetCpfDataRequest setDataOwnerIdentityType(String dataOwnerIdentityType) {
+        this.dataOwnerIdentityType = dataOwnerIdentityType;
+        return this;
+    }
+    public String getDataOwnerIdentityType() {
+        return this.dataOwnerIdentityType;
     }
 
     public GetCpfDataRequest setDataOwnerIdentity(String dataOwnerIdentity) {
