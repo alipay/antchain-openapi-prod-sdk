@@ -56,9 +56,9 @@ public class GetCpfDataRequest extends TeaModel {
     public String dataCode;
 
     // 授权码
-    @NameInMap("targate_code")
+    @NameInMap("target_code")
     @Validation(required = true)
-    public String targateCode;
+    public String targetCode;
 
     // 扩展字段。
     @NameInMap("extend_params")
@@ -157,12 +157,12 @@ public class GetCpfDataRequest extends TeaModel {
         return this.dataCode;
     }
 
-    public GetCpfDataRequest setTargateCode(String targateCode) {
-        this.targateCode = targateCode;
+    public GetCpfDataRequest setTargetCode(String targetCode) {
+        this.targetCode = targetCode;
         return this;
     }
-    public String getTargateCode() {
-        return this.targateCode;
+    public String getTargetCode() {
+        return this.targetCode;
     }
 
     public GetCpfDataRequest setExtendParams(String extendParams) {
