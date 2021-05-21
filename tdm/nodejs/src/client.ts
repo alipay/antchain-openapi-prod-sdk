@@ -1265,6 +1265,8 @@ export class GetCpfDataRequest extends $tea.Model {
   providerId: string;
   // 数据项code
   dataCode: string;
+  // 授权码
+  targateCode: string;
   // 扩展字段。
   extendParams?: string;
   static names(): { [key: string]: string } {
@@ -1279,6 +1281,7 @@ export class GetCpfDataRequest extends $tea.Model {
       dataOwnerName: 'data_owner_name',
       providerId: 'provider_id',
       dataCode: 'data_code',
+      targateCode: 'targate_code',
       extendParams: 'extend_params',
     };
   }
@@ -1295,6 +1298,7 @@ export class GetCpfDataRequest extends $tea.Model {
       dataOwnerName: 'string',
       providerId: 'string',
       dataCode: 'string',
+      targateCode: 'string',
       extendParams: 'string',
     };
   }
@@ -2206,7 +2210,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.16",
+          sdk_version: "1.0.17",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
