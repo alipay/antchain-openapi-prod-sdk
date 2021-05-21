@@ -64,9 +64,9 @@ namespace AntChain.SDK.TDM.Models
         public string DataCode { get; set; }
 
         // 授权码
-        [NameInMap("targate_code")]
+        [NameInMap("target_code")]
         [Validation(Required=true)]
-        public string TargateCode { get; set; }
+        public string TargetCode { get; set; }
 
         // 扩展字段。
         [NameInMap("extend_params")]
