@@ -77,7 +77,7 @@ class GetCpfDataRequest extends Model
     /**
      * @var string
      */
-    public $targateCode;
+    public $targetCode;
 
     // 扩展字段。
     /**
@@ -96,7 +96,7 @@ class GetCpfDataRequest extends Model
         'dataOwnerName'         => 'data_owner_name',
         'providerId'            => 'provider_id',
         'dataCode'              => 'data_code',
-        'targateCode'           => 'targate_code',
+        'targetCode'            => 'target_code',
         'extendParams'          => 'extend_params',
     ];
 
@@ -110,7 +110,7 @@ class GetCpfDataRequest extends Model
         Model::validateRequired('dataOwnerName', $this->dataOwnerName, true);
         Model::validateRequired('providerId', $this->providerId, true);
         Model::validateRequired('dataCode', $this->dataCode, true);
-        Model::validateRequired('targateCode', $this->targateCode, true);
+        Model::validateRequired('targetCode', $this->targetCode, true);
     }
 
     public function toMap()
@@ -149,8 +149,8 @@ class GetCpfDataRequest extends Model
         if (null !== $this->dataCode) {
             $res['data_code'] = $this->dataCode;
         }
-        if (null !== $this->targateCode) {
-            $res['targate_code'] = $this->targateCode;
+        if (null !== $this->targetCode) {
+            $res['target_code'] = $this->targetCode;
         }
         if (null !== $this->extendParams) {
             $res['extend_params'] = $this->extendParams;
@@ -200,8 +200,8 @@ class GetCpfDataRequest extends Model
         if (isset($map['data_code'])) {
             $model->dataCode = $map['data_code'];
         }
-        if (isset($map['targate_code'])) {
-            $model->targateCode = $map['targate_code'];
+        if (isset($map['target_code'])) {
+            $model->targetCode = $map['target_code'];
         }
         if (isset($map['extend_params'])) {
             $model->extendParams = $map['extend_params'];
