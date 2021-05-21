@@ -1689,6 +1689,8 @@ type GetCpfDataRequest struct {
 	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
 	// 数据项code
 	DataCode *string `json:"data_code,omitempty" xml:"data_code,omitempty" require:"true"`
+	// 授权码
+	TargateCode *string `json:"targate_code,omitempty" xml:"targate_code,omitempty" require:"true"`
 	// 扩展字段。
 	ExtendParams *string `json:"extend_params,omitempty" xml:"extend_params,omitempty"`
 }
@@ -1748,6 +1750,11 @@ func (s *GetCpfDataRequest) SetProviderId(v string) *GetCpfDataRequest {
 
 func (s *GetCpfDataRequest) SetDataCode(v string) *GetCpfDataRequest {
 	s.DataCode = &v
+	return s
+}
+
+func (s *GetCpfDataRequest) SetTargateCode(v string) *GetCpfDataRequest {
+	s.TargateCode = &v
 	return s
 }
 
@@ -2893,7 +2900,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.17"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
