@@ -1681,6 +1681,8 @@ type GetCpfDataRequest struct {
 	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty" require:"true"`
 	// 使用方名称
 	DataUserName *string `json:"data_user_name,omitempty" xml:"data_user_name,omitempty" require:"true"`
+	// 证件类型
+	DataOwnerIdentityType *string `json:"data_owner_identity_type,omitempty" xml:"data_owner_identity_type,omitempty" require:"true"`
 	// 用户ID
 	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
 	// 用户姓名
@@ -1730,6 +1732,11 @@ func (s *GetCpfDataRequest) SetDataUserIdentity(v string) *GetCpfDataRequest {
 
 func (s *GetCpfDataRequest) SetDataUserName(v string) *GetCpfDataRequest {
 	s.DataUserName = &v
+	return s
+}
+
+func (s *GetCpfDataRequest) SetDataOwnerIdentityType(v string) *GetCpfDataRequest {
+	s.DataOwnerIdentityType = &v
 	return s
 }
 
@@ -2900,7 +2907,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.17"),
+				"sdk_version":      tea.String("1.0.18"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
