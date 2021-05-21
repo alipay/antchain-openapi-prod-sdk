@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.16',
+    sdk_version = '1.0.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -771,6 +771,8 @@ model GetCpfDataRequest = {
   providerId: string(name='provider_id'),
   // 数据项code
   dataCode: string(name='data_code'),
+  // 授权码
+  targateCode: string(name='targate_code'),
   // 扩展字段。
   extendParams?: string(name='extend_params'),
 }
