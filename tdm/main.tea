@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.17',
+    sdk_version = '1.0.18',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -763,6 +763,8 @@ model GetCpfDataRequest = {
   dataUserIdentity: string(name='data_user_identity'),
   // 使用方名称
   dataUserName: string(name='data_user_name'),
+  // 证件类型
+  dataOwnerIdentityType: string(name='data_owner_identity_type'),
   // 用户ID
   dataOwnerIdentity: string(name='data_owner_identity'),
   // 用户姓名
