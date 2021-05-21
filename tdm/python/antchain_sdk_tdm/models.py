@@ -1938,6 +1938,7 @@ class GetCpfDataRequest(TeaModel):
         data_owner_name: str = None,
         provider_id: str = None,
         data_code: str = None,
+        targate_code: str = None,
         extend_params: str = None,
     ):
         # OAuth模式下的授权token
@@ -1959,6 +1960,8 @@ class GetCpfDataRequest(TeaModel):
         self.provider_id = provider_id
         # 数据项code
         self.data_code = data_code
+        # 授权码
+        self.targate_code = targate_code
         # 扩展字段。
         self.extend_params = extend_params
 
@@ -1970,6 +1973,7 @@ class GetCpfDataRequest(TeaModel):
         self.validate_required(self.data_owner_name, 'data_owner_name')
         self.validate_required(self.provider_id, 'provider_id')
         self.validate_required(self.data_code, 'data_code')
+        self.validate_required(self.targate_code, 'targate_code')
 
     def to_map(self):
         result = dict()
@@ -1993,6 +1997,8 @@ class GetCpfDataRequest(TeaModel):
             result['provider_id'] = self.provider_id
         if self.data_code is not None:
             result['data_code'] = self.data_code
+        if self.targate_code is not None:
+            result['targate_code'] = self.targate_code
         if self.extend_params is not None:
             result['extend_params'] = self.extend_params
         return result
@@ -2019,6 +2025,8 @@ class GetCpfDataRequest(TeaModel):
             self.provider_id = m.get('provider_id')
         if m.get('data_code') is not None:
             self.data_code = m.get('data_code')
+        if m.get('targate_code') is not None:
+            self.targate_code = m.get('targate_code')
         if m.get('extend_params') is not None:
             self.extend_params = m.get('extend_params')
         return self

@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_tdm.
 
-Created on 19/05/2021
+Created on 21/05/2021
 
 @author: Ant Chain SDK
 """
