@@ -1257,6 +1257,8 @@ export class GetCpfDataRequest extends $tea.Model {
   dataUserIdentity: string;
   // 使用方名称
   dataUserName: string;
+  // 证件类型
+  dataOwnerIdentityType: string;
   // 用户ID
   dataOwnerIdentity: string;
   // 用户姓名
@@ -1277,6 +1279,7 @@ export class GetCpfDataRequest extends $tea.Model {
       bizId: 'biz_id',
       dataUserIdentity: 'data_user_identity',
       dataUserName: 'data_user_name',
+      dataOwnerIdentityType: 'data_owner_identity_type',
       dataOwnerIdentity: 'data_owner_identity',
       dataOwnerName: 'data_owner_name',
       providerId: 'provider_id',
@@ -1294,6 +1297,7 @@ export class GetCpfDataRequest extends $tea.Model {
       bizId: 'string',
       dataUserIdentity: 'string',
       dataUserName: 'string',
+      dataOwnerIdentityType: 'string',
       dataOwnerIdentity: 'string',
       dataOwnerName: 'string',
       providerId: 'string',
@@ -2210,7 +2214,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.17",
+          sdk_version: "1.0.18",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
