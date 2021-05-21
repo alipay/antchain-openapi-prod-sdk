@@ -1934,6 +1934,7 @@ class GetCpfDataRequest(TeaModel):
         biz_id: str = None,
         data_user_identity: str = None,
         data_user_name: str = None,
+        data_owner_identity_type: str = None,
         data_owner_identity: str = None,
         data_owner_name: str = None,
         provider_id: str = None,
@@ -1952,6 +1953,8 @@ class GetCpfDataRequest(TeaModel):
         self.data_user_identity = data_user_identity
         # 使用方名称
         self.data_user_name = data_user_name
+        # 证件类型
+        self.data_owner_identity_type = data_owner_identity_type
         # 用户ID
         self.data_owner_identity = data_owner_identity
         # 用户姓名
@@ -1969,6 +1972,7 @@ class GetCpfDataRequest(TeaModel):
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.data_user_identity, 'data_user_identity')
         self.validate_required(self.data_user_name, 'data_user_name')
+        self.validate_required(self.data_owner_identity_type, 'data_owner_identity_type')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.data_owner_name, 'data_owner_name')
         self.validate_required(self.provider_id, 'provider_id')
@@ -1989,6 +1993,8 @@ class GetCpfDataRequest(TeaModel):
             result['data_user_identity'] = self.data_user_identity
         if self.data_user_name is not None:
             result['data_user_name'] = self.data_user_name
+        if self.data_owner_identity_type is not None:
+            result['data_owner_identity_type'] = self.data_owner_identity_type
         if self.data_owner_identity is not None:
             result['data_owner_identity'] = self.data_owner_identity
         if self.data_owner_name is not None:
@@ -2017,6 +2023,8 @@ class GetCpfDataRequest(TeaModel):
             self.data_user_identity = m.get('data_user_identity')
         if m.get('data_user_name') is not None:
             self.data_user_name = m.get('data_user_name')
+        if m.get('data_owner_identity_type') is not None:
+            self.data_owner_identity_type = m.get('data_owner_identity_type')
         if m.get('data_owner_identity') is not None:
             self.data_owner_identity = m.get('data_owner_identity')
         if m.get('data_owner_name') is not None:
