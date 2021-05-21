@@ -43,6 +43,12 @@ class GetCpfDataRequest extends Model
      */
     public $dataUserName;
 
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $dataOwnerIdentityType;
+
     // 用户ID
     /**
      * @var string
@@ -79,18 +85,19 @@ class GetCpfDataRequest extends Model
      */
     public $extendParams;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'terminalIdentity'  => 'terminal_identity',
-        'bizId'             => 'biz_id',
-        'dataUserIdentity'  => 'data_user_identity',
-        'dataUserName'      => 'data_user_name',
-        'dataOwnerIdentity' => 'data_owner_identity',
-        'dataOwnerName'     => 'data_owner_name',
-        'providerId'        => 'provider_id',
-        'dataCode'          => 'data_code',
-        'targateCode'       => 'targate_code',
-        'extendParams'      => 'extend_params',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'terminalIdentity'      => 'terminal_identity',
+        'bizId'                 => 'biz_id',
+        'dataUserIdentity'      => 'data_user_identity',
+        'dataUserName'          => 'data_user_name',
+        'dataOwnerIdentityType' => 'data_owner_identity_type',
+        'dataOwnerIdentity'     => 'data_owner_identity',
+        'dataOwnerName'         => 'data_owner_name',
+        'providerId'            => 'provider_id',
+        'dataCode'              => 'data_code',
+        'targateCode'           => 'targate_code',
+        'extendParams'          => 'extend_params',
     ];
 
     public function validate()
@@ -98,6 +105,7 @@ class GetCpfDataRequest extends Model
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
         Model::validateRequired('dataUserName', $this->dataUserName, true);
+        Model::validateRequired('dataOwnerIdentityType', $this->dataOwnerIdentityType, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('dataOwnerName', $this->dataOwnerName, true);
         Model::validateRequired('providerId', $this->providerId, true);
@@ -125,6 +133,9 @@ class GetCpfDataRequest extends Model
         }
         if (null !== $this->dataUserName) {
             $res['data_user_name'] = $this->dataUserName;
+        }
+        if (null !== $this->dataOwnerIdentityType) {
+            $res['data_owner_identity_type'] = $this->dataOwnerIdentityType;
         }
         if (null !== $this->dataOwnerIdentity) {
             $res['data_owner_identity'] = $this->dataOwnerIdentity;
@@ -173,6 +184,9 @@ class GetCpfDataRequest extends Model
         }
         if (isset($map['data_user_name'])) {
             $model->dataUserName = $map['data_user_name'];
+        }
+        if (isset($map['data_owner_identity_type'])) {
+            $model->dataOwnerIdentityType = $map['data_owner_identity_type'];
         }
         if (isset($map['data_owner_identity'])) {
             $model->dataOwnerIdentity = $map['data_owner_identity'];
