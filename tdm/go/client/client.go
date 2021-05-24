@@ -1136,6 +1136,8 @@ type CheckCpfCertRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部业务流水
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 扫码验真类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 端ID
 	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
 	// 证明ID
@@ -1174,6 +1176,11 @@ func (s *CheckCpfCertRequest) SetProductInstanceId(v string) *CheckCpfCertReques
 
 func (s *CheckCpfCertRequest) SetBizId(v string) *CheckCpfCertRequest {
 	s.BizId = &v
+	return s
+}
+
+func (s *CheckCpfCertRequest) SetType(v string) *CheckCpfCertRequest {
+	s.Type = &v
 	return s
 }
 
@@ -1826,6 +1833,10 @@ type ListCpfDatauseRequest struct {
 	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty" require:"true"`
 	// 筛选时间，按月份筛选，默认当前月份
 	OptionTime *string `json:"option_time,omitempty" xml:"option_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 数据类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 数据类型
+	DataCode *string `json:"data_code,omitempty" xml:"data_code,omitempty"`
 }
 
 func (s ListCpfDatauseRequest) String() string {
@@ -1858,6 +1869,16 @@ func (s *ListCpfDatauseRequest) SetDataUserIdentity(v string) *ListCpfDatauseReq
 
 func (s *ListCpfDatauseRequest) SetOptionTime(v string) *ListCpfDatauseRequest {
 	s.OptionTime = &v
+	return s
+}
+
+func (s *ListCpfDatauseRequest) SetType(v string) *ListCpfDatauseRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *ListCpfDatauseRequest) SetDataCode(v string) *ListCpfDatauseRequest {
+	s.DataCode = &v
 	return s
 }
 
@@ -2907,7 +2928,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.0.20"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
