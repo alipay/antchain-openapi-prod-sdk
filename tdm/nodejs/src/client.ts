@@ -848,6 +848,8 @@ export class CheckCpfCertRequest extends $tea.Model {
   productInstanceId?: string;
   // 外部业务流水
   bizId?: string;
+  // 扫码验真类型
+  type: string;
   // 端ID
   terminalIdentity: string;
   // 证明ID
@@ -869,6 +871,7 @@ export class CheckCpfCertRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizId: 'biz_id',
+      type: 'type',
       terminalIdentity: 'terminal_identity',
       issueId: 'issue_id',
       dataOwnerIdentity: 'data_owner_identity',
@@ -885,6 +888,7 @@ export class CheckCpfCertRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       bizId: 'string',
+      type: 'string',
       terminalIdentity: 'string',
       issueId: 'string',
       dataOwnerIdentity: 'string',
@@ -1358,6 +1362,10 @@ export class ListCpfDatauseRequest extends $tea.Model {
   dataUserIdentity: string;
   // 筛选时间，按月份筛选，默认当前月份
   optionTime?: string;
+  // 数据类型
+  type?: string;
+  // 数据类型
+  dataCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1365,6 +1373,8 @@ export class ListCpfDatauseRequest extends $tea.Model {
       terminalIdentity: 'terminal_identity',
       dataUserIdentity: 'data_user_identity',
       optionTime: 'option_time',
+      type: 'type',
+      dataCode: 'data_code',
     };
   }
 
@@ -1375,6 +1385,8 @@ export class ListCpfDatauseRequest extends $tea.Model {
       terminalIdentity: 'string',
       dataUserIdentity: 'string',
       optionTime: 'string',
+      type: 'string',
+      dataCode: 'string',
     };
   }
 
@@ -2214,7 +2226,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.0.20",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
