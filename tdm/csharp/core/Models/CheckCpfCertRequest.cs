@@ -23,6 +23,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string BizId { get; set; }
 
+        // 扫码验真类型
+        [NameInMap("type")]
+        [Validation(Required=true)]
+        public string Type { get; set; }
+
         // 端ID
         [NameInMap("terminal_identity")]
         [Validation(Required=true)]

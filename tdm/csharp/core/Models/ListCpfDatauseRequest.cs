@@ -33,6 +33,16 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string OptionTime { get; set; }
 
+        // 数据类型
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
+        // 数据类型
+        [NameInMap("data_code")]
+        [Validation(Required=false)]
+        public string DataCode { get; set; }
+
     }
 
 }
