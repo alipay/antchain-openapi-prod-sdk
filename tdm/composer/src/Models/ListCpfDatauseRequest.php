@@ -36,12 +36,26 @@ class ListCpfDatauseRequest extends Model
      * @var string
      */
     public $optionTime;
+
+    // 数据类型
+    /**
+     * @var string
+     */
+    public $type;
+
+    // 数据类型
+    /**
+     * @var string
+     */
+    public $dataCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'terminalIdentity'  => 'terminal_identity',
         'dataUserIdentity'  => 'data_user_identity',
         'optionTime'        => 'option_time',
+        'type'              => 'type',
+        'dataCode'          => 'data_code',
     ];
 
     public function validate()
@@ -69,6 +83,12 @@ class ListCpfDatauseRequest extends Model
         if (null !== $this->optionTime) {
             $res['option_time'] = $this->optionTime;
         }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->dataCode) {
+            $res['data_code'] = $this->dataCode;
+        }
 
         return $res;
     }
@@ -95,6 +115,12 @@ class ListCpfDatauseRequest extends Model
         }
         if (isset($map['option_time'])) {
             $model->optionTime = $map['option_time'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
+        if (isset($map['data_code'])) {
+            $model->dataCode = $map['data_code'];
         }
 
         return $model;

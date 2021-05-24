@@ -25,6 +25,12 @@ class CheckCpfCertRequest extends Model
      */
     public $bizId;
 
+    // 扫码验真类型
+    /**
+     * @var string
+     */
+    public $type;
+
     // 端ID
     /**
      * @var string
@@ -76,6 +82,7 @@ class CheckCpfCertRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
+        'type'              => 'type',
         'terminalIdentity'  => 'terminal_identity',
         'issueId'           => 'issue_id',
         'dataOwnerIdentity' => 'data_owner_identity',
@@ -88,6 +95,7 @@ class CheckCpfCertRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('type', $this->type, true);
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('issueId', $this->issueId, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
@@ -105,6 +113,9 @@ class CheckCpfCertRequest extends Model
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
         if (null !== $this->terminalIdentity) {
             $res['terminal_identity'] = $this->terminalIdentity;
@@ -150,6 +161,9 @@ class CheckCpfCertRequest extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
         if (isset($map['terminal_identity'])) {
             $model->terminalIdentity = $map['terminal_identity'];
