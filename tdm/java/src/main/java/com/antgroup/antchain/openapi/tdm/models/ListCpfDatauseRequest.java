@@ -26,6 +26,14 @@ public class ListCpfDatauseRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String optionTime;
 
+    // 数据类型
+    @NameInMap("type")
+    public String type;
+
+    // 数据类型
+    @NameInMap("data_code")
+    public String dataCode;
+
     public static ListCpfDatauseRequest build(java.util.Map<String, ?> map) throws Exception {
         ListCpfDatauseRequest self = new ListCpfDatauseRequest();
         return TeaModel.build(map, self);
@@ -69,6 +77,22 @@ public class ListCpfDatauseRequest extends TeaModel {
     }
     public String getOptionTime() {
         return this.optionTime;
+    }
+
+    public ListCpfDatauseRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
+    }
+
+    public ListCpfDatauseRequest setDataCode(String dataCode) {
+        this.dataCode = dataCode;
+        return this;
+    }
+    public String getDataCode() {
+        return this.dataCode;
     }
 
 }

@@ -15,6 +15,11 @@ public class CheckCpfCertRequest extends TeaModel {
     @NameInMap("biz_id")
     public String bizId;
 
+    // 扫码验真类型
+    @NameInMap("type")
+    @Validation(required = true)
+    public String type;
+
     // 端ID
     @NameInMap("terminal_identity")
     @Validation(required = true)
@@ -78,6 +83,14 @@ public class CheckCpfCertRequest extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public CheckCpfCertRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
     public CheckCpfCertRequest setTerminalIdentity(String terminalIdentity) {
