@@ -1301,6 +1301,7 @@ class CheckCpfCertRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         biz_id: str = None,
+        type: str = None,
         terminal_identity: str = None,
         issue_id: str = None,
         data_owner_identity: str = None,
@@ -1315,6 +1316,8 @@ class CheckCpfCertRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 外部业务流水
         self.biz_id = biz_id
+        # 扫码验真类型
+        self.type = type
         # 端ID
         self.terminal_identity = terminal_identity
         # 证明ID
@@ -1333,6 +1336,7 @@ class CheckCpfCertRequest(TeaModel):
         self.extend_params = extend_params
 
     def validate(self):
+        self.validate_required(self.type, 'type')
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.issue_id, 'issue_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
@@ -1347,6 +1351,8 @@ class CheckCpfCertRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
+        if self.type is not None:
+            result['type'] = self.type
         if self.terminal_identity is not None:
             result['terminal_identity'] = self.terminal_identity
         if self.issue_id is not None:
@@ -1373,6 +1379,8 @@ class CheckCpfCertRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         if m.get('terminal_identity') is not None:
             self.terminal_identity = m.get('terminal_identity')
         if m.get('issue_id') is not None:
@@ -2100,6 +2108,8 @@ class ListCpfDatauseRequest(TeaModel):
         terminal_identity: str = None,
         data_user_identity: str = None,
         option_time: str = None,
+        type: str = None,
+        data_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2110,6 +2120,10 @@ class ListCpfDatauseRequest(TeaModel):
         self.data_user_identity = data_user_identity
         # 筛选时间，按月份筛选，默认当前月份
         self.option_time = option_time
+        # 数据类型
+        self.type = type
+        # 数据类型
+        self.data_code = data_code
 
     def validate(self):
         self.validate_required(self.terminal_identity, 'terminal_identity')
@@ -2129,6 +2143,10 @@ class ListCpfDatauseRequest(TeaModel):
             result['data_user_identity'] = self.data_user_identity
         if self.option_time is not None:
             result['option_time'] = self.option_time
+        if self.type is not None:
+            result['type'] = self.type
+        if self.data_code is not None:
+            result['data_code'] = self.data_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2143,6 +2161,10 @@ class ListCpfDatauseRequest(TeaModel):
             self.data_user_identity = m.get('data_user_identity')
         if m.get('option_time') is not None:
             self.option_time = m.get('option_time')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('data_code') is not None:
+            self.data_code = m.get('data_code')
         return self
 
 
