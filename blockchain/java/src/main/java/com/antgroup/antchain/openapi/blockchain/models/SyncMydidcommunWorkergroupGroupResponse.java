@@ -16,10 +16,6 @@ public class SyncMydidcommunWorkergroupGroupResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("data")
-    public String data;
-
     public static SyncMydidcommunWorkergroupGroupResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncMydidcommunWorkergroupGroupResponse self = new SyncMydidcommunWorkergroupGroupResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class SyncMydidcommunWorkergroupGroupResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public SyncMydidcommunWorkergroupGroupResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

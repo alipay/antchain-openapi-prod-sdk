@@ -16,10 +16,6 @@ public class UpdateMydidcommunWorkergroupTappResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功 1 成功 2 失败
-    @NameInMap("data")
-    public String data;
-
     public static UpdateMydidcommunWorkergroupTappResponse build(java.util.Map<String, ?> map) throws Exception {
         UpdateMydidcommunWorkergroupTappResponse self = new UpdateMydidcommunWorkergroupTappResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class UpdateMydidcommunWorkergroupTappResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public UpdateMydidcommunWorkergroupTappResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }
