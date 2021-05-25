@@ -181,6 +181,21 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string SalesChannel { get; set; }
 
+        // 0 IP交易，1 增值服务交易
+        [NameInMap("goods_type")]
+        [Validation(Required=true)]
+        public long? GoodsType { get; set; }
+
+        // 增值服务交易绑定的ip授权交易订单
+        [NameInMap("related_order_id")]
+        [Validation(Required=true)]
+        public string RelatedOrderId { get; set; }
+
+        // 是否已监修报审
+        [NameInMap("supervise_approve")]
+        [Validation(Required=true)]
+        public bool? SuperviseApprove { get; set; }
+
     }
 
 }

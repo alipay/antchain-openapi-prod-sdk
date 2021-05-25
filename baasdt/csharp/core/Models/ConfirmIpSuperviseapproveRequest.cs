@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class CheckIpCodeRequest : TeaModel {
+    public class ConfirmIpSuperviseapproveRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,35 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础参数
+        // 基础字段
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 正版码的编码
-        [NameInMap("code")]
+        // 监修报审关联的订单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string Code { get; set; }
+        public string OrderId { get; set; }
 
-        // 扫码用户的ID
-        [NameInMap("user_id")]
+        // 当前期望的审批阶段（用于校验）
+        [NameInMap("stage")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
+        public long? Stage { get; set; }
 
-        // 扫码用户的名称
-        [NameInMap("user_name")]
+        // 是否审批通过
+        [NameInMap("is_approval")]
         [Validation(Required=true)]
-        public string UserName { get; set; }
+        public bool? IsApproval { get; set; }
 
-        // 扫码用户的手机号
-        [NameInMap("phone_number")]
+        // 审批备注
+        [NameInMap("approval_comments")]
         [Validation(Required=false)]
-        public string PhoneNumber { get; set; }
+        public string ApprovalComments { get; set; }
 
-        // 扫码用户的位置信息
-        [NameInMap("gps")]
+        // 审批额外信息
+        [NameInMap("approval_ext_info")]
         [Validation(Required=false)]
-        public string Gps { get; set; }
+        public string ApprovalExtInfo { get; set; }
 
     }
 

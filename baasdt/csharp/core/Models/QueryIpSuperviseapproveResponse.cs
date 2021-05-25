@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpSkuconfigResponse : TeaModel {
+    public class QueryIpSuperviseapproveResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // sku信息
-        [NameInMap("skus")]
+        // 监修报审最新阶段的详情
+        [NameInMap("supervise_approve")]
         [Validation(Required=false)]
-        public List<IpSkuConfigWithLevel> Skus { get; set; }
+        public SuperviseApprove SuperviseApprove { get; set; }
 
     }
 

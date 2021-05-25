@@ -78,6 +78,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public bool? IsCreateTimeSortDesc { get; set; }
 
+        // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+        [NameInMap("is_sort_by_pv")]
+        [Validation(Required=false)]
+        public long? IsSortByPv { get; set; }
+
+        // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+        [NameInMap("is_sort_by_status_change")]
+        [Validation(Required=false)]
+        public long? IsSortByStatusChange { get; set; }
+
     }
 
 }

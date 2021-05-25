@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpGoodsdetailwithchannelRequest : TeaModel {
+    public class PagequeryIpCodeinfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,30 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础结构
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip的链上id
-        [NameInMap("ip_ids")]
+        // 用户ID
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public List<string> IpIds { get; set; }
+        public string UserId { get; set; }
 
-        // 查询的渠道名字
-        [NameInMap("channel_name")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=true)]
-        public string ChannelName { get; set; }
+        public long? PageNumber { get; set; }
 
-        // 是否要增加pv，默认不增加
-        [NameInMap("update_pv")]
-        [Validation(Required=false)]
-        public bool? UpdatePv { get; set; }
+        // 每页数据量大小
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
+
+        // 0 扫描过的正版码，1 领取过的正版码
+        [NameInMap("type")]
+        [Validation(Required=true)]
+        public long? Type { get; set; }
 
     }
 

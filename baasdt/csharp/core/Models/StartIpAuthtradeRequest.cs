@@ -108,6 +108,21 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string GuaranteedSales { get; set; }
 
+        // 0 IP交易，1 增值服务交易
+        [NameInMap("goods_type")]
+        [Validation(Required=false)]
+        public long? GoodsType { get; set; }
+
+        // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+        [NameInMap("related_order_id")]
+        [Validation(Required=false)]
+        public string RelatedOrderId { get; set; }
+
+        // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+        [NameInMap("pay_return_url")]
+        [Validation(Required=false)]
+        public string PayReturnUrl { get; set; }
+
     }
 
 }

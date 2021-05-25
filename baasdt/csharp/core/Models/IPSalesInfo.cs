@@ -75,6 +75,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? OperateTime { get; set; }
 
+        // 商品信息
+        [NameInMap("goods_info")]
+        [Validation(Required=false)]
+        public string GoodsInfo { get; set; }
+
     }
 
 }

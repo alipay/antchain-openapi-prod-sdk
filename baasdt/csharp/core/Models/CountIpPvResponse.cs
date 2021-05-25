@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpSkuconfigResponse : TeaModel {
+    public class CountIpPvResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // sku信息
-        [NameInMap("skus")]
+        // 总计
+        [NameInMap("all_count")]
         [Validation(Required=false)]
-        public List<IpSkuConfigWithLevel> Skus { get; set; }
+        public long? AllCount { get; set; }
+
+        // 渠道统计值
+        [NameInMap("counter_details")]
+        [Validation(Required=false)]
+        public List<ChannelCounter> CounterDetails { get; set; }
 
     }
 

@@ -60,6 +60,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AccountName { get; set; }
 
+        // 浏览量
+        [NameInMap("pv")]
+        [Validation(Required=false)]
+        public long? Pv { get; set; }
+
+        // 最近一次上下架时间
+        [NameInMap("last_state_change_time")]
+        [Validation(Required=false)]
+        public long? LastStateChangeTime { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpGoodsdetailwithchannelRequest : TeaModel {
+    public class PushIpSuperviseapproveRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础结构
+        // 基础字段
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip的链上id
-        [NameInMap("ip_ids")]
+        // 关联的订单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public List<string> IpIds { get; set; }
+        public string OrderId { get; set; }
 
-        // 查询的渠道名字
-        [NameInMap("channel_name")]
+        // 当前期望的阶段（用于校验，若是重新提交，则阶段值相等，若推进下一阶段，则阶段值+1）
+        [NameInMap("stage")]
         [Validation(Required=true)]
-        public string ChannelName { get; set; }
+        public long? Stage { get; set; }
 
-        // 是否要增加pv，默认不增加
-        [NameInMap("update_pv")]
-        [Validation(Required=false)]
-        public bool? UpdatePv { get; set; }
+        // 监修报审的阶段具体内容，组织成json保存
+        [NameInMap("ext_info")]
+        [Validation(Required=true)]
+        public string ExtInfo { get; set; }
 
     }
 

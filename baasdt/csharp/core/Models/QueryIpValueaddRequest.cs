@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpGoodsdetailwithchannelRequest : TeaModel {
+    public class QueryIpValueaddRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础结构
+        // 基础字段
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip的链上id
-        [NameInMap("ip_ids")]
+        // 查询服务id
+        [NameInMap("service_id")]
         [Validation(Required=true)]
-        public List<string> IpIds { get; set; }
-
-        // 查询的渠道名字
-        [NameInMap("channel_name")]
-        [Validation(Required=true)]
-        public string ChannelName { get; set; }
-
-        // 是否要增加pv，默认不增加
-        [NameInMap("update_pv")]
-        [Validation(Required=false)]
-        public bool? UpdatePv { get; set; }
+        public string ServiceId { get; set; }
 
     }
 

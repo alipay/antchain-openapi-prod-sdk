@@ -63,6 +63,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? TradeType { get; set; }
 
+        // 0 IP交易，1 增值服务交易
+        [NameInMap("goods_type")]
+        [Validation(Required=false)]
+        public long? GoodsType { get; set; }
+
         // 收费模式：0 销售抽拥，1 按量计费
         [NameInMap("charge_type")]
         [Validation(Required=false)]

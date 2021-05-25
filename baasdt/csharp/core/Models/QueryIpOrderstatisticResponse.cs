@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpSkuconfigResponse : TeaModel {
+    public class QueryIpOrderstatisticResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // sku信息
-        [NameInMap("skus")]
+        // 订单总数
+        [NameInMap("total_order_count")]
         [Validation(Required=false)]
-        public List<IpSkuConfigWithLevel> Skus { get; set; }
+        public long? TotalOrderCount { get; set; }
+
+        // 总金额
+        [NameInMap("total_payment_amount")]
+        [Validation(Required=false)]
+        public string TotalPaymentAmount { get; set; }
+
+        // 总客户数
+        [NameInMap("total_buyer_count")]
+        [Validation(Required=false)]
+        public long? TotalBuyerCount { get; set; }
+
+        // 统计数据
+        [NameInMap("order_sta_list")]
+        [Validation(Required=false)]
+        public List<ChannelCounter> OrderStaList { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class UploadIpAuthtradesalesRequest : TeaModel {
+    public class UploadIpTradesalesRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -53,70 +53,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AuthPrice { get; set; }
 
-        // 本次结算周期开始时间
-        [NameInMap("settlement_begin_time")]
+        // 商品销售数量
+        [NameInMap("total_amount")]
         [Validation(Required=true)]
-        public long? SettlementBeginTime { get; set; }
-
-        // 本次结算周期结束时间
-        [NameInMap("settlement_end_time")]
-        [Validation(Required=true)]
-        public long? SettlementEndTime { get; set; }
-
-        // 零售价
-        [NameInMap("price")]
-        [Validation(Required=true)]
-        public string Price { get; set; }
-
-        // 终端商品销售数量
-        [NameInMap("amount")]
-        [Validation(Required=true)]
-        public long? Amount { get; set; }
+        public long? TotalAmount { get; set; }
 
         // 销售金额
-        [NameInMap("sales")]
+        [NameInMap("total_sales")]
         [Validation(Required=true)]
-        public string Sales { get; set; }
+        public string TotalSales { get; set; }
 
-        // 实付金额
-        [NameInMap("payment")]
+        // 实付金额（授权交易）
+        [NameInMap("total_payment")]
         [Validation(Required=true)]
-        public string Payment { get; set; }
+        public string TotalPayment { get; set; }
 
-        // 终端商品名称
-        [NameInMap("goods_name")]
+        // 销售数据列表
+        [NameInMap("ip_sales_info_list")]
         [Validation(Required=true)]
-        public string GoodsName { get; set; }
-
-        // 终端商品图片
-        [NameInMap("goods_image")]
-        [Validation(Required=false)]
-        public string GoodsImage { get; set; }
-
-        // 终端销售渠道
-        [NameInMap("sales_channel")]
-        [Validation(Required=false)]
-        public string SalesChannel { get; set; }
-
-        // 终端商品链接
-        [NameInMap("goods_url")]
-        [Validation(Required=false)]
-        public string GoodsUrl { get; set; }
-
-        // 商品信息
-        [NameInMap("goods_info")]
-        [Validation(Required=true)]
-        public string GoodsInfo { get; set; }
-
-        // 数据上传操作者
-        [NameInMap("operator")]
-        [Validation(Required=true)]
-        public string Operator { get; set; }
-
-        // 备注信息
-        [NameInMap("memo")]
-        [Validation(Required=false)]
-        public string Memo { get; set; }
+        public List<IPSalesInfo> IpSalesInfoList { get; set; }
 
     }
 

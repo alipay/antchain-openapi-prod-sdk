@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpSkuconfigResponse : TeaModel {
+    public class PagequeryIpCodeinfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // sku信息
-        [NameInMap("skus")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=false)]
-        public List<IpSkuConfigWithLevel> Skus { get; set; }
+        public long? PageNumber { get; set; }
+
+        // 页面数据量大小
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 领取到的正版码总数
+        [NameInMap("code_count")]
+        [Validation(Required=false)]
+        public long? CodeCount { get; set; }
+
+        // 正版码列表信息
+        [NameInMap("code_list")]
+        [Validation(Required=false)]
+        public List<IPCodeScannedInfo> CodeList { get; set; }
 
     }
 

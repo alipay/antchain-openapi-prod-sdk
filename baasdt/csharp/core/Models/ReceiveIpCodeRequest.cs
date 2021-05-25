@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpGoodsdetailwithchannelRequest : TeaModel {
+    public class ReceiveIpCodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,35 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础结构
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip的链上id
-        [NameInMap("ip_ids")]
+        // 正版码的编码
+        [NameInMap("code")]
         [Validation(Required=true)]
-        public List<string> IpIds { get; set; }
+        public string Code { get; set; }
 
-        // 查询的渠道名字
-        [NameInMap("channel_name")]
+        // 领取用户的ID
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public string ChannelName { get; set; }
+        public string UserId { get; set; }
 
-        // 是否要增加pv，默认不增加
-        [NameInMap("update_pv")]
+        // 领取用户的名称
+        [NameInMap("user_name")]
+        [Validation(Required=true)]
+        public string UserName { get; set; }
+
+        // 领取用户的手机号
+        [NameInMap("phone_number")]
         [Validation(Required=false)]
-        public bool? UpdatePv { get; set; }
+        public string PhoneNumber { get; set; }
+
+        // 领取用户的位置信息
+        [NameInMap("gps")]
+        [Validation(Required=false)]
+        public string Gps { get; set; }
 
     }
 

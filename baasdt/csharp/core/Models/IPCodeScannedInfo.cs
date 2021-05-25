@@ -8,32 +8,47 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    // 正版码被扫描的信息
+    // 正版码被扫描或领取的信息
     public class IPCodeScannedInfo : TeaModel {
-        // 扫码用户的ID
+        // 正版码ID
+        [NameInMap("ip_code")]
+        [Validation(Required=true)]
+        public string IpCode { get; set; }
+
+        // 用户的ID
         [NameInMap("user_id")]
         [Validation(Required=true)]
         public string UserId { get; set; }
 
-        // 扫码用户的名称
+        // 用户的名称
         [NameInMap("user_name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string UserName { get; set; }
 
-        // 扫码用户的手机号
+        // 用户的手机号
         [NameInMap("phone_number")]
         [Validation(Required=false)]
         public string PhoneNumber { get; set; }
 
-        // 扫码用户的位置信息
+        // 用户的位置信息
         [NameInMap("gps")]
         [Validation(Required=false)]
         public string Gps { get; set; }
 
-        // 扫码的时间(毫秒时间戳)
+        // 处理时间(毫秒时间戳)
         [NameInMap("timestamp")]
         [Validation(Required=true)]
         public long? Timestamp { get; set; }
+
+        // IP ID
+        [NameInMap("ip_id")]
+        [Validation(Required=true)]
+        public string IpId { get; set; }
+
+        // 订单ID
+        [NameInMap("order_id")]
+        [Validation(Required=true)]
+        public string OrderId { get; set; }
 
     }
 
