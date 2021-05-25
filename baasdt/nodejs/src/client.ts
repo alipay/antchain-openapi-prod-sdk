@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -496,6 +497,63 @@ export class IPCardInfo extends $tea.Model {
   }
 }
 
+// 增值服务信息
+export class ValueAddedServiceInfo extends $tea.Model {
+  // 增值服务归属账户id
+  accountId: string;
+  // 增值服务id
+  serviceId: string;
+  // 增值服务名字
+  serviceName: string;
+  // 主图 链接地址
+  images: string;
+  // 详情图
+  imagesDetail: string;
+  // 增值服务描述
+  description?: string;
+  // 联系人列表
+  dockingPeople: DockingPeopleInfo[];
+  // 资质证明
+  copyRight?: string;
+  // 备注
+  memo?: string;
+  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+  status: number;
+  static names(): { [key: string]: string } {
+    return {
+      accountId: 'account_id',
+      serviceId: 'service_id',
+      serviceName: 'service_name',
+      images: 'images',
+      imagesDetail: 'images_detail',
+      description: 'description',
+      dockingPeople: 'docking_people',
+      copyRight: 'copy_right',
+      memo: 'memo',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountId: 'string',
+      serviceId: 'string',
+      serviceName: 'string',
+      images: 'string',
+      imagesDetail: 'string',
+      description: 'string',
+      dockingPeople: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRight: 'string',
+      memo: 'string',
+      status: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 权益附属信息
 export class EquityExtInfo extends $tea.Model {
   // 指定兑换日限制已使用
@@ -710,6 +768,35 @@ export class DebitWallet extends $tea.Model {
       fundManagerId: 'string',
       trusteeId: 'string',
       walletType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// sku的基础信息
+export class IpSkuEmphasisInfo extends $tea.Model {
+  // 价格区间，不做校验
+  priceRange: string;
+  // 单价
+  purchasePrice: string;
+  // 套餐数量
+  saleNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      priceRange: 'price_range',
+      purchasePrice: 'purchase_price',
+      saleNum: 'sale_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      priceRange: 'string',
+      purchasePrice: 'string',
+      saleNum: 'string',
     };
   }
 
@@ -1472,6 +1559,39 @@ export class BlockConsumeCardInfo extends $tea.Model {
   }
 }
 
+// sku配置加上ip等级
+export class IpSkuConfigWithLevel extends $tea.Model {
+  // 价格区间
+  priceRange: string;
+  // 单价
+  purchasePrice: string;
+  // 销售数量
+  saleNum: number;
+  // ip等级
+  ipLevel: number;
+  static names(): { [key: string]: string } {
+    return {
+      priceRange: 'price_range',
+      purchasePrice: 'purchase_price',
+      saleNum: 'sale_num',
+      ipLevel: 'ip_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      priceRange: 'string',
+      purchasePrice: 'string',
+      saleNum: 'number',
+      ipLevel: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 图片OSS URL，包含四个不同大小的图片
 export class MultiURL extends $tea.Model {
   // 上传的图片正常大小
@@ -1535,6 +1655,31 @@ export class BaseRequest extends $tea.Model {
       chainId: 'string',
       memo: 'string',
       productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 增值服务加sku信息
+export class ValueAddedServiceInfoWithSku extends $tea.Model {
+  // 增值服务信息
+  addValueInfo: ValueAddedServiceInfo;
+  // sku信息
+  skus: IpSkuEmphasisInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      addValueInfo: 'add_value_info',
+      skus: 'skus',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      addValueInfo: ValueAddedServiceInfo,
+      skus: { 'type': 'array', 'itemType': IpSkuEmphasisInfo },
     };
   }
 
@@ -1679,6 +1824,23 @@ export class Block extends $tea.Model {
   }
 }
 
+// 用于sku config的查询
+export class SkuWithLevel extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // IP授权服务基础请求信息
 export class BaseRequestInfo extends $tea.Model {
   // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
@@ -1785,6 +1947,39 @@ export class ExchangeableEquityList extends $tea.Model {
       size: 'number',
       startRow: 'number',
       total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 渠道统计结果
+export class ChannelCounter extends $tea.Model {
+  // 渠道名字
+  channelName: string;
+  // 统计值
+  counter: number;
+  // 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+  month?: string;
+  // 渠道交易金额
+  totalPrice?: string;
+  static names(): { [key: string]: string } {
+    return {
+      channelName: 'channel_name',
+      counter: 'counter',
+      month: 'month',
+      totalPrice: 'total_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channelName: 'string',
+      counter: 'number',
+      month: 'string',
+      totalPrice: 'string',
     };
   }
 
@@ -2284,6 +2479,12 @@ export class IPOrder extends $tea.Model {
   authAreaScope: string;
   // 商品销售渠道
   salesChannel: string;
+  // 0 IP交易，1 增值服务交易
+  goodsType: number;
+  // 增值服务交易绑定的ip授权交易订单
+  relatedOrderId: string;
+  // 是否已监修报审
+  superviseApprove: boolean;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2320,6 +2521,9 @@ export class IPOrder extends $tea.Model {
       authProductScope: 'auth_product_scope',
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
+      goodsType: 'goods_type',
+      relatedOrderId: 'related_order_id',
+      superviseApprove: 'supervise_approve',
     };
   }
 
@@ -2359,35 +2563,9 @@ export class IPOrder extends $tea.Model {
       authProductScope: 'string',
       authAreaScope: 'string',
       salesChannel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// sku的基础信息
-export class IpSkuEmphasisInfo extends $tea.Model {
-  // 价格区间，不做校验
-  priceRange: string;
-  // 单价
-  purchasePrice: string;
-  // 套餐数量
-  saleNum: string;
-  static names(): { [key: string]: string } {
-    return {
-      priceRange: 'price_range',
-      purchasePrice: 'purchase_price',
-      saleNum: 'sale_num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      priceRange: 'string',
-      purchasePrice: 'string',
-      saleNum: 'string',
+      goodsType: 'number',
+      relatedOrderId: 'string',
+      superviseApprove: 'boolean',
     };
   }
 
@@ -2594,6 +2772,8 @@ export class IPSalesInfo extends $tea.Model {
   operator: string;
   // 销售数据上传操作时间（毫秒时间戳）
   operateTime: number;
+  // 商品信息
+  goodsInfo?: string;
   static names(): { [key: string]: string } {
     return {
       goodsName: 'goods_name',
@@ -2609,6 +2789,7 @@ export class IPSalesInfo extends $tea.Model {
       memo: 'memo',
       operator: 'operator',
       operateTime: 'operate_time',
+      goodsInfo: 'goods_info',
     };
   }
 
@@ -2627,6 +2808,7 @@ export class IPSalesInfo extends $tea.Model {
       memo: 'string',
       operator: 'string',
       operateTime: 'number',
+      goodsInfo: 'string',
     };
   }
 
@@ -2705,6 +2887,63 @@ export class IpChannelInfo extends $tea.Model {
   }
 }
 
+// 监修报审表单内容
+export class SuperviseApprove extends $tea.Model {
+  // 关联的订单id
+  orderId: string;
+  // 当前的阶段
+  stage: number;
+  // json组织，用于存储监修报审的具体信息
+  extInfo: string;
+  // 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
+  approvalStatus: number;
+  // 审批备注
+  approvalComments?: string;
+  // 上链的交易hash
+  txHash: string;
+  // 关联的订单交易的ip id
+  ipId: string;
+  // 关联交易的卖家id
+  sellerAccountId: string;
+  // 关联交易的买家id
+  buyerAccountId: string;
+  // 审批额外信息
+  approvalExtInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      stage: 'stage',
+      extInfo: 'ext_info',
+      approvalStatus: 'approval_status',
+      approvalComments: 'approval_comments',
+      txHash: 'tx_hash',
+      ipId: 'ip_id',
+      sellerAccountId: 'seller_account_id',
+      buyerAccountId: 'buyer_account_id',
+      approvalExtInfo: 'approval_ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      stage: 'number',
+      extInfo: 'string',
+      approvalStatus: 'number',
+      approvalComments: 'string',
+      txHash: 'string',
+      ipId: 'string',
+      sellerAccountId: 'string',
+      buyerAccountId: 'string',
+      approvalExtInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ip的重点信息
 export class IpEmphasisInfo extends $tea.Model {
   // ip的链上id
@@ -2727,6 +2966,10 @@ export class IpEmphasisInfo extends $tea.Model {
   ipName: string;
   // 商户名称
   accountName?: string;
+  // 浏览量
+  pv?: number;
+  // 最近一次上下架时间
+  lastStateChangeTime?: number;
   static names(): { [key: string]: string } {
     return {
       ipId: 'ip_id',
@@ -2739,6 +2982,8 @@ export class IpEmphasisInfo extends $tea.Model {
       createTime: 'create_time',
       ipName: 'ip_name',
       accountName: 'account_name',
+      pv: 'pv',
+      lastStateChangeTime: 'last_state_change_time',
     };
   }
 
@@ -2754,6 +2999,8 @@ export class IpEmphasisInfo extends $tea.Model {
       createTime: 'string',
       ipName: 'string',
       accountName: 'string',
+      pv: 'number',
+      lastStateChangeTime: 'number',
     };
   }
 
@@ -3962,35 +4209,47 @@ export class Merchant extends $tea.Model {
   }
 }
 
-// 正版码被扫描的信息
+// 正版码被扫描或领取的信息
 export class IPCodeScannedInfo extends $tea.Model {
-  // 扫码用户的ID
+  // 正版码ID
+  ipCode: string;
+  // 用户的ID
   userId: string;
-  // 扫码用户的名称
-  userName?: string;
-  // 扫码用户的手机号
+  // 用户的名称
+  userName: string;
+  // 用户的手机号
   phoneNumber?: string;
-  // 扫码用户的位置信息
+  // 用户的位置信息
   gps?: string;
-  // 扫码的时间(毫秒时间戳)
+  // 处理时间(毫秒时间戳)
   timestamp: number;
+  // IP ID
+  ipId: string;
+  // 订单ID
+  orderId: string;
   static names(): { [key: string]: string } {
     return {
+      ipCode: 'ip_code',
       userId: 'user_id',
       userName: 'user_name',
       phoneNumber: 'phone_number',
       gps: 'gps',
       timestamp: 'timestamp',
+      ipId: 'ip_id',
+      orderId: 'order_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      ipCode: 'string',
       userId: 'string',
       userName: 'string',
       phoneNumber: 'string',
       gps: 'string',
       timestamp: 'number',
+      ipId: 'string',
+      orderId: 'string',
     };
   }
 
@@ -4032,6 +4291,31 @@ export class User extends $tea.Model {
       tenantId: 'string',
       userId: 'string',
       vc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -9552,6 +9836,83 @@ export class QueryConsumecardGoodsimageResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       temporaryUrls: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadConsumecardFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  chainId: string;
+  // 场景码(入驻时申请)
+  productCode: string;
+  // file_id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainId: 'chain_id',
+      productCode: 'product_code',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainId: 'string',
+      productCode: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadConsumecardFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 图片的不可访问url，发布商品时使用
+  url?: string;
+  // 临时可访问的url，过期时间2小时
+  temporaryUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      temporaryUrl: 'temporary_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      temporaryUrl: 'string',
     };
   }
 
@@ -15823,6 +16184,12 @@ export class StartIpPackagetradeRequest extends $tea.Model {
   authAreaScope?: string;
   // 商品销售渠道
   salesChannel?: string;
+  // 0 IP交易，1 增值服务交易
+  goodsType?: number;
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15840,6 +16207,9 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authProductScope: 'auth_product_scope',
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
+      goodsType: 'goods_type',
+      relatedOrderId: 'related_order_id',
+      payReturnUrl: 'pay_return_url',
     };
   }
 
@@ -15860,6 +16230,9 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authProductScope: 'string',
       authAreaScope: 'string',
       salesChannel: 'string',
+      goodsType: 'number',
+      relatedOrderId: 'string',
+      payReturnUrl: 'string',
     };
   }
 
@@ -16082,6 +16455,12 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   guaranteedGoodsAmount?: number;
   // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
   guaranteedSales?: string;
+  // 0 IP交易，1 增值服务交易
+  goodsType?: number;
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16104,6 +16483,9 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       guaranteedFund: 'guaranteed_fund',
       guaranteedGoodsAmount: 'guaranteed_goods_amount',
       guaranteedSales: 'guaranteed_sales',
+      goodsType: 'goods_type',
+      relatedOrderId: 'related_order_id',
+      payReturnUrl: 'pay_return_url',
     };
   }
 
@@ -16129,6 +16511,9 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       guaranteedFund: 'string',
       guaranteedGoodsAmount: 'number',
       guaranteedSales: 'string',
+      goodsType: 'number',
+      relatedOrderId: 'string',
+      payReturnUrl: 'string',
     };
   }
 
@@ -16189,6 +16574,8 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
   ipOrderId: string;
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
   // 授权佣金比例
   authRate?: string;
   // 定向授权按量付费单价
@@ -16227,6 +16614,7 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       accountId: 'account_id',
       ipOrderId: 'ip_order_id',
       onlyCallBlockchain: 'only_call_blockchain',
+      payReturnUrl: 'pay_return_url',
       authRate: 'auth_rate',
       authPrice: 'auth_price',
       settlementBeginTime: 'settlement_begin_time',
@@ -16253,6 +16641,7 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       accountId: 'string',
       ipOrderId: 'string',
       onlyCallBlockchain: 'boolean',
+      payReturnUrl: 'string',
       authRate: 'string',
       authPrice: 'string',
       settlementBeginTime: 'number',
@@ -16467,6 +16856,8 @@ export class QueryIpOrderlistRequest extends $tea.Model {
   sellerName?: string;
   // 交易类型：1 套餐交易， 2 定向授权
   tradeType?: number;
+  // 0 IP交易，1 增值服务交易
+  goodsType?: number;
   // 收费模式：0 销售抽拥，1 按量计费
   chargeType?: number;
   // 查询订单授权开始时间
@@ -16494,6 +16885,7 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       ipName: 'ip_name',
       sellerName: 'seller_name',
       tradeType: 'trade_type',
+      goodsType: 'goods_type',
       chargeType: 'charge_type',
       authStartTime: 'auth_start_time',
       authEndTime: 'auth_end_time',
@@ -16517,6 +16909,7 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       ipName: 'string',
       sellerName: 'string',
       tradeType: 'number',
+      goodsType: 'number',
       chargeType: 'number',
       authStartTime: 'number',
       authEndTime: 'number',
@@ -16901,6 +17294,10 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
   createEndTime: string;
   // 是否需要按照创建时间倒序排序
   isCreateTimeSortDesc: boolean;
+  // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+  isSortByPv?: number;
+  // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+  isSortByStatusChange?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16917,6 +17314,8 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       createBeginTime: 'create_begin_time',
       createEndTime: 'create_end_time',
       isCreateTimeSortDesc: 'is_create_time_sort_desc',
+      isSortByPv: 'is_sort_by_pv',
+      isSortByStatusChange: 'is_sort_by_status_change',
     };
   }
 
@@ -16936,6 +17335,8 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       createBeginTime: 'string',
       createEndTime: 'string',
       isCreateTimeSortDesc: 'boolean',
+      isSortByPv: 'number',
+      isSortByStatusChange: 'number',
     };
   }
 
@@ -16990,6 +17391,8 @@ export class QueryIpGoodsdetailwithchannelRequest extends $tea.Model {
   ipIds: string[];
   // 查询的渠道名字
   channelName: string;
+  // 是否要增加pv，默认不增加
+  updatePv?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16997,6 +17400,7 @@ export class QueryIpGoodsdetailwithchannelRequest extends $tea.Model {
       baseRequest: 'base_request',
       ipIds: 'ip_ids',
       channelName: 'channel_name',
+      updatePv: 'update_pv',
     };
   }
 
@@ -17007,6 +17411,7 @@ export class QueryIpGoodsdetailwithchannelRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       ipIds: { 'type': 'array', 'itemType': 'string' },
       channelName: 'string',
+      updatePv: 'boolean',
     };
   }
 
@@ -18889,7 +19294,7 @@ export class CheckIpCodeRequest extends $tea.Model {
   // 扫码用户的ID
   userId: string;
   // 扫码用户的名称
-  userName?: string;
+  userName: string;
   // 扫码用户的手机号
   phoneNumber?: string;
   // 扫码用户的位置信息
@@ -19292,7 +19697,7 @@ export class QueryIpSkuconfigResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // sku信息
-  skus?: IpSkuEmphasisInfo[];
+  skus?: IpSkuConfigWithLevel[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -19307,7 +19712,7 @@ export class QueryIpSkuconfigResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      skus: { 'type': 'array', 'itemType': IpSkuEmphasisInfo },
+      skus: { 'type': 'array', 'itemType': IpSkuConfigWithLevel },
     };
   }
 
@@ -19454,6 +19859,1466 @@ export class RemoveIpSkuResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpSuperviseapproveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 订单id
+  orderId: string;
+  // 监修报审内容，业务相关字段自行组织成json，统一存储
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      orderId: 'order_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      orderId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpSuperviseapproveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpSuperviseapproveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 监修报审关联的订单id
+  orderId: string;
+  // 当前期望的审批阶段（用于校验）
+  stage: number;
+  // 是否审批通过
+  isApproval: boolean;
+  // 审批备注
+  approvalComments?: string;
+  // 审批额外信息
+  approvalExtInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      orderId: 'order_id',
+      stage: 'stage',
+      isApproval: 'is_approval',
+      approvalComments: 'approval_comments',
+      approvalExtInfo: 'approval_ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      orderId: 'string',
+      stage: 'number',
+      isApproval: 'boolean',
+      approvalComments: 'string',
+      approvalExtInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpSuperviseapproveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIpSuperviseapproveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 关联的订单id
+  orderId: string;
+  // 当前期望的阶段（用于校验，若是重新提交，则阶段值相等，若推进下一阶段，则阶段值+1）
+  stage: number;
+  // 监修报审的阶段具体内容，组织成json保存
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      orderId: 'order_id',
+      stage: 'stage',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      orderId: 'string',
+      stage: 'number',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIpSuperviseapproveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpSuperviseapproveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 关联的订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpSuperviseapproveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 监修报审最新阶段的详情
+  superviseApprove?: SuperviseApprove;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      superviseApprove: 'supervise_approve',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      superviseApprove: SuperviseApprove,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 正版码的编码
+  code: string;
+  // 领取用户的ID
+  userId: string;
+  // 领取用户的名称
+  userName: string;
+  // 领取用户的手机号
+  phoneNumber?: string;
+  // 领取用户的位置信息
+  gps?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+      userId: 'user_id',
+      userName: 'user_name',
+      phoneNumber: 'phone_number',
+      gps: 'gps',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+      userId: 'string',
+      userName: 'string',
+      phoneNumber: 'string',
+      gps: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpCodeinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 用户ID
+  userId: string;
+  // 页码
+  pageNumber: number;
+  // 每页数据量大小
+  pageSize: number;
+  // 0 扫描过的正版码，1 领取过的正版码
+  type: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      userId: 'user_id',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      userId: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      type: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpCodeinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码
+  pageNumber?: number;
+  // 页面数据量大小
+  pageSize?: number;
+  // 领取到的正版码总数
+  codeCount?: number;
+  // 正版码列表信息
+  codeList?: IPCodeScannedInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      codeCount: 'code_count',
+      codeList: 'code_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      codeCount: 'number',
+      codeList: { 'type': 'array', 'itemType': IPCodeScannedInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpValueaddRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 创建增值服务的账户id
+  accountId: string;
+  // 服务名字
+  serviceName: string;
+  // 商品主图，存放OSS图片链接,多张用;隔开
+  images: string;
+  // 商品详情图  存放OSS图片链接,多张用;隔开
+  imagesDetail: string;
+  // 商品描述
+  description?: string;
+  // 联系人
+  dockingPeople: DockingPeopleInfo[];
+  // 资质证明
+  copyRight?: string;
+  // 备注
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      serviceName: 'service_name',
+      images: 'images',
+      imagesDetail: 'images_detail',
+      description: 'description',
+      dockingPeople: 'docking_people',
+      copyRight: 'copy_right',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      serviceName: 'string',
+      images: 'string',
+      imagesDetail: 'string',
+      description: 'string',
+      dockingPeople: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRight: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpValueaddResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 服务id
+  serviceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      serviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpValueaddRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 服务id
+  serviceId: string;
+  // 增值服务名字
+  serviceName: string;
+  // 主图。存放OSS图片链接,多张用;隔开
+  image: string;
+  // 商品详情图  存放OSS图片链接.多张用;隔开
+  imageDetail: string;
+  // 描述
+  description?: string;
+  // 联系人
+  dockingPeople: DockingPeopleInfo[];
+  // 资质证明
+  copyRight?: string;
+  // 备注
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      serviceId: 'service_id',
+      serviceName: 'service_name',
+      image: 'image',
+      imageDetail: 'image_detail',
+      description: 'description',
+      dockingPeople: 'docking_people',
+      copyRight: 'copy_right',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      serviceId: 'string',
+      serviceName: 'string',
+      image: 'string',
+      imageDetail: 'string',
+      description: 'string',
+      dockingPeople: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRight: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpValueaddResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpValueaddskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 服务id
+  serviceId: string;
+  // sku
+  skus: IpSkuEmphasisInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      serviceId: 'service_id',
+      skus: 'skus',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      serviceId: 'string',
+      skus: { 'type': 'array', 'itemType': IpSkuEmphasisInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpValueaddskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OnlineIpValueaddRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 服务id
+  serviceId: string;
+  // 是否上线，否为下线
+  isOnline: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      serviceId: 'service_id',
+      isOnline: 'is_online',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      serviceId: 'string',
+      isOnline: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OnlineIpValueaddResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpValueaddRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 查询服务id
+  serviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      serviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpValueaddResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 增值服务详情
+  valueAddedInfo?: ValueAddedServiceInfoWithSku;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      valueAddedInfo: 'value_added_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      valueAddedInfo: ValueAddedServiceInfoWithSku,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpValueaddRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 归属账户id
+  accountId?: string;
+  // 服务名字，模糊匹配
+  serviceName?: string;
+  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+  status?: number;
+  // 第几页
+  pageIndex: number;
+  // 每页长度
+  pageSize: number;
+  // 开始时间
+  beginCreateTime: string;
+  // 结束时间
+  engCreateTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      serviceName: 'service_name',
+      status: 'status',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      beginCreateTime: 'begin_create_time',
+      engCreateTime: 'eng_create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      serviceName: 'string',
+      status: 'number',
+      pageIndex: 'number',
+      pageSize: 'number',
+      beginCreateTime: 'string',
+      engCreateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpValueaddResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 增值服务列表
+  data?: ValueAddedServiceInfo[];
+  // 总数
+  allCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      allCount: 'all_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': ValueAddedServiceInfo },
+      allCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadIpTradesalesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求参数
+  baseRequest: BaseRequestInfo;
+  // 上传记录的用户的链上账户Id
+  accountId: string;
+  // 订单ID
+  ipOrderId: string;
+  // true 只上链不走真实支付，false 上链并链下真实支付账单
+  onlyCallBlockchain: boolean;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
+  // 授权佣金比例
+  authRate?: string;
+  // 定向授权按量付费单价
+  authPrice?: string;
+  // 商品销售数量
+  totalAmount: number;
+  // 销售金额
+  totalSales: string;
+  // 实付金额（授权交易）
+  totalPayment: string;
+  // 销售数据列表
+  ipSalesInfoList: IPSalesInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipOrderId: 'ip_order_id',
+      onlyCallBlockchain: 'only_call_blockchain',
+      payReturnUrl: 'pay_return_url',
+      authRate: 'auth_rate',
+      authPrice: 'auth_price',
+      totalAmount: 'total_amount',
+      totalSales: 'total_sales',
+      totalPayment: 'total_payment',
+      ipSalesInfoList: 'ip_sales_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipOrderId: 'string',
+      onlyCallBlockchain: 'boolean',
+      payReturnUrl: 'string',
+      authRate: 'string',
+      authPrice: 'string',
+      totalAmount: 'number',
+      totalSales: 'string',
+      totalPayment: 'string',
+      ipSalesInfoList: { 'type': 'array', 'itemType': IPSalesInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadIpTradesalesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付链接
+  payUrl?: string;
+  // 账单ID
+  ipBillId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payUrl: 'pay_url',
+      ipBillId: 'ip_bill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payUrl: 'string',
+      ipBillId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIpUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 用户授权code
+  authCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      authCode: 'auth_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      authCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIpUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveIpGoodsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // ip id
+  ipId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipId: 'ip_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveIpGoodsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpNumRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 账户id，为空则查全局
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpNumResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 各个渠道的统计
+  counterDetail?: ChannelCounter[];
+  // 总计值
+  allCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      counterDetail: 'counter_detail',
+      allCount: 'all_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      counterDetail: { 'type': 'array', 'itemType': ChannelCounter },
+      allCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpPvRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // 账户id，为空则统计全局
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpPvResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总计
+  allCount?: number;
+  // 渠道统计值
+  counterDetails?: ChannelCounter[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      allCount: 'all_count',
+      counterDetails: 'counter_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      allCount: 'number',
+      counterDetails: { 'type': 'array', 'itemType': ChannelCounter },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 正版码的编码
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 正版码信息
+  codeInfo?: IPCodeScannedInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      codeInfo: 'code_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      codeInfo: IPCodeScannedInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+  chainId?: string;
+  // 场景码(入驻时申请)(长度不超过50个字符)
+  productCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainId: 'chain_id',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainId: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountIpAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户数量
+  userCount?: number;
+  // 版权方数量
+  sellerCount?: number;
+  // 版权方数量
+  buyerCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userCount: 'user_count',
+      sellerCount: 'seller_count',
+      buyerCount: 'buyer_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userCount: 'number',
+      sellerCount: 'number',
+      buyerCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpOrderstatisticRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 卖方ID
+  sellerId?: string;
+  // IP id
+  ipId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      sellerId: 'seller_id',
+      ipId: 'ip_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      sellerId: 'string',
+      ipId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpOrderstatisticResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单总数
+  totalOrderCount?: number;
+  // 总金额
+  totalPaymentAmount?: string;
+  // 总客户数
+  totalBuyerCount?: number;
+  // 统计数据
+  orderStaList?: ChannelCounter[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalOrderCount: 'total_order_count',
+      totalPaymentAmount: 'total_payment_amount',
+      totalBuyerCount: 'total_buyer_count',
+      orderStaList: 'order_sta_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalOrderCount: 'number',
+      totalPaymentAmount: 'string',
+      totalBuyerCount: 'number',
+      orderStaList: { 'type': 'array', 'itemType': ChannelCounter },
     };
   }
 
@@ -21011,6 +22876,94 @@ export class QueryMypointsOrderinstructionResponse extends $tea.Model {
   }
 }
 
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -21124,7 +23077,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.20",
+          sdk_version: "1.2.43",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -22650,6 +24603,46 @@ export default class Client {
   async queryConsumecardGoodsimageEx(request: QueryConsumecardGoodsimageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryConsumecardGoodsimageResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryConsumecardGoodsimageResponse>(await this.doRequest("1.0", "baas.antdao.consumecard.goodsimage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryConsumecardGoodsimageResponse({}));
+  }
+
+  /**
+   * Description: 文件API，上传文件
+   * Summary: 数字商品服务-文件服务-上传文件
+   */
+  async uploadConsumecardFile(request: UploadConsumecardFileRequest): Promise<UploadConsumecardFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadConsumecardFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件API，上传文件
+   * Summary: 数字商品服务-文件服务-上传文件
+   */
+  async uploadConsumecardFileEx(request: UploadConsumecardFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadConsumecardFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "baas.antdao.consumecard.file.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadConsumecardFileResponse = new UploadConsumecardFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadConsumecardFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadConsumecardFileResponse>(await this.doRequest("1.0", "baas.antdao.consumecard.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadConsumecardFileResponse({}));
   }
 
   /**
@@ -25082,6 +27075,386 @@ export default class Client {
   }
 
   /**
+   * Description: 创建监修报审
+   * Summary: 数字商品-IP授权交易-创建监修报审
+   */
+  async createIpSuperviseapprove(request: CreateIpSuperviseapproveRequest): Promise<CreateIpSuperviseapproveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createIpSuperviseapproveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建监修报审
+   * Summary: 数字商品-IP授权交易-创建监修报审
+   */
+  async createIpSuperviseapproveEx(request: CreateIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpSuperviseapproveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateIpSuperviseapproveResponse>(await this.doRequest("1.0", "baas.antdao.ip.superviseapprove.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIpSuperviseapproveResponse({}));
+  }
+
+  /**
+   * Description: 监修报审审批
+   * Summary: 数字商品-IP授权交易-监修报审审批
+   */
+  async confirmIpSuperviseapprove(request: ConfirmIpSuperviseapproveRequest): Promise<ConfirmIpSuperviseapproveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpSuperviseapproveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 监修报审审批
+   * Summary: 数字商品-IP授权交易-监修报审审批
+   */
+  async confirmIpSuperviseapproveEx(request: ConfirmIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpSuperviseapproveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpSuperviseapproveResponse>(await this.doRequest("1.0", "baas.antdao.ip.superviseapprove.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpSuperviseapproveResponse({}));
+  }
+
+  /**
+   * Description: 监修报审进度推进/重置
+   * Summary: 数字商品-IP授权交易-监修报审进度推进
+   */
+  async pushIpSuperviseapprove(request: PushIpSuperviseapproveRequest): Promise<PushIpSuperviseapproveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushIpSuperviseapproveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 监修报审进度推进/重置
+   * Summary: 数字商品-IP授权交易-监修报审进度推进
+   */
+  async pushIpSuperviseapproveEx(request: PushIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIpSuperviseapproveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushIpSuperviseapproveResponse>(await this.doRequest("1.0", "baas.antdao.ip.superviseapprove.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushIpSuperviseapproveResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-查询监修报审详情
+   * Summary: 数字商品-IP授权交易-查询监修报审详情
+   */
+  async queryIpSuperviseapprove(request: QueryIpSuperviseapproveRequest): Promise<QueryIpSuperviseapproveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpSuperviseapproveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-查询监修报审详情
+   * Summary: 数字商品-IP授权交易-查询监修报审详情
+   */
+  async queryIpSuperviseapproveEx(request: QueryIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpSuperviseapproveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpSuperviseapproveResponse>(await this.doRequest("1.0", "baas.antdao.ip.superviseapprove.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpSuperviseapproveResponse({}));
+  }
+
+  /**
+   * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+   * Summary: 数字商品服务-IP授权交易-正版码领取
+   */
+  async receiveIpCode(request: ReceiveIpCodeRequest): Promise<ReceiveIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+   * Summary: 数字商品服务-IP授权交易-正版码领取
+   */
+  async receiveIpCodeEx(request: ReceiveIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReceiveIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveIpCodeResponse({}));
+  }
+
+  /**
+   * Description: 已领取或以扫描过的正版码列表，分页查询
+   * Summary: 数字商品服务-IP授权交易-正版码列表
+   */
+  async pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): Promise<PagequeryIpCodeinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpCodeinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 已领取或以扫描过的正版码列表，分页查询
+   * Summary: 数字商品服务-IP授权交易-正版码列表
+   */
+  async pagequeryIpCodeinfoEx(request: PagequeryIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpCodeinfoResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeinfo.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpCodeinfoResponse({}));
+  }
+
+  /**
+   * Description: 创建增值服务
+   * Summary: 数字商品-IP授权交易-创建增值服务
+   */
+  async createIpValueadd(request: CreateIpValueaddRequest): Promise<CreateIpValueaddResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createIpValueaddEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建增值服务
+   * Summary: 数字商品-IP授权交易-创建增值服务
+   */
+  async createIpValueaddEx(request: CreateIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpValueaddResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateIpValueaddResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueadd.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIpValueaddResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-更新增值服务
+   * Summary: 数字商品-IP授权交易-更新增值服务
+   */
+  async updateIpValueadd(request: UpdateIpValueaddRequest): Promise<UpdateIpValueaddResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateIpValueaddEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-更新增值服务
+   * Summary: 数字商品-IP授权交易-更新增值服务
+   */
+  async updateIpValueaddEx(request: UpdateIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIpValueaddResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateIpValueaddResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueadd.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIpValueaddResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权-设置增值服务sku
+   * Summary: 数字商品-IP授权-设置增值服务sku
+   */
+  async setIpValueaddsku(request: SetIpValueaddskuRequest): Promise<SetIpValueaddskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setIpValueaddskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权-设置增值服务sku
+   * Summary: 数字商品-IP授权-设置增值服务sku
+   */
+  async setIpValueaddskuEx(request: SetIpValueaddskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpValueaddskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetIpValueaddskuResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueaddsku.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetIpValueaddskuResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-增值服务上下线
+   * Summary: 数字商品-IP授权交易-增值服务上下线
+   */
+  async onlineIpValueadd(request: OnlineIpValueaddRequest): Promise<OnlineIpValueaddResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.onlineIpValueaddEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-增值服务上下线
+   * Summary: 数字商品-IP授权交易-增值服务上下线
+   */
+  async onlineIpValueaddEx(request: OnlineIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OnlineIpValueaddResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OnlineIpValueaddResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueadd.online", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OnlineIpValueaddResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-增值服务查询
+   * Summary: 数字商品-IP授权交易-增值服务查询
+   */
+  async queryIpValueadd(request: QueryIpValueaddRequest): Promise<QueryIpValueaddResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpValueaddEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-增值服务查询
+   * Summary: 数字商品-IP授权交易-增值服务查询
+   */
+  async queryIpValueaddEx(request: QueryIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpValueaddResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpValueaddResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueadd.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpValueaddResponse({}));
+  }
+
+  /**
+   * Description: 增值服务批量查询
+   * Summary: 数字商品-IP授权交易-增值服务批量查询
+   */
+  async pagequeryIpValueadd(request: PagequeryIpValueaddRequest): Promise<PagequeryIpValueaddResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpValueaddEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 增值服务批量查询
+   * Summary: 数字商品-IP授权交易-增值服务批量查询
+   */
+  async pagequeryIpValueaddEx(request: PagequeryIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpValueaddResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpValueaddResponse>(await this.doRequest("1.0", "baas.antdao.ip.valueadd.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpValueaddResponse({}));
+  }
+
+  /**
+   * Description: 批量上传授权交易的销售数据
+   * Summary: 数字商品服务-IP授权服务-上传销售数据
+   */
+  async uploadIpTradesales(request: UploadIpTradesalesRequest): Promise<UploadIpTradesalesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadIpTradesalesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量上传授权交易的销售数据
+   * Summary: 数字商品服务-IP授权服务-上传销售数据
+   */
+  async uploadIpTradesalesEx(request: UploadIpTradesalesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadIpTradesalesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadIpTradesalesResponse>(await this.doRequest("1.0", "baas.antdao.ip.tradesales.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadIpTradesalesResponse({}));
+  }
+
+  /**
+   * Description: C端用户授权信息
+   * Summary: 数字商品服务-IP授权服务-C用户授权
+   */
+  async authIpUser(request: AuthIpUserRequest): Promise<AuthIpUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authIpUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: C端用户授权信息
+   * Summary: 数字商品服务-IP授权服务-C用户授权
+   */
+  async authIpUserEx(request: AuthIpUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthIpUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthIpUserResponse>(await this.doRequest("1.0", "baas.antdao.ip.user.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthIpUserResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-删除ip商品
+   * Summary: 数字商品-IP授权交易-删除ip商品
+   */
+  async removeIpGoods(request: RemoveIpGoodsRequest): Promise<RemoveIpGoodsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeIpGoodsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-删除ip商品
+   * Summary: 数字商品-IP授权交易-删除ip商品
+   */
+  async removeIpGoodsEx(request: RemoveIpGoodsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveIpGoodsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveIpGoodsResponse>(await this.doRequest("1.0", "baas.antdao.ip.goods.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveIpGoodsResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-ip数量统计
+   * Summary: 数字商品-IP授权交易-ip数量统计
+   */
+  async countIpNum(request: CountIpNumRequest): Promise<CountIpNumResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countIpNumEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-ip数量统计
+   * Summary: 数字商品-IP授权交易-ip数量统计
+   */
+  async countIpNumEx(request: CountIpNumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpNumResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountIpNumResponse>(await this.doRequest("1.0", "baas.antdao.ip.num.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountIpNumResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-pv统计
+   * Summary: 数字商品-IP授权交易-pv统计
+   */
+  async countIpPv(request: CountIpPvRequest): Promise<CountIpPvResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countIpPvEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易-pv统计
+   * Summary: 数字商品-IP授权交易-pv统计
+   */
+  async countIpPvEx(request: CountIpPvRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpPvResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountIpPvResponse>(await this.doRequest("1.0", "baas.antdao.ip.pv.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountIpPvResponse({}));
+  }
+
+  /**
+   * Description: 查询正版码信息
+   * Summary: 数字商品服务-IP授权交易-正版码查询
+   */
+  async queryIpCode(request: QueryIpCodeRequest): Promise<QueryIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询正版码信息
+   * Summary: 数字商品服务-IP授权交易-正版码查询
+   */
+  async queryIpCodeEx(request: QueryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpCodeResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易服务-账户统计
+   * Summary: 数字商品服务-IP授权交易服务-账户统计
+   */
+  async countIpAccount(request: CountIpAccountRequest): Promise<CountIpAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countIpAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权交易服务-账户统计
+   * Summary: 数字商品服务-IP授权交易服务-账户统计
+   */
+  async countIpAccountEx(request: CountIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountIpAccountResponse>(await this.doRequest("1.0", "baas.antdao.ip.account.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountIpAccountResponse({}));
+  }
+
+  /**
+   * Description: 查询渠道订单统计值
+   * Summary: 数字商品服务-IP授权服务-查询订单统计
+   */
+  async queryIpOrderstatistic(request: QueryIpOrderstatisticRequest): Promise<QueryIpOrderstatisticResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpOrderstatisticEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询渠道订单统计值
+   * Summary: 数字商品服务-IP授权服务-查询订单统计
+   */
+  async queryIpOrderstatisticEx(request: QueryIpOrderstatisticRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpOrderstatisticResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpOrderstatisticResponse>(await this.doRequest("1.0", "baas.antdao.ip.orderstatistic.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpOrderstatisticResponse({}));
+  }
+
+  /**
    * Description: 获取特定高度的区块信息
    * Summary: 数字商品服务-拉块服务-获取区块信息
    */
@@ -25440,6 +27813,25 @@ export default class Client {
   async queryMypointsOrderinstructionEx(request: QueryMypointsOrderinstructionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypointsOrderinstructionResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMypointsOrderinstructionResponse>(await this.doRequest("1.0", "baas.antdao.mypoints.orderinstruction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypointsOrderinstructionResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
