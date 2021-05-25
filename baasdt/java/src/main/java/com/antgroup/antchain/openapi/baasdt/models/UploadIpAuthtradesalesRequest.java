@@ -31,6 +31,10 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     @Validation(required = true)
     public Boolean onlyCallBlockchain;
 
+    // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+    @NameInMap("pay_return_url")
+    public String payReturnUrl;
+
     // 授权佣金比例
     @NameInMap("auth_rate")
     public String authRate;
@@ -151,6 +155,14 @@ public class UploadIpAuthtradesalesRequest extends TeaModel {
     }
     public Boolean getOnlyCallBlockchain() {
         return this.onlyCallBlockchain;
+    }
+
+    public UploadIpAuthtradesalesRequest setPayReturnUrl(String payReturnUrl) {
+        this.payReturnUrl = payReturnUrl;
+        return this;
+    }
+    public String getPayReturnUrl() {
+        return this.payReturnUrl;
     }
 
     public UploadIpAuthtradesalesRequest setAuthRate(String authRate) {

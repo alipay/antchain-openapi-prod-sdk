@@ -53,6 +53,14 @@ public class IpEmphasisInfo extends TeaModel {
     @NameInMap("account_name")
     public String accountName;
 
+    // 浏览量
+    @NameInMap("pv")
+    public Long pv;
+
+    // 最近一次上下架时间
+    @NameInMap("last_state_change_time")
+    public Long lastStateChangeTime;
+
     public static IpEmphasisInfo build(java.util.Map<String, ?> map) throws Exception {
         IpEmphasisInfo self = new IpEmphasisInfo();
         return TeaModel.build(map, self);
@@ -136,6 +144,22 @@ public class IpEmphasisInfo extends TeaModel {
     }
     public String getAccountName() {
         return this.accountName;
+    }
+
+    public IpEmphasisInfo setPv(Long pv) {
+        this.pv = pv;
+        return this;
+    }
+    public Long getPv() {
+        return this.pv;
+    }
+
+    public IpEmphasisInfo setLastStateChangeTime(Long lastStateChangeTime) {
+        this.lastStateChangeTime = lastStateChangeTime;
+        return this;
+    }
+    public Long getLastStateChangeTime() {
+        return this.lastStateChangeTime;
     }
 
 }

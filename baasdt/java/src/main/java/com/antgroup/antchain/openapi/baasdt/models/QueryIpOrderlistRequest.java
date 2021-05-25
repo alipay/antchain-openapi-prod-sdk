@@ -48,6 +48,10 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @NameInMap("trade_type")
     public Long tradeType;
 
+    // 0 IP交易，1 增值服务交易
+    @NameInMap("goods_type")
+    public Long goodsType;
+
     // 收费模式：0 销售抽拥，1 按量计费
     @NameInMap("charge_type")
     public Long chargeType;
@@ -171,6 +175,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public Long getTradeType() {
         return this.tradeType;
+    }
+
+    public QueryIpOrderlistRequest setGoodsType(Long goodsType) {
+        this.goodsType = goodsType;
+        return this;
+    }
+    public Long getGoodsType() {
+        return this.goodsType;
     }
 
     public QueryIpOrderlistRequest setChargeType(Long chargeType) {

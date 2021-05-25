@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class CheckIpCodeRequest extends TeaModel {
+public class ReceiveIpCodeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,30 +21,30 @@ public class CheckIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public String code;
 
-    // 扫码用户的ID
+    // 领取用户的ID
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
-    // 扫码用户的名称
+    // 领取用户的名称
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;
 
-    // 扫码用户的手机号
+    // 领取用户的手机号
     @NameInMap("phone_number")
     public String phoneNumber;
 
-    // 扫码用户的位置信息
+    // 领取用户的位置信息
     @NameInMap("gps")
     public String gps;
 
-    public static CheckIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
-        CheckIpCodeRequest self = new CheckIpCodeRequest();
+    public static ReceiveIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
+        ReceiveIpCodeRequest self = new ReceiveIpCodeRequest();
         return TeaModel.build(map, self);
     }
 
-    public CheckIpCodeRequest setAuthToken(String authToken) {
+    public ReceiveIpCodeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -52,7 +52,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CheckIpCodeRequest setProductInstanceId(String productInstanceId) {
+    public ReceiveIpCodeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -60,7 +60,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CheckIpCodeRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public ReceiveIpCodeRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -68,7 +68,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public CheckIpCodeRequest setCode(String code) {
+    public ReceiveIpCodeRequest setCode(String code) {
         this.code = code;
         return this;
     }
@@ -76,7 +76,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.code;
     }
 
-    public CheckIpCodeRequest setUserId(String userId) {
+    public ReceiveIpCodeRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -84,7 +84,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.userId;
     }
 
-    public CheckIpCodeRequest setUserName(String userName) {
+    public ReceiveIpCodeRequest setUserName(String userName) {
         this.userName = userName;
         return this;
     }
@@ -92,7 +92,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.userName;
     }
 
-    public CheckIpCodeRequest setPhoneNumber(String phoneNumber) {
+    public ReceiveIpCodeRequest setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -100,7 +100,7 @@ public class CheckIpCodeRequest extends TeaModel {
         return this.phoneNumber;
     }
 
-    public CheckIpCodeRequest setGps(String gps) {
+    public ReceiveIpCodeRequest setGps(String gps) {
         this.gps = gps;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIpSkuconfigResponse extends TeaModel {
+public class QueryIpSuperviseapproveResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryIpSkuconfigResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // sku信息
-    @NameInMap("skus")
-    public java.util.List<IpSkuConfigWithLevel> skus;
+    // 监修报审最新阶段的详情
+    @NameInMap("supervise_approve")
+    public SuperviseApprove superviseApprove;
 
-    public static QueryIpSkuconfigResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryIpSkuconfigResponse self = new QueryIpSkuconfigResponse();
+    public static QueryIpSuperviseapproveResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryIpSuperviseapproveResponse self = new QueryIpSuperviseapproveResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryIpSkuconfigResponse setReqMsgId(String reqMsgId) {
+    public QueryIpSuperviseapproveResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryIpSkuconfigResponse setResultCode(String resultCode) {
+    public QueryIpSuperviseapproveResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryIpSkuconfigResponse setResultMsg(String resultMsg) {
+    public QueryIpSuperviseapproveResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryIpSkuconfigResponse setSkus(java.util.List<IpSkuConfigWithLevel> skus) {
-        this.skus = skus;
+    public QueryIpSuperviseapproveResponse setSuperviseApprove(SuperviseApprove superviseApprove) {
+        this.superviseApprove = superviseApprove;
         return this;
     }
-    public java.util.List<IpSkuConfigWithLevel> getSkus() {
-        return this.skus;
+    public SuperviseApprove getSuperviseApprove() {
+        return this.superviseApprove;
     }
 
 }

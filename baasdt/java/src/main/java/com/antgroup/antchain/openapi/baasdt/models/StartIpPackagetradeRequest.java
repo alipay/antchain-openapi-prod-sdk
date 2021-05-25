@@ -73,6 +73,18 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("sales_channel")
     public String salesChannel;
 
+    // 0 IP交易，1 增值服务交易
+    @NameInMap("goods_type")
+    public Long goodsType;
+
+    // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+    @NameInMap("related_order_id")
+    public String relatedOrderId;
+
+    // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+    @NameInMap("pay_return_url")
+    public String payReturnUrl;
+
     public static StartIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpPackagetradeRequest self = new StartIpPackagetradeRequest();
         return TeaModel.build(map, self);
@@ -196,6 +208,30 @@ public class StartIpPackagetradeRequest extends TeaModel {
     }
     public String getSalesChannel() {
         return this.salesChannel;
+    }
+
+    public StartIpPackagetradeRequest setGoodsType(Long goodsType) {
+        this.goodsType = goodsType;
+        return this;
+    }
+    public Long getGoodsType() {
+        return this.goodsType;
+    }
+
+    public StartIpPackagetradeRequest setRelatedOrderId(String relatedOrderId) {
+        this.relatedOrderId = relatedOrderId;
+        return this;
+    }
+    public String getRelatedOrderId() {
+        return this.relatedOrderId;
+    }
+
+    public StartIpPackagetradeRequest setPayReturnUrl(String payReturnUrl) {
+        this.payReturnUrl = payReturnUrl;
+        return this;
+    }
+    public String getPayReturnUrl() {
+        return this.payReturnUrl;
     }
 
 }

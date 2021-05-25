@@ -175,6 +175,21 @@ public class IPOrder extends TeaModel {
     @Validation(required = true)
     public String salesChannel;
 
+    // 0 IP交易，1 增值服务交易
+    @NameInMap("goods_type")
+    @Validation(required = true)
+    public Long goodsType;
+
+    // 增值服务交易绑定的ip授权交易订单
+    @NameInMap("related_order_id")
+    @Validation(required = true)
+    public String relatedOrderId;
+
+    // 是否已监修报审
+    @NameInMap("supervise_approve")
+    @Validation(required = true)
+    public Boolean superviseApprove;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -450,6 +465,30 @@ public class IPOrder extends TeaModel {
     }
     public String getSalesChannel() {
         return this.salesChannel;
+    }
+
+    public IPOrder setGoodsType(Long goodsType) {
+        this.goodsType = goodsType;
+        return this;
+    }
+    public Long getGoodsType() {
+        return this.goodsType;
+    }
+
+    public IPOrder setRelatedOrderId(String relatedOrderId) {
+        this.relatedOrderId = relatedOrderId;
+        return this;
+    }
+    public String getRelatedOrderId() {
+        return this.relatedOrderId;
+    }
+
+    public IPOrder setSuperviseApprove(Boolean superviseApprove) {
+        this.superviseApprove = superviseApprove;
+        return this;
+    }
+    public Boolean getSuperviseApprove() {
+        return this.superviseApprove;
     }
 
 }

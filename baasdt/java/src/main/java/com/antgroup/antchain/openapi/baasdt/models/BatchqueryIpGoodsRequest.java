@@ -66,6 +66,14 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     @Validation(required = true)
     public Boolean isCreateTimeSortDesc;
 
+    // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+    @NameInMap("is_sort_by_pv")
+    public Long isSortByPv;
+
+    // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+    @NameInMap("is_sort_by_status_change")
+    public Long isSortByStatusChange;
+
     public static BatchqueryIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpGoodsRequest self = new BatchqueryIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -181,6 +189,22 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     }
     public Boolean getIsCreateTimeSortDesc() {
         return this.isCreateTimeSortDesc;
+    }
+
+    public BatchqueryIpGoodsRequest setIsSortByPv(Long isSortByPv) {
+        this.isSortByPv = isSortByPv;
+        return this;
+    }
+    public Long getIsSortByPv() {
+        return this.isSortByPv;
+    }
+
+    public BatchqueryIpGoodsRequest setIsSortByStatusChange(Long isSortByStatusChange) {
+        this.isSortByStatusChange = isSortByStatusChange;
+        return this;
+    }
+    public Long getIsSortByStatusChange() {
+        return this.isSortByStatusChange;
     }
 
 }

@@ -4,31 +4,55 @@ package com.antgroup.antchain.openapi.baasdt.models;
 import com.aliyun.tea.*;
 
 public class IPCodeScannedInfo extends TeaModel {
-    // 扫码用户的ID
+    // 正版码ID
+    @NameInMap("ip_code")
+    @Validation(required = true)
+    public String ipCode;
+
+    // 用户的ID
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
-    // 扫码用户的名称
+    // 用户的名称
     @NameInMap("user_name")
+    @Validation(required = true)
     public String userName;
 
-    // 扫码用户的手机号
+    // 用户的手机号
     @NameInMap("phone_number")
     public String phoneNumber;
 
-    // 扫码用户的位置信息
+    // 用户的位置信息
     @NameInMap("gps")
     public String gps;
 
-    // 扫码的时间(毫秒时间戳)
+    // 处理时间(毫秒时间戳)
     @NameInMap("timestamp")
     @Validation(required = true)
     public Long timestamp;
 
+    // IP ID
+    @NameInMap("ip_id")
+    @Validation(required = true)
+    public String ipId;
+
+    // 订单ID
+    @NameInMap("order_id")
+    @Validation(required = true)
+    public String orderId;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
+    }
+
+    public IPCodeScannedInfo setIpCode(String ipCode) {
+        this.ipCode = ipCode;
+        return this;
+    }
+    public String getIpCode() {
+        return this.ipCode;
     }
 
     public IPCodeScannedInfo setUserId(String userId) {
@@ -69,6 +93,22 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public Long getTimestamp() {
         return this.timestamp;
+    }
+
+    public IPCodeScannedInfo setIpId(String ipId) {
+        this.ipId = ipId;
+        return this;
+    }
+    public String getIpId() {
+        return this.ipId;
+    }
+
+    public IPCodeScannedInfo setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }

@@ -26,6 +26,10 @@ public class QueryIpGoodsdetailwithchannelRequest extends TeaModel {
     @Validation(required = true)
     public String channelName;
 
+    // 是否要增加pv，默认不增加
+    @NameInMap("update_pv")
+    public Boolean updatePv;
+
     public static QueryIpGoodsdetailwithchannelRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpGoodsdetailwithchannelRequest self = new QueryIpGoodsdetailwithchannelRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class QueryIpGoodsdetailwithchannelRequest extends TeaModel {
     }
     public String getChannelName() {
         return this.channelName;
+    }
+
+    public QueryIpGoodsdetailwithchannelRequest setUpdatePv(Boolean updatePv) {
+        this.updatePv = updatePv;
+        return this;
+    }
+    public Boolean getUpdatePv() {
+        return this.updatePv;
     }
 
 }

@@ -69,6 +69,10 @@ public class IPSalesInfo extends TeaModel {
     @Validation(required = true)
     public Long operateTime;
 
+    // 商品信息
+    @NameInMap("goods_info")
+    public String goodsInfo;
+
     public static IPSalesInfo build(java.util.Map<String, ?> map) throws Exception {
         IPSalesInfo self = new IPSalesInfo();
         return TeaModel.build(map, self);
@@ -176,6 +180,14 @@ public class IPSalesInfo extends TeaModel {
     }
     public Long getOperateTime() {
         return this.operateTime;
+    }
+
+    public IPSalesInfo setGoodsInfo(String goodsInfo) {
+        this.goodsInfo = goodsInfo;
+        return this;
+    }
+    public String getGoodsInfo() {
+        return this.goodsInfo;
     }
 
 }

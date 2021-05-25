@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIpSkuconfigResponse extends TeaModel {
+public class QueryIpValueaddResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryIpSkuconfigResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // sku信息
-    @NameInMap("skus")
-    public java.util.List<IpSkuConfigWithLevel> skus;
+    // 增值服务详情
+    @NameInMap("value_added_info")
+    public ValueAddedServiceInfoWithSku valueAddedInfo;
 
-    public static QueryIpSkuconfigResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryIpSkuconfigResponse self = new QueryIpSkuconfigResponse();
+    public static QueryIpValueaddResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryIpValueaddResponse self = new QueryIpValueaddResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryIpSkuconfigResponse setReqMsgId(String reqMsgId) {
+    public QueryIpValueaddResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryIpSkuconfigResponse setResultCode(String resultCode) {
+    public QueryIpValueaddResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryIpSkuconfigResponse setResultMsg(String resultMsg) {
+    public QueryIpValueaddResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryIpSkuconfigResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryIpSkuconfigResponse setSkus(java.util.List<IpSkuConfigWithLevel> skus) {
-        this.skus = skus;
+    public QueryIpValueaddResponse setValueAddedInfo(ValueAddedServiceInfoWithSku valueAddedInfo) {
+        this.valueAddedInfo = valueAddedInfo;
         return this;
     }
-    public java.util.List<IpSkuConfigWithLevel> getSkus() {
-        return this.skus;
+    public ValueAddedServiceInfoWithSku getValueAddedInfo() {
+        return this.valueAddedInfo;
     }
 
 }
