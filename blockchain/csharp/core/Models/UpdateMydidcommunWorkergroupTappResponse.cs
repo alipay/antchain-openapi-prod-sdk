@@ -24,11 +24,6 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否成功 1 成功 2 失败
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public string Data { get; set; }
-
     }
 
 }
