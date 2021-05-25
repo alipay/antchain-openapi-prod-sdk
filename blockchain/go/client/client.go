@@ -48122,8 +48122,6 @@ type UpdateMydidcommunWorkergroupTappResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否成功 1 成功 2 失败
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s UpdateMydidcommunWorkergroupTappResponse) String() string {
@@ -48146,11 +48144,6 @@ func (s *UpdateMydidcommunWorkergroupTappResponse) SetResultCode(v string) *Upda
 
 func (s *UpdateMydidcommunWorkergroupTappResponse) SetResultMsg(v string) *UpdateMydidcommunWorkergroupTappResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *UpdateMydidcommunWorkergroupTappResponse) SetData(v string) *UpdateMydidcommunWorkergroupTappResponse {
-	s.Data = &v
 	return s
 }
 
@@ -48297,8 +48290,6 @@ type SyncMydidcommunWorkergroupGroupResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否成功
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s SyncMydidcommunWorkergroupGroupResponse) String() string {
@@ -48321,11 +48312,6 @@ func (s *SyncMydidcommunWorkergroupGroupResponse) SetResultCode(v string) *SyncM
 
 func (s *SyncMydidcommunWorkergroupGroupResponse) SetResultMsg(v string) *SyncMydidcommunWorkergroupGroupResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SyncMydidcommunWorkergroupGroupResponse) SetData(v string) *SyncMydidcommunWorkergroupGroupResponse {
-	s.Data = &v
 	return s
 }
 
@@ -55929,7 +55915,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.16"),
+				"sdk_version":      tea.String("1.25.18"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
