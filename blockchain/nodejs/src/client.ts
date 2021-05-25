@@ -36832,14 +36832,11 @@ export class UpdateMydidcommunWorkergroupTappResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否成功 1 成功 2 失败
-  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
     };
   }
 
@@ -36848,7 +36845,6 @@ export class UpdateMydidcommunWorkergroupTappResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: 'string',
     };
   }
 
@@ -36970,14 +36966,11 @@ export class SyncMydidcommunWorkergroupGroupResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否成功
-  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
     };
   }
 
@@ -36986,7 +36979,6 @@ export class SyncMydidcommunWorkergroupGroupResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: 'string',
     };
   }
 
@@ -42892,7 +42884,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.16",
+          sdk_version: "1.25.18",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
