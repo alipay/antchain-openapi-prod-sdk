@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.16',
+    sdk_version = '1.25.18',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -21430,8 +21430,6 @@ model UpdateMydidcommunWorkergroupTappResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 是否成功 1 成功 2 失败
-  data?: string(name='data'),
 }
 
 /**
@@ -21516,8 +21514,6 @@ model SyncMydidcommunWorkergroupGroupResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 是否成功
-  data?: string(name='data'),
 }
 
 /**
