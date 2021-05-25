@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -804,6 +804,108 @@ class IPCardInfo(TeaModel):
         return self
 
 
+class ValueAddedServiceInfo(TeaModel):
+    def __init__(
+        self,
+        account_id: str = None,
+        service_id: str = None,
+        service_name: str = None,
+        images: str = None,
+        images_detail: str = None,
+        description: str = None,
+        docking_people: List[DockingPeopleInfo] = None,
+        copy_right: str = None,
+        memo: str = None,
+        status: int = None,
+    ):
+        # 增值服务归属账户id
+        self.account_id = account_id
+        # 增值服务id
+        self.service_id = service_id
+        # 增值服务名字
+        self.service_name = service_name
+        # 主图 链接地址
+        self.images = images
+        # 详情图
+        self.images_detail = images_detail
+        # 增值服务描述
+        self.description = description
+        # 联系人列表
+        self.docking_people = docking_people
+        # 资质证明
+        self.copy_right = copy_right
+        # 备注
+        self.memo = memo
+        # 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.images, 'images')
+        self.validate_required(self.images_detail, 'images_detail')
+        self.validate_required(self.docking_people, 'docking_people')
+        if self.docking_people:
+            for k in self.docking_people:
+                if k:
+                    k.validate()
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.images is not None:
+            result['images'] = self.images
+        if self.images_detail is not None:
+            result['images_detail'] = self.images_detail
+        if self.description is not None:
+            result['description'] = self.description
+        result['docking_people'] = []
+        if self.docking_people is not None:
+            for k in self.docking_people:
+                result['docking_people'].append(k.to_map() if k else None)
+        if self.copy_right is not None:
+            result['copy_right'] = self.copy_right
+        if self.memo is not None:
+            result['memo'] = self.memo
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('images') is not None:
+            self.images = m.get('images')
+        if m.get('images_detail') is not None:
+            self.images_detail = m.get('images_detail')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.docking_people = []
+        if m.get('docking_people') is not None:
+            for k in m.get('docking_people'):
+                temp_model = DockingPeopleInfo()
+                self.docking_people.append(temp_model.from_map(k))
+        if m.get('copy_right') is not None:
+            self.copy_right = m.get('copy_right')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
 class EquityExtInfo(TeaModel):
     def __init__(
         self,
@@ -1140,6 +1242,46 @@ class DebitWallet(TeaModel):
             self.trustee_id = m.get('trustee_id')
         if m.get('wallet_type') is not None:
             self.wallet_type = m.get('wallet_type')
+        return self
+
+
+class IpSkuEmphasisInfo(TeaModel):
+    def __init__(
+        self,
+        price_range: str = None,
+        purchase_price: str = None,
+        sale_num: str = None,
+    ):
+        # 价格区间，不做校验
+        self.price_range = price_range
+        # 单价
+        self.purchase_price = purchase_price
+        # 套餐数量
+        self.sale_num = sale_num
+
+    def validate(self):
+        self.validate_required(self.price_range, 'price_range')
+        self.validate_required(self.purchase_price, 'purchase_price')
+        self.validate_required(self.sale_num, 'sale_num')
+
+    def to_map(self):
+        result = dict()
+        if self.price_range is not None:
+            result['price_range'] = self.price_range
+        if self.purchase_price is not None:
+            result['purchase_price'] = self.purchase_price
+        if self.sale_num is not None:
+            result['sale_num'] = self.sale_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('price_range') is not None:
+            self.price_range = m.get('price_range')
+        if m.get('purchase_price') is not None:
+            self.purchase_price = m.get('purchase_price')
+        if m.get('sale_num') is not None:
+            self.sale_num = m.get('sale_num')
         return self
 
 
@@ -2413,6 +2555,54 @@ class BlockConsumeCardInfo(TeaModel):
         return self
 
 
+class IpSkuConfigWithLevel(TeaModel):
+    def __init__(
+        self,
+        price_range: str = None,
+        purchase_price: str = None,
+        sale_num: int = None,
+        ip_level: int = None,
+    ):
+        # 价格区间
+        self.price_range = price_range
+        # 单价
+        self.purchase_price = purchase_price
+        # 销售数量
+        self.sale_num = sale_num
+        # ip等级
+        self.ip_level = ip_level
+
+    def validate(self):
+        self.validate_required(self.price_range, 'price_range')
+        self.validate_required(self.purchase_price, 'purchase_price')
+        self.validate_required(self.sale_num, 'sale_num')
+        self.validate_required(self.ip_level, 'ip_level')
+
+    def to_map(self):
+        result = dict()
+        if self.price_range is not None:
+            result['price_range'] = self.price_range
+        if self.purchase_price is not None:
+            result['purchase_price'] = self.purchase_price
+        if self.sale_num is not None:
+            result['sale_num'] = self.sale_num
+        if self.ip_level is not None:
+            result['ip_level'] = self.ip_level
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('price_range') is not None:
+            self.price_range = m.get('price_range')
+        if m.get('purchase_price') is not None:
+            self.purchase_price = m.get('purchase_price')
+        if m.get('sale_num') is not None:
+            self.sale_num = m.get('sale_num')
+        if m.get('ip_level') is not None:
+            self.ip_level = m.get('ip_level')
+        return self
+
+
 class MultiURL(TeaModel):
     def __init__(
         self,
@@ -2514,6 +2704,50 @@ class BaseRequest(TeaModel):
             self.memo = m.get('memo')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
+        return self
+
+
+class ValueAddedServiceInfoWithSku(TeaModel):
+    def __init__(
+        self,
+        add_value_info: ValueAddedServiceInfo = None,
+        skus: List[IpSkuEmphasisInfo] = None,
+    ):
+        # 增值服务信息
+        self.add_value_info = add_value_info
+        # sku信息
+        self.skus = skus
+
+    def validate(self):
+        self.validate_required(self.add_value_info, 'add_value_info')
+        if self.add_value_info:
+            self.add_value_info.validate()
+        self.validate_required(self.skus, 'skus')
+        if self.skus:
+            for k in self.skus:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.add_value_info is not None:
+            result['add_value_info'] = self.add_value_info.to_map()
+        result['skus'] = []
+        if self.skus is not None:
+            for k in self.skus:
+                result['skus'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('add_value_info') is not None:
+            temp_model = ValueAddedServiceInfo()
+            self.add_value_info = temp_model.from_map(m['add_value_info'])
+        self.skus = []
+        if m.get('skus') is not None:
+            for k in m.get('skus'):
+                temp_model = IpSkuEmphasisInfo()
+                self.skus.append(temp_model.from_map(k))
         return self
 
 
@@ -2723,6 +2957,22 @@ class Block(TeaModel):
         return self
 
 
+class SkuWithLevel(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
 class BaseRequestInfo(TeaModel):
     def __init__(
         self,
@@ -2921,6 +3171,52 @@ class ExchangeableEquityList(TeaModel):
             self.start_row = m.get('start_row')
         if m.get('total') is not None:
             self.total = m.get('total')
+        return self
+
+
+class ChannelCounter(TeaModel):
+    def __init__(
+        self,
+        channel_name: str = None,
+        counter: int = None,
+        month: str = None,
+        total_price: str = None,
+    ):
+        # 渠道名字
+        self.channel_name = channel_name
+        # 统计值
+        self.counter = counter
+        # 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+        self.month = month
+        # 渠道交易金额
+        self.total_price = total_price
+
+    def validate(self):
+        self.validate_required(self.channel_name, 'channel_name')
+        self.validate_required(self.counter, 'counter')
+
+    def to_map(self):
+        result = dict()
+        if self.channel_name is not None:
+            result['channel_name'] = self.channel_name
+        if self.counter is not None:
+            result['counter'] = self.counter
+        if self.month is not None:
+            result['month'] = self.month
+        if self.total_price is not None:
+            result['total_price'] = self.total_price
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('channel_name') is not None:
+            self.channel_name = m.get('channel_name')
+        if m.get('counter') is not None:
+            self.counter = m.get('counter')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        if m.get('total_price') is not None:
+            self.total_price = m.get('total_price')
         return self
 
 
@@ -3702,6 +3998,9 @@ class IPOrder(TeaModel):
         auth_product_scope: str = None,
         auth_area_scope: str = None,
         sales_channel: str = None,
+        goods_type: int = None,
+        related_order_id: str = None,
+        supervise_approve: bool = None,
     ):
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -3772,6 +4071,12 @@ class IPOrder(TeaModel):
         self.auth_area_scope = auth_area_scope
         # 商品销售渠道
         self.sales_channel = sales_channel
+        # 0 IP交易，1 增值服务交易
+        self.goods_type = goods_type
+        # 增值服务交易绑定的ip授权交易订单
+        self.related_order_id = related_order_id
+        # 是否已监修报审
+        self.supervise_approve = supervise_approve
 
     def validate(self):
         self.validate_required(self.ip_order_id, 'ip_order_id')
@@ -3808,6 +4113,9 @@ class IPOrder(TeaModel):
         self.validate_required(self.auth_product_scope, 'auth_product_scope')
         self.validate_required(self.auth_area_scope, 'auth_area_scope')
         self.validate_required(self.sales_channel, 'sales_channel')
+        self.validate_required(self.goods_type, 'goods_type')
+        self.validate_required(self.related_order_id, 'related_order_id')
+        self.validate_required(self.supervise_approve, 'supervise_approve')
 
     def to_map(self):
         result = dict()
@@ -3879,6 +4187,12 @@ class IPOrder(TeaModel):
             result['auth_area_scope'] = self.auth_area_scope
         if self.sales_channel is not None:
             result['sales_channel'] = self.sales_channel
+        if self.goods_type is not None:
+            result['goods_type'] = self.goods_type
+        if self.related_order_id is not None:
+            result['related_order_id'] = self.related_order_id
+        if self.supervise_approve is not None:
+            result['supervise_approve'] = self.supervise_approve
         return result
 
     def from_map(self, m: dict = None):
@@ -3951,46 +4265,12 @@ class IPOrder(TeaModel):
             self.auth_area_scope = m.get('auth_area_scope')
         if m.get('sales_channel') is not None:
             self.sales_channel = m.get('sales_channel')
-        return self
-
-
-class IpSkuEmphasisInfo(TeaModel):
-    def __init__(
-        self,
-        price_range: str = None,
-        purchase_price: str = None,
-        sale_num: str = None,
-    ):
-        # 价格区间，不做校验
-        self.price_range = price_range
-        # 单价
-        self.purchase_price = purchase_price
-        # 套餐数量
-        self.sale_num = sale_num
-
-    def validate(self):
-        self.validate_required(self.price_range, 'price_range')
-        self.validate_required(self.purchase_price, 'purchase_price')
-        self.validate_required(self.sale_num, 'sale_num')
-
-    def to_map(self):
-        result = dict()
-        if self.price_range is not None:
-            result['price_range'] = self.price_range
-        if self.purchase_price is not None:
-            result['purchase_price'] = self.purchase_price
-        if self.sale_num is not None:
-            result['sale_num'] = self.sale_num
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('price_range') is not None:
-            self.price_range = m.get('price_range')
-        if m.get('purchase_price') is not None:
-            self.purchase_price = m.get('purchase_price')
-        if m.get('sale_num') is not None:
-            self.sale_num = m.get('sale_num')
+        if m.get('goods_type') is not None:
+            self.goods_type = m.get('goods_type')
+        if m.get('related_order_id') is not None:
+            self.related_order_id = m.get('related_order_id')
+        if m.get('supervise_approve') is not None:
+            self.supervise_approve = m.get('supervise_approve')
         return self
 
 
@@ -4314,6 +4594,7 @@ class IPSalesInfo(TeaModel):
         memo: str = None,
         operator: str = None,
         operate_time: int = None,
+        goods_info: str = None,
     ):
         # 终端商品名称
         self.goods_name = goods_name
@@ -4341,6 +4622,8 @@ class IPSalesInfo(TeaModel):
         self.operator = operator
         # 销售数据上传操作时间（毫秒时间戳）
         self.operate_time = operate_time
+        # 商品信息
+        self.goods_info = goods_info
 
     def validate(self):
         self.validate_required(self.goods_name, 'goods_name')
@@ -4385,6 +4668,8 @@ class IPSalesInfo(TeaModel):
             result['operator'] = self.operator
         if self.operate_time is not None:
             result['operate_time'] = self.operate_time
+        if self.goods_info is not None:
+            result['goods_info'] = self.goods_info
         return result
 
     def from_map(self, m: dict = None):
@@ -4415,6 +4700,8 @@ class IPSalesInfo(TeaModel):
             self.operator = m.get('operator')
         if m.get('operate_time') is not None:
             self.operate_time = m.get('operate_time')
+        if m.get('goods_info') is not None:
+            self.goods_info = m.get('goods_info')
         return self
 
 
@@ -4522,6 +4809,100 @@ class IpChannelInfo(TeaModel):
         return self
 
 
+class SuperviseApprove(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        stage: int = None,
+        ext_info: str = None,
+        approval_status: int = None,
+        approval_comments: str = None,
+        tx_hash: str = None,
+        ip_id: str = None,
+        seller_account_id: str = None,
+        buyer_account_id: str = None,
+        approval_ext_info: str = None,
+    ):
+        # 关联的订单id
+        self.order_id = order_id
+        # 当前的阶段
+        self.stage = stage
+        # json组织，用于存储监修报审的具体信息
+        self.ext_info = ext_info
+        # 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
+        self.approval_status = approval_status
+        # 审批备注
+        self.approval_comments = approval_comments
+        # 上链的交易hash
+        self.tx_hash = tx_hash
+        # 关联的订单交易的ip id
+        self.ip_id = ip_id
+        # 关联交易的卖家id
+        self.seller_account_id = seller_account_id
+        # 关联交易的买家id
+        self.buyer_account_id = buyer_account_id
+        # 审批额外信息
+        self.approval_ext_info = approval_ext_info
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.stage, 'stage')
+        self.validate_required(self.ext_info, 'ext_info')
+        self.validate_required(self.approval_status, 'approval_status')
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.ip_id, 'ip_id')
+        self.validate_required(self.seller_account_id, 'seller_account_id')
+        self.validate_required(self.buyer_account_id, 'buyer_account_id')
+
+    def to_map(self):
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.stage is not None:
+            result['stage'] = self.stage
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.approval_status is not None:
+            result['approval_status'] = self.approval_status
+        if self.approval_comments is not None:
+            result['approval_comments'] = self.approval_comments
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.seller_account_id is not None:
+            result['seller_account_id'] = self.seller_account_id
+        if self.buyer_account_id is not None:
+            result['buyer_account_id'] = self.buyer_account_id
+        if self.approval_ext_info is not None:
+            result['approval_ext_info'] = self.approval_ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('stage') is not None:
+            self.stage = m.get('stage')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('approval_status') is not None:
+            self.approval_status = m.get('approval_status')
+        if m.get('approval_comments') is not None:
+            self.approval_comments = m.get('approval_comments')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('seller_account_id') is not None:
+            self.seller_account_id = m.get('seller_account_id')
+        if m.get('buyer_account_id') is not None:
+            self.buyer_account_id = m.get('buyer_account_id')
+        if m.get('approval_ext_info') is not None:
+            self.approval_ext_info = m.get('approval_ext_info')
+        return self
+
+
 class IpEmphasisInfo(TeaModel):
     def __init__(
         self,
@@ -4535,6 +4916,8 @@ class IpEmphasisInfo(TeaModel):
         create_time: str = None,
         ip_name: str = None,
         account_name: str = None,
+        pv: int = None,
+        last_state_change_time: int = None,
     ):
         # ip的链上id
         self.ip_id = ip_id
@@ -4556,6 +4939,10 @@ class IpEmphasisInfo(TeaModel):
         self.ip_name = ip_name
         # 商户名称
         self.account_name = account_name
+        # 浏览量
+        self.pv = pv
+        # 最近一次上下架时间
+        self.last_state_change_time = last_state_change_time
 
     def validate(self):
         self.validate_required(self.ip_id, 'ip_id')
@@ -4592,6 +4979,10 @@ class IpEmphasisInfo(TeaModel):
             result['ip_name'] = self.ip_name
         if self.account_name is not None:
             result['account_name'] = self.account_name
+        if self.pv is not None:
+            result['pv'] = self.pv
+        if self.last_state_change_time is not None:
+            result['last_state_change_time'] = self.last_state_change_time
         return result
 
     def from_map(self, m: dict = None):
@@ -4616,6 +5007,10 @@ class IpEmphasisInfo(TeaModel):
             self.ip_name = m.get('ip_name')
         if m.get('account_name') is not None:
             self.account_name = m.get('account_name')
+        if m.get('pv') is not None:
+            self.pv = m.get('pv')
+        if m.get('last_state_change_time') is not None:
+            self.last_state_change_time = m.get('last_state_change_time')
         return self
 
 
@@ -6746,29 +7141,44 @@ class Merchant(TeaModel):
 class IPCodeScannedInfo(TeaModel):
     def __init__(
         self,
+        ip_code: str = None,
         user_id: str = None,
         user_name: str = None,
         phone_number: str = None,
         gps: str = None,
         timestamp: int = None,
+        ip_id: str = None,
+        order_id: str = None,
     ):
-        # 扫码用户的ID
+        # 正版码ID
+        self.ip_code = ip_code
+        # 用户的ID
         self.user_id = user_id
-        # 扫码用户的名称
+        # 用户的名称
         self.user_name = user_name
-        # 扫码用户的手机号
+        # 用户的手机号
         self.phone_number = phone_number
-        # 扫码用户的位置信息
+        # 用户的位置信息
         self.gps = gps
-        # 扫码的时间(毫秒时间戳)
+        # 处理时间(毫秒时间戳)
         self.timestamp = timestamp
+        # IP ID
+        self.ip_id = ip_id
+        # 订单ID
+        self.order_id = order_id
 
     def validate(self):
+        self.validate_required(self.ip_code, 'ip_code')
         self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.timestamp, 'timestamp')
+        self.validate_required(self.ip_id, 'ip_id')
+        self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
         result = dict()
+        if self.ip_code is not None:
+            result['ip_code'] = self.ip_code
         if self.user_id is not None:
             result['user_id'] = self.user_id
         if self.user_name is not None:
@@ -6779,10 +7189,16 @@ class IPCodeScannedInfo(TeaModel):
             result['gps'] = self.gps
         if self.timestamp is not None:
             result['timestamp'] = self.timestamp
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('ip_code') is not None:
+            self.ip_code = m.get('ip_code')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         if m.get('user_name') is not None:
@@ -6793,6 +7209,10 @@ class IPCodeScannedInfo(TeaModel):
             self.gps = m.get('gps')
         if m.get('timestamp') is not None:
             self.timestamp = m.get('timestamp')
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         return self
 
 
@@ -6857,6 +7277,38 @@ class User(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('vc') is not None:
             self.vc = m.get('vc')
+        return self
+
+
+class XNameValuePair(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
@@ -15313,6 +15765,125 @@ class QueryConsumecardGoodsimageResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('temporary_urls') is not None:
             self.temporary_urls = m.get('temporary_urls')
+        return self
+
+
+class UploadConsumecardFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        chain_id: str = None,
+        product_code: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 链ID
+        self.chain_id = chain_id
+        # 场景码(入驻时申请)
+        self.product_code = product_code
+        # file_id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.chain_id, 'chain_id')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.chain_id is not None:
+            result['chain_id'] = self.chain_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('chain_id') is not None:
+            self.chain_id = m.get('chain_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class UploadConsumecardFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        url: str = None,
+        temporary_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 图片的不可访问url，发布商品时使用
+        self.url = url
+        # 临时可访问的url，过期时间2小时
+        self.temporary_url = temporary_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.url is not None:
+            result['url'] = self.url
+        if self.temporary_url is not None:
+            result['temporary_url'] = self.temporary_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('temporary_url') is not None:
+            self.temporary_url = m.get('temporary_url')
         return self
 
 
@@ -24799,6 +25370,9 @@ class StartIpPackagetradeRequest(TeaModel):
         auth_product_scope: str = None,
         auth_area_scope: str = None,
         sales_channel: str = None,
+        goods_type: int = None,
+        related_order_id: str = None,
+        pay_return_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24829,6 +25403,12 @@ class StartIpPackagetradeRequest(TeaModel):
         self.auth_area_scope = auth_area_scope
         # 商品销售渠道
         self.sales_channel = sales_channel
+        # 0 IP交易，1 增值服务交易
+        self.goods_type = goods_type
+        # 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+        self.related_order_id = related_order_id
+        # 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/\
+        self.pay_return_url = pay_return_url
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -24876,6 +25456,12 @@ class StartIpPackagetradeRequest(TeaModel):
             result['auth_area_scope'] = self.auth_area_scope
         if self.sales_channel is not None:
             result['sales_channel'] = self.sales_channel
+        if self.goods_type is not None:
+            result['goods_type'] = self.goods_type
+        if self.related_order_id is not None:
+            result['related_order_id'] = self.related_order_id
+        if self.pay_return_url is not None:
+            result['pay_return_url'] = self.pay_return_url
         return result
 
     def from_map(self, m: dict = None):
@@ -24911,6 +25497,12 @@ class StartIpPackagetradeRequest(TeaModel):
             self.auth_area_scope = m.get('auth_area_scope')
         if m.get('sales_channel') is not None:
             self.sales_channel = m.get('sales_channel')
+        if m.get('goods_type') is not None:
+            self.goods_type = m.get('goods_type')
+        if m.get('related_order_id') is not None:
+            self.related_order_id = m.get('related_order_id')
+        if m.get('pay_return_url') is not None:
+            self.pay_return_url = m.get('pay_return_url')
         return self
 
 
@@ -25208,6 +25800,9 @@ class StartIpAuthtradeRequest(TeaModel):
         guaranteed_fund: str = None,
         guaranteed_goods_amount: int = None,
         guaranteed_sales: str = None,
+        goods_type: int = None,
+        related_order_id: str = None,
+        pay_return_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -25248,6 +25843,12 @@ class StartIpAuthtradeRequest(TeaModel):
         self.guaranteed_goods_amount = guaranteed_goods_amount
         # 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
         self.guaranteed_sales = guaranteed_sales
+        # 0 IP交易，1 增值服务交易
+        self.goods_type = goods_type
+        # 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+        self.related_order_id = related_order_id
+        # 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/\
+        self.pay_return_url = pay_return_url
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -25303,6 +25904,12 @@ class StartIpAuthtradeRequest(TeaModel):
             result['guaranteed_goods_amount'] = self.guaranteed_goods_amount
         if self.guaranteed_sales is not None:
             result['guaranteed_sales'] = self.guaranteed_sales
+        if self.goods_type is not None:
+            result['goods_type'] = self.goods_type
+        if self.related_order_id is not None:
+            result['related_order_id'] = self.related_order_id
+        if self.pay_return_url is not None:
+            result['pay_return_url'] = self.pay_return_url
         return result
 
     def from_map(self, m: dict = None):
@@ -25348,6 +25955,12 @@ class StartIpAuthtradeRequest(TeaModel):
             self.guaranteed_goods_amount = m.get('guaranteed_goods_amount')
         if m.get('guaranteed_sales') is not None:
             self.guaranteed_sales = m.get('guaranteed_sales')
+        if m.get('goods_type') is not None:
+            self.goods_type = m.get('goods_type')
+        if m.get('related_order_id') is not None:
+            self.related_order_id = m.get('related_order_id')
+        if m.get('pay_return_url') is not None:
+            self.pay_return_url = m.get('pay_return_url')
         return self
 
 
@@ -25419,6 +26032,7 @@ class UploadIpAuthtradesalesRequest(TeaModel):
         account_id: str = None,
         ip_order_id: str = None,
         only_call_blockchain: bool = None,
+        pay_return_url: str = None,
         auth_rate: str = None,
         auth_price: str = None,
         settlement_begin_time: int = None,
@@ -25446,6 +26060,8 @@ class UploadIpAuthtradesalesRequest(TeaModel):
         self.ip_order_id = ip_order_id
         # true 只上链不走真实支付，false 上链并链下真实支付账单
         self.only_call_blockchain = only_call_blockchain
+        # 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/\
+        self.pay_return_url = pay_return_url
         # 授权佣金比例
         self.auth_rate = auth_rate
         # 定向授权按量付费单价
@@ -25508,6 +26124,8 @@ class UploadIpAuthtradesalesRequest(TeaModel):
             result['ip_order_id'] = self.ip_order_id
         if self.only_call_blockchain is not None:
             result['only_call_blockchain'] = self.only_call_blockchain
+        if self.pay_return_url is not None:
+            result['pay_return_url'] = self.pay_return_url
         if self.auth_rate is not None:
             result['auth_rate'] = self.auth_rate
         if self.auth_price is not None:
@@ -25555,6 +26173,8 @@ class UploadIpAuthtradesalesRequest(TeaModel):
             self.ip_order_id = m.get('ip_order_id')
         if m.get('only_call_blockchain') is not None:
             self.only_call_blockchain = m.get('only_call_blockchain')
+        if m.get('pay_return_url') is not None:
+            self.pay_return_url = m.get('pay_return_url')
         if m.get('auth_rate') is not None:
             self.auth_rate = m.get('auth_rate')
         if m.get('auth_price') is not None:
@@ -25851,6 +26471,7 @@ class QueryIpOrderlistRequest(TeaModel):
         ip_name: str = None,
         seller_name: str = None,
         trade_type: int = None,
+        goods_type: int = None,
         charge_type: int = None,
         auth_start_time: int = None,
         auth_end_time: int = None,
@@ -25880,6 +26501,8 @@ class QueryIpOrderlistRequest(TeaModel):
         self.seller_name = seller_name
         # 交易类型：1 套餐交易， 2 定向授权
         self.trade_type = trade_type
+        # 0 IP交易，1 增值服务交易
+        self.goods_type = goods_type
         # 收费模式：0 销售抽拥，1 按量计费
         self.charge_type = charge_type
         # 查询订单授权开始时间
@@ -25928,6 +26551,8 @@ class QueryIpOrderlistRequest(TeaModel):
             result['seller_name'] = self.seller_name
         if self.trade_type is not None:
             result['trade_type'] = self.trade_type
+        if self.goods_type is not None:
+            result['goods_type'] = self.goods_type
         if self.charge_type is not None:
             result['charge_type'] = self.charge_type
         if self.auth_start_time is not None:
@@ -25969,6 +26594,8 @@ class QueryIpOrderlistRequest(TeaModel):
             self.seller_name = m.get('seller_name')
         if m.get('trade_type') is not None:
             self.trade_type = m.get('trade_type')
+        if m.get('goods_type') is not None:
+            self.goods_type = m.get('goods_type')
         if m.get('charge_type') is not None:
             self.charge_type = m.get('charge_type')
         if m.get('auth_start_time') is not None:
@@ -26573,6 +27200,8 @@ class BatchqueryIpGoodsRequest(TeaModel):
         create_begin_time: str = None,
         create_end_time: str = None,
         is_create_time_sort_desc: bool = None,
+        is_sort_by_pv: int = None,
+        is_sort_by_status_change: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26601,6 +27230,10 @@ class BatchqueryIpGoodsRequest(TeaModel):
         self.create_end_time = create_end_time
         # 是否需要按照创建时间倒序排序
         self.is_create_time_sort_desc = is_create_time_sort_desc
+        # 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+        self.is_sort_by_pv = is_sort_by_pv
+        # 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+        self.is_sort_by_status_change = is_sort_by_status_change
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -26647,6 +27280,10 @@ class BatchqueryIpGoodsRequest(TeaModel):
             result['create_end_time'] = self.create_end_time
         if self.is_create_time_sort_desc is not None:
             result['is_create_time_sort_desc'] = self.is_create_time_sort_desc
+        if self.is_sort_by_pv is not None:
+            result['is_sort_by_pv'] = self.is_sort_by_pv
+        if self.is_sort_by_status_change is not None:
+            result['is_sort_by_status_change'] = self.is_sort_by_status_change
         return result
 
     def from_map(self, m: dict = None):
@@ -26680,6 +27317,10 @@ class BatchqueryIpGoodsRequest(TeaModel):
             self.create_end_time = m.get('create_end_time')
         if m.get('is_create_time_sort_desc') is not None:
             self.is_create_time_sort_desc = m.get('is_create_time_sort_desc')
+        if m.get('is_sort_by_pv') is not None:
+            self.is_sort_by_pv = m.get('is_sort_by_pv')
+        if m.get('is_sort_by_status_change') is not None:
+            self.is_sort_by_status_change = m.get('is_sort_by_status_change')
         return self
 
 
@@ -26751,6 +27392,7 @@ class QueryIpGoodsdetailwithchannelRequest(TeaModel):
         base_request: BaseRequestInfo = None,
         ip_ids: List[str] = None,
         channel_name: str = None,
+        update_pv: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26761,6 +27403,8 @@ class QueryIpGoodsdetailwithchannelRequest(TeaModel):
         self.ip_ids = ip_ids
         # 查询的渠道名字
         self.channel_name = channel_name
+        # 是否要增加pv，默认不增加
+        self.update_pv = update_pv
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -26781,6 +27425,8 @@ class QueryIpGoodsdetailwithchannelRequest(TeaModel):
             result['ip_ids'] = self.ip_ids
         if self.channel_name is not None:
             result['channel_name'] = self.channel_name
+        if self.update_pv is not None:
+            result['update_pv'] = self.update_pv
         return result
 
     def from_map(self, m: dict = None):
@@ -26796,6 +27442,8 @@ class QueryIpGoodsdetailwithchannelRequest(TeaModel):
             self.ip_ids = m.get('ip_ids')
         if m.get('channel_name') is not None:
             self.channel_name = m.get('channel_name')
+        if m.get('update_pv') is not None:
+            self.update_pv = m.get('update_pv')
         return self
 
 
@@ -29812,6 +30460,7 @@ class CheckIpCodeRequest(TeaModel):
             self.base_request.validate()
         self.validate_required(self.code, 'code')
         self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_name, 'user_name')
 
     def to_map(self):
         result = dict()
@@ -30443,7 +31092,7 @@ class QueryIpSkuconfigResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        skus: List[IpSkuEmphasisInfo] = None,
+        skus: List[IpSkuConfigWithLevel] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -30485,7 +31134,7 @@ class QueryIpSkuconfigResponse(TeaModel):
         self.skus = []
         if m.get('skus') is not None:
             for k in m.get('skus'):
-                temp_model = IpSkuEmphasisInfo()
+                temp_model = IpSkuConfigWithLevel()
                 self.skus.append(temp_model.from_map(k))
         return self
 
@@ -30712,6 +31361,2324 @@ class RemoveIpSkuResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class CreateIpSuperviseapproveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        order_id: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 订单id
+        self.order_id = order_id
+        # 监修报审内容，业务相关字段自行组织成json，统一存储
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CreateIpSuperviseapproveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ConfirmIpSuperviseapproveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        order_id: str = None,
+        stage: int = None,
+        is_approval: bool = None,
+        approval_comments: str = None,
+        approval_ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 监修报审关联的订单id
+        self.order_id = order_id
+        # 当前期望的审批阶段（用于校验）
+        self.stage = stage
+        # 是否审批通过
+        self.is_approval = is_approval
+        # 审批备注
+        self.approval_comments = approval_comments
+        # 审批额外信息
+        self.approval_ext_info = approval_ext_info
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.stage, 'stage')
+        self.validate_required(self.is_approval, 'is_approval')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.stage is not None:
+            result['stage'] = self.stage
+        if self.is_approval is not None:
+            result['is_approval'] = self.is_approval
+        if self.approval_comments is not None:
+            result['approval_comments'] = self.approval_comments
+        if self.approval_ext_info is not None:
+            result['approval_ext_info'] = self.approval_ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('stage') is not None:
+            self.stage = m.get('stage')
+        if m.get('is_approval') is not None:
+            self.is_approval = m.get('is_approval')
+        if m.get('approval_comments') is not None:
+            self.approval_comments = m.get('approval_comments')
+        if m.get('approval_ext_info') is not None:
+            self.approval_ext_info = m.get('approval_ext_info')
+        return self
+
+
+class ConfirmIpSuperviseapproveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PushIpSuperviseapproveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        order_id: str = None,
+        stage: int = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 关联的订单id
+        self.order_id = order_id
+        # 当前期望的阶段（用于校验，若是重新提交，则阶段值相等，若推进下一阶段，则阶段值+1）
+        self.stage = stage
+        # 监修报审的阶段具体内容，组织成json保存
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.stage, 'stage')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.stage is not None:
+            result['stage'] = self.stage
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('stage') is not None:
+            self.stage = m.get('stage')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class PushIpSuperviseapproveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryIpSuperviseapproveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 关联的订单id
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryIpSuperviseapproveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        supervise_approve: SuperviseApprove = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 监修报审最新阶段的详情
+        self.supervise_approve = supervise_approve
+
+    def validate(self):
+        if self.supervise_approve:
+            self.supervise_approve.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.supervise_approve is not None:
+            result['supervise_approve'] = self.supervise_approve.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('supervise_approve') is not None:
+            temp_model = SuperviseApprove()
+            self.supervise_approve = temp_model.from_map(m['supervise_approve'])
+        return self
+
+
+class ReceiveIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        code: str = None,
+        user_id: str = None,
+        user_name: str = None,
+        phone_number: str = None,
+        gps: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 正版码的编码
+        self.code = code
+        # 领取用户的ID
+        self.user_id = user_id
+        # 领取用户的名称
+        self.user_name = user_name
+        # 领取用户的手机号
+        self.phone_number = phone_number
+        # 领取用户的位置信息
+        self.gps = gps
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_name, 'user_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.gps is not None:
+            result['gps'] = self.gps
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('gps') is not None:
+            self.gps = m.get('gps')
+        return self
+
+
+class ReceiveIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PagequeryIpCodeinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        user_id: str = None,
+        page_number: int = None,
+        page_size: int = None,
+        type: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 用户ID
+        self.user_id = user_id
+        # 页码
+        self.page_number = page_number
+        # 每页数据量大小
+        self.page_size = page_size
+        # 0 扫描过的正版码，1 领取过的正版码
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.page_number, 'page_number')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class PagequeryIpCodeinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_number: int = None,
+        page_size: int = None,
+        code_count: int = None,
+        code_list: List[IPCodeScannedInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页码
+        self.page_number = page_number
+        # 页面数据量大小
+        self.page_size = page_size
+        # 领取到的正版码总数
+        self.code_count = code_count
+        # 正版码列表信息
+        self.code_list = code_list
+
+    def validate(self):
+        if self.code_list:
+            for k in self.code_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.code_count is not None:
+            result['code_count'] = self.code_count
+        result['code_list'] = []
+        if self.code_list is not None:
+            for k in self.code_list:
+                result['code_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('code_count') is not None:
+            self.code_count = m.get('code_count')
+        self.code_list = []
+        if m.get('code_list') is not None:
+            for k in m.get('code_list'):
+                temp_model = IPCodeScannedInfo()
+                self.code_list.append(temp_model.from_map(k))
+        return self
+
+
+class CreateIpValueaddRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+        service_name: str = None,
+        images: str = None,
+        images_detail: str = None,
+        description: str = None,
+        docking_people: List[DockingPeopleInfo] = None,
+        copy_right: str = None,
+        memo: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 创建增值服务的账户id
+        self.account_id = account_id
+        # 服务名字
+        self.service_name = service_name
+        # 商品主图，存放OSS图片链接,多张用;隔开
+        self.images = images
+        # 商品详情图  存放OSS图片链接,多张用;隔开
+        self.images_detail = images_detail
+        # 商品描述
+        self.description = description
+        # 联系人
+        self.docking_people = docking_people
+        # 资质证明
+        self.copy_right = copy_right
+        # 备注
+        self.memo = memo
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.images, 'images')
+        self.validate_required(self.images_detail, 'images_detail')
+        self.validate_required(self.docking_people, 'docking_people')
+        if self.docking_people:
+            for k in self.docking_people:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.images is not None:
+            result['images'] = self.images
+        if self.images_detail is not None:
+            result['images_detail'] = self.images_detail
+        if self.description is not None:
+            result['description'] = self.description
+        result['docking_people'] = []
+        if self.docking_people is not None:
+            for k in self.docking_people:
+                result['docking_people'].append(k.to_map() if k else None)
+        if self.copy_right is not None:
+            result['copy_right'] = self.copy_right
+        if self.memo is not None:
+            result['memo'] = self.memo
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('images') is not None:
+            self.images = m.get('images')
+        if m.get('images_detail') is not None:
+            self.images_detail = m.get('images_detail')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.docking_people = []
+        if m.get('docking_people') is not None:
+            for k in m.get('docking_people'):
+                temp_model = DockingPeopleInfo()
+                self.docking_people.append(temp_model.from_map(k))
+        if m.get('copy_right') is not None:
+            self.copy_right = m.get('copy_right')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        return self
+
+
+class CreateIpValueaddResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        service_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 服务id
+        self.service_id = service_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        return self
+
+
+class UpdateIpValueaddRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        service_id: str = None,
+        service_name: str = None,
+        image: str = None,
+        image_detail: str = None,
+        description: str = None,
+        docking_people: List[DockingPeopleInfo] = None,
+        copy_right: str = None,
+        memo: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 服务id
+        self.service_id = service_id
+        # 增值服务名字
+        self.service_name = service_name
+        # 主图。存放OSS图片链接,多张用;隔开
+        self.image = image
+        # 商品详情图  存放OSS图片链接.多张用;隔开
+        self.image_detail = image_detail
+        # 描述
+        self.description = description
+        # 联系人
+        self.docking_people = docking_people
+        # 资质证明
+        self.copy_right = copy_right
+        # 备注
+        self.memo = memo
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.service_name, 'service_name')
+        self.validate_required(self.image, 'image')
+        self.validate_required(self.image_detail, 'image_detail')
+        self.validate_required(self.docking_people, 'docking_people')
+        if self.docking_people:
+            for k in self.docking_people:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.image is not None:
+            result['image'] = self.image
+        if self.image_detail is not None:
+            result['image_detail'] = self.image_detail
+        if self.description is not None:
+            result['description'] = self.description
+        result['docking_people'] = []
+        if self.docking_people is not None:
+            for k in self.docking_people:
+                result['docking_people'].append(k.to_map() if k else None)
+        if self.copy_right is not None:
+            result['copy_right'] = self.copy_right
+        if self.memo is not None:
+            result['memo'] = self.memo
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('image_detail') is not None:
+            self.image_detail = m.get('image_detail')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.docking_people = []
+        if m.get('docking_people') is not None:
+            for k in m.get('docking_people'):
+                temp_model = DockingPeopleInfo()
+                self.docking_people.append(temp_model.from_map(k))
+        if m.get('copy_right') is not None:
+            self.copy_right = m.get('copy_right')
+        if m.get('memo') is not None:
+            self.memo = m.get('memo')
+        return self
+
+
+class UpdateIpValueaddResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SetIpValueaddskuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        service_id: str = None,
+        skus: List[IpSkuEmphasisInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 服务id
+        self.service_id = service_id
+        # sku
+        self.skus = skus
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.skus, 'skus')
+        if self.skus:
+            for k in self.skus:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        result['skus'] = []
+        if self.skus is not None:
+            for k in self.skus:
+                result['skus'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        self.skus = []
+        if m.get('skus') is not None:
+            for k in m.get('skus'):
+                temp_model = IpSkuEmphasisInfo()
+                self.skus.append(temp_model.from_map(k))
+        return self
+
+
+class SetIpValueaddskuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class OnlineIpValueaddRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        service_id: str = None,
+        is_online: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 服务id
+        self.service_id = service_id
+        # 是否上线，否为下线
+        self.is_online = is_online
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.service_id, 'service_id')
+        self.validate_required(self.is_online, 'is_online')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.is_online is not None:
+            result['is_online'] = self.is_online
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('is_online') is not None:
+            self.is_online = m.get('is_online')
+        return self
+
+
+class OnlineIpValueaddResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryIpValueaddRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        service_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 查询服务id
+        self.service_id = service_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.service_id, 'service_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        return self
+
+
+class QueryIpValueaddResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        value_added_info: ValueAddedServiceInfoWithSku = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 增值服务详情
+        self.value_added_info = value_added_info
+
+    def validate(self):
+        if self.value_added_info:
+            self.value_added_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.value_added_info is not None:
+            result['value_added_info'] = self.value_added_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('value_added_info') is not None:
+            temp_model = ValueAddedServiceInfoWithSku()
+            self.value_added_info = temp_model.from_map(m['value_added_info'])
+        return self
+
+
+class PagequeryIpValueaddRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+        service_name: str = None,
+        status: int = None,
+        page_index: int = None,
+        page_size: int = None,
+        begin_create_time: str = None,
+        eng_create_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 归属账户id
+        self.account_id = account_id
+        # 服务名字，模糊匹配
+        self.service_name = service_name
+        # 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+        self.status = status
+        # 第几页
+        self.page_index = page_index
+        # 每页长度
+        self.page_size = page_size
+        # 开始时间
+        self.begin_create_time = begin_create_time
+        # 结束时间
+        self.eng_create_time = eng_create_time
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.begin_create_time, 'begin_create_time')
+        if self.begin_create_time is not None:
+            self.validate_pattern(self.begin_create_time, 'begin_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.eng_create_time, 'eng_create_time')
+        if self.eng_create_time is not None:
+            self.validate_pattern(self.eng_create_time, 'eng_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.begin_create_time is not None:
+            result['begin_create_time'] = self.begin_create_time
+        if self.eng_create_time is not None:
+            result['eng_create_time'] = self.eng_create_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('begin_create_time') is not None:
+            self.begin_create_time = m.get('begin_create_time')
+        if m.get('eng_create_time') is not None:
+            self.eng_create_time = m.get('eng_create_time')
+        return self
+
+
+class PagequeryIpValueaddResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[ValueAddedServiceInfo] = None,
+        all_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 增值服务列表
+        self.data = data
+        # 总数
+        self.all_count = all_count
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.all_count is not None:
+            result['all_count'] = self.all_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ValueAddedServiceInfo()
+                self.data.append(temp_model.from_map(k))
+        if m.get('all_count') is not None:
+            self.all_count = m.get('all_count')
+        return self
+
+
+class UploadIpTradesalesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+        ip_order_id: str = None,
+        only_call_blockchain: bool = None,
+        pay_return_url: str = None,
+        auth_rate: str = None,
+        auth_price: str = None,
+        total_amount: int = None,
+        total_sales: str = None,
+        total_payment: str = None,
+        ip_sales_info_list: List[IPSalesInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求参数
+        self.base_request = base_request
+        # 上传记录的用户的链上账户Id
+        self.account_id = account_id
+        # 订单ID
+        self.ip_order_id = ip_order_id
+        # true 只上链不走真实支付，false 上链并链下真实支付账单
+        self.only_call_blockchain = only_call_blockchain
+        # 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/\
+        self.pay_return_url = pay_return_url
+        # 授权佣金比例
+        self.auth_rate = auth_rate
+        # 定向授权按量付费单价
+        self.auth_price = auth_price
+        # 商品销售数量
+        self.total_amount = total_amount
+        # 销售金额
+        self.total_sales = total_sales
+        # 实付金额（授权交易）
+        self.total_payment = total_payment
+        # 销售数据列表
+        self.ip_sales_info_list = ip_sales_info_list
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.ip_order_id, 'ip_order_id')
+        self.validate_required(self.only_call_blockchain, 'only_call_blockchain')
+        self.validate_required(self.total_amount, 'total_amount')
+        self.validate_required(self.total_sales, 'total_sales')
+        self.validate_required(self.total_payment, 'total_payment')
+        self.validate_required(self.ip_sales_info_list, 'ip_sales_info_list')
+        if self.ip_sales_info_list:
+            for k in self.ip_sales_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.ip_order_id is not None:
+            result['ip_order_id'] = self.ip_order_id
+        if self.only_call_blockchain is not None:
+            result['only_call_blockchain'] = self.only_call_blockchain
+        if self.pay_return_url is not None:
+            result['pay_return_url'] = self.pay_return_url
+        if self.auth_rate is not None:
+            result['auth_rate'] = self.auth_rate
+        if self.auth_price is not None:
+            result['auth_price'] = self.auth_price
+        if self.total_amount is not None:
+            result['total_amount'] = self.total_amount
+        if self.total_sales is not None:
+            result['total_sales'] = self.total_sales
+        if self.total_payment is not None:
+            result['total_payment'] = self.total_payment
+        result['ip_sales_info_list'] = []
+        if self.ip_sales_info_list is not None:
+            for k in self.ip_sales_info_list:
+                result['ip_sales_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('ip_order_id') is not None:
+            self.ip_order_id = m.get('ip_order_id')
+        if m.get('only_call_blockchain') is not None:
+            self.only_call_blockchain = m.get('only_call_blockchain')
+        if m.get('pay_return_url') is not None:
+            self.pay_return_url = m.get('pay_return_url')
+        if m.get('auth_rate') is not None:
+            self.auth_rate = m.get('auth_rate')
+        if m.get('auth_price') is not None:
+            self.auth_price = m.get('auth_price')
+        if m.get('total_amount') is not None:
+            self.total_amount = m.get('total_amount')
+        if m.get('total_sales') is not None:
+            self.total_sales = m.get('total_sales')
+        if m.get('total_payment') is not None:
+            self.total_payment = m.get('total_payment')
+        self.ip_sales_info_list = []
+        if m.get('ip_sales_info_list') is not None:
+            for k in m.get('ip_sales_info_list'):
+                temp_model = IPSalesInfo()
+                self.ip_sales_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class UploadIpTradesalesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pay_url: str = None,
+        ip_bill_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付链接
+        self.pay_url = pay_url
+        # 账单ID
+        self.ip_bill_id = ip_bill_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.pay_url is not None:
+            result['pay_url'] = self.pay_url
+        if self.ip_bill_id is not None:
+            result['ip_bill_id'] = self.ip_bill_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('pay_url') is not None:
+            self.pay_url = m.get('pay_url')
+        if m.get('ip_bill_id') is not None:
+            self.ip_bill_id = m.get('ip_bill_id')
+        return self
+
+
+class AuthIpUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        auth_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 用户授权code
+        self.auth_code = auth_code
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.auth_code, 'auth_code')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        return self
+
+
+class AuthIpUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户ID
+        self.user_id = user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class RemoveIpGoodsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        ip_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # ip id
+        self.ip_id = ip_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.ip_id, 'ip_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        return self
+
+
+class RemoveIpGoodsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CountIpNumRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 账户id，为空则查全局
+        self.account_id = account_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        return self
+
+
+class CountIpNumResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        counter_detail: List[ChannelCounter] = None,
+        all_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 各个渠道的统计
+        self.counter_detail = counter_detail
+        # 总计值
+        self.all_count = all_count
+
+    def validate(self):
+        if self.counter_detail:
+            for k in self.counter_detail:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['counter_detail'] = []
+        if self.counter_detail is not None:
+            for k in self.counter_detail:
+                result['counter_detail'].append(k.to_map() if k else None)
+        if self.all_count is not None:
+            result['all_count'] = self.all_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.counter_detail = []
+        if m.get('counter_detail') is not None:
+            for k in m.get('counter_detail'):
+                temp_model = ChannelCounter()
+                self.counter_detail.append(temp_model.from_map(k))
+        if m.get('all_count') is not None:
+            self.all_count = m.get('all_count')
+        return self
+
+
+class CountIpPvRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        account_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础字段
+        self.base_request = base_request
+        # 账户id，为空则统计全局
+        self.account_id = account_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        return self
+
+
+class CountIpPvResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        all_count: int = None,
+        counter_details: List[ChannelCounter] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总计
+        self.all_count = all_count
+        # 渠道统计值
+        self.counter_details = counter_details
+
+    def validate(self):
+        if self.counter_details:
+            for k in self.counter_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.all_count is not None:
+            result['all_count'] = self.all_count
+        result['counter_details'] = []
+        if self.counter_details is not None:
+            for k in self.counter_details:
+                result['counter_details'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('all_count') is not None:
+            self.all_count = m.get('all_count')
+        self.counter_details = []
+        if m.get('counter_details') is not None:
+            for k in m.get('counter_details'):
+                temp_model = ChannelCounter()
+                self.counter_details.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 正版码的编码
+        self.code = code
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.code, 'code')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.code is not None:
+            result['code'] = self.code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        return self
+
+
+class QueryIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code_info: IPCodeScannedInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 正版码信息
+        self.code_info = code_info
+
+    def validate(self):
+        if self.code_info:
+            self.code_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code_info is not None:
+            result['code_info'] = self.code_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code_info') is not None:
+            temp_model = IPCodeScannedInfo()
+            self.code_info = temp_model.from_map(m['code_info'])
+        return self
+
+
+class CountIpAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        chain_id: str = None,
+        product_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+        self.chain_id = chain_id
+        # 场景码(入驻时申请)(长度不超过50个字符)
+        self.product_code = product_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.chain_id is not None:
+            result['chain_id'] = self.chain_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('chain_id') is not None:
+            self.chain_id = m.get('chain_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        return self
+
+
+class CountIpAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_count: int = None,
+        seller_count: int = None,
+        buyer_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户数量
+        self.user_count = user_count
+        # 版权方数量
+        self.seller_count = seller_count
+        # 版权方数量
+        self.buyer_count = buyer_count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_count is not None:
+            result['user_count'] = self.user_count
+        if self.seller_count is not None:
+            result['seller_count'] = self.seller_count
+        if self.buyer_count is not None:
+            result['buyer_count'] = self.buyer_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_count') is not None:
+            self.user_count = m.get('user_count')
+        if m.get('seller_count') is not None:
+            self.seller_count = m.get('seller_count')
+        if m.get('buyer_count') is not None:
+            self.buyer_count = m.get('buyer_count')
+        return self
+
+
+class QueryIpOrderstatisticRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        seller_id: str = None,
+        ip_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 卖方ID
+        self.seller_id = seller_id
+        # IP id
+        self.ip_id = ip_id
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.seller_id is not None:
+            result['seller_id'] = self.seller_id
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('seller_id') is not None:
+            self.seller_id = m.get('seller_id')
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        return self
+
+
+class QueryIpOrderstatisticResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_order_count: int = None,
+        total_payment_amount: str = None,
+        total_buyer_count: int = None,
+        order_sta_list: List[ChannelCounter] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单总数
+        self.total_order_count = total_order_count
+        # 总金额
+        self.total_payment_amount = total_payment_amount
+        # 总客户数
+        self.total_buyer_count = total_buyer_count
+        # 统计数据
+        self.order_sta_list = order_sta_list
+
+    def validate(self):
+        if self.order_sta_list:
+            for k in self.order_sta_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_order_count is not None:
+            result['total_order_count'] = self.total_order_count
+        if self.total_payment_amount is not None:
+            result['total_payment_amount'] = self.total_payment_amount
+        if self.total_buyer_count is not None:
+            result['total_buyer_count'] = self.total_buyer_count
+        result['order_sta_list'] = []
+        if self.order_sta_list is not None:
+            for k in self.order_sta_list:
+                result['order_sta_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_order_count') is not None:
+            self.total_order_count = m.get('total_order_count')
+        if m.get('total_payment_amount') is not None:
+            self.total_payment_amount = m.get('total_payment_amount')
+        if m.get('total_buyer_count') is not None:
+            self.total_buyer_count = m.get('total_buyer_count')
+        self.order_sta_list = []
+        if m.get('order_sta_list') is not None:
+            for k in m.get('order_sta_list'):
+                temp_model = ChannelCounter()
+                self.order_sta_list.append(temp_model.from_map(k))
         return self
 
 
@@ -33109,6 +36076,154 @@ class QueryMypointsOrderinstructionResponse(TeaModel):
             self.status = m.get('status')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        api_code: str = None,
+        file_label: str = None,
+        file_metadata: str = None,
+        file_name: str = None,
+        mime_type: str = None,
+        api_cluster: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 上传文件作用的openapi method
+        self.api_code = api_code
+        # 文件标签，多个标签;分割
+        self.file_label = file_label
+        # 自定义的文件元数据
+        self.file_metadata = file_metadata
+        # 文件名，不传则随机生成文件名
+        self.file_name = file_name
+        # 文件的多媒体类型
+        self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
+
+    def validate(self):
+        self.validate_required(self.api_code, 'api_code')
+        if self.file_label is not None:
+            self.validate_max_length(self.file_label, 'file_label', 100)
+        if self.file_metadata is not None:
+            self.validate_max_length(self.file_metadata, 'file_metadata', 1000)
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 100)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.api_code is not None:
+            result['api_code'] = self.api_code
+        if self.file_label is not None:
+            result['file_label'] = self.file_label
+        if self.file_metadata is not None:
+            result['file_metadata'] = self.file_metadata
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.mime_type is not None:
+            result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('api_code') is not None:
+            self.api_code = m.get('api_code')
+        if m.get('file_label') is not None:
+            self.file_label = m.get('file_label')
+        if m.get('file_metadata') is not None:
+            self.file_metadata = m.get('file_metadata')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('mime_type') is not None:
+            self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        expired_time: str = None,
+        file_id: str = None,
+        upload_headers: List[XNameValuePair] = None,
+        upload_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传有效期
+        self.expired_time = expired_time
+        # 32位文件唯一id
+        self.file_id = file_id
+        # 放入http请求头里
+        self.upload_headers = upload_headers
+        # 文件上传地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.upload_headers:
+            for k in self.upload_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['upload_headers'] = []
+        if self.upload_headers is not None:
+            for k in self.upload_headers:
+                result['upload_headers'].append(k.to_map() if k else None)
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.upload_headers = []
+        if m.get('upload_headers') is not None:
+            for k in m.get('upload_headers'):
+                temp_model = XNameValuePair()
+                self.upload_headers.append(temp_model.from_map(k))
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
         return self
 
 
