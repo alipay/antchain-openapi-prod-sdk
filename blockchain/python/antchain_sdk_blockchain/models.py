@@ -56073,7 +56073,6 @@ class UpdateMydidcommunWorkergroupTappResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -56081,8 +56080,6 @@ class UpdateMydidcommunWorkergroupTappResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否成功 1 成功 2 失败
-        self.data = data
 
     def validate(self):
         pass
@@ -56095,8 +56092,6 @@ class UpdateMydidcommunWorkergroupTappResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -56107,8 +56102,6 @@ class UpdateMydidcommunWorkergroupTappResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
-            self.data = m.get('data')
         return self
 
 
@@ -56277,7 +56270,6 @@ class SyncMydidcommunWorkergroupGroupResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -56285,8 +56277,6 @@ class SyncMydidcommunWorkergroupGroupResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否成功
-        self.data = data
 
     def validate(self):
         pass
@@ -56299,8 +56289,6 @@ class SyncMydidcommunWorkergroupGroupResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -56311,8 +56299,6 @@ class SyncMydidcommunWorkergroupGroupResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
-            self.data = m.get('data')
         return self
 
 
