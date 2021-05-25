@@ -96,6 +96,24 @@ class StartIpPackagetradeRequest extends Model
      * @var string
      */
     public $salesChannel;
+
+    // 0 IP交易，1 增值服务交易
+    /**
+     * @var int
+     */
+    public $goodsType;
+
+    // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+    /**
+     * @var string
+     */
+    public $relatedOrderId;
+
+    // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+    /**
+     * @var string
+     */
+    public $payReturnUrl;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -112,6 +130,9 @@ class StartIpPackagetradeRequest extends Model
         'authProductScope'   => 'auth_product_scope',
         'authAreaScope'      => 'auth_area_scope',
         'salesChannel'       => 'sales_channel',
+        'goodsType'          => 'goods_type',
+        'relatedOrderId'     => 'related_order_id',
+        'payReturnUrl'       => 'pay_return_url',
     ];
 
     public function validate()
@@ -176,6 +197,15 @@ class StartIpPackagetradeRequest extends Model
         if (null !== $this->salesChannel) {
             $res['sales_channel'] = $this->salesChannel;
         }
+        if (null !== $this->goodsType) {
+            $res['goods_type'] = $this->goodsType;
+        }
+        if (null !== $this->relatedOrderId) {
+            $res['related_order_id'] = $this->relatedOrderId;
+        }
+        if (null !== $this->payReturnUrl) {
+            $res['pay_return_url'] = $this->payReturnUrl;
+        }
 
         return $res;
     }
@@ -232,6 +262,15 @@ class StartIpPackagetradeRequest extends Model
         }
         if (isset($map['sales_channel'])) {
             $model->salesChannel = $map['sales_channel'];
+        }
+        if (isset($map['goods_type'])) {
+            $model->goodsType = $map['goods_type'];
+        }
+        if (isset($map['related_order_id'])) {
+            $model->relatedOrderId = $map['related_order_id'];
+        }
+        if (isset($map['pay_return_url'])) {
+            $model->payReturnUrl = $map['pay_return_url'];
         }
 
         return $model;

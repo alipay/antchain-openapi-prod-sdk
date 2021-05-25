@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpGoodsdetailwithchannelRequest extends Model
+class CreateIpSuperviseapproveRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,36 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础结构
+    // 基础字段
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // ip的链上id
-    /**
-     * @var string[]
-     */
-    public $ipIds;
-
-    // 查询的渠道名字
+    // 订单id
     /**
      * @var string
      */
-    public $channelName;
+    public $orderId;
 
-    // 是否要增加pv，默认不增加
+    // 监修报审内容，业务相关字段自行组织成json，统一存储
     /**
-     * @var bool
+     * @var string
      */
-    public $updatePv;
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipIds'             => 'ip_ids',
-        'channelName'       => 'channel_name',
-        'updatePv'          => 'update_pv',
+        'orderId'           => 'order_id',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipIds', $this->ipIds, true);
-        Model::validateRequired('channelName', $this->channelName, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('extInfo', $this->extInfo, true);
     }
 
     public function toMap()
@@ -70,14 +63,11 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipIds) {
-            $res['ip_ids'] = $this->ipIds;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
-        }
-        if (null !== $this->updatePv) {
-            $res['update_pv'] = $this->updatePv;
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -86,7 +76,7 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpGoodsdetailwithchannelRequest
+     * @return CreateIpSuperviseapproveRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,16 +90,11 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_ids'])) {
-            if (!empty($map['ip_ids'])) {
-                $model->ipIds = $map['ip_ids'];
-            }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
-        }
-        if (isset($map['update_pv'])) {
-            $model->updatePv = $map['update_pv'];
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpSkuconfigResponse extends Model
+class ReceiveIpCodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryIpSkuconfigResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // sku信息
-    /**
-     * @var IpSkuConfigWithLevel[]
-     */
-    public $skus;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'skus'       => 'skus',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryIpSkuconfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->skus) {
-            $res['skus'] = [];
-            if (null !== $this->skus && \is_array($this->skus)) {
-                $n = 0;
-                foreach ($this->skus as $item) {
-                    $res['skus'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryIpSkuconfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpSkuconfigResponse
+     * @return ReceiveIpCodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryIpSkuconfigResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['skus'])) {
-            if (!empty($map['skus'])) {
-                $model->skus = [];
-                $n           = 0;
-                foreach ($map['skus'] as $item) {
-                    $model->skus[$n++] = null !== $item ? IpSkuConfigWithLevel::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

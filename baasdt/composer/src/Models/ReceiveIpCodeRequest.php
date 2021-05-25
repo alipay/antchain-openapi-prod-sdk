@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpGoodsdetailwithchannelRequest extends Model
+class ReceiveIpCodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,58 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础结构
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // ip的链上id
-    /**
-     * @var string[]
-     */
-    public $ipIds;
-
-    // 查询的渠道名字
+    // 正版码的编码
     /**
      * @var string
      */
-    public $channelName;
+    public $code;
 
-    // 是否要增加pv，默认不增加
+    // 领取用户的ID
     /**
-     * @var bool
+     * @var string
      */
-    public $updatePv;
+    public $userId;
+
+    // 领取用户的名称
+    /**
+     * @var string
+     */
+    public $userName;
+
+    // 领取用户的手机号
+    /**
+     * @var string
+     */
+    public $phoneNumber;
+
+    // 领取用户的位置信息
+    /**
+     * @var string
+     */
+    public $gps;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipIds'             => 'ip_ids',
-        'channelName'       => 'channel_name',
-        'updatePv'          => 'update_pv',
+        'code'              => 'code',
+        'userId'            => 'user_id',
+        'userName'          => 'user_name',
+        'phoneNumber'       => 'phone_number',
+        'gps'               => 'gps',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipIds', $this->ipIds, true);
-        Model::validateRequired('channelName', $this->channelName, true);
+        Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('userName', $this->userName, true);
     }
 
     public function toMap()
@@ -70,14 +85,20 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipIds) {
-            $res['ip_ids'] = $this->ipIds;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
-        if (null !== $this->updatePv) {
-            $res['update_pv'] = $this->updatePv;
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
+        }
+        if (null !== $this->phoneNumber) {
+            $res['phone_number'] = $this->phoneNumber;
+        }
+        if (null !== $this->gps) {
+            $res['gps'] = $this->gps;
         }
 
         return $res;
@@ -86,7 +107,7 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpGoodsdetailwithchannelRequest
+     * @return ReceiveIpCodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,16 +121,20 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_ids'])) {
-            if (!empty($map['ip_ids'])) {
-                $model->ipIds = $map['ip_ids'];
-            }
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
-        if (isset($map['update_pv'])) {
-            $model->updatePv = $map['update_pv'];
+        if (isset($map['user_name'])) {
+            $model->userName = $map['user_name'];
+        }
+        if (isset($map['phone_number'])) {
+            $model->phoneNumber = $map['phone_number'];
+        }
+        if (isset($map['gps'])) {
+            $model->gps = $map['gps'];
         }
 
         return $model;

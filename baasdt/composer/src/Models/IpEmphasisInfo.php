@@ -87,17 +87,35 @@ class IpEmphasisInfo extends Model
      * @var string
      */
     public $accountName;
+
+    // 浏览量
+    /**
+     * @example x x x x x
+     *
+     * @var int
+     */
+    public $pv;
+
+    // 最近一次上下架时间
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $lastStateChangeTime;
     protected $_name = [
-        'ipId'          => 'ip_id',
-        'description'   => 'description',
-        'ipType'        => 'ip_type',
-        'audienceGroup' => 'audience_group',
-        'image'         => 'image',
-        'status'        => 'status',
-        'accountId'     => 'account_id',
-        'createTime'    => 'create_time',
-        'ipName'        => 'ip_name',
-        'accountName'   => 'account_name',
+        'ipId'                => 'ip_id',
+        'description'         => 'description',
+        'ipType'              => 'ip_type',
+        'audienceGroup'       => 'audience_group',
+        'image'               => 'image',
+        'status'              => 'status',
+        'accountId'           => 'account_id',
+        'createTime'          => 'create_time',
+        'ipName'              => 'ip_name',
+        'accountName'         => 'account_name',
+        'pv'                  => 'pv',
+        'lastStateChangeTime' => 'last_state_change_time',
     ];
 
     public function validate()
@@ -147,6 +165,12 @@ class IpEmphasisInfo extends Model
         if (null !== $this->accountName) {
             $res['account_name'] = $this->accountName;
         }
+        if (null !== $this->pv) {
+            $res['pv'] = $this->pv;
+        }
+        if (null !== $this->lastStateChangeTime) {
+            $res['last_state_change_time'] = $this->lastStateChangeTime;
+        }
 
         return $res;
     }
@@ -188,6 +212,12 @@ class IpEmphasisInfo extends Model
         }
         if (isset($map['account_name'])) {
             $model->accountName = $map['account_name'];
+        }
+        if (isset($map['pv'])) {
+            $model->pv = $map['pv'];
+        }
+        if (isset($map['last_state_change_time'])) {
+            $model->lastStateChangeTime = $map['last_state_change_time'];
         }
 
         return $model;

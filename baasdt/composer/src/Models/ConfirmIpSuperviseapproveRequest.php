@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckIpCodeRequest extends Model
+class ConfirmIpSuperviseapproveRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,58 +19,58 @@ class CheckIpCodeRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础参数
+    // 基础字段
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 正版码的编码
+    // 监修报审关联的订单id
     /**
      * @var string
      */
-    public $code;
+    public $orderId;
 
-    // 扫码用户的ID
+    // 当前期望的审批阶段（用于校验）
     /**
-     * @var string
+     * @var int
      */
-    public $userId;
+    public $stage;
 
-    // 扫码用户的名称
+    // 是否审批通过
     /**
-     * @var string
+     * @var bool
      */
-    public $userName;
+    public $isApproval;
 
-    // 扫码用户的手机号
+    // 审批备注
     /**
      * @var string
      */
-    public $phoneNumber;
+    public $approvalComments;
 
-    // 扫码用户的位置信息
+    // 审批额外信息
     /**
      * @var string
      */
-    public $gps;
+    public $approvalExtInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'code'              => 'code',
-        'userId'            => 'user_id',
-        'userName'          => 'user_name',
-        'phoneNumber'       => 'phone_number',
-        'gps'               => 'gps',
+        'orderId'           => 'order_id',
+        'stage'             => 'stage',
+        'isApproval'        => 'is_approval',
+        'approvalComments'  => 'approval_comments',
+        'approvalExtInfo'   => 'approval_ext_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('code', $this->code, true);
-        Model::validateRequired('userId', $this->userId, true);
-        Model::validateRequired('userName', $this->userName, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('stage', $this->stage, true);
+        Model::validateRequired('isApproval', $this->isApproval, true);
     }
 
     public function toMap()
@@ -85,20 +85,20 @@ class CheckIpCodeRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
+        if (null !== $this->stage) {
+            $res['stage'] = $this->stage;
         }
-        if (null !== $this->userName) {
-            $res['user_name'] = $this->userName;
+        if (null !== $this->isApproval) {
+            $res['is_approval'] = $this->isApproval;
         }
-        if (null !== $this->phoneNumber) {
-            $res['phone_number'] = $this->phoneNumber;
+        if (null !== $this->approvalComments) {
+            $res['approval_comments'] = $this->approvalComments;
         }
-        if (null !== $this->gps) {
-            $res['gps'] = $this->gps;
+        if (null !== $this->approvalExtInfo) {
+            $res['approval_ext_info'] = $this->approvalExtInfo;
         }
 
         return $res;
@@ -107,7 +107,7 @@ class CheckIpCodeRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckIpCodeRequest
+     * @return ConfirmIpSuperviseapproveRequest
      */
     public static function fromMap($map = [])
     {
@@ -121,20 +121,20 @@ class CheckIpCodeRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
+        if (isset($map['stage'])) {
+            $model->stage = $map['stage'];
         }
-        if (isset($map['user_name'])) {
-            $model->userName = $map['user_name'];
+        if (isset($map['is_approval'])) {
+            $model->isApproval = $map['is_approval'];
         }
-        if (isset($map['phone_number'])) {
-            $model->phoneNumber = $map['phone_number'];
+        if (isset($map['approval_comments'])) {
+            $model->approvalComments = $map['approval_comments'];
         }
-        if (isset($map['gps'])) {
-            $model->gps = $map['gps'];
+        if (isset($map['approval_ext_info'])) {
+            $model->approvalExtInfo = $map['approval_ext_info'];
         }
 
         return $model;

@@ -90,6 +90,18 @@ class BatchqueryIpGoodsRequest extends Model
      * @var bool
      */
     public $isCreateTimeSortDesc;
+
+    // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+    /**
+     * @var int
+     */
+    public $isSortByPv;
+
+    // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+    /**
+     * @var int
+     */
+    public $isSortByStatusChange;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -105,6 +117,8 @@ class BatchqueryIpGoodsRequest extends Model
         'createBeginTime'      => 'create_begin_time',
         'createEndTime'        => 'create_end_time',
         'isCreateTimeSortDesc' => 'is_create_time_sort_desc',
+        'isSortByPv'           => 'is_sort_by_pv',
+        'isSortByStatusChange' => 'is_sort_by_status_change',
     ];
 
     public function validate()
@@ -165,6 +179,12 @@ class BatchqueryIpGoodsRequest extends Model
         if (null !== $this->isCreateTimeSortDesc) {
             $res['is_create_time_sort_desc'] = $this->isCreateTimeSortDesc;
         }
+        if (null !== $this->isSortByPv) {
+            $res['is_sort_by_pv'] = $this->isSortByPv;
+        }
+        if (null !== $this->isSortByStatusChange) {
+            $res['is_sort_by_status_change'] = $this->isSortByStatusChange;
+        }
 
         return $res;
     }
@@ -218,6 +238,12 @@ class BatchqueryIpGoodsRequest extends Model
         }
         if (isset($map['is_create_time_sort_desc'])) {
             $model->isCreateTimeSortDesc = $map['is_create_time_sort_desc'];
+        }
+        if (isset($map['is_sort_by_pv'])) {
+            $model->isSortByPv = $map['is_sort_by_pv'];
+        }
+        if (isset($map['is_sort_by_status_change'])) {
+            $model->isSortByStatusChange = $map['is_sort_by_status_change'];
         }
 
         return $model;

@@ -111,6 +111,14 @@ class IPSalesInfo extends Model
      * @var int
      */
     public $operateTime;
+
+    // 商品信息
+    /**
+     * @example XXX联名款
+     *
+     * @var string
+     */
+    public $goodsInfo;
     protected $_name = [
         'goodsName'           => 'goods_name',
         'goodsImage'          => 'goods_image',
@@ -125,6 +133,7 @@ class IPSalesInfo extends Model
         'memo'                => 'memo',
         'operator'            => 'operator',
         'operateTime'         => 'operate_time',
+        'goodsInfo'           => 'goods_info',
     ];
 
     public function validate()
@@ -186,6 +195,9 @@ class IPSalesInfo extends Model
         if (null !== $this->operateTime) {
             $res['operate_time'] = $this->operateTime;
         }
+        if (null !== $this->goodsInfo) {
+            $res['goods_info'] = $this->goodsInfo;
+        }
 
         return $res;
     }
@@ -236,6 +248,9 @@ class IPSalesInfo extends Model
         }
         if (isset($map['operate_time'])) {
             $model->operateTime = $map['operate_time'];
+        }
+        if (isset($map['goods_info'])) {
+            $model->goodsInfo = $map['goods_info'];
         }
 
         return $model;

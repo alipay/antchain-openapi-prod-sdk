@@ -8,7 +8,15 @@ use AlibabaCloud\Tea\Model;
 
 class IPCodeScannedInfo extends Model
 {
-    // 扫码用户的ID
+    // 正版码ID
+    /**
+     * @example 381055Afc982d96fAB65b3a49cAc8b878184Cb16
+     *
+     * @var string
+     */
+    public $ipCode;
+
+    // 用户的ID
     /**
      * @example 2d96fAB65b3a49cAc8b878184Cb16
      *
@@ -16,7 +24,7 @@ class IPCodeScannedInfo extends Model
      */
     public $userId;
 
-    // 扫码用户的名称
+    // 用户的名称
     /**
      * @example 张三
      *
@@ -24,7 +32,7 @@ class IPCodeScannedInfo extends Model
      */
     public $userName;
 
-    // 扫码用户的手机号
+    // 用户的手机号
     /**
      * @example 13291887615
      *
@@ -32,7 +40,7 @@ class IPCodeScannedInfo extends Model
      */
     public $phoneNumber;
 
-    // 扫码用户的位置信息
+    // 用户的位置信息
     /**
      * @example 浙江省杭州市西湖区
      *
@@ -40,30 +48,56 @@ class IPCodeScannedInfo extends Model
      */
     public $gps;
 
-    // 扫码的时间(毫秒时间戳)
+    // 处理时间(毫秒时间戳)
     /**
      * @example 713471745
      *
      * @var int
      */
     public $timestamp;
+
+    // IP ID
+    /**
+     * @example 381055Afc982d96fAB65b3a49cAc8b878184Cb167354725347
+     *
+     * @var string
+     */
+    public $ipId;
+
+    // 订单ID
+    /**
+     * @example 381055Afc982d96fAB65b3a49cAc8b878184Cb1653461535297423
+     *
+     * @var string
+     */
+    public $orderId;
     protected $_name = [
+        'ipCode'      => 'ip_code',
         'userId'      => 'user_id',
         'userName'    => 'user_name',
         'phoneNumber' => 'phone_number',
         'gps'         => 'gps',
         'timestamp'   => 'timestamp',
+        'ipId'        => 'ip_id',
+        'orderId'     => 'order_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('ipCode', $this->ipCode, true);
         Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('timestamp', $this->timestamp, true);
+        Model::validateRequired('ipId', $this->ipId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
     {
         $res = [];
+        if (null !== $this->ipCode) {
+            $res['ip_code'] = $this->ipCode;
+        }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
@@ -79,6 +113,12 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
         }
+        if (null !== $this->ipId) {
+            $res['ip_id'] = $this->ipId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
 
         return $res;
     }
@@ -91,6 +131,9 @@ class IPCodeScannedInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['ip_code'])) {
+            $model->ipCode = $map['ip_code'];
+        }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
         }
@@ -105,6 +148,12 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['timestamp'])) {
             $model->timestamp = $map['timestamp'];
+        }
+        if (isset($map['ip_id'])) {
+            $model->ipId = $map['ip_id'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;

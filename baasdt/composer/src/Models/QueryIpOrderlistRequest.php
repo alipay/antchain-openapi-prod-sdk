@@ -73,6 +73,12 @@ class QueryIpOrderlistRequest extends Model
      */
     public $tradeType;
 
+    // 0 IP交易，1 增值服务交易
+    /**
+     * @var int
+     */
+    public $goodsType;
+
     // 收费模式：0 销售抽拥，1 按量计费
     /**
      * @var int
@@ -126,6 +132,7 @@ class QueryIpOrderlistRequest extends Model
         'ipName'            => 'ip_name',
         'sellerName'        => 'seller_name',
         'tradeType'         => 'trade_type',
+        'goodsType'         => 'goods_type',
         'chargeType'        => 'charge_type',
         'authStartTime'     => 'auth_start_time',
         'authEndTime'       => 'auth_end_time',
@@ -179,6 +186,9 @@ class QueryIpOrderlistRequest extends Model
         }
         if (null !== $this->tradeType) {
             $res['trade_type'] = $this->tradeType;
+        }
+        if (null !== $this->goodsType) {
+            $res['goods_type'] = $this->goodsType;
         }
         if (null !== $this->chargeType) {
             $res['charge_type'] = $this->chargeType;
@@ -245,6 +255,9 @@ class QueryIpOrderlistRequest extends Model
         }
         if (isset($map['trade_type'])) {
             $model->tradeType = $map['trade_type'];
+        }
+        if (isset($map['goods_type'])) {
+            $model->goodsType = $map['goods_type'];
         }
         if (isset($map['charge_type'])) {
             $model->chargeType = $map['charge_type'];

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpSkuconfigResponse extends Model
+class PagequeryIpValueaddResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryIpSkuconfigResponse extends Model
      */
     public $resultMsg;
 
-    // sku信息
+    // 增值服务列表
     /**
-     * @var IpSkuConfigWithLevel[]
+     * @var ValueAddedServiceInfo[]
      */
-    public $skus;
+    public $data;
+
+    // 总数
+    /**
+     * @var int
+     */
+    public $allCount;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'skus'       => 'skus',
+        'data'       => 'data',
+        'allCount'   => 'all_count',
     ];
 
     public function validate()
@@ -54,14 +61,17 @@ class QueryIpSkuconfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->skus) {
-            $res['skus'] = [];
-            if (null !== $this->skus && \is_array($this->skus)) {
+        if (null !== $this->data) {
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
                 $n = 0;
-                foreach ($this->skus as $item) {
-                    $res['skus'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->allCount) {
+            $res['all_count'] = $this->allCount;
         }
 
         return $res;
@@ -70,7 +80,7 @@ class QueryIpSkuconfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpSkuconfigResponse
+     * @return PagequeryIpValueaddResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +94,17 @@ class QueryIpSkuconfigResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['skus'])) {
-            if (!empty($map['skus'])) {
-                $model->skus = [];
+        if (isset($map['data'])) {
+            if (!empty($map['data'])) {
+                $model->data = [];
                 $n           = 0;
-                foreach ($map['skus'] as $item) {
-                    $model->skus[$n++] = null !== $item ? IpSkuConfigWithLevel::fromMap($item) : $item;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? ValueAddedServiceInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['all_count'])) {
+            $model->allCount = $map['all_count'];
         }
 
         return $model;

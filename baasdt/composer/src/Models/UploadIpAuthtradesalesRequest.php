@@ -43,6 +43,12 @@ class UploadIpAuthtradesalesRequest extends Model
      */
     public $onlyCallBlockchain;
 
+    // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+    /**
+     * @var string
+     */
+    public $payReturnUrl;
+
     // 授权佣金比例
     /**
      * @var string
@@ -139,6 +145,7 @@ class UploadIpAuthtradesalesRequest extends Model
         'accountId'           => 'account_id',
         'ipOrderId'           => 'ip_order_id',
         'onlyCallBlockchain'  => 'only_call_blockchain',
+        'payReturnUrl'        => 'pay_return_url',
         'authRate'            => 'auth_rate',
         'authPrice'           => 'auth_price',
         'settlementBeginTime' => 'settlement_begin_time',
@@ -193,6 +200,9 @@ class UploadIpAuthtradesalesRequest extends Model
         }
         if (null !== $this->onlyCallBlockchain) {
             $res['only_call_blockchain'] = $this->onlyCallBlockchain;
+        }
+        if (null !== $this->payReturnUrl) {
+            $res['pay_return_url'] = $this->payReturnUrl;
         }
         if (null !== $this->authRate) {
             $res['auth_rate'] = $this->authRate;
@@ -268,6 +278,9 @@ class UploadIpAuthtradesalesRequest extends Model
         }
         if (isset($map['only_call_blockchain'])) {
             $model->onlyCallBlockchain = $map['only_call_blockchain'];
+        }
+        if (isset($map['pay_return_url'])) {
+            $model->payReturnUrl = $map['pay_return_url'];
         }
         if (isset($map['auth_rate'])) {
             $model->authRate = $map['auth_rate'];

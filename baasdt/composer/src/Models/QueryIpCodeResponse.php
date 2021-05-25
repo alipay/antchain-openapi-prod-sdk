@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpSkuconfigResponse extends Model
+class QueryIpCodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryIpSkuconfigResponse extends Model
      */
     public $resultMsg;
 
-    // sku信息
+    // 正版码信息
     /**
-     * @var IpSkuConfigWithLevel[]
+     * @var IPCodeScannedInfo
      */
-    public $skus;
+    public $codeInfo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'skus'       => 'skus',
+        'codeInfo'   => 'code_info',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryIpSkuconfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->skus) {
-            $res['skus'] = [];
-            if (null !== $this->skus && \is_array($this->skus)) {
-                $n = 0;
-                foreach ($this->skus as $item) {
-                    $res['skus'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->codeInfo) {
+            $res['code_info'] = null !== $this->codeInfo ? $this->codeInfo->toMap() : null;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryIpSkuconfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpSkuconfigResponse
+     * @return QueryIpCodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QueryIpSkuconfigResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['skus'])) {
-            if (!empty($map['skus'])) {
-                $model->skus = [];
-                $n           = 0;
-                foreach ($map['skus'] as $item) {
-                    $model->skus[$n++] = null !== $item ? IpSkuConfigWithLevel::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['code_info'])) {
+            $model->codeInfo = IPCodeScannedInfo::fromMap($map['code_info']);
         }
 
         return $model;

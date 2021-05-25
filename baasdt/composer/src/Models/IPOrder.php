@@ -280,6 +280,30 @@ class IPOrder extends Model
      * @var string
      */
     public $salesChannel;
+
+    // 0 IP交易，1 增值服务交易
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $goodsType;
+
+    // 增值服务交易绑定的ip授权交易订单
+    /**
+     * @example 381055Afc982d96fAB65b3a49cAc8b878184Cb16
+     *
+     * @var string
+     */
+    public $relatedOrderId;
+
+    // 是否已监修报审
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $superviseApprove;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -315,6 +339,9 @@ class IPOrder extends Model
         'authProductScope'          => 'auth_product_scope',
         'authAreaScope'             => 'auth_area_scope',
         'salesChannel'              => 'sales_channel',
+        'goodsType'                 => 'goods_type',
+        'relatedOrderId'            => 'related_order_id',
+        'superviseApprove'          => 'supervise_approve',
     ];
 
     public function validate()
@@ -353,6 +380,9 @@ class IPOrder extends Model
         Model::validateRequired('authProductScope', $this->authProductScope, true);
         Model::validateRequired('authAreaScope', $this->authAreaScope, true);
         Model::validateRequired('salesChannel', $this->salesChannel, true);
+        Model::validateRequired('goodsType', $this->goodsType, true);
+        Model::validateRequired('relatedOrderId', $this->relatedOrderId, true);
+        Model::validateRequired('superviseApprove', $this->superviseApprove, true);
     }
 
     public function toMap()
@@ -459,6 +489,15 @@ class IPOrder extends Model
         }
         if (null !== $this->salesChannel) {
             $res['sales_channel'] = $this->salesChannel;
+        }
+        if (null !== $this->goodsType) {
+            $res['goods_type'] = $this->goodsType;
+        }
+        if (null !== $this->relatedOrderId) {
+            $res['related_order_id'] = $this->relatedOrderId;
+        }
+        if (null !== $this->superviseApprove) {
+            $res['supervise_approve'] = $this->superviseApprove;
         }
 
         return $res;
@@ -573,6 +612,15 @@ class IPOrder extends Model
         }
         if (isset($map['sales_channel'])) {
             $model->salesChannel = $map['sales_channel'];
+        }
+        if (isset($map['goods_type'])) {
+            $model->goodsType = $map['goods_type'];
+        }
+        if (isset($map['related_order_id'])) {
+            $model->relatedOrderId = $map['related_order_id'];
+        }
+        if (isset($map['supervise_approve'])) {
+            $model->superviseApprove = $map['supervise_approve'];
         }
 
         return $model;

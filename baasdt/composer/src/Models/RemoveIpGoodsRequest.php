@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpGoodsdetailwithchannelRequest extends Model
+class RemoveIpGoodsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,28 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础结构
+    // 基础字段
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // ip的链上id
-    /**
-     * @var string[]
-     */
-    public $ipIds;
-
-    // 查询的渠道名字
+    // ip id
     /**
      * @var string
      */
-    public $channelName;
-
-    // 是否要增加pv，默认不增加
-    /**
-     * @var bool
-     */
-    public $updatePv;
+    public $ipId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipIds'             => 'ip_ids',
-        'channelName'       => 'channel_name',
-        'updatePv'          => 'update_pv',
+        'ipId'              => 'ip_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipIds', $this->ipIds, true);
-        Model::validateRequired('channelName', $this->channelName, true);
+        Model::validateRequired('ipId', $this->ipId, true);
     }
 
     public function toMap()
@@ -70,14 +55,8 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipIds) {
-            $res['ip_ids'] = $this->ipIds;
-        }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
-        }
-        if (null !== $this->updatePv) {
-            $res['update_pv'] = $this->updatePv;
+        if (null !== $this->ipId) {
+            $res['ip_id'] = $this->ipId;
         }
 
         return $res;
@@ -86,7 +65,7 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpGoodsdetailwithchannelRequest
+     * @return RemoveIpGoodsRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,16 +79,8 @@ class QueryIpGoodsdetailwithchannelRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_ids'])) {
-            if (!empty($map['ip_ids'])) {
-                $model->ipIds = $map['ip_ids'];
-            }
-        }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
-        }
-        if (isset($map['update_pv'])) {
-            $model->updatePv = $map['update_pv'];
+        if (isset($map['ip_id'])) {
+            $model->ipId = $map['ip_id'];
         }
 
         return $model;

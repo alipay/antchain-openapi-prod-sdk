@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpSkuconfigResponse extends Model
+class CountIpNumResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryIpSkuconfigResponse extends Model
      */
     public $resultMsg;
 
-    // sku信息
+    // 各个渠道的统计
     /**
-     * @var IpSkuConfigWithLevel[]
+     * @var ChannelCounter[]
      */
-    public $skus;
+    public $counterDetail;
+
+    // 总计值
+    /**
+     * @var int
+     */
+    public $allCount;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'skus'       => 'skus',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'counterDetail' => 'counter_detail',
+        'allCount'      => 'all_count',
     ];
 
     public function validate()
@@ -54,14 +61,17 @@ class QueryIpSkuconfigResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->skus) {
-            $res['skus'] = [];
-            if (null !== $this->skus && \is_array($this->skus)) {
+        if (null !== $this->counterDetail) {
+            $res['counter_detail'] = [];
+            if (null !== $this->counterDetail && \is_array($this->counterDetail)) {
                 $n = 0;
-                foreach ($this->skus as $item) {
-                    $res['skus'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->counterDetail as $item) {
+                    $res['counter_detail'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->allCount) {
+            $res['all_count'] = $this->allCount;
         }
 
         return $res;
@@ -70,7 +80,7 @@ class QueryIpSkuconfigResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpSkuconfigResponse
+     * @return CountIpNumResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +94,17 @@ class QueryIpSkuconfigResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['skus'])) {
-            if (!empty($map['skus'])) {
-                $model->skus = [];
-                $n           = 0;
-                foreach ($map['skus'] as $item) {
-                    $model->skus[$n++] = null !== $item ? IpSkuConfigWithLevel::fromMap($item) : $item;
+        if (isset($map['counter_detail'])) {
+            if (!empty($map['counter_detail'])) {
+                $model->counterDetail = [];
+                $n                    = 0;
+                foreach ($map['counter_detail'] as $item) {
+                    $model->counterDetail[$n++] = null !== $item ? ChannelCounter::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['all_count'])) {
+            $model->allCount = $map['all_count'];
         }
 
         return $model;
