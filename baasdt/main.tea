@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.20',
+    sdk_version = '1.2.43',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -319,6 +319,30 @@ model IPCardInfo {
   accountBranchName: string(name='account_branch_name', example='招商银行杭州高新支行'),
 }
 
+// 增值服务信息
+model ValueAddedServiceInfo {
+  // 增值服务归属账户id
+  accountId: string(name='account_id', example='x x x x x'),
+  // 增值服务id
+  serviceId: string(name='service_id', example='x x x x x'),
+  // 增值服务名字
+  serviceName: string(name='service_name', example='增值服务名字'),
+  // 主图 链接地址
+  images: string(name='images', example='oss://1;oss://2'),
+  // 详情图
+  imagesDetail: string(name='images_detail', example='oss://1;oss://2'),
+  // 增值服务描述
+  description?: string(name='description', example='描述'),
+  // 联系人列表
+  dockingPeople: [ DockingPeopleInfo ](name='docking_people', example=''),
+  // 资质证明
+  copyRight?: string(name='copy_right', example='x x x x x'),
+  // 备注
+  memo?: string(name='memo', example='备注'),
+  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+  status: long(name='status', example=''),
+}
+
 // 权益附属信息
 model EquityExtInfo {
   // 指定兑换日限制已使用
@@ -401,6 +425,16 @@ model DebitWallet {
   trusteeId: string(name='trustee_id', example='52345213423742'),
   // 钱包类型（0:debit,1:credit）
   walletType: long(name='wallet_type', example='0'),
+}
+
+// sku的基础信息
+model IpSkuEmphasisInfo {
+  // 价格区间，不做校验
+  priceRange: string(name='price_range', example='x x x x x'),
+  // 单价
+  purchasePrice: string(name='purchase_price', example='1.1'),
+  // 套餐数量
+  saleNum: string(name='sale_num', example='1111'),
 }
 
 // 区块体
@@ -713,6 +747,18 @@ model BlockConsumeCardInfo {
   assetMap: string(name='asset_map', example='{"accountId1_Debit": 11000, "accountId2_Credit": 10000}'),
 }
 
+// sku配置加上ip等级
+model IpSkuConfigWithLevel {
+  // 价格区间
+  priceRange: string(name='price_range', example='1-100'),
+  // 单价
+  purchasePrice: string(name='purchase_price', example='111'),
+  // 销售数量
+  saleNum: long(name='sale_num', example='1111'),
+  // ip等级
+  ipLevel: long(name='ip_level', example=''),
+}
+
 // 图片OSS URL，包含四个不同大小的图片
 model MultiURL {
   // 上传的图片正常大小
@@ -738,6 +784,14 @@ model BaseRequest {
   memo?: string(name='memo', example='备注信息'),
   // 场景码(入驻时申请)(长度不超过50个字符)
   productCode: string(name='product_code', example='CONSUMECARD'),
+}
+
+// 增值服务加sku信息
+model ValueAddedServiceInfoWithSku {
+  // 增值服务信息
+  addValueInfo: ValueAddedServiceInfo(name='add_value_info', example=''),
+  // sku信息
+  skus: [ IpSkuEmphasisInfo ](name='skus', example=''),
 }
 
 // 链上交易结构
@@ -790,6 +844,10 @@ model Block {
   body: BlockBody(name='body', example=''),
 }
 
+// 用于sku config的查询
+model SkuWithLevel {
+}
+
 // IP授权服务基础请求信息
 model BaseRequestInfo {
   // 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
@@ -836,6 +894,18 @@ model ExchangeableEquityList {
   startRow: long(name='start_row', example='1'),
   // 可兑换的权益总数
   total: long(name='total', example='15'),
+}
+
+// 渠道统计结果
+model ChannelCounter {
+  // 渠道名字
+  channelName: string(name='channel_name', example='x x x x x'),
+  // 统计值
+  counter: long(name='counter', example='1111'),
+  // 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+  month?: string(name='month', example='2021-04'),
+  // 渠道交易金额
+  totalPrice?: string(name='total_price', example='1000111.00'),
 }
 
 // 查询手续费结果信息
@@ -1095,16 +1165,12 @@ model IPOrder {
   authAreaScope: string(name='auth_area_scope', example='中国大陆'),
   // 商品销售渠道
   salesChannel: string(name='sales_channel', example='电商平台、社交电商、直播、线下实体、代理商'),
-}
-
-// sku的基础信息
-model IpSkuEmphasisInfo {
-  // 价格区间，不做校验
-  priceRange: string(name='price_range', example='x x x x x'),
-  // 单价
-  purchasePrice: string(name='purchase_price', example='1.1'),
-  // 套餐数量
-  saleNum: string(name='sale_num', example='1111'),
+  // 0 IP交易，1 增值服务交易
+  goodsType: long(name='goods_type', example='1'),
+  // 增值服务交易绑定的ip授权交易订单
+  relatedOrderId: string(name='related_order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 是否已监修报审
+  superviseApprove: boolean(name='supervise_approve', example='true, false'),
 }
 
 // 商品授权信息（一客一价信息）
@@ -1211,6 +1277,8 @@ model IPSalesInfo {
   operator: string(name='operator', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16647534587'),
   // 销售数据上传操作时间（毫秒时间戳）
   operateTime: long(name='operate_time', example=''),
+  // 商品信息
+  goodsInfo?: string(name='goods_info', example='XXX联名款'),
 }
 
 // token信息
@@ -1239,6 +1307,30 @@ model IpChannelInfo {
   status: long(name='status', example='0'),
 }
 
+// 监修报审表单内容
+model SuperviseApprove {
+  // 关联的订单id
+  orderId: string(name='order_id', example='1111'),
+  // 当前的阶段
+  stage: long(name='stage', example='1'),
+  // json组织，用于存储监修报审的具体信息
+  extInfo: string(name='ext_info', example='[{"name":"123","mobilePhone":"123","email":"456","dingDing":"999","telePhone":"8888","position":"aaa"}]'),
+  // 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
+  approvalStatus: long(name='approval_status', example='0'),
+  // 审批备注
+  approvalComments?: string(name='approval_comments', example='x x x x x x'),
+  // 上链的交易hash
+  txHash: string(name='tx_hash', example='xxxx'),
+  // 关联的订单交易的ip id
+  ipId: string(name='ip_id', example='cccc'),
+  // 关联交易的卖家id
+  sellerAccountId: string(name='seller_account_id', example='xxxx'),
+  // 关联交易的买家id
+  buyerAccountId: string(name='buyer_account_id', example='ccccc'),
+  // 审批额外信息
+  approvalExtInfo?: string(name='approval_ext_info', example='x x x x x'),
+}
+
 // ip的重点信息
 model IpEmphasisInfo {
   // ip的链上id
@@ -1261,6 +1353,10 @@ model IpEmphasisInfo {
   ipName: string(name='ip_name', example='aaaa'),
   // 商户名称
   accountName?: string(name='account_name', example='xxxx'),
+  // 浏览量
+  pv?: long(name='pv', example='x x x x x'),
+  // 最近一次上下架时间
+  lastStateChangeTime?: long(name='last_state_change_time', example=''),
 }
 
 // 消费卡的单条交易记录数据
@@ -1785,18 +1881,24 @@ model Merchant {
   profitLossBalance: string(name='profit_loss_balance', example='0.0050000000000000'),
 }
 
-// 正版码被扫描的信息
+// 正版码被扫描或领取的信息
 model IPCodeScannedInfo {
-  // 扫码用户的ID
+  // 正版码ID
+  ipCode: string(name='ip_code', example='381055Afc982d96fAB65b3a49cAc8b878184Cb16'),
+  // 用户的ID
   userId: string(name='user_id', example='2d96fAB65b3a49cAc8b878184Cb16'),
-  // 扫码用户的名称
-  userName?: string(name='user_name', example='张三'),
-  // 扫码用户的手机号
+  // 用户的名称
+  userName: string(name='user_name', example='张三'),
+  // 用户的手机号
   phoneNumber?: string(name='phone_number', example='13291887615'),
-  // 扫码用户的位置信息
+  // 用户的位置信息
   gps?: string(name='gps', example='浙江省杭州市西湖区'),
-  // 扫码的时间(毫秒时间戳)
+  // 处理时间(毫秒时间戳)
   timestamp: long(name='timestamp', example='713471745'),
+  // IP ID
+  ipId: string(name='ip_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb167354725347'),
+  // 订单ID
+  orderId: string(name='order_id', example='381055Afc982d96fAB65b3a49cAc8b878184Cb1653461535297423'),
 }
 
 // 用户
@@ -1813,6 +1915,14 @@ model User {
   userId: string(name='user_id', example='331f9b0922f940f464d4b94b5628180408ac305b7fc72d3e40f5b7727d0702fb'),
   // 用户VC
   vc: string(name='vc', example='vc'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model ExecCardCreateRequest = {
@@ -5241,6 +5351,71 @@ async function queryConsumecardGoodsimage(request: QueryConsumecardGoodsimageReq
 async function queryConsumecardGoodsimageEx(request: QueryConsumecardGoodsimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryConsumecardGoodsimageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.consumecard.goodsimage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadConsumecardFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  chainId: string(name='chain_id'),
+  // 场景码(入驻时申请)
+  productCode: string(name='product_code'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadConsumecardFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片的不可访问url，发布商品时使用
+  url?: string(name='url'),
+  // 临时可访问的url，过期时间2小时
+  temporaryUrl?: string(name='temporary_url'),
+}
+
+/**
+ * Description: 文件API，上传文件
+ * Summary: 数字商品服务-文件服务-上传文件
+ */
+async function uploadConsumecardFile(request: UploadConsumecardFileRequest): UploadConsumecardFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadConsumecardFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件API，上传文件
+ * Summary: 数字商品服务-文件服务-上传文件
+ */
+async function uploadConsumecardFileEx(request: UploadConsumecardFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadConsumecardFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'baas.antdao.consumecard.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadConsumecardFileResponse = new UploadConsumecardFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadConsumecardFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.consumecard.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryCouponRequest = {
@@ -9135,6 +9310,12 @@ model StartIpPackagetradeRequest = {
   authAreaScope?: string(name='auth_area_scope'),
   // 商品销售渠道
   salesChannel?: string(name='sales_channel'),
+  // 0 IP交易，1 增值服务交易
+  goodsType?: long(name='goods_type'),
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string(name='related_order_id'),
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string(name='pay_return_url'),
 }
 
 model StartIpPackagetradeResponse = {
@@ -9295,6 +9476,12 @@ model StartIpAuthtradeRequest = {
   guaranteedGoodsAmount?: long(name='guaranteed_goods_amount'),
   // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
   guaranteedSales?: string(name='guaranteed_sales'),
+  // 0 IP交易，1 增值服务交易
+  goodsType?: long(name='goods_type'),
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string(name='related_order_id'),
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string(name='pay_return_url'),
 }
 
 model StartIpAuthtradeResponse = {
@@ -9343,6 +9530,8 @@ model UploadIpAuthtradesalesRequest = {
   ipOrderId: string(name='ip_order_id'),
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean(name='only_call_blockchain'),
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string(name='pay_return_url'),
   // 授权佣金比例
   authRate?: string(name='auth_rate'),
   // 定向授权按量付费单价
@@ -9514,6 +9703,8 @@ model QueryIpOrderlistRequest = {
   sellerName?: string(name='seller_name'),
   // 交易类型：1 套餐交易， 2 定向授权
   tradeType?: long(name='trade_type'),
+  // 0 IP交易，1 增值服务交易
+  goodsType?: long(name='goods_type'),
   // 收费模式：0 销售抽拥，1 按量计费
   chargeType?: long(name='charge_type'),
   // 查询订单授权开始时间
@@ -9772,6 +9963,10 @@ model BatchqueryIpGoodsRequest = {
   createEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_end_time'),
   // 是否需要按照创建时间倒序排序
   isCreateTimeSortDesc: boolean(name='is_create_time_sort_desc'),
+  // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
+  isSortByPv?: long(name='is_sort_by_pv'),
+  // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
+  isSortByStatusChange?: long(name='is_sort_by_status_change'),
 }
 
 model BatchqueryIpGoodsResponse = {
@@ -9816,6 +10011,8 @@ model QueryIpGoodsdetailwithchannelRequest = {
   ipIds: [ string ](name='ip_ids'),
   // 查询的渠道名字
   channelName: string(name='channel_name'),
+  // 是否要增加pv，默认不增加
+  updatePv?: boolean(name='update_pv'),
 }
 
 model QueryIpGoodsdetailwithchannelResponse = {
@@ -10979,7 +11176,7 @@ model CheckIpCodeRequest = {
   // 扫码用户的ID
   userId: string(name='user_id'),
   // 扫码用户的名称
-  userName?: string(name='user_name'),
+  userName: string(name='user_name'),
   // 扫码用户的手机号
   phoneNumber?: string(name='phone_number'),
   // 扫码用户的位置信息
@@ -11216,7 +11413,7 @@ model QueryIpSkuconfigResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // sku信息
-  skus?: [ IpSkuEmphasisInfo ](name='skus'),
+  skus?: [ IpSkuConfigWithLevel ](name='skus'),
 }
 
 /**
@@ -11326,6 +11523,906 @@ async function removeIpSku(request: RemoveIpSkuRequest): RemoveIpSkuResponse {
 async function removeIpSkuEx(request: RemoveIpSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveIpSkuResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateIpSuperviseapproveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 监修报审内容，业务相关字段自行组织成json，统一存储
+  extInfo: string(name='ext_info'),
+}
+
+model CreateIpSuperviseapproveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建监修报审
+ * Summary: 数字商品-IP授权交易-创建监修报审
+ */
+async function createIpSuperviseapprove(request: CreateIpSuperviseapproveRequest): CreateIpSuperviseapproveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIpSuperviseapproveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建监修报审
+ * Summary: 数字商品-IP授权交易-创建监修报审
+ */
+async function createIpSuperviseapproveEx(request: CreateIpSuperviseapproveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIpSuperviseapproveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.superviseapprove.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmIpSuperviseapproveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 监修报审关联的订单id
+  orderId: string(name='order_id'),
+  // 当前期望的审批阶段（用于校验）
+  stage: long(name='stage'),
+  // 是否审批通过
+  isApproval: boolean(name='is_approval'),
+  // 审批备注
+  approvalComments?: string(name='approval_comments'),
+  // 审批额外信息
+  approvalExtInfo?: string(name='approval_ext_info'),
+}
+
+model ConfirmIpSuperviseapproveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 监修报审审批
+ * Summary: 数字商品-IP授权交易-监修报审审批
+ */
+async function confirmIpSuperviseapprove(request: ConfirmIpSuperviseapproveRequest): ConfirmIpSuperviseapproveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmIpSuperviseapproveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监修报审审批
+ * Summary: 数字商品-IP授权交易-监修报审审批
+ */
+async function confirmIpSuperviseapproveEx(request: ConfirmIpSuperviseapproveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmIpSuperviseapproveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.superviseapprove.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushIpSuperviseapproveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 关联的订单id
+  orderId: string(name='order_id'),
+  // 当前期望的阶段（用于校验，若是重新提交，则阶段值相等，若推进下一阶段，则阶段值+1）
+  stage: long(name='stage'),
+  // 监修报审的阶段具体内容，组织成json保存
+  extInfo: string(name='ext_info'),
+}
+
+model PushIpSuperviseapproveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 监修报审进度推进/重置
+ * Summary: 数字商品-IP授权交易-监修报审进度推进
+ */
+async function pushIpSuperviseapprove(request: PushIpSuperviseapproveRequest): PushIpSuperviseapproveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushIpSuperviseapproveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 监修报审进度推进/重置
+ * Summary: 数字商品-IP授权交易-监修报审进度推进
+ */
+async function pushIpSuperviseapproveEx(request: PushIpSuperviseapproveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushIpSuperviseapproveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.superviseapprove.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpSuperviseapproveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 关联的订单id
+  orderId: string(name='order_id'),
+}
+
+model QueryIpSuperviseapproveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 监修报审最新阶段的详情
+  superviseApprove?: SuperviseApprove(name='supervise_approve'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-查询监修报审详情
+ * Summary: 数字商品-IP授权交易-查询监修报审详情
+ */
+async function queryIpSuperviseapprove(request: QueryIpSuperviseapproveRequest): QueryIpSuperviseapproveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpSuperviseapproveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-查询监修报审详情
+ * Summary: 数字商品-IP授权交易-查询监修报审详情
+ */
+async function queryIpSuperviseapproveEx(request: QueryIpSuperviseapproveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpSuperviseapproveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.superviseapprove.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReceiveIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码的编码
+  code: string(name='code'),
+  // 领取用户的ID
+  userId: string(name='user_id'),
+  // 领取用户的名称
+  userName: string(name='user_name'),
+  // 领取用户的手机号
+  phoneNumber?: string(name='phone_number'),
+  // 领取用户的位置信息
+  gps?: string(name='gps'),
+}
+
+model ReceiveIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权交易-正版码领取
+ */
+async function receiveIpCode(request: ReceiveIpCodeRequest): ReceiveIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 领取正版码，如已被领取则返回被领取人昵称信息
+ * Summary: 数字商品服务-IP授权交易-正版码领取
+ */
+async function receiveIpCodeEx(request: ReceiveIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpCodeinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 页码
+  pageNumber: long(name='page_number'),
+  // 每页数据量大小
+  pageSize: long(name='page_size'),
+  // 0 扫描过的正版码，1 领取过的正版码
+  type: long(name='type'),
+}
+
+model PagequeryIpCodeinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 页码
+  pageNumber?: long(name='page_number'),
+  // 页面数据量大小
+  pageSize?: long(name='page_size'),
+  // 领取到的正版码总数
+  codeCount?: long(name='code_count'),
+  // 正版码列表信息
+  codeList?: [ IPCodeScannedInfo ](name='code_list'),
+}
+
+/**
+ * Description: 已领取或以扫描过的正版码列表，分页查询
+ * Summary: 数字商品服务-IP授权交易-正版码列表
+ */
+async function pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): PagequeryIpCodeinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpCodeinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已领取或以扫描过的正版码列表，分页查询
+ * Summary: 数字商品服务-IP授权交易-正版码列表
+ */
+async function pagequeryIpCodeinfoEx(request: PagequeryIpCodeinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodeinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.codeinfo.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateIpValueaddRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 创建增值服务的账户id
+  accountId: string(name='account_id'),
+  // 服务名字
+  serviceName: string(name='service_name'),
+  // 商品主图，存放OSS图片链接,多张用;隔开
+  images: string(name='images'),
+  // 商品详情图  存放OSS图片链接,多张用;隔开
+  imagesDetail: string(name='images_detail'),
+  // 商品描述
+  description?: string(name='description'),
+  // 联系人
+  dockingPeople: [ DockingPeopleInfo ](name='docking_people'),
+  // 资质证明
+  copyRight?: string(name='copy_right'),
+  // 备注
+  memo?: string(name='memo'),
+}
+
+model CreateIpValueaddResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务id
+  serviceId?: string(name='service_id'),
+}
+
+/**
+ * Description: 创建增值服务
+ * Summary: 数字商品-IP授权交易-创建增值服务
+ */
+async function createIpValueadd(request: CreateIpValueaddRequest): CreateIpValueaddResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIpValueaddEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建增值服务
+ * Summary: 数字商品-IP授权交易-创建增值服务
+ */
+async function createIpValueaddEx(request: CreateIpValueaddRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIpValueaddResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueadd.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIpValueaddRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 服务id
+  serviceId: string(name='service_id'),
+  // 增值服务名字
+  serviceName: string(name='service_name'),
+  // 主图。存放OSS图片链接,多张用;隔开
+  image: string(name='image'),
+  // 商品详情图  存放OSS图片链接.多张用;隔开
+  imageDetail: string(name='image_detail'),
+  // 描述
+  description?: string(name='description'),
+  // 联系人
+  dockingPeople: [ DockingPeopleInfo ](name='docking_people'),
+  // 资质证明
+  copyRight?: string(name='copy_right'),
+  // 备注
+  memo?: string(name='memo'),
+}
+
+model UpdateIpValueaddResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-更新增值服务
+ * Summary: 数字商品-IP授权交易-更新增值服务
+ */
+async function updateIpValueadd(request: UpdateIpValueaddRequest): UpdateIpValueaddResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIpValueaddEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-更新增值服务
+ * Summary: 数字商品-IP授权交易-更新增值服务
+ */
+async function updateIpValueaddEx(request: UpdateIpValueaddRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIpValueaddResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueadd.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetIpValueaddskuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 服务id
+  serviceId: string(name='service_id'),
+  // sku
+  skus: [ IpSkuEmphasisInfo ](name='skus'),
+}
+
+model SetIpValueaddskuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品-IP授权-设置增值服务sku
+ * Summary: 数字商品-IP授权-设置增值服务sku
+ */
+async function setIpValueaddsku(request: SetIpValueaddskuRequest): SetIpValueaddskuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setIpValueaddskuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权-设置增值服务sku
+ * Summary: 数字商品-IP授权-设置增值服务sku
+ */
+async function setIpValueaddskuEx(request: SetIpValueaddskuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetIpValueaddskuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueaddsku.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OnlineIpValueaddRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 服务id
+  serviceId: string(name='service_id'),
+  // 是否上线，否为下线
+  isOnline: boolean(name='is_online'),
+}
+
+model OnlineIpValueaddResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务上下线
+ * Summary: 数字商品-IP授权交易-增值服务上下线
+ */
+async function onlineIpValueadd(request: OnlineIpValueaddRequest): OnlineIpValueaddResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return onlineIpValueaddEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务上下线
+ * Summary: 数字商品-IP授权交易-增值服务上下线
+ */
+async function onlineIpValueaddEx(request: OnlineIpValueaddRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OnlineIpValueaddResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueadd.online', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpValueaddRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 查询服务id
+  serviceId: string(name='service_id'),
+}
+
+model QueryIpValueaddResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 增值服务详情
+  valueAddedInfo?: ValueAddedServiceInfoWithSku(name='value_added_info'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务查询
+ * Summary: 数字商品-IP授权交易-增值服务查询
+ */
+async function queryIpValueadd(request: QueryIpValueaddRequest): QueryIpValueaddResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpValueaddEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-增值服务查询
+ * Summary: 数字商品-IP授权交易-增值服务查询
+ */
+async function queryIpValueaddEx(request: QueryIpValueaddRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpValueaddResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueadd.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIpValueaddRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 归属账户id
+  accountId?: string(name='account_id'),
+  // 服务名字，模糊匹配
+  serviceName?: string(name='service_name'),
+  // 服务状态（0:待审核 1:审核拒绝 2:上线【审核通过】 3: 下线）
+  status?: long(name='status'),
+  // 第几页
+  pageIndex: long(name='page_index'),
+  // 每页长度
+  pageSize: long(name='page_size'),
+  // 开始时间
+  beginCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='begin_create_time'),
+  // 结束时间
+  engCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='eng_create_time'),
+}
+
+model PagequeryIpValueaddResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 增值服务列表
+  data?: [ ValueAddedServiceInfo ](name='data'),
+  // 总数
+  allCount?: long(name='all_count'),
+}
+
+/**
+ * Description: 增值服务批量查询
+ * Summary: 数字商品-IP授权交易-增值服务批量查询
+ */
+async function pagequeryIpValueadd(request: PagequeryIpValueaddRequest): PagequeryIpValueaddResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIpValueaddEx(request, headers, runtime);
+}
+
+/**
+ * Description: 增值服务批量查询
+ * Summary: 数字商品-IP授权交易-增值服务批量查询
+ */
+async function pagequeryIpValueaddEx(request: PagequeryIpValueaddRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpValueaddResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.valueadd.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadIpTradesalesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 上传记录的用户的链上账户Id
+  accountId: string(name='account_id'),
+  // 订单ID
+  ipOrderId: string(name='ip_order_id'),
+  // true 只上链不走真实支付，false 上链并链下真实支付账单
+  onlyCallBlockchain: boolean(name='only_call_blockchain'),
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string(name='pay_return_url'),
+  // 授权佣金比例
+  authRate?: string(name='auth_rate'),
+  // 定向授权按量付费单价
+  authPrice?: string(name='auth_price'),
+  // 商品销售数量
+  totalAmount: long(name='total_amount'),
+  // 销售金额
+  totalSales: string(name='total_sales'),
+  // 实付金额（授权交易）
+  totalPayment: string(name='total_payment'),
+  // 销售数据列表
+  ipSalesInfoList: [ IPSalesInfo ](name='ip_sales_info_list'),
+}
+
+model UploadIpTradesalesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付链接
+  payUrl?: string(name='pay_url'),
+  // 账单ID
+  ipBillId?: string(name='ip_bill_id'),
+}
+
+/**
+ * Description: 批量上传授权交易的销售数据
+ * Summary: 数字商品服务-IP授权服务-上传销售数据
+ */
+async function uploadIpTradesales(request: UploadIpTradesalesRequest): UploadIpTradesalesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadIpTradesalesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量上传授权交易的销售数据
+ * Summary: 数字商品服务-IP授权服务-上传销售数据
+ */
+async function uploadIpTradesalesEx(request: UploadIpTradesalesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIpTradesalesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.tradesales.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthIpUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 用户授权code
+  authCode: string(name='auth_code'),
+}
+
+model AuthIpUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户ID
+  userId?: string(name='user_id'),
+}
+
+/**
+ * Description: C端用户授权信息
+ * Summary: 数字商品服务-IP授权服务-C用户授权
+ */
+async function authIpUser(request: AuthIpUserRequest): AuthIpUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authIpUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: C端用户授权信息
+ * Summary: 数字商品服务-IP授权服务-C用户授权
+ */
+async function authIpUserEx(request: AuthIpUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthIpUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.user.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RemoveIpGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // ip id
+  ipId: string(name='ip_id'),
+}
+
+model RemoveIpGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-删除ip商品
+ * Summary: 数字商品-IP授权交易-删除ip商品
+ */
+async function removeIpGoods(request: RemoveIpGoodsRequest): RemoveIpGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return removeIpGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-删除ip商品
+ * Summary: 数字商品-IP授权交易-删除ip商品
+ */
+async function removeIpGoodsEx(request: RemoveIpGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RemoveIpGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.goods.remove', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountIpNumRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 账户id，为空则查全局
+  accountId?: string(name='account_id'),
+}
+
+model CountIpNumResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 各个渠道的统计
+  counterDetail?: [ ChannelCounter ](name='counter_detail'),
+  // 总计值
+  allCount?: long(name='all_count'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-ip数量统计
+ * Summary: 数字商品-IP授权交易-ip数量统计
+ */
+async function countIpNum(request: CountIpNumRequest): CountIpNumResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countIpNumEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-ip数量统计
+ * Summary: 数字商品-IP授权交易-ip数量统计
+ */
+async function countIpNumEx(request: CountIpNumRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountIpNumResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.num.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountIpPvRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础字段
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 账户id，为空则统计全局
+  accountId?: string(name='account_id'),
+}
+
+model CountIpPvResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总计
+  allCount?: long(name='all_count'),
+  // 渠道统计值
+  counterDetails?: [ ChannelCounter ](name='counter_details'),
+}
+
+/**
+ * Description: 数字商品-IP授权交易-pv统计
+ * Summary: 数字商品-IP授权交易-pv统计
+ */
+async function countIpPv(request: CountIpPvRequest): CountIpPvResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countIpPvEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品-IP授权交易-pv统计
+ * Summary: 数字商品-IP授权交易-pv统计
+ */
+async function countIpPvEx(request: CountIpPvRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountIpPvResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.pv.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码的编码
+  code: string(name='code'),
+}
+
+model QueryIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码信息
+  codeInfo?: IPCodeScannedInfo(name='code_info'),
+}
+
+/**
+ * Description: 查询正版码信息
+ * Summary: 数字商品服务-IP授权交易-正版码查询
+ */
+async function queryIpCode(request: QueryIpCodeRequest): QueryIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询正版码信息
+ * Summary: 数字商品服务-IP授权交易-正版码查询
+ */
+async function queryIpCodeEx(request: QueryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountIpAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+  chainId?: string(name='chain_id'),
+  // 场景码(入驻时申请)(长度不超过50个字符)
+  productCode?: string(name='product_code'),
+}
+
+model CountIpAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户数量
+  userCount?: long(name='user_count'),
+  // 版权方数量
+  sellerCount?: long(name='seller_count'),
+  // 版权方数量
+  buyerCount?: long(name='buyer_count'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易服务-账户统计
+ * Summary: 数字商品服务-IP授权交易服务-账户统计
+ */
+async function countIpAccount(request: CountIpAccountRequest): CountIpAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countIpAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权交易服务-账户统计
+ * Summary: 数字商品服务-IP授权交易服务-账户统计
+ */
+async function countIpAccountEx(request: CountIpAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountIpAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.account.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpOrderstatisticRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 卖方ID
+  sellerId?: string(name='seller_id'),
+  // IP id
+  ipId?: string(name='ip_id'),
+}
+
+model QueryIpOrderstatisticResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单总数
+  totalOrderCount?: long(name='total_order_count'),
+  // 总金额
+  totalPaymentAmount?: string(name='total_payment_amount'),
+  // 总客户数
+  totalBuyerCount?: long(name='total_buyer_count'),
+  // 统计数据
+  orderStaList?: [ ChannelCounter ](name='order_sta_list'),
+}
+
+/**
+ * Description: 查询渠道订单统计值
+ * Summary: 数字商品服务-IP授权服务-查询订单统计
+ */
+async function queryIpOrderstatistic(request: QueryIpOrderstatisticRequest): QueryIpOrderstatisticResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpOrderstatisticEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询渠道订单统计值
+ * Summary: 数字商品服务-IP授权服务-查询订单统计
+ */
+async function queryIpOrderstatisticEx(request: QueryIpOrderstatisticRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpOrderstatisticResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.orderstatistic.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
@@ -12262,5 +13359,58 @@ async function queryMypointsOrderinstruction(request: QueryMypointsOrderinstruct
 async function queryMypointsOrderinstructionEx(request: QueryMypointsOrderinstructionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypointsOrderinstructionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.mypoints.orderinstruction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
