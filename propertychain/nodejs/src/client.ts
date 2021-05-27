@@ -2045,13 +2045,16 @@ export class CreateUserRequest extends $tea.Model {
   // 用户名
   userName: string;
   // 11位的合法手机号
-  phone: string;
+  phone?: string;
+  // 邮箱号
+  email?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       userName: 'user_name',
       phone: 'phone',
+      email: 'email',
     };
   }
 
@@ -2061,6 +2064,7 @@ export class CreateUserRequest extends $tea.Model {
       productInstanceId: 'string',
       userName: 'string',
       phone: 'string',
+      email: 'string',
     };
   }
 
@@ -8284,7 +8288,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.44",
+          sdk_version: "1.0.45",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
