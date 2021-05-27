@@ -18,8 +18,11 @@ public class CreateUserRequest extends TeaModel {
 
     // 11位的合法手机号
     @NameInMap("phone")
-    @Validation(required = true)
     public String phone;
+
+    // 邮箱号
+    @NameInMap("email")
+    public String email;
 
     public static CreateUserRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateUserRequest self = new CreateUserRequest();
@@ -56,6 +59,14 @@ public class CreateUserRequest extends TeaModel {
     }
     public String getPhone() {
         return this.phone;
+    }
+
+    public CreateUserRequest setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public String getEmail() {
+        return this.email;
     }
 
 }
