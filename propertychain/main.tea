@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.44',
+    sdk_version = '1.0.45',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -951,7 +951,9 @@ model CreateUserRequest = {
   // 用户名
   userName: string(name='user_name'),
   // 11位的合法手机号
-  phone: string(name='phone'),
+  phone?: string(name='phone'),
+  // 邮箱号
+  email?: string(name='email'),
 }
 
 model CreateUserResponse = {
