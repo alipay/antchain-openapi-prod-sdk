@@ -3125,6 +3125,7 @@ class CreateUserRequest(TeaModel):
         product_instance_id: str = None,
         user_name: str = None,
         phone: str = None,
+        email: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3133,10 +3134,11 @@ class CreateUserRequest(TeaModel):
         self.user_name = user_name
         # 11位的合法手机号
         self.phone = phone
+        # 邮箱号
+        self.email = email
 
     def validate(self):
         self.validate_required(self.user_name, 'user_name')
-        self.validate_required(self.phone, 'phone')
 
     def to_map(self):
         result = dict()
@@ -3148,6 +3150,8 @@ class CreateUserRequest(TeaModel):
             result['user_name'] = self.user_name
         if self.phone is not None:
             result['phone'] = self.phone
+        if self.email is not None:
+            result['email'] = self.email
         return result
 
     def from_map(self, m: dict = None):
@@ -3160,6 +3164,8 @@ class CreateUserRequest(TeaModel):
             self.user_name = m.get('user_name')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        if m.get('email') is not None:
+            self.email = m.get('email')
         return self
 
 

@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_propertychain.
 
-Created on 30/03/2021
+Created on 27/05/2021
 
 @author: Ant Chain SDK
 """
