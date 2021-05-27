@@ -2753,7 +2753,9 @@ type CreateUserRequest struct {
 	// 用户名
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 11位的合法手机号
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 邮箱号
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
 }
 
 func (s CreateUserRequest) String() string {
@@ -2781,6 +2783,11 @@ func (s *CreateUserRequest) SetUserName(v string) *CreateUserRequest {
 
 func (s *CreateUserRequest) SetPhone(v string) *CreateUserRequest {
 	s.Phone = &v
+	return s
+}
+
+func (s *CreateUserRequest) SetEmail(v string) *CreateUserRequest {
+	s.Email = &v
 	return s
 }
 
@@ -10987,7 +10994,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.44"),
+				"sdk_version":      tea.String("1.0.45"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
