@@ -30,17 +30,23 @@ class CreateUserRequest extends Model
      * @var string
      */
     public $phone;
+
+    // 邮箱号
+    /**
+     * @var string
+     */
+    public $email;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'userName'          => 'user_name',
         'phone'             => 'phone',
+        'email'             => 'email',
     ];
 
     public function validate()
     {
         Model::validateRequired('userName', $this->userName, true);
-        Model::validateRequired('phone', $this->phone, true);
     }
 
     public function toMap()
@@ -57,6 +63,9 @@ class CreateUserRequest extends Model
         }
         if (null !== $this->phone) {
             $res['phone'] = $this->phone;
+        }
+        if (null !== $this->email) {
+            $res['email'] = $this->email;
         }
 
         return $res;
@@ -81,6 +90,9 @@ class CreateUserRequest extends Model
         }
         if (isset($map['phone'])) {
             $model->phone = $map['phone'];
+        }
+        if (isset($map['email'])) {
+            $model->email = $map['email'];
         }
 
         return $model;
