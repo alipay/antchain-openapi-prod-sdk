@@ -43694,6 +43694,8 @@ class PushAuthInsurancePolicyResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        vc_id: str = None,
+        recording_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -43701,6 +43703,10 @@ class PushAuthInsurancePolicyResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 凭证id
+        self.vc_id = vc_id
+        # 合并之后的录屏记录的id，recordingId
+        self.recording_id = recording_id
 
     def validate(self):
         pass
@@ -43713,6 +43719,10 @@ class PushAuthInsurancePolicyResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.vc_id is not None:
+            result['vc_id'] = self.vc_id
+        if self.recording_id is not None:
+            result['recording_id'] = self.recording_id
         return result
 
     def from_map(self, m: dict = None):
@@ -43723,6 +43733,10 @@ class PushAuthInsurancePolicyResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('vc_id') is not None:
+            self.vc_id = m.get('vc_id')
+        if m.get('recording_id') is not None:
+            self.recording_id = m.get('recording_id')
         return self
 
 
