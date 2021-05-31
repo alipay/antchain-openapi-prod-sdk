@@ -37418,6 +37418,10 @@ type PushAuthInsurancePolicyResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证id
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+	// 合并之后的录屏记录的id，recordingId
+	RecordingId *string `json:"recording_id,omitempty" xml:"recording_id,omitempty"`
 }
 
 func (s PushAuthInsurancePolicyResponse) String() string {
@@ -37440,6 +37444,16 @@ func (s *PushAuthInsurancePolicyResponse) SetResultCode(v string) *PushAuthInsur
 
 func (s *PushAuthInsurancePolicyResponse) SetResultMsg(v string) *PushAuthInsurancePolicyResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushAuthInsurancePolicyResponse) SetVcId(v string) *PushAuthInsurancePolicyResponse {
+	s.VcId = &v
+	return s
+}
+
+func (s *PushAuthInsurancePolicyResponse) SetRecordingId(v string) *PushAuthInsurancePolicyResponse {
+	s.RecordingId = &v
 	return s
 }
 
@@ -55915,7 +55929,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.18"),
+				"sdk_version":      tea.String("1.25.19"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
