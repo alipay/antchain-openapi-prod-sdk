@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.18',
+    sdk_version = '1.25.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -16318,6 +16318,10 @@ model PushAuthInsurancePolicyResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 凭证id
+  vcId?: string(name='vc_id'),
+  // 合并之后的录屏记录的id，recordingId
+  recordingId?: string(name='recording_id'),
 }
 
 /**
