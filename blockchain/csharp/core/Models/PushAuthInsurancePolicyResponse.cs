@@ -24,6 +24,16 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 凭证id
+        [NameInMap("vc_id")]
+        [Validation(Required=false)]
+        public string VcId { get; set; }
+
+        // 合并之后的录屏记录的id，recordingId
+        [NameInMap("recording_id")]
+        [Validation(Required=false)]
+        public string RecordingId { get; set; }
+
     }
 
 }
