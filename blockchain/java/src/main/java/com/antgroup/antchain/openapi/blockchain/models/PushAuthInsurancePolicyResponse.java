@@ -16,6 +16,14 @@ public class PushAuthInsurancePolicyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 凭证id
+    @NameInMap("vc_id")
+    public String vcId;
+
+    // 合并之后的录屏记录的id，recordingId
+    @NameInMap("recording_id")
+    public String recordingId;
+
     public static PushAuthInsurancePolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         PushAuthInsurancePolicyResponse self = new PushAuthInsurancePolicyResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class PushAuthInsurancePolicyResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public PushAuthInsurancePolicyResponse setVcId(String vcId) {
+        this.vcId = vcId;
+        return this;
+    }
+    public String getVcId() {
+        return this.vcId;
+    }
+
+    public PushAuthInsurancePolicyResponse setRecordingId(String recordingId) {
+        this.recordingId = recordingId;
+        return this;
+    }
+    public String getRecordingId() {
+        return this.recordingId;
     }
 
 }
