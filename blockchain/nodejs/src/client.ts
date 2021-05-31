@@ -28613,11 +28613,17 @@ export class PushAuthInsurancePolicyResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 凭证id
+  vcId?: string;
+  // 合并之后的录屏记录的id，recordingId
+  recordingId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      vcId: 'vc_id',
+      recordingId: 'recording_id',
     };
   }
 
@@ -28626,6 +28632,8 @@ export class PushAuthInsurancePolicyResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      vcId: 'string',
+      recordingId: 'string',
     };
   }
 
@@ -42884,7 +42892,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.18",
+          sdk_version: "1.25.19",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
