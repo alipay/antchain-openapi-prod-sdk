@@ -814,6 +814,58 @@ class ContractSignField(TeaModel):
         return self
 
 
+class ContractSignFieldSealId(TeaModel):
+    def __init__(
+        self,
+        file_id: str = None,
+        flow_id: str = None,
+        seal_id: str = None,
+        seal_type: str = None,
+        signfield_id: str = None,
+    ):
+        # 文件file id
+        self.file_id = file_id
+        # 流程id
+        self.flow_id = flow_id
+        # 印章id
+        self.seal_id = seal_id
+        # 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+        self.seal_type = seal_type
+        # 签署区Id
+        self.signfield_id = signfield_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.seal_id is not None:
+            result['seal_id'] = self.seal_id
+        if self.seal_type is not None:
+            result['seal_type'] = self.seal_type
+        if self.signfield_id is not None:
+            result['signfield_id'] = self.signfield_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('seal_id') is not None:
+            self.seal_id = m.get('seal_id')
+        if m.get('seal_type') is not None:
+            self.seal_type = m.get('seal_type')
+        if m.get('signfield_id') is not None:
+            self.signfield_id = m.get('signfield_id')
+        return self
+
+
 class ContractAccount(TeaModel):
     def __init__(self):
         pass
@@ -9282,6 +9334,7 @@ class GetContractSignurlRequest(TeaModel):
         flow_id: str = None,
         organize_id: str = None,
         short_url: bool = None,
+        agent_account_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9290,10 +9343,12 @@ class GetContractSignurlRequest(TeaModel):
         self.account_id = account_id
         # 流程id
         self.flow_id = flow_id
-        # 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+        # 存量参数，已废弃
         self.organize_id = organize_id
         # 是否需要同时返回短链接，默认为false
         self.short_url = short_url
+        # 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+        self.agent_account_id = agent_account_id
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -9313,6 +9368,8 @@ class GetContractSignurlRequest(TeaModel):
             result['organize_id'] = self.organize_id
         if self.short_url is not None:
             result['short_url'] = self.short_url
+        if self.agent_account_id is not None:
+            result['agent_account_id'] = self.agent_account_id
         return result
 
     def from_map(self, m: dict = None):
@@ -9329,6 +9386,8 @@ class GetContractSignurlRequest(TeaModel):
             self.organize_id = m.get('organize_id')
         if m.get('short_url') is not None:
             self.short_url = m.get('short_url')
+        if m.get('agent_account_id') is not None:
+            self.agent_account_id = m.get('agent_account_id')
         return self
 
 
@@ -11701,6 +11760,124 @@ class GetContractCertificateResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class QueryContractSignfieldsealidRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        account_id: str = None,
+        signfield_ids: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 账号id，默认所有签署人
+        self.account_id = account_id
+        # 指定签署区id列表，逗号分割，默认所有签署区
+        self.signfield_ids = signfield_ids
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.signfield_ids is not None:
+            result['signfield_ids'] = self.signfield_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('signfield_ids') is not None:
+            self.signfield_ids = m.get('signfield_ids')
+        return self
+
+
+class QueryContractSignfieldsealidResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: str = None,
+        message: str = None,
+        signfields: List[ContractSignFieldSealId] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务码，0表示成功
+        self.code = code
+        # 业务码信息
+        self.message = message
+        # 签署区列表数据
+        self.signfields = signfields
+
+    def validate(self):
+        if self.signfields:
+            for k in self.signfields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        result['signfields'] = []
+        if self.signfields is not None:
+            for k in self.signfields:
+                result['signfields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        self.signfields = []
+        if m.get('signfields') is not None:
+            for k in m.get('signfields'):
+                temp_model = ContractSignFieldSealId()
+                self.signfields.append(temp_model.from_map(k))
         return self
 
 
@@ -14723,7 +14900,7 @@ class QueryLeaseProductinfoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 状态码0表示成功
+        # 状态码200表示成功
         self.code = code
         # 错误信息
         self.err_message = err_message
@@ -16981,6 +17158,7 @@ class CreateLeaseProductinfoRequest(TeaModel):
         supplier_name: str = None,
         supplier_version: str = None,
         extra_info: str = None,
+        product_model: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -17013,6 +17191,8 @@ class CreateLeaseProductinfoRequest(TeaModel):
         self.supplier_version = supplier_version
         # 商品目录额外信息
         self.extra_info = extra_info
+        # 商品规格
+        self.product_model = product_model
 
     def validate(self):
         self.validate_required(self.deposit_price, 'deposit_price')
@@ -17066,6 +17246,8 @@ class CreateLeaseProductinfoRequest(TeaModel):
             result['supplier_version'] = self.supplier_version
         if self.extra_info is not None:
             result['extra_info'] = self.extra_info
+        if self.product_model is not None:
+            result['product_model'] = self.product_model
         return result
 
     def from_map(self, m: dict = None):
@@ -17105,6 +17287,8 @@ class CreateLeaseProductinfoRequest(TeaModel):
             self.supplier_version = m.get('supplier_version')
         if m.get('extra_info') is not None:
             self.extra_info = m.get('extra_info')
+        if m.get('product_model') is not None:
+            self.product_model = m.get('product_model')
         return self
 
 
@@ -21471,8 +21655,6 @@ class CreateLeaseRepaymentRequest(TeaModel):
         self.validate_required(self.return_status, 'return_status')
         self.validate_required(self.return_time, 'return_time')
         self.validate_required(self.source, 'source')
-        self.validate_required(self.old_ownership_id, 'old_ownership_id')
-        self.validate_required(self.new_ownership_id, 'new_ownership_id')
 
     def to_map(self):
         result = dict()
@@ -25694,7 +25876,7 @@ class OpenInternalTwcRequest(TeaModel):
         product_instance_id: str = None,
         tenant_id: str = None,
         product: str = None,
-        biz_id: str = None,
+        customer_biz_id: str = None,
         auth_code: str = None,
     ):
         # OAuth模式下的授权token
@@ -25705,14 +25887,14 @@ class OpenInternalTwcRequest(TeaModel):
         # 授权开通的产品码
         self.product = product
         # 授权开通的行业类型（版权/租赁）
-        self.biz_id = biz_id
+        self.customer_biz_id = customer_biz_id
         # 授权码
         self.auth_code = auth_code
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.product, 'product')
-        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.customer_biz_id, 'customer_biz_id')
         self.validate_required(self.auth_code, 'auth_code')
 
     def to_map(self):
@@ -25725,8 +25907,8 @@ class OpenInternalTwcRequest(TeaModel):
             result['tenant_id'] = self.tenant_id
         if self.product is not None:
             result['product'] = self.product
-        if self.biz_id is not None:
-            result['biz_id'] = self.biz_id
+        if self.customer_biz_id is not None:
+            result['customer_biz_id'] = self.customer_biz_id
         if self.auth_code is not None:
             result['auth_code'] = self.auth_code
         return result
@@ -25741,8 +25923,8 @@ class OpenInternalTwcRequest(TeaModel):
             self.tenant_id = m.get('tenant_id')
         if m.get('product') is not None:
             self.product = m.get('product')
-        if m.get('biz_id') is not None:
-            self.biz_id = m.get('biz_id')
+        if m.get('customer_biz_id') is not None:
+            self.customer_biz_id = m.get('customer_biz_id')
         if m.get('auth_code') is not None:
             self.auth_code = m.get('auth_code')
         return self

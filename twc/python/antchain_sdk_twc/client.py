@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.152'
+                    'sdk_version': '1.5.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.152'
+                    'sdk_version': '1.5.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3841,6 +3841,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.GetContractCertificateResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_signfieldsealid(
+        self,
+        request: twc_models.QueryContractSignfieldsealidRequest,
+    ) -> twc_models.QueryContractSignfieldsealidResponse:
+        """
+        Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+        Summary: 根据合同流程签署区查询已使用的印章id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_signfieldsealid_ex(request, headers, runtime)
+
+    async def query_contract_signfieldsealid_async(
+        self,
+        request: twc_models.QueryContractSignfieldsealidRequest,
+    ) -> twc_models.QueryContractSignfieldsealidResponse:
+        """
+        Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+        Summary: 根据合同流程签署区查询已使用的印章id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_signfieldsealid_ex_async(request, headers, runtime)
+
+    def query_contract_signfieldsealid_ex(
+        self,
+        request: twc_models.QueryContractSignfieldsealidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractSignfieldsealidResponse:
+        """
+        Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+        Summary: 根据合同流程签署区查询已使用的印章id
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractSignfieldsealidResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_signfieldsealid_ex_async(
+        self,
+        request: twc_models.QueryContractSignfieldsealidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractSignfieldsealidResponse:
+        """
+        Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+        Summary: 根据合同流程签署区查询已使用的印章id
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractSignfieldsealidResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
