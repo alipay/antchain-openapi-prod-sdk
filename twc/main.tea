@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.152',
+    sdk_version = '1.5.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -329,6 +329,20 @@ model ContractSignField {
   fileId: string(name='file_id', example='fe7df2f477d649c18ebcfdfffeba253d'),
   // 电子合同签署区id
   signfieldId: string(name='signfield_id', example='b76b69d5b48d4f689cae997e42809ac4'),
+}
+
+// 签署区列表包含印章id数据
+model ContractSignFieldSealId {
+  // 文件file id
+  fileId?: string(name='file_id', example='0178c086a740475caf516f37901352b3'),
+  // 流程id
+  flowId?: string(name='flow_id', example='1b6b68e44d834f5982cf1959fd9782c3'),
+  // 印章id
+  sealId?: string(name='seal_id', example='8a8b26de-b15e-4791-ae89-e75d928155cc'),
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType?: string(name='seal_type', example='0'),
+  // 签署区Id
+  signfieldId?: string(name='signfield_id', example='52adb35497b141e3893912b3a2ea4f42'),
 }
 
 // 智能合同个人账号信息
@@ -3321,10 +3335,12 @@ model GetContractSignurlRequest = {
   accountId: string(name='account_id'),
   // 流程id
   flowId: string(name='flow_id'),
-  // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+  // 存量参数，已废弃
   organizeId?: string(name='organize_id'),
   // 是否需要同时返回短链接，默认为false
   shortUrl?: boolean(name='short_url'),
+  // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+  agentAccountId?: string(name='agent_account_id'),
 }
 
 model GetContractSignurlResponse = {
@@ -4277,6 +4293,52 @@ async function getContractCertificate(request: GetContractCertificateRequest): G
 async function getContractCertificateEx(request: GetContractCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractCertificateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.certificate.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractSignfieldsealidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 账号id，默认所有签署人
+  accountId?: string(name='account_id'),
+  // 指定签署区id列表，逗号分割，默认所有签署区
+  signfieldIds?: string(name='signfield_ids'),
+}
+
+model QueryContractSignfieldsealidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功
+  code?: string(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+  // 签署区列表数据
+  signfields?: [ ContractSignFieldSealId ](name='signfields'),
+}
+
+/**
+ * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+ * Summary: 根据合同流程签署区查询已使用的印章id
+ */
+async function queryContractSignfieldsealid(request: QueryContractSignfieldsealidRequest): QueryContractSignfieldsealidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractSignfieldsealidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+ * Summary: 根据合同流程签署区查询已使用的印章id
+ */
+async function queryContractSignfieldsealidEx(request: QueryContractSignfieldsealidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractSignfieldsealidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
@@ -5503,7 +5565,7 @@ model QueryLeaseProductinfoResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 状态码0表示成功
+  // 状态码200表示成功
   code?: long(name='code'),
   // 错误信息
   errMessage?: string(name='err_message'),
@@ -6375,6 +6437,8 @@ model CreateLeaseProductinfoRequest = {
   supplierVersion?: string(name='supplier_version'),
   // 商品目录额外信息
   extraInfo?: string(name='extra_info'),
+  // 商品规格
+  productModel?: string(name='product_model'),
 }
 
 model CreateLeaseProductinfoResponse = {
@@ -7985,11 +8049,11 @@ model CreateLeaseRepaymentRequest = {
   // 原所有权id
   // 
   // 
-  oldOwnershipId: string(name='old_ownership_id'),
+  oldOwnershipId?: string(name='old_ownership_id'),
   // 现所有权id
   // 
   // 
-  newOwnershipId: string(name='new_ownership_id'),
+  newOwnershipId?: string(name='new_ownership_id'),
 }
 
 model CreateLeaseRepaymentResponse = {
@@ -9610,7 +9674,7 @@ model OpenInternalTwcRequest = {
   // 授权开通的产品码
   product: string(name='product'),
   // 授权开通的行业类型（版权/租赁）
-  bizId: string(name='biz_id'),
+  customerBizId: string(name='customer_biz_id'),
   // 授权码
   authCode: string(name='auth_code'),
 }
