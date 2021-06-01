@@ -267,6 +267,8 @@ use AntChain\TWC\Models\QueryContractOrganizationRequest;
 use AntChain\TWC\Models\QueryContractOrganizationResponse;
 use AntChain\TWC\Models\QueryContractOrganizationsealsRequest;
 use AntChain\TWC\Models\QueryContractOrganizationsealsResponse;
+use AntChain\TWC\Models\QueryContractSignfieldsealidRequest;
+use AntChain\TWC\Models\QueryContractSignfieldsealidResponse;
 use AntChain\TWC\Models\QueryContractSignfieldsRequest;
 use AntChain\TWC\Models\QueryContractSignfieldsResponse;
 use AntChain\TWC\Models\QueryContractTemplateRequest;
@@ -486,7 +488,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.152',
+                    'sdk_version'      => '1.5.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2712,6 +2714,39 @@ class Client
         Utils::validateModel($request);
 
         return GetContractCertificateResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+     * Summary: 根据合同流程签署区查询已使用的印章id.
+     *
+     * @param QueryContractSignfieldsealidRequest $request
+     *
+     * @return QueryContractSignfieldsealidResponse
+     */
+    public function queryContractSignfieldsealid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractSignfieldsealidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+     * Summary: 根据合同流程签署区查询已使用的印章id.
+     *
+     * @param QueryContractSignfieldsealidRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryContractSignfieldsealidResponse
+     */
+    public function queryContractSignfieldsealidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractSignfieldsealidResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -35,7 +35,7 @@ class OpenInternalTwcRequest extends Model
     /**
      * @var string
      */
-    public $bizId;
+    public $customerBizId;
 
     // 授权码
     /**
@@ -47,7 +47,7 @@ class OpenInternalTwcRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'product'           => 'product',
-        'bizId'             => 'biz_id',
+        'customerBizId'     => 'customer_biz_id',
         'authCode'          => 'auth_code',
     ];
 
@@ -55,7 +55,7 @@ class OpenInternalTwcRequest extends Model
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('product', $this->product, true);
-        Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('customerBizId', $this->customerBizId, true);
         Model::validateRequired('authCode', $this->authCode, true);
     }
 
@@ -74,8 +74,8 @@ class OpenInternalTwcRequest extends Model
         if (null !== $this->product) {
             $res['product'] = $this->product;
         }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
+        if (null !== $this->customerBizId) {
+            $res['customer_biz_id'] = $this->customerBizId;
         }
         if (null !== $this->authCode) {
             $res['auth_code'] = $this->authCode;
@@ -104,8 +104,8 @@ class OpenInternalTwcRequest extends Model
         if (isset($map['product'])) {
             $model->product = $map['product'];
         }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
+        if (isset($map['customer_biz_id'])) {
+            $model->customerBizId = $map['customer_biz_id'];
         }
         if (isset($map['auth_code'])) {
             $model->authCode = $map['auth_code'];

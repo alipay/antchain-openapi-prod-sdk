@@ -102,6 +102,12 @@ class CreateLeaseProductinfoRequest extends Model
      * @var string
      */
     public $extraInfo;
+
+    // 商品规格
+    /**
+     * @var string
+     */
+    public $productModel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -119,6 +125,7 @@ class CreateLeaseProductinfoRequest extends Model
         'supplierName'      => 'supplier_name',
         'supplierVersion'   => 'supplier_version',
         'extraInfo'         => 'extra_info',
+        'productModel'      => 'product_model',
     ];
 
     public function validate()
@@ -192,6 +199,9 @@ class CreateLeaseProductinfoRequest extends Model
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
         }
+        if (null !== $this->productModel) {
+            $res['product_model'] = $this->productModel;
+        }
 
         return $res;
     }
@@ -257,6 +267,9 @@ class CreateLeaseProductinfoRequest extends Model
         }
         if (isset($map['extra_info'])) {
             $model->extraInfo = $map['extra_info'];
+        }
+        if (isset($map['product_model'])) {
+            $model->productModel = $map['product_model'];
         }
 
         return $model;

@@ -198,8 +198,6 @@ class CreateLeaseRepaymentRequest extends Model
         Model::validateRequired('returnStatus', $this->returnStatus, true);
         Model::validateRequired('returnTime', $this->returnTime, true);
         Model::validateRequired('source', $this->source, true);
-        Model::validateRequired('oldOwnershipId', $this->oldOwnershipId, true);
-        Model::validateRequired('newOwnershipId', $this->newOwnershipId, true);
     }
 
     public function toMap()

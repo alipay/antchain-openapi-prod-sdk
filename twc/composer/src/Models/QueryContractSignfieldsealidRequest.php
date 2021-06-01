@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetContractSignurlRequest extends Model
+class QueryContractSignfieldsealidRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,48 +19,33 @@ class GetContractSignurlRequest extends Model
      */
     public $productInstanceId;
 
-    // 签署人账号id
-    /**
-     * @var string
-     */
-    public $accountId;
-
     // 流程id
     /**
      * @var string
      */
     public $flowId;
 
-    // 存量参数，已废弃
+    // 账号id，默认所有签署人
     /**
      * @var string
      */
-    public $organizeId;
+    public $accountId;
 
-    // 是否需要同时返回短链接，默认为false
-    /**
-     * @var bool
-     */
-    public $shortUrl;
-
-    // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+    // 指定签署区id列表，逗号分割，默认所有签署区
     /**
      * @var string
      */
-    public $agentAccountId;
+    public $signfieldIds;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'accountId'         => 'account_id',
         'flowId'            => 'flow_id',
-        'organizeId'        => 'organize_id',
-        'shortUrl'          => 'short_url',
-        'agentAccountId'    => 'agent_account_id',
+        'accountId'         => 'account_id',
+        'signfieldIds'      => 'signfield_ids',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('flowId', $this->flowId, true);
     }
 
@@ -73,20 +58,14 @@ class GetContractSignurlRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
         if (null !== $this->flowId) {
             $res['flow_id'] = $this->flowId;
         }
-        if (null !== $this->organizeId) {
-            $res['organize_id'] = $this->organizeId;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->shortUrl) {
-            $res['short_url'] = $this->shortUrl;
-        }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
+        if (null !== $this->signfieldIds) {
+            $res['signfield_ids'] = $this->signfieldIds;
         }
 
         return $res;
@@ -95,7 +74,7 @@ class GetContractSignurlRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetContractSignurlRequest
+     * @return QueryContractSignfieldsealidRequest
      */
     public static function fromMap($map = [])
     {
@@ -106,20 +85,14 @@ class GetContractSignurlRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
         if (isset($map['flow_id'])) {
             $model->flowId = $map['flow_id'];
         }
-        if (isset($map['organize_id'])) {
-            $model->organizeId = $map['organize_id'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
-        if (isset($map['short_url'])) {
-            $model->shortUrl = $map['short_url'];
-        }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
+        if (isset($map['signfield_ids'])) {
+            $model->signfieldIds = $map['signfield_ids'];
         }
 
         return $model;

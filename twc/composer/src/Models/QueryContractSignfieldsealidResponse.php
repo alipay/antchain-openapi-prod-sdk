@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLeaseProductinfoResponse extends Model
+class QueryContractSignfieldsealidResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,30 @@ class QueryLeaseProductinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 状态码200表示成功
+    // 业务码，0表示成功
     /**
-     * @var int
+     * @var string
      */
     public $code;
 
-    // 错误信息
+    // 业务码信息
     /**
      * @var string
      */
-    public $errMessage;
+    public $message;
 
-    // 商品信息
+    // 签署区列表数据
     /**
-     * @var string
+     * @var ContractSignFieldSealId[]
      */
-    public $responseData;
+    public $signfields;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'code'         => 'code',
-        'errMessage'   => 'err_message',
-        'responseData' => 'response_data',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'code'       => 'code',
+        'message'    => 'message',
+        'signfields' => 'signfields',
     ];
 
     public function validate()
@@ -71,11 +71,17 @@ class QueryLeaseProductinfoResponse extends Model
         if (null !== $this->code) {
             $res['code'] = $this->code;
         }
-        if (null !== $this->errMessage) {
-            $res['err_message'] = $this->errMessage;
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
+        if (null !== $this->signfields) {
+            $res['signfields'] = [];
+            if (null !== $this->signfields && \is_array($this->signfields)) {
+                $n = 0;
+                foreach ($this->signfields as $item) {
+                    $res['signfields'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -84,7 +90,7 @@ class QueryLeaseProductinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryLeaseProductinfoResponse
+     * @return QueryContractSignfieldsealidResponse
      */
     public static function fromMap($map = [])
     {
@@ -101,11 +107,17 @@ class QueryLeaseProductinfoResponse extends Model
         if (isset($map['code'])) {
             $model->code = $map['code'];
         }
-        if (isset($map['err_message'])) {
-            $model->errMessage = $map['err_message'];
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
+        if (isset($map['signfields'])) {
+            if (!empty($map['signfields'])) {
+                $model->signfields = [];
+                $n                 = 0;
+                foreach ($map['signfields'] as $item) {
+                    $model->signfields[$n++] = null !== $item ? ContractSignFieldSealId::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
