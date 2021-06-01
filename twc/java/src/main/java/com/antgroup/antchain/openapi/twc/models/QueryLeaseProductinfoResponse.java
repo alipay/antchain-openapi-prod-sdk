@@ -16,7 +16,7 @@ public class QueryLeaseProductinfoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 状态码0表示成功
+    // 状态码200表示成功
     @NameInMap("code")
     public Long code;
 

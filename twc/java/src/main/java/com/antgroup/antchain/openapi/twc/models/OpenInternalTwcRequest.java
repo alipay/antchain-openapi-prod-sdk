@@ -22,9 +22,9 @@ public class OpenInternalTwcRequest extends TeaModel {
     public String product;
 
     // 授权开通的行业类型（版权/租赁）
-    @NameInMap("biz_id")
+    @NameInMap("customer_biz_id")
     @Validation(required = true)
-    public String bizId;
+    public String customerBizId;
 
     // 授权码
     @NameInMap("auth_code")
@@ -68,12 +68,12 @@ public class OpenInternalTwcRequest extends TeaModel {
         return this.product;
     }
 
-    public OpenInternalTwcRequest setBizId(String bizId) {
-        this.bizId = bizId;
+    public OpenInternalTwcRequest setCustomerBizId(String customerBizId) {
+        this.customerBizId = customerBizId;
         return this;
     }
-    public String getBizId() {
-        return this.bizId;
+    public String getCustomerBizId() {
+        return this.customerBizId;
     }
 
     public OpenInternalTwcRequest setAuthCode(String authCode) {

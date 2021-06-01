@@ -21,13 +21,17 @@ public class GetContractSignurlRequest extends TeaModel {
     @Validation(required = true)
     public String flowId;
 
-    // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+    // 存量参数，已废弃
     @NameInMap("organize_id")
     public String organizeId;
 
     // 是否需要同时返回短链接，默认为false
     @NameInMap("short_url")
     public Boolean shortUrl;
+
+    // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+    @NameInMap("agent_account_id")
+    public String agentAccountId;
 
     public static GetContractSignurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetContractSignurlRequest self = new GetContractSignurlRequest();
@@ -80,6 +84,14 @@ public class GetContractSignurlRequest extends TeaModel {
     }
     public Boolean getShortUrl() {
         return this.shortUrl;
+    }
+
+    public GetContractSignurlRequest setAgentAccountId(String agentAccountId) {
+        this.agentAccountId = agentAccountId;
+        return this;
+    }
+    public String getAgentAccountId() {
+        return this.agentAccountId;
     }
 
 }

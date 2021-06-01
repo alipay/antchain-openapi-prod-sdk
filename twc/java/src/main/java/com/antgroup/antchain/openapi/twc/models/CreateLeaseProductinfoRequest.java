@@ -77,6 +77,10 @@ public class CreateLeaseProductinfoRequest extends TeaModel {
     @NameInMap("extra_info")
     public String extraInfo;
 
+    // 商品规格
+    @NameInMap("product_model")
+    public String productModel;
+
     public static CreateLeaseProductinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseProductinfoRequest self = new CreateLeaseProductinfoRequest();
         return TeaModel.build(map, self);
@@ -208,6 +212,14 @@ public class CreateLeaseProductinfoRequest extends TeaModel {
     }
     public String getExtraInfo() {
         return this.extraInfo;
+    }
+
+    public CreateLeaseProductinfoRequest setProductModel(String productModel) {
+        this.productModel = productModel;
+        return this;
+    }
+    public String getProductModel() {
+        return this.productModel;
     }
 
 }

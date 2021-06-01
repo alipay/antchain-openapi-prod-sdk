@@ -110,14 +110,12 @@ public class CreateLeaseRepaymentRequest extends TeaModel {
     // 
     // 
     @NameInMap("old_ownership_id")
-    @Validation(required = true)
     public String oldOwnershipId;
 
     // 现所有权id
     // 
     // 
     @NameInMap("new_ownership_id")
-    @Validation(required = true)
     public String newOwnershipId;
 
     public static CreateLeaseRepaymentRequest build(java.util.Map<String, ?> map) throws Exception {
