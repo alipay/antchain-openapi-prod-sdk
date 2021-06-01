@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryLeaseProductinfoResponse : TeaModel {
+    public class QueryContractSignfieldsealidResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 状态码200表示成功
+        // 业务码，0表示成功
         [NameInMap("code")]
         [Validation(Required=false)]
-        public long? Code { get; set; }
+        public string Code { get; set; }
 
-        // 错误信息
-        [NameInMap("err_message")]
+        // 业务码信息
+        [NameInMap("message")]
         [Validation(Required=false)]
-        public string ErrMessage { get; set; }
+        public string Message { get; set; }
 
-        // 商品信息
-        [NameInMap("response_data")]
+        // 签署区列表数据
+        [NameInMap("signfields")]
         [Validation(Required=false)]
-        public string ResponseData { get; set; }
+        public List<ContractSignFieldSealId> Signfields { get; set; }
 
     }
 

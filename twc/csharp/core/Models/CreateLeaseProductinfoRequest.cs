@@ -88,6 +88,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ExtraInfo { get; set; }
 
+        // 商品规格
+        [NameInMap("product_model")]
+        [Validation(Required=false)]
+        public string ProductModel { get; set; }
+
     }
 
 }

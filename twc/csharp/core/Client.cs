@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.152"},
+                        {"sdk_version", "1.5.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.152"},
+                        {"sdk_version", "1.5.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3095,6 +3095,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetContractCertificateResponse>(await DoRequestAsync("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+         * Summary: 根据合同流程签署区查询已使用的印章id
+         */
+        public QueryContractSignfieldsealidResponse QueryContractSignfieldsealid(QueryContractSignfieldsealidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractSignfieldsealidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+         * Summary: 根据合同流程签署区查询已使用的印章id
+         */
+        public async Task<QueryContractSignfieldsealidResponse> QueryContractSignfieldsealidAsync(QueryContractSignfieldsealidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractSignfieldsealidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+         * Summary: 根据合同流程签署区查询已使用的印章id
+         */
+        public QueryContractSignfieldsealidResponse QueryContractSignfieldsealidEx(QueryContractSignfieldsealidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractSignfieldsealidResponse>(DoRequest("1.0", "twc.notary.contract.signfieldsealid.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+         * Summary: 根据合同流程签署区查询已使用的印章id
+         */
+        public async Task<QueryContractSignfieldsealidResponse> QueryContractSignfieldsealidExAsync(QueryContractSignfieldsealidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractSignfieldsealidResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signfieldsealid.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

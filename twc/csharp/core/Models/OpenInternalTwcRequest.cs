@@ -29,9 +29,9 @@ namespace AntChain.SDK.TWC.Models
         public string Product { get; set; }
 
         // 授权开通的行业类型（版权/租赁）
-        [NameInMap("biz_id")]
+        [NameInMap("customer_biz_id")]
         [Validation(Required=true)]
-        public string BizId { get; set; }
+        public string CustomerBizId { get; set; }
 
         // 授权码
         [NameInMap("auth_code")]

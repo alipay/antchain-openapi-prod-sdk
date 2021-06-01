@@ -28,7 +28,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string FlowId { get; set; }
 
-        // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+        // 存量参数，已废弃
         [NameInMap("organize_id")]
         [Validation(Required=false)]
         public string OrganizeId { get; set; }
@@ -37,6 +37,11 @@ namespace AntChain.SDK.TWC.Models
         [NameInMap("short_url")]
         [Validation(Required=false)]
         public bool? ShortUrl { get; set; }
+
+        // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+        [NameInMap("agent_account_id")]
+        [Validation(Required=false)]
+        public string AgentAccountId { get; set; }
 
     }
 

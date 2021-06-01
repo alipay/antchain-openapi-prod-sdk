@@ -125,14 +125,14 @@ namespace AntChain.SDK.TWC.Models
         // 
         // 
         [NameInMap("old_ownership_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OldOwnershipId { get; set; }
 
         // 现所有权id
         // 
         // 
         [NameInMap("new_ownership_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string NewOwnershipId { get; set; }
 
     }
