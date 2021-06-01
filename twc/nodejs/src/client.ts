@@ -511,6 +511,43 @@ export class ContractSignField extends $tea.Model {
   }
 }
 
+// 签署区列表包含印章id数据
+export class ContractSignFieldSealId extends $tea.Model {
+  // 文件file id
+  fileId?: string;
+  // 流程id
+  flowId?: string;
+  // 印章id
+  sealId?: string;
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType?: string;
+  // 签署区Id
+  signfieldId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      flowId: 'flow_id',
+      sealId: 'seal_id',
+      sealType: 'seal_type',
+      signfieldId: 'signfield_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      flowId: 'string',
+      sealId: 'string',
+      sealType: 'string',
+      signfieldId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 智能合同个人账号信息
 export class ContractAccount extends $tea.Model {
   static names(): { [key: string]: string } {
@@ -5974,10 +6011,12 @@ export class GetContractSignurlRequest extends $tea.Model {
   accountId: string;
   // 流程id
   flowId: string;
-  // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+  // 存量参数，已废弃
   organizeId?: string;
   // 是否需要同时返回短链接，默认为false
   shortUrl?: boolean;
+  // 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+  agentAccountId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5986,6 +6025,7 @@ export class GetContractSignurlRequest extends $tea.Model {
       flowId: 'flow_id',
       organizeId: 'organize_id',
       shortUrl: 'short_url',
+      agentAccountId: 'agent_account_id',
     };
   }
 
@@ -5997,6 +6037,7 @@ export class GetContractSignurlRequest extends $tea.Model {
       flowId: 'string',
       organizeId: 'string',
       shortUrl: 'boolean',
+      agentAccountId: 'string',
     };
   }
 
@@ -7546,6 +7587,81 @@ export class GetContractCertificateResponse extends $tea.Model {
       url: 'string',
       code: 'number',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractSignfieldsealidRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 账号id，默认所有签署人
+  accountId?: string;
+  // 指定签署区id列表，逗号分割，默认所有签署区
+  signfieldIds?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+      signfieldIds: 'signfield_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      accountId: 'string',
+      signfieldIds: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractSignfieldsealidResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务码，0表示成功
+  code?: string;
+  // 业务码信息
+  message?: string;
+  // 签署区列表数据
+  signfields?: ContractSignFieldSealId[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      signfields: 'signfields',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      message: 'string',
+      signfields: { 'type': 'array', 'itemType': ContractSignFieldSealId },
     };
   }
 
@@ -9540,7 +9656,7 @@ export class QueryLeaseProductinfoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 状态码0表示成功
+  // 状态码200表示成功
   code?: number;
   // 错误信息
   errMessage?: string;
@@ -10975,6 +11091,8 @@ export class CreateLeaseProductinfoRequest extends $tea.Model {
   supplierVersion?: string;
   // 商品目录额外信息
   extraInfo?: string;
+  // 商品规格
+  productModel?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10993,6 +11111,7 @@ export class CreateLeaseProductinfoRequest extends $tea.Model {
       supplierName: 'supplier_name',
       supplierVersion: 'supplier_version',
       extraInfo: 'extra_info',
+      productModel: 'product_model',
     };
   }
 
@@ -11014,6 +11133,7 @@ export class CreateLeaseProductinfoRequest extends $tea.Model {
       supplierName: 'string',
       supplierVersion: 'string',
       extraInfo: 'string',
+      productModel: 'string',
     };
   }
 
@@ -13724,11 +13844,11 @@ export class CreateLeaseRepaymentRequest extends $tea.Model {
   // 原所有权id
   // 
   // 
-  oldOwnershipId: string;
+  oldOwnershipId?: string;
   // 现所有权id
   // 
   // 
-  newOwnershipId: string;
+  newOwnershipId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16444,7 +16564,7 @@ export class OpenInternalTwcRequest extends $tea.Model {
   // 授权开通的产品码
   product: string;
   // 授权开通的行业类型（版权/租赁）
-  bizId: string;
+  customerBizId: string;
   // 授权码
   authCode: string;
   static names(): { [key: string]: string } {
@@ -16453,7 +16573,7 @@ export class OpenInternalTwcRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
       product: 'product',
-      bizId: 'biz_id',
+      customerBizId: 'customer_biz_id',
       authCode: 'auth_code',
     };
   }
@@ -16464,7 +16584,7 @@ export class OpenInternalTwcRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantId: 'string',
       product: 'string',
-      bizId: 'string',
+      customerBizId: 'string',
       authCode: 'string',
     };
   }
@@ -16623,7 +16743,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.152",
+          sdk_version: "1.5.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -17925,6 +18045,25 @@ export default class Client {
   async getContractCertificateEx(request: GetContractCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetContractCertificateResponse> {
     Util.validateModel(request);
     return $tea.cast<GetContractCertificateResponse>(await this.doRequest("1.0", "twc.notary.contract.certificate.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetContractCertificateResponse({}));
+  }
+
+  /**
+   * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+   * Summary: 根据合同流程签署区查询已使用的印章id
+   */
+  async queryContractSignfieldsealid(request: QueryContractSignfieldsealidRequest): Promise<QueryContractSignfieldsealidResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractSignfieldsealidEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+   * Summary: 根据合同流程签署区查询已使用的印章id
+   */
+  async queryContractSignfieldsealidEx(request: QueryContractSignfieldsealidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractSignfieldsealidResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractSignfieldsealidResponse>(await this.doRequest("1.0", "twc.notary.contract.signfieldsealid.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractSignfieldsealidResponse({}));
   }
 
   /**
