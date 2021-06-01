@@ -730,6 +730,53 @@ func (s *ContractSignField) SetSignfieldId(v string) *ContractSignField {
 	return s
 }
 
+// 签署区列表包含印章id数据
+type ContractSignFieldSealId struct {
+	// 文件file id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 印章id
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+	SealType *string `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
+	// 签署区Id
+	SignfieldId *string `json:"signfield_id,omitempty" xml:"signfield_id,omitempty"`
+}
+
+func (s ContractSignFieldSealId) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractSignFieldSealId) GoString() string {
+	return s.String()
+}
+
+func (s *ContractSignFieldSealId) SetFileId(v string) *ContractSignFieldSealId {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetFlowId(v string) *ContractSignFieldSealId {
+	s.FlowId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSealId(v string) *ContractSignFieldSealId {
+	s.SealId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSealType(v string) *ContractSignFieldSealId {
+	s.SealType = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSignfieldId(v string) *ContractSignFieldSealId {
+	s.SignfieldId = &v
+	return s
+}
+
 // 智能合同个人账号信息
 type ContractAccount struct {
 }
@@ -8157,10 +8204,12 @@ type GetContractSignurlRequest struct {
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 流程id
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
-	// 默认为空，返回的任务链接仅包含签署人本人需要签署的任务； 传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务； 传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务
+	// 存量参数，已废弃
 	OrganizeId *string `json:"organize_id,omitempty" xml:"organize_id,omitempty"`
 	// 是否需要同时返回短链接，默认为false
 	ShortUrl *bool `json:"short_url,omitempty" xml:"short_url,omitempty"`
+	// 本功能需要单独审批开放。当account_id为机构账户时，可以在执行签署时单独指定经办人账户，代为完成本次签署操作。
+	AgentAccountId *string `json:"agent_account_id,omitempty" xml:"agent_account_id,omitempty"`
 }
 
 func (s GetContractSignurlRequest) String() string {
@@ -8198,6 +8247,11 @@ func (s *GetContractSignurlRequest) SetOrganizeId(v string) *GetContractSignurlR
 
 func (s *GetContractSignurlRequest) SetShortUrl(v bool) *GetContractSignurlRequest {
 	s.ShortUrl = &v
+	return s
+}
+
+func (s *GetContractSignurlRequest) SetAgentAccountId(v string) *GetContractSignurlRequest {
+	s.AgentAccountId = &v
 	return s
 }
 
@@ -10257,6 +10311,104 @@ func (s *GetContractCertificateResponse) SetCode(v int64) *GetContractCertificat
 
 func (s *GetContractCertificateResponse) SetMessage(v string) *GetContractCertificateResponse {
 	s.Message = &v
+	return s
+}
+
+type QueryContractSignfieldsealidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 账号id，默认所有签署人
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 指定签署区id列表，逗号分割，默认所有签署区
+	SignfieldIds *string `json:"signfield_ids,omitempty" xml:"signfield_ids,omitempty"`
+}
+
+func (s QueryContractSignfieldsealidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractSignfieldsealidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractSignfieldsealidRequest) SetAuthToken(v string) *QueryContractSignfieldsealidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidRequest) SetProductInstanceId(v string) *QueryContractSignfieldsealidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidRequest) SetFlowId(v string) *QueryContractSignfieldsealidRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidRequest) SetAccountId(v string) *QueryContractSignfieldsealidRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidRequest) SetSignfieldIds(v string) *QueryContractSignfieldsealidRequest {
+	s.SignfieldIds = &v
+	return s
+}
+
+type QueryContractSignfieldsealidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 签署区列表数据
+	Signfields []*ContractSignFieldSealId `json:"signfields,omitempty" xml:"signfields,omitempty" type:"Repeated"`
+}
+
+func (s QueryContractSignfieldsealidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractSignfieldsealidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetReqMsgId(v string) *QueryContractSignfieldsealidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetResultCode(v string) *QueryContractSignfieldsealidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetResultMsg(v string) *QueryContractSignfieldsealidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetCode(v string) *QueryContractSignfieldsealidResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetMessage(v string) *QueryContractSignfieldsealidResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryContractSignfieldsealidResponse) SetSignfields(v []*ContractSignFieldSealId) *QueryContractSignfieldsealidResponse {
+	s.Signfields = v
 	return s
 }
 
@@ -12893,7 +13045,7 @@ type QueryLeaseProductinfoResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 状态码0表示成功
+	// 状态码200表示成功
 	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
 	// 错误信息
 	ErrMessage *string `json:"err_message,omitempty" xml:"err_message,omitempty"`
@@ -14869,6 +15021,8 @@ type CreateLeaseProductinfoRequest struct {
 	SupplierVersion *string `json:"supplier_version,omitempty" xml:"supplier_version,omitempty"`
 	// 商品目录额外信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 商品规格
+	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty"`
 }
 
 func (s CreateLeaseProductinfoRequest) String() string {
@@ -14956,6 +15110,11 @@ func (s *CreateLeaseProductinfoRequest) SetSupplierVersion(v string) *CreateLeas
 
 func (s *CreateLeaseProductinfoRequest) SetExtraInfo(v string) *CreateLeaseProductinfoRequest {
 	s.ExtraInfo = &v
+	return s
+}
+
+func (s *CreateLeaseProductinfoRequest) SetProductModel(v string) *CreateLeaseProductinfoRequest {
+	s.ProductModel = &v
 	return s
 }
 
@@ -18814,11 +18973,11 @@ type CreateLeaseRepaymentRequest struct {
 	// 原所有权id
 	//
 	//
-	OldOwnershipId *string `json:"old_ownership_id,omitempty" xml:"old_ownership_id,omitempty" require:"true"`
+	OldOwnershipId *string `json:"old_ownership_id,omitempty" xml:"old_ownership_id,omitempty"`
 	// 现所有权id
 	//
 	//
-	NewOwnershipId *string `json:"new_ownership_id,omitempty" xml:"new_ownership_id,omitempty" require:"true"`
+	NewOwnershipId *string `json:"new_ownership_id,omitempty" xml:"new_ownership_id,omitempty"`
 }
 
 func (s CreateLeaseRepaymentRequest) String() string {
@@ -22500,7 +22659,7 @@ type OpenInternalTwcRequest struct {
 	// 授权开通的产品码
 	Product *string `json:"product,omitempty" xml:"product,omitempty" require:"true"`
 	// 授权开通的行业类型（版权/租赁）
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	CustomerBizId *string `json:"customer_biz_id,omitempty" xml:"customer_biz_id,omitempty" require:"true"`
 	// 授权码
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
 }
@@ -22533,8 +22692,8 @@ func (s *OpenInternalTwcRequest) SetProduct(v string) *OpenInternalTwcRequest {
 	return s
 }
 
-func (s *OpenInternalTwcRequest) SetBizId(v string) *OpenInternalTwcRequest {
-	s.BizId = &v
+func (s *OpenInternalTwcRequest) SetCustomerBizId(v string) *OpenInternalTwcRequest {
+	s.CustomerBizId = &v
 	return s
 }
 
@@ -22711,7 +22870,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.152"),
+				"sdk_version":      tea.String("1.5.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -25000,6 +25159,40 @@ func (client *Client) GetContractCertificateEx(request *GetContractCertificateRe
 	}
 	_result = &GetContractCertificateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.certificate.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+ * Summary: 根据合同流程签署区查询已使用的印章id
+ */
+func (client *Client) QueryContractSignfieldsealid(request *QueryContractSignfieldsealidRequest) (_result *QueryContractSignfieldsealidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractSignfieldsealidResponse{}
+	_body, _err := client.QueryContractSignfieldsealidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
+ * Summary: 根据合同流程签署区查询已使用的印章id
+ */
+func (client *Client) QueryContractSignfieldsealidEx(request *QueryContractSignfieldsealidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractSignfieldsealidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractSignfieldsealidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.signfieldsealid.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
