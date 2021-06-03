@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_realperson.
 
-Created on 07/05/2021
+Created on 03/06/2021
 
 @author: Ant Chain SDK
 """

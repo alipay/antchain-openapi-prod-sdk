@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.7'
+                    'sdk_version': '1.1.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.7'
+                    'sdk_version': '1.1.8'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -537,4 +537,112 @@ class Client:
         UtilClient.validate_model(request)
         return realperson_models.CheckIndividualidTwometaResponse().from_map(
             await self.do_request_async('1.0', 'di.realperson.individualid.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_individualid_threemeta(
+        self,
+        request: realperson_models.CheckIndividualidThreemetaRequest,
+    ) -> realperson_models.CheckIndividualidThreemetaResponse:
+        """
+        Description: 个人三要素认证
+        Summary: 个人三要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_individualid_threemeta_ex(request, headers, runtime)
+
+    async def check_individualid_threemeta_async(
+        self,
+        request: realperson_models.CheckIndividualidThreemetaRequest,
+    ) -> realperson_models.CheckIndividualidThreemetaResponse:
+        """
+        Description: 个人三要素认证
+        Summary: 个人三要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_individualid_threemeta_ex_async(request, headers, runtime)
+
+    def check_individualid_threemeta_ex(
+        self,
+        request: realperson_models.CheckIndividualidThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIndividualidThreemetaResponse:
+        """
+        Description: 个人三要素认证
+        Summary: 个人三要素认证
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckIndividualidThreemetaResponse().from_map(
+            self.do_request('1.0', 'di.realperson.individualid.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_individualid_threemeta_ex_async(
+        self,
+        request: realperson_models.CheckIndividualidThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIndividualidThreemetaResponse:
+        """
+        Description: 个人三要素认证
+        Summary: 个人三要素认证
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckIndividualidThreemetaResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.individualid.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_individualid_fourmeta(
+        self,
+        request: realperson_models.CheckIndividualidFourmetaRequest,
+    ) -> realperson_models.CheckIndividualidFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_individualid_fourmeta_ex(request, headers, runtime)
+
+    async def check_individualid_fourmeta_async(
+        self,
+        request: realperson_models.CheckIndividualidFourmetaRequest,
+    ) -> realperson_models.CheckIndividualidFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_individualid_fourmeta_ex_async(request, headers, runtime)
+
+    def check_individualid_fourmeta_ex(
+        self,
+        request: realperson_models.CheckIndividualidFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIndividualidFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckIndividualidFourmetaResponse().from_map(
+            self.do_request('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_individualid_fourmeta_ex_async(
+        self,
+        request: realperson_models.CheckIndividualidFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIndividualidFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckIndividualidFourmetaResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
