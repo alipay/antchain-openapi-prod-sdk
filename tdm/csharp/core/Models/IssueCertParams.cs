@@ -35,6 +35,16 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string Gjjdkzx { get; set; }
 
+        // 贷款金额，单位 万元
+        [NameInMap("dkje")]
+        [Validation(Required=false)]
+        public string Dkje { get; set; }
+
+        // 贷款期限，单位 年
+        [NameInMap("dkqx")]
+        [Validation(Required=false)]
+        public string Dkqx { get; set; }
+
     }
 
 }
