@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.20',
+    sdk_version = '1.0.21',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -369,6 +369,10 @@ model IssueCertParams {
   jsrq?: string(name='jsrq', example='2020-01-01'),
   // 公积金贷款中心
   gjjdkzx?: string(name='gjjdkzx', example='中国石油集团东方地球物理勘探有限责任公司住房公积金管理中心'),
+  // 贷款金额，单位 万元
+  dkje?: string(name='dkje', example='"10"'),
+  // 贷款期限，单位 年
+  dkqx?: string(name='dkqx', example='"2"'),
 }
 
 // 核身初始化请求信息
