@@ -24,6 +24,14 @@ public class IssueCertParams extends TeaModel {
     @NameInMap("gjjdkzx")
     public String gjjdkzx;
 
+    // 贷款金额，单位 万元
+    @NameInMap("dkje")
+    public String dkje;
+
+    // 贷款期限，单位 年
+    @NameInMap("dkqx")
+    public String dkqx;
+
     public static IssueCertParams build(java.util.Map<String, ?> map) throws Exception {
         IssueCertParams self = new IssueCertParams();
         return TeaModel.build(map, self);
@@ -67,6 +75,22 @@ public class IssueCertParams extends TeaModel {
     }
     public String getGjjdkzx() {
         return this.gjjdkzx;
+    }
+
+    public IssueCertParams setDkje(String dkje) {
+        this.dkje = dkje;
+        return this;
+    }
+    public String getDkje() {
+        return this.dkje;
+    }
+
+    public IssueCertParams setDkqx(String dkqx) {
+        this.dkqx = dkqx;
+        return this;
+    }
+    public String getDkqx() {
+        return this.dkqx;
     }
 
 }
