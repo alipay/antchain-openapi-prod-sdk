@@ -847,6 +847,8 @@ class IssueCertParams(TeaModel):
         ksrq: str = None,
         jsrq: str = None,
         gjjdkzx: str = None,
+        dkje: str = None,
+        dkqx: str = None,
     ):
         # 贷款合同编号
         self.dkhtbh = dkhtbh
@@ -858,6 +860,10 @@ class IssueCertParams(TeaModel):
         self.jsrq = jsrq
         # 公积金贷款中心
         self.gjjdkzx = gjjdkzx
+        # 贷款金额，单位 万元
+        self.dkje = dkje
+        # 贷款期限，单位 年
+        self.dkqx = dkqx
 
     def validate(self):
         pass
@@ -874,6 +880,10 @@ class IssueCertParams(TeaModel):
             result['jsrq'] = self.jsrq
         if self.gjjdkzx is not None:
             result['gjjdkzx'] = self.gjjdkzx
+        if self.dkje is not None:
+            result['dkje'] = self.dkje
+        if self.dkqx is not None:
+            result['dkqx'] = self.dkqx
         return result
 
     def from_map(self, m: dict = None):
@@ -888,6 +898,10 @@ class IssueCertParams(TeaModel):
             self.jsrq = m.get('jsrq')
         if m.get('gjjdkzx') is not None:
             self.gjjdkzx = m.get('gjjdkzx')
+        if m.get('dkje') is not None:
+            self.dkje = m.get('dkje')
+        if m.get('dkqx') is not None:
+            self.dkqx = m.get('dkqx')
         return self
 
 
