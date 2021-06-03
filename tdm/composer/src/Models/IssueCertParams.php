@@ -47,12 +47,30 @@ class IssueCertParams extends Model
      * @var string
      */
     public $gjjdkzx;
+
+    // 贷款金额，单位 万元
+    /**
+     * @example "10"
+     *
+     * @var string
+     */
+    public $dkje;
+
+    // 贷款期限，单位 年
+    /**
+     * @example "2"
+     *
+     * @var string
+     */
+    public $dkqx;
     protected $_name = [
         'dkhtbh'  => 'dkhtbh',
         'grzh'    => 'grzh',
         'ksrq'    => 'ksrq',
         'jsrq'    => 'jsrq',
         'gjjdkzx' => 'gjjdkzx',
+        'dkje'    => 'dkje',
+        'dkqx'    => 'dkqx',
     ];
 
     public function validate()
@@ -76,6 +94,12 @@ class IssueCertParams extends Model
         }
         if (null !== $this->gjjdkzx) {
             $res['gjjdkzx'] = $this->gjjdkzx;
+        }
+        if (null !== $this->dkje) {
+            $res['dkje'] = $this->dkje;
+        }
+        if (null !== $this->dkqx) {
+            $res['dkqx'] = $this->dkqx;
         }
 
         return $res;
@@ -103,6 +127,12 @@ class IssueCertParams extends Model
         }
         if (isset($map['gjjdkzx'])) {
             $model->gjjdkzx = $map['gjjdkzx'];
+        }
+        if (isset($map['dkje'])) {
+            $model->dkje = $map['dkje'];
+        }
+        if (isset($map['dkqx'])) {
+            $model->dkqx = $map['dkqx'];
         }
 
         return $model;
