@@ -751,6 +751,10 @@ type IssueCertParams struct {
 	Jsrq *string `json:"jsrq,omitempty" xml:"jsrq,omitempty"`
 	// 公积金贷款中心
 	Gjjdkzx *string `json:"gjjdkzx,omitempty" xml:"gjjdkzx,omitempty"`
+	// 贷款金额，单位 万元
+	Dkje *string `json:"dkje,omitempty" xml:"dkje,omitempty"`
+	// 贷款期限，单位 年
+	Dkqx *string `json:"dkqx,omitempty" xml:"dkqx,omitempty"`
 }
 
 func (s IssueCertParams) String() string {
@@ -783,6 +787,16 @@ func (s *IssueCertParams) SetJsrq(v string) *IssueCertParams {
 
 func (s *IssueCertParams) SetGjjdkzx(v string) *IssueCertParams {
 	s.Gjjdkzx = &v
+	return s
+}
+
+func (s *IssueCertParams) SetDkje(v string) *IssueCertParams {
+	s.Dkje = &v
+	return s
+}
+
+func (s *IssueCertParams) SetDkqx(v string) *IssueCertParams {
+	s.Dkqx = &v
 	return s
 }
 
@@ -2928,7 +2942,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.20"),
+				"sdk_version":      tea.String("1.0.21"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
