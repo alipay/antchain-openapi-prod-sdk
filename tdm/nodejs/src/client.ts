@@ -552,6 +552,10 @@ export class IssueCertParams extends $tea.Model {
   jsrq?: string;
   // 公积金贷款中心
   gjjdkzx?: string;
+  // 贷款金额，单位 万元
+  dkje?: string;
+  // 贷款期限，单位 年
+  dkqx?: string;
   static names(): { [key: string]: string } {
     return {
       dkhtbh: 'dkhtbh',
@@ -559,6 +563,8 @@ export class IssueCertParams extends $tea.Model {
       ksrq: 'ksrq',
       jsrq: 'jsrq',
       gjjdkzx: 'gjjdkzx',
+      dkje: 'dkje',
+      dkqx: 'dkqx',
     };
   }
 
@@ -569,6 +575,8 @@ export class IssueCertParams extends $tea.Model {
       ksrq: 'string',
       jsrq: 'string',
       gjjdkzx: 'string',
+      dkje: 'string',
+      dkqx: 'string',
     };
   }
 
@@ -2226,7 +2234,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.20",
+          sdk_version: "1.0.21",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
