@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\REALPERSON\Models\CheckIndividualidFourmetaRequest;
+use AntChain\REALPERSON\Models\CheckIndividualidFourmetaResponse;
+use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
+use AntChain\REALPERSON\Models\CheckIndividualidThreemetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidTwometaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidTwometaResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
@@ -167,7 +171,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.7',
+                    'sdk_version'      => '1.1.8',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -376,5 +380,71 @@ class Client
         Utils::validateModel($request);
 
         return CheckIndividualidTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.individualid.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人三要素认证
+     * Summary: 个人三要素认证
+     *
+     * @param CheckIndividualidThreemetaRequest $request
+     *
+     * @return CheckIndividualidThreemetaResponse
+     */
+    public function checkIndividualidThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkIndividualidThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人三要素认证
+     * Summary: 个人三要素认证
+     *
+     * @param CheckIndividualidThreemetaRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CheckIndividualidThreemetaResponse
+     */
+    public function checkIndividualidThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckIndividualidThreemetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.individualid.threemeta.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人四要素认证
+     * Summary: 个人四要素认证
+     *
+     * @param CheckIndividualidFourmetaRequest $request
+     *
+     * @return CheckIndividualidFourmetaResponse
+     */
+    public function checkIndividualidFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkIndividualidFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人四要素认证
+     * Summary: 个人四要素认证
+     *
+     * @param CheckIndividualidFourmetaRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CheckIndividualidFourmetaResponse
+     */
+    public function checkIndividualidFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckIndividualidFourmetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
