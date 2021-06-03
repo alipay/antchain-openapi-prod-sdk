@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.7"},
+                        {"sdk_version", "1.1.8"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.7"},
+                        {"sdk_version", "1.1.8"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -525,6 +525,90 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckIndividualidTwometaResponse>(await DoRequestAsync("1.0", "di.realperson.individualid.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人三要素认证
+         * Summary: 个人三要素认证
+         */
+        public CheckIndividualidThreemetaResponse CheckIndividualidThreemeta(CheckIndividualidThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckIndividualidThreemetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人三要素认证
+         * Summary: 个人三要素认证
+         */
+        public async Task<CheckIndividualidThreemetaResponse> CheckIndividualidThreemetaAsync(CheckIndividualidThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckIndividualidThreemetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人三要素认证
+         * Summary: 个人三要素认证
+         */
+        public CheckIndividualidThreemetaResponse CheckIndividualidThreemetaEx(CheckIndividualidThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIndividualidThreemetaResponse>(DoRequest("1.0", "di.realperson.individualid.threemeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人三要素认证
+         * Summary: 个人三要素认证
+         */
+        public async Task<CheckIndividualidThreemetaResponse> CheckIndividualidThreemetaExAsync(CheckIndividualidThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIndividualidThreemetaResponse>(await DoRequestAsync("1.0", "di.realperson.individualid.threemeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public CheckIndividualidFourmetaResponse CheckIndividualidFourmeta(CheckIndividualidFourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckIndividualidFourmetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public async Task<CheckIndividualidFourmetaResponse> CheckIndividualidFourmetaAsync(CheckIndividualidFourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckIndividualidFourmetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public CheckIndividualidFourmetaResponse CheckIndividualidFourmetaEx(CheckIndividualidFourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIndividualidFourmetaResponse>(DoRequest("1.0", "di.realperson.individualid.fourmeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public async Task<CheckIndividualidFourmetaResponse> CheckIndividualidFourmetaExAsync(CheckIndividualidFourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIndividualidFourmetaResponse>(await DoRequestAsync("1.0", "di.realperson.individualid.fourmeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
