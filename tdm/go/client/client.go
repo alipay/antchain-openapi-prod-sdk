@@ -1845,8 +1845,10 @@ type ListCpfDatauseRequest struct {
 	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
 	// 使用方ID
 	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty" require:"true"`
+	// 用户身份证ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty"`
 	// 筛选时间，按月份筛选，默认当前月份
-	OptionTime *string `json:"option_time,omitempty" xml:"option_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	OptionTime *string `json:"option_time,omitempty" xml:"option_time,omitempty"`
 	// 数据类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 数据类型
@@ -1878,6 +1880,11 @@ func (s *ListCpfDatauseRequest) SetTerminalIdentity(v string) *ListCpfDatauseReq
 
 func (s *ListCpfDatauseRequest) SetDataUserIdentity(v string) *ListCpfDatauseRequest {
 	s.DataUserIdentity = &v
+	return s
+}
+
+func (s *ListCpfDatauseRequest) SetDataOwnerIdentity(v string) *ListCpfDatauseRequest {
+	s.DataOwnerIdentity = &v
 	return s
 }
 
@@ -2942,7 +2949,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.22"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
