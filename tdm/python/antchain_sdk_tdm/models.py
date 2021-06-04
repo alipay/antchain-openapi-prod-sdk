@@ -2121,6 +2121,7 @@ class ListCpfDatauseRequest(TeaModel):
         product_instance_id: str = None,
         terminal_identity: str = None,
         data_user_identity: str = None,
+        data_owner_identity: str = None,
         option_time: str = None,
         type: str = None,
         data_code: str = None,
@@ -2132,6 +2133,8 @@ class ListCpfDatauseRequest(TeaModel):
         self.terminal_identity = terminal_identity
         # 使用方ID
         self.data_user_identity = data_user_identity
+        # 用户身份证ID
+        self.data_owner_identity = data_owner_identity
         # 筛选时间，按月份筛选，默认当前月份
         self.option_time = option_time
         # 数据类型
@@ -2142,8 +2145,6 @@ class ListCpfDatauseRequest(TeaModel):
     def validate(self):
         self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.data_user_identity, 'data_user_identity')
-        if self.option_time is not None:
-            self.validate_pattern(self.option_time, 'option_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -2155,6 +2156,8 @@ class ListCpfDatauseRequest(TeaModel):
             result['terminal_identity'] = self.terminal_identity
         if self.data_user_identity is not None:
             result['data_user_identity'] = self.data_user_identity
+        if self.data_owner_identity is not None:
+            result['data_owner_identity'] = self.data_owner_identity
         if self.option_time is not None:
             result['option_time'] = self.option_time
         if self.type is not None:
@@ -2173,6 +2176,8 @@ class ListCpfDatauseRequest(TeaModel):
             self.terminal_identity = m.get('terminal_identity')
         if m.get('data_user_identity') is not None:
             self.data_user_identity = m.get('data_user_identity')
+        if m.get('data_owner_identity') is not None:
+            self.data_owner_identity = m.get('data_owner_identity')
         if m.get('option_time') is not None:
             self.option_time = m.get('option_time')
         if m.get('type') is not None:
