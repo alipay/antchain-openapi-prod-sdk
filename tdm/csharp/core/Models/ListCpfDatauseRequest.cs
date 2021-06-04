@@ -28,9 +28,14 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=true)]
         public string DataUserIdentity { get; set; }
 
+        // 用户身份证ID
+        [NameInMap("data_owner_identity")]
+        [Validation(Required=false)]
+        public string DataOwnerIdentity { get; set; }
+
         // 筛选时间，按月份筛选，默认当前月份
         [NameInMap("option_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string OptionTime { get; set; }
 
         // 数据类型
