@@ -1368,6 +1368,8 @@ export class ListCpfDatauseRequest extends $tea.Model {
   terminalIdentity: string;
   // 使用方ID
   dataUserIdentity: string;
+  // 用户身份证ID
+  dataOwnerIdentity?: string;
   // 筛选时间，按月份筛选，默认当前月份
   optionTime?: string;
   // 数据类型
@@ -1380,6 +1382,7 @@ export class ListCpfDatauseRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       terminalIdentity: 'terminal_identity',
       dataUserIdentity: 'data_user_identity',
+      dataOwnerIdentity: 'data_owner_identity',
       optionTime: 'option_time',
       type: 'type',
       dataCode: 'data_code',
@@ -1392,6 +1395,7 @@ export class ListCpfDatauseRequest extends $tea.Model {
       productInstanceId: 'string',
       terminalIdentity: 'string',
       dataUserIdentity: 'string',
+      dataOwnerIdentity: 'string',
       optionTime: 'string',
       type: 'string',
       dataCode: 'string',
@@ -2234,7 +2238,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.22",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
