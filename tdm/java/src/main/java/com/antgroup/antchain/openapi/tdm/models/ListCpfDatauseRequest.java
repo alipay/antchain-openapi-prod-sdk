@@ -21,9 +21,12 @@ public class ListCpfDatauseRequest extends TeaModel {
     @Validation(required = true)
     public String dataUserIdentity;
 
+    // 用户身份证ID
+    @NameInMap("data_owner_identity")
+    public String dataOwnerIdentity;
+
     // 筛选时间，按月份筛选，默认当前月份
     @NameInMap("option_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String optionTime;
 
     // 数据类型
@@ -69,6 +72,14 @@ public class ListCpfDatauseRequest extends TeaModel {
     }
     public String getDataUserIdentity() {
         return this.dataUserIdentity;
+    }
+
+    public ListCpfDatauseRequest setDataOwnerIdentity(String dataOwnerIdentity) {
+        this.dataOwnerIdentity = dataOwnerIdentity;
+        return this;
+    }
+    public String getDataOwnerIdentity() {
+        return this.dataOwnerIdentity;
     }
 
     public ListCpfDatauseRequest setOptionTime(String optionTime) {
