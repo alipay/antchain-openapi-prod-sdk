@@ -31,6 +31,12 @@ class ListCpfDatauseRequest extends Model
      */
     public $dataUserIdentity;
 
+    // 用户身份证ID
+    /**
+     * @var string
+     */
+    public $dataOwnerIdentity;
+
     // 筛选时间，按月份筛选，默认当前月份
     /**
      * @var string
@@ -53,6 +59,7 @@ class ListCpfDatauseRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'terminalIdentity'  => 'terminal_identity',
         'dataUserIdentity'  => 'data_user_identity',
+        'dataOwnerIdentity' => 'data_owner_identity',
         'optionTime'        => 'option_time',
         'type'              => 'type',
         'dataCode'          => 'data_code',
@@ -62,7 +69,6 @@ class ListCpfDatauseRequest extends Model
     {
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
-        Model::validatePattern('optionTime', $this->optionTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -79,6 +85,9 @@ class ListCpfDatauseRequest extends Model
         }
         if (null !== $this->dataUserIdentity) {
             $res['data_user_identity'] = $this->dataUserIdentity;
+        }
+        if (null !== $this->dataOwnerIdentity) {
+            $res['data_owner_identity'] = $this->dataOwnerIdentity;
         }
         if (null !== $this->optionTime) {
             $res['option_time'] = $this->optionTime;
@@ -112,6 +121,9 @@ class ListCpfDatauseRequest extends Model
         }
         if (isset($map['data_user_identity'])) {
             $model->dataUserIdentity = $map['data_user_identity'];
+        }
+        if (isset($map['data_owner_identity'])) {
+            $model->dataOwnerIdentity = $map['data_owner_identity'];
         }
         if (isset($map['option_time'])) {
             $model->optionTime = $map['option_time'];
