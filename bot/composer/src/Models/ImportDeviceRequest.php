@@ -108,6 +108,18 @@ class ImportDeviceRequest extends Model
      * @var string
      */
     public $releaseTime;
+
+    // 设备类型，需要提前约定好
+    /**
+     * @var string
+     */
+    public $deviceTypeId;
+
+    // 可信根派生公钥
+    /**
+     * @var string
+     */
+    public $devicePublicKey;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -122,6 +134,8 @@ class ImportDeviceRequest extends Model
         'initialPrice'      => 'initial_price',
         'factoryTime'       => 'factory_time',
         'releaseTime'       => 'release_time',
+        'deviceTypeId'      => 'device_type_id',
+        'devicePublicKey'   => 'device_public_key',
     ];
 
     public function validate()
@@ -181,6 +195,12 @@ class ImportDeviceRequest extends Model
         if (null !== $this->releaseTime) {
             $res['release_time'] = $this->releaseTime;
         }
+        if (null !== $this->deviceTypeId) {
+            $res['device_type_id'] = $this->deviceTypeId;
+        }
+        if (null !== $this->devicePublicKey) {
+            $res['device_public_key'] = $this->devicePublicKey;
+        }
 
         return $res;
     }
@@ -231,6 +251,12 @@ class ImportDeviceRequest extends Model
         }
         if (isset($map['release_time'])) {
             $model->releaseTime = $map['release_time'];
+        }
+        if (isset($map['device_type_id'])) {
+            $model->deviceTypeId = $map['device_type_id'];
+        }
+        if (isset($map['device_public_key'])) {
+            $model->devicePublicKey = $map['device_public_key'];
         }
 
         return $model;

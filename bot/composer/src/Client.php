@@ -11,6 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\BOT\Models\AddAbnormalRequest;
+use AntChain\BOT\Models\AddAbnormalResponse;
+use AntChain\BOT\Models\AddLabelAssetRequest;
+use AntChain\BOT\Models\AddLabelAssetResponse;
+use AntChain\BOT\Models\ApplyMqtokenRequest;
+use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
@@ -51,6 +57,8 @@ use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralByperipheralidResponse;
 use AntChain\BOT\Models\ImportDeviceRequest;
 use AntChain\BOT\Models\ImportDeviceResponse;
+use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
+use AntChain\BOT\Models\ImportIotplatformMeshidResponse;
 use AntChain\BOT\Models\ImportPeripheralRequest;
 use AntChain\BOT\Models\ImportPeripheralResponse;
 use AntChain\BOT\Models\ListDeviceBysceneRequest;
@@ -65,14 +73,22 @@ use AntChain\BOT\Models\LoadTsmCertificatetsmRequest;
 use AntChain\BOT\Models\LoadTsmCertificatetsmResponse;
 use AntChain\BOT\Models\LoadTsmResourcefileRequest;
 use AntChain\BOT\Models\LoadTsmResourcefileResponse;
+use AntChain\BOT\Models\OfflineDeviceByunregisterRequest;
+use AntChain\BOT\Models\OfflineDeviceByunregisterResponse;
 use AntChain\BOT\Models\OfflineDeviceRequest;
 use AntChain\BOT\Models\OfflineDeviceResponse;
+use AntChain\BOT\Models\OnlineDeviceRequest;
+use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
+use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
+use AntChain\BOT\Models\QueryDeviceRegistrationResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
+use AntChain\BOT\Models\QueryLabelTraceRequest;
+use AntChain\BOT\Models\QueryLabelTraceResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
@@ -101,6 +117,8 @@ use AntChain\BOT\Models\StartTenantBindinfoRequest;
 use AntChain\BOT\Models\StartTenantBindinfoResponse;
 use AntChain\BOT\Models\StartThingsdidRegisterRequest;
 use AntChain\BOT\Models\StartThingsdidRegisterResponse;
+use AntChain\BOT\Models\SyncLabelTransferRequest;
+use AntChain\BOT\Models\SyncLabelTransferResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
@@ -260,7 +278,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.16',
+                    'sdk_version'      => '1.5.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -337,6 +355,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryIotplatformPurchaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+     * Summary: 绑定MeshId及设备SN.
+     *
+     * @param ImportIotplatformMeshidRequest $request
+     *
+     * @return ImportIotplatformMeshidResponse
+     */
+    public function importIotplatformMeshid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIotplatformMeshidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+     * Summary: 绑定MeshId及设备SN.
+     *
+     * @param ImportIotplatformMeshidRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ImportIotplatformMeshidResponse
+     */
+    public function importIotplatformMeshidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIotplatformMeshidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1525,6 +1576,270 @@ class Client
         Utils::validateModel($request);
 
         return OfflineDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.offline', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请MQTT token
+     * Summary: 申请MQTT token.
+     *
+     * @param ApplyMqtokenRequest $request
+     *
+     * @return ApplyMqtokenResponse
+     */
+    public function applyMqtoken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyMqtokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请MQTT token
+     * Summary: 申请MQTT token.
+     *
+     * @param ApplyMqtokenRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ApplyMqtokenResponse
+     */
+    public function applyMqtokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyMqtokenResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备所注册的公钥是否正确
+     * Summary: 查询注册信息.
+     *
+     * @param QueryDeviceRegistrationRequest $request
+     *
+     * @return QueryDeviceRegistrationResponse
+     */
+    public function queryDeviceRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备所注册的公钥是否正确
+     * Summary: 查询注册信息.
+     *
+     * @param QueryDeviceRegistrationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDeviceRegistrationResponse
+     */
+    public function queryDeviceRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.registration.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备异常上报
+     * Summary: 设备异常上报.
+     *
+     * @param AddAbnormalRequest $request
+     *
+     * @return AddAbnormalResponse
+     */
+    public function addAbnormal($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAbnormalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备异常上报
+     * Summary: 设备异常上报.
+     *
+     * @param AddAbnormalRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return AddAbnormalResponse
+     */
+    public function addAbnormalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAbnormalResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.abnormal.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备下线后，可通过此接口重新上线
+     * Summary: 设置设备状态为上线
+     *
+     * @param OnlineDeviceRequest $request
+     *
+     * @return OnlineDeviceResponse
+     */
+    public function onlineDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->onlineDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备下线后，可通过此接口重新上线
+     * Summary: 设置设备状态为上线
+     *
+     * @param OnlineDeviceRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return OnlineDeviceResponse
+     */
+    public function onlineDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OnlineDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.online', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注销设备
+     * Summary: 注销设备.
+     *
+     * @param OfflineDeviceByunregisterRequest $request
+     *
+     * @return OfflineDeviceByunregisterResponse
+     */
+    public function offlineDeviceByunregister($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->offlineDeviceByunregisterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注销设备
+     * Summary: 注销设备.
+     *
+     * @param OfflineDeviceByunregisterRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return OfflineDeviceByunregisterResponse
+     */
+    public function offlineDeviceByunregisterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OfflineDeviceByunregisterResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 标签状态查询
+     * Summary: 标签状态查询.
+     *
+     * @param QueryLabelTraceRequest $request
+     *
+     * @return QueryLabelTraceResponse
+     */
+    public function queryLabelTrace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLabelTraceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 标签状态查询
+     * Summary: 标签状态查询.
+     *
+     * @param QueryLabelTraceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryLabelTraceResponse
+     */
+    public function queryLabelTraceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLabelTraceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.trace.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 标签流转状态同步
+     * Summary: 标签流转状态同步.
+     *
+     * @param SyncLabelTransferRequest $request
+     *
+     * @return SyncLabelTransferResponse
+     */
+    public function syncLabelTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncLabelTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 标签流转状态同步
+     * Summary: 标签流转状态同步.
+     *
+     * @param SyncLabelTransferRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SyncLabelTransferResponse
+     */
+    public function syncLabelTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncLabelTransferResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 标签资产绑定
+     * Summary: 标签资产绑定.
+     *
+     * @param AddLabelAssetRequest $request
+     *
+     * @return AddLabelAssetResponse
+     */
+    public function addLabelAsset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addLabelAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 标签资产绑定
+     * Summary: 标签资产绑定.
+     *
+     * @param AddLabelAssetRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return AddLabelAssetResponse
+     */
+    public function addLabelAssetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddLabelAssetResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
