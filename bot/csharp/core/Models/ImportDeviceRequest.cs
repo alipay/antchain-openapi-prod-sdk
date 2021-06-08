@@ -97,6 +97,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string ReleaseTime { get; set; }
 
+        // 设备类型，需要提前约定好
+        [NameInMap("device_type_id")]
+        [Validation(Required=false)]
+        public string DeviceTypeId { get; set; }
+
+        // 可信根派生公钥
+        [NameInMap("device_public_key")]
+        [Validation(Required=false)]
+        public string DevicePublicKey { get; set; }
+
     }
 
 }

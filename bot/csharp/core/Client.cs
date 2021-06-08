@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.16"},
+                        {"sdk_version", "1.5.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.16"},
+                        {"sdk_version", "1.5.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -357,6 +357,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIotplatformPurchaseorderResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplatform.purchaseorder.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+         * Summary: 绑定MeshId及设备SN
+         */
+        public ImportIotplatformMeshidResponse ImportIotplatformMeshid(ImportIotplatformMeshidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportIotplatformMeshidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+         * Summary: 绑定MeshId及设备SN
+         */
+        public async Task<ImportIotplatformMeshidResponse> ImportIotplatformMeshidAsync(ImportIotplatformMeshidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportIotplatformMeshidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+         * Summary: 绑定MeshId及设备SN
+         */
+        public ImportIotplatformMeshidResponse ImportIotplatformMeshidEx(ImportIotplatformMeshidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIotplatformMeshidResponse>(DoRequest("1.0", "blockchain.bot.iotplatform.meshid.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+         * Summary: 绑定MeshId及设备SN
+         */
+        public async Task<ImportIotplatformMeshidResponse> ImportIotplatformMeshidExAsync(ImportIotplatformMeshidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIotplatformMeshidResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotplatform.meshid.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1869,6 +1911,342 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OfflineDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.offline", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请MQTT token
+         * Summary: 申请MQTT token
+         */
+        public ApplyMqtokenResponse ApplyMqtoken(ApplyMqtokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyMqtokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请MQTT token
+         * Summary: 申请MQTT token
+         */
+        public async Task<ApplyMqtokenResponse> ApplyMqtokenAsync(ApplyMqtokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyMqtokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请MQTT token
+         * Summary: 申请MQTT token
+         */
+        public ApplyMqtokenResponse ApplyMqtokenEx(ApplyMqtokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMqtokenResponse>(DoRequest("1.0", "blockchain.bot.mqtoken.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请MQTT token
+         * Summary: 申请MQTT token
+         */
+        public async Task<ApplyMqtokenResponse> ApplyMqtokenExAsync(ApplyMqtokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMqtokenResponse>(await DoRequestAsync("1.0", "blockchain.bot.mqtoken.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询设备所注册的公钥是否正确
+         * Summary: 查询注册信息
+         */
+        public QueryDeviceRegistrationResponse QueryDeviceRegistration(QueryDeviceRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询设备所注册的公钥是否正确
+         * Summary: 查询注册信息
+         */
+        public async Task<QueryDeviceRegistrationResponse> QueryDeviceRegistrationAsync(QueryDeviceRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询设备所注册的公钥是否正确
+         * Summary: 查询注册信息
+         */
+        public QueryDeviceRegistrationResponse QueryDeviceRegistrationEx(QueryDeviceRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceRegistrationResponse>(DoRequest("1.0", "blockchain.bot.device.registration.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询设备所注册的公钥是否正确
+         * Summary: 查询注册信息
+         */
+        public async Task<QueryDeviceRegistrationResponse> QueryDeviceRegistrationExAsync(QueryDeviceRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.registration.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备异常上报
+         * Summary: 设备异常上报
+         */
+        public AddAbnormalResponse AddAbnormal(AddAbnormalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddAbnormalEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备异常上报
+         * Summary: 设备异常上报
+         */
+        public async Task<AddAbnormalResponse> AddAbnormalAsync(AddAbnormalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddAbnormalExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备异常上报
+         * Summary: 设备异常上报
+         */
+        public AddAbnormalResponse AddAbnormalEx(AddAbnormalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddAbnormalResponse>(DoRequest("1.0", "blockchain.bot.abnormal.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备异常上报
+         * Summary: 设备异常上报
+         */
+        public async Task<AddAbnormalResponse> AddAbnormalExAsync(AddAbnormalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddAbnormalResponse>(await DoRequestAsync("1.0", "blockchain.bot.abnormal.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备下线后，可通过此接口重新上线
+         * Summary: 设置设备状态为上线
+         */
+        public OnlineDeviceResponse OnlineDevice(OnlineDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OnlineDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备下线后，可通过此接口重新上线
+         * Summary: 设置设备状态为上线
+         */
+        public async Task<OnlineDeviceResponse> OnlineDeviceAsync(OnlineDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OnlineDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备下线后，可通过此接口重新上线
+         * Summary: 设置设备状态为上线
+         */
+        public OnlineDeviceResponse OnlineDeviceEx(OnlineDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OnlineDeviceResponse>(DoRequest("1.0", "blockchain.bot.device.online", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备下线后，可通过此接口重新上线
+         * Summary: 设置设备状态为上线
+         */
+        public async Task<OnlineDeviceResponse> OnlineDeviceExAsync(OnlineDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OnlineDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.online", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注销设备
+         * Summary: 注销设备
+         */
+        public OfflineDeviceByunregisterResponse OfflineDeviceByunregister(OfflineDeviceByunregisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OfflineDeviceByunregisterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注销设备
+         * Summary: 注销设备
+         */
+        public async Task<OfflineDeviceByunregisterResponse> OfflineDeviceByunregisterAsync(OfflineDeviceByunregisterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OfflineDeviceByunregisterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注销设备
+         * Summary: 注销设备
+         */
+        public OfflineDeviceByunregisterResponse OfflineDeviceByunregisterEx(OfflineDeviceByunregisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OfflineDeviceByunregisterResponse>(DoRequest("1.0", "blockchain.bot.device.byunregister.offline", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注销设备
+         * Summary: 注销设备
+         */
+        public async Task<OfflineDeviceByunregisterResponse> OfflineDeviceByunregisterExAsync(OfflineDeviceByunregisterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OfflineDeviceByunregisterResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.byunregister.offline", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签状态查询
+         * Summary: 标签状态查询
+         */
+        public QueryLabelTraceResponse QueryLabelTrace(QueryLabelTraceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLabelTraceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签状态查询
+         * Summary: 标签状态查询
+         */
+        public async Task<QueryLabelTraceResponse> QueryLabelTraceAsync(QueryLabelTraceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLabelTraceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签状态查询
+         * Summary: 标签状态查询
+         */
+        public QueryLabelTraceResponse QueryLabelTraceEx(QueryLabelTraceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLabelTraceResponse>(DoRequest("1.0", "blockchain.bot.label.trace.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签状态查询
+         * Summary: 标签状态查询
+         */
+        public async Task<QueryLabelTraceResponse> QueryLabelTraceExAsync(QueryLabelTraceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLabelTraceResponse>(await DoRequestAsync("1.0", "blockchain.bot.label.trace.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签流转状态同步
+         * Summary: 标签流转状态同步
+         */
+        public SyncLabelTransferResponse SyncLabelTransfer(SyncLabelTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncLabelTransferEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签流转状态同步
+         * Summary: 标签流转状态同步
+         */
+        public async Task<SyncLabelTransferResponse> SyncLabelTransferAsync(SyncLabelTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncLabelTransferExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签流转状态同步
+         * Summary: 标签流转状态同步
+         */
+        public SyncLabelTransferResponse SyncLabelTransferEx(SyncLabelTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncLabelTransferResponse>(DoRequest("1.0", "blockchain.bot.label.transfer.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签流转状态同步
+         * Summary: 标签流转状态同步
+         */
+        public async Task<SyncLabelTransferResponse> SyncLabelTransferExAsync(SyncLabelTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncLabelTransferResponse>(await DoRequestAsync("1.0", "blockchain.bot.label.transfer.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签资产绑定
+         * Summary: 标签资产绑定
+         */
+        public AddLabelAssetResponse AddLabelAsset(AddLabelAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddLabelAssetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签资产绑定
+         * Summary: 标签资产绑定
+         */
+        public async Task<AddLabelAssetResponse> AddLabelAssetAsync(AddLabelAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddLabelAssetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 标签资产绑定
+         * Summary: 标签资产绑定
+         */
+        public AddLabelAssetResponse AddLabelAssetEx(AddLabelAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddLabelAssetResponse>(DoRequest("1.0", "blockchain.bot.label.asset.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 标签资产绑定
+         * Summary: 标签资产绑定
+         */
+        public async Task<AddLabelAssetResponse> AddLabelAssetExAsync(AddLabelAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddLabelAssetResponse>(await DoRequestAsync("1.0", "blockchain.bot.label.asset.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
