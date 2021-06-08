@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.16',
+    sdk_version = '1.5.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -363,6 +363,48 @@ model DistributeDataPackage {
   distributeDeviceId: string(name='distribute_device_id', example='244'),
   // 打包时间
   packageTime: long(name='package_time', example=''),
+}
+
+// 标签流转历史
+model LabelTrace {
+  // 场景码
+  scene?: string(name='scene', example='XXXXX'),
+  // 租户
+  tenant?: string(name='tenant', example='XXXXX'),
+  // 标签id
+  labelId?: string(name='label_id', example='XXXXX'),
+  // 标签状态
+  labelStatus: string(name='label_status', example='XXXXX'),
+  // 资产Id
+  assetId?: string(name='asset_id', example='XXXXX'),
+  // 操作员
+  operator?: string(name='operator', example='XXXXX'),
+  // 标签拥有者
+  owner?: string(name='owner', example='XXXXX'),
+  // 标签所处流程
+  process?: string(name='process', example='XXXXX'),
+  // 标签操作
+  action?: string(name='action', example='XXXXX'),
+  // 操作时间
+  operateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operate_time', example='2018-10-10T10:10:00Z'),
+  // 操作设备
+  operateDevice?: string(name='operate_device', example='XXXXX'),
+  // 操作内容
+  content?: string(name='content', example='XXXXX'),
+  // 链上哈希
+  txHash?: string(name='tx_hash', example='XXXXX'),
+  // 上链时间
+  txTime?: string(name='tx_time', example='XXXXX'),
+  // 区块链高度
+  blockNumber?: long(name='block_number', example='XXXXX'),
+  // 请求ID
+  requestId?: string(name='request_id', example='XXXXX'),
+  // 上链失败的错误码
+  errorCode?: string(name='error_code', example='XXXXX'),
+  // 上链失败的错误信息
+  errorMsg?: string(name='error_msg', example='XXXXX'),
+  // 是否上链成功
+  isSuccess?: boolean(name='is_success', example='true, false'),
 }
 
 // 信物链实体查询返回的数据结构，对应数据表字段
@@ -723,6 +765,25 @@ model Device {
   factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
 }
 
+// 收集标签数据
+model CollectLabelContent {
+  // 链上设备ID
+  chainDeviceId: string(name='chain_device_id', example='XXXXX'),
+  // 1.设备端上报数据内容  
+  // 2.与设备上报的数据一致，服务端不可修改
+  // 3.解析后需与DataModel匹配 
+  // 4.映射 Label 对象结构化存储
+  // 5.转为JSON后如果是JSONObject 映射单个 Label
+  // 6.转为JSON后如果是JSONArray 映射多个 Label
+  content: string(name='content', example='XXXXX'),
+  // content的签名
+  // 与设备上报的签名保持一致，服务端不可修改
+  signature: string(name='signature', example='XXXXX'),
+  // 未经设备签名的附加数据JSON String
+  // 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
+  extraData?: string(name='extra_data', example='XXXXX'),
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -769,6 +830,50 @@ async function queryIotplatformPurchaseorder(request: QueryIotplatformPurchaseor
 async function queryIotplatformPurchaseorderEx(request: QueryIotplatformPurchaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotplatformPurchaseorderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIotplatformMeshidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户的金融云租户ID
+  tenantId: string(name='tenant_id'),
+  // 客户的公司名称
+  companyName: string(name='company_name'),
+  // 设备按照MeshAgent后获取的MeshId
+  meshId: string(name='mesh_id'),
+  // 客户自定义的业务上使用的设备标识，需要与租赁业务上使用的ID进行对应
+  deviceSn: string(name='device_sn'),
+}
+
+model ImportIotplatformMeshidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 提交绑定时的SN号，用于确认
+  deviceSn?: string(name='device_sn'),
+}
+
+/**
+ * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+ * Summary: 绑定MeshId及设备SN
+ */
+async function importIotplatformMeshid(request: ImportIotplatformMeshidRequest): ImportIotplatformMeshidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIotplatformMeshidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+ * Summary: 绑定MeshId及设备SN
+ */
+async function importIotplatformMeshidEx(request: ImportIotplatformMeshidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotplatformMeshidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDeviceDatamodelRequest = {
@@ -899,6 +1004,10 @@ model ImportDeviceRequest = {
   factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time'),
   // 投放时间
   releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time'),
+  // 设备类型，需要提前约定好
+  deviceTypeId?: string(name='device_type_id'),
+  // 可信根派生公钥
+  devicePublicKey?: string(name='device_public_key'),
 }
 
 model ImportDeviceResponse = {
@@ -2522,6 +2631,338 @@ async function offlineDevice(request: OfflineDeviceRequest): OfflineDeviceRespon
 async function offlineDeviceEx(request: OfflineDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OfflineDeviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.offline', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyMqtokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 设备ID
+  deviceId: string(name='device_id'),
+}
+
+model ApplyMqtokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务端返回的Token值，用于阿里云 MQTT连接
+  token?: string(name='token'),
+  // 接入阿里云LMQ的所需的accessKey
+  accessKey?: string(name='access_key'),
+}
+
+/**
+ * Description: 申请MQTT token
+ * Summary: 申请MQTT token
+ */
+async function applyMqtoken(request: ApplyMqtokenRequest): ApplyMqtokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyMqtokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请MQTT token
+ * Summary: 申请MQTT token
+ */
+async function applyMqtokenEx(request: ApplyMqtokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyMqtokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备Id，由接入方提供，场景内唯一
+  deviceId: string(name='device_id'),
+  // 场景号
+  scene: string(name='scene'),
+  // 可信根派生公钥
+  devicePublicKey: string(name='device_public_key'),
+}
+
+model QueryDeviceRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询设备所注册的公钥是否正确
+ * Summary: 查询注册信息
+ */
+async function queryDeviceRegistration(request: QueryDeviceRegistrationRequest): QueryDeviceRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询设备所注册的公钥是否正确
+ * Summary: 查询注册信息
+ */
+async function queryDeviceRegistrationEx(request: QueryDeviceRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.registration.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddAbnormalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备Id，由接入方提供，场景内唯一 
+  deviceId: string(name='device_id'),
+  // 场景号
+  scene: string(name='scene'),
+  // 异常类型编码KEY_NOT_FOUND、DEVICE_ID_MISMATCH 等
+  abnormalCode: string(name='abnormal_code'),
+}
+
+model AddAbnormalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 设备异常上报
+ * Summary: 设备异常上报
+ */
+async function addAbnormal(request: AddAbnormalRequest): AddAbnormalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addAbnormalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备异常上报
+ * Summary: 设备异常上报
+ */
+async function addAbnormalEx(request: AddAbnormalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddAbnormalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.abnormal.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OnlineDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备链上ID
+  chainDeviceId: string(name='chain_device_id'),
+}
+
+model OnlineDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 设备下线后，可通过此接口重新上线
+ * Summary: 设置设备状态为上线
+ */
+async function onlineDevice(request: OnlineDeviceRequest): OnlineDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return onlineDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备下线后，可通过此接口重新上线
+ * Summary: 设置设备状态为上线
+ */
+async function onlineDeviceEx(request: OnlineDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OnlineDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.online', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OfflineDeviceByunregisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 通过链上设备ID注销设备
+  chainDeviceId: string(name='chain_device_id'),
+}
+
+model OfflineDeviceByunregisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 注销设备
+ * Summary: 注销设备
+ */
+async function offlineDeviceByunregister(request: OfflineDeviceByunregisterRequest): OfflineDeviceByunregisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return offlineDeviceByunregisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注销设备
+ * Summary: 注销设备
+ */
+async function offlineDeviceByunregisterEx(request: OfflineDeviceByunregisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OfflineDeviceByunregisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLabelTraceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 标签Id
+  labelId?: string(name='label_id'),
+  // 标签状态
+  labelStatus: string(name='label_status'),
+  // 资产Id
+  assetId?: string(name='asset_id'),
+  // 操作员
+  operator?: string(name='operator'),
+  // 标签拥有者
+  owner?: string(name='owner'),
+  // 标签所处流程
+  process?: string(name='process'),
+  // 标签操作
+  action?: string(name='action'),
+  // 操作时间
+  operateTime?: long(name='operate_time'),
+}
+
+model QueryLabelTraceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 标签流转历史
+  labelTraceList?: [ LabelTrace ](name='label_trace_list'),
+}
+
+/**
+ * Description: 标签状态查询
+ * Summary: 标签状态查询
+ */
+async function queryLabelTrace(request: QueryLabelTraceRequest): QueryLabelTraceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLabelTraceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签状态查询
+ * Summary: 标签状态查询
+ */
+async function queryLabelTraceEx(request: QueryLabelTraceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLabelTraceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.label.trace.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncLabelTransferRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 收集标签数据
+  collectLabelContentList: [ CollectLabelContent ](name='collect_label_content_list'),
+  // 业务号
+  nonce: string(name='nonce'),
+}
+
+model SyncLabelTransferResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链Id
+  chainId?: string(name='chain_id'),
+  // 上链时间
+  txTime?: string(name='tx_time'),
+  // 上链哈希
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 标签流转状态同步
+ * Summary: 标签流转状态同步
+ */
+async function syncLabelTransfer(request: SyncLabelTransferRequest): SyncLabelTransferResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncLabelTransferEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签流转状态同步
+ * Summary: 标签流转状态同步
+ */
+async function syncLabelTransferEx(request: SyncLabelTransferRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncLabelTransferResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddLabelAssetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 标签Id
+  labelId: string(name='label_id'),
+  // 资产Id
+  assetId: string(name='asset_id'),
+}
+
+model AddLabelAssetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 标签资产绑定
+ * Summary: 标签资产绑定
+ */
+async function addLabelAsset(request: AddLabelAssetRequest): AddLabelAssetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addLabelAssetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 标签资产绑定
+ * Summary: 标签资产绑定
+ */
+async function addLabelAssetEx(request: AddLabelAssetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddLabelAssetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.label.asset.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
