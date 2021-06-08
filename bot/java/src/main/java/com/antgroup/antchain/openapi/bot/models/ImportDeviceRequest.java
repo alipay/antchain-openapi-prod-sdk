@@ -88,6 +88,14 @@ public class ImportDeviceRequest extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
+    // 设备类型，需要提前约定好
+    @NameInMap("device_type_id")
+    public String deviceTypeId;
+
+    // 可信根派生公钥
+    @NameInMap("device_public_key")
+    public String devicePublicKey;
+
     public static ImportDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportDeviceRequest self = new ImportDeviceRequest();
         return TeaModel.build(map, self);
@@ -195,6 +203,22 @@ public class ImportDeviceRequest extends TeaModel {
     }
     public String getReleaseTime() {
         return this.releaseTime;
+    }
+
+    public ImportDeviceRequest setDeviceTypeId(String deviceTypeId) {
+        this.deviceTypeId = deviceTypeId;
+        return this;
+    }
+    public String getDeviceTypeId() {
+        return this.deviceTypeId;
+    }
+
+    public ImportDeviceRequest setDevicePublicKey(String devicePublicKey) {
+        this.devicePublicKey = devicePublicKey;
+        return this;
+    }
+    public String getDevicePublicKey() {
+        return this.devicePublicKey;
     }
 
 }

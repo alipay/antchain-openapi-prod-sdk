@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.16")
+                    new TeaPair("sdk_version", "1.5.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -176,6 +176,25 @@ public class Client {
     public QueryIotplatformPurchaseorderResponse queryIotplatformPurchaseorderEx(QueryIotplatformPurchaseorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplatform.purchaseorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotplatformPurchaseorderResponse());
+    }
+
+    /**
+     * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+     * Summary: 绑定MeshId及设备SN
+     */
+    public ImportIotplatformMeshidResponse importIotplatformMeshid(ImportIotplatformMeshidRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIotplatformMeshidEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+     * Summary: 绑定MeshId及设备SN
+     */
+    public ImportIotplatformMeshidResponse importIotplatformMeshidEx(ImportIotplatformMeshidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotplatform.meshid.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotplatformMeshidResponse());
     }
 
     /**
@@ -860,6 +879,158 @@ public class Client {
     public OfflineDeviceResponse offlineDeviceEx(OfflineDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.offline", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OfflineDeviceResponse());
+    }
+
+    /**
+     * Description: 申请MQTT token
+     * Summary: 申请MQTT token
+     */
+    public ApplyMqtokenResponse applyMqtoken(ApplyMqtokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyMqtokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 申请MQTT token
+     * Summary: 申请MQTT token
+     */
+    public ApplyMqtokenResponse applyMqtokenEx(ApplyMqtokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.mqtoken.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyMqtokenResponse());
+    }
+
+    /**
+     * Description: 查询设备所注册的公钥是否正确
+     * Summary: 查询注册信息
+     */
+    public QueryDeviceRegistrationResponse queryDeviceRegistration(QueryDeviceRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询设备所注册的公钥是否正确
+     * Summary: 查询注册信息
+     */
+    public QueryDeviceRegistrationResponse queryDeviceRegistrationEx(QueryDeviceRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.registration.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceRegistrationResponse());
+    }
+
+    /**
+     * Description: 设备异常上报
+     * Summary: 设备异常上报
+     */
+    public AddAbnormalResponse addAbnormal(AddAbnormalRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addAbnormalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备异常上报
+     * Summary: 设备异常上报
+     */
+    public AddAbnormalResponse addAbnormalEx(AddAbnormalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.abnormal.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddAbnormalResponse());
+    }
+
+    /**
+     * Description: 设备下线后，可通过此接口重新上线
+     * Summary: 设置设备状态为上线
+     */
+    public OnlineDeviceResponse onlineDevice(OnlineDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.onlineDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 设备下线后，可通过此接口重新上线
+     * Summary: 设置设备状态为上线
+     */
+    public OnlineDeviceResponse onlineDeviceEx(OnlineDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.online", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OnlineDeviceResponse());
+    }
+
+    /**
+     * Description: 注销设备
+     * Summary: 注销设备
+     */
+    public OfflineDeviceByunregisterResponse offlineDeviceByunregister(OfflineDeviceByunregisterRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.offlineDeviceByunregisterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注销设备
+     * Summary: 注销设备
+     */
+    public OfflineDeviceByunregisterResponse offlineDeviceByunregisterEx(OfflineDeviceByunregisterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.byunregister.offline", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OfflineDeviceByunregisterResponse());
+    }
+
+    /**
+     * Description: 标签状态查询
+     * Summary: 标签状态查询
+     */
+    public QueryLabelTraceResponse queryLabelTrace(QueryLabelTraceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLabelTraceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 标签状态查询
+     * Summary: 标签状态查询
+     */
+    public QueryLabelTraceResponse queryLabelTraceEx(QueryLabelTraceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.trace.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLabelTraceResponse());
+    }
+
+    /**
+     * Description: 标签流转状态同步
+     * Summary: 标签流转状态同步
+     */
+    public SyncLabelTransferResponse syncLabelTransfer(SyncLabelTransferRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncLabelTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 标签流转状态同步
+     * Summary: 标签流转状态同步
+     */
+    public SyncLabelTransferResponse syncLabelTransferEx(SyncLabelTransferRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.transfer.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncLabelTransferResponse());
+    }
+
+    /**
+     * Description: 标签资产绑定
+     * Summary: 标签资产绑定
+     */
+    public AddLabelAssetResponse addLabelAsset(AddLabelAssetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addLabelAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 标签资产绑定
+     * Summary: 标签资产绑定
+     */
+    public AddLabelAssetResponse addLabelAssetEx(AddLabelAssetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.label.asset.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddLabelAssetResponse());
     }
 
     /**
