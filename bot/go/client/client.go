@@ -757,6 +757,151 @@ func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 	return s
 }
 
+// 标签流转历史
+type LabelTrace struct {
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 租户
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	// 标签id
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty"`
+	// 标签状态
+	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty" require:"true"`
+	// 资产Id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 操作员
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 标签拥有者
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 标签所处流程
+	Process *string `json:"process,omitempty" xml:"process,omitempty"`
+	// 标签操作
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 操作时间
+	OperateTime *string `json:"operate_time,omitempty" xml:"operate_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 操作设备
+	OperateDevice *string `json:"operate_device,omitempty" xml:"operate_device,omitempty"`
+	// 操作内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 链上哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 上链时间
+	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
+	// 区块链高度
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 上链失败的错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 上链失败的错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 是否上链成功
+	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty"`
+}
+
+func (s LabelTrace) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelTrace) GoString() string {
+	return s.String()
+}
+
+func (s *LabelTrace) SetScene(v string) *LabelTrace {
+	s.Scene = &v
+	return s
+}
+
+func (s *LabelTrace) SetTenant(v string) *LabelTrace {
+	s.Tenant = &v
+	return s
+}
+
+func (s *LabelTrace) SetLabelId(v string) *LabelTrace {
+	s.LabelId = &v
+	return s
+}
+
+func (s *LabelTrace) SetLabelStatus(v string) *LabelTrace {
+	s.LabelStatus = &v
+	return s
+}
+
+func (s *LabelTrace) SetAssetId(v string) *LabelTrace {
+	s.AssetId = &v
+	return s
+}
+
+func (s *LabelTrace) SetOperator(v string) *LabelTrace {
+	s.Operator = &v
+	return s
+}
+
+func (s *LabelTrace) SetOwner(v string) *LabelTrace {
+	s.Owner = &v
+	return s
+}
+
+func (s *LabelTrace) SetProcess(v string) *LabelTrace {
+	s.Process = &v
+	return s
+}
+
+func (s *LabelTrace) SetAction(v string) *LabelTrace {
+	s.Action = &v
+	return s
+}
+
+func (s *LabelTrace) SetOperateTime(v string) *LabelTrace {
+	s.OperateTime = &v
+	return s
+}
+
+func (s *LabelTrace) SetOperateDevice(v string) *LabelTrace {
+	s.OperateDevice = &v
+	return s
+}
+
+func (s *LabelTrace) SetContent(v string) *LabelTrace {
+	s.Content = &v
+	return s
+}
+
+func (s *LabelTrace) SetTxHash(v string) *LabelTrace {
+	s.TxHash = &v
+	return s
+}
+
+func (s *LabelTrace) SetTxTime(v string) *LabelTrace {
+	s.TxTime = &v
+	return s
+}
+
+func (s *LabelTrace) SetBlockNumber(v int64) *LabelTrace {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *LabelTrace) SetRequestId(v string) *LabelTrace {
+	s.RequestId = &v
+	return s
+}
+
+func (s *LabelTrace) SetErrorCode(v string) *LabelTrace {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *LabelTrace) SetErrorMsg(v string) *LabelTrace {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *LabelTrace) SetIsSuccess(v bool) *LabelTrace {
+	s.IsSuccess = &v
+	return s
+}
+
 // 信物链实体查询返回的数据结构，对应数据表字段
 type DidBaseQueryResp struct {
 	// 授权水平，0-默认关联授权
@@ -1737,6 +1882,53 @@ func (s *Device) SetFactoryTime(v string) *Device {
 	return s
 }
 
+// 收集标签数据
+type CollectLabelContent struct {
+	// 链上设备ID
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 1.设备端上报数据内容
+	// 2.与设备上报的数据一致，服务端不可修改
+	// 3.解析后需与DataModel匹配
+	// 4.映射 Label 对象结构化存储
+	// 5.转为JSON后如果是JSONObject 映射单个 Label
+	// 6.转为JSON后如果是JSONArray 映射多个 Label
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// content的签名
+	// 与设备上报的签名保持一致，服务端不可修改
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 未经设备签名的附加数据JSON String
+	// 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+}
+
+func (s CollectLabelContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectLabelContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectLabelContent) SetChainDeviceId(v string) *CollectLabelContent {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetContent(v string) *CollectLabelContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetSignature(v string) *CollectLabelContent {
+	s.Signature = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
+	s.ExtraData = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1839,6 +2031,97 @@ func (s *QueryIotplatformPurchaseorderResponse) SetPurchaseOrderPrice(v string) 
 
 func (s *QueryIotplatformPurchaseorderResponse) SetGoodsName(v string) *QueryIotplatformPurchaseorderResponse {
 	s.GoodsName = &v
+	return s
+}
+
+type ImportIotplatformMeshidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户的金融云租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 客户的公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 设备按照MeshAgent后获取的MeshId
+	MeshId *string `json:"mesh_id,omitempty" xml:"mesh_id,omitempty" require:"true"`
+	// 客户自定义的业务上使用的设备标识，需要与租赁业务上使用的ID进行对应
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+}
+
+func (s ImportIotplatformMeshidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIotplatformMeshidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIotplatformMeshidRequest) SetAuthToken(v string) *ImportIotplatformMeshidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetProductInstanceId(v string) *ImportIotplatformMeshidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetTenantId(v string) *ImportIotplatformMeshidRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetCompanyName(v string) *ImportIotplatformMeshidRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetMeshId(v string) *ImportIotplatformMeshidRequest {
+	s.MeshId = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidRequest) SetDeviceSn(v string) *ImportIotplatformMeshidRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+type ImportIotplatformMeshidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 提交绑定时的SN号，用于确认
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+}
+
+func (s ImportIotplatformMeshidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIotplatformMeshidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIotplatformMeshidResponse) SetReqMsgId(v string) *ImportIotplatformMeshidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidResponse) SetResultCode(v string) *ImportIotplatformMeshidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidResponse) SetResultMsg(v string) *ImportIotplatformMeshidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportIotplatformMeshidResponse) SetDeviceSn(v string) *ImportIotplatformMeshidResponse {
+	s.DeviceSn = &v
 	return s
 }
 
@@ -2039,6 +2322,10 @@ type ImportDeviceRequest struct {
 	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 投放时间
 	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备类型，需要提前约定好
+	DeviceTypeId *string `json:"device_type_id,omitempty" xml:"device_type_id,omitempty"`
+	// 可信根派生公钥
+	DevicePublicKey *string `json:"device_public_key,omitempty" xml:"device_public_key,omitempty"`
 }
 
 func (s ImportDeviceRequest) String() string {
@@ -2111,6 +2398,16 @@ func (s *ImportDeviceRequest) SetFactoryTime(v string) *ImportDeviceRequest {
 
 func (s *ImportDeviceRequest) SetReleaseTime(v string) *ImportDeviceRequest {
 	s.ReleaseTime = &v
+	return s
+}
+
+func (s *ImportDeviceRequest) SetDeviceTypeId(v string) *ImportDeviceRequest {
+	s.DeviceTypeId = &v
+	return s
+}
+
+func (s *ImportDeviceRequest) SetDevicePublicKey(v string) *ImportDeviceRequest {
+	s.DevicePublicKey = &v
 	return s
 }
 
@@ -5217,6 +5514,664 @@ func (s *OfflineDeviceResponse) SetResultMsg(v string) *OfflineDeviceResponse {
 	return s
 }
 
+type ApplyMqtokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+}
+
+func (s ApplyMqtokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyMqtokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyMqtokenRequest) SetAuthToken(v string) *ApplyMqtokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyMqtokenRequest) SetProductInstanceId(v string) *ApplyMqtokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyMqtokenRequest) SetScene(v string) *ApplyMqtokenRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *ApplyMqtokenRequest) SetDeviceId(v string) *ApplyMqtokenRequest {
+	s.DeviceId = &v
+	return s
+}
+
+type ApplyMqtokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务端返回的Token值，用于阿里云 MQTT连接
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 接入阿里云LMQ的所需的accessKey
+	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+}
+
+func (s ApplyMqtokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyMqtokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyMqtokenResponse) SetReqMsgId(v string) *ApplyMqtokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetResultCode(v string) *ApplyMqtokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetResultMsg(v string) *ApplyMqtokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetToken(v string) *ApplyMqtokenResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetAccessKey(v string) *ApplyMqtokenResponse {
+	s.AccessKey = &v
+	return s
+}
+
+type QueryDeviceRegistrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备Id，由接入方提供，场景内唯一
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 场景号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 可信根派生公钥
+	DevicePublicKey *string `json:"device_public_key,omitempty" xml:"device_public_key,omitempty" require:"true"`
+}
+
+func (s QueryDeviceRegistrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceRegistrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceRegistrationRequest) SetAuthToken(v string) *QueryDeviceRegistrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationRequest) SetProductInstanceId(v string) *QueryDeviceRegistrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationRequest) SetDeviceId(v string) *QueryDeviceRegistrationRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationRequest) SetScene(v string) *QueryDeviceRegistrationRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationRequest) SetDevicePublicKey(v string) *QueryDeviceRegistrationRequest {
+	s.DevicePublicKey = &v
+	return s
+}
+
+type QueryDeviceRegistrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDeviceRegistrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceRegistrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceRegistrationResponse) SetReqMsgId(v string) *QueryDeviceRegistrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationResponse) SetResultCode(v string) *QueryDeviceRegistrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceRegistrationResponse) SetResultMsg(v string) *QueryDeviceRegistrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type AddAbnormalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备Id，由接入方提供，场景内唯一
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 场景号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 异常类型编码KEY_NOT_FOUND、DEVICE_ID_MISMATCH 等
+	AbnormalCode *string `json:"abnormal_code,omitempty" xml:"abnormal_code,omitempty" require:"true"`
+}
+
+func (s AddAbnormalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAbnormalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddAbnormalRequest) SetAuthToken(v string) *AddAbnormalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddAbnormalRequest) SetProductInstanceId(v string) *AddAbnormalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddAbnormalRequest) SetDeviceId(v string) *AddAbnormalRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *AddAbnormalRequest) SetScene(v string) *AddAbnormalRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *AddAbnormalRequest) SetAbnormalCode(v string) *AddAbnormalRequest {
+	s.AbnormalCode = &v
+	return s
+}
+
+type AddAbnormalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddAbnormalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAbnormalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddAbnormalResponse) SetReqMsgId(v string) *AddAbnormalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddAbnormalResponse) SetResultCode(v string) *AddAbnormalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddAbnormalResponse) SetResultMsg(v string) *AddAbnormalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type OnlineDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备链上ID
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+}
+
+func (s OnlineDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlineDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OnlineDeviceRequest) SetAuthToken(v string) *OnlineDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OnlineDeviceRequest) SetProductInstanceId(v string) *OnlineDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OnlineDeviceRequest) SetChainDeviceId(v string) *OnlineDeviceRequest {
+	s.ChainDeviceId = &v
+	return s
+}
+
+type OnlineDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OnlineDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlineDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OnlineDeviceResponse) SetReqMsgId(v string) *OnlineDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OnlineDeviceResponse) SetResultCode(v string) *OnlineDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OnlineDeviceResponse) SetResultMsg(v string) *OnlineDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type OfflineDeviceByunregisterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 通过链上设备ID注销设备
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+}
+
+func (s OfflineDeviceByunregisterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OfflineDeviceByunregisterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OfflineDeviceByunregisterRequest) SetAuthToken(v string) *OfflineDeviceByunregisterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OfflineDeviceByunregisterRequest) SetProductInstanceId(v string) *OfflineDeviceByunregisterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OfflineDeviceByunregisterRequest) SetChainDeviceId(v string) *OfflineDeviceByunregisterRequest {
+	s.ChainDeviceId = &v
+	return s
+}
+
+type OfflineDeviceByunregisterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s OfflineDeviceByunregisterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OfflineDeviceByunregisterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OfflineDeviceByunregisterResponse) SetReqMsgId(v string) *OfflineDeviceByunregisterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OfflineDeviceByunregisterResponse) SetResultCode(v string) *OfflineDeviceByunregisterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OfflineDeviceByunregisterResponse) SetResultMsg(v string) *OfflineDeviceByunregisterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryLabelTraceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 标签Id
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty"`
+	// 标签状态
+	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty" require:"true"`
+	// 资产Id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 操作员
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 标签拥有者
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 标签所处流程
+	Process *string `json:"process,omitempty" xml:"process,omitempty"`
+	// 标签操作
+	Action *string `json:"action,omitempty" xml:"action,omitempty"`
+	// 操作时间
+	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty"`
+}
+
+func (s QueryLabelTraceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLabelTraceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLabelTraceRequest) SetAuthToken(v string) *QueryLabelTraceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetProductInstanceId(v string) *QueryLabelTraceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetLabelId(v string) *QueryLabelTraceRequest {
+	s.LabelId = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetLabelStatus(v string) *QueryLabelTraceRequest {
+	s.LabelStatus = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetAssetId(v string) *QueryLabelTraceRequest {
+	s.AssetId = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetOperator(v string) *QueryLabelTraceRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetOwner(v string) *QueryLabelTraceRequest {
+	s.Owner = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetProcess(v string) *QueryLabelTraceRequest {
+	s.Process = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetAction(v string) *QueryLabelTraceRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetOperateTime(v int64) *QueryLabelTraceRequest {
+	s.OperateTime = &v
+	return s
+}
+
+type QueryLabelTraceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 标签流转历史
+	LabelTraceList []*LabelTrace `json:"label_trace_list,omitempty" xml:"label_trace_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryLabelTraceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLabelTraceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLabelTraceResponse) SetReqMsgId(v string) *QueryLabelTraceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLabelTraceResponse) SetResultCode(v string) *QueryLabelTraceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLabelTraceResponse) SetResultMsg(v string) *QueryLabelTraceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLabelTraceResponse) SetLabelTraceList(v []*LabelTrace) *QueryLabelTraceResponse {
+	s.LabelTraceList = v
+	return s
+}
+
+type SyncLabelTransferRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 收集标签数据
+	CollectLabelContentList []*CollectLabelContent `json:"collect_label_content_list,omitempty" xml:"collect_label_content_list,omitempty" require:"true" type:"Repeated"`
+	// 业务号
+	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+}
+
+func (s SyncLabelTransferRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLabelTransferRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLabelTransferRequest) SetAuthToken(v string) *SyncLabelTransferRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncLabelTransferRequest) SetProductInstanceId(v string) *SyncLabelTransferRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncLabelTransferRequest) SetScene(v string) *SyncLabelTransferRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SyncLabelTransferRequest) SetCollectLabelContentList(v []*CollectLabelContent) *SyncLabelTransferRequest {
+	s.CollectLabelContentList = v
+	return s
+}
+
+func (s *SyncLabelTransferRequest) SetNonce(v string) *SyncLabelTransferRequest {
+	s.Nonce = &v
+	return s
+}
+
+type SyncLabelTransferResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链Id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty"`
+	// 上链时间
+	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
+	// 上链哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s SyncLabelTransferResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncLabelTransferResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncLabelTransferResponse) SetReqMsgId(v string) *SyncLabelTransferResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncLabelTransferResponse) SetResultCode(v string) *SyncLabelTransferResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncLabelTransferResponse) SetResultMsg(v string) *SyncLabelTransferResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncLabelTransferResponse) SetChainId(v string) *SyncLabelTransferResponse {
+	s.ChainId = &v
+	return s
+}
+
+func (s *SyncLabelTransferResponse) SetTxTime(v string) *SyncLabelTransferResponse {
+	s.TxTime = &v
+	return s
+}
+
+func (s *SyncLabelTransferResponse) SetTxHash(v string) *SyncLabelTransferResponse {
+	s.TxHash = &v
+	return s
+}
+
+type AddLabelAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 标签Id
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
+	// 资产Id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+}
+
+func (s AddLabelAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddLabelAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddLabelAssetRequest) SetAuthToken(v string) *AddLabelAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddLabelAssetRequest) SetProductInstanceId(v string) *AddLabelAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddLabelAssetRequest) SetScene(v string) *AddLabelAssetRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *AddLabelAssetRequest) SetLabelId(v string) *AddLabelAssetRequest {
+	s.LabelId = &v
+	return s
+}
+
+func (s *AddLabelAssetRequest) SetAssetId(v string) *AddLabelAssetRequest {
+	s.AssetId = &v
+	return s
+}
+
+type AddLabelAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddLabelAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddLabelAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddLabelAssetResponse) SetReqMsgId(v string) *AddLabelAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddLabelAssetResponse) SetResultCode(v string) *AddLabelAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddLabelAssetResponse) SetResultMsg(v string) *AddLabelAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6671,7 +7626,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.16"),
+				"sdk_version":      tea.String("1.5.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -6746,6 +7701,40 @@ func (client *Client) QueryIotplatformPurchaseorderEx(request *QueryIotplatformP
 	}
 	_result = &QueryIotplatformPurchaseorderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplatform.purchaseorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+ * Summary: 绑定MeshId及设备SN
+ */
+func (client *Client) ImportIotplatformMeshid(request *ImportIotplatformMeshidRequest) (_result *ImportIotplatformMeshidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportIotplatformMeshidResponse{}
+	_body, _err := client.ImportIotplatformMeshidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+ * Summary: 绑定MeshId及设备SN
+ */
+func (client *Client) ImportIotplatformMeshidEx(request *ImportIotplatformMeshidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIotplatformMeshidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportIotplatformMeshidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotplatform.meshid.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -7970,6 +8959,278 @@ func (client *Client) OfflineDeviceEx(request *OfflineDeviceRequest, headers map
 	}
 	_result = &OfflineDeviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.offline"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 申请MQTT token
+ * Summary: 申请MQTT token
+ */
+func (client *Client) ApplyMqtoken(request *ApplyMqtokenRequest) (_result *ApplyMqtokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyMqtokenResponse{}
+	_body, _err := client.ApplyMqtokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 申请MQTT token
+ * Summary: 申请MQTT token
+ */
+func (client *Client) ApplyMqtokenEx(request *ApplyMqtokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyMqtokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyMqtokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.mqtoken.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询设备所注册的公钥是否正确
+ * Summary: 查询注册信息
+ */
+func (client *Client) QueryDeviceRegistration(request *QueryDeviceRegistrationRequest) (_result *QueryDeviceRegistrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceRegistrationResponse{}
+	_body, _err := client.QueryDeviceRegistrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询设备所注册的公钥是否正确
+ * Summary: 查询注册信息
+ */
+func (client *Client) QueryDeviceRegistrationEx(request *QueryDeviceRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceRegistrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceRegistrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.registration.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备异常上报
+ * Summary: 设备异常上报
+ */
+func (client *Client) AddAbnormal(request *AddAbnormalRequest) (_result *AddAbnormalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddAbnormalResponse{}
+	_body, _err := client.AddAbnormalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备异常上报
+ * Summary: 设备异常上报
+ */
+func (client *Client) AddAbnormalEx(request *AddAbnormalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddAbnormalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddAbnormalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.abnormal.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备下线后，可通过此接口重新上线
+ * Summary: 设置设备状态为上线
+ */
+func (client *Client) OnlineDevice(request *OnlineDeviceRequest) (_result *OnlineDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OnlineDeviceResponse{}
+	_body, _err := client.OnlineDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备下线后，可通过此接口重新上线
+ * Summary: 设置设备状态为上线
+ */
+func (client *Client) OnlineDeviceEx(request *OnlineDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OnlineDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OnlineDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.online"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 注销设备
+ * Summary: 注销设备
+ */
+func (client *Client) OfflineDeviceByunregister(request *OfflineDeviceByunregisterRequest) (_result *OfflineDeviceByunregisterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OfflineDeviceByunregisterResponse{}
+	_body, _err := client.OfflineDeviceByunregisterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 注销设备
+ * Summary: 注销设备
+ */
+func (client *Client) OfflineDeviceByunregisterEx(request *OfflineDeviceByunregisterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OfflineDeviceByunregisterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OfflineDeviceByunregisterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.byunregister.offline"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 标签状态查询
+ * Summary: 标签状态查询
+ */
+func (client *Client) QueryLabelTrace(request *QueryLabelTraceRequest) (_result *QueryLabelTraceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLabelTraceResponse{}
+	_body, _err := client.QueryLabelTraceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 标签状态查询
+ * Summary: 标签状态查询
+ */
+func (client *Client) QueryLabelTraceEx(request *QueryLabelTraceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLabelTraceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLabelTraceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.trace.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 标签流转状态同步
+ * Summary: 标签流转状态同步
+ */
+func (client *Client) SyncLabelTransfer(request *SyncLabelTransferRequest) (_result *SyncLabelTransferResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncLabelTransferResponse{}
+	_body, _err := client.SyncLabelTransferEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 标签流转状态同步
+ * Summary: 标签流转状态同步
+ */
+func (client *Client) SyncLabelTransferEx(request *SyncLabelTransferRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncLabelTransferResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncLabelTransferResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.transfer.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 标签资产绑定
+ * Summary: 标签资产绑定
+ */
+func (client *Client) AddLabelAsset(request *AddLabelAssetRequest) (_result *AddLabelAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddLabelAssetResponse{}
+	_body, _err := client.AddLabelAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 标签资产绑定
+ * Summary: 标签资产绑定
+ */
+func (client *Client) AddLabelAssetEx(request *AddLabelAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddLabelAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddLabelAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.asset.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
