@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.16'
+                    'sdk_version': '1.5.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.16'
+                    'sdk_version': '1.5.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -323,6 +323,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.QueryIotplatformPurchaseorderResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_iotplatform_meshid(
+        self,
+        request: bot_models.ImportIotplatformMeshidRequest,
+    ) -> bot_models.ImportIotplatformMeshidResponse:
+        """
+        Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+        Summary: 绑定MeshId及设备SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_iotplatform_meshid_ex(request, headers, runtime)
+
+    async def import_iotplatform_meshid_async(
+        self,
+        request: bot_models.ImportIotplatformMeshidRequest,
+    ) -> bot_models.ImportIotplatformMeshidResponse:
+        """
+        Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+        Summary: 绑定MeshId及设备SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_iotplatform_meshid_ex_async(request, headers, runtime)
+
+    def import_iotplatform_meshid_ex(
+        self,
+        request: bot_models.ImportIotplatformMeshidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotplatformMeshidResponse:
+        """
+        Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+        Summary: 绑定MeshId及设备SN
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ImportIotplatformMeshidResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_iotplatform_meshid_ex_async(
+        self,
+        request: bot_models.ImportIotplatformMeshidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotplatformMeshidResponse:
+        """
+        Description: 设备租赁业务中在PC设备出厂时进行MeshId及SN号的关联绑定
+        Summary: 绑定MeshId及设备SN
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ImportIotplatformMeshidResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_device_datamodel(
@@ -2267,6 +2321,438 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.OfflineDeviceResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.device.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_mqtoken(
+        self,
+        request: bot_models.ApplyMqtokenRequest,
+    ) -> bot_models.ApplyMqtokenResponse:
+        """
+        Description: 申请MQTT token
+        Summary: 申请MQTT token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_mqtoken_ex(request, headers, runtime)
+
+    async def apply_mqtoken_async(
+        self,
+        request: bot_models.ApplyMqtokenRequest,
+    ) -> bot_models.ApplyMqtokenResponse:
+        """
+        Description: 申请MQTT token
+        Summary: 申请MQTT token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_mqtoken_ex_async(request, headers, runtime)
+
+    def apply_mqtoken_ex(
+        self,
+        request: bot_models.ApplyMqtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyMqtokenResponse:
+        """
+        Description: 申请MQTT token
+        Summary: 申请MQTT token
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ApplyMqtokenResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_mqtoken_ex_async(
+        self,
+        request: bot_models.ApplyMqtokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ApplyMqtokenResponse:
+        """
+        Description: 申请MQTT token
+        Summary: 申请MQTT token
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ApplyMqtokenResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_device_registration(
+        self,
+        request: bot_models.QueryDeviceRegistrationRequest,
+    ) -> bot_models.QueryDeviceRegistrationResponse:
+        """
+        Description: 查询设备所注册的公钥是否正确
+        Summary: 查询注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_device_registration_ex(request, headers, runtime)
+
+    async def query_device_registration_async(
+        self,
+        request: bot_models.QueryDeviceRegistrationRequest,
+    ) -> bot_models.QueryDeviceRegistrationResponse:
+        """
+        Description: 查询设备所注册的公钥是否正确
+        Summary: 查询注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_device_registration_ex_async(request, headers, runtime)
+
+    def query_device_registration_ex(
+        self,
+        request: bot_models.QueryDeviceRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceRegistrationResponse:
+        """
+        Description: 查询设备所注册的公钥是否正确
+        Summary: 查询注册信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDeviceRegistrationResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.device.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_device_registration_ex_async(
+        self,
+        request: bot_models.QueryDeviceRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceRegistrationResponse:
+        """
+        Description: 查询设备所注册的公钥是否正确
+        Summary: 查询注册信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDeviceRegistrationResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.device.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_abnormal(
+        self,
+        request: bot_models.AddAbnormalRequest,
+    ) -> bot_models.AddAbnormalResponse:
+        """
+        Description: 设备异常上报
+        Summary: 设备异常上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_abnormal_ex(request, headers, runtime)
+
+    async def add_abnormal_async(
+        self,
+        request: bot_models.AddAbnormalRequest,
+    ) -> bot_models.AddAbnormalResponse:
+        """
+        Description: 设备异常上报
+        Summary: 设备异常上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_abnormal_ex_async(request, headers, runtime)
+
+    def add_abnormal_ex(
+        self,
+        request: bot_models.AddAbnormalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddAbnormalResponse:
+        """
+        Description: 设备异常上报
+        Summary: 设备异常上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddAbnormalResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.abnormal.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_abnormal_ex_async(
+        self,
+        request: bot_models.AddAbnormalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddAbnormalResponse:
+        """
+        Description: 设备异常上报
+        Summary: 设备异常上报
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddAbnormalResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.abnormal.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def online_device(
+        self,
+        request: bot_models.OnlineDeviceRequest,
+    ) -> bot_models.OnlineDeviceResponse:
+        """
+        Description: 设备下线后，可通过此接口重新上线
+        Summary: 设置设备状态为上线
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.online_device_ex(request, headers, runtime)
+
+    async def online_device_async(
+        self,
+        request: bot_models.OnlineDeviceRequest,
+    ) -> bot_models.OnlineDeviceResponse:
+        """
+        Description: 设备下线后，可通过此接口重新上线
+        Summary: 设置设备状态为上线
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.online_device_ex_async(request, headers, runtime)
+
+    def online_device_ex(
+        self,
+        request: bot_models.OnlineDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OnlineDeviceResponse:
+        """
+        Description: 设备下线后，可通过此接口重新上线
+        Summary: 设置设备状态为上线
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OnlineDeviceResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.device.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def online_device_ex_async(
+        self,
+        request: bot_models.OnlineDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OnlineDeviceResponse:
+        """
+        Description: 设备下线后，可通过此接口重新上线
+        Summary: 设置设备状态为上线
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OnlineDeviceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.device.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def offline_device_byunregister(
+        self,
+        request: bot_models.OfflineDeviceByunregisterRequest,
+    ) -> bot_models.OfflineDeviceByunregisterResponse:
+        """
+        Description: 注销设备
+        Summary: 注销设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.offline_device_byunregister_ex(request, headers, runtime)
+
+    async def offline_device_byunregister_async(
+        self,
+        request: bot_models.OfflineDeviceByunregisterRequest,
+    ) -> bot_models.OfflineDeviceByunregisterResponse:
+        """
+        Description: 注销设备
+        Summary: 注销设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.offline_device_byunregister_ex_async(request, headers, runtime)
+
+    def offline_device_byunregister_ex(
+        self,
+        request: bot_models.OfflineDeviceByunregisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OfflineDeviceByunregisterResponse:
+        """
+        Description: 注销设备
+        Summary: 注销设备
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OfflineDeviceByunregisterResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def offline_device_byunregister_ex_async(
+        self,
+        request: bot_models.OfflineDeviceByunregisterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OfflineDeviceByunregisterResponse:
+        """
+        Description: 注销设备
+        Summary: 注销设备
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OfflineDeviceByunregisterResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_label_trace(
+        self,
+        request: bot_models.QueryLabelTraceRequest,
+    ) -> bot_models.QueryLabelTraceResponse:
+        """
+        Description: 标签状态查询
+        Summary: 标签状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_label_trace_ex(request, headers, runtime)
+
+    async def query_label_trace_async(
+        self,
+        request: bot_models.QueryLabelTraceRequest,
+    ) -> bot_models.QueryLabelTraceResponse:
+        """
+        Description: 标签状态查询
+        Summary: 标签状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_label_trace_ex_async(request, headers, runtime)
+
+    def query_label_trace_ex(
+        self,
+        request: bot_models.QueryLabelTraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLabelTraceResponse:
+        """
+        Description: 标签状态查询
+        Summary: 标签状态查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLabelTraceResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.trace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_label_trace_ex_async(
+        self,
+        request: bot_models.QueryLabelTraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryLabelTraceResponse:
+        """
+        Description: 标签状态查询
+        Summary: 标签状态查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryLabelTraceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.trace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_label_transfer(
+        self,
+        request: bot_models.SyncLabelTransferRequest,
+    ) -> bot_models.SyncLabelTransferResponse:
+        """
+        Description: 标签流转状态同步
+        Summary: 标签流转状态同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_label_transfer_ex(request, headers, runtime)
+
+    async def sync_label_transfer_async(
+        self,
+        request: bot_models.SyncLabelTransferRequest,
+    ) -> bot_models.SyncLabelTransferResponse:
+        """
+        Description: 标签流转状态同步
+        Summary: 标签流转状态同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_label_transfer_ex_async(request, headers, runtime)
+
+    def sync_label_transfer_ex(
+        self,
+        request: bot_models.SyncLabelTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncLabelTransferResponse:
+        """
+        Description: 标签流转状态同步
+        Summary: 标签流转状态同步
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SyncLabelTransferResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_label_transfer_ex_async(
+        self,
+        request: bot_models.SyncLabelTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncLabelTransferResponse:
+        """
+        Description: 标签流转状态同步
+        Summary: 标签流转状态同步
+        """
+        UtilClient.validate_model(request)
+        return bot_models.SyncLabelTransferResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_label_asset(
+        self,
+        request: bot_models.AddLabelAssetRequest,
+    ) -> bot_models.AddLabelAssetResponse:
+        """
+        Description: 标签资产绑定
+        Summary: 标签资产绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_label_asset_ex(request, headers, runtime)
+
+    async def add_label_asset_async(
+        self,
+        request: bot_models.AddLabelAssetRequest,
+    ) -> bot_models.AddLabelAssetResponse:
+        """
+        Description: 标签资产绑定
+        Summary: 标签资产绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_label_asset_ex_async(request, headers, runtime)
+
+    def add_label_asset_ex(
+        self,
+        request: bot_models.AddLabelAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddLabelAssetResponse:
+        """
+        Description: 标签资产绑定
+        Summary: 标签资产绑定
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddLabelAssetResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_label_asset_ex_async(
+        self,
+        request: bot_models.AddLabelAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddLabelAssetResponse:
+        """
+        Description: 标签资产绑定
+        Summary: 标签资产绑定
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddLabelAssetResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
