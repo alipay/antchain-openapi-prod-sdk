@@ -19,7 +19,10 @@ class ApplyInsuranceInventoryRequest extends Model
      */
     public $productInstanceId;
 
-    // 库存申报交易号，调用方生成的唯一编码
+    // 库存申报交易号，调用方生成的唯一编码；
+    // 格式为 yyyyMMdd_身份标识_其他编码。
+    // 系统会根据该流水号做防重、幂等判断逻辑。
+    // 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
     /**
      * @var string
      */

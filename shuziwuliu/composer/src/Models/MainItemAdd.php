@@ -8,17 +8,17 @@ use AlibabaCloud\Tea\Model;
 
 class MainItemAdd extends Model
 {
-    // 附加条款代码
+    // 附加条款代码-参考保司提供样例
     /**
-     * @example 暂无
+     * @example
      *
      * @var string
      */
     public $mainItemAddCode;
 
-    // 附加条款内容
+    // 附加条款内容-参考保司提供样例
     /**
-     * @example 暂无
+     * @example
      *
      * @var string
      */

@@ -42,6 +42,12 @@ class PushPfPledgeRequest extends Model
      * @var string
      */
     public $requestNo;
+
+    // 质押发票号码列表
+    /**
+     * @var string[]
+     */
+    public $invoiceNos;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -49,6 +55,7 @@ class PushPfPledgeRequest extends Model
         'billId'              => 'bill_id',
         'financingSubjectDid' => 'financing_subject_did',
         'requestNo'           => 'request_no',
+        'invoiceNos'          => 'invoice_nos',
     ];
 
     public function validate()
@@ -87,6 +94,9 @@ class PushPfPledgeRequest extends Model
         if (null !== $this->requestNo) {
             $res['request_no'] = $this->requestNo;
         }
+        if (null !== $this->invoiceNos) {
+            $res['invoice_nos'] = $this->invoiceNos;
+        }
 
         return $res;
     }
@@ -116,6 +126,11 @@ class PushPfPledgeRequest extends Model
         }
         if (isset($map['request_no'])) {
             $model->requestNo = $map['request_no'];
+        }
+        if (isset($map['invoice_nos'])) {
+            if (!empty($map['invoice_nos'])) {
+                $model->invoiceNos = $map['invoice_nos'];
+            }
         }
 
         return $model;

@@ -424,7 +424,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 集装箱信息
+            // 创建凭证One
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -452,7 +452,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.106',
+                    'sdk_version'      => '1.3.107',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -532,8 +532,8 @@ class Client
     }
 
     /**
-     * Description: 凭证发行
-     * Summary: 凭证发行.
+     * Description: 创建凭证
+     * Summary: 创建凭证
      *
      * @param CreateStandardVoucherRequest $request
      *
@@ -548,8 +548,8 @@ class Client
     }
 
     /**
-     * Description: 凭证发行
-     * Summary: 凭证发行.
+     * Description: 创建凭证
+     * Summary: 创建凭证
      *
      * @param CreateStandardVoucherRequest $request
      * @param string[]                     $headers

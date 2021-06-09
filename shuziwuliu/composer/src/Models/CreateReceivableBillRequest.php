@@ -27,7 +27,7 @@ class CreateReceivableBillRequest extends Model
 
     // 的撒
     /**
-     * @var ApiTest
+     * @var string
      */
     public $status;
     protected $_name = [
@@ -55,7 +55,7 @@ class CreateReceivableBillRequest extends Model
             $res['test'] = null !== $this->test ? $this->test->toMap() : null;
         }
         if (null !== $this->status) {
-            $res['status'] = null !== $this->status ? $this->status->toMap() : null;
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -79,7 +79,7 @@ class CreateReceivableBillRequest extends Model
             $model->test = AuthParty::fromMap($map['test']);
         }
         if (isset($map['status'])) {
-            $model->status = ApiTest::fromMap($map['status']);
+            $model->status = $map['status'];
         }
 
         return $model;

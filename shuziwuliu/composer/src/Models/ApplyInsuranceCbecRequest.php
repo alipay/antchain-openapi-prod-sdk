@@ -19,7 +19,9 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $productInstanceId;
 
-    // 投保交易号，调用方生成的唯一编码
+    // 投保交易号，调用方生成的唯一编码；
+    // 格式为 yyyyMMdd_身份标识_其他编码。
+    // 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
     /**
      * @var string
      */
@@ -37,7 +39,7 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $externalProductCode;
 
-    // 投保人姓名
+    // 投保人名称
     /**
      * @var string
      */
@@ -55,7 +57,7 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $tbrIdNo;
 
-    // 被保人姓名
+    // 被保人名称
     /**
      * @var string
      */
@@ -97,7 +99,7 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $packingCode;
 
-    // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+    // 货物类型代码,参考保司提供样例-货物类型代码
     /**
      * @var string
      */
@@ -151,13 +153,13 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $claimAgentCode;
 
-    // 主险条款代码
+    // 主险条款代码--参考保司提供样例
     /**
      * @var string
      */
     public $mainItemCode;
 
-    // 主险条款内容
+    // 主险条款内容--参考保司提供样例
     /**
      * @var string
      */
@@ -169,7 +171,7 @@ class ApplyInsuranceCbecRequest extends Model
      */
     public $mainItemAdds;
 
-    // 特别约定
+    // 特别约定--填写协议中的特别约定
     /**
      * @var string
      */

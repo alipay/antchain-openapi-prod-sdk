@@ -26,21 +26,37 @@ class CreateStandardVoucherResponse extends Model
      */
     public $resultMsg;
 
+    // 凭证返回值_voucherResp
+    /**
+     * @var VoucherResp
+     */
+    public $voucherResp;
+
     // 编码
     /**
      * @var string
      */
     public $code;
+
+    // 凭证返回值_voucherRespList
+    /**
+     * @var VoucherResp[]
+     */
+    public $voucherRespList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'code'       => 'code',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'voucherResp'     => 'voucher_resp',
+        'code'            => 'code',
+        'voucherRespList' => 'voucher_resp_list',
     ];
 
     public function validate()
     {
+        Model::validateRequired('voucherResp', $this->voucherResp, true);
         Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('voucherRespList', $this->voucherRespList, true);
     }
 
     public function toMap()
@@ -55,8 +71,20 @@ class CreateStandardVoucherResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->voucherResp) {
+            $res['voucher_resp'] = null !== $this->voucherResp ? $this->voucherResp->toMap() : null;
+        }
         if (null !== $this->code) {
             $res['code'] = $this->code;
+        }
+        if (null !== $this->voucherRespList) {
+            $res['voucher_resp_list'] = [];
+            if (null !== $this->voucherRespList && \is_array($this->voucherRespList)) {
+                $n = 0;
+                foreach ($this->voucherRespList as $item) {
+                    $res['voucher_resp_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -79,8 +107,20 @@ class CreateStandardVoucherResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['voucher_resp'])) {
+            $model->voucherResp = VoucherResp::fromMap($map['voucher_resp']);
+        }
         if (isset($map['code'])) {
             $model->code = $map['code'];
+        }
+        if (isset($map['voucher_resp_list'])) {
+            if (!empty($map['voucher_resp_list'])) {
+                $model->voucherRespList = [];
+                $n                      = 0;
+                foreach ($map['voucher_resp_list'] as $item) {
+                    $model->voucherRespList[$n++] = null !== $item ? VoucherResp::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
