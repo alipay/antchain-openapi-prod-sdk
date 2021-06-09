@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.106")
+                    new TeaPair("sdk_version", "1.3.107")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -179,8 +179,8 @@ public class Client {
     }
 
     /**
-     * Description: 凭证发行
-     * Summary: 凭证发行
+     * Description: 创建凭证
+     * Summary: 创建凭证
      */
     public CreateStandardVoucherResponse createStandardVoucher(CreateStandardVoucherRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -189,8 +189,8 @@ public class Client {
     }
 
     /**
-     * Description: 凭证发行
-     * Summary: 凭证发行
+     * Description: 创建凭证
+     * Summary: 创建凭证
      */
     public CreateStandardVoucherResponse createStandardVoucherEx(CreateStandardVoucherRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

@@ -16,10 +16,20 @@ public class CreateStandardVoucherResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 凭证返回值_voucherResp
+    @NameInMap("voucher_resp")
+    @Validation(required = true)
+    public VoucherResp voucherResp;
+
     // 编码
     @NameInMap("code")
     @Validation(required = true)
     public String code;
+
+    // 凭证返回值_voucherRespList
+    @NameInMap("voucher_resp_list")
+    @Validation(required = true)
+    public java.util.List<VoucherResp> voucherRespList;
 
     public static CreateStandardVoucherResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateStandardVoucherResponse self = new CreateStandardVoucherResponse();
@@ -50,12 +60,28 @@ public class CreateStandardVoucherResponse extends TeaModel {
         return this.resultMsg;
     }
 
+    public CreateStandardVoucherResponse setVoucherResp(VoucherResp voucherResp) {
+        this.voucherResp = voucherResp;
+        return this;
+    }
+    public VoucherResp getVoucherResp() {
+        return this.voucherResp;
+    }
+
     public CreateStandardVoucherResponse setCode(String code) {
         this.code = code;
         return this;
     }
     public String getCode() {
         return this.code;
+    }
+
+    public CreateStandardVoucherResponse setVoucherRespList(java.util.List<VoucherResp> voucherRespList) {
+        this.voucherRespList = voucherRespList;
+        return this;
+    }
+    public java.util.List<VoucherResp> getVoucherRespList() {
+        return this.voucherRespList;
     }
 
 }

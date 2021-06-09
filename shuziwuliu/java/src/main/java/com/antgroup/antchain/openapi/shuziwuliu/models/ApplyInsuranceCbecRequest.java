@@ -11,7 +11,9 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 投保交易号，调用方生成的唯一编码
+    // 投保交易号，调用方生成的唯一编码；
+    // 格式为 yyyyMMdd_身份标识_其他编码。
+    // 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
     @NameInMap("trade_no")
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
@@ -26,7 +28,7 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @Validation(required = true, maxLength = 64)
     public String externalProductCode;
 
-    // 投保人姓名
+    // 投保人名称
     @NameInMap("tbr_name")
     @Validation(required = true, maxLength = 100)
     public String tbrName;
@@ -41,7 +43,7 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @Validation(maxLength = 800)
     public String tbrIdNo;
 
-    // 被保人姓名
+    // 被保人名称
     @NameInMap("bbr_name")
     @Validation(required = true, maxLength = 100)
     public String bbrName;
@@ -76,7 +78,7 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @Validation(required = true, maxLength = 2)
     public String packingCode;
 
-    // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+    // 货物类型代码,参考保司提供样例-货物类型代码
     @NameInMap("cargo_type_code")
     @Validation(required = true, maxLength = 4)
     public String cargoTypeCode;
@@ -121,12 +123,12 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @Validation(required = true, maxLength = 30)
     public String claimAgentCode;
 
-    // 主险条款代码
+    // 主险条款代码--参考保司提供样例
     @NameInMap("main_item_code")
     @Validation(required = true, maxLength = 12)
     public String mainItemCode;
 
-    // 主险条款内容
+    // 主险条款内容--参考保司提供样例
     @NameInMap("main_item_content")
     @Validation(required = true, maxLength = 500)
     public String mainItemContent;
@@ -135,7 +137,7 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
     @NameInMap("main_item_adds")
     public java.util.List<MainItemAdd> mainItemAdds;
 
-    // 特别约定
+    // 特别约定--填写协议中的特别约定
     @NameInMap("specialize")
     @Validation(maxLength = 500)
     public String specialize;

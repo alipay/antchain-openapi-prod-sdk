@@ -31,6 +31,10 @@ public class PushPfPledgeRequest extends TeaModel {
     @Validation(required = true, maxLength = 32, minLength = 16)
     public String requestNo;
 
+    // 质押发票号码列表
+    @NameInMap("invoice_nos")
+    public java.util.List<String> invoiceNos;
+
     public static PushPfPledgeRequest build(java.util.Map<String, ?> map) throws Exception {
         PushPfPledgeRequest self = new PushPfPledgeRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class PushPfPledgeRequest extends TeaModel {
     }
     public String getRequestNo() {
         return this.requestNo;
+    }
+
+    public PushPfPledgeRequest setInvoiceNos(java.util.List<String> invoiceNos) {
+        this.invoiceNos = invoiceNos;
+        return this;
+    }
+    public java.util.List<String> getInvoiceNos() {
+        return this.invoiceNos;
     }
 
 }

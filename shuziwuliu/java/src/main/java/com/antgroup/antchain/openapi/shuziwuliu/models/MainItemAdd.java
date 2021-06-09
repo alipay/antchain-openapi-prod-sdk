@@ -4,11 +4,11 @@ package com.antgroup.antchain.openapi.shuziwuliu.models;
 import com.aliyun.tea.*;
 
 public class MainItemAdd extends TeaModel {
-    // 附加条款代码
+    // 附加条款代码-参考保司提供样例
     @NameInMap("main_item_add_code")
     public String mainItemAddCode;
 
-    // 附加条款内容
+    // 附加条款内容-参考保司提供样例
     @NameInMap("main_item_add_content")
     public String mainItemAddContent;
 

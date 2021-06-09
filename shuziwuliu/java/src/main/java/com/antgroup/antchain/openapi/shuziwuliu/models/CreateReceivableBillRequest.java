@@ -18,7 +18,7 @@ public class CreateReceivableBillRequest extends TeaModel {
     // 的撒
     @NameInMap("status")
     @Validation(required = true)
-    public ApiTest status;
+    public String status;
 
     public static CreateReceivableBillRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateReceivableBillRequest self = new CreateReceivableBillRequest();
@@ -49,11 +49,11 @@ public class CreateReceivableBillRequest extends TeaModel {
         return this.test;
     }
 
-    public CreateReceivableBillRequest setStatus(ApiTest status) {
+    public CreateReceivableBillRequest setStatus(String status) {
         this.status = status;
         return this;
     }
-    public ApiTest getStatus() {
+    public String getStatus() {
         return this.status;
     }
 

@@ -11,55 +11,50 @@ public class CreateStandardVoucherRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 账户是否存在
+    @NameInMap("exist")
+    @Validation(required = true)
+    public Boolean exist;
+
+    // 签署方
+    @NameInMap("voucher_test_one")
+    @Validation(required = true)
+    public VoucherTestTwo voucherTestOne;
+
     // 数据标识
     @NameInMap("business_code")
     @Validation(required = true, maxLength = 10)
     public String businessCode;
 
-    // 资产类型
-    @NameInMap("asset_type")
-    @Validation(required = true, maxLength = 10)
-    public String assetType;
-
-    // 发行金额_Integer
-    @NameInMap("amount_int")
-    @Validation(required = true, maximum = 10)
-    public Long amountInt;
-
-    // 发行金额_Long
-    @NameInMap("amount_long")
-    @Validation(required = true, maximum = 10)
-    public Long amountLong;
-
-    // 账户是否存在
-    @NameInMap("exist")
+    // 凭证列表_apiTestList
+    @NameInMap("voucher_test_three")
     @Validation(required = true)
-    public Boolean exist;
+    public java.util.List<VoucherTestTwo> voucherTestThree;
 
     // 发行时间
     @NameInMap("issue_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String issueTime;
 
-    // 签署方
-    @NameInMap("api_test")
-    @Validation(required = true)
-    public ApiTest apiTest;
-
-    // 凭证列表_voucherArray
-    @NameInMap("voucher_array")
-    @Validation(required = true)
-    public java.util.List<Long> voucherArray;
-
     // 凭证列表_voucherList
     @NameInMap("voucher_list")
     @Validation(required = true)
     public java.util.List<String> voucherList;
 
-    // 凭证列表_apiTestList
-    @NameInMap("api_test_list")
+    // 发行金额_Long
+    @NameInMap("amount_long")
+    @Validation(required = true, maximum = 10)
+    public Long amountLong;
+
+    // 发行金额_Integer
+    @NameInMap("amount_int")
+    @Validation(required = true, maximum = 10)
+    public Long amountInt;
+
+    // 签署方
+    @NameInMap("voucher_test_two")
     @Validation(required = true)
-    public java.util.List<ApiTest> apiTestList;
+    public VoucherTestTwo voucherTestTwo;
 
     // 凭证列表_booleanList
     @NameInMap("boolean_list")
@@ -70,6 +65,11 @@ public class CreateStandardVoucherRequest extends TeaModel {
     @NameInMap("date_list")
     @Validation(required = true)
     public java.util.List<String> dateList;
+
+    // 资产类型
+    @NameInMap("asset_type")
+    @Validation(required = true, maxLength = 10)
+    public String assetType;
 
     public static CreateStandardVoucherRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateStandardVoucherRequest self = new CreateStandardVoucherRequest();
@@ -92,6 +92,22 @@ public class CreateStandardVoucherRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public CreateStandardVoucherRequest setExist(Boolean exist) {
+        this.exist = exist;
+        return this;
+    }
+    public Boolean getExist() {
+        return this.exist;
+    }
+
+    public CreateStandardVoucherRequest setVoucherTestOne(VoucherTestTwo voucherTestOne) {
+        this.voucherTestOne = voucherTestOne;
+        return this;
+    }
+    public VoucherTestTwo getVoucherTestOne() {
+        return this.voucherTestOne;
+    }
+
     public CreateStandardVoucherRequest setBusinessCode(String businessCode) {
         this.businessCode = businessCode;
         return this;
@@ -100,36 +116,12 @@ public class CreateStandardVoucherRequest extends TeaModel {
         return this.businessCode;
     }
 
-    public CreateStandardVoucherRequest setAssetType(String assetType) {
-        this.assetType = assetType;
+    public CreateStandardVoucherRequest setVoucherTestThree(java.util.List<VoucherTestTwo> voucherTestThree) {
+        this.voucherTestThree = voucherTestThree;
         return this;
     }
-    public String getAssetType() {
-        return this.assetType;
-    }
-
-    public CreateStandardVoucherRequest setAmountInt(Long amountInt) {
-        this.amountInt = amountInt;
-        return this;
-    }
-    public Long getAmountInt() {
-        return this.amountInt;
-    }
-
-    public CreateStandardVoucherRequest setAmountLong(Long amountLong) {
-        this.amountLong = amountLong;
-        return this;
-    }
-    public Long getAmountLong() {
-        return this.amountLong;
-    }
-
-    public CreateStandardVoucherRequest setExist(Boolean exist) {
-        this.exist = exist;
-        return this;
-    }
-    public Boolean getExist() {
-        return this.exist;
+    public java.util.List<VoucherTestTwo> getVoucherTestThree() {
+        return this.voucherTestThree;
     }
 
     public CreateStandardVoucherRequest setIssueTime(String issueTime) {
@@ -140,22 +132,6 @@ public class CreateStandardVoucherRequest extends TeaModel {
         return this.issueTime;
     }
 
-    public CreateStandardVoucherRequest setApiTest(ApiTest apiTest) {
-        this.apiTest = apiTest;
-        return this;
-    }
-    public ApiTest getApiTest() {
-        return this.apiTest;
-    }
-
-    public CreateStandardVoucherRequest setVoucherArray(java.util.List<Long> voucherArray) {
-        this.voucherArray = voucherArray;
-        return this;
-    }
-    public java.util.List<Long> getVoucherArray() {
-        return this.voucherArray;
-    }
-
     public CreateStandardVoucherRequest setVoucherList(java.util.List<String> voucherList) {
         this.voucherList = voucherList;
         return this;
@@ -164,12 +140,28 @@ public class CreateStandardVoucherRequest extends TeaModel {
         return this.voucherList;
     }
 
-    public CreateStandardVoucherRequest setApiTestList(java.util.List<ApiTest> apiTestList) {
-        this.apiTestList = apiTestList;
+    public CreateStandardVoucherRequest setAmountLong(Long amountLong) {
+        this.amountLong = amountLong;
         return this;
     }
-    public java.util.List<ApiTest> getApiTestList() {
-        return this.apiTestList;
+    public Long getAmountLong() {
+        return this.amountLong;
+    }
+
+    public CreateStandardVoucherRequest setAmountInt(Long amountInt) {
+        this.amountInt = amountInt;
+        return this;
+    }
+    public Long getAmountInt() {
+        return this.amountInt;
+    }
+
+    public CreateStandardVoucherRequest setVoucherTestTwo(VoucherTestTwo voucherTestTwo) {
+        this.voucherTestTwo = voucherTestTwo;
+        return this;
+    }
+    public VoucherTestTwo getVoucherTestTwo() {
+        return this.voucherTestTwo;
     }
 
     public CreateStandardVoucherRequest setBooleanList(java.util.List<Boolean> booleanList) {
@@ -186,6 +178,14 @@ public class CreateStandardVoucherRequest extends TeaModel {
     }
     public java.util.List<String> getDateList() {
         return this.dateList;
+    }
+
+    public CreateStandardVoucherRequest setAssetType(String assetType) {
+        this.assetType = assetType;
+        return this;
+    }
+    public String getAssetType() {
+        return this.assetType;
     }
 
 }
