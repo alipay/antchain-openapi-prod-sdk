@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.106',
+    sdk_version = '1.3.107',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,22 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 创建凭证One
+model VoucherTestOne {
+  // 测试Long
+  voucherTestOneLong: long(maximum=10, minimum=0, name='voucher_test_one_long', example='test'),
+  // 测试String
+  voucherTestOneString: string(maxLength=10, minLength=0, name='voucher_test_one_string', example='test'),
+  // 测试Int
+  voucherTestOneInt: long(name='voucher_test_one_int', example='test'),
+  // 测试Date
+  voucherTestOneDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='voucher_test_one_date', example='test'),
+  // 测试Integer
+  voucherTestOneInteger: long(maximum=10, minimum=0, name='voucher_test_one_integer', example='test'),
+  // 测试Boolean
+  voucherTestOneBoolean: boolean(name='voucher_test_one_boolean', example='test'),
 }
 
 // 集装箱信息
@@ -362,38 +378,40 @@ model SoNotifyBookingParam {
   voyage?: string(name='voyage', example='暂无'),
 }
 
-// 接口测试
-model ApiTest {
-  // 测试String
-  testString: string(maxLength=100, minLength=0, name='test_string', example='test'),
-  // 测试Int
-  testInt: long(maximum=100, minimum=0, name='test_int', example='test'),
-  // 测试Integer
-  testInteger: long(maximum=100, minimum=0, name='test_integer', example='test'),
-  // 测试Long
-  testLong: long(maximum=100, minimum=0, name='test_long', example='test'),
+// 凭证返回值
+model VoucherResp {
+  // 消息
+  msg: string(maxLength=10, minLength=0, name='msg', example='success'),
+}
+
+// 创建凭证Two
+model VoucherTestTwo {
   // 测试Boolean
-  testBoolean: boolean(name='test_boolean', example='test'),
-  // 测试Date
-  testDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='test_date', example='test'),
-  // 凭证列表_stringList
-  stringList: [ string ](name='string_list', example='test'),
-  // 凭证列表_ints
-  ints: [ long ](name='ints', example='test'),
-  // 凭证列表_longs
-  longs: [ long ](name='longs', example='test'),
-  // 凭证列表_integerList
-  integerList: [ long ](name='integer_list', example='test'),
-  // 凭证列表_longList
-  longList: [ long ](name='long_list', example='test'),
-  // 凭证列表_booleanList
-  booleanList: [ boolean ](name='boolean_list', example='test'),
-  // 凭证列表_dateList
-  dateList: [ string ](name='date_list', example='test'),
+  voucherTestTwoBoolean: boolean(name='voucher_test_two_boolean', example='test'),
   // 凭证列表_apiTestList
-  apiTestList: [ ApiTestInfo ](name='api_test_list', example='test'),
+  voucherTestTwoApiTestList: [ VoucherTestOne ](name='voucher_test_two_api_test_list', example='test'),
+  // 测试Int
+  voucherTestTwoInt: long(name='voucher_test_two_int', example='test'),
+  // 测试Integer
+  voucherTestTwoInteger: long(maximum=10, minimum=0, name='voucher_test_two_integer', example='test'),
+  // 凭证列表_dateList
+  voucherTestTwoDateList: [ string ](name='voucher_test_two_date_list', example='test'),
+  // 测试String
+  voucherTestTwoString: string(maxLength=10, minLength=0, name='voucher_test_two_string', example='test'),
+  // 测试Date
+  voucherTestTwoDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='voucher_test_two_date', example='test'),
+  // 凭证列表_integerList
+  voucherTestTwoIntegerList: [ long ](name='voucher_test_two_integer_list', example='test'),
+  // 测试Long
+  voucherTestTwoLong: long(maximum=10, minimum=0, name='voucher_test_two_long', example='test'),
+  // 凭证列表_longList
+  voucherTestTwoLongList: [ long ](name='voucher_test_two_long_list', example='test'),
+  // 凭证列表_stringList
+  voucherTestTwoStringList: [ string ](name='voucher_test_two_string_list', example='test'),
   // 测试apiTestInfo
-  apiTestInfo: ApiTest(name='api_test_info', example='test'),
+  voucherTestTwoApiTestInfo: VoucherTestOne(name='voucher_test_two_api_test_info', example='test'),
+  // 凭证列表_booleanList
+  voucherTestTwoBooleanList: [ boolean ](name='voucher_test_two_boolean_list', example='test'),
 }
 
 // 资费项账单
@@ -674,22 +692,6 @@ model TxDto {
   dataType: string(name='data_type', example='ORDER'),
 }
 
-// 接口测试
-model ApiTestInfo {
-  // 测试String
-  testString: string(maxLength=100, minLength=0, name='test_string', example='test'),
-  // 测试Int
-  testInt: long(maximum=100, minimum=0, name='test_int', example='test'),
-  // 测试Integer
-  testInteger: long(maximum=100, minimum=0, name='test_integer', example='test'),
-  // 测试Long
-  testLong: long(maximum=100, minimum=0, name='test_long', example='test'),
-  // 测试Boolean
-  testBoolean: boolean(name='test_boolean', example='test'),
-  // 测试Date
-  testDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='test_date', example='test'),
-}
-
 // 用户凭证信息
 model UserIssueId {
   // 凭证id
@@ -700,10 +702,10 @@ model UserIssueId {
 
 // 附加条款
 model MainItemAdd {
-  // 附加条款代码
-  mainItemAddCode?: string(name='main_item_add_code', example='暂无'),
-  // 附加条款内容
-  mainItemAddContent?: string(name='main_item_add_content', example='暂无'),
+  // 附加条款代码-参考保司提供样例
+  mainItemAddCode?: string(name='main_item_add_code', example=' '),
+  // 附加条款内容-参考保司提供样例
+  mainItemAddContent?: string(name='main_item_add_content', example=' '),
 }
 
 // 承运人责任险保险标的信息
@@ -1103,7 +1105,7 @@ model CreateReceivableBillRequest = {
   // 测试
   test?: AuthParty(name='test'),
   // 的撒
-  status: ApiTest(name='status'),
+  status: string(name='status'),
 }
 
 model CreateReceivableBillResponse = {
@@ -1140,30 +1142,30 @@ model CreateStandardVoucherRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 数据标识
-  businessCode: string(maxLength=10, minLength=0, name='business_code'),
-  // 资产类型
-  assetType: string(maxLength=10, minLength=0, name='asset_type'),
-  // 发行金额_Integer
-  amountInt: long(maximum=10, minimum=0, name='amount_int'),
-  // 发行金额_Long
-  amountLong: long(maximum=10, minimum=0, name='amount_long'),
   // 账户是否存在
   exist: boolean(name='exist'),
+  // 签署方
+  voucherTestOne: VoucherTestTwo(name='voucher_test_one'),
+  // 数据标识
+  businessCode: string(maxLength=10, minLength=0, name='business_code'),
+  // 凭证列表_apiTestList
+  voucherTestThree: [ VoucherTestTwo ](name='voucher_test_three'),
   // 发行时间
   issueTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='issue_time'),
-  // 签署方
-  apiTest: ApiTest(name='api_test'),
-  // 凭证列表_voucherArray
-  voucherArray: [ long ](name='voucher_array'),
   // 凭证列表_voucherList
   voucherList: [ string ](name='voucher_list'),
-  // 凭证列表_apiTestList
-  apiTestList: [ ApiTest ](name='api_test_list'),
+  // 发行金额_Long
+  amountLong: long(maximum=10, minimum=0, name='amount_long'),
+  // 发行金额_Integer
+  amountInt: long(maximum=10, minimum=0, name='amount_int'),
+  // 签署方
+  voucherTestTwo: VoucherTestTwo(name='voucher_test_two'),
   // 凭证列表_booleanList
   booleanList: [ boolean ](name='boolean_list'),
   // 凭证列表_dateList
   dateList: [ string ](name='date_list'),
+  // 资产类型
+  assetType: string(maxLength=10, minLength=0, name='asset_type'),
 }
 
 model CreateStandardVoucherResponse = {
@@ -1173,13 +1175,17 @@ model CreateStandardVoucherResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 凭证返回值_voucherResp
+  voucherResp: VoucherResp(name='voucher_resp'),
   // 编码
   code: string(name='code'),
+  // 凭证返回值_voucherRespList
+  voucherRespList: [ VoucherResp ](name='voucher_resp_list'),
 }
 
 /**
- * Description: 凭证发行
- * Summary: 凭证发行
+ * Description: 创建凭证
+ * Summary: 创建凭证
  */
 async function createStandardVoucher(request: CreateStandardVoucherRequest): CreateStandardVoucherResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1188,8 +1194,8 @@ async function createStandardVoucher(request: CreateStandardVoucherRequest): Cre
 }
 
 /**
- * Description: 凭证发行
- * Summary: 凭证发行
+ * Description: 创建凭证
+ * Summary: 创建凭证
  */
 async function createStandardVoucherEx(request: CreateStandardVoucherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStandardVoucherResponse {
   Util.validateModel(request);
@@ -6957,19 +6963,21 @@ model ApplyInsuranceCbecRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 投保交易号，调用方生成的唯一编码
+  // 投保交易号，调用方生成的唯一编码；
+  // 格式为 yyyyMMdd_身份标识_其他编码。
+  // 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
   tradeNo: string(maxLength=50, name='trade_no'),
   // 保司编码，CPIC---太保
   externalChannelCode: string(maxLength=64, name='external_channel_code'),
   // 险种编码，03--跨境出口货运险
   externalProductCode: string(maxLength=64, name='external_product_code'),
-  // 投保人姓名
+  // 投保人名称
   tbrName: string(maxLength=100, name='tbr_name'),
   // 投保人证件类型，03--营业执照
   tbrIdType?: string(maxLength=40, name='tbr_id_type'),
   // 投保人证件号码
   tbrIdNo?: string(maxLength=800, name='tbr_id_no'),
-  // 被保人姓名
+  // 被保人名称
   bbrName: string(maxLength=100, name='bbr_name'),
   // 被保人证件类型，01--居民身份证，03--营业执照
   bbrIdType?: string(maxLength=40, name='bbr_id_type'),
@@ -6983,7 +6991,7 @@ model ApplyInsuranceCbecRequest = {
   cargoName: string(maxLength=100, name='cargo_name'),
   // 包装代码,参考保司提供样例-包装代码
   packingCode: string(maxLength=2, name='packing_code'),
-  // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+  // 货物类型代码,参考保司提供样例-货物类型代码
   cargoTypeCode: string(maxLength=4, name='cargo_type_code'),
   // 航行区域代码,参考保司提供样例-航行区域代码
   flightAreaCode: string(maxLength=10, name='flight_area_code'),
@@ -7001,13 +7009,13 @@ model ApplyInsuranceCbecRequest = {
   destination: string(maxLength=200, name='destination'),
   // 理赔代理地代码，参考保司提供样例-理赔代理地
   claimAgentCode: string(maxLength=30, name='claim_agent_code'),
-  // 主险条款代码
+  // 主险条款代码--参考保司提供样例
   mainItemCode: string(maxLength=12, name='main_item_code'),
-  // 主险条款内容
+  // 主险条款内容--参考保司提供样例
   mainItemContent: string(maxLength=500, name='main_item_content'),
   // 附加条款集合
   mainItemAdds?: [ MainItemAdd ](name='main_item_adds'),
-  // 特别约定
+  // 特别约定--填写协议中的特别约定
   specialize?: string(maxLength=500, name='specialize'),
   // 申报货物价值,，最多兼容2位小数，单位（元）
   cargoWorth: string(maxLength=50, name='cargo_worth'),
@@ -7059,7 +7067,10 @@ model ApplyInsuranceStockinRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 入库交易流水号，保持唯一
+  // 入库交易流水号，保持唯一；
+  // 格式为 yyyyMMdd_身份标识_其他编码。
+  // 系统会根据该流水号做防重、幂等判断逻辑。
+  // 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
   tradeNo: string(maxLength=50, name='trade_no'),
   // 入库单号，可参考格式：年月日+唯一字符
   stockinNo: string(maxLength=50, name='stockin_no'),
@@ -7115,7 +7126,10 @@ model ApplyInsuranceInventoryRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 库存申报交易号，调用方生成的唯一编码
+  // 库存申报交易号，调用方生成的唯一编码；
+  // 格式为 yyyyMMdd_身份标识_其他编码。
+  // 系统会根据该流水号做防重、幂等判断逻辑。
+  // 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
   tradeNo: string(maxLength=50, name='trade_no'),
   // 库存申报编号
   inventoryNo: string(maxLength=50, name='inventory_no'),
@@ -7523,6 +7537,8 @@ model PushPfPledgeRequest = {
   financingSubjectDid: string(maxLength=128, minLength=1, name='financing_subject_did'),
   // 请求号；以yyyyMMdd 时间串开头的32位字符串；该字符串需要保持请求系统内唯一，系统会以该请求号作为幂等处理
   requestNo: string(maxLength=32, minLength=16, name='request_no'),
+  // 质押发票号码列表
+  invoiceNos?: [ string ](name='invoice_nos'),
 }
 
 model PushPfPledgeResponse = {

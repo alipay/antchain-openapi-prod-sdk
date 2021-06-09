@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "SHUZIWULIU",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-shuziwuliu:1.3.106",
-    "go": "github.com/antchain-openapi-sdk-go/shuziwuliu/client:v1.3.106",
-    "csharp": "AntChain.SDK.SHUZIWULIU:1.3.106",
-    "ts": "@antchain/shuziwuliu:1.3.106",
-    "php": "antchain/shuziwuliu:1.3.106",
-    "python": "antchain_sdk_shuziwuliu:1.3.106"
+    "java": "com.antgroup.antchain.openapi:openapi-shuziwuliu:1.3.107",
+    "go": "github.com/antchain-openapi-sdk-go/shuziwuliu/client:v1.3.107",
+    "csharp": "AntChain.SDK.SHUZIWULIU:1.3.107",
+    "ts": "@antchain/shuziwuliu:1.3.107",
+    "php": "antchain/shuziwuliu:1.3.107",
+    "python": "antchain_sdk_shuziwuliu:1.3.107"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
