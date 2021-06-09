@@ -150,6 +150,80 @@ class Config(TeaModel):
         return self
 
 
+class VoucherTestOne(TeaModel):
+    def __init__(
+        self,
+        voucher_test_one_long: int = None,
+        voucher_test_one_string: str = None,
+        voucher_test_one_int: int = None,
+        voucher_test_one_date: str = None,
+        voucher_test_one_integer: int = None,
+        voucher_test_one_boolean: bool = None,
+    ):
+        # 测试Long
+        self.voucher_test_one_long = voucher_test_one_long
+        # 测试String
+        self.voucher_test_one_string = voucher_test_one_string
+        # 测试Int
+        self.voucher_test_one_int = voucher_test_one_int
+        # 测试Date
+        self.voucher_test_one_date = voucher_test_one_date
+        # 测试Integer
+        self.voucher_test_one_integer = voucher_test_one_integer
+        # 测试Boolean
+        self.voucher_test_one_boolean = voucher_test_one_boolean
+
+    def validate(self):
+        self.validate_required(self.voucher_test_one_long, 'voucher_test_one_long')
+        if self.voucher_test_one_long is not None:
+            self.validate_maximum(self.voucher_test_one_long, 'voucher_test_one_long', 10)
+            self.validate_minimum(self.voucher_test_one_long, 'voucher_test_one_long', 0)
+        self.validate_required(self.voucher_test_one_string, 'voucher_test_one_string')
+        if self.voucher_test_one_string is not None:
+            self.validate_max_length(self.voucher_test_one_string, 'voucher_test_one_string', 10)
+        self.validate_required(self.voucher_test_one_int, 'voucher_test_one_int')
+        self.validate_required(self.voucher_test_one_date, 'voucher_test_one_date')
+        if self.voucher_test_one_date is not None:
+            self.validate_pattern(self.voucher_test_one_date, 'voucher_test_one_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.voucher_test_one_integer, 'voucher_test_one_integer')
+        if self.voucher_test_one_integer is not None:
+            self.validate_maximum(self.voucher_test_one_integer, 'voucher_test_one_integer', 10)
+            self.validate_minimum(self.voucher_test_one_integer, 'voucher_test_one_integer', 0)
+        self.validate_required(self.voucher_test_one_boolean, 'voucher_test_one_boolean')
+
+    def to_map(self):
+        result = dict()
+        if self.voucher_test_one_long is not None:
+            result['voucher_test_one_long'] = self.voucher_test_one_long
+        if self.voucher_test_one_string is not None:
+            result['voucher_test_one_string'] = self.voucher_test_one_string
+        if self.voucher_test_one_int is not None:
+            result['voucher_test_one_int'] = self.voucher_test_one_int
+        if self.voucher_test_one_date is not None:
+            result['voucher_test_one_date'] = self.voucher_test_one_date
+        if self.voucher_test_one_integer is not None:
+            result['voucher_test_one_integer'] = self.voucher_test_one_integer
+        if self.voucher_test_one_boolean is not None:
+            result['voucher_test_one_boolean'] = self.voucher_test_one_boolean
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('voucher_test_one_long') is not None:
+            self.voucher_test_one_long = m.get('voucher_test_one_long')
+        if m.get('voucher_test_one_string') is not None:
+            self.voucher_test_one_string = m.get('voucher_test_one_string')
+        if m.get('voucher_test_one_int') is not None:
+            self.voucher_test_one_int = m.get('voucher_test_one_int')
+        if m.get('voucher_test_one_date') is not None:
+            self.voucher_test_one_date = m.get('voucher_test_one_date')
+        if m.get('voucher_test_one_integer') is not None:
+            self.voucher_test_one_integer = m.get('voucher_test_one_integer')
+        if m.get('voucher_test_one_boolean') is not None:
+            self.voucher_test_one_boolean = m.get('voucher_test_one_boolean')
+        return self
+
+
 class ContainerInfo(TeaModel):
     def __init__(
         self,
@@ -925,241 +999,171 @@ class SoNotifyBookingParam(TeaModel):
         return self
 
 
-class ApiTestInfo(TeaModel):
+class VoucherResp(TeaModel):
     def __init__(
         self,
-        test_string: str = None,
-        test_int: int = None,
-        test_integer: int = None,
-        test_long: int = None,
-        test_boolean: bool = None,
-        test_date: str = None,
+        msg: str = None,
     ):
-        # 测试String
-        self.test_string = test_string
-        # 测试Int
-        self.test_int = test_int
-        # 测试Integer
-        self.test_integer = test_integer
-        # 测试Long
-        self.test_long = test_long
-        # 测试Boolean
-        self.test_boolean = test_boolean
-        # 测试Date
-        self.test_date = test_date
+        # 消息
+        self.msg = msg
 
     def validate(self):
-        self.validate_required(self.test_string, 'test_string')
-        if self.test_string is not None:
-            self.validate_max_length(self.test_string, 'test_string', 100)
-        self.validate_required(self.test_int, 'test_int')
-        if self.test_int is not None:
-            self.validate_maximum(self.test_int, 'test_int', 100)
-            self.validate_minimum(self.test_int, 'test_int', 0)
-        self.validate_required(self.test_integer, 'test_integer')
-        if self.test_integer is not None:
-            self.validate_maximum(self.test_integer, 'test_integer', 100)
-            self.validate_minimum(self.test_integer, 'test_integer', 0)
-        self.validate_required(self.test_long, 'test_long')
-        if self.test_long is not None:
-            self.validate_maximum(self.test_long, 'test_long', 100)
-            self.validate_minimum(self.test_long, 'test_long', 0)
-        self.validate_required(self.test_boolean, 'test_boolean')
-        self.validate_required(self.test_date, 'test_date')
-        if self.test_date is not None:
-            self.validate_pattern(self.test_date, 'test_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.msg, 'msg')
+        if self.msg is not None:
+            self.validate_max_length(self.msg, 'msg', 10)
 
     def to_map(self):
         result = dict()
-        if self.test_string is not None:
-            result['test_string'] = self.test_string
-        if self.test_int is not None:
-            result['test_int'] = self.test_int
-        if self.test_integer is not None:
-            result['test_integer'] = self.test_integer
-        if self.test_long is not None:
-            result['test_long'] = self.test_long
-        if self.test_boolean is not None:
-            result['test_boolean'] = self.test_boolean
-        if self.test_date is not None:
-            result['test_date'] = self.test_date
+        if self.msg is not None:
+            result['msg'] = self.msg
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('test_string') is not None:
-            self.test_string = m.get('test_string')
-        if m.get('test_int') is not None:
-            self.test_int = m.get('test_int')
-        if m.get('test_integer') is not None:
-            self.test_integer = m.get('test_integer')
-        if m.get('test_long') is not None:
-            self.test_long = m.get('test_long')
-        if m.get('test_boolean') is not None:
-            self.test_boolean = m.get('test_boolean')
-        if m.get('test_date') is not None:
-            self.test_date = m.get('test_date')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
         return self
 
 
-class ApiTest(TeaModel):
+class VoucherTestTwo(TeaModel):
     def __init__(
         self,
-        test_string: str = None,
-        test_int: int = None,
-        test_integer: int = None,
-        test_long: int = None,
-        test_boolean: bool = None,
-        test_date: str = None,
-        string_list: List[str] = None,
-        ints: List[int] = None,
-        longs: List[int] = None,
-        integer_list: List[int] = None,
-        long_list: List[int] = None,
-        boolean_list: List[bool] = None,
-        date_list: List[str] = None,
-        api_test_list: List[ApiTestInfo] = None,
-        api_test_info: 'ApiTest' = None,
+        voucher_test_two_boolean: bool = None,
+        voucher_test_two_api_test_list: List[VoucherTestOne] = None,
+        voucher_test_two_int: int = None,
+        voucher_test_two_integer: int = None,
+        voucher_test_two_date_list: List[str] = None,
+        voucher_test_two_string: str = None,
+        voucher_test_two_date: str = None,
+        voucher_test_two_integer_list: List[int] = None,
+        voucher_test_two_long: int = None,
+        voucher_test_two_long_list: List[int] = None,
+        voucher_test_two_string_list: List[str] = None,
+        voucher_test_two_api_test_info: VoucherTestOne = None,
+        voucher_test_two_boolean_list: List[bool] = None,
     ):
-        # 测试String
-        self.test_string = test_string
-        # 测试Int
-        self.test_int = test_int
-        # 测试Integer
-        self.test_integer = test_integer
-        # 测试Long
-        self.test_long = test_long
         # 测试Boolean
-        self.test_boolean = test_boolean
-        # 测试Date
-        self.test_date = test_date
-        # 凭证列表_stringList
-        self.string_list = string_list
-        # 凭证列表_ints
-        self.ints = ints
-        # 凭证列表_longs
-        self.longs = longs
-        # 凭证列表_integerList
-        self.integer_list = integer_list
-        # 凭证列表_longList
-        self.long_list = long_list
-        # 凭证列表_booleanList
-        self.boolean_list = boolean_list
-        # 凭证列表_dateList
-        self.date_list = date_list
+        self.voucher_test_two_boolean = voucher_test_two_boolean
         # 凭证列表_apiTestList
-        self.api_test_list = api_test_list
+        self.voucher_test_two_api_test_list = voucher_test_two_api_test_list
+        # 测试Int
+        self.voucher_test_two_int = voucher_test_two_int
+        # 测试Integer
+        self.voucher_test_two_integer = voucher_test_two_integer
+        # 凭证列表_dateList
+        self.voucher_test_two_date_list = voucher_test_two_date_list
+        # 测试String
+        self.voucher_test_two_string = voucher_test_two_string
+        # 测试Date
+        self.voucher_test_two_date = voucher_test_two_date
+        # 凭证列表_integerList
+        self.voucher_test_two_integer_list = voucher_test_two_integer_list
+        # 测试Long
+        self.voucher_test_two_long = voucher_test_two_long
+        # 凭证列表_longList
+        self.voucher_test_two_long_list = voucher_test_two_long_list
+        # 凭证列表_stringList
+        self.voucher_test_two_string_list = voucher_test_two_string_list
         # 测试apiTestInfo
-        self.api_test_info = api_test_info
+        self.voucher_test_two_api_test_info = voucher_test_two_api_test_info
+        # 凭证列表_booleanList
+        self.voucher_test_two_boolean_list = voucher_test_two_boolean_list
 
     def validate(self):
-        self.validate_required(self.test_string, 'test_string')
-        if self.test_string is not None:
-            self.validate_max_length(self.test_string, 'test_string', 100)
-        self.validate_required(self.test_int, 'test_int')
-        if self.test_int is not None:
-            self.validate_maximum(self.test_int, 'test_int', 100)
-            self.validate_minimum(self.test_int, 'test_int', 0)
-        self.validate_required(self.test_integer, 'test_integer')
-        if self.test_integer is not None:
-            self.validate_maximum(self.test_integer, 'test_integer', 100)
-            self.validate_minimum(self.test_integer, 'test_integer', 0)
-        self.validate_required(self.test_long, 'test_long')
-        if self.test_long is not None:
-            self.validate_maximum(self.test_long, 'test_long', 100)
-            self.validate_minimum(self.test_long, 'test_long', 0)
-        self.validate_required(self.test_boolean, 'test_boolean')
-        self.validate_required(self.test_date, 'test_date')
-        if self.test_date is not None:
-            self.validate_pattern(self.test_date, 'test_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.string_list, 'string_list')
-        self.validate_required(self.ints, 'ints')
-        self.validate_required(self.longs, 'longs')
-        self.validate_required(self.integer_list, 'integer_list')
-        self.validate_required(self.long_list, 'long_list')
-        self.validate_required(self.boolean_list, 'boolean_list')
-        self.validate_required(self.date_list, 'date_list')
-        self.validate_required(self.api_test_list, 'api_test_list')
-        if self.api_test_list:
-            for k in self.api_test_list:
+        self.validate_required(self.voucher_test_two_boolean, 'voucher_test_two_boolean')
+        self.validate_required(self.voucher_test_two_api_test_list, 'voucher_test_two_api_test_list')
+        if self.voucher_test_two_api_test_list:
+            for k in self.voucher_test_two_api_test_list:
                 if k:
                     k.validate()
-        self.validate_required(self.api_test_info, 'api_test_info')
-        if self.api_test_info:
-            self.api_test_info.validate()
+        self.validate_required(self.voucher_test_two_int, 'voucher_test_two_int')
+        self.validate_required(self.voucher_test_two_integer, 'voucher_test_two_integer')
+        if self.voucher_test_two_integer is not None:
+            self.validate_maximum(self.voucher_test_two_integer, 'voucher_test_two_integer', 10)
+            self.validate_minimum(self.voucher_test_two_integer, 'voucher_test_two_integer', 0)
+        self.validate_required(self.voucher_test_two_date_list, 'voucher_test_two_date_list')
+        self.validate_required(self.voucher_test_two_string, 'voucher_test_two_string')
+        if self.voucher_test_two_string is not None:
+            self.validate_max_length(self.voucher_test_two_string, 'voucher_test_two_string', 10)
+        self.validate_required(self.voucher_test_two_date, 'voucher_test_two_date')
+        if self.voucher_test_two_date is not None:
+            self.validate_pattern(self.voucher_test_two_date, 'voucher_test_two_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.voucher_test_two_integer_list, 'voucher_test_two_integer_list')
+        self.validate_required(self.voucher_test_two_long, 'voucher_test_two_long')
+        if self.voucher_test_two_long is not None:
+            self.validate_maximum(self.voucher_test_two_long, 'voucher_test_two_long', 10)
+            self.validate_minimum(self.voucher_test_two_long, 'voucher_test_two_long', 0)
+        self.validate_required(self.voucher_test_two_long_list, 'voucher_test_two_long_list')
+        self.validate_required(self.voucher_test_two_string_list, 'voucher_test_two_string_list')
+        self.validate_required(self.voucher_test_two_api_test_info, 'voucher_test_two_api_test_info')
+        if self.voucher_test_two_api_test_info:
+            self.voucher_test_two_api_test_info.validate()
+        self.validate_required(self.voucher_test_two_boolean_list, 'voucher_test_two_boolean_list')
 
     def to_map(self):
         result = dict()
-        if self.test_string is not None:
-            result['test_string'] = self.test_string
-        if self.test_int is not None:
-            result['test_int'] = self.test_int
-        if self.test_integer is not None:
-            result['test_integer'] = self.test_integer
-        if self.test_long is not None:
-            result['test_long'] = self.test_long
-        if self.test_boolean is not None:
-            result['test_boolean'] = self.test_boolean
-        if self.test_date is not None:
-            result['test_date'] = self.test_date
-        if self.string_list is not None:
-            result['string_list'] = self.string_list
-        if self.ints is not None:
-            result['ints'] = self.ints
-        if self.longs is not None:
-            result['longs'] = self.longs
-        if self.integer_list is not None:
-            result['integer_list'] = self.integer_list
-        if self.long_list is not None:
-            result['long_list'] = self.long_list
-        if self.boolean_list is not None:
-            result['boolean_list'] = self.boolean_list
-        if self.date_list is not None:
-            result['date_list'] = self.date_list
-        result['api_test_list'] = []
-        if self.api_test_list is not None:
-            for k in self.api_test_list:
-                result['api_test_list'].append(k.to_map() if k else None)
-        if self.api_test_info is not None:
-            result['api_test_info'] = self.api_test_info.to_map()
+        if self.voucher_test_two_boolean is not None:
+            result['voucher_test_two_boolean'] = self.voucher_test_two_boolean
+        result['voucher_test_two_api_test_list'] = []
+        if self.voucher_test_two_api_test_list is not None:
+            for k in self.voucher_test_two_api_test_list:
+                result['voucher_test_two_api_test_list'].append(k.to_map() if k else None)
+        if self.voucher_test_two_int is not None:
+            result['voucher_test_two_int'] = self.voucher_test_two_int
+        if self.voucher_test_two_integer is not None:
+            result['voucher_test_two_integer'] = self.voucher_test_two_integer
+        if self.voucher_test_two_date_list is not None:
+            result['voucher_test_two_date_list'] = self.voucher_test_two_date_list
+        if self.voucher_test_two_string is not None:
+            result['voucher_test_two_string'] = self.voucher_test_two_string
+        if self.voucher_test_two_date is not None:
+            result['voucher_test_two_date'] = self.voucher_test_two_date
+        if self.voucher_test_two_integer_list is not None:
+            result['voucher_test_two_integer_list'] = self.voucher_test_two_integer_list
+        if self.voucher_test_two_long is not None:
+            result['voucher_test_two_long'] = self.voucher_test_two_long
+        if self.voucher_test_two_long_list is not None:
+            result['voucher_test_two_long_list'] = self.voucher_test_two_long_list
+        if self.voucher_test_two_string_list is not None:
+            result['voucher_test_two_string_list'] = self.voucher_test_two_string_list
+        if self.voucher_test_two_api_test_info is not None:
+            result['voucher_test_two_api_test_info'] = self.voucher_test_two_api_test_info.to_map()
+        if self.voucher_test_two_boolean_list is not None:
+            result['voucher_test_two_boolean_list'] = self.voucher_test_two_boolean_list
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('test_string') is not None:
-            self.test_string = m.get('test_string')
-        if m.get('test_int') is not None:
-            self.test_int = m.get('test_int')
-        if m.get('test_integer') is not None:
-            self.test_integer = m.get('test_integer')
-        if m.get('test_long') is not None:
-            self.test_long = m.get('test_long')
-        if m.get('test_boolean') is not None:
-            self.test_boolean = m.get('test_boolean')
-        if m.get('test_date') is not None:
-            self.test_date = m.get('test_date')
-        if m.get('string_list') is not None:
-            self.string_list = m.get('string_list')
-        if m.get('ints') is not None:
-            self.ints = m.get('ints')
-        if m.get('longs') is not None:
-            self.longs = m.get('longs')
-        if m.get('integer_list') is not None:
-            self.integer_list = m.get('integer_list')
-        if m.get('long_list') is not None:
-            self.long_list = m.get('long_list')
-        if m.get('boolean_list') is not None:
-            self.boolean_list = m.get('boolean_list')
-        if m.get('date_list') is not None:
-            self.date_list = m.get('date_list')
-        self.api_test_list = []
-        if m.get('api_test_list') is not None:
-            for k in m.get('api_test_list'):
-                temp_model = ApiTestInfo()
-                self.api_test_list.append(temp_model.from_map(k))
-        if m.get('api_test_info') is not None:
-            temp_model = ApiTest()
-            self.api_test_info = temp_model.from_map(m['api_test_info'])
+        if m.get('voucher_test_two_boolean') is not None:
+            self.voucher_test_two_boolean = m.get('voucher_test_two_boolean')
+        self.voucher_test_two_api_test_list = []
+        if m.get('voucher_test_two_api_test_list') is not None:
+            for k in m.get('voucher_test_two_api_test_list'):
+                temp_model = VoucherTestOne()
+                self.voucher_test_two_api_test_list.append(temp_model.from_map(k))
+        if m.get('voucher_test_two_int') is not None:
+            self.voucher_test_two_int = m.get('voucher_test_two_int')
+        if m.get('voucher_test_two_integer') is not None:
+            self.voucher_test_two_integer = m.get('voucher_test_two_integer')
+        if m.get('voucher_test_two_date_list') is not None:
+            self.voucher_test_two_date_list = m.get('voucher_test_two_date_list')
+        if m.get('voucher_test_two_string') is not None:
+            self.voucher_test_two_string = m.get('voucher_test_two_string')
+        if m.get('voucher_test_two_date') is not None:
+            self.voucher_test_two_date = m.get('voucher_test_two_date')
+        if m.get('voucher_test_two_integer_list') is not None:
+            self.voucher_test_two_integer_list = m.get('voucher_test_two_integer_list')
+        if m.get('voucher_test_two_long') is not None:
+            self.voucher_test_two_long = m.get('voucher_test_two_long')
+        if m.get('voucher_test_two_long_list') is not None:
+            self.voucher_test_two_long_list = m.get('voucher_test_two_long_list')
+        if m.get('voucher_test_two_string_list') is not None:
+            self.voucher_test_two_string_list = m.get('voucher_test_two_string_list')
+        if m.get('voucher_test_two_api_test_info') is not None:
+            temp_model = VoucherTestOne()
+            self.voucher_test_two_api_test_info = temp_model.from_map(m['voucher_test_two_api_test_info'])
+        if m.get('voucher_test_two_boolean_list') is not None:
+            self.voucher_test_two_boolean_list = m.get('voucher_test_two_boolean_list')
         return self
 
 
@@ -2270,9 +2274,9 @@ class MainItemAdd(TeaModel):
         main_item_add_code: str = None,
         main_item_add_content: str = None,
     ):
-        # 附加条款代码
+        # 附加条款代码-参考保司提供样例
         self.main_item_add_code = main_item_add_code
-        # 附加条款内容
+        # 附加条款内容-参考保司提供样例
         self.main_item_add_content = main_item_add_content
 
     def validate(self):
@@ -3750,7 +3754,7 @@ class CreateReceivableBillRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         test: AuthParty = None,
-        status: ApiTest = None,
+        status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3764,8 +3768,6 @@ class CreateReceivableBillRequest(TeaModel):
         if self.test:
             self.test.validate()
         self.validate_required(self.status, 'status')
-        if self.status:
-            self.status.validate()
 
     def to_map(self):
         result = dict()
@@ -3776,7 +3778,7 @@ class CreateReceivableBillRequest(TeaModel):
         if self.test is not None:
             result['test'] = self.test.to_map()
         if self.status is not None:
-            result['status'] = self.status.to_map()
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
@@ -3789,8 +3791,7 @@ class CreateReceivableBillRequest(TeaModel):
             temp_model = AuthParty()
             self.test = temp_model.from_map(m['test'])
         if m.get('status') is not None:
-            temp_model = ApiTest()
-            self.status = temp_model.from_map(m['status'])
+            self.status = m.get('status')
         return self
 
 
@@ -3852,78 +3853,80 @@ class CreateStandardVoucherRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        business_code: str = None,
-        asset_type: str = None,
-        amount_int: int = None,
-        amount_long: int = None,
         exist: bool = None,
+        voucher_test_one: VoucherTestTwo = None,
+        business_code: str = None,
+        voucher_test_three: List[VoucherTestTwo] = None,
         issue_time: str = None,
-        api_test: ApiTest = None,
-        voucher_array: List[int] = None,
         voucher_list: List[str] = None,
-        api_test_list: List[ApiTest] = None,
+        amount_long: int = None,
+        amount_int: int = None,
+        voucher_test_two: VoucherTestTwo = None,
         boolean_list: List[bool] = None,
         date_list: List[str] = None,
+        asset_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 数据标识
-        self.business_code = business_code
-        # 资产类型
-        self.asset_type = asset_type
-        # 发行金额_Integer
-        self.amount_int = amount_int
-        # 发行金额_Long
-        self.amount_long = amount_long
         # 账户是否存在
         self.exist = exist
+        # 签署方
+        self.voucher_test_one = voucher_test_one
+        # 数据标识
+        self.business_code = business_code
+        # 凭证列表_apiTestList
+        self.voucher_test_three = voucher_test_three
         # 发行时间
         self.issue_time = issue_time
-        # 签署方
-        self.api_test = api_test
-        # 凭证列表_voucherArray
-        self.voucher_array = voucher_array
         # 凭证列表_voucherList
         self.voucher_list = voucher_list
-        # 凭证列表_apiTestList
-        self.api_test_list = api_test_list
+        # 发行金额_Long
+        self.amount_long = amount_long
+        # 发行金额_Integer
+        self.amount_int = amount_int
+        # 签署方
+        self.voucher_test_two = voucher_test_two
         # 凭证列表_booleanList
         self.boolean_list = boolean_list
         # 凭证列表_dateList
         self.date_list = date_list
+        # 资产类型
+        self.asset_type = asset_type
 
     def validate(self):
+        self.validate_required(self.exist, 'exist')
+        self.validate_required(self.voucher_test_one, 'voucher_test_one')
+        if self.voucher_test_one:
+            self.voucher_test_one.validate()
         self.validate_required(self.business_code, 'business_code')
         if self.business_code is not None:
             self.validate_max_length(self.business_code, 'business_code', 10)
-        self.validate_required(self.asset_type, 'asset_type')
-        if self.asset_type is not None:
-            self.validate_max_length(self.asset_type, 'asset_type', 10)
-        self.validate_required(self.amount_int, 'amount_int')
-        if self.amount_int is not None:
-            self.validate_maximum(self.amount_int, 'amount_int', 10)
-            self.validate_minimum(self.amount_int, 'amount_int', 0)
+        self.validate_required(self.voucher_test_three, 'voucher_test_three')
+        if self.voucher_test_three:
+            for k in self.voucher_test_three:
+                if k:
+                    k.validate()
+        self.validate_required(self.issue_time, 'issue_time')
+        if self.issue_time is not None:
+            self.validate_pattern(self.issue_time, 'issue_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.voucher_list, 'voucher_list')
         self.validate_required(self.amount_long, 'amount_long')
         if self.amount_long is not None:
             self.validate_maximum(self.amount_long, 'amount_long', 10)
             self.validate_minimum(self.amount_long, 'amount_long', 0)
-        self.validate_required(self.exist, 'exist')
-        self.validate_required(self.issue_time, 'issue_time')
-        if self.issue_time is not None:
-            self.validate_pattern(self.issue_time, 'issue_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.api_test, 'api_test')
-        if self.api_test:
-            self.api_test.validate()
-        self.validate_required(self.voucher_array, 'voucher_array')
-        self.validate_required(self.voucher_list, 'voucher_list')
-        self.validate_required(self.api_test_list, 'api_test_list')
-        if self.api_test_list:
-            for k in self.api_test_list:
-                if k:
-                    k.validate()
+        self.validate_required(self.amount_int, 'amount_int')
+        if self.amount_int is not None:
+            self.validate_maximum(self.amount_int, 'amount_int', 10)
+            self.validate_minimum(self.amount_int, 'amount_int', 0)
+        self.validate_required(self.voucher_test_two, 'voucher_test_two')
+        if self.voucher_test_two:
+            self.voucher_test_two.validate()
         self.validate_required(self.boolean_list, 'boolean_list')
         self.validate_required(self.date_list, 'date_list')
+        self.validate_required(self.asset_type, 'asset_type')
+        if self.asset_type is not None:
+            self.validate_max_length(self.asset_type, 'asset_type', 10)
 
     def to_map(self):
         result = dict()
@@ -3931,32 +3934,32 @@ class CreateStandardVoucherRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.business_code is not None:
-            result['business_code'] = self.business_code
-        if self.asset_type is not None:
-            result['asset_type'] = self.asset_type
-        if self.amount_int is not None:
-            result['amount_int'] = self.amount_int
-        if self.amount_long is not None:
-            result['amount_long'] = self.amount_long
         if self.exist is not None:
             result['exist'] = self.exist
+        if self.voucher_test_one is not None:
+            result['voucher_test_one'] = self.voucher_test_one.to_map()
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        result['voucher_test_three'] = []
+        if self.voucher_test_three is not None:
+            for k in self.voucher_test_three:
+                result['voucher_test_three'].append(k.to_map() if k else None)
         if self.issue_time is not None:
             result['issue_time'] = self.issue_time
-        if self.api_test is not None:
-            result['api_test'] = self.api_test.to_map()
-        if self.voucher_array is not None:
-            result['voucher_array'] = self.voucher_array
         if self.voucher_list is not None:
             result['voucher_list'] = self.voucher_list
-        result['api_test_list'] = []
-        if self.api_test_list is not None:
-            for k in self.api_test_list:
-                result['api_test_list'].append(k.to_map() if k else None)
+        if self.amount_long is not None:
+            result['amount_long'] = self.amount_long
+        if self.amount_int is not None:
+            result['amount_int'] = self.amount_int
+        if self.voucher_test_two is not None:
+            result['voucher_test_two'] = self.voucher_test_two.to_map()
         if self.boolean_list is not None:
             result['boolean_list'] = self.boolean_list
         if self.date_list is not None:
             result['date_list'] = self.date_list
+        if self.asset_type is not None:
+            result['asset_type'] = self.asset_type
         return result
 
     def from_map(self, m: dict = None):
@@ -3965,34 +3968,35 @@ class CreateStandardVoucherRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('business_code') is not None:
-            self.business_code = m.get('business_code')
-        if m.get('asset_type') is not None:
-            self.asset_type = m.get('asset_type')
-        if m.get('amount_int') is not None:
-            self.amount_int = m.get('amount_int')
-        if m.get('amount_long') is not None:
-            self.amount_long = m.get('amount_long')
         if m.get('exist') is not None:
             self.exist = m.get('exist')
+        if m.get('voucher_test_one') is not None:
+            temp_model = VoucherTestTwo()
+            self.voucher_test_one = temp_model.from_map(m['voucher_test_one'])
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        self.voucher_test_three = []
+        if m.get('voucher_test_three') is not None:
+            for k in m.get('voucher_test_three'):
+                temp_model = VoucherTestTwo()
+                self.voucher_test_three.append(temp_model.from_map(k))
         if m.get('issue_time') is not None:
             self.issue_time = m.get('issue_time')
-        if m.get('api_test') is not None:
-            temp_model = ApiTest()
-            self.api_test = temp_model.from_map(m['api_test'])
-        if m.get('voucher_array') is not None:
-            self.voucher_array = m.get('voucher_array')
         if m.get('voucher_list') is not None:
             self.voucher_list = m.get('voucher_list')
-        self.api_test_list = []
-        if m.get('api_test_list') is not None:
-            for k in m.get('api_test_list'):
-                temp_model = ApiTest()
-                self.api_test_list.append(temp_model.from_map(k))
+        if m.get('amount_long') is not None:
+            self.amount_long = m.get('amount_long')
+        if m.get('amount_int') is not None:
+            self.amount_int = m.get('amount_int')
+        if m.get('voucher_test_two') is not None:
+            temp_model = VoucherTestTwo()
+            self.voucher_test_two = temp_model.from_map(m['voucher_test_two'])
         if m.get('boolean_list') is not None:
             self.boolean_list = m.get('boolean_list')
         if m.get('date_list') is not None:
             self.date_list = m.get('date_list')
+        if m.get('asset_type') is not None:
+            self.asset_type = m.get('asset_type')
         return self
 
 
@@ -4002,7 +4006,9 @@ class CreateStandardVoucherResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        voucher_resp: VoucherResp = None,
         code: str = None,
+        voucher_resp_list: List[VoucherResp] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4010,11 +4016,23 @@ class CreateStandardVoucherResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 凭证返回值_voucherResp
+        self.voucher_resp = voucher_resp
         # 编码
         self.code = code
+        # 凭证返回值_voucherRespList
+        self.voucher_resp_list = voucher_resp_list
 
     def validate(self):
+        self.validate_required(self.voucher_resp, 'voucher_resp')
+        if self.voucher_resp:
+            self.voucher_resp.validate()
         self.validate_required(self.code, 'code')
+        self.validate_required(self.voucher_resp_list, 'voucher_resp_list')
+        if self.voucher_resp_list:
+            for k in self.voucher_resp_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -4024,8 +4042,14 @@ class CreateStandardVoucherResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.voucher_resp is not None:
+            result['voucher_resp'] = self.voucher_resp.to_map()
         if self.code is not None:
             result['code'] = self.code
+        result['voucher_resp_list'] = []
+        if self.voucher_resp_list is not None:
+            for k in self.voucher_resp_list:
+                result['voucher_resp_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -4036,8 +4060,16 @@ class CreateStandardVoucherResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('voucher_resp') is not None:
+            temp_model = VoucherResp()
+            self.voucher_resp = temp_model.from_map(m['voucher_resp'])
         if m.get('code') is not None:
             self.code = m.get('code')
+        self.voucher_resp_list = []
+        if m.get('voucher_resp_list') is not None:
+            for k in m.get('voucher_resp_list'):
+                temp_model = VoucherResp()
+                self.voucher_resp_list.append(temp_model.from_map(k))
         return self
 
 
@@ -20130,19 +20162,21 @@ class ApplyInsuranceCbecRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 投保交易号，调用方生成的唯一编码
+        # 投保交易号，调用方生成的唯一编码；
+        # 格式为 yyyyMMdd_身份标识_其他编码。
+        # 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
         self.trade_no = trade_no
         # 保司编码，CPIC---太保
         self.external_channel_code = external_channel_code
         # 险种编码，03--跨境出口货运险
         self.external_product_code = external_product_code
-        # 投保人姓名
+        # 投保人名称
         self.tbr_name = tbr_name
         # 投保人证件类型，03--营业执照
         self.tbr_id_type = tbr_id_type
         # 投保人证件号码
         self.tbr_id_no = tbr_id_no
-        # 被保人姓名
+        # 被保人名称
         self.bbr_name = bbr_name
         # 被保人证件类型，01--居民身份证，03--营业执照
         self.bbr_id_type = bbr_id_type
@@ -20156,7 +20190,7 @@ class ApplyInsuranceCbecRequest(TeaModel):
         self.cargo_name = cargo_name
         # 包装代码,参考保司提供样例-包装代码
         self.packing_code = packing_code
-        # 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+        # 货物类型代码,参考保司提供样例-货物类型代码
         self.cargo_type_code = cargo_type_code
         # 航行区域代码,参考保司提供样例-航行区域代码
         self.flight_area_code = flight_area_code
@@ -20174,13 +20208,13 @@ class ApplyInsuranceCbecRequest(TeaModel):
         self.destination = destination
         # 理赔代理地代码，参考保司提供样例-理赔代理地
         self.claim_agent_code = claim_agent_code
-        # 主险条款代码
+        # 主险条款代码--参考保司提供样例
         self.main_item_code = main_item_code
-        # 主险条款内容
+        # 主险条款内容--参考保司提供样例
         self.main_item_content = main_item_content
         # 附加条款集合
         self.main_item_adds = main_item_adds
-        # 特别约定
+        # 特别约定--填写协议中的特别约定
         self.specialize = specialize
         # 申报货物价值,，最多兼容2位小数，单位（元）
         self.cargo_worth = cargo_worth
@@ -20496,7 +20530,10 @@ class ApplyInsuranceStockinRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 入库交易流水号，保持唯一
+        # 入库交易流水号，保持唯一；
+        # 格式为 yyyyMMdd_身份标识_其他编码。
+        # 系统会根据该流水号做防重、幂等判断逻辑。
+        # 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
         # 入库单号，可参考格式：年月日+唯一字符
         self.stockin_no = stockin_no
@@ -20660,7 +20697,10 @@ class ApplyInsuranceInventoryRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 库存申报交易号，调用方生成的唯一编码
+        # 库存申报交易号，调用方生成的唯一编码；
+        # 格式为 yyyyMMdd_身份标识_其他编码。
+        # 系统会根据该流水号做防重、幂等判断逻辑。
+        # 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
         # 库存申报编号
         self.inventory_no = inventory_no
@@ -21818,6 +21858,7 @@ class PushPfPledgeRequest(TeaModel):
         bill_id: str = None,
         financing_subject_did: str = None,
         request_no: str = None,
+        invoice_nos: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21830,6 +21871,8 @@ class PushPfPledgeRequest(TeaModel):
         self.financing_subject_did = financing_subject_did
         # 请求号；以yyyyMMdd 时间串开头的32位字符串；该字符串需要保持请求系统内唯一，系统会以该请求号作为幂等处理
         self.request_no = request_no
+        # 质押发票号码列表
+        self.invoice_nos = invoice_nos
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
@@ -21859,6 +21902,8 @@ class PushPfPledgeRequest(TeaModel):
             result['financing_subject_did'] = self.financing_subject_did
         if self.request_no is not None:
             result['request_no'] = self.request_no
+        if self.invoice_nos is not None:
+            result['invoice_nos'] = self.invoice_nos
         return result
 
     def from_map(self, m: dict = None):
@@ -21875,6 +21920,8 @@ class PushPfPledgeRequest(TeaModel):
             self.financing_subject_did = m.get('financing_subject_did')
         if m.get('request_no') is not None:
             self.request_no = m.get('request_no')
+        if m.get('invoice_nos') is not None:
+            self.invoice_nos = m.get('invoice_nos')
         return self
 
 

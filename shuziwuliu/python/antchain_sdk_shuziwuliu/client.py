@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 集装箱信息
+            # 创建凭证One
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.106'
+                    'sdk_version': '1.3.107'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 集装箱信息
+            # 创建凭证One
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.106'
+                    'sdk_version': '1.3.107'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -330,8 +330,8 @@ class Client:
         request: shuziwuliu_models.CreateStandardVoucherRequest,
     ) -> shuziwuliu_models.CreateStandardVoucherResponse:
         """
-        Description: 凭证发行
-        Summary: 凭证发行
+        Description: 创建凭证
+        Summary: 创建凭证
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -342,8 +342,8 @@ class Client:
         request: shuziwuliu_models.CreateStandardVoucherRequest,
     ) -> shuziwuliu_models.CreateStandardVoucherResponse:
         """
-        Description: 凭证发行
-        Summary: 凭证发行
+        Description: 创建凭证
+        Summary: 创建凭证
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -356,8 +356,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.CreateStandardVoucherResponse:
         """
-        Description: 凭证发行
-        Summary: 凭证发行
+        Description: 创建凭证
+        Summary: 创建凭证
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.CreateStandardVoucherResponse().from_map(
@@ -371,8 +371,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> shuziwuliu_models.CreateStandardVoucherResponse:
         """
-        Description: 凭证发行
-        Summary: 凭证发行
+        Description: 创建凭证
+        Summary: 创建凭证
         """
         UtilClient.validate_model(request)
         return shuziwuliu_models.CreateStandardVoucherResponse().from_map(
