@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.106"},
+                        {"sdk_version", "1.3.107"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.106"},
+                        {"sdk_version", "1.3.107"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -360,8 +360,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 凭证发行
-         * Summary: 凭证发行
+         * Description: 创建凭证
+         * Summary: 创建凭证
          */
         public CreateStandardVoucherResponse CreateStandardVoucher(CreateStandardVoucherRequest request)
         {
@@ -371,8 +371,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 凭证发行
-         * Summary: 凭证发行
+         * Description: 创建凭证
+         * Summary: 创建凭证
          */
         public async Task<CreateStandardVoucherResponse> CreateStandardVoucherAsync(CreateStandardVoucherRequest request)
         {
@@ -382,8 +382,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 凭证发行
-         * Summary: 凭证发行
+         * Description: 创建凭证
+         * Summary: 创建凭证
          */
         public CreateStandardVoucherResponse CreateStandardVoucherEx(CreateStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -392,8 +392,8 @@ namespace AntChain.SDK.SHUZIWULIU
         }
 
         /**
-         * Description: 凭证发行
-         * Summary: 凭证发行
+         * Description: 创建凭证
+         * Summary: 创建凭证
          */
         public async Task<CreateStandardVoucherResponse> CreateStandardVoucherExAsync(CreateStandardVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

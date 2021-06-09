@@ -38,6 +38,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=32)]
         public string RequestNo { get; set; }
 
+        // 质押发票号码列表
+        [NameInMap("invoice_nos")]
+        [Validation(Required=false)]
+        public List<string> InvoiceNos { get; set; }
+
     }
 
 }

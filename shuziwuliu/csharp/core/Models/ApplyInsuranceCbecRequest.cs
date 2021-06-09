@@ -18,7 +18,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 投保交易号，调用方生成的唯一编码
+        // 投保交易号，调用方生成的唯一编码；
+        // 格式为 yyyyMMdd_身份标识_其他编码。
+        // 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
         [NameInMap("trade_no")]
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
@@ -33,7 +35,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=64)]
         public string ExternalProductCode { get; set; }
 
-        // 投保人姓名
+        // 投保人名称
         [NameInMap("tbr_name")]
         [Validation(Required=true, MaxLength=100)]
         public string TbrName { get; set; }
@@ -48,7 +50,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false, MaxLength=800)]
         public string TbrIdNo { get; set; }
 
-        // 被保人姓名
+        // 被保人名称
         [NameInMap("bbr_name")]
         [Validation(Required=true, MaxLength=100)]
         public string BbrName { get; set; }
@@ -83,7 +85,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=2)]
         public string PackingCode { get; set; }
 
-        // 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+        // 货物类型代码,参考保司提供样例-货物类型代码
         [NameInMap("cargo_type_code")]
         [Validation(Required=true, MaxLength=4)]
         public string CargoTypeCode { get; set; }
@@ -128,12 +130,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=30)]
         public string ClaimAgentCode { get; set; }
 
-        // 主险条款代码
+        // 主险条款代码--参考保司提供样例
         [NameInMap("main_item_code")]
         [Validation(Required=true, MaxLength=12)]
         public string MainItemCode { get; set; }
 
-        // 主险条款内容
+        // 主险条款内容--参考保司提供样例
         [NameInMap("main_item_content")]
         [Validation(Required=true, MaxLength=500)]
         public string MainItemContent { get; set; }
@@ -143,7 +145,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public List<MainItemAdd> MainItemAdds { get; set; }
 
-        // 特别约定
+        // 特别约定--填写协议中的特别约定
         [NameInMap("specialize")]
         [Validation(Required=false, MaxLength=500)]
         public string Specialize { get; set; }

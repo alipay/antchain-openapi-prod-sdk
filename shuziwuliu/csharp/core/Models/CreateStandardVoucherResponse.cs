@@ -24,10 +24,20 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 凭证返回值_voucherResp
+        [NameInMap("voucher_resp")]
+        [Validation(Required=true)]
+        public VoucherResp VoucherResp { get; set; }
+
         // 编码
         [NameInMap("code")]
         [Validation(Required=true)]
         public string Code { get; set; }
+
+        // 凭证返回值_voucherRespList
+        [NameInMap("voucher_resp_list")]
+        [Validation(Required=true)]
+        public List<VoucherResp> VoucherRespList { get; set; }
 
     }
 

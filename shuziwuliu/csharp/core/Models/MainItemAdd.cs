@@ -10,12 +10,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 {
     // 附加条款
     public class MainItemAdd : TeaModel {
-        // 附加条款代码
+        // 附加条款代码-参考保司提供样例
         [NameInMap("main_item_add_code")]
         [Validation(Required=false)]
         public string MainItemAddCode { get; set; }
 
-        // 附加条款内容
+        // 附加条款内容-参考保司提供样例
         [NameInMap("main_item_add_content")]
         [Validation(Required=false)]
         public string MainItemAddContent { get; set; }

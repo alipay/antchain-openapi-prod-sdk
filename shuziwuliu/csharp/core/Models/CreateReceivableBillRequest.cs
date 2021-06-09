@@ -26,7 +26,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 的撒
         [NameInMap("status")]
         [Validation(Required=true)]
-        public ApiTest Status { get; set; }
+        public string Status { get; set; }
 
     }
 
