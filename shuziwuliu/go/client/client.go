@@ -148,6 +148,60 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 创建凭证One
+type VoucherTestOne struct {
+	// 测试Long
+	VoucherTestOneLong *int64 `json:"voucher_test_one_long,omitempty" xml:"voucher_test_one_long,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 测试String
+	VoucherTestOneString *string `json:"voucher_test_one_string,omitempty" xml:"voucher_test_one_string,omitempty" require:"true" maxLength:"10" minLength:"0"`
+	// 测试Int
+	VoucherTestOneInt *int64 `json:"voucher_test_one_int,omitempty" xml:"voucher_test_one_int,omitempty" require:"true"`
+	// 测试Date
+	VoucherTestOneDate *string `json:"voucher_test_one_date,omitempty" xml:"voucher_test_one_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 测试Integer
+	VoucherTestOneInteger *int64 `json:"voucher_test_one_integer,omitempty" xml:"voucher_test_one_integer,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 测试Boolean
+	VoucherTestOneBoolean *bool `json:"voucher_test_one_boolean,omitempty" xml:"voucher_test_one_boolean,omitempty" require:"true"`
+}
+
+func (s VoucherTestOne) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherTestOne) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneLong(v int64) *VoucherTestOne {
+	s.VoucherTestOneLong = &v
+	return s
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneString(v string) *VoucherTestOne {
+	s.VoucherTestOneString = &v
+	return s
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneInt(v int64) *VoucherTestOne {
+	s.VoucherTestOneInt = &v
+	return s
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneDate(v string) *VoucherTestOne {
+	s.VoucherTestOneDate = &v
+	return s
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneInteger(v int64) *VoucherTestOne {
+	s.VoucherTestOneInteger = &v
+	return s
+}
+
+func (s *VoucherTestOne) SetVoucherTestOneBoolean(v bool) *VoucherTestOne {
+	s.VoucherTestOneBoolean = &v
+	return s
+}
+
 // 集装箱信息
 type ContainerInfo struct {
 	// 订舱单唯一标识
@@ -821,120 +875,125 @@ func (s *SoNotifyBookingParam) SetVoyage(v string) *SoNotifyBookingParam {
 	return s
 }
 
-// 接口测试
-type ApiTest struct {
-	// 测试String
-	TestString *string `json:"test_string,omitempty" xml:"test_string,omitempty" require:"true" maxLength:"100" minLength:"0"`
-	// 测试Int
-	TestInt *int64 `json:"test_int,omitempty" xml:"test_int,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Integer
-	TestInteger *int64 `json:"test_integer,omitempty" xml:"test_integer,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Long
-	TestLong *int64 `json:"test_long,omitempty" xml:"test_long,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Boolean
-	TestBoolean *bool `json:"test_boolean,omitempty" xml:"test_boolean,omitempty" require:"true"`
-	// 测试Date
-	TestDate *string `json:"test_date,omitempty" xml:"test_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 凭证列表_stringList
-	StringList []*string `json:"string_list,omitempty" xml:"string_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_ints
-	Ints []*int64 `json:"ints,omitempty" xml:"ints,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_longs
-	Longs []*int64 `json:"longs,omitempty" xml:"longs,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_integerList
-	IntegerList []*int64 `json:"integer_list,omitempty" xml:"integer_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_longList
-	LongList []*int64 `json:"long_list,omitempty" xml:"long_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_booleanList
-	BooleanList []*bool `json:"boolean_list,omitempty" xml:"boolean_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_dateList
-	DateList []*string `json:"date_list,omitempty" xml:"date_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_apiTestList
-	ApiTestList []*ApiTestInfo `json:"api_test_list,omitempty" xml:"api_test_list,omitempty" require:"true" type:"Repeated"`
-	// 测试apiTestInfo
-	ApiTestInfo *ApiTest `json:"api_test_info,omitempty" xml:"api_test_info,omitempty" require:"true"`
+// 凭证返回值
+type VoucherResp struct {
+	// 消息
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true" maxLength:"10" minLength:"0"`
 }
 
-func (s ApiTest) String() string {
+func (s VoucherResp) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ApiTest) GoString() string {
+func (s VoucherResp) GoString() string {
 	return s.String()
 }
 
-func (s *ApiTest) SetTestString(v string) *ApiTest {
-	s.TestString = &v
+func (s *VoucherResp) SetMsg(v string) *VoucherResp {
+	s.Msg = &v
 	return s
 }
 
-func (s *ApiTest) SetTestInt(v int64) *ApiTest {
-	s.TestInt = &v
+// 创建凭证Two
+type VoucherTestTwo struct {
+	// 测试Boolean
+	VoucherTestTwoBoolean *bool `json:"voucher_test_two_boolean,omitempty" xml:"voucher_test_two_boolean,omitempty" require:"true"`
+	// 凭证列表_apiTestList
+	VoucherTestTwoApiTestList []*VoucherTestOne `json:"voucher_test_two_api_test_list,omitempty" xml:"voucher_test_two_api_test_list,omitempty" require:"true" type:"Repeated"`
+	// 测试Int
+	VoucherTestTwoInt *int64 `json:"voucher_test_two_int,omitempty" xml:"voucher_test_two_int,omitempty" require:"true"`
+	// 测试Integer
+	VoucherTestTwoInteger *int64 `json:"voucher_test_two_integer,omitempty" xml:"voucher_test_two_integer,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 凭证列表_dateList
+	VoucherTestTwoDateList []*string `json:"voucher_test_two_date_list,omitempty" xml:"voucher_test_two_date_list,omitempty" require:"true" type:"Repeated"`
+	// 测试String
+	VoucherTestTwoString *string `json:"voucher_test_two_string,omitempty" xml:"voucher_test_two_string,omitempty" require:"true" maxLength:"10" minLength:"0"`
+	// 测试Date
+	VoucherTestTwoDate *string `json:"voucher_test_two_date,omitempty" xml:"voucher_test_two_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 凭证列表_integerList
+	VoucherTestTwoIntegerList []*int64 `json:"voucher_test_two_integer_list,omitempty" xml:"voucher_test_two_integer_list,omitempty" require:"true" type:"Repeated"`
+	// 测试Long
+	VoucherTestTwoLong *int64 `json:"voucher_test_two_long,omitempty" xml:"voucher_test_two_long,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 凭证列表_longList
+	VoucherTestTwoLongList []*int64 `json:"voucher_test_two_long_list,omitempty" xml:"voucher_test_two_long_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证列表_stringList
+	VoucherTestTwoStringList []*string `json:"voucher_test_two_string_list,omitempty" xml:"voucher_test_two_string_list,omitempty" require:"true" type:"Repeated"`
+	// 测试apiTestInfo
+	VoucherTestTwoApiTestInfo *VoucherTestOne `json:"voucher_test_two_api_test_info,omitempty" xml:"voucher_test_two_api_test_info,omitempty" require:"true"`
+	// 凭证列表_booleanList
+	VoucherTestTwoBooleanList []*bool `json:"voucher_test_two_boolean_list,omitempty" xml:"voucher_test_two_boolean_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s VoucherTestTwo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherTestTwo) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherTestTwo) SetVoucherTestTwoBoolean(v bool) *VoucherTestTwo {
+	s.VoucherTestTwoBoolean = &v
 	return s
 }
 
-func (s *ApiTest) SetTestInteger(v int64) *ApiTest {
-	s.TestInteger = &v
+func (s *VoucherTestTwo) SetVoucherTestTwoApiTestList(v []*VoucherTestOne) *VoucherTestTwo {
+	s.VoucherTestTwoApiTestList = v
 	return s
 }
 
-func (s *ApiTest) SetTestLong(v int64) *ApiTest {
-	s.TestLong = &v
+func (s *VoucherTestTwo) SetVoucherTestTwoInt(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoInt = &v
 	return s
 }
 
-func (s *ApiTest) SetTestBoolean(v bool) *ApiTest {
-	s.TestBoolean = &v
+func (s *VoucherTestTwo) SetVoucherTestTwoInteger(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoInteger = &v
 	return s
 }
 
-func (s *ApiTest) SetTestDate(v string) *ApiTest {
-	s.TestDate = &v
+func (s *VoucherTestTwo) SetVoucherTestTwoDateList(v []*string) *VoucherTestTwo {
+	s.VoucherTestTwoDateList = v
 	return s
 }
 
-func (s *ApiTest) SetStringList(v []*string) *ApiTest {
-	s.StringList = v
+func (s *VoucherTestTwo) SetVoucherTestTwoString(v string) *VoucherTestTwo {
+	s.VoucherTestTwoString = &v
 	return s
 }
 
-func (s *ApiTest) SetInts(v []*int64) *ApiTest {
-	s.Ints = v
+func (s *VoucherTestTwo) SetVoucherTestTwoDate(v string) *VoucherTestTwo {
+	s.VoucherTestTwoDate = &v
 	return s
 }
 
-func (s *ApiTest) SetLongs(v []*int64) *ApiTest {
-	s.Longs = v
+func (s *VoucherTestTwo) SetVoucherTestTwoIntegerList(v []*int64) *VoucherTestTwo {
+	s.VoucherTestTwoIntegerList = v
 	return s
 }
 
-func (s *ApiTest) SetIntegerList(v []*int64) *ApiTest {
-	s.IntegerList = v
+func (s *VoucherTestTwo) SetVoucherTestTwoLong(v int64) *VoucherTestTwo {
+	s.VoucherTestTwoLong = &v
 	return s
 }
 
-func (s *ApiTest) SetLongList(v []*int64) *ApiTest {
-	s.LongList = v
+func (s *VoucherTestTwo) SetVoucherTestTwoLongList(v []*int64) *VoucherTestTwo {
+	s.VoucherTestTwoLongList = v
 	return s
 }
 
-func (s *ApiTest) SetBooleanList(v []*bool) *ApiTest {
-	s.BooleanList = v
+func (s *VoucherTestTwo) SetVoucherTestTwoStringList(v []*string) *VoucherTestTwo {
+	s.VoucherTestTwoStringList = v
 	return s
 }
 
-func (s *ApiTest) SetDateList(v []*string) *ApiTest {
-	s.DateList = v
+func (s *VoucherTestTwo) SetVoucherTestTwoApiTestInfo(v *VoucherTestOne) *VoucherTestTwo {
+	s.VoucherTestTwoApiTestInfo = v
 	return s
 }
 
-func (s *ApiTest) SetApiTestList(v []*ApiTestInfo) *ApiTest {
-	s.ApiTestList = v
-	return s
-}
-
-func (s *ApiTest) SetApiTestInfo(v *ApiTest) *ApiTest {
-	s.ApiTestInfo = v
+func (s *VoucherTestTwo) SetVoucherTestTwoBooleanList(v []*bool) *VoucherTestTwo {
+	s.VoucherTestTwoBooleanList = v
 	return s
 }
 
@@ -1861,60 +1920,6 @@ func (s *TxDto) SetDataType(v string) *TxDto {
 	return s
 }
 
-// 接口测试
-type ApiTestInfo struct {
-	// 测试String
-	TestString *string `json:"test_string,omitempty" xml:"test_string,omitempty" require:"true" maxLength:"100" minLength:"0"`
-	// 测试Int
-	TestInt *int64 `json:"test_int,omitempty" xml:"test_int,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Integer
-	TestInteger *int64 `json:"test_integer,omitempty" xml:"test_integer,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Long
-	TestLong *int64 `json:"test_long,omitempty" xml:"test_long,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 测试Boolean
-	TestBoolean *bool `json:"test_boolean,omitempty" xml:"test_boolean,omitempty" require:"true"`
-	// 测试Date
-	TestDate *string `json:"test_date,omitempty" xml:"test_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s ApiTestInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApiTestInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ApiTestInfo) SetTestString(v string) *ApiTestInfo {
-	s.TestString = &v
-	return s
-}
-
-func (s *ApiTestInfo) SetTestInt(v int64) *ApiTestInfo {
-	s.TestInt = &v
-	return s
-}
-
-func (s *ApiTestInfo) SetTestInteger(v int64) *ApiTestInfo {
-	s.TestInteger = &v
-	return s
-}
-
-func (s *ApiTestInfo) SetTestLong(v int64) *ApiTestInfo {
-	s.TestLong = &v
-	return s
-}
-
-func (s *ApiTestInfo) SetTestBoolean(v bool) *ApiTestInfo {
-	s.TestBoolean = &v
-	return s
-}
-
-func (s *ApiTestInfo) SetTestDate(v string) *ApiTestInfo {
-	s.TestDate = &v
-	return s
-}
-
 // 用户凭证信息
 type UserIssueId struct {
 	// 凭证id
@@ -1943,9 +1948,9 @@ func (s *UserIssueId) SetBalanceAmt(v string) *UserIssueId {
 
 // 附加条款
 type MainItemAdd struct {
-	// 附加条款代码
+	// 附加条款代码-参考保司提供样例
 	MainItemAddCode *string `json:"main_item_add_code,omitempty" xml:"main_item_add_code,omitempty"`
-	// 附加条款内容
+	// 附加条款内容-参考保司提供样例
 	MainItemAddContent *string `json:"main_item_add_content,omitempty" xml:"main_item_add_content,omitempty"`
 }
 
@@ -3251,7 +3256,7 @@ type CreateReceivableBillRequest struct {
 	// 测试
 	Test *AuthParty `json:"test,omitempty" xml:"test,omitempty"`
 	// 的撒
-	Status *ApiTest `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s CreateReceivableBillRequest) String() string {
@@ -3277,8 +3282,8 @@ func (s *CreateReceivableBillRequest) SetTest(v *AuthParty) *CreateReceivableBil
 	return s
 }
 
-func (s *CreateReceivableBillRequest) SetStatus(v *ApiTest) *CreateReceivableBillRequest {
-	s.Status = v
+func (s *CreateReceivableBillRequest) SetStatus(v string) *CreateReceivableBillRequest {
+	s.Status = &v
 	return s
 }
 
@@ -3325,30 +3330,30 @@ type CreateStandardVoucherRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数据标识
-	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true" maxLength:"10" minLength:"0"`
-	// 资产类型
-	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty" require:"true" maxLength:"10" minLength:"0"`
-	// 发行金额_Integer
-	AmountInt *int64 `json:"amount_int,omitempty" xml:"amount_int,omitempty" require:"true" maximum:"10" minimum:"0"`
-	// 发行金额_Long
-	AmountLong *int64 `json:"amount_long,omitempty" xml:"amount_long,omitempty" require:"true" maximum:"10" minimum:"0"`
 	// 账户是否存在
 	Exist *bool `json:"exist,omitempty" xml:"exist,omitempty" require:"true"`
+	// 签署方
+	VoucherTestOne *VoucherTestTwo `json:"voucher_test_one,omitempty" xml:"voucher_test_one,omitempty" require:"true"`
+	// 数据标识
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true" maxLength:"10" minLength:"0"`
+	// 凭证列表_apiTestList
+	VoucherTestThree []*VoucherTestTwo `json:"voucher_test_three,omitempty" xml:"voucher_test_three,omitempty" require:"true" type:"Repeated"`
 	// 发行时间
 	IssueTime *string `json:"issue_time,omitempty" xml:"issue_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 签署方
-	ApiTest *ApiTest `json:"api_test,omitempty" xml:"api_test,omitempty" require:"true"`
-	// 凭证列表_voucherArray
-	VoucherArray []*int64 `json:"voucher_array,omitempty" xml:"voucher_array,omitempty" require:"true" type:"Repeated"`
 	// 凭证列表_voucherList
 	VoucherList []*string `json:"voucher_list,omitempty" xml:"voucher_list,omitempty" require:"true" type:"Repeated"`
-	// 凭证列表_apiTestList
-	ApiTestList []*ApiTest `json:"api_test_list,omitempty" xml:"api_test_list,omitempty" require:"true" type:"Repeated"`
+	// 发行金额_Long
+	AmountLong *int64 `json:"amount_long,omitempty" xml:"amount_long,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 发行金额_Integer
+	AmountInt *int64 `json:"amount_int,omitempty" xml:"amount_int,omitempty" require:"true" maximum:"10" minimum:"0"`
+	// 签署方
+	VoucherTestTwo *VoucherTestTwo `json:"voucher_test_two,omitempty" xml:"voucher_test_two,omitempty" require:"true"`
 	// 凭证列表_booleanList
 	BooleanList []*bool `json:"boolean_list,omitempty" xml:"boolean_list,omitempty" require:"true" type:"Repeated"`
 	// 凭证列表_dateList
 	DateList []*string `json:"date_list,omitempty" xml:"date_list,omitempty" require:"true" type:"Repeated"`
+	// 资产类型
+	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty" require:"true" maxLength:"10" minLength:"0"`
 }
 
 func (s CreateStandardVoucherRequest) String() string {
@@ -3369,28 +3374,23 @@ func (s *CreateStandardVoucherRequest) SetProductInstanceId(v string) *CreateSta
 	return s
 }
 
+func (s *CreateStandardVoucherRequest) SetExist(v bool) *CreateStandardVoucherRequest {
+	s.Exist = &v
+	return s
+}
+
+func (s *CreateStandardVoucherRequest) SetVoucherTestOne(v *VoucherTestTwo) *CreateStandardVoucherRequest {
+	s.VoucherTestOne = v
+	return s
+}
+
 func (s *CreateStandardVoucherRequest) SetBusinessCode(v string) *CreateStandardVoucherRequest {
 	s.BusinessCode = &v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetAssetType(v string) *CreateStandardVoucherRequest {
-	s.AssetType = &v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetAmountInt(v int64) *CreateStandardVoucherRequest {
-	s.AmountInt = &v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetAmountLong(v int64) *CreateStandardVoucherRequest {
-	s.AmountLong = &v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetExist(v bool) *CreateStandardVoucherRequest {
-	s.Exist = &v
+func (s *CreateStandardVoucherRequest) SetVoucherTestThree(v []*VoucherTestTwo) *CreateStandardVoucherRequest {
+	s.VoucherTestThree = v
 	return s
 }
 
@@ -3399,23 +3399,23 @@ func (s *CreateStandardVoucherRequest) SetIssueTime(v string) *CreateStandardVou
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetApiTest(v *ApiTest) *CreateStandardVoucherRequest {
-	s.ApiTest = v
-	return s
-}
-
-func (s *CreateStandardVoucherRequest) SetVoucherArray(v []*int64) *CreateStandardVoucherRequest {
-	s.VoucherArray = v
-	return s
-}
-
 func (s *CreateStandardVoucherRequest) SetVoucherList(v []*string) *CreateStandardVoucherRequest {
 	s.VoucherList = v
 	return s
 }
 
-func (s *CreateStandardVoucherRequest) SetApiTestList(v []*ApiTest) *CreateStandardVoucherRequest {
-	s.ApiTestList = v
+func (s *CreateStandardVoucherRequest) SetAmountLong(v int64) *CreateStandardVoucherRequest {
+	s.AmountLong = &v
+	return s
+}
+
+func (s *CreateStandardVoucherRequest) SetAmountInt(v int64) *CreateStandardVoucherRequest {
+	s.AmountInt = &v
+	return s
+}
+
+func (s *CreateStandardVoucherRequest) SetVoucherTestTwo(v *VoucherTestTwo) *CreateStandardVoucherRequest {
+	s.VoucherTestTwo = v
 	return s
 }
 
@@ -3429,6 +3429,11 @@ func (s *CreateStandardVoucherRequest) SetDateList(v []*string) *CreateStandardV
 	return s
 }
 
+func (s *CreateStandardVoucherRequest) SetAssetType(v string) *CreateStandardVoucherRequest {
+	s.AssetType = &v
+	return s
+}
+
 type CreateStandardVoucherResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -3436,8 +3441,12 @@ type CreateStandardVoucherResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证返回值_voucherResp
+	VoucherResp *VoucherResp `json:"voucher_resp,omitempty" xml:"voucher_resp,omitempty" require:"true"`
 	// 编码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 凭证返回值_voucherRespList
+	VoucherRespList []*VoucherResp `json:"voucher_resp_list,omitempty" xml:"voucher_resp_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateStandardVoucherResponse) String() string {
@@ -3463,8 +3472,18 @@ func (s *CreateStandardVoucherResponse) SetResultMsg(v string) *CreateStandardVo
 	return s
 }
 
+func (s *CreateStandardVoucherResponse) SetVoucherResp(v *VoucherResp) *CreateStandardVoucherResponse {
+	s.VoucherResp = v
+	return s
+}
+
 func (s *CreateStandardVoucherResponse) SetCode(v string) *CreateStandardVoucherResponse {
 	s.Code = &v
+	return s
+}
+
+func (s *CreateStandardVoucherResponse) SetVoucherRespList(v []*VoucherResp) *CreateStandardVoucherResponse {
+	s.VoucherRespList = v
 	return s
 }
 
@@ -17346,19 +17365,21 @@ type ApplyInsuranceCbecRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 投保交易号，调用方生成的唯一编码
+	// 投保交易号，调用方生成的唯一编码；
+	// 格式为 yyyyMMdd_身份标识_其他编码。
+	// 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 保司编码，CPIC---太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
 	// 险种编码，03--跨境出口货运险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"64"`
-	// 投保人姓名
+	// 投保人名称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型，03--营业执照
 	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" maxLength:"40"`
 	// 投保人证件号码
 	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" maxLength:"800"`
-	// 被保人姓名
+	// 被保人名称
 	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 被保人证件类型，01--居民身份证，03--营业执照
 	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" maxLength:"40"`
@@ -17372,7 +17393,7 @@ type ApplyInsuranceCbecRequest struct {
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"100"`
 	// 包装代码,参考保司提供样例-包装代码
 	PackingCode *string `json:"packing_code,omitempty" xml:"packing_code,omitempty" require:"true" maxLength:"2"`
-	// 货物类型代码,货物类型代码,参考保司提供样例-货物类型代码
+	// 货物类型代码,参考保司提供样例-货物类型代码
 	CargoTypeCode *string `json:"cargo_type_code,omitempty" xml:"cargo_type_code,omitempty" require:"true" maxLength:"4"`
 	// 航行区域代码,参考保司提供样例-航行区域代码
 	FlightAreaCode *string `json:"flight_area_code,omitempty" xml:"flight_area_code,omitempty" require:"true" maxLength:"10"`
@@ -17390,13 +17411,13 @@ type ApplyInsuranceCbecRequest struct {
 	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"200"`
 	// 理赔代理地代码，参考保司提供样例-理赔代理地
 	ClaimAgentCode *string `json:"claim_agent_code,omitempty" xml:"claim_agent_code,omitempty" require:"true" maxLength:"30"`
-	// 主险条款代码
+	// 主险条款代码--参考保司提供样例
 	MainItemCode *string `json:"main_item_code,omitempty" xml:"main_item_code,omitempty" require:"true" maxLength:"12"`
-	// 主险条款内容
+	// 主险条款内容--参考保司提供样例
 	MainItemContent *string `json:"main_item_content,omitempty" xml:"main_item_content,omitempty" require:"true" maxLength:"500"`
 	// 附加条款集合
 	MainItemAdds []*MainItemAdd `json:"main_item_adds,omitempty" xml:"main_item_adds,omitempty" type:"Repeated"`
-	// 特别约定
+	// 特别约定--填写协议中的特别约定
 	Specialize *string `json:"specialize,omitempty" xml:"specialize,omitempty" maxLength:"500"`
 	// 申报货物价值,，最多兼容2位小数，单位（元）
 	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true" maxLength:"50"`
@@ -17640,7 +17661,10 @@ type ApplyInsuranceStockinRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 入库交易流水号，保持唯一
+	// 入库交易流水号，保持唯一；
+	// 格式为 yyyyMMdd_身份标识_其他编码。
+	// 系统会根据该流水号做防重、幂等判断逻辑。
+	// 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 入库单号，可参考格式：年月日+唯一字符
 	StockinNo *string `json:"stockin_no,omitempty" xml:"stockin_no,omitempty" require:"true" maxLength:"50"`
@@ -17768,7 +17792,10 @@ type ApplyInsuranceInventoryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 库存申报交易号，调用方生成的唯一编码
+	// 库存申报交易号，调用方生成的唯一编码；
+	// 格式为 yyyyMMdd_身份标识_其他编码。
+	// 系统会根据该流水号做防重、幂等判断逻辑。
+	// 当极端场景中（接口超时），客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
 	// 库存申报编号
 	InventoryNo *string `json:"inventory_no,omitempty" xml:"inventory_no,omitempty" require:"true" maxLength:"50"`
@@ -18748,6 +18775,8 @@ type PushPfPledgeRequest struct {
 	FinancingSubjectDid *string `json:"financing_subject_did,omitempty" xml:"financing_subject_did,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 请求号；以yyyyMMdd 时间串开头的32位字符串；该字符串需要保持请求系统内唯一，系统会以该请求号作为幂等处理
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true" maxLength:"32" minLength:"16"`
+	// 质押发票号码列表
+	InvoiceNos []*string `json:"invoice_nos,omitempty" xml:"invoice_nos,omitempty" type:"Repeated"`
 }
 
 func (s PushPfPledgeRequest) String() string {
@@ -18785,6 +18814,11 @@ func (s *PushPfPledgeRequest) SetFinancingSubjectDid(v string) *PushPfPledgeRequ
 
 func (s *PushPfPledgeRequest) SetRequestNo(v string) *PushPfPledgeRequest {
 	s.RequestNo = &v
+	return s
+}
+
+func (s *PushPfPledgeRequest) SetInvoiceNos(v []*string) *PushPfPledgeRequest {
+	s.InvoiceNos = v
 	return s
 }
 
@@ -26299,7 +26333,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.106"),
+				"sdk_version":      tea.String("1.3.107"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -26382,8 +26416,8 @@ func (client *Client) CreateReceivableBillEx(request *CreateReceivableBillReques
 }
 
 /**
- * Description: 凭证发行
- * Summary: 凭证发行
+ * Description: 创建凭证
+ * Summary: 创建凭证
  */
 func (client *Client) CreateStandardVoucher(request *CreateStandardVoucherRequest) (_result *CreateStandardVoucherResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -26398,8 +26432,8 @@ func (client *Client) CreateStandardVoucher(request *CreateStandardVoucherReques
 }
 
 /**
- * Description: 凭证发行
- * Summary: 凭证发行
+ * Description: 创建凭证
+ * Summary: 创建凭证
  */
 func (client *Client) CreateStandardVoucherEx(request *CreateStandardVoucherRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateStandardVoucherResponse, _err error) {
 	_err = util.ValidateModel(request)
