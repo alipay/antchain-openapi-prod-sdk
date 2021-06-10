@@ -18,6 +18,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 场景码 , 使用asset_id 查询时，scene也必须传入
+        [NameInMap("scene")]
+        [Validation(Required=false)]
+        public string Scene { get; set; }
+
         // 标签Id
         [NameInMap("label_id")]
         [Validation(Required=false)]
@@ -25,7 +30,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 标签状态
         [NameInMap("label_status")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string LabelStatus { get; set; }
 
         // 资产Id

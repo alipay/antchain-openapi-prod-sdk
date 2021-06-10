@@ -24,20 +24,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 链Id
-        [NameInMap("chain_id")]
+        // 标签上链hash返回
+        [NameInMap("result_list")]
         [Validation(Required=false)]
-        public string ChainId { get; set; }
-
-        // 上链时间
-        [NameInMap("tx_time")]
-        [Validation(Required=false)]
-        public string TxTime { get; set; }
-
-        // 上链哈希
-        [NameInMap("tx_hash")]
-        [Validation(Required=false)]
-        public string TxHash { get; set; }
+        public List<LabelChainResult> ResultList { get; set; }
 
     }
 

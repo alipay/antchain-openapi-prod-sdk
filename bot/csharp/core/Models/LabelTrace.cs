@@ -12,17 +12,12 @@ namespace AntChain.SDK.BOT.Models
     public class LabelTrace : TeaModel {
         // 场景码
         [NameInMap("scene")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Scene { get; set; }
-
-        // 租户
-        [NameInMap("tenant")]
-        [Validation(Required=false)]
-        public string Tenant { get; set; }
 
         // 标签id
         [NameInMap("label_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string LabelId { get; set; }
 
         // 标签状态
@@ -55,10 +50,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Action { get; set; }
 
-        // 操作时间
+        // 操作时间 
         [NameInMap("operate_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string OperateTime { get; set; }
+        [Validation(Required=true)]
+        public long? OperateTime { get; set; }
 
         // 操作设备
         [NameInMap("operate_device")]
@@ -72,7 +67,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 链上哈希
         [NameInMap("tx_hash")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string TxHash { get; set; }
 
         // 上链时间
