@@ -542,6 +542,53 @@ func (s *SpaceRegisterReqModel) SetType(v string) *SpaceRegisterReqModel {
 	return s
 }
 
+// 标签流转上链返回txHash
+type LabelChainResult struct {
+	// 标签ID
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
+	// 业务资产ID，接入方自行定义
+	Asset *string `json:"asset,omitempty" xml:"asset,omitempty"`
+	// 标签最近一次上链的txHash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+}
+
+func (s LabelChainResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelChainResult) GoString() string {
+	return s.String()
+}
+
+func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
+	s.LabelId = &v
+	return s
+}
+
+func (s *LabelChainResult) SetAsset(v string) *LabelChainResult {
+	s.Asset = &v
+	return s
+}
+
+func (s *LabelChainResult) SetTxHash(v string) *LabelChainResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorCode(v string) *LabelChainResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
+	s.ErrorMsg = &v
+	return s
+}
+
 // TSM CommonCmd
 type TsmCommonCmd struct {
 	// private byte cla;
@@ -760,11 +807,9 @@ func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 // 标签流转历史
 type LabelTrace struct {
 	// 场景码
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
-	// 租户
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 	// 标签id
-	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty"`
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
 	// 标签状态
 	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty" require:"true"`
 	// 资产Id
@@ -778,13 +823,13 @@ type LabelTrace struct {
 	// 标签操作
 	Action *string `json:"action,omitempty" xml:"action,omitempty"`
 	// 操作时间
-	OperateTime *string `json:"operate_time,omitempty" xml:"operate_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
 	// 操作设备
 	OperateDevice *string `json:"operate_device,omitempty" xml:"operate_device,omitempty"`
 	// 操作内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// 链上哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 	// 上链时间
 	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
 	// 区块链高度
@@ -809,11 +854,6 @@ func (s LabelTrace) GoString() string {
 
 func (s *LabelTrace) SetScene(v string) *LabelTrace {
 	s.Scene = &v
-	return s
-}
-
-func (s *LabelTrace) SetTenant(v string) *LabelTrace {
-	s.Tenant = &v
 	return s
 }
 
@@ -852,7 +892,7 @@ func (s *LabelTrace) SetAction(v string) *LabelTrace {
 	return s
 }
 
-func (s *LabelTrace) SetOperateTime(v string) *LabelTrace {
+func (s *LabelTrace) SetOperateTime(v int64) *LabelTrace {
 	s.OperateTime = &v
 	return s
 }
@@ -5882,10 +5922,12 @@ type QueryLabelTraceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码 , 使用asset_id 查询时，scene也必须传入
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 	// 标签Id
 	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty"`
 	// 标签状态
-	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty" require:"true"`
+	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty"`
 	// 资产Id
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
 	// 操作员
@@ -5915,6 +5957,11 @@ func (s *QueryLabelTraceRequest) SetAuthToken(v string) *QueryLabelTraceRequest 
 
 func (s *QueryLabelTraceRequest) SetProductInstanceId(v string) *QueryLabelTraceRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetScene(v string) *QueryLabelTraceRequest {
+	s.Scene = &v
 	return s
 }
 
@@ -6049,12 +6096,8 @@ type SyncLabelTransferResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 链Id
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty"`
-	// 上链时间
-	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
-	// 上链哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 标签上链hash返回
+	ResultList []*LabelChainResult `json:"result_list,omitempty" xml:"result_list,omitempty" type:"Repeated"`
 }
 
 func (s SyncLabelTransferResponse) String() string {
@@ -6080,18 +6123,8 @@ func (s *SyncLabelTransferResponse) SetResultMsg(v string) *SyncLabelTransferRes
 	return s
 }
 
-func (s *SyncLabelTransferResponse) SetChainId(v string) *SyncLabelTransferResponse {
-	s.ChainId = &v
-	return s
-}
-
-func (s *SyncLabelTransferResponse) SetTxTime(v string) *SyncLabelTransferResponse {
-	s.TxTime = &v
-	return s
-}
-
-func (s *SyncLabelTransferResponse) SetTxHash(v string) *SyncLabelTransferResponse {
-	s.TxHash = &v
+func (s *SyncLabelTransferResponse) SetResultList(v []*LabelChainResult) *SyncLabelTransferResponse {
+	s.ResultList = v
 	return s
 }
 
@@ -7626,7 +7659,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.1"),
+				"sdk_version":      tea.String("1.5.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
