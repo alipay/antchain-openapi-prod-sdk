@@ -383,6 +383,43 @@ export class SpaceRegisterReqModel extends $tea.Model {
   }
 }
 
+// 标签流转上链返回txHash
+export class LabelChainResult extends $tea.Model {
+  // 标签ID
+  labelId: string;
+  // 业务资产ID，接入方自行定义
+  asset?: string;
+  // 标签最近一次上链的txHash
+  txHash: string;
+  // 错误码
+  errorCode?: string;
+  // 错误信息
+  errorMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      labelId: 'label_id',
+      asset: 'asset',
+      txHash: 'tx_hash',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      labelId: 'string',
+      asset: 'string',
+      txHash: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // TSM CommonCmd
 export class TsmCommonCmd extends $tea.Model {
   // private byte cla;
@@ -555,11 +592,9 @@ export class DistributeDataPackage extends $tea.Model {
 // 标签流转历史
 export class LabelTrace extends $tea.Model {
   // 场景码
-  scene?: string;
-  // 租户
-  tenant?: string;
+  scene: string;
   // 标签id
-  labelId?: string;
+  labelId: string;
   // 标签状态
   labelStatus: string;
   // 资产Id
@@ -572,14 +607,14 @@ export class LabelTrace extends $tea.Model {
   process?: string;
   // 标签操作
   action?: string;
-  // 操作时间
-  operateTime?: string;
+  // 操作时间 
+  operateTime: number;
   // 操作设备
   operateDevice?: string;
   // 操作内容
   content?: string;
   // 链上哈希
-  txHash?: string;
+  txHash: string;
   // 上链时间
   txTime?: string;
   // 区块链高度
@@ -595,7 +630,6 @@ export class LabelTrace extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       scene: 'scene',
-      tenant: 'tenant',
       labelId: 'label_id',
       labelStatus: 'label_status',
       assetId: 'asset_id',
@@ -619,7 +653,6 @@ export class LabelTrace extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       scene: 'string',
-      tenant: 'string',
       labelId: 'string',
       labelStatus: 'string',
       assetId: 'string',
@@ -627,7 +660,7 @@ export class LabelTrace extends $tea.Model {
       owner: 'string',
       process: 'string',
       action: 'string',
-      operateTime: 'string',
+      operateTime: 'number',
       operateDevice: 'string',
       content: 'string',
       txHash: 'string',
@@ -4591,10 +4624,12 @@ export class QueryLabelTraceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 场景码 , 使用asset_id 查询时，scene也必须传入
+  scene?: string;
   // 标签Id
   labelId?: string;
   // 标签状态
-  labelStatus: string;
+  labelStatus?: string;
   // 资产Id
   assetId?: string;
   // 操作员
@@ -4611,6 +4646,7 @@ export class QueryLabelTraceRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      scene: 'scene',
       labelId: 'label_id',
       labelStatus: 'label_status',
       assetId: 'asset_id',
@@ -4626,6 +4662,7 @@ export class QueryLabelTraceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      scene: 'string',
       labelId: 'string',
       labelStatus: 'string',
       assetId: 'string',
@@ -4716,20 +4753,14 @@ export class SyncLabelTransferResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 链Id
-  chainId?: string;
-  // 上链时间
-  txTime?: string;
-  // 上链哈希
-  txHash?: string;
+  // 标签上链hash返回
+  resultList?: LabelChainResult[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      chainId: 'chain_id',
-      txTime: 'tx_time',
-      txHash: 'tx_hash',
+      resultList: 'result_list',
     };
   }
 
@@ -4738,9 +4769,7 @@ export class SyncLabelTransferResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      chainId: 'string',
-      txTime: 'string',
-      txHash: 'string',
+      resultList: { 'type': 'array', 'itemType': LabelChainResult },
     };
   }
 
@@ -5956,7 +5985,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.1",
+          sdk_version: "1.5.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
