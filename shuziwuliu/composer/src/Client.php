@@ -23,12 +23,18 @@ use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceFileurlResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceInventoryRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceInventoryResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspireportRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspireportResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspiRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceOspiResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyUniversalResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsurancepolicyZhonghuacaixianResponse;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinRequest;
 use AntChain\SHUZIWULIU\Models\ApplyInsuranceStockinResponse;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbRequest;
+use AntChain\SHUZIWULIU\Models\ApplyInsuranceYzbResponse;
 use AntChain\SHUZIWULIU\Models\ApplyPfConfirmationRequest;
 use AntChain\SHUZIWULIU\Models\ApplyPfConfirmationResponse;
 use AntChain\SHUZIWULIU\Models\ApplyPfFinancingqualificationRequest;
@@ -131,6 +137,8 @@ use AntChain\SHUZIWULIU\Models\GetIssueTransferfileRequest;
 use AntChain\SHUZIWULIU\Models\GetIssueTransferfileResponse;
 use AntChain\SHUZIWULIU\Models\ImportWaybillLocationRequest;
 use AntChain\SHUZIWULIU\Models\ImportWaybillLocationResponse;
+use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportRequest;
+use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportResponse;
 use AntChain\SHUZIWULIU\Models\OpenCreditDriverRequest;
 use AntChain\SHUZIWULIU\Models\OpenCreditDriverResponse;
 use AntChain\SHUZIWULIU\Models\PushAuthSigninfoRequest;
@@ -452,7 +460,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.107',
+                    'sdk_version'      => '1.3.108',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3569,6 +3577,138 @@ class Client
         Utils::validateModel($request);
 
         return ApplyInsuranceInventoryResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海外邮包险投保api
+     * Summary: 海外邮包险投保.
+     *
+     * @param ApplyInsuranceOspiRequest $request
+     *
+     * @return ApplyInsuranceOspiResponse
+     */
+    public function applyInsuranceOspi($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceOspiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海外邮包险投保api
+     * Summary: 海外邮包险投保.
+     *
+     * @param ApplyInsuranceOspiRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyInsuranceOspiResponse
+     */
+    public function applyInsuranceOspiEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceOspiResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.ospi.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔
+     * Summary: 海外邮包险报案理赔.
+     *
+     * @param ApplyInsuranceOspireportRequest $request
+     *
+     * @return ApplyInsuranceOspireportResponse
+     */
+    public function applyInsuranceOspireport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceOspireportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔
+     * Summary: 海外邮包险报案理赔.
+     *
+     * @param ApplyInsuranceOspireportRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyInsuranceOspireportResponse
+     */
+    public function applyInsuranceOspireportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceOspireportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.ospireport.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔结果通知
+     * Summary: 海外邮包险报案理赔结果通知.
+     *
+     * @param NotifyInsuranceOspireportRequest $request
+     *
+     * @return NotifyInsuranceOspireportResponse
+     */
+    public function notifyInsuranceOspireport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyInsuranceOspireportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔结果通知
+     * Summary: 海外邮包险报案理赔结果通知.
+     *
+     * @param NotifyInsuranceOspireportRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return NotifyInsuranceOspireportResponse
+     */
+    public function notifyInsuranceOspireportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyInsuranceOspireportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.ospireport.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 驿站宝投保
+     * Summary: 驿站宝投保.
+     *
+     * @param ApplyInsuranceYzbRequest $request
+     *
+     * @return ApplyInsuranceYzbResponse
+     */
+    public function applyInsuranceYzb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsuranceYzbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 驿站宝投保
+     * Summary: 驿站宝投保.
+     *
+     * @param ApplyInsuranceYzbRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ApplyInsuranceYzbResponse
+     */
+    public function applyInsuranceYzbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsuranceYzbResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
