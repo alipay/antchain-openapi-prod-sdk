@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.1',
+    sdk_version = '1.5.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -292,6 +292,20 @@ model SpaceRegisterReqModel {
   type?: string(name='type', example='“平面“'),
 }
 
+// 标签流转上链返回txHash
+model LabelChainResult {
+  // 标签ID
+  labelId: string(name='label_id', example='86F000001A51C02000000010'),
+  // 业务资产ID，接入方自行定义
+  asset?: string(name='asset', example='XXX'),
+  // 标签最近一次上链的txHash
+  txHash: string(name='tx_hash', example='855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef'),
+  // 错误码
+  errorCode?: string(name='error_code', example='XXXX'),
+  // 错误信息
+  errorMsg: string(name='error_msg', example='xxxxx'),
+}
+
 // TSM CommonCmd
 model TsmCommonCmd {
   // private byte cla;
@@ -368,11 +382,9 @@ model DistributeDataPackage {
 // 标签流转历史
 model LabelTrace {
   // 场景码
-  scene?: string(name='scene', example='XXXXX'),
-  // 租户
-  tenant?: string(name='tenant', example='XXXXX'),
+  scene: string(name='scene', example='XXXXX'),
   // 标签id
-  labelId?: string(name='label_id', example='XXXXX'),
+  labelId: string(name='label_id', example='XXXXX'),
   // 标签状态
   labelStatus: string(name='label_status', example='XXXXX'),
   // 资产Id
@@ -385,14 +397,14 @@ model LabelTrace {
   process?: string(name='process', example='XXXXX'),
   // 标签操作
   action?: string(name='action', example='XXXXX'),
-  // 操作时间
-  operateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operate_time', example='2018-10-10T10:10:00Z'),
+  // 操作时间 
+  operateTime: long(name='operate_time', example='1623297766839'),
   // 操作设备
   operateDevice?: string(name='operate_device', example='XXXXX'),
   // 操作内容
   content?: string(name='content', example='XXXXX'),
   // 链上哈希
-  txHash?: string(name='tx_hash', example='XXXXX'),
+  txHash: string(name='tx_hash', example='XXXXX'),
   // 上链时间
   txTime?: string(name='tx_time', example='XXXXX'),
   // 区块链高度
@@ -2831,10 +2843,12 @@ model QueryLabelTraceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 场景码 , 使用asset_id 查询时，scene也必须传入
+  scene?: string(name='scene'),
   // 标签Id
   labelId?: string(name='label_id'),
   // 标签状态
-  labelStatus: string(name='label_status'),
+  labelStatus?: string(name='label_status'),
   // 资产Id
   assetId?: string(name='asset_id'),
   // 操作员
@@ -2898,12 +2912,8 @@ model SyncLabelTransferResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 链Id
-  chainId?: string(name='chain_id'),
-  // 上链时间
-  txTime?: string(name='tx_time'),
-  // 上链哈希
-  txHash?: string(name='tx_hash'),
+  // 标签上链hash返回
+  resultList?: [ LabelChainResult ](name='result_list'),
 }
 
 /**
