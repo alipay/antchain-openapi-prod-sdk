@@ -2292,6 +2292,31 @@ export class UploadOrderAmount extends $tea.Model {
   }
 }
 
+// 索赔资料附件
+export class ClaimInformation extends $tea.Model {
+  // 索赔资料地址url
+  fileUrl: string;
+  // 文件名	
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileUrl: 'file_url',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileUrl: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 货物列表
 export class MasterBlGoodsParam extends $tea.Model {
   // 预计备货时间
@@ -12725,6 +12750,626 @@ export class ApplyInsuranceInventoryResponse extends $tea.Model {
   }
 }
 
+export class ApplyInsuranceOspiRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 保司编码.，PAIC---平安
+  externalChannelCode: string;
+  // 险种编码，04--海外邮包险
+  externalProductCode: string;
+  // 投保人姓名，保险协议中的投保人全称
+  tbrName: string;
+  // 投保人证件类型，03--营业执照
+  tbrIdType: string;
+  // 投保人证件号码
+  tbrIdNo: string;
+  // 被保人姓名，实际的保险被保人名称
+  bbrName: string;
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  bbrIdType: string;
+  // 被保人证件号码
+  bbrIdNo: string;
+  // 受益人名称，实际的保险受益人名称
+  beneficiaryName: string;
+  // 受益人证件类型，01--居民身份证、03--营业执照
+  beneficiaryIdType: string;
+  // 受益人证件号码
+  beneficiaryNo: string;
+  // 保险起期
+  insureStart: string;
+  // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+  insuredAmount: string;
+  // 方案名，保司和业务平台商定的方案名称
+  schemeName: string;
+  // 项目名称,保司和业务平台商定的项目名称
+  projectName: string;
+  // 订单号,物流平台用以区分业务的唯一码
+  relaOrderNo: string;
+  // 寄件时间，yyyy-MM-dd HH:mm:ss
+  pickUpTime: string;
+  // 快递公司名称，实际的派送公司全称
+  courierCompany: string;
+  // 快递单号，实际的派送快递单号
+  courierNumber: string;
+  // 货物类型，货物类型的大类
+  cargoType: string;
+  // 货物名称，实际的货物名称
+  cargoName: string;
+  // 货物数量
+  cargoQuantity: number;
+  // 买家ID，买家的脱敏唯一标识
+  buyId: string;
+  // 卖家ID，卖家的脱敏唯一标识
+  sellId: string;
+  // 站点/仓储ID，站点/仓储的脱敏唯一标识
+  siteId: string;
+  // 出发地地址，包裹的实际发件地地址
+  startPlace: string;
+  // 目的地地址，包裹的实际收件地地址
+  destination: string;
+  // ISO到达国别，包裹业务实际发生的国家
+  isoCountry: string;
+  // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+  cargoWorth: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      tbrName: 'tbr_name',
+      tbrIdType: 'tbr_id_type',
+      tbrIdNo: 'tbr_id_no',
+      bbrName: 'bbr_name',
+      bbrIdType: 'bbr_id_type',
+      bbrIdNo: 'bbr_id_no',
+      beneficiaryName: 'beneficiary_name',
+      beneficiaryIdType: 'beneficiary_id_type',
+      beneficiaryNo: 'beneficiary_no',
+      insureStart: 'insure_start',
+      insuredAmount: 'insured_amount',
+      schemeName: 'scheme_name',
+      projectName: 'project_name',
+      relaOrderNo: 'rela_order_no',
+      pickUpTime: 'pick_up_time',
+      courierCompany: 'courier_company',
+      courierNumber: 'courier_number',
+      cargoType: 'cargo_type',
+      cargoName: 'cargo_name',
+      cargoQuantity: 'cargo_quantity',
+      buyId: 'buy_id',
+      sellId: 'sell_id',
+      siteId: 'site_id',
+      startPlace: 'start_place',
+      destination: 'destination',
+      isoCountry: 'iso_country',
+      cargoWorth: 'cargo_worth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      tbrName: 'string',
+      tbrIdType: 'string',
+      tbrIdNo: 'string',
+      bbrName: 'string',
+      bbrIdType: 'string',
+      bbrIdNo: 'string',
+      beneficiaryName: 'string',
+      beneficiaryIdType: 'string',
+      beneficiaryNo: 'string',
+      insureStart: 'string',
+      insuredAmount: 'string',
+      schemeName: 'string',
+      projectName: 'string',
+      relaOrderNo: 'string',
+      pickUpTime: 'string',
+      courierCompany: 'string',
+      courierNumber: 'string',
+      cargoType: 'string',
+      cargoName: 'string',
+      cargoQuantity: 'number',
+      buyId: 'string',
+      sellId: 'string',
+      siteId: 'string',
+      startPlace: 'string',
+      destination: 'string',
+      isoCountry: 'string',
+      cargoWorth: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceOspiResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投保唯一码
+  tradeNo?: string;
+  // 保单号
+  policyNo?: string;
+  // 保费
+  premium?: string;
+  // 保额
+  insuredAmount?: string;
+  // 保险起期
+  insureStart?: string;
+  // 保险止期
+  insureEnd?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      policyNo: 'policy_no',
+      premium: 'premium',
+      insuredAmount: 'insured_amount',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      policyNo: 'string',
+      premium: 'string',
+      insuredAmount: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceOspireportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 保司编码，PAIC---平安
+  externalChannelCode: string;
+  // 险种编码，04--海外邮包险
+  externalProductCode: string;
+  // 保单号，申请理赔的保单号
+  policyNo: string;
+  // 订单号，申请理赔所关联的订单号
+  relaOrderNo: string;
+  // 出险时间，发生损失的时间
+  accidentTime: string;
+  // 报案人名称，申请报案人的名称
+  reporterName: string;
+  // 报案人联系方式，申请报案人的联系方式
+  reporterContact: string;
+  // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
+  claimAmount: string;
+  // 物流揽收时间
+  collectDate: string;
+  // 工单号，平台客服判责的工单号
+  jobNo: string;
+  // 快递公司名称，实际的派送公司全称
+  courierCompany: string;
+  // 快递单号，实际的派送快递单号
+  courierNumber: string;
+  // 买家ID，买家的脱敏唯一标识
+  bugId: string;
+  // 卖家ID，卖家的脱敏唯一标识 
+  sellId: string;
+  // 站点/仓储ID，站点/仓储的脱敏唯一标识
+  siteId: string;
+  // 货物名称，实际的货物名称
+  cargoName: string;
+  // 货物的重量
+  cargoWeight: string;
+  // 出发地地址，货物的出发地地址
+  startPlace: string;
+  // 目的地地址，货物的目的地地址
+  destination: string;
+  // ISO到达国别，包裹业务实际发生的国家
+  isoCountry: string;
+  // 出险地址，货物发生实际损失的最近的一次地址记录
+  accidentAddress: string;
+  // 平台赔款支付时间，平台先行赔付的时间
+  paymentTime: string;
+  // 赔付项目类型，01-运费，02-货值，03-货值2
+  paymentItem: string;
+  // 出险类型，赔付的出险类型，届时保司和平台方商定
+  accidentType: string;
+  // 索赔资料附件，最多10个
+  claimInformations: ClaimInformation[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      policyNo: 'policy_no',
+      relaOrderNo: 'rela_order_no',
+      accidentTime: 'accident_time',
+      reporterName: 'reporter_name',
+      reporterContact: 'reporter_contact',
+      claimAmount: 'claim_amount',
+      collectDate: 'collect_date',
+      jobNo: 'job_no',
+      courierCompany: 'courier_company',
+      courierNumber: 'courier_number',
+      bugId: 'bug_id',
+      sellId: 'sell_id',
+      siteId: 'site_id',
+      cargoName: 'cargo_name',
+      cargoWeight: 'cargo_weight',
+      startPlace: 'start_place',
+      destination: 'destination',
+      isoCountry: 'iso_country',
+      accidentAddress: 'accident_address',
+      paymentTime: 'payment_time',
+      paymentItem: 'payment_item',
+      accidentType: 'accident_type',
+      claimInformations: 'claim_informations',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      policyNo: 'string',
+      relaOrderNo: 'string',
+      accidentTime: 'string',
+      reporterName: 'string',
+      reporterContact: 'string',
+      claimAmount: 'string',
+      collectDate: 'string',
+      jobNo: 'string',
+      courierCompany: 'string',
+      courierNumber: 'string',
+      bugId: 'string',
+      sellId: 'string',
+      siteId: 'string',
+      cargoName: 'string',
+      cargoWeight: 'string',
+      startPlace: 'string',
+      destination: 'string',
+      isoCountry: 'string',
+      accidentAddress: 'string',
+      paymentTime: 'string',
+      paymentItem: 'string',
+      accidentType: 'string',
+      claimInformations: { 'type': 'array', 'itemType': ClaimInformation },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceOspireportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 报案唯一码
+  tradeNo?: string;
+  // 报案号
+  reportNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      reportNo: 'report_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      reportNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInsuranceOspireportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 案件同步唯一码
+  tradeNo: string;
+  // 保司编码，PAIC---平安
+  externalChannelCode: string;
+  // 报案号，关联的报案案件号
+  reportNo: string;
+  // 订单号
+  relaOrderNo: string;
+  // 理赔金额，实际的理赔金额
+  claimAmount: string;
+  // 支付时间，实际的保司打款时间
+  paymentTime: string;
+  // 银行流水，打款的银行流水号
+  bankSerialNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      reportNo: 'report_no',
+      relaOrderNo: 'rela_order_no',
+      claimAmount: 'claim_amount',
+      paymentTime: 'payment_time',
+      bankSerialNum: 'bank_serial_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      reportNo: 'string',
+      relaOrderNo: 'string',
+      claimAmount: 'string',
+      paymentTime: 'string',
+      bankSerialNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInsuranceOspireportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 案件同步唯一码
+  tradeNo?: string;
+  // 案件通知状态
+  reportNotifyStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      reportNotifyStatus: 'report_notify_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      reportNotifyStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceYzbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string;
+  // 保司编码，PAIC---平安
+  externalChannelCode: string;
+  // 险种编码，04--海外邮包险
+  externalProductCode: string;
+  // 投保人姓名，保险协议中的投保人全称
+  tbrName: string;
+  // 投保人证件类型，03--营业执照
+  tbrIdType: string;
+  // 投保人证件号码
+  tbrIdNo: string;
+  // 被保人姓名，实际的保险被保人名称
+  bbrName: string;
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  bbrIdType: string;
+  // 被保人证件号码
+  bbrIdNo: string;
+  // 受益人名称，实际的保险受益人名称
+  beneficiaryName: string;
+  // 受益人证件类型，01--居民身份证、03--营业执照
+  beneficiaryIdType: string;
+  // 受益人证件号码
+  beneficiaryNo: string;
+  // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+  insureStart: string;
+  // 套餐编码，届时保司与平台确定套餐方案
+  productPackageType: string;
+  // 站点ID，站点的唯一标识
+  siteId: string;
+  // 站点名称
+  siteName: string;
+  // 总资产，单位（元），最多2位小数，超过拒绝请求
+  totalAssets: string;
+  // 雇员人数，站点的雇佣人员数
+  employeeNum: string;
+  // 省编码，站点位于的省份编码
+  provinceCode: string;
+  // 市编码，站点位于的市区编码
+  cityCode: string;
+  // 区编码,站点位于的区县编码
+  districtCode: string;
+  // 完整地址，站点的详细地址
+  wholeAddress: string;
+  // 方案名称，届时保司与平台确定方案名称
+  schemeName: string;
+  // 意健险被保人姓名
+  acplBbrName: string;
+  // 意健险被保人身份证号
+  acplBbrIdNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      tbrName: 'tbr_name',
+      tbrIdType: 'tbr_id_type',
+      tbrIdNo: 'tbr_id_no',
+      bbrName: 'bbr_name',
+      bbrIdType: 'bbr_id_type',
+      bbrIdNo: 'bbr_id_no',
+      beneficiaryName: 'beneficiary_name',
+      beneficiaryIdType: 'beneficiary_id_type',
+      beneficiaryNo: 'beneficiary_no',
+      insureStart: 'insure_start',
+      productPackageType: 'product_package_type',
+      siteId: 'site_id',
+      siteName: 'site_name',
+      totalAssets: 'total_assets',
+      employeeNum: 'employee_num',
+      provinceCode: 'province_code',
+      cityCode: 'city_code',
+      districtCode: 'district_code',
+      wholeAddress: 'whole_address',
+      schemeName: 'scheme_name',
+      acplBbrName: 'acpl_bbr_name',
+      acplBbrIdNo: 'acpl_bbr_id_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      tbrName: 'string',
+      tbrIdType: 'string',
+      tbrIdNo: 'string',
+      bbrName: 'string',
+      bbrIdType: 'string',
+      bbrIdNo: 'string',
+      beneficiaryName: 'string',
+      beneficiaryIdType: 'string',
+      beneficiaryNo: 'string',
+      insureStart: 'string',
+      productPackageType: 'string',
+      siteId: 'string',
+      siteName: 'string',
+      totalAssets: 'string',
+      employeeNum: 'string',
+      provinceCode: 'string',
+      cityCode: 'string',
+      districtCode: 'string',
+      wholeAddress: 'string',
+      schemeName: 'string',
+      acplBbrName: 'string',
+      acplBbrIdNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyInsuranceYzbResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 投保唯一码
+  tradeNo?: string;
+  // 保单号
+  policyNo?: string;
+  // 保费
+  premium?: string;
+  // 保额
+  insuredAmount?: string;
+  // 保险起期
+  insureStart?: string;
+  // 保险止期
+  insureEnd?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      policyNo: 'policy_no',
+      premium: 'premium',
+      insuredAmount: 'insured_amount',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      policyNo: 'string',
+      premium: 'string',
+      insuredAmount: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushAuthSigninfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -18691,7 +19336,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.107",
+          sdk_version: "1.3.108",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -20506,6 +21151,82 @@ export default class Client {
   async applyInsuranceInventoryEx(request: ApplyInsuranceInventoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceInventoryResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyInsuranceInventoryResponse>(await this.doRequest("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceInventoryResponse({}));
+  }
+
+  /**
+   * Description: 海外邮包险投保api
+   * Summary: 海外邮包险投保
+   */
+  async applyInsuranceOspi(request: ApplyInsuranceOspiRequest): Promise<ApplyInsuranceOspiResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceOspiEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海外邮包险投保api
+   * Summary: 海外邮包险投保
+   */
+  async applyInsuranceOspiEx(request: ApplyInsuranceOspiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceOspiResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceOspiResponse>(await this.doRequest("1.0", "digital.logistic.insurance.ospi.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceOspiResponse({}));
+  }
+
+  /**
+   * Description: 海外邮包险报案理赔
+   * Summary: 海外邮包险报案理赔
+   */
+  async applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): Promise<ApplyInsuranceOspireportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceOspireportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海外邮包险报案理赔
+   * Summary: 海外邮包险报案理赔
+   */
+  async applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceOspireportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceOspireportResponse>(await this.doRequest("1.0", "digital.logistic.insurance.ospireport.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceOspireportResponse({}));
+  }
+
+  /**
+   * Description: 海外邮包险报案理赔结果通知
+   * Summary: 海外邮包险报案理赔结果通知
+   */
+  async notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): Promise<NotifyInsuranceOspireportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyInsuranceOspireportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 海外邮包险报案理赔结果通知
+   * Summary: 海外邮包险报案理赔结果通知
+   */
+  async notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInsuranceOspireportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyInsuranceOspireportResponse>(await this.doRequest("1.0", "digital.logistic.insurance.ospireport.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInsuranceOspireportResponse({}));
+  }
+
+  /**
+   * Description: 驿站宝投保
+   * Summary: 驿站宝投保
+   */
+  async applyInsuranceYzb(request: ApplyInsuranceYzbRequest): Promise<ApplyInsuranceYzbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyInsuranceYzbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 驿站宝投保
+   * Summary: 驿站宝投保
+   */
+  async applyInsuranceYzbEx(request: ApplyInsuranceYzbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceYzbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyInsuranceYzbResponse>(await this.doRequest("1.0", "digital.logistic.insurance.yzb.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyInsuranceYzbResponse({}));
   }
 
   /**
