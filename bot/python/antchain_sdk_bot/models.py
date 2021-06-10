@@ -589,6 +589,60 @@ class SpaceRegisterReqModel(TeaModel):
         return self
 
 
+class LabelChainResult(TeaModel):
+    def __init__(
+        self,
+        label_id: str = None,
+        asset: str = None,
+        tx_hash: str = None,
+        error_code: str = None,
+        error_msg: str = None,
+    ):
+        # 标签ID
+        self.label_id = label_id
+        # 业务资产ID，接入方自行定义
+        self.asset = asset
+        # 标签最近一次上链的txHash
+        self.tx_hash = tx_hash
+        # 错误码
+        self.error_code = error_code
+        # 错误信息
+        self.error_msg = error_msg
+
+    def validate(self):
+        self.validate_required(self.label_id, 'label_id')
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.error_msg, 'error_msg')
+
+    def to_map(self):
+        result = dict()
+        if self.label_id is not None:
+            result['label_id'] = self.label_id
+        if self.asset is not None:
+            result['asset'] = self.asset
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('label_id') is not None:
+            self.label_id = m.get('label_id')
+        if m.get('asset') is not None:
+            self.asset = m.get('asset')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        return self
+
+
 class TsmCommonCmd(TeaModel):
     def __init__(
         self,
@@ -849,7 +903,6 @@ class LabelTrace(TeaModel):
     def __init__(
         self,
         scene: str = None,
-        tenant: str = None,
         label_id: str = None,
         label_status: str = None,
         asset_id: str = None,
@@ -857,7 +910,7 @@ class LabelTrace(TeaModel):
         owner: str = None,
         process: str = None,
         action: str = None,
-        operate_time: str = None,
+        operate_time: int = None,
         operate_device: str = None,
         content: str = None,
         tx_hash: str = None,
@@ -870,8 +923,6 @@ class LabelTrace(TeaModel):
     ):
         # 场景码
         self.scene = scene
-        # 租户
-        self.tenant = tenant
         # 标签id
         self.label_id = label_id
         # 标签状态
@@ -908,16 +959,16 @@ class LabelTrace(TeaModel):
         self.is_success = is_success
 
     def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.label_id, 'label_id')
         self.validate_required(self.label_status, 'label_status')
-        if self.operate_time is not None:
-            self.validate_pattern(self.operate_time, 'operate_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.operate_time, 'operate_time')
+        self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
         result = dict()
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.tenant is not None:
-            result['tenant'] = self.tenant
         if self.label_id is not None:
             result['label_id'] = self.label_id
         if self.label_status is not None:
@@ -958,8 +1009,6 @@ class LabelTrace(TeaModel):
         m = m or dict()
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('tenant') is not None:
-            self.tenant = m.get('tenant')
         if m.get('label_id') is not None:
             self.label_id = m.get('label_id')
         if m.get('label_status') is not None:
@@ -6813,6 +6862,7 @@ class QueryLabelTraceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        scene: str = None,
         label_id: str = None,
         label_status: str = None,
         asset_id: str = None,
@@ -6825,6 +6875,8 @@ class QueryLabelTraceRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 场景码 , 使用asset_id 查询时，scene也必须传入
+        self.scene = scene
         # 标签Id
         self.label_id = label_id
         # 标签状态
@@ -6843,7 +6895,7 @@ class QueryLabelTraceRequest(TeaModel):
         self.operate_time = operate_time
 
     def validate(self):
-        self.validate_required(self.label_status, 'label_status')
+        pass
 
     def to_map(self):
         result = dict()
@@ -6851,6 +6903,8 @@ class QueryLabelTraceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.scene is not None:
+            result['scene'] = self.scene
         if self.label_id is not None:
             result['label_id'] = self.label_id
         if self.label_status is not None:
@@ -6875,6 +6929,8 @@ class QueryLabelTraceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
         if m.get('label_id') is not None:
             self.label_id = m.get('label_id')
         if m.get('label_status') is not None:
@@ -7015,9 +7071,7 @@ class SyncLabelTransferResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        chain_id: str = None,
-        tx_time: str = None,
-        tx_hash: str = None,
+        result_list: List[LabelChainResult] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7025,15 +7079,14 @@ class SyncLabelTransferResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 链Id
-        self.chain_id = chain_id
-        # 上链时间
-        self.tx_time = tx_time
-        # 上链哈希
-        self.tx_hash = tx_hash
+        # 标签上链hash返回
+        self.result_list = result_list
 
     def validate(self):
-        pass
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -7043,12 +7096,10 @@ class SyncLabelTransferResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.chain_id is not None:
-            result['chain_id'] = self.chain_id
-        if self.tx_time is not None:
-            result['tx_time'] = self.tx_time
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -7059,12 +7110,11 @@ class SyncLabelTransferResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('chain_id') is not None:
-            self.chain_id = m.get('chain_id')
-        if m.get('tx_time') is not None:
-            self.tx_time = m.get('tx_time')
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = LabelChainResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
