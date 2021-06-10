@@ -21284,7 +21284,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         job_no: str = None,
         courier_company: str = None,
         courier_number: str = None,
-        bug_id: str = None,
+        buy_id: str = None,
         sell_id: str = None,
         site_id: str = None,
         cargo_name: str = None,
@@ -21328,7 +21328,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         # 快递单号，实际的派送快递单号
         self.courier_number = courier_number
         # 买家ID，买家的脱敏唯一标识
-        self.bug_id = bug_id
+        self.buy_id = buy_id
         # 卖家ID，卖家的脱敏唯一标识
         self.sell_id = sell_id
         # 站点/仓储ID，站点/仓储的脱敏唯一标识
@@ -21392,9 +21392,9 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.validate_required(self.courier_number, 'courier_number')
         if self.courier_number is not None:
             self.validate_max_length(self.courier_number, 'courier_number', 100)
-        self.validate_required(self.bug_id, 'bug_id')
-        if self.bug_id is not None:
-            self.validate_max_length(self.bug_id, 'bug_id', 100)
+        self.validate_required(self.buy_id, 'buy_id')
+        if self.buy_id is not None:
+            self.validate_max_length(self.buy_id, 'buy_id', 100)
         self.validate_required(self.sell_id, 'sell_id')
         if self.sell_id is not None:
             self.validate_max_length(self.sell_id, 'sell_id', 100)
@@ -21466,8 +21466,8 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             result['courier_company'] = self.courier_company
         if self.courier_number is not None:
             result['courier_number'] = self.courier_number
-        if self.bug_id is not None:
-            result['bug_id'] = self.bug_id
+        if self.buy_id is not None:
+            result['buy_id'] = self.buy_id
         if self.sell_id is not None:
             result['sell_id'] = self.sell_id
         if self.site_id is not None:
@@ -21528,8 +21528,8 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             self.courier_company = m.get('courier_company')
         if m.get('courier_number') is not None:
             self.courier_number = m.get('courier_number')
-        if m.get('bug_id') is not None:
-            self.bug_id = m.get('bug_id')
+        if m.get('buy_id') is not None:
+            self.buy_id = m.get('buy_id')
         if m.get('sell_id') is not None:
             self.sell_id = m.get('sell_id')
         if m.get('site_id') is not None:
@@ -21636,7 +21636,7 @@ class NotifyInsuranceOspireportRequest(TeaModel):
         self.report_no = report_no
         # 订单号
         self.rela_order_no = rela_order_no
-        # 理赔金额，实际的理赔金额
+        # 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
         self.claim_amount = claim_amount
         # 支付时间，实际的保司打款时间
         self.payment_time = payment_time
@@ -21775,6 +21775,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         bbr_name: str = None,
         bbr_id_type: str = None,
         bbr_id_no: str = None,
+        bbr_contact: str = None,
         beneficiary_name: str = None,
         beneficiary_id_type: str = None,
         beneficiary_no: str = None,
@@ -21799,7 +21800,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         self.trade_no = trade_no
         # 保司编码，PAIC---平安
         self.external_channel_code = external_channel_code
-        # 险种编码，04--海外邮包险
+        # 险种编码，05-驿站宝
         self.external_product_code = external_product_code
         # 投保人姓名，保险协议中的投保人全称
         self.tbr_name = tbr_name
@@ -21813,6 +21814,8 @@ class ApplyInsuranceYzbRequest(TeaModel):
         self.bbr_id_type = bbr_id_type
         # 被保人证件号码
         self.bbr_id_no = bbr_id_no
+        # 被保人联系方式
+        self.bbr_contact = bbr_contact
         # 受益人名称，实际的保险受益人名称
         self.beneficiary_name = beneficiary_name
         # 受益人证件类型，01--居民身份证、03--营业执照
@@ -21874,6 +21877,9 @@ class ApplyInsuranceYzbRequest(TeaModel):
         self.validate_required(self.bbr_id_no, 'bbr_id_no')
         if self.bbr_id_no is not None:
             self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 30)
+        self.validate_required(self.bbr_contact, 'bbr_contact')
+        if self.bbr_contact is not None:
+            self.validate_max_length(self.bbr_contact, 'bbr_contact', 30)
         self.validate_required(self.beneficiary_name, 'beneficiary_name')
         if self.beneficiary_name is not None:
             self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
@@ -21943,6 +21949,8 @@ class ApplyInsuranceYzbRequest(TeaModel):
             result['bbr_id_type'] = self.bbr_id_type
         if self.bbr_id_no is not None:
             result['bbr_id_no'] = self.bbr_id_no
+        if self.bbr_contact is not None:
+            result['bbr_contact'] = self.bbr_contact
         if self.beneficiary_name is not None:
             result['beneficiary_name'] = self.beneficiary_name
         if self.beneficiary_id_type is not None:
@@ -22001,6 +22009,8 @@ class ApplyInsuranceYzbRequest(TeaModel):
             self.bbr_id_type = m.get('bbr_id_type')
         if m.get('bbr_id_no') is not None:
             self.bbr_id_no = m.get('bbr_id_no')
+        if m.get('bbr_contact') is not None:
+            self.bbr_contact = m.get('bbr_contact')
         if m.get('beneficiary_name') is not None:
             self.beneficiary_name = m.get('beneficiary_name')
         if m.get('beneficiary_id_type') is not None:
