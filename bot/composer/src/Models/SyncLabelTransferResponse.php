@@ -26,30 +26,16 @@ class SyncLabelTransferResponse extends Model
      */
     public $resultMsg;
 
-    // 链Id
+    // 标签上链hash返回
     /**
-     * @var string
+     * @var LabelChainResult[]
      */
-    public $chainId;
-
-    // 上链时间
-    /**
-     * @var string
-     */
-    public $txTime;
-
-    // 上链哈希
-    /**
-     * @var string
-     */
-    public $txHash;
+    public $resultList;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'chainId'    => 'chain_id',
-        'txTime'     => 'tx_time',
-        'txHash'     => 'tx_hash',
+        'resultList' => 'result_list',
     ];
 
     public function validate()
@@ -68,14 +54,14 @@ class SyncLabelTransferResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->chainId) {
-            $res['chain_id'] = $this->chainId;
-        }
-        if (null !== $this->txTime) {
-            $res['tx_time'] = $this->txTime;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->resultList) {
+            $res['result_list'] = [];
+            if (null !== $this->resultList && \is_array($this->resultList)) {
+                $n = 0;
+                foreach ($this->resultList as $item) {
+                    $res['result_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -98,14 +84,14 @@ class SyncLabelTransferResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['chain_id'])) {
-            $model->chainId = $map['chain_id'];
-        }
-        if (isset($map['tx_time'])) {
-            $model->txTime = $map['tx_time'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['result_list'])) {
+            if (!empty($map['result_list'])) {
+                $model->resultList = [];
+                $n                 = 0;
+                foreach ($map['result_list'] as $item) {
+                    $model->resultList[$n++] = null !== $item ? LabelChainResult::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

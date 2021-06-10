@@ -19,6 +19,12 @@ class QueryLabelTraceRequest extends Model
      */
     public $productInstanceId;
 
+    // 场景码 , 使用asset_id 查询时，scene也必须传入
+    /**
+     * @var string
+     */
+    public $scene;
+
     // 标签Id
     /**
      * @var string
@@ -69,6 +75,7 @@ class QueryLabelTraceRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'scene'             => 'scene',
         'labelId'           => 'label_id',
         'labelStatus'       => 'label_status',
         'assetId'           => 'asset_id',
@@ -81,7 +88,6 @@ class QueryLabelTraceRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('labelStatus', $this->labelStatus, true);
     }
 
     public function toMap()
@@ -92,6 +98,9 @@ class QueryLabelTraceRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
         }
         if (null !== $this->labelId) {
             $res['label_id'] = $this->labelId;
@@ -134,6 +143,9 @@ class QueryLabelTraceRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
         if (isset($map['label_id'])) {
             $model->labelId = $map['label_id'];

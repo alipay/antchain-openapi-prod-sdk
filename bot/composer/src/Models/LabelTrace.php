@@ -16,14 +16,6 @@ class LabelTrace extends Model
      */
     public $scene;
 
-    // 租户
-    /**
-     * @example XXXXX
-     *
-     * @var string
-     */
-    public $tenant;
-
     // 标签id
     /**
      * @example XXXXX
@@ -82,9 +74,9 @@ class LabelTrace extends Model
 
     // 操作时间
     /**
-     * @example 2018-10-10T10:10:00Z
+     * @example 1623297766839
      *
-     * @var string
+     * @var int
      */
     public $operateTime;
 
@@ -161,7 +153,6 @@ class LabelTrace extends Model
     public $isSuccess;
     protected $_name = [
         'scene'         => 'scene',
-        'tenant'        => 'tenant',
         'labelId'       => 'label_id',
         'labelStatus'   => 'label_status',
         'assetId'       => 'asset_id',
@@ -183,8 +174,11 @@ class LabelTrace extends Model
 
     public function validate()
     {
+        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('labelId', $this->labelId, true);
         Model::validateRequired('labelStatus', $this->labelStatus, true);
-        Model::validatePattern('operateTime', $this->operateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateRequired('operateTime', $this->operateTime, true);
+        Model::validateRequired('txHash', $this->txHash, true);
     }
 
     public function toMap()
@@ -192,9 +186,6 @@ class LabelTrace extends Model
         $res = [];
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->labelId) {
             $res['label_id'] = $this->labelId;
@@ -261,9 +252,6 @@ class LabelTrace extends Model
         $model = new self();
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];
-        }
-        if (isset($map['tenant'])) {
-            $model->tenant = $map['tenant'];
         }
         if (isset($map['label_id'])) {
             $model->labelId = $map['label_id'];
