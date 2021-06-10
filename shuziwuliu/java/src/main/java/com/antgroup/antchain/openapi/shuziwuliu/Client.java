@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.107")
+                    new TeaPair("sdk_version", "1.3.108")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1928,6 +1928,82 @@ public class Client {
     public ApplyInsuranceInventoryResponse applyInsuranceInventoryEx(ApplyInsuranceInventoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceInventoryResponse());
+    }
+
+    /**
+     * Description: 海外邮包险投保api
+     * Summary: 海外邮包险投保
+     */
+    public ApplyInsuranceOspiResponse applyInsuranceOspi(ApplyInsuranceOspiRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceOspiEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 海外邮包险投保api
+     * Summary: 海外邮包险投保
+     */
+    public ApplyInsuranceOspiResponse applyInsuranceOspiEx(ApplyInsuranceOspiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.ospi.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceOspiResponse());
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔
+     * Summary: 海外邮包险报案理赔
+     */
+    public ApplyInsuranceOspireportResponse applyInsuranceOspireport(ApplyInsuranceOspireportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceOspireportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔
+     * Summary: 海外邮包险报案理赔
+     */
+    public ApplyInsuranceOspireportResponse applyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.ospireport.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceOspireportResponse());
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔结果通知
+     * Summary: 海外邮包险报案理赔结果通知
+     */
+    public NotifyInsuranceOspireportResponse notifyInsuranceOspireport(NotifyInsuranceOspireportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyInsuranceOspireportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 海外邮包险报案理赔结果通知
+     * Summary: 海外邮包险报案理赔结果通知
+     */
+    public NotifyInsuranceOspireportResponse notifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.ospireport.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyInsuranceOspireportResponse());
+    }
+
+    /**
+     * Description: 驿站宝投保
+     * Summary: 驿站宝投保
+     */
+    public ApplyInsuranceYzbResponse applyInsuranceYzb(ApplyInsuranceYzbRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsuranceYzbEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 驿站宝投保
+     * Summary: 驿站宝投保
+     */
+    public ApplyInsuranceYzbResponse applyInsuranceYzbEx(ApplyInsuranceYzbRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "digital.logistic.insurance.yzb.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsuranceYzbResponse());
     }
 
     /**
