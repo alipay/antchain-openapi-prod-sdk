@@ -12976,7 +12976,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   // 快递单号，实际的派送快递单号
   courierNumber: string;
   // 买家ID，买家的脱敏唯一标识
-  bugId: string;
+  buyId: string;
   // 卖家ID，卖家的脱敏唯一标识 
   sellId: string;
   // 站点/仓储ID，站点/仓储的脱敏唯一标识
@@ -13018,7 +13018,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       jobNo: 'job_no',
       courierCompany: 'courier_company',
       courierNumber: 'courier_number',
-      bugId: 'bug_id',
+      buyId: 'buy_id',
       sellId: 'sell_id',
       siteId: 'site_id',
       cargoName: 'cargo_name',
@@ -13051,7 +13051,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       jobNo: 'string',
       courierCompany: 'string',
       courierNumber: 'string',
-      bugId: 'string',
+      buyId: 'string',
       sellId: 'string',
       siteId: 'string',
       cargoName: 'string',
@@ -13120,7 +13120,7 @@ export class NotifyInsuranceOspireportRequest extends $tea.Model {
   reportNo: string;
   // 订单号
   relaOrderNo: string;
-  // 理赔金额，实际的理赔金额
+  // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
   claimAmount: string;
   // 支付时间，实际的保司打款时间
   paymentTime: string;
@@ -13203,7 +13203,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   tradeNo: string;
   // 保司编码，PAIC---平安
   externalChannelCode: string;
-  // 险种编码，04--海外邮包险
+  // 险种编码，05-驿站宝
   externalProductCode: string;
   // 投保人姓名，保险协议中的投保人全称
   tbrName: string;
@@ -13217,6 +13217,8 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   bbrIdType: string;
   // 被保人证件号码
   bbrIdNo: string;
+  // 被保人联系方式
+  bbrContact: string;
   // 受益人名称，实际的保险受益人名称
   beneficiaryName: string;
   // 受益人证件类型，01--居民身份证、03--营业执照
@@ -13262,6 +13264,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
       bbrName: 'bbr_name',
       bbrIdType: 'bbr_id_type',
       bbrIdNo: 'bbr_id_no',
+      bbrContact: 'bbr_contact',
       beneficiaryName: 'beneficiary_name',
       beneficiaryIdType: 'beneficiary_id_type',
       beneficiaryNo: 'beneficiary_no',
@@ -13294,6 +13297,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
       bbrName: 'string',
       bbrIdType: 'string',
       bbrIdNo: 'string',
+      bbrContact: 'string',
       beneficiaryName: 'string',
       beneficiaryIdType: 'string',
       beneficiaryNo: 'string',
@@ -19336,7 +19340,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.108",
+          sdk_version: "1.3.110",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
