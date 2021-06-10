@@ -21,7 +21,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
 
-    // 险种编码，04--海外邮包险
+    // 险种编码，05-驿站宝
     @NameInMap("external_product_code")
     @Validation(required = true, maxLength = 2)
     public String externalProductCode;
@@ -55,6 +55,11 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @NameInMap("bbr_id_no")
     @Validation(required = true, maxLength = 30)
     public String bbrIdNo;
+
+    // 被保人联系方式
+    @NameInMap("bbr_contact")
+    @Validation(required = true, maxLength = 30)
+    public String bbrContact;
 
     // 受益人名称，实际的保险受益人名称
     @NameInMap("beneficiary_name")
@@ -227,6 +232,14 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     }
     public String getBbrIdNo() {
         return this.bbrIdNo;
+    }
+
+    public ApplyInsuranceYzbRequest setBbrContact(String bbrContact) {
+        this.bbrContact = bbrContact;
+        return this;
+    }
+    public String getBbrContact() {
+        return this.bbrContact;
     }
 
     public ApplyInsuranceYzbRequest setBeneficiaryName(String beneficiaryName) {

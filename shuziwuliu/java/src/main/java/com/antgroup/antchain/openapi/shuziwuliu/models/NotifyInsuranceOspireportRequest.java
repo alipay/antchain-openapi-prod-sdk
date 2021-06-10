@@ -31,7 +31,7 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 100)
     public String relaOrderNo;
 
-    // 理赔金额，实际的理赔金额
+    // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
     @NameInMap("claim_amount")
     @Validation(required = true)
     public String claimAmount;

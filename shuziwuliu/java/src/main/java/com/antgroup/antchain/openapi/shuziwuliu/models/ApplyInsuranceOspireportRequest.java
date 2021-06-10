@@ -77,9 +77,9 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     public String courierNumber;
 
     // 买家ID，买家的脱敏唯一标识
-    @NameInMap("bug_id")
+    @NameInMap("buy_id")
     @Validation(required = true, maxLength = 100)
-    public String bugId;
+    public String buyId;
 
     // 卖家ID，卖家的脱敏唯一标识 
     @NameInMap("sell_id")
@@ -266,12 +266,12 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
         return this.courierNumber;
     }
 
-    public ApplyInsuranceOspireportRequest setBugId(String bugId) {
-        this.bugId = bugId;
+    public ApplyInsuranceOspireportRequest setBuyId(String buyId) {
+        this.buyId = buyId;
         return this;
     }
-    public String getBugId() {
-        return this.bugId;
+    public String getBuyId() {
+        return this.buyId;
     }
 
     public ApplyInsuranceOspireportRequest setSellId(String sellId) {
