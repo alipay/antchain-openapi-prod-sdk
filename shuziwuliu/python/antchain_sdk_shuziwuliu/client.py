@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.107'
+                    'sdk_version': '1.3.108'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.107'
+                    'sdk_version': '1.3.108'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5299,6 +5299,222 @@ class Client:
         UtilClient.validate_model(request)
         return shuziwuliu_models.ApplyInsuranceInventoryResponse().from_map(
             await self.do_request_async('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_ospi(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspiRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceOspiResponse:
+        """
+        Description: 海外邮包险投保api
+        Summary: 海外邮包险投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_ospi_ex(request, headers, runtime)
+
+    async def apply_insurance_ospi_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspiRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceOspiResponse:
+        """
+        Description: 海外邮包险投保api
+        Summary: 海外邮包险投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_ospi_ex_async(request, headers, runtime)
+
+    def apply_insurance_ospi_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceOspiResponse:
+        """
+        Description: 海外邮包险投保api
+        Summary: 海外邮包险投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceOspiResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.ospi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_ospi_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceOspiResponse:
+        """
+        Description: 海外邮包险投保api
+        Summary: 海外邮包险投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceOspiResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.ospi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_ospireport(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔
+        Summary: 海外邮包险报案理赔
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_ospireport_ex(request, headers, runtime)
+
+    async def apply_insurance_ospireport_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔
+        Summary: 海外邮包险报案理赔
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_ospireport_ex_async(request, headers, runtime)
+
+    def apply_insurance_ospireport_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔
+        Summary: 海外邮包险报案理赔
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.ospireport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_ospireport_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceOspireportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔
+        Summary: 海外邮包险报案理赔
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.ospireport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_insurance_ospireport(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
+    ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔结果通知
+        Summary: 海外邮包险报案理赔结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_insurance_ospireport_ex(request, headers, runtime)
+
+    async def notify_insurance_ospireport_async(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
+    ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔结果通知
+        Summary: 海外邮包险报案理赔结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_insurance_ospireport_ex_async(request, headers, runtime)
+
+    def notify_insurance_ospireport_ex(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔结果通知
+        Summary: 海外邮包险报案理赔结果通知
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.ospireport.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_insurance_ospireport_ex_async(
+        self,
+        request: shuziwuliu_models.NotifyInsuranceOspireportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.NotifyInsuranceOspireportResponse:
+        """
+        Description: 海外邮包险报案理赔结果通知
+        Summary: 海外邮包险报案理赔结果通知
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.ospireport.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_insurance_yzb(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceYzbRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceYzbResponse:
+        """
+        Description: 驿站宝投保
+        Summary: 驿站宝投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_insurance_yzb_ex(request, headers, runtime)
+
+    async def apply_insurance_yzb_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceYzbRequest,
+    ) -> shuziwuliu_models.ApplyInsuranceYzbResponse:
+        """
+        Description: 驿站宝投保
+        Summary: 驿站宝投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_insurance_yzb_ex_async(request, headers, runtime)
+
+    def apply_insurance_yzb_ex(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceYzbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceYzbResponse:
+        """
+        Description: 驿站宝投保
+        Summary: 驿站宝投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceYzbResponse().from_map(
+            self.do_request('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_insurance_yzb_ex_async(
+        self,
+        request: shuziwuliu_models.ApplyInsuranceYzbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> shuziwuliu_models.ApplyInsuranceYzbResponse:
+        """
+        Description: 驿站宝投保
+        Summary: 驿站宝投保
+        """
+        UtilClient.validate_model(request)
+        return shuziwuliu_models.ApplyInsuranceYzbResponse().from_map(
+            await self.do_request_async('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_auth_signinfo(

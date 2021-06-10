@@ -3485,6 +3485,42 @@ class UploadOrderAmount(TeaModel):
         return self
 
 
+class ClaimInformation(TeaModel):
+    def __init__(
+        self,
+        file_url: str = None,
+        file_name: str = None,
+    ):
+        # 索赔资料地址url
+        self.file_url = file_url
+        # 文件名
+        self.file_name = file_name
+
+    def validate(self):
+        self.validate_required(self.file_url, 'file_url')
+        if self.file_url is not None:
+            self.validate_max_length(self.file_url, 'file_url', 500)
+        self.validate_required(self.file_name, 'file_name')
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 200)
+
+    def to_map(self):
+        result = dict()
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        return self
+
+
 class MasterBlGoodsParam(TeaModel):
     def __init__(
         self,
@@ -20821,6 +20857,1265 @@ class ApplyInsuranceInventoryResponse(TeaModel):
             self.inventory_no = m.get('inventory_no')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        return self
+
+
+class ApplyInsuranceOspiRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        external_product_code: str = None,
+        tbr_name: str = None,
+        tbr_id_type: str = None,
+        tbr_id_no: str = None,
+        bbr_name: str = None,
+        bbr_id_type: str = None,
+        bbr_id_no: str = None,
+        beneficiary_name: str = None,
+        beneficiary_id_type: str = None,
+        beneficiary_no: str = None,
+        insure_start: str = None,
+        insured_amount: str = None,
+        scheme_name: str = None,
+        project_name: str = None,
+        rela_order_no: str = None,
+        pick_up_time: str = None,
+        courier_company: str = None,
+        courier_number: str = None,
+        cargo_type: str = None,
+        cargo_name: str = None,
+        cargo_quantity: int = None,
+        buy_id: str = None,
+        sell_id: str = None,
+        site_id: str = None,
+        start_place: str = None,
+        destination: str = None,
+        iso_country: str = None,
+        cargo_worth: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        self.trade_no = trade_no
+        # 保司编码.，PAIC---平安
+        self.external_channel_code = external_channel_code
+        # 险种编码，04--海外邮包险
+        self.external_product_code = external_product_code
+        # 投保人姓名，保险协议中的投保人全称
+        self.tbr_name = tbr_name
+        # 投保人证件类型，03--营业执照
+        self.tbr_id_type = tbr_id_type
+        # 投保人证件号码
+        self.tbr_id_no = tbr_id_no
+        # 被保人姓名，实际的保险被保人名称
+        self.bbr_name = bbr_name
+        # 被保人证件类型，01--居民身份证、03--营业执照
+        self.bbr_id_type = bbr_id_type
+        # 被保人证件号码
+        self.bbr_id_no = bbr_id_no
+        # 受益人名称，实际的保险受益人名称
+        self.beneficiary_name = beneficiary_name
+        # 受益人证件类型，01--居民身份证、03--营业执照
+        self.beneficiary_id_type = beneficiary_id_type
+        # 受益人证件号码
+        self.beneficiary_no = beneficiary_no
+        # 保险起期
+        self.insure_start = insure_start
+        # 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
+        self.insured_amount = insured_amount
+        # 方案名，保司和业务平台商定的方案名称
+        self.scheme_name = scheme_name
+        # 项目名称,保司和业务平台商定的项目名称
+        self.project_name = project_name
+        # 订单号,物流平台用以区分业务的唯一码
+        self.rela_order_no = rela_order_no
+        # 寄件时间，yyyy-MM-dd HH:mm:ss
+        self.pick_up_time = pick_up_time
+        # 快递公司名称，实际的派送公司全称
+        self.courier_company = courier_company
+        # 快递单号，实际的派送快递单号
+        self.courier_number = courier_number
+        # 货物类型，货物类型的大类
+        self.cargo_type = cargo_type
+        # 货物名称，实际的货物名称
+        self.cargo_name = cargo_name
+        # 货物数量
+        self.cargo_quantity = cargo_quantity
+        # 买家ID，买家的脱敏唯一标识
+        self.buy_id = buy_id
+        # 卖家ID，卖家的脱敏唯一标识
+        self.sell_id = sell_id
+        # 站点/仓储ID，站点/仓储的脱敏唯一标识
+        self.site_id = site_id
+        # 出发地地址，包裹的实际发件地地址
+        self.start_place = start_place
+        # 目的地地址，包裹的实际收件地地址
+        self.destination = destination
+        # ISO到达国别，包裹业务实际发生的国家
+        self.iso_country = iso_country
+        # 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+        self.cargo_worth = cargo_worth
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        if self.external_channel_code is not None:
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
+        self.validate_required(self.external_product_code, 'external_product_code')
+        if self.external_product_code is not None:
+            self.validate_max_length(self.external_product_code, 'external_product_code', 2)
+        self.validate_required(self.tbr_name, 'tbr_name')
+        if self.tbr_name is not None:
+            self.validate_max_length(self.tbr_name, 'tbr_name', 200)
+        self.validate_required(self.tbr_id_type, 'tbr_id_type')
+        if self.tbr_id_type is not None:
+            self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 2)
+        self.validate_required(self.tbr_id_no, 'tbr_id_no')
+        if self.tbr_id_no is not None:
+            self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
+        self.validate_required(self.bbr_name, 'bbr_name')
+        if self.bbr_name is not None:
+            self.validate_max_length(self.bbr_name, 'bbr_name', 300)
+        self.validate_required(self.bbr_id_type, 'bbr_id_type')
+        if self.bbr_id_type is not None:
+            self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
+        self.validate_required(self.bbr_id_no, 'bbr_id_no')
+        self.validate_required(self.beneficiary_name, 'beneficiary_name')
+        if self.beneficiary_name is not None:
+            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
+        self.validate_required(self.beneficiary_id_type, 'beneficiary_id_type')
+        if self.beneficiary_id_type is not None:
+            self.validate_max_length(self.beneficiary_id_type, 'beneficiary_id_type', 2)
+        self.validate_required(self.beneficiary_no, 'beneficiary_no')
+        if self.beneficiary_no is not None:
+            self.validate_max_length(self.beneficiary_no, 'beneficiary_no', 30)
+        self.validate_required(self.insure_start, 'insure_start')
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.insured_amount, 'insured_amount')
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 100)
+        self.validate_required(self.project_name, 'project_name')
+        if self.project_name is not None:
+            self.validate_max_length(self.project_name, 'project_name', 500)
+        self.validate_required(self.rela_order_no, 'rela_order_no')
+        if self.rela_order_no is not None:
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 100)
+        self.validate_required(self.pick_up_time, 'pick_up_time')
+        if self.pick_up_time is not None:
+            self.validate_pattern(self.pick_up_time, 'pick_up_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.courier_company, 'courier_company')
+        if self.courier_company is not None:
+            self.validate_max_length(self.courier_company, 'courier_company', 200)
+        self.validate_required(self.courier_number, 'courier_number')
+        if self.courier_number is not None:
+            self.validate_max_length(self.courier_number, 'courier_number', 100)
+        self.validate_required(self.cargo_type, 'cargo_type')
+        if self.cargo_type is not None:
+            self.validate_max_length(self.cargo_type, 'cargo_type', 100)
+        self.validate_required(self.cargo_name, 'cargo_name')
+        if self.cargo_name is not None:
+            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+        self.validate_required(self.cargo_quantity, 'cargo_quantity')
+        self.validate_required(self.buy_id, 'buy_id')
+        if self.buy_id is not None:
+            self.validate_max_length(self.buy_id, 'buy_id', 100)
+        self.validate_required(self.sell_id, 'sell_id')
+        if self.sell_id is not None:
+            self.validate_max_length(self.sell_id, 'sell_id', 100)
+        self.validate_required(self.site_id, 'site_id')
+        if self.site_id is not None:
+            self.validate_max_length(self.site_id, 'site_id', 100)
+        self.validate_required(self.start_place, 'start_place')
+        if self.start_place is not None:
+            self.validate_max_length(self.start_place, 'start_place', 100)
+        self.validate_required(self.destination, 'destination')
+        if self.destination is not None:
+            self.validate_max_length(self.destination, 'destination', 500)
+        self.validate_required(self.iso_country, 'iso_country')
+        if self.iso_country is not None:
+            self.validate_max_length(self.iso_country, 'iso_country', 10)
+        self.validate_required(self.cargo_worth, 'cargo_worth')
+        if self.cargo_worth is not None:
+            self.validate_max_length(self.cargo_worth, 'cargo_worth', 20)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.external_product_code is not None:
+            result['external_product_code'] = self.external_product_code
+        if self.tbr_name is not None:
+            result['tbr_name'] = self.tbr_name
+        if self.tbr_id_type is not None:
+            result['tbr_id_type'] = self.tbr_id_type
+        if self.tbr_id_no is not None:
+            result['tbr_id_no'] = self.tbr_id_no
+        if self.bbr_name is not None:
+            result['bbr_name'] = self.bbr_name
+        if self.bbr_id_type is not None:
+            result['bbr_id_type'] = self.bbr_id_type
+        if self.bbr_id_no is not None:
+            result['bbr_id_no'] = self.bbr_id_no
+        if self.beneficiary_name is not None:
+            result['beneficiary_name'] = self.beneficiary_name
+        if self.beneficiary_id_type is not None:
+            result['beneficiary_id_type'] = self.beneficiary_id_type
+        if self.beneficiary_no is not None:
+            result['beneficiary_no'] = self.beneficiary_no
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insured_amount is not None:
+            result['insured_amount'] = self.insured_amount
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        if self.rela_order_no is not None:
+            result['rela_order_no'] = self.rela_order_no
+        if self.pick_up_time is not None:
+            result['pick_up_time'] = self.pick_up_time
+        if self.courier_company is not None:
+            result['courier_company'] = self.courier_company
+        if self.courier_number is not None:
+            result['courier_number'] = self.courier_number
+        if self.cargo_type is not None:
+            result['cargo_type'] = self.cargo_type
+        if self.cargo_name is not None:
+            result['cargo_name'] = self.cargo_name
+        if self.cargo_quantity is not None:
+            result['cargo_quantity'] = self.cargo_quantity
+        if self.buy_id is not None:
+            result['buy_id'] = self.buy_id
+        if self.sell_id is not None:
+            result['sell_id'] = self.sell_id
+        if self.site_id is not None:
+            result['site_id'] = self.site_id
+        if self.start_place is not None:
+            result['start_place'] = self.start_place
+        if self.destination is not None:
+            result['destination'] = self.destination
+        if self.iso_country is not None:
+            result['iso_country'] = self.iso_country
+        if self.cargo_worth is not None:
+            result['cargo_worth'] = self.cargo_worth
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('external_product_code') is not None:
+            self.external_product_code = m.get('external_product_code')
+        if m.get('tbr_name') is not None:
+            self.tbr_name = m.get('tbr_name')
+        if m.get('tbr_id_type') is not None:
+            self.tbr_id_type = m.get('tbr_id_type')
+        if m.get('tbr_id_no') is not None:
+            self.tbr_id_no = m.get('tbr_id_no')
+        if m.get('bbr_name') is not None:
+            self.bbr_name = m.get('bbr_name')
+        if m.get('bbr_id_type') is not None:
+            self.bbr_id_type = m.get('bbr_id_type')
+        if m.get('bbr_id_no') is not None:
+            self.bbr_id_no = m.get('bbr_id_no')
+        if m.get('beneficiary_name') is not None:
+            self.beneficiary_name = m.get('beneficiary_name')
+        if m.get('beneficiary_id_type') is not None:
+            self.beneficiary_id_type = m.get('beneficiary_id_type')
+        if m.get('beneficiary_no') is not None:
+            self.beneficiary_no = m.get('beneficiary_no')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insured_amount') is not None:
+            self.insured_amount = m.get('insured_amount')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        if m.get('rela_order_no') is not None:
+            self.rela_order_no = m.get('rela_order_no')
+        if m.get('pick_up_time') is not None:
+            self.pick_up_time = m.get('pick_up_time')
+        if m.get('courier_company') is not None:
+            self.courier_company = m.get('courier_company')
+        if m.get('courier_number') is not None:
+            self.courier_number = m.get('courier_number')
+        if m.get('cargo_type') is not None:
+            self.cargo_type = m.get('cargo_type')
+        if m.get('cargo_name') is not None:
+            self.cargo_name = m.get('cargo_name')
+        if m.get('cargo_quantity') is not None:
+            self.cargo_quantity = m.get('cargo_quantity')
+        if m.get('buy_id') is not None:
+            self.buy_id = m.get('buy_id')
+        if m.get('sell_id') is not None:
+            self.sell_id = m.get('sell_id')
+        if m.get('site_id') is not None:
+            self.site_id = m.get('site_id')
+        if m.get('start_place') is not None:
+            self.start_place = m.get('start_place')
+        if m.get('destination') is not None:
+            self.destination = m.get('destination')
+        if m.get('iso_country') is not None:
+            self.iso_country = m.get('iso_country')
+        if m.get('cargo_worth') is not None:
+            self.cargo_worth = m.get('cargo_worth')
+        return self
+
+
+class ApplyInsuranceOspiResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        policy_no: str = None,
+        premium: str = None,
+        insured_amount: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 投保唯一码
+        self.trade_no = trade_no
+        # 保单号
+        self.policy_no = policy_no
+        # 保费
+        self.premium = premium
+        # 保额
+        self.insured_amount = insured_amount
+        # 保险起期
+        self.insure_start = insure_start
+        # 保险止期
+        self.insure_end = insure_end
+
+    def validate(self):
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.insure_end is not None:
+            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.insured_amount is not None:
+            result['insured_amount'] = self.insured_amount
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('insured_amount') is not None:
+            self.insured_amount = m.get('insured_amount')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
+        return self
+
+
+class ApplyInsuranceOspireportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        external_product_code: str = None,
+        policy_no: str = None,
+        rela_order_no: str = None,
+        accident_time: str = None,
+        reporter_name: str = None,
+        reporter_contact: str = None,
+        claim_amount: str = None,
+        collect_date: str = None,
+        job_no: str = None,
+        courier_company: str = None,
+        courier_number: str = None,
+        bug_id: str = None,
+        sell_id: str = None,
+        site_id: str = None,
+        cargo_name: str = None,
+        cargo_weight: str = None,
+        start_place: str = None,
+        destination: str = None,
+        iso_country: str = None,
+        accident_address: str = None,
+        payment_time: str = None,
+        payment_item: str = None,
+        accident_type: str = None,
+        claim_informations: List[ClaimInformation] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        self.trade_no = trade_no
+        # 保司编码，PAIC---平安
+        self.external_channel_code = external_channel_code
+        # 险种编码，04--海外邮包险
+        self.external_product_code = external_product_code
+        # 保单号，申请理赔的保单号
+        self.policy_no = policy_no
+        # 订单号，申请理赔所关联的订单号
+        self.rela_order_no = rela_order_no
+        # 出险时间，发生损失的时间
+        self.accident_time = accident_time
+        # 报案人名称，申请报案人的名称
+        self.reporter_name = reporter_name
+        # 报案人联系方式，申请报案人的联系方式
+        self.reporter_contact = reporter_contact
+        # 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
+        self.claim_amount = claim_amount
+        # 物流揽收时间
+        self.collect_date = collect_date
+        # 工单号，平台客服判责的工单号
+        self.job_no = job_no
+        # 快递公司名称，实际的派送公司全称
+        self.courier_company = courier_company
+        # 快递单号，实际的派送快递单号
+        self.courier_number = courier_number
+        # 买家ID，买家的脱敏唯一标识
+        self.bug_id = bug_id
+        # 卖家ID，卖家的脱敏唯一标识
+        self.sell_id = sell_id
+        # 站点/仓储ID，站点/仓储的脱敏唯一标识
+        self.site_id = site_id
+        # 货物名称，实际的货物名称
+        self.cargo_name = cargo_name
+        # 货物的重量
+        self.cargo_weight = cargo_weight
+        # 出发地地址，货物的出发地地址
+        self.start_place = start_place
+        # 目的地地址，货物的目的地地址
+        self.destination = destination
+        # ISO到达国别，包裹业务实际发生的国家
+        self.iso_country = iso_country
+        # 出险地址，货物发生实际损失的最近的一次地址记录
+        self.accident_address = accident_address
+        # 平台赔款支付时间，平台先行赔付的时间
+        self.payment_time = payment_time
+        # 赔付项目类型，01-运费，02-货值，03-货值2
+        self.payment_item = payment_item
+        # 出险类型，赔付的出险类型，届时保司和平台方商定
+        self.accident_type = accident_type
+        # 索赔资料附件，最多10个
+        self.claim_informations = claim_informations
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        if self.external_channel_code is not None:
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
+        self.validate_required(self.external_product_code, 'external_product_code')
+        if self.external_product_code is not None:
+            self.validate_max_length(self.external_product_code, 'external_product_code', 2)
+        self.validate_required(self.policy_no, 'policy_no')
+        if self.policy_no is not None:
+            self.validate_max_length(self.policy_no, 'policy_no', 200)
+        self.validate_required(self.rela_order_no, 'rela_order_no')
+        if self.rela_order_no is not None:
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 500)
+        self.validate_required(self.accident_time, 'accident_time')
+        if self.accident_time is not None:
+            self.validate_pattern(self.accident_time, 'accident_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.reporter_name, 'reporter_name')
+        if self.reporter_name is not None:
+            self.validate_max_length(self.reporter_name, 'reporter_name', 200)
+        self.validate_required(self.reporter_contact, 'reporter_contact')
+        if self.reporter_contact is not None:
+            self.validate_max_length(self.reporter_contact, 'reporter_contact', 20)
+        self.validate_required(self.claim_amount, 'claim_amount')
+        self.validate_required(self.collect_date, 'collect_date')
+        if self.collect_date is not None:
+            self.validate_pattern(self.collect_date, 'collect_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.job_no, 'job_no')
+        if self.job_no is not None:
+            self.validate_max_length(self.job_no, 'job_no', 100)
+        self.validate_required(self.courier_company, 'courier_company')
+        if self.courier_company is not None:
+            self.validate_max_length(self.courier_company, 'courier_company', 200)
+        self.validate_required(self.courier_number, 'courier_number')
+        if self.courier_number is not None:
+            self.validate_max_length(self.courier_number, 'courier_number', 100)
+        self.validate_required(self.bug_id, 'bug_id')
+        if self.bug_id is not None:
+            self.validate_max_length(self.bug_id, 'bug_id', 100)
+        self.validate_required(self.sell_id, 'sell_id')
+        if self.sell_id is not None:
+            self.validate_max_length(self.sell_id, 'sell_id', 100)
+        self.validate_required(self.site_id, 'site_id')
+        if self.site_id is not None:
+            self.validate_max_length(self.site_id, 'site_id', 100)
+        self.validate_required(self.cargo_name, 'cargo_name')
+        if self.cargo_name is not None:
+            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+        self.validate_required(self.cargo_weight, 'cargo_weight')
+        if self.cargo_weight is not None:
+            self.validate_max_length(self.cargo_weight, 'cargo_weight', 20)
+        self.validate_required(self.start_place, 'start_place')
+        if self.start_place is not None:
+            self.validate_max_length(self.start_place, 'start_place', 500)
+        self.validate_required(self.destination, 'destination')
+        if self.destination is not None:
+            self.validate_max_length(self.destination, 'destination', 500)
+        self.validate_required(self.iso_country, 'iso_country')
+        if self.iso_country is not None:
+            self.validate_max_length(self.iso_country, 'iso_country', 10)
+        self.validate_required(self.accident_address, 'accident_address')
+        if self.accident_address is not None:
+            self.validate_max_length(self.accident_address, 'accident_address', 500)
+        self.validate_required(self.payment_time, 'payment_time')
+        if self.payment_time is not None:
+            self.validate_pattern(self.payment_time, 'payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.payment_item, 'payment_item')
+        if self.payment_item is not None:
+            self.validate_max_length(self.payment_item, 'payment_item', 2)
+        self.validate_required(self.accident_type, 'accident_type')
+        if self.accident_type is not None:
+            self.validate_max_length(self.accident_type, 'accident_type', 20)
+        self.validate_required(self.claim_informations, 'claim_informations')
+        if self.claim_informations:
+            for k in self.claim_informations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.external_product_code is not None:
+            result['external_product_code'] = self.external_product_code
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.rela_order_no is not None:
+            result['rela_order_no'] = self.rela_order_no
+        if self.accident_time is not None:
+            result['accident_time'] = self.accident_time
+        if self.reporter_name is not None:
+            result['reporter_name'] = self.reporter_name
+        if self.reporter_contact is not None:
+            result['reporter_contact'] = self.reporter_contact
+        if self.claim_amount is not None:
+            result['claim_amount'] = self.claim_amount
+        if self.collect_date is not None:
+            result['collect_date'] = self.collect_date
+        if self.job_no is not None:
+            result['job_no'] = self.job_no
+        if self.courier_company is not None:
+            result['courier_company'] = self.courier_company
+        if self.courier_number is not None:
+            result['courier_number'] = self.courier_number
+        if self.bug_id is not None:
+            result['bug_id'] = self.bug_id
+        if self.sell_id is not None:
+            result['sell_id'] = self.sell_id
+        if self.site_id is not None:
+            result['site_id'] = self.site_id
+        if self.cargo_name is not None:
+            result['cargo_name'] = self.cargo_name
+        if self.cargo_weight is not None:
+            result['cargo_weight'] = self.cargo_weight
+        if self.start_place is not None:
+            result['start_place'] = self.start_place
+        if self.destination is not None:
+            result['destination'] = self.destination
+        if self.iso_country is not None:
+            result['iso_country'] = self.iso_country
+        if self.accident_address is not None:
+            result['accident_address'] = self.accident_address
+        if self.payment_time is not None:
+            result['payment_time'] = self.payment_time
+        if self.payment_item is not None:
+            result['payment_item'] = self.payment_item
+        if self.accident_type is not None:
+            result['accident_type'] = self.accident_type
+        result['claim_informations'] = []
+        if self.claim_informations is not None:
+            for k in self.claim_informations:
+                result['claim_informations'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('external_product_code') is not None:
+            self.external_product_code = m.get('external_product_code')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('rela_order_no') is not None:
+            self.rela_order_no = m.get('rela_order_no')
+        if m.get('accident_time') is not None:
+            self.accident_time = m.get('accident_time')
+        if m.get('reporter_name') is not None:
+            self.reporter_name = m.get('reporter_name')
+        if m.get('reporter_contact') is not None:
+            self.reporter_contact = m.get('reporter_contact')
+        if m.get('claim_amount') is not None:
+            self.claim_amount = m.get('claim_amount')
+        if m.get('collect_date') is not None:
+            self.collect_date = m.get('collect_date')
+        if m.get('job_no') is not None:
+            self.job_no = m.get('job_no')
+        if m.get('courier_company') is not None:
+            self.courier_company = m.get('courier_company')
+        if m.get('courier_number') is not None:
+            self.courier_number = m.get('courier_number')
+        if m.get('bug_id') is not None:
+            self.bug_id = m.get('bug_id')
+        if m.get('sell_id') is not None:
+            self.sell_id = m.get('sell_id')
+        if m.get('site_id') is not None:
+            self.site_id = m.get('site_id')
+        if m.get('cargo_name') is not None:
+            self.cargo_name = m.get('cargo_name')
+        if m.get('cargo_weight') is not None:
+            self.cargo_weight = m.get('cargo_weight')
+        if m.get('start_place') is not None:
+            self.start_place = m.get('start_place')
+        if m.get('destination') is not None:
+            self.destination = m.get('destination')
+        if m.get('iso_country') is not None:
+            self.iso_country = m.get('iso_country')
+        if m.get('accident_address') is not None:
+            self.accident_address = m.get('accident_address')
+        if m.get('payment_time') is not None:
+            self.payment_time = m.get('payment_time')
+        if m.get('payment_item') is not None:
+            self.payment_item = m.get('payment_item')
+        if m.get('accident_type') is not None:
+            self.accident_type = m.get('accident_type')
+        self.claim_informations = []
+        if m.get('claim_informations') is not None:
+            for k in m.get('claim_informations'):
+                temp_model = ClaimInformation()
+                self.claim_informations.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyInsuranceOspireportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        report_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 报案唯一码
+        self.trade_no = trade_no
+        # 报案号
+        self.report_no = report_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
+        return self
+
+
+class NotifyInsuranceOspireportRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        report_no: str = None,
+        rela_order_no: str = None,
+        claim_amount: str = None,
+        payment_time: str = None,
+        bank_serial_num: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 案件同步唯一码
+        self.trade_no = trade_no
+        # 保司编码，PAIC---平安
+        self.external_channel_code = external_channel_code
+        # 报案号，关联的报案案件号
+        self.report_no = report_no
+        # 订单号
+        self.rela_order_no = rela_order_no
+        # 理赔金额，实际的理赔金额
+        self.claim_amount = claim_amount
+        # 支付时间，实际的保司打款时间
+        self.payment_time = payment_time
+        # 银行流水，打款的银行流水号
+        self.bank_serial_num = bank_serial_num
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        if self.external_channel_code is not None:
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
+        self.validate_required(self.report_no, 'report_no')
+        if self.report_no is not None:
+            self.validate_max_length(self.report_no, 'report_no', 100)
+        self.validate_required(self.rela_order_no, 'rela_order_no')
+        if self.rela_order_no is not None:
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 100)
+        self.validate_required(self.claim_amount, 'claim_amount')
+        self.validate_required(self.payment_time, 'payment_time')
+        if self.payment_time is not None:
+            self.validate_pattern(self.payment_time, 'payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.bank_serial_num, 'bank_serial_num')
+        if self.bank_serial_num is not None:
+            self.validate_max_length(self.bank_serial_num, 'bank_serial_num', 200)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
+        if self.rela_order_no is not None:
+            result['rela_order_no'] = self.rela_order_no
+        if self.claim_amount is not None:
+            result['claim_amount'] = self.claim_amount
+        if self.payment_time is not None:
+            result['payment_time'] = self.payment_time
+        if self.bank_serial_num is not None:
+            result['bank_serial_num'] = self.bank_serial_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
+        if m.get('rela_order_no') is not None:
+            self.rela_order_no = m.get('rela_order_no')
+        if m.get('claim_amount') is not None:
+            self.claim_amount = m.get('claim_amount')
+        if m.get('payment_time') is not None:
+            self.payment_time = m.get('payment_time')
+        if m.get('bank_serial_num') is not None:
+            self.bank_serial_num = m.get('bank_serial_num')
+        return self
+
+
+class NotifyInsuranceOspireportResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        report_notify_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 案件同步唯一码
+        self.trade_no = trade_no
+        # 案件通知状态
+        self.report_notify_status = report_notify_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.report_notify_status is not None:
+            result['report_notify_status'] = self.report_notify_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('report_notify_status') is not None:
+            self.report_notify_status = m.get('report_notify_status')
+        return self
+
+
+class ApplyInsuranceYzbRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        external_product_code: str = None,
+        tbr_name: str = None,
+        tbr_id_type: str = None,
+        tbr_id_no: str = None,
+        bbr_name: str = None,
+        bbr_id_type: str = None,
+        bbr_id_no: str = None,
+        beneficiary_name: str = None,
+        beneficiary_id_type: str = None,
+        beneficiary_no: str = None,
+        insure_start: str = None,
+        product_package_type: str = None,
+        site_id: str = None,
+        site_name: str = None,
+        total_assets: str = None,
+        employee_num: str = None,
+        province_code: str = None,
+        city_code: str = None,
+        district_code: str = None,
+        whole_address: str = None,
+        scheme_name: str = None,
+        acpl_bbr_name: str = None,
+        acpl_bbr_id_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码。 系统会根据该流水号做防重、幂等判断逻辑。当极端场景中，系统会返回处理中状态，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        self.trade_no = trade_no
+        # 保司编码，PAIC---平安
+        self.external_channel_code = external_channel_code
+        # 险种编码，04--海外邮包险
+        self.external_product_code = external_product_code
+        # 投保人姓名，保险协议中的投保人全称
+        self.tbr_name = tbr_name
+        # 投保人证件类型，03--营业执照
+        self.tbr_id_type = tbr_id_type
+        # 投保人证件号码
+        self.tbr_id_no = tbr_id_no
+        # 被保人姓名，实际的保险被保人名称
+        self.bbr_name = bbr_name
+        # 被保人证件类型，01--居民身份证、03--营业执照
+        self.bbr_id_type = bbr_id_type
+        # 被保人证件号码
+        self.bbr_id_no = bbr_id_no
+        # 受益人名称，实际的保险受益人名称
+        self.beneficiary_name = beneficiary_name
+        # 受益人证件类型，01--居民身份证、03--营业执照
+        self.beneficiary_id_type = beneficiary_id_type
+        # 受益人证件号码
+        self.beneficiary_no = beneficiary_no
+        # 保险起期，格式：yyyy-MM-dd HH:mm:ss
+        self.insure_start = insure_start
+        # 套餐编码，届时保司与平台确定套餐方案
+        self.product_package_type = product_package_type
+        # 站点ID，站点的唯一标识
+        self.site_id = site_id
+        # 站点名称
+        self.site_name = site_name
+        # 总资产，单位（元），最多2位小数，超过拒绝请求
+        self.total_assets = total_assets
+        # 雇员人数，站点的雇佣人员数
+        self.employee_num = employee_num
+        # 省编码，站点位于的省份编码
+        self.province_code = province_code
+        # 市编码，站点位于的市区编码
+        self.city_code = city_code
+        # 区编码,站点位于的区县编码
+        self.district_code = district_code
+        # 完整地址，站点的详细地址
+        self.whole_address = whole_address
+        # 方案名称，届时保司与平台确定方案名称
+        self.scheme_name = scheme_name
+        # 意健险被保人姓名
+        self.acpl_bbr_name = acpl_bbr_name
+        # 意健险被保人身份证号
+        self.acpl_bbr_id_no = acpl_bbr_id_no
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 50)
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        if self.external_channel_code is not None:
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
+        self.validate_required(self.external_product_code, 'external_product_code')
+        if self.external_product_code is not None:
+            self.validate_max_length(self.external_product_code, 'external_product_code', 2)
+        self.validate_required(self.tbr_name, 'tbr_name')
+        if self.tbr_name is not None:
+            self.validate_max_length(self.tbr_name, 'tbr_name', 200)
+        self.validate_required(self.tbr_id_type, 'tbr_id_type')
+        if self.tbr_id_type is not None:
+            self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 2)
+        self.validate_required(self.tbr_id_no, 'tbr_id_no')
+        if self.tbr_id_no is not None:
+            self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
+        self.validate_required(self.bbr_name, 'bbr_name')
+        if self.bbr_name is not None:
+            self.validate_max_length(self.bbr_name, 'bbr_name', 200)
+        self.validate_required(self.bbr_id_type, 'bbr_id_type')
+        if self.bbr_id_type is not None:
+            self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
+        self.validate_required(self.bbr_id_no, 'bbr_id_no')
+        if self.bbr_id_no is not None:
+            self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 30)
+        self.validate_required(self.beneficiary_name, 'beneficiary_name')
+        if self.beneficiary_name is not None:
+            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
+        self.validate_required(self.beneficiary_id_type, 'beneficiary_id_type')
+        if self.beneficiary_id_type is not None:
+            self.validate_max_length(self.beneficiary_id_type, 'beneficiary_id_type', 2)
+        self.validate_required(self.beneficiary_no, 'beneficiary_no')
+        if self.beneficiary_no is not None:
+            self.validate_max_length(self.beneficiary_no, 'beneficiary_no', 30)
+        self.validate_required(self.insure_start, 'insure_start')
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.product_package_type, 'product_package_type')
+        if self.product_package_type is not None:
+            self.validate_max_length(self.product_package_type, 'product_package_type', 20)
+        self.validate_required(self.site_id, 'site_id')
+        if self.site_id is not None:
+            self.validate_max_length(self.site_id, 'site_id', 30)
+        self.validate_required(self.site_name, 'site_name')
+        if self.site_name is not None:
+            self.validate_max_length(self.site_name, 'site_name', 100)
+        self.validate_required(self.total_assets, 'total_assets')
+        self.validate_required(self.employee_num, 'employee_num')
+        self.validate_required(self.province_code, 'province_code')
+        if self.province_code is not None:
+            self.validate_max_length(self.province_code, 'province_code', 10)
+        self.validate_required(self.city_code, 'city_code')
+        if self.city_code is not None:
+            self.validate_max_length(self.city_code, 'city_code', 10)
+        self.validate_required(self.district_code, 'district_code')
+        if self.district_code is not None:
+            self.validate_max_length(self.district_code, 'district_code', 10)
+        self.validate_required(self.whole_address, 'whole_address')
+        if self.whole_address is not None:
+            self.validate_max_length(self.whole_address, 'whole_address', 300)
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 100)
+        self.validate_required(self.acpl_bbr_name, 'acpl_bbr_name')
+        if self.acpl_bbr_name is not None:
+            self.validate_max_length(self.acpl_bbr_name, 'acpl_bbr_name', 50)
+        self.validate_required(self.acpl_bbr_id_no, 'acpl_bbr_id_no')
+        if self.acpl_bbr_id_no is not None:
+            self.validate_max_length(self.acpl_bbr_id_no, 'acpl_bbr_id_no', 30)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.external_product_code is not None:
+            result['external_product_code'] = self.external_product_code
+        if self.tbr_name is not None:
+            result['tbr_name'] = self.tbr_name
+        if self.tbr_id_type is not None:
+            result['tbr_id_type'] = self.tbr_id_type
+        if self.tbr_id_no is not None:
+            result['tbr_id_no'] = self.tbr_id_no
+        if self.bbr_name is not None:
+            result['bbr_name'] = self.bbr_name
+        if self.bbr_id_type is not None:
+            result['bbr_id_type'] = self.bbr_id_type
+        if self.bbr_id_no is not None:
+            result['bbr_id_no'] = self.bbr_id_no
+        if self.beneficiary_name is not None:
+            result['beneficiary_name'] = self.beneficiary_name
+        if self.beneficiary_id_type is not None:
+            result['beneficiary_id_type'] = self.beneficiary_id_type
+        if self.beneficiary_no is not None:
+            result['beneficiary_no'] = self.beneficiary_no
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.product_package_type is not None:
+            result['product_package_type'] = self.product_package_type
+        if self.site_id is not None:
+            result['site_id'] = self.site_id
+        if self.site_name is not None:
+            result['site_name'] = self.site_name
+        if self.total_assets is not None:
+            result['total_assets'] = self.total_assets
+        if self.employee_num is not None:
+            result['employee_num'] = self.employee_num
+        if self.province_code is not None:
+            result['province_code'] = self.province_code
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.district_code is not None:
+            result['district_code'] = self.district_code
+        if self.whole_address is not None:
+            result['whole_address'] = self.whole_address
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.acpl_bbr_name is not None:
+            result['acpl_bbr_name'] = self.acpl_bbr_name
+        if self.acpl_bbr_id_no is not None:
+            result['acpl_bbr_id_no'] = self.acpl_bbr_id_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('external_product_code') is not None:
+            self.external_product_code = m.get('external_product_code')
+        if m.get('tbr_name') is not None:
+            self.tbr_name = m.get('tbr_name')
+        if m.get('tbr_id_type') is not None:
+            self.tbr_id_type = m.get('tbr_id_type')
+        if m.get('tbr_id_no') is not None:
+            self.tbr_id_no = m.get('tbr_id_no')
+        if m.get('bbr_name') is not None:
+            self.bbr_name = m.get('bbr_name')
+        if m.get('bbr_id_type') is not None:
+            self.bbr_id_type = m.get('bbr_id_type')
+        if m.get('bbr_id_no') is not None:
+            self.bbr_id_no = m.get('bbr_id_no')
+        if m.get('beneficiary_name') is not None:
+            self.beneficiary_name = m.get('beneficiary_name')
+        if m.get('beneficiary_id_type') is not None:
+            self.beneficiary_id_type = m.get('beneficiary_id_type')
+        if m.get('beneficiary_no') is not None:
+            self.beneficiary_no = m.get('beneficiary_no')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('product_package_type') is not None:
+            self.product_package_type = m.get('product_package_type')
+        if m.get('site_id') is not None:
+            self.site_id = m.get('site_id')
+        if m.get('site_name') is not None:
+            self.site_name = m.get('site_name')
+        if m.get('total_assets') is not None:
+            self.total_assets = m.get('total_assets')
+        if m.get('employee_num') is not None:
+            self.employee_num = m.get('employee_num')
+        if m.get('province_code') is not None:
+            self.province_code = m.get('province_code')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('district_code') is not None:
+            self.district_code = m.get('district_code')
+        if m.get('whole_address') is not None:
+            self.whole_address = m.get('whole_address')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('acpl_bbr_name') is not None:
+            self.acpl_bbr_name = m.get('acpl_bbr_name')
+        if m.get('acpl_bbr_id_no') is not None:
+            self.acpl_bbr_id_no = m.get('acpl_bbr_id_no')
+        return self
+
+
+class ApplyInsuranceYzbResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        policy_no: str = None,
+        premium: str = None,
+        insured_amount: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 投保唯一码
+        self.trade_no = trade_no
+        # 保单号
+        self.policy_no = policy_no
+        # 保费
+        self.premium = premium
+        # 保额
+        self.insured_amount = insured_amount
+        # 保险起期
+        self.insure_start = insure_start
+        # 保险止期
+        self.insure_end = insure_end
+
+    def validate(self):
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.insure_end is not None:
+            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.insured_amount is not None:
+            result['insured_amount'] = self.insured_amount
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('insured_amount') is not None:
+            self.insured_amount = m.get('insured_amount')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
         return self
 
 
