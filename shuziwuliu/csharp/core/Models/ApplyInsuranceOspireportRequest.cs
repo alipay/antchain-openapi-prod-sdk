@@ -84,9 +84,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public string CourierNumber { get; set; }
 
         // 买家ID，买家的脱敏唯一标识
-        [NameInMap("bug_id")]
+        [NameInMap("buy_id")]
         [Validation(Required=true, MaxLength=100)]
-        public string BugId { get; set; }
+        public string BuyId { get; set; }
 
         // 卖家ID，卖家的脱敏唯一标识 
         [NameInMap("sell_id")]

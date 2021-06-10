@@ -28,7 +28,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
 
-        // 险种编码，04--海外邮包险
+        // 险种编码，05-驿站宝
         [NameInMap("external_product_code")]
         [Validation(Required=true, MaxLength=2)]
         public string ExternalProductCode { get; set; }
@@ -62,6 +62,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("bbr_id_no")]
         [Validation(Required=true, MaxLength=30)]
         public string BbrIdNo { get; set; }
+
+        // 被保人联系方式
+        [NameInMap("bbr_contact")]
+        [Validation(Required=true, MaxLength=30)]
+        public string BbrContact { get; set; }
 
         // 受益人名称，实际的保险受益人名称
         [NameInMap("beneficiary_name")]

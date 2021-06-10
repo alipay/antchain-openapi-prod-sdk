@@ -38,7 +38,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=100)]
         public string RelaOrderNo { get; set; }
 
-        // 理赔金额，实际的理赔金额
+        // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
         [NameInMap("claim_amount")]
         [Validation(Required=true)]
         public string ClaimAmount { get; set; }
