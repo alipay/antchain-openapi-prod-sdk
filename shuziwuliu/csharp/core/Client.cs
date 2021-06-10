@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.107"},
+                        {"sdk_version", "1.3.108"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.107"},
+                        {"sdk_version", "1.3.108"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4229,6 +4229,174 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyInsuranceInventoryResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.inventory.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险投保api
+         * Summary: 海外邮包险投保
+         */
+        public ApplyInsuranceOspiResponse ApplyInsuranceOspi(ApplyInsuranceOspiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceOspiEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险投保api
+         * Summary: 海外邮包险投保
+         */
+        public async Task<ApplyInsuranceOspiResponse> ApplyInsuranceOspiAsync(ApplyInsuranceOspiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceOspiExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险投保api
+         * Summary: 海外邮包险投保
+         */
+        public ApplyInsuranceOspiResponse ApplyInsuranceOspiEx(ApplyInsuranceOspiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceOspiResponse>(DoRequest("1.0", "digital.logistic.insurance.ospi.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险投保api
+         * Summary: 海外邮包险投保
+         */
+        public async Task<ApplyInsuranceOspiResponse> ApplyInsuranceOspiExAsync(ApplyInsuranceOspiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceOspiResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.ospi.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔
+         * Summary: 海外邮包险报案理赔
+         */
+        public ApplyInsuranceOspireportResponse ApplyInsuranceOspireport(ApplyInsuranceOspireportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceOspireportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔
+         * Summary: 海外邮包险报案理赔
+         */
+        public async Task<ApplyInsuranceOspireportResponse> ApplyInsuranceOspireportAsync(ApplyInsuranceOspireportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceOspireportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔
+         * Summary: 海外邮包险报案理赔
+         */
+        public ApplyInsuranceOspireportResponse ApplyInsuranceOspireportEx(ApplyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceOspireportResponse>(DoRequest("1.0", "digital.logistic.insurance.ospireport.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔
+         * Summary: 海外邮包险报案理赔
+         */
+        public async Task<ApplyInsuranceOspireportResponse> ApplyInsuranceOspireportExAsync(ApplyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceOspireportResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.ospireport.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔结果通知
+         * Summary: 海外邮包险报案理赔结果通知
+         */
+        public NotifyInsuranceOspireportResponse NotifyInsuranceOspireport(NotifyInsuranceOspireportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyInsuranceOspireportEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔结果通知
+         * Summary: 海外邮包险报案理赔结果通知
+         */
+        public async Task<NotifyInsuranceOspireportResponse> NotifyInsuranceOspireportAsync(NotifyInsuranceOspireportRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyInsuranceOspireportExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔结果通知
+         * Summary: 海外邮包险报案理赔结果通知
+         */
+        public NotifyInsuranceOspireportResponse NotifyInsuranceOspireportEx(NotifyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyInsuranceOspireportResponse>(DoRequest("1.0", "digital.logistic.insurance.ospireport.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 海外邮包险报案理赔结果通知
+         * Summary: 海外邮包险报案理赔结果通知
+         */
+        public async Task<NotifyInsuranceOspireportResponse> NotifyInsuranceOspireportExAsync(NotifyInsuranceOspireportRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyInsuranceOspireportResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.ospireport.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 驿站宝投保
+         * Summary: 驿站宝投保
+         */
+        public ApplyInsuranceYzbResponse ApplyInsuranceYzb(ApplyInsuranceYzbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsuranceYzbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 驿站宝投保
+         * Summary: 驿站宝投保
+         */
+        public async Task<ApplyInsuranceYzbResponse> ApplyInsuranceYzbAsync(ApplyInsuranceYzbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsuranceYzbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 驿站宝投保
+         * Summary: 驿站宝投保
+         */
+        public ApplyInsuranceYzbResponse ApplyInsuranceYzbEx(ApplyInsuranceYzbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceYzbResponse>(DoRequest("1.0", "digital.logistic.insurance.yzb.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 驿站宝投保
+         * Summary: 驿站宝投保
+         */
+        public async Task<ApplyInsuranceYzbResponse> ApplyInsuranceYzbExAsync(ApplyInsuranceYzbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsuranceYzbResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.yzb.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
