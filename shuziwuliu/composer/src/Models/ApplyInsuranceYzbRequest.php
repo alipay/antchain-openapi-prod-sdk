@@ -31,7 +31,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $externalChannelCode;
 
-    // 险种编码，04--海外邮包险
+    // 险种编码，05-驿站宝
     /**
      * @var string
      */
@@ -72,6 +72,12 @@ class ApplyInsuranceYzbRequest extends Model
      * @var string
      */
     public $bbrIdNo;
+
+    // 被保人联系方式
+    /**
+     * @var string
+     */
+    public $bbrContact;
 
     // 受益人名称，实际的保险受益人名称
     /**
@@ -180,6 +186,7 @@ class ApplyInsuranceYzbRequest extends Model
         'bbrName'             => 'bbr_name',
         'bbrIdType'           => 'bbr_id_type',
         'bbrIdNo'             => 'bbr_id_no',
+        'bbrContact'          => 'bbr_contact',
         'beneficiaryName'     => 'beneficiary_name',
         'beneficiaryIdType'   => 'beneficiary_id_type',
         'beneficiaryNo'       => 'beneficiary_no',
@@ -209,6 +216,7 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateRequired('bbrName', $this->bbrName, true);
         Model::validateRequired('bbrIdType', $this->bbrIdType, true);
         Model::validateRequired('bbrIdNo', $this->bbrIdNo, true);
+        Model::validateRequired('bbrContact', $this->bbrContact, true);
         Model::validateRequired('beneficiaryName', $this->beneficiaryName, true);
         Model::validateRequired('beneficiaryIdType', $this->beneficiaryIdType, true);
         Model::validateRequired('beneficiaryNo', $this->beneficiaryNo, true);
@@ -234,6 +242,7 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateMaxLength('bbrName', $this->bbrName, 200);
         Model::validateMaxLength('bbrIdType', $this->bbrIdType, 2);
         Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 30);
+        Model::validateMaxLength('bbrContact', $this->bbrContact, 30);
         Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 200);
         Model::validateMaxLength('beneficiaryIdType', $this->beneficiaryIdType, 2);
         Model::validateMaxLength('beneficiaryNo', $this->beneficiaryNo, 30);
@@ -285,6 +294,9 @@ class ApplyInsuranceYzbRequest extends Model
         }
         if (null !== $this->bbrIdNo) {
             $res['bbr_id_no'] = $this->bbrIdNo;
+        }
+        if (null !== $this->bbrContact) {
+            $res['bbr_contact'] = $this->bbrContact;
         }
         if (null !== $this->beneficiaryName) {
             $res['beneficiary_name'] = $this->beneficiaryName;
@@ -378,6 +390,9 @@ class ApplyInsuranceYzbRequest extends Model
         }
         if (isset($map['bbr_id_no'])) {
             $model->bbrIdNo = $map['bbr_id_no'];
+        }
+        if (isset($map['bbr_contact'])) {
+            $model->bbrContact = $map['bbr_contact'];
         }
         if (isset($map['beneficiary_name'])) {
             $model->beneficiaryName = $map['beneficiary_name'];

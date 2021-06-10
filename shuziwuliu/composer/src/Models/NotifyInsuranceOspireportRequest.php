@@ -43,7 +43,7 @@ class NotifyInsuranceOspireportRequest extends Model
      */
     public $relaOrderNo;
 
-    // 理赔金额，实际的理赔金额
+    // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
     /**
      * @var string
      */

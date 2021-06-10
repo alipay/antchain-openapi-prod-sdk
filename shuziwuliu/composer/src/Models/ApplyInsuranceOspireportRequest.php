@@ -101,7 +101,7 @@ class ApplyInsuranceOspireportRequest extends Model
     /**
      * @var string
      */
-    public $bugId;
+    public $buyId;
 
     // 卖家ID，卖家的脱敏唯一标识
     /**
@@ -190,7 +190,7 @@ class ApplyInsuranceOspireportRequest extends Model
         'jobNo'               => 'job_no',
         'courierCompany'      => 'courier_company',
         'courierNumber'       => 'courier_number',
-        'bugId'               => 'bug_id',
+        'buyId'               => 'buy_id',
         'sellId'              => 'sell_id',
         'siteId'              => 'site_id',
         'cargoName'           => 'cargo_name',
@@ -220,7 +220,7 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateRequired('jobNo', $this->jobNo, true);
         Model::validateRequired('courierCompany', $this->courierCompany, true);
         Model::validateRequired('courierNumber', $this->courierNumber, true);
-        Model::validateRequired('bugId', $this->bugId, true);
+        Model::validateRequired('buyId', $this->buyId, true);
         Model::validateRequired('sellId', $this->sellId, true);
         Model::validateRequired('siteId', $this->siteId, true);
         Model::validateRequired('cargoName', $this->cargoName, true);
@@ -243,7 +243,7 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateMaxLength('jobNo', $this->jobNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
         Model::validateMaxLength('courierNumber', $this->courierNumber, 100);
-        Model::validateMaxLength('bugId', $this->bugId, 100);
+        Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
         Model::validateMaxLength('siteId', $this->siteId, 100);
         Model::validateMaxLength('cargoName', $this->cargoName, 200);
@@ -307,8 +307,8 @@ class ApplyInsuranceOspireportRequest extends Model
         if (null !== $this->courierNumber) {
             $res['courier_number'] = $this->courierNumber;
         }
-        if (null !== $this->bugId) {
-            $res['bug_id'] = $this->bugId;
+        if (null !== $this->buyId) {
+            $res['buy_id'] = $this->buyId;
         }
         if (null !== $this->sellId) {
             $res['sell_id'] = $this->sellId;
@@ -409,8 +409,8 @@ class ApplyInsuranceOspireportRequest extends Model
         if (isset($map['courier_number'])) {
             $model->courierNumber = $map['courier_number'];
         }
-        if (isset($map['bug_id'])) {
-            $model->bugId = $map['bug_id'];
+        if (isset($map['buy_id'])) {
+            $model->buyId = $map['buy_id'];
         }
         if (isset($map['sell_id'])) {
             $model->sellId = $map['sell_id'];
