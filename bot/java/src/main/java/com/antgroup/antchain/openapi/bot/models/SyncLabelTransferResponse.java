@@ -16,17 +16,9 @@ public class SyncLabelTransferResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 链Id
-    @NameInMap("chain_id")
-    public String chainId;
-
-    // 上链时间
-    @NameInMap("tx_time")
-    public String txTime;
-
-    // 上链哈希
-    @NameInMap("tx_hash")
-    public String txHash;
+    // 标签上链hash返回
+    @NameInMap("result_list")
+    public java.util.List<LabelChainResult> resultList;
 
     public static SyncLabelTransferResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncLabelTransferResponse self = new SyncLabelTransferResponse();
@@ -57,28 +49,12 @@ public class SyncLabelTransferResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncLabelTransferResponse setChainId(String chainId) {
-        this.chainId = chainId;
+    public SyncLabelTransferResponse setResultList(java.util.List<LabelChainResult> resultList) {
+        this.resultList = resultList;
         return this;
     }
-    public String getChainId() {
-        return this.chainId;
-    }
-
-    public SyncLabelTransferResponse setTxTime(String txTime) {
-        this.txTime = txTime;
-        return this;
-    }
-    public String getTxTime() {
-        return this.txTime;
-    }
-
-    public SyncLabelTransferResponse setTxHash(String txHash) {
-        this.txHash = txHash;
-        return this;
-    }
-    public String getTxHash() {
-        return this.txHash;
+    public java.util.List<LabelChainResult> getResultList() {
+        return this.resultList;
     }
 
 }

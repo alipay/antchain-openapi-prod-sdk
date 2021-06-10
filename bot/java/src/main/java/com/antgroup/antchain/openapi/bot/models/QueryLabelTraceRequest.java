@@ -11,13 +11,16 @@ public class QueryLabelTraceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 场景码 , 使用asset_id 查询时，scene也必须传入
+    @NameInMap("scene")
+    public String scene;
+
     // 标签Id
     @NameInMap("label_id")
     public String labelId;
 
     // 标签状态
     @NameInMap("label_status")
-    @Validation(required = true)
     public String labelStatus;
 
     // 资产Id
@@ -63,6 +66,14 @@ public class QueryLabelTraceRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryLabelTraceRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
     }
 
     public QueryLabelTraceRequest setLabelId(String labelId) {

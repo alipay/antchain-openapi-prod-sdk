@@ -6,14 +6,12 @@ import com.aliyun.tea.*;
 public class LabelTrace extends TeaModel {
     // 场景码
     @NameInMap("scene")
+    @Validation(required = true)
     public String scene;
-
-    // 租户
-    @NameInMap("tenant")
-    public String tenant;
 
     // 标签id
     @NameInMap("label_id")
+    @Validation(required = true)
     public String labelId;
 
     // 标签状态
@@ -41,10 +39,10 @@ public class LabelTrace extends TeaModel {
     @NameInMap("action")
     public String action;
 
-    // 操作时间
+    // 操作时间 
     @NameInMap("operate_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String operateTime;
+    @Validation(required = true)
+    public Long operateTime;
 
     // 操作设备
     @NameInMap("operate_device")
@@ -56,6 +54,7 @@ public class LabelTrace extends TeaModel {
 
     // 链上哈希
     @NameInMap("tx_hash")
+    @Validation(required = true)
     public String txHash;
 
     // 上链时间
@@ -93,14 +92,6 @@ public class LabelTrace extends TeaModel {
     }
     public String getScene() {
         return this.scene;
-    }
-
-    public LabelTrace setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public LabelTrace setLabelId(String labelId) {
@@ -159,11 +150,11 @@ public class LabelTrace extends TeaModel {
         return this.action;
     }
 
-    public LabelTrace setOperateTime(String operateTime) {
+    public LabelTrace setOperateTime(Long operateTime) {
         this.operateTime = operateTime;
         return this;
     }
-    public String getOperateTime() {
+    public Long getOperateTime() {
         return this.operateTime;
     }
 
