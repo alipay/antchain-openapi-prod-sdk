@@ -1,0 +1,747 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.1.5',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 银行卡信息
+model CardInfo {
+  // 卡户名
+  accountHolderName: string(name='account_holder_name', example='马老师'),
+  // 卡号
+  accountNo: string(name='account_no', example='6214855710610408'),
+  // 银行名称
+  accountInstName: string(name='account_inst_name', example='招商银行'),
+  // 银行缩写
+  accountInstId: string(name='account_inst_id', example='CMB'),
+  // 账号使用类型
+  // 对公-01
+  // 对私-02
+  usageType: string(name='usage_type', example='01'),
+  // 联行号
+  bankCode?: string(name='bank_code', example='103290003044'),
+  // 开户行所在省份
+  accountInstProvince: string(name='account_inst_province', example='浙江省'),
+  // 开户行所在城市
+  accountInstCity: string(name='account_inst_city', example='杭州市'),
+  // 开户行支行名称
+  accountBranchName: string(name='account_branch_name', example='招商银行杭州高新支行'),
+}
+
+// 地址信息
+model AddressInfo {
+  // 省份编码
+  provinceCode: string(name='province_code', example='370000'),
+  // 城市编码
+  cityCode: string(name='city_code', example='371000'),
+  // 区域编码
+  districtCode: string(name='district_code', example='371002'),
+  // 详细地址
+  address: string(name='address', example='万塘路18号黄龙时代广场B座'),
+}
+
+// 结算规则
+model SettleRule {
+  // 结算类型， bankCard-表示结算到银行卡；alipayAccount-表示结算到支付宝账号
+  defaultSettleType: string(name='default_settle_type', example='bankCard'),
+  // 结算目标
+  // 如果settle_type = bankCard, 这里填写银行卡卡号;
+  // 如果settle_type = alipayAccount, 这里填写支付宝账号登录号, 且要求与商户名称name同名
+  defaultSettleTarget: string(name='default_settle_target', example='myalipay@alipay.com'),
+}
+
+// 联系人信息
+model ContactInfo {
+  // 联系人姓名
+  name: string(name='name', example='张三'),
+  // 联系人手机号码
+  mobile: string(name='mobile', example='1388888888'),
+  // 联系人电话号码
+  phone?: string(name='phone', example='0551-12345678'),
+  // 联系人类型, LEGAL_PERSON-法人；CONTROLLER-实际控制人；AGENT-代理人；OTHER-其他
+  type: string(name='type', example='LEGAL_PERSON'),
+}
+
+// 二级商户进件申请单
+model MerchantOrderInfo {
+  // 申请单id
+  orderId: string(name='order_id', example='2021012000502000000005130266'),
+  // 平台方的用户id, 保持唯一
+  merchantUserId: string(name='merchant_user_id', example='208812345678'),
+  // 申请状态 99-已完结;-1-失败;031-审核中
+  status: string(name='status', example='99'),
+  // 风控审批状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+  fkAudit?: string(name='fk_audit', example='CREATE'),
+  // 风控审批备注
+  fkAuditMemo?: string(name='fk_audit_memo', example='无'),
+  // 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+  kzAudit?: string(name='kz_audit', example='CREATE'),
+  // 客资审批备注
+  kzAuditMemo?: string(name='kz_audit_memo', example='无'),
+  // 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+  subConfirm?: string(name='sub_confirm', example='CREATE'),
+  // 进件备注, 主要用于保存审核拒绝原因
+  remark?: string(name='remark', example='{"rejectReason": "拒绝原因", "remark": "CREATE"}'),
+}
+
+// 商户资质信息
+model QualificationInfo {
+  // 商户行业资质类型,  参考https://mif-pub.alipayobjects.com/QualificationType.xlsx
+  industryQualificationType: string(name='industry_qualification_type', example='301'),
+  // 商户行业资质图片
+  industryQualificationImage: string(name='industry_qualification_image', example='7d589a3d-62c4-460a-bca6-06842cf15691.png'),
+}
+
+// 站点信息
+model SiteInfo {
+  // 站点类型 网站-01 APP-02 服务窗-03 公众号-04 其他-05 支付宝小程序-06
+  siteType: string(name='site_type', example='01'),
+  // 站点名称
+  siteName?: string(name='site_name', example='支付宝中国'),
+  // 站点地址
+  siteUrl: string(name='site_url', example='www.alipay.com'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model CreateMerchantSellerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // source, 由中台为业务方分配, 作为业务来源标识
+  source: string(name='source'),
+  // 平台方下的用户id, 唯一， 跟merchant_login_name不能同时为空
+  merchantUserId?: string(name='merchant_user_id'),
+  // 商户登录账号, 跟merchant_user_id不能同时为空
+  merchantLoginName?: string(name='merchant_login_name'),
+  // 商户别名, 会展示在账单以及支付结果页中
+  merchantAliasName: string(name='merchant_alias_name'),
+  // 商户类别码mcc，参见https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx
+  mcc: string(name='mcc'),
+  // 法人姓名，merchant_type = 01时必填
+  legalName?: string(name='legal_name'),
+  // 默认可不填，认为legal_cert_no是大陆身份证。类型包括：100 大陆身份证；105 港澳居民往来内地通行证；106 台湾同胞往来大陆通行证；108 外国人居留证
+  legalCertType?: string(name='legal_cert_type'),
+  // 商户法人身份证号码, merchant_type = 01时必填
+  legalCertNo?: string(name='legal_cert_no'),
+  // 商户经营地址
+  businessAddress: AddressInfo(name='business_address'),
+  // 商户联系人信息
+  contactInfos: [ ContactInfo ](name='contact_infos'),
+  // 商户使用服务 当面付、app支付、wap支付、电脑支付
+  service: [ string ](name='service'),
+  // 默认结算规则
+  defaultSettleRule: SettleRule(name='default_settle_rule'),
+  // 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
+  bizCards?: CardInfo(name='biz_cards'),
+  // 请求单据号，32位。
+  requestId: string(name='request_id'),
+  // 商户证件图片，如果是特殊行业必填
+  certImage?: string(name='cert_image'),
+  // 法人身份证正面图片 ，如果是特殊行业必填
+  legalCertFrontImage?: string(name='legal_cert_front_image'),
+  // 法人身份证反面图片，如果是特殊行业必填
+  legalCertBackImage?: string(name='legal_cert_back_image'),
+  // 商户行业资质, 如果是特殊行业必填
+  qualifications?: [ QualificationInfo ](name='qualifications'),
+  // 授权函图片。当商户名与结算卡户名不一致（模板参考https://gw.alipayobjects.com/os/skylark-tools/public/files/d5fcbe7463d7159a0d362da417d157ed.docx），或涉及外籍法人（这种情况上传任意能证明身份的图片）时必填
+  licenseAuthLetterImage?: string(name='license_auth_letter_image'),
+}
+
+model CreateMerchantSellerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请单id
+  orderId?: string(name='order_id'),
+  // 商户user_id
+  merchantUserId?: string(name='merchant_user_id'),
+}
+
+/**
+ * Description: 商业卖家商户注册
+ * Summary: 行业卖家商户注册
+ */
+async function createMerchantSeller(request: CreateMerchantSellerRequest): CreateMerchantSellerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMerchantSellerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商业卖家商户注册
+ * Summary: 行业卖家商户注册
+ */
+async function createMerchantSellerEx(request: CreateMerchantSellerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMerchantSellerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.merchant.seller.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMerchantSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // source, 由中台为业务方分配, 标识业务来源
+  source: string(name='source'),
+  // 申请单id, 跟merchant_user_id不能同时为空
+  orderId?: string(name='order_id'),
+  // 平台方下的用户id, 保持唯一，跟order_id不能同时为空; 如果只传该字段, 获取该用户id的最新一次进件结果
+  merchantUserId?: string(name='merchant_user_id'),
+}
+
+model QueryMerchantSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 进件申请单信息
+  orderInfo?: MerchantOrderInfo(name='order_info'),
+}
+
+/**
+ * Description: 行业卖家商户注册结果查询服务
+ * Summary: 行业卖家商户注册结果查询服务
+ */
+async function queryMerchantSign(request: QueryMerchantSignRequest): QueryMerchantSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMerchantSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 行业卖家商户注册结果查询服务
+ * Summary: 行业卖家商户注册结果查询服务
+ */
+async function queryMerchantSignEx(request: QueryMerchantSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMerchantSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.merchant.sign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadMerchantImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // source, 由中台为业务方分配, 作为业务来源标识
+  source: string(name='source'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadMerchantImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片id
+  imageId?: string(name='image_id'),
+}
+
+/**
+ * Description: 行业商家图片上传
+ * Summary: 行业商家图片上传
+ */
+async function uploadMerchantImage(request: UploadMerchantImageRequest): UploadMerchantImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadMerchantImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 行业商家图片上传
+ * Summary: 行业商家图片上传
+ */
+async function uploadMerchantImageEx(request: UploadMerchantImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadMerchantImageResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antcloud.industry.merchant.image.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadMerchantImageResponse = new UploadMerchantImageResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadMerchantImageResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.merchant.image.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SignMerchantAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 来源场景码, 由中台为业务方分配
+  source: string(name='source'),
+  // 商家pid
+  merchantUserId: string(name='merchant_user_id'),
+  // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
+  personalProductCode: string(name='personal_product_code'),
+}
+
+model SignMerchantAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约字符串
+  signStr?: string(name='sign_str'),
+}
+
+/**
+ * Description: 支付宝个人协议页面签约接口
+ * Summary: 支付宝个人协议页面签约接口
+ */
+async function signMerchantAgreement(request: SignMerchantAgreementRequest): SignMerchantAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return signMerchantAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付宝个人协议页面签约接口
+ * Summary: 支付宝个人协议页面签约接口
+ */
+async function signMerchantAgreementEx(request: SignMerchantAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignMerchantAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.merchant.agreement.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayTradePageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 来源场景码,IP版权默认传IP_COPYRIGHT
+  source: string(name='source'),
+  // 渠道 自营平台、第三方平台等
+  channel: string(name='channel'),
+  // 支付成功后returl地址
+  returnUrl: string(name='return_url'),
+  // 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
+  merchantOrderNo: string(name='merchant_order_no'),
+  // 收单金额，"10.11"代表10.11元,最小粒度到分,小数点后2位，不支持高精度和负数
+  totalAmount: string(name='total_amount'),
+  // 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
+  subject: string(name='subject'),
+  // 支付渠道产品码；
+  // 目前只支持直付通，code= ZFT;
+  payProductCode: string(name='pay_product_code'),
+  // 默认：人民币（156）
+  transCurrency?: string(name='trans_currency'),
+  // 平台方下的用户id (即商家id)
+  merchantUserId: string(name='merchant_user_id'),
+  // 订单描述。不超过128长度
+  body?: string(name='body'),
+}
+
+model PayTradePageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 收银台页面String
+  form?: string(name='form'),
+}
+
+/**
+ * Description: 买家卖家收单交易，直接收款给卖家过渡户
+ * Summary: 买家卖家收单交易-电脑版
+ */
+async function payTradePage(request: PayTradePageRequest): PayTradePageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payTradePageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 买家卖家收单交易，直接收款给卖家过渡户
+ * Summary: 买家卖家收单交易-电脑版
+ */
+async function payTradePageEx(request: PayTradePageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayTradePageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.trade.page.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTradeOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 中台颁发的场景码，IP_COPYRIGHT
+  source: string(name='source'),
+  // 外部商户订单号，不超32位
+  merchantOrderNo: string(name='merchant_order_no'),
+}
+
+model QueryTradeOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
+  // 交易状态：WAIT_BUYER_PAY（交易创建，等待买家付款）、TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、TRADE_SUCCESS（交易支付成功）
+  tradeStatus?: string(name='trade_status'),
+  // 交易金额，"10.11"
+  totalAmount?: string(name='total_amount'),
+  // 商户订单号out_trade_no
+  outTradeNo?: string(name='out_trade_no'),
+}
+
+/**
+ * Description: 交易支付结果查询接口
+ * Summary: 交易结果查询
+ */
+async function queryTradeOrder(request: QueryTradeOrderRequest): QueryTradeOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTradeOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 交易支付结果查询接口
+ * Summary: 交易结果查询
+ */
+async function queryTradeOrderEx(request: QueryTradeOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTradeOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.trade.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 来源场景码, 由中台分配给业务方
+  source: string(name='source'),
+  // 渠道 自营平台、第三方平台等
+  channel: string(name='channel'),
+  // 支付成功后returl地址
+  returnUrl?: string(name='return_url'),
+  // 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
+  merchantOrderNo: string(name='merchant_order_no'),
+  // 收单金额，"10.11"代表10.11元,最小粒度到分,小数点后2位，不支持高精度和负数
+  totalAmount: string(name='total_amount'),
+  // 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
+  subject: string(name='subject'),
+  // 支付渠道产品码； 目前只支持直付通，code= ZFT;
+  payProductCode?: string(name='pay_product_code'),
+  // 交易币种，默认：人民币（156）
+  transCurrency?: string(name='trans_currency'),
+  // 平台方下的商家id
+  merchantUserId: string(name='merchant_user_id'),
+  // 买家的支付宝唯一用户号（2088开头的16位纯数字）。
+  // 小程序支付场景必填。
+  buyerId?: string(name='buyer_id'),
+  // 对一笔交易的具体描述信息。如果是多种商品，请将商品描述字符串累加传给body。
+  body?: string(name='body'),
+}
+
+model CreateTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝交易号，64位以内
+  tradeNo?: string(name='trade_no'),
+  // 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
+  merchantOrderNo?: string(name='merchant_order_no'),
+}
+
+/**
+ * Description: 买家卖家收单交易
+ * Summary: 统一收单交易创建
+ */
+async function createTrade(request: CreateTradeRequest): CreateTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 买家卖家收单交易
+ * Summary: 统一收单交易创建
+ */
+async function createTradeEx(request: CreateTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.trade.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 来源场景码, 由中台分配给业务方
+  source: string(name='source'),
+  // 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
+  merchantOrderNo: string(name='merchant_order_no'),
+  // 收单金额，"10.11"代表10.11元,最小粒度到分,小数点后2位，不支持高精度和负数
+  totalAmount: string(name='total_amount'),
+  // 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
+  subject: string(name='subject'),
+  // 平台方下的商家id
+  merchantUserId: string(name='merchant_user_id'),
+  // 交易币种，默认：人民币（156）
+  transCurrency?: string(name='trans_currency'),
+  // 买家支付宝uid
+  buyerId: string(name='buyer_id'),
+}
+
+model PayTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝交易号，64位以内
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 统一收单交易支付接口
+ * Summary: 统一收单交易支付接口
+ */
+async function payTrade(request: PayTradeRequest): PayTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 统一收单交易支付接口
+ * Summary: 统一收单交易支付接口
+ */
+async function payTradeEx(request: PayTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.industry.trade.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
