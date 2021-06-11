@@ -388,7 +388,7 @@ export class LabelChainResult extends $tea.Model {
   // 标签ID
   labelId: string;
   // 业务资产ID，接入方自行定义
-  asset?: string;
+  assetId?: string;
   // 标签最近一次上链的txHash
   txHash: string;
   // 错误码
@@ -398,7 +398,7 @@ export class LabelChainResult extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       labelId: 'label_id',
-      asset: 'asset',
+      assetId: 'asset_id',
       txHash: 'tx_hash',
       errorCode: 'error_code',
       errorMsg: 'error_msg',
@@ -408,7 +408,7 @@ export class LabelChainResult extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       labelId: 'string',
-      asset: 'string',
+      assetId: 'string',
       txHash: 'string',
       errorCode: 'string',
       errorMsg: 'string',
@@ -4841,6 +4841,79 @@ export class AddLabelAssetResponse extends $tea.Model {
   }
 }
 
+export class QueryDataBytxhashRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 链上交易hash
+  txHash: string;
+  // 上链类型枚举： 
+  // REGISTER_DEVICE	设备注册
+  // DISTRIBUTE_DEVICE	设备发行
+  // LABEL_DATA	标签流转数据收集
+  // COLLECT_DATA	设备数据收集
+  // DEVICE_BIZ_DATA	设备业务订单数据收集
+  // REGISTER_PERIPHERAL_DEVICE	外围设备注册
+  contractMethod: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      txHash: 'tx_hash',
+      contractMethod: 'contract_method',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      txHash: 'string',
+      contractMethod: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataBytxhashResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回信息
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5985,7 +6058,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.2",
+          sdk_version: "1.5.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -6903,6 +6976,25 @@ export default class Client {
   async addLabelAssetEx(request: AddLabelAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddLabelAssetResponse> {
     Util.validateModel(request);
     return $tea.cast<AddLabelAssetResponse>(await this.doRequest("1.0", "blockchain.bot.label.asset.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddLabelAssetResponse({}));
+  }
+
+  /**
+   * Description: 通过tx_hash查询上链信息
+   * Summary: 链上信息查询
+   */
+  async queryDataBytxhash(request: QueryDataBytxhashRequest): Promise<QueryDataBytxhashResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDataBytxhashEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过tx_hash查询上链信息
+   * Summary: 链上信息查询
+   */
+  async queryDataBytxhashEx(request: QueryDataBytxhashRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDataBytxhashResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDataBytxhashResponse>(await this.doRequest("1.0", "blockchain.bot.data.bytxhash.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDataBytxhashResponse({}));
   }
 
   /**
