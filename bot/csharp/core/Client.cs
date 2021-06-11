@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.2"},
+                        {"sdk_version", "1.5.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.2"},
+                        {"sdk_version", "1.5.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2247,6 +2247,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<AddLabelAssetResponse>(await DoRequestAsync("1.0", "blockchain.bot.label.asset.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过tx_hash查询上链信息
+         * Summary: 链上信息查询
+         */
+        public QueryDataBytxhashResponse QueryDataBytxhash(QueryDataBytxhashRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDataBytxhashEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过tx_hash查询上链信息
+         * Summary: 链上信息查询
+         */
+        public async Task<QueryDataBytxhashResponse> QueryDataBytxhashAsync(QueryDataBytxhashRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDataBytxhashExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过tx_hash查询上链信息
+         * Summary: 链上信息查询
+         */
+        public QueryDataBytxhashResponse QueryDataBytxhashEx(QueryDataBytxhashRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataBytxhashResponse>(DoRequest("1.0", "blockchain.bot.data.bytxhash.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过tx_hash查询上链信息
+         * Summary: 链上信息查询
+         */
+        public async Task<QueryDataBytxhashResponse> QueryDataBytxhashExAsync(QueryDataBytxhashRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDataBytxhashResponse>(await DoRequestAsync("1.0", "blockchain.bot.data.bytxhash.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

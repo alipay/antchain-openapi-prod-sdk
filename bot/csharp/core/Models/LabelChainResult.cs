@@ -16,9 +16,9 @@ namespace AntChain.SDK.BOT.Models
         public string LabelId { get; set; }
 
         // 业务资产ID，接入方自行定义
-        [NameInMap("asset")]
+        [NameInMap("asset_id")]
         [Validation(Required=false)]
-        public string Asset { get; set; }
+        public string AssetId { get; set; }
 
         // 标签最近一次上链的txHash
         [NameInMap("tx_hash")]
