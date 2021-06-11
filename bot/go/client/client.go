@@ -547,7 +547,7 @@ type LabelChainResult struct {
 	// 标签ID
 	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
 	// 业务资产ID，接入方自行定义
-	Asset *string `json:"asset,omitempty" xml:"asset,omitempty"`
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
 	// 标签最近一次上链的txHash
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 	// 错误码
@@ -569,8 +569,8 @@ func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
 	return s
 }
 
-func (s *LabelChainResult) SetAsset(v string) *LabelChainResult {
-	s.Asset = &v
+func (s *LabelChainResult) SetAssetId(v string) *LabelChainResult {
+	s.AssetId = &v
 	return s
 }
 
@@ -6205,6 +6205,96 @@ func (s *AddLabelAssetResponse) SetResultMsg(v string) *AddLabelAssetResponse {
 	return s
 }
 
+type QueryDataBytxhashRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 链上交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 上链类型枚举：
+	// REGISTER_DEVICE	设备注册
+	// DISTRIBUTE_DEVICE	设备发行
+	// LABEL_DATA	标签流转数据收集
+	// COLLECT_DATA	设备数据收集
+	// DEVICE_BIZ_DATA	设备业务订单数据收集
+	// REGISTER_PERIPHERAL_DEVICE	外围设备注册
+	ContractMethod *string `json:"contract_method,omitempty" xml:"contract_method,omitempty" require:"true"`
+}
+
+func (s QueryDataBytxhashRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDataBytxhashRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDataBytxhashRequest) SetAuthToken(v string) *QueryDataBytxhashRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDataBytxhashRequest) SetProductInstanceId(v string) *QueryDataBytxhashRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDataBytxhashRequest) SetScene(v string) *QueryDataBytxhashRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryDataBytxhashRequest) SetTxHash(v string) *QueryDataBytxhashRequest {
+	s.TxHash = &v
+	return s
+}
+
+func (s *QueryDataBytxhashRequest) SetContractMethod(v string) *QueryDataBytxhashRequest {
+	s.ContractMethod = &v
+	return s
+}
+
+type QueryDataBytxhashResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryDataBytxhashResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDataBytxhashResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDataBytxhashResponse) SetReqMsgId(v string) *QueryDataBytxhashResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDataBytxhashResponse) SetResultCode(v string) *QueryDataBytxhashResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDataBytxhashResponse) SetResultMsg(v string) *QueryDataBytxhashResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDataBytxhashResponse) SetResult(v string) *QueryDataBytxhashResponse {
+	s.Result = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7659,7 +7749,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.2"),
+				"sdk_version":      tea.String("1.5.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -9264,6 +9354,40 @@ func (client *Client) AddLabelAssetEx(request *AddLabelAssetRequest, headers map
 	}
 	_result = &AddLabelAssetResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.label.asset.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过tx_hash查询上链信息
+ * Summary: 链上信息查询
+ */
+func (client *Client) QueryDataBytxhash(request *QueryDataBytxhashRequest) (_result *QueryDataBytxhashResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDataBytxhashResponse{}
+	_body, _err := client.QueryDataBytxhashEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过tx_hash查询上链信息
+ * Summary: 链上信息查询
+ */
+func (client *Client) QueryDataBytxhashEx(request *QueryDataBytxhashRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDataBytxhashResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDataBytxhashResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.data.bytxhash.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
