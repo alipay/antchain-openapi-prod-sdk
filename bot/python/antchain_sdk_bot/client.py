@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.2'
+                    'sdk_version': '1.5.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.2'
+                    'sdk_version': '1.5.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2753,6 +2753,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.AddLabelAssetResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_data_bytxhash(
+        self,
+        request: bot_models.QueryDataBytxhashRequest,
+    ) -> bot_models.QueryDataBytxhashResponse:
+        """
+        Description: 通过tx_hash查询上链信息
+        Summary: 链上信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_data_bytxhash_ex(request, headers, runtime)
+
+    async def query_data_bytxhash_async(
+        self,
+        request: bot_models.QueryDataBytxhashRequest,
+    ) -> bot_models.QueryDataBytxhashResponse:
+        """
+        Description: 通过tx_hash查询上链信息
+        Summary: 链上信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_data_bytxhash_ex_async(request, headers, runtime)
+
+    def query_data_bytxhash_ex(
+        self,
+        request: bot_models.QueryDataBytxhashRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDataBytxhashResponse:
+        """
+        Description: 通过tx_hash查询上链信息
+        Summary: 链上信息查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDataBytxhashResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_data_bytxhash_ex_async(
+        self,
+        request: bot_models.QueryDataBytxhashRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDataBytxhashResponse:
+        """
+        Description: 通过tx_hash查询上链信息
+        Summary: 链上信息查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryDataBytxhashResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
