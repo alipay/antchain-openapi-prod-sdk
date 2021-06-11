@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.2',
+    sdk_version = '1.5.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -297,7 +297,7 @@ model LabelChainResult {
   // 标签ID
   labelId: string(name='label_id', example='86F000001A51C02000000010'),
   // 业务资产ID，接入方自行定义
-  asset?: string(name='asset', example='XXX'),
+  assetId?: string(name='asset_id', example='XXX'),
   // 标签最近一次上链的txHash
   txHash: string(name='tx_hash', example='855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef'),
   // 错误码
@@ -2973,6 +2973,54 @@ async function addLabelAsset(request: AddLabelAssetRequest): AddLabelAssetRespon
 async function addLabelAssetEx(request: AddLabelAssetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddLabelAssetResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.label.asset.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataBytxhashRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 链上交易hash
+  txHash: string(name='tx_hash'),
+  // 上链类型枚举： 
+  // REGISTER_DEVICE	设备注册
+  // DISTRIBUTE_DEVICE	设备发行
+  // LABEL_DATA	标签流转数据收集
+  // COLLECT_DATA	设备数据收集
+  // DEVICE_BIZ_DATA	设备业务订单数据收集
+  // REGISTER_PERIPHERAL_DEVICE	外围设备注册
+  contractMethod: string(name='contract_method'),
+}
+
+model QueryDataBytxhashResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 通过tx_hash查询上链信息
+ * Summary: 链上信息查询
+ */
+async function queryDataBytxhash(request: QueryDataBytxhashRequest): QueryDataBytxhashResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataBytxhashEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过tx_hash查询上链信息
+ * Summary: 链上信息查询
+ */
+async function queryDataBytxhashEx(request: QueryDataBytxhashRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataBytxhashResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
