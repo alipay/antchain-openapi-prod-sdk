@@ -10,8 +10,8 @@ public class LabelChainResult extends TeaModel {
     public String labelId;
 
     // 业务资产ID，接入方自行定义
-    @NameInMap("asset")
-    public String asset;
+    @NameInMap("asset_id")
+    public String assetId;
 
     // 标签最近一次上链的txHash
     @NameInMap("tx_hash")
@@ -40,12 +40,12 @@ public class LabelChainResult extends TeaModel {
         return this.labelId;
     }
 
-    public LabelChainResult setAsset(String asset) {
-        this.asset = asset;
+    public LabelChainResult setAssetId(String assetId) {
+        this.assetId = assetId;
         return this;
     }
-    public String getAsset() {
-        return this.asset;
+    public String getAssetId() {
+        return this.assetId;
     }
 
     public LabelChainResult setTxHash(String txHash) {
