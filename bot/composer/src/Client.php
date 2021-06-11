@@ -83,6 +83,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
+use AntChain\BOT\Models\QueryDataBytxhashRequest;
+use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
 use AntChain\BOT\Models\QueryDeviceRegistrationResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
@@ -278,7 +280,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.2',
+                    'sdk_version'      => '1.5.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1840,6 +1842,39 @@ class Client
         Utils::validateModel($request);
 
         return AddLabelAssetResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过tx_hash查询上链信息
+     * Summary: 链上信息查询.
+     *
+     * @param QueryDataBytxhashRequest $request
+     *
+     * @return QueryDataBytxhashResponse
+     */
+    public function queryDataBytxhash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataBytxhashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过tx_hash查询上链信息
+     * Summary: 链上信息查询.
+     *
+     * @param QueryDataBytxhashRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryDataBytxhashResponse
+     */
+    public function queryDataBytxhashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataBytxhashResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

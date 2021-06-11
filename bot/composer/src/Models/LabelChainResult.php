@@ -22,7 +22,7 @@ class LabelChainResult extends Model
      *
      * @var string
      */
-    public $asset;
+    public $assetId;
 
     // 标签最近一次上链的txHash
     /**
@@ -49,7 +49,7 @@ class LabelChainResult extends Model
     public $errorMsg;
     protected $_name = [
         'labelId'   => 'label_id',
-        'asset'     => 'asset',
+        'assetId'   => 'asset_id',
         'txHash'    => 'tx_hash',
         'errorCode' => 'error_code',
         'errorMsg'  => 'error_msg',
@@ -68,8 +68,8 @@ class LabelChainResult extends Model
         if (null !== $this->labelId) {
             $res['label_id'] = $this->labelId;
         }
-        if (null !== $this->asset) {
-            $res['asset'] = $this->asset;
+        if (null !== $this->assetId) {
+            $res['asset_id'] = $this->assetId;
         }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
@@ -95,8 +95,8 @@ class LabelChainResult extends Model
         if (isset($map['label_id'])) {
             $model->labelId = $map['label_id'];
         }
-        if (isset($map['asset'])) {
-            $model->asset = $map['asset'];
+        if (isset($map['asset_id'])) {
+            $model->assetId = $map['asset_id'];
         }
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
