@@ -840,18 +840,26 @@ class CpfUserLoanInfo(TeaModel):
 
 
 class CertificationInfo(TeaModel):
-    def __init__(self):
-        pass
+    def __init__(
+        self,
+        certification_flag: bool = None,
+    ):
+        # 是否授权
+        self.certification_flag = certification_flag
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
+        if self.certification_flag is not None:
+            result['certification_flag'] = self.certification_flag
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('certification_flag') is not None:
+            self.certification_flag = m.get('certification_flag')
         return self
 
 
