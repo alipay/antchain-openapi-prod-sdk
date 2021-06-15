@@ -227,6 +227,12 @@ export class TokenOperationDetail extends $tea.Model {
   bizId: string;
   // 订单编号
   orderNo: string;
+  // 兑现请求标识字段
+  withdrawRequestId: string;
+  // 提现总金额，单位分个
+  withdrawAmount: number;
+  // 提现时token价格，单位分个
+  tokenPrice: number;
   static names(): { [key: string]: string } {
     return {
       status: 'status',
@@ -235,6 +241,9 @@ export class TokenOperationDetail extends $tea.Model {
       info: 'info',
       bizId: 'biz_id',
       orderNo: 'order_no',
+      withdrawRequestId: 'withdraw_request_id',
+      withdrawAmount: 'withdraw_amount',
+      tokenPrice: 'token_price',
     };
   }
 
@@ -246,6 +255,9 @@ export class TokenOperationDetail extends $tea.Model {
       info: 'string',
       bizId: 'string',
       orderNo: 'string',
+      withdrawRequestId: 'string',
+      withdrawAmount: 'number',
+      tokenPrice: 'number',
     };
   }
 
@@ -2072,6 +2084,97 @@ export class QueryTppParticipationinfoResponse extends $tea.Model {
   }
 }
 
+export class ExecWithdrawCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // project_id，合约对应的项目id
+  projectId: string;
+  // 兑现Token个数
+  withdrawToken: string;
+  // 兑现总额 单位：分
+  withdrawAmountCent: number;
+  // Token单价 单位：分
+  withdrawTokenPriceCent: number;
+  // 业务单号，同一调用方全局唯一
+  withdrawRequestId: string;
+  // 用户账号类型：PHONE / ALIPAY_LOGON_ID / ALIPAY_UID
+  userIdType: string;
+  // 回跳地址（签约税优使用，使用小程序页面地址）
+  backUrl: string;
+  // 支付宝用户唯一标识
+  userIdNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectId: 'project_id',
+      withdrawToken: 'withdraw_token',
+      withdrawAmountCent: 'withdraw_amount_cent',
+      withdrawTokenPriceCent: 'withdraw_token_price_cent',
+      withdrawRequestId: 'withdraw_request_id',
+      userIdType: 'user_id_type',
+      backUrl: 'back_url',
+      userIdNo: 'user_id_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectId: 'string',
+      withdrawToken: 'string',
+      withdrawAmountCent: 'number',
+      withdrawTokenPriceCent: 'number',
+      withdrawRequestId: 'string',
+      userIdType: 'string',
+      backUrl: 'string',
+      userIdNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecWithdrawCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 兑现状态：ACCEPTED / FAILED
+  withdrawStatus?: string;
+  // 税优签约链接
+  signUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      withdrawStatus: 'withdraw_status',
+      signUrl: 'sign_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      withdrawStatus: 'string',
+      signUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2185,7 +2288,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.8",
+          sdk_version: "1.4.17",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2590,6 +2693,25 @@ export default class Client {
   async queryTppParticipationinfoEx(request: QueryTppParticipationinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTppParticipationinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTppParticipationinfoResponse>(await this.doRequest("1.0", "antchain.ent.tpp.participationinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTppParticipationinfoResponse({}));
+  }
+
+  /**
+   * Description: 兑现请求提交接口
+   * Summary: 兑现请求提交
+   */
+  async execWithdrawCreate(request: ExecWithdrawCreateRequest): Promise<ExecWithdrawCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execWithdrawCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 兑现请求提交接口
+   * Summary: 兑现请求提交
+   */
+  async execWithdrawCreateEx(request: ExecWithdrawCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecWithdrawCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecWithdrawCreateResponse>(await this.doRequest("1.0", "antchain.ent.withdraw.create.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecWithdrawCreateResponse({}));
   }
 
 }
