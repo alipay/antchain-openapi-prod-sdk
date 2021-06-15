@@ -34,6 +34,21 @@ public class TokenOperationDetail extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 兑现请求标识字段
+    @NameInMap("withdraw_request_id")
+    @Validation(required = true)
+    public String withdrawRequestId;
+
+    // 提现总金额，单位分个
+    @NameInMap("withdraw_amount")
+    @Validation(required = true)
+    public Long withdrawAmount;
+
+    // 提现时token价格，单位分个
+    @NameInMap("token_price")
+    @Validation(required = true)
+    public Long tokenPrice;
+
     public static TokenOperationDetail build(java.util.Map<String, ?> map) throws Exception {
         TokenOperationDetail self = new TokenOperationDetail();
         return TeaModel.build(map, self);
@@ -85,6 +100,30 @@ public class TokenOperationDetail extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public TokenOperationDetail setWithdrawRequestId(String withdrawRequestId) {
+        this.withdrawRequestId = withdrawRequestId;
+        return this;
+    }
+    public String getWithdrawRequestId() {
+        return this.withdrawRequestId;
+    }
+
+    public TokenOperationDetail setWithdrawAmount(Long withdrawAmount) {
+        this.withdrawAmount = withdrawAmount;
+        return this;
+    }
+    public Long getWithdrawAmount() {
+        return this.withdrawAmount;
+    }
+
+    public TokenOperationDetail setTokenPrice(Long tokenPrice) {
+        this.tokenPrice = tokenPrice;
+        return this;
+    }
+    public Long getTokenPrice() {
+        return this.tokenPrice;
     }
 
 }
