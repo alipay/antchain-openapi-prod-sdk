@@ -741,6 +741,8 @@ func (s *CpfUserLoanInfo) SetLoanStatus(v string) *CpfUserLoanInfo {
 
 // 核身信息, 授权时传入
 type CertificationInfo struct {
+	// 是否授权
+	CertificationFlag *bool `json:"certification_flag,omitempty" xml:"certification_flag,omitempty"`
 }
 
 func (s CertificationInfo) String() string {
@@ -749,6 +751,11 @@ func (s CertificationInfo) String() string {
 
 func (s CertificationInfo) GoString() string {
 	return s.String()
+}
+
+func (s *CertificationInfo) SetCertificationFlag(v bool) *CertificationInfo {
+	s.CertificationFlag = &v
+	return s
 }
 
 // 证明开具参数，填入证明开具接口的 extendParams 部分
@@ -3276,7 +3283,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
