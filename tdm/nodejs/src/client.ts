@@ -542,13 +542,17 @@ export class CpfUserLoanInfo extends $tea.Model {
 
 // 核身信息, 授权时传入
 export class CertificationInfo extends $tea.Model {
+  // 是否授权
+  certificationFlag?: boolean;
   static names(): { [key: string]: string } {
     return {
+      certificationFlag: 'certification_flag',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      certificationFlag: 'boolean',
     };
   }
 
@@ -2492,7 +2496,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
