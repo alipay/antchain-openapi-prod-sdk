@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.22")
+                    new TeaPair("sdk_version", "1.1.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -350,6 +350,63 @@ public class Client {
     }
 
     /**
+     * Description: 公积金业务授权接口
+     * Summary: 授权接口
+     */
+    public ExecCpfAuthResponse execCpfAuth(ExecCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公积金业务授权接口
+     * Summary: 授权接口
+     */
+    public ExecCpfAuthResponse execCpfAuthEx(ExecCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecCpfAuthResponse());
+    }
+
+    /**
+     * Description: 取消授权
+     * Summary: 取消授权
+     */
+    public CancelCpfAuthResponse cancelCpfAuth(CancelCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 取消授权
+     * Summary: 取消授权
+     */
+    public CancelCpfAuthResponse cancelCpfAuthEx(CancelCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelCpfAuthResponse());
+    }
+
+    /**
+     * Description: 个人授权记录查询
+     * Summary: 个人授权记录查询
+     */
+    public QueryCpfAuthResponse queryCpfAuth(QueryCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人授权记录查询
+     * Summary: 个人授权记录查询
+     */
+    public QueryCpfAuthResponse queryCpfAuthEx(QueryCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCpfAuthResponse());
+    }
+
+    /**
      * Description: 可信数据流转授权
      * Summary: 授权
      */
@@ -467,18 +524,18 @@ public class Client {
      * Description: 核身初始化接口
      * Summary: 核身初始化接口
      */
-    public InitVerifyResponse initVerify(InitVerifyRequest request) throws Exception {
+    public InitCpfVerifyResponse initCpfVerify(InitCpfVerifyRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.initVerifyEx(request, headers, runtime);
+        return this.initCpfVerifyEx(request, headers, runtime);
     }
 
     /**
      * Description: 核身初始化接口
      * Summary: 核身初始化接口
      */
-    public InitVerifyResponse initVerifyEx(InitVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitCpfVerifyResponse initCpfVerifyEx(InitCpfVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.verify.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitVerifyResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.verify.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCpfVerifyResponse());
     }
 }

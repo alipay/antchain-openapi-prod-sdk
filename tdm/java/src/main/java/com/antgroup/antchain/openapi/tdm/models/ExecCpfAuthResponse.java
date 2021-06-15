@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tdm.models;
 
 import com.aliyun.tea.*;
 
-public class InitVerifyResponse extends TeaModel {
+public class ExecCpfAuthResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class InitVerifyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 核身初始化返回信息
-    @NameInMap("result_obj")
-    public String resultObj;
+    // 授权码
+    @NameInMap("auth_code")
+    public String authCode;
 
-    public static InitVerifyResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitVerifyResponse self = new InitVerifyResponse();
+    public static ExecCpfAuthResponse build(java.util.Map<String, ?> map) throws Exception {
+        ExecCpfAuthResponse self = new ExecCpfAuthResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitVerifyResponse setReqMsgId(String reqMsgId) {
+    public ExecCpfAuthResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class InitVerifyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitVerifyResponse setResultCode(String resultCode) {
+    public ExecCpfAuthResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class InitVerifyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitVerifyResponse setResultMsg(String resultMsg) {
+    public ExecCpfAuthResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class InitVerifyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public InitVerifyResponse setResultObj(String resultObj) {
-        this.resultObj = resultObj;
+    public ExecCpfAuthResponse setAuthCode(String authCode) {
+        this.authCode = authCode;
         return this;
     }
-    public String getResultObj() {
-        return this.resultObj;
+    public String getAuthCode() {
+        return this.authCode;
     }
 
 }
