@@ -1,0 +1,235 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// nft发行的文件
+model File {
+  // 文件的可访问路径
+  path: string(name='path', example='文件的可访问路径'),
+  // 文件名称
+  name: string(name='name', example='文件名称'),
+  // IMAGE("IMAGE","图片"),
+  // VIDEO("VIDEO","视频"),
+  // ;
+  type: string(name='type', example='文件类型'),
+}
+
+model ImportNftCreateandpublishRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 对端自己的项目id；用作幂等字段
+  projectId: string(name='project_id'),
+  // NFT艺术品的名称
+  skuName: string(name='sku_name'),
+  // IMAGE("IMAGE","图片"),
+  // VIDEO("VIDEO","视频"),
+  // ;
+  skuType: string(name='sku_type'),
+  // 发行数量
+  quantity: long(name='quantity'),
+  // 是否支持C2C流转：true是可流转，false是不可流转；
+  enableC2c: boolean(name='enable_c2c'),
+  // 艺术品作者
+  author: string(name='author'),
+  // 艺术品拥有者
+  owner: string(name='owner'),
+  // 艺术品创作时间
+  createTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time'),
+  // 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
+  bizType?: string(name='biz_type'),
+  // nft简介信息
+  description: string(name='description'),
+  // 跳转链接
+  jumpUrl?: string(name='jump_url'),
+  // nft发行的艺术品文件
+  files: File(name='files'),
+}
+
+model ImportNftCreateandpublishResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NFT发行成功的商品id
+  skuId?: string(name='sku_id'),
+}
+
+/**
+ * Description: B端商户的NFT发行
+ * Summary: B端商户的NFT发行
+ */
+async function importNftCreateandpublish(request: ImportNftCreateandpublishRequest): ImportNftCreateandpublishResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importNftCreateandpublishEx(request, headers, runtime);
+}
+
+/**
+ * Description: B端商户的NFT发行
+ * Summary: B端商户的NFT发行
+ */
+async function importNftCreateandpublishEx(request: ImportNftCreateandpublishRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportNftCreateandpublishResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.createandpublish.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
