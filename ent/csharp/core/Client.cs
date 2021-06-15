@@ -137,7 +137,7 @@ namespace AntChain.SDK.ENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.8"},
+                        {"sdk_version", "1.4.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.ENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.8"},
+                        {"sdk_version", "1.4.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1113,6 +1113,48 @@ namespace AntChain.SDK.ENT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTppParticipationinfoResponse>(await DoRequestAsync("1.0", "antchain.ent.tpp.participationinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 兑现请求提交接口
+         * Summary: 兑现请求提交
+         */
+        public ExecWithdrawCreateResponse ExecWithdrawCreate(ExecWithdrawCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecWithdrawCreateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 兑现请求提交接口
+         * Summary: 兑现请求提交
+         */
+        public async Task<ExecWithdrawCreateResponse> ExecWithdrawCreateAsync(ExecWithdrawCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecWithdrawCreateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 兑现请求提交接口
+         * Summary: 兑现请求提交
+         */
+        public ExecWithdrawCreateResponse ExecWithdrawCreateEx(ExecWithdrawCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecWithdrawCreateResponse>(DoRequest("1.0", "antchain.ent.withdraw.create.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 兑现请求提交接口
+         * Summary: 兑现请求提交
+         */
+        public async Task<ExecWithdrawCreateResponse> ExecWithdrawCreateExAsync(ExecWithdrawCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecWithdrawCreateResponse>(await DoRequestAsync("1.0", "antchain.ent.withdraw.create.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

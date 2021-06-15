@@ -40,6 +40,21 @@ namespace AntChain.SDK.ENT.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 兑现请求标识字段
+        [NameInMap("withdraw_request_id")]
+        [Validation(Required=true)]
+        public string WithdrawRequestId { get; set; }
+
+        // 提现总金额，单位分个
+        [NameInMap("withdraw_amount")]
+        [Validation(Required=true)]
+        public long? WithdrawAmount { get; set; }
+
+        // 提现时token价格，单位分个
+        [NameInMap("token_price")]
+        [Validation(Required=true)]
+        public long? TokenPrice { get; set; }
+
     }
 
 }
