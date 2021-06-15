@@ -540,6 +540,23 @@ export class CpfUserLoanInfo extends $tea.Model {
   }
 }
 
+// 核身信息, 授权时传入
+export class CertificationInfo extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 证明开具参数，填入证明开具接口的 extendParams 部分
 export class IssueCertParams extends $tea.Model {
   // 贷款合同编号
@@ -1518,6 +1535,255 @@ export class QueryCpfUserResponse extends $tea.Model {
   }
 }
 
+export class ExecCpfAuthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流水号
+  requestId: string;
+  // 用户身份证ID
+  dataOwnerIdentity: string;
+  // 用户姓名
+  dataOwnerName?: string;
+  // 被授权机构ID
+  authorizedIdentity: string;
+  // 被授权机构名称
+  authorizedName?: string;
+  // 端ID
+  authorizedPlatformIdentity: string;
+  // 被授权公积金中心ID
+  providerId?: string;
+  // 授权标的
+  targetCode: string;
+  // 授权协议
+  authAgreement: AuthAgreement;
+  // 核身信息
+  certificationInfo?: CertificationInfo;
+  // 扩展字段
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      dataOwnerIdentity: 'data_owner_identity',
+      dataOwnerName: 'data_owner_name',
+      authorizedIdentity: 'authorized_identity',
+      authorizedName: 'authorized_name',
+      authorizedPlatformIdentity: 'authorized_platform_identity',
+      providerId: 'provider_id',
+      targetCode: 'target_code',
+      authAgreement: 'auth_agreement',
+      certificationInfo: 'certification_info',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      dataOwnerIdentity: 'string',
+      dataOwnerName: 'string',
+      authorizedIdentity: 'string',
+      authorizedName: 'string',
+      authorizedPlatformIdentity: 'string',
+      providerId: 'string',
+      targetCode: 'string',
+      authAgreement: AuthAgreement,
+      certificationInfo: CertificationInfo,
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecCpfAuthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权码
+  authCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authCode: 'auth_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelCpfAuthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流水号
+  requestId: string;
+  // 身份证ID
+  dataOwnerIdentity: string;
+  // 端ID
+  authorizedPlatformIdentity: string;
+  // 授权接口返回的授权码
+  authCode: string;
+  // 核身信息
+  certificationInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      dataOwnerIdentity: 'data_owner_identity',
+      authorizedPlatformIdentity: 'authorized_platform_identity',
+      authCode: 'auth_code',
+      certificationInfo: 'certification_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      dataOwnerIdentity: 'string',
+      authorizedPlatformIdentity: 'string',
+      authCode: 'string',
+      certificationInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelCpfAuthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCpfAuthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 身份证ID
+  dataOwnerIdentity: string;
+  // 被授权机构ID
+  authorizedIdentity?: string;
+  // 端ID
+  authorizedPlatformIdentity: string;
+  // 标的产品码
+  targetCode?: string;
+  // 扩展字段
+  extendParams?: string;
+  // 授权状态
+  authState: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataOwnerIdentity: 'data_owner_identity',
+      authorizedIdentity: 'authorized_identity',
+      authorizedPlatformIdentity: 'authorized_platform_identity',
+      targetCode: 'target_code',
+      extendParams: 'extend_params',
+      authState: 'auth_state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataOwnerIdentity: 'string',
+      authorizedIdentity: 'string',
+      authorizedPlatformIdentity: 'string',
+      targetCode: 'string',
+      extendParams: 'string',
+      authState: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCpfAuthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权记录列表
+  authRecords?: AuthRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authRecords: 'auth_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authRecords: { 'type': 'array', 'itemType': AuthRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecAuthRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2054,25 +2320,16 @@ export class ExecAuthuseResponse extends $tea.Model {
   }
 }
 
-export class InitVerifyRequest extends $tea.Model {
+export class InitCpfVerifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 被授权机构ID（统一社会信用代码）
-  authorizedIdentity: string;
-  // 核身发起端
-  authorizedPlatformIdentity: string;
-  // 刷脸产品类型
-  certificationType: string;
   // 核身初始化请求信息
   certificationRequest: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      authorizedIdentity: 'authorized_identity',
-      authorizedPlatformIdentity: 'authorized_platform_identity',
-      certificationType: 'certification_type',
       certificationRequest: 'certification_request',
     };
   }
@@ -2081,9 +2338,6 @@ export class InitVerifyRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      authorizedIdentity: 'string',
-      authorizedPlatformIdentity: 'string',
-      certificationType: 'string',
       certificationRequest: 'string',
     };
   }
@@ -2093,7 +2347,7 @@ export class InitVerifyRequest extends $tea.Model {
   }
 }
 
-export class InitVerifyResponse extends $tea.Model {
+export class InitCpfVerifyResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -2238,7 +2492,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.22",
+          sdk_version: "1.1.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2475,6 +2729,63 @@ export default class Client {
   }
 
   /**
+   * Description: 公积金业务授权接口
+   * Summary: 授权接口
+   */
+  async execCpfAuth(request: ExecCpfAuthRequest): Promise<ExecCpfAuthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execCpfAuthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 公积金业务授权接口
+   * Summary: 授权接口
+   */
+  async execCpfAuthEx(request: ExecCpfAuthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecCpfAuthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecCpfAuthResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.auth.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecCpfAuthResponse({}));
+  }
+
+  /**
+   * Description: 取消授权
+   * Summary: 取消授权
+   */
+  async cancelCpfAuth(request: CancelCpfAuthRequest): Promise<CancelCpfAuthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelCpfAuthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 取消授权
+   * Summary: 取消授权
+   */
+  async cancelCpfAuthEx(request: CancelCpfAuthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelCpfAuthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelCpfAuthResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.auth.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelCpfAuthResponse({}));
+  }
+
+  /**
+   * Description: 个人授权记录查询
+   * Summary: 个人授权记录查询
+   */
+  async queryCpfAuth(request: QueryCpfAuthRequest): Promise<QueryCpfAuthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCpfAuthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人授权记录查询
+   * Summary: 个人授权记录查询
+   */
+  async queryCpfAuthEx(request: QueryCpfAuthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCpfAuthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCpfAuthResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.auth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCpfAuthResponse({}));
+  }
+
+  /**
    * Description: 可信数据流转授权
    * Summary: 授权
    */
@@ -2592,19 +2903,19 @@ export default class Client {
    * Description: 核身初始化接口
    * Summary: 核身初始化接口
    */
-  async initVerify(request: InitVerifyRequest): Promise<InitVerifyResponse> {
+  async initCpfVerify(request: InitCpfVerifyRequest): Promise<InitCpfVerifyResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.initVerifyEx(request, headers, runtime);
+    return await this.initCpfVerifyEx(request, headers, runtime);
   }
 
   /**
    * Description: 核身初始化接口
    * Summary: 核身初始化接口
    */
-  async initVerifyEx(request: InitVerifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitVerifyResponse> {
+  async initCpfVerifyEx(request: InitCpfVerifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCpfVerifyResponse> {
     Util.validateModel(request);
-    return $tea.cast<InitVerifyResponse>(await this.doRequest("1.0", "antchain.tdm.verify.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitVerifyResponse({}));
+    return $tea.cast<InitCpfVerifyResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.verify.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCpfVerifyResponse({}));
   }
 
 }
