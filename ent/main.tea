@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.8',
+    sdk_version = '1.4.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -223,6 +223,12 @@ model TokenOperationDetail {
   bizId: string(name='biz_id', example='23452356345634'),
   // 订单编号
   orderNo: string(name='order_no', example='202008241504423487681310'),
+  // 兑现请求标识字段
+  withdrawRequestId: string(name='withdraw_request_id', example='36ab7e02cf264a67a07b9a94e4adc5e8'),
+  // 提现总金额，单位分个
+  withdrawAmount: long(name='withdraw_amount', example='1000'),
+  // 提现时token价格，单位分个
+  tokenPrice: long(name='token_price', example='100'),
 }
 
 // 用户收益明细
@@ -1258,5 +1264,59 @@ async function queryTppParticipationinfo(request: QueryTppParticipationinfoReque
 async function queryTppParticipationinfoEx(request: QueryTppParticipationinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTppParticipationinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ent.tpp.participationinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecWithdrawCreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // project_id，合约对应的项目id
+  projectId: string(name='project_id'),
+  // 兑现Token个数
+  withdrawToken: string(name='withdraw_token'),
+  // 兑现总额 单位：分
+  withdrawAmountCent: long(name='withdraw_amount_cent'),
+  // Token单价 单位：分
+  withdrawTokenPriceCent: long(name='withdraw_token_price_cent'),
+  // 业务单号，同一调用方全局唯一
+  withdrawRequestId: string(name='withdraw_request_id'),
+  // 用户账号类型：PHONE / ALIPAY_LOGON_ID / ALIPAY_UID
+  userIdType: string(name='user_id_type'),
+  // 回跳地址（签约税优使用，使用小程序页面地址）
+  backUrl: string(name='back_url'),
+  // 支付宝用户唯一标识
+  userIdNo: string(name='user_id_no'),
+}
+
+model ExecWithdrawCreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 兑现状态：ACCEPTED / FAILED
+  withdrawStatus?: string(name='withdraw_status'),
+  // 税优签约链接
+  signUrl?: string(name='sign_url'),
+}
+
+/**
+ * Description: 兑现请求提交接口
+ * Summary: 兑现请求提交
+ */
+async function execWithdrawCreate(request: ExecWithdrawCreateRequest): ExecWithdrawCreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execWithdrawCreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 兑现请求提交接口
+ * Summary: 兑现请求提交
+ */
+async function execWithdrawCreateEx(request: ExecWithdrawCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecWithdrawCreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ent.withdraw.create.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
