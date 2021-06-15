@@ -148,6 +148,576 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 订单商品信息
+type OrderItem struct {
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 商品品牌
+	CommodityBrand *string `json:"commodity_brand,omitempty" xml:"commodity_brand,omitempty" require:"true"`
+	// 商品版本
+	CommodityVersion *string `json:"commodity_version,omitempty" xml:"commodity_version,omitempty" require:"true"`
+	// 商品规格
+	CommoditySpecification *string `json:"commodity_specification,omitempty" xml:"commodity_specification,omitempty" require:"true"`
+	// 商品颜色
+	CommodityColor *string `json:"commodity_color,omitempty" xml:"commodity_color,omitempty"`
+	// 商品详情
+	CommodityDetails *string `json:"commodity_details,omitempty" xml:"commodity_details,omitempty"`
+	// 商品官方价格
+	CommodityOfficialPrice *string `json:"commodity_official_price,omitempty" xml:"commodity_official_price,omitempty" require:"true"`
+	// 租赁物数量
+	LeaseNumber *int64 `json:"lease_number,omitempty" xml:"lease_number,omitempty" require:"true"`
+}
+
+func (s OrderItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderItem) GoString() string {
+	return s.String()
+}
+
+func (s *OrderItem) SetProductName(v string) *OrderItem {
+	s.ProductName = &v
+	return s
+}
+
+func (s *OrderItem) SetCommodityBrand(v string) *OrderItem {
+	s.CommodityBrand = &v
+	return s
+}
+
+func (s *OrderItem) SetCommodityVersion(v string) *OrderItem {
+	s.CommodityVersion = &v
+	return s
+}
+
+func (s *OrderItem) SetCommoditySpecification(v string) *OrderItem {
+	s.CommoditySpecification = &v
+	return s
+}
+
+func (s *OrderItem) SetCommodityColor(v string) *OrderItem {
+	s.CommodityColor = &v
+	return s
+}
+
+func (s *OrderItem) SetCommodityDetails(v string) *OrderItem {
+	s.CommodityDetails = &v
+	return s
+}
+
+func (s *OrderItem) SetCommodityOfficialPrice(v string) *OrderItem {
+	s.CommodityOfficialPrice = &v
+	return s
+}
+
+func (s *OrderItem) SetLeaseNumber(v int64) *OrderItem {
+	s.LeaseNumber = &v
+	return s
+}
+
+// 租赁分期信息
+type RentalStagingInformation struct {
+	// 分期期数
+	InstallmentsNumber *int64 `json:"installments_number,omitempty" xml:"installments_number,omitempty" require:"true"`
+	// 租金每期应还款时间
+	PaymentTimeEachCycle *string `json:"payment_time_each_cycle,omitempty" xml:"payment_time_each_cycle,omitempty" require:"true"`
+	// 租金每期应还款额
+	PaymentEachCycle *string `json:"payment_each_cycle,omitempty" xml:"payment_each_cycle,omitempty" require:"true"`
+}
+
+func (s RentalStagingInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RentalStagingInformation) GoString() string {
+	return s.String()
+}
+
+func (s *RentalStagingInformation) SetInstallmentsNumber(v int64) *RentalStagingInformation {
+	s.InstallmentsNumber = &v
+	return s
+}
+
+func (s *RentalStagingInformation) SetPaymentTimeEachCycle(v string) *RentalStagingInformation {
+	s.PaymentTimeEachCycle = &v
+	return s
+}
+
+func (s *RentalStagingInformation) SetPaymentEachCycle(v string) *RentalStagingInformation {
+	s.PaymentEachCycle = &v
+	return s
+}
+
+// 租赁分期履约信息
+type RentalInstallmentPerformance struct {
+	// 被申请人还款期数
+	RepaymentPeriod *int64 `json:"repayment_period,omitempty" xml:"repayment_period,omitempty" require:"true"`
+	// 被申请人第几期租金支付方式
+	RentPaymentType *string `json:"rent_payment_type,omitempty" xml:"rent_payment_type,omitempty" require:"true"`
+	// 被申请人第几期还款时间
+	AppliedRepaymentTime *string `json:"applied_repayment_time,omitempty" xml:"applied_repayment_time,omitempty" require:"true"`
+	// 被申请人第几期还款金额
+	AppliedRepaymentAmount *string `json:"applied_repayment_amount,omitempty" xml:"applied_repayment_amount,omitempty" require:"true"`
+}
+
+func (s RentalInstallmentPerformance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RentalInstallmentPerformance) GoString() string {
+	return s.String()
+}
+
+func (s *RentalInstallmentPerformance) SetRepaymentPeriod(v int64) *RentalInstallmentPerformance {
+	s.RepaymentPeriod = &v
+	return s
+}
+
+func (s *RentalInstallmentPerformance) SetRentPaymentType(v string) *RentalInstallmentPerformance {
+	s.RentPaymentType = &v
+	return s
+}
+
+func (s *RentalInstallmentPerformance) SetAppliedRepaymentTime(v string) *RentalInstallmentPerformance {
+	s.AppliedRepaymentTime = &v
+	return s
+}
+
+func (s *RentalInstallmentPerformance) SetAppliedRepaymentAmount(v string) *RentalInstallmentPerformance {
+	s.AppliedRepaymentAmount = &v
+	return s
+}
+
+// 承诺信息
+type CommitmentInfo struct {
+	// 租金总额
+	TotalRent *string `json:"total_rent,omitempty" xml:"total_rent,omitempty" require:"true"`
+	// 租赁分期信息
+	RentalStagingInformation []*RentalStagingInformation `json:"rental_staging_information,omitempty" xml:"rental_staging_information,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CommitmentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommitmentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CommitmentInfo) SetTotalRent(v string) *CommitmentInfo {
+	s.TotalRent = &v
+	return s
+}
+
+func (s *CommitmentInfo) SetRentalStagingInformation(v []*RentalStagingInformation) *CommitmentInfo {
+	s.RentalStagingInformation = v
+	return s
+}
+
+// 答辩人为自然人对象
+type NaturalPerson struct {
+	// 自然人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 自然人手机号码
+	MobileNumber *string `json:"mobile_number,omitempty" xml:"mobile_number,omitempty" require:"true"`
+	// 自然人身份号码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 自然人民族
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+	// 自然人身份地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 自然人电子邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 自然人身份证正反面照片
+	// fileKey 列表（先调用接口获取上传url和fileKey）
+	IdNumberFile []*string `json:"id_number_file,omitempty" xml:"id_number_file,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s NaturalPerson) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NaturalPerson) GoString() string {
+	return s.String()
+}
+
+func (s *NaturalPerson) SetName(v string) *NaturalPerson {
+	s.Name = &v
+	return s
+}
+
+func (s *NaturalPerson) SetMobileNumber(v string) *NaturalPerson {
+	s.MobileNumber = &v
+	return s
+}
+
+func (s *NaturalPerson) SetIdNumber(v string) *NaturalPerson {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *NaturalPerson) SetNation(v string) *NaturalPerson {
+	s.Nation = &v
+	return s
+}
+
+func (s *NaturalPerson) SetAddress(v string) *NaturalPerson {
+	s.Address = &v
+	return s
+}
+
+func (s *NaturalPerson) SetEmail(v string) *NaturalPerson {
+	s.Email = &v
+	return s
+}
+
+func (s *NaturalPerson) SetIdNumberFile(v []*string) *NaturalPerson {
+	s.IdNumberFile = v
+	return s
+}
+
+// 当被申请人为法人
+type LegalPerson struct {
+	// 被申请人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 法人统一社会信用编码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 法定代表人姓名
+	RepresentativeName *string `json:"representative_name,omitempty" xml:"representative_name,omitempty"`
+	// 联系方式
+	LegalPhoneNumber *string `json:"legal_phone_number,omitempty" xml:"legal_phone_number,omitempty"`
+	// 住所地（同营业执照地址）
+	LegalAddress *string `json:"legal_address,omitempty" xml:"legal_address,omitempty"`
+	// 企业经营地址
+	LegalBusinessAddress *string `json:"legal_business_address,omitempty" xml:"legal_business_address,omitempty"`
+	// 营业执照照片
+	// fileKey 列表（先调用接口获取上传url和fileKey）
+	LegalIdNumberFile []*string `json:"legal_id_number_file,omitempty" xml:"legal_id_number_file,omitempty" type:"Repeated"`
+}
+
+func (s LegalPerson) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LegalPerson) GoString() string {
+	return s.String()
+}
+
+func (s *LegalPerson) SetName(v string) *LegalPerson {
+	s.Name = &v
+	return s
+}
+
+func (s *LegalPerson) SetIdNumber(v string) *LegalPerson {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *LegalPerson) SetRepresentativeName(v string) *LegalPerson {
+	s.RepresentativeName = &v
+	return s
+}
+
+func (s *LegalPerson) SetLegalPhoneNumber(v string) *LegalPerson {
+	s.LegalPhoneNumber = &v
+	return s
+}
+
+func (s *LegalPerson) SetLegalAddress(v string) *LegalPerson {
+	s.LegalAddress = &v
+	return s
+}
+
+func (s *LegalPerson) SetLegalBusinessAddress(v string) *LegalPerson {
+	s.LegalBusinessAddress = &v
+	return s
+}
+
+func (s *LegalPerson) SetLegalIdNumberFile(v []*string) *LegalPerson {
+	s.LegalIdNumberFile = v
+	return s
+}
+
+// 订单信息
+type OrderInfo struct {
+	// 出租方平台名称
+	LessorPlatformName *string `json:"lessor_platform_name,omitempty" xml:"lessor_platform_name,omitempty" require:"true"`
+	// 订单号
+	OrderNumber *string `json:"order_number,omitempty" xml:"order_number,omitempty" require:"true"`
+	// 合同编号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 合同名称
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
+	// 订单商品信息
+	OrderItems []*OrderItem `json:"order_items,omitempty" xml:"order_items,omitempty" require:"true" type:"Repeated"`
+	// 设备及配件总价
+	TotalDevicePrice *string `json:"total_device_price,omitempty" xml:"total_device_price,omitempty" require:"true"`
+	// 押金金额
+	DepositAmount *string `json:"deposit_amount,omitempty" xml:"deposit_amount,omitempty" require:"true"`
+	// 免押金额
+	FreeDeposit *string `json:"free_deposit,omitempty" xml:"free_deposit,omitempty" require:"true"`
+	// 签约时间
+	SigningTime *string `json:"signing_time,omitempty" xml:"signing_time,omitempty" require:"true"`
+	// 租期起始时间
+	LeaseStartTime *string `json:"lease_start_time,omitempty" xml:"lease_start_time,omitempty" require:"true"`
+	// 租期结束时间
+	LeaseEndTime *string `json:"lease_end_time,omitempty" xml:"lease_end_time,omitempty" require:"true"`
+	// 买断金额计算公式
+	BuyoutAmountFormulaCalc *string `json:"buyout_amount_formula_calc,omitempty" xml:"buyout_amount_formula_calc,omitempty" require:"true"`
+	// 首付款
+	PayInAdvance *string `json:"pay_in_advance,omitempty" xml:"pay_in_advance,omitempty" require:"true"`
+}
+
+func (s OrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderInfo) SetLessorPlatformName(v string) *OrderInfo {
+	s.LessorPlatformName = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderNumber(v string) *OrderInfo {
+	s.OrderNumber = &v
+	return s
+}
+
+func (s *OrderInfo) SetContractNo(v string) *OrderInfo {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *OrderInfo) SetContractName(v string) *OrderInfo {
+	s.ContractName = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderItems(v []*OrderItem) *OrderInfo {
+	s.OrderItems = v
+	return s
+}
+
+func (s *OrderInfo) SetTotalDevicePrice(v string) *OrderInfo {
+	s.TotalDevicePrice = &v
+	return s
+}
+
+func (s *OrderInfo) SetDepositAmount(v string) *OrderInfo {
+	s.DepositAmount = &v
+	return s
+}
+
+func (s *OrderInfo) SetFreeDeposit(v string) *OrderInfo {
+	s.FreeDeposit = &v
+	return s
+}
+
+func (s *OrderInfo) SetSigningTime(v string) *OrderInfo {
+	s.SigningTime = &v
+	return s
+}
+
+func (s *OrderInfo) SetLeaseStartTime(v string) *OrderInfo {
+	s.LeaseStartTime = &v
+	return s
+}
+
+func (s *OrderInfo) SetLeaseEndTime(v string) *OrderInfo {
+	s.LeaseEndTime = &v
+	return s
+}
+
+func (s *OrderInfo) SetBuyoutAmountFormulaCalc(v string) *OrderInfo {
+	s.BuyoutAmountFormulaCalc = &v
+	return s
+}
+
+func (s *OrderInfo) SetPayInAdvance(v string) *OrderInfo {
+	s.PayInAdvance = &v
+	return s
+}
+
+// 履约信息
+type PerformanceInfo struct {
+	// 支付租金总额
+	RentPayTotal *string `json:"rent_pay_total,omitempty" xml:"rent_pay_total,omitempty" require:"true"`
+	// 买断金额
+	BuyoutAmount *string `json:"buyout_amount,omitempty" xml:"buyout_amount,omitempty" require:"true"`
+	// 租赁分期履约信息
+	RentalInstallmentPerformance []*RentalInstallmentPerformance `json:"rental_installment_performance,omitempty" xml:"rental_installment_performance,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PerformanceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PerformanceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PerformanceInfo) SetRentPayTotal(v string) *PerformanceInfo {
+	s.RentPayTotal = &v
+	return s
+}
+
+func (s *PerformanceInfo) SetBuyoutAmount(v string) *PerformanceInfo {
+	s.BuyoutAmount = &v
+	return s
+}
+
+func (s *PerformanceInfo) SetRentalInstallmentPerformance(v []*RentalInstallmentPerformance) *PerformanceInfo {
+	s.RentalInstallmentPerformance = v
+	return s
+}
+
+// 物流信息
+type LogisticsInfo struct {
+	// 发货时间
+	DeliveryTime *string `json:"delivery_time,omitempty" xml:"delivery_time,omitempty" require:"true"`
+	// 快递物流公司
+	ExpressLogisticsCompany *string `json:"express_logistics_company,omitempty" xml:"express_logistics_company,omitempty" require:"true"`
+	// 快递单号
+	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" require:"true"`
+	// 签收时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" require:"true"`
+}
+
+func (s LogisticsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogisticsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LogisticsInfo) SetDeliveryTime(v string) *LogisticsInfo {
+	s.DeliveryTime = &v
+	return s
+}
+
+func (s *LogisticsInfo) SetExpressLogisticsCompany(v string) *LogisticsInfo {
+	s.ExpressLogisticsCompany = &v
+	return s
+}
+
+func (s *LogisticsInfo) SetCourierNumber(v string) *LogisticsInfo {
+	s.CourierNumber = &v
+	return s
+}
+
+func (s *LogisticsInfo) SetSignTime(v string) *LogisticsInfo {
+	s.SignTime = &v
+	return s
+}
+
+// 自动进件订单信息
+type LeaseOrderInfo struct {
+	// 出租方平台名称
+	LessorPlatformName *string `json:"lessor_platform_name,omitempty" xml:"lessor_platform_name,omitempty"`
+	// 订单号
+	OrderNumber *string `json:"order_number,omitempty" xml:"order_number,omitempty" require:"true"`
+	// 合同编号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 合同名称
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty"`
+	// 订单商品信息
+	OrderItems []*OrderItem `json:"order_items,omitempty" xml:"order_items,omitempty" require:"true" type:"Repeated"`
+	// 设备及配件总价（单位元）
+	TotalDevicePrice *string `json:"total_device_price,omitempty" xml:"total_device_price,omitempty" require:"true"`
+	// 押金金额（单位元）
+	DepositAmount *string `json:"deposit_amount,omitempty" xml:"deposit_amount,omitempty" require:"true"`
+	// 免押金额
+	FreeDeposit *string `json:"free_deposit,omitempty" xml:"free_deposit,omitempty" require:"true"`
+	// 签约时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" require:"true"`
+	// 租期起始时间
+	LeaseStartTime *string `json:"lease_start_time,omitempty" xml:"lease_start_time,omitempty" require:"true"`
+	// 租期结束时间
+	LeaseEndTime *string `json:"lease_end_time,omitempty" xml:"lease_end_time,omitempty" require:"true"`
+	// 买断金额计算公式
+	BuyoutAmountFormulaCalc *string `json:"buyout_amount_formula_calc,omitempty" xml:"buyout_amount_formula_calc,omitempty" require:"true"`
+	// 首付款（单位元）
+	PayInAdvance *string `json:"pay_in_advance,omitempty" xml:"pay_in_advance,omitempty" require:"true"`
+}
+
+func (s LeaseOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LeaseOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LeaseOrderInfo) SetLessorPlatformName(v string) *LeaseOrderInfo {
+	s.LessorPlatformName = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetOrderNumber(v string) *LeaseOrderInfo {
+	s.OrderNumber = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetContractNo(v string) *LeaseOrderInfo {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetContractName(v string) *LeaseOrderInfo {
+	s.ContractName = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetOrderItems(v []*OrderItem) *LeaseOrderInfo {
+	s.OrderItems = v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetTotalDevicePrice(v string) *LeaseOrderInfo {
+	s.TotalDevicePrice = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetDepositAmount(v string) *LeaseOrderInfo {
+	s.DepositAmount = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetFreeDeposit(v string) *LeaseOrderInfo {
+	s.FreeDeposit = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetSignTime(v string) *LeaseOrderInfo {
+	s.SignTime = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetLeaseStartTime(v string) *LeaseOrderInfo {
+	s.LeaseStartTime = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetLeaseEndTime(v string) *LeaseOrderInfo {
+	s.LeaseEndTime = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetBuyoutAmountFormulaCalc(v string) *LeaseOrderInfo {
+	s.BuyoutAmountFormulaCalc = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetPayInAdvance(v string) *LeaseOrderInfo {
+	s.PayInAdvance = &v
+	return s
+}
+
 // 签字人
 type ContractFlowSigner struct {
 	// 签署顺序
@@ -230,50 +800,38 @@ func (s *ContractFlowSigner) SetThirdOrderNo(v string) *ContractFlowSigner {
 	return s
 }
 
-// 核验请求时对应的存证元数据
-type NotaryCheckMeta struct {
-	// 对应的法院编号
-	AgencyCode *string `json:"agency_code,omitempty" xml:"agency_code,omitempty"`
-	// 哈希算法, notary_type 为 HASH 时此参数必填
-	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
-	// 存证内容
-	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty" require:"true"`
-	// 交易哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 应用ID
-	ApplicationCode *string `json:"application_code,omitempty" xml:"application_code,omitempty"`
+// 答辩人对象
+type PleaderObject struct {
+	// 法人或自然人标识，法人为0，自然人为1
+	PartyType *int64 `json:"party_type,omitempty" xml:"party_type,omitempty" require:"true"`
+	// 自然人信息
+	// 当partyType=1必填
+	NaturalPerson *NaturalPerson `json:"natural_person,omitempty" xml:"natural_person,omitempty"`
+	// 法人信息
+	// 当partyType=0必填
+	LegalPerson *LegalPerson `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
 }
 
-func (s NotaryCheckMeta) String() string {
+func (s PleaderObject) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NotaryCheckMeta) GoString() string {
+func (s PleaderObject) GoString() string {
 	return s.String()
 }
 
-func (s *NotaryCheckMeta) SetAgencyCode(v string) *NotaryCheckMeta {
-	s.AgencyCode = &v
+func (s *PleaderObject) SetPartyType(v int64) *PleaderObject {
+	s.PartyType = &v
 	return s
 }
 
-func (s *NotaryCheckMeta) SetHashAlgorithm(v string) *NotaryCheckMeta {
-	s.HashAlgorithm = &v
+func (s *PleaderObject) SetNaturalPerson(v *NaturalPerson) *PleaderObject {
+	s.NaturalPerson = v
 	return s
 }
 
-func (s *NotaryCheckMeta) SetNotaryContent(v string) *NotaryCheckMeta {
-	s.NotaryContent = &v
-	return s
-}
-
-func (s *NotaryCheckMeta) SetTxHash(v string) *NotaryCheckMeta {
-	s.TxHash = &v
-	return s
-}
-
-func (s *NotaryCheckMeta) SetApplicationCode(v string) *NotaryCheckMeta {
-	s.ApplicationCode = &v
+func (s *PleaderObject) SetLegalPerson(v *LegalPerson) *PleaderObject {
+	s.LegalPerson = v
 	return s
 }
 
@@ -434,46 +992,6 @@ func (s *Identity) SetLegalPersonCertType(v string) *Identity {
 	return s
 }
 
-// 电子合同文档的下载地址
-type ContractDocAddress struct {
-	// 电子合同文档ID
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 电子合同文档名称，默认文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
-	// 电子合同下载文档地址, 有效时间1小时
-	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
-	// 合同文件的存证地址
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-}
-
-func (s ContractDocAddress) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractDocAddress) GoString() string {
-	return s.String()
-}
-
-func (s *ContractDocAddress) SetFileId(v string) *ContractDocAddress {
-	s.FileId = &v
-	return s
-}
-
-func (s *ContractDocAddress) SetFileName(v string) *ContractDocAddress {
-	s.FileName = &v
-	return s
-}
-
-func (s *ContractDocAddress) SetFileUrl(v string) *ContractDocAddress {
-	s.FileUrl = &v
-	return s
-}
-
-func (s *ContractDocAddress) SetTxHash(v string) *ContractDocAddress {
-	s.TxHash = &v
-	return s
-}
-
 // 融资租赁订单额外信息
 type LeaseOrderExtra struct {
 	// 额外信息的主键
@@ -568,88 +1086,6 @@ func (s *ContractPlatformSignField) SetWidth(v string) *ContractPlatformSignFiel
 	return s
 }
 
-// 核验结果
-type NotaryCheckResult struct {
-	// 存证所在区块高度
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty" require:"true" minimum:"0"`
-	// 核验结果错误码
-	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
-	// 错误信息
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
-	// 存证时间
-	NotaryTime *string `json:"notary_time,omitempty" xml:"notary_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 存证类型
-	NotaryType *string `json:"notary_type,omitempty" xml:"notary_type,omitempty" require:"true"`
-	// 核验是否成功
-	Result *bool `json:"result,omitempty" xml:"result,omitempty" require:"true"`
-	// 存证事务ID
-	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
-	// 交易哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 区块哈希
-	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty" require:"true"`
-	// 存证阶段
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
-}
-
-func (s NotaryCheckResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NotaryCheckResult) GoString() string {
-	return s.String()
-}
-
-func (s *NotaryCheckResult) SetBlockHeight(v int64) *NotaryCheckResult {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetErrorCode(v int64) *NotaryCheckResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetErrorMessage(v string) *NotaryCheckResult {
-	s.ErrorMessage = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetNotaryTime(v string) *NotaryCheckResult {
-	s.NotaryTime = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetNotaryType(v string) *NotaryCheckResult {
-	s.NotaryType = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetResult(v bool) *NotaryCheckResult {
-	s.Result = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetTransactionId(v string) *NotaryCheckResult {
-	s.TransactionId = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetTxHash(v string) *NotaryCheckResult {
-	s.TxHash = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetBlockHash(v string) *NotaryCheckResult {
-	s.BlockHash = &v
-	return s
-}
-
-func (s *NotaryCheckResult) SetPhase(v string) *NotaryCheckResult {
-	s.Phase = &v
-	return s
-}
-
 // 电子合同存证合同文档信息
 type ContractNotaryDocumentInfo struct {
 	// 签署完成的合同hash
@@ -697,86 +1133,6 @@ func (s *ContractNotaryDocumentInfo) SetFileId(v string) *ContractNotaryDocument
 	return s
 }
 
-// 电子合同签署盖章区
-type ContractSignField struct {
-	// 电子合同用户ID
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 电子合同文档ID
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 电子合同签署区id
-	SignfieldId *string `json:"signfield_id,omitempty" xml:"signfield_id,omitempty" require:"true"`
-}
-
-func (s ContractSignField) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractSignField) GoString() string {
-	return s.String()
-}
-
-func (s *ContractSignField) SetAccountId(v string) *ContractSignField {
-	s.AccountId = &v
-	return s
-}
-
-func (s *ContractSignField) SetFileId(v string) *ContractSignField {
-	s.FileId = &v
-	return s
-}
-
-func (s *ContractSignField) SetSignfieldId(v string) *ContractSignField {
-	s.SignfieldId = &v
-	return s
-}
-
-// 签署区列表包含印章id数据
-type ContractSignFieldSealId struct {
-	// 文件file id
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
-	// 流程id
-	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
-	// 印章id
-	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
-	// 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
-	SealType *string `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
-	// 签署区Id
-	SignfieldId *string `json:"signfield_id,omitempty" xml:"signfield_id,omitempty"`
-}
-
-func (s ContractSignFieldSealId) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractSignFieldSealId) GoString() string {
-	return s.String()
-}
-
-func (s *ContractSignFieldSealId) SetFileId(v string) *ContractSignFieldSealId {
-	s.FileId = &v
-	return s
-}
-
-func (s *ContractSignFieldSealId) SetFlowId(v string) *ContractSignFieldSealId {
-	s.FlowId = &v
-	return s
-}
-
-func (s *ContractSignFieldSealId) SetSealId(v string) *ContractSignFieldSealId {
-	s.SealId = &v
-	return s
-}
-
-func (s *ContractSignFieldSealId) SetSealType(v string) *ContractSignFieldSealId {
-	s.SealType = &v
-	return s
-}
-
-func (s *ContractSignFieldSealId) SetSignfieldId(v string) *ContractSignFieldSealId {
-	s.SignfieldId = &v
-	return s
-}
-
 // 智能合同个人账号信息
 type ContractAccount struct {
 }
@@ -787,53 +1143,6 @@ func (s ContractAccount) String() string {
 
 func (s ContractAccount) GoString() string {
 	return s.String()
-}
-
-// 电子合同存证签署信息
-type ContractNotarySignInfo struct {
-	// 本阶段存证内容哈希值
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
-	ContractHash *string `json:"contract_hash,omitempty" xml:"contract_hash,omitempty" require:"true"`
-	// 签署人ID
-	Signatory *string `json:"signatory,omitempty" xml:"signatory,omitempty" require:"true"`
-	// 存证阶段发生时间，UNIX时间戳(毫秒)
-	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 存证凭据，仅在批量核验时需要填写
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-}
-
-func (s ContractNotarySignInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractNotarySignInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContractNotarySignInfo) SetContent(v string) *ContractNotarySignInfo {
-	s.Content = &v
-	return s
-}
-
-func (s *ContractNotarySignInfo) SetContractHash(v string) *ContractNotarySignInfo {
-	s.ContractHash = &v
-	return s
-}
-
-func (s *ContractNotarySignInfo) SetSignatory(v string) *ContractNotarySignInfo {
-	s.Signatory = &v
-	return s
-}
-
-func (s *ContractNotarySignInfo) SetTimestamp(v string) *ContractNotarySignInfo {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *ContractNotarySignInfo) SetTxHash(v string) *ContractNotarySignInfo {
-	s.TxHash = &v
-	return s
 }
 
 // 见证流程文档确认数据
@@ -873,60 +1182,6 @@ func (s *WitnessConfirmData) SetSignedHash(v string) *WitnessConfirmData {
 
 func (s *WitnessConfirmData) SetThirdDocId(v string) *WitnessConfirmData {
 	s.ThirdDocId = &v
-	return s
-}
-
-// 智能合同机构账户创建申请信息
-type ContractOrganizationApplication struct {
-	// 证件号
-	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
-	// 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
-	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
-	// 企业法人名称
-	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
-	// 企业法人证件号
-	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
-	// 机构名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 机构唯一标识，可传入第三方平台的机构用户id等
-	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
-}
-
-func (s ContractOrganizationApplication) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractOrganizationApplication) GoString() string {
-	return s.String()
-}
-
-func (s *ContractOrganizationApplication) SetIdNumber(v string) *ContractOrganizationApplication {
-	s.IdNumber = &v
-	return s
-}
-
-func (s *ContractOrganizationApplication) SetIdType(v string) *ContractOrganizationApplication {
-	s.IdType = &v
-	return s
-}
-
-func (s *ContractOrganizationApplication) SetLegalPerson(v string) *ContractOrganizationApplication {
-	s.LegalPerson = &v
-	return s
-}
-
-func (s *ContractOrganizationApplication) SetLegalPersonId(v string) *ContractOrganizationApplication {
-	s.LegalPersonId = &v
-	return s
-}
-
-func (s *ContractOrganizationApplication) SetName(v string) *ContractOrganizationApplication {
-	s.Name = &v
-	return s
-}
-
-func (s *ContractOrganizationApplication) SetOrganizationId(v string) *ContractOrganizationApplication {
-	s.OrganizationId = &v
 	return s
 }
 
@@ -995,121 +1250,6 @@ func (s *Location) SetMacAddr(v string) *Location {
 
 func (s *Location) SetProperties(v string) *Location {
 	s.Properties = &v
-	return s
-}
-
-// 电子合同存证结束信息
-type ContractNotaryFinishInfo struct {
-	// 本阶段存证内容哈希值
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 签署文件份数
-	FileNum *int64 `json:"file_num,omitempty" xml:"file_num,omitempty" require:"true"`
-	// 发起人ID
-	Initiator *string `json:"initiator,omitempty" xml:"initiator,omitempty" require:"true"`
-	// 签署人ID（支持多个，不同ID间用“,”分隔开）
-	Signatories *string `json:"signatories,omitempty" xml:"signatories,omitempty" require:"true"`
-	// 存证阶段发生时间，UNIX时间戳(毫秒)
-	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 存证凭据，仅在批量核验时需要填写
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-	// signatories对应的用户类型
-	UserTypes *string `json:"user_types,omitempty" xml:"user_types,omitempty"`
-	// 签署合同所属行业
-	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
-	// 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
-	Amounts *string `json:"amounts,omitempty" xml:"amounts,omitempty"`
-}
-
-func (s ContractNotaryFinishInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractNotaryFinishInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContractNotaryFinishInfo) SetContent(v string) *ContractNotaryFinishInfo {
-	s.Content = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetFileNum(v int64) *ContractNotaryFinishInfo {
-	s.FileNum = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetInitiator(v string) *ContractNotaryFinishInfo {
-	s.Initiator = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetSignatories(v string) *ContractNotaryFinishInfo {
-	s.Signatories = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetTimestamp(v string) *ContractNotaryFinishInfo {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetTxHash(v string) *ContractNotaryFinishInfo {
-	s.TxHash = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetUserTypes(v string) *ContractNotaryFinishInfo {
-	s.UserTypes = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetBusinessType(v string) *ContractNotaryFinishInfo {
-	s.BusinessType = &v
-	return s
-}
-
-func (s *ContractNotaryFinishInfo) SetAmounts(v string) *ContractNotaryFinishInfo {
-	s.Amounts = &v
-	return s
-}
-
-// 合同存证信息
-type ContractNotaryInfo struct {
-	// 存证地址
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 存证相关联的文档ID
-	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
-	// 存证的内容哈希值
-	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty"`
-	// 存证事务ID
-	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
-}
-
-func (s ContractNotaryInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractNotaryInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContractNotaryInfo) SetTxHash(v string) *ContractNotaryInfo {
-	s.TxHash = &v
-	return s
-}
-
-func (s *ContractNotaryInfo) SetDocId(v string) *ContractNotaryInfo {
-	s.DocId = &v
-	return s
-}
-
-func (s *ContractNotaryInfo) SetContentHash(v string) *ContractNotaryInfo {
-	s.ContentHash = &v
-	return s
-}
-
-func (s *ContractNotaryInfo) SetTransactionId(v string) *ContractNotaryInfo {
-	s.TransactionId = &v
 	return s
 }
 
@@ -1202,170 +1342,6 @@ func (s *ContractSignFieldApplication) SetSignType(v int64) *ContractSignFieldAp
 	return s
 }
 
-// 创建电子合同手动签署盖章区时的申请信息
-type ContractHandSignFieldApplication struct {
-	// 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 电子合同文件ID
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
-	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
-	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
-	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
-	// x坐标，页面签章必填，骑缝签章不填写
-	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
-	// y坐标
-	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
-	// 印章id
-	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
-	// 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
-	SignDateBeanType *int64 `json:"sign_date_bean_type,omitempty" xml:"sign_date_bean_type,omitempty"`
-	// 签章日期字体大小,默认12
-	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty"`
-	// 签章日期格式，yyyy年MM月dd日
-	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty"`
-	// 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
-	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty"`
-	// 签章日期x坐标，默认0
-	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
-	// 签章日期y坐标，默认0
-	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
-	// 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
-	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
-	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
-	// 签署区宽，默认印章宽度
-	Width *string `json:"width,omitempty" xml:"width,omitempty"`
-	// 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
-	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
-	// 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
-	SignFieldType *int64 `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
-}
-
-func (s ContractHandSignFieldApplication) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractHandSignFieldApplication) GoString() string {
-	return s.String()
-}
-
-func (s *ContractHandSignFieldApplication) SetAccountId(v string) *ContractHandSignFieldApplication {
-	s.AccountId = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetFileId(v string) *ContractHandSignFieldApplication {
-	s.FileId = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetOrder(v int64) *ContractHandSignFieldApplication {
-	s.Order = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetPosPage(v string) *ContractHandSignFieldApplication {
-	s.PosPage = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetPosX(v string) *ContractHandSignFieldApplication {
-	s.PosX = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetPosY(v string) *ContractHandSignFieldApplication {
-	s.PosY = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSealId(v string) *ContractHandSignFieldApplication {
-	s.SealId = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDateBeanType(v int64) *ContractHandSignFieldApplication {
-	s.SignDateBeanType = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDateFontSize(v int64) *ContractHandSignFieldApplication {
-	s.SignDateFontSize = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDateFormat(v string) *ContractHandSignFieldApplication {
-	s.SignDateFormat = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDatePosPage(v int64) *ContractHandSignFieldApplication {
-	s.SignDatePosPage = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDatePosX(v string) *ContractHandSignFieldApplication {
-	s.SignDatePosX = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignDatePosY(v string) *ContractHandSignFieldApplication {
-	s.SignDatePosY = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignType(v int64) *ContractHandSignFieldApplication {
-	s.SignType = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetThirdOrderNo(v string) *ContractHandSignFieldApplication {
-	s.ThirdOrderNo = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetWidth(v string) *ContractHandSignFieldApplication {
-	s.Width = &v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSealIds(v []*string) *ContractHandSignFieldApplication {
-	s.SealIds = v
-	return s
-}
-
-func (s *ContractHandSignFieldApplication) SetSignFieldType(v int64) *ContractHandSignFieldApplication {
-	s.SignFieldType = &v
-	return s
-}
-
-// 见证流程审批数据
-type WitnessApprovalData struct {
-	// 审批流程id
-	ApprovalFlowId *string `json:"approval_flow_id,omitempty" xml:"approval_flow_id,omitempty"`
-	// 印章id列表
-	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
-}
-
-func (s WitnessApprovalData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WitnessApprovalData) GoString() string {
-	return s.String()
-}
-
-func (s *WitnessApprovalData) SetApprovalFlowId(v string) *WitnessApprovalData {
-	s.ApprovalFlowId = &v
-	return s
-}
-
-func (s *WitnessApprovalData) SetSealIds(v []*string) *WitnessApprovalData {
-	s.SealIds = v
-	return s
-}
-
 // 融资租赁商品出租详细信息
 type RentInfo struct {
 	// 租金
@@ -1413,78 +1389,131 @@ func (s *RentInfo) SetRetainedPrice(v int64) *RentInfo {
 	return s
 }
 
-// 存证信息说明
-type NotaryInfo struct {
-	// 存证内容的哈希值，默认采用SHA256算法
-	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
-	// 合作人（版权存证函专用），会展示在存证证明中
-	Cooperation *string `json:"cooperation,omitempty" xml:"cooperation,omitempty"`
-	// 作品名称类型（版权存证函使用），会展示在存证证明中
-	CreationType *string `json:"creation_type,omitempty" xml:"creation_type,omitempty"`
-	// 如果是文件存证，可填写文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
-	// 计算content_hash的哈希算法，目前只支持SHA256
-	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
-	// 申请平台名，用于在存证函上显示用名称
-	Platform *string `json:"platform,omitempty" xml:"platform,omitempty"`
-	// 文件容量，默认为0
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
-	// 发起存证成功后，返回的存证凭据
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 存证事务ID
-	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+// 发起人对象
+type ProposerObject struct {
+	// 申请人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 统一社会信用代码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 联系电话
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 电子邮箱地址
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 经营地址
+	BusinessAddress *string `json:"business_address,omitempty" xml:"business_address,omitempty"`
+	// 营业执照照片
+	// fileKey 列表
+	IdNumberFile []*string `json:"id_number_file,omitempty" xml:"id_number_file,omitempty" type:"Repeated"`
+	// 法定代表人姓名
+	RepresentativeName *string `json:"representative_name,omitempty" xml:"representative_name,omitempty"`
+	// 法定代表人性别
+	// 0: 男 1: 女
+	RepresentativeSex *int64 `json:"representative_sex,omitempty" xml:"representative_sex,omitempty"`
+	// 法定代表人身份证号码
+	RepresentativeIdNumber *string `json:"representative_id_number,omitempty" xml:"representative_id_number,omitempty"`
+	// 法定代表人手机号码
+	RepresentativeMobileNumber *string `json:"representative_mobile_number,omitempty" xml:"representative_mobile_number,omitempty"`
+	// 法定代表人代表身份证明
+	// fileKey 列表
+	RepresentativeIdNumberFile []*string `json:"representative_id_number_file,omitempty" xml:"representative_id_number_file,omitempty" type:"Repeated"`
+	// 法定代表人职务
+	RepresentativePost *string `json:"representative_post,omitempty" xml:"representative_post,omitempty"`
+	// 法定代表人职务证明
+	// fileKey 列表
+	RepresentativePostFile []*string `json:"representative_post_file,omitempty" xml:"representative_post_file,omitempty" type:"Repeated"`
+	// 签章管理员姓名
+	SignatureManagerName *string `json:"signature_manager_name,omitempty" xml:"signature_manager_name,omitempty"`
+	// 签章管理员身份证号码
+	SignatureManagerIdCard *string `json:"signature_manager_id_card,omitempty" xml:"signature_manager_id_card,omitempty"`
+	// 签章管理员手机号码
+	SignatureManagerPhone *string `json:"signature_manager_phone,omitempty" xml:"signature_manager_phone,omitempty"`
 }
 
-func (s NotaryInfo) String() string {
+func (s ProposerObject) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NotaryInfo) GoString() string {
+func (s ProposerObject) GoString() string {
 	return s.String()
 }
 
-func (s *NotaryInfo) SetContentHash(v string) *NotaryInfo {
-	s.ContentHash = &v
+func (s *ProposerObject) SetName(v string) *ProposerObject {
+	s.Name = &v
 	return s
 }
 
-func (s *NotaryInfo) SetCooperation(v string) *NotaryInfo {
-	s.Cooperation = &v
+func (s *ProposerObject) SetIdNumber(v string) *ProposerObject {
+	s.IdNumber = &v
 	return s
 }
 
-func (s *NotaryInfo) SetCreationType(v string) *NotaryInfo {
-	s.CreationType = &v
+func (s *ProposerObject) SetPhoneNumber(v string) *ProposerObject {
+	s.PhoneNumber = &v
 	return s
 }
 
-func (s *NotaryInfo) SetFileName(v string) *NotaryInfo {
-	s.FileName = &v
+func (s *ProposerObject) SetEmail(v string) *ProposerObject {
+	s.Email = &v
 	return s
 }
 
-func (s *NotaryInfo) SetHashAlgorithm(v string) *NotaryInfo {
-	s.HashAlgorithm = &v
+func (s *ProposerObject) SetBusinessAddress(v string) *ProposerObject {
+	s.BusinessAddress = &v
 	return s
 }
 
-func (s *NotaryInfo) SetPlatform(v string) *NotaryInfo {
-	s.Platform = &v
+func (s *ProposerObject) SetIdNumberFile(v []*string) *ProposerObject {
+	s.IdNumberFile = v
 	return s
 }
 
-func (s *NotaryInfo) SetSize(v int64) *NotaryInfo {
-	s.Size = &v
+func (s *ProposerObject) SetRepresentativeName(v string) *ProposerObject {
+	s.RepresentativeName = &v
 	return s
 }
 
-func (s *NotaryInfo) SetTxHash(v string) *NotaryInfo {
-	s.TxHash = &v
+func (s *ProposerObject) SetRepresentativeSex(v int64) *ProposerObject {
+	s.RepresentativeSex = &v
 	return s
 }
 
-func (s *NotaryInfo) SetTransactionId(v string) *NotaryInfo {
-	s.TransactionId = &v
+func (s *ProposerObject) SetRepresentativeIdNumber(v string) *ProposerObject {
+	s.RepresentativeIdNumber = &v
+	return s
+}
+
+func (s *ProposerObject) SetRepresentativeMobileNumber(v string) *ProposerObject {
+	s.RepresentativeMobileNumber = &v
+	return s
+}
+
+func (s *ProposerObject) SetRepresentativeIdNumberFile(v []*string) *ProposerObject {
+	s.RepresentativeIdNumberFile = v
+	return s
+}
+
+func (s *ProposerObject) SetRepresentativePost(v string) *ProposerObject {
+	s.RepresentativePost = &v
+	return s
+}
+
+func (s *ProposerObject) SetRepresentativePostFile(v []*string) *ProposerObject {
+	s.RepresentativePostFile = v
+	return s
+}
+
+func (s *ProposerObject) SetSignatureManagerName(v string) *ProposerObject {
+	s.SignatureManagerName = &v
+	return s
+}
+
+func (s *ProposerObject) SetSignatureManagerIdCard(v string) *ProposerObject {
+	s.SignatureManagerIdCard = &v
+	return s
+}
+
+func (s *ProposerObject) SetSignatureManagerPhone(v string) *ProposerObject {
+	s.SignatureManagerPhone = &v
 	return s
 }
 
@@ -1574,72 +1603,6 @@ func (s *ProductInfo) SetSupplierVersion(v string) *ProductInfo {
 
 func (s *ProductInfo) SetExtraInfo(v string) *ProductInfo {
 	s.ExtraInfo = &v
-	return s
-}
-
-// 电子合同文档
-type ContractDoc struct {
-	// 是否加密，0-不加密，1-加，默认0
-	Encryption *int64 `json:"encryption,omitempty" xml:"encryption,omitempty"`
-	// 电子合同文档的ID
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 电子合同文档名称，默认文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
-	// 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
-	FilePassword *string `json:"file_password,omitempty" xml:"file_password,omitempty"`
-}
-
-func (s ContractDoc) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractDoc) GoString() string {
-	return s.String()
-}
-
-func (s *ContractDoc) SetEncryption(v int64) *ContractDoc {
-	s.Encryption = &v
-	return s
-}
-
-func (s *ContractDoc) SetFileId(v string) *ContractDoc {
-	s.FileId = &v
-	return s
-}
-
-func (s *ContractDoc) SetFileName(v string) *ContractDoc {
-	s.FileName = &v
-	return s
-}
-
-func (s *ContractDoc) SetFilePassword(v string) *ContractDoc {
-	s.FilePassword = &v
-	return s
-}
-
-// 租赁业务存证信息记录
-type LeaseNotaryRecord struct {
-	// 存证阶段
-	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
-	// 交易哈希，存证记录唯一标识
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-}
-
-func (s LeaseNotaryRecord) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LeaseNotaryRecord) GoString() string {
-	return s.String()
-}
-
-func (s *LeaseNotaryRecord) SetPhase(v string) *LeaseNotaryRecord {
-	s.Phase = &v
-	return s
-}
-
-func (s *LeaseNotaryRecord) SetTxHash(v string) *LeaseNotaryRecord {
-	s.TxHash = &v
 	return s
 }
 
@@ -1863,6 +1826,1451 @@ func (s *ContractAccountApplication) SetUserId(v string) *ContractAccountApplica
 	return s
 }
 
+// 融资租赁中IOT设备详情
+type LeaseIotItemInfo struct {
+	// 证据的时间
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 证据的txHash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
+	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty" require:"true"`
+}
+
+func (s LeaseIotItemInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LeaseIotItemInfo) GoString() string {
+	return s.String()
+}
+
+func (s *LeaseIotItemInfo) SetDate(v string) *LeaseIotItemInfo {
+	s.Date = &v
+	return s
+}
+
+func (s *LeaseIotItemInfo) SetTxHash(v string) *LeaseIotItemInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *LeaseIotItemInfo) SetRawData(v string) *LeaseIotItemInfo {
+	s.RawData = &v
+	return s
+}
+
+// 案件进度查询返回结果
+type MediationCaseDetailInfo struct {
+	// 案件编码
+	CaseNumber *string `json:"case_number,omitempty" xml:"case_number,omitempty" require:"true"`
+	// 案号
+	CaseCode *string `json:"case_code,omitempty" xml:"case_code,omitempty" require:"true"`
+	// 案由
+	CauseActionName *string `json:"cause_action_name,omitempty" xml:"cause_action_name,omitempty" require:"true"`
+	// 案件状态
+	CaseTatus *string `json:"case_tatus,omitempty" xml:"case_tatus,omitempty" require:"true"`
+	// 调解平台
+	MediationPlatform *string `json:"mediation_platform,omitempty" xml:"mediation_platform,omitempty" require:"true"`
+	// 调解机构
+	MediationOrg *string `json:"mediation_org,omitempty" xml:"mediation_org,omitempty" require:"true"`
+	// 调解员
+	Mediator *string `json:"mediator,omitempty" xml:"mediator,omitempty" require:"true"`
+	// 申请时间
+	ApplyTime *int64 `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
+	// 调解结果
+	MediationResult *string `json:"mediation_result,omitempty" xml:"mediation_result,omitempty" require:"true"`
+	// 申请人意向金额
+	AccuserIntentAmount *int64 `json:"accuser_intent_amount,omitempty" xml:"accuser_intent_amount,omitempty" require:"true"`
+	// 被申请人意向金额
+	AccusedIntentAmount *int64 `json:"accused_intent_amount,omitempty" xml:"accused_intent_amount,omitempty" require:"true"`
+	// 和解金额
+	MediationAmount *int64 `json:"mediation_amount,omitempty" xml:"mediation_amount,omitempty" require:"true"`
+	// 已确认事实
+	ConfirmFact *string `json:"confirm_fact,omitempty" xml:"confirm_fact,omitempty" require:"true"`
+	// 调解协议（已达成调解协议或未达成原因）
+	MediationAgreement *string `json:"mediation_agreement,omitempty" xml:"mediation_agreement,omitempty" require:"true"`
+}
+
+func (s MediationCaseDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MediationCaseDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *MediationCaseDetailInfo) SetCaseNumber(v string) *MediationCaseDetailInfo {
+	s.CaseNumber = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetCaseCode(v string) *MediationCaseDetailInfo {
+	s.CaseCode = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetCauseActionName(v string) *MediationCaseDetailInfo {
+	s.CauseActionName = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetCaseTatus(v string) *MediationCaseDetailInfo {
+	s.CaseTatus = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediationPlatform(v string) *MediationCaseDetailInfo {
+	s.MediationPlatform = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediationOrg(v string) *MediationCaseDetailInfo {
+	s.MediationOrg = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediator(v string) *MediationCaseDetailInfo {
+	s.Mediator = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetApplyTime(v int64) *MediationCaseDetailInfo {
+	s.ApplyTime = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediationResult(v string) *MediationCaseDetailInfo {
+	s.MediationResult = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetAccuserIntentAmount(v int64) *MediationCaseDetailInfo {
+	s.AccuserIntentAmount = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetAccusedIntentAmount(v int64) *MediationCaseDetailInfo {
+	s.AccusedIntentAmount = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediationAmount(v int64) *MediationCaseDetailInfo {
+	s.MediationAmount = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetConfirmFact(v string) *MediationCaseDetailInfo {
+	s.ConfirmFact = &v
+	return s
+}
+
+func (s *MediationCaseDetailInfo) SetMediationAgreement(v string) *MediationCaseDetailInfo {
+	s.MediationAgreement = &v
+	return s
+}
+
+// 见证流程签署结果数据
+type WitnessSignResult struct {
+	// 签名结果，外部用户签署返回
+	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty"`
+	// 签署日志id，外部用户签署返回
+	SignlogId *string `json:"signlog_id,omitempty" xml:"signlog_id,omitempty"`
+	// 第三方文档id
+	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty"`
+}
+
+func (s WitnessSignResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WitnessSignResult) GoString() string {
+	return s.String()
+}
+
+func (s *WitnessSignResult) SetSignResult(v string) *WitnessSignResult {
+	s.SignResult = &v
+	return s
+}
+
+func (s *WitnessSignResult) SetSignlogId(v string) *WitnessSignResult {
+	s.SignlogId = &v
+	return s
+}
+
+func (s *WitnessSignResult) SetThirdDocId(v string) *WitnessSignResult {
+	s.ThirdDocId = &v
+	return s
+}
+
+// 合同印章
+type ContractSeal struct {
+	// 印章别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 印章创建时间
+	CreateDate *int64 `json:"create_date,omitempty" xml:"create_date,omitempty"`
+	// 默认印章标识
+	DefaultFlag *bool `json:"default_flag,omitempty" xml:"default_flag,omitempty"`
+	// 印章fileKey
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+	// 印章高度
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 印章宽度
+	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
+	// 印章id
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 印章类型，1-机构模板章，2-个人模板章，3-自定义印章，4-手绘章
+	SealType *int64 `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
+	// 印章下载地址, 有效时间1小时
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 印章业务类型，CANCELLATION-作废章，COMMON-其它
+	SealBizType *string `json:"seal_biz_type,omitempty" xml:"seal_biz_type,omitempty"`
+}
+
+func (s ContractSeal) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractSeal) GoString() string {
+	return s.String()
+}
+
+func (s *ContractSeal) SetAlias(v string) *ContractSeal {
+	s.Alias = &v
+	return s
+}
+
+func (s *ContractSeal) SetCreateDate(v int64) *ContractSeal {
+	s.CreateDate = &v
+	return s
+}
+
+func (s *ContractSeal) SetDefaultFlag(v bool) *ContractSeal {
+	s.DefaultFlag = &v
+	return s
+}
+
+func (s *ContractSeal) SetFileKey(v string) *ContractSeal {
+	s.FileKey = &v
+	return s
+}
+
+func (s *ContractSeal) SetHeight(v int64) *ContractSeal {
+	s.Height = &v
+	return s
+}
+
+func (s *ContractSeal) SetWidth(v int64) *ContractSeal {
+	s.Width = &v
+	return s
+}
+
+func (s *ContractSeal) SetSealId(v string) *ContractSeal {
+	s.SealId = &v
+	return s
+}
+
+func (s *ContractSeal) SetSealType(v int64) *ContractSeal {
+	s.SealType = &v
+	return s
+}
+
+func (s *ContractSeal) SetUrl(v string) *ContractSeal {
+	s.Url = &v
+	return s
+}
+
+func (s *ContractSeal) SetSealBizType(v string) *ContractSeal {
+	s.SealBizType = &v
+	return s
+}
+
+// 见证流程签署数据
+type WitnessSignData struct {
+	// 印章图片fileKey列表
+	SealFileKeys []*string `json:"seal_file_keys,omitempty" xml:"seal_file_keys,omitempty" type:"Repeated"`
+	// 印章id列表
+	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
+	// 待签署文档摘要值，批量签时必传
+	SignHash *string `json:"sign_hash,omitempty" xml:"sign_hash,omitempty"`
+	// 签署位置信息
+	SignPosData *string `json:"sign_pos_data,omitempty" xml:"sign_pos_data,omitempty"`
+	// 第三方文档id，批量签时必传
+	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty"`
+}
+
+func (s WitnessSignData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WitnessSignData) GoString() string {
+	return s.String()
+}
+
+func (s *WitnessSignData) SetSealFileKeys(v []*string) *WitnessSignData {
+	s.SealFileKeys = v
+	return s
+}
+
+func (s *WitnessSignData) SetSealIds(v []*string) *WitnessSignData {
+	s.SealIds = v
+	return s
+}
+
+func (s *WitnessSignData) SetSignHash(v string) *WitnessSignData {
+	s.SignHash = &v
+	return s
+}
+
+func (s *WitnessSignData) SetSignPosData(v string) *WitnessSignData {
+	s.SignPosData = &v
+	return s
+}
+
+func (s *WitnessSignData) SetThirdDocId(v string) *WitnessSignData {
+	s.ThirdDocId = &v
+	return s
+}
+
+// 关键字位置列表
+type KeywordsPosition struct {
+	// 关键字
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+	// 页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// x坐标
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	// y坐标
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+}
+
+func (s KeywordsPosition) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KeywordsPosition) GoString() string {
+	return s.String()
+}
+
+func (s *KeywordsPosition) SetKeyword(v string) *KeywordsPosition {
+	s.Keyword = &v
+	return s
+}
+
+func (s *KeywordsPosition) SetPageIndex(v int64) *KeywordsPosition {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *KeywordsPosition) SetPosX(v string) *KeywordsPosition {
+	s.PosX = &v
+	return s
+}
+
+func (s *KeywordsPosition) SetPosY(v string) *KeywordsPosition {
+	s.PosY = &v
+	return s
+}
+
+// 自动进件案件基础信息
+type CaseBasicInfo struct {
+	// 案件租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
+	CaseType *string `json:"case_type,omitempty" xml:"case_type,omitempty" require:"true"`
+	// 标的金额（单位元）
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 业务来源主键
+	InputSourceId *string `json:"input_source_id,omitempty" xml:"input_source_id,omitempty" require:"true"`
+	// 案件进件来源
+	InputSource *string `json:"input_source,omitempty" xml:"input_source,omitempty" require:"true"`
+	// 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
+	CaseExt *string `json:"case_ext,omitempty" xml:"case_ext,omitempty"`
+}
+
+func (s CaseBasicInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaseBasicInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CaseBasicInfo) SetTenantId(v string) *CaseBasicInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CaseBasicInfo) SetCaseType(v string) *CaseBasicInfo {
+	s.CaseType = &v
+	return s
+}
+
+func (s *CaseBasicInfo) SetAmount(v string) *CaseBasicInfo {
+	s.Amount = &v
+	return s
+}
+
+func (s *CaseBasicInfo) SetInputSourceId(v string) *CaseBasicInfo {
+	s.InputSourceId = &v
+	return s
+}
+
+func (s *CaseBasicInfo) SetInputSource(v string) *CaseBasicInfo {
+	s.InputSource = &v
+	return s
+}
+
+func (s *CaseBasicInfo) SetCaseExt(v string) *CaseBasicInfo {
+	s.CaseExt = &v
+	return s
+}
+
+// 见证流程文档检验数据
+type WitnessDocs struct {
+	// 文档摘要值
+	DocHash *string `json:"doc_hash,omitempty" xml:"doc_hash,omitempty" require:"true"`
+	// 第三方文档id
+	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty" require:"true"`
+}
+
+func (s WitnessDocs) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WitnessDocs) GoString() string {
+	return s.String()
+}
+
+func (s *WitnessDocs) SetDocHash(v string) *WitnessDocs {
+	s.DocHash = &v
+	return s
+}
+
+func (s *WitnessDocs) SetThirdDocId(v string) *WitnessDocs {
+	s.ThirdDocId = &v
+	return s
+}
+
+// 普通代扣规则
+type RepaymentOrderRequest struct {
+	// 代扣触发时间，精确到毫秒
+	// java.lang.System#currentTimeMillis()
+	PayDate *int64 `json:"pay_date,omitempty" xml:"pay_date,omitempty" require:"true"`
+	// 代扣金额，整数 精确到分
+	PayMoney *int64 `json:"pay_money,omitempty" xml:"pay_money,omitempty" require:"true"`
+	// 是否用户签署成功后立即触发第一期代扣
+	TriggerImmediately *int64 `json:"trigger_immediately,omitempty" xml:"trigger_immediately,omitempty"`
+}
+
+func (s RepaymentOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepaymentOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RepaymentOrderRequest) SetPayDate(v int64) *RepaymentOrderRequest {
+	s.PayDate = &v
+	return s
+}
+
+func (s *RepaymentOrderRequest) SetPayMoney(v int64) *RepaymentOrderRequest {
+	s.PayMoney = &v
+	return s
+}
+
+func (s *RepaymentOrderRequest) SetTriggerImmediately(v int64) *RepaymentOrderRequest {
+	s.TriggerImmediately = &v
+	return s
+}
+
+// 可信时间信息结构
+type TsrResponse struct {
+	// 可信时间请求结果状态吗
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// hash后的信息
+	HashedMessage *string `json:"hashed_message,omitempty" xml:"hashed_message,omitempty" require:"true"`
+	// 哈希算法
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty" require:"true"`
+	// 请求失败时候的错误信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 时间
+	Ts *string `json:"ts,omitempty" xml:"ts,omitempty" require:"true"`
+	// 精简后的时间戳完整编码（在校验时需要提交）
+	Ctsr *string `json:"ctsr,omitempty" xml:"ctsr,omitempty" require:"true"`
+	// 凭证序列号 （在校验的时需要先填写凭证编号）
+	//
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+}
+
+func (s TsrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TsrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TsrResponse) SetCode(v string) *TsrResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *TsrResponse) SetHashedMessage(v string) *TsrResponse {
+	s.HashedMessage = &v
+	return s
+}
+
+func (s *TsrResponse) SetHashAlgorithm(v string) *TsrResponse {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *TsrResponse) SetMessage(v string) *TsrResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *TsrResponse) SetTs(v string) *TsrResponse {
+	s.Ts = &v
+	return s
+}
+
+func (s *TsrResponse) SetCtsr(v string) *TsrResponse {
+	s.Ctsr = &v
+	return s
+}
+
+func (s *TsrResponse) SetSn(v string) *TsrResponse {
+	s.Sn = &v
+	return s
+}
+
+// 核验请求时对应的存证元数据
+type NotaryCheckMeta struct {
+	// 对应的法院编号
+	AgencyCode *string `json:"agency_code,omitempty" xml:"agency_code,omitempty"`
+	// 哈希算法, notary_type 为 HASH 时此参数必填
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+	// 存证内容
+	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty" require:"true"`
+	// 交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 应用ID
+	ApplicationCode *string `json:"application_code,omitempty" xml:"application_code,omitempty"`
+}
+
+func (s NotaryCheckMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryCheckMeta) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryCheckMeta) SetAgencyCode(v string) *NotaryCheckMeta {
+	s.AgencyCode = &v
+	return s
+}
+
+func (s *NotaryCheckMeta) SetHashAlgorithm(v string) *NotaryCheckMeta {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *NotaryCheckMeta) SetNotaryContent(v string) *NotaryCheckMeta {
+	s.NotaryContent = &v
+	return s
+}
+
+func (s *NotaryCheckMeta) SetTxHash(v string) *NotaryCheckMeta {
+	s.TxHash = &v
+	return s
+}
+
+func (s *NotaryCheckMeta) SetApplicationCode(v string) *NotaryCheckMeta {
+	s.ApplicationCode = &v
+	return s
+}
+
+// 电子合同文档的下载地址
+type ContractDocAddress struct {
+	// 电子合同文档ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 电子合同文档名称，默认文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 电子合同下载文档地址, 有效时间1小时
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 合同文件的存证地址
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s ContractDocAddress) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractDocAddress) GoString() string {
+	return s.String()
+}
+
+func (s *ContractDocAddress) SetFileId(v string) *ContractDocAddress {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractDocAddress) SetFileName(v string) *ContractDocAddress {
+	s.FileName = &v
+	return s
+}
+
+func (s *ContractDocAddress) SetFileUrl(v string) *ContractDocAddress {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *ContractDocAddress) SetTxHash(v string) *ContractDocAddress {
+	s.TxHash = &v
+	return s
+}
+
+// 核验结果
+type NotaryCheckResult struct {
+	// 存证所在区块高度
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty" require:"true" minimum:"0"`
+	// 核验结果错误码
+	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+	// 存证时间
+	NotaryTime *string `json:"notary_time,omitempty" xml:"notary_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 存证类型
+	NotaryType *string `json:"notary_type,omitempty" xml:"notary_type,omitempty" require:"true"`
+	// 核验是否成功
+	Result *bool `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 存证事务ID
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 区块哈希
+	BlockHash *string `json:"block_hash,omitempty" xml:"block_hash,omitempty" require:"true"`
+	// 存证阶段
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+}
+
+func (s NotaryCheckResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryCheckResult) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryCheckResult) SetBlockHeight(v int64) *NotaryCheckResult {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetErrorCode(v int64) *NotaryCheckResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetErrorMessage(v string) *NotaryCheckResult {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetNotaryTime(v string) *NotaryCheckResult {
+	s.NotaryTime = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetNotaryType(v string) *NotaryCheckResult {
+	s.NotaryType = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetResult(v bool) *NotaryCheckResult {
+	s.Result = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetTransactionId(v string) *NotaryCheckResult {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetTxHash(v string) *NotaryCheckResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetBlockHash(v string) *NotaryCheckResult {
+	s.BlockHash = &v
+	return s
+}
+
+func (s *NotaryCheckResult) SetPhase(v string) *NotaryCheckResult {
+	s.Phase = &v
+	return s
+}
+
+// 电子合同签署盖章区
+type ContractSignField struct {
+	// 电子合同用户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 电子合同文档ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 电子合同签署区id
+	SignfieldId *string `json:"signfield_id,omitempty" xml:"signfield_id,omitempty" require:"true"`
+}
+
+func (s ContractSignField) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractSignField) GoString() string {
+	return s.String()
+}
+
+func (s *ContractSignField) SetAccountId(v string) *ContractSignField {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ContractSignField) SetFileId(v string) *ContractSignField {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractSignField) SetSignfieldId(v string) *ContractSignField {
+	s.SignfieldId = &v
+	return s
+}
+
+// 签署区列表包含印章id数据
+type ContractSignFieldSealId struct {
+	// 文件file id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 印章id
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+	SealType *string `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
+	// 签署区Id
+	SignfieldId *string `json:"signfield_id,omitempty" xml:"signfield_id,omitempty"`
+}
+
+func (s ContractSignFieldSealId) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractSignFieldSealId) GoString() string {
+	return s.String()
+}
+
+func (s *ContractSignFieldSealId) SetFileId(v string) *ContractSignFieldSealId {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetFlowId(v string) *ContractSignFieldSealId {
+	s.FlowId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSealId(v string) *ContractSignFieldSealId {
+	s.SealId = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSealType(v string) *ContractSignFieldSealId {
+	s.SealType = &v
+	return s
+}
+
+func (s *ContractSignFieldSealId) SetSignfieldId(v string) *ContractSignFieldSealId {
+	s.SignfieldId = &v
+	return s
+}
+
+// 电子合同存证签署信息
+type ContractNotarySignInfo struct {
+	// 本阶段存证内容哈希值
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
+	ContractHash *string `json:"contract_hash,omitempty" xml:"contract_hash,omitempty" require:"true"`
+	// 签署人ID
+	Signatory *string `json:"signatory,omitempty" xml:"signatory,omitempty" require:"true"`
+	// 存证阶段发生时间，UNIX时间戳(毫秒)
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 存证凭据，仅在批量核验时需要填写
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s ContractNotarySignInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractNotarySignInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractNotarySignInfo) SetContent(v string) *ContractNotarySignInfo {
+	s.Content = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetContractHash(v string) *ContractNotarySignInfo {
+	s.ContractHash = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetSignatory(v string) *ContractNotarySignInfo {
+	s.Signatory = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetTimestamp(v string) *ContractNotarySignInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ContractNotarySignInfo) SetTxHash(v string) *ContractNotarySignInfo {
+	s.TxHash = &v
+	return s
+}
+
+// 合同存证信息
+type ContractNotaryInfo struct {
+	// 存证地址
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 存证相关联的文档ID
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	// 存证的内容哈希值
+	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty"`
+	// 存证事务ID
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+}
+
+func (s ContractNotaryInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractNotaryInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractNotaryInfo) SetTxHash(v string) *ContractNotaryInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *ContractNotaryInfo) SetDocId(v string) *ContractNotaryInfo {
+	s.DocId = &v
+	return s
+}
+
+func (s *ContractNotaryInfo) SetContentHash(v string) *ContractNotaryInfo {
+	s.ContentHash = &v
+	return s
+}
+
+func (s *ContractNotaryInfo) SetTransactionId(v string) *ContractNotaryInfo {
+	s.TransactionId = &v
+	return s
+}
+
+// 电子合同存证结束信息
+type ContractNotaryFinishInfo struct {
+	// 本阶段存证内容哈希值
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 签署文件份数
+	FileNum *int64 `json:"file_num,omitempty" xml:"file_num,omitempty" require:"true"`
+	// 发起人ID
+	Initiator *string `json:"initiator,omitempty" xml:"initiator,omitempty" require:"true"`
+	// 签署人ID（支持多个，不同ID间用“,”分隔开）
+	Signatories *string `json:"signatories,omitempty" xml:"signatories,omitempty" require:"true"`
+	// 存证阶段发生时间，UNIX时间戳(毫秒)
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 存证凭据，仅在批量核验时需要填写
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// signatories对应的用户类型
+	UserTypes *string `json:"user_types,omitempty" xml:"user_types,omitempty"`
+	// 签署合同所属行业
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
+	// 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
+	Amounts *string `json:"amounts,omitempty" xml:"amounts,omitempty"`
+}
+
+func (s ContractNotaryFinishInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractNotaryFinishInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContractNotaryFinishInfo) SetContent(v string) *ContractNotaryFinishInfo {
+	s.Content = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetFileNum(v int64) *ContractNotaryFinishInfo {
+	s.FileNum = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetInitiator(v string) *ContractNotaryFinishInfo {
+	s.Initiator = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetSignatories(v string) *ContractNotaryFinishInfo {
+	s.Signatories = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetTimestamp(v string) *ContractNotaryFinishInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetTxHash(v string) *ContractNotaryFinishInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetUserTypes(v string) *ContractNotaryFinishInfo {
+	s.UserTypes = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetBusinessType(v string) *ContractNotaryFinishInfo {
+	s.BusinessType = &v
+	return s
+}
+
+func (s *ContractNotaryFinishInfo) SetAmounts(v string) *ContractNotaryFinishInfo {
+	s.Amounts = &v
+	return s
+}
+
+// 智能合同机构账户创建申请信息
+type ContractOrganizationApplication struct {
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 企业法人名称
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 企业法人证件号
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 机构唯一标识，可传入第三方平台的机构用户id等
+	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
+}
+
+func (s ContractOrganizationApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractOrganizationApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractOrganizationApplication) SetIdNumber(v string) *ContractOrganizationApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetIdType(v string) *ContractOrganizationApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetLegalPerson(v string) *ContractOrganizationApplication {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetLegalPersonId(v string) *ContractOrganizationApplication {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetName(v string) *ContractOrganizationApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractOrganizationApplication) SetOrganizationId(v string) *ContractOrganizationApplication {
+	s.OrganizationId = &v
+	return s
+}
+
+// 证据要素
+type EvidentialElement struct {
+	// 订单信息
+	OrderInfo *OrderInfo `json:"order_info,omitempty" xml:"order_info,omitempty" require:"true"`
+	// 承诺信息
+	CommitmentInfo *CommitmentInfo `json:"commitment_info,omitempty" xml:"commitment_info,omitempty" require:"true"`
+	// 物流信息
+	LogisticsInfo *LogisticsInfo `json:"logistics_info,omitempty" xml:"logistics_info,omitempty" require:"true"`
+	// 履约信息
+	PerformanceInfo *PerformanceInfo `json:"performance_info,omitempty" xml:"performance_info,omitempty" require:"true"`
+}
+
+func (s EvidentialElement) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidentialElement) GoString() string {
+	return s.String()
+}
+
+func (s *EvidentialElement) SetOrderInfo(v *OrderInfo) *EvidentialElement {
+	s.OrderInfo = v
+	return s
+}
+
+func (s *EvidentialElement) SetCommitmentInfo(v *CommitmentInfo) *EvidentialElement {
+	s.CommitmentInfo = v
+	return s
+}
+
+func (s *EvidentialElement) SetLogisticsInfo(v *LogisticsInfo) *EvidentialElement {
+	s.LogisticsInfo = v
+	return s
+}
+
+func (s *EvidentialElement) SetPerformanceInfo(v *PerformanceInfo) *EvidentialElement {
+	s.PerformanceInfo = v
+	return s
+}
+
+// 创建电子合同手动签署盖章区时的申请信息
+type ContractHandSignFieldApplication struct {
+	// 签署操作人个人账号标识，即操作本次签署的个人，如需通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 电子合同文件ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
+	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
+	// 页码信息，当签署区signType为2时, 页码可以'-'分割, 其他情况只能是数字。不指定xy坐标签署区可不填写，其他情况需填写。
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
+	// x坐标，页面签章必填，骑缝签章不填写
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
+	// y坐标
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
+	// 印章id
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
+	SignDateBeanType *int64 `json:"sign_date_bean_type,omitempty" xml:"sign_date_bean_type,omitempty"`
+	// 签章日期字体大小,默认12
+	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty"`
+	// 签章日期格式，yyyy年MM月dd日
+	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty"`
+	// 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty"`
+	// 签章日期x坐标，默认0
+	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
+	// 签章日期y坐标，默认0
+	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
+	// 签署类型，0-不限，1-单页签署，2-骑缝签署，默认1
+	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
+	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
+	// 签署区宽，默认印章宽度
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
+	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
+	// 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+	SignFieldType *int64 `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
+}
+
+func (s ContractHandSignFieldApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractHandSignFieldApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractHandSignFieldApplication) SetAccountId(v string) *ContractHandSignFieldApplication {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetFileId(v string) *ContractHandSignFieldApplication {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetOrder(v int64) *ContractHandSignFieldApplication {
+	s.Order = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetPosPage(v string) *ContractHandSignFieldApplication {
+	s.PosPage = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetPosX(v string) *ContractHandSignFieldApplication {
+	s.PosX = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetPosY(v string) *ContractHandSignFieldApplication {
+	s.PosY = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSealId(v string) *ContractHandSignFieldApplication {
+	s.SealId = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDateBeanType(v int64) *ContractHandSignFieldApplication {
+	s.SignDateBeanType = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDateFontSize(v int64) *ContractHandSignFieldApplication {
+	s.SignDateFontSize = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDateFormat(v string) *ContractHandSignFieldApplication {
+	s.SignDateFormat = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDatePosPage(v int64) *ContractHandSignFieldApplication {
+	s.SignDatePosPage = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDatePosX(v string) *ContractHandSignFieldApplication {
+	s.SignDatePosX = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignDatePosY(v string) *ContractHandSignFieldApplication {
+	s.SignDatePosY = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignType(v int64) *ContractHandSignFieldApplication {
+	s.SignType = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetThirdOrderNo(v string) *ContractHandSignFieldApplication {
+	s.ThirdOrderNo = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetWidth(v string) *ContractHandSignFieldApplication {
+	s.Width = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSealIds(v []*string) *ContractHandSignFieldApplication {
+	s.SealIds = v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetSignFieldType(v int64) *ContractHandSignFieldApplication {
+	s.SignFieldType = &v
+	return s
+}
+
+// 见证流程审批数据
+type WitnessApprovalData struct {
+	// 审批流程id
+	ApprovalFlowId *string `json:"approval_flow_id,omitempty" xml:"approval_flow_id,omitempty"`
+	// 印章id列表
+	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
+}
+
+func (s WitnessApprovalData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WitnessApprovalData) GoString() string {
+	return s.String()
+}
+
+func (s *WitnessApprovalData) SetApprovalFlowId(v string) *WitnessApprovalData {
+	s.ApprovalFlowId = &v
+	return s
+}
+
+func (s *WitnessApprovalData) SetSealIds(v []*string) *WitnessApprovalData {
+	s.SealIds = v
+	return s
+}
+
+// 证据清单
+type EvidentialCheckList struct {
+	// 证据名称英文
+	EvidentialNameEn *string `json:"evidential_name_en,omitempty" xml:"evidential_name_en,omitempty" require:"true"`
+	// 文件名称
+	OssFileName *string `json:"oss_file_name,omitempty" xml:"oss_file_name,omitempty" require:"true"`
+	// 文件fileKey
+	OssFileKey *string `json:"oss_file_key,omitempty" xml:"oss_file_key,omitempty" require:"true"`
+	// 证据来源
+	// BUSINESS_UPLOAD	业务传入
+	// ADD_MANULLY	手动添加
+	SourcesOfEvidence *string `json:"sources_of_evidence,omitempty" xml:"sources_of_evidence,omitempty" require:"true"`
+	// 证据类型
+	// BLOCKCHAIN_DEPOSIT	区块链存证
+	// USER_UPLOAD	用户上传
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty" require:"true"`
+	// 存证类型
+	// TEXT	文本
+	// FILE	文件
+	DepositType *string `json:"deposit_type,omitempty" xml:"deposit_type,omitempty" require:"true"`
+	// 存证哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 存证时间
+	DepositTime *string `json:"deposit_time,omitempty" xml:"deposit_time,omitempty" require:"true"`
+}
+
+func (s EvidentialCheckList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidentialCheckList) GoString() string {
+	return s.String()
+}
+
+func (s *EvidentialCheckList) SetEvidentialNameEn(v string) *EvidentialCheckList {
+	s.EvidentialNameEn = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetOssFileName(v string) *EvidentialCheckList {
+	s.OssFileName = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetOssFileKey(v string) *EvidentialCheckList {
+	s.OssFileKey = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetSourcesOfEvidence(v string) *EvidentialCheckList {
+	s.SourcesOfEvidence = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetEvidenceType(v string) *EvidentialCheckList {
+	s.EvidenceType = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetDepositType(v string) *EvidentialCheckList {
+	s.DepositType = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetTxHash(v string) *EvidentialCheckList {
+	s.TxHash = &v
+	return s
+}
+
+func (s *EvidentialCheckList) SetDepositTime(v string) *EvidentialCheckList {
+	s.DepositTime = &v
+	return s
+}
+
+// 存证信息说明
+type NotaryInfo struct {
+	// 存证内容的哈希值，默认采用SHA256算法
+	ContentHash *string `json:"content_hash,omitempty" xml:"content_hash,omitempty" require:"true"`
+	// 合作人（版权存证函专用），会展示在存证证明中
+	Cooperation *string `json:"cooperation,omitempty" xml:"cooperation,omitempty"`
+	// 作品名称类型（版权存证函使用），会展示在存证证明中
+	CreationType *string `json:"creation_type,omitempty" xml:"creation_type,omitempty"`
+	// 如果是文件存证，可填写文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 计算content_hash的哈希算法，目前只支持SHA256
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+	// 申请平台名，用于在存证函上显示用名称
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty"`
+	// 文件容量，默认为0
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty"`
+	// 发起存证成功后，返回的存证凭据
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 存证事务ID
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+}
+
+func (s NotaryInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotaryInfo) GoString() string {
+	return s.String()
+}
+
+func (s *NotaryInfo) SetContentHash(v string) *NotaryInfo {
+	s.ContentHash = &v
+	return s
+}
+
+func (s *NotaryInfo) SetCooperation(v string) *NotaryInfo {
+	s.Cooperation = &v
+	return s
+}
+
+func (s *NotaryInfo) SetCreationType(v string) *NotaryInfo {
+	s.CreationType = &v
+	return s
+}
+
+func (s *NotaryInfo) SetFileName(v string) *NotaryInfo {
+	s.FileName = &v
+	return s
+}
+
+func (s *NotaryInfo) SetHashAlgorithm(v string) *NotaryInfo {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *NotaryInfo) SetPlatform(v string) *NotaryInfo {
+	s.Platform = &v
+	return s
+}
+
+func (s *NotaryInfo) SetSize(v int64) *NotaryInfo {
+	s.Size = &v
+	return s
+}
+
+func (s *NotaryInfo) SetTxHash(v string) *NotaryInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *NotaryInfo) SetTransactionId(v string) *NotaryInfo {
+	s.TransactionId = &v
+	return s
+}
+
+// 自动进件证据要素
+type LeaseEvidentialElement struct {
+	// 订单信息
+	LeaseOrderInfo *LeaseOrderInfo `json:"lease_order_info,omitempty" xml:"lease_order_info,omitempty" require:"true"`
+	// 承诺信息
+	CommitmentInfo *CommitmentInfo `json:"commitment_info,omitempty" xml:"commitment_info,omitempty" require:"true"`
+	// 物流信息
+	LogisticsInfo *LogisticsInfo `json:"logistics_info,omitempty" xml:"logistics_info,omitempty" require:"true"`
+	// 履约信息
+	PerformanceInfo *PerformanceInfo `json:"performance_info,omitempty" xml:"performance_info,omitempty" require:"true"`
+}
+
+func (s LeaseEvidentialElement) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LeaseEvidentialElement) GoString() string {
+	return s.String()
+}
+
+func (s *LeaseEvidentialElement) SetLeaseOrderInfo(v *LeaseOrderInfo) *LeaseEvidentialElement {
+	s.LeaseOrderInfo = v
+	return s
+}
+
+func (s *LeaseEvidentialElement) SetCommitmentInfo(v *CommitmentInfo) *LeaseEvidentialElement {
+	s.CommitmentInfo = v
+	return s
+}
+
+func (s *LeaseEvidentialElement) SetLogisticsInfo(v *LogisticsInfo) *LeaseEvidentialElement {
+	s.LogisticsInfo = v
+	return s
+}
+
+func (s *LeaseEvidentialElement) SetPerformanceInfo(v *PerformanceInfo) *LeaseEvidentialElement {
+	s.PerformanceInfo = v
+	return s
+}
+
+// 租赁业务存证信息记录
+type LeaseNotaryRecord struct {
+	// 存证阶段
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 交易哈希，存证记录唯一标识
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s LeaseNotaryRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LeaseNotaryRecord) GoString() string {
+	return s.String()
+}
+
+func (s *LeaseNotaryRecord) SetPhase(v string) *LeaseNotaryRecord {
+	s.Phase = &v
+	return s
+}
+
+func (s *LeaseNotaryRecord) SetTxHash(v string) *LeaseNotaryRecord {
+	s.TxHash = &v
+	return s
+}
+
+// 电子合同文档
+type ContractDoc struct {
+	// 是否加密，0-不加密，1-加，默认0
+	Encryption *int64 `json:"encryption,omitempty" xml:"encryption,omitempty"`
+	// 电子合同文档的ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 电子合同文档名称，默认文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
+	FilePassword *string `json:"file_password,omitempty" xml:"file_password,omitempty"`
+}
+
+func (s ContractDoc) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractDoc) GoString() string {
+	return s.String()
+}
+
+func (s *ContractDoc) SetEncryption(v int64) *ContractDoc {
+	s.Encryption = &v
+	return s
+}
+
+func (s *ContractDoc) SetFileId(v string) *ContractDoc {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractDoc) SetFileName(v string) *ContractDoc {
+	s.FileName = &v
+	return s
+}
+
+func (s *ContractDoc) SetFilePassword(v string) *ContractDoc {
+	s.FilePassword = &v
+	return s
+}
+
 // 电子合同签署流程的配置信息
 type ContractSignFlowConfig struct {
 	// 回调通知地址 ,默认取项目配置通知地址
@@ -1914,39 +3322,6 @@ func (s *ContractSignFlowConfig) SetRedirectUrlOnFailure(v string) *ContractSign
 
 func (s *ContractSignFlowConfig) SetFreeSignature(v bool) *ContractSignFlowConfig {
 	s.FreeSignature = &v
-	return s
-}
-
-// 融资租赁中IOT设备详情
-type LeaseIotItemInfo struct {
-	// 证据的时间
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 证据的txHash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
-	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty" require:"true"`
-}
-
-func (s LeaseIotItemInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LeaseIotItemInfo) GoString() string {
-	return s.String()
-}
-
-func (s *LeaseIotItemInfo) SetDate(v string) *LeaseIotItemInfo {
-	s.Date = &v
-	return s
-}
-
-func (s *LeaseIotItemInfo) SetTxHash(v string) *LeaseIotItemInfo {
-	s.TxHash = &v
-	return s
-}
-
-func (s *LeaseIotItemInfo) SetRawData(v string) *LeaseIotItemInfo {
-	s.RawData = &v
 	return s
 }
 
@@ -2114,149 +3489,6 @@ func (s *OneStepSignField) SetAutoExecute(v bool) *OneStepSignField {
 	return s
 }
 
-// 见证流程签署结果数据
-type WitnessSignResult struct {
-	// 签名结果，外部用户签署返回
-	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty"`
-	// 签署日志id，外部用户签署返回
-	SignlogId *string `json:"signlog_id,omitempty" xml:"signlog_id,omitempty"`
-	// 第三方文档id
-	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty"`
-}
-
-func (s WitnessSignResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WitnessSignResult) GoString() string {
-	return s.String()
-}
-
-func (s *WitnessSignResult) SetSignResult(v string) *WitnessSignResult {
-	s.SignResult = &v
-	return s
-}
-
-func (s *WitnessSignResult) SetSignlogId(v string) *WitnessSignResult {
-	s.SignlogId = &v
-	return s
-}
-
-func (s *WitnessSignResult) SetThirdDocId(v string) *WitnessSignResult {
-	s.ThirdDocId = &v
-	return s
-}
-
-// 案件进度查询返回结果
-type MediationCaseDetailInfo struct {
-	// 案件编码
-	CaseNumber *string `json:"case_number,omitempty" xml:"case_number,omitempty" require:"true"`
-	// 案号
-	CaseCode *string `json:"case_code,omitempty" xml:"case_code,omitempty" require:"true"`
-	// 案由
-	CauseActionName *string `json:"cause_action_name,omitempty" xml:"cause_action_name,omitempty" require:"true"`
-	// 案件状态
-	CaseTatus *string `json:"case_tatus,omitempty" xml:"case_tatus,omitempty" require:"true"`
-	// 调解平台
-	MediationPlatform *string `json:"mediation_platform,omitempty" xml:"mediation_platform,omitempty" require:"true"`
-	// 调解机构
-	MediationOrg *string `json:"mediation_org,omitempty" xml:"mediation_org,omitempty" require:"true"`
-	// 调解员
-	Mediator *string `json:"mediator,omitempty" xml:"mediator,omitempty" require:"true"`
-	// 申请时间
-	ApplyTime *int64 `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
-	// 调解结果
-	MediationResult *string `json:"mediation_result,omitempty" xml:"mediation_result,omitempty" require:"true"`
-	// 申请人意向金额
-	AccuserIntentAmount *int64 `json:"accuser_intent_amount,omitempty" xml:"accuser_intent_amount,omitempty" require:"true"`
-	// 被申请人意向金额
-	AccusedIntentAmount *int64 `json:"accused_intent_amount,omitempty" xml:"accused_intent_amount,omitempty" require:"true"`
-	// 和解金额
-	MediationAmount *int64 `json:"mediation_amount,omitempty" xml:"mediation_amount,omitempty" require:"true"`
-	// 已确认事实
-	ConfirmFact *string `json:"confirm_fact,omitempty" xml:"confirm_fact,omitempty" require:"true"`
-	// 调解协议（已达成调解协议或未达成原因）
-	MediationAgreement *string `json:"mediation_agreement,omitempty" xml:"mediation_agreement,omitempty" require:"true"`
-}
-
-func (s MediationCaseDetailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MediationCaseDetailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *MediationCaseDetailInfo) SetCaseNumber(v string) *MediationCaseDetailInfo {
-	s.CaseNumber = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetCaseCode(v string) *MediationCaseDetailInfo {
-	s.CaseCode = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetCauseActionName(v string) *MediationCaseDetailInfo {
-	s.CauseActionName = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetCaseTatus(v string) *MediationCaseDetailInfo {
-	s.CaseTatus = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediationPlatform(v string) *MediationCaseDetailInfo {
-	s.MediationPlatform = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediationOrg(v string) *MediationCaseDetailInfo {
-	s.MediationOrg = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediator(v string) *MediationCaseDetailInfo {
-	s.Mediator = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetApplyTime(v int64) *MediationCaseDetailInfo {
-	s.ApplyTime = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediationResult(v string) *MediationCaseDetailInfo {
-	s.MediationResult = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetAccuserIntentAmount(v int64) *MediationCaseDetailInfo {
-	s.AccuserIntentAmount = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetAccusedIntentAmount(v int64) *MediationCaseDetailInfo {
-	s.AccusedIntentAmount = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediationAmount(v int64) *MediationCaseDetailInfo {
-	s.MediationAmount = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetConfirmFact(v string) *MediationCaseDetailInfo {
-	s.ConfirmFact = &v
-	return s
-}
-
-func (s *MediationCaseDetailInfo) SetMediationAgreement(v string) *MediationCaseDetailInfo {
-	s.MediationAgreement = &v
-	return s
-}
-
 // 电子合同存证初始化信息
 type ContractNotaryInitInfo struct {
 	// 本阶段存证内容哈希值
@@ -2308,6 +3540,46 @@ func (s *ContractNotaryInitInfo) SetTimestamp(v string) *ContractNotaryInitInfo 
 
 func (s *ContractNotaryInitInfo) SetTxHash(v string) *ContractNotaryInitInfo {
 	s.TxHash = &v
+	return s
+}
+
+// 见证流程创建响应数据
+type WitnessFlowConfig struct {
+	// 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
+	OrganRealnameTypes []*int64 `json:"organ_realname_types,omitempty" xml:"organ_realname_types,omitempty" type:"Repeated"`
+	// 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
+	PersonRealnameTypes []*int64 `json:"person_realname_types,omitempty" xml:"person_realname_types,omitempty" type:"Repeated"`
+	// 是否需要实名认证
+	RealNameCert *bool `json:"real_name_cert,omitempty" xml:"real_name_cert,omitempty"`
+	// 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
+	WillingnessTypes []*int64 `json:"willingness_types,omitempty" xml:"willingness_types,omitempty" type:"Repeated"`
+}
+
+func (s WitnessFlowConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WitnessFlowConfig) GoString() string {
+	return s.String()
+}
+
+func (s *WitnessFlowConfig) SetOrganRealnameTypes(v []*int64) *WitnessFlowConfig {
+	s.OrganRealnameTypes = v
+	return s
+}
+
+func (s *WitnessFlowConfig) SetPersonRealnameTypes(v []*int64) *WitnessFlowConfig {
+	s.PersonRealnameTypes = v
+	return s
+}
+
+func (s *WitnessFlowConfig) SetRealNameCert(v bool) *WitnessFlowConfig {
+	s.RealNameCert = &v
+	return s
+}
+
+func (s *WitnessFlowConfig) SetWillingnessTypes(v []*int64) *WitnessFlowConfig {
+	s.WillingnessTypes = v
 	return s
 }
 
@@ -2421,175 +3693,6 @@ func (s *ContractTemplateStructComponent) SetY(v string) *ContractTemplateStruct
 	return s
 }
 
-// 见证流程创建响应数据
-type WitnessFlowConfig struct {
-	// 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
-	OrganRealnameTypes []*int64 `json:"organ_realname_types,omitempty" xml:"organ_realname_types,omitempty" type:"Repeated"`
-	// 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
-	PersonRealnameTypes []*int64 `json:"person_realname_types,omitempty" xml:"person_realname_types,omitempty" type:"Repeated"`
-	// 是否需要实名认证
-	RealNameCert *bool `json:"real_name_cert,omitempty" xml:"real_name_cert,omitempty"`
-	// 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
-	WillingnessTypes []*int64 `json:"willingness_types,omitempty" xml:"willingness_types,omitempty" type:"Repeated"`
-}
-
-func (s WitnessFlowConfig) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WitnessFlowConfig) GoString() string {
-	return s.String()
-}
-
-func (s *WitnessFlowConfig) SetOrganRealnameTypes(v []*int64) *WitnessFlowConfig {
-	s.OrganRealnameTypes = v
-	return s
-}
-
-func (s *WitnessFlowConfig) SetPersonRealnameTypes(v []*int64) *WitnessFlowConfig {
-	s.PersonRealnameTypes = v
-	return s
-}
-
-func (s *WitnessFlowConfig) SetRealNameCert(v bool) *WitnessFlowConfig {
-	s.RealNameCert = &v
-	return s
-}
-
-func (s *WitnessFlowConfig) SetWillingnessTypes(v []*int64) *WitnessFlowConfig {
-	s.WillingnessTypes = v
-	return s
-}
-
-// 合同印章
-type ContractSeal struct {
-	// 印章别名
-	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
-	// 印章创建时间
-	CreateDate *int64 `json:"create_date,omitempty" xml:"create_date,omitempty"`
-	// 默认印章标识
-	DefaultFlag *bool `json:"default_flag,omitempty" xml:"default_flag,omitempty"`
-	// 印章fileKey
-	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
-	// 印章高度
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// 印章宽度
-	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
-	// 印章id
-	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
-	// 印章类型，1-机构模板章，2-个人模板章，3-自定义印章，4-手绘章
-	SealType *int64 `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
-	// 印章下载地址, 有效时间1小时
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 印章业务类型，CANCELLATION-作废章，COMMON-其它
-	SealBizType *string `json:"seal_biz_type,omitempty" xml:"seal_biz_type,omitempty"`
-}
-
-func (s ContractSeal) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContractSeal) GoString() string {
-	return s.String()
-}
-
-func (s *ContractSeal) SetAlias(v string) *ContractSeal {
-	s.Alias = &v
-	return s
-}
-
-func (s *ContractSeal) SetCreateDate(v int64) *ContractSeal {
-	s.CreateDate = &v
-	return s
-}
-
-func (s *ContractSeal) SetDefaultFlag(v bool) *ContractSeal {
-	s.DefaultFlag = &v
-	return s
-}
-
-func (s *ContractSeal) SetFileKey(v string) *ContractSeal {
-	s.FileKey = &v
-	return s
-}
-
-func (s *ContractSeal) SetHeight(v int64) *ContractSeal {
-	s.Height = &v
-	return s
-}
-
-func (s *ContractSeal) SetWidth(v int64) *ContractSeal {
-	s.Width = &v
-	return s
-}
-
-func (s *ContractSeal) SetSealId(v string) *ContractSeal {
-	s.SealId = &v
-	return s
-}
-
-func (s *ContractSeal) SetSealType(v int64) *ContractSeal {
-	s.SealType = &v
-	return s
-}
-
-func (s *ContractSeal) SetUrl(v string) *ContractSeal {
-	s.Url = &v
-	return s
-}
-
-func (s *ContractSeal) SetSealBizType(v string) *ContractSeal {
-	s.SealBizType = &v
-	return s
-}
-
-// 见证流程签署数据
-type WitnessSignData struct {
-	// 印章图片fileKey列表
-	SealFileKeys []*string `json:"seal_file_keys,omitempty" xml:"seal_file_keys,omitempty" type:"Repeated"`
-	// 印章id列表
-	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
-	// 待签署文档摘要值，批量签时必传
-	SignHash *string `json:"sign_hash,omitempty" xml:"sign_hash,omitempty"`
-	// 签署位置信息
-	SignPosData *string `json:"sign_pos_data,omitempty" xml:"sign_pos_data,omitempty"`
-	// 第三方文档id，批量签时必传
-	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty"`
-}
-
-func (s WitnessSignData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WitnessSignData) GoString() string {
-	return s.String()
-}
-
-func (s *WitnessSignData) SetSealFileKeys(v []*string) *WitnessSignData {
-	s.SealFileKeys = v
-	return s
-}
-
-func (s *WitnessSignData) SetSealIds(v []*string) *WitnessSignData {
-	s.SealIds = v
-	return s
-}
-
-func (s *WitnessSignData) SetSignHash(v string) *WitnessSignData {
-	s.SignHash = &v
-	return s
-}
-
-func (s *WitnessSignData) SetSignPosData(v string) *WitnessSignData {
-	s.SignPosData = &v
-	return s
-}
-
-func (s *WitnessSignData) SetThirdDocId(v string) *WitnessSignData {
-	s.ThirdDocId = &v
-	return s
-}
-
 // 签署区列表数据
 type ContractPlatformSignFieldApplication struct {
 	// 文件file id
@@ -2669,168 +3772,6 @@ func (s *ContractPlatformSignFieldApplication) SetAddSignTime(v bool) *ContractP
 
 func (s *ContractPlatformSignFieldApplication) SetSignType(v int64) *ContractPlatformSignFieldApplication {
 	s.SignType = &v
-	return s
-}
-
-// 关键字位置列表
-type KeywordsPosition struct {
-	// 关键字
-	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
-	// 页码
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
-	// x坐标
-	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
-	// y坐标
-	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
-}
-
-func (s KeywordsPosition) String() string {
-	return tea.Prettify(s)
-}
-
-func (s KeywordsPosition) GoString() string {
-	return s.String()
-}
-
-func (s *KeywordsPosition) SetKeyword(v string) *KeywordsPosition {
-	s.Keyword = &v
-	return s
-}
-
-func (s *KeywordsPosition) SetPageIndex(v int64) *KeywordsPosition {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *KeywordsPosition) SetPosX(v string) *KeywordsPosition {
-	s.PosX = &v
-	return s
-}
-
-func (s *KeywordsPosition) SetPosY(v string) *KeywordsPosition {
-	s.PosY = &v
-	return s
-}
-
-// 见证流程文档检验数据
-type WitnessDocs struct {
-	// 文档摘要值
-	DocHash *string `json:"doc_hash,omitempty" xml:"doc_hash,omitempty" require:"true"`
-	// 第三方文档id
-	ThirdDocId *string `json:"third_doc_id,omitempty" xml:"third_doc_id,omitempty" require:"true"`
-}
-
-func (s WitnessDocs) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WitnessDocs) GoString() string {
-	return s.String()
-}
-
-func (s *WitnessDocs) SetDocHash(v string) *WitnessDocs {
-	s.DocHash = &v
-	return s
-}
-
-func (s *WitnessDocs) SetThirdDocId(v string) *WitnessDocs {
-	s.ThirdDocId = &v
-	return s
-}
-
-// 普通代扣规则
-type RepaymentOrderRequest struct {
-	// 代扣触发时间，精确到毫秒
-	// java.lang.System#currentTimeMillis()
-	PayDate *int64 `json:"pay_date,omitempty" xml:"pay_date,omitempty" require:"true"`
-	// 代扣金额，整数 精确到分
-	PayMoney *int64 `json:"pay_money,omitempty" xml:"pay_money,omitempty" require:"true"`
-	// 是否用户签署成功后立即触发第一期代扣
-	TriggerImmediately *int64 `json:"trigger_immediately,omitempty" xml:"trigger_immediately,omitempty"`
-}
-
-func (s RepaymentOrderRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RepaymentOrderRequest) GoString() string {
-	return s.String()
-}
-
-func (s *RepaymentOrderRequest) SetPayDate(v int64) *RepaymentOrderRequest {
-	s.PayDate = &v
-	return s
-}
-
-func (s *RepaymentOrderRequest) SetPayMoney(v int64) *RepaymentOrderRequest {
-	s.PayMoney = &v
-	return s
-}
-
-func (s *RepaymentOrderRequest) SetTriggerImmediately(v int64) *RepaymentOrderRequest {
-	s.TriggerImmediately = &v
-	return s
-}
-
-// 可信时间信息结构
-type TsrResponse struct {
-	// 可信时间请求结果状态吗
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// hash后的信息
-	HashedMessage *string `json:"hashed_message,omitempty" xml:"hashed_message,omitempty" require:"true"`
-	// 哈希算法
-	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty" require:"true"`
-	// 请求失败时候的错误信息
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 时间
-	Ts *string `json:"ts,omitempty" xml:"ts,omitempty" require:"true"`
-	// 精简后的时间戳完整编码（在校验时需要提交）
-	Ctsr *string `json:"ctsr,omitempty" xml:"ctsr,omitempty" require:"true"`
-	// 凭证序列号 （在校验的时需要先填写凭证编号）
-	//
-	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
-}
-
-func (s TsrResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TsrResponse) GoString() string {
-	return s.String()
-}
-
-func (s *TsrResponse) SetCode(v string) *TsrResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *TsrResponse) SetHashedMessage(v string) *TsrResponse {
-	s.HashedMessage = &v
-	return s
-}
-
-func (s *TsrResponse) SetHashAlgorithm(v string) *TsrResponse {
-	s.HashAlgorithm = &v
-	return s
-}
-
-func (s *TsrResponse) SetMessage(v string) *TsrResponse {
-	s.Message = &v
-	return s
-}
-
-func (s *TsrResponse) SetTs(v string) *TsrResponse {
-	s.Ts = &v
-	return s
-}
-
-func (s *TsrResponse) SetCtsr(v string) *TsrResponse {
-	s.Ctsr = &v
-	return s
-}
-
-func (s *TsrResponse) SetSn(v string) *TsrResponse {
-	s.Sn = &v
 	return s
 }
 
@@ -12865,6 +13806,350 @@ func (s *QueryJusticeMediationResponse) SetMediationCaseDetailInfo(v string) *Qu
 	return s
 }
 
+type QueryJusticeCaseinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 案件编号
+	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty" require:"true"`
+}
+
+func (s QueryJusticeCaseinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeCaseinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeCaseinfoRequest) SetAuthToken(v string) *QueryJusticeCaseinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoRequest) SetProductInstanceId(v string) *QueryJusticeCaseinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoRequest) SetClientToken(v string) *QueryJusticeCaseinfoRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoRequest) SetCaseNo(v string) *QueryJusticeCaseinfoRequest {
+	s.CaseNo = &v
+	return s
+}
+
+type QueryJusticeCaseinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询的案件编号
+	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty"`
+	// 证据要素
+	EvidentialElement *EvidentialElement `json:"evidential_element,omitempty" xml:"evidential_element,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryJusticeCaseinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryJusticeCaseinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetReqMsgId(v string) *QueryJusticeCaseinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetResultCode(v string) *QueryJusticeCaseinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetResultMsg(v string) *QueryJusticeCaseinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetCaseNo(v string) *QueryJusticeCaseinfoResponse {
+	s.CaseNo = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetEvidentialElement(v *EvidentialElement) *QueryJusticeCaseinfoResponse {
+	s.EvidentialElement = v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetCode(v int64) *QueryJusticeCaseinfoResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryJusticeCaseinfoResponse) SetMessage(v string) *QueryJusticeCaseinfoResponse {
+	s.Message = &v
+	return s
+}
+
+type GetJusticeGetuploadfilepathRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件名称（最长128个字符）
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+}
+
+func (s GetJusticeGetuploadfilepathRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetJusticeGetuploadfilepathRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetJusticeGetuploadfilepathRequest) SetAuthToken(v string) *GetJusticeGetuploadfilepathRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathRequest) SetProductInstanceId(v string) *GetJusticeGetuploadfilepathRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathRequest) SetFileName(v string) *GetJusticeGetuploadfilepathRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathRequest) SetClientToken(v string) *GetJusticeGetuploadfilepathRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type GetJusticeGetuploadfilepathResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// OSS上传链接
+	UploadFileUrl *string `json:"upload_file_url,omitempty" xml:"upload_file_url,omitempty"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+	// 业务码 0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s GetJusticeGetuploadfilepathResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetJusticeGetuploadfilepathResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetReqMsgId(v string) *GetJusticeGetuploadfilepathResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetResultCode(v string) *GetJusticeGetuploadfilepathResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetResultMsg(v string) *GetJusticeGetuploadfilepathResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetUploadFileUrl(v string) *GetJusticeGetuploadfilepathResponse {
+	s.UploadFileUrl = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetFileKey(v string) *GetJusticeGetuploadfilepathResponse {
+	s.FileKey = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetCode(v int64) *GetJusticeGetuploadfilepathResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *GetJusticeGetuploadfilepathResponse) SetMessage(v string) *GetJusticeGetuploadfilepathResponse {
+	s.Message = &v
+	return s
+}
+
+type CreateJusticeCasewritebackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符。
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 自动进件案件基础信息
+	CaseBasicInfo *CaseBasicInfo `json:"case_basic_info,omitempty" xml:"case_basic_info,omitempty" require:"true"`
+	// 发起人对象列表
+	ProposerObjects []*ProposerObject `json:"proposer_objects,omitempty" xml:"proposer_objects,omitempty" require:"true" type:"Repeated"`
+	// 答辩人对象列表
+	PleaderObjects []*PleaderObject `json:"pleader_objects,omitempty" xml:"pleader_objects,omitempty" require:"true" type:"Repeated"`
+	// 自动进件证据要素
+	LeaseEvidentialElement *LeaseEvidentialElement `json:"lease_evidential_element,omitempty" xml:"lease_evidential_element,omitempty" require:"true"`
+	// 证据清单列表
+	EvidentialCheckList []*EvidentialCheckList `json:"evidential_check_list,omitempty" xml:"evidential_check_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateJusticeCasewritebackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateJusticeCasewritebackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetAuthToken(v string) *CreateJusticeCasewritebackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetProductInstanceId(v string) *CreateJusticeCasewritebackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetClientToken(v string) *CreateJusticeCasewritebackRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetCaseBasicInfo(v *CaseBasicInfo) *CreateJusticeCasewritebackRequest {
+	s.CaseBasicInfo = v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetProposerObjects(v []*ProposerObject) *CreateJusticeCasewritebackRequest {
+	s.ProposerObjects = v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetPleaderObjects(v []*PleaderObject) *CreateJusticeCasewritebackRequest {
+	s.PleaderObjects = v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetLeaseEvidentialElement(v *LeaseEvidentialElement) *CreateJusticeCasewritebackRequest {
+	s.LeaseEvidentialElement = v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackRequest) SetEvidentialCheckList(v []*EvidentialCheckList) *CreateJusticeCasewritebackRequest {
+	s.EvidentialCheckList = v
+	return s
+}
+
+type CreateJusticeCasewritebackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 创建成功状态
+	// success, fail
+	CreateStatus *string `json:"create_status,omitempty" xml:"create_status,omitempty"`
+	// 创建状态说明
+	CreateStatusMessage *string `json:"create_status_message,omitempty" xml:"create_status_message,omitempty"`
+	// 创建时间（如创建成功，则返回创建日期时间）
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 业务来源主键
+	InputSourceId *string `json:"input_source_id,omitempty" xml:"input_source_id,omitempty"`
+	// 案件ID
+	CaseId *string `json:"case_id,omitempty" xml:"case_id,omitempty"`
+	// 业务码 0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CreateJusticeCasewritebackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateJusticeCasewritebackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetReqMsgId(v string) *CreateJusticeCasewritebackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetResultCode(v string) *CreateJusticeCasewritebackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetResultMsg(v string) *CreateJusticeCasewritebackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetCreateStatus(v string) *CreateJusticeCasewritebackResponse {
+	s.CreateStatus = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetCreateStatusMessage(v string) *CreateJusticeCasewritebackResponse {
+	s.CreateStatusMessage = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetCreateTime(v string) *CreateJusticeCasewritebackResponse {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetInputSourceId(v string) *CreateJusticeCasewritebackResponse {
+	s.InputSourceId = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetCaseId(v string) *CreateJusticeCasewritebackResponse {
+	s.CaseId = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetCode(v int64) *CreateJusticeCasewritebackResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateJusticeCasewritebackResponse) SetMessage(v string) *CreateJusticeCasewritebackResponse {
+	s.Message = &v
+	return s
+}
+
 type CreateLeaseAssetagentregisterRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -21143,6 +22428,10 @@ type SetLeaseRepaymentstatusRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// finish只能为0或1，0表示订单重置此状态下订单可以被再次操作【如清分记录上传、还款记录上传等】，1表示订单结束，在1的状态下不会再进行清分、还款记录上传等操作
 	Finish *int64 `json:"finish,omitempty" xml:"finish,omitempty" require:"true"`
+	// 原所有权人金融科技租户id
+	OldOwnershipId *string `json:"old_ownership_id,omitempty" xml:"old_ownership_id,omitempty"`
+	// 新所有权人租户id
+	NewOwnershipId *string `json:"new_ownership_id,omitempty" xml:"new_ownership_id,omitempty"`
 }
 
 func (s SetLeaseRepaymentstatusRequest) String() string {
@@ -21180,6 +22469,16 @@ func (s *SetLeaseRepaymentstatusRequest) SetOrderId(v string) *SetLeaseRepayment
 
 func (s *SetLeaseRepaymentstatusRequest) SetFinish(v int64) *SetLeaseRepaymentstatusRequest {
 	s.Finish = &v
+	return s
+}
+
+func (s *SetLeaseRepaymentstatusRequest) SetOldOwnershipId(v string) *SetLeaseRepaymentstatusRequest {
+	s.OldOwnershipId = &v
+	return s
+}
+
+func (s *SetLeaseRepaymentstatusRequest) SetNewOwnershipId(v string) *SetLeaseRepaymentstatusRequest {
+	s.NewOwnershipId = &v
 	return s
 }
 
@@ -22870,7 +24169,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.3"),
+				"sdk_version":      tea.String("1.5.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -25941,6 +27240,108 @@ func (client *Client) QueryJusticeMediationEx(request *QueryJusticeMediationRequ
 	}
 	_result = &QueryJusticeMediationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.mediation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 汇裁证据要素查询接口
+ * Summary: 汇裁证据要素查询接口
+ */
+func (client *Client) QueryJusticeCaseinfo(request *QueryJusticeCaseinfoRequest) (_result *QueryJusticeCaseinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryJusticeCaseinfoResponse{}
+	_body, _err := client.QueryJusticeCaseinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 汇裁证据要素查询接口
+ * Summary: 汇裁证据要素查询接口
+ */
+func (client *Client) QueryJusticeCaseinfoEx(request *QueryJusticeCaseinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryJusticeCaseinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryJusticeCaseinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.caseinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+ * Summary: 获取OSS文件上传路径
+ */
+func (client *Client) GetJusticeGetuploadfilepath(request *GetJusticeGetuploadfilepathRequest) (_result *GetJusticeGetuploadfilepathResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetJusticeGetuploadfilepathResponse{}
+	_body, _err := client.GetJusticeGetuploadfilepathEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+ * Summary: 获取OSS文件上传路径
+ */
+func (client *Client) GetJusticeGetuploadfilepathEx(request *GetJusticeGetuploadfilepathRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetJusticeGetuploadfilepathResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetJusticeGetuploadfilepathResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.getuploadfilepath.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+ * Summary: 自动进件案件回写
+ */
+func (client *Client) CreateJusticeCasewriteback(request *CreateJusticeCasewritebackRequest) (_result *CreateJusticeCasewritebackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateJusticeCasewritebackResponse{}
+	_body, _err := client.CreateJusticeCasewritebackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+ * Summary: 自动进件案件回写
+ */
+func (client *Client) CreateJusticeCasewritebackEx(request *CreateJusticeCasewritebackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateJusticeCasewritebackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateJusticeCasewritebackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.casewriteback.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
