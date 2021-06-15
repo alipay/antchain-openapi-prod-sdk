@@ -119,6 +119,8 @@ use AntChain\TWC\Models\CreateInternalTextRequest;
 use AntChain\TWC\Models\CreateInternalTextResponse;
 use AntChain\TWC\Models\CreateInternalTransRequest;
 use AntChain\TWC\Models\CreateInternalTransResponse;
+use AntChain\TWC\Models\CreateJusticeCasewritebackRequest;
+use AntChain\TWC\Models\CreateJusticeCasewritebackResponse;
 use AntChain\TWC\Models\CreateLargefileRequest;
 use AntChain\TWC\Models\CreateLargefileResponse;
 use AntChain\TWC\Models\CreateLeaseAssetagentregisterRequest;
@@ -223,6 +225,8 @@ use AntChain\TWC\Models\GetFinanceTextnotaryRequest;
 use AntChain\TWC\Models\GetFinanceTextnotaryResponse;
 use AntChain\TWC\Models\GetInternalTextRequest;
 use AntChain\TWC\Models\GetInternalTextResponse;
+use AntChain\TWC\Models\GetJusticeGetuploadfilepathRequest;
+use AntChain\TWC\Models\GetJusticeGetuploadfilepathResponse;
 use AntChain\TWC\Models\GetSourceRequest;
 use AntChain\TWC\Models\GetSourceResponse;
 use AntChain\TWC\Models\GetTextRequest;
@@ -283,6 +287,8 @@ use AntChain\TWC\Models\QueryIdentificationFaceauthRequest;
 use AntChain\TWC\Models\QueryIdentificationFaceauthResponse;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordRequest;
 use AntChain\TWC\Models\QueryJointconstraintBreachrecordResponse;
+use AntChain\TWC\Models\QueryJusticeCaseinfoRequest;
+use AntChain\TWC\Models\QueryJusticeCaseinfoResponse;
 use AntChain\TWC\Models\QueryJusticeMediationRequest;
 use AntChain\TWC\Models\QueryJusticeMediationResponse;
 use AntChain\TWC\Models\QueryLeaseApplicationdetailinfoRequest;
@@ -460,7 +466,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 签字人
+            // 订单商品信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -488,7 +494,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.3',
+                    'sdk_version'      => '1.5.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3473,6 +3479,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryJusticeMediationResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.mediation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汇裁证据要素查询接口
+     * Summary: 汇裁证据要素查询接口.
+     *
+     * @param QueryJusticeCaseinfoRequest $request
+     *
+     * @return QueryJusticeCaseinfoResponse
+     */
+    public function queryJusticeCaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryJusticeCaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汇裁证据要素查询接口
+     * Summary: 汇裁证据要素查询接口.
+     *
+     * @param QueryJusticeCaseinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryJusticeCaseinfoResponse
+     */
+    public function queryJusticeCaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryJusticeCaseinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.caseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+     * Summary: 获取OSS文件上传路径.
+     *
+     * @param GetJusticeGetuploadfilepathRequest $request
+     *
+     * @return GetJusticeGetuploadfilepathResponse
+     */
+    public function getJusticeGetuploadfilepath($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getJusticeGetuploadfilepathEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+     * Summary: 获取OSS文件上传路径.
+     *
+     * @param GetJusticeGetuploadfilepathRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return GetJusticeGetuploadfilepathResponse
+     */
+    public function getJusticeGetuploadfilepathEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetJusticeGetuploadfilepathResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.getuploadfilepath.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+     * Summary: 自动进件案件回写.
+     *
+     * @param CreateJusticeCasewritebackRequest $request
+     *
+     * @return CreateJusticeCasewritebackResponse
+     */
+    public function createJusticeCasewriteback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createJusticeCasewritebackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+     * Summary: 自动进件案件回写.
+     *
+     * @param CreateJusticeCasewritebackRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateJusticeCasewritebackResponse
+     */
+    public function createJusticeCasewritebackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateJusticeCasewritebackResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

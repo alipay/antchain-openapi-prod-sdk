@@ -42,6 +42,18 @@ class SetLeaseRepaymentstatusRequest extends Model
      * @var int
      */
     public $finish;
+
+    // 原所有权人金融科技租户id
+    /**
+     * @var string
+     */
+    public $oldOwnershipId;
+
+    // 新所有权人租户id
+    /**
+     * @var string
+     */
+    public $newOwnershipId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +61,8 @@ class SetLeaseRepaymentstatusRequest extends Model
         'applicationId'     => 'application_id',
         'orderId'           => 'order_id',
         'finish'            => 'finish',
+        'oldOwnershipId'    => 'old_ownership_id',
+        'newOwnershipId'    => 'new_ownership_id',
     ];
 
     public function validate()
@@ -79,6 +93,12 @@ class SetLeaseRepaymentstatusRequest extends Model
         if (null !== $this->finish) {
             $res['finish'] = $this->finish;
         }
+        if (null !== $this->oldOwnershipId) {
+            $res['old_ownership_id'] = $this->oldOwnershipId;
+        }
+        if (null !== $this->newOwnershipId) {
+            $res['new_ownership_id'] = $this->newOwnershipId;
+        }
 
         return $res;
     }
@@ -108,6 +128,12 @@ class SetLeaseRepaymentstatusRequest extends Model
         }
         if (isset($map['finish'])) {
             $model->finish = $map['finish'];
+        }
+        if (isset($map['old_ownership_id'])) {
+            $model->oldOwnershipId = $map['old_ownership_id'];
+        }
+        if (isset($map['new_ownership_id'])) {
+            $model->newOwnershipId = $map['new_ownership_id'];
         }
 
         return $model;
