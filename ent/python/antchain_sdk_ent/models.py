@@ -358,6 +358,9 @@ class TokenOperationDetail(TeaModel):
         info: str = None,
         biz_id: str = None,
         order_no: str = None,
+        withdraw_request_id: str = None,
+        withdraw_amount: int = None,
+        token_price: int = None,
     ):
         # 粉丝粒操作流水状态，pending：发放中，confirmed：已到账，canceled：已取消
         self.status = status
@@ -371,6 +374,12 @@ class TokenOperationDetail(TeaModel):
         self.biz_id = biz_id
         # 订单编号
         self.order_no = order_no
+        # 兑现请求标识字段
+        self.withdraw_request_id = withdraw_request_id
+        # 提现总金额，单位分个
+        self.withdraw_amount = withdraw_amount
+        # 提现时token价格，单位分个
+        self.token_price = token_price
 
     def validate(self):
         self.validate_required(self.status, 'status')
@@ -381,6 +390,9 @@ class TokenOperationDetail(TeaModel):
         self.validate_required(self.info, 'info')
         self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.withdraw_request_id, 'withdraw_request_id')
+        self.validate_required(self.withdraw_amount, 'withdraw_amount')
+        self.validate_required(self.token_price, 'token_price')
 
     def to_map(self):
         result = dict()
@@ -396,6 +408,12 @@ class TokenOperationDetail(TeaModel):
             result['biz_id'] = self.biz_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.withdraw_request_id is not None:
+            result['withdraw_request_id'] = self.withdraw_request_id
+        if self.withdraw_amount is not None:
+            result['withdraw_amount'] = self.withdraw_amount
+        if self.token_price is not None:
+            result['token_price'] = self.token_price
         return result
 
     def from_map(self, m: dict = None):
@@ -412,6 +430,12 @@ class TokenOperationDetail(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('withdraw_request_id') is not None:
+            self.withdraw_request_id = m.get('withdraw_request_id')
+        if m.get('withdraw_amount') is not None:
+            self.withdraw_amount = m.get('withdraw_amount')
+        if m.get('token_price') is not None:
+            self.token_price = m.get('token_price')
         return self
 
 
@@ -3305,6 +3329,151 @@ class QueryTppParticipationinfoResponse(TeaModel):
         if m.get('accumulative_revenue') is not None:
             temp_model = AccumulativeRevenue()
             self.accumulative_revenue = temp_model.from_map(m['accumulative_revenue'])
+        return self
+
+
+class ExecWithdrawCreateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_id: str = None,
+        withdraw_token: str = None,
+        withdraw_amount_cent: int = None,
+        withdraw_token_price_cent: int = None,
+        withdraw_request_id: str = None,
+        user_id_type: str = None,
+        back_url: str = None,
+        user_id_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # project_id，合约对应的项目id
+        self.project_id = project_id
+        # 兑现Token个数
+        self.withdraw_token = withdraw_token
+        # 兑现总额 单位：分
+        self.withdraw_amount_cent = withdraw_amount_cent
+        # Token单价 单位：分
+        self.withdraw_token_price_cent = withdraw_token_price_cent
+        # 业务单号，同一调用方全局唯一
+        self.withdraw_request_id = withdraw_request_id
+        # 用户账号类型：PHONE / ALIPAY_LOGON_ID / ALIPAY_UID
+        self.user_id_type = user_id_type
+        # 回跳地址（签约税优使用，使用小程序页面地址）
+        self.back_url = back_url
+        # 支付宝用户唯一标识
+        self.user_id_no = user_id_no
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.withdraw_token, 'withdraw_token')
+        self.validate_required(self.withdraw_amount_cent, 'withdraw_amount_cent')
+        self.validate_required(self.withdraw_token_price_cent, 'withdraw_token_price_cent')
+        self.validate_required(self.withdraw_request_id, 'withdraw_request_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.back_url, 'back_url')
+        self.validate_required(self.user_id_no, 'user_id_no')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.withdraw_token is not None:
+            result['withdraw_token'] = self.withdraw_token
+        if self.withdraw_amount_cent is not None:
+            result['withdraw_amount_cent'] = self.withdraw_amount_cent
+        if self.withdraw_token_price_cent is not None:
+            result['withdraw_token_price_cent'] = self.withdraw_token_price_cent
+        if self.withdraw_request_id is not None:
+            result['withdraw_request_id'] = self.withdraw_request_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.back_url is not None:
+            result['back_url'] = self.back_url
+        if self.user_id_no is not None:
+            result['user_id_no'] = self.user_id_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('withdraw_token') is not None:
+            self.withdraw_token = m.get('withdraw_token')
+        if m.get('withdraw_amount_cent') is not None:
+            self.withdraw_amount_cent = m.get('withdraw_amount_cent')
+        if m.get('withdraw_token_price_cent') is not None:
+            self.withdraw_token_price_cent = m.get('withdraw_token_price_cent')
+        if m.get('withdraw_request_id') is not None:
+            self.withdraw_request_id = m.get('withdraw_request_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('back_url') is not None:
+            self.back_url = m.get('back_url')
+        if m.get('user_id_no') is not None:
+            self.user_id_no = m.get('user_id_no')
+        return self
+
+
+class ExecWithdrawCreateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        withdraw_status: str = None,
+        sign_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 兑现状态：ACCEPTED / FAILED
+        self.withdraw_status = withdraw_status
+        # 税优签约链接
+        self.sign_url = sign_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.withdraw_status is not None:
+            result['withdraw_status'] = self.withdraw_status
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('withdraw_status') is not None:
+            self.withdraw_status = m.get('withdraw_status')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.8'
+                    'sdk_version': '1.4.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.8'
+                    'sdk_version': '1.4.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1295,4 +1295,58 @@ class Client:
         UtilClient.validate_model(request)
         return ent_models.QueryTppParticipationinfoResponse().from_map(
             await self.do_request_async('1.0', 'antchain.ent.tpp.participationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_withdraw_create(
+        self,
+        request: ent_models.ExecWithdrawCreateRequest,
+    ) -> ent_models.ExecWithdrawCreateResponse:
+        """
+        Description: 兑现请求提交接口
+        Summary: 兑现请求提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_withdraw_create_ex(request, headers, runtime)
+
+    async def exec_withdraw_create_async(
+        self,
+        request: ent_models.ExecWithdrawCreateRequest,
+    ) -> ent_models.ExecWithdrawCreateResponse:
+        """
+        Description: 兑现请求提交接口
+        Summary: 兑现请求提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_withdraw_create_ex_async(request, headers, runtime)
+
+    def exec_withdraw_create_ex(
+        self,
+        request: ent_models.ExecWithdrawCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ent_models.ExecWithdrawCreateResponse:
+        """
+        Description: 兑现请求提交接口
+        Summary: 兑现请求提交
+        """
+        UtilClient.validate_model(request)
+        return ent_models.ExecWithdrawCreateResponse().from_map(
+            self.do_request('1.0', 'antchain.ent.withdraw.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_withdraw_create_ex_async(
+        self,
+        request: ent_models.ExecWithdrawCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ent_models.ExecWithdrawCreateResponse:
+        """
+        Description: 兑现请求提交接口
+        Summary: 兑现请求提交
+        """
+        UtilClient.validate_model(request)
+        return ent_models.ExecWithdrawCreateResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.ent.withdraw.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
