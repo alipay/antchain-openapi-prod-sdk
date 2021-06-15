@@ -55,13 +55,40 @@ class TokenOperationDetail extends Model
      * @var string
      */
     public $orderNo;
+
+    // 兑现请求标识字段
+    /**
+     * @example 36ab7e02cf264a67a07b9a94e4adc5e8
+     *
+     * @var string
+     */
+    public $withdrawRequestId;
+
+    // 提现总金额，单位分个
+    /**
+     * @example 1000
+     *
+     * @var int
+     */
+    public $withdrawAmount;
+
+    // 提现时token价格，单位分个
+    /**
+     * @example 100
+     *
+     * @var int
+     */
+    public $tokenPrice;
     protected $_name = [
-        'status'      => 'status',
-        'tokenAmount' => 'token_amount',
-        'time'        => 'time',
-        'info'        => 'info',
-        'bizId'       => 'biz_id',
-        'orderNo'     => 'order_no',
+        'status'            => 'status',
+        'tokenAmount'       => 'token_amount',
+        'time'              => 'time',
+        'info'              => 'info',
+        'bizId'             => 'biz_id',
+        'orderNo'           => 'order_no',
+        'withdrawRequestId' => 'withdraw_request_id',
+        'withdrawAmount'    => 'withdraw_amount',
+        'tokenPrice'        => 'token_price',
     ];
 
     public function validate()
@@ -72,6 +99,9 @@ class TokenOperationDetail extends Model
         Model::validateRequired('info', $this->info, true);
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('withdrawRequestId', $this->withdrawRequestId, true);
+        Model::validateRequired('withdrawAmount', $this->withdrawAmount, true);
+        Model::validateRequired('tokenPrice', $this->tokenPrice, true);
         Model::validatePattern('time', $this->time, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
@@ -95,6 +125,15 @@ class TokenOperationDetail extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->withdrawRequestId) {
+            $res['withdraw_request_id'] = $this->withdrawRequestId;
+        }
+        if (null !== $this->withdrawAmount) {
+            $res['withdraw_amount'] = $this->withdrawAmount;
+        }
+        if (null !== $this->tokenPrice) {
+            $res['token_price'] = $this->tokenPrice;
         }
 
         return $res;
@@ -125,6 +164,15 @@ class TokenOperationDetail extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['withdraw_request_id'])) {
+            $model->withdrawRequestId = $map['withdraw_request_id'];
+        }
+        if (isset($map['withdraw_amount'])) {
+            $model->withdrawAmount = $map['withdraw_amount'];
+        }
+        if (isset($map['token_price'])) {
+            $model->tokenPrice = $map['token_price'];
         }
 
         return $model;

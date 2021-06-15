@@ -19,6 +19,8 @@ use AntChain\ENT\Models\ExecNftTransferRequest;
 use AntChain\ENT\Models\ExecNftTransferResponse;
 use AntChain\ENT\Models\ExecTokenRedeemRequest;
 use AntChain\ENT\Models\ExecTokenRedeemResponse;
+use AntChain\ENT\Models\ExecWithdrawCreateRequest;
+use AntChain\ENT\Models\ExecWithdrawCreateResponse;
 use AntChain\ENT\Models\GetIsvSharecodeRequest;
 use AntChain\ENT\Models\GetIsvSharecodeResponse;
 use AntChain\ENT\Models\GetTppSharecodeRequest;
@@ -196,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.8',
+                    'sdk_version'      => '1.4.17',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -867,5 +869,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryTppParticipationinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ent.tpp.participationinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 兑现请求提交接口
+     * Summary: 兑现请求提交.
+     *
+     * @param ExecWithdrawCreateRequest $request
+     *
+     * @return ExecWithdrawCreateResponse
+     */
+    public function execWithdrawCreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execWithdrawCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 兑现请求提交接口
+     * Summary: 兑现请求提交.
+     *
+     * @param ExecWithdrawCreateRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ExecWithdrawCreateResponse
+     */
+    public function execWithdrawCreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecWithdrawCreateResponse::fromMap($this->doRequest('1.0', 'antchain.ent.withdraw.create.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
