@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.3"},
+                        {"sdk_version", "1.5.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.3"},
+                        {"sdk_version", "1.5.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4061,6 +4061,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryJusticeMediationResponse>(await DoRequestAsync("1.0", "twc.notary.justice.mediation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 汇裁证据要素查询接口
+         * Summary: 汇裁证据要素查询接口
+         */
+        public QueryJusticeCaseinfoResponse QueryJusticeCaseinfo(QueryJusticeCaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryJusticeCaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 汇裁证据要素查询接口
+         * Summary: 汇裁证据要素查询接口
+         */
+        public async Task<QueryJusticeCaseinfoResponse> QueryJusticeCaseinfoAsync(QueryJusticeCaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryJusticeCaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 汇裁证据要素查询接口
+         * Summary: 汇裁证据要素查询接口
+         */
+        public QueryJusticeCaseinfoResponse QueryJusticeCaseinfoEx(QueryJusticeCaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeCaseinfoResponse>(DoRequest("1.0", "twc.notary.justice.caseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 汇裁证据要素查询接口
+         * Summary: 汇裁证据要素查询接口
+         */
+        public async Task<QueryJusticeCaseinfoResponse> QueryJusticeCaseinfoExAsync(QueryJusticeCaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryJusticeCaseinfoResponse>(await DoRequestAsync("1.0", "twc.notary.justice.caseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+         * Summary: 获取OSS文件上传路径
+         */
+        public GetJusticeGetuploadfilepathResponse GetJusticeGetuploadfilepath(GetJusticeGetuploadfilepathRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetJusticeGetuploadfilepathEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+         * Summary: 获取OSS文件上传路径
+         */
+        public async Task<GetJusticeGetuploadfilepathResponse> GetJusticeGetuploadfilepathAsync(GetJusticeGetuploadfilepathRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetJusticeGetuploadfilepathExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+         * Summary: 获取OSS文件上传路径
+         */
+        public GetJusticeGetuploadfilepathResponse GetJusticeGetuploadfilepathEx(GetJusticeGetuploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetJusticeGetuploadfilepathResponse>(DoRequest("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+         * Summary: 获取OSS文件上传路径
+         */
+        public async Task<GetJusticeGetuploadfilepathResponse> GetJusticeGetuploadfilepathExAsync(GetJusticeGetuploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetJusticeGetuploadfilepathResponse>(await DoRequestAsync("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+         * Summary: 自动进件案件回写
+         */
+        public CreateJusticeCasewritebackResponse CreateJusticeCasewriteback(CreateJusticeCasewritebackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateJusticeCasewritebackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+         * Summary: 自动进件案件回写
+         */
+        public async Task<CreateJusticeCasewritebackResponse> CreateJusticeCasewritebackAsync(CreateJusticeCasewritebackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateJusticeCasewritebackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+         * Summary: 自动进件案件回写
+         */
+        public CreateJusticeCasewritebackResponse CreateJusticeCasewritebackEx(CreateJusticeCasewritebackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeCasewritebackResponse>(DoRequest("1.0", "twc.notary.justice.casewriteback.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+         * Summary: 自动进件案件回写
+         */
+        public async Task<CreateJusticeCasewritebackResponse> CreateJusticeCasewritebackExAsync(CreateJusticeCasewritebackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeCasewritebackResponse>(await DoRequestAsync("1.0", "twc.notary.justice.casewriteback.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

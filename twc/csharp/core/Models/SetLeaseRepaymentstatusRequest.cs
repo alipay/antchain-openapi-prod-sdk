@@ -38,6 +38,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public long? Finish { get; set; }
 
+        // 原所有权人金融科技租户id
+        [NameInMap("old_ownership_id")]
+        [Validation(Required=false)]
+        public string OldOwnershipId { get; set; }
+
+        // 新所有权人租户id
+        [NameInMap("new_ownership_id")]
+        [Validation(Required=false)]
+        public string NewOwnershipId { get; set; }
+
     }
 
 }
