@@ -6,7 +6,7 @@ namespace AntChain\TDM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitVerifyRequest extends Model
+class QueryCpfAuthRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,44 +19,57 @@ class InitVerifyRequest extends Model
      */
     public $productInstanceId;
 
-    // 被授权机构ID（统一社会信用代码）
+    // 身份证ID
+    /**
+     * @var string
+     */
+    public $dataOwnerIdentity;
+
+    // 被授权机构ID
     /**
      * @var string
      */
     public $authorizedIdentity;
 
-    // 核身发起端
+    // 端ID
     /**
      * @var string
      */
     public $authorizedPlatformIdentity;
 
-    // 刷脸产品类型
+    // 标的产品码
     /**
      * @var string
      */
-    public $certificationType;
+    public $targetCode;
 
-    // 核身初始化请求信息
+    // 扩展字段
     /**
      * @var string
      */
-    public $certificationRequest;
+    public $extendParams;
+
+    // 授权状态
+    /**
+     * @var string
+     */
+    public $authState;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
+        'dataOwnerIdentity'          => 'data_owner_identity',
         'authorizedIdentity'         => 'authorized_identity',
         'authorizedPlatformIdentity' => 'authorized_platform_identity',
-        'certificationType'          => 'certification_type',
-        'certificationRequest'       => 'certification_request',
+        'targetCode'                 => 'target_code',
+        'extendParams'               => 'extend_params',
+        'authState'                  => 'auth_state',
     ];
 
     public function validate()
     {
-        Model::validateRequired('authorizedIdentity', $this->authorizedIdentity, true);
+        Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('authorizedPlatformIdentity', $this->authorizedPlatformIdentity, true);
-        Model::validateRequired('certificationType', $this->certificationType, true);
-        Model::validateRequired('certificationRequest', $this->certificationRequest, true);
+        Model::validateRequired('authState', $this->authState, true);
     }
 
     public function toMap()
@@ -68,17 +81,23 @@ class InitVerifyRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->dataOwnerIdentity) {
+            $res['data_owner_identity'] = $this->dataOwnerIdentity;
+        }
         if (null !== $this->authorizedIdentity) {
             $res['authorized_identity'] = $this->authorizedIdentity;
         }
         if (null !== $this->authorizedPlatformIdentity) {
             $res['authorized_platform_identity'] = $this->authorizedPlatformIdentity;
         }
-        if (null !== $this->certificationType) {
-            $res['certification_type'] = $this->certificationType;
+        if (null !== $this->targetCode) {
+            $res['target_code'] = $this->targetCode;
         }
-        if (null !== $this->certificationRequest) {
-            $res['certification_request'] = $this->certificationRequest;
+        if (null !== $this->extendParams) {
+            $res['extend_params'] = $this->extendParams;
+        }
+        if (null !== $this->authState) {
+            $res['auth_state'] = $this->authState;
         }
 
         return $res;
@@ -87,7 +106,7 @@ class InitVerifyRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitVerifyRequest
+     * @return QueryCpfAuthRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,17 +117,23 @@ class InitVerifyRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['data_owner_identity'])) {
+            $model->dataOwnerIdentity = $map['data_owner_identity'];
+        }
         if (isset($map['authorized_identity'])) {
             $model->authorizedIdentity = $map['authorized_identity'];
         }
         if (isset($map['authorized_platform_identity'])) {
             $model->authorizedPlatformIdentity = $map['authorized_platform_identity'];
         }
-        if (isset($map['certification_type'])) {
-            $model->certificationType = $map['certification_type'];
+        if (isset($map['target_code'])) {
+            $model->targetCode = $map['target_code'];
         }
-        if (isset($map['certification_request'])) {
-            $model->certificationRequest = $map['certification_request'];
+        if (isset($map['extend_params'])) {
+            $model->extendParams = $map['extend_params'];
+        }
+        if (isset($map['auth_state'])) {
+            $model->authState = $map['auth_state'];
         }
 
         return $model;

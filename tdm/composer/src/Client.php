@@ -13,20 +13,24 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\TDM\Models\CancelAuthRequest;
 use AntChain\TDM\Models\CancelAuthResponse;
+use AntChain\TDM\Models\CancelCpfAuthRequest;
+use AntChain\TDM\Models\CancelCpfAuthResponse;
 use AntChain\TDM\Models\CheckCpfCertRequest;
 use AntChain\TDM\Models\CheckCpfCertResponse;
 use AntChain\TDM\Models\ExecAuthRequest;
 use AntChain\TDM\Models\ExecAuthResponse;
 use AntChain\TDM\Models\ExecAuthuseRequest;
 use AntChain\TDM\Models\ExecAuthuseResponse;
+use AntChain\TDM\Models\ExecCpfAuthRequest;
+use AntChain\TDM\Models\ExecCpfAuthResponse;
 use AntChain\TDM\Models\GetCpfCertRequest;
 use AntChain\TDM\Models\GetCpfCertResponse;
 use AntChain\TDM\Models\GetCpfCertuseRequest;
 use AntChain\TDM\Models\GetCpfCertuseResponse;
 use AntChain\TDM\Models\GetCpfDataRequest;
 use AntChain\TDM\Models\GetCpfDataResponse;
-use AntChain\TDM\Models\InitVerifyRequest;
-use AntChain\TDM\Models\InitVerifyResponse;
+use AntChain\TDM\Models\InitCpfVerifyRequest;
+use AntChain\TDM\Models\InitCpfVerifyResponse;
 use AntChain\TDM\Models\ListCpfCertRequest;
 use AntChain\TDM\Models\ListCpfCertResponse;
 use AntChain\TDM\Models\ListCpfCertuseRequest;
@@ -41,6 +45,8 @@ use AntChain\TDM\Models\QueryAuthRequest;
 use AntChain\TDM\Models\QueryAuthResponse;
 use AntChain\TDM\Models\QueryAuthuseOwnerRequest;
 use AntChain\TDM\Models\QueryAuthuseOwnerResponse;
+use AntChain\TDM\Models\QueryCpfAuthRequest;
+use AntChain\TDM\Models\QueryCpfAuthResponse;
 use AntChain\TDM\Models\QueryCpfUserRequest;
 use AntChain\TDM\Models\QueryCpfUserResponse;
 use AntChain\TDM\Models\SaveCpfCertuseRequest;
@@ -192,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.22',
+                    'sdk_version'      => '1.1.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -569,6 +575,105 @@ class Client
     }
 
     /**
+     * Description: 公积金业务授权接口
+     * Summary: 授权接口.
+     *
+     * @param ExecCpfAuthRequest $request
+     *
+     * @return ExecCpfAuthResponse
+     */
+    public function execCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公积金业务授权接口
+     * Summary: 授权接口.
+     *
+     * @param ExecCpfAuthRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return ExecCpfAuthResponse
+     */
+    public function execCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消授权
+     * Summary: 取消授权.
+     *
+     * @param CancelCpfAuthRequest $request
+     *
+     * @return CancelCpfAuthResponse
+     */
+    public function cancelCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消授权
+     * Summary: 取消授权.
+     *
+     * @param CancelCpfAuthRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return CancelCpfAuthResponse
+     */
+    public function cancelCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人授权记录查询
+     * Summary: 个人授权记录查询.
+     *
+     * @param QueryCpfAuthRequest $request
+     *
+     * @return QueryCpfAuthResponse
+     */
+    public function queryCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人授权记录查询
+     * Summary: 个人授权记录查询.
+     *
+     * @param QueryCpfAuthRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryCpfAuthResponse
+     */
+    public function queryCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 可信数据流转授权
      * Summary: 授权.
      *
@@ -770,32 +875,32 @@ class Client
      * Description: 核身初始化接口
      * Summary: 核身初始化接口.
      *
-     * @param InitVerifyRequest $request
+     * @param InitCpfVerifyRequest $request
      *
-     * @return InitVerifyResponse
+     * @return InitCpfVerifyResponse
      */
-    public function initVerify($request)
+    public function initCpfVerify($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->initVerifyEx($request, $headers, $runtime);
+        return $this->initCpfVerifyEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 核身初始化接口
      * Summary: 核身初始化接口.
      *
-     * @param InitVerifyRequest $request
-     * @param string[]          $headers
-     * @param RuntimeOptions    $runtime
+     * @param InitCpfVerifyRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
      *
-     * @return InitVerifyResponse
+     * @return InitCpfVerifyResponse
      */
-    public function initVerifyEx($request, $headers, $runtime)
+    public function initCpfVerifyEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return InitVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.verify.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return InitCpfVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.verify.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\TDM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitVerifyResponse extends Model
+class QueryCpfAuthResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class InitVerifyResponse extends Model
      */
     public $resultMsg;
 
-    // 核身初始化返回信息
+    // 授权记录列表
     /**
-     * @var string
+     * @var AuthRecord[]
      */
-    public $resultObj;
+    public $authRecords;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'resultObj'  => 'result_obj',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'authRecords' => 'auth_records',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class InitVerifyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->resultObj) {
-            $res['result_obj'] = $this->resultObj;
+        if (null !== $this->authRecords) {
+            $res['auth_records'] = [];
+            if (null !== $this->authRecords && \is_array($this->authRecords)) {
+                $n = 0;
+                foreach ($this->authRecords as $item) {
+                    $res['auth_records'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class InitVerifyResponse extends Model
     /**
      * @param array $map
      *
-     * @return InitVerifyResponse
+     * @return QueryCpfAuthResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class InitVerifyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result_obj'])) {
-            $model->resultObj = $map['result_obj'];
+        if (isset($map['auth_records'])) {
+            if (!empty($map['auth_records'])) {
+                $model->authRecords = [];
+                $n                  = 0;
+                foreach ($map['auth_records'] as $item) {
+                    $model->authRecords[$n++] = null !== $item ? AuthRecord::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
