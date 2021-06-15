@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22'
+                    'sdk_version': '1.1.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22'
+                    'sdk_version': '1.1.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -811,6 +811,168 @@ class Client:
             await self.do_request_async('1.0', 'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_cpf_auth(
+        self,
+        request: tdm_models.ExecCpfAuthRequest,
+    ) -> tdm_models.ExecCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口
+        Summary: 授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_cpf_auth_ex(request, headers, runtime)
+
+    async def exec_cpf_auth_async(
+        self,
+        request: tdm_models.ExecCpfAuthRequest,
+    ) -> tdm_models.ExecCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口
+        Summary: 授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_cpf_auth_ex_async(request, headers, runtime)
+
+    def exec_cpf_auth_ex(
+        self,
+        request: tdm_models.ExecCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.ExecCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口
+        Summary: 授权接口
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.ExecCpfAuthResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.auth.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_cpf_auth_ex_async(
+        self,
+        request: tdm_models.ExecCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.ExecCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口
+        Summary: 授权接口
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.ExecCpfAuthResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.auth.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_cpf_auth(
+        self,
+        request: tdm_models.CancelCpfAuthRequest,
+    ) -> tdm_models.CancelCpfAuthResponse:
+        """
+        Description: 取消授权
+        Summary: 取消授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_cpf_auth_ex(request, headers, runtime)
+
+    async def cancel_cpf_auth_async(
+        self,
+        request: tdm_models.CancelCpfAuthRequest,
+    ) -> tdm_models.CancelCpfAuthResponse:
+        """
+        Description: 取消授权
+        Summary: 取消授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_cpf_auth_ex_async(request, headers, runtime)
+
+    def cancel_cpf_auth_ex(
+        self,
+        request: tdm_models.CancelCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.CancelCpfAuthResponse:
+        """
+        Description: 取消授权
+        Summary: 取消授权
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.CancelCpfAuthResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.auth.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_cpf_auth_ex_async(
+        self,
+        request: tdm_models.CancelCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.CancelCpfAuthResponse:
+        """
+        Description: 取消授权
+        Summary: 取消授权
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.CancelCpfAuthResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.auth.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cpf_auth(
+        self,
+        request: tdm_models.QueryCpfAuthRequest,
+    ) -> tdm_models.QueryCpfAuthResponse:
+        """
+        Description: 个人授权记录查询
+        Summary: 个人授权记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cpf_auth_ex(request, headers, runtime)
+
+    async def query_cpf_auth_async(
+        self,
+        request: tdm_models.QueryCpfAuthRequest,
+    ) -> tdm_models.QueryCpfAuthResponse:
+        """
+        Description: 个人授权记录查询
+        Summary: 个人授权记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cpf_auth_ex_async(request, headers, runtime)
+
+    def query_cpf_auth_ex(
+        self,
+        request: tdm_models.QueryCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfAuthResponse:
+        """
+        Description: 个人授权记录查询
+        Summary: 个人授权记录查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfAuthResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cpf_auth_ex_async(
+        self,
+        request: tdm_models.QueryCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfAuthResponse:
+        """
+        Description: 个人授权记录查询
+        Summary: 个人授权记录查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfAuthResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def exec_auth(
         self,
         request: tdm_models.ExecAuthRequest,
@@ -1135,56 +1297,56 @@ class Client:
             await self.do_request_async('1.0', 'antchain.tdm.authuse.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def init_verify(
+    def init_cpf_verify(
         self,
-        request: tdm_models.InitVerifyRequest,
-    ) -> tdm_models.InitVerifyResponse:
+        request: tdm_models.InitCpfVerifyRequest,
+    ) -> tdm_models.InitCpfVerifyResponse:
         """
         Description: 核身初始化接口
         Summary: 核身初始化接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.init_verify_ex(request, headers, runtime)
+        return self.init_cpf_verify_ex(request, headers, runtime)
 
-    async def init_verify_async(
+    async def init_cpf_verify_async(
         self,
-        request: tdm_models.InitVerifyRequest,
-    ) -> tdm_models.InitVerifyResponse:
+        request: tdm_models.InitCpfVerifyRequest,
+    ) -> tdm_models.InitCpfVerifyResponse:
         """
         Description: 核身初始化接口
         Summary: 核身初始化接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.init_verify_ex_async(request, headers, runtime)
+        return await self.init_cpf_verify_ex_async(request, headers, runtime)
 
-    def init_verify_ex(
+    def init_cpf_verify_ex(
         self,
-        request: tdm_models.InitVerifyRequest,
+        request: tdm_models.InitCpfVerifyRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tdm_models.InitVerifyResponse:
+    ) -> tdm_models.InitCpfVerifyResponse:
         """
         Description: 核身初始化接口
         Summary: 核身初始化接口
         """
         UtilClient.validate_model(request)
-        return tdm_models.InitVerifyResponse().from_map(
-            self.do_request('1.0', 'antchain.tdm.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return tdm_models.InitCpfVerifyResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def init_verify_ex_async(
+    async def init_cpf_verify_ex_async(
         self,
-        request: tdm_models.InitVerifyRequest,
+        request: tdm_models.InitCpfVerifyRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> tdm_models.InitVerifyResponse:
+    ) -> tdm_models.InitCpfVerifyResponse:
         """
         Description: 核身初始化接口
         Summary: 核身初始化接口
         """
         UtilClient.validate_model(request)
-        return tdm_models.InitVerifyResponse().from_map(
-            await self.do_request_async('1.0', 'antchain.tdm.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return tdm_models.InitCpfVerifyResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -839,6 +839,22 @@ class CpfUserLoanInfo(TeaModel):
         return self
 
 
+class CertificationInfo(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
 class IssueCertParams(TeaModel):
     def __init__(
         self,
@@ -2378,6 +2394,402 @@ class QueryCpfUserResponse(TeaModel):
         return self
 
 
+class ExecCpfAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        data_owner_identity: str = None,
+        data_owner_name: str = None,
+        authorized_identity: str = None,
+        authorized_name: str = None,
+        authorized_platform_identity: str = None,
+        provider_id: str = None,
+        target_code: str = None,
+        auth_agreement: AuthAgreement = None,
+        certification_info: CertificationInfo = None,
+        content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流水号
+        self.request_id = request_id
+        # 用户身份证ID
+        self.data_owner_identity = data_owner_identity
+        # 用户姓名
+        self.data_owner_name = data_owner_name
+        # 被授权机构ID
+        self.authorized_identity = authorized_identity
+        # 被授权机构名称
+        self.authorized_name = authorized_name
+        # 端ID
+        self.authorized_platform_identity = authorized_platform_identity
+        # 被授权公积金中心ID
+        self.provider_id = provider_id
+        # 授权标的
+        self.target_code = target_code
+        # 授权协议
+        self.auth_agreement = auth_agreement
+        # 核身信息
+        self.certification_info = certification_info
+        # 扩展字段
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.data_owner_identity, 'data_owner_identity')
+        self.validate_required(self.authorized_identity, 'authorized_identity')
+        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
+        self.validate_required(self.target_code, 'target_code')
+        self.validate_required(self.auth_agreement, 'auth_agreement')
+        if self.auth_agreement:
+            self.auth_agreement.validate()
+        if self.certification_info:
+            self.certification_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.data_owner_identity is not None:
+            result['data_owner_identity'] = self.data_owner_identity
+        if self.data_owner_name is not None:
+            result['data_owner_name'] = self.data_owner_name
+        if self.authorized_identity is not None:
+            result['authorized_identity'] = self.authorized_identity
+        if self.authorized_name is not None:
+            result['authorized_name'] = self.authorized_name
+        if self.authorized_platform_identity is not None:
+            result['authorized_platform_identity'] = self.authorized_platform_identity
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.target_code is not None:
+            result['target_code'] = self.target_code
+        if self.auth_agreement is not None:
+            result['auth_agreement'] = self.auth_agreement.to_map()
+        if self.certification_info is not None:
+            result['certification_info'] = self.certification_info.to_map()
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('data_owner_identity') is not None:
+            self.data_owner_identity = m.get('data_owner_identity')
+        if m.get('data_owner_name') is not None:
+            self.data_owner_name = m.get('data_owner_name')
+        if m.get('authorized_identity') is not None:
+            self.authorized_identity = m.get('authorized_identity')
+        if m.get('authorized_name') is not None:
+            self.authorized_name = m.get('authorized_name')
+        if m.get('authorized_platform_identity') is not None:
+            self.authorized_platform_identity = m.get('authorized_platform_identity')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('target_code') is not None:
+            self.target_code = m.get('target_code')
+        if m.get('auth_agreement') is not None:
+            temp_model = AuthAgreement()
+            self.auth_agreement = temp_model.from_map(m['auth_agreement'])
+        if m.get('certification_info') is not None:
+            temp_model = CertificationInfo()
+            self.certification_info = temp_model.from_map(m['certification_info'])
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class ExecCpfAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        auth_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权码
+        self.auth_code = auth_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        return self
+
+
+class CancelCpfAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        data_owner_identity: str = None,
+        authorized_platform_identity: str = None,
+        auth_code: str = None,
+        certification_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流水号
+        self.request_id = request_id
+        # 身份证ID
+        self.data_owner_identity = data_owner_identity
+        # 端ID
+        self.authorized_platform_identity = authorized_platform_identity
+        # 授权接口返回的授权码
+        self.auth_code = auth_code
+        # 核身信息
+        self.certification_info = certification_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.data_owner_identity, 'data_owner_identity')
+        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
+        self.validate_required(self.auth_code, 'auth_code')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.data_owner_identity is not None:
+            result['data_owner_identity'] = self.data_owner_identity
+        if self.authorized_platform_identity is not None:
+            result['authorized_platform_identity'] = self.authorized_platform_identity
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.certification_info is not None:
+            result['certification_info'] = self.certification_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('data_owner_identity') is not None:
+            self.data_owner_identity = m.get('data_owner_identity')
+        if m.get('authorized_platform_identity') is not None:
+            self.authorized_platform_identity = m.get('authorized_platform_identity')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('certification_info') is not None:
+            self.certification_info = m.get('certification_info')
+        return self
+
+
+class CancelCpfAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryCpfAuthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        data_owner_identity: str = None,
+        authorized_identity: str = None,
+        authorized_platform_identity: str = None,
+        target_code: str = None,
+        extend_params: str = None,
+        auth_state: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 身份证ID
+        self.data_owner_identity = data_owner_identity
+        # 被授权机构ID
+        self.authorized_identity = authorized_identity
+        # 端ID
+        self.authorized_platform_identity = authorized_platform_identity
+        # 标的产品码
+        self.target_code = target_code
+        # 扩展字段
+        self.extend_params = extend_params
+        # 授权状态
+        self.auth_state = auth_state
+
+    def validate(self):
+        self.validate_required(self.data_owner_identity, 'data_owner_identity')
+        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
+        self.validate_required(self.auth_state, 'auth_state')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.data_owner_identity is not None:
+            result['data_owner_identity'] = self.data_owner_identity
+        if self.authorized_identity is not None:
+            result['authorized_identity'] = self.authorized_identity
+        if self.authorized_platform_identity is not None:
+            result['authorized_platform_identity'] = self.authorized_platform_identity
+        if self.target_code is not None:
+            result['target_code'] = self.target_code
+        if self.extend_params is not None:
+            result['extend_params'] = self.extend_params
+        if self.auth_state is not None:
+            result['auth_state'] = self.auth_state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('data_owner_identity') is not None:
+            self.data_owner_identity = m.get('data_owner_identity')
+        if m.get('authorized_identity') is not None:
+            self.authorized_identity = m.get('authorized_identity')
+        if m.get('authorized_platform_identity') is not None:
+            self.authorized_platform_identity = m.get('authorized_platform_identity')
+        if m.get('target_code') is not None:
+            self.target_code = m.get('target_code')
+        if m.get('extend_params') is not None:
+            self.extend_params = m.get('extend_params')
+        if m.get('auth_state') is not None:
+            self.auth_state = m.get('auth_state')
+        return self
+
+
+class QueryCpfAuthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        auth_records: List[AuthRecord] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权记录列表
+        self.auth_records = auth_records
+
+    def validate(self):
+        if self.auth_records:
+            for k in self.auth_records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['auth_records'] = []
+        if self.auth_records is not None:
+            for k in self.auth_records:
+                result['auth_records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.auth_records = []
+        if m.get('auth_records') is not None:
+            for k in m.get('auth_records'):
+                temp_model = AuthRecord()
+                self.auth_records.append(temp_model.from_map(k))
+        return self
+
+
 class ExecAuthRequest(TeaModel):
     def __init__(
         self,
@@ -3182,32 +3594,20 @@ class ExecAuthuseResponse(TeaModel):
         return self
 
 
-class InitVerifyRequest(TeaModel):
+class InitCpfVerifyRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        authorized_identity: str = None,
-        authorized_platform_identity: str = None,
-        certification_type: str = None,
         certification_request: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 被授权机构ID（统一社会信用代码）
-        self.authorized_identity = authorized_identity
-        # 核身发起端
-        self.authorized_platform_identity = authorized_platform_identity
-        # 刷脸产品类型
-        self.certification_type = certification_type
         # 核身初始化请求信息
         self.certification_request = certification_request
 
     def validate(self):
-        self.validate_required(self.authorized_identity, 'authorized_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
-        self.validate_required(self.certification_type, 'certification_type')
         self.validate_required(self.certification_request, 'certification_request')
 
     def to_map(self):
@@ -3216,12 +3616,6 @@ class InitVerifyRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.authorized_identity is not None:
-            result['authorized_identity'] = self.authorized_identity
-        if self.authorized_platform_identity is not None:
-            result['authorized_platform_identity'] = self.authorized_platform_identity
-        if self.certification_type is not None:
-            result['certification_type'] = self.certification_type
         if self.certification_request is not None:
             result['certification_request'] = self.certification_request
         return result
@@ -3232,18 +3626,12 @@ class InitVerifyRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('authorized_identity') is not None:
-            self.authorized_identity = m.get('authorized_identity')
-        if m.get('authorized_platform_identity') is not None:
-            self.authorized_platform_identity = m.get('authorized_platform_identity')
-        if m.get('certification_type') is not None:
-            self.certification_type = m.get('certification_type')
         if m.get('certification_request') is not None:
             self.certification_request = m.get('certification_request')
         return self
 
 
-class InitVerifyResponse(TeaModel):
+class InitCpfVerifyResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
