@@ -329,6 +329,12 @@ type TokenOperationDetail struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 订单编号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 兑现请求标识字段
+	WithdrawRequestId *string `json:"withdraw_request_id,omitempty" xml:"withdraw_request_id,omitempty" require:"true"`
+	// 提现总金额，单位分个
+	WithdrawAmount *int64 `json:"withdraw_amount,omitempty" xml:"withdraw_amount,omitempty" require:"true"`
+	// 提现时token价格，单位分个
+	TokenPrice *int64 `json:"token_price,omitempty" xml:"token_price,omitempty" require:"true"`
 }
 
 func (s TokenOperationDetail) String() string {
@@ -366,6 +372,21 @@ func (s *TokenOperationDetail) SetBizId(v string) *TokenOperationDetail {
 
 func (s *TokenOperationDetail) SetOrderNo(v string) *TokenOperationDetail {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *TokenOperationDetail) SetWithdrawRequestId(v string) *TokenOperationDetail {
+	s.WithdrawRequestId = &v
+	return s
+}
+
+func (s *TokenOperationDetail) SetWithdrawAmount(v int64) *TokenOperationDetail {
+	s.WithdrawAmount = &v
+	return s
+}
+
+func (s *TokenOperationDetail) SetTokenPrice(v int64) *TokenOperationDetail {
+	s.TokenPrice = &v
 	return s
 }
 
@@ -2776,6 +2797,132 @@ func (s *QueryTppParticipationinfoResponse) SetAccumulativeRevenue(v *Accumulati
 	return s
 }
 
+type ExecWithdrawCreateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// project_id，合约对应的项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 兑现Token个数
+	WithdrawToken *string `json:"withdraw_token,omitempty" xml:"withdraw_token,omitempty" require:"true"`
+	// 兑现总额 单位：分
+	WithdrawAmountCent *int64 `json:"withdraw_amount_cent,omitempty" xml:"withdraw_amount_cent,omitempty" require:"true"`
+	// Token单价 单位：分
+	WithdrawTokenPriceCent *int64 `json:"withdraw_token_price_cent,omitempty" xml:"withdraw_token_price_cent,omitempty" require:"true"`
+	// 业务单号，同一调用方全局唯一
+	WithdrawRequestId *string `json:"withdraw_request_id,omitempty" xml:"withdraw_request_id,omitempty" require:"true"`
+	// 用户账号类型：PHONE / ALIPAY_LOGON_ID / ALIPAY_UID
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// 回跳地址（签约税优使用，使用小程序页面地址）
+	BackUrl *string `json:"back_url,omitempty" xml:"back_url,omitempty" require:"true"`
+	// 支付宝用户唯一标识
+	UserIdNo *string `json:"user_id_no,omitempty" xml:"user_id_no,omitempty" require:"true"`
+}
+
+func (s ExecWithdrawCreateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecWithdrawCreateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecWithdrawCreateRequest) SetAuthToken(v string) *ExecWithdrawCreateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetProductInstanceId(v string) *ExecWithdrawCreateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetProjectId(v string) *ExecWithdrawCreateRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetWithdrawToken(v string) *ExecWithdrawCreateRequest {
+	s.WithdrawToken = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetWithdrawAmountCent(v int64) *ExecWithdrawCreateRequest {
+	s.WithdrawAmountCent = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetWithdrawTokenPriceCent(v int64) *ExecWithdrawCreateRequest {
+	s.WithdrawTokenPriceCent = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetWithdrawRequestId(v string) *ExecWithdrawCreateRequest {
+	s.WithdrawRequestId = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetUserIdType(v string) *ExecWithdrawCreateRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetBackUrl(v string) *ExecWithdrawCreateRequest {
+	s.BackUrl = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateRequest) SetUserIdNo(v string) *ExecWithdrawCreateRequest {
+	s.UserIdNo = &v
+	return s
+}
+
+type ExecWithdrawCreateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 兑现状态：ACCEPTED / FAILED
+	WithdrawStatus *string `json:"withdraw_status,omitempty" xml:"withdraw_status,omitempty"`
+	// 税优签约链接
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+}
+
+func (s ExecWithdrawCreateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecWithdrawCreateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecWithdrawCreateResponse) SetReqMsgId(v string) *ExecWithdrawCreateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateResponse) SetResultCode(v string) *ExecWithdrawCreateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateResponse) SetResultMsg(v string) *ExecWithdrawCreateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateResponse) SetWithdrawStatus(v string) *ExecWithdrawCreateResponse {
+	s.WithdrawStatus = &v
+	return s
+}
+
+func (s *ExecWithdrawCreateResponse) SetSignUrl(v string) *ExecWithdrawCreateResponse {
+	s.SignUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2898,7 +3045,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.8"),
+				"sdk_version":      tea.String("1.4.17"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3585,6 +3732,40 @@ func (client *Client) QueryTppParticipationinfoEx(request *QueryTppParticipation
 	}
 	_result = &QueryTppParticipationinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ent.tpp.participationinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 兑现请求提交接口
+ * Summary: 兑现请求提交
+ */
+func (client *Client) ExecWithdrawCreate(request *ExecWithdrawCreateRequest) (_result *ExecWithdrawCreateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecWithdrawCreateResponse{}
+	_body, _err := client.ExecWithdrawCreateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 兑现请求提交接口
+ * Summary: 兑现请求提交
+ */
+func (client *Client) ExecWithdrawCreateEx(request *ExecWithdrawCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecWithdrawCreateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecWithdrawCreateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ent.withdraw.create.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
