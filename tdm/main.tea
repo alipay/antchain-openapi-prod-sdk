@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.22',
+    sdk_version = '1.1.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -355,6 +355,10 @@ model CpfUserLoanInfo {
   loanBalance: string(name='loan_balance', example='"123.56"'),
   // 贷款合同状态
   loanStatus: string(name='loan_status', example='贷款结清'),
+}
+
+// 核身信息, 授权时传入
+model CertificationInfo {
 }
 
 // 证明开具参数，填入证明开具接口的 extendParams 部分
@@ -913,6 +917,156 @@ async function queryCpfUserEx(request: QueryCpfUserRequest, headers: map[string]
   return doRequest('1.0' ,'antchain.tdm.cpf.user.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecCpfAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流水号
+  requestId: string(name='request_id'),
+  // 用户身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 用户姓名
+  dataOwnerName?: string(name='data_owner_name'),
+  // 被授权机构ID
+  authorizedIdentity: string(name='authorized_identity'),
+  // 被授权机构名称
+  authorizedName?: string(name='authorized_name'),
+  // 端ID
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 被授权公积金中心ID
+  providerId?: string(name='provider_id'),
+  // 授权标的
+  targetCode: string(name='target_code'),
+  // 授权协议
+  authAgreement: AuthAgreement(name='auth_agreement'),
+  // 核身信息
+  certificationInfo?: CertificationInfo(name='certification_info'),
+  // 扩展字段
+  content?: string(name='content'),
+}
+
+model ExecCpfAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权码
+  authCode?: string(name='auth_code'),
+}
+
+/**
+ * Description: 公积金业务授权接口
+ * Summary: 授权接口
+ */
+async function execCpfAuth(request: ExecCpfAuthRequest): ExecCpfAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execCpfAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 公积金业务授权接口
+ * Summary: 授权接口
+ */
+async function execCpfAuthEx(request: ExecCpfAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecCpfAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.auth.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelCpfAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流水号
+  requestId: string(name='request_id'),
+  // 身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 端ID
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 授权接口返回的授权码
+  authCode: string(name='auth_code'),
+  // 核身信息
+  certificationInfo?: string(name='certification_info'),
+}
+
+model CancelCpfAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 取消授权
+ * Summary: 取消授权
+ */
+async function cancelCpfAuth(request: CancelCpfAuthRequest): CancelCpfAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelCpfAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消授权
+ * Summary: 取消授权
+ */
+async function cancelCpfAuthEx(request: CancelCpfAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelCpfAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.auth.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCpfAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证ID
+  dataOwnerIdentity: string(name='data_owner_identity'),
+  // 被授权机构ID
+  authorizedIdentity?: string(name='authorized_identity'),
+  // 端ID
+  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  // 标的产品码
+  targetCode?: string(name='target_code'),
+  // 扩展字段
+  extendParams?: string(name='extend_params'),
+  // 授权状态
+  authState: string(name='auth_state'),
+}
+
+model QueryCpfAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权记录列表
+  authRecords?: [ AuthRecord ](name='auth_records'),
+}
+
+/**
+ * Description: 个人授权记录查询
+ * Summary: 个人授权记录查询
+ */
+async function queryCpfAuth(request: QueryCpfAuthRequest): QueryCpfAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCpfAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人授权记录查询
+ * Summary: 个人授权记录查询
+ */
+async function queryCpfAuthEx(request: QueryCpfAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCpfAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.auth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ExecAuthRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1265,21 +1419,15 @@ async function execAuthuseEx(request: ExecAuthuseRequest, headers: map[string]st
   return doRequest('1.0' ,'antchain.tdm.authuse.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model InitVerifyRequest = {
+model InitCpfVerifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 被授权机构ID（统一社会信用代码）
-  authorizedIdentity: string(name='authorized_identity'),
-  // 核身发起端
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
-  // 刷脸产品类型
-  certificationType: string(name='certification_type'),
   // 核身初始化请求信息
   certificationRequest: string(name='certification_request'),
 }
 
-model InitVerifyResponse = {
+model InitCpfVerifyResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -1294,18 +1442,18 @@ model InitVerifyResponse = {
  * Description: 核身初始化接口
  * Summary: 核身初始化接口
  */
-async function initVerify(request: InitVerifyRequest): InitVerifyResponse {
+async function initCpfVerify(request: InitCpfVerifyRequest): InitCpfVerifyResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return initVerifyEx(request, headers, runtime);
+  return initCpfVerifyEx(request, headers, runtime);
 }
 
 /**
  * Description: 核身初始化接口
  * Summary: 核身初始化接口
  */
-async function initVerifyEx(request: InitVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitVerifyResponse {
+async function initCpfVerifyEx(request: InitCpfVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCpfVerifyResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.tdm.verify.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.tdm.cpf.verify.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
