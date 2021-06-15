@@ -8,13 +8,29 @@ use AlibabaCloud\Tea\Model;
 
 class CertificationInfo extends Model
 {
+    // 是否授权
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $certificationFlag;
+    protected $_name = [
+        'certificationFlag' => 'certification_flag',
+    ];
+
     public function validate()
     {
     }
 
     public function toMap()
     {
-        return [];
+        $res = [];
+        if (null !== $this->certificationFlag) {
+            $res['certification_flag'] = $this->certificationFlag;
+        }
+
+        return $res;
     }
 
     /**
@@ -24,6 +40,11 @@ class CertificationInfo extends Model
      */
     public static function fromMap($map = [])
     {
-        return new self();
+        $model = new self();
+        if (isset($map['certification_flag'])) {
+            $model->certificationFlag = $map['certification_flag'];
+        }
+
+        return $model;
     }
 }
