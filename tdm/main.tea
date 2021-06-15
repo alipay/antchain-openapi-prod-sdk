@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -359,6 +359,8 @@ model CpfUserLoanInfo {
 
 // 核身信息, 授权时传入
 model CertificationInfo {
+  // 是否授权
+  certificationFlag?: boolean(name='certification_flag', example='true, false'),
 }
 
 // 证明开具参数，填入证明开具接口的 extendParams 部分
