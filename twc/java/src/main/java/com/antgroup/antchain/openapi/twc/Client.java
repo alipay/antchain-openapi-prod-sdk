@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.3")
+                    new TeaPair("sdk_version", "1.5.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1852,6 +1852,63 @@ public class Client {
     public QueryJusticeMediationResponse queryJusticeMediationEx(QueryJusticeMediationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.mediation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeMediationResponse());
+    }
+
+    /**
+     * Description: 汇裁证据要素查询接口
+     * Summary: 汇裁证据要素查询接口
+     */
+    public QueryJusticeCaseinfoResponse queryJusticeCaseinfo(QueryJusticeCaseinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryJusticeCaseinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 汇裁证据要素查询接口
+     * Summary: 汇裁证据要素查询接口
+     */
+    public QueryJusticeCaseinfoResponse queryJusticeCaseinfoEx(QueryJusticeCaseinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.caseinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeCaseinfoResponse());
+    }
+
+    /**
+     * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+     * Summary: 获取OSS文件上传路径
+     */
+    public GetJusticeGetuploadfilepathResponse getJusticeGetuploadfilepath(GetJusticeGetuploadfilepathRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getJusticeGetuploadfilepathEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
+     * Summary: 获取OSS文件上传路径
+     */
+    public GetJusticeGetuploadfilepathResponse getJusticeGetuploadfilepathEx(GetJusticeGetuploadfilepathRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetJusticeGetuploadfilepathResponse());
+    }
+
+    /**
+     * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+     * Summary: 自动进件案件回写
+     */
+    public CreateJusticeCasewritebackResponse createJusticeCasewriteback(CreateJusticeCasewritebackRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeCasewritebackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
+     * Summary: 自动进件案件回写
+     */
+    public CreateJusticeCasewritebackResponse createJusticeCasewritebackEx(CreateJusticeCasewritebackRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.casewriteback.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeCasewritebackResponse());
     }
 
     /**

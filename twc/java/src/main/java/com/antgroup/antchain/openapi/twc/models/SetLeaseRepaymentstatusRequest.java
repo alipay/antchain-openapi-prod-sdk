@@ -30,6 +30,14 @@ public class SetLeaseRepaymentstatusRequest extends TeaModel {
     @Validation(required = true)
     public Long finish;
 
+    // 原所有权人金融科技租户id
+    @NameInMap("old_ownership_id")
+    public String oldOwnershipId;
+
+    // 新所有权人租户id
+    @NameInMap("new_ownership_id")
+    public String newOwnershipId;
+
     public static SetLeaseRepaymentstatusRequest build(java.util.Map<String, ?> map) throws Exception {
         SetLeaseRepaymentstatusRequest self = new SetLeaseRepaymentstatusRequest();
         return TeaModel.build(map, self);
@@ -81,6 +89,22 @@ public class SetLeaseRepaymentstatusRequest extends TeaModel {
     }
     public Long getFinish() {
         return this.finish;
+    }
+
+    public SetLeaseRepaymentstatusRequest setOldOwnershipId(String oldOwnershipId) {
+        this.oldOwnershipId = oldOwnershipId;
+        return this;
+    }
+    public String getOldOwnershipId() {
+        return this.oldOwnershipId;
+    }
+
+    public SetLeaseRepaymentstatusRequest setNewOwnershipId(String newOwnershipId) {
+        this.newOwnershipId = newOwnershipId;
+        return this;
+    }
+    public String getNewOwnershipId() {
+        return this.newOwnershipId;
     }
 
 }
