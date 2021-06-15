@@ -137,7 +137,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.1.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.1.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -738,6 +738,132 @@ namespace AntChain.SDK.TDM
         }
 
         /**
+         * Description: 公积金业务授权接口
+         * Summary: 授权接口
+         */
+        public ExecCpfAuthResponse ExecCpfAuth(ExecCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecCpfAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公积金业务授权接口
+         * Summary: 授权接口
+         */
+        public async Task<ExecCpfAuthResponse> ExecCpfAuthAsync(ExecCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecCpfAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公积金业务授权接口
+         * Summary: 授权接口
+         */
+        public ExecCpfAuthResponse ExecCpfAuthEx(ExecCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecCpfAuthResponse>(DoRequest("1.0", "antchain.tdm.cpf.auth.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公积金业务授权接口
+         * Summary: 授权接口
+         */
+        public async Task<ExecCpfAuthResponse> ExecCpfAuthExAsync(ExecCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecCpfAuthResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.auth.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消授权
+         * Summary: 取消授权
+         */
+        public CancelCpfAuthResponse CancelCpfAuth(CancelCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelCpfAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消授权
+         * Summary: 取消授权
+         */
+        public async Task<CancelCpfAuthResponse> CancelCpfAuthAsync(CancelCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelCpfAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消授权
+         * Summary: 取消授权
+         */
+        public CancelCpfAuthResponse CancelCpfAuthEx(CancelCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelCpfAuthResponse>(DoRequest("1.0", "antchain.tdm.cpf.auth.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消授权
+         * Summary: 取消授权
+         */
+        public async Task<CancelCpfAuthResponse> CancelCpfAuthExAsync(CancelCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelCpfAuthResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.auth.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人授权记录查询
+         * Summary: 个人授权记录查询
+         */
+        public QueryCpfAuthResponse QueryCpfAuth(QueryCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCpfAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人授权记录查询
+         * Summary: 个人授权记录查询
+         */
+        public async Task<QueryCpfAuthResponse> QueryCpfAuthAsync(QueryCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCpfAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人授权记录查询
+         * Summary: 个人授权记录查询
+         */
+        public QueryCpfAuthResponse QueryCpfAuthEx(QueryCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfAuthResponse>(DoRequest("1.0", "antchain.tdm.cpf.auth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人授权记录查询
+         * Summary: 个人授权记录查询
+         */
+        public async Task<QueryCpfAuthResponse> QueryCpfAuthExAsync(QueryCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfAuthResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.auth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 可信数据流转授权
          * Summary: 授权
          */
@@ -993,42 +1119,42 @@ namespace AntChain.SDK.TDM
          * Description: 核身初始化接口
          * Summary: 核身初始化接口
          */
-        public InitVerifyResponse InitVerify(InitVerifyRequest request)
+        public InitCpfVerifyResponse InitCpfVerify(InitCpfVerifyRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return InitVerifyEx(request, headers, runtime);
+            return InitCpfVerifyEx(request, headers, runtime);
         }
 
         /**
          * Description: 核身初始化接口
          * Summary: 核身初始化接口
          */
-        public async Task<InitVerifyResponse> InitVerifyAsync(InitVerifyRequest request)
+        public async Task<InitCpfVerifyResponse> InitCpfVerifyAsync(InitCpfVerifyRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await InitVerifyExAsync(request, headers, runtime);
+            return await InitCpfVerifyExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 核身初始化接口
          * Summary: 核身初始化接口
          */
-        public InitVerifyResponse InitVerifyEx(InitVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public InitCpfVerifyResponse InitCpfVerifyEx(InitCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitVerifyResponse>(DoRequest("1.0", "antchain.tdm.verify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<InitCpfVerifyResponse>(DoRequest("1.0", "antchain.tdm.cpf.verify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 核身初始化接口
          * Summary: 核身初始化接口
          */
-        public async Task<InitVerifyResponse> InitVerifyExAsync(InitVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<InitCpfVerifyResponse> InitCpfVerifyExAsync(InitCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitVerifyResponse>(await DoRequestAsync("1.0", "antchain.tdm.verify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<InitCpfVerifyResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.verify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

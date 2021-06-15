@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TDM.Models
 {
-    public class InitVerifyRequest : TeaModel {
+    public class QueryCpfAuthRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,35 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 被授权机构ID（统一社会信用代码）
-        [NameInMap("authorized_identity")]
+        // 身份证ID
+        [NameInMap("data_owner_identity")]
         [Validation(Required=true)]
+        public string DataOwnerIdentity { get; set; }
+
+        // 被授权机构ID
+        [NameInMap("authorized_identity")]
+        [Validation(Required=false)]
         public string AuthorizedIdentity { get; set; }
 
-        // 核身发起端
+        // 端ID
         [NameInMap("authorized_platform_identity")]
         [Validation(Required=true)]
         public string AuthorizedPlatformIdentity { get; set; }
 
-        // 刷脸产品类型
-        [NameInMap("certification_type")]
-        [Validation(Required=true)]
-        public string CertificationType { get; set; }
+        // 标的产品码
+        [NameInMap("target_code")]
+        [Validation(Required=false)]
+        public string TargetCode { get; set; }
 
-        // 核身初始化请求信息
-        [NameInMap("certification_request")]
+        // 扩展字段
+        [NameInMap("extend_params")]
+        [Validation(Required=false)]
+        public string ExtendParams { get; set; }
+
+        // 授权状态
+        [NameInMap("auth_state")]
         [Validation(Required=true)]
-        public string CertificationRequest { get; set; }
+        public string AuthState { get; set; }
 
     }
 
