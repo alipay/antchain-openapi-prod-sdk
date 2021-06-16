@@ -902,55 +902,19 @@ class DistributeDataPackage(TeaModel):
 class LabelTrace(TeaModel):
     def __init__(
         self,
-        scene: str = None,
-        label_id: str = None,
-        label_status: str = None,
-        asset_id: str = None,
-        operator: str = None,
-        owner: str = None,
-        process: str = None,
-        action: str = None,
-        operate_time: int = None,
-        operate_device: str = None,
         content: str = None,
         tx_hash: str = None,
         tx_time: str = None,
-        block_number: int = None,
-        request_id: str = None,
         error_code: str = None,
         error_msg: str = None,
         is_success: bool = None,
     ):
-        # 场景码
-        self.scene = scene
-        # 标签id
-        self.label_id = label_id
-        # 标签状态
-        self.label_status = label_status
-        # 资产Id
-        self.asset_id = asset_id
-        # 操作员
-        self.operator = operator
-        # 标签拥有者
-        self.owner = owner
-        # 标签所处流程
-        self.process = process
-        # 标签操作
-        self.action = action
-        # 操作时间
-        self.operate_time = operate_time
-        # 操作设备
-        self.operate_device = operate_device
         # 操作内容
         self.content = content
         # 链上哈希
         self.tx_hash = tx_hash
         # 上链时间
         self.tx_time = tx_time
-        # 区块链高度
-        self.block_number = block_number
-        # 请求ID
-        self.request_id = request_id
         # 上链失败的错误码
         self.error_code = error_code
         # 上链失败的错误信息
@@ -959,44 +923,18 @@ class LabelTrace(TeaModel):
         self.is_success = is_success
 
     def validate(self):
-        self.validate_required(self.scene, 'scene')
-        self.validate_required(self.label_id, 'label_id')
-        self.validate_required(self.label_status, 'label_status')
-        self.validate_required(self.operate_time, 'operate_time')
         self.validate_required(self.tx_hash, 'tx_hash')
+        if self.tx_time is not None:
+            self.validate_pattern(self.tx_time, 'tx_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
-        if self.scene is not None:
-            result['scene'] = self.scene
-        if self.label_id is not None:
-            result['label_id'] = self.label_id
-        if self.label_status is not None:
-            result['label_status'] = self.label_status
-        if self.asset_id is not None:
-            result['asset_id'] = self.asset_id
-        if self.operator is not None:
-            result['operator'] = self.operator
-        if self.owner is not None:
-            result['owner'] = self.owner
-        if self.process is not None:
-            result['process'] = self.process
-        if self.action is not None:
-            result['action'] = self.action
-        if self.operate_time is not None:
-            result['operate_time'] = self.operate_time
-        if self.operate_device is not None:
-            result['operate_device'] = self.operate_device
         if self.content is not None:
             result['content'] = self.content
         if self.tx_hash is not None:
             result['tx_hash'] = self.tx_hash
         if self.tx_time is not None:
             result['tx_time'] = self.tx_time
-        if self.block_number is not None:
-            result['block_number'] = self.block_number
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.error_code is not None:
             result['error_code'] = self.error_code
         if self.error_msg is not None:
@@ -1007,36 +945,12 @@ class LabelTrace(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('scene') is not None:
-            self.scene = m.get('scene')
-        if m.get('label_id') is not None:
-            self.label_id = m.get('label_id')
-        if m.get('label_status') is not None:
-            self.label_status = m.get('label_status')
-        if m.get('asset_id') is not None:
-            self.asset_id = m.get('asset_id')
-        if m.get('operator') is not None:
-            self.operator = m.get('operator')
-        if m.get('owner') is not None:
-            self.owner = m.get('owner')
-        if m.get('process') is not None:
-            self.process = m.get('process')
-        if m.get('action') is not None:
-            self.action = m.get('action')
-        if m.get('operate_time') is not None:
-            self.operate_time = m.get('operate_time')
-        if m.get('operate_device') is not None:
-            self.operate_device = m.get('operate_device')
         if m.get('content') is not None:
             self.content = m.get('content')
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
         if m.get('tx_time') is not None:
             self.tx_time = m.get('tx_time')
-        if m.get('block_number') is not None:
-            self.block_number = m.get('block_number')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('error_code') is not None:
             self.error_code = m.get('error_code')
         if m.get('error_msg') is not None:
@@ -6870,7 +6784,8 @@ class QueryLabelTraceRequest(TeaModel):
         owner: str = None,
         process: str = None,
         action: str = None,
-        operate_time: int = None,
+        start_time: str = None,
+        end_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6891,11 +6806,16 @@ class QueryLabelTraceRequest(TeaModel):
         self.process = process
         # 标签操作
         self.action = action
-        # 操作时间
-        self.operate_time = operate_time
+        # 开始时间
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
 
     def validate(self):
-        pass
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.end_time is not None:
+            self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
@@ -6919,8 +6839,10 @@ class QueryLabelTraceRequest(TeaModel):
             result['process'] = self.process
         if self.action is not None:
             result['action'] = self.action
-        if self.operate_time is not None:
-            result['operate_time'] = self.operate_time
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
         return result
 
     def from_map(self, m: dict = None):
@@ -6945,8 +6867,10 @@ class QueryLabelTraceRequest(TeaModel):
             self.process = m.get('process')
         if m.get('action') is not None:
             self.action = m.get('action')
-        if m.get('operate_time') is not None:
-            self.operate_time = m.get('operate_time')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
         return self
 
 
