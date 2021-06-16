@@ -8,13 +8,21 @@ use AlibabaCloud\Tea\Model;
 
 class File extends Model
 {
-    // 文件的可访问路径
+    // 原文件的可访问路径
     /**
-     * @example 文件的可访问路径
+     * @example 原文件的可访问路径
      *
      * @var string
      */
-    public $path;
+    public $originalFilePath;
+
+    // 缩略图的可访问路径
+    /**
+     * @example 缩略图的可访问路径
+     *
+     * @var string
+     */
+    public $miniImagePath;
 
     // 文件名称
     /**
@@ -34,14 +42,16 @@ class File extends Model
      */
     public $type;
     protected $_name = [
-        'path' => 'path',
-        'name' => 'name',
-        'type' => 'type',
+        'originalFilePath' => 'original_file_path',
+        'miniImagePath'    => 'mini_image_path',
+        'name'             => 'name',
+        'type'             => 'type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('path', $this->path, true);
+        Model::validateRequired('originalFilePath', $this->originalFilePath, true);
+        Model::validateRequired('miniImagePath', $this->miniImagePath, true);
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('type', $this->type, true);
     }
@@ -49,8 +59,11 @@ class File extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->path) {
-            $res['path'] = $this->path;
+        if (null !== $this->originalFilePath) {
+            $res['original_file_path'] = $this->originalFilePath;
+        }
+        if (null !== $this->miniImagePath) {
+            $res['mini_image_path'] = $this->miniImagePath;
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
@@ -70,8 +83,11 @@ class File extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['path'])) {
-            $model->path = $map['path'];
+        if (isset($map['original_file_path'])) {
+            $model->originalFilePath = $map['original_file_path'];
+        }
+        if (isset($map['mini_image_path'])) {
+            $model->miniImagePath = $map['mini_image_path'];
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];

@@ -28,7 +28,7 @@ class QueryNftCreateResponse extends Model
 
     // NFT发行成功的商品id
     /**
-     * @var string
+     * @var int
      */
     public $skuId;
 

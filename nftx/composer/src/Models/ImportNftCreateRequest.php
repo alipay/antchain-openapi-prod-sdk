@@ -45,12 +45,6 @@ class ImportNftCreateRequest extends Model
      */
     public $quantity;
 
-    // 是否支持C2C流转：true是可流转，false是不可流转；
-    /**
-     * @var bool
-     */
-    public $enableC2c;
-
     // 艺术品作者
     /**
      * @var string
@@ -99,7 +93,6 @@ class ImportNftCreateRequest extends Model
         'skuName'           => 'sku_name',
         'skuType'           => 'sku_type',
         'quantity'          => 'quantity',
-        'enableC2c'         => 'enable_c2c',
         'author'            => 'author',
         'owner'             => 'owner',
         'createTime'        => 'create_time',
@@ -115,7 +108,6 @@ class ImportNftCreateRequest extends Model
         Model::validateRequired('skuName', $this->skuName, true);
         Model::validateRequired('skuType', $this->skuType, true);
         Model::validateRequired('quantity', $this->quantity, true);
-        Model::validateRequired('enableC2c', $this->enableC2c, true);
         Model::validateRequired('author', $this->author, true);
         Model::validateRequired('owner', $this->owner, true);
         Model::validateRequired('createTime', $this->createTime, true);
@@ -144,9 +136,6 @@ class ImportNftCreateRequest extends Model
         }
         if (null !== $this->quantity) {
             $res['quantity'] = $this->quantity;
-        }
-        if (null !== $this->enableC2c) {
-            $res['enable_c2c'] = $this->enableC2c;
         }
         if (null !== $this->author) {
             $res['author'] = $this->author;
@@ -204,9 +193,6 @@ class ImportNftCreateRequest extends Model
         }
         if (isset($map['quantity'])) {
             $model->quantity = $map['quantity'];
-        }
-        if (isset($map['enable_c2c'])) {
-            $model->enableC2c = $map['enable_c2c'];
         }
         if (isset($map['author'])) {
             $model->author = $map['author'];
