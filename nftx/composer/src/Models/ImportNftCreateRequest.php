@@ -6,7 +6,7 @@ namespace AntChain\NFTX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportNftCreateandpublishRequest extends Model
+class ImportNftCreateRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -89,7 +89,7 @@ class ImportNftCreateandpublishRequest extends Model
 
     // nft发行的艺术品文件
     /**
-     * @var File
+     * @var File[]
      */
     public $files;
     protected $_name = [
@@ -167,7 +167,13 @@ class ImportNftCreateandpublishRequest extends Model
             $res['jump_url'] = $this->jumpUrl;
         }
         if (null !== $this->files) {
-            $res['files'] = null !== $this->files ? $this->files->toMap() : null;
+            $res['files'] = [];
+            if (null !== $this->files && \is_array($this->files)) {
+                $n = 0;
+                foreach ($this->files as $item) {
+                    $res['files'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -176,7 +182,7 @@ class ImportNftCreateandpublishRequest extends Model
     /**
      * @param array $map
      *
-     * @return ImportNftCreateandpublishRequest
+     * @return ImportNftCreateRequest
      */
     public static function fromMap($map = [])
     {
@@ -221,7 +227,13 @@ class ImportNftCreateandpublishRequest extends Model
             $model->jumpUrl = $map['jump_url'];
         }
         if (isset($map['files'])) {
-            $model->files = File::fromMap($map['files']);
+            if (!empty($map['files'])) {
+                $model->files = [];
+                $n            = 0;
+                foreach ($map['files'] as $item) {
+                    $model->files[$n++] = null !== $item ? File::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

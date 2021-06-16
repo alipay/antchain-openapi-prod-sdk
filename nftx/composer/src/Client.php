@@ -11,8 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\NFTX\Models\ImportNftCreateandpublishRequest;
-use AntChain\NFTX\Models\ImportNftCreateandpublishResponse;
+use AntChain\NFTX\Models\ExecNftTransferRequest;
+use AntChain\NFTX\Models\ExecNftTransferResponse;
+use AntChain\NFTX\Models\ImportNftCreateRequest;
+use AntChain\NFTX\Models\ImportNftCreateResponse;
+use AntChain\NFTX\Models\QueryNftCreateRequest;
+use AntChain\NFTX\Models\QueryNftCreateResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -160,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -210,32 +214,98 @@ class Client
      * Description: B端商户的NFT发行
      * Summary: B端商户的NFT发行.
      *
-     * @param ImportNftCreateandpublishRequest $request
+     * @param ImportNftCreateRequest $request
      *
-     * @return ImportNftCreateandpublishResponse
+     * @return ImportNftCreateResponse
      */
-    public function importNftCreateandpublish($request)
+    public function importNftCreate($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->importNftCreateandpublishEx($request, $headers, $runtime);
+        return $this->importNftCreateEx($request, $headers, $runtime);
     }
 
     /**
      * Description: B端商户的NFT发行
      * Summary: B端商户的NFT发行.
      *
-     * @param ImportNftCreateandpublishRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param ImportNftCreateRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
      *
-     * @return ImportNftCreateandpublishResponse
+     * @return ImportNftCreateResponse
      */
-    public function importNftCreateandpublishEx($request, $headers, $runtime)
+    public function importNftCreateEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ImportNftCreateandpublishResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.createandpublish.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ImportNftCreateResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.create.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: B端商户的NFT发行后查询
+     * Summary: B端商户的NFT发行后查询.
+     *
+     * @param QueryNftCreateRequest $request
+     *
+     * @return QueryNftCreateResponse
+     */
+    public function queryNftCreate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: B端商户的NFT发行后查询
+     * Summary: B端商户的NFT发行后查询.
+     *
+     * @param QueryNftCreateRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryNftCreateResponse
+     */
+    public function queryNftCreateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftCreateResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.create.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单个token由B端商户转C端用户
+     * Summary: 单个token由B端商户转C端用户.
+     *
+     * @param ExecNftTransferRequest $request
+     *
+     * @return ExecNftTransferResponse
+     */
+    public function execNftTransfer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execNftTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单个token由B端商户转C端用户
+     * Summary: 单个token由B端商户转C端用户.
+     *
+     * @param ExecNftTransferRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ExecNftTransferResponse
+     */
+    public function execNftTransferEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecNftTransferResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

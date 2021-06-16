@@ -6,7 +6,7 @@ namespace AntChain\NFTX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportNftCreateandpublishResponse extends Model
+class ExecNftTransferResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -28,14 +28,21 @@ class ImportNftCreateandpublishResponse extends Model
 
     // NFT发行成功的商品id
     /**
-     * @var string
+     * @var int
      */
     public $skuId;
+
+    // NFT发行成功的商品，其中转给C端用户的特定一个token
+    /**
+     * @var string
+     */
+    public $nftId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'skuId'      => 'sku_id',
+        'nftId'      => 'nft_id',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class ImportNftCreateandpublishResponse extends Model
         if (null !== $this->skuId) {
             $res['sku_id'] = $this->skuId;
         }
+        if (null !== $this->nftId) {
+            $res['nft_id'] = $this->nftId;
+        }
 
         return $res;
     }
@@ -64,7 +74,7 @@ class ImportNftCreateandpublishResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportNftCreateandpublishResponse
+     * @return ExecNftTransferResponse
      */
     public static function fromMap($map = [])
     {
@@ -80,6 +90,9 @@ class ImportNftCreateandpublishResponse extends Model
         }
         if (isset($map['sku_id'])) {
             $model->skuId = $map['sku_id'];
+        }
+        if (isset($map['nft_id'])) {
+            $model->nftId = $map['nft_id'];
         }
 
         return $model;
