@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -191,7 +192,7 @@ class File(TeaModel):
         return self
 
 
-class ImportNftCreateandpublishRequest(TeaModel):
+class ImportNftCreateRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -207,7 +208,7 @@ class ImportNftCreateandpublishRequest(TeaModel):
         biz_type: str = None,
         description: str = None,
         jump_url: str = None,
-        files: File = None,
+        files: List[File] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -253,7 +254,9 @@ class ImportNftCreateandpublishRequest(TeaModel):
         self.validate_required(self.description, 'description')
         self.validate_required(self.files, 'files')
         if self.files:
-            self.files.validate()
+            for k in self.files:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -283,8 +286,10 @@ class ImportNftCreateandpublishRequest(TeaModel):
             result['description'] = self.description
         if self.jump_url is not None:
             result['jump_url'] = self.jump_url
+        result['files'] = []
         if self.files is not None:
-            result['files'] = self.files.to_map()
+            for k in self.files:
+                result['files'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -315,13 +320,15 @@ class ImportNftCreateandpublishRequest(TeaModel):
             self.description = m.get('description')
         if m.get('jump_url') is not None:
             self.jump_url = m.get('jump_url')
+        self.files = []
         if m.get('files') is not None:
-            temp_model = File()
-            self.files = temp_model.from_map(m['files'])
+            for k in m.get('files'):
+                temp_model = File()
+                self.files.append(temp_model.from_map(k))
         return self
 
 
-class ImportNftCreateandpublishResponse(TeaModel):
+class ImportNftCreateResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -363,6 +370,235 @@ class ImportNftCreateandpublishResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('sku_id') is not None:
             self.sku_id = m.get('sku_id')
+        return self
+
+
+class QueryNftCreateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_id: str = None,
+        sku_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 对端自己的项目id；NFT发行时用作幂等字段
+        self.project_id = project_id
+        # NFT发行成功的商品id，传入sku_id时以此为准做查询
+        self.sku_id = sku_id
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        return self
+
+
+class QueryNftCreateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sku_id: str = None,
+        sku_status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # NFT发行成功的商品id
+        self.sku_id = sku_id
+        # INIT("INIT", "初始化"),
+        # PROCESSING("PROCESSING", "资产创建中"),
+        # FINISH("FINISH", "资产初始化完毕"),
+        # ;
+        self.sku_status = sku_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.sku_status is not None:
+            result['sku_status'] = self.sku_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('sku_status') is not None:
+            self.sku_status = m.get('sku_status')
+        return self
+
+
+class ExecNftTransferRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sku_id: int = None,
+        to_id_no: str = None,
+        to_id_type: str = None,
+        order_no: str = None,
+        order_time: str = None,
+        price_cent: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # NFT发行成功的商品id
+        self.sku_id = sku_id
+        # C端用户的支付宝uid
+        self.to_id_no = to_id_no
+        # C端用户的支付宝账号类型
+        self.to_id_type = to_id_type
+        # 用户在商户购买的订单号，用作幂等字段
+        self.order_no = order_no
+        # 用户购买订单的时间
+        self.order_time = order_time
+        # 用户购买订单的价格，可以为0；用户的购买历史记录会展示
+        self.price_cent = price_cent
+
+    def validate(self):
+        self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.to_id_no, 'to_id_no')
+        self.validate_required(self.to_id_type, 'to_id_type')
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.order_time, 'order_time')
+        if self.order_time is not None:
+            self.validate_pattern(self.order_time, 'order_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.to_id_no is not None:
+            result['to_id_no'] = self.to_id_no
+        if self.to_id_type is not None:
+            result['to_id_type'] = self.to_id_type
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.order_time is not None:
+            result['order_time'] = self.order_time
+        if self.price_cent is not None:
+            result['price_cent'] = self.price_cent
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('to_id_no') is not None:
+            self.to_id_no = m.get('to_id_no')
+        if m.get('to_id_type') is not None:
+            self.to_id_type = m.get('to_id_type')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('order_time') is not None:
+            self.order_time = m.get('order_time')
+        if m.get('price_cent') is not None:
+            self.price_cent = m.get('price_cent')
+        return self
+
+
+class ExecNftTransferResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sku_id: int = None,
+        nft_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # NFT发行成功的商品id
+        self.sku_id = sku_id
+        # NFT发行成功的商品，其中转给C端用户的特定一个token
+        self.nft_id = nft_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
         return self
 
 

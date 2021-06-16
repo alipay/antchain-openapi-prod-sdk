@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -271,56 +271,164 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def import_nft_createandpublish(
+    def import_nft_create(
         self,
-        request: nftx_models.ImportNftCreateandpublishRequest,
-    ) -> nftx_models.ImportNftCreateandpublishResponse:
+        request: nftx_models.ImportNftCreateRequest,
+    ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行
         Summary: B端商户的NFT发行
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.import_nft_createandpublish_ex(request, headers, runtime)
+        return self.import_nft_create_ex(request, headers, runtime)
 
-    async def import_nft_createandpublish_async(
+    async def import_nft_create_async(
         self,
-        request: nftx_models.ImportNftCreateandpublishRequest,
-    ) -> nftx_models.ImportNftCreateandpublishResponse:
+        request: nftx_models.ImportNftCreateRequest,
+    ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行
         Summary: B端商户的NFT发行
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.import_nft_createandpublish_ex_async(request, headers, runtime)
+        return await self.import_nft_create_ex_async(request, headers, runtime)
 
-    def import_nft_createandpublish_ex(
+    def import_nft_create_ex(
         self,
-        request: nftx_models.ImportNftCreateandpublishRequest,
+        request: nftx_models.ImportNftCreateRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> nftx_models.ImportNftCreateandpublishResponse:
+    ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行
         Summary: B端商户的NFT发行
         """
         UtilClient.validate_model(request)
-        return nftx_models.ImportNftCreateandpublishResponse().from_map(
-            self.do_request('1.0', 'antchain.nftx.nft.createandpublish.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return nftx_models.ImportNftCreateResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.create.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def import_nft_createandpublish_ex_async(
+    async def import_nft_create_ex_async(
         self,
-        request: nftx_models.ImportNftCreateandpublishRequest,
+        request: nftx_models.ImportNftCreateRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> nftx_models.ImportNftCreateandpublishResponse:
+    ) -> nftx_models.ImportNftCreateResponse:
         """
         Description: B端商户的NFT发行
         Summary: B端商户的NFT发行
         """
         UtilClient.validate_model(request)
-        return nftx_models.ImportNftCreateandpublishResponse().from_map(
-            await self.do_request_async('1.0', 'antchain.nftx.nft.createandpublish.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return nftx_models.ImportNftCreateResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.create.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nft_create(
+        self,
+        request: nftx_models.QueryNftCreateRequest,
+    ) -> nftx_models.QueryNftCreateResponse:
+        """
+        Description: B端商户的NFT发行后查询
+        Summary: B端商户的NFT发行后查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nft_create_ex(request, headers, runtime)
+
+    async def query_nft_create_async(
+        self,
+        request: nftx_models.QueryNftCreateRequest,
+    ) -> nftx_models.QueryNftCreateResponse:
+        """
+        Description: B端商户的NFT发行后查询
+        Summary: B端商户的NFT发行后查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nft_create_ex_async(request, headers, runtime)
+
+    def query_nft_create_ex(
+        self,
+        request: nftx_models.QueryNftCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftCreateResponse:
+        """
+        Description: B端商户的NFT发行后查询
+        Summary: B端商户的NFT发行后查询
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.QueryNftCreateResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.create.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nft_create_ex_async(
+        self,
+        request: nftx_models.QueryNftCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftCreateResponse:
+        """
+        Description: B端商户的NFT发行后查询
+        Summary: B端商户的NFT发行后查询
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.QueryNftCreateResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.create.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_nft_transfer(
+        self,
+        request: nftx_models.ExecNftTransferRequest,
+    ) -> nftx_models.ExecNftTransferResponse:
+        """
+        Description: 单个token由B端商户转C端用户
+        Summary: 单个token由B端商户转C端用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_nft_transfer_ex(request, headers, runtime)
+
+    async def exec_nft_transfer_async(
+        self,
+        request: nftx_models.ExecNftTransferRequest,
+    ) -> nftx_models.ExecNftTransferResponse:
+        """
+        Description: 单个token由B端商户转C端用户
+        Summary: 单个token由B端商户转C端用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_nft_transfer_ex_async(request, headers, runtime)
+
+    def exec_nft_transfer_ex(
+        self,
+        request: nftx_models.ExecNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ExecNftTransferResponse:
+        """
+        Description: 单个token由B端商户转C端用户
+        Summary: 单个token由B端商户转C端用户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ExecNftTransferResponse().from_map(
+            self.do_request('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_nft_transfer_ex_async(
+        self,
+        request: nftx_models.ExecNftTransferRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ExecNftTransferResponse:
+        """
+        Description: 单个token由B端商户转C端用户
+        Summary: 单个token由B端商户转C端用户
+        """
+        UtilClient.validate_model(request)
+        return nftx_models.ExecNftTransferResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
