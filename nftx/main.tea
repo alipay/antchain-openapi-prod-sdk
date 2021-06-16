@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -161,8 +161,10 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 
 // nft发行的文件
 model File {
-  // 文件的可访问路径
-  path: string(name='path', example='文件的可访问路径'),
+  // 原文件的可访问路径
+  originalFilePath: string(name='original_file_path', example='原文件的可访问路径'),
+  // 缩略图的可访问路径
+  miniImagePath: string(name='mini_image_path', example='缩略图的可访问路径'),
   // 文件名称
   name: string(name='name', example='文件名称'),
   // IMAGE("IMAGE","图片"),
@@ -185,8 +187,6 @@ model ImportNftCreateRequest = {
   skuType: string(name='sku_type'),
   // 发行数量
   quantity: long(name='quantity'),
-  // 是否支持C2C流转：true是可流转，false是不可流转；
-  enableC2c: boolean(name='enable_c2c'),
   // 艺术品作者
   author: string(name='author'),
   // 艺术品拥有者
@@ -211,7 +211,7 @@ model ImportNftCreateResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // NFT发行成功的商品id
-  skuId?: string(name='sku_id'),
+  skuId?: long(name='sku_id'),
 }
 
 /**
@@ -251,7 +251,7 @@ model QueryNftCreateResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // NFT发行成功的商品id
-  skuId?: string(name='sku_id'),
+  skuId?: long(name='sku_id'),
   // INIT("INIT", "初始化"),
   // PROCESSING("PROCESSING", "资产创建中"),
   // FINISH("FINISH", "资产初始化完毕"),
