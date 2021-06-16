@@ -4,50 +4,6 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class LabelTrace extends TeaModel {
-    // 场景码
-    @NameInMap("scene")
-    @Validation(required = true)
-    public String scene;
-
-    // 标签id
-    @NameInMap("label_id")
-    @Validation(required = true)
-    public String labelId;
-
-    // 标签状态
-    @NameInMap("label_status")
-    @Validation(required = true)
-    public String labelStatus;
-
-    // 资产Id
-    @NameInMap("asset_id")
-    public String assetId;
-
-    // 操作员
-    @NameInMap("operator")
-    public String operator;
-
-    // 标签拥有者
-    @NameInMap("owner")
-    public String owner;
-
-    // 标签所处流程
-    @NameInMap("process")
-    public String process;
-
-    // 标签操作
-    @NameInMap("action")
-    public String action;
-
-    // 操作时间 
-    @NameInMap("operate_time")
-    @Validation(required = true)
-    public Long operateTime;
-
-    // 操作设备
-    @NameInMap("operate_device")
-    public String operateDevice;
-
     // 操作内容
     @NameInMap("content")
     public String content;
@@ -59,15 +15,8 @@ public class LabelTrace extends TeaModel {
 
     // 上链时间
     @NameInMap("tx_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String txTime;
-
-    // 区块链高度
-    @NameInMap("block_number")
-    public Long blockNumber;
-
-    // 请求ID
-    @NameInMap("request_id")
-    public String requestId;
 
     // 上链失败的错误码
     @NameInMap("error_code")
@@ -84,86 +33,6 @@ public class LabelTrace extends TeaModel {
     public static LabelTrace build(java.util.Map<String, ?> map) throws Exception {
         LabelTrace self = new LabelTrace();
         return TeaModel.build(map, self);
-    }
-
-    public LabelTrace setScene(String scene) {
-        this.scene = scene;
-        return this;
-    }
-    public String getScene() {
-        return this.scene;
-    }
-
-    public LabelTrace setLabelId(String labelId) {
-        this.labelId = labelId;
-        return this;
-    }
-    public String getLabelId() {
-        return this.labelId;
-    }
-
-    public LabelTrace setLabelStatus(String labelStatus) {
-        this.labelStatus = labelStatus;
-        return this;
-    }
-    public String getLabelStatus() {
-        return this.labelStatus;
-    }
-
-    public LabelTrace setAssetId(String assetId) {
-        this.assetId = assetId;
-        return this;
-    }
-    public String getAssetId() {
-        return this.assetId;
-    }
-
-    public LabelTrace setOperator(String operator) {
-        this.operator = operator;
-        return this;
-    }
-    public String getOperator() {
-        return this.operator;
-    }
-
-    public LabelTrace setOwner(String owner) {
-        this.owner = owner;
-        return this;
-    }
-    public String getOwner() {
-        return this.owner;
-    }
-
-    public LabelTrace setProcess(String process) {
-        this.process = process;
-        return this;
-    }
-    public String getProcess() {
-        return this.process;
-    }
-
-    public LabelTrace setAction(String action) {
-        this.action = action;
-        return this;
-    }
-    public String getAction() {
-        return this.action;
-    }
-
-    public LabelTrace setOperateTime(Long operateTime) {
-        this.operateTime = operateTime;
-        return this;
-    }
-    public Long getOperateTime() {
-        return this.operateTime;
-    }
-
-    public LabelTrace setOperateDevice(String operateDevice) {
-        this.operateDevice = operateDevice;
-        return this;
-    }
-    public String getOperateDevice() {
-        return this.operateDevice;
     }
 
     public LabelTrace setContent(String content) {
@@ -188,22 +57,6 @@ public class LabelTrace extends TeaModel {
     }
     public String getTxTime() {
         return this.txTime;
-    }
-
-    public LabelTrace setBlockNumber(Long blockNumber) {
-        this.blockNumber = blockNumber;
-        return this;
-    }
-    public Long getBlockNumber() {
-        return this.blockNumber;
-    }
-
-    public LabelTrace setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public LabelTrace setErrorCode(String errorCode) {

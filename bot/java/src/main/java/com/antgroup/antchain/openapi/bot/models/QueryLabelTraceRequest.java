@@ -43,9 +43,15 @@ public class QueryLabelTraceRequest extends TeaModel {
     @NameInMap("action")
     public String action;
 
-    // 操作时间
-    @NameInMap("operate_time")
-    public Long operateTime;
+    // 开始时间
+    @NameInMap("start_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String startTime;
+
+    // 结束时间
+    @NameInMap("end_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String endTime;
 
     public static QueryLabelTraceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLabelTraceRequest self = new QueryLabelTraceRequest();
@@ -132,12 +138,20 @@ public class QueryLabelTraceRequest extends TeaModel {
         return this.action;
     }
 
-    public QueryLabelTraceRequest setOperateTime(Long operateTime) {
-        this.operateTime = operateTime;
+    public QueryLabelTraceRequest setStartTime(String startTime) {
+        this.startTime = startTime;
         return this;
     }
-    public Long getOperateTime() {
-        return this.operateTime;
+    public String getStartTime() {
+        return this.startTime;
+    }
+
+    public QueryLabelTraceRequest setEndTime(String endTime) {
+        this.endTime = endTime;
+        return this;
+    }
+    public String getEndTime() {
+        return this.endTime;
     }
 
 }
