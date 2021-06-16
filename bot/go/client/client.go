@@ -806,36 +806,12 @@ func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 
 // 标签流转历史
 type LabelTrace struct {
-	// 场景码
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 标签id
-	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
-	// 标签状态
-	LabelStatus *string `json:"label_status,omitempty" xml:"label_status,omitempty" require:"true"`
-	// 资产Id
-	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
-	// 操作员
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
-	// 标签拥有者
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
-	// 标签所处流程
-	Process *string `json:"process,omitempty" xml:"process,omitempty"`
-	// 标签操作
-	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 操作时间
-	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
-	// 操作设备
-	OperateDevice *string `json:"operate_device,omitempty" xml:"operate_device,omitempty"`
 	// 操作内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// 链上哈希
 	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 	// 上链时间
-	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
-	// 区块链高度
-	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
-	// 请求ID
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 上链失败的错误码
 	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
 	// 上链失败的错误信息
@@ -852,56 +828,6 @@ func (s LabelTrace) GoString() string {
 	return s.String()
 }
 
-func (s *LabelTrace) SetScene(v string) *LabelTrace {
-	s.Scene = &v
-	return s
-}
-
-func (s *LabelTrace) SetLabelId(v string) *LabelTrace {
-	s.LabelId = &v
-	return s
-}
-
-func (s *LabelTrace) SetLabelStatus(v string) *LabelTrace {
-	s.LabelStatus = &v
-	return s
-}
-
-func (s *LabelTrace) SetAssetId(v string) *LabelTrace {
-	s.AssetId = &v
-	return s
-}
-
-func (s *LabelTrace) SetOperator(v string) *LabelTrace {
-	s.Operator = &v
-	return s
-}
-
-func (s *LabelTrace) SetOwner(v string) *LabelTrace {
-	s.Owner = &v
-	return s
-}
-
-func (s *LabelTrace) SetProcess(v string) *LabelTrace {
-	s.Process = &v
-	return s
-}
-
-func (s *LabelTrace) SetAction(v string) *LabelTrace {
-	s.Action = &v
-	return s
-}
-
-func (s *LabelTrace) SetOperateTime(v int64) *LabelTrace {
-	s.OperateTime = &v
-	return s
-}
-
-func (s *LabelTrace) SetOperateDevice(v string) *LabelTrace {
-	s.OperateDevice = &v
-	return s
-}
-
 func (s *LabelTrace) SetContent(v string) *LabelTrace {
 	s.Content = &v
 	return s
@@ -914,16 +840,6 @@ func (s *LabelTrace) SetTxHash(v string) *LabelTrace {
 
 func (s *LabelTrace) SetTxTime(v string) *LabelTrace {
 	s.TxTime = &v
-	return s
-}
-
-func (s *LabelTrace) SetBlockNumber(v int64) *LabelTrace {
-	s.BlockNumber = &v
-	return s
-}
-
-func (s *LabelTrace) SetRequestId(v string) *LabelTrace {
-	s.RequestId = &v
 	return s
 }
 
@@ -5938,8 +5854,10 @@ type QueryLabelTraceRequest struct {
 	Process *string `json:"process,omitempty" xml:"process,omitempty"`
 	// 标签操作
 	Action *string `json:"action,omitempty" xml:"action,omitempty"`
-	// 操作时间
-	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s QueryLabelTraceRequest) String() string {
@@ -6000,8 +5918,13 @@ func (s *QueryLabelTraceRequest) SetAction(v string) *QueryLabelTraceRequest {
 	return s
 }
 
-func (s *QueryLabelTraceRequest) SetOperateTime(v int64) *QueryLabelTraceRequest {
-	s.OperateTime = &v
+func (s *QueryLabelTraceRequest) SetStartTime(v string) *QueryLabelTraceRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryLabelTraceRequest) SetEndTime(v string) *QueryLabelTraceRequest {
+	s.EndTime = &v
 	return s
 }
 
@@ -7749,7 +7672,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.4"),
+				"sdk_version":      tea.String("1.5.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
