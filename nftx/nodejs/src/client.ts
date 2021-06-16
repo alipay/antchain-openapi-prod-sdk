@@ -79,8 +79,10 @@ export class Config extends $tea.Model {
 
 // nft发行的文件
 export class File extends $tea.Model {
-  // 文件的可访问路径
-  path: string;
+  // 原文件的可访问路径
+  originalFilePath: string;
+  // 缩略图的可访问路径
+  miniImagePath: string;
   // 文件名称
   name: string;
   // IMAGE("IMAGE","图片"),
@@ -89,7 +91,8 @@ export class File extends $tea.Model {
   type: string;
   static names(): { [key: string]: string } {
     return {
-      path: 'path',
+      originalFilePath: 'original_file_path',
+      miniImagePath: 'mini_image_path',
       name: 'name',
       type: 'type',
     };
@@ -97,7 +100,8 @@ export class File extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      path: 'string',
+      originalFilePath: 'string',
+      miniImagePath: 'string',
       name: 'string',
       type: 'string',
     };
@@ -122,8 +126,6 @@ export class ImportNftCreateRequest extends $tea.Model {
   skuType: string;
   // 发行数量
   quantity: number;
-  // 是否支持C2C流转：true是可流转，false是不可流转；
-  enableC2c: boolean;
   // 艺术品作者
   author: string;
   // 艺术品拥有者
@@ -146,7 +148,6 @@ export class ImportNftCreateRequest extends $tea.Model {
       skuName: 'sku_name',
       skuType: 'sku_type',
       quantity: 'quantity',
-      enableC2c: 'enable_c2c',
       author: 'author',
       owner: 'owner',
       createTime: 'create_time',
@@ -165,7 +166,6 @@ export class ImportNftCreateRequest extends $tea.Model {
       skuName: 'string',
       skuType: 'string',
       quantity: 'number',
-      enableC2c: 'boolean',
       author: 'string',
       owner: 'string',
       createTime: 'string',
@@ -189,7 +189,7 @@ export class ImportNftCreateResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // NFT发行成功的商品id
-  skuId?: string;
+  skuId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -204,7 +204,7 @@ export class ImportNftCreateResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      skuId: 'string',
+      skuId: 'number',
     };
   }
 
@@ -252,7 +252,7 @@ export class QueryNftCreateResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // NFT发行成功的商品id
-  skuId?: string;
+  skuId?: number;
   // INIT("INIT", "初始化"),
   // PROCESSING("PROCESSING", "资产创建中"),
   // FINISH("FINISH", "资产初始化完毕"),
@@ -273,7 +273,7 @@ export class QueryNftCreateResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      skuId: 'string',
+      skuId: 'number',
       skuStatus: 'string',
     };
   }
@@ -479,7 +479,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.0.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
