@@ -591,36 +591,12 @@ export class DistributeDataPackage extends $tea.Model {
 
 // 标签流转历史
 export class LabelTrace extends $tea.Model {
-  // 场景码
-  scene: string;
-  // 标签id
-  labelId: string;
-  // 标签状态
-  labelStatus: string;
-  // 资产Id
-  assetId?: string;
-  // 操作员
-  operator?: string;
-  // 标签拥有者
-  owner?: string;
-  // 标签所处流程
-  process?: string;
-  // 标签操作
-  action?: string;
-  // 操作时间 
-  operateTime: number;
-  // 操作设备
-  operateDevice?: string;
   // 操作内容
   content?: string;
   // 链上哈希
   txHash: string;
   // 上链时间
   txTime?: string;
-  // 区块链高度
-  blockNumber?: number;
-  // 请求ID
-  requestId?: string;
   // 上链失败的错误码
   errorCode?: string;
   // 上链失败的错误信息
@@ -629,21 +605,9 @@ export class LabelTrace extends $tea.Model {
   isSuccess?: boolean;
   static names(): { [key: string]: string } {
     return {
-      scene: 'scene',
-      labelId: 'label_id',
-      labelStatus: 'label_status',
-      assetId: 'asset_id',
-      operator: 'operator',
-      owner: 'owner',
-      process: 'process',
-      action: 'action',
-      operateTime: 'operate_time',
-      operateDevice: 'operate_device',
       content: 'content',
       txHash: 'tx_hash',
       txTime: 'tx_time',
-      blockNumber: 'block_number',
-      requestId: 'request_id',
       errorCode: 'error_code',
       errorMsg: 'error_msg',
       isSuccess: 'is_success',
@@ -652,21 +616,9 @@ export class LabelTrace extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      scene: 'string',
-      labelId: 'string',
-      labelStatus: 'string',
-      assetId: 'string',
-      operator: 'string',
-      owner: 'string',
-      process: 'string',
-      action: 'string',
-      operateTime: 'number',
-      operateDevice: 'string',
       content: 'string',
       txHash: 'string',
       txTime: 'string',
-      blockNumber: 'number',
-      requestId: 'string',
       errorCode: 'string',
       errorMsg: 'string',
       isSuccess: 'boolean',
@@ -4640,8 +4592,10 @@ export class QueryLabelTraceRequest extends $tea.Model {
   process?: string;
   // 标签操作
   action?: string;
-  // 操作时间
-  operateTime?: number;
+  // 开始时间
+  startTime?: string;
+  // 结束时间
+  endTime?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4654,7 +4608,8 @@ export class QueryLabelTraceRequest extends $tea.Model {
       owner: 'owner',
       process: 'process',
       action: 'action',
-      operateTime: 'operate_time',
+      startTime: 'start_time',
+      endTime: 'end_time',
     };
   }
 
@@ -4670,7 +4625,8 @@ export class QueryLabelTraceRequest extends $tea.Model {
       owner: 'string',
       process: 'string',
       action: 'string',
-      operateTime: 'number',
+      startTime: 'string',
+      endTime: 'string',
     };
   }
 
@@ -6058,7 +6014,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.4",
+          sdk_version: "1.5.7",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
