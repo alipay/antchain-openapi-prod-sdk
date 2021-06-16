@@ -67,11 +67,17 @@ class QueryLabelTraceRequest extends Model
      */
     public $action;
 
-    // 操作时间
+    // 开始时间
     /**
-     * @var int
+     * @var string
      */
-    public $operateTime;
+    public $startTime;
+
+    // 结束时间
+    /**
+     * @var string
+     */
+    public $endTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -83,11 +89,14 @@ class QueryLabelTraceRequest extends Model
         'owner'             => 'owner',
         'process'           => 'process',
         'action'            => 'action',
-        'operateTime'       => 'operate_time',
+        'startTime'         => 'start_time',
+        'endTime'           => 'end_time',
     ];
 
     public function validate()
     {
+        Model::validatePattern('startTime', $this->startTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('endTime', $this->endTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -123,8 +132,11 @@ class QueryLabelTraceRequest extends Model
         if (null !== $this->action) {
             $res['action'] = $this->action;
         }
-        if (null !== $this->operateTime) {
-            $res['operate_time'] = $this->operateTime;
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
+        }
+        if (null !== $this->endTime) {
+            $res['end_time'] = $this->endTime;
         }
 
         return $res;
@@ -168,8 +180,11 @@ class QueryLabelTraceRequest extends Model
         if (isset($map['action'])) {
             $model->action = $map['action'];
         }
-        if (isset($map['operate_time'])) {
-            $model->operateTime = $map['operate_time'];
+        if (isset($map['start_time'])) {
+            $model->startTime = $map['start_time'];
+        }
+        if (isset($map['end_time'])) {
+            $model->endTime = $map['end_time'];
         }
 
         return $model;
