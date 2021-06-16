@@ -153,12 +153,15 @@ class Config(TeaModel):
 class File(TeaModel):
     def __init__(
         self,
-        path: str = None,
+        original_file_path: str = None,
+        mini_image_path: str = None,
         name: str = None,
         type: str = None,
     ):
-        # 文件的可访问路径
-        self.path = path
+        # 原文件的可访问路径
+        self.original_file_path = original_file_path
+        # 缩略图的可访问路径
+        self.mini_image_path = mini_image_path
         # 文件名称
         self.name = name
         # IMAGE("IMAGE","图片"),
@@ -167,14 +170,17 @@ class File(TeaModel):
         self.type = type
 
     def validate(self):
-        self.validate_required(self.path, 'path')
+        self.validate_required(self.original_file_path, 'original_file_path')
+        self.validate_required(self.mini_image_path, 'mini_image_path')
         self.validate_required(self.name, 'name')
         self.validate_required(self.type, 'type')
 
     def to_map(self):
         result = dict()
-        if self.path is not None:
-            result['path'] = self.path
+        if self.original_file_path is not None:
+            result['original_file_path'] = self.original_file_path
+        if self.mini_image_path is not None:
+            result['mini_image_path'] = self.mini_image_path
         if self.name is not None:
             result['name'] = self.name
         if self.type is not None:
@@ -183,8 +189,10 @@ class File(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('path') is not None:
-            self.path = m.get('path')
+        if m.get('original_file_path') is not None:
+            self.original_file_path = m.get('original_file_path')
+        if m.get('mini_image_path') is not None:
+            self.mini_image_path = m.get('mini_image_path')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('type') is not None:
@@ -201,7 +209,6 @@ class ImportNftCreateRequest(TeaModel):
         sku_name: str = None,
         sku_type: str = None,
         quantity: int = None,
-        enable_c2c: bool = None,
         author: str = None,
         owner: str = None,
         create_time: str = None,
@@ -223,8 +230,6 @@ class ImportNftCreateRequest(TeaModel):
         self.sku_type = sku_type
         # 发行数量
         self.quantity = quantity
-        # 是否支持C2C流转：true是可流转，false是不可流转；
-        self.enable_c2c = enable_c2c
         # 艺术品作者
         self.author = author
         # 艺术品拥有者
@@ -245,7 +250,6 @@ class ImportNftCreateRequest(TeaModel):
         self.validate_required(self.sku_name, 'sku_name')
         self.validate_required(self.sku_type, 'sku_type')
         self.validate_required(self.quantity, 'quantity')
-        self.validate_required(self.enable_c2c, 'enable_c2c')
         self.validate_required(self.author, 'author')
         self.validate_required(self.owner, 'owner')
         self.validate_required(self.create_time, 'create_time')
@@ -272,8 +276,6 @@ class ImportNftCreateRequest(TeaModel):
             result['sku_type'] = self.sku_type
         if self.quantity is not None:
             result['quantity'] = self.quantity
-        if self.enable_c2c is not None:
-            result['enable_c2c'] = self.enable_c2c
         if self.author is not None:
             result['author'] = self.author
         if self.owner is not None:
@@ -306,8 +308,6 @@ class ImportNftCreateRequest(TeaModel):
             self.sku_type = m.get('sku_type')
         if m.get('quantity') is not None:
             self.quantity = m.get('quantity')
-        if m.get('enable_c2c') is not None:
-            self.enable_c2c = m.get('enable_c2c')
         if m.get('author') is not None:
             self.author = m.get('author')
         if m.get('owner') is not None:
@@ -334,7 +334,7 @@ class ImportNftCreateResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        sku_id: str = None,
+        sku_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -423,7 +423,7 @@ class QueryNftCreateResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        sku_id: str = None,
+        sku_id: int = None,
         sku_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
