@@ -40,11 +40,6 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public long? Quantity { get; set; }
 
-        // 是否支持C2C流转：true是可流转，false是不可流转；
-        [NameInMap("enable_c2c")]
-        [Validation(Required=true)]
-        public bool? EnableC2c { get; set; }
-
         // 艺术品作者
         [NameInMap("author")]
         [Validation(Required=true)]

@@ -27,7 +27,7 @@ namespace AntChain.SDK.NFTX.Models
         // NFT发行成功的商品id
         [NameInMap("sku_id")]
         [Validation(Required=false)]
-        public string SkuId { get; set; }
+        public long? SkuId { get; set; }
 
     }
 

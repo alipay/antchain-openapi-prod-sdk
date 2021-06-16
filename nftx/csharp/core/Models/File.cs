@@ -10,10 +10,15 @@ namespace AntChain.SDK.NFTX.Models
 {
     // nft发行的文件
     public class File : TeaModel {
-        // 文件的可访问路径
-        [NameInMap("path")]
+        // 原文件的可访问路径
+        [NameInMap("original_file_path")]
         [Validation(Required=true)]
-        public string Path { get; set; }
+        public string OriginalFilePath { get; set; }
+
+        // 缩略图的可访问路径
+        [NameInMap("mini_image_path")]
+        [Validation(Required=true)]
+        public string MiniImagePath { get; set; }
 
         // 文件名称
         [NameInMap("name")]
