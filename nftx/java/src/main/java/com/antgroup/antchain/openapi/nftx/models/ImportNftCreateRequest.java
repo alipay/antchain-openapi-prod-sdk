@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.nftx.models;
 
 import com.aliyun.tea.*;
 
-public class ImportNftCreateandpublishRequest extends TeaModel {
+public class ImportNftCreateRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -69,14 +69,14 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
     // nft发行的艺术品文件
     @NameInMap("files")
     @Validation(required = true)
-    public File files;
+    public java.util.List<File> files;
 
-    public static ImportNftCreateandpublishRequest build(java.util.Map<String, ?> map) throws Exception {
-        ImportNftCreateandpublishRequest self = new ImportNftCreateandpublishRequest();
+    public static ImportNftCreateRequest build(java.util.Map<String, ?> map) throws Exception {
+        ImportNftCreateRequest self = new ImportNftCreateRequest();
         return TeaModel.build(map, self);
     }
 
-    public ImportNftCreateandpublishRequest setAuthToken(String authToken) {
+    public ImportNftCreateRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -84,7 +84,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ImportNftCreateandpublishRequest setProductInstanceId(String productInstanceId) {
+    public ImportNftCreateRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -92,7 +92,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ImportNftCreateandpublishRequest setProjectId(String projectId) {
+    public ImportNftCreateRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -100,7 +100,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.projectId;
     }
 
-    public ImportNftCreateandpublishRequest setSkuName(String skuName) {
+    public ImportNftCreateRequest setSkuName(String skuName) {
         this.skuName = skuName;
         return this;
     }
@@ -108,7 +108,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.skuName;
     }
 
-    public ImportNftCreateandpublishRequest setSkuType(String skuType) {
+    public ImportNftCreateRequest setSkuType(String skuType) {
         this.skuType = skuType;
         return this;
     }
@@ -116,7 +116,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.skuType;
     }
 
-    public ImportNftCreateandpublishRequest setQuantity(Long quantity) {
+    public ImportNftCreateRequest setQuantity(Long quantity) {
         this.quantity = quantity;
         return this;
     }
@@ -124,7 +124,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.quantity;
     }
 
-    public ImportNftCreateandpublishRequest setEnableC2c(Boolean enableC2c) {
+    public ImportNftCreateRequest setEnableC2c(Boolean enableC2c) {
         this.enableC2c = enableC2c;
         return this;
     }
@@ -132,7 +132,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.enableC2c;
     }
 
-    public ImportNftCreateandpublishRequest setAuthor(String author) {
+    public ImportNftCreateRequest setAuthor(String author) {
         this.author = author;
         return this;
     }
@@ -140,7 +140,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.author;
     }
 
-    public ImportNftCreateandpublishRequest setOwner(String owner) {
+    public ImportNftCreateRequest setOwner(String owner) {
         this.owner = owner;
         return this;
     }
@@ -148,7 +148,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.owner;
     }
 
-    public ImportNftCreateandpublishRequest setCreateTime(String createTime) {
+    public ImportNftCreateRequest setCreateTime(String createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -156,7 +156,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.createTime;
     }
 
-    public ImportNftCreateandpublishRequest setBizType(String bizType) {
+    public ImportNftCreateRequest setBizType(String bizType) {
         this.bizType = bizType;
         return this;
     }
@@ -164,7 +164,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.bizType;
     }
 
-    public ImportNftCreateandpublishRequest setDescription(String description) {
+    public ImportNftCreateRequest setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -172,7 +172,7 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.description;
     }
 
-    public ImportNftCreateandpublishRequest setJumpUrl(String jumpUrl) {
+    public ImportNftCreateRequest setJumpUrl(String jumpUrl) {
         this.jumpUrl = jumpUrl;
         return this;
     }
@@ -180,11 +180,11 @@ public class ImportNftCreateandpublishRequest extends TeaModel {
         return this.jumpUrl;
     }
 
-    public ImportNftCreateandpublishRequest setFiles(File files) {
+    public ImportNftCreateRequest setFiles(java.util.List<File> files) {
         this.files = files;
         return this;
     }
-    public File getFiles() {
+    public java.util.List<File> getFiles() {
         return this.files;
     }
 

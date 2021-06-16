@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.nftx.models;
 
 import com.aliyun.tea.*;
 
-public class ImportNftCreateandpublishResponse extends TeaModel {
+public class ImportNftCreateResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class ImportNftCreateandpublishResponse extends TeaModel {
     @NameInMap("sku_id")
     public String skuId;
 
-    public static ImportNftCreateandpublishResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportNftCreateandpublishResponse self = new ImportNftCreateandpublishResponse();
+    public static ImportNftCreateResponse build(java.util.Map<String, ?> map) throws Exception {
+        ImportNftCreateResponse self = new ImportNftCreateResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportNftCreateandpublishResponse setReqMsgId(String reqMsgId) {
+    public ImportNftCreateResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ImportNftCreateandpublishResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportNftCreateandpublishResponse setResultCode(String resultCode) {
+    public ImportNftCreateResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ImportNftCreateandpublishResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportNftCreateandpublishResponse setResultMsg(String resultMsg) {
+    public ImportNftCreateResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class ImportNftCreateandpublishResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportNftCreateandpublishResponse setSkuId(String skuId) {
+    public ImportNftCreateResponse setSkuId(String skuId) {
         this.skuId = skuId;
         return this;
     }
