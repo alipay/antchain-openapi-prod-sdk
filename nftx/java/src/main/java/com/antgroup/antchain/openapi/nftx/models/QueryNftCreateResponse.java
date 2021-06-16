@@ -18,7 +18,7 @@ public class QueryNftCreateResponse extends TeaModel {
 
     // NFT发行成功的商品id
     @NameInMap("sku_id")
-    public String skuId;
+    public Long skuId;
 
     // INIT("INIT", "初始化"),
     // PROCESSING("PROCESSING", "资产创建中"),
@@ -56,11 +56,11 @@ public class QueryNftCreateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryNftCreateResponse setSkuId(String skuId) {
+    public QueryNftCreateResponse setSkuId(Long skuId) {
         this.skuId = skuId;
         return this;
     }
-    public String getSkuId() {
+    public Long getSkuId() {
         return this.skuId;
     }
 

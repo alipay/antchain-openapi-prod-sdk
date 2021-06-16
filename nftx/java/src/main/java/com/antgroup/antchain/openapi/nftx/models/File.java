@@ -4,10 +4,15 @@ package com.antgroup.antchain.openapi.nftx.models;
 import com.aliyun.tea.*;
 
 public class File extends TeaModel {
-    // 文件的可访问路径
-    @NameInMap("path")
+    // 原文件的可访问路径
+    @NameInMap("original_file_path")
     @Validation(required = true)
-    public String path;
+    public String originalFilePath;
+
+    // 缩略图的可访问路径
+    @NameInMap("mini_image_path")
+    @Validation(required = true)
+    public String miniImagePath;
 
     // 文件名称
     @NameInMap("name")
@@ -26,12 +31,20 @@ public class File extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public File setPath(String path) {
-        this.path = path;
+    public File setOriginalFilePath(String originalFilePath) {
+        this.originalFilePath = originalFilePath;
         return this;
     }
-    public String getPath() {
-        return this.path;
+    public String getOriginalFilePath() {
+        return this.originalFilePath;
+    }
+
+    public File setMiniImagePath(String miniImagePath) {
+        this.miniImagePath = miniImagePath;
+        return this;
+    }
+    public String getMiniImagePath() {
+        return this.miniImagePath;
     }
 
     public File setName(String name) {

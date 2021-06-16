@@ -18,7 +18,7 @@ public class ImportNftCreateResponse extends TeaModel {
 
     // NFT发行成功的商品id
     @NameInMap("sku_id")
-    public String skuId;
+    public Long skuId;
 
     public static ImportNftCreateResponse build(java.util.Map<String, ?> map) throws Exception {
         ImportNftCreateResponse self = new ImportNftCreateResponse();
@@ -49,11 +49,11 @@ public class ImportNftCreateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportNftCreateResponse setSkuId(String skuId) {
+    public ImportNftCreateResponse setSkuId(Long skuId) {
         this.skuId = skuId;
         return this;
     }
-    public String getSkuId() {
+    public Long getSkuId() {
         return this.skuId;
     }
 

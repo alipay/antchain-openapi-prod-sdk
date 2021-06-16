@@ -33,11 +33,6 @@ public class ImportNftCreateRequest extends TeaModel {
     @Validation(required = true)
     public Long quantity;
 
-    // 是否支持C2C流转：true是可流转，false是不可流转；
-    @NameInMap("enable_c2c")
-    @Validation(required = true)
-    public Boolean enableC2c;
-
     // 艺术品作者
     @NameInMap("author")
     @Validation(required = true)
@@ -122,14 +117,6 @@ public class ImportNftCreateRequest extends TeaModel {
     }
     public Long getQuantity() {
         return this.quantity;
-    }
-
-    public ImportNftCreateRequest setEnableC2c(Boolean enableC2c) {
-        this.enableC2c = enableC2c;
-        return this;
-    }
-    public Boolean getEnableC2c() {
-        return this.enableC2c;
     }
 
     public ImportNftCreateRequest setAuthor(String author) {
