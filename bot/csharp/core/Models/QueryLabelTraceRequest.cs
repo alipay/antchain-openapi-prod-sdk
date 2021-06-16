@@ -58,10 +58,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Action { get; set; }
 
-        // 操作时间
-        [NameInMap("operate_time")]
-        [Validation(Required=false)]
-        public long? OperateTime { get; set; }
+        // 开始时间
+        [NameInMap("start_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string StartTime { get; set; }
+
+        // 结束时间
+        [NameInMap("end_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string EndTime { get; set; }
 
     }
 
