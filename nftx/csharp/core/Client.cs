@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -321,42 +321,126 @@ namespace AntChain.SDK.NFTX
          * Description: B端商户的NFT发行
          * Summary: B端商户的NFT发行
          */
-        public ImportNftCreateandpublishResponse ImportNftCreateandpublish(ImportNftCreateandpublishRequest request)
+        public ImportNftCreateResponse ImportNftCreate(ImportNftCreateRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ImportNftCreateandpublishEx(request, headers, runtime);
+            return ImportNftCreateEx(request, headers, runtime);
         }
 
         /**
          * Description: B端商户的NFT发行
          * Summary: B端商户的NFT发行
          */
-        public async Task<ImportNftCreateandpublishResponse> ImportNftCreateandpublishAsync(ImportNftCreateandpublishRequest request)
+        public async Task<ImportNftCreateResponse> ImportNftCreateAsync(ImportNftCreateRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ImportNftCreateandpublishExAsync(request, headers, runtime);
+            return await ImportNftCreateExAsync(request, headers, runtime);
         }
 
         /**
          * Description: B端商户的NFT发行
          * Summary: B端商户的NFT发行
          */
-        public ImportNftCreateandpublishResponse ImportNftCreateandpublishEx(ImportNftCreateandpublishRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ImportNftCreateResponse ImportNftCreateEx(ImportNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ImportNftCreateandpublishResponse>(DoRequest("1.0", "antchain.nftx.nft.createandpublish.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ImportNftCreateResponse>(DoRequest("1.0", "antchain.nftx.nft.create.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: B端商户的NFT发行
          * Summary: B端商户的NFT发行
          */
-        public async Task<ImportNftCreateandpublishResponse> ImportNftCreateandpublishExAsync(ImportNftCreateandpublishRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ImportNftCreateResponse> ImportNftCreateExAsync(ImportNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ImportNftCreateandpublishResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.createandpublish.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ImportNftCreateResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.create.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: B端商户的NFT发行后查询
+         * Summary: B端商户的NFT发行后查询
+         */
+        public QueryNftCreateResponse QueryNftCreate(QueryNftCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNftCreateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: B端商户的NFT发行后查询
+         * Summary: B端商户的NFT发行后查询
+         */
+        public async Task<QueryNftCreateResponse> QueryNftCreateAsync(QueryNftCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNftCreateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: B端商户的NFT发行后查询
+         * Summary: B端商户的NFT发行后查询
+         */
+        public QueryNftCreateResponse QueryNftCreateEx(QueryNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftCreateResponse>(DoRequest("1.0", "antchain.nftx.nft.create.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: B端商户的NFT发行后查询
+         * Summary: B端商户的NFT发行后查询
+         */
+        public async Task<QueryNftCreateResponse> QueryNftCreateExAsync(QueryNftCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftCreateResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.create.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单个token由B端商户转C端用户
+         * Summary: 单个token由B端商户转C端用户
+         */
+        public ExecNftTransferResponse ExecNftTransfer(ExecNftTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecNftTransferEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单个token由B端商户转C端用户
+         * Summary: 单个token由B端商户转C端用户
+         */
+        public async Task<ExecNftTransferResponse> ExecNftTransferAsync(ExecNftTransferRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecNftTransferExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单个token由B端商户转C端用户
+         * Summary: 单个token由B端商户转C端用户
+         */
+        public ExecNftTransferResponse ExecNftTransferEx(ExecNftTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecNftTransferResponse>(DoRequest("1.0", "antchain.nftx.nft.transfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单个token由B端商户转C端用户
+         * Summary: 单个token由B端商户转C端用户
+         */
+        public async Task<ExecNftTransferResponse> ExecNftTransferExAsync(ExecNftTransferRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecNftTransferResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.transfer.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

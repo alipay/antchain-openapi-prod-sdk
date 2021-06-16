@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.NFTX.Models
 {
-    public class ImportNftCreateandpublishRequest : TeaModel {
+    public class ImportNftCreateRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -78,7 +78,7 @@ namespace AntChain.SDK.NFTX.Models
         // nft发行的艺术品文件
         [NameInMap("files")]
         [Validation(Required=true)]
-        public File Files { get; set; }
+        public List<File> Files { get; set; }
 
     }
 

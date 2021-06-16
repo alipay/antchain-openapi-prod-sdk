@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.NFTX.Models
 {
-    public class ImportNftCreateandpublishResponse : TeaModel {
+    public class ExecNftTransferResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -27,7 +27,12 @@ namespace AntChain.SDK.NFTX.Models
         // NFT发行成功的商品id
         [NameInMap("sku_id")]
         [Validation(Required=false)]
-        public string SkuId { get; set; }
+        public long? SkuId { get; set; }
+
+        // NFT发行成功的商品，其中转给C端用户的特定一个token
+        [NameInMap("nft_id")]
+        [Validation(Required=false)]
+        public string NftId { get; set; }
 
     }
 
