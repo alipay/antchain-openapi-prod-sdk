@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.4',
+    sdk_version = '1.5.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -381,36 +381,12 @@ model DistributeDataPackage {
 
 // 标签流转历史
 model LabelTrace {
-  // 场景码
-  scene: string(name='scene', example='XXXXX'),
-  // 标签id
-  labelId: string(name='label_id', example='XXXXX'),
-  // 标签状态
-  labelStatus: string(name='label_status', example='XXXXX'),
-  // 资产Id
-  assetId?: string(name='asset_id', example='XXXXX'),
-  // 操作员
-  operator?: string(name='operator', example='XXXXX'),
-  // 标签拥有者
-  owner?: string(name='owner', example='XXXXX'),
-  // 标签所处流程
-  process?: string(name='process', example='XXXXX'),
-  // 标签操作
-  action?: string(name='action', example='XXXXX'),
-  // 操作时间 
-  operateTime: long(name='operate_time', example='1623297766839'),
-  // 操作设备
-  operateDevice?: string(name='operate_device', example='XXXXX'),
   // 操作内容
   content?: string(name='content', example='XXXXX'),
   // 链上哈希
   txHash: string(name='tx_hash', example='XXXXX'),
   // 上链时间
-  txTime?: string(name='tx_time', example='XXXXX'),
-  // 区块链高度
-  blockNumber?: long(name='block_number', example='XXXXX'),
-  // 请求ID
-  requestId?: string(name='request_id', example='XXXXX'),
+  txTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='tx_time', example='XXXXX'),
   // 上链失败的错误码
   errorCode?: string(name='error_code', example='XXXXX'),
   // 上链失败的错误信息
@@ -2859,8 +2835,10 @@ model QueryLabelTraceRequest = {
   process?: string(name='process'),
   // 标签操作
   action?: string(name='action'),
-  // 操作时间
-  operateTime?: long(name='operate_time'),
+  // 开始时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+  // 结束时间
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
 }
 
 model QueryLabelTraceResponse = {
