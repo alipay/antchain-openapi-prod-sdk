@@ -150,8 +150,10 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 
 // nft发行的文件
 type File struct {
-	// 文件的可访问路径
-	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 原文件的可访问路径
+	OriginalFilePath *string `json:"original_file_path,omitempty" xml:"original_file_path,omitempty" require:"true"`
+	// 缩略图的可访问路径
+	MiniImagePath *string `json:"mini_image_path,omitempty" xml:"mini_image_path,omitempty" require:"true"`
 	// 文件名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// IMAGE("IMAGE","图片"),
@@ -168,8 +170,13 @@ func (s File) GoString() string {
 	return s.String()
 }
 
-func (s *File) SetPath(v string) *File {
-	s.Path = &v
+func (s *File) SetOriginalFilePath(v string) *File {
+	s.OriginalFilePath = &v
+	return s
+}
+
+func (s *File) SetMiniImagePath(v string) *File {
+	s.MiniImagePath = &v
 	return s
 }
 
@@ -197,8 +204,6 @@ type ImportNftCreateRequest struct {
 	SkuType *string `json:"sku_type,omitempty" xml:"sku_type,omitempty" require:"true"`
 	// 发行数量
 	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty" require:"true"`
-	// 是否支持C2C流转：true是可流转，false是不可流转；
-	EnableC2c *bool `json:"enable_c2c,omitempty" xml:"enable_c2c,omitempty" require:"true"`
 	// 艺术品作者
 	Author *string `json:"author,omitempty" xml:"author,omitempty" require:"true"`
 	// 艺术品拥有者
@@ -253,11 +258,6 @@ func (s *ImportNftCreateRequest) SetQuantity(v int64) *ImportNftCreateRequest {
 	return s
 }
 
-func (s *ImportNftCreateRequest) SetEnableC2c(v bool) *ImportNftCreateRequest {
-	s.EnableC2c = &v
-	return s
-}
-
 func (s *ImportNftCreateRequest) SetAuthor(v string) *ImportNftCreateRequest {
 	s.Author = &v
 	return s
@@ -301,7 +301,7 @@ type ImportNftCreateResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// NFT发行成功的商品id
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
 }
 
 func (s ImportNftCreateResponse) String() string {
@@ -327,7 +327,7 @@ func (s *ImportNftCreateResponse) SetResultMsg(v string) *ImportNftCreateRespons
 	return s
 }
 
-func (s *ImportNftCreateResponse) SetSkuId(v string) *ImportNftCreateResponse {
+func (s *ImportNftCreateResponse) SetSkuId(v int64) *ImportNftCreateResponse {
 	s.SkuId = &v
 	return s
 }
@@ -378,7 +378,7 @@ type QueryNftCreateResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// NFT发行成功的商品id
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
 	// INIT("INIT", "初始化"),
 	// PROCESSING("PROCESSING", "资产创建中"),
 	// FINISH("FINISH", "资产初始化完毕"),
@@ -409,7 +409,7 @@ func (s *QueryNftCreateResponse) SetResultMsg(v string) *QueryNftCreateResponse 
 	return s
 }
 
-func (s *QueryNftCreateResponse) SetSkuId(v string) *QueryNftCreateResponse {
+func (s *QueryNftCreateResponse) SetSkuId(v int64) *QueryNftCreateResponse {
 	s.SkuId = &v
 	return s
 }
@@ -653,7 +653,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
