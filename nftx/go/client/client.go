@@ -209,7 +209,7 @@ type ImportNftCreateRequest struct {
 	// 艺术品拥有者
 	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
 	// 艺术品创作时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// nft简介信息
@@ -268,8 +268,8 @@ func (s *ImportNftCreateRequest) SetOwner(v string) *ImportNftCreateRequest {
 	return s
 }
 
-func (s *ImportNftCreateRequest) SetCreateTime(v string) *ImportNftCreateRequest {
-	s.CreateTime = &v
+func (s *ImportNftCreateRequest) SetCreationTime(v string) *ImportNftCreateRequest {
+	s.CreationTime = &v
 	return s
 }
 
@@ -653,7 +653,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
