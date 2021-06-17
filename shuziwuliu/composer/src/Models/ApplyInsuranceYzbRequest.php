@@ -129,7 +129,7 @@ class ApplyInsuranceYzbRequest extends Model
 
     // 雇员人数，站点的雇佣人员数
     /**
-     * @var string
+     * @var int
      */
     public $employeeNum;
 

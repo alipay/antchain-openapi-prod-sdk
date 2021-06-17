@@ -19,17 +19,11 @@ class NotifyInsuranceOspireportRequest extends Model
      */
     public $productInstanceId;
 
-    // 案件同步唯一码
+    // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
     /**
      * @var string
      */
     public $tradeNo;
-
-    // 保司编码，PAIC---平安
-    /**
-     * @var string
-     */
-    public $externalChannelCode;
 
     // 报案号，关联的报案案件号
     /**
@@ -61,32 +55,28 @@ class NotifyInsuranceOspireportRequest extends Model
      */
     public $bankSerialNum;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'tradeNo'             => 'trade_no',
-        'externalChannelCode' => 'external_channel_code',
-        'reportNo'            => 'report_no',
-        'relaOrderNo'         => 'rela_order_no',
-        'claimAmount'         => 'claim_amount',
-        'paymentTime'         => 'payment_time',
-        'bankSerialNum'       => 'bank_serial_num',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'tradeNo'           => 'trade_no',
+        'reportNo'          => 'report_no',
+        'relaOrderNo'       => 'rela_order_no',
+        'claimAmount'       => 'claim_amount',
+        'paymentTime'       => 'payment_time',
+        'bankSerialNum'     => 'bank_serial_num',
     ];
 
     public function validate()
     {
         Model::validateRequired('tradeNo', $this->tradeNo, true);
-        Model::validateRequired('externalChannelCode', $this->externalChannelCode, true);
         Model::validateRequired('reportNo', $this->reportNo, true);
         Model::validateRequired('relaOrderNo', $this->relaOrderNo, true);
         Model::validateRequired('claimAmount', $this->claimAmount, true);
         Model::validateRequired('paymentTime', $this->paymentTime, true);
         Model::validateRequired('bankSerialNum', $this->bankSerialNum, true);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
-        Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('reportNo', $this->reportNo, 100);
         Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 100);
         Model::validateMaxLength('bankSerialNum', $this->bankSerialNum, 200);
-        Model::validatePattern('paymentTime', $this->paymentTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -100,9 +90,6 @@ class NotifyInsuranceOspireportRequest extends Model
         }
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
-        }
-        if (null !== $this->externalChannelCode) {
-            $res['external_channel_code'] = $this->externalChannelCode;
         }
         if (null !== $this->reportNo) {
             $res['report_no'] = $this->reportNo;
@@ -139,9 +126,6 @@ class NotifyInsuranceOspireportRequest extends Model
         }
         if (isset($map['trade_no'])) {
             $model->tradeNo = $map['trade_no'];
-        }
-        if (isset($map['external_channel_code'])) {
-            $model->externalChannelCode = $map['external_channel_code'];
         }
         if (isset($map['report_no'])) {
             $model->reportNo = $map['report_no'];

@@ -32,7 +32,7 @@ class NotifyInsuranceOspireportResponse extends Model
      */
     public $tradeNo;
 
-    // 案件通知状态
+    // 案件通知状态--SUCCESS、FAIL
     /**
      * @var string
      */

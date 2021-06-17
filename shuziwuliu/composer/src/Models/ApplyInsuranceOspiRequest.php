@@ -271,8 +271,9 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('tbrName', $this->tbrName, 200);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
         Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 30);
-        Model::validateMaxLength('bbrName', $this->bbrName, 300);
+        Model::validateMaxLength('bbrName', $this->bbrName, 200);
         Model::validateMaxLength('bbrIdType', $this->bbrIdType, 2);
+        Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 30);
         Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 200);
         Model::validateMaxLength('beneficiaryIdType', $this->beneficiaryIdType, 2);
         Model::validateMaxLength('beneficiaryNo', $this->beneficiaryNo, 30);
@@ -286,7 +287,7 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
         Model::validateMaxLength('siteId', $this->siteId, 100);
-        Model::validateMaxLength('startPlace', $this->startPlace, 100);
+        Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
         Model::validateMaxLength('cargoWorth', $this->cargoWorth, 20);

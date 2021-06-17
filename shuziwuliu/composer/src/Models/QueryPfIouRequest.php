@@ -19,17 +19,17 @@ class QueryPfIouRequest extends Model
      */
     public $productInstanceId;
 
-    // 客户号
+    // 项目id
     /**
      * @var string
      */
-    public $customerNo;
+    public $projectId;
 
-    // 借据Id
+    // 融资主体Did
     /**
      * @var string
      */
-    public $debitId;
+    public $financingSubjectDid;
 
     // 支用Id
     /**
@@ -37,19 +37,21 @@ class QueryPfIouRequest extends Model
      */
     public $financingId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'customerNo'        => 'customer_no',
-        'debitId'           => 'debit_id',
-        'financingId'       => 'financing_id',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'projectId'           => 'project_id',
+        'financingSubjectDid' => 'financing_subject_did',
+        'financingId'         => 'financing_id',
     ];
 
     public function validate()
     {
-        Model::validateMaxLength('customerNo', $this->customerNo, 20);
-        Model::validateMaxLength('debitId', $this->debitId, 16);
-        Model::validateMaxLength('financingId', $this->financingId, 32);
+        Model::validateRequired('projectId', $this->projectId, true);
+        Model::validateRequired('financingSubjectDid', $this->financingSubjectDid, true);
         Model::validateRequired('financingId', $this->financingId, true);
+        Model::validateMaxLength('projectId', $this->projectId, 20);
+        Model::validateMaxLength('financingSubjectDid', $this->financingSubjectDid, 16);
+        Model::validateMaxLength('financingId', $this->financingId, 32);
     }
 
     public function toMap()
@@ -61,11 +63,11 @@ class QueryPfIouRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->customerNo) {
-            $res['customer_no'] = $this->customerNo;
+        if (null !== $this->projectId) {
+            $res['project_id'] = $this->projectId;
         }
-        if (null !== $this->debitId) {
-            $res['debit_id'] = $this->debitId;
+        if (null !== $this->financingSubjectDid) {
+            $res['financing_subject_did'] = $this->financingSubjectDid;
         }
         if (null !== $this->financingId) {
             $res['financing_id'] = $this->financingId;
@@ -88,11 +90,11 @@ class QueryPfIouRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['customer_no'])) {
-            $model->customerNo = $map['customer_no'];
+        if (isset($map['project_id'])) {
+            $model->projectId = $map['project_id'];
         }
-        if (isset($map['debit_id'])) {
-            $model->debitId = $map['debit_id'];
+        if (isset($map['financing_subject_did'])) {
+            $model->financingSubjectDid = $map['financing_subject_did'];
         }
         if (isset($map['financing_id'])) {
             $model->financingId = $map['financing_id'];
