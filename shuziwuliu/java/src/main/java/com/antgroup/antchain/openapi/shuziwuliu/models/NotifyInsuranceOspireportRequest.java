@@ -11,15 +11,10 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 案件同步唯一码
+    // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
     @NameInMap("trade_no")
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
-
-    // 保司编码，PAIC---平安
-    @NameInMap("external_channel_code")
-    @Validation(required = true, maxLength = 10)
-    public String externalChannelCode;
 
     // 报案号，关联的报案案件号
     @NameInMap("report_no")
@@ -38,7 +33,7 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
 
     // 支付时间，实际的保司打款时间
     @NameInMap("payment_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String paymentTime;
 
     // 银行流水，打款的银行流水号
@@ -73,14 +68,6 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
-    }
-
-    public NotifyInsuranceOspireportRequest setExternalChannelCode(String externalChannelCode) {
-        this.externalChannelCode = externalChannelCode;
-        return this;
-    }
-    public String getExternalChannelCode() {
-        return this.externalChannelCode;
     }
 
     public NotifyInsuranceOspireportRequest setReportNo(String reportNo) {

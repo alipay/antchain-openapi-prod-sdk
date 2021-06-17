@@ -104,7 +104,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     // 雇员人数，站点的雇佣人员数
     @NameInMap("employee_num")
     @Validation(required = true)
-    public String employeeNum;
+    public Long employeeNum;
 
     // 省编码，站点位于的省份编码
     @NameInMap("province_code")
@@ -306,11 +306,11 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
         return this.totalAssets;
     }
 
-    public ApplyInsuranceYzbRequest setEmployeeNum(String employeeNum) {
+    public ApplyInsuranceYzbRequest setEmployeeNum(Long employeeNum) {
         this.employeeNum = employeeNum;
         return this;
     }
-    public String getEmployeeNum() {
+    public Long getEmployeeNum() {
         return this.employeeNum;
     }
 

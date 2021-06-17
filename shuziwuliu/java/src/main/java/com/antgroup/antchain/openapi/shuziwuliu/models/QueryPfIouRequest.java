@@ -11,15 +11,15 @@ public class QueryPfIouRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 客户号
-    @NameInMap("customer_no")
-    @Validation(maxLength = 20)
-    public String customerNo;
+    // 项目id
+    @NameInMap("project_id")
+    @Validation(required = true, maxLength = 20)
+    public String projectId;
 
-    // 借据Id
-    @NameInMap("debit_id")
-    @Validation(maxLength = 16)
-    public String debitId;
+    // 融资主体Did
+    @NameInMap("financing_subject_did")
+    @Validation(required = true, maxLength = 16)
+    public String financingSubjectDid;
 
     // 支用Id
     @NameInMap("financing_id")
@@ -47,20 +47,20 @@ public class QueryPfIouRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryPfIouRequest setCustomerNo(String customerNo) {
-        this.customerNo = customerNo;
+    public QueryPfIouRequest setProjectId(String projectId) {
+        this.projectId = projectId;
         return this;
     }
-    public String getCustomerNo() {
-        return this.customerNo;
+    public String getProjectId() {
+        return this.projectId;
     }
 
-    public QueryPfIouRequest setDebitId(String debitId) {
-        this.debitId = debitId;
+    public QueryPfIouRequest setFinancingSubjectDid(String financingSubjectDid) {
+        this.financingSubjectDid = financingSubjectDid;
         return this;
     }
-    public String getDebitId() {
-        return this.debitId;
+    public String getFinancingSubjectDid() {
+        return this.financingSubjectDid;
     }
 
     public QueryPfIouRequest setFinancingId(String financingId) {

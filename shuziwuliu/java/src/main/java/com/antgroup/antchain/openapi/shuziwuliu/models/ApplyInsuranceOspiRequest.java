@@ -43,7 +43,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 被保人姓名，实际的保险被保人名称
     @NameInMap("bbr_name")
-    @Validation(required = true, maxLength = 300)
+    @Validation(required = true, maxLength = 200)
     public String bbrName;
 
     // 被保人证件类型，01--居民身份证、03--营业执照
@@ -53,7 +53,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 被保人证件号码
     @NameInMap("bbr_id_no")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 30)
     public String bbrIdNo;
 
     // 受益人名称，实际的保险受益人名称
@@ -143,7 +143,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 出发地地址，包裹的实际发件地地址
     @NameInMap("start_place")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 500)
     public String startPlace;
 
     // 目的地地址，包裹的实际收件地地址

@@ -20,7 +20,7 @@ public class NotifyInsuranceOspireportResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
-    // 案件通知状态
+    // 案件通知状态--SUCCESS、FAIL
     @NameInMap("report_notify_status")
     public String reportNotifyStatus;
 

@@ -32,41 +32,53 @@ public class QueryPfIouResponse extends TeaModel {
     @NameInMap("interest_bearing_start")
     public String interestBearingStart;
 
-    // 发放金额
+    // 应还本金，即放款金额
     @NameInMap("issued_amount")
     public String issuedAmount;
 
-    // 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-    @NameInMap("loan_nature")
-    public String loanNature;
+    // 还款银行名称
+    @NameInMap("repay_bank_name")
+    public String repayBankName;
 
-    // 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-    @NameInMap("loan_status")
-    public String loanStatus;
-
-    // 下次结息日期
-    @NameInMap("next_parsing_date")
-    public String nextParsingDate;
-
-    // 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-    @NameInMap("odi_cal_type")
-    public String odiCalType;
-
-    // 逾期罚息浮动比率
-    @NameInMap("opi_floating_ratio")
-    public String opiFloatingRatio;
-
-    // 贷款入账账号
-    @NameInMap("pay_account")
-    public String payAccount;
-
-    // 本金余额
-    @NameInMap("principal_balance")
-    public String principalBalance;
+    // 还款账号名称
+    @NameInMap("repay_acc_name")
+    public String repayAccName;
 
     // 还款账号
-    @NameInMap("repay_account")
-    public String repayAccount;
+    @NameInMap("repay_acc_no")
+    public String repayAccNo;
+
+    // 实际已还本金
+    @NameInMap("repay_amt")
+    public String repayAmt;
+
+    // 实际已还利息
+    @NameInMap("repay_interest")
+    public String repayInterest;
+
+    // 实际已还总额
+    @NameInMap("repay_total_amt")
+    public String repayTotalAmt;
+
+    // 借据状态
+    @NameInMap("credit_status")
+    public String creditStatus;
+
+    // 是否逾期,0是,1否
+    @NameInMap("is_overdue")
+    public String isOverdue;
+
+    // 项目id
+    @NameInMap("project_id")
+    public String projectId;
+
+    // 支用id
+    @NameInMap("financing_id")
+    public String financingId;
+
+    // 融资主体DID
+    @NameInMap("financing_subject_did")
+    public String financingSubjectDid;
 
     public static QueryPfIouResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPfIouResponse self = new QueryPfIouResponse();
@@ -137,68 +149,92 @@ public class QueryPfIouResponse extends TeaModel {
         return this.issuedAmount;
     }
 
-    public QueryPfIouResponse setLoanNature(String loanNature) {
-        this.loanNature = loanNature;
+    public QueryPfIouResponse setRepayBankName(String repayBankName) {
+        this.repayBankName = repayBankName;
         return this;
     }
-    public String getLoanNature() {
-        return this.loanNature;
+    public String getRepayBankName() {
+        return this.repayBankName;
     }
 
-    public QueryPfIouResponse setLoanStatus(String loanStatus) {
-        this.loanStatus = loanStatus;
+    public QueryPfIouResponse setRepayAccName(String repayAccName) {
+        this.repayAccName = repayAccName;
         return this;
     }
-    public String getLoanStatus() {
-        return this.loanStatus;
+    public String getRepayAccName() {
+        return this.repayAccName;
     }
 
-    public QueryPfIouResponse setNextParsingDate(String nextParsingDate) {
-        this.nextParsingDate = nextParsingDate;
+    public QueryPfIouResponse setRepayAccNo(String repayAccNo) {
+        this.repayAccNo = repayAccNo;
         return this;
     }
-    public String getNextParsingDate() {
-        return this.nextParsingDate;
+    public String getRepayAccNo() {
+        return this.repayAccNo;
     }
 
-    public QueryPfIouResponse setOdiCalType(String odiCalType) {
-        this.odiCalType = odiCalType;
+    public QueryPfIouResponse setRepayAmt(String repayAmt) {
+        this.repayAmt = repayAmt;
         return this;
     }
-    public String getOdiCalType() {
-        return this.odiCalType;
+    public String getRepayAmt() {
+        return this.repayAmt;
     }
 
-    public QueryPfIouResponse setOpiFloatingRatio(String opiFloatingRatio) {
-        this.opiFloatingRatio = opiFloatingRatio;
+    public QueryPfIouResponse setRepayInterest(String repayInterest) {
+        this.repayInterest = repayInterest;
         return this;
     }
-    public String getOpiFloatingRatio() {
-        return this.opiFloatingRatio;
+    public String getRepayInterest() {
+        return this.repayInterest;
     }
 
-    public QueryPfIouResponse setPayAccount(String payAccount) {
-        this.payAccount = payAccount;
+    public QueryPfIouResponse setRepayTotalAmt(String repayTotalAmt) {
+        this.repayTotalAmt = repayTotalAmt;
         return this;
     }
-    public String getPayAccount() {
-        return this.payAccount;
+    public String getRepayTotalAmt() {
+        return this.repayTotalAmt;
     }
 
-    public QueryPfIouResponse setPrincipalBalance(String principalBalance) {
-        this.principalBalance = principalBalance;
+    public QueryPfIouResponse setCreditStatus(String creditStatus) {
+        this.creditStatus = creditStatus;
         return this;
     }
-    public String getPrincipalBalance() {
-        return this.principalBalance;
+    public String getCreditStatus() {
+        return this.creditStatus;
     }
 
-    public QueryPfIouResponse setRepayAccount(String repayAccount) {
-        this.repayAccount = repayAccount;
+    public QueryPfIouResponse setIsOverdue(String isOverdue) {
+        this.isOverdue = isOverdue;
         return this;
     }
-    public String getRepayAccount() {
-        return this.repayAccount;
+    public String getIsOverdue() {
+        return this.isOverdue;
+    }
+
+    public QueryPfIouResponse setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
+    }
+
+    public QueryPfIouResponse setFinancingId(String financingId) {
+        this.financingId = financingId;
+        return this;
+    }
+    public String getFinancingId() {
+        return this.financingId;
+    }
+
+    public QueryPfIouResponse setFinancingSubjectDid(String financingSubjectDid) {
+        this.financingSubjectDid = financingSubjectDid;
+        return this;
+    }
+    public String getFinancingSubjectDid() {
+        return this.financingSubjectDid;
     }
 
 }
