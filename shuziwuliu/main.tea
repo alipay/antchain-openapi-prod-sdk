@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.110',
+    sdk_version = '1.3.113',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7200,11 +7200,11 @@ model ApplyInsuranceOspiRequest = {
   // 投保人证件号码
   tbrIdNo: string(maxLength=30, name='tbr_id_no'),
   // 被保人姓名，实际的保险被保人名称
-  bbrName: string(maxLength=300, name='bbr_name'),
+  bbrName: string(maxLength=200, name='bbr_name'),
   // 被保人证件类型，01--居民身份证、03--营业执照
   bbrIdType: string(maxLength=2, name='bbr_id_type'),
   // 被保人证件号码
-  bbrIdNo: string(name='bbr_id_no'),
+  bbrIdNo: string(maxLength=30, name='bbr_id_no'),
   // 受益人名称，实际的保险受益人名称
   beneficiaryName: string(maxLength=200, name='beneficiary_name'),
   // 受益人证件类型，01--居民身份证、03--营业执照
@@ -7240,7 +7240,7 @@ model ApplyInsuranceOspiRequest = {
   // 站点/仓储ID，站点/仓储的脱敏唯一标识
   siteId: string(maxLength=100, name='site_id'),
   // 出发地地址，包裹的实际发件地地址
-  startPlace: string(maxLength=100, name='start_place'),
+  startPlace: string(maxLength=500, name='start_place'),
   // 目的地地址，包裹的实际收件地地址
   destination: string(maxLength=500, name='destination'),
   // ISO到达国别，包裹业务实际发生的国家
@@ -7383,10 +7383,8 @@ model NotifyInsuranceOspireportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 案件同步唯一码
+  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安
-  externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 报案号，关联的报案案件号
   reportNo: string(maxLength=100, name='report_no'),
   // 订单号
@@ -7394,7 +7392,7 @@ model NotifyInsuranceOspireportRequest = {
   // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
   claimAmount: string(name='claim_amount'),
   // 支付时间，实际的保司打款时间
-  paymentTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='payment_time'),
+  paymentTime: string(name='payment_time'),
   // 银行流水，打款的银行流水号
   bankSerialNum: string(maxLength=200, name='bank_serial_num'),
 }
@@ -7408,7 +7406,7 @@ model NotifyInsuranceOspireportResponse = {
   resultMsg?: string(name='result_msg'),
   // 案件同步唯一码
   tradeNo?: string(name='trade_no'),
-  // 案件通知状态
+  // 案件通知状态--SUCCESS、FAIL
   reportNotifyStatus?: string(name='report_notify_status'),
 }
 
@@ -7472,7 +7470,7 @@ model ApplyInsuranceYzbRequest = {
   // 总资产，单位（元），最多2位小数，超过拒绝请求
   totalAssets: string(name='total_assets'),
   // 雇员人数，站点的雇佣人员数
-  employeeNum: string(name='employee_num'),
+  employeeNum: long(name='employee_num'),
   // 省编码，站点位于的省份编码
   provinceCode: string(maxLength=10, name='province_code'),
   // 市编码，站点位于的市区编码
@@ -7669,10 +7667,10 @@ model QueryPfIouRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 客户号
-  customerNo?: string(maxLength=20, name='customer_no'),
-  // 借据Id
-  debitId?: string(maxLength=16, name='debit_id'),
+  // 项目id
+  projectId: string(maxLength=20, name='project_id'),
+  // 融资主体Did
+  financingSubjectDid: string(maxLength=16, name='financing_subject_did'),
   // 支用Id
   financingId: string(maxLength=32, name='financing_id'),
 }
@@ -7692,24 +7690,30 @@ model QueryPfIouResponse = {
   interestBearingEnd?: string(name='interest_bearing_end'),
   // 借据起息日
   interestBearingStart?: string(name='interest_bearing_start'),
-  // 发放金额
+  // 应还本金，即放款金额
   issuedAmount?: string(name='issued_amount'),
-  // 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-  loanNature?: string(name='loan_nature'),
-  // 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-  loanStatus?: string(name='loan_status'),
-  // 下次结息日期
-  nextParsingDate?: string(name='next_parsing_date'),
-  // 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-  odiCalType?: string(name='odi_cal_type'),
-  // 逾期罚息浮动比率
-  opiFloatingRatio?: string(name='opi_floating_ratio'),
-  // 贷款入账账号
-  payAccount?: string(name='pay_account'),
-  // 本金余额
-  principalBalance?: string(name='principal_balance'),
+  // 还款银行名称
+  repayBankName?: string(name='repay_bank_name'),
+  // 还款账号名称
+  repayAccName?: string(name='repay_acc_name'),
   // 还款账号
-  repayAccount?: string(name='repay_account'),
+  repayAccNo?: string(name='repay_acc_no'),
+  // 实际已还本金
+  repayAmt?: string(name='repay_amt'),
+  // 实际已还利息
+  repayInterest?: string(name='repay_interest'),
+  // 实际已还总额
+  repayTotalAmt?: string(name='repay_total_amt'),
+  // 借据状态
+  creditStatus?: string(name='credit_status'),
+  // 是否逾期,0是,1否
+  isOverdue?: string(name='is_overdue'),
+  // 项目id
+  projectId?: string(name='project_id'),
+  // 支用id
+  financingId?: string(name='financing_id'),
+  // 融资主体DID
+  financingSubjectDid?: string(name='financing_subject_did'),
 }
 
 /**
