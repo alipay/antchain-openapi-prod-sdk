@@ -44,9 +44,9 @@ public class ImportNftCreateRequest extends TeaModel {
     public String owner;
 
     // 艺术品创作时间
-    @NameInMap("create_time")
+    @NameInMap("creation_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String createTime;
+    public String creationTime;
 
     // 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
     @NameInMap("biz_type")
@@ -135,12 +135,12 @@ public class ImportNftCreateRequest extends TeaModel {
         return this.owner;
     }
 
-    public ImportNftCreateRequest setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public ImportNftCreateRequest setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
         return this;
     }
-    public String getCreateTime() {
-        return this.createTime;
+    public String getCreationTime() {
+        return this.creationTime;
     }
 
     public ImportNftCreateRequest setBizType(String bizType) {
