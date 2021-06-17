@@ -17941,11 +17941,11 @@ type ApplyInsuranceOspiRequest struct {
 	// 投保人证件号码
 	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 被保人姓名，实际的保险被保人名称
-	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"300"`
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"200"`
 	// 被保人证件类型，01--居民身份证、03--营业执照
 	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 被保人证件号码
-	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true"`
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 受益人名称，实际的保险受益人名称
 	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"200"`
 	// 受益人证件类型，01--居民身份证、03--营业执照
@@ -17981,7 +17981,7 @@ type ApplyInsuranceOspiRequest struct {
 	// 站点/仓储ID，站点/仓储的脱敏唯一标识
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"100"`
 	// 出发地地址，包裹的实际发件地地址
-	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"100"`
+	StartPlace *string `json:"start_place,omitempty" xml:"start_place,omitempty" require:"true" maxLength:"500"`
 	// 目的地地址，包裹的实际收件地地址
 	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true" maxLength:"500"`
 	// ISO到达国别，包裹业务实际发生的国家
@@ -18488,10 +18488,8 @@ type NotifyInsuranceOspireportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 案件同步唯一码
+	// 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安
-	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 报案号，关联的报案案件号
 	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true" maxLength:"100"`
 	// 订单号
@@ -18499,7 +18497,7 @@ type NotifyInsuranceOspireportRequest struct {
 	// 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
 	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty" require:"true"`
 	// 支付时间，实际的保司打款时间
-	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
 	// 银行流水，打款的银行流水号
 	BankSerialNum *string `json:"bank_serial_num,omitempty" xml:"bank_serial_num,omitempty" require:"true" maxLength:"200"`
 }
@@ -18524,11 +18522,6 @@ func (s *NotifyInsuranceOspireportRequest) SetProductInstanceId(v string) *Notif
 
 func (s *NotifyInsuranceOspireportRequest) SetTradeNo(v string) *NotifyInsuranceOspireportRequest {
 	s.TradeNo = &v
-	return s
-}
-
-func (s *NotifyInsuranceOspireportRequest) SetExternalChannelCode(v string) *NotifyInsuranceOspireportRequest {
-	s.ExternalChannelCode = &v
 	return s
 }
 
@@ -18566,7 +18559,7 @@ type NotifyInsuranceOspireportResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 案件同步唯一码
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
-	// 案件通知状态
+	// 案件通知状态--SUCCESS、FAIL
 	ReportNotifyStatus *string `json:"report_notify_status,omitempty" xml:"report_notify_status,omitempty"`
 }
 
@@ -18644,7 +18637,7 @@ type ApplyInsuranceYzbRequest struct {
 	// 总资产，单位（元），最多2位小数，超过拒绝请求
 	TotalAssets *string `json:"total_assets,omitempty" xml:"total_assets,omitempty" require:"true"`
 	// 雇员人数，站点的雇佣人员数
-	EmployeeNum *string `json:"employee_num,omitempty" xml:"employee_num,omitempty" require:"true"`
+	EmployeeNum *int64 `json:"employee_num,omitempty" xml:"employee_num,omitempty" require:"true"`
 	// 省编码，站点位于的省份编码
 	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true" maxLength:"10"`
 	// 市编码，站点位于的市区编码
@@ -18769,7 +18762,7 @@ func (s *ApplyInsuranceYzbRequest) SetTotalAssets(v string) *ApplyInsuranceYzbRe
 	return s
 }
 
-func (s *ApplyInsuranceYzbRequest) SetEmployeeNum(v string) *ApplyInsuranceYzbRequest {
+func (s *ApplyInsuranceYzbRequest) SetEmployeeNum(v int64) *ApplyInsuranceYzbRequest {
 	s.EmployeeNum = &v
 	return s
 }
@@ -19237,10 +19230,10 @@ type QueryPfIouRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 客户号
-	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" maxLength:"20"`
-	// 借据Id
-	DebitId *string `json:"debit_id,omitempty" xml:"debit_id,omitempty" maxLength:"16"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"20"`
+	// 融资主体Did
+	FinancingSubjectDid *string `json:"financing_subject_did,omitempty" xml:"financing_subject_did,omitempty" require:"true" maxLength:"16"`
 	// 支用Id
 	FinancingId *string `json:"financing_id,omitempty" xml:"financing_id,omitempty" require:"true" maxLength:"32"`
 }
@@ -19263,13 +19256,13 @@ func (s *QueryPfIouRequest) SetProductInstanceId(v string) *QueryPfIouRequest {
 	return s
 }
 
-func (s *QueryPfIouRequest) SetCustomerNo(v string) *QueryPfIouRequest {
-	s.CustomerNo = &v
+func (s *QueryPfIouRequest) SetProjectId(v string) *QueryPfIouRequest {
+	s.ProjectId = &v
 	return s
 }
 
-func (s *QueryPfIouRequest) SetDebitId(v string) *QueryPfIouRequest {
-	s.DebitId = &v
+func (s *QueryPfIouRequest) SetFinancingSubjectDid(v string) *QueryPfIouRequest {
+	s.FinancingSubjectDid = &v
 	return s
 }
 
@@ -19293,24 +19286,30 @@ type QueryPfIouResponse struct {
 	InterestBearingEnd *string `json:"interest_bearing_end,omitempty" xml:"interest_bearing_end,omitempty"`
 	// 借据起息日
 	InterestBearingStart *string `json:"interest_bearing_start,omitempty" xml:"interest_bearing_start,omitempty"`
-	// 发放金额
+	// 应还本金，即放款金额
 	IssuedAmount *string `json:"issued_amount,omitempty" xml:"issued_amount,omitempty"`
-	// 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-	LoanNature *string `json:"loan_nature,omitempty" xml:"loan_nature,omitempty"`
-	// 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-	LoanStatus *string `json:"loan_status,omitempty" xml:"loan_status,omitempty"`
-	// 下次结息日期
-	NextParsingDate *string `json:"next_parsing_date,omitempty" xml:"next_parsing_date,omitempty"`
-	// 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-	OdiCalType *string `json:"odi_cal_type,omitempty" xml:"odi_cal_type,omitempty"`
-	// 逾期罚息浮动比率
-	OpiFloatingRatio *string `json:"opi_floating_ratio,omitempty" xml:"opi_floating_ratio,omitempty"`
-	// 贷款入账账号
-	PayAccount *string `json:"pay_account,omitempty" xml:"pay_account,omitempty"`
-	// 本金余额
-	PrincipalBalance *string `json:"principal_balance,omitempty" xml:"principal_balance,omitempty"`
+	// 还款银行名称
+	RepayBankName *string `json:"repay_bank_name,omitempty" xml:"repay_bank_name,omitempty"`
+	// 还款账号名称
+	RepayAccName *string `json:"repay_acc_name,omitempty" xml:"repay_acc_name,omitempty"`
 	// 还款账号
-	RepayAccount *string `json:"repay_account,omitempty" xml:"repay_account,omitempty"`
+	RepayAccNo *string `json:"repay_acc_no,omitempty" xml:"repay_acc_no,omitempty"`
+	// 实际已还本金
+	RepayAmt *string `json:"repay_amt,omitempty" xml:"repay_amt,omitempty"`
+	// 实际已还利息
+	RepayInterest *string `json:"repay_interest,omitempty" xml:"repay_interest,omitempty"`
+	// 实际已还总额
+	RepayTotalAmt *string `json:"repay_total_amt,omitempty" xml:"repay_total_amt,omitempty"`
+	// 借据状态
+	CreditStatus *string `json:"credit_status,omitempty" xml:"credit_status,omitempty"`
+	// 是否逾期,0是,1否
+	IsOverdue *string `json:"is_overdue,omitempty" xml:"is_overdue,omitempty"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 支用id
+	FinancingId *string `json:"financing_id,omitempty" xml:"financing_id,omitempty"`
+	// 融资主体DID
+	FinancingSubjectDid *string `json:"financing_subject_did,omitempty" xml:"financing_subject_did,omitempty"`
 }
 
 func (s QueryPfIouResponse) String() string {
@@ -19361,43 +19360,58 @@ func (s *QueryPfIouResponse) SetIssuedAmount(v string) *QueryPfIouResponse {
 	return s
 }
 
-func (s *QueryPfIouResponse) SetLoanNature(v string) *QueryPfIouResponse {
-	s.LoanNature = &v
+func (s *QueryPfIouResponse) SetRepayBankName(v string) *QueryPfIouResponse {
+	s.RepayBankName = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetLoanStatus(v string) *QueryPfIouResponse {
-	s.LoanStatus = &v
+func (s *QueryPfIouResponse) SetRepayAccName(v string) *QueryPfIouResponse {
+	s.RepayAccName = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetNextParsingDate(v string) *QueryPfIouResponse {
-	s.NextParsingDate = &v
+func (s *QueryPfIouResponse) SetRepayAccNo(v string) *QueryPfIouResponse {
+	s.RepayAccNo = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetOdiCalType(v string) *QueryPfIouResponse {
-	s.OdiCalType = &v
+func (s *QueryPfIouResponse) SetRepayAmt(v string) *QueryPfIouResponse {
+	s.RepayAmt = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetOpiFloatingRatio(v string) *QueryPfIouResponse {
-	s.OpiFloatingRatio = &v
+func (s *QueryPfIouResponse) SetRepayInterest(v string) *QueryPfIouResponse {
+	s.RepayInterest = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetPayAccount(v string) *QueryPfIouResponse {
-	s.PayAccount = &v
+func (s *QueryPfIouResponse) SetRepayTotalAmt(v string) *QueryPfIouResponse {
+	s.RepayTotalAmt = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetPrincipalBalance(v string) *QueryPfIouResponse {
-	s.PrincipalBalance = &v
+func (s *QueryPfIouResponse) SetCreditStatus(v string) *QueryPfIouResponse {
+	s.CreditStatus = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetRepayAccount(v string) *QueryPfIouResponse {
-	s.RepayAccount = &v
+func (s *QueryPfIouResponse) SetIsOverdue(v string) *QueryPfIouResponse {
+	s.IsOverdue = &v
+	return s
+}
+
+func (s *QueryPfIouResponse) SetProjectId(v string) *QueryPfIouResponse {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryPfIouResponse) SetFinancingId(v string) *QueryPfIouResponse {
+	s.FinancingId = &v
+	return s
+}
+
+func (s *QueryPfIouResponse) SetFinancingSubjectDid(v string) *QueryPfIouResponse {
+	s.FinancingSubjectDid = &v
 	return s
 }
 
@@ -27318,7 +27332,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.110"),
+				"sdk_version":      tea.String("1.3.113"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
