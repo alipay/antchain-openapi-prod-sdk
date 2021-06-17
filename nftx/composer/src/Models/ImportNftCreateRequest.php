@@ -61,7 +61,7 @@ class ImportNftCreateRequest extends Model
     /**
      * @var string
      */
-    public $createTime;
+    public $creationTime;
 
     // 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
     /**
@@ -95,7 +95,7 @@ class ImportNftCreateRequest extends Model
         'quantity'          => 'quantity',
         'author'            => 'author',
         'owner'             => 'owner',
-        'createTime'        => 'create_time',
+        'creationTime'      => 'creation_time',
         'bizType'           => 'biz_type',
         'description'       => 'description',
         'jumpUrl'           => 'jump_url',
@@ -110,10 +110,10 @@ class ImportNftCreateRequest extends Model
         Model::validateRequired('quantity', $this->quantity, true);
         Model::validateRequired('author', $this->author, true);
         Model::validateRequired('owner', $this->owner, true);
-        Model::validateRequired('createTime', $this->createTime, true);
+        Model::validateRequired('creationTime', $this->creationTime, true);
         Model::validateRequired('description', $this->description, true);
         Model::validateRequired('files', $this->files, true);
-        Model::validatePattern('createTime', $this->createTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('creationTime', $this->creationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -143,8 +143,8 @@ class ImportNftCreateRequest extends Model
         if (null !== $this->owner) {
             $res['owner'] = $this->owner;
         }
-        if (null !== $this->createTime) {
-            $res['create_time'] = $this->createTime;
+        if (null !== $this->creationTime) {
+            $res['creation_time'] = $this->creationTime;
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
@@ -200,8 +200,8 @@ class ImportNftCreateRequest extends Model
         if (isset($map['owner'])) {
             $model->owner = $map['owner'];
         }
-        if (isset($map['create_time'])) {
-            $model->createTime = $map['create_time'];
+        if (isset($map['creation_time'])) {
+            $model->creationTime = $map['creation_time'];
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
