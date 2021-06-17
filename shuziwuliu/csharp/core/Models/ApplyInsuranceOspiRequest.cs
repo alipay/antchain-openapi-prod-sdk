@@ -50,7 +50,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 被保人姓名，实际的保险被保人名称
         [NameInMap("bbr_name")]
-        [Validation(Required=true, MaxLength=300)]
+        [Validation(Required=true, MaxLength=200)]
         public string BbrName { get; set; }
 
         // 被保人证件类型，01--居民身份证、03--营业执照
@@ -60,7 +60,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 被保人证件号码
         [NameInMap("bbr_id_no")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=30)]
         public string BbrIdNo { get; set; }
 
         // 受益人名称，实际的保险受益人名称
@@ -150,7 +150,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 出发地地址，包裹的实际发件地地址
         [NameInMap("start_place")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=500)]
         public string StartPlace { get; set; }
 
         // 目的地地址，包裹的实际收件地地址

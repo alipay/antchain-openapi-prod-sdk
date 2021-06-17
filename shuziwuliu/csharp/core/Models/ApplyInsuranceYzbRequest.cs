@@ -111,7 +111,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 雇员人数，站点的雇佣人员数
         [NameInMap("employee_num")]
         [Validation(Required=true)]
-        public string EmployeeNum { get; set; }
+        public long? EmployeeNum { get; set; }
 
         // 省编码，站点位于的省份编码
         [NameInMap("province_code")]

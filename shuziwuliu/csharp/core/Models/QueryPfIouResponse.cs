@@ -44,50 +44,65 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string InterestBearingStart { get; set; }
 
-        // 发放金额
+        // 应还本金，即放款金额
         [NameInMap("issued_amount")]
         [Validation(Required=false)]
         public string IssuedAmount { get; set; }
 
-        // 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-        [NameInMap("loan_nature")]
+        // 还款银行名称
+        [NameInMap("repay_bank_name")]
         [Validation(Required=false)]
-        public string LoanNature { get; set; }
+        public string RepayBankName { get; set; }
 
-        // 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-        [NameInMap("loan_status")]
+        // 还款账号名称
+        [NameInMap("repay_acc_name")]
         [Validation(Required=false)]
-        public string LoanStatus { get; set; }
-
-        // 下次结息日期
-        [NameInMap("next_parsing_date")]
-        [Validation(Required=false)]
-        public string NextParsingDate { get; set; }
-
-        // 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-        [NameInMap("odi_cal_type")]
-        [Validation(Required=false)]
-        public string OdiCalType { get; set; }
-
-        // 逾期罚息浮动比率
-        [NameInMap("opi_floating_ratio")]
-        [Validation(Required=false)]
-        public string OpiFloatingRatio { get; set; }
-
-        // 贷款入账账号
-        [NameInMap("pay_account")]
-        [Validation(Required=false)]
-        public string PayAccount { get; set; }
-
-        // 本金余额
-        [NameInMap("principal_balance")]
-        [Validation(Required=false)]
-        public string PrincipalBalance { get; set; }
+        public string RepayAccName { get; set; }
 
         // 还款账号
-        [NameInMap("repay_account")]
+        [NameInMap("repay_acc_no")]
         [Validation(Required=false)]
-        public string RepayAccount { get; set; }
+        public string RepayAccNo { get; set; }
+
+        // 实际已还本金
+        [NameInMap("repay_amt")]
+        [Validation(Required=false)]
+        public string RepayAmt { get; set; }
+
+        // 实际已还利息
+        [NameInMap("repay_interest")]
+        [Validation(Required=false)]
+        public string RepayInterest { get; set; }
+
+        // 实际已还总额
+        [NameInMap("repay_total_amt")]
+        [Validation(Required=false)]
+        public string RepayTotalAmt { get; set; }
+
+        // 借据状态
+        [NameInMap("credit_status")]
+        [Validation(Required=false)]
+        public string CreditStatus { get; set; }
+
+        // 是否逾期,0是,1否
+        [NameInMap("is_overdue")]
+        [Validation(Required=false)]
+        public string IsOverdue { get; set; }
+
+        // 项目id
+        [NameInMap("project_id")]
+        [Validation(Required=false)]
+        public string ProjectId { get; set; }
+
+        // 支用id
+        [NameInMap("financing_id")]
+        [Validation(Required=false)]
+        public string FinancingId { get; set; }
+
+        // 融资主体DID
+        [NameInMap("financing_subject_did")]
+        [Validation(Required=false)]
+        public string FinancingSubjectDid { get; set; }
 
     }
 

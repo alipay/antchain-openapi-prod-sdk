@@ -18,15 +18,15 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 客户号
-        [NameInMap("customer_no")]
-        [Validation(Required=false, MaxLength=20)]
-        public string CustomerNo { get; set; }
+        // 项目id
+        [NameInMap("project_id")]
+        [Validation(Required=true, MaxLength=20)]
+        public string ProjectId { get; set; }
 
-        // 借据Id
-        [NameInMap("debit_id")]
-        [Validation(Required=false, MaxLength=16)]
-        public string DebitId { get; set; }
+        // 融资主体Did
+        [NameInMap("financing_subject_did")]
+        [Validation(Required=true, MaxLength=16)]
+        public string FinancingSubjectDid { get; set; }
 
         // 支用Id
         [NameInMap("financing_id")]

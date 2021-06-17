@@ -29,7 +29,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
-        // 案件通知状态
+        // 案件通知状态--SUCCESS、FAIL
         [NameInMap("report_notify_status")]
         [Validation(Required=false)]
         public string ReportNotifyStatus { get; set; }
