@@ -51,9 +51,9 @@ namespace AntChain.SDK.NFTX.Models
         public string Owner { get; set; }
 
         // 艺术品创作时间
-        [NameInMap("create_time")]
+        [NameInMap("creation_time")]
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string CreateTime { get; set; }
+        public string CreationTime { get; set; }
 
         // 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
         [NameInMap("biz_type")]
