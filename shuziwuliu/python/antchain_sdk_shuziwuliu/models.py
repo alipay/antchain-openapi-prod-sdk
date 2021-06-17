@@ -20981,11 +20981,13 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
         self.validate_required(self.bbr_name, 'bbr_name')
         if self.bbr_name is not None:
-            self.validate_max_length(self.bbr_name, 'bbr_name', 300)
+            self.validate_max_length(self.bbr_name, 'bbr_name', 200)
         self.validate_required(self.bbr_id_type, 'bbr_id_type')
         if self.bbr_id_type is not None:
             self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
         self.validate_required(self.bbr_id_no, 'bbr_id_no')
+        if self.bbr_id_no is not None:
+            self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 30)
         self.validate_required(self.beneficiary_name, 'beneficiary_name')
         if self.beneficiary_name is not None:
             self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
@@ -21035,7 +21037,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.site_id, 'site_id', 100)
         self.validate_required(self.start_place, 'start_place')
         if self.start_place is not None:
-            self.validate_max_length(self.start_place, 'start_place', 100)
+            self.validate_max_length(self.start_place, 'start_place', 500)
         self.validate_required(self.destination, 'destination')
         if self.destination is not None:
             self.validate_max_length(self.destination, 'destination', 500)
@@ -21618,7 +21620,6 @@ class NotifyInsuranceOspireportRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         trade_no: str = None,
-        external_channel_code: str = None,
         report_no: str = None,
         rela_order_no: str = None,
         claim_amount: str = None,
@@ -21628,10 +21629,8 @@ class NotifyInsuranceOspireportRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 案件同步唯一码
+        # 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安
-        self.external_channel_code = external_channel_code
         # 报案号，关联的报案案件号
         self.report_no = report_no
         # 订单号
@@ -21647,9 +21646,6 @@ class NotifyInsuranceOspireportRequest(TeaModel):
         self.validate_required(self.trade_no, 'trade_no')
         if self.trade_no is not None:
             self.validate_max_length(self.trade_no, 'trade_no', 50)
-        self.validate_required(self.external_channel_code, 'external_channel_code')
-        if self.external_channel_code is not None:
-            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
         self.validate_required(self.report_no, 'report_no')
         if self.report_no is not None:
             self.validate_max_length(self.report_no, 'report_no', 100)
@@ -21658,8 +21654,6 @@ class NotifyInsuranceOspireportRequest(TeaModel):
             self.validate_max_length(self.rela_order_no, 'rela_order_no', 100)
         self.validate_required(self.claim_amount, 'claim_amount')
         self.validate_required(self.payment_time, 'payment_time')
-        if self.payment_time is not None:
-            self.validate_pattern(self.payment_time, 'payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.bank_serial_num, 'bank_serial_num')
         if self.bank_serial_num is not None:
             self.validate_max_length(self.bank_serial_num, 'bank_serial_num', 200)
@@ -21672,8 +21666,6 @@ class NotifyInsuranceOspireportRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.trade_no is not None:
             result['trade_no'] = self.trade_no
-        if self.external_channel_code is not None:
-            result['external_channel_code'] = self.external_channel_code
         if self.report_no is not None:
             result['report_no'] = self.report_no
         if self.rela_order_no is not None:
@@ -21694,8 +21686,6 @@ class NotifyInsuranceOspireportRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
-        if m.get('external_channel_code') is not None:
-            self.external_channel_code = m.get('external_channel_code')
         if m.get('report_no') is not None:
             self.report_no = m.get('report_no')
         if m.get('rela_order_no') is not None:
@@ -21726,7 +21716,7 @@ class NotifyInsuranceOspireportResponse(TeaModel):
         self.result_msg = result_msg
         # 案件同步唯一码
         self.trade_no = trade_no
-        # 案件通知状态
+        # 案件通知状态--SUCCESS、FAIL
         self.report_notify_status = report_notify_status
 
     def validate(self):
@@ -21784,7 +21774,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         site_id: str = None,
         site_name: str = None,
         total_assets: str = None,
-        employee_num: str = None,
+        employee_num: int = None,
         province_code: str = None,
         city_code: str = None,
         district_code: str = None,
@@ -22538,25 +22528,27 @@ class QueryPfIouRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        customer_no: str = None,
-        debit_id: str = None,
+        project_id: str = None,
+        financing_subject_did: str = None,
         financing_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 客户号
-        self.customer_no = customer_no
-        # 借据Id
-        self.debit_id = debit_id
+        # 项目id
+        self.project_id = project_id
+        # 融资主体Did
+        self.financing_subject_did = financing_subject_did
         # 支用Id
         self.financing_id = financing_id
 
     def validate(self):
-        if self.customer_no is not None:
-            self.validate_max_length(self.customer_no, 'customer_no', 20)
-        if self.debit_id is not None:
-            self.validate_max_length(self.debit_id, 'debit_id', 16)
+        self.validate_required(self.project_id, 'project_id')
+        if self.project_id is not None:
+            self.validate_max_length(self.project_id, 'project_id', 20)
+        self.validate_required(self.financing_subject_did, 'financing_subject_did')
+        if self.financing_subject_did is not None:
+            self.validate_max_length(self.financing_subject_did, 'financing_subject_did', 16)
         self.validate_required(self.financing_id, 'financing_id')
         if self.financing_id is not None:
             self.validate_max_length(self.financing_id, 'financing_id', 32)
@@ -22567,10 +22559,10 @@ class QueryPfIouRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.customer_no is not None:
-            result['customer_no'] = self.customer_no
-        if self.debit_id is not None:
-            result['debit_id'] = self.debit_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.financing_subject_did is not None:
+            result['financing_subject_did'] = self.financing_subject_did
         if self.financing_id is not None:
             result['financing_id'] = self.financing_id
         return result
@@ -22581,10 +22573,10 @@ class QueryPfIouRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('customer_no') is not None:
-            self.customer_no = m.get('customer_no')
-        if m.get('debit_id') is not None:
-            self.debit_id = m.get('debit_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('financing_subject_did') is not None:
+            self.financing_subject_did = m.get('financing_subject_did')
         if m.get('financing_id') is not None:
             self.financing_id = m.get('financing_id')
         return self
@@ -22601,14 +22593,17 @@ class QueryPfIouResponse(TeaModel):
         interest_bearing_end: str = None,
         interest_bearing_start: str = None,
         issued_amount: str = None,
-        loan_nature: str = None,
-        loan_status: str = None,
-        next_parsing_date: str = None,
-        odi_cal_type: str = None,
-        opi_floating_ratio: str = None,
-        pay_account: str = None,
-        principal_balance: str = None,
-        repay_account: str = None,
+        repay_bank_name: str = None,
+        repay_acc_name: str = None,
+        repay_acc_no: str = None,
+        repay_amt: str = None,
+        repay_interest: str = None,
+        repay_total_amt: str = None,
+        credit_status: str = None,
+        is_overdue: str = None,
+        project_id: str = None,
+        financing_id: str = None,
+        financing_subject_did: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22624,24 +22619,30 @@ class QueryPfIouResponse(TeaModel):
         self.interest_bearing_end = interest_bearing_end
         # 借据起息日
         self.interest_bearing_start = interest_bearing_start
-        # 发放金额
+        # 应还本金，即放款金额
         self.issued_amount = issued_amount
-        # 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-        self.loan_nature = loan_nature
-        # 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-        self.loan_status = loan_status
-        # 下次结息日期
-        self.next_parsing_date = next_parsing_date
-        # 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-        self.odi_cal_type = odi_cal_type
-        # 逾期罚息浮动比率
-        self.opi_floating_ratio = opi_floating_ratio
-        # 贷款入账账号
-        self.pay_account = pay_account
-        # 本金余额
-        self.principal_balance = principal_balance
+        # 还款银行名称
+        self.repay_bank_name = repay_bank_name
+        # 还款账号名称
+        self.repay_acc_name = repay_acc_name
         # 还款账号
-        self.repay_account = repay_account
+        self.repay_acc_no = repay_acc_no
+        # 实际已还本金
+        self.repay_amt = repay_amt
+        # 实际已还利息
+        self.repay_interest = repay_interest
+        # 实际已还总额
+        self.repay_total_amt = repay_total_amt
+        # 借据状态
+        self.credit_status = credit_status
+        # 是否逾期,0是,1否
+        self.is_overdue = is_overdue
+        # 项目id
+        self.project_id = project_id
+        # 支用id
+        self.financing_id = financing_id
+        # 融资主体DID
+        self.financing_subject_did = financing_subject_did
 
     def validate(self):
         pass
@@ -22664,22 +22665,28 @@ class QueryPfIouResponse(TeaModel):
             result['interest_bearing_start'] = self.interest_bearing_start
         if self.issued_amount is not None:
             result['issued_amount'] = self.issued_amount
-        if self.loan_nature is not None:
-            result['loan_nature'] = self.loan_nature
-        if self.loan_status is not None:
-            result['loan_status'] = self.loan_status
-        if self.next_parsing_date is not None:
-            result['next_parsing_date'] = self.next_parsing_date
-        if self.odi_cal_type is not None:
-            result['odi_cal_type'] = self.odi_cal_type
-        if self.opi_floating_ratio is not None:
-            result['opi_floating_ratio'] = self.opi_floating_ratio
-        if self.pay_account is not None:
-            result['pay_account'] = self.pay_account
-        if self.principal_balance is not None:
-            result['principal_balance'] = self.principal_balance
-        if self.repay_account is not None:
-            result['repay_account'] = self.repay_account
+        if self.repay_bank_name is not None:
+            result['repay_bank_name'] = self.repay_bank_name
+        if self.repay_acc_name is not None:
+            result['repay_acc_name'] = self.repay_acc_name
+        if self.repay_acc_no is not None:
+            result['repay_acc_no'] = self.repay_acc_no
+        if self.repay_amt is not None:
+            result['repay_amt'] = self.repay_amt
+        if self.repay_interest is not None:
+            result['repay_interest'] = self.repay_interest
+        if self.repay_total_amt is not None:
+            result['repay_total_amt'] = self.repay_total_amt
+        if self.credit_status is not None:
+            result['credit_status'] = self.credit_status
+        if self.is_overdue is not None:
+            result['is_overdue'] = self.is_overdue
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.financing_id is not None:
+            result['financing_id'] = self.financing_id
+        if self.financing_subject_did is not None:
+            result['financing_subject_did'] = self.financing_subject_did
         return result
 
     def from_map(self, m: dict = None):
@@ -22700,22 +22707,28 @@ class QueryPfIouResponse(TeaModel):
             self.interest_bearing_start = m.get('interest_bearing_start')
         if m.get('issued_amount') is not None:
             self.issued_amount = m.get('issued_amount')
-        if m.get('loan_nature') is not None:
-            self.loan_nature = m.get('loan_nature')
-        if m.get('loan_status') is not None:
-            self.loan_status = m.get('loan_status')
-        if m.get('next_parsing_date') is not None:
-            self.next_parsing_date = m.get('next_parsing_date')
-        if m.get('odi_cal_type') is not None:
-            self.odi_cal_type = m.get('odi_cal_type')
-        if m.get('opi_floating_ratio') is not None:
-            self.opi_floating_ratio = m.get('opi_floating_ratio')
-        if m.get('pay_account') is not None:
-            self.pay_account = m.get('pay_account')
-        if m.get('principal_balance') is not None:
-            self.principal_balance = m.get('principal_balance')
-        if m.get('repay_account') is not None:
-            self.repay_account = m.get('repay_account')
+        if m.get('repay_bank_name') is not None:
+            self.repay_bank_name = m.get('repay_bank_name')
+        if m.get('repay_acc_name') is not None:
+            self.repay_acc_name = m.get('repay_acc_name')
+        if m.get('repay_acc_no') is not None:
+            self.repay_acc_no = m.get('repay_acc_no')
+        if m.get('repay_amt') is not None:
+            self.repay_amt = m.get('repay_amt')
+        if m.get('repay_interest') is not None:
+            self.repay_interest = m.get('repay_interest')
+        if m.get('repay_total_amt') is not None:
+            self.repay_total_amt = m.get('repay_total_amt')
+        if m.get('credit_status') is not None:
+            self.credit_status = m.get('credit_status')
+        if m.get('is_overdue') is not None:
+            self.is_overdue = m.get('is_overdue')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('financing_id') is not None:
+            self.financing_id = m.get('financing_id')
+        if m.get('financing_subject_did') is not None:
+            self.financing_subject_did = m.get('financing_subject_did')
         return self
 
 
