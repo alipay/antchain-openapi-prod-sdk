@@ -211,7 +211,7 @@ class ImportNftCreateRequest(TeaModel):
         quantity: int = None,
         author: str = None,
         owner: str = None,
-        create_time: str = None,
+        creation_time: str = None,
         biz_type: str = None,
         description: str = None,
         jump_url: str = None,
@@ -235,7 +235,7 @@ class ImportNftCreateRequest(TeaModel):
         # 艺术品拥有者
         self.owner = owner
         # 艺术品创作时间
-        self.create_time = create_time
+        self.creation_time = creation_time
         # 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
         self.biz_type = biz_type
         # nft简介信息
@@ -252,9 +252,9 @@ class ImportNftCreateRequest(TeaModel):
         self.validate_required(self.quantity, 'quantity')
         self.validate_required(self.author, 'author')
         self.validate_required(self.owner, 'owner')
-        self.validate_required(self.create_time, 'create_time')
-        if self.create_time is not None:
-            self.validate_pattern(self.create_time, 'create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.creation_time, 'creation_time')
+        if self.creation_time is not None:
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.description, 'description')
         self.validate_required(self.files, 'files')
         if self.files:
@@ -280,8 +280,8 @@ class ImportNftCreateRequest(TeaModel):
             result['author'] = self.author
         if self.owner is not None:
             result['owner'] = self.owner
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
         if self.biz_type is not None:
             result['biz_type'] = self.biz_type
         if self.description is not None:
@@ -312,8 +312,8 @@ class ImportNftCreateRequest(TeaModel):
             self.author = m.get('author')
         if m.get('owner') is not None:
             self.owner = m.get('owner')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
         if m.get('biz_type') is not None:
             self.biz_type = m.get('biz_type')
         if m.get('description') is not None:
