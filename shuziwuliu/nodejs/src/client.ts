@@ -13112,10 +13112,8 @@ export class NotifyInsuranceOspireportRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 案件同步唯一码
+  // 案件同步唯一码，调用方生成的唯一编码； 格式为 yyyyMMdd_身份标识_其他编码；系统会根据该流水号做防重、幂等判断逻辑。
   tradeNo: string;
-  // 保司编码，PAIC---平安
-  externalChannelCode: string;
   // 报案号，关联的报案案件号
   reportNo: string;
   // 订单号
@@ -13131,7 +13129,6 @@ export class NotifyInsuranceOspireportRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tradeNo: 'trade_no',
-      externalChannelCode: 'external_channel_code',
       reportNo: 'report_no',
       relaOrderNo: 'rela_order_no',
       claimAmount: 'claim_amount',
@@ -13145,7 +13142,6 @@ export class NotifyInsuranceOspireportRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       tradeNo: 'string',
-      externalChannelCode: 'string',
       reportNo: 'string',
       relaOrderNo: 'string',
       claimAmount: 'string',
@@ -13168,7 +13164,7 @@ export class NotifyInsuranceOspireportResponse extends $tea.Model {
   resultMsg?: string;
   // 案件同步唯一码
   tradeNo?: string;
-  // 案件通知状态
+  // 案件通知状态--SUCCESS、FAIL
   reportNotifyStatus?: string;
   static names(): { [key: string]: string } {
     return {
@@ -13236,7 +13232,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   // 总资产，单位（元），最多2位小数，超过拒绝请求
   totalAssets: string;
   // 雇员人数，站点的雇佣人员数
-  employeeNum: string;
+  employeeNum: number;
   // 省编码，站点位于的省份编码
   provinceCode: string;
   // 市编码，站点位于的市区编码
@@ -13306,7 +13302,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
       siteId: 'string',
       siteName: 'string',
       totalAssets: 'string',
-      employeeNum: 'string',
+      employeeNum: 'number',
       provinceCode: 'string',
       cityCode: 'string',
       districtCode: 'string',
@@ -13616,18 +13612,18 @@ export class QueryPfIouRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 客户号
-  customerNo?: string;
-  // 借据Id
-  debitId?: string;
+  // 项目id
+  projectId: string;
+  // 融资主体Did
+  financingSubjectDid: string;
   // 支用Id
   financingId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      customerNo: 'customer_no',
-      debitId: 'debit_id',
+      projectId: 'project_id',
+      financingSubjectDid: 'financing_subject_did',
       financingId: 'financing_id',
     };
   }
@@ -13636,8 +13632,8 @@ export class QueryPfIouRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      customerNo: 'string',
-      debitId: 'string',
+      projectId: 'string',
+      financingSubjectDid: 'string',
       financingId: 'string',
     };
   }
@@ -13662,24 +13658,30 @@ export class QueryPfIouResponse extends $tea.Model {
   interestBearingEnd?: string;
   // 借据起息日
   interestBearingStart?: string;
-  // 发放金额
+  // 应还本金，即放款金额
   issuedAmount?: string;
-  // 贷款性质 0-正常 1-展期 2-一类逾期 3-二类逾期 4-呆滞 5-呆帐
-  loanNature?: string;
-  // 贷款状态 销户=结清 0-正常 1-销户 5-已发放未复核入账
-  loanStatus?: string;
-  // 下次结息日期
-  nextParsingDate?: string;
-  // 逾期计息方式 0-逾期利率 1-逾期罚息比例 2-协议违约利率
-  odiCalType?: string;
-  // 逾期罚息浮动比率
-  opiFloatingRatio?: string;
-  // 贷款入账账号
-  payAccount?: string;
-  // 本金余额
-  principalBalance?: string;
+  // 还款银行名称
+  repayBankName?: string;
+  // 还款账号名称
+  repayAccName?: string;
   // 还款账号
-  repayAccount?: string;
+  repayAccNo?: string;
+  // 实际已还本金
+  repayAmt?: string;
+  // 实际已还利息
+  repayInterest?: string;
+  // 实际已还总额
+  repayTotalAmt?: string;
+  // 借据状态
+  creditStatus?: string;
+  // 是否逾期,0是,1否
+  isOverdue?: string;
+  // 项目id
+  projectId?: string;
+  // 支用id
+  financingId?: string;
+  // 融资主体DID
+  financingSubjectDid?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -13690,14 +13692,17 @@ export class QueryPfIouResponse extends $tea.Model {
       interestBearingEnd: 'interest_bearing_end',
       interestBearingStart: 'interest_bearing_start',
       issuedAmount: 'issued_amount',
-      loanNature: 'loan_nature',
-      loanStatus: 'loan_status',
-      nextParsingDate: 'next_parsing_date',
-      odiCalType: 'odi_cal_type',
-      opiFloatingRatio: 'opi_floating_ratio',
-      payAccount: 'pay_account',
-      principalBalance: 'principal_balance',
-      repayAccount: 'repay_account',
+      repayBankName: 'repay_bank_name',
+      repayAccName: 'repay_acc_name',
+      repayAccNo: 'repay_acc_no',
+      repayAmt: 'repay_amt',
+      repayInterest: 'repay_interest',
+      repayTotalAmt: 'repay_total_amt',
+      creditStatus: 'credit_status',
+      isOverdue: 'is_overdue',
+      projectId: 'project_id',
+      financingId: 'financing_id',
+      financingSubjectDid: 'financing_subject_did',
     };
   }
 
@@ -13711,14 +13716,17 @@ export class QueryPfIouResponse extends $tea.Model {
       interestBearingEnd: 'string',
       interestBearingStart: 'string',
       issuedAmount: 'string',
-      loanNature: 'string',
-      loanStatus: 'string',
-      nextParsingDate: 'string',
-      odiCalType: 'string',
-      opiFloatingRatio: 'string',
-      payAccount: 'string',
-      principalBalance: 'string',
-      repayAccount: 'string',
+      repayBankName: 'string',
+      repayAccName: 'string',
+      repayAccNo: 'string',
+      repayAmt: 'string',
+      repayInterest: 'string',
+      repayTotalAmt: 'string',
+      creditStatus: 'string',
+      isOverdue: 'string',
+      projectId: 'string',
+      financingId: 'string',
+      financingSubjectDid: 'string',
     };
   }
 
@@ -19340,7 +19348,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.110",
+          sdk_version: "1.3.113",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
