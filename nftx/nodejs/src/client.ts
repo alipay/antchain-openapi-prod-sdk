@@ -131,7 +131,7 @@ export class ImportNftCreateRequest extends $tea.Model {
   // 艺术品拥有者
   owner: string;
   // 艺术品创作时间
-  createTime: string;
+  creationTime: string;
   // 用于标识NFT资产来自特定的产品，用作特殊的交互跳转需求，非必填字段
   bizType?: string;
   // nft简介信息
@@ -150,7 +150,7 @@ export class ImportNftCreateRequest extends $tea.Model {
       quantity: 'quantity',
       author: 'author',
       owner: 'owner',
-      createTime: 'create_time',
+      creationTime: 'creation_time',
       bizType: 'biz_type',
       description: 'description',
       jumpUrl: 'jump_url',
@@ -168,7 +168,7 @@ export class ImportNftCreateRequest extends $tea.Model {
       quantity: 'number',
       author: 'string',
       owner: 'string',
-      createTime: 'string',
+      creationTime: 'string',
       bizType: 'string',
       description: 'string',
       jumpUrl: 'string',
@@ -479,7 +479,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
