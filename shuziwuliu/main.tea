@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.113',
+    sdk_version = '1.3.115',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7695,9 +7695,9 @@ model QueryPfIouResponse = {
   // 还款银行名称
   repayBankName?: string(name='repay_bank_name'),
   // 还款账号名称
-  repayAccName?: string(name='repay_acc_name'),
+  repayAcctName?: string(name='repay_acct_name'),
   // 还款账号
-  repayAccNo?: string(name='repay_acc_no'),
+  repayAccount?: string(name='repay_account'),
   // 实际已还本金
   repayAmt?: string(name='repay_amt'),
   // 实际已还利息
