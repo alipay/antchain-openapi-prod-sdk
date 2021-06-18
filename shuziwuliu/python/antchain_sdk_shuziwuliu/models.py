@@ -22594,8 +22594,8 @@ class QueryPfIouResponse(TeaModel):
         interest_bearing_start: str = None,
         issued_amount: str = None,
         repay_bank_name: str = None,
-        repay_acc_name: str = None,
-        repay_acc_no: str = None,
+        repay_acct_name: str = None,
+        repay_account: str = None,
         repay_amt: str = None,
         repay_interest: str = None,
         repay_total_amt: str = None,
@@ -22624,9 +22624,9 @@ class QueryPfIouResponse(TeaModel):
         # 还款银行名称
         self.repay_bank_name = repay_bank_name
         # 还款账号名称
-        self.repay_acc_name = repay_acc_name
+        self.repay_acct_name = repay_acct_name
         # 还款账号
-        self.repay_acc_no = repay_acc_no
+        self.repay_account = repay_account
         # 实际已还本金
         self.repay_amt = repay_amt
         # 实际已还利息
@@ -22667,10 +22667,10 @@ class QueryPfIouResponse(TeaModel):
             result['issued_amount'] = self.issued_amount
         if self.repay_bank_name is not None:
             result['repay_bank_name'] = self.repay_bank_name
-        if self.repay_acc_name is not None:
-            result['repay_acc_name'] = self.repay_acc_name
-        if self.repay_acc_no is not None:
-            result['repay_acc_no'] = self.repay_acc_no
+        if self.repay_acct_name is not None:
+            result['repay_acct_name'] = self.repay_acct_name
+        if self.repay_account is not None:
+            result['repay_account'] = self.repay_account
         if self.repay_amt is not None:
             result['repay_amt'] = self.repay_amt
         if self.repay_interest is not None:
@@ -22709,10 +22709,10 @@ class QueryPfIouResponse(TeaModel):
             self.issued_amount = m.get('issued_amount')
         if m.get('repay_bank_name') is not None:
             self.repay_bank_name = m.get('repay_bank_name')
-        if m.get('repay_acc_name') is not None:
-            self.repay_acc_name = m.get('repay_acc_name')
-        if m.get('repay_acc_no') is not None:
-            self.repay_acc_no = m.get('repay_acc_no')
+        if m.get('repay_acct_name') is not None:
+            self.repay_acct_name = m.get('repay_acct_name')
+        if m.get('repay_account') is not None:
+            self.repay_account = m.get('repay_account')
         if m.get('repay_amt') is not None:
             self.repay_amt = m.get('repay_amt')
         if m.get('repay_interest') is not None:
