@@ -13663,9 +13663,9 @@ export class QueryPfIouResponse extends $tea.Model {
   // 还款银行名称
   repayBankName?: string;
   // 还款账号名称
-  repayAccName?: string;
+  repayAcctName?: string;
   // 还款账号
-  repayAccNo?: string;
+  repayAccount?: string;
   // 实际已还本金
   repayAmt?: string;
   // 实际已还利息
@@ -13693,8 +13693,8 @@ export class QueryPfIouResponse extends $tea.Model {
       interestBearingStart: 'interest_bearing_start',
       issuedAmount: 'issued_amount',
       repayBankName: 'repay_bank_name',
-      repayAccName: 'repay_acc_name',
-      repayAccNo: 'repay_acc_no',
+      repayAcctName: 'repay_acct_name',
+      repayAccount: 'repay_account',
       repayAmt: 'repay_amt',
       repayInterest: 'repay_interest',
       repayTotalAmt: 'repay_total_amt',
@@ -13717,8 +13717,8 @@ export class QueryPfIouResponse extends $tea.Model {
       interestBearingStart: 'string',
       issuedAmount: 'string',
       repayBankName: 'string',
-      repayAccName: 'string',
-      repayAccNo: 'string',
+      repayAcctName: 'string',
+      repayAccount: 'string',
       repayAmt: 'string',
       repayInterest: 'string',
       repayTotalAmt: 'string',
@@ -19348,7 +19348,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.113",
+          sdk_version: "1.3.115",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
