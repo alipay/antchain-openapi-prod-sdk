@@ -66,13 +66,13 @@ class QueryPfIouResponse extends Model
     /**
      * @var string
      */
-    public $repayAccName;
+    public $repayAcctName;
 
     // 还款账号
     /**
      * @var string
      */
-    public $repayAccNo;
+    public $repayAccount;
 
     // 实际已还本金
     /**
@@ -131,8 +131,8 @@ class QueryPfIouResponse extends Model
         'interestBearingStart' => 'interest_bearing_start',
         'issuedAmount'         => 'issued_amount',
         'repayBankName'        => 'repay_bank_name',
-        'repayAccName'         => 'repay_acc_name',
-        'repayAccNo'           => 'repay_acc_no',
+        'repayAcctName'        => 'repay_acct_name',
+        'repayAccount'         => 'repay_account',
         'repayAmt'             => 'repay_amt',
         'repayInterest'        => 'repay_interest',
         'repayTotalAmt'        => 'repay_total_amt',
@@ -177,11 +177,11 @@ class QueryPfIouResponse extends Model
         if (null !== $this->repayBankName) {
             $res['repay_bank_name'] = $this->repayBankName;
         }
-        if (null !== $this->repayAccName) {
-            $res['repay_acc_name'] = $this->repayAccName;
+        if (null !== $this->repayAcctName) {
+            $res['repay_acct_name'] = $this->repayAcctName;
         }
-        if (null !== $this->repayAccNo) {
-            $res['repay_acc_no'] = $this->repayAccNo;
+        if (null !== $this->repayAccount) {
+            $res['repay_account'] = $this->repayAccount;
         }
         if (null !== $this->repayAmt) {
             $res['repay_amt'] = $this->repayAmt;
@@ -246,11 +246,11 @@ class QueryPfIouResponse extends Model
         if (isset($map['repay_bank_name'])) {
             $model->repayBankName = $map['repay_bank_name'];
         }
-        if (isset($map['repay_acc_name'])) {
-            $model->repayAccName = $map['repay_acc_name'];
+        if (isset($map['repay_acct_name'])) {
+            $model->repayAcctName = $map['repay_acct_name'];
         }
-        if (isset($map['repay_acc_no'])) {
-            $model->repayAccNo = $map['repay_acc_no'];
+        if (isset($map['repay_account'])) {
+            $model->repayAccount = $map['repay_account'];
         }
         if (isset($map['repay_amt'])) {
             $model->repayAmt = $map['repay_amt'];
