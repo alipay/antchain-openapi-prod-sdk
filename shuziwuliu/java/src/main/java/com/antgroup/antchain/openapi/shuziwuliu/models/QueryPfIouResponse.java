@@ -41,12 +41,12 @@ public class QueryPfIouResponse extends TeaModel {
     public String repayBankName;
 
     // 还款账号名称
-    @NameInMap("repay_acc_name")
-    public String repayAccName;
+    @NameInMap("repay_acct_name")
+    public String repayAcctName;
 
     // 还款账号
-    @NameInMap("repay_acc_no")
-    public String repayAccNo;
+    @NameInMap("repay_account")
+    public String repayAccount;
 
     // 实际已还本金
     @NameInMap("repay_amt")
@@ -157,20 +157,20 @@ public class QueryPfIouResponse extends TeaModel {
         return this.repayBankName;
     }
 
-    public QueryPfIouResponse setRepayAccName(String repayAccName) {
-        this.repayAccName = repayAccName;
+    public QueryPfIouResponse setRepayAcctName(String repayAcctName) {
+        this.repayAcctName = repayAcctName;
         return this;
     }
-    public String getRepayAccName() {
-        return this.repayAccName;
+    public String getRepayAcctName() {
+        return this.repayAcctName;
     }
 
-    public QueryPfIouResponse setRepayAccNo(String repayAccNo) {
-        this.repayAccNo = repayAccNo;
+    public QueryPfIouResponse setRepayAccount(String repayAccount) {
+        this.repayAccount = repayAccount;
         return this;
     }
-    public String getRepayAccNo() {
-        return this.repayAccNo;
+    public String getRepayAccount() {
+        return this.repayAccount;
     }
 
     public QueryPfIouResponse setRepayAmt(String repayAmt) {
