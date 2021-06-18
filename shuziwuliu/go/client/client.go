@@ -19291,9 +19291,9 @@ type QueryPfIouResponse struct {
 	// 还款银行名称
 	RepayBankName *string `json:"repay_bank_name,omitempty" xml:"repay_bank_name,omitempty"`
 	// 还款账号名称
-	RepayAccName *string `json:"repay_acc_name,omitempty" xml:"repay_acc_name,omitempty"`
+	RepayAcctName *string `json:"repay_acct_name,omitempty" xml:"repay_acct_name,omitempty"`
 	// 还款账号
-	RepayAccNo *string `json:"repay_acc_no,omitempty" xml:"repay_acc_no,omitempty"`
+	RepayAccount *string `json:"repay_account,omitempty" xml:"repay_account,omitempty"`
 	// 实际已还本金
 	RepayAmt *string `json:"repay_amt,omitempty" xml:"repay_amt,omitempty"`
 	// 实际已还利息
@@ -19365,13 +19365,13 @@ func (s *QueryPfIouResponse) SetRepayBankName(v string) *QueryPfIouResponse {
 	return s
 }
 
-func (s *QueryPfIouResponse) SetRepayAccName(v string) *QueryPfIouResponse {
-	s.RepayAccName = &v
+func (s *QueryPfIouResponse) SetRepayAcctName(v string) *QueryPfIouResponse {
+	s.RepayAcctName = &v
 	return s
 }
 
-func (s *QueryPfIouResponse) SetRepayAccNo(v string) *QueryPfIouResponse {
-	s.RepayAccNo = &v
+func (s *QueryPfIouResponse) SetRepayAccount(v string) *QueryPfIouResponse {
+	s.RepayAccount = &v
 	return s
 }
 
@@ -27332,7 +27332,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.113"),
+				"sdk_version":      tea.String("1.3.115"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
