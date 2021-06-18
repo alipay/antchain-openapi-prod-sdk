@@ -55,14 +55,14 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public string RepayBankName { get; set; }
 
         // 还款账号名称
-        [NameInMap("repay_acc_name")]
+        [NameInMap("repay_acct_name")]
         [Validation(Required=false)]
-        public string RepayAccName { get; set; }
+        public string RepayAcctName { get; set; }
 
         // 还款账号
-        [NameInMap("repay_acc_no")]
+        [NameInMap("repay_account")]
         [Validation(Required=false)]
-        public string RepayAccNo { get; set; }
+        public string RepayAccount { get; set; }
 
         // 实际已还本金
         [NameInMap("repay_amt")]
