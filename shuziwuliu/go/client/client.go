@@ -17402,15 +17402,15 @@ type ApplyInsuranceCbecRequest struct {
 	// 投保人名称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型，03--营业执照
-	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" maxLength:"40"`
+	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" maxLength:"2"`
 	// 投保人证件号码
-	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" maxLength:"800"`
+	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" maxLength:"30"`
 	// 被保人名称
 	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 被保人证件类型，01--居民身份证，03--营业执照
-	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" maxLength:"40"`
+	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" maxLength:"2"`
 	// 被保人证件号码
-	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" maxLength:"800"`
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" maxLength:"30"`
 	// 出库单号/航次号/运单号
 	RelatedOrderNo *string `json:"related_order_no,omitempty" xml:"related_order_no,omitempty" require:"true" maxLength:"200"`
 	// 包装及数量
@@ -17935,35 +17935,35 @@ type ApplyInsuranceOspiRequest struct {
 	// 险种编码，04--海外邮包险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
-	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"200"`
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型，03--营业执照
 	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 投保人证件号码
 	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 被保人姓名，实际的保险被保人名称
-	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"200"`
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 被保人证件类型，01--居民身份证、03--营业执照
 	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 被保人证件号码
 	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 受益人名称，实际的保险受益人名称
-	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"200"`
+	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"100"`
 	// 受益人证件类型，01--居民身份证、03--营业执照
 	BeneficiaryIdType *string `json:"beneficiary_id_type,omitempty" xml:"beneficiary_id_type,omitempty" require:"true" maxLength:"2"`
 	// 受益人证件号码
 	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
-	// 保险起期
-	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
 	// 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
 	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty" require:"true"`
-	// 方案名，保司和业务平台商定的方案名称
+	// 方案名，海外邮包险--OWFP
 	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"100"`
-	// 项目名称,保司和业务平台商定的项目名称
+	// 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
 	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true" maxLength:"500"`
 	// 订单号,物流平台用以区分业务的唯一码
-	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"100"`
-	// 寄件时间，yyyy-MM-dd HH:mm:ss
-	PickUpTime *string `json:"pick_up_time,omitempty" xml:"pick_up_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"200"`
+	// 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
+	PickUpTime *string `json:"pick_up_time,omitempty" xml:"pick_up_time,omitempty" require:"true"`
 	// 快递公司名称，实际的派送公司全称
 	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" require:"true" maxLength:"200"`
 	// 快递单号，实际的派送快递单号
@@ -17973,7 +17973,7 @@ type ApplyInsuranceOspiRequest struct {
 	// 货物名称，实际的货物名称
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"200"`
 	// 货物数量
-	CargoQuantity *int64 `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
 	// 买家ID，买家的脱敏唯一标识
 	BuyId *string `json:"buy_id,omitempty" xml:"buy_id,omitempty" require:"true" maxLength:"100"`
 	// 卖家ID，卖家的脱敏唯一标识
@@ -17987,7 +17987,7 @@ type ApplyInsuranceOspiRequest struct {
 	// ISO到达国别，包裹业务实际发生的国家
 	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
 	// 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
-	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true" maxLength:"20"`
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true"`
 }
 
 func (s ApplyInsuranceOspiRequest) String() string {
@@ -18118,7 +18118,7 @@ func (s *ApplyInsuranceOspiRequest) SetCargoName(v string) *ApplyInsuranceOspiRe
 	return s
 }
 
-func (s *ApplyInsuranceOspiRequest) SetCargoQuantity(v int64) *ApplyInsuranceOspiRequest {
+func (s *ApplyInsuranceOspiRequest) SetCargoQuantity(v string) *ApplyInsuranceOspiRequest {
 	s.CargoQuantity = &v
 	return s
 }
@@ -18174,9 +18174,9 @@ type ApplyInsuranceOspiResponse struct {
 	// 保额
 	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty"`
 	// 保险起期
-	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty"`
 	// 保险止期
-	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty"`
 }
 
 func (s ApplyInsuranceOspiResponse) String() string {
@@ -18245,17 +18245,17 @@ type ApplyInsuranceOspireportRequest struct {
 	// 保单号，申请理赔的保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
 	// 订单号，申请理赔所关联的订单号
-	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"500"`
-	// 出险时间，发生损失的时间
-	AccidentTime *string `json:"accident_time,omitempty" xml:"accident_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"200"`
+	// 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
+	AccidentTime *string `json:"accident_time,omitempty" xml:"accident_time,omitempty" require:"true"`
 	// 报案人名称，申请报案人的名称
-	ReporterName *string `json:"reporter_name,omitempty" xml:"reporter_name,omitempty" require:"true" maxLength:"200"`
+	ReporterName *string `json:"reporter_name,omitempty" xml:"reporter_name,omitempty" require:"true" maxLength:"100"`
 	// 报案人联系方式，申请报案人的联系方式
 	ReporterContact *string `json:"reporter_contact,omitempty" xml:"reporter_contact,omitempty" require:"true" maxLength:"20"`
 	// 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
 	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty" require:"true"`
-	// 物流揽收时间
-	CollectDate *string `json:"collect_date,omitempty" xml:"collect_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 物流揽收时间，yyyy-MM-dd HH:mm:ss
+	CollectDate *string `json:"collect_date,omitempty" xml:"collect_date,omitempty" require:"true"`
 	// 工单号，平台客服判责的工单号
 	JobNo *string `json:"job_no,omitempty" xml:"job_no,omitempty" require:"true" maxLength:"100"`
 	// 快递公司名称，实际的派送公司全称
@@ -18280,8 +18280,8 @@ type ApplyInsuranceOspireportRequest struct {
 	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
 	// 出险地址，货物发生实际损失的最近的一次地址记录
 	AccidentAddress *string `json:"accident_address,omitempty" xml:"accident_address,omitempty" require:"true" maxLength:"500"`
-	// 平台赔款支付时间，平台先行赔付的时间
-	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
 	// 赔付项目类型，01-运费，02-货值，03-货值2
 	PaymentItem *string `json:"payment_item,omitempty" xml:"payment_item,omitempty" require:"true" maxLength:"2"`
 	// 出险类型，赔付的出险类型，届时保司和平台方商定
@@ -18496,7 +18496,7 @@ type NotifyInsuranceOspireportRequest struct {
 	RelaOrderNo *string `json:"rela_order_no,omitempty" xml:"rela_order_no,omitempty" require:"true" maxLength:"100"`
 	// 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
 	ClaimAmount *string `json:"claim_amount,omitempty" xml:"claim_amount,omitempty" require:"true"`
-	// 支付时间，实际的保司打款时间
+	// 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
 	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
 	// 银行流水，打款的银行流水号
 	BankSerialNum *string `json:"bank_serial_num,omitempty" xml:"bank_serial_num,omitempty" require:"true" maxLength:"200"`
@@ -18607,13 +18607,13 @@ type ApplyInsuranceYzbRequest struct {
 	// 险种编码，05-驿站宝
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
-	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"200"`
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型，03--营业执照
 	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 投保人证件号码
 	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 被保人姓名，实际的保险被保人名称
-	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"200"`
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 被保人证件类型，01--居民身份证、03--营业执照
 	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 被保人证件号码
@@ -18621,14 +18621,14 @@ type ApplyInsuranceYzbRequest struct {
 	// 被保人联系方式
 	BbrContact *string `json:"bbr_contact,omitempty" xml:"bbr_contact,omitempty" require:"true" maxLength:"30"`
 	// 受益人名称，实际的保险受益人名称
-	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"200"`
+	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"100"`
 	// 受益人证件类型，01--居民身份证、03--营业执照
 	BeneficiaryIdType *string `json:"beneficiary_id_type,omitempty" xml:"beneficiary_id_type,omitempty" require:"true" maxLength:"2"`
 	// 受益人证件号码
 	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
 	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
-	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 套餐编码，届时保司与平台确定套餐方案
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
+	// 套餐编码，PK00033303、PK00033459、PK00033460
 	ProductPackageType *string `json:"product_package_type,omitempty" xml:"product_package_type,omitempty" require:"true" maxLength:"20"`
 	// 站点ID，站点的唯一标识
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" require:"true" maxLength:"30"`
@@ -18637,7 +18637,7 @@ type ApplyInsuranceYzbRequest struct {
 	// 总资产，单位（元），最多2位小数，超过拒绝请求
 	TotalAssets *string `json:"total_assets,omitempty" xml:"total_assets,omitempty" require:"true"`
 	// 雇员人数，站点的雇佣人员数
-	EmployeeNum *int64 `json:"employee_num,omitempty" xml:"employee_num,omitempty" require:"true"`
+	EmployeeNum *string `json:"employee_num,omitempty" xml:"employee_num,omitempty" require:"true"`
 	// 省编码，站点位于的省份编码
 	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true" maxLength:"10"`
 	// 市编码，站点位于的市区编码
@@ -18646,10 +18646,10 @@ type ApplyInsuranceYzbRequest struct {
 	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true" maxLength:"10"`
 	// 完整地址，站点的详细地址
 	WholeAddress *string `json:"whole_address,omitempty" xml:"whole_address,omitempty" require:"true" maxLength:"300"`
-	// 方案名称，届时保司与平台确定方案名称
+	// 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
 	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人姓名
-	AcplBbrName *string `json:"acpl_bbr_name,omitempty" xml:"acpl_bbr_name,omitempty" require:"true" maxLength:"50"`
+	AcplBbrName *string `json:"acpl_bbr_name,omitempty" xml:"acpl_bbr_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人身份证号
 	AcplBbrIdNo *string `json:"acpl_bbr_id_no,omitempty" xml:"acpl_bbr_id_no,omitempty" require:"true" maxLength:"30"`
 }
@@ -18762,7 +18762,7 @@ func (s *ApplyInsuranceYzbRequest) SetTotalAssets(v string) *ApplyInsuranceYzbRe
 	return s
 }
 
-func (s *ApplyInsuranceYzbRequest) SetEmployeeNum(v int64) *ApplyInsuranceYzbRequest {
+func (s *ApplyInsuranceYzbRequest) SetEmployeeNum(v string) *ApplyInsuranceYzbRequest {
 	s.EmployeeNum = &v
 	return s
 }
@@ -18818,9 +18818,9 @@ type ApplyInsuranceYzbResponse struct {
 	// 保额
 	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty"`
 	// 保险起期
-	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty"`
 	// 保险止期
-	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty"`
 }
 
 func (s ApplyInsuranceYzbResponse) String() string {
@@ -27332,7 +27332,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.115"),
+				"sdk_version":      tea.String("1.3.119"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
