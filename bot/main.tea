@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.7',
+    sdk_version = '1.5.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2642,6 +2642,12 @@ model ApplyMqtokenResponse = {
   token?: string(name='token'),
   // 接入阿里云LMQ的所需的accessKey
   accessKey?: string(name='access_key'),
+  // mqtt的instanceId
+  instanceId?: string(name='instance_id'),
+  // mqtt的topic
+  subTopic?: string(name='sub_topic'),
+  // mqtt的topic
+  pubTopic?: string(name='pub_topic'),
 }
 
 /**
