@@ -42,12 +42,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 投保人证件类型，03--营业执照
         [NameInMap("tbr_id_type")]
-        [Validation(Required=false, MaxLength=40)]
+        [Validation(Required=false, MaxLength=2)]
         public string TbrIdType { get; set; }
 
         // 投保人证件号码
         [NameInMap("tbr_id_no")]
-        [Validation(Required=false, MaxLength=800)]
+        [Validation(Required=false, MaxLength=30)]
         public string TbrIdNo { get; set; }
 
         // 被保人名称
@@ -57,12 +57,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 被保人证件类型，01--居民身份证，03--营业执照
         [NameInMap("bbr_id_type")]
-        [Validation(Required=false, MaxLength=40)]
+        [Validation(Required=false, MaxLength=2)]
         public string BbrIdType { get; set; }
 
         // 被保人证件号码
         [NameInMap("bbr_id_no")]
-        [Validation(Required=false, MaxLength=800)]
+        [Validation(Required=false, MaxLength=30)]
         public string BbrIdNo { get; set; }
 
         // 出库单号/航次号/运单号

@@ -46,12 +46,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 保险起期
         [NameInMap("insure_start")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string InsureStart { get; set; }
 
         // 保险止期
         [NameInMap("insure_end")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string InsureEnd { get; set; }
 
     }

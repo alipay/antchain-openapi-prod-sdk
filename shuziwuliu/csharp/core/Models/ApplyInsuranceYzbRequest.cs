@@ -35,7 +35,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 投保人姓名，保险协议中的投保人全称
         [NameInMap("tbr_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string TbrName { get; set; }
 
         // 投保人证件类型，03--营业执照
@@ -50,7 +50,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 被保人姓名，实际的保险被保人名称
         [NameInMap("bbr_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string BbrName { get; set; }
 
         // 被保人证件类型，01--居民身份证、03--营业执照
@@ -70,7 +70,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 受益人名称，实际的保险受益人名称
         [NameInMap("beneficiary_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string BeneficiaryName { get; set; }
 
         // 受益人证件类型，01--居民身份证、03--营业执照
@@ -85,10 +85,10 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 保险起期，格式：yyyy-MM-dd HH:mm:ss
         [NameInMap("insure_start")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string InsureStart { get; set; }
 
-        // 套餐编码，届时保司与平台确定套餐方案
+        // 套餐编码，PK00033303、PK00033459、PK00033460
         [NameInMap("product_package_type")]
         [Validation(Required=true, MaxLength=20)]
         public string ProductPackageType { get; set; }
@@ -111,7 +111,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 雇员人数，站点的雇佣人员数
         [NameInMap("employee_num")]
         [Validation(Required=true)]
-        public long? EmployeeNum { get; set; }
+        public string EmployeeNum { get; set; }
 
         // 省编码，站点位于的省份编码
         [NameInMap("province_code")]
@@ -133,14 +133,14 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=300)]
         public string WholeAddress { get; set; }
 
-        // 方案名称，届时保司与平台确定方案名称
+        // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
         [NameInMap("scheme_name")]
         [Validation(Required=true, MaxLength=100)]
         public string SchemeName { get; set; }
 
         // 意健险被保人姓名
         [NameInMap("acpl_bbr_name")]
-        [Validation(Required=true, MaxLength=50)]
+        [Validation(Required=true, MaxLength=100)]
         public string AcplBbrName { get; set; }
 
         // 意健险被保人身份证号

@@ -40,17 +40,17 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 订单号，申请理赔所关联的订单号
         [NameInMap("rela_order_no")]
-        [Validation(Required=true, MaxLength=500)]
+        [Validation(Required=true, MaxLength=200)]
         public string RelaOrderNo { get; set; }
 
-        // 出险时间，发生损失的时间
+        // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
         [NameInMap("accident_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string AccidentTime { get; set; }
 
         // 报案人名称，申请报案人的名称
         [NameInMap("reporter_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string ReporterName { get; set; }
 
         // 报案人联系方式，申请报案人的联系方式
@@ -63,9 +63,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string ClaimAmount { get; set; }
 
-        // 物流揽收时间
+        // 物流揽收时间，yyyy-MM-dd HH:mm:ss
         [NameInMap("collect_date")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string CollectDate { get; set; }
 
         // 工单号，平台客服判责的工单号
@@ -128,9 +128,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=500)]
         public string AccidentAddress { get; set; }
 
-        // 平台赔款支付时间，平台先行赔付的时间
+        // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
         [NameInMap("payment_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string PaymentTime { get; set; }
 
         // 赔付项目类型，01-运费，02-货值，03-货值2

@@ -38,7 +38,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string ClaimAmount { get; set; }
 
-        // 支付时间，实际的保司打款时间
+        // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
         [NameInMap("payment_time")]
         [Validation(Required=true)]
         public string PaymentTime { get; set; }

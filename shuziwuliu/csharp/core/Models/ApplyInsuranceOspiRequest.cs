@@ -35,7 +35,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 投保人姓名，保险协议中的投保人全称
         [NameInMap("tbr_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string TbrName { get; set; }
 
         // 投保人证件类型，03--营业执照
@@ -50,7 +50,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 被保人姓名，实际的保险被保人名称
         [NameInMap("bbr_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string BbrName { get; set; }
 
         // 被保人证件类型，01--居民身份证、03--营业执照
@@ -65,7 +65,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 受益人名称，实际的保险受益人名称
         [NameInMap("beneficiary_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=100)]
         public string BeneficiaryName { get; set; }
 
         // 受益人证件类型，01--居民身份证、03--营业执照
@@ -78,9 +78,9 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=30)]
         public string BeneficiaryNo { get; set; }
 
-        // 保险起期
+        // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
         [NameInMap("insure_start")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string InsureStart { get; set; }
 
         // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
@@ -88,24 +88,24 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string InsuredAmount { get; set; }
 
-        // 方案名，保司和业务平台商定的方案名称
+        // 方案名，海外邮包险--OWFP
         [NameInMap("scheme_name")]
         [Validation(Required=true, MaxLength=100)]
         public string SchemeName { get; set; }
 
-        // 项目名称,保司和业务平台商定的项目名称
+        // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
         [NameInMap("project_name")]
         [Validation(Required=true, MaxLength=500)]
         public string ProjectName { get; set; }
 
         // 订单号,物流平台用以区分业务的唯一码
         [NameInMap("rela_order_no")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=200)]
         public string RelaOrderNo { get; set; }
 
-        // 寄件时间，yyyy-MM-dd HH:mm:ss
+        // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
         [NameInMap("pick_up_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string PickUpTime { get; set; }
 
         // 快递公司名称，实际的派送公司全称
@@ -131,7 +131,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 货物数量
         [NameInMap("cargo_quantity")]
         [Validation(Required=true)]
-        public long? CargoQuantity { get; set; }
+        public string CargoQuantity { get; set; }
 
         // 买家ID，买家的脱敏唯一标识
         [NameInMap("buy_id")]
@@ -165,7 +165,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
         [NameInMap("cargo_worth")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=true)]
         public string CargoWorth { get; set; }
 
     }
