@@ -5519,6 +5519,12 @@ type ApplyMqtokenResponse struct {
 	Token *string `json:"token,omitempty" xml:"token,omitempty"`
 	// 接入阿里云LMQ的所需的accessKey
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
+	// mqtt的instanceId
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// mqtt的topic
+	SubTopic *string `json:"sub_topic,omitempty" xml:"sub_topic,omitempty"`
+	// mqtt的topic
+	PubTopic *string `json:"pub_topic,omitempty" xml:"pub_topic,omitempty"`
 }
 
 func (s ApplyMqtokenResponse) String() string {
@@ -5551,6 +5557,21 @@ func (s *ApplyMqtokenResponse) SetToken(v string) *ApplyMqtokenResponse {
 
 func (s *ApplyMqtokenResponse) SetAccessKey(v string) *ApplyMqtokenResponse {
 	s.AccessKey = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetInstanceId(v string) *ApplyMqtokenResponse {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetSubTopic(v string) *ApplyMqtokenResponse {
+	s.SubTopic = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetPubTopic(v string) *ApplyMqtokenResponse {
+	s.PubTopic = &v
 	return s
 }
 
@@ -7672,7 +7693,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.7"),
+				"sdk_version":      tea.String("1.5.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
