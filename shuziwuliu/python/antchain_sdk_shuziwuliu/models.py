@@ -20277,16 +20277,16 @@ class ApplyInsuranceCbecRequest(TeaModel):
         if self.tbr_name is not None:
             self.validate_max_length(self.tbr_name, 'tbr_name', 100)
         if self.tbr_id_type is not None:
-            self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 40)
+            self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 2)
         if self.tbr_id_no is not None:
-            self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 800)
+            self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
         self.validate_required(self.bbr_name, 'bbr_name')
         if self.bbr_name is not None:
             self.validate_max_length(self.bbr_name, 'bbr_name', 100)
         if self.bbr_id_type is not None:
-            self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 40)
+            self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
         if self.bbr_id_no is not None:
-            self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 800)
+            self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 30)
         self.validate_required(self.related_order_no, 'related_order_no')
         if self.related_order_no is not None:
             self.validate_max_length(self.related_order_no, 'related_order_no', 200)
@@ -20887,7 +20887,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
         courier_number: str = None,
         cargo_type: str = None,
         cargo_name: str = None,
-        cargo_quantity: int = None,
+        cargo_quantity: str = None,
         buy_id: str = None,
         sell_id: str = None,
         site_id: str = None,
@@ -20923,17 +20923,17 @@ class ApplyInsuranceOspiRequest(TeaModel):
         self.beneficiary_id_type = beneficiary_id_type
         # 受益人证件号码
         self.beneficiary_no = beneficiary_no
-        # 保险起期
+        # 保险起期，日期格式yyyy-MM-dd HH:mm:ss
         self.insure_start = insure_start
         # 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
         self.insured_amount = insured_amount
-        # 方案名，保司和业务平台商定的方案名称
+        # 方案名，海外邮包险--OWFP
         self.scheme_name = scheme_name
-        # 项目名称,保司和业务平台商定的项目名称
+        # 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
         self.project_name = project_name
         # 订单号,物流平台用以区分业务的唯一码
         self.rela_order_no = rela_order_no
-        # 寄件时间，yyyy-MM-dd HH:mm:ss
+        # 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
         self.pick_up_time = pick_up_time
         # 快递公司名称，实际的派送公司全称
         self.courier_company = courier_company
@@ -20972,7 +20972,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.external_product_code, 'external_product_code', 2)
         self.validate_required(self.tbr_name, 'tbr_name')
         if self.tbr_name is not None:
-            self.validate_max_length(self.tbr_name, 'tbr_name', 200)
+            self.validate_max_length(self.tbr_name, 'tbr_name', 100)
         self.validate_required(self.tbr_id_type, 'tbr_id_type')
         if self.tbr_id_type is not None:
             self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 2)
@@ -20981,7 +20981,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
         self.validate_required(self.bbr_name, 'bbr_name')
         if self.bbr_name is not None:
-            self.validate_max_length(self.bbr_name, 'bbr_name', 200)
+            self.validate_max_length(self.bbr_name, 'bbr_name', 100)
         self.validate_required(self.bbr_id_type, 'bbr_id_type')
         if self.bbr_id_type is not None:
             self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
@@ -20990,7 +20990,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.bbr_id_no, 'bbr_id_no', 30)
         self.validate_required(self.beneficiary_name, 'beneficiary_name')
         if self.beneficiary_name is not None:
-            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
+            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 100)
         self.validate_required(self.beneficiary_id_type, 'beneficiary_id_type')
         if self.beneficiary_id_type is not None:
             self.validate_max_length(self.beneficiary_id_type, 'beneficiary_id_type', 2)
@@ -20998,8 +20998,6 @@ class ApplyInsuranceOspiRequest(TeaModel):
         if self.beneficiary_no is not None:
             self.validate_max_length(self.beneficiary_no, 'beneficiary_no', 30)
         self.validate_required(self.insure_start, 'insure_start')
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.insured_amount, 'insured_amount')
         self.validate_required(self.scheme_name, 'scheme_name')
         if self.scheme_name is not None:
@@ -21009,10 +21007,8 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.validate_max_length(self.project_name, 'project_name', 500)
         self.validate_required(self.rela_order_no, 'rela_order_no')
         if self.rela_order_no is not None:
-            self.validate_max_length(self.rela_order_no, 'rela_order_no', 100)
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 200)
         self.validate_required(self.pick_up_time, 'pick_up_time')
-        if self.pick_up_time is not None:
-            self.validate_pattern(self.pick_up_time, 'pick_up_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.courier_company, 'courier_company')
         if self.courier_company is not None:
             self.validate_max_length(self.courier_company, 'courier_company', 200)
@@ -21045,8 +21041,6 @@ class ApplyInsuranceOspiRequest(TeaModel):
         if self.iso_country is not None:
             self.validate_max_length(self.iso_country, 'iso_country', 10)
         self.validate_required(self.cargo_worth, 'cargo_worth')
-        if self.cargo_worth is not None:
-            self.validate_max_length(self.cargo_worth, 'cargo_worth', 20)
 
     def to_map(self):
         result = dict()
@@ -21218,10 +21212,7 @@ class ApplyInsuranceOspiResponse(TeaModel):
         self.insure_end = insure_end
 
     def validate(self):
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.insure_end is not None:
-            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        pass
 
     def to_map(self):
         result = dict()
@@ -21313,7 +21304,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.policy_no = policy_no
         # 订单号，申请理赔所关联的订单号
         self.rela_order_no = rela_order_no
-        # 出险时间，发生损失的时间
+        # 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
         self.accident_time = accident_time
         # 报案人名称，申请报案人的名称
         self.reporter_name = reporter_name
@@ -21321,7 +21312,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.reporter_contact = reporter_contact
         # 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
         self.claim_amount = claim_amount
-        # 物流揽收时间
+        # 物流揽收时间，yyyy-MM-dd HH:mm:ss
         self.collect_date = collect_date
         # 工单号，平台客服判责的工单号
         self.job_no = job_no
@@ -21347,7 +21338,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.iso_country = iso_country
         # 出险地址，货物发生实际损失的最近的一次地址记录
         self.accident_address = accident_address
-        # 平台赔款支付时间，平台先行赔付的时间
+        # 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
         self.payment_time = payment_time
         # 赔付项目类型，01-运费，02-货值，03-货值2
         self.payment_item = payment_item
@@ -21371,20 +21362,16 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             self.validate_max_length(self.policy_no, 'policy_no', 200)
         self.validate_required(self.rela_order_no, 'rela_order_no')
         if self.rela_order_no is not None:
-            self.validate_max_length(self.rela_order_no, 'rela_order_no', 500)
+            self.validate_max_length(self.rela_order_no, 'rela_order_no', 200)
         self.validate_required(self.accident_time, 'accident_time')
-        if self.accident_time is not None:
-            self.validate_pattern(self.accident_time, 'accident_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.reporter_name, 'reporter_name')
         if self.reporter_name is not None:
-            self.validate_max_length(self.reporter_name, 'reporter_name', 200)
+            self.validate_max_length(self.reporter_name, 'reporter_name', 100)
         self.validate_required(self.reporter_contact, 'reporter_contact')
         if self.reporter_contact is not None:
             self.validate_max_length(self.reporter_contact, 'reporter_contact', 20)
         self.validate_required(self.claim_amount, 'claim_amount')
         self.validate_required(self.collect_date, 'collect_date')
-        if self.collect_date is not None:
-            self.validate_pattern(self.collect_date, 'collect_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.job_no, 'job_no')
         if self.job_no is not None:
             self.validate_max_length(self.job_no, 'job_no', 100)
@@ -21422,8 +21409,6 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         if self.accident_address is not None:
             self.validate_max_length(self.accident_address, 'accident_address', 500)
         self.validate_required(self.payment_time, 'payment_time')
-        if self.payment_time is not None:
-            self.validate_pattern(self.payment_time, 'payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.payment_item, 'payment_item')
         if self.payment_item is not None:
             self.validate_max_length(self.payment_item, 'payment_item', 2)
@@ -21637,7 +21622,7 @@ class NotifyInsuranceOspireportRequest(TeaModel):
         self.rela_order_no = rela_order_no
         # 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
         self.claim_amount = claim_amount
-        # 支付时间，实际的保司打款时间
+        # 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
         self.payment_time = payment_time
         # 银行流水，打款的银行流水号
         self.bank_serial_num = bank_serial_num
@@ -21774,7 +21759,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         site_id: str = None,
         site_name: str = None,
         total_assets: str = None,
-        employee_num: int = None,
+        employee_num: str = None,
         province_code: str = None,
         city_code: str = None,
         district_code: str = None,
@@ -21814,7 +21799,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         self.beneficiary_no = beneficiary_no
         # 保险起期，格式：yyyy-MM-dd HH:mm:ss
         self.insure_start = insure_start
-        # 套餐编码，届时保司与平台确定套餐方案
+        # 套餐编码，PK00033303、PK00033459、PK00033460
         self.product_package_type = product_package_type
         # 站点ID，站点的唯一标识
         self.site_id = site_id
@@ -21832,7 +21817,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         self.district_code = district_code
         # 完整地址，站点的详细地址
         self.whole_address = whole_address
-        # 方案名称，届时保司与平台确定方案名称
+        # 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
         self.scheme_name = scheme_name
         # 意健险被保人姓名
         self.acpl_bbr_name = acpl_bbr_name
@@ -21851,7 +21836,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
             self.validate_max_length(self.external_product_code, 'external_product_code', 2)
         self.validate_required(self.tbr_name, 'tbr_name')
         if self.tbr_name is not None:
-            self.validate_max_length(self.tbr_name, 'tbr_name', 200)
+            self.validate_max_length(self.tbr_name, 'tbr_name', 100)
         self.validate_required(self.tbr_id_type, 'tbr_id_type')
         if self.tbr_id_type is not None:
             self.validate_max_length(self.tbr_id_type, 'tbr_id_type', 2)
@@ -21860,7 +21845,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
             self.validate_max_length(self.tbr_id_no, 'tbr_id_no', 30)
         self.validate_required(self.bbr_name, 'bbr_name')
         if self.bbr_name is not None:
-            self.validate_max_length(self.bbr_name, 'bbr_name', 200)
+            self.validate_max_length(self.bbr_name, 'bbr_name', 100)
         self.validate_required(self.bbr_id_type, 'bbr_id_type')
         if self.bbr_id_type is not None:
             self.validate_max_length(self.bbr_id_type, 'bbr_id_type', 2)
@@ -21872,7 +21857,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
             self.validate_max_length(self.bbr_contact, 'bbr_contact', 30)
         self.validate_required(self.beneficiary_name, 'beneficiary_name')
         if self.beneficiary_name is not None:
-            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 200)
+            self.validate_max_length(self.beneficiary_name, 'beneficiary_name', 100)
         self.validate_required(self.beneficiary_id_type, 'beneficiary_id_type')
         if self.beneficiary_id_type is not None:
             self.validate_max_length(self.beneficiary_id_type, 'beneficiary_id_type', 2)
@@ -21880,8 +21865,6 @@ class ApplyInsuranceYzbRequest(TeaModel):
         if self.beneficiary_no is not None:
             self.validate_max_length(self.beneficiary_no, 'beneficiary_no', 30)
         self.validate_required(self.insure_start, 'insure_start')
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.product_package_type, 'product_package_type')
         if self.product_package_type is not None:
             self.validate_max_length(self.product_package_type, 'product_package_type', 20)
@@ -21910,7 +21893,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
             self.validate_max_length(self.scheme_name, 'scheme_name', 100)
         self.validate_required(self.acpl_bbr_name, 'acpl_bbr_name')
         if self.acpl_bbr_name is not None:
-            self.validate_max_length(self.acpl_bbr_name, 'acpl_bbr_name', 50)
+            self.validate_max_length(self.acpl_bbr_name, 'acpl_bbr_name', 100)
         self.validate_required(self.acpl_bbr_id_no, 'acpl_bbr_id_no')
         if self.acpl_bbr_id_no is not None:
             self.validate_max_length(self.acpl_bbr_id_no, 'acpl_bbr_id_no', 30)
@@ -22069,10 +22052,7 @@ class ApplyInsuranceYzbResponse(TeaModel):
         self.insure_end = insure_end
 
     def validate(self):
-        if self.insure_start is not None:
-            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.insure_end is not None:
-            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        pass
 
     def to_map(self):
         result = dict()

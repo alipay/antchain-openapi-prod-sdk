@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_shuziwuliu.
 
-Created on 18/06/2021
+Created on 21/06/2021
 
 @author: Ant Chain SDK
 """
