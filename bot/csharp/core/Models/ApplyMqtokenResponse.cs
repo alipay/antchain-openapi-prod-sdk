@@ -34,6 +34,21 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string AccessKey { get; set; }
 
+        // mqtt的instanceId
+        [NameInMap("instance_id")]
+        [Validation(Required=false)]
+        public string InstanceId { get; set; }
+
+        // mqtt的topic
+        [NameInMap("sub_topic")]
+        [Validation(Required=false)]
+        public string SubTopic { get; set; }
+
+        // mqtt的topic
+        [NameInMap("pub_topic")]
+        [Validation(Required=false)]
+        public string PubTopic { get; set; }
+
     }
 
 }
