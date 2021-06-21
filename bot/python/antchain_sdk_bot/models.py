@@ -6395,6 +6395,9 @@ class ApplyMqtokenResponse(TeaModel):
         result_msg: str = None,
         token: str = None,
         access_key: str = None,
+        instance_id: str = None,
+        sub_topic: str = None,
+        pub_topic: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -6406,6 +6409,12 @@ class ApplyMqtokenResponse(TeaModel):
         self.token = token
         # 接入阿里云LMQ的所需的accessKey
         self.access_key = access_key
+        # mqtt的instanceId
+        self.instance_id = instance_id
+        # mqtt的topic
+        self.sub_topic = sub_topic
+        # mqtt的topic
+        self.pub_topic = pub_topic
 
     def validate(self):
         pass
@@ -6422,6 +6431,12 @@ class ApplyMqtokenResponse(TeaModel):
             result['token'] = self.token
         if self.access_key is not None:
             result['access_key'] = self.access_key
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.sub_topic is not None:
+            result['sub_topic'] = self.sub_topic
+        if self.pub_topic is not None:
+            result['pub_topic'] = self.pub_topic
         return result
 
     def from_map(self, m: dict = None):
@@ -6436,6 +6451,12 @@ class ApplyMqtokenResponse(TeaModel):
             self.token = m.get('token')
         if m.get('access_key') is not None:
             self.access_key = m.get('access_key')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('sub_topic') is not None:
+            self.sub_topic = m.get('sub_topic')
+        if m.get('pub_topic') is not None:
+            self.pub_topic = m.get('pub_topic')
         return self
 
 
