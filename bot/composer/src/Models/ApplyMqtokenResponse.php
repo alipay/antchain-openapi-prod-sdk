@@ -37,12 +37,33 @@ class ApplyMqtokenResponse extends Model
      * @var string
      */
     public $accessKey;
+
+    // mqtt的instanceId
+    /**
+     * @var string
+     */
+    public $instanceId;
+
+    // mqtt的topic
+    /**
+     * @var string
+     */
+    public $subTopic;
+
+    // mqtt的topic
+    /**
+     * @var string
+     */
+    public $pubTopic;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'token'      => 'token',
         'accessKey'  => 'access_key',
+        'instanceId' => 'instance_id',
+        'subTopic'   => 'sub_topic',
+        'pubTopic'   => 'pub_topic',
     ];
 
     public function validate()
@@ -66,6 +87,15 @@ class ApplyMqtokenResponse extends Model
         }
         if (null !== $this->accessKey) {
             $res['access_key'] = $this->accessKey;
+        }
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
+        }
+        if (null !== $this->subTopic) {
+            $res['sub_topic'] = $this->subTopic;
+        }
+        if (null !== $this->pubTopic) {
+            $res['pub_topic'] = $this->pubTopic;
         }
 
         return $res;
@@ -93,6 +123,15 @@ class ApplyMqtokenResponse extends Model
         }
         if (isset($map['access_key'])) {
             $model->accessKey = $map['access_key'];
+        }
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
+        }
+        if (isset($map['sub_topic'])) {
+            $model->subTopic = $map['sub_topic'];
+        }
+        if (isset($map['pub_topic'])) {
+            $model->pubTopic = $map['pub_topic'];
         }
 
         return $model;
