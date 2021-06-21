@@ -28,7 +28,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
 
     // 投保人姓名，保险协议中的投保人全称
     @NameInMap("tbr_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String tbrName;
 
     // 投保人证件类型，03--营业执照
@@ -43,7 +43,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
 
     // 被保人姓名，实际的保险被保人名称
     @NameInMap("bbr_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String bbrName;
 
     // 被保人证件类型，01--居民身份证、03--营业执照
@@ -63,7 +63,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
 
     // 受益人名称，实际的保险受益人名称
     @NameInMap("beneficiary_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String beneficiaryName;
 
     // 受益人证件类型，01--居民身份证、03--营业执照
@@ -78,10 +78,10 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
 
     // 保险起期，格式：yyyy-MM-dd HH:mm:ss
     @NameInMap("insure_start")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String insureStart;
 
-    // 套餐编码，届时保司与平台确定套餐方案
+    // 套餐编码，PK00033303、PK00033459、PK00033460
     @NameInMap("product_package_type")
     @Validation(required = true, maxLength = 20)
     public String productPackageType;
@@ -104,7 +104,7 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     // 雇员人数，站点的雇佣人员数
     @NameInMap("employee_num")
     @Validation(required = true)
-    public Long employeeNum;
+    public String employeeNum;
 
     // 省编码，站点位于的省份编码
     @NameInMap("province_code")
@@ -126,14 +126,14 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
     @Validation(required = true, maxLength = 300)
     public String wholeAddress;
 
-    // 方案名称，届时保司与平台确定方案名称
+    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
     @NameInMap("scheme_name")
     @Validation(required = true, maxLength = 100)
     public String schemeName;
 
     // 意健险被保人姓名
     @NameInMap("acpl_bbr_name")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 100)
     public String acplBbrName;
 
     // 意健险被保人身份证号
@@ -306,11 +306,11 @@ public class ApplyInsuranceYzbRequest extends TeaModel {
         return this.totalAssets;
     }
 
-    public ApplyInsuranceYzbRequest setEmployeeNum(Long employeeNum) {
+    public ApplyInsuranceYzbRequest setEmployeeNum(String employeeNum) {
         this.employeeNum = employeeNum;
         return this;
     }
-    public Long getEmployeeNum() {
+    public String getEmployeeNum() {
         return this.employeeNum;
     }
 

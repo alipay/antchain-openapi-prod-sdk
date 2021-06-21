@@ -28,7 +28,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 投保人姓名，保险协议中的投保人全称
     @NameInMap("tbr_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String tbrName;
 
     // 投保人证件类型，03--营业执照
@@ -43,7 +43,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 被保人姓名，实际的保险被保人名称
     @NameInMap("bbr_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String bbrName;
 
     // 被保人证件类型，01--居民身份证、03--营业执照
@@ -58,7 +58,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 受益人名称，实际的保险受益人名称
     @NameInMap("beneficiary_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String beneficiaryName;
 
     // 受益人证件类型，01--居民身份证、03--营业执照
@@ -71,9 +71,9 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(required = true, maxLength = 30)
     public String beneficiaryNo;
 
-    // 保险起期
+    // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
     @NameInMap("insure_start")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String insureStart;
 
     // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
@@ -81,24 +81,24 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(required = true)
     public String insuredAmount;
 
-    // 方案名，保司和业务平台商定的方案名称
+    // 方案名，海外邮包险--OWFP
     @NameInMap("scheme_name")
     @Validation(required = true, maxLength = 100)
     public String schemeName;
 
-    // 项目名称,保司和业务平台商定的项目名称
+    // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
     @NameInMap("project_name")
     @Validation(required = true, maxLength = 500)
     public String projectName;
 
     // 订单号,物流平台用以区分业务的唯一码
     @NameInMap("rela_order_no")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 200)
     public String relaOrderNo;
 
-    // 寄件时间，yyyy-MM-dd HH:mm:ss
+    // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
     @NameInMap("pick_up_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String pickUpTime;
 
     // 快递公司名称，实际的派送公司全称
@@ -124,7 +124,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     // 货物数量
     @NameInMap("cargo_quantity")
     @Validation(required = true)
-    public Long cargoQuantity;
+    public String cargoQuantity;
 
     // 买家ID，买家的脱敏唯一标识
     @NameInMap("buy_id")
@@ -158,7 +158,7 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
 
     // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
     @NameInMap("cargo_worth")
-    @Validation(required = true, maxLength = 20)
+    @Validation(required = true)
     public String cargoWorth;
 
     public static ApplyInsuranceOspiRequest build(java.util.Map<String, ?> map) throws Exception {
@@ -358,11 +358,11 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
         return this.cargoName;
     }
 
-    public ApplyInsuranceOspiRequest setCargoQuantity(Long cargoQuantity) {
+    public ApplyInsuranceOspiRequest setCargoQuantity(String cargoQuantity) {
         this.cargoQuantity = cargoQuantity;
         return this;
     }
-    public Long getCargoQuantity() {
+    public String getCargoQuantity() {
         return this.cargoQuantity;
     }
 

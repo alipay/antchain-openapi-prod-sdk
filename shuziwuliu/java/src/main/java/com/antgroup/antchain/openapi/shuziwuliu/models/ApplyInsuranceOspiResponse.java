@@ -34,12 +34,10 @@ public class ApplyInsuranceOspiResponse extends TeaModel {
 
     // 保险起期
     @NameInMap("insure_start")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String insureStart;
 
     // 保险止期
     @NameInMap("insure_end")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String insureEnd;
 
     public static ApplyInsuranceOspiResponse build(java.util.Map<String, ?> map) throws Exception {

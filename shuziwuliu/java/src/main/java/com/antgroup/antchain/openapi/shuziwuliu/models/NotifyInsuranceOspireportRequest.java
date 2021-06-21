@@ -31,7 +31,7 @@ public class NotifyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true)
     public String claimAmount;
 
-    // 支付时间，实际的保司打款时间
+    // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
     @NameInMap("payment_time")
     @Validation(required = true)
     public String paymentTime;

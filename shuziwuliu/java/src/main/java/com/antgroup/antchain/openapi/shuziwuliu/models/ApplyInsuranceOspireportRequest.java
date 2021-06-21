@@ -33,17 +33,17 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
 
     // 订单号，申请理赔所关联的订单号
     @NameInMap("rela_order_no")
-    @Validation(required = true, maxLength = 500)
+    @Validation(required = true, maxLength = 200)
     public String relaOrderNo;
 
-    // 出险时间，发生损失的时间
+    // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
     @NameInMap("accident_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String accidentTime;
 
     // 报案人名称，申请报案人的名称
     @NameInMap("reporter_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 100)
     public String reporterName;
 
     // 报案人联系方式，申请报案人的联系方式
@@ -56,9 +56,9 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true)
     public String claimAmount;
 
-    // 物流揽收时间
+    // 物流揽收时间，yyyy-MM-dd HH:mm:ss
     @NameInMap("collect_date")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String collectDate;
 
     // 工单号，平台客服判责的工单号
@@ -121,9 +121,9 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 500)
     public String accidentAddress;
 
-    // 平台赔款支付时间，平台先行赔付的时间
+    // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
     @NameInMap("payment_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String paymentTime;
 
     // 赔付项目类型，01-运费，02-货值，03-货值2

@@ -35,12 +35,12 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
 
     // 投保人证件类型，03--营业执照
     @NameInMap("tbr_id_type")
-    @Validation(maxLength = 40)
+    @Validation(maxLength = 2)
     public String tbrIdType;
 
     // 投保人证件号码
     @NameInMap("tbr_id_no")
-    @Validation(maxLength = 800)
+    @Validation(maxLength = 30)
     public String tbrIdNo;
 
     // 被保人名称
@@ -50,12 +50,12 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
 
     // 被保人证件类型，01--居民身份证，03--营业执照
     @NameInMap("bbr_id_type")
-    @Validation(maxLength = 40)
+    @Validation(maxLength = 2)
     public String bbrIdType;
 
     // 被保人证件号码
     @NameInMap("bbr_id_no")
-    @Validation(maxLength = 800)
+    @Validation(maxLength = 30)
     public String bbrIdNo;
 
     // 出库单号/航次号/运单号
