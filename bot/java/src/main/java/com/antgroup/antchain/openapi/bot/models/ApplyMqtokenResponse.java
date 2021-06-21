@@ -24,6 +24,18 @@ public class ApplyMqtokenResponse extends TeaModel {
     @NameInMap("access_key")
     public String accessKey;
 
+    // mqtt的instanceId
+    @NameInMap("instance_id")
+    public String instanceId;
+
+    // mqtt的topic
+    @NameInMap("sub_topic")
+    public String subTopic;
+
+    // mqtt的topic
+    @NameInMap("pub_topic")
+    public String pubTopic;
+
     public static ApplyMqtokenResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyMqtokenResponse self = new ApplyMqtokenResponse();
         return TeaModel.build(map, self);
@@ -67,6 +79,30 @@ public class ApplyMqtokenResponse extends TeaModel {
     }
     public String getAccessKey() {
         return this.accessKey;
+    }
+
+    public ApplyMqtokenResponse setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
+    }
+
+    public ApplyMqtokenResponse setSubTopic(String subTopic) {
+        this.subTopic = subTopic;
+        return this;
+    }
+    public String getSubTopic() {
+        return this.subTopic;
+    }
+
+    public ApplyMqtokenResponse setPubTopic(String pubTopic) {
+        this.pubTopic = pubTopic;
+        return this;
+    }
+    public String getPubTopic() {
+        return this.pubTopic;
     }
 
 }
