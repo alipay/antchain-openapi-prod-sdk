@@ -4311,6 +4311,12 @@ export class ApplyMqtokenResponse extends $tea.Model {
   token?: string;
   // 接入阿里云LMQ的所需的accessKey
   accessKey?: string;
+  // mqtt的instanceId
+  instanceId?: string;
+  // mqtt的topic
+  subTopic?: string;
+  // mqtt的topic
+  pubTopic?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4318,6 +4324,9 @@ export class ApplyMqtokenResponse extends $tea.Model {
       resultMsg: 'result_msg',
       token: 'token',
       accessKey: 'access_key',
+      instanceId: 'instance_id',
+      subTopic: 'sub_topic',
+      pubTopic: 'pub_topic',
     };
   }
 
@@ -4328,6 +4337,9 @@ export class ApplyMqtokenResponse extends $tea.Model {
       resultMsg: 'string',
       token: 'string',
       accessKey: 'string',
+      instanceId: 'string',
+      subTopic: 'string',
+      pubTopic: 'string',
     };
   }
 
@@ -6014,7 +6026,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.7",
+          sdk_version: "1.5.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;

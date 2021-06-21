@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/bot",
-  "version": "1.5.7",
+  "version": "1.5.9",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
