@@ -103,7 +103,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $insureStart;
 
-    // 套餐编码，届时保司与平台确定套餐方案
+    // 套餐编码，PK00033303、PK00033459、PK00033460
     /**
      * @var string
      */
@@ -129,7 +129,7 @@ class ApplyInsuranceYzbRequest extends Model
 
     // 雇员人数，站点的雇佣人员数
     /**
-     * @var int
+     * @var string
      */
     public $employeeNum;
 
@@ -157,7 +157,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $wholeAddress;
 
-    // 方案名称，届时保司与平台确定方案名称
+    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
     /**
      * @var string
      */
@@ -236,14 +236,14 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
-        Model::validateMaxLength('tbrName', $this->tbrName, 200);
+        Model::validateMaxLength('tbrName', $this->tbrName, 100);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
         Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 30);
-        Model::validateMaxLength('bbrName', $this->bbrName, 200);
+        Model::validateMaxLength('bbrName', $this->bbrName, 100);
         Model::validateMaxLength('bbrIdType', $this->bbrIdType, 2);
         Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 30);
         Model::validateMaxLength('bbrContact', $this->bbrContact, 30);
-        Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 200);
+        Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 100);
         Model::validateMaxLength('beneficiaryIdType', $this->beneficiaryIdType, 2);
         Model::validateMaxLength('beneficiaryNo', $this->beneficiaryNo, 30);
         Model::validateMaxLength('productPackageType', $this->productPackageType, 20);
@@ -254,9 +254,8 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateMaxLength('districtCode', $this->districtCode, 10);
         Model::validateMaxLength('wholeAddress', $this->wholeAddress, 300);
         Model::validateMaxLength('schemeName', $this->schemeName, 100);
-        Model::validateMaxLength('acplBbrName', $this->acplBbrName, 50);
+        Model::validateMaxLength('acplBbrName', $this->acplBbrName, 100);
         Model::validateMaxLength('acplBbrIdNo', $this->acplBbrIdNo, 30);
-        Model::validatePattern('insureStart', $this->insureStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

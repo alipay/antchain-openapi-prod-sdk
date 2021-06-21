@@ -43,7 +43,7 @@ class NotifyInsuranceOspireportRequest extends Model
      */
     public $claimAmount;
 
-    // 支付时间，实际的保司打款时间
+    // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */

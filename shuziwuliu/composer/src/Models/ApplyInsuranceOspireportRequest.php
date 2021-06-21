@@ -49,7 +49,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $relaOrderNo;
 
-    // 出险时间，发生损失的时间
+    // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
@@ -73,7 +73,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $claimAmount;
 
-    // 物流揽收时间
+    // 物流揽收时间，yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
@@ -151,7 +151,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $accidentAddress;
 
-    // 平台赔款支付时间，平台先行赔付的时间
+    // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
@@ -237,8 +237,8 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
         Model::validateMaxLength('policyNo', $this->policyNo, 200);
-        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 500);
-        Model::validateMaxLength('reporterName', $this->reporterName, 200);
+        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 200);
+        Model::validateMaxLength('reporterName', $this->reporterName, 100);
         Model::validateMaxLength('reporterContact', $this->reporterContact, 20);
         Model::validateMaxLength('jobNo', $this->jobNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
@@ -254,9 +254,6 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateMaxLength('accidentAddress', $this->accidentAddress, 500);
         Model::validateMaxLength('paymentItem', $this->paymentItem, 2);
         Model::validateMaxLength('accidentType', $this->accidentType, 20);
-        Model::validatePattern('accidentTime', $this->accidentTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('collectDate', $this->collectDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('paymentTime', $this->paymentTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

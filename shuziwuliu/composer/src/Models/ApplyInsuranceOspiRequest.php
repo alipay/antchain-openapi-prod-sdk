@@ -91,7 +91,7 @@ class ApplyInsuranceOspiRequest extends Model
      */
     public $beneficiaryNo;
 
-    // 保险起期
+    // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
@@ -103,13 +103,13 @@ class ApplyInsuranceOspiRequest extends Model
      */
     public $insuredAmount;
 
-    // 方案名，保司和业务平台商定的方案名称
+    // 方案名，海外邮包险--OWFP
     /**
      * @var string
      */
     public $schemeName;
 
-    // 项目名称,保司和业务平台商定的项目名称
+    // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
     /**
      * @var string
      */
@@ -121,7 +121,7 @@ class ApplyInsuranceOspiRequest extends Model
      */
     public $relaOrderNo;
 
-    // 寄件时间，yyyy-MM-dd HH:mm:ss
+    // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
@@ -153,7 +153,7 @@ class ApplyInsuranceOspiRequest extends Model
 
     // 货物数量
     /**
-     * @var int
+     * @var string
      */
     public $cargoQuantity;
 
@@ -268,18 +268,18 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
-        Model::validateMaxLength('tbrName', $this->tbrName, 200);
+        Model::validateMaxLength('tbrName', $this->tbrName, 100);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
         Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 30);
-        Model::validateMaxLength('bbrName', $this->bbrName, 200);
+        Model::validateMaxLength('bbrName', $this->bbrName, 100);
         Model::validateMaxLength('bbrIdType', $this->bbrIdType, 2);
         Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 30);
-        Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 200);
+        Model::validateMaxLength('beneficiaryName', $this->beneficiaryName, 100);
         Model::validateMaxLength('beneficiaryIdType', $this->beneficiaryIdType, 2);
         Model::validateMaxLength('beneficiaryNo', $this->beneficiaryNo, 30);
         Model::validateMaxLength('schemeName', $this->schemeName, 100);
         Model::validateMaxLength('projectName', $this->projectName, 500);
-        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 100);
+        Model::validateMaxLength('relaOrderNo', $this->relaOrderNo, 200);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
         Model::validateMaxLength('courierNumber', $this->courierNumber, 100);
         Model::validateMaxLength('cargoType', $this->cargoType, 100);
@@ -290,9 +290,6 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
-        Model::validateMaxLength('cargoWorth', $this->cargoWorth, 20);
-        Model::validatePattern('insureStart', $this->insureStart, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('pickUpTime', $this->pickUpTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

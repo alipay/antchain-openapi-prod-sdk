@@ -271,11 +271,11 @@ class ApplyInsuranceCbecRequest extends Model
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 64);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 64);
         Model::validateMaxLength('tbrName', $this->tbrName, 100);
-        Model::validateMaxLength('tbrIdType', $this->tbrIdType, 40);
-        Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 800);
+        Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
+        Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 30);
         Model::validateMaxLength('bbrName', $this->bbrName, 100);
-        Model::validateMaxLength('bbrIdType', $this->bbrIdType, 40);
-        Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 800);
+        Model::validateMaxLength('bbrIdType', $this->bbrIdType, 2);
+        Model::validateMaxLength('bbrIdNo', $this->bbrIdNo, 30);
         Model::validateMaxLength('relatedOrderNo', $this->relatedOrderNo, 200);
         Model::validateMaxLength('cargoQuantity', $this->cargoQuantity, 20);
         Model::validateMaxLength('cargoName', $this->cargoName, 100);
