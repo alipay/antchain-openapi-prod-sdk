@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.115',
+    sdk_version = '1.3.119',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -6982,15 +6982,15 @@ model ApplyInsuranceCbecRequest = {
   // 投保人名称
   tbrName: string(maxLength=100, name='tbr_name'),
   // 投保人证件类型，03--营业执照
-  tbrIdType?: string(maxLength=40, name='tbr_id_type'),
+  tbrIdType?: string(maxLength=2, name='tbr_id_type'),
   // 投保人证件号码
-  tbrIdNo?: string(maxLength=800, name='tbr_id_no'),
+  tbrIdNo?: string(maxLength=30, name='tbr_id_no'),
   // 被保人名称
   bbrName: string(maxLength=100, name='bbr_name'),
   // 被保人证件类型，01--居民身份证，03--营业执照
-  bbrIdType?: string(maxLength=40, name='bbr_id_type'),
+  bbrIdType?: string(maxLength=2, name='bbr_id_type'),
   // 被保人证件号码
-  bbrIdNo?: string(maxLength=800, name='bbr_id_no'),
+  bbrIdNo?: string(maxLength=30, name='bbr_id_no'),
   // 出库单号/航次号/运单号
   relatedOrderNo: string(maxLength=200, name='related_order_no'),
   // 包装及数量
@@ -7194,35 +7194,35 @@ model ApplyInsuranceOspiRequest = {
   // 险种编码，04--海外邮包险
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
-  tbrName: string(maxLength=200, name='tbr_name'),
+  tbrName: string(maxLength=100, name='tbr_name'),
   // 投保人证件类型，03--营业执照
   tbrIdType: string(maxLength=2, name='tbr_id_type'),
   // 投保人证件号码
   tbrIdNo: string(maxLength=30, name='tbr_id_no'),
   // 被保人姓名，实际的保险被保人名称
-  bbrName: string(maxLength=200, name='bbr_name'),
+  bbrName: string(maxLength=100, name='bbr_name'),
   // 被保人证件类型，01--居民身份证、03--营业执照
   bbrIdType: string(maxLength=2, name='bbr_id_type'),
   // 被保人证件号码
   bbrIdNo: string(maxLength=30, name='bbr_id_no'),
   // 受益人名称，实际的保险受益人名称
-  beneficiaryName: string(maxLength=200, name='beneficiary_name'),
+  beneficiaryName: string(maxLength=100, name='beneficiary_name'),
   // 受益人证件类型，01--居民身份证、03--营业执照
   beneficiaryIdType: string(maxLength=2, name='beneficiary_id_type'),
   // 受益人证件号码
   beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
-  // 保险起期
-  insureStart: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
+  insureStart: string(name='insure_start'),
   // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
   insuredAmount: string(name='insured_amount'),
-  // 方案名，保司和业务平台商定的方案名称
+  // 方案名，海外邮包险--OWFP
   schemeName: string(maxLength=100, name='scheme_name'),
-  // 项目名称,保司和业务平台商定的项目名称
+  // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
   projectName: string(maxLength=500, name='project_name'),
   // 订单号,物流平台用以区分业务的唯一码
-  relaOrderNo: string(maxLength=100, name='rela_order_no'),
-  // 寄件时间，yyyy-MM-dd HH:mm:ss
-  pickUpTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pick_up_time'),
+  relaOrderNo: string(maxLength=200, name='rela_order_no'),
+  // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
+  pickUpTime: string(name='pick_up_time'),
   // 快递公司名称，实际的派送公司全称
   courierCompany: string(maxLength=200, name='courier_company'),
   // 快递单号，实际的派送快递单号
@@ -7232,7 +7232,7 @@ model ApplyInsuranceOspiRequest = {
   // 货物名称，实际的货物名称
   cargoName: string(maxLength=200, name='cargo_name'),
   // 货物数量
-  cargoQuantity: long(name='cargo_quantity'),
+  cargoQuantity: string(name='cargo_quantity'),
   // 买家ID，买家的脱敏唯一标识
   buyId: string(maxLength=100, name='buy_id'),
   // 卖家ID，卖家的脱敏唯一标识
@@ -7246,7 +7246,7 @@ model ApplyInsuranceOspiRequest = {
   // ISO到达国别，包裹业务实际发生的国家
   isoCountry: string(maxLength=10, name='iso_country'),
   // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
-  cargoWorth: string(maxLength=20, name='cargo_worth'),
+  cargoWorth: string(name='cargo_worth'),
 }
 
 model ApplyInsuranceOspiResponse = {
@@ -7265,9 +7265,9 @@ model ApplyInsuranceOspiResponse = {
   // 保额
   insuredAmount?: string(name='insured_amount'),
   // 保险起期
-  insureStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  insureStart?: string(name='insure_start'),
   // 保险止期
-  insureEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_end'),
+  insureEnd?: string(name='insure_end'),
 }
 
 /**
@@ -7302,17 +7302,17 @@ model ApplyInsuranceOspireportRequest = {
   // 保单号，申请理赔的保单号
   policyNo: string(maxLength=200, name='policy_no'),
   // 订单号，申请理赔所关联的订单号
-  relaOrderNo: string(maxLength=500, name='rela_order_no'),
-  // 出险时间，发生损失的时间
-  accidentTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='accident_time'),
+  relaOrderNo: string(maxLength=200, name='rela_order_no'),
+  // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
+  accidentTime: string(name='accident_time'),
   // 报案人名称，申请报案人的名称
-  reporterName: string(maxLength=200, name='reporter_name'),
+  reporterName: string(maxLength=100, name='reporter_name'),
   // 报案人联系方式，申请报案人的联系方式
   reporterContact: string(maxLength=20, name='reporter_contact'),
   // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
   claimAmount: string(name='claim_amount'),
-  // 物流揽收时间
-  collectDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='collect_date'),
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
+  collectDate: string(name='collect_date'),
   // 工单号，平台客服判责的工单号
   jobNo: string(maxLength=100, name='job_no'),
   // 快递公司名称，实际的派送公司全称
@@ -7337,8 +7337,8 @@ model ApplyInsuranceOspireportRequest = {
   isoCountry: string(maxLength=10, name='iso_country'),
   // 出险地址，货物发生实际损失的最近的一次地址记录
   accidentAddress: string(maxLength=500, name='accident_address'),
-  // 平台赔款支付时间，平台先行赔付的时间
-  paymentTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='payment_time'),
+  // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
+  paymentTime: string(name='payment_time'),
   // 赔付项目类型，01-运费，02-货值，03-货值2
   paymentItem: string(maxLength=2, name='payment_item'),
   // 出险类型，赔付的出险类型，届时保司和平台方商定
@@ -7391,7 +7391,7 @@ model NotifyInsuranceOspireportRequest = {
   relaOrderNo: string(maxLength=100, name='rela_order_no'),
   // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
   claimAmount: string(name='claim_amount'),
-  // 支付时间，实际的保司打款时间
+  // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
   paymentTime: string(name='payment_time'),
   // 银行流水，打款的银行流水号
   bankSerialNum: string(maxLength=200, name='bank_serial_num'),
@@ -7440,13 +7440,13 @@ model ApplyInsuranceYzbRequest = {
   // 险种编码，05-驿站宝
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
-  tbrName: string(maxLength=200, name='tbr_name'),
+  tbrName: string(maxLength=100, name='tbr_name'),
   // 投保人证件类型，03--营业执照
   tbrIdType: string(maxLength=2, name='tbr_id_type'),
   // 投保人证件号码
   tbrIdNo: string(maxLength=30, name='tbr_id_no'),
   // 被保人姓名，实际的保险被保人名称
-  bbrName: string(maxLength=200, name='bbr_name'),
+  bbrName: string(maxLength=100, name='bbr_name'),
   // 被保人证件类型，01--居民身份证、03--营业执照
   bbrIdType: string(maxLength=2, name='bbr_id_type'),
   // 被保人证件号码
@@ -7454,14 +7454,14 @@ model ApplyInsuranceYzbRequest = {
   // 被保人联系方式
   bbrContact: string(maxLength=30, name='bbr_contact'),
   // 受益人名称，实际的保险受益人名称
-  beneficiaryName: string(maxLength=200, name='beneficiary_name'),
+  beneficiaryName: string(maxLength=100, name='beneficiary_name'),
   // 受益人证件类型，01--居民身份证、03--营业执照
   beneficiaryIdType: string(maxLength=2, name='beneficiary_id_type'),
   // 受益人证件号码
   beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
-  insureStart: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
-  // 套餐编码，届时保司与平台确定套餐方案
+  insureStart: string(name='insure_start'),
+  // 套餐编码，PK00033303、PK00033459、PK00033460
   productPackageType: string(maxLength=20, name='product_package_type'),
   // 站点ID，站点的唯一标识
   siteId: string(maxLength=30, name='site_id'),
@@ -7470,7 +7470,7 @@ model ApplyInsuranceYzbRequest = {
   // 总资产，单位（元），最多2位小数，超过拒绝请求
   totalAssets: string(name='total_assets'),
   // 雇员人数，站点的雇佣人员数
-  employeeNum: long(name='employee_num'),
+  employeeNum: string(name='employee_num'),
   // 省编码，站点位于的省份编码
   provinceCode: string(maxLength=10, name='province_code'),
   // 市编码，站点位于的市区编码
@@ -7479,10 +7479,10 @@ model ApplyInsuranceYzbRequest = {
   districtCode: string(maxLength=10, name='district_code'),
   // 完整地址，站点的详细地址
   wholeAddress: string(maxLength=300, name='whole_address'),
-  // 方案名称，届时保司与平台确定方案名称
+  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
   schemeName: string(maxLength=100, name='scheme_name'),
   // 意健险被保人姓名
-  acplBbrName: string(maxLength=50, name='acpl_bbr_name'),
+  acplBbrName: string(maxLength=100, name='acpl_bbr_name'),
   // 意健险被保人身份证号
   acplBbrIdNo: string(maxLength=30, name='acpl_bbr_id_no'),
 }
@@ -7503,9 +7503,9 @@ model ApplyInsuranceYzbResponse = {
   // 保额
   insuredAmount?: string(name='insured_amount'),
   // 保险起期
-  insureStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  insureStart?: string(name='insure_start'),
   // 保险止期
-  insureEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_end'),
+  insureEnd?: string(name='insure_end'),
 }
 
 /**
