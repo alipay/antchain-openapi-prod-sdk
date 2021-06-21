@@ -12778,17 +12778,17 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   beneficiaryIdType: string;
   // 受益人证件号码
   beneficiaryNo: string;
-  // 保险起期
+  // 保险起期，日期格式yyyy-MM-dd HH:mm:ss
   insureStart: string;
   // 保险金额，单位（元），最多支持2位小数，超过2位拒绝；
   insuredAmount: string;
-  // 方案名，保司和业务平台商定的方案名称
+  // 方案名，海外邮包险--OWFP
   schemeName: string;
-  // 项目名称,保司和业务平台商定的项目名称
+  // 项目名称,海外邮包险：OWFP-对应国别，例OWFP-RU
   projectName: string;
   // 订单号,物流平台用以区分业务的唯一码
   relaOrderNo: string;
-  // 寄件时间，yyyy-MM-dd HH:mm:ss
+  // 寄件时间，日期格式yyyy-MM-dd HH:mm:ss
   pickUpTime: string;
   // 快递公司名称，实际的派送公司全称
   courierCompany: string;
@@ -12799,7 +12799,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   // 货物名称，实际的货物名称
   cargoName: string;
   // 货物数量
-  cargoQuantity: number;
+  cargoQuantity: string;
   // 买家ID，买家的脱敏唯一标识
   buyId: string;
   // 卖家ID，卖家的脱敏唯一标识
@@ -12877,7 +12877,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       courierNumber: 'string',
       cargoType: 'string',
       cargoName: 'string',
-      cargoQuantity: 'number',
+      cargoQuantity: 'string',
       buyId: 'string',
       sellId: 'string',
       siteId: 'string',
@@ -12959,7 +12959,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   policyNo: string;
   // 订单号，申请理赔所关联的订单号
   relaOrderNo: string;
-  // 出险时间，发生损失的时间
+  // 出险时间，发生损失的时间，yyyy-MM-dd HH:mm:ss
   accidentTime: string;
   // 报案人名称，申请报案人的名称
   reporterName: string;
@@ -12967,7 +12967,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   reporterContact: string;
   // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
   claimAmount: string;
-  // 物流揽收时间
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
   collectDate: string;
   // 工单号，平台客服判责的工单号
   jobNo: string;
@@ -12993,7 +12993,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   isoCountry: string;
   // 出险地址，货物发生实际损失的最近的一次地址记录
   accidentAddress: string;
-  // 平台赔款支付时间，平台先行赔付的时间
+  // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
   paymentTime: string;
   // 赔付项目类型，01-运费，02-货值，03-货值2
   paymentItem: string;
@@ -13120,7 +13120,7 @@ export class NotifyInsuranceOspireportRequest extends $tea.Model {
   relaOrderNo: string;
   // 理赔金额(元)，实际的理赔金额，最多支持2位小数，超2位小数拒绝请求
   claimAmount: string;
-  // 支付时间，实际的保司打款时间
+  // 支付时间，实际的保司打款时间，格式：yyyy-MM-dd HH:mm:ss
   paymentTime: string;
   // 银行流水，打款的银行流水号
   bankSerialNum: string;
@@ -13223,7 +13223,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   beneficiaryNo: string;
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string;
-  // 套餐编码，届时保司与平台确定套餐方案
+  // 套餐编码，PK00033303、PK00033459、PK00033460
   productPackageType: string;
   // 站点ID，站点的唯一标识
   siteId: string;
@@ -13232,7 +13232,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   // 总资产，单位（元），最多2位小数，超过拒绝请求
   totalAssets: string;
   // 雇员人数，站点的雇佣人员数
-  employeeNum: number;
+  employeeNum: string;
   // 省编码，站点位于的省份编码
   provinceCode: string;
   // 市编码，站点位于的市区编码
@@ -13241,7 +13241,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   districtCode: string;
   // 完整地址，站点的详细地址
   wholeAddress: string;
-  // 方案名称，届时保司与平台确定方案名称
+  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟站点宝
   schemeName: string;
   // 意健险被保人姓名
   acplBbrName: string;
@@ -13302,7 +13302,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
       siteId: 'string',
       siteName: 'string',
       totalAssets: 'string',
-      employeeNum: 'number',
+      employeeNum: 'string',
       provinceCode: 'string',
       cityCode: 'string',
       districtCode: 'string',
@@ -19348,7 +19348,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.115",
+          sdk_version: "1.3.119",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
