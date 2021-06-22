@@ -41,10 +41,10 @@ namespace AntChain.SDK.TWC.Models
         public string Email { get; set; }
 
         // 自然人身份证正反面照片
-        // fileKey 列表（先调用接口获取上传url和fileKey）
+        // 文件信息 列表（先调用接口获取上传url和fileKey）
         [NameInMap("id_number_file")]
         [Validation(Required=true)]
-        public List<string> IdNumberFile { get; set; }
+        public List<FileInfo> IdNumberFile { get; set; }
 
     }
 

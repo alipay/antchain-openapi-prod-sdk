@@ -20,7 +20,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string OssFileName { get; set; }
 
-        // 文件fileKey
+        // 文件fileKey ，调用获取文件上传链接时对应的fileKey
         [NameInMap("oss_file_key")]
         [Validation(Required=true)]
         public string OssFileKey { get; set; }
@@ -46,14 +46,14 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string DepositType { get; set; }
 
-        // 存证哈希
+        // 存证哈希 当为区块链存证必填
         [NameInMap("tx_hash")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TxHash { get; set; }
 
-        // 存证时间
+        // 存证时间 当为区块链存证必填
         [NameInMap("deposit_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DepositTime { get; set; }
 
     }

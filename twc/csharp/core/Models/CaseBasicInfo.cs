@@ -11,9 +11,9 @@ namespace AntChain.SDK.TWC.Models
     // 自动进件案件基础信息
     public class CaseBasicInfo : TeaModel {
         // 案件租户id
-        [NameInMap("tenant_id")]
+        [NameInMap("biz_tenant_id")]
         [Validation(Required=true)]
-        public string TenantId { get; set; }
+        public string BizTenantId { get; set; }
 
         // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
         [NameInMap("case_type")]

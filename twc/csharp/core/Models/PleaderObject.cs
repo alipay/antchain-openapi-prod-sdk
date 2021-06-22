@@ -10,7 +10,7 @@ namespace AntChain.SDK.TWC.Models
 {
     // 答辩人对象
     public class PleaderObject : TeaModel {
-        // 法人或自然人标识，法人为0，自然人为1
+        // 法人或自然人标识，法人为1，自然人为0
         [NameInMap("party_type")]
         [Validation(Required=true)]
         public long? PartyType { get; set; }

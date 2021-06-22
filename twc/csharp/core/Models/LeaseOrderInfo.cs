@@ -30,7 +30,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ContractName { get; set; }
 
-        // 订单商品信息
+        // 订单商品信息列表
         [NameInMap("order_items")]
         [Validation(Required=true)]
         public List<OrderItem> OrderItems { get; set; }

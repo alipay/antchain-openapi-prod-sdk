@@ -36,10 +36,10 @@ namespace AntChain.SDK.TWC.Models
         public string BusinessAddress { get; set; }
 
         // 营业执照照片
-        // fileKey 列表
+        // 文件信息 列表
         [NameInMap("id_number_file")]
         [Validation(Required=false)]
-        public List<string> IdNumberFile { get; set; }
+        public List<FileInfo> IdNumberFile { get; set; }
 
         // 法定代表人姓名
         [NameInMap("representative_name")]
@@ -63,10 +63,10 @@ namespace AntChain.SDK.TWC.Models
         public string RepresentativeMobileNumber { get; set; }
 
         // 法定代表人代表身份证明
-        // fileKey 列表
+        // 文件信息列表
         [NameInMap("representative_id_number_file")]
         [Validation(Required=false)]
-        public List<string> RepresentativeIdNumberFile { get; set; }
+        public List<FileInfo> RepresentativeIdNumberFile { get; set; }
 
         // 法定代表人职务
         [NameInMap("representative_post")]
@@ -74,10 +74,10 @@ namespace AntChain.SDK.TWC.Models
         public string RepresentativePost { get; set; }
 
         // 法定代表人职务证明
-        // fileKey 列表
+        // 文件信息列表
         [NameInMap("representative_post_file")]
         [Validation(Required=false)]
-        public List<string> RepresentativePostFile { get; set; }
+        public List<FileInfo> RepresentativePostFile { get; set; }
 
         // 签章管理员姓名
         [NameInMap("signature_manager_name")]

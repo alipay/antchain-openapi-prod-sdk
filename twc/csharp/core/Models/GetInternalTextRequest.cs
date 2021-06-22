@@ -45,13 +45,18 @@ namespace AntChain.SDK.TWC.Models
 
         // 租户
         [NameInMap("real_tenant")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string RealTenant { get; set; }
 
-        // 系统之间约定的
-        [NameInMap("token")]
-        [Validation(Required=true)]
-        public string Token { get; set; }
+        // 授权码
+        [NameInMap("auth_code")]
+        [Validation(Required=false)]
+        public string AuthCode { get; set; }
+
+        // 产品码
+        [NameInMap("product")]
+        [Validation(Required=false)]
+        public string Product { get; set; }
 
     }
 

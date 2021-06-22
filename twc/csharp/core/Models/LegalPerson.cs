@@ -41,10 +41,10 @@ namespace AntChain.SDK.TWC.Models
         public string LegalBusinessAddress { get; set; }
 
         // 营业执照照片
-        // fileKey 列表（先调用接口获取上传url和fileKey）
+        // 文件信息列表（先调用接口获取上传url和fileKey）
         [NameInMap("legal_id_number_file")]
         [Validation(Required=false)]
-        public List<string> LegalIdNumberFile { get; set; }
+        public List<FileInfo> LegalIdNumberFile { get; set; }
 
     }
 
