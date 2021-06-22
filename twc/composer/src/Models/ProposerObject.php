@@ -49,11 +49,11 @@ class ProposerObject extends Model
     public $businessAddress;
 
     // 营业执照照片
-    // fileKey 列表
+    // 文件信息 列表
     /**
-     * @example 201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt
+     * @example
      *
-     * @var string[]
+     * @var FileInfo[]
      */
     public $idNumberFile;
 
@@ -91,11 +91,11 @@ class ProposerObject extends Model
     public $representativeMobileNumber;
 
     // 法定代表人代表身份证明
-    // fileKey 列表
+    // 文件信息列表
     /**
-     * @example 201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt
+     * @example
      *
-     * @var string[]
+     * @var FileInfo[]
      */
     public $representativeIdNumberFile;
 
@@ -108,11 +108,11 @@ class ProposerObject extends Model
     public $representativePost;
 
     // 法定代表人职务证明
-    // fileKey 列表
+    // 文件信息列表
     /**
-     * @example 201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt
+     * @example
      *
-     * @var string[]
+     * @var FileInfo[]
      */
     public $representativePostFile;
 
@@ -183,7 +183,13 @@ class ProposerObject extends Model
             $res['business_address'] = $this->businessAddress;
         }
         if (null !== $this->idNumberFile) {
-            $res['id_number_file'] = $this->idNumberFile;
+            $res['id_number_file'] = [];
+            if (null !== $this->idNumberFile && \is_array($this->idNumberFile)) {
+                $n = 0;
+                foreach ($this->idNumberFile as $item) {
+                    $res['id_number_file'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->representativeName) {
             $res['representative_name'] = $this->representativeName;
@@ -198,13 +204,25 @@ class ProposerObject extends Model
             $res['representative_mobile_number'] = $this->representativeMobileNumber;
         }
         if (null !== $this->representativeIdNumberFile) {
-            $res['representative_id_number_file'] = $this->representativeIdNumberFile;
+            $res['representative_id_number_file'] = [];
+            if (null !== $this->representativeIdNumberFile && \is_array($this->representativeIdNumberFile)) {
+                $n = 0;
+                foreach ($this->representativeIdNumberFile as $item) {
+                    $res['representative_id_number_file'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->representativePost) {
             $res['representative_post'] = $this->representativePost;
         }
         if (null !== $this->representativePostFile) {
-            $res['representative_post_file'] = $this->representativePostFile;
+            $res['representative_post_file'] = [];
+            if (null !== $this->representativePostFile && \is_array($this->representativePostFile)) {
+                $n = 0;
+                foreach ($this->representativePostFile as $item) {
+                    $res['representative_post_file'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->signatureManagerName) {
             $res['signature_manager_name'] = $this->signatureManagerName;
@@ -244,7 +262,11 @@ class ProposerObject extends Model
         }
         if (isset($map['id_number_file'])) {
             if (!empty($map['id_number_file'])) {
-                $model->idNumberFile = $map['id_number_file'];
+                $model->idNumberFile = [];
+                $n                   = 0;
+                foreach ($map['id_number_file'] as $item) {
+                    $model->idNumberFile[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['representative_name'])) {
@@ -261,7 +283,11 @@ class ProposerObject extends Model
         }
         if (isset($map['representative_id_number_file'])) {
             if (!empty($map['representative_id_number_file'])) {
-                $model->representativeIdNumberFile = $map['representative_id_number_file'];
+                $model->representativeIdNumberFile = [];
+                $n                                 = 0;
+                foreach ($map['representative_id_number_file'] as $item) {
+                    $model->representativeIdNumberFile[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['representative_post'])) {
@@ -269,7 +295,11 @@ class ProposerObject extends Model
         }
         if (isset($map['representative_post_file'])) {
             if (!empty($map['representative_post_file'])) {
-                $model->representativePostFile = $map['representative_post_file'];
+                $model->representativePostFile = [];
+                $n                             = 0;
+                foreach ($map['representative_post_file'] as $item) {
+                    $model->representativePostFile[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
             }
         }
         if (isset($map['signature_manager_name'])) {

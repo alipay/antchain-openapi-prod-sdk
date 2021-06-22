@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class PleaderObject extends Model
 {
-    // 法人或自然人标识，法人为0，自然人为1
+    // 法人或自然人标识，法人为1，自然人为0
     /**
      * @example 0
      *

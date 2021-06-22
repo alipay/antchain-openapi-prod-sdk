@@ -249,6 +249,8 @@ use AntChain\TWC\Models\ListContractTradeidsRequest;
 use AntChain\TWC\Models\ListContractTradeidsResponse;
 use AntChain\TWC\Models\ListLeaseNotaryRequest;
 use AntChain\TWC\Models\ListLeaseNotaryResponse;
+use AntChain\TWC\Models\NotifyContractSignerRequest;
+use AntChain\TWC\Models\NotifyContractSignerResponse;
 use AntChain\TWC\Models\OpenInternalTwcRequest;
 use AntChain\TWC\Models\OpenInternalTwcResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
@@ -494,7 +496,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.5',
+                    'sdk_version'      => '1.5.10',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2753,6 +2755,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractSignfieldsealidResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+     * Summary: 通知签署方执行合同签署.
+     *
+     * @param NotifyContractSignerRequest $request
+     *
+     * @return NotifyContractSignerResponse
+     */
+    public function notifyContractSigner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyContractSignerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+     * Summary: 通知签署方执行合同签署.
+     *
+     * @param NotifyContractSignerRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return NotifyContractSignerResponse
+     */
+    public function notifyContractSignerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyContractSignerResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

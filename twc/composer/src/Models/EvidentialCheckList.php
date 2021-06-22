@@ -24,7 +24,7 @@ class EvidentialCheckList extends Model
      */
     public $ossFileName;
 
-    // 文件fileKey
+    // 文件fileKey ，调用获取文件上传链接时对应的fileKey
     /**
      * @example 201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.jpg
      *
@@ -62,7 +62,7 @@ class EvidentialCheckList extends Model
      */
     public $depositType;
 
-    // 存证哈希
+    // 存证哈希 当为区块链存证必填
     /**
      * @example 1234545676575675673
      *
@@ -70,7 +70,7 @@ class EvidentialCheckList extends Model
      */
     public $txHash;
 
-    // 存证时间
+    // 存证时间 当为区块链存证必填
     /**
      * @example 2021-05-07 17:13:50
      *
@@ -96,8 +96,6 @@ class EvidentialCheckList extends Model
         Model::validateRequired('sourcesOfEvidence', $this->sourcesOfEvidence, true);
         Model::validateRequired('evidenceType', $this->evidenceType, true);
         Model::validateRequired('depositType', $this->depositType, true);
-        Model::validateRequired('txHash', $this->txHash, true);
-        Model::validateRequired('depositTime', $this->depositTime, true);
     }
 
     public function toMap()

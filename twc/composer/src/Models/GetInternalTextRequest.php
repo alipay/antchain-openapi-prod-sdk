@@ -55,11 +55,17 @@ class GetInternalTextRequest extends Model
      */
     public $realTenant;
 
-    // 系统之间约定的
+    // 授权码
     /**
      * @var string
      */
-    public $token;
+    public $authCode;
+
+    // 产品码
+    /**
+     * @var string
+     */
+    public $product;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -69,14 +75,13 @@ class GetInternalTextRequest extends Model
         'transactionId'     => 'transaction_id',
         'txHash'            => 'tx_hash',
         'realTenant'        => 'real_tenant',
-        'token'             => 'token',
+        'authCode'          => 'auth_code',
+        'product'           => 'product',
     ];
 
     public function validate()
     {
         Model::validateRequired('txHash', $this->txHash, true);
-        Model::validateRequired('realTenant', $this->realTenant, true);
-        Model::validateRequired('token', $this->token, true);
     }
 
     public function toMap()
@@ -106,8 +111,11 @@ class GetInternalTextRequest extends Model
         if (null !== $this->realTenant) {
             $res['real_tenant'] = $this->realTenant;
         }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
+        if (null !== $this->product) {
+            $res['product'] = $this->product;
         }
 
         return $res;
@@ -145,8 +153,11 @@ class GetInternalTextRequest extends Model
         if (isset($map['real_tenant'])) {
             $model->realTenant = $map['real_tenant'];
         }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
+        }
+        if (isset($map['product'])) {
+            $model->product = $map['product'];
         }
 
         return $model;

@@ -40,7 +40,7 @@ class LeaseOrderInfo extends Model
      */
     public $contractName;
 
-    // 订单商品信息
+    // 订单商品信息列表
     /**
      * @example
      *

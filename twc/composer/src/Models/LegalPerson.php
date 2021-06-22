@@ -57,11 +57,11 @@ class LegalPerson extends Model
     public $legalBusinessAddress;
 
     // 营业执照照片
-    // fileKey 列表（先调用接口获取上传url和fileKey）
+    // 文件信息列表（先调用接口获取上传url和fileKey）
     /**
-     * @example <fileKey>
+     * @example
      *
-     * @var string[]
+     * @var FileInfo[]
      */
     public $legalIdNumberFile;
     protected $_name = [
@@ -102,7 +102,13 @@ class LegalPerson extends Model
             $res['legal_business_address'] = $this->legalBusinessAddress;
         }
         if (null !== $this->legalIdNumberFile) {
-            $res['legal_id_number_file'] = $this->legalIdNumberFile;
+            $res['legal_id_number_file'] = [];
+            if (null !== $this->legalIdNumberFile && \is_array($this->legalIdNumberFile)) {
+                $n = 0;
+                foreach ($this->legalIdNumberFile as $item) {
+                    $res['legal_id_number_file'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -136,7 +142,11 @@ class LegalPerson extends Model
         }
         if (isset($map['legal_id_number_file'])) {
             if (!empty($map['legal_id_number_file'])) {
-                $model->legalIdNumberFile = $map['legal_id_number_file'];
+                $model->legalIdNumberFile = [];
+                $n                        = 0;
+                foreach ($map['legal_id_number_file'] as $item) {
+                    $model->legalIdNumberFile[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
             }
         }
 

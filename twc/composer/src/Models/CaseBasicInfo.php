@@ -14,7 +14,7 @@ class CaseBasicInfo extends Model
      *
      * @var string
      */
-    public $tenantId;
+    public $bizTenantId;
 
     // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
     /**
@@ -56,7 +56,7 @@ class CaseBasicInfo extends Model
      */
     public $caseExt;
     protected $_name = [
-        'tenantId'      => 'tenant_id',
+        'bizTenantId'   => 'biz_tenant_id',
         'caseType'      => 'case_type',
         'amount'        => 'amount',
         'inputSourceId' => 'input_source_id',
@@ -66,7 +66,7 @@ class CaseBasicInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('bizTenantId', $this->bizTenantId, true);
         Model::validateRequired('caseType', $this->caseType, true);
         Model::validateRequired('inputSourceId', $this->inputSourceId, true);
         Model::validateRequired('inputSource', $this->inputSource, true);
@@ -75,8 +75,8 @@ class CaseBasicInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
+        if (null !== $this->bizTenantId) {
+            $res['biz_tenant_id'] = $this->bizTenantId;
         }
         if (null !== $this->caseType) {
             $res['case_type'] = $this->caseType;
@@ -105,8 +105,8 @@ class CaseBasicInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
+        if (isset($map['biz_tenant_id'])) {
+            $model->bizTenantId = $map['biz_tenant_id'];
         }
         if (isset($map['case_type'])) {
             $model->caseType = $map['case_type'];

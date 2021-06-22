@@ -57,11 +57,11 @@ class NaturalPerson extends Model
     public $email;
 
     // 自然人身份证正反面照片
-    // fileKey 列表（先调用接口获取上传url和fileKey）
+    // 文件信息 列表（先调用接口获取上传url和fileKey）
     /**
-     * @example <fileKey>
+     * @example
      *
-     * @var string[]
+     * @var FileInfo[]
      */
     public $idNumberFile;
     protected $_name = [
@@ -104,7 +104,13 @@ class NaturalPerson extends Model
             $res['email'] = $this->email;
         }
         if (null !== $this->idNumberFile) {
-            $res['id_number_file'] = $this->idNumberFile;
+            $res['id_number_file'] = [];
+            if (null !== $this->idNumberFile && \is_array($this->idNumberFile)) {
+                $n = 0;
+                foreach ($this->idNumberFile as $item) {
+                    $res['id_number_file'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -138,7 +144,11 @@ class NaturalPerson extends Model
         }
         if (isset($map['id_number_file'])) {
             if (!empty($map['id_number_file'])) {
-                $model->idNumberFile = $map['id_number_file'];
+                $model->idNumberFile = [];
+                $n                   = 0;
+                foreach ($map['id_number_file'] as $item) {
+                    $model->idNumberFile[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
             }
         }
 
