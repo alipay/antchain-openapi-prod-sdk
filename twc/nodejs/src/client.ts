@@ -155,6 +155,31 @@ export class RentalStagingInformation extends $tea.Model {
   }
 }
 
+// 文件key和文件名称
+export class FileInfo extends $tea.Model {
+  // 文件key
+  fileKey: string;
+  // 文件名称
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileKey: 'file_key',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileKey: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 租赁分期履约信息
 export class RentalInstallmentPerformance extends $tea.Model {
   // 被申请人还款期数
@@ -228,8 +253,8 @@ export class NaturalPerson extends $tea.Model {
   // 自然人电子邮箱
   email?: string;
   // 自然人身份证正反面照片
-  // fileKey 列表（先调用接口获取上传url和fileKey）
-  idNumberFile: string[];
+  // 文件信息 列表（先调用接口获取上传url和fileKey）
+  idNumberFile: FileInfo[];
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -250,7 +275,7 @@ export class NaturalPerson extends $tea.Model {
       nation: 'string',
       address: 'string',
       email: 'string',
-      idNumberFile: { 'type': 'array', 'itemType': 'string' },
+      idNumberFile: { 'type': 'array', 'itemType': FileInfo },
     };
   }
 
@@ -274,8 +299,8 @@ export class LegalPerson extends $tea.Model {
   // 企业经营地址
   legalBusinessAddress?: string;
   // 营业执照照片
-  // fileKey 列表（先调用接口获取上传url和fileKey）
-  legalIdNumberFile?: string[];
+  // 文件信息列表（先调用接口获取上传url和fileKey）
+  legalIdNumberFile?: FileInfo[];
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -296,7 +321,7 @@ export class LegalPerson extends $tea.Model {
       legalPhoneNumber: 'string',
       legalAddress: 'string',
       legalBusinessAddress: 'string',
-      legalIdNumberFile: { 'type': 'array', 'itemType': 'string' },
+      legalIdNumberFile: { 'type': 'array', 'itemType': FileInfo },
     };
   }
 
@@ -446,7 +471,7 @@ export class LeaseOrderInfo extends $tea.Model {
   contractNo: string;
   // 合同名称
   contractName?: string;
-  // 订单商品信息
+  // 订单商品信息列表
   orderItems: OrderItem[];
   // 设备及配件总价（单位元）
   totalDevicePrice: string;
@@ -564,7 +589,7 @@ export class ContractFlowSigner extends $tea.Model {
 
 // 答辩人对象
 export class PleaderObject extends $tea.Model {
-  // 法人或自然人标识，法人为0，自然人为1
+  // 法人或自然人标识，法人为1，自然人为0
   partyType: number;
   // 自然人信息
   // 当partyType=1必填
@@ -1024,8 +1049,8 @@ export class ProposerObject extends $tea.Model {
   // 经营地址
   businessAddress?: string;
   // 营业执照照片
-  // fileKey 列表
-  idNumberFile?: string[];
+  // 文件信息 列表
+  idNumberFile?: FileInfo[];
   // 法定代表人姓名
   representativeName?: string;
   // 法定代表人性别
@@ -1036,13 +1061,13 @@ export class ProposerObject extends $tea.Model {
   // 法定代表人手机号码
   representativeMobileNumber?: string;
   // 法定代表人代表身份证明
-  // fileKey 列表
-  representativeIdNumberFile?: string[];
+  // 文件信息列表
+  representativeIdNumberFile?: FileInfo[];
   // 法定代表人职务
   representativePost?: string;
   // 法定代表人职务证明
-  // fileKey 列表
-  representativePostFile?: string[];
+  // 文件信息列表
+  representativePostFile?: FileInfo[];
   // 签章管理员姓名
   signatureManagerName?: string;
   // 签章管理员身份证号码
@@ -1077,14 +1102,14 @@ export class ProposerObject extends $tea.Model {
       phoneNumber: 'string',
       email: 'string',
       businessAddress: 'string',
-      idNumberFile: { 'type': 'array', 'itemType': 'string' },
+      idNumberFile: { 'type': 'array', 'itemType': FileInfo },
       representativeName: 'string',
       representativeSex: 'number',
       representativeIdNumber: 'string',
       representativeMobileNumber: 'string',
-      representativeIdNumberFile: { 'type': 'array', 'itemType': 'string' },
+      representativeIdNumberFile: { 'type': 'array', 'itemType': FileInfo },
       representativePost: 'string',
-      representativePostFile: { 'type': 'array', 'itemType': 'string' },
+      representativePostFile: { 'type': 'array', 'itemType': FileInfo },
       signatureManagerName: 'string',
       signatureManagerIdCard: 'string',
       signatureManagerPhone: 'string',
@@ -1564,7 +1589,7 @@ export class KeywordsPosition extends $tea.Model {
 // 自动进件案件基础信息
 export class CaseBasicInfo extends $tea.Model {
   // 案件租户id
-  tenantId: string;
+  bizTenantId: string;
   // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
   caseType: string;
   // 标的金额（单位元）
@@ -1577,7 +1602,7 @@ export class CaseBasicInfo extends $tea.Model {
   caseExt?: string;
   static names(): { [key: string]: string } {
     return {
-      tenantId: 'tenant_id',
+      bizTenantId: 'biz_tenant_id',
       caseType: 'case_type',
       amount: 'amount',
       inputSourceId: 'input_source_id',
@@ -1588,7 +1613,7 @@ export class CaseBasicInfo extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      tenantId: 'string',
+      bizTenantId: 'string',
       caseType: 'string',
       amount: 'string',
       inputSourceId: 'string',
@@ -2213,7 +2238,7 @@ export class EvidentialCheckList extends $tea.Model {
   evidentialNameEn: string;
   // 文件名称
   ossFileName: string;
-  // 文件fileKey
+  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
   ossFileKey: string;
   // 证据来源
   // BUSINESS_UPLOAD	业务传入
@@ -2227,10 +2252,10 @@ export class EvidentialCheckList extends $tea.Model {
   // TEXT	文本
   // FILE	文件
   depositType: string;
-  // 存证哈希
-  txHash: string;
-  // 存证时间
-  depositTime: string;
+  // 存证哈希 当为区块链存证必填
+  txHash?: string;
+  // 存证时间 当为区块链存证必填
+  depositTime?: string;
   static names(): { [key: string]: string } {
     return {
       evidentialNameEn: 'evidential_name_en',
@@ -8368,6 +8393,73 @@ export class QueryContractSignfieldsealidResponse extends $tea.Model {
       code: 'string',
       message: 'string',
       signfields: { 'type': 'array', 'itemType': ContractSignFieldSealId },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyContractSignerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 合同签署流程ID
+  flowId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyContractSignerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务码，0表示成功。
+  code?: number;
+  // 业务码信息
+  message?: string;
+  // 发送通知的用户账号列表
+  accountList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      accountList: 'account_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      accountList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -17443,9 +17535,11 @@ export class GetInternalTextRequest extends $tea.Model {
   // 存证凭据
   txHash: string;
   // 租户
-  realTenant: string;
-  // 系统之间约定的
-  token: string;
+  realTenant?: string;
+  // 授权码
+  authCode?: string;
+  // 产品码
+  product?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17456,7 +17550,8 @@ export class GetInternalTextRequest extends $tea.Model {
       transactionId: 'transaction_id',
       txHash: 'tx_hash',
       realTenant: 'real_tenant',
-      token: 'token',
+      authCode: 'auth_code',
+      product: 'product',
     };
   }
 
@@ -17470,7 +17565,8 @@ export class GetInternalTextRequest extends $tea.Model {
       transactionId: 'string',
       txHash: 'string',
       realTenant: 'string',
-      token: 'string',
+      authCode: 'string',
+      product: 'string',
     };
   }
 
@@ -17711,7 +17807,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.5",
+          sdk_version: "1.5.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -19032,6 +19128,25 @@ export default class Client {
   async queryContractSignfieldsealidEx(request: QueryContractSignfieldsealidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractSignfieldsealidResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContractSignfieldsealidResponse>(await this.doRequest("1.0", "twc.notary.contract.signfieldsealid.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractSignfieldsealidResponse({}));
+  }
+
+  /**
+   * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+   * Summary: 通知签署方执行合同签署
+   */
+  async notifyContractSigner(request: NotifyContractSignerRequest): Promise<NotifyContractSignerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyContractSignerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+   * Summary: 通知签署方执行合同签署
+   */
+  async notifyContractSignerEx(request: NotifyContractSignerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyContractSignerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyContractSignerResponse>(await this.doRequest("1.0", "twc.notary.contract.signer.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyContractSignerResponse({}));
   }
 
   /**
