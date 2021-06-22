@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.5',
+    sdk_version = '1.5.10',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -189,6 +189,14 @@ model RentalStagingInformation {
   paymentEachCycle: string(name='payment_each_cycle', example='123.00'),
 }
 
+// 文件key和文件名称
+model FileInfo {
+  // 文件key
+  fileKey: string(name='file_key', example='4293ed08-3576-4f35-a65d-0d63ae8c0e8b.jpg'),
+  // 文件名称
+  fileName: string(name='file_name', example='userInfo.jpg'),
+}
+
 // 租赁分期履约信息
 model RentalInstallmentPerformance {
   // 被申请人还款期数
@@ -224,8 +232,8 @@ model NaturalPerson {
   // 自然人电子邮箱
   email?: string(name='email', example='323232321@alibba-inc.com'),
   // 自然人身份证正反面照片
-  // fileKey 列表（先调用接口获取上传url和fileKey）
-  idNumberFile: [ string ](name='id_number_file', example='<fileKey>'),
+  // 文件信息 列表（先调用接口获取上传url和fileKey）
+  idNumberFile: [ FileInfo ](name='id_number_file', example=''),
 }
 
 // 当被申请人为法人
@@ -243,8 +251,8 @@ model LegalPerson {
   // 企业经营地址
   legalBusinessAddress?: string(name='legal_business_address', example='北京市朝阳区XX地址'),
   // 营业执照照片
-  // fileKey 列表（先调用接口获取上传url和fileKey）
-  legalIdNumberFile?: [ string ](name='legal_id_number_file', example='<fileKey>'),
+  // 文件信息列表（先调用接口获取上传url和fileKey）
+  legalIdNumberFile?: [ FileInfo ](name='legal_id_number_file', example=''),
 }
 
 // 订单信息
@@ -309,7 +317,7 @@ model LeaseOrderInfo {
   contractNo: string(name='contract_no', example='232278957595482'),
   // 合同名称
   contractName?: string(name='contract_name', example='租赁合同'),
-  // 订单商品信息
+  // 订单商品信息列表
   orderItems: [ OrderItem ](name='order_items', example=''),
   // 设备及配件总价（单位元）
   totalDevicePrice: string(name='total_device_price', example='123.00'),
@@ -355,7 +363,7 @@ model ContractFlowSigner {
 
 // 答辩人对象
 model PleaderObject {
-  // 法人或自然人标识，法人为0，自然人为1
+  // 法人或自然人标识，法人为1，自然人为0
   partyType: long(name='party_type', example='0'),
   // 自然人信息
   // 当partyType=1必填
@@ -542,8 +550,8 @@ model ProposerObject {
   // 经营地址
   businessAddress?: string(name='business_address', example='北京市朝阳区XX地址'),
   // 营业执照照片
-  // fileKey 列表
-  idNumberFile?: [ string ](name='id_number_file', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt'),
+  // 文件信息 列表
+  idNumberFile?: [ FileInfo ](name='id_number_file', example=''),
   // 法定代表人姓名
   representativeName?: string(name='representative_name', example='李四'),
   // 法定代表人性别
@@ -554,13 +562,13 @@ model ProposerObject {
   // 法定代表人手机号码
   representativeMobileNumber?: string(name='representative_mobile_number', example='1383312323'),
   // 法定代表人代表身份证明
-  // fileKey 列表
-  representativeIdNumberFile?: [ string ](name='representative_id_number_file', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt'),
+  // 文件信息列表
+  representativeIdNumberFile?: [ FileInfo ](name='representative_id_number_file', example=''),
   // 法定代表人职务
   representativePost?: string(name='representative_post', example='经理'),
   // 法定代表人职务证明
-  // fileKey 列表
-  representativePostFile?: [ string ](name='representative_post_file', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.txt'),
+  // 文件信息列表
+  representativePostFile?: [ FileInfo ](name='representative_post_file', example=''),
   // 签章管理员姓名
   signatureManagerName?: string(name='signature_manager_name', example='李四'),
   // 签章管理员身份证号码
@@ -764,7 +772,7 @@ model KeywordsPosition {
 // 自动进件案件基础信息
 model CaseBasicInfo {
   // 案件租户id
-  tenantId: string(name='tenant_id', example='ORGJC1CN'),
+  bizTenantId: string(name='biz_tenant_id', example='ORGJC1CN'),
   // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
   caseType: string(name='case_type', example='LEASE'),
   // 标的金额（单位元）
@@ -1019,7 +1027,7 @@ model EvidentialCheckList {
   evidentialNameEn: string(name='evidential_name_en', example='LEGAL_IDENETITY_CERT'),
   // 文件名称
   ossFileName: string(name='oss_file_name', example='a.txt'),
-  // 文件fileKey
+  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
   ossFileKey: string(name='oss_file_key', example='201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.jpg'),
   // 证据来源
   // BUSINESS_UPLOAD	业务传入
@@ -1033,10 +1041,10 @@ model EvidentialCheckList {
   // TEXT	文本
   // FILE	文件
   depositType: string(name='deposit_type', example='TEXT'),
-  // 存证哈希
-  txHash: string(name='tx_hash', example='1234545676575675673'),
-  // 存证时间
-  depositTime: string(name='deposit_time', example='2021-05-07 17:13:50'),
+  // 存证哈希 当为区块链存证必填
+  txHash?: string(name='tx_hash', example='1234545676575675673'),
+  // 存证时间 当为区块链存证必填
+  depositTime?: string(name='deposit_time', example='2021-05-07 17:13:50'),
 }
 
 // 存证信息说明
@@ -4627,6 +4635,48 @@ async function queryContractSignfieldsealid(request: QueryContractSignfieldseali
 async function queryContractSignfieldsealidEx(request: QueryContractSignfieldsealidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractSignfieldsealidResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyContractSignerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合同签署流程ID
+  flowId: string(name='flow_id'),
+}
+
+model NotifyContractSignerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务码，0表示成功。
+  code?: long(name='code'),
+  // 业务码信息
+  message?: string(name='message'),
+  // 发送通知的用户账号列表
+  accountList?: [ string ](name='account_list'),
+}
+
+/**
+ * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+ * Summary: 通知签署方执行合同签署
+ */
+async function notifyContractSigner(request: NotifyContractSignerRequest): NotifyContractSignerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyContractSignerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+ * Summary: 通知签署方执行合同签署
+ */
+async function notifyContractSignerEx(request: NotifyContractSignerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyContractSignerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.signer.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
@@ -10069,9 +10119,11 @@ model GetInternalTextRequest = {
   // 存证凭据
   txHash: string(name='tx_hash'),
   // 租户
-  realTenant: string(name='real_tenant'),
-  // 系统之间约定的
-  token: string(name='token'),
+  realTenant?: string(name='real_tenant'),
+  // 授权码
+  authCode?: string(name='auth_code'),
+  // 产品码
+  product?: string(name='product'),
 }
 
 model GetInternalTextResponse = {
