@@ -32,10 +32,10 @@ public class NaturalPerson extends TeaModel {
     public String email;
 
     // 自然人身份证正反面照片
-    // fileKey 列表（先调用接口获取上传url和fileKey）
+    // 文件信息 列表（先调用接口获取上传url和fileKey）
     @NameInMap("id_number_file")
     @Validation(required = true)
-    public java.util.List<String> idNumberFile;
+    public java.util.List<FileInfo> idNumberFile;
 
     public static NaturalPerson build(java.util.Map<String, ?> map) throws Exception {
         NaturalPerson self = new NaturalPerson();
@@ -90,11 +90,11 @@ public class NaturalPerson extends TeaModel {
         return this.email;
     }
 
-    public NaturalPerson setIdNumberFile(java.util.List<String> idNumberFile) {
+    public NaturalPerson setIdNumberFile(java.util.List<FileInfo> idNumberFile) {
         this.idNumberFile = idNumberFile;
         return this;
     }
-    public java.util.List<String> getIdNumberFile() {
+    public java.util.List<FileInfo> getIdNumberFile() {
         return this.idNumberFile;
     }
 

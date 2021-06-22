@@ -34,13 +34,15 @@ public class GetInternalTextRequest extends TeaModel {
 
     // 租户
     @NameInMap("real_tenant")
-    @Validation(required = true)
     public String realTenant;
 
-    // 系统之间约定的
-    @NameInMap("token")
-    @Validation(required = true)
-    public String token;
+    // 授权码
+    @NameInMap("auth_code")
+    public String authCode;
+
+    // 产品码
+    @NameInMap("product")
+    public String product;
 
     public static GetInternalTextRequest build(java.util.Map<String, ?> map) throws Exception {
         GetInternalTextRequest self = new GetInternalTextRequest();
@@ -111,12 +113,20 @@ public class GetInternalTextRequest extends TeaModel {
         return this.realTenant;
     }
 
-    public GetInternalTextRequest setToken(String token) {
-        this.token = token;
+    public GetInternalTextRequest setAuthCode(String authCode) {
+        this.authCode = authCode;
         return this;
     }
-    public String getToken() {
-        return this.token;
+    public String getAuthCode() {
+        return this.authCode;
+    }
+
+    public GetInternalTextRequest setProduct(String product) {
+        this.product = product;
+        return this;
+    }
+    public String getProduct() {
+        return this.product;
     }
 
 }

@@ -22,7 +22,7 @@ public class LeaseOrderInfo extends TeaModel {
     @NameInMap("contract_name")
     public String contractName;
 
-    // 订单商品信息
+    // 订单商品信息列表
     @NameInMap("order_items")
     @Validation(required = true)
     public java.util.List<OrderItem> orderItems;

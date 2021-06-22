@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.twc.models;
 import com.aliyun.tea.*;
 
 public class PleaderObject extends TeaModel {
-    // 法人或自然人标识，法人为0，自然人为1
+    // 法人或自然人标识，法人为1，自然人为0
     @NameInMap("party_type")
     @Validation(required = true)
     public Long partyType;

@@ -27,9 +27,9 @@ public class ProposerObject extends TeaModel {
     public String businessAddress;
 
     // 营业执照照片
-    // fileKey 列表
+    // 文件信息 列表
     @NameInMap("id_number_file")
-    public java.util.List<String> idNumberFile;
+    public java.util.List<FileInfo> idNumberFile;
 
     // 法定代表人姓名
     @NameInMap("representative_name")
@@ -49,18 +49,18 @@ public class ProposerObject extends TeaModel {
     public String representativeMobileNumber;
 
     // 法定代表人代表身份证明
-    // fileKey 列表
+    // 文件信息列表
     @NameInMap("representative_id_number_file")
-    public java.util.List<String> representativeIdNumberFile;
+    public java.util.List<FileInfo> representativeIdNumberFile;
 
     // 法定代表人职务
     @NameInMap("representative_post")
     public String representativePost;
 
     // 法定代表人职务证明
-    // fileKey 列表
+    // 文件信息列表
     @NameInMap("representative_post_file")
-    public java.util.List<String> representativePostFile;
+    public java.util.List<FileInfo> representativePostFile;
 
     // 签章管理员姓名
     @NameInMap("signature_manager_name")
@@ -119,11 +119,11 @@ public class ProposerObject extends TeaModel {
         return this.businessAddress;
     }
 
-    public ProposerObject setIdNumberFile(java.util.List<String> idNumberFile) {
+    public ProposerObject setIdNumberFile(java.util.List<FileInfo> idNumberFile) {
         this.idNumberFile = idNumberFile;
         return this;
     }
-    public java.util.List<String> getIdNumberFile() {
+    public java.util.List<FileInfo> getIdNumberFile() {
         return this.idNumberFile;
     }
 
@@ -159,11 +159,11 @@ public class ProposerObject extends TeaModel {
         return this.representativeMobileNumber;
     }
 
-    public ProposerObject setRepresentativeIdNumberFile(java.util.List<String> representativeIdNumberFile) {
+    public ProposerObject setRepresentativeIdNumberFile(java.util.List<FileInfo> representativeIdNumberFile) {
         this.representativeIdNumberFile = representativeIdNumberFile;
         return this;
     }
-    public java.util.List<String> getRepresentativeIdNumberFile() {
+    public java.util.List<FileInfo> getRepresentativeIdNumberFile() {
         return this.representativeIdNumberFile;
     }
 
@@ -175,11 +175,11 @@ public class ProposerObject extends TeaModel {
         return this.representativePost;
     }
 
-    public ProposerObject setRepresentativePostFile(java.util.List<String> representativePostFile) {
+    public ProposerObject setRepresentativePostFile(java.util.List<FileInfo> representativePostFile) {
         this.representativePostFile = representativePostFile;
         return this;
     }
-    public java.util.List<String> getRepresentativePostFile() {
+    public java.util.List<FileInfo> getRepresentativePostFile() {
         return this.representativePostFile;
     }
 

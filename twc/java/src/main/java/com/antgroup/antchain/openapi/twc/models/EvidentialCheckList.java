@@ -14,7 +14,7 @@ public class EvidentialCheckList extends TeaModel {
     @Validation(required = true)
     public String ossFileName;
 
-    // 文件fileKey
+    // 文件fileKey ，调用获取文件上传链接时对应的fileKey
     @NameInMap("oss_file_key")
     @Validation(required = true)
     public String ossFileKey;
@@ -40,14 +40,12 @@ public class EvidentialCheckList extends TeaModel {
     @Validation(required = true)
     public String depositType;
 
-    // 存证哈希
+    // 存证哈希 当为区块链存证必填
     @NameInMap("tx_hash")
-    @Validation(required = true)
     public String txHash;
 
-    // 存证时间
+    // 存证时间 当为区块链存证必填
     @NameInMap("deposit_time")
-    @Validation(required = true)
     public String depositTime;
 
     public static EvidentialCheckList build(java.util.Map<String, ?> map) throws Exception {

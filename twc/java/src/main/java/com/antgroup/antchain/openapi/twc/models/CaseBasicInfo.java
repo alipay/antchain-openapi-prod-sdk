@@ -5,9 +5,9 @@ import com.aliyun.tea.*;
 
 public class CaseBasicInfo extends TeaModel {
     // 案件租户id
-    @NameInMap("tenant_id")
+    @NameInMap("biz_tenant_id")
     @Validation(required = true)
-    public String tenantId;
+    public String bizTenantId;
 
     // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
     @NameInMap("case_type")
@@ -37,12 +37,12 @@ public class CaseBasicInfo extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public CaseBasicInfo setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public CaseBasicInfo setBizTenantId(String bizTenantId) {
+        this.bizTenantId = bizTenantId;
         return this;
     }
-    public String getTenantId() {
-        return this.tenantId;
+    public String getBizTenantId() {
+        return this.bizTenantId;
     }
 
     public CaseBasicInfo setCaseType(String caseType) {

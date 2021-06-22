@@ -31,9 +31,9 @@ public class LegalPerson extends TeaModel {
     public String legalBusinessAddress;
 
     // 营业执照照片
-    // fileKey 列表（先调用接口获取上传url和fileKey）
+    // 文件信息列表（先调用接口获取上传url和fileKey）
     @NameInMap("legal_id_number_file")
-    public java.util.List<String> legalIdNumberFile;
+    public java.util.List<FileInfo> legalIdNumberFile;
 
     public static LegalPerson build(java.util.Map<String, ?> map) throws Exception {
         LegalPerson self = new LegalPerson();
@@ -88,11 +88,11 @@ public class LegalPerson extends TeaModel {
         return this.legalBusinessAddress;
     }
 
-    public LegalPerson setLegalIdNumberFile(java.util.List<String> legalIdNumberFile) {
+    public LegalPerson setLegalIdNumberFile(java.util.List<FileInfo> legalIdNumberFile) {
         this.legalIdNumberFile = legalIdNumberFile;
         return this;
     }
-    public java.util.List<String> getLegalIdNumberFile() {
+    public java.util.List<FileInfo> getLegalIdNumberFile() {
         return this.legalIdNumberFile;
     }
 
