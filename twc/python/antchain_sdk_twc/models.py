@@ -268,6 +268,38 @@ class RentalStagingInformation(TeaModel):
         return self
 
 
+class FileInfo(TeaModel):
+    def __init__(
+        self,
+        file_key: str = None,
+        file_name: str = None,
+    ):
+        # 文件key
+        self.file_key = file_key
+        # 文件名称
+        self.file_name = file_name
+
+    def validate(self):
+        self.validate_required(self.file_key, 'file_key')
+        self.validate_required(self.file_name, 'file_name')
+
+    def to_map(self):
+        result = dict()
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        return self
+
+
 class RentalInstallmentPerformance(TeaModel):
     def __init__(
         self,
@@ -366,7 +398,7 @@ class NaturalPerson(TeaModel):
         nation: str = None,
         address: str = None,
         email: str = None,
-        id_number_file: List[str] = None,
+        id_number_file: List[FileInfo] = None,
     ):
         # 自然人姓名
         self.name = name
@@ -381,7 +413,7 @@ class NaturalPerson(TeaModel):
         # 自然人电子邮箱
         self.email = email
         # 自然人身份证正反面照片
-        # fileKey 列表（先调用接口获取上传url和fileKey）
+        # 文件信息 列表（先调用接口获取上传url和fileKey）
         self.id_number_file = id_number_file
 
     def validate(self):
@@ -389,6 +421,10 @@ class NaturalPerson(TeaModel):
         self.validate_required(self.mobile_number, 'mobile_number')
         self.validate_required(self.id_number, 'id_number')
         self.validate_required(self.id_number_file, 'id_number_file')
+        if self.id_number_file:
+            for k in self.id_number_file:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -404,8 +440,10 @@ class NaturalPerson(TeaModel):
             result['address'] = self.address
         if self.email is not None:
             result['email'] = self.email
+        result['id_number_file'] = []
         if self.id_number_file is not None:
-            result['id_number_file'] = self.id_number_file
+            for k in self.id_number_file:
+                result['id_number_file'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -422,8 +460,11 @@ class NaturalPerson(TeaModel):
             self.address = m.get('address')
         if m.get('email') is not None:
             self.email = m.get('email')
+        self.id_number_file = []
         if m.get('id_number_file') is not None:
-            self.id_number_file = m.get('id_number_file')
+            for k in m.get('id_number_file'):
+                temp_model = FileInfo()
+                self.id_number_file.append(temp_model.from_map(k))
         return self
 
 
@@ -436,7 +477,7 @@ class LegalPerson(TeaModel):
         legal_phone_number: str = None,
         legal_address: str = None,
         legal_business_address: str = None,
-        legal_id_number_file: List[str] = None,
+        legal_id_number_file: List[FileInfo] = None,
     ):
         # 被申请人姓名
         self.name = name
@@ -451,12 +492,16 @@ class LegalPerson(TeaModel):
         # 企业经营地址
         self.legal_business_address = legal_business_address
         # 营业执照照片
-        # fileKey 列表（先调用接口获取上传url和fileKey）
+        # 文件信息列表（先调用接口获取上传url和fileKey）
         self.legal_id_number_file = legal_id_number_file
 
     def validate(self):
         self.validate_required(self.name, 'name')
         self.validate_required(self.id_number, 'id_number')
+        if self.legal_id_number_file:
+            for k in self.legal_id_number_file:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -472,8 +517,10 @@ class LegalPerson(TeaModel):
             result['legal_address'] = self.legal_address
         if self.legal_business_address is not None:
             result['legal_business_address'] = self.legal_business_address
+        result['legal_id_number_file'] = []
         if self.legal_id_number_file is not None:
-            result['legal_id_number_file'] = self.legal_id_number_file
+            for k in self.legal_id_number_file:
+                result['legal_id_number_file'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -490,8 +537,11 @@ class LegalPerson(TeaModel):
             self.legal_address = m.get('legal_address')
         if m.get('legal_business_address') is not None:
             self.legal_business_address = m.get('legal_business_address')
+        self.legal_id_number_file = []
         if m.get('legal_id_number_file') is not None:
-            self.legal_id_number_file = m.get('legal_id_number_file')
+            for k in m.get('legal_id_number_file'):
+                temp_model = FileInfo()
+                self.legal_id_number_file.append(temp_model.from_map(k))
         return self
 
 
@@ -746,7 +796,7 @@ class LeaseOrderInfo(TeaModel):
         self.contract_no = contract_no
         # 合同名称
         self.contract_name = contract_name
-        # 订单商品信息
+        # 订单商品信息列表
         self.order_items = order_items
         # 设备及配件总价（单位元）
         self.total_device_price = total_device_price
@@ -942,7 +992,7 @@ class PleaderObject(TeaModel):
         natural_person: NaturalPerson = None,
         legal_person: LegalPerson = None,
     ):
-        # 法人或自然人标识，法人为0，自然人为1
+        # 法人或自然人标识，法人为1，自然人为0
         self.party_type = party_type
         # 自然人信息
         # 当partyType=1必填
@@ -1614,14 +1664,14 @@ class ProposerObject(TeaModel):
         phone_number: str = None,
         email: str = None,
         business_address: str = None,
-        id_number_file: List[str] = None,
+        id_number_file: List[FileInfo] = None,
         representative_name: str = None,
         representative_sex: int = None,
         representative_id_number: str = None,
         representative_mobile_number: str = None,
-        representative_id_number_file: List[str] = None,
+        representative_id_number_file: List[FileInfo] = None,
         representative_post: str = None,
-        representative_post_file: List[str] = None,
+        representative_post_file: List[FileInfo] = None,
         signature_manager_name: str = None,
         signature_manager_id_card: str = None,
         signature_manager_phone: str = None,
@@ -1637,7 +1687,7 @@ class ProposerObject(TeaModel):
         # 经营地址
         self.business_address = business_address
         # 营业执照照片
-        # fileKey 列表
+        # 文件信息 列表
         self.id_number_file = id_number_file
         # 法定代表人姓名
         self.representative_name = representative_name
@@ -1649,12 +1699,12 @@ class ProposerObject(TeaModel):
         # 法定代表人手机号码
         self.representative_mobile_number = representative_mobile_number
         # 法定代表人代表身份证明
-        # fileKey 列表
+        # 文件信息列表
         self.representative_id_number_file = representative_id_number_file
         # 法定代表人职务
         self.representative_post = representative_post
         # 法定代表人职务证明
-        # fileKey 列表
+        # 文件信息列表
         self.representative_post_file = representative_post_file
         # 签章管理员姓名
         self.signature_manager_name = signature_manager_name
@@ -1666,6 +1716,18 @@ class ProposerObject(TeaModel):
     def validate(self):
         self.validate_required(self.name, 'name')
         self.validate_required(self.id_number, 'id_number')
+        if self.id_number_file:
+            for k in self.id_number_file:
+                if k:
+                    k.validate()
+        if self.representative_id_number_file:
+            for k in self.representative_id_number_file:
+                if k:
+                    k.validate()
+        if self.representative_post_file:
+            for k in self.representative_post_file:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -1679,8 +1741,10 @@ class ProposerObject(TeaModel):
             result['email'] = self.email
         if self.business_address is not None:
             result['business_address'] = self.business_address
+        result['id_number_file'] = []
         if self.id_number_file is not None:
-            result['id_number_file'] = self.id_number_file
+            for k in self.id_number_file:
+                result['id_number_file'].append(k.to_map() if k else None)
         if self.representative_name is not None:
             result['representative_name'] = self.representative_name
         if self.representative_sex is not None:
@@ -1689,12 +1753,16 @@ class ProposerObject(TeaModel):
             result['representative_id_number'] = self.representative_id_number
         if self.representative_mobile_number is not None:
             result['representative_mobile_number'] = self.representative_mobile_number
+        result['representative_id_number_file'] = []
         if self.representative_id_number_file is not None:
-            result['representative_id_number_file'] = self.representative_id_number_file
+            for k in self.representative_id_number_file:
+                result['representative_id_number_file'].append(k.to_map() if k else None)
         if self.representative_post is not None:
             result['representative_post'] = self.representative_post
+        result['representative_post_file'] = []
         if self.representative_post_file is not None:
-            result['representative_post_file'] = self.representative_post_file
+            for k in self.representative_post_file:
+                result['representative_post_file'].append(k.to_map() if k else None)
         if self.signature_manager_name is not None:
             result['signature_manager_name'] = self.signature_manager_name
         if self.signature_manager_id_card is not None:
@@ -1715,8 +1783,11 @@ class ProposerObject(TeaModel):
             self.email = m.get('email')
         if m.get('business_address') is not None:
             self.business_address = m.get('business_address')
+        self.id_number_file = []
         if m.get('id_number_file') is not None:
-            self.id_number_file = m.get('id_number_file')
+            for k in m.get('id_number_file'):
+                temp_model = FileInfo()
+                self.id_number_file.append(temp_model.from_map(k))
         if m.get('representative_name') is not None:
             self.representative_name = m.get('representative_name')
         if m.get('representative_sex') is not None:
@@ -1725,12 +1796,18 @@ class ProposerObject(TeaModel):
             self.representative_id_number = m.get('representative_id_number')
         if m.get('representative_mobile_number') is not None:
             self.representative_mobile_number = m.get('representative_mobile_number')
+        self.representative_id_number_file = []
         if m.get('representative_id_number_file') is not None:
-            self.representative_id_number_file = m.get('representative_id_number_file')
+            for k in m.get('representative_id_number_file'):
+                temp_model = FileInfo()
+                self.representative_id_number_file.append(temp_model.from_map(k))
         if m.get('representative_post') is not None:
             self.representative_post = m.get('representative_post')
+        self.representative_post_file = []
         if m.get('representative_post_file') is not None:
-            self.representative_post_file = m.get('representative_post_file')
+            for k in m.get('representative_post_file'):
+                temp_model = FileInfo()
+                self.representative_post_file.append(temp_model.from_map(k))
         if m.get('signature_manager_name') is not None:
             self.signature_manager_name = m.get('signature_manager_name')
         if m.get('signature_manager_id_card') is not None:
@@ -2468,7 +2545,7 @@ class KeywordsPosition(TeaModel):
 class CaseBasicInfo(TeaModel):
     def __init__(
         self,
-        tenant_id: str = None,
+        biz_tenant_id: str = None,
         case_type: str = None,
         amount: str = None,
         input_source_id: str = None,
@@ -2476,7 +2553,7 @@ class CaseBasicInfo(TeaModel):
         case_ext: str = None,
     ):
         # 案件租户id
-        self.tenant_id = tenant_id
+        self.biz_tenant_id = biz_tenant_id
         # 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
         self.case_type = case_type
         # 标的金额（单位元）
@@ -2489,15 +2566,15 @@ class CaseBasicInfo(TeaModel):
         self.case_ext = case_ext
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.biz_tenant_id, 'biz_tenant_id')
         self.validate_required(self.case_type, 'case_type')
         self.validate_required(self.input_source_id, 'input_source_id')
         self.validate_required(self.input_source, 'input_source')
 
     def to_map(self):
         result = dict()
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
+        if self.biz_tenant_id is not None:
+            result['biz_tenant_id'] = self.biz_tenant_id
         if self.case_type is not None:
             result['case_type'] = self.case_type
         if self.amount is not None:
@@ -2512,8 +2589,8 @@ class CaseBasicInfo(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
+        if m.get('biz_tenant_id') is not None:
+            self.biz_tenant_id = m.get('biz_tenant_id')
         if m.get('case_type') is not None:
             self.case_type = m.get('case_type')
         if m.get('amount') is not None:
@@ -3460,7 +3537,7 @@ class EvidentialCheckList(TeaModel):
         self.evidential_name_en = evidential_name_en
         # 文件名称
         self.oss_file_name = oss_file_name
-        # 文件fileKey
+        # 文件fileKey ，调用获取文件上传链接时对应的fileKey
         self.oss_file_key = oss_file_key
         # 证据来源
         # BUSINESS_UPLOAD	业务传入
@@ -3474,9 +3551,9 @@ class EvidentialCheckList(TeaModel):
         # TEXT	文本
         # FILE	文件
         self.deposit_type = deposit_type
-        # 存证哈希
+        # 存证哈希 当为区块链存证必填
         self.tx_hash = tx_hash
-        # 存证时间
+        # 存证时间 当为区块链存证必填
         self.deposit_time = deposit_time
 
     def validate(self):
@@ -3486,8 +3563,6 @@ class EvidentialCheckList(TeaModel):
         self.validate_required(self.sources_of_evidence, 'sources_of_evidence')
         self.validate_required(self.evidence_type, 'evidence_type')
         self.validate_required(self.deposit_type, 'deposit_type')
-        self.validate_required(self.tx_hash, 'tx_hash')
-        self.validate_required(self.deposit_time, 'deposit_time')
 
     def to_map(self):
         result = dict()
@@ -13024,6 +13099,102 @@ class QueryContractSignfieldsealidResponse(TeaModel):
             for k in m.get('signfields'):
                 temp_model = ContractSignFieldSealId()
                 self.signfields.append(temp_model.from_map(k))
+        return self
+
+
+class NotifyContractSignerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 合同签署流程ID
+        self.flow_id = flow_id
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        return self
+
+
+class NotifyContractSignerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        account_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务码，0表示成功。
+        self.code = code
+        # 业务码信息
+        self.message = message
+        # 发送通知的用户账号列表
+        self.account_list = account_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.account_list is not None:
+            result['account_list'] = self.account_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('account_list') is not None:
+            self.account_list = m.get('account_list')
         return self
 
 
@@ -27309,7 +27480,8 @@ class GetInternalTextRequest(TeaModel):
         transaction_id: str = None,
         tx_hash: str = None,
         real_tenant: str = None,
-        token: str = None,
+        auth_code: str = None,
+        product: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -27326,15 +27498,15 @@ class GetInternalTextRequest(TeaModel):
         self.tx_hash = tx_hash
         # 租户
         self.real_tenant = real_tenant
-        # 系统之间约定的
-        self.token = token
+        # 授权码
+        self.auth_code = auth_code
+        # 产品码
+        self.product = product
 
     def validate(self):
         if self.location:
             self.location.validate()
         self.validate_required(self.tx_hash, 'tx_hash')
-        self.validate_required(self.real_tenant, 'real_tenant')
-        self.validate_required(self.token, 'token')
 
     def to_map(self):
         result = dict()
@@ -27354,8 +27526,10 @@ class GetInternalTextRequest(TeaModel):
             result['tx_hash'] = self.tx_hash
         if self.real_tenant is not None:
             result['real_tenant'] = self.real_tenant
-        if self.token is not None:
-            result['token'] = self.token
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.product is not None:
+            result['product'] = self.product
         return result
 
     def from_map(self, m: dict = None):
@@ -27377,8 +27551,10 @@ class GetInternalTextRequest(TeaModel):
             self.tx_hash = m.get('tx_hash')
         if m.get('real_tenant') is not None:
             self.real_tenant = m.get('real_tenant')
-        if m.get('token') is not None:
-            self.token = m.get('token')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('product') is not None:
+            self.product = m.get('product')
         return self
 
 

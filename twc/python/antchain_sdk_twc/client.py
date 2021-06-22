@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.5'
+                    'sdk_version': '1.5.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.5'
+                    'sdk_version': '1.5.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3895,6 +3895,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.QueryContractSignfieldsealidResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_contract_signer(
+        self,
+        request: twc_models.NotifyContractSignerRequest,
+    ) -> twc_models.NotifyContractSignerResponse:
+        """
+        Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+        Summary: 通知签署方执行合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_contract_signer_ex(request, headers, runtime)
+
+    async def notify_contract_signer_async(
+        self,
+        request: twc_models.NotifyContractSignerRequest,
+    ) -> twc_models.NotifyContractSignerResponse:
+        """
+        Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+        Summary: 通知签署方执行合同签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_contract_signer_ex_async(request, headers, runtime)
+
+    def notify_contract_signer_ex(
+        self,
+        request: twc_models.NotifyContractSignerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.NotifyContractSignerResponse:
+        """
+        Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+        Summary: 通知签署方执行合同签署
+        """
+        UtilClient.validate_model(request)
+        return twc_models.NotifyContractSignerResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_contract_signer_ex_async(
+        self,
+        request: twc_models.NotifyContractSignerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.NotifyContractSignerResponse:
+        """
+        Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
+        Summary: 通知签署方执行合同签署
+        """
+        UtilClient.validate_model(request)
+        return twc_models.NotifyContractSignerResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
