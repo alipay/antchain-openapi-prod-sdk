@@ -49,6 +49,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string PubTopic { get; set; }
 
+        // mqtt的groupId
+        [NameInMap("group_id")]
+        [Validation(Required=false)]
+        public string GroupId { get; set; }
+
     }
 
 }
