@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-twc:1.5.5",
+    "java": "com.antgroup.antchain.openapi:openapi-twc:1.5.10",
     "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.5.10",
     "csharp": "AntChain.SDK.TWC:1.5.10",
     "ts": "@antchain/twc:1.5.10",
