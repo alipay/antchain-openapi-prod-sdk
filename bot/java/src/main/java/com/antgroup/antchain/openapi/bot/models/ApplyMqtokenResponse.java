@@ -36,6 +36,10 @@ public class ApplyMqtokenResponse extends TeaModel {
     @NameInMap("pub_topic")
     public String pubTopic;
 
+    // mqtt的groupId
+    @NameInMap("group_id")
+    public String groupId;
+
     public static ApplyMqtokenResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyMqtokenResponse self = new ApplyMqtokenResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class ApplyMqtokenResponse extends TeaModel {
     }
     public String getPubTopic() {
         return this.pubTopic;
+    }
+
+    public ApplyMqtokenResponse setGroupId(String groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+    public String getGroupId() {
+        return this.groupId;
     }
 
 }
