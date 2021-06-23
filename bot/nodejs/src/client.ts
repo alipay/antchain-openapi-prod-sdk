@@ -4317,6 +4317,8 @@ export class ApplyMqtokenResponse extends $tea.Model {
   subTopic?: string;
   // mqtt的topic
   pubTopic?: string;
+  // mqtt的groupId
+  groupId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4327,6 +4329,7 @@ export class ApplyMqtokenResponse extends $tea.Model {
       instanceId: 'instance_id',
       subTopic: 'sub_topic',
       pubTopic: 'pub_topic',
+      groupId: 'group_id',
     };
   }
 
@@ -4340,6 +4343,7 @@ export class ApplyMqtokenResponse extends $tea.Model {
       instanceId: 'string',
       subTopic: 'string',
       pubTopic: 'string',
+      groupId: 'string',
     };
   }
 
@@ -6026,7 +6030,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.9",
+          sdk_version: "1.5.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
