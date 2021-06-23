@@ -55,6 +55,12 @@ class ApplyMqtokenResponse extends Model
      * @var string
      */
     public $pubTopic;
+
+    // mqtt的groupId
+    /**
+     * @var string
+     */
+    public $groupId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -64,6 +70,7 @@ class ApplyMqtokenResponse extends Model
         'instanceId' => 'instance_id',
         'subTopic'   => 'sub_topic',
         'pubTopic'   => 'pub_topic',
+        'groupId'    => 'group_id',
     ];
 
     public function validate()
@@ -96,6 +103,9 @@ class ApplyMqtokenResponse extends Model
         }
         if (null !== $this->pubTopic) {
             $res['pub_topic'] = $this->pubTopic;
+        }
+        if (null !== $this->groupId) {
+            $res['group_id'] = $this->groupId;
         }
 
         return $res;
@@ -132,6 +142,9 @@ class ApplyMqtokenResponse extends Model
         }
         if (isset($map['pub_topic'])) {
             $model->pubTopic = $map['pub_topic'];
+        }
+        if (isset($map['group_id'])) {
+            $model->groupId = $map['group_id'];
         }
 
         return $model;
