@@ -6398,6 +6398,7 @@ class ApplyMqtokenResponse(TeaModel):
         instance_id: str = None,
         sub_topic: str = None,
         pub_topic: str = None,
+        group_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -6415,6 +6416,8 @@ class ApplyMqtokenResponse(TeaModel):
         self.sub_topic = sub_topic
         # mqtt的topic
         self.pub_topic = pub_topic
+        # mqtt的groupId
+        self.group_id = group_id
 
     def validate(self):
         pass
@@ -6437,6 +6440,8 @@ class ApplyMqtokenResponse(TeaModel):
             result['sub_topic'] = self.sub_topic
         if self.pub_topic is not None:
             result['pub_topic'] = self.pub_topic
+        if self.group_id is not None:
+            result['group_id'] = self.group_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6457,6 +6462,8 @@ class ApplyMqtokenResponse(TeaModel):
             self.sub_topic = m.get('sub_topic')
         if m.get('pub_topic') is not None:
             self.pub_topic = m.get('pub_topic')
+        if m.get('group_id') is not None:
+            self.group_id = m.get('group_id')
         return self
 
 
