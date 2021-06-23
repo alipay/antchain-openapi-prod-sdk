@@ -5525,6 +5525,8 @@ type ApplyMqtokenResponse struct {
 	SubTopic *string `json:"sub_topic,omitempty" xml:"sub_topic,omitempty"`
 	// mqtt的topic
 	PubTopic *string `json:"pub_topic,omitempty" xml:"pub_topic,omitempty"`
+	// mqtt的groupId
+	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty"`
 }
 
 func (s ApplyMqtokenResponse) String() string {
@@ -5572,6 +5574,11 @@ func (s *ApplyMqtokenResponse) SetSubTopic(v string) *ApplyMqtokenResponse {
 
 func (s *ApplyMqtokenResponse) SetPubTopic(v string) *ApplyMqtokenResponse {
 	s.PubTopic = &v
+	return s
+}
+
+func (s *ApplyMqtokenResponse) SetGroupId(v string) *ApplyMqtokenResponse {
+	s.GroupId = &v
 	return s
 }
 
@@ -7693,7 +7700,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.9"),
+				"sdk_version":      tea.String("1.5.10"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
