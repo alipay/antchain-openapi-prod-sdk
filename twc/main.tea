@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.10',
+    sdk_version = '1.5.11',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5874,7 +5874,7 @@ async function queryJusticeCaseinfoEx(request: QueryJusticeCaseinfoRequest, head
   return doRequest('1.0' ,'twc.notary.justice.caseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model GetJusticeGetuploadfilepathRequest = {
+model GetJusticeUploadfilepathRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -5884,7 +5884,7 @@ model GetJusticeGetuploadfilepathRequest = {
   clientToken?: string(name='client_token'),
 }
 
-model GetJusticeGetuploadfilepathResponse = {
+model GetJusticeUploadfilepathResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -5905,19 +5905,19 @@ model GetJusticeGetuploadfilepathResponse = {
  * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
  * Summary: 获取OSS文件上传路径
  */
-async function getJusticeGetuploadfilepath(request: GetJusticeGetuploadfilepathRequest): GetJusticeGetuploadfilepathResponse {
+async function getJusticeUploadfilepath(request: GetJusticeUploadfilepathRequest): GetJusticeUploadfilepathResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return getJusticeGetuploadfilepathEx(request, headers, runtime);
+  return getJusticeUploadfilepathEx(request, headers, runtime);
 }
 
 /**
  * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
  * Summary: 获取OSS文件上传路径
  */
-async function getJusticeGetuploadfilepathEx(request: GetJusticeGetuploadfilepathRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetJusticeGetuploadfilepathResponse {
+async function getJusticeUploadfilepathEx(request: GetJusticeUploadfilepathRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetJusticeUploadfilepathResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.justice.getuploadfilepath.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateJusticeCasewritebackRequest = {
