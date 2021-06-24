@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetJusticeGetuploadfilepathRequest extends TeaModel {
+public class GetJusticeUploadfilepathRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -20,12 +20,12 @@ public class GetJusticeGetuploadfilepathRequest extends TeaModel {
     @NameInMap("client_token")
     public String clientToken;
 
-    public static GetJusticeGetuploadfilepathRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetJusticeGetuploadfilepathRequest self = new GetJusticeGetuploadfilepathRequest();
+    public static GetJusticeUploadfilepathRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetJusticeUploadfilepathRequest self = new GetJusticeUploadfilepathRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetJusticeGetuploadfilepathRequest setAuthToken(String authToken) {
+    public GetJusticeUploadfilepathRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -33,7 +33,7 @@ public class GetJusticeGetuploadfilepathRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetJusticeGetuploadfilepathRequest setProductInstanceId(String productInstanceId) {
+    public GetJusticeUploadfilepathRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -41,7 +41,7 @@ public class GetJusticeGetuploadfilepathRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetJusticeGetuploadfilepathRequest setFileName(String fileName) {
+    public GetJusticeUploadfilepathRequest setFileName(String fileName) {
         this.fileName = fileName;
         return this;
     }
@@ -49,7 +49,7 @@ public class GetJusticeGetuploadfilepathRequest extends TeaModel {
         return this.fileName;
     }
 
-    public GetJusticeGetuploadfilepathRequest setClientToken(String clientToken) {
+    public GetJusticeUploadfilepathRequest setClientToken(String clientToken) {
         this.clientToken = clientToken;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class GetJusticeGetuploadfilepathResponse extends TeaModel {
+public class GetJusticeUploadfilepathResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -32,12 +32,12 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
     @NameInMap("message")
     public String message;
 
-    public static GetJusticeGetuploadfilepathResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetJusticeGetuploadfilepathResponse self = new GetJusticeGetuploadfilepathResponse();
+    public static GetJusticeUploadfilepathResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetJusticeUploadfilepathResponse self = new GetJusticeUploadfilepathResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetJusticeGetuploadfilepathResponse setReqMsgId(String reqMsgId) {
+    public GetJusticeUploadfilepathResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +45,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetJusticeGetuploadfilepathResponse setResultCode(String resultCode) {
+    public GetJusticeUploadfilepathResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +53,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetJusticeGetuploadfilepathResponse setResultMsg(String resultMsg) {
+    public GetJusticeUploadfilepathResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,7 +61,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetJusticeGetuploadfilepathResponse setUploadFileUrl(String uploadFileUrl) {
+    public GetJusticeUploadfilepathResponse setUploadFileUrl(String uploadFileUrl) {
         this.uploadFileUrl = uploadFileUrl;
         return this;
     }
@@ -69,7 +69,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.uploadFileUrl;
     }
 
-    public GetJusticeGetuploadfilepathResponse setFileKey(String fileKey) {
+    public GetJusticeUploadfilepathResponse setFileKey(String fileKey) {
         this.fileKey = fileKey;
         return this;
     }
@@ -77,7 +77,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.fileKey;
     }
 
-    public GetJusticeGetuploadfilepathResponse setCode(Long code) {
+    public GetJusticeUploadfilepathResponse setCode(Long code) {
         this.code = code;
         return this;
     }
@@ -85,7 +85,7 @@ public class GetJusticeGetuploadfilepathResponse extends TeaModel {
         return this.code;
     }
 
-    public GetJusticeGetuploadfilepathResponse setMessage(String message) {
+    public GetJusticeUploadfilepathResponse setMessage(String message) {
         this.message = message;
         return this;
     }

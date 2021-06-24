@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.10")
+                    new TeaPair("sdk_version", "1.5.11")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1896,19 +1896,19 @@ public class Client {
      * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
      * Summary: 获取OSS文件上传路径
      */
-    public GetJusticeGetuploadfilepathResponse getJusticeGetuploadfilepath(GetJusticeGetuploadfilepathRequest request) throws Exception {
+    public GetJusticeUploadfilepathResponse getJusticeUploadfilepath(GetJusticeUploadfilepathRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getJusticeGetuploadfilepathEx(request, headers, runtime);
+        return this.getJusticeUploadfilepathEx(request, headers, runtime);
     }
 
     /**
      * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
      * Summary: 获取OSS文件上传路径
      */
-    public GetJusticeGetuploadfilepathResponse getJusticeGetuploadfilepathEx(GetJusticeGetuploadfilepathRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetJusticeUploadfilepathResponse getJusticeUploadfilepathEx(GetJusticeUploadfilepathRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetJusticeGetuploadfilepathResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.uploadfilepath.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetJusticeUploadfilepathResponse());
     }
 
     /**
