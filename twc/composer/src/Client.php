@@ -225,8 +225,8 @@ use AntChain\TWC\Models\GetFinanceTextnotaryRequest;
 use AntChain\TWC\Models\GetFinanceTextnotaryResponse;
 use AntChain\TWC\Models\GetInternalTextRequest;
 use AntChain\TWC\Models\GetInternalTextResponse;
-use AntChain\TWC\Models\GetJusticeGetuploadfilepathRequest;
-use AntChain\TWC\Models\GetJusticeGetuploadfilepathResponse;
+use AntChain\TWC\Models\GetJusticeUploadfilepathRequest;
+use AntChain\TWC\Models\GetJusticeUploadfilepathResponse;
 use AntChain\TWC\Models\GetSourceRequest;
 use AntChain\TWC\Models\GetSourceResponse;
 use AntChain\TWC\Models\GetTextRequest;
@@ -496,7 +496,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.10',
+                    'sdk_version'      => '1.5.11',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3553,33 +3553,33 @@ class Client
      * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
      * Summary: 获取OSS文件上传路径.
      *
-     * @param GetJusticeGetuploadfilepathRequest $request
+     * @param GetJusticeUploadfilepathRequest $request
      *
-     * @return GetJusticeGetuploadfilepathResponse
+     * @return GetJusticeUploadfilepathResponse
      */
-    public function getJusticeGetuploadfilepath($request)
+    public function getJusticeUploadfilepath($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getJusticeGetuploadfilepathEx($request, $headers, $runtime);
+        return $this->getJusticeUploadfilepathEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
      * Summary: 获取OSS文件上传路径.
      *
-     * @param GetJusticeGetuploadfilepathRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
+     * @param GetJusticeUploadfilepathRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return GetJusticeGetuploadfilepathResponse
+     * @return GetJusticeUploadfilepathResponse
      */
-    public function getJusticeGetuploadfilepathEx($request, $headers, $runtime)
+    public function getJusticeUploadfilepathEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetJusticeGetuploadfilepathResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.getuploadfilepath.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetJusticeUploadfilepathResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

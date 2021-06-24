@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetJusticeGetuploadfilepathRequest extends Model
+class GetJusticeUploadfilepathRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -64,7 +64,7 @@ class GetJusticeGetuploadfilepathRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetJusticeGetuploadfilepathRequest
+     * @return GetJusticeUploadfilepathRequest
      */
     public static function fromMap($map = [])
     {

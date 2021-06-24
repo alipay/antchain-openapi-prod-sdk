@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetJusticeGetuploadfilepathResponse extends Model
+class GetJusticeUploadfilepathResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -94,7 +94,7 @@ class GetJusticeGetuploadfilepathResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetJusticeGetuploadfilepathResponse
+     * @return GetJusticeUploadfilepathResponse
      */
     public static function fromMap($map = [])
     {
