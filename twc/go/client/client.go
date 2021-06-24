@@ -14014,7 +14014,7 @@ func (s *QueryJusticeCaseinfoResponse) SetMessage(v string) *QueryJusticeCaseinf
 	return s
 }
 
-type GetJusticeGetuploadfilepathRequest struct {
+type GetJusticeUploadfilepathRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -14024,35 +14024,35 @@ type GetJusticeGetuploadfilepathRequest struct {
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
 }
 
-func (s GetJusticeGetuploadfilepathRequest) String() string {
+func (s GetJusticeUploadfilepathRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetJusticeGetuploadfilepathRequest) GoString() string {
+func (s GetJusticeUploadfilepathRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetJusticeGetuploadfilepathRequest) SetAuthToken(v string) *GetJusticeGetuploadfilepathRequest {
+func (s *GetJusticeUploadfilepathRequest) SetAuthToken(v string) *GetJusticeUploadfilepathRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathRequest) SetProductInstanceId(v string) *GetJusticeGetuploadfilepathRequest {
+func (s *GetJusticeUploadfilepathRequest) SetProductInstanceId(v string) *GetJusticeUploadfilepathRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathRequest) SetFileName(v string) *GetJusticeGetuploadfilepathRequest {
+func (s *GetJusticeUploadfilepathRequest) SetFileName(v string) *GetJusticeUploadfilepathRequest {
 	s.FileName = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathRequest) SetClientToken(v string) *GetJusticeGetuploadfilepathRequest {
+func (s *GetJusticeUploadfilepathRequest) SetClientToken(v string) *GetJusticeUploadfilepathRequest {
 	s.ClientToken = &v
 	return s
 }
 
-type GetJusticeGetuploadfilepathResponse struct {
+type GetJusticeUploadfilepathResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -14069,45 +14069,45 @@ type GetJusticeGetuploadfilepathResponse struct {
 	Message *string `json:"message,omitempty" xml:"message,omitempty"`
 }
 
-func (s GetJusticeGetuploadfilepathResponse) String() string {
+func (s GetJusticeUploadfilepathResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetJusticeGetuploadfilepathResponse) GoString() string {
+func (s GetJusticeUploadfilepathResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetReqMsgId(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetReqMsgId(v string) *GetJusticeUploadfilepathResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetResultCode(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetResultCode(v string) *GetJusticeUploadfilepathResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetResultMsg(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetResultMsg(v string) *GetJusticeUploadfilepathResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetUploadFileUrl(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetUploadFileUrl(v string) *GetJusticeUploadfilepathResponse {
 	s.UploadFileUrl = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetFileKey(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetFileKey(v string) *GetJusticeUploadfilepathResponse {
 	s.FileKey = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetCode(v int64) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetCode(v int64) *GetJusticeUploadfilepathResponse {
 	s.Code = &v
 	return s
 }
 
-func (s *GetJusticeGetuploadfilepathResponse) SetMessage(v string) *GetJusticeGetuploadfilepathResponse {
+func (s *GetJusticeUploadfilepathResponse) SetMessage(v string) *GetJusticeUploadfilepathResponse {
 	s.Message = &v
 	return s
 }
@@ -24286,7 +24286,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.10"),
+				"sdk_version":      tea.String("1.5.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -27436,11 +27436,11 @@ func (client *Client) QueryJusticeCaseinfoEx(request *QueryJusticeCaseinfoReques
  * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
  * Summary: 获取OSS文件上传路径
  */
-func (client *Client) GetJusticeGetuploadfilepath(request *GetJusticeGetuploadfilepathRequest) (_result *GetJusticeGetuploadfilepathResponse, _err error) {
+func (client *Client) GetJusticeUploadfilepath(request *GetJusticeUploadfilepathRequest) (_result *GetJusticeUploadfilepathResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetJusticeGetuploadfilepathResponse{}
-	_body, _err := client.GetJusticeGetuploadfilepathEx(request, headers, runtime)
+	_result = &GetJusticeUploadfilepathResponse{}
+	_body, _err := client.GetJusticeUploadfilepathEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -27452,13 +27452,13 @@ func (client *Client) GetJusticeGetuploadfilepath(request *GetJusticeGetuploadfi
  * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
  * Summary: 获取OSS文件上传路径
  */
-func (client *Client) GetJusticeGetuploadfilepathEx(request *GetJusticeGetuploadfilepathRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetJusticeGetuploadfilepathResponse, _err error) {
+func (client *Client) GetJusticeUploadfilepathEx(request *GetJusticeUploadfilepathRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetJusticeUploadfilepathResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetJusticeGetuploadfilepathResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.getuploadfilepath.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetJusticeUploadfilepathResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.justice.uploadfilepath.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
