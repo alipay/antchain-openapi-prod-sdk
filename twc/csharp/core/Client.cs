@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.10"},
+                        {"sdk_version", "1.5.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.10"},
+                        {"sdk_version", "1.5.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -4151,42 +4151,42 @@ namespace AntChain.SDK.TWC
          * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
          * Summary: 获取OSS文件上传路径
          */
-        public GetJusticeGetuploadfilepathResponse GetJusticeGetuploadfilepath(GetJusticeGetuploadfilepathRequest request)
+        public GetJusticeUploadfilepathResponse GetJusticeUploadfilepath(GetJusticeUploadfilepathRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetJusticeGetuploadfilepathEx(request, headers, runtime);
+            return GetJusticeUploadfilepathEx(request, headers, runtime);
         }
 
         /**
          * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
          * Summary: 获取OSS文件上传路径
          */
-        public async Task<GetJusticeGetuploadfilepathResponse> GetJusticeGetuploadfilepathAsync(GetJusticeGetuploadfilepathRequest request)
+        public async Task<GetJusticeUploadfilepathResponse> GetJusticeUploadfilepathAsync(GetJusticeUploadfilepathRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetJusticeGetuploadfilepathExAsync(request, headers, runtime);
+            return await GetJusticeUploadfilepathExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
          * Summary: 获取OSS文件上传路径
          */
-        public GetJusticeGetuploadfilepathResponse GetJusticeGetuploadfilepathEx(GetJusticeGetuploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public GetJusticeUploadfilepathResponse GetJusticeUploadfilepathEx(GetJusticeUploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetJusticeGetuploadfilepathResponse>(DoRequest("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetJusticeUploadfilepathResponse>(DoRequest("1.0", "twc.notary.justice.uploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
          * Summary: 获取OSS文件上传路径
          */
-        public async Task<GetJusticeGetuploadfilepathResponse> GetJusticeGetuploadfilepathExAsync(GetJusticeGetuploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<GetJusticeUploadfilepathResponse> GetJusticeUploadfilepathExAsync(GetJusticeUploadfilepathRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetJusticeGetuploadfilepathResponse>(await DoRequestAsync("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetJusticeUploadfilepathResponse>(await DoRequestAsync("1.0", "twc.notary.justice.uploadfilepath.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
