@@ -16115,7 +16115,7 @@ class QueryJusticeCaseinfoResponse(TeaModel):
         return self
 
 
-class GetJusticeGetuploadfilepathRequest(TeaModel):
+class GetJusticeUploadfilepathRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -16159,7 +16159,7 @@ class GetJusticeGetuploadfilepathRequest(TeaModel):
         return self
 
 
-class GetJusticeGetuploadfilepathResponse(TeaModel):
+class GetJusticeUploadfilepathResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

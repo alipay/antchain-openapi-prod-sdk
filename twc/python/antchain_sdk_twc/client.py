@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.10'
+                    'sdk_version': '1.5.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.10'
+                    'sdk_version': '1.5.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5193,58 +5193,58 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.justice.caseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_justice_getuploadfilepath(
+    def get_justice_uploadfilepath(
         self,
-        request: twc_models.GetJusticeGetuploadfilepathRequest,
-    ) -> twc_models.GetJusticeGetuploadfilepathResponse:
+        request: twc_models.GetJusticeUploadfilepathRequest,
+    ) -> twc_models.GetJusticeUploadfilepathResponse:
         """
         Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
         Summary: 获取OSS文件上传路径
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_justice_getuploadfilepath_ex(request, headers, runtime)
+        return self.get_justice_uploadfilepath_ex(request, headers, runtime)
 
-    async def get_justice_getuploadfilepath_async(
+    async def get_justice_uploadfilepath_async(
         self,
-        request: twc_models.GetJusticeGetuploadfilepathRequest,
-    ) -> twc_models.GetJusticeGetuploadfilepathResponse:
+        request: twc_models.GetJusticeUploadfilepathRequest,
+    ) -> twc_models.GetJusticeUploadfilepathResponse:
         """
         Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
         Summary: 获取OSS文件上传路径
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.get_justice_getuploadfilepath_ex_async(request, headers, runtime)
+        return await self.get_justice_uploadfilepath_ex_async(request, headers, runtime)
 
-    def get_justice_getuploadfilepath_ex(
+    def get_justice_uploadfilepath_ex(
         self,
-        request: twc_models.GetJusticeGetuploadfilepathRequest,
+        request: twc_models.GetJusticeUploadfilepathRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetJusticeGetuploadfilepathResponse:
+    ) -> twc_models.GetJusticeUploadfilepathResponse:
         """
         Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
         Summary: 获取OSS文件上传路径
         """
         UtilClient.validate_model(request)
-        return twc_models.GetJusticeGetuploadfilepathResponse().from_map(
-            self.do_request('1.0', 'twc.notary.justice.getuploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.GetJusticeUploadfilepathResponse().from_map(
+            self.do_request('1.0', 'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def get_justice_getuploadfilepath_ex_async(
+    async def get_justice_uploadfilepath_ex_async(
         self,
-        request: twc_models.GetJusticeGetuploadfilepathRequest,
+        request: twc_models.GetJusticeUploadfilepathRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.GetJusticeGetuploadfilepathResponse:
+    ) -> twc_models.GetJusticeUploadfilepathResponse:
         """
         Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
         Summary: 获取OSS文件上传路径
         """
         UtilClient.validate_model(request)
-        return twc_models.GetJusticeGetuploadfilepathResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.justice.getuploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.GetJusticeUploadfilepathResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_justice_casewriteback(
