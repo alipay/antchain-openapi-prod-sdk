@@ -10394,7 +10394,7 @@ export class QueryJusticeCaseinfoResponse extends $tea.Model {
   }
 }
 
-export class GetJusticeGetuploadfilepathRequest extends $tea.Model {
+export class GetJusticeUploadfilepathRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -10425,7 +10425,7 @@ export class GetJusticeGetuploadfilepathRequest extends $tea.Model {
   }
 }
 
-export class GetJusticeGetuploadfilepathResponse extends $tea.Model {
+export class GetJusticeUploadfilepathResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -17807,7 +17807,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.10",
+          sdk_version: "1.5.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -19590,19 +19590,19 @@ export default class Client {
    * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
    * Summary: 获取OSS文件上传路径
    */
-  async getJusticeGetuploadfilepath(request: GetJusticeGetuploadfilepathRequest): Promise<GetJusticeGetuploadfilepathResponse> {
+  async getJusticeUploadfilepath(request: GetJusticeUploadfilepathRequest): Promise<GetJusticeUploadfilepathResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getJusticeGetuploadfilepathEx(request, headers, runtime);
+    return await this.getJusticeUploadfilepathEx(request, headers, runtime);
   }
 
   /**
    * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
    * Summary: 获取OSS文件上传路径
    */
-  async getJusticeGetuploadfilepathEx(request: GetJusticeGetuploadfilepathRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetJusticeGetuploadfilepathResponse> {
+  async getJusticeUploadfilepathEx(request: GetJusticeUploadfilepathRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetJusticeUploadfilepathResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetJusticeGetuploadfilepathResponse>(await this.doRequest("1.0", "twc.notary.justice.getuploadfilepath.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetJusticeGetuploadfilepathResponse({}));
+    return $tea.cast<GetJusticeUploadfilepathResponse>(await this.doRequest("1.0", "twc.notary.justice.uploadfilepath.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetJusticeUploadfilepathResponse({}));
   }
 
   /**
