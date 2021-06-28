@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.1")
+                    new TeaPair("sdk_version", "1.1.2")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -404,6 +404,82 @@ public class Client {
     public QueryCpfAuthResponse queryCpfAuthEx(QueryCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCpfAuthResponse());
+    }
+
+    /**
+     * Description: 验证授权是否存在
+     * Summary: 授权查验
+     */
+    public VerifyCpfAuthResponse verifyCpfAuth(VerifyCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 验证授权是否存在
+     * Summary: 授权查验
+     */
+    public VerifyCpfAuthResponse verifyCpfAuthEx(VerifyCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyCpfAuthResponse());
+    }
+
+    /**
+     * Description: 用数存证
+     * Summary: 用数存证
+     */
+    public SaveCpfDatauseResponse saveCpfDatause(SaveCpfDatauseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveCpfDatauseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用数存证
+     * Summary: 用数存证
+     */
+    public SaveCpfDatauseResponse saveCpfDatauseEx(SaveCpfDatauseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.datause.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveCpfDatauseResponse());
+    }
+
+    /**
+     * Description: 交易验证
+     * Summary: 用数存证验证接口
+     */
+    public ConfirmCpfDatauseResponse confirmCpfDatause(ConfirmCpfDatauseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmCpfDatauseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 交易验证
+     * Summary: 用数存证验证接口
+     */
+    public ConfirmCpfDatauseResponse confirmCpfDatauseEx(ConfirmCpfDatauseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.datause.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmCpfDatauseResponse());
+    }
+
+    /**
+     * Description: 鉴权、权限查询
+     * Summary: 鉴权接口
+     */
+    public CheckCpfAuthResponse checkCpfAuth(CheckCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 鉴权、权限查询
+     * Summary: 鉴权接口
+     */
+    public CheckCpfAuthResponse checkCpfAuthEx(CheckCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCpfAuthResponse());
     }
 
     /**

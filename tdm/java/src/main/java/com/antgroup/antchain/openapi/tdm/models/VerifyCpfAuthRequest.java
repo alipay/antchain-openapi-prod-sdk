@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tdm.models;
 
 import com.aliyun.tea.*;
 
-public class ExecCpfAuthRequest extends TeaModel {
+public class VerifyCpfAuthRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class ExecCpfAuthRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 流水号
+    // 业务流水
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
@@ -21,25 +21,17 @@ public class ExecCpfAuthRequest extends TeaModel {
     @Validation(required = true)
     public String dataOwnerIdentity;
 
-    // 用户姓名
-    @NameInMap("data_owner_name")
-    public String dataOwnerName;
-
-    // 被授权机构ID
+    // 授权机构ID
     @NameInMap("authorized_identity")
     @Validation(required = true)
     public String authorizedIdentity;
 
-    // 被授权机构名称
-    @NameInMap("authorized_name")
-    public String authorizedName;
-
-    // 端ID
+    // 授权端ID
     @NameInMap("authorized_platform_identity")
     @Validation(required = true)
     public String authorizedPlatformIdentity;
 
-    // 授权标的
+    // 授权业务码
     @NameInMap("target_code")
     @Validation(required = true)
     public String targetCode;
@@ -49,20 +41,17 @@ public class ExecCpfAuthRequest extends TeaModel {
     @Validation(required = true)
     public AuthAgreement authAgreement;
 
-    // 核身信息
-    @NameInMap("certification_info")
-    public CertificationInfo certificationInfo;
-
-    // 扩展字段
+    // 扩展参数
     @NameInMap("content")
+    @Validation(required = true)
     public String content;
 
-    public static ExecCpfAuthRequest build(java.util.Map<String, ?> map) throws Exception {
-        ExecCpfAuthRequest self = new ExecCpfAuthRequest();
+    public static VerifyCpfAuthRequest build(java.util.Map<String, ?> map) throws Exception {
+        VerifyCpfAuthRequest self = new VerifyCpfAuthRequest();
         return TeaModel.build(map, self);
     }
 
-    public ExecCpfAuthRequest setAuthToken(String authToken) {
+    public VerifyCpfAuthRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -70,7 +59,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ExecCpfAuthRequest setProductInstanceId(String productInstanceId) {
+    public VerifyCpfAuthRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -78,7 +67,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ExecCpfAuthRequest setRequestId(String requestId) {
+    public VerifyCpfAuthRequest setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -86,7 +75,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.requestId;
     }
 
-    public ExecCpfAuthRequest setDataOwnerIdentity(String dataOwnerIdentity) {
+    public VerifyCpfAuthRequest setDataOwnerIdentity(String dataOwnerIdentity) {
         this.dataOwnerIdentity = dataOwnerIdentity;
         return this;
     }
@@ -94,15 +83,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.dataOwnerIdentity;
     }
 
-    public ExecCpfAuthRequest setDataOwnerName(String dataOwnerName) {
-        this.dataOwnerName = dataOwnerName;
-        return this;
-    }
-    public String getDataOwnerName() {
-        return this.dataOwnerName;
-    }
-
-    public ExecCpfAuthRequest setAuthorizedIdentity(String authorizedIdentity) {
+    public VerifyCpfAuthRequest setAuthorizedIdentity(String authorizedIdentity) {
         this.authorizedIdentity = authorizedIdentity;
         return this;
     }
@@ -110,15 +91,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.authorizedIdentity;
     }
 
-    public ExecCpfAuthRequest setAuthorizedName(String authorizedName) {
-        this.authorizedName = authorizedName;
-        return this;
-    }
-    public String getAuthorizedName() {
-        return this.authorizedName;
-    }
-
-    public ExecCpfAuthRequest setAuthorizedPlatformIdentity(String authorizedPlatformIdentity) {
+    public VerifyCpfAuthRequest setAuthorizedPlatformIdentity(String authorizedPlatformIdentity) {
         this.authorizedPlatformIdentity = authorizedPlatformIdentity;
         return this;
     }
@@ -126,7 +99,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.authorizedPlatformIdentity;
     }
 
-    public ExecCpfAuthRequest setTargetCode(String targetCode) {
+    public VerifyCpfAuthRequest setTargetCode(String targetCode) {
         this.targetCode = targetCode;
         return this;
     }
@@ -134,7 +107,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.targetCode;
     }
 
-    public ExecCpfAuthRequest setAuthAgreement(AuthAgreement authAgreement) {
+    public VerifyCpfAuthRequest setAuthAgreement(AuthAgreement authAgreement) {
         this.authAgreement = authAgreement;
         return this;
     }
@@ -142,15 +115,7 @@ public class ExecCpfAuthRequest extends TeaModel {
         return this.authAgreement;
     }
 
-    public ExecCpfAuthRequest setCertificationInfo(CertificationInfo certificationInfo) {
-        this.certificationInfo = certificationInfo;
-        return this;
-    }
-    public CertificationInfo getCertificationInfo() {
-        return this.certificationInfo;
-    }
-
-    public ExecCpfAuthRequest setContent(String content) {
+    public VerifyCpfAuthRequest setContent(String content) {
         this.content = content;
         return this;
     }
