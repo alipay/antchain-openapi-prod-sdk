@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TDM.Models
 {
-    public class ExecCpfAuthRequest : TeaModel {
+    public class CheckCpfAuthRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,50 +18,35 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 流水号
+        // 流水ID
         [NameInMap("request_id")]
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
-        // 用户身份证ID
+        // 用户ID
         [NameInMap("data_owner_identity")]
         [Validation(Required=true)]
         public string DataOwnerIdentity { get; set; }
 
-        // 用户姓名
-        [NameInMap("data_owner_name")]
-        [Validation(Required=false)]
-        public string DataOwnerName { get; set; }
-
-        // 被授权机构ID
+        // 授权机构ID
         [NameInMap("authorized_identity")]
         [Validation(Required=true)]
         public string AuthorizedIdentity { get; set; }
 
-        // 被授权机构名称
-        [NameInMap("authorized_name")]
-        [Validation(Required=false)]
-        public string AuthorizedName { get; set; }
-
-        // 端ID
+        // 授权端ID
         [NameInMap("authorized_platform_identity")]
         [Validation(Required=true)]
         public string AuthorizedPlatformIdentity { get; set; }
 
-        // 授权标的
+        // 授权业务码
         [NameInMap("target_code")]
         [Validation(Required=true)]
         public string TargetCode { get; set; }
 
         // 授权协议
         [NameInMap("auth_agreement")]
-        [Validation(Required=true)]
-        public AuthAgreement AuthAgreement { get; set; }
-
-        // 核身信息
-        [NameInMap("certification_info")]
         [Validation(Required=false)]
-        public CertificationInfo CertificationInfo { get; set; }
+        public AuthAgreement AuthAgreement { get; set; }
 
         // 扩展字段
         [NameInMap("content")]
