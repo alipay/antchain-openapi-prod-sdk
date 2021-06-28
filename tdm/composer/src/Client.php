@@ -15,8 +15,12 @@ use AntChain\TDM\Models\CancelAuthRequest;
 use AntChain\TDM\Models\CancelAuthResponse;
 use AntChain\TDM\Models\CancelCpfAuthRequest;
 use AntChain\TDM\Models\CancelCpfAuthResponse;
+use AntChain\TDM\Models\CheckCpfAuthRequest;
+use AntChain\TDM\Models\CheckCpfAuthResponse;
 use AntChain\TDM\Models\CheckCpfCertRequest;
 use AntChain\TDM\Models\CheckCpfCertResponse;
+use AntChain\TDM\Models\ConfirmCpfDatauseRequest;
+use AntChain\TDM\Models\ConfirmCpfDatauseResponse;
 use AntChain\TDM\Models\ExecAuthRequest;
 use AntChain\TDM\Models\ExecAuthResponse;
 use AntChain\TDM\Models\ExecAuthuseRequest;
@@ -51,6 +55,10 @@ use AntChain\TDM\Models\QueryCpfUserRequest;
 use AntChain\TDM\Models\QueryCpfUserResponse;
 use AntChain\TDM\Models\SaveCpfCertuseRequest;
 use AntChain\TDM\Models\SaveCpfCertuseResponse;
+use AntChain\TDM\Models\SaveCpfDatauseRequest;
+use AntChain\TDM\Models\SaveCpfDatauseResponse;
+use AntChain\TDM\Models\VerifyCpfAuthRequest;
+use AntChain\TDM\Models\VerifyCpfAuthResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -198,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.1',
+                    'sdk_version'      => '1.1.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -671,6 +679,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证授权是否存在
+     * Summary: 授权查验.
+     *
+     * @param VerifyCpfAuthRequest $request
+     *
+     * @return VerifyCpfAuthResponse
+     */
+    public function verifyCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证授权是否存在
+     * Summary: 授权查验.
+     *
+     * @param VerifyCpfAuthRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return VerifyCpfAuthResponse
+     */
+    public function verifyCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用数存证
+     * Summary: 用数存证
+     *
+     * @param SaveCpfDatauseRequest $request
+     *
+     * @return SaveCpfDatauseResponse
+     */
+    public function saveCpfDatause($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveCpfDatauseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用数存证
+     * Summary: 用数存证
+     *
+     * @param SaveCpfDatauseRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SaveCpfDatauseResponse
+     */
+    public function saveCpfDatauseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveCpfDatauseResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.datause.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易验证
+     * Summary: 用数存证验证接口.
+     *
+     * @param ConfirmCpfDatauseRequest $request
+     *
+     * @return ConfirmCpfDatauseResponse
+     */
+    public function confirmCpfDatause($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmCpfDatauseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易验证
+     * Summary: 用数存证验证接口.
+     *
+     * @param ConfirmCpfDatauseRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ConfirmCpfDatauseResponse
+     */
+    public function confirmCpfDatauseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmCpfDatauseResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.datause.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 鉴权、权限查询
+     * Summary: 鉴权接口.
+     *
+     * @param CheckCpfAuthRequest $request
+     *
+     * @return CheckCpfAuthResponse
+     */
+    public function checkCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 鉴权、权限查询
+     * Summary: 鉴权接口.
+     *
+     * @param CheckCpfAuthRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return CheckCpfAuthResponse
+     */
+    public function checkCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
