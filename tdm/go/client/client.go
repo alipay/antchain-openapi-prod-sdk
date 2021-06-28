@@ -334,6 +334,53 @@ func (s *AuthUsedRecord) SetUseDate(v string) *AuthUsedRecord {
 	return s
 }
 
+// 贷款记录信息查询接口参数(神玥：公积金中心查询银行系统用户贷款信息记录)
+type CpfGrdkcxQueryExtendParams struct {
+	// 住建部中心编码
+	Zjbzxbm *string `json:"zjbzxbm,omitempty" xml:"zjbzxbm,omitempty" require:"true"`
+	// 姓名
+	Xingming *string `json:"xingming,omitempty" xml:"xingming,omitempty" require:"true"`
+	// 证件类型
+	Zjlx *string `json:"zjlx,omitempty" xml:"zjlx,omitempty" require:"true"`
+	// 证件号码
+	Zjhm *string `json:"zjhm,omitempty" xml:"zjhm,omitempty" require:"true"`
+	// 贷款合同编号
+	Dkhtbh *string `json:"dkhtbh,omitempty" xml:"dkhtbh,omitempty" require:"true"`
+}
+
+func (s CpfGrdkcxQueryExtendParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfGrdkcxQueryExtendParams) GoString() string {
+	return s.String()
+}
+
+func (s *CpfGrdkcxQueryExtendParams) SetZjbzxbm(v string) *CpfGrdkcxQueryExtendParams {
+	s.Zjbzxbm = &v
+	return s
+}
+
+func (s *CpfGrdkcxQueryExtendParams) SetXingming(v string) *CpfGrdkcxQueryExtendParams {
+	s.Xingming = &v
+	return s
+}
+
+func (s *CpfGrdkcxQueryExtendParams) SetZjlx(v string) *CpfGrdkcxQueryExtendParams {
+	s.Zjlx = &v
+	return s
+}
+
+func (s *CpfGrdkcxQueryExtendParams) SetZjhm(v string) *CpfGrdkcxQueryExtendParams {
+	s.Zjhm = &v
+	return s
+}
+
+func (s *CpfGrdkcxQueryExtendParams) SetDkhtbh(v string) *CpfGrdkcxQueryExtendParams {
+	s.Dkhtbh = &v
+	return s
+}
+
 // 证明列表查询返回
 type CertSummary struct {
 	// 证明文件ID
@@ -378,6 +425,53 @@ func (s *CertSummary) SetIssueTime(v string) *CertSummary {
 
 func (s *CertSummary) SetIssueIcon(v string) *CertSummary {
 	s.IssueIcon = &v
+	return s
+}
+
+// 公积金基本信息查询接口参数
+type CpfBaseInfoQueryExtendParams struct {
+	// 住建部中心编码
+	Zjbzxbm *string `json:"zjbzxbm,omitempty" xml:"zjbzxbm,omitempty" require:"true"`
+	// 业务流水号
+	Yhlsh *string `json:"yhlsh,omitempty" xml:"yhlsh,omitempty" require:"true"`
+	// 姓名
+	Xingming *string `json:"xingming,omitempty" xml:"xingming,omitempty" require:"true"`
+	// 证件号码
+	Zjhm *string `json:"zjhm,omitempty" xml:"zjhm,omitempty" require:"true"`
+	// 银行程序标志
+	Appid *string `json:"appid,omitempty" xml:"appid,omitempty" require:"true"`
+}
+
+func (s CpfBaseInfoQueryExtendParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfBaseInfoQueryExtendParams) GoString() string {
+	return s.String()
+}
+
+func (s *CpfBaseInfoQueryExtendParams) SetZjbzxbm(v string) *CpfBaseInfoQueryExtendParams {
+	s.Zjbzxbm = &v
+	return s
+}
+
+func (s *CpfBaseInfoQueryExtendParams) SetYhlsh(v string) *CpfBaseInfoQueryExtendParams {
+	s.Yhlsh = &v
+	return s
+}
+
+func (s *CpfBaseInfoQueryExtendParams) SetXingming(v string) *CpfBaseInfoQueryExtendParams {
+	s.Xingming = &v
+	return s
+}
+
+func (s *CpfBaseInfoQueryExtendParams) SetZjhm(v string) *CpfBaseInfoQueryExtendParams {
+	s.Zjhm = &v
+	return s
+}
+
+func (s *CpfBaseInfoQueryExtendParams) SetAppid(v string) *CpfBaseInfoQueryExtendParams {
+	s.Appid = &v
 	return s
 }
 
@@ -739,6 +833,39 @@ func (s *CpfUserLoanInfo) SetLoanStatus(v string) *CpfUserLoanInfo {
 	return s
 }
 
+// 异地贷款缴存证明查询接口参数(神玥)
+type CpfYddkjczmQueryExtendParams struct {
+	// 住建部中心编码
+	Zjbzxbm *string `json:"zjbzxbm,omitempty" xml:"zjbzxbm,omitempty" require:"true"`
+	// 姓名
+	Xingming *string `json:"xingming,omitempty" xml:"xingming,omitempty" require:"true"`
+	// 证件号码
+	Zjhm *string `json:"zjhm,omitempty" xml:"zjhm,omitempty" require:"true"`
+}
+
+func (s CpfYddkjczmQueryExtendParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfYddkjczmQueryExtendParams) GoString() string {
+	return s.String()
+}
+
+func (s *CpfYddkjczmQueryExtendParams) SetZjbzxbm(v string) *CpfYddkjczmQueryExtendParams {
+	s.Zjbzxbm = &v
+	return s
+}
+
+func (s *CpfYddkjczmQueryExtendParams) SetXingming(v string) *CpfYddkjczmQueryExtendParams {
+	s.Xingming = &v
+	return s
+}
+
+func (s *CpfYddkjczmQueryExtendParams) SetZjhm(v string) *CpfYddkjczmQueryExtendParams {
+	s.Zjhm = &v
+	return s
+}
+
 // 核身信息, 授权时传入
 type CertificationInfo struct {
 	// 是否授权
@@ -835,6 +962,46 @@ func (s CertificationRequest) GoString() string {
 
 func (s *CertificationRequest) SetBizCode(v string) *CertificationRequest {
 	s.BizCode = &v
+	return s
+}
+
+// 异地公积金贷款信息查询接口参数
+type CpfYdgjjdkxxQueryExtendParams struct {
+	// 住建部中心编码
+	Zjbzxbm *string `json:"zjbzxbm,omitempty" xml:"zjbzxbm,omitempty" require:"true"`
+	// 姓名
+	Xingming *string `json:"xingming,omitempty" xml:"xingming,omitempty" require:"true"`
+	// 证件号码
+	Zjhm *string `json:"zjhm,omitempty" xml:"zjhm,omitempty" require:"true"`
+	// 贷款合同编号
+	Dkhtbh *string `json:"dkhtbh,omitempty" xml:"dkhtbh,omitempty" require:"true"`
+}
+
+func (s CpfYdgjjdkxxQueryExtendParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CpfYdgjjdkxxQueryExtendParams) GoString() string {
+	return s.String()
+}
+
+func (s *CpfYdgjjdkxxQueryExtendParams) SetZjbzxbm(v string) *CpfYdgjjdkxxQueryExtendParams {
+	s.Zjbzxbm = &v
+	return s
+}
+
+func (s *CpfYdgjjdkxxQueryExtendParams) SetXingming(v string) *CpfYdgjjdkxxQueryExtendParams {
+	s.Xingming = &v
+	return s
+}
+
+func (s *CpfYdgjjdkxxQueryExtendParams) SetZjhm(v string) *CpfYdgjjdkxxQueryExtendParams {
+	s.Zjhm = &v
+	return s
+}
+
+func (s *CpfYdgjjdkxxQueryExtendParams) SetDkhtbh(v string) *CpfYdgjjdkxxQueryExtendParams {
+	s.Dkhtbh = &v
 	return s
 }
 
@@ -2082,8 +2249,6 @@ type ExecCpfAuthRequest struct {
 	AuthorizedName *string `json:"authorized_name,omitempty" xml:"authorized_name,omitempty"`
 	// 端ID
 	AuthorizedPlatformIdentity *string `json:"authorized_platform_identity,omitempty" xml:"authorized_platform_identity,omitempty" require:"true"`
-	// 被授权公积金中心ID
-	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
 	// 授权标的
 	TargetCode *string `json:"target_code,omitempty" xml:"target_code,omitempty" require:"true"`
 	// 授权协议
@@ -2139,11 +2304,6 @@ func (s *ExecCpfAuthRequest) SetAuthorizedName(v string) *ExecCpfAuthRequest {
 
 func (s *ExecCpfAuthRequest) SetAuthorizedPlatformIdentity(v string) *ExecCpfAuthRequest {
 	s.AuthorizedPlatformIdentity = &v
-	return s
-}
-
-func (s *ExecCpfAuthRequest) SetProviderId(v string) *ExecCpfAuthRequest {
-	s.ProviderId = &v
 	return s
 }
 
@@ -2399,6 +2559,496 @@ func (s *QueryCpfAuthResponse) SetResultMsg(v string) *QueryCpfAuthResponse {
 
 func (s *QueryCpfAuthResponse) SetAuthRecords(v []*AuthRecord) *QueryCpfAuthResponse {
 	s.AuthRecords = v
+	return s
+}
+
+type VerifyCpfAuthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 用户身份证ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
+	// 授权机构ID
+	AuthorizedIdentity *string `json:"authorized_identity,omitempty" xml:"authorized_identity,omitempty" require:"true"`
+	// 授权端ID
+	AuthorizedPlatformIdentity *string `json:"authorized_platform_identity,omitempty" xml:"authorized_platform_identity,omitempty" require:"true"`
+	// 授权业务码
+	TargetCode *string `json:"target_code,omitempty" xml:"target_code,omitempty" require:"true"`
+	// 授权协议
+	AuthAgreement *AuthAgreement `json:"auth_agreement,omitempty" xml:"auth_agreement,omitempty" require:"true"`
+	// 扩展参数
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s VerifyCpfAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyCpfAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyCpfAuthRequest) SetAuthToken(v string) *VerifyCpfAuthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetProductInstanceId(v string) *VerifyCpfAuthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetRequestId(v string) *VerifyCpfAuthRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetDataOwnerIdentity(v string) *VerifyCpfAuthRequest {
+	s.DataOwnerIdentity = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetAuthorizedIdentity(v string) *VerifyCpfAuthRequest {
+	s.AuthorizedIdentity = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetAuthorizedPlatformIdentity(v string) *VerifyCpfAuthRequest {
+	s.AuthorizedPlatformIdentity = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetTargetCode(v string) *VerifyCpfAuthRequest {
+	s.TargetCode = &v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetAuthAgreement(v *AuthAgreement) *VerifyCpfAuthRequest {
+	s.AuthAgreement = v
+	return s
+}
+
+func (s *VerifyCpfAuthRequest) SetContent(v string) *VerifyCpfAuthRequest {
+	s.Content = &v
+	return s
+}
+
+type VerifyCpfAuthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否授权结果
+	IfAuth *bool `json:"if_auth,omitempty" xml:"if_auth,omitempty"`
+}
+
+func (s VerifyCpfAuthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyCpfAuthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyCpfAuthResponse) SetReqMsgId(v string) *VerifyCpfAuthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyCpfAuthResponse) SetResultCode(v string) *VerifyCpfAuthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyCpfAuthResponse) SetResultMsg(v string) *VerifyCpfAuthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyCpfAuthResponse) SetIfAuth(v bool) *VerifyCpfAuthResponse {
+	s.IfAuth = &v
+	return s
+}
+
+type SaveCpfDatauseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 使用方ID
+	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty" require:"true"`
+	// 使用方名称
+	DataUserName *string `json:"data_user_name,omitempty" xml:"data_user_name,omitempty" require:"true"`
+	// 数据拥有方ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
+	// 数据拥有方名称
+	DataOwnerName *string `json:"data_owner_name,omitempty" xml:"data_owner_name,omitempty" require:"true"`
+	// 数据源ID
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// 数据源名称
+	ProviderName *string `json:"provider_name,omitempty" xml:"provider_name,omitempty" require:"true"`
+	// 端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
+	// 业务数据描述
+	DataDesc *string `json:"data_desc,omitempty" xml:"data_desc,omitempty" require:"true"`
+	// 存证数据hash
+	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty" require:"true"`
+}
+
+func (s SaveCpfDatauseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveCpfDatauseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveCpfDatauseRequest) SetAuthToken(v string) *SaveCpfDatauseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetProductInstanceId(v string) *SaveCpfDatauseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataUserIdentity(v string) *SaveCpfDatauseRequest {
+	s.DataUserIdentity = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataUserName(v string) *SaveCpfDatauseRequest {
+	s.DataUserName = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataOwnerIdentity(v string) *SaveCpfDatauseRequest {
+	s.DataOwnerIdentity = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataOwnerName(v string) *SaveCpfDatauseRequest {
+	s.DataOwnerName = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetProviderId(v string) *SaveCpfDatauseRequest {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetProviderName(v string) *SaveCpfDatauseRequest {
+	s.ProviderName = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetTerminalIdentity(v string) *SaveCpfDatauseRequest {
+	s.TerminalIdentity = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataDesc(v string) *SaveCpfDatauseRequest {
+	s.DataDesc = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataHash(v string) *SaveCpfDatauseRequest {
+	s.DataHash = &v
+	return s
+}
+
+type SaveCpfDatauseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 区块链链信息
+	ChainInfo *ChainInfo `json:"chain_info,omitempty" xml:"chain_info,omitempty"`
+}
+
+func (s SaveCpfDatauseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveCpfDatauseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveCpfDatauseResponse) SetReqMsgId(v string) *SaveCpfDatauseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveCpfDatauseResponse) SetResultCode(v string) *SaveCpfDatauseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveCpfDatauseResponse) SetResultMsg(v string) *SaveCpfDatauseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveCpfDatauseResponse) SetChainInfo(v *ChainInfo) *SaveCpfDatauseResponse {
+	s.ChainInfo = v
+	return s
+}
+
+type ConfirmCpfDatauseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 验证端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
+	// 数据hash
+	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty" require:"true"`
+}
+
+func (s ConfirmCpfDatauseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmCpfDatauseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmCpfDatauseRequest) SetAuthToken(v string) *ConfirmCpfDatauseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseRequest) SetProductInstanceId(v string) *ConfirmCpfDatauseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseRequest) SetTerminalIdentity(v string) *ConfirmCpfDatauseRequest {
+	s.TerminalIdentity = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseRequest) SetDataHash(v string) *ConfirmCpfDatauseRequest {
+	s.DataHash = &v
+	return s
+}
+
+type ConfirmCpfDatauseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 使用方ID
+	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty"`
+	// 使用方名称
+	DataUserName *string `json:"data_user_name,omitempty" xml:"data_user_name,omitempty"`
+	// 数据拥有者ID，用户身份证ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty"`
+	// 数据拥有者名称，用户名称
+	DataOwnerName *string `json:"data_owner_name,omitempty" xml:"data_owner_name,omitempty"`
+	// 数据源ID
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty"`
+	// 数据源名称
+	ProviderName *string `json:"provider_name,omitempty" xml:"provider_name,omitempty"`
+	// 存证端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty"`
+	// 业务描述
+	DataDesc *string `json:"data_desc,omitempty" xml:"data_desc,omitempty"`
+	// 存证数据hash
+	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty"`
+	// 链信息
+	ChainInfo *ChainInfo `json:"chain_info,omitempty" xml:"chain_info,omitempty"`
+}
+
+func (s ConfirmCpfDatauseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmCpfDatauseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmCpfDatauseResponse) SetReqMsgId(v string) *ConfirmCpfDatauseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetResultCode(v string) *ConfirmCpfDatauseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetResultMsg(v string) *ConfirmCpfDatauseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataUserIdentity(v string) *ConfirmCpfDatauseResponse {
+	s.DataUserIdentity = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataUserName(v string) *ConfirmCpfDatauseResponse {
+	s.DataUserName = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataOwnerIdentity(v string) *ConfirmCpfDatauseResponse {
+	s.DataOwnerIdentity = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataOwnerName(v string) *ConfirmCpfDatauseResponse {
+	s.DataOwnerName = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetProviderId(v string) *ConfirmCpfDatauseResponse {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetProviderName(v string) *ConfirmCpfDatauseResponse {
+	s.ProviderName = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetTerminalIdentity(v string) *ConfirmCpfDatauseResponse {
+	s.TerminalIdentity = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataDesc(v string) *ConfirmCpfDatauseResponse {
+	s.DataDesc = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetDataHash(v string) *ConfirmCpfDatauseResponse {
+	s.DataHash = &v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetChainInfo(v *ChainInfo) *ConfirmCpfDatauseResponse {
+	s.ChainInfo = v
+	return s
+}
+
+type CheckCpfAuthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流水ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 用户ID
+	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
+	// 授权机构ID
+	AuthorizedIdentity *string `json:"authorized_identity,omitempty" xml:"authorized_identity,omitempty" require:"true"`
+	// 授权端ID
+	AuthorizedPlatformIdentity *string `json:"authorized_platform_identity,omitempty" xml:"authorized_platform_identity,omitempty" require:"true"`
+	// 授权业务码
+	TargetCode *string `json:"target_code,omitempty" xml:"target_code,omitempty" require:"true"`
+	// 授权协议
+	AuthAgreement *AuthAgreement `json:"auth_agreement,omitempty" xml:"auth_agreement,omitempty"`
+	// 扩展字段
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s CheckCpfAuthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCpfAuthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCpfAuthRequest) SetAuthToken(v string) *CheckCpfAuthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetProductInstanceId(v string) *CheckCpfAuthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetRequestId(v string) *CheckCpfAuthRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetDataOwnerIdentity(v string) *CheckCpfAuthRequest {
+	s.DataOwnerIdentity = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetAuthorizedIdentity(v string) *CheckCpfAuthRequest {
+	s.AuthorizedIdentity = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetAuthorizedPlatformIdentity(v string) *CheckCpfAuthRequest {
+	s.AuthorizedPlatformIdentity = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetTargetCode(v string) *CheckCpfAuthRequest {
+	s.TargetCode = &v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetAuthAgreement(v *AuthAgreement) *CheckCpfAuthRequest {
+	s.AuthAgreement = v
+	return s
+}
+
+func (s *CheckCpfAuthRequest) SetContent(v string) *CheckCpfAuthRequest {
+	s.Content = &v
+	return s
+}
+
+type CheckCpfAuthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否授权
+	IfAuth *bool `json:"if_auth,omitempty" xml:"if_auth,omitempty"`
+}
+
+func (s CheckCpfAuthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCpfAuthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCpfAuthResponse) SetReqMsgId(v string) *CheckCpfAuthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCpfAuthResponse) SetResultCode(v string) *CheckCpfAuthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCpfAuthResponse) SetResultMsg(v string) *CheckCpfAuthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCpfAuthResponse) SetIfAuth(v bool) *CheckCpfAuthResponse {
+	s.IfAuth = &v
 	return s
 }
 
@@ -3283,7 +3933,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3766,6 +4416,142 @@ func (client *Client) QueryCpfAuthEx(request *QueryCpfAuthRequest, headers map[s
 	}
 	_result = &QueryCpfAuthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.auth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 验证授权是否存在
+ * Summary: 授权查验
+ */
+func (client *Client) VerifyCpfAuth(request *VerifyCpfAuthRequest) (_result *VerifyCpfAuthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyCpfAuthResponse{}
+	_body, _err := client.VerifyCpfAuthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 验证授权是否存在
+ * Summary: 授权查验
+ */
+func (client *Client) VerifyCpfAuthEx(request *VerifyCpfAuthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyCpfAuthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyCpfAuthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.auth.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用数存证
+ * Summary: 用数存证
+ */
+func (client *Client) SaveCpfDatause(request *SaveCpfDatauseRequest) (_result *SaveCpfDatauseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveCpfDatauseResponse{}
+	_body, _err := client.SaveCpfDatauseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用数存证
+ * Summary: 用数存证
+ */
+func (client *Client) SaveCpfDatauseEx(request *SaveCpfDatauseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveCpfDatauseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveCpfDatauseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.datause.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 交易验证
+ * Summary: 用数存证验证接口
+ */
+func (client *Client) ConfirmCpfDatause(request *ConfirmCpfDatauseRequest) (_result *ConfirmCpfDatauseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmCpfDatauseResponse{}
+	_body, _err := client.ConfirmCpfDatauseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 交易验证
+ * Summary: 用数存证验证接口
+ */
+func (client *Client) ConfirmCpfDatauseEx(request *ConfirmCpfDatauseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmCpfDatauseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmCpfDatauseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.datause.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 鉴权、权限查询
+ * Summary: 鉴权接口
+ */
+func (client *Client) CheckCpfAuth(request *CheckCpfAuthRequest) (_result *CheckCpfAuthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCpfAuthResponse{}
+	_body, _err := client.CheckCpfAuthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 鉴权、权限查询
+ * Summary: 鉴权接口
+ */
+func (client *Client) CheckCpfAuthEx(request *CheckCpfAuthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCpfAuthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCpfAuthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.tdm.cpf.auth.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
