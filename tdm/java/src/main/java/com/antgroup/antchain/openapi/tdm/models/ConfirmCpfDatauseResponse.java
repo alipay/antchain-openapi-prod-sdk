@@ -56,6 +56,10 @@ public class ConfirmCpfDatauseResponse extends TeaModel {
     @NameInMap("chain_info")
     public ChainInfo chainInfo;
 
+    // 扩展字段
+    @NameInMap("extend_params")
+    public String extendParams;
+
     public static ConfirmCpfDatauseResponse build(java.util.Map<String, ?> map) throws Exception {
         ConfirmCpfDatauseResponse self = new ConfirmCpfDatauseResponse();
         return TeaModel.build(map, self);
@@ -163,6 +167,14 @@ public class ConfirmCpfDatauseResponse extends TeaModel {
     }
     public ChainInfo getChainInfo() {
         return this.chainInfo;
+    }
+
+    public ConfirmCpfDatauseResponse setExtendParams(String extendParams) {
+        this.extendParams = extendParams;
+        return this;
+    }
+    public String getExtendParams() {
+        return this.extendParams;
     }
 
 }

@@ -11,6 +11,16 @@ public class SaveCpfDatauseRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 端ID
+    @NameInMap("terminal_identity")
+    @Validation(required = true)
+    public String terminalIdentity;
+
+    // 业务流水号
+    @NameInMap("biz_id")
+    @Validation(required = true)
+    public String bizId;
+
     // 使用方ID
     @NameInMap("data_user_identity")
     @Validation(required = true)
@@ -20,6 +30,11 @@ public class SaveCpfDatauseRequest extends TeaModel {
     @NameInMap("data_user_name")
     @Validation(required = true)
     public String dataUserName;
+
+    // 证件类型
+    @NameInMap("data_owner_identity_type")
+    @Validation(required = true)
+    public String dataOwnerIdentityType;
 
     // 数据拥有方ID
     @NameInMap("data_owner_identity")
@@ -36,25 +51,24 @@ public class SaveCpfDatauseRequest extends TeaModel {
     @Validation(required = true)
     public String providerId;
 
-    // 数据源名称
-    @NameInMap("provider_name")
+    // 数据项code
+    @NameInMap("data_code")
     @Validation(required = true)
-    public String providerName;
+    public String dataCode;
 
-    // 端ID
-    @NameInMap("terminal_identity")
+    // 授权码
+    @NameInMap("target_code")
     @Validation(required = true)
-    public String terminalIdentity;
-
-    // 业务数据描述
-    @NameInMap("data_desc")
-    @Validation(required = true)
-    public String dataDesc;
+    public String targetCode;
 
     // 存证数据hash
     @NameInMap("data_hash")
     @Validation(required = true)
     public String dataHash;
+
+    // 扩展字段
+    @NameInMap("extend_params")
+    public String extendParams;
 
     public static SaveCpfDatauseRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveCpfDatauseRequest self = new SaveCpfDatauseRequest();
@@ -77,6 +91,22 @@ public class SaveCpfDatauseRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public SaveCpfDatauseRequest setTerminalIdentity(String terminalIdentity) {
+        this.terminalIdentity = terminalIdentity;
+        return this;
+    }
+    public String getTerminalIdentity() {
+        return this.terminalIdentity;
+    }
+
+    public SaveCpfDatauseRequest setBizId(String bizId) {
+        this.bizId = bizId;
+        return this;
+    }
+    public String getBizId() {
+        return this.bizId;
+    }
+
     public SaveCpfDatauseRequest setDataUserIdentity(String dataUserIdentity) {
         this.dataUserIdentity = dataUserIdentity;
         return this;
@@ -91,6 +121,14 @@ public class SaveCpfDatauseRequest extends TeaModel {
     }
     public String getDataUserName() {
         return this.dataUserName;
+    }
+
+    public SaveCpfDatauseRequest setDataOwnerIdentityType(String dataOwnerIdentityType) {
+        this.dataOwnerIdentityType = dataOwnerIdentityType;
+        return this;
+    }
+    public String getDataOwnerIdentityType() {
+        return this.dataOwnerIdentityType;
     }
 
     public SaveCpfDatauseRequest setDataOwnerIdentity(String dataOwnerIdentity) {
@@ -117,28 +155,20 @@ public class SaveCpfDatauseRequest extends TeaModel {
         return this.providerId;
     }
 
-    public SaveCpfDatauseRequest setProviderName(String providerName) {
-        this.providerName = providerName;
+    public SaveCpfDatauseRequest setDataCode(String dataCode) {
+        this.dataCode = dataCode;
         return this;
     }
-    public String getProviderName() {
-        return this.providerName;
+    public String getDataCode() {
+        return this.dataCode;
     }
 
-    public SaveCpfDatauseRequest setTerminalIdentity(String terminalIdentity) {
-        this.terminalIdentity = terminalIdentity;
+    public SaveCpfDatauseRequest setTargetCode(String targetCode) {
+        this.targetCode = targetCode;
         return this;
     }
-    public String getTerminalIdentity() {
-        return this.terminalIdentity;
-    }
-
-    public SaveCpfDatauseRequest setDataDesc(String dataDesc) {
-        this.dataDesc = dataDesc;
-        return this;
-    }
-    public String getDataDesc() {
-        return this.dataDesc;
+    public String getTargetCode() {
+        return this.targetCode;
     }
 
     public SaveCpfDatauseRequest setDataHash(String dataHash) {
@@ -147,6 +177,14 @@ public class SaveCpfDatauseRequest extends TeaModel {
     }
     public String getDataHash() {
         return this.dataHash;
+    }
+
+    public SaveCpfDatauseRequest setExtendParams(String extendParams) {
+        this.extendParams = extendParams;
+        return this;
+    }
+    public String getExtendParams() {
+        return this.extendParams;
     }
 
 }

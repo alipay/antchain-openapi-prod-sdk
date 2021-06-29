@@ -16,10 +16,10 @@ public class ConfirmCpfDatauseRequest extends TeaModel {
     @Validation(required = true)
     public String terminalIdentity;
 
-    // 数据hash
-    @NameInMap("data_hash")
+    // 区块链交易hash
+    @NameInMap("tx_hash")
     @Validation(required = true)
-    public String dataHash;
+    public String txHash;
 
     public static ConfirmCpfDatauseRequest build(java.util.Map<String, ?> map) throws Exception {
         ConfirmCpfDatauseRequest self = new ConfirmCpfDatauseRequest();
@@ -50,12 +50,12 @@ public class ConfirmCpfDatauseRequest extends TeaModel {
         return this.terminalIdentity;
     }
 
-    public ConfirmCpfDatauseRequest setDataHash(String dataHash) {
-        this.dataHash = dataHash;
+    public ConfirmCpfDatauseRequest setTxHash(String txHash) {
+        this.txHash = txHash;
         return this;
     }
-    public String getDataHash() {
-        return this.dataHash;
+    public String getTxHash() {
+        return this.txHash;
     }
 
 }
