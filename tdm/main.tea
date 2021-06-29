@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.2',
+    sdk_version = '1.1.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1171,24 +1171,30 @@ model SaveCpfDatauseRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 端ID
+  terminalIdentity: string(name='terminal_identity'),
+  // 业务流水号
+  bizId: string(name='biz_id'),
   // 使用方ID
   dataUserIdentity: string(name='data_user_identity'),
   // 使用方名称
   dataUserName: string(name='data_user_name'),
+  // 证件类型
+  dataOwnerIdentityType: string(name='data_owner_identity_type'),
   // 数据拥有方ID
   dataOwnerIdentity: string(name='data_owner_identity'),
   // 数据拥有方名称
   dataOwnerName: string(name='data_owner_name'),
   // 数据源ID
   providerId: string(name='provider_id'),
-  // 数据源名称
-  providerName: string(name='provider_name'),
-  // 端ID
-  terminalIdentity: string(name='terminal_identity'),
-  // 业务数据描述
-  dataDesc: string(name='data_desc'),
+  // 数据项code
+  dataCode: string(name='data_code'),
+  // 授权码
+  targetCode: string(name='target_code'),
   // 存证数据hash
   dataHash: string(name='data_hash'),
+  // 扩展字段
+  extendParams?: string(name='extend_params'),
 }
 
 model SaveCpfDatauseResponse = {
@@ -1227,8 +1233,8 @@ model ConfirmCpfDatauseRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 验证端ID
   terminalIdentity: string(name='terminal_identity'),
-  // 数据hash
-  dataHash: string(name='data_hash'),
+  // 区块链交易hash
+  txHash: string(name='tx_hash'),
 }
 
 model ConfirmCpfDatauseResponse = {
@@ -1258,6 +1264,8 @@ model ConfirmCpfDatauseResponse = {
   dataHash?: string(name='data_hash'),
   // 链信息
   chainInfo?: ChainInfo(name='chain_info'),
+  // 扩展字段
+  extendParams?: string(name='extend_params'),
 }
 
 /**
