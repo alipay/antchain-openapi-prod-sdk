@@ -3129,47 +3129,58 @@ class SaveCpfDatauseRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        terminal_identity: str = None,
+        biz_id: str = None,
         data_user_identity: str = None,
         data_user_name: str = None,
+        data_owner_identity_type: str = None,
         data_owner_identity: str = None,
         data_owner_name: str = None,
         provider_id: str = None,
-        provider_name: str = None,
-        terminal_identity: str = None,
-        data_desc: str = None,
+        data_code: str = None,
+        target_code: str = None,
         data_hash: str = None,
+        extend_params: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 端ID
+        self.terminal_identity = terminal_identity
+        # 业务流水号
+        self.biz_id = biz_id
         # 使用方ID
         self.data_user_identity = data_user_identity
         # 使用方名称
         self.data_user_name = data_user_name
+        # 证件类型
+        self.data_owner_identity_type = data_owner_identity_type
         # 数据拥有方ID
         self.data_owner_identity = data_owner_identity
         # 数据拥有方名称
         self.data_owner_name = data_owner_name
         # 数据源ID
         self.provider_id = provider_id
-        # 数据源名称
-        self.provider_name = provider_name
-        # 端ID
-        self.terminal_identity = terminal_identity
-        # 业务数据描述
-        self.data_desc = data_desc
+        # 数据项code
+        self.data_code = data_code
+        # 授权码
+        self.target_code = target_code
         # 存证数据hash
         self.data_hash = data_hash
+        # 扩展字段
+        self.extend_params = extend_params
 
     def validate(self):
+        self.validate_required(self.terminal_identity, 'terminal_identity')
+        self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.data_user_identity, 'data_user_identity')
         self.validate_required(self.data_user_name, 'data_user_name')
+        self.validate_required(self.data_owner_identity_type, 'data_owner_identity_type')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.data_owner_name, 'data_owner_name')
         self.validate_required(self.provider_id, 'provider_id')
-        self.validate_required(self.provider_name, 'provider_name')
-        self.validate_required(self.terminal_identity, 'terminal_identity')
-        self.validate_required(self.data_desc, 'data_desc')
+        self.validate_required(self.data_code, 'data_code')
+        self.validate_required(self.target_code, 'target_code')
         self.validate_required(self.data_hash, 'data_hash')
 
     def to_map(self):
@@ -3178,24 +3189,30 @@ class SaveCpfDatauseRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.terminal_identity is not None:
+            result['terminal_identity'] = self.terminal_identity
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
         if self.data_user_identity is not None:
             result['data_user_identity'] = self.data_user_identity
         if self.data_user_name is not None:
             result['data_user_name'] = self.data_user_name
+        if self.data_owner_identity_type is not None:
+            result['data_owner_identity_type'] = self.data_owner_identity_type
         if self.data_owner_identity is not None:
             result['data_owner_identity'] = self.data_owner_identity
         if self.data_owner_name is not None:
             result['data_owner_name'] = self.data_owner_name
         if self.provider_id is not None:
             result['provider_id'] = self.provider_id
-        if self.provider_name is not None:
-            result['provider_name'] = self.provider_name
-        if self.terminal_identity is not None:
-            result['terminal_identity'] = self.terminal_identity
-        if self.data_desc is not None:
-            result['data_desc'] = self.data_desc
+        if self.data_code is not None:
+            result['data_code'] = self.data_code
+        if self.target_code is not None:
+            result['target_code'] = self.target_code
         if self.data_hash is not None:
             result['data_hash'] = self.data_hash
+        if self.extend_params is not None:
+            result['extend_params'] = self.extend_params
         return result
 
     def from_map(self, m: dict = None):
@@ -3204,24 +3221,30 @@ class SaveCpfDatauseRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('terminal_identity') is not None:
+            self.terminal_identity = m.get('terminal_identity')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
         if m.get('data_user_identity') is not None:
             self.data_user_identity = m.get('data_user_identity')
         if m.get('data_user_name') is not None:
             self.data_user_name = m.get('data_user_name')
+        if m.get('data_owner_identity_type') is not None:
+            self.data_owner_identity_type = m.get('data_owner_identity_type')
         if m.get('data_owner_identity') is not None:
             self.data_owner_identity = m.get('data_owner_identity')
         if m.get('data_owner_name') is not None:
             self.data_owner_name = m.get('data_owner_name')
         if m.get('provider_id') is not None:
             self.provider_id = m.get('provider_id')
-        if m.get('provider_name') is not None:
-            self.provider_name = m.get('provider_name')
-        if m.get('terminal_identity') is not None:
-            self.terminal_identity = m.get('terminal_identity')
-        if m.get('data_desc') is not None:
-            self.data_desc = m.get('data_desc')
+        if m.get('data_code') is not None:
+            self.data_code = m.get('data_code')
+        if m.get('target_code') is not None:
+            self.target_code = m.get('target_code')
         if m.get('data_hash') is not None:
             self.data_hash = m.get('data_hash')
+        if m.get('extend_params') is not None:
+            self.extend_params = m.get('extend_params')
         return self
 
 
@@ -3278,19 +3301,19 @@ class ConfirmCpfDatauseRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         terminal_identity: str = None,
-        data_hash: str = None,
+        tx_hash: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 验证端ID
         self.terminal_identity = terminal_identity
-        # 数据hash
-        self.data_hash = data_hash
+        # 区块链交易hash
+        self.tx_hash = tx_hash
 
     def validate(self):
         self.validate_required(self.terminal_identity, 'terminal_identity')
-        self.validate_required(self.data_hash, 'data_hash')
+        self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
         result = dict()
@@ -3300,8 +3323,8 @@ class ConfirmCpfDatauseRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.terminal_identity is not None:
             result['terminal_identity'] = self.terminal_identity
-        if self.data_hash is not None:
-            result['data_hash'] = self.data_hash
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -3312,8 +3335,8 @@ class ConfirmCpfDatauseRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('terminal_identity') is not None:
             self.terminal_identity = m.get('terminal_identity')
-        if m.get('data_hash') is not None:
-            self.data_hash = m.get('data_hash')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
         return self
 
 
@@ -3333,6 +3356,7 @@ class ConfirmCpfDatauseResponse(TeaModel):
         data_desc: str = None,
         data_hash: str = None,
         chain_info: ChainInfo = None,
+        extend_params: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3360,6 +3384,8 @@ class ConfirmCpfDatauseResponse(TeaModel):
         self.data_hash = data_hash
         # 链信息
         self.chain_info = chain_info
+        # 扩展字段
+        self.extend_params = extend_params
 
     def validate(self):
         if self.chain_info:
@@ -3393,6 +3419,8 @@ class ConfirmCpfDatauseResponse(TeaModel):
             result['data_hash'] = self.data_hash
         if self.chain_info is not None:
             result['chain_info'] = self.chain_info.to_map()
+        if self.extend_params is not None:
+            result['extend_params'] = self.extend_params
         return result
 
     def from_map(self, m: dict = None):
@@ -3424,6 +3452,8 @@ class ConfirmCpfDatauseResponse(TeaModel):
         if m.get('chain_info') is not None:
             temp_model = ChainInfo()
             self.chain_info = temp_model.from_map(m['chain_info'])
+        if m.get('extend_params') is not None:
+            self.extend_params = m.get('extend_params')
         return self
 
 
