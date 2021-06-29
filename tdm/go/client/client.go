@@ -2678,24 +2678,30 @@ type SaveCpfDatauseRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 端ID
+	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
+	// 业务流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 使用方ID
 	DataUserIdentity *string `json:"data_user_identity,omitempty" xml:"data_user_identity,omitempty" require:"true"`
 	// 使用方名称
 	DataUserName *string `json:"data_user_name,omitempty" xml:"data_user_name,omitempty" require:"true"`
+	// 证件类型
+	DataOwnerIdentityType *string `json:"data_owner_identity_type,omitempty" xml:"data_owner_identity_type,omitempty" require:"true"`
 	// 数据拥有方ID
 	DataOwnerIdentity *string `json:"data_owner_identity,omitempty" xml:"data_owner_identity,omitempty" require:"true"`
 	// 数据拥有方名称
 	DataOwnerName *string `json:"data_owner_name,omitempty" xml:"data_owner_name,omitempty" require:"true"`
 	// 数据源ID
 	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
-	// 数据源名称
-	ProviderName *string `json:"provider_name,omitempty" xml:"provider_name,omitempty" require:"true"`
-	// 端ID
-	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
-	// 业务数据描述
-	DataDesc *string `json:"data_desc,omitempty" xml:"data_desc,omitempty" require:"true"`
+	// 数据项code
+	DataCode *string `json:"data_code,omitempty" xml:"data_code,omitempty" require:"true"`
+	// 授权码
+	TargetCode *string `json:"target_code,omitempty" xml:"target_code,omitempty" require:"true"`
 	// 存证数据hash
 	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty" require:"true"`
+	// 扩展字段
+	ExtendParams *string `json:"extend_params,omitempty" xml:"extend_params,omitempty"`
 }
 
 func (s SaveCpfDatauseRequest) String() string {
@@ -2716,6 +2722,16 @@ func (s *SaveCpfDatauseRequest) SetProductInstanceId(v string) *SaveCpfDatauseRe
 	return s
 }
 
+func (s *SaveCpfDatauseRequest) SetTerminalIdentity(v string) *SaveCpfDatauseRequest {
+	s.TerminalIdentity = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetBizId(v string) *SaveCpfDatauseRequest {
+	s.BizId = &v
+	return s
+}
+
 func (s *SaveCpfDatauseRequest) SetDataUserIdentity(v string) *SaveCpfDatauseRequest {
 	s.DataUserIdentity = &v
 	return s
@@ -2723,6 +2739,11 @@ func (s *SaveCpfDatauseRequest) SetDataUserIdentity(v string) *SaveCpfDatauseReq
 
 func (s *SaveCpfDatauseRequest) SetDataUserName(v string) *SaveCpfDatauseRequest {
 	s.DataUserName = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetDataOwnerIdentityType(v string) *SaveCpfDatauseRequest {
+	s.DataOwnerIdentityType = &v
 	return s
 }
 
@@ -2741,23 +2762,23 @@ func (s *SaveCpfDatauseRequest) SetProviderId(v string) *SaveCpfDatauseRequest {
 	return s
 }
 
-func (s *SaveCpfDatauseRequest) SetProviderName(v string) *SaveCpfDatauseRequest {
-	s.ProviderName = &v
+func (s *SaveCpfDatauseRequest) SetDataCode(v string) *SaveCpfDatauseRequest {
+	s.DataCode = &v
 	return s
 }
 
-func (s *SaveCpfDatauseRequest) SetTerminalIdentity(v string) *SaveCpfDatauseRequest {
-	s.TerminalIdentity = &v
-	return s
-}
-
-func (s *SaveCpfDatauseRequest) SetDataDesc(v string) *SaveCpfDatauseRequest {
-	s.DataDesc = &v
+func (s *SaveCpfDatauseRequest) SetTargetCode(v string) *SaveCpfDatauseRequest {
+	s.TargetCode = &v
 	return s
 }
 
 func (s *SaveCpfDatauseRequest) SetDataHash(v string) *SaveCpfDatauseRequest {
 	s.DataHash = &v
+	return s
+}
+
+func (s *SaveCpfDatauseRequest) SetExtendParams(v string) *SaveCpfDatauseRequest {
+	s.ExtendParams = &v
 	return s
 }
 
@@ -2806,8 +2827,8 @@ type ConfirmCpfDatauseRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 验证端ID
 	TerminalIdentity *string `json:"terminal_identity,omitempty" xml:"terminal_identity,omitempty" require:"true"`
-	// 数据hash
-	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty" require:"true"`
+	// 区块链交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
 }
 
 func (s ConfirmCpfDatauseRequest) String() string {
@@ -2833,8 +2854,8 @@ func (s *ConfirmCpfDatauseRequest) SetTerminalIdentity(v string) *ConfirmCpfData
 	return s
 }
 
-func (s *ConfirmCpfDatauseRequest) SetDataHash(v string) *ConfirmCpfDatauseRequest {
-	s.DataHash = &v
+func (s *ConfirmCpfDatauseRequest) SetTxHash(v string) *ConfirmCpfDatauseRequest {
+	s.TxHash = &v
 	return s
 }
 
@@ -2865,6 +2886,8 @@ type ConfirmCpfDatauseResponse struct {
 	DataHash *string `json:"data_hash,omitempty" xml:"data_hash,omitempty"`
 	// 链信息
 	ChainInfo *ChainInfo `json:"chain_info,omitempty" xml:"chain_info,omitempty"`
+	// 扩展字段
+	ExtendParams *string `json:"extend_params,omitempty" xml:"extend_params,omitempty"`
 }
 
 func (s ConfirmCpfDatauseResponse) String() string {
@@ -2937,6 +2960,11 @@ func (s *ConfirmCpfDatauseResponse) SetDataHash(v string) *ConfirmCpfDatauseResp
 
 func (s *ConfirmCpfDatauseResponse) SetChainInfo(v *ChainInfo) *ConfirmCpfDatauseResponse {
 	s.ChainInfo = v
+	return s
+}
+
+func (s *ConfirmCpfDatauseResponse) SetExtendParams(v string) *ConfirmCpfDatauseResponse {
+	s.ExtendParams = &v
 	return s
 }
 
@@ -3933,7 +3961,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
