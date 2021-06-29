@@ -18,6 +18,16 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 端ID
+        [NameInMap("terminal_identity")]
+        [Validation(Required=true)]
+        public string TerminalIdentity { get; set; }
+
+        // 业务流水号
+        [NameInMap("biz_id")]
+        [Validation(Required=true)]
+        public string BizId { get; set; }
+
         // 使用方ID
         [NameInMap("data_user_identity")]
         [Validation(Required=true)]
@@ -27,6 +37,11 @@ namespace AntChain.SDK.TDM.Models
         [NameInMap("data_user_name")]
         [Validation(Required=true)]
         public string DataUserName { get; set; }
+
+        // 证件类型
+        [NameInMap("data_owner_identity_type")]
+        [Validation(Required=true)]
+        public string DataOwnerIdentityType { get; set; }
 
         // 数据拥有方ID
         [NameInMap("data_owner_identity")]
@@ -43,25 +58,25 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=true)]
         public string ProviderId { get; set; }
 
-        // 数据源名称
-        [NameInMap("provider_name")]
+        // 数据项code
+        [NameInMap("data_code")]
         [Validation(Required=true)]
-        public string ProviderName { get; set; }
+        public string DataCode { get; set; }
 
-        // 端ID
-        [NameInMap("terminal_identity")]
+        // 授权码
+        [NameInMap("target_code")]
         [Validation(Required=true)]
-        public string TerminalIdentity { get; set; }
-
-        // 业务数据描述
-        [NameInMap("data_desc")]
-        [Validation(Required=true)]
-        public string DataDesc { get; set; }
+        public string TargetCode { get; set; }
 
         // 存证数据hash
         [NameInMap("data_hash")]
         [Validation(Required=true)]
         public string DataHash { get; set; }
+
+        // 扩展字段
+        [NameInMap("extend_params")]
+        [Validation(Required=false)]
+        public string ExtendParams { get; set; }
 
     }
 

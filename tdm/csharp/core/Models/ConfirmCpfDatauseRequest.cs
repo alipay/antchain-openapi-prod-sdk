@@ -23,10 +23,10 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=true)]
         public string TerminalIdentity { get; set; }
 
-        // 数据hash
-        [NameInMap("data_hash")]
+        // 区块链交易hash
+        [NameInMap("tx_hash")]
         [Validation(Required=true)]
-        public string DataHash { get; set; }
+        public string TxHash { get; set; }
 
     }
 

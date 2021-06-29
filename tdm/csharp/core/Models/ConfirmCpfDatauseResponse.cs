@@ -74,6 +74,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public ChainInfo ChainInfo { get; set; }
 
+        // 扩展字段
+        [NameInMap("extend_params")]
+        [Validation(Required=false)]
+        public string ExtendParams { get; set; }
+
     }
 
 }
