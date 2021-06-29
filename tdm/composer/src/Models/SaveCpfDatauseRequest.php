@@ -19,6 +19,18 @@ class SaveCpfDatauseRequest extends Model
      */
     public $productInstanceId;
 
+    // 端ID
+    /**
+     * @var string
+     */
+    public $terminalIdentity;
+
+    // 业务流水号
+    /**
+     * @var string
+     */
+    public $bizId;
+
     // 使用方ID
     /**
      * @var string
@@ -30,6 +42,12 @@ class SaveCpfDatauseRequest extends Model
      * @var string
      */
     public $dataUserName;
+
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $dataOwnerIdentityType;
 
     // 数据拥有方ID
     /**
@@ -49,53 +67,58 @@ class SaveCpfDatauseRequest extends Model
      */
     public $providerId;
 
-    // 数据源名称
+    // 数据项code
     /**
      * @var string
      */
-    public $providerName;
+    public $dataCode;
 
-    // 端ID
+    // 授权码
     /**
      * @var string
      */
-    public $terminalIdentity;
-
-    // 业务数据描述
-    /**
-     * @var string
-     */
-    public $dataDesc;
+    public $targetCode;
 
     // 存证数据hash
     /**
      * @var string
      */
     public $dataHash;
+
+    // 扩展字段
+    /**
+     * @var string
+     */
+    public $extendParams;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'dataUserIdentity'  => 'data_user_identity',
-        'dataUserName'      => 'data_user_name',
-        'dataOwnerIdentity' => 'data_owner_identity',
-        'dataOwnerName'     => 'data_owner_name',
-        'providerId'        => 'provider_id',
-        'providerName'      => 'provider_name',
-        'terminalIdentity'  => 'terminal_identity',
-        'dataDesc'          => 'data_desc',
-        'dataHash'          => 'data_hash',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'terminalIdentity'      => 'terminal_identity',
+        'bizId'                 => 'biz_id',
+        'dataUserIdentity'      => 'data_user_identity',
+        'dataUserName'          => 'data_user_name',
+        'dataOwnerIdentityType' => 'data_owner_identity_type',
+        'dataOwnerIdentity'     => 'data_owner_identity',
+        'dataOwnerName'         => 'data_owner_name',
+        'providerId'            => 'provider_id',
+        'dataCode'              => 'data_code',
+        'targetCode'            => 'target_code',
+        'dataHash'              => 'data_hash',
+        'extendParams'          => 'extend_params',
     ];
 
     public function validate()
     {
+        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
+        Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
         Model::validateRequired('dataUserName', $this->dataUserName, true);
+        Model::validateRequired('dataOwnerIdentityType', $this->dataOwnerIdentityType, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('dataOwnerName', $this->dataOwnerName, true);
         Model::validateRequired('providerId', $this->providerId, true);
-        Model::validateRequired('providerName', $this->providerName, true);
-        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
-        Model::validateRequired('dataDesc', $this->dataDesc, true);
+        Model::validateRequired('dataCode', $this->dataCode, true);
+        Model::validateRequired('targetCode', $this->targetCode, true);
         Model::validateRequired('dataHash', $this->dataHash, true);
     }
 
@@ -108,11 +131,20 @@ class SaveCpfDatauseRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->terminalIdentity) {
+            $res['terminal_identity'] = $this->terminalIdentity;
+        }
+        if (null !== $this->bizId) {
+            $res['biz_id'] = $this->bizId;
+        }
         if (null !== $this->dataUserIdentity) {
             $res['data_user_identity'] = $this->dataUserIdentity;
         }
         if (null !== $this->dataUserName) {
             $res['data_user_name'] = $this->dataUserName;
+        }
+        if (null !== $this->dataOwnerIdentityType) {
+            $res['data_owner_identity_type'] = $this->dataOwnerIdentityType;
         }
         if (null !== $this->dataOwnerIdentity) {
             $res['data_owner_identity'] = $this->dataOwnerIdentity;
@@ -123,17 +155,17 @@ class SaveCpfDatauseRequest extends Model
         if (null !== $this->providerId) {
             $res['provider_id'] = $this->providerId;
         }
-        if (null !== $this->providerName) {
-            $res['provider_name'] = $this->providerName;
+        if (null !== $this->dataCode) {
+            $res['data_code'] = $this->dataCode;
         }
-        if (null !== $this->terminalIdentity) {
-            $res['terminal_identity'] = $this->terminalIdentity;
-        }
-        if (null !== $this->dataDesc) {
-            $res['data_desc'] = $this->dataDesc;
+        if (null !== $this->targetCode) {
+            $res['target_code'] = $this->targetCode;
         }
         if (null !== $this->dataHash) {
             $res['data_hash'] = $this->dataHash;
+        }
+        if (null !== $this->extendParams) {
+            $res['extend_params'] = $this->extendParams;
         }
 
         return $res;
@@ -153,11 +185,20 @@ class SaveCpfDatauseRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['terminal_identity'])) {
+            $model->terminalIdentity = $map['terminal_identity'];
+        }
+        if (isset($map['biz_id'])) {
+            $model->bizId = $map['biz_id'];
+        }
         if (isset($map['data_user_identity'])) {
             $model->dataUserIdentity = $map['data_user_identity'];
         }
         if (isset($map['data_user_name'])) {
             $model->dataUserName = $map['data_user_name'];
+        }
+        if (isset($map['data_owner_identity_type'])) {
+            $model->dataOwnerIdentityType = $map['data_owner_identity_type'];
         }
         if (isset($map['data_owner_identity'])) {
             $model->dataOwnerIdentity = $map['data_owner_identity'];
@@ -168,17 +209,17 @@ class SaveCpfDatauseRequest extends Model
         if (isset($map['provider_id'])) {
             $model->providerId = $map['provider_id'];
         }
-        if (isset($map['provider_name'])) {
-            $model->providerName = $map['provider_name'];
+        if (isset($map['data_code'])) {
+            $model->dataCode = $map['data_code'];
         }
-        if (isset($map['terminal_identity'])) {
-            $model->terminalIdentity = $map['terminal_identity'];
-        }
-        if (isset($map['data_desc'])) {
-            $model->dataDesc = $map['data_desc'];
+        if (isset($map['target_code'])) {
+            $model->targetCode = $map['target_code'];
         }
         if (isset($map['data_hash'])) {
             $model->dataHash = $map['data_hash'];
+        }
+        if (isset($map['extend_params'])) {
+            $model->extendParams = $map['extend_params'];
         }
 
         return $model;

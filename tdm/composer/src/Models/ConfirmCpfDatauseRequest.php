@@ -25,22 +25,22 @@ class ConfirmCpfDatauseRequest extends Model
      */
     public $terminalIdentity;
 
-    // 数据hash
+    // 区块链交易hash
     /**
      * @var string
      */
-    public $dataHash;
+    public $txHash;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'terminalIdentity'  => 'terminal_identity',
-        'dataHash'          => 'data_hash',
+        'txHash'            => 'tx_hash',
     ];
 
     public function validate()
     {
         Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
-        Model::validateRequired('dataHash', $this->dataHash, true);
+        Model::validateRequired('txHash', $this->txHash, true);
     }
 
     public function toMap()
@@ -55,8 +55,8 @@ class ConfirmCpfDatauseRequest extends Model
         if (null !== $this->terminalIdentity) {
             $res['terminal_identity'] = $this->terminalIdentity;
         }
-        if (null !== $this->dataHash) {
-            $res['data_hash'] = $this->dataHash;
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
         }
 
         return $res;
@@ -79,8 +79,8 @@ class ConfirmCpfDatauseRequest extends Model
         if (isset($map['terminal_identity'])) {
             $model->terminalIdentity = $map['terminal_identity'];
         }
-        if (isset($map['data_hash'])) {
-            $model->dataHash = $map['data_hash'];
+        if (isset($map['tx_hash'])) {
+            $model->txHash = $map['tx_hash'];
         }
 
         return $model;

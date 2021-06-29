@@ -85,6 +85,12 @@ class ConfirmCpfDatauseResponse extends Model
      * @var ChainInfo
      */
     public $chainInfo;
+
+    // 扩展字段
+    /**
+     * @var string
+     */
+    public $extendParams;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -99,6 +105,7 @@ class ConfirmCpfDatauseResponse extends Model
         'dataDesc'          => 'data_desc',
         'dataHash'          => 'data_hash',
         'chainInfo'         => 'chain_info',
+        'extendParams'      => 'extend_params',
     ];
 
     public function validate()
@@ -146,6 +153,9 @@ class ConfirmCpfDatauseResponse extends Model
         }
         if (null !== $this->chainInfo) {
             $res['chain_info'] = null !== $this->chainInfo ? $this->chainInfo->toMap() : null;
+        }
+        if (null !== $this->extendParams) {
+            $res['extend_params'] = $this->extendParams;
         }
 
         return $res;
@@ -197,6 +207,9 @@ class ConfirmCpfDatauseResponse extends Model
         }
         if (isset($map['chain_info'])) {
             $model->chainInfo = ChainInfo::fromMap($map['chain_info']);
+        }
+        if (isset($map['extend_params'])) {
+            $model->extendParams = $map['extend_params'];
         }
 
         return $model;
