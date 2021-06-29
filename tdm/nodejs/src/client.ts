@@ -2007,37 +2007,46 @@ export class SaveCpfDatauseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 端ID
+  terminalIdentity: string;
+  // 业务流水号
+  bizId: string;
   // 使用方ID
   dataUserIdentity: string;
   // 使用方名称
   dataUserName: string;
+  // 证件类型
+  dataOwnerIdentityType: string;
   // 数据拥有方ID
   dataOwnerIdentity: string;
   // 数据拥有方名称
   dataOwnerName: string;
   // 数据源ID
   providerId: string;
-  // 数据源名称
-  providerName: string;
-  // 端ID
-  terminalIdentity: string;
-  // 业务数据描述
-  dataDesc: string;
+  // 数据项code
+  dataCode: string;
+  // 授权码
+  targetCode: string;
   // 存证数据hash
   dataHash: string;
+  // 扩展字段
+  extendParams?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      terminalIdentity: 'terminal_identity',
+      bizId: 'biz_id',
       dataUserIdentity: 'data_user_identity',
       dataUserName: 'data_user_name',
+      dataOwnerIdentityType: 'data_owner_identity_type',
       dataOwnerIdentity: 'data_owner_identity',
       dataOwnerName: 'data_owner_name',
       providerId: 'provider_id',
-      providerName: 'provider_name',
-      terminalIdentity: 'terminal_identity',
-      dataDesc: 'data_desc',
+      dataCode: 'data_code',
+      targetCode: 'target_code',
       dataHash: 'data_hash',
+      extendParams: 'extend_params',
     };
   }
 
@@ -2045,15 +2054,18 @@ export class SaveCpfDatauseRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      terminalIdentity: 'string',
+      bizId: 'string',
       dataUserIdentity: 'string',
       dataUserName: 'string',
+      dataOwnerIdentityType: 'string',
       dataOwnerIdentity: 'string',
       dataOwnerName: 'string',
       providerId: 'string',
-      providerName: 'string',
-      terminalIdentity: 'string',
-      dataDesc: 'string',
+      dataCode: 'string',
+      targetCode: 'string',
       dataHash: 'string',
+      extendParams: 'string',
     };
   }
 
@@ -2100,14 +2112,14 @@ export class ConfirmCpfDatauseRequest extends $tea.Model {
   productInstanceId?: string;
   // 验证端ID
   terminalIdentity: string;
-  // 数据hash
-  dataHash: string;
+  // 区块链交易hash
+  txHash: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       terminalIdentity: 'terminal_identity',
-      dataHash: 'data_hash',
+      txHash: 'tx_hash',
     };
   }
 
@@ -2116,7 +2128,7 @@ export class ConfirmCpfDatauseRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       terminalIdentity: 'string',
-      dataHash: 'string',
+      txHash: 'string',
     };
   }
 
@@ -2152,6 +2164,8 @@ export class ConfirmCpfDatauseResponse extends $tea.Model {
   dataHash?: string;
   // 链信息
   chainInfo?: ChainInfo;
+  // 扩展字段
+  extendParams?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2167,6 +2181,7 @@ export class ConfirmCpfDatauseResponse extends $tea.Model {
       dataDesc: 'data_desc',
       dataHash: 'data_hash',
       chainInfo: 'chain_info',
+      extendParams: 'extend_params',
     };
   }
 
@@ -2185,6 +2200,7 @@ export class ConfirmCpfDatauseResponse extends $tea.Model {
       dataDesc: 'string',
       dataHash: 'string',
       chainInfo: ChainInfo,
+      extendParams: 'string',
     };
   }
 
@@ -2984,7 +3000,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
