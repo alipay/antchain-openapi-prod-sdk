@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.43'
+                    'sdk_version': '1.2.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.43'
+                    'sdk_version': '1.2.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -9140,8 +9140,8 @@ class Client:
         request: baasdt_models.CancelIpPackagetradeRequest,
     ) -> baasdt_models.CancelIpPackagetradeResponse:
         """
-        Description: 买家取消套餐交易
-        Summary: 数字商品服务-IP授权服务-取消套餐交易
+        Description: 交易发起方取消交易，包括套餐交易和定向授权
+        Summary: 数字商品服务-IP授权服务-取消交易
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9152,8 +9152,8 @@ class Client:
         request: baasdt_models.CancelIpPackagetradeRequest,
     ) -> baasdt_models.CancelIpPackagetradeResponse:
         """
-        Description: 买家取消套餐交易
-        Summary: 数字商品服务-IP授权服务-取消套餐交易
+        Description: 交易发起方取消交易，包括套餐交易和定向授权
+        Summary: 数字商品服务-IP授权服务-取消交易
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9166,8 +9166,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CancelIpPackagetradeResponse:
         """
-        Description: 买家取消套餐交易
-        Summary: 数字商品服务-IP授权服务-取消套餐交易
+        Description: 交易发起方取消交易，包括套餐交易和定向授权
+        Summary: 数字商品服务-IP授权服务-取消交易
         """
         UtilClient.validate_model(request)
         return baasdt_models.CancelIpPackagetradeResponse().from_map(
@@ -9181,8 +9181,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CancelIpPackagetradeResponse:
         """
-        Description: 买家取消套餐交易
-        Summary: 数字商品服务-IP授权服务-取消套餐交易
+        Description: 交易发起方取消交易，包括套餐交易和定向授权
+        Summary: 数字商品服务-IP授权服务-取消交易
         """
         UtilClient.validate_model(request)
         return baasdt_models.CancelIpPackagetradeResponse().from_map(
@@ -9789,7 +9789,7 @@ class Client:
     ) -> baasdt_models.QueryIpDetailResponse:
         """
         Description: ip的所有信息 包括渠道和sku
-        Summary: 数字商品服务-IP授权服务-查询所有信息
+        Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9801,7 +9801,7 @@ class Client:
     ) -> baasdt_models.QueryIpDetailResponse:
         """
         Description: ip的所有信息 包括渠道和sku
-        Summary: 数字商品服务-IP授权服务-查询所有信息
+        Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9815,7 +9815,7 @@ class Client:
     ) -> baasdt_models.QueryIpDetailResponse:
         """
         Description: ip的所有信息 包括渠道和sku
-        Summary: 数字商品服务-IP授权服务-查询所有信息
+        Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpDetailResponse().from_map(
@@ -9830,7 +9830,7 @@ class Client:
     ) -> baasdt_models.QueryIpDetailResponse:
         """
         Description: ip的所有信息 包括渠道和sku
-        Summary: 数字商品服务-IP授权服务-查询所有信息
+        Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpDetailResponse().from_map(
@@ -9951,7 +9951,7 @@ class Client:
     ) -> baasdt_models.OnlineIpResponse:
         """
         Description: ip上线
-        Summary: 数字商品服务-IP授权服务-ip上线
+        Summary: 数字商品服务-IP授权服务-上架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9963,7 +9963,7 @@ class Client:
     ) -> baasdt_models.OnlineIpResponse:
         """
         Description: ip上线
-        Summary: 数字商品服务-IP授权服务-ip上线
+        Summary: 数字商品服务-IP授权服务-上架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -9977,7 +9977,7 @@ class Client:
     ) -> baasdt_models.OnlineIpResponse:
         """
         Description: ip上线
-        Summary: 数字商品服务-IP授权服务-ip上线
+        Summary: 数字商品服务-IP授权服务-上架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OnlineIpResponse().from_map(
@@ -9992,7 +9992,7 @@ class Client:
     ) -> baasdt_models.OnlineIpResponse:
         """
         Description: ip上线
-        Summary: 数字商品服务-IP授权服务-ip上线
+        Summary: 数字商品服务-IP授权服务-上架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OnlineIpResponse().from_map(
@@ -10005,7 +10005,7 @@ class Client:
     ) -> baasdt_models.OfflineIpResponse:
         """
         Description: ip下线
-        Summary: 数字商品服务-IP授权服务-下线
+        Summary: 数字商品服务-IP授权服务-下架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10017,7 +10017,7 @@ class Client:
     ) -> baasdt_models.OfflineIpResponse:
         """
         Description: ip下线
-        Summary: 数字商品服务-IP授权服务-下线
+        Summary: 数字商品服务-IP授权服务-下架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10031,7 +10031,7 @@ class Client:
     ) -> baasdt_models.OfflineIpResponse:
         """
         Description: ip下线
-        Summary: 数字商品服务-IP授权服务-下线
+        Summary: 数字商品服务-IP授权服务-下架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OfflineIpResponse().from_map(
@@ -10046,7 +10046,7 @@ class Client:
     ) -> baasdt_models.OfflineIpResponse:
         """
         Description: ip下线
-        Summary: 数字商品服务-IP授权服务-下线
+        Summary: 数字商品服务-IP授权服务-下架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OfflineIpResponse().from_map(
@@ -10059,7 +10059,7 @@ class Client:
     ) -> baasdt_models.CreateIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-        Summary: 数字商品服务-IP授权交易服务-账户创建
+        Summary: 数字商品服务-IP授权服务-账户创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10071,7 +10071,7 @@ class Client:
     ) -> baasdt_models.CreateIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-        Summary: 数字商品服务-IP授权交易服务-账户创建
+        Summary: 数字商品服务-IP授权服务-账户创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10085,7 +10085,7 @@ class Client:
     ) -> baasdt_models.CreateIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-        Summary: 数字商品服务-IP授权交易服务-账户创建
+        Summary: 数字商品服务-IP授权服务-账户创建
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpAccountResponse().from_map(
@@ -10100,7 +10100,7 @@ class Client:
     ) -> baasdt_models.CreateIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-        Summary: 数字商品服务-IP授权交易服务-账户创建
+        Summary: 数字商品服务-IP授权服务-账户创建
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpAccountResponse().from_map(
@@ -10113,7 +10113,7 @@ class Client:
     ) -> baasdt_models.FreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户冻结
+        Summary: 数字商品服务-IP授权服务-账户冻结
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10125,7 +10125,7 @@ class Client:
     ) -> baasdt_models.FreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户冻结
+        Summary: 数字商品服务-IP授权服务-账户冻结
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10139,7 +10139,7 @@ class Client:
     ) -> baasdt_models.FreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户冻结
+        Summary: 数字商品服务-IP授权服务-账户冻结
         """
         UtilClient.validate_model(request)
         return baasdt_models.FreezeIpAccountResponse().from_map(
@@ -10154,7 +10154,7 @@ class Client:
     ) -> baasdt_models.FreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户冻结
+        Summary: 数字商品服务-IP授权服务-账户冻结
         """
         UtilClient.validate_model(request)
         return baasdt_models.FreezeIpAccountResponse().from_map(
@@ -10167,7 +10167,7 @@ class Client:
     ) -> baasdt_models.UnfreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户解冻
+        Summary: 数字商品服务-IP授权服务-账户解冻
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10179,7 +10179,7 @@ class Client:
     ) -> baasdt_models.UnfreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户解冻
+        Summary: 数字商品服务-IP授权服务-账户解冻
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10193,7 +10193,7 @@ class Client:
     ) -> baasdt_models.UnfreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户解冻
+        Summary: 数字商品服务-IP授权服务-账户解冻
         """
         UtilClient.validate_model(request)
         return baasdt_models.UnfreezeIpAccountResponse().from_map(
@@ -10208,7 +10208,7 @@ class Client:
     ) -> baasdt_models.UnfreezeIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-        Summary: 数字商品服务-IP授权交易服务-账户解冻
+        Summary: 数字商品服务-IP授权服务-账户解冻
         """
         UtilClient.validate_model(request)
         return baasdt_models.UnfreezeIpAccountResponse().from_map(
@@ -10221,7 +10221,7 @@ class Client:
     ) -> baasdt_models.QueryIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户查询。
-        Summary: 数字商品服务-IP授权交易服务-账户查询
+        Summary: 数字商品服务-IP授权服务-账户查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10233,7 +10233,7 @@ class Client:
     ) -> baasdt_models.QueryIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户查询。
-        Summary: 数字商品服务-IP授权交易服务-账户查询
+        Summary: 数字商品服务-IP授权服务-账户查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10247,7 +10247,7 @@ class Client:
     ) -> baasdt_models.QueryIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户查询。
-        Summary: 数字商品服务-IP授权交易服务-账户查询
+        Summary: 数字商品服务-IP授权服务-账户查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpAccountResponse().from_map(
@@ -10262,7 +10262,7 @@ class Client:
     ) -> baasdt_models.QueryIpAccountResponse:
         """
         Description: IP授权交易服务: IP采购商和版权方的账户查询。
-        Summary: 数字商品服务-IP授权交易服务-账户查询
+        Summary: 数字商品服务-IP授权服务-账户查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpAccountResponse().from_map(
@@ -10275,7 +10275,7 @@ class Client:
     ) -> baasdt_models.ApplyIpAccountResponse:
         """
         Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-        Summary: 数字商品-IP授权交易服务-版权方申请
+        Summary: 数字商品服务-IP授权服务-版权方申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10287,7 +10287,7 @@ class Client:
     ) -> baasdt_models.ApplyIpAccountResponse:
         """
         Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-        Summary: 数字商品-IP授权交易服务-版权方申请
+        Summary: 数字商品服务-IP授权服务-版权方申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10301,7 +10301,7 @@ class Client:
     ) -> baasdt_models.ApplyIpAccountResponse:
         """
         Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-        Summary: 数字商品-IP授权交易服务-版权方申请
+        Summary: 数字商品服务-IP授权服务-版权方申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpAccountResponse().from_map(
@@ -10316,7 +10316,7 @@ class Client:
     ) -> baasdt_models.ApplyIpAccountResponse:
         """
         Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-        Summary: 数字商品-IP授权交易服务-版权方申请
+        Summary: 数字商品服务-IP授权服务-版权方申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpAccountResponse().from_map(
@@ -10329,7 +10329,7 @@ class Client:
     ) -> baasdt_models.CheckIpAccountResponse:
         """
         Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-        Summary: 数字商品-IP授权交易-申请进度查询
+        Summary: 数字商品服务-IP授权服务-查申请进度
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10341,7 +10341,7 @@ class Client:
     ) -> baasdt_models.CheckIpAccountResponse:
         """
         Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-        Summary: 数字商品-IP授权交易-申请进度查询
+        Summary: 数字商品服务-IP授权服务-查申请进度
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10355,7 +10355,7 @@ class Client:
     ) -> baasdt_models.CheckIpAccountResponse:
         """
         Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-        Summary: 数字商品-IP授权交易-申请进度查询
+        Summary: 数字商品服务-IP授权服务-查申请进度
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpAccountResponse().from_map(
@@ -10370,7 +10370,7 @@ class Client:
     ) -> baasdt_models.CheckIpAccountResponse:
         """
         Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-        Summary: 数字商品-IP授权交易-申请进度查询
+        Summary: 数字商品服务-IP授权服务-查申请进度
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpAccountResponse().from_map(
@@ -10383,7 +10383,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpGoodsResponse:
         """
         Description: ip商品审批
-        Summary: ip商品审批
+        Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10395,7 +10395,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpGoodsResponse:
         """
         Description: ip商品审批
-        Summary: ip商品审批
+        Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10409,7 +10409,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpGoodsResponse:
         """
         Description: ip商品审批
-        Summary: ip商品审批
+        Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpGoodsResponse().from_map(
@@ -10424,7 +10424,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpGoodsResponse:
         """
         Description: ip商品审批
-        Summary: ip商品审批
+        Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpGoodsResponse().from_map(
@@ -10438,7 +10438,7 @@ class Client:
         """
         Description: ip信息批量查询--给运营使用
         查询审批信息
-        Summary: ip审批信息批量查询--给运营使用
+        Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10451,7 +10451,7 @@ class Client:
         """
         Description: ip信息批量查询--给运营使用
         查询审批信息
-        Summary: ip审批信息批量查询--给运营使用
+        Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10466,7 +10466,7 @@ class Client:
         """
         Description: ip信息批量查询--给运营使用
         查询审批信息
-        Summary: ip审批信息批量查询--给运营使用
+        Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpApprovalResponse().from_map(
@@ -10482,7 +10482,7 @@ class Client:
         """
         Description: ip信息批量查询--给运营使用
         查询审批信息
-        Summary: ip审批信息批量查询--给运营使用
+        Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpApprovalResponse().from_map(
@@ -10494,8 +10494,8 @@ class Client:
         request: baasdt_models.ConfirmIpAccountRequest,
     ) -> baasdt_models.ConfirmIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核确认
-        Summary: 数字商品-IP授权交易-运营审核确认
+        Description: 数字商品服务-IP授权服务-运营审核确认
+        Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10506,8 +10506,8 @@ class Client:
         request: baasdt_models.ConfirmIpAccountRequest,
     ) -> baasdt_models.ConfirmIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核确认
-        Summary: 数字商品-IP授权交易-运营审核确认
+        Description: 数字商品服务-IP授权服务-运营审核确认
+        Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10520,8 +10520,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ConfirmIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核确认
-        Summary: 数字商品-IP授权交易-运营审核确认
+        Description: 数字商品服务-IP授权服务-运营审核确认
+        Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpAccountResponse().from_map(
@@ -10535,8 +10535,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ConfirmIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核确认
-        Summary: 数字商品-IP授权交易-运营审核确认
+        Description: 数字商品服务-IP授权服务-运营审核确认
+        Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpAccountResponse().from_map(
@@ -10548,8 +10548,8 @@ class Client:
         request: baasdt_models.RefuseIpAccountRequest,
     ) -> baasdt_models.RefuseIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核拒绝
-        Summary: 数字商品-IP授权交易-运营审核拒绝
+        Description: 数字商品服务-IP授权服务-运营审核拒绝
+        Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10560,8 +10560,8 @@ class Client:
         request: baasdt_models.RefuseIpAccountRequest,
     ) -> baasdt_models.RefuseIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核拒绝
-        Summary: 数字商品-IP授权交易-运营审核拒绝
+        Description: 数字商品服务-IP授权服务-运营审核拒绝
+        Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10574,8 +10574,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.RefuseIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核拒绝
-        Summary: 数字商品-IP授权交易-运营审核拒绝
+        Description: 数字商品服务-IP授权服务-运营审核拒绝
+        Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         UtilClient.validate_model(request)
         return baasdt_models.RefuseIpAccountResponse().from_map(
@@ -10589,8 +10589,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.RefuseIpAccountResponse:
         """
-        Description: 数字商品-IP授权交易-运营审核拒绝
-        Summary: 数字商品-IP授权交易-运营审核拒绝
+        Description: 数字商品服务-IP授权服务-运营审核拒绝
+        Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         UtilClient.validate_model(request)
         return baasdt_models.RefuseIpAccountResponse().from_map(
@@ -10603,7 +10603,7 @@ class Client:
     ) -> baasdt_models.PullIpAccountResponse:
         """
         Description: 版权方进件信息的单个查询
-        Summary: 数字商品-IP授权交易服务-申请信息查询
+        Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10615,7 +10615,7 @@ class Client:
     ) -> baasdt_models.PullIpAccountResponse:
         """
         Description: 版权方进件信息的单个查询
-        Summary: 数字商品-IP授权交易服务-申请信息查询
+        Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10629,7 +10629,7 @@ class Client:
     ) -> baasdt_models.PullIpAccountResponse:
         """
         Description: 版权方进件信息的单个查询
-        Summary: 数字商品-IP授权交易服务-申请信息查询
+        Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpAccountResponse().from_map(
@@ -10644,7 +10644,7 @@ class Client:
     ) -> baasdt_models.PullIpAccountResponse:
         """
         Description: 版权方进件信息的单个查询
-        Summary: 数字商品-IP授权交易服务-申请信息查询
+        Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpAccountResponse().from_map(
@@ -10656,8 +10656,8 @@ class Client:
         request: baasdt_models.QueryIpMccRequest,
     ) -> baasdt_models.QueryIpMccResponse:
         """
-        Description: 数字商品-IP授权交易服务-MCC列表查询
-        Summary: 数字商品-IP授权交易服务-MCC查询
+        Description: 数字商品服务-IP授权服务-MCC列表查询
+        Summary: 数字商品服务-IP授权服务-MCC查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10668,8 +10668,8 @@ class Client:
         request: baasdt_models.QueryIpMccRequest,
     ) -> baasdt_models.QueryIpMccResponse:
         """
-        Description: 数字商品-IP授权交易服务-MCC列表查询
-        Summary: 数字商品-IP授权交易服务-MCC查询
+        Description: 数字商品服务-IP授权服务-MCC列表查询
+        Summary: 数字商品服务-IP授权服务-MCC查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10682,8 +10682,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.QueryIpMccResponse:
         """
-        Description: 数字商品-IP授权交易服务-MCC列表查询
-        Summary: 数字商品-IP授权交易服务-MCC查询
+        Description: 数字商品服务-IP授权服务-MCC列表查询
+        Summary: 数字商品服务-IP授权服务-MCC查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpMccResponse().from_map(
@@ -10697,8 +10697,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.QueryIpMccResponse:
         """
-        Description: 数字商品-IP授权交易服务-MCC列表查询
-        Summary: 数字商品-IP授权交易服务-MCC查询
+        Description: 数字商品服务-IP授权服务-MCC列表查询
+        Summary: 数字商品服务-IP授权服务-MCC查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpMccResponse().from_map(
@@ -10711,7 +10711,7 @@ class Client:
     ) -> baasdt_models.QueryIpTypeResponse:
         """
         Description: 查询ip type和受众人群
-        Summary: 查询ip type和受众人群
+        Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10723,7 +10723,7 @@ class Client:
     ) -> baasdt_models.QueryIpTypeResponse:
         """
         Description: 查询ip type和受众人群
-        Summary: 查询ip type和受众人群
+        Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10737,7 +10737,7 @@ class Client:
     ) -> baasdt_models.QueryIpTypeResponse:
         """
         Description: 查询ip type和受众人群
-        Summary: 查询ip type和受众人群
+        Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpTypeResponse().from_map(
@@ -10752,7 +10752,7 @@ class Client:
     ) -> baasdt_models.QueryIpTypeResponse:
         """
         Description: 查询ip type和受众人群
-        Summary: 查询ip type和受众人群
+        Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpTypeResponse().from_map(
@@ -10765,7 +10765,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpApprovalandchannelResponse:
         """
         Description: ip审批信息批量查询（带上渠道信息）
-        Summary: ip审批信息批量查询（带上渠道信息）
+        Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10777,7 +10777,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpApprovalandchannelResponse:
         """
         Description: ip审批信息批量查询（带上渠道信息）
-        Summary: ip审批信息批量查询（带上渠道信息）
+        Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10791,7 +10791,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpApprovalandchannelResponse:
         """
         Description: ip审批信息批量查询（带上渠道信息）
-        Summary: ip审批信息批量查询（带上渠道信息）
+        Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpApprovalandchannelResponse().from_map(
@@ -10806,7 +10806,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpApprovalandchannelResponse:
         """
         Description: ip审批信息批量查询（带上渠道信息）
-        Summary: ip审批信息批量查询（带上渠道信息）
+        Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpApprovalandchannelResponse().from_map(
@@ -10819,7 +10819,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
         Description: 版权方进件信息的批量查询
-        Summary: 数字商品-IP授权服务-批量查询商家信息
+        Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10831,7 +10831,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
         Description: 版权方进件信息的批量查询
-        Summary: 数字商品-IP授权服务-批量查询商家信息
+        Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10845,7 +10845,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
         Description: 版权方进件信息的批量查询
-        Summary: 数字商品-IP授权服务-批量查询商家信息
+        Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpAccountResponse().from_map(
@@ -10860,7 +10860,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpAccountResponse:
         """
         Description: 版权方进件信息的批量查询
-        Summary: 数字商品-IP授权服务-批量查询商家信息
+        Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpAccountResponse().from_map(
@@ -10873,7 +10873,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
         Description: 版权方待审批的批量查询
-        Summary: 数字商品-IP授权-版权方申请批量查询
+        Summary: 数字商品服务-IP授权服务-查版权方申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10885,7 +10885,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
         Description: 版权方待审批的批量查询
-        Summary: 数字商品-IP授权-版权方申请批量查询
+        Summary: 数字商品服务-IP授权服务-查版权方申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10899,7 +10899,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
         Description: 版权方待审批的批量查询
-        Summary: 数字商品-IP授权-版权方申请批量查询
+        Summary: 数字商品服务-IP授权服务-查版权方申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpSellerResponse().from_map(
@@ -10914,7 +10914,7 @@ class Client:
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
         Description: 版权方待审批的批量查询
-        Summary: 数字商品-IP授权-版权方申请批量查询
+        Summary: 数字商品服务-IP授权服务-查版权方申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpSellerResponse().from_map(
@@ -10926,8 +10926,8 @@ class Client:
         request: baasdt_models.ApplyIpCodeRequest,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码申请
-        Summary: 数字商品服务-IP授权交易-正版码申请
+        Description: 数字商品服务-IP授权服务-正版码申请
+        Summary: 数字商品服务-IP授权服务-正版码申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10938,8 +10938,8 @@ class Client:
         request: baasdt_models.ApplyIpCodeRequest,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码申请
-        Summary: 数字商品服务-IP授权交易-正版码申请
+        Description: 数字商品服务-IP授权服务-正版码申请
+        Summary: 数字商品服务-IP授权服务-正版码申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10952,8 +10952,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码申请
-        Summary: 数字商品服务-IP授权交易-正版码申请
+        Description: 数字商品服务-IP授权服务-正版码申请
+        Summary: 数字商品服务-IP授权服务-正版码申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpCodeResponse().from_map(
@@ -10967,8 +10967,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码申请
-        Summary: 数字商品服务-IP授权交易-正版码申请
+        Description: 数字商品服务-IP授权服务-正版码申请
+        Summary: 数字商品服务-IP授权服务-正版码申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpCodeResponse().from_map(
@@ -10980,8 +10980,8 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码分页查询
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10992,8 +10992,8 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码分页查询
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11006,8 +11006,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码分页查询
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeResponse().from_map(
@@ -11021,8 +11021,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码分页查询
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeResponse().from_map(
@@ -11034,8 +11034,8 @@ class Client:
         request: baasdt_models.CheckIpCodeRequest,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码校验
-        Summary: 数字商品服务-IP授权交易-正版码校验
+        Description: 数字商品服务-IP授权服务-正版码校验
+        Summary: 数字商品服务-IP授权服务-正版码校验
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11046,8 +11046,8 @@ class Client:
         request: baasdt_models.CheckIpCodeRequest,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码校验
-        Summary: 数字商品服务-IP授权交易-正版码校验
+        Description: 数字商品服务-IP授权服务-正版码校验
+        Summary: 数字商品服务-IP授权服务-正版码校验
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11060,8 +11060,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码校验
-        Summary: 数字商品服务-IP授权交易-正版码校验
+        Description: 数字商品服务-IP授权服务-正版码校验
+        Summary: 数字商品服务-IP授权服务-正版码校验
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpCodeResponse().from_map(
@@ -11075,8 +11075,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权交易-正版码校验
-        Summary: 数字商品服务-IP授权交易-正版码校验
+        Description: 数字商品服务-IP授权服务-正版码校验
+        Summary: 数字商品服务-IP授权服务-正版码校验
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpCodeResponse().from_map(
@@ -11089,7 +11089,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
         """
         Description: 对商品的更新进行审核
-        Summary: 数字商品-IP授权交易-商品更新审核
+        Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11101,7 +11101,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
         """
         Description: 对商品的更新进行审核
-        Summary: 数字商品-IP授权交易-商品更新审核
+        Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11115,7 +11115,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
         """
         Description: 对商品的更新进行审核
-        Summary: 数字商品-IP授权交易-商品更新审核
+        Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
@@ -11130,7 +11130,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpUpdateapprovalResponse:
         """
         Description: 对商品的更新进行审核
-        Summary: 数字商品-IP授权交易-商品更新审核
+        Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
@@ -11143,7 +11143,7 @@ class Client:
     ) -> baasdt_models.SetIpSkuResponse:
         """
         Description: ip商品sku信息设置
-        Summary: 数字商品-IP授权交易-sku信息设置
+        Summary: 数字商品服务-IP授权服务-sku设置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11155,7 +11155,7 @@ class Client:
     ) -> baasdt_models.SetIpSkuResponse:
         """
         Description: ip商品sku信息设置
-        Summary: 数字商品-IP授权交易-sku信息设置
+        Summary: 数字商品服务-IP授权服务-sku设置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11169,7 +11169,7 @@ class Client:
     ) -> baasdt_models.SetIpSkuResponse:
         """
         Description: ip商品sku信息设置
-        Summary: 数字商品-IP授权交易-sku信息设置
+        Summary: 数字商品服务-IP授权服务-sku设置
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpSkuResponse().from_map(
@@ -11184,7 +11184,7 @@ class Client:
     ) -> baasdt_models.SetIpSkuResponse:
         """
         Description: ip商品sku信息设置
-        Summary: 数字商品-IP授权交易-sku信息设置
+        Summary: 数字商品服务-IP授权服务-sku设置
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpSkuResponse().from_map(
@@ -11197,7 +11197,7 @@ class Client:
     ) -> baasdt_models.QueryIpGoodsupdateResponse:
         """
         Description: 查询商品基础信息的更新数据
-        Summary: 数字商品-IP授权交易-查询更新数据
+        Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11209,7 +11209,7 @@ class Client:
     ) -> baasdt_models.QueryIpGoodsupdateResponse:
         """
         Description: 查询商品基础信息的更新数据
-        Summary: 数字商品-IP授权交易-查询更新数据
+        Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11223,7 +11223,7 @@ class Client:
     ) -> baasdt_models.QueryIpGoodsupdateResponse:
         """
         Description: 查询商品基础信息的更新数据
-        Summary: 数字商品-IP授权交易-查询更新数据
+        Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpGoodsupdateResponse().from_map(
@@ -11238,7 +11238,7 @@ class Client:
     ) -> baasdt_models.QueryIpGoodsupdateResponse:
         """
         Description: 查询商品基础信息的更新数据
-        Summary: 数字商品-IP授权交易-查询更新数据
+        Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpGoodsupdateResponse().from_map(
@@ -11305,7 +11305,7 @@ class Client:
     ) -> baasdt_models.QueryIpSkuconfigResponse:
         """
         Description: ip商品某个渠道默认sku查询
-        Summary: 数字商品-IP授权交易-默认sku查询
+        Summary: 数字商品服务-IP授权服务-sku查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11317,7 +11317,7 @@ class Client:
     ) -> baasdt_models.QueryIpSkuconfigResponse:
         """
         Description: ip商品某个渠道默认sku查询
-        Summary: 数字商品-IP授权交易-默认sku查询
+        Summary: 数字商品服务-IP授权服务-sku查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11331,7 +11331,7 @@ class Client:
     ) -> baasdt_models.QueryIpSkuconfigResponse:
         """
         Description: ip商品某个渠道默认sku查询
-        Summary: 数字商品-IP授权交易-默认sku查询
+        Summary: 数字商品服务-IP授权服务-sku查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpSkuconfigResponse().from_map(
@@ -11346,7 +11346,7 @@ class Client:
     ) -> baasdt_models.QueryIpSkuconfigResponse:
         """
         Description: ip商品某个渠道默认sku查询
-        Summary: 数字商品-IP授权交易-默认sku查询
+        Summary: 数字商品服务-IP授权服务-sku查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpSkuconfigResponse().from_map(
@@ -11359,7 +11359,7 @@ class Client:
     ) -> baasdt_models.ImportIpAccountResponse:
         """
         Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-        Summary: 数字商品服务-IP授权交易-版权方导入
+        Summary: 数字商品服务-IP授权服务-版权方导入
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11371,7 +11371,7 @@ class Client:
     ) -> baasdt_models.ImportIpAccountResponse:
         """
         Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-        Summary: 数字商品服务-IP授权交易-版权方导入
+        Summary: 数字商品服务-IP授权服务-版权方导入
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11385,7 +11385,7 @@ class Client:
     ) -> baasdt_models.ImportIpAccountResponse:
         """
         Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-        Summary: 数字商品服务-IP授权交易-版权方导入
+        Summary: 数字商品服务-IP授权服务-版权方导入
         """
         UtilClient.validate_model(request)
         return baasdt_models.ImportIpAccountResponse().from_map(
@@ -11400,7 +11400,7 @@ class Client:
     ) -> baasdt_models.ImportIpAccountResponse:
         """
         Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-        Summary: 数字商品服务-IP授权交易-版权方导入
+        Summary: 数字商品服务-IP授权服务-版权方导入
         """
         UtilClient.validate_model(request)
         return baasdt_models.ImportIpAccountResponse().from_map(
@@ -11413,7 +11413,7 @@ class Client:
     ) -> baasdt_models.RemoveIpSkuResponse:
         """
         Description: 商品特定渠道的sku信息清空
-        Summary: 数字商品-IP授权交易-sku信息清空
+        Summary: 数字商品服务-IP授权服务-sku清空
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11425,7 +11425,7 @@ class Client:
     ) -> baasdt_models.RemoveIpSkuResponse:
         """
         Description: 商品特定渠道的sku信息清空
-        Summary: 数字商品-IP授权交易-sku信息清空
+        Summary: 数字商品服务-IP授权服务-sku清空
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11439,7 +11439,7 @@ class Client:
     ) -> baasdt_models.RemoveIpSkuResponse:
         """
         Description: 商品特定渠道的sku信息清空
-        Summary: 数字商品-IP授权交易-sku信息清空
+        Summary: 数字商品服务-IP授权服务-sku清空
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveIpSkuResponse().from_map(
@@ -11454,7 +11454,7 @@ class Client:
     ) -> baasdt_models.RemoveIpSkuResponse:
         """
         Description: 商品特定渠道的sku信息清空
-        Summary: 数字商品-IP授权交易-sku信息清空
+        Summary: 数字商品服务-IP授权服务-sku清空
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveIpSkuResponse().from_map(
@@ -11467,7 +11467,7 @@ class Client:
     ) -> baasdt_models.CreateIpSuperviseapproveResponse:
         """
         Description: 创建监修报审
-        Summary: 数字商品-IP授权交易-创建监修报审
+        Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11479,7 +11479,7 @@ class Client:
     ) -> baasdt_models.CreateIpSuperviseapproveResponse:
         """
         Description: 创建监修报审
-        Summary: 数字商品-IP授权交易-创建监修报审
+        Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11493,7 +11493,7 @@ class Client:
     ) -> baasdt_models.CreateIpSuperviseapproveResponse:
         """
         Description: 创建监修报审
-        Summary: 数字商品-IP授权交易-创建监修报审
+        Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpSuperviseapproveResponse().from_map(
@@ -11508,7 +11508,7 @@ class Client:
     ) -> baasdt_models.CreateIpSuperviseapproveResponse:
         """
         Description: 创建监修报审
-        Summary: 数字商品-IP授权交易-创建监修报审
+        Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpSuperviseapproveResponse().from_map(
@@ -11521,7 +11521,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpSuperviseapproveResponse:
         """
         Description: 监修报审审批
-        Summary: 数字商品-IP授权交易-监修报审审批
+        Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11533,7 +11533,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpSuperviseapproveResponse:
         """
         Description: 监修报审审批
-        Summary: 数字商品-IP授权交易-监修报审审批
+        Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11547,7 +11547,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpSuperviseapproveResponse:
         """
         Description: 监修报审审批
-        Summary: 数字商品-IP授权交易-监修报审审批
+        Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpSuperviseapproveResponse().from_map(
@@ -11562,7 +11562,7 @@ class Client:
     ) -> baasdt_models.ConfirmIpSuperviseapproveResponse:
         """
         Description: 监修报审审批
-        Summary: 数字商品-IP授权交易-监修报审审批
+        Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         UtilClient.validate_model(request)
         return baasdt_models.ConfirmIpSuperviseapproveResponse().from_map(
@@ -11575,7 +11575,7 @@ class Client:
     ) -> baasdt_models.PushIpSuperviseapproveResponse:
         """
         Description: 监修报审进度推进/重置
-        Summary: 数字商品-IP授权交易-监修报审进度推进
+        Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11587,7 +11587,7 @@ class Client:
     ) -> baasdt_models.PushIpSuperviseapproveResponse:
         """
         Description: 监修报审进度推进/重置
-        Summary: 数字商品-IP授权交易-监修报审进度推进
+        Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11601,7 +11601,7 @@ class Client:
     ) -> baasdt_models.PushIpSuperviseapproveResponse:
         """
         Description: 监修报审进度推进/重置
-        Summary: 数字商品-IP授权交易-监修报审进度推进
+        Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.PushIpSuperviseapproveResponse().from_map(
@@ -11616,7 +11616,7 @@ class Client:
     ) -> baasdt_models.PushIpSuperviseapproveResponse:
         """
         Description: 监修报审进度推进/重置
-        Summary: 数字商品-IP授权交易-监修报审进度推进
+        Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.PushIpSuperviseapproveResponse().from_map(
@@ -11629,7 +11629,7 @@ class Client:
     ) -> baasdt_models.QueryIpSuperviseapproveResponse:
         """
         Description: 数字商品-IP授权交易-查询监修报审详情
-        Summary: 数字商品-IP授权交易-查询监修报审详情
+        Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11641,7 +11641,7 @@ class Client:
     ) -> baasdt_models.QueryIpSuperviseapproveResponse:
         """
         Description: 数字商品-IP授权交易-查询监修报审详情
-        Summary: 数字商品-IP授权交易-查询监修报审详情
+        Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11655,7 +11655,7 @@ class Client:
     ) -> baasdt_models.QueryIpSuperviseapproveResponse:
         """
         Description: 数字商品-IP授权交易-查询监修报审详情
-        Summary: 数字商品-IP授权交易-查询监修报审详情
+        Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpSuperviseapproveResponse().from_map(
@@ -11670,7 +11670,7 @@ class Client:
     ) -> baasdt_models.QueryIpSuperviseapproveResponse:
         """
         Description: 数字商品-IP授权交易-查询监修报审详情
-        Summary: 数字商品-IP授权交易-查询监修报审详情
+        Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpSuperviseapproveResponse().from_map(
@@ -11683,7 +11683,7 @@ class Client:
     ) -> baasdt_models.ReceiveIpCodeResponse:
         """
         Description: 领取正版码，如已被领取则返回被领取人昵称信息
-        Summary: 数字商品服务-IP授权交易-正版码领取
+        Summary: 数字商品服务-IP授权服务-正版码领取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11695,7 +11695,7 @@ class Client:
     ) -> baasdt_models.ReceiveIpCodeResponse:
         """
         Description: 领取正版码，如已被领取则返回被领取人昵称信息
-        Summary: 数字商品服务-IP授权交易-正版码领取
+        Summary: 数字商品服务-IP授权服务-正版码领取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11709,7 +11709,7 @@ class Client:
     ) -> baasdt_models.ReceiveIpCodeResponse:
         """
         Description: 领取正版码，如已被领取则返回被领取人昵称信息
-        Summary: 数字商品服务-IP授权交易-正版码领取
+        Summary: 数字商品服务-IP授权服务-正版码领取
         """
         UtilClient.validate_model(request)
         return baasdt_models.ReceiveIpCodeResponse().from_map(
@@ -11724,7 +11724,7 @@ class Client:
     ) -> baasdt_models.ReceiveIpCodeResponse:
         """
         Description: 领取正版码，如已被领取则返回被领取人昵称信息
-        Summary: 数字商品服务-IP授权交易-正版码领取
+        Summary: 数字商品服务-IP授权服务-正版码领取
         """
         UtilClient.validate_model(request)
         return baasdt_models.ReceiveIpCodeResponse().from_map(
@@ -11737,7 +11737,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodeinfoResponse:
         """
         Description: 已领取或以扫描过的正版码列表，分页查询
-        Summary: 数字商品服务-IP授权交易-正版码列表
+        Summary: 数字商品服务-IP授权服务-正版码列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11749,7 +11749,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodeinfoResponse:
         """
         Description: 已领取或以扫描过的正版码列表，分页查询
-        Summary: 数字商品服务-IP授权交易-正版码列表
+        Summary: 数字商品服务-IP授权服务-正版码列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11763,7 +11763,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodeinfoResponse:
         """
         Description: 已领取或以扫描过的正版码列表，分页查询
-        Summary: 数字商品服务-IP授权交易-正版码列表
+        Summary: 数字商品服务-IP授权服务-正版码列表
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeinfoResponse().from_map(
@@ -11778,7 +11778,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodeinfoResponse:
         """
         Description: 已领取或以扫描过的正版码列表，分页查询
-        Summary: 数字商品服务-IP授权交易-正版码列表
+        Summary: 数字商品服务-IP授权服务-正版码列表
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeinfoResponse().from_map(
@@ -11791,7 +11791,7 @@ class Client:
     ) -> baasdt_models.CreateIpValueaddResponse:
         """
         Description: 创建增值服务
-        Summary: 数字商品-IP授权交易-创建增值服务
+        Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11803,7 +11803,7 @@ class Client:
     ) -> baasdt_models.CreateIpValueaddResponse:
         """
         Description: 创建增值服务
-        Summary: 数字商品-IP授权交易-创建增值服务
+        Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11817,7 +11817,7 @@ class Client:
     ) -> baasdt_models.CreateIpValueaddResponse:
         """
         Description: 创建增值服务
-        Summary: 数字商品-IP授权交易-创建增值服务
+        Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpValueaddResponse().from_map(
@@ -11832,7 +11832,7 @@ class Client:
     ) -> baasdt_models.CreateIpValueaddResponse:
         """
         Description: 创建增值服务
-        Summary: 数字商品-IP授权交易-创建增值服务
+        Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.CreateIpValueaddResponse().from_map(
@@ -11844,8 +11844,8 @@ class Client:
         request: baasdt_models.UpdateIpValueaddRequest,
     ) -> baasdt_models.UpdateIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-更新增值服务
-        Summary: 数字商品-IP授权交易-更新增值服务
+        Description: 数字商品服务-IP授权服务-更新增值服务
+        Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11856,8 +11856,8 @@ class Client:
         request: baasdt_models.UpdateIpValueaddRequest,
     ) -> baasdt_models.UpdateIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-更新增值服务
-        Summary: 数字商品-IP授权交易-更新增值服务
+        Description: 数字商品服务-IP授权服务-更新增值服务
+        Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11870,8 +11870,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.UpdateIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-更新增值服务
-        Summary: 数字商品-IP授权交易-更新增值服务
+        Description: 数字商品服务-IP授权服务-更新增值服务
+        Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.UpdateIpValueaddResponse().from_map(
@@ -11885,8 +11885,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.UpdateIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-更新增值服务
-        Summary: 数字商品-IP授权交易-更新增值服务
+        Description: 数字商品服务-IP授权服务-更新增值服务
+        Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.UpdateIpValueaddResponse().from_map(
@@ -11899,7 +11899,7 @@ class Client:
     ) -> baasdt_models.SetIpValueaddskuResponse:
         """
         Description: 数字商品-IP授权-设置增值服务sku
-        Summary: 数字商品-IP授权-设置增值服务sku
+        Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11911,7 +11911,7 @@ class Client:
     ) -> baasdt_models.SetIpValueaddskuResponse:
         """
         Description: 数字商品-IP授权-设置增值服务sku
-        Summary: 数字商品-IP授权-设置增值服务sku
+        Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11925,7 +11925,7 @@ class Client:
     ) -> baasdt_models.SetIpValueaddskuResponse:
         """
         Description: 数字商品-IP授权-设置增值服务sku
-        Summary: 数字商品-IP授权-设置增值服务sku
+        Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpValueaddskuResponse().from_map(
@@ -11940,7 +11940,7 @@ class Client:
     ) -> baasdt_models.SetIpValueaddskuResponse:
         """
         Description: 数字商品-IP授权-设置增值服务sku
-        Summary: 数字商品-IP授权-设置增值服务sku
+        Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpValueaddskuResponse().from_map(
@@ -11952,8 +11952,8 @@ class Client:
         request: baasdt_models.OnlineIpValueaddRequest,
     ) -> baasdt_models.OnlineIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-增值服务上下线
-        Summary: 数字商品-IP授权交易-增值服务上下线
+        Description: 数字商品服务-IP授权服务-增值服务上下架操作
+        Summary: 数字商品服务-IP授权服务-服务上下架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11964,8 +11964,8 @@ class Client:
         request: baasdt_models.OnlineIpValueaddRequest,
     ) -> baasdt_models.OnlineIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-增值服务上下线
-        Summary: 数字商品-IP授权交易-增值服务上下线
+        Description: 数字商品服务-IP授权服务-增值服务上下架操作
+        Summary: 数字商品服务-IP授权服务-服务上下架
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11978,8 +11978,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.OnlineIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-增值服务上下线
-        Summary: 数字商品-IP授权交易-增值服务上下线
+        Description: 数字商品服务-IP授权服务-增值服务上下架操作
+        Summary: 数字商品服务-IP授权服务-服务上下架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OnlineIpValueaddResponse().from_map(
@@ -11993,8 +11993,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.OnlineIpValueaddResponse:
         """
-        Description: 数字商品-IP授权交易-增值服务上下线
-        Summary: 数字商品-IP授权交易-增值服务上下线
+        Description: 数字商品服务-IP授权服务-增值服务上下架操作
+        Summary: 数字商品服务-IP授权服务-服务上下架
         """
         UtilClient.validate_model(request)
         return baasdt_models.OnlineIpValueaddResponse().from_map(
@@ -12007,7 +12007,7 @@ class Client:
     ) -> baasdt_models.QueryIpValueaddResponse:
         """
         Description: 数字商品-IP授权交易-增值服务查询
-        Summary: 数字商品-IP授权交易-增值服务查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12019,7 +12019,7 @@ class Client:
     ) -> baasdt_models.QueryIpValueaddResponse:
         """
         Description: 数字商品-IP授权交易-增值服务查询
-        Summary: 数字商品-IP授权交易-增值服务查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12033,7 +12033,7 @@ class Client:
     ) -> baasdt_models.QueryIpValueaddResponse:
         """
         Description: 数字商品-IP授权交易-增值服务查询
-        Summary: 数字商品-IP授权交易-增值服务查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpValueaddResponse().from_map(
@@ -12048,7 +12048,7 @@ class Client:
     ) -> baasdt_models.QueryIpValueaddResponse:
         """
         Description: 数字商品-IP授权交易-增值服务查询
-        Summary: 数字商品-IP授权交易-增值服务查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpValueaddResponse().from_map(
@@ -12061,7 +12061,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpValueaddResponse:
         """
         Description: 增值服务批量查询
-        Summary: 数字商品-IP授权交易-增值服务批量查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12073,7 +12073,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpValueaddResponse:
         """
         Description: 增值服务批量查询
-        Summary: 数字商品-IP授权交易-增值服务批量查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12087,7 +12087,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpValueaddResponse:
         """
         Description: 增值服务批量查询
-        Summary: 数字商品-IP授权交易-增值服务批量查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpValueaddResponse().from_map(
@@ -12102,7 +12102,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpValueaddResponse:
         """
         Description: 增值服务批量查询
-        Summary: 数字商品-IP授权交易-增值服务批量查询
+        Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpValueaddResponse().from_map(
@@ -12222,8 +12222,8 @@ class Client:
         request: baasdt_models.RemoveIpGoodsRequest,
     ) -> baasdt_models.RemoveIpGoodsResponse:
         """
-        Description: 数字商品-IP授权交易-删除ip商品
-        Summary: 数字商品-IP授权交易-删除ip商品
+        Description: 数字商品服务-IP授权服务-删除ip商品
+        Summary: 数字商品服务-IP授权服务-IP删除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12234,8 +12234,8 @@ class Client:
         request: baasdt_models.RemoveIpGoodsRequest,
     ) -> baasdt_models.RemoveIpGoodsResponse:
         """
-        Description: 数字商品-IP授权交易-删除ip商品
-        Summary: 数字商品-IP授权交易-删除ip商品
+        Description: 数字商品服务-IP授权服务-删除ip商品
+        Summary: 数字商品服务-IP授权服务-IP删除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12248,8 +12248,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.RemoveIpGoodsResponse:
         """
-        Description: 数字商品-IP授权交易-删除ip商品
-        Summary: 数字商品-IP授权交易-删除ip商品
+        Description: 数字商品服务-IP授权服务-删除ip商品
+        Summary: 数字商品服务-IP授权服务-IP删除
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveIpGoodsResponse().from_map(
@@ -12263,8 +12263,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.RemoveIpGoodsResponse:
         """
-        Description: 数字商品-IP授权交易-删除ip商品
-        Summary: 数字商品-IP授权交易-删除ip商品
+        Description: 数字商品服务-IP授权服务-删除ip商品
+        Summary: 数字商品服务-IP授权服务-IP删除
         """
         UtilClient.validate_model(request)
         return baasdt_models.RemoveIpGoodsResponse().from_map(
@@ -12276,8 +12276,8 @@ class Client:
         request: baasdt_models.CountIpNumRequest,
     ) -> baasdt_models.CountIpNumResponse:
         """
-        Description: 数字商品-IP授权交易-ip数量统计
-        Summary: 数字商品-IP授权交易-ip数量统计
+        Description: 数字商品服务-IP授权服务-ip数量统计
+        Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12288,8 +12288,8 @@ class Client:
         request: baasdt_models.CountIpNumRequest,
     ) -> baasdt_models.CountIpNumResponse:
         """
-        Description: 数字商品-IP授权交易-ip数量统计
-        Summary: 数字商品-IP授权交易-ip数量统计
+        Description: 数字商品服务-IP授权服务-ip数量统计
+        Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12302,8 +12302,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpNumResponse:
         """
-        Description: 数字商品-IP授权交易-ip数量统计
-        Summary: 数字商品-IP授权交易-ip数量统计
+        Description: 数字商品服务-IP授权服务-ip数量统计
+        Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpNumResponse().from_map(
@@ -12317,8 +12317,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpNumResponse:
         """
-        Description: 数字商品-IP授权交易-ip数量统计
-        Summary: 数字商品-IP授权交易-ip数量统计
+        Description: 数字商品服务-IP授权服务-ip数量统计
+        Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpNumResponse().from_map(
@@ -12330,8 +12330,8 @@ class Client:
         request: baasdt_models.CountIpPvRequest,
     ) -> baasdt_models.CountIpPvResponse:
         """
-        Description: 数字商品-IP授权交易-pv统计
-        Summary: 数字商品-IP授权交易-pv统计
+        Description: 数字商品服务-IP授权服务-pv统计
+        Summary: 数字商品服务-IP授权服务-pv统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12342,8 +12342,8 @@ class Client:
         request: baasdt_models.CountIpPvRequest,
     ) -> baasdt_models.CountIpPvResponse:
         """
-        Description: 数字商品-IP授权交易-pv统计
-        Summary: 数字商品-IP授权交易-pv统计
+        Description: 数字商品服务-IP授权服务-pv统计
+        Summary: 数字商品服务-IP授权服务-pv统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12356,8 +12356,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpPvResponse:
         """
-        Description: 数字商品-IP授权交易-pv统计
-        Summary: 数字商品-IP授权交易-pv统计
+        Description: 数字商品服务-IP授权服务-pv统计
+        Summary: 数字商品服务-IP授权服务-pv统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpPvResponse().from_map(
@@ -12371,8 +12371,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpPvResponse:
         """
-        Description: 数字商品-IP授权交易-pv统计
-        Summary: 数字商品-IP授权交易-pv统计
+        Description: 数字商品服务-IP授权服务-pv统计
+        Summary: 数字商品服务-IP授权服务-pv统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpPvResponse().from_map(
@@ -12385,7 +12385,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeResponse:
         """
         Description: 查询正版码信息
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12397,7 +12397,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeResponse:
         """
         Description: 查询正版码信息
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12411,7 +12411,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeResponse:
         """
         Description: 查询正版码信息
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodeResponse().from_map(
@@ -12426,7 +12426,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeResponse:
         """
         Description: 查询正版码信息
-        Summary: 数字商品服务-IP授权交易-正版码查询
+        Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodeResponse().from_map(
@@ -12438,8 +12438,8 @@ class Client:
         request: baasdt_models.CountIpAccountRequest,
     ) -> baasdt_models.CountIpAccountResponse:
         """
-        Description: 数字商品服务-IP授权交易服务-账户统计
-        Summary: 数字商品服务-IP授权交易服务-账户统计
+        Description: 数字商品服务-IP授权服务-账户统计
+        Summary: 数字商品服务-IP授权服务-账户统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12450,8 +12450,8 @@ class Client:
         request: baasdt_models.CountIpAccountRequest,
     ) -> baasdt_models.CountIpAccountResponse:
         """
-        Description: 数字商品服务-IP授权交易服务-账户统计
-        Summary: 数字商品服务-IP授权交易服务-账户统计
+        Description: 数字商品服务-IP授权服务-账户统计
+        Summary: 数字商品服务-IP授权服务-账户统计
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12464,8 +12464,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpAccountResponse:
         """
-        Description: 数字商品服务-IP授权交易服务-账户统计
-        Summary: 数字商品服务-IP授权交易服务-账户统计
+        Description: 数字商品服务-IP授权服务-账户统计
+        Summary: 数字商品服务-IP授权服务-账户统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpAccountResponse().from_map(
@@ -12479,8 +12479,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CountIpAccountResponse:
         """
-        Description: 数字商品服务-IP授权交易服务-账户统计
-        Summary: 数字商品服务-IP授权交易服务-账户统计
+        Description: 数字商品服务-IP授权服务-账户统计
+        Summary: 数字商品服务-IP授权服务-账户统计
         """
         UtilClient.validate_model(request)
         return baasdt_models.CountIpAccountResponse().from_map(
@@ -12539,6 +12539,600 @@ class Client:
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpOrderstatisticResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.orderstatistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_ip_goodsgallery(
+        self,
+        request: baasdt_models.UpdateIpGoodsgalleryRequest,
+    ) -> baasdt_models.UpdateIpGoodsgalleryResponse:
+        """
+        Description: 版权方更新IP图库
+        Summary: 数字商品服务-IP授权服务-ip更新图库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_ip_goodsgallery_ex(request, headers, runtime)
+
+    async def update_ip_goodsgallery_async(
+        self,
+        request: baasdt_models.UpdateIpGoodsgalleryRequest,
+    ) -> baasdt_models.UpdateIpGoodsgalleryResponse:
+        """
+        Description: 版权方更新IP图库
+        Summary: 数字商品服务-IP授权服务-ip更新图库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_ip_goodsgallery_ex_async(request, headers, runtime)
+
+    def update_ip_goodsgallery_ex(
+        self,
+        request: baasdt_models.UpdateIpGoodsgalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.UpdateIpGoodsgalleryResponse:
+        """
+        Description: 版权方更新IP图库
+        Summary: 数字商品服务-IP授权服务-ip更新图库
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.UpdateIpGoodsgalleryResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.goodsgallery.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_ip_goodsgallery_ex_async(
+        self,
+        request: baasdt_models.UpdateIpGoodsgalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.UpdateIpGoodsgalleryResponse:
+        """
+        Description: 版权方更新IP图库
+        Summary: 数字商品服务-IP授权服务-ip更新图库
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.UpdateIpGoodsgalleryResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.goodsgallery.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_goodsgallery(
+        self,
+        request: baasdt_models.QueryIpGoodsgalleryRequest,
+    ) -> baasdt_models.QueryIpGoodsgalleryResponse:
+        """
+        Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+        Summary: 数字商品服务-IP授权服务-查询ip图库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_goodsgallery_ex(request, headers, runtime)
+
+    async def query_ip_goodsgallery_async(
+        self,
+        request: baasdt_models.QueryIpGoodsgalleryRequest,
+    ) -> baasdt_models.QueryIpGoodsgalleryResponse:
+        """
+        Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+        Summary: 数字商品服务-IP授权服务-查询ip图库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_goodsgallery_ex_async(request, headers, runtime)
+
+    def query_ip_goodsgallery_ex(
+        self,
+        request: baasdt_models.QueryIpGoodsgalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpGoodsgalleryResponse:
+        """
+        Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+        Summary: 数字商品服务-IP授权服务-查询ip图库
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpGoodsgalleryResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.goodsgallery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_goodsgallery_ex_async(
+        self,
+        request: baasdt_models.QueryIpGoodsgalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpGoodsgalleryResponse:
+        """
+        Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+        Summary: 数字商品服务-IP授权服务-查询ip图库
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpGoodsgalleryResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.goodsgallery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_ip_codeinfo(
+        self,
+        request: baasdt_models.SetIpCodeinfoRequest,
+    ) -> baasdt_models.SetIpCodeinfoResponse:
+        """
+        Description: 配置正版码的商品信息和资源位信息
+        Summary: 数字商品服务-IP授权服务-正版码配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_ip_codeinfo_ex(request, headers, runtime)
+
+    async def set_ip_codeinfo_async(
+        self,
+        request: baasdt_models.SetIpCodeinfoRequest,
+    ) -> baasdt_models.SetIpCodeinfoResponse:
+        """
+        Description: 配置正版码的商品信息和资源位信息
+        Summary: 数字商品服务-IP授权服务-正版码配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_ip_codeinfo_ex_async(request, headers, runtime)
+
+    def set_ip_codeinfo_ex(
+        self,
+        request: baasdt_models.SetIpCodeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SetIpCodeinfoResponse:
+        """
+        Description: 配置正版码的商品信息和资源位信息
+        Summary: 数字商品服务-IP授权服务-正版码配置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SetIpCodeinfoResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.codeinfo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_ip_codeinfo_ex_async(
+        self,
+        request: baasdt_models.SetIpCodeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.SetIpCodeinfoResponse:
+        """
+        Description: 配置正版码的商品信息和资源位信息
+        Summary: 数字商品服务-IP授权服务-正版码配置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.SetIpCodeinfoResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.codeinfo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_ip_galleryinstruction(
+        self,
+        request: baasdt_models.PagequeryIpGalleryinstructionRequest,
+    ) -> baasdt_models.PagequeryIpGalleryinstructionResponse:
+        """
+        Description: 查询订单的图库下载记录
+        Summary: 数字商品服务-IP授权服务-查询图库记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_ip_galleryinstruction_ex(request, headers, runtime)
+
+    async def pagequery_ip_galleryinstruction_async(
+        self,
+        request: baasdt_models.PagequeryIpGalleryinstructionRequest,
+    ) -> baasdt_models.PagequeryIpGalleryinstructionResponse:
+        """
+        Description: 查询订单的图库下载记录
+        Summary: 数字商品服务-IP授权服务-查询图库记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_ip_galleryinstruction_ex_async(request, headers, runtime)
+
+    def pagequery_ip_galleryinstruction_ex(
+        self,
+        request: baasdt_models.PagequeryIpGalleryinstructionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpGalleryinstructionResponse:
+        """
+        Description: 查询订单的图库下载记录
+        Summary: 数字商品服务-IP授权服务-查询图库记录
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpGalleryinstructionResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.galleryinstruction.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_ip_galleryinstruction_ex_async(
+        self,
+        request: baasdt_models.PagequeryIpGalleryinstructionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PagequeryIpGalleryinstructionResponse:
+        """
+        Description: 查询订单的图库下载记录
+        Summary: 数字商品服务-IP授权服务-查询图库记录
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PagequeryIpGalleryinstructionResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.galleryinstruction.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_ip_ordergallery(
+        self,
+        request: baasdt_models.ConfirmIpOrdergalleryRequest,
+    ) -> baasdt_models.ConfirmIpOrdergalleryResponse:
+        """
+        Description: 版权方确认订单图库信息
+        Summary: 数字商品服务-IP授权服务-订单图库确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_ip_ordergallery_ex(request, headers, runtime)
+
+    async def confirm_ip_ordergallery_async(
+        self,
+        request: baasdt_models.ConfirmIpOrdergalleryRequest,
+    ) -> baasdt_models.ConfirmIpOrdergalleryResponse:
+        """
+        Description: 版权方确认订单图库信息
+        Summary: 数字商品服务-IP授权服务-订单图库确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_ip_ordergallery_ex_async(request, headers, runtime)
+
+    def confirm_ip_ordergallery_ex(
+        self,
+        request: baasdt_models.ConfirmIpOrdergalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpOrdergalleryResponse:
+        """
+        Description: 版权方确认订单图库信息
+        Summary: 数字商品服务-IP授权服务-订单图库确认
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpOrdergalleryResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.ordergallery.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_ip_ordergallery_ex_async(
+        self,
+        request: baasdt_models.ConfirmIpOrdergalleryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpOrdergalleryResponse:
+        """
+        Description: 版权方确认订单图库信息
+        Summary: 数字商品服务-IP授权服务-订单图库确认
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpOrdergalleryResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.ordergallery.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_ip_authtrade(
+        self,
+        request: baasdt_models.ConfirmIpAuthtradeRequest,
+    ) -> baasdt_models.ConfirmIpAuthtradeResponse:
+        """
+        Description: 审批IP定向授权交易
+        Summary: 数字商品服务-IP授权服务-审批定向授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_ip_authtrade_ex(request, headers, runtime)
+
+    async def confirm_ip_authtrade_async(
+        self,
+        request: baasdt_models.ConfirmIpAuthtradeRequest,
+    ) -> baasdt_models.ConfirmIpAuthtradeResponse:
+        """
+        Description: 审批IP定向授权交易
+        Summary: 数字商品服务-IP授权服务-审批定向授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_ip_authtrade_ex_async(request, headers, runtime)
+
+    def confirm_ip_authtrade_ex(
+        self,
+        request: baasdt_models.ConfirmIpAuthtradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpAuthtradeResponse:
+        """
+        Description: 审批IP定向授权交易
+        Summary: 数字商品服务-IP授权服务-审批定向授权
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpAuthtradeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.authtrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_ip_authtrade_ex_async(
+        self,
+        request: baasdt_models.ConfirmIpAuthtradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpAuthtradeResponse:
+        """
+        Description: 审批IP定向授权交易
+        Summary: 数字商品服务-IP授权服务-审批定向授权
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpAuthtradeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_ip_packagetrade(
+        self,
+        request: baasdt_models.ConfirmIpPackagetradeRequest,
+    ) -> baasdt_models.ConfirmIpPackagetradeResponse:
+        """
+        Description: 审核套餐授权申请
+        Summary: 数字商品服务-IP授权服务-审批套餐授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_ip_packagetrade_ex(request, headers, runtime)
+
+    async def confirm_ip_packagetrade_async(
+        self,
+        request: baasdt_models.ConfirmIpPackagetradeRequest,
+    ) -> baasdt_models.ConfirmIpPackagetradeResponse:
+        """
+        Description: 审核套餐授权申请
+        Summary: 数字商品服务-IP授权服务-审批套餐授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_ip_packagetrade_ex_async(request, headers, runtime)
+
+    def confirm_ip_packagetrade_ex(
+        self,
+        request: baasdt_models.ConfirmIpPackagetradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpPackagetradeResponse:
+        """
+        Description: 审核套餐授权申请
+        Summary: 数字商品服务-IP授权服务-审批套餐授权
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpPackagetradeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.packagetrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_ip_packagetrade_ex_async(
+        self,
+        request: baasdt_models.ConfirmIpPackagetradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ConfirmIpPackagetradeResponse:
+        """
+        Description: 审核套餐授权申请
+        Summary: 数字商品服务-IP授权服务-审批套餐授权
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ConfirmIpPackagetradeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_ip_packagetrade(
+        self,
+        request: baasdt_models.ApplyIpPackagetradeRequest,
+    ) -> baasdt_models.ApplyIpPackagetradeResponse:
+        """
+        Description: 商家申请套餐交易
+        Summary: 数字商品服务-IP授权服务-申请套餐交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_ip_packagetrade_ex(request, headers, runtime)
+
+    async def apply_ip_packagetrade_async(
+        self,
+        request: baasdt_models.ApplyIpPackagetradeRequest,
+    ) -> baasdt_models.ApplyIpPackagetradeResponse:
+        """
+        Description: 商家申请套餐交易
+        Summary: 数字商品服务-IP授权服务-申请套餐交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_ip_packagetrade_ex_async(request, headers, runtime)
+
+    def apply_ip_packagetrade_ex(
+        self,
+        request: baasdt_models.ApplyIpPackagetradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpPackagetradeResponse:
+        """
+        Description: 商家申请套餐交易
+        Summary: 数字商品服务-IP授权服务-申请套餐交易
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpPackagetradeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.packagetrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_ip_packagetrade_ex_async(
+        self,
+        request: baasdt_models.ApplyIpPackagetradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpPackagetradeResponse:
+        """
+        Description: 商家申请套餐交易
+        Summary: 数字商品服务-IP授权服务-申请套餐交易
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpPackagetradeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_ip_authtrade(
+        self,
+        request: baasdt_models.ApplyIpAuthtradeRequest,
+    ) -> baasdt_models.ApplyIpAuthtradeResponse:
+        """
+        Description: 版权方申请授权交易
+        Summary: 数字商品服务-IP授权服务-申请授权交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_ip_authtrade_ex(request, headers, runtime)
+
+    async def apply_ip_authtrade_async(
+        self,
+        request: baasdt_models.ApplyIpAuthtradeRequest,
+    ) -> baasdt_models.ApplyIpAuthtradeResponse:
+        """
+        Description: 版权方申请授权交易
+        Summary: 数字商品服务-IP授权服务-申请授权交易
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_ip_authtrade_ex_async(request, headers, runtime)
+
+    def apply_ip_authtrade_ex(
+        self,
+        request: baasdt_models.ApplyIpAuthtradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpAuthtradeResponse:
+        """
+        Description: 版权方申请授权交易
+        Summary: 数字商品服务-IP授权服务-申请授权交易
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpAuthtradeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.authtrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_ip_authtrade_ex_async(
+        self,
+        request: baasdt_models.ApplyIpAuthtradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.ApplyIpAuthtradeResponse:
+        """
+        Description: 版权方申请授权交易
+        Summary: 数字商品服务-IP授权服务-申请授权交易
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.ApplyIpAuthtradeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_codeinfo(
+        self,
+        request: baasdt_models.QueryIpCodeinfoRequest,
+    ) -> baasdt_models.QueryIpCodeinfoResponse:
+        """
+        Description: 查询正版码的配置信息
+        Summary: 数字商品服务-IP授权服务-查正版码配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_codeinfo_ex(request, headers, runtime)
+
+    async def query_ip_codeinfo_async(
+        self,
+        request: baasdt_models.QueryIpCodeinfoRequest,
+    ) -> baasdt_models.QueryIpCodeinfoResponse:
+        """
+        Description: 查询正版码的配置信息
+        Summary: 数字商品服务-IP授权服务-查正版码配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_codeinfo_ex_async(request, headers, runtime)
+
+    def query_ip_codeinfo_ex(
+        self,
+        request: baasdt_models.QueryIpCodeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpCodeinfoResponse:
+        """
+        Description: 查询正版码的配置信息
+        Summary: 数字商品服务-IP授权服务-查正版码配置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpCodeinfoResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.codeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_codeinfo_ex_async(
+        self,
+        request: baasdt_models.QueryIpCodeinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpCodeinfoResponse:
+        """
+        Description: 查询正版码的配置信息
+        Summary: 数字商品服务-IP授权服务-查正版码配置
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpCodeinfoResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.codeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_ip_approvalwithupdate(
+        self,
+        request: baasdt_models.BatchqueryIpApprovalwithupdateRequest,
+    ) -> baasdt_models.BatchqueryIpApprovalwithupdateResponse:
+        """
+        Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+        Summary: ip审批信息批量查询（带上更新信息）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_ip_approvalwithupdate_ex(request, headers, runtime)
+
+    async def batchquery_ip_approvalwithupdate_async(
+        self,
+        request: baasdt_models.BatchqueryIpApprovalwithupdateRequest,
+    ) -> baasdt_models.BatchqueryIpApprovalwithupdateResponse:
+        """
+        Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+        Summary: ip审批信息批量查询（带上更新信息）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_ip_approvalwithupdate_ex_async(request, headers, runtime)
+
+    def batchquery_ip_approvalwithupdate_ex(
+        self,
+        request: baasdt_models.BatchqueryIpApprovalwithupdateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.BatchqueryIpApprovalwithupdateResponse:
+        """
+        Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+        Summary: ip审批信息批量查询（带上更新信息）
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.BatchqueryIpApprovalwithupdateResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_ip_approvalwithupdate_ex_async(
+        self,
+        request: baasdt_models.BatchqueryIpApprovalwithupdateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.BatchqueryIpApprovalwithupdateResponse:
+        """
+        Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+        Summary: ip审批信息批量查询（带上更新信息）
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.BatchqueryIpApprovalwithupdateResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
