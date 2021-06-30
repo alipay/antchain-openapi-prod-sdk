@@ -38,6 +38,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? Role { get; set; }
 
+        // 商户合作伙伴id，邀请商户入驻
+        [NameInMap("inviter_id")]
+        [Validation(Required=false)]
+        public string InviterId { get; set; }
+
+        // 商户合作伙伴返佣政策id
+        [NameInMap("policy_id")]
+        [Validation(Required=false)]
+        public string PolicyId { get; set; }
+
     }
 
 }

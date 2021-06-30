@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpDetailRequest : TeaModel {
+    public class QueryIpGoodsgalleryRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础字段
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip的链上id列表
-        [NameInMap("ip_ids")]
+        // 账户链上ID
+        [NameInMap("account_id")]
         [Validation(Required=true)]
-        public List<string> IpIds { get; set; }
+        public string AccountId { get; set; }
 
-        // 查找不到的ip是否报错，默认false，会报错
-        [NameInMap("skip_not_found_ip")]
+        // IP链上ID，只有版权方可以根据IPID查询图库信息
+        [NameInMap("ip_id")]
         [Validation(Required=false)]
-        public bool? SkipNotFoundIp { get; set; }
+        public string IpId { get; set; }
+
+        // IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
+        [NameInMap("ip_order_id")]
+        [Validation(Required=false)]
+        public string IpOrderId { get; set; }
 
     }
 

@@ -25,6 +25,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string UserName { get; set; }
 
+        // 用户头像地址
+        [NameInMap("avatar")]
+        [Validation(Required=true)]
+        public string Avatar { get; set; }
+
         // 用户的手机号
         [NameInMap("phone_number")]
         [Validation(Required=false)]
@@ -49,6 +54,16 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("order_id")]
         [Validation(Required=true)]
         public string OrderId { get; set; }
+
+        // 正版码商品信息配置列表
+        [NameInMap("goods_info_list")]
+        [Validation(Required=false)]
+        public List<IPCodeGoodsInfo> GoodsInfoList { get; set; }
+
+        // 正版码资源位配置信息列表
+        [NameInMap("ad_info_list")]
+        [Validation(Required=false)]
+        public List<IPCodeAdvertisingInfo> AdInfoList { get; set; }
 
     }
 

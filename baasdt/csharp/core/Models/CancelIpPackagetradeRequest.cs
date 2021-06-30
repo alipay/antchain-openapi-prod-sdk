@@ -28,7 +28,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string IpOrderId { get; set; }
 
-        // IP套餐交易买方的链上账户ID
+        // IP交易发起方的链上账户ID
         [NameInMap("account_id")]
         [Validation(Required=true)]
         public string AccountId { get; set; }

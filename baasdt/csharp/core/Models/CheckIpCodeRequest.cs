@@ -48,6 +48,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string Gps { get; set; }
 
+        // 用户头像地址
+        [NameInMap("avatar")]
+        [Validation(Required=true)]
+        public string Avatar { get; set; }
+
     }
 
 }

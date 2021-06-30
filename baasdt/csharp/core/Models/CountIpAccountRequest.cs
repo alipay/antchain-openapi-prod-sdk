@@ -18,6 +18,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 基础参数
+        [NameInMap("base_request")]
+        [Validation(Required=true)]
+        public BaseRequestInfo BaseRequest { get; set; }
+
         // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
         [NameInMap("chain_id")]
         [Validation(Required=false)]

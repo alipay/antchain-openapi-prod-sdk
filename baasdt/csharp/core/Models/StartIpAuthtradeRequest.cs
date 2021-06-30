@@ -28,7 +28,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string AccountId { get; set; }
 
-        // IP ID
+        // IP授权交易时传入IP ID；增值服务交易时传入服务ID
         [NameInMap("ip_id")]
         [Validation(Required=true)]
         public string IpId { get; set; }
@@ -60,7 +60,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 合同（文件URL）
         [NameInMap("contract")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Contract { get; set; }
 
         // 设计稿（文件URL）

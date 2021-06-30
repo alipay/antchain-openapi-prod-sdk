@@ -196,6 +196,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public bool? SuperviseApprove { get; set; }
 
+        // 订单图库信息，未确认则为空
+        [NameInMap("ip_gallery_url")]
+        [Validation(Required=false)]
+        public string IpGalleryUrl { get; set; }
+
     }
 
 }

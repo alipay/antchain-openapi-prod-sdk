@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class ReceiveIpCodeRequest : TeaModel {
+    public class PagequeryIpGalleryinstructionRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,35 +23,30 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 正版码的编码
-        [NameInMap("code")]
+        // 账户链上ID
+        [NameInMap("account_id")]
         [Validation(Required=true)]
-        public string Code { get; set; }
+        public string AccountId { get; set; }
 
-        // 领取用户的ID
-        [NameInMap("user_id")]
+        // 授权订单ID
+        [NameInMap("ip_order_id")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
+        public string IpOrderId { get; set; }
 
-        // 领取用户的名称
-        [NameInMap("user_name")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=true)]
-        public string UserName { get; set; }
+        public long? PageNumber { get; set; }
 
-        // 领取用户的手机号
-        [NameInMap("phone_number")]
-        [Validation(Required=false)]
-        public string PhoneNumber { get; set; }
-
-        // 领取用户的位置信息
-        [NameInMap("gps")]
-        [Validation(Required=false)]
-        public string Gps { get; set; }
-
-        // 用户头像地址
-        [NameInMap("avatar")]
+        // 每页数据量大小
+        [NameInMap("page_size")]
         [Validation(Required=true)]
-        public string Avatar { get; set; }
+        public long? PageSize { get; set; }
+
+        // 数据排序顺序：正序还是倒序。默认按照下载时间排序。
+        [NameInMap("order")]
+        [Validation(Required=true)]
+        public string Order { get; set; }
 
     }
 

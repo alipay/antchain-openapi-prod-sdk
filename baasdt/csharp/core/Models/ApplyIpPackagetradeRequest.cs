@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class StartIpPackagetradeRequest : TeaModel {
+    public class ApplyIpPackagetradeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础请求参数
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }

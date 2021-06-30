@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class StartIpPackagetradeRequest : TeaModel {
+    public class ApplyIpAuthtradeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,7 +23,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 买方的链上账户Id
+        // 采购者的链上账户Id
         [NameInMap("account_id")]
         [Validation(Required=true)]
         public string AccountId { get; set; }
@@ -33,25 +33,20 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string IpId { get; set; }
 
-        // true 只上链不走真实支付，false 上链并链下真实支付账单
-        [NameInMap("only_call_blockchain")]
-        [Validation(Required=true)]
-        public bool? OnlyCallBlockchain { get; set; }
+        // 收费模式：0 销售抽佣, 1 按量付费
+        [NameInMap("charge_type")]
+        [Validation(Required=false)]
+        public long? ChargeType { get; set; }
 
-        // 终端商品价格区间
-        [NameInMap("price_range")]
-        [Validation(Required=true)]
-        public string PriceRange { get; set; }
+        // 授权计费比例
+        [NameInMap("auth_rate")]
+        [Validation(Required=false)]
+        public string AuthRate { get; set; }
 
-        // 套餐中包含终端商品数量
-        [NameInMap("amount")]
-        [Validation(Required=true)]
-        public long? Amount { get; set; }
-
-        // 套餐交易应付金额，单位元，保留两位小数
-        [NameInMap("expected_total_price")]
-        [Validation(Required=true)]
-        public string ExpectedTotalPrice { get; set; }
+        // 按量付费的收费单价（按量付费模式必填）
+        [NameInMap("auth_price")]
+        [Validation(Required=false)]
+        public string AuthPrice { get; set; }
 
         // 授权合作开始期限（毫秒时间戳）
         [NameInMap("auth_begin_time")]
@@ -63,10 +58,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? AuthEndTime { get; set; }
 
-        // 备注信息
-        [NameInMap("memo")]
-        [Validation(Required=true)]
-        public string Memo { get; set; }
+        // 合同（文件URL）
+        [NameInMap("contract")]
+        [Validation(Required=false)]
+        public string Contract { get; set; }
+
+        // 设计稿（文件URL）
+        [NameInMap("design_draft")]
+        [Validation(Required=false)]
+        public string DesignDraft { get; set; }
 
         // 授权产品范围
         [NameInMap("auth_product_scope")]
@@ -82,6 +82,31 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("sales_channel")]
         [Validation(Required=false)]
         public string SalesChannel { get; set; }
+
+        // 备注消息(不超过256个字符)
+        [NameInMap("memo")]
+        [Validation(Required=true)]
+        public string Memo { get; set; }
+
+        // 是否有保底金
+        [NameInMap("guaranteed")]
+        [Validation(Required=true)]
+        public bool? Guaranteed { get; set; }
+
+        // 支付的保底金金额
+        [NameInMap("guaranteed_fund")]
+        [Validation(Required=false)]
+        public string GuaranteedFund { get; set; }
+
+        // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+        [NameInMap("guaranteed_goods_amount")]
+        [Validation(Required=false)]
+        public long? GuaranteedGoodsAmount { get; set; }
+
+        // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+        [NameInMap("guaranteed_sales")]
+        [Validation(Required=false)]
+        public string GuaranteedSales { get; set; }
 
         // 0 IP交易，1 增值服务交易
         [NameInMap("goods_type")]

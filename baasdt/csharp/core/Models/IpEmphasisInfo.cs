@@ -70,6 +70,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? LastStateChangeTime { get; set; }
 
+        // ip的创建渠道，按照查询参数返回
+        [NameInMap("creater_channel")]
+        [Validation(Required=false)]
+        public string CreaterChannel { get; set; }
+
     }
 
 }

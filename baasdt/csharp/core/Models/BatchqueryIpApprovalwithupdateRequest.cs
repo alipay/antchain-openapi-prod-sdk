@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class BatchqueryIpGoodsRequest : TeaModel {
+    public class BatchqueryIpApprovalwithupdateRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,42 +18,37 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础信息
+        // 基础字段
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // ip名称，支持模糊匹配
+        // ip名称
         [NameInMap("ip_name")]
         [Validation(Required=false)]
         public string IpName { get; set; }
 
-        // 商品状态（0:待上架，1:上架，2:下架）
-        [NameInMap("status")]
+        // ip的id
+        [NameInMap("ip_id")]
         [Validation(Required=false)]
-        public long? Status { get; set; }
+        public string IpId { get; set; }
 
-        // ip的上架渠道
-        [NameInMap("channel_name")]
-        [Validation(Required=true)]
-        public string ChannelName { get; set; }
+        // ip审批状态 0待审批，1 审批通过，2 审批拒绝
+        [NameInMap("approval_status")]
+        [Validation(Required=false)]
+        public long? ApprovalStatus { get; set; }
 
-        // 分页大小
+        // 分页
         [NameInMap("page_size")]
         [Validation(Required=true)]
         public long? PageSize { get; set; }
 
-        // 分页索引
+        // 分页
         [NameInMap("page_index")]
         [Validation(Required=true)]
         public long? PageIndex { get; set; }
 
-        // ip商品归属方的链上id
-        [NameInMap("account_id")]
-        [Validation(Required=false)]
-        public string AccountId { get; set; }
-
-        // Ip类型
+        // ip类型
         [NameInMap("ip_type")]
         [Validation(Required=false)]
         public string IpType { get; set; }
@@ -63,35 +58,26 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AudienceGroup { get; set; }
 
-        // 上架日期开始时间
+        // 开始时间
         [NameInMap("create_begin_time")]
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CreateBeginTime { get; set; }
 
-        // 创建的结束日期
+        // 结束时间
         [NameInMap("create_end_time")]
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CreateEndTime { get; set; }
 
+        // 商品的链上租户id	
+        [NameInMap("account_id")]
+        [Validation(Required=false)]
+        public string AccountId { get; set; }
+
         // 是否需要按照创建时间倒序排序
+        // 
         [NameInMap("is_create_time_sort_desc")]
         [Validation(Required=true)]
         public bool? IsCreateTimeSortDesc { get; set; }
-
-        // 是否需要按照pv排序（0:不需要，1:正序，2:倒序），默认按照pv倒序
-        [NameInMap("is_sort_by_pv")]
-        [Validation(Required=false)]
-        public long? IsSortByPv { get; set; }
-
-        // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
-        [NameInMap("is_sort_by_status_change")]
-        [Validation(Required=false)]
-        public long? IsSortByStatusChange { get; set; }
-
-        // 是否需要返回创建渠道，为空默认不返回
-        [NameInMap("query_creater_channel")]
-        [Validation(Required=false)]
-        public bool? QueryCreaterChannel { get; set; }
 
     }
 

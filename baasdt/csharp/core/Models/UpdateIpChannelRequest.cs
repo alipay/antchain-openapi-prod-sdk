@@ -48,6 +48,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? IpLevel { get; set; }
 
+        // 交易是否需要确认，为空则不更新
+        [NameInMap("trade_need_confirm")]
+        [Validation(Required=false)]
+        public bool? TradeNeedConfirm { get; set; }
+
     }
 
 }

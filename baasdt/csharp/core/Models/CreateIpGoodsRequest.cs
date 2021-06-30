@@ -126,6 +126,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? CopyRightEndTime { get; set; }
 
+        // IP图库链接
+        [NameInMap("ip_gallery_url")]
+        [Validation(Required=false)]
+        public string IpGalleryUrl { get; set; }
+
     }
 
 }
