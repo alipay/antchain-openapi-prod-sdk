@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartIpAuthtradeRequest extends Model
+class ApplyIpAuthtradeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class StartIpAuthtradeRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求参数
+    // 基础请求参数
     /**
      * @var BaseRequestInfo
      */
@@ -260,7 +260,7 @@ class StartIpAuthtradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return StartIpAuthtradeRequest
+     * @return ApplyIpAuthtradeRequest
      */
     public static function fromMap($map = [])
     {

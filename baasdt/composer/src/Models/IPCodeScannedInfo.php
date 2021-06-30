@@ -32,6 +32,14 @@ class IPCodeScannedInfo extends Model
      */
     public $userName;
 
+    // 用户头像地址
+    /**
+     * @example 用户头像地址
+     *
+     * @var string
+     */
+    public $avatar;
+
     // 用户的手机号
     /**
      * @example 13291887615
@@ -71,15 +79,34 @@ class IPCodeScannedInfo extends Model
      * @var string
      */
     public $orderId;
+
+    // 正版码商品信息配置列表
+    /**
+     * @example
+     *
+     * @var IPCodeGoodsInfo[]
+     */
+    public $goodsInfoList;
+
+    // 正版码资源位配置信息列表
+    /**
+     * @example
+     *
+     * @var IPCodeAdvertisingInfo[]
+     */
+    public $adInfoList;
     protected $_name = [
-        'ipCode'      => 'ip_code',
-        'userId'      => 'user_id',
-        'userName'    => 'user_name',
-        'phoneNumber' => 'phone_number',
-        'gps'         => 'gps',
-        'timestamp'   => 'timestamp',
-        'ipId'        => 'ip_id',
-        'orderId'     => 'order_id',
+        'ipCode'        => 'ip_code',
+        'userId'        => 'user_id',
+        'userName'      => 'user_name',
+        'avatar'        => 'avatar',
+        'phoneNumber'   => 'phone_number',
+        'gps'           => 'gps',
+        'timestamp'     => 'timestamp',
+        'ipId'          => 'ip_id',
+        'orderId'       => 'order_id',
+        'goodsInfoList' => 'goods_info_list',
+        'adInfoList'    => 'ad_info_list',
     ];
 
     public function validate()
@@ -87,6 +114,7 @@ class IPCodeScannedInfo extends Model
         Model::validateRequired('ipCode', $this->ipCode, true);
         Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('userName', $this->userName, true);
+        Model::validateRequired('avatar', $this->avatar, true);
         Model::validateRequired('timestamp', $this->timestamp, true);
         Model::validateRequired('ipId', $this->ipId, true);
         Model::validateRequired('orderId', $this->orderId, true);
@@ -104,6 +132,9 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
         }
+        if (null !== $this->avatar) {
+            $res['avatar'] = $this->avatar;
+        }
         if (null !== $this->phoneNumber) {
             $res['phone_number'] = $this->phoneNumber;
         }
@@ -118,6 +149,24 @@ class IPCodeScannedInfo extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->goodsInfoList) {
+            $res['goods_info_list'] = [];
+            if (null !== $this->goodsInfoList && \is_array($this->goodsInfoList)) {
+                $n = 0;
+                foreach ($this->goodsInfoList as $item) {
+                    $res['goods_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->adInfoList) {
+            $res['ad_info_list'] = [];
+            if (null !== $this->adInfoList && \is_array($this->adInfoList)) {
+                $n = 0;
+                foreach ($this->adInfoList as $item) {
+                    $res['ad_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -140,6 +189,9 @@ class IPCodeScannedInfo extends Model
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
         }
+        if (isset($map['avatar'])) {
+            $model->avatar = $map['avatar'];
+        }
         if (isset($map['phone_number'])) {
             $model->phoneNumber = $map['phone_number'];
         }
@@ -154,6 +206,24 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['goods_info_list'])) {
+            if (!empty($map['goods_info_list'])) {
+                $model->goodsInfoList = [];
+                $n                    = 0;
+                foreach ($map['goods_info_list'] as $item) {
+                    $model->goodsInfoList[$n++] = null !== $item ? IPCodeGoodsInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['ad_info_list'])) {
+            if (!empty($map['ad_info_list'])) {
+                $model->adInfoList = [];
+                $n                 = 0;
+                foreach ($map['ad_info_list'] as $item) {
+                    $model->adInfoList[$n++] = null !== $item ? IPCodeAdvertisingInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

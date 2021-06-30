@@ -19,6 +19,12 @@ class CountIpAccountRequest extends Model
      */
     public $productInstanceId;
 
+    // 基础参数
+    /**
+     * @var BaseRequestInfo
+     */
+    public $baseRequest;
+
     // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
     /**
      * @var string
@@ -33,12 +39,14 @@ class CountIpAccountRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'baseRequest'       => 'base_request',
         'chainId'           => 'chain_id',
         'productCode'       => 'product_code',
     ];
 
     public function validate()
     {
+        Model::validateRequired('baseRequest', $this->baseRequest, true);
     }
 
     public function toMap()
@@ -49,6 +57,9 @@ class CountIpAccountRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->baseRequest) {
+            $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
         if (null !== $this->chainId) {
             $res['chain_id'] = $this->chainId;
@@ -73,6 +84,9 @@ class CountIpAccountRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['base_request'])) {
+            $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
         if (isset($map['chain_id'])) {
             $model->chainId = $map['chain_id'];

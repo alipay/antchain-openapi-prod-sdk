@@ -103,6 +103,14 @@ class IpEmphasisInfo extends Model
      * @var int
      */
     public $lastStateChangeTime;
+
+    // ip的创建渠道，按照查询参数返回
+    /**
+     * @example IPMark
+     *
+     * @var string
+     */
+    public $createrChannel;
     protected $_name = [
         'ipId'                => 'ip_id',
         'description'         => 'description',
@@ -116,6 +124,7 @@ class IpEmphasisInfo extends Model
         'accountName'         => 'account_name',
         'pv'                  => 'pv',
         'lastStateChangeTime' => 'last_state_change_time',
+        'createrChannel'      => 'creater_channel',
     ];
 
     public function validate()
@@ -171,6 +180,9 @@ class IpEmphasisInfo extends Model
         if (null !== $this->lastStateChangeTime) {
             $res['last_state_change_time'] = $this->lastStateChangeTime;
         }
+        if (null !== $this->createrChannel) {
+            $res['creater_channel'] = $this->createrChannel;
+        }
 
         return $res;
     }
@@ -218,6 +230,9 @@ class IpEmphasisInfo extends Model
         }
         if (isset($map['last_state_change_time'])) {
             $model->lastStateChangeTime = $map['last_state_change_time'];
+        }
+        if (isset($map['creater_channel'])) {
+            $model->createrChannel = $map['creater_channel'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateIpAccountRequest extends Model
+class PagequeryIpGalleryinstructionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,58 +19,60 @@ class CreateIpAccountRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 该用户的在外部系统的用户Id
+    // 账户链上ID
     /**
      * @var string
      */
-    public $externalUserId;
+    public $accountId;
 
-    // 该用户的在外部系统的用户名称
+    // 授权订单ID
     /**
      * @var string
      */
-    public $externalUserName;
+    public $ipOrderId;
 
-    // 角色:  1:版权方 2: 版权采购商
+    // 页码
     /**
      * @var int
      */
-    public $role;
+    public $pageNumber;
 
-    // 商户合作伙伴id，邀请商户入驻
+    // 每页数据量大小
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 数据排序顺序：正序还是倒序。默认按照下载时间排序。
     /**
      * @var string
      */
-    public $inviterId;
-
-    // 商户合作伙伴返佣政策id
-    /**
-     * @var string
-     */
-    public $policyId;
+    public $order;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'externalUserId'    => 'external_user_id',
-        'externalUserName'  => 'external_user_name',
-        'role'              => 'role',
-        'inviterId'         => 'inviter_id',
-        'policyId'          => 'policy_id',
+        'accountId'         => 'account_id',
+        'ipOrderId'         => 'ip_order_id',
+        'pageNumber'        => 'page_number',
+        'pageSize'          => 'page_size',
+        'order'             => 'order',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('externalUserId', $this->externalUserId, true);
-        Model::validateRequired('externalUserName', $this->externalUserName, true);
-        Model::validateRequired('role', $this->role, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
+        Model::validateRequired('pageNumber', $this->pageNumber, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('order', $this->order, true);
     }
 
     public function toMap()
@@ -85,20 +87,20 @@ class CreateIpAccountRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->externalUserId) {
-            $res['external_user_id'] = $this->externalUserId;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->externalUserName) {
-            $res['external_user_name'] = $this->externalUserName;
+        if (null !== $this->ipOrderId) {
+            $res['ip_order_id'] = $this->ipOrderId;
         }
-        if (null !== $this->role) {
-            $res['role'] = $this->role;
+        if (null !== $this->pageNumber) {
+            $res['page_number'] = $this->pageNumber;
         }
-        if (null !== $this->inviterId) {
-            $res['inviter_id'] = $this->inviterId;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->policyId) {
-            $res['policy_id'] = $this->policyId;
+        if (null !== $this->order) {
+            $res['order'] = $this->order;
         }
 
         return $res;
@@ -107,7 +109,7 @@ class CreateIpAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateIpAccountRequest
+     * @return PagequeryIpGalleryinstructionRequest
      */
     public static function fromMap($map = [])
     {
@@ -121,20 +123,20 @@ class CreateIpAccountRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['external_user_id'])) {
-            $model->externalUserId = $map['external_user_id'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
-        if (isset($map['external_user_name'])) {
-            $model->externalUserName = $map['external_user_name'];
+        if (isset($map['ip_order_id'])) {
+            $model->ipOrderId = $map['ip_order_id'];
         }
-        if (isset($map['role'])) {
-            $model->role = $map['role'];
+        if (isset($map['page_number'])) {
+            $model->pageNumber = $map['page_number'];
         }
-        if (isset($map['inviter_id'])) {
-            $model->inviterId = $map['inviter_id'];
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
-        if (isset($map['policy_id'])) {
-            $model->policyId = $map['policy_id'];
+        if (isset($map['order'])) {
+            $model->order = $map['order'];
         }
 
         return $model;

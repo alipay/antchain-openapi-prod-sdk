@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartIpAuthtradeRequest extends Model
+class ApplyIpPackagetradeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,13 @@ class StartIpAuthtradeRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求参数
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 采购者的链上账户Id
+    // 买方的链上账户Id
     /**
      * @var string
      */
@@ -37,23 +37,29 @@ class StartIpAuthtradeRequest extends Model
      */
     public $ipId;
 
-    // 收费模式：0 销售抽佣, 1 按量付费
+    // true 只上链不走真实支付，false 上链并链下真实支付账单
+    /**
+     * @var bool
+     */
+    public $onlyCallBlockchain;
+
+    // 终端商品价格区间
+    /**
+     * @var string
+     */
+    public $priceRange;
+
+    // 套餐中包含终端商品数量
     /**
      * @var int
      */
-    public $chargeType;
+    public $amount;
 
-    // 授权计费比例
+    // 套餐交易应付金额，单位元，保留两位小数
     /**
      * @var string
      */
-    public $authRate;
-
-    // 按量付费的收费单价（按量付费模式必填）
-    /**
-     * @var string
-     */
-    public $authPrice;
+    public $expectedTotalPrice;
 
     // 授权合作开始期限（毫秒时间戳）
     /**
@@ -67,17 +73,11 @@ class StartIpAuthtradeRequest extends Model
      */
     public $authEndTime;
 
-    // 合同（文件URL）
+    // 备注信息
     /**
      * @var string
      */
-    public $contract;
-
-    // 设计稿（文件URL）
-    /**
-     * @var string
-     */
-    public $designDraft;
+    public $memo;
 
     // 授权产品范围
     /**
@@ -97,36 +97,6 @@ class StartIpAuthtradeRequest extends Model
      */
     public $salesChannel;
 
-    // 备注消息(不超过256个字符)
-    /**
-     * @var string
-     */
-    public $memo;
-
-    // 是否有保底金
-    /**
-     * @var bool
-     */
-    public $guaranteed;
-
-    // 支付的保底金金额
-    /**
-     * @var string
-     */
-    public $guaranteedFund;
-
-    // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
-    /**
-     * @var int
-     */
-    public $guaranteedGoodsAmount;
-
-    // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
-    /**
-     * @var string
-     */
-    public $guaranteedSales;
-
     // 0 IP交易，1 增值服务交易
     /**
      * @var int
@@ -145,29 +115,24 @@ class StartIpAuthtradeRequest extends Model
      */
     public $payReturnUrl;
     protected $_name = [
-        'authToken'             => 'auth_token',
-        'productInstanceId'     => 'product_instance_id',
-        'baseRequest'           => 'base_request',
-        'accountId'             => 'account_id',
-        'ipId'                  => 'ip_id',
-        'chargeType'            => 'charge_type',
-        'authRate'              => 'auth_rate',
-        'authPrice'             => 'auth_price',
-        'authBeginTime'         => 'auth_begin_time',
-        'authEndTime'           => 'auth_end_time',
-        'contract'              => 'contract',
-        'designDraft'           => 'design_draft',
-        'authProductScope'      => 'auth_product_scope',
-        'authAreaScope'         => 'auth_area_scope',
-        'salesChannel'          => 'sales_channel',
-        'memo'                  => 'memo',
-        'guaranteed'            => 'guaranteed',
-        'guaranteedFund'        => 'guaranteed_fund',
-        'guaranteedGoodsAmount' => 'guaranteed_goods_amount',
-        'guaranteedSales'       => 'guaranteed_sales',
-        'goodsType'             => 'goods_type',
-        'relatedOrderId'        => 'related_order_id',
-        'payReturnUrl'          => 'pay_return_url',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'baseRequest'        => 'base_request',
+        'accountId'          => 'account_id',
+        'ipId'               => 'ip_id',
+        'onlyCallBlockchain' => 'only_call_blockchain',
+        'priceRange'         => 'price_range',
+        'amount'             => 'amount',
+        'expectedTotalPrice' => 'expected_total_price',
+        'authBeginTime'      => 'auth_begin_time',
+        'authEndTime'        => 'auth_end_time',
+        'memo'               => 'memo',
+        'authProductScope'   => 'auth_product_scope',
+        'authAreaScope'      => 'auth_area_scope',
+        'salesChannel'       => 'sales_channel',
+        'goodsType'          => 'goods_type',
+        'relatedOrderId'     => 'related_order_id',
+        'payReturnUrl'       => 'pay_return_url',
     ];
 
     public function validate()
@@ -175,10 +140,13 @@ class StartIpAuthtradeRequest extends Model
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('ipId', $this->ipId, true);
+        Model::validateRequired('onlyCallBlockchain', $this->onlyCallBlockchain, true);
+        Model::validateRequired('priceRange', $this->priceRange, true);
+        Model::validateRequired('amount', $this->amount, true);
+        Model::validateRequired('expectedTotalPrice', $this->expectedTotalPrice, true);
         Model::validateRequired('authBeginTime', $this->authBeginTime, true);
         Model::validateRequired('authEndTime', $this->authEndTime, true);
         Model::validateRequired('memo', $this->memo, true);
-        Model::validateRequired('guaranteed', $this->guaranteed, true);
     }
 
     public function toMap()
@@ -199,14 +167,17 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->ipId) {
             $res['ip_id'] = $this->ipId;
         }
-        if (null !== $this->chargeType) {
-            $res['charge_type'] = $this->chargeType;
+        if (null !== $this->onlyCallBlockchain) {
+            $res['only_call_blockchain'] = $this->onlyCallBlockchain;
         }
-        if (null !== $this->authRate) {
-            $res['auth_rate'] = $this->authRate;
+        if (null !== $this->priceRange) {
+            $res['price_range'] = $this->priceRange;
         }
-        if (null !== $this->authPrice) {
-            $res['auth_price'] = $this->authPrice;
+        if (null !== $this->amount) {
+            $res['amount'] = $this->amount;
+        }
+        if (null !== $this->expectedTotalPrice) {
+            $res['expected_total_price'] = $this->expectedTotalPrice;
         }
         if (null !== $this->authBeginTime) {
             $res['auth_begin_time'] = $this->authBeginTime;
@@ -214,11 +185,8 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->authEndTime) {
             $res['auth_end_time'] = $this->authEndTime;
         }
-        if (null !== $this->contract) {
-            $res['contract'] = $this->contract;
-        }
-        if (null !== $this->designDraft) {
-            $res['design_draft'] = $this->designDraft;
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
         }
         if (null !== $this->authProductScope) {
             $res['auth_product_scope'] = $this->authProductScope;
@@ -228,21 +196,6 @@ class StartIpAuthtradeRequest extends Model
         }
         if (null !== $this->salesChannel) {
             $res['sales_channel'] = $this->salesChannel;
-        }
-        if (null !== $this->memo) {
-            $res['memo'] = $this->memo;
-        }
-        if (null !== $this->guaranteed) {
-            $res['guaranteed'] = $this->guaranteed;
-        }
-        if (null !== $this->guaranteedFund) {
-            $res['guaranteed_fund'] = $this->guaranteedFund;
-        }
-        if (null !== $this->guaranteedGoodsAmount) {
-            $res['guaranteed_goods_amount'] = $this->guaranteedGoodsAmount;
-        }
-        if (null !== $this->guaranteedSales) {
-            $res['guaranteed_sales'] = $this->guaranteedSales;
         }
         if (null !== $this->goodsType) {
             $res['goods_type'] = $this->goodsType;
@@ -260,7 +213,7 @@ class StartIpAuthtradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return StartIpAuthtradeRequest
+     * @return ApplyIpPackagetradeRequest
      */
     public static function fromMap($map = [])
     {
@@ -280,14 +233,17 @@ class StartIpAuthtradeRequest extends Model
         if (isset($map['ip_id'])) {
             $model->ipId = $map['ip_id'];
         }
-        if (isset($map['charge_type'])) {
-            $model->chargeType = $map['charge_type'];
+        if (isset($map['only_call_blockchain'])) {
+            $model->onlyCallBlockchain = $map['only_call_blockchain'];
         }
-        if (isset($map['auth_rate'])) {
-            $model->authRate = $map['auth_rate'];
+        if (isset($map['price_range'])) {
+            $model->priceRange = $map['price_range'];
         }
-        if (isset($map['auth_price'])) {
-            $model->authPrice = $map['auth_price'];
+        if (isset($map['amount'])) {
+            $model->amount = $map['amount'];
+        }
+        if (isset($map['expected_total_price'])) {
+            $model->expectedTotalPrice = $map['expected_total_price'];
         }
         if (isset($map['auth_begin_time'])) {
             $model->authBeginTime = $map['auth_begin_time'];
@@ -295,11 +251,8 @@ class StartIpAuthtradeRequest extends Model
         if (isset($map['auth_end_time'])) {
             $model->authEndTime = $map['auth_end_time'];
         }
-        if (isset($map['contract'])) {
-            $model->contract = $map['contract'];
-        }
-        if (isset($map['design_draft'])) {
-            $model->designDraft = $map['design_draft'];
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
         }
         if (isset($map['auth_product_scope'])) {
             $model->authProductScope = $map['auth_product_scope'];
@@ -309,21 +262,6 @@ class StartIpAuthtradeRequest extends Model
         }
         if (isset($map['sales_channel'])) {
             $model->salesChannel = $map['sales_channel'];
-        }
-        if (isset($map['memo'])) {
-            $model->memo = $map['memo'];
-        }
-        if (isset($map['guaranteed'])) {
-            $model->guaranteed = $map['guaranteed'];
-        }
-        if (isset($map['guaranteed_fund'])) {
-            $model->guaranteedFund = $map['guaranteed_fund'];
-        }
-        if (isset($map['guaranteed_goods_amount'])) {
-            $model->guaranteedGoodsAmount = $map['guaranteed_goods_amount'];
-        }
-        if (isset($map['guaranteed_sales'])) {
-            $model->guaranteedSales = $map['guaranteed_sales'];
         }
         if (isset($map['goods_type'])) {
             $model->goodsType = $map['goods_type'];

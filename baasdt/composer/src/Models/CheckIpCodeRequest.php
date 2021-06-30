@@ -54,6 +54,12 @@ class CheckIpCodeRequest extends Model
      * @var string
      */
     public $gps;
+
+    // 用户头像地址
+    /**
+     * @var string
+     */
+    public $avatar;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class CheckIpCodeRequest extends Model
         'userName'          => 'user_name',
         'phoneNumber'       => 'phone_number',
         'gps'               => 'gps',
+        'avatar'            => 'avatar',
     ];
 
     public function validate()
@@ -71,6 +78,7 @@ class CheckIpCodeRequest extends Model
         Model::validateRequired('code', $this->code, true);
         Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('userName', $this->userName, true);
+        Model::validateRequired('avatar', $this->avatar, true);
     }
 
     public function toMap()
@@ -99,6 +107,9 @@ class CheckIpCodeRequest extends Model
         }
         if (null !== $this->gps) {
             $res['gps'] = $this->gps;
+        }
+        if (null !== $this->avatar) {
+            $res['avatar'] = $this->avatar;
         }
 
         return $res;
@@ -135,6 +146,9 @@ class CheckIpCodeRequest extends Model
         }
         if (isset($map['gps'])) {
             $model->gps = $map['gps'];
+        }
+        if (isset($map['avatar'])) {
+            $model->avatar = $map['avatar'];
         }
 
         return $model;

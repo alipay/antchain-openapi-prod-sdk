@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpDetailRequest extends Model
+class ConfirmIpOrdergalleryRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,36 @@ class QueryIpDetailRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础字段
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // ip的链上id列表
+    // 版权方账户链上ID
     /**
-     * @var string[]
+     * @var string
      */
-    public $ipIds;
+    public $accountId;
 
-    // 查找不到的ip是否报错，默认false，会报错
+    // 授权订单ID
     /**
-     * @var bool
+     * @var string
      */
-    public $skipNotFoundIp;
+    public $ipOrderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipIds'             => 'ip_ids',
-        'skipNotFoundIp'    => 'skip_not_found_ip',
+        'accountId'         => 'account_id',
+        'ipOrderId'         => 'ip_order_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipIds', $this->ipIds, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
     }
 
     public function toMap()
@@ -62,11 +63,11 @@ class QueryIpDetailRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipIds) {
-            $res['ip_ids'] = $this->ipIds;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
-        if (null !== $this->skipNotFoundIp) {
-            $res['skip_not_found_ip'] = $this->skipNotFoundIp;
+        if (null !== $this->ipOrderId) {
+            $res['ip_order_id'] = $this->ipOrderId;
         }
 
         return $res;
@@ -75,7 +76,7 @@ class QueryIpDetailRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpDetailRequest
+     * @return ConfirmIpOrdergalleryRequest
      */
     public static function fromMap($map = [])
     {
@@ -89,13 +90,11 @@ class QueryIpDetailRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_ids'])) {
-            if (!empty($map['ip_ids'])) {
-                $model->ipIds = $map['ip_ids'];
-            }
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
-        if (isset($map['skip_not_found_ip'])) {
-            $model->skipNotFoundIp = $map['skip_not_found_ip'];
+        if (isset($map['ip_order_id'])) {
+            $model->ipOrderId = $map['ip_order_id'];
         }
 
         return $model;

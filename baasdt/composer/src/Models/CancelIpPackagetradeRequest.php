@@ -31,7 +31,7 @@ class CancelIpPackagetradeRequest extends Model
      */
     public $ipOrderId;
 
-    // IP套餐交易买方的链上账户ID
+    // IP交易发起方的链上账户ID
     /**
      * @var string
      */

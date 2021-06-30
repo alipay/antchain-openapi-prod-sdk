@@ -57,6 +57,14 @@ class IpChannelWithSku extends Model
      * @var int
      */
     public $status;
+
+    // 交易是否需要确认
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $tradeNeedConfirm;
     protected $_name = [
         'channelName'       => 'channel_name',
         'authorizationMode' => 'authorization_mode',
@@ -64,6 +72,7 @@ class IpChannelWithSku extends Model
         'ipLevel'           => 'ip_level',
         'skuInfo'           => 'sku_info',
         'status'            => 'status',
+        'tradeNeedConfirm'  => 'trade_need_confirm',
     ];
 
     public function validate()
@@ -103,6 +112,9 @@ class IpChannelWithSku extends Model
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
+        if (null !== $this->tradeNeedConfirm) {
+            $res['trade_need_confirm'] = $this->tradeNeedConfirm;
+        }
 
         return $res;
     }
@@ -138,6 +150,9 @@ class IpChannelWithSku extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['trade_need_confirm'])) {
+            $model->tradeNeedConfirm = $map['trade_need_confirm'];
         }
 
         return $model;

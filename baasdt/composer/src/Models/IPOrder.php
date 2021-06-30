@@ -304,6 +304,14 @@ class IPOrder extends Model
      * @var bool
      */
     public $superviseApprove;
+
+    // 订单图库信息，未确认则为空
+    /**
+     * @example oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip
+     *
+     * @var string
+     */
+    public $ipGalleryUrl;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -342,6 +350,7 @@ class IPOrder extends Model
         'goodsType'                 => 'goods_type',
         'relatedOrderId'            => 'related_order_id',
         'superviseApprove'          => 'supervise_approve',
+        'ipGalleryUrl'              => 'ip_gallery_url',
     ];
 
     public function validate()
@@ -499,6 +508,9 @@ class IPOrder extends Model
         if (null !== $this->superviseApprove) {
             $res['supervise_approve'] = $this->superviseApprove;
         }
+        if (null !== $this->ipGalleryUrl) {
+            $res['ip_gallery_url'] = $this->ipGalleryUrl;
+        }
 
         return $res;
     }
@@ -621,6 +633,9 @@ class IPOrder extends Model
         }
         if (isset($map['supervise_approve'])) {
             $model->superviseApprove = $map['supervise_approve'];
+        }
+        if (isset($map['ip_gallery_url'])) {
+            $model->ipGalleryUrl = $map['ip_gallery_url'];
         }
 
         return $model;

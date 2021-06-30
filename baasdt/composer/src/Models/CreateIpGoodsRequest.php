@@ -146,6 +146,12 @@ class CreateIpGoodsRequest extends Model
      * @var int
      */
     public $copyRightEndTime;
+
+    // IP图库链接
+    /**
+     * @var string
+     */
+    public $ipGalleryUrl;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -169,6 +175,7 @@ class CreateIpGoodsRequest extends Model
         'memo'               => 'memo',
         'copyRightBeginTime' => 'copy_right_begin_time',
         'copyRightEndTime'   => 'copy_right_end_time',
+        'ipGalleryUrl'       => 'ip_gallery_url',
     ];
 
     public function validate()
@@ -262,6 +269,9 @@ class CreateIpGoodsRequest extends Model
         if (null !== $this->copyRightEndTime) {
             $res['copy_right_end_time'] = $this->copyRightEndTime;
         }
+        if (null !== $this->ipGalleryUrl) {
+            $res['ip_gallery_url'] = $this->ipGalleryUrl;
+        }
 
         return $res;
     }
@@ -345,6 +355,9 @@ class CreateIpGoodsRequest extends Model
         }
         if (isset($map['copy_right_end_time'])) {
             $model->copyRightEndTime = $map['copy_right_end_time'];
+        }
+        if (isset($map['ip_gallery_url'])) {
+            $model->ipGalleryUrl = $map['ip_gallery_url'];
         }
 
         return $model;

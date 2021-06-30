@@ -31,7 +31,7 @@ class StartIpPackagetradeRequest extends Model
      */
     public $accountId;
 
-    // IP ID
+    // IP授权交易时传入IP ID；增值服务交易时传入服务ID
     /**
      * @var string
      */

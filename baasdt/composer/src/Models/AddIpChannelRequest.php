@@ -54,6 +54,12 @@ class AddIpChannelRequest extends Model
      * @var int
      */
     public $ipLevel;
+
+    // 交易是否需要确认，默认不需要确认
+    /**
+     * @var bool
+     */
+    public $tradeNeedConfirm;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -63,6 +69,7 @@ class AddIpChannelRequest extends Model
         'authorizationModel' => 'authorization_model',
         'payMode'            => 'pay_mode',
         'ipLevel'            => 'ip_level',
+        'tradeNeedConfirm'   => 'trade_need_confirm',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class AddIpChannelRequest extends Model
         if (null !== $this->ipLevel) {
             $res['ip_level'] = $this->ipLevel;
         }
+        if (null !== $this->tradeNeedConfirm) {
+            $res['trade_need_confirm'] = $this->tradeNeedConfirm;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class AddIpChannelRequest extends Model
         }
         if (isset($map['ip_level'])) {
             $model->ipLevel = $map['ip_level'];
+        }
+        if (isset($map['trade_need_confirm'])) {
+            $model->tradeNeedConfirm = $map['trade_need_confirm'];
         }
 
         return $model;

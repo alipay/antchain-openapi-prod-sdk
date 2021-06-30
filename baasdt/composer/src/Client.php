@@ -29,8 +29,12 @@ use AntChain\BAASDT\Models\ApplyExchangeAftersaleRequest;
 use AntChain\BAASDT\Models\ApplyExchangeAftersaleResponse;
 use AntChain\BAASDT\Models\ApplyIpAccountRequest;
 use AntChain\BAASDT\Models\ApplyIpAccountResponse;
+use AntChain\BAASDT\Models\ApplyIpAuthtradeRequest;
+use AntChain\BAASDT\Models\ApplyIpAuthtradeResponse;
 use AntChain\BAASDT\Models\ApplyIpCodeRequest;
 use AntChain\BAASDT\Models\ApplyIpCodeResponse;
+use AntChain\BAASDT\Models\ApplyIpPackagetradeRequest;
+use AntChain\BAASDT\Models\ApplyIpPackagetradeResponse;
 use AntChain\BAASDT\Models\AuthEquityMerchantuserpriceRequest;
 use AntChain\BAASDT\Models\AuthEquityMerchantuserpriceResponse;
 use AntChain\BAASDT\Models\AuthIpUserRequest;
@@ -43,6 +47,8 @@ use AntChain\BAASDT\Models\BatchqueryIpApprovalandchannelRequest;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalandchannelResponse;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalRequest;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalResponse;
+use AntChain\BAASDT\Models\BatchqueryIpApprovalwithupdateRequest;
+use AntChain\BAASDT\Models\BatchqueryIpApprovalwithupdateResponse;
 use AntChain\BAASDT\Models\BatchqueryIpGoodsRequest;
 use AntChain\BAASDT\Models\BatchqueryIpGoodsResponse;
 use AntChain\BAASDT\Models\BatchqueryIpSellerRequest;
@@ -75,8 +81,14 @@ use AntChain\BAASDT\Models\ConfirmExchangeRequest;
 use AntChain\BAASDT\Models\ConfirmExchangeResponse;
 use AntChain\BAASDT\Models\ConfirmIpAccountRequest;
 use AntChain\BAASDT\Models\ConfirmIpAccountResponse;
+use AntChain\BAASDT\Models\ConfirmIpAuthtradeRequest;
+use AntChain\BAASDT\Models\ConfirmIpAuthtradeResponse;
 use AntChain\BAASDT\Models\ConfirmIpGoodsRequest;
 use AntChain\BAASDT\Models\ConfirmIpGoodsResponse;
+use AntChain\BAASDT\Models\ConfirmIpOrdergalleryRequest;
+use AntChain\BAASDT\Models\ConfirmIpOrdergalleryResponse;
+use AntChain\BAASDT\Models\ConfirmIpPackagetradeRequest;
+use AntChain\BAASDT\Models\ConfirmIpPackagetradeResponse;
 use AntChain\BAASDT\Models\ConfirmIpSuperviseapproveRequest;
 use AntChain\BAASDT\Models\ConfirmIpSuperviseapproveResponse;
 use AntChain\BAASDT\Models\ConfirmIpUpdateapprovalRequest;
@@ -249,6 +261,8 @@ use AntChain\BAASDT\Models\PagequeryIpCodeinfoRequest;
 use AntChain\BAASDT\Models\PagequeryIpCodeinfoResponse;
 use AntChain\BAASDT\Models\PagequeryIpCodeRequest;
 use AntChain\BAASDT\Models\PagequeryIpCodeResponse;
+use AntChain\BAASDT\Models\PagequeryIpGalleryinstructionRequest;
+use AntChain\BAASDT\Models\PagequeryIpGalleryinstructionResponse;
 use AntChain\BAASDT\Models\PagequeryIpValueaddRequest;
 use AntChain\BAASDT\Models\PagequeryIpValueaddResponse;
 use AntChain\BAASDT\Models\PullIpAccountRequest;
@@ -341,12 +355,16 @@ use AntChain\BAASDT\Models\QueryIpAccountRequest;
 use AntChain\BAASDT\Models\QueryIpAccountResponse;
 use AntChain\BAASDT\Models\QueryIpBillstatusRequest;
 use AntChain\BAASDT\Models\QueryIpBillstatusResponse;
+use AntChain\BAASDT\Models\QueryIpCodeinfoRequest;
+use AntChain\BAASDT\Models\QueryIpCodeinfoResponse;
 use AntChain\BAASDT\Models\QueryIpCodeRequest;
 use AntChain\BAASDT\Models\QueryIpCodeResponse;
 use AntChain\BAASDT\Models\QueryIpDetailRequest;
 use AntChain\BAASDT\Models\QueryIpDetailResponse;
 use AntChain\BAASDT\Models\QueryIpGoodsdetailwithchannelRequest;
 use AntChain\BAASDT\Models\QueryIpGoodsdetailwithchannelResponse;
+use AntChain\BAASDT\Models\QueryIpGoodsgalleryRequest;
+use AntChain\BAASDT\Models\QueryIpGoodsgalleryResponse;
 use AntChain\BAASDT\Models\QueryIpGoodsupdateRequest;
 use AntChain\BAASDT\Models\QueryIpGoodsupdateResponse;
 use AntChain\BAASDT\Models\QueryIpMccRequest;
@@ -437,6 +455,8 @@ use AntChain\BAASDT\Models\SetConsumecardPurchaserefundRequest;
 use AntChain\BAASDT\Models\SetConsumecardPurchaserefundResponse;
 use AntChain\BAASDT\Models\SetConsumecardPurchasereplaceRequest;
 use AntChain\BAASDT\Models\SetConsumecardPurchasereplaceResponse;
+use AntChain\BAASDT\Models\SetIpCodeinfoRequest;
+use AntChain\BAASDT\Models\SetIpCodeinfoResponse;
 use AntChain\BAASDT\Models\SetIpSkuRequest;
 use AntChain\BAASDT\Models\SetIpSkuResponse;
 use AntChain\BAASDT\Models\SetIpValueaddskuRequest;
@@ -483,6 +503,8 @@ use AntChain\BAASDT\Models\UpdateEquityValidtimeRequest;
 use AntChain\BAASDT\Models\UpdateEquityValidtimeResponse;
 use AntChain\BAASDT\Models\UpdateIpChannelRequest;
 use AntChain\BAASDT\Models\UpdateIpChannelResponse;
+use AntChain\BAASDT\Models\UpdateIpGoodsgalleryRequest;
+use AntChain\BAASDT\Models\UpdateIpGoodsgalleryResponse;
 use AntChain\BAASDT\Models\UpdateIpGoodsRequest;
 use AntChain\BAASDT\Models\UpdateIpGoodsResponse;
 use AntChain\BAASDT\Models\UpdateIpValueaddRequest;
@@ -650,7 +672,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.43',
+                    'sdk_version'      => '1.2.53',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -6108,8 +6130,8 @@ class Client
     }
 
     /**
-     * Description: 买家取消套餐交易
-     * Summary: 数字商品服务-IP授权服务-取消套餐交易.
+     * Description: 交易发起方取消交易，包括套餐交易和定向授权
+     * Summary: 数字商品服务-IP授权服务-取消交易.
      *
      * @param CancelIpPackagetradeRequest $request
      *
@@ -6124,8 +6146,8 @@ class Client
     }
 
     /**
-     * Description: 买家取消套餐交易
-     * Summary: 数字商品服务-IP授权服务-取消套餐交易.
+     * Description: 交易发起方取消交易，包括套餐交易和定向授权
+     * Summary: 数字商品服务-IP授权服务-取消交易.
      *
      * @param CancelIpPackagetradeRequest $request
      * @param string[]                    $headers
@@ -6505,7 +6527,7 @@ class Client
 
     /**
      * Description: ip的所有信息 包括渠道和sku
-     * Summary: 数字商品服务-IP授权服务-查询所有信息.
+     * Summary: 数字商品服务-IP授权服务-IP详情查询.
      *
      * @param QueryIpDetailRequest $request
      *
@@ -6521,7 +6543,7 @@ class Client
 
     /**
      * Description: ip的所有信息 包括渠道和sku
-     * Summary: 数字商品服务-IP授权服务-查询所有信息.
+     * Summary: 数字商品服务-IP授权服务-IP详情查询.
      *
      * @param QueryIpDetailRequest $request
      * @param string[]             $headers
@@ -6604,7 +6626,7 @@ class Client
 
     /**
      * Description: ip上线
-     * Summary: 数字商品服务-IP授权服务-ip上线
+     * Summary: 数字商品服务-IP授权服务-上架.
      *
      * @param OnlineIpRequest $request
      *
@@ -6620,7 +6642,7 @@ class Client
 
     /**
      * Description: ip上线
-     * Summary: 数字商品服务-IP授权服务-ip上线
+     * Summary: 数字商品服务-IP授权服务-上架.
      *
      * @param OnlineIpRequest $request
      * @param string[]        $headers
@@ -6637,7 +6659,7 @@ class Client
 
     /**
      * Description: ip下线
-     * Summary: 数字商品服务-IP授权服务-下线
+     * Summary: 数字商品服务-IP授权服务-下架.
      *
      * @param OfflineIpRequest $request
      *
@@ -6653,7 +6675,7 @@ class Client
 
     /**
      * Description: ip下线
-     * Summary: 数字商品服务-IP授权服务-下线
+     * Summary: 数字商品服务-IP授权服务-下架.
      *
      * @param OfflineIpRequest $request
      * @param string[]         $headers
@@ -6670,7 +6692,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-     * Summary: 数字商品服务-IP授权交易服务-账户创建.
+     * Summary: 数字商品服务-IP授权服务-账户创建.
      *
      * @param CreateIpAccountRequest $request
      *
@@ -6686,7 +6708,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-     * Summary: 数字商品服务-IP授权交易服务-账户创建.
+     * Summary: 数字商品服务-IP授权服务-账户创建.
      *
      * @param CreateIpAccountRequest $request
      * @param string[]               $headers
@@ -6703,7 +6725,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户冻结.
+     * Summary: 数字商品服务-IP授权服务-账户冻结.
      *
      * @param FreezeIpAccountRequest $request
      *
@@ -6719,7 +6741,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户冻结.
+     * Summary: 数字商品服务-IP授权服务-账户冻结.
      *
      * @param FreezeIpAccountRequest $request
      * @param string[]               $headers
@@ -6736,7 +6758,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户解冻.
+     * Summary: 数字商品服务-IP授权服务-账户解冻.
      *
      * @param UnfreezeIpAccountRequest $request
      *
@@ -6752,7 +6774,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户解冻.
+     * Summary: 数字商品服务-IP授权服务-账户解冻.
      *
      * @param UnfreezeIpAccountRequest $request
      * @param string[]                 $headers
@@ -6769,7 +6791,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-     * Summary: 数字商品服务-IP授权交易服务-账户查询.
+     * Summary: 数字商品服务-IP授权服务-账户查询.
      *
      * @param QueryIpAccountRequest $request
      *
@@ -6785,7 +6807,7 @@ class Client
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-     * Summary: 数字商品服务-IP授权交易服务-账户查询.
+     * Summary: 数字商品服务-IP授权服务-账户查询.
      *
      * @param QueryIpAccountRequest $request
      * @param string[]              $headers
@@ -6802,7 +6824,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-     * Summary: 数字商品-IP授权交易服务-版权方申请.
+     * Summary: 数字商品服务-IP授权服务-版权方申请.
      *
      * @param ApplyIpAccountRequest $request
      *
@@ -6818,7 +6840,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-     * Summary: 数字商品-IP授权交易服务-版权方申请.
+     * Summary: 数字商品服务-IP授权服务-版权方申请.
      *
      * @param ApplyIpAccountRequest $request
      * @param string[]              $headers
@@ -6835,7 +6857,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-     * Summary: 数字商品-IP授权交易-申请进度查询.
+     * Summary: 数字商品服务-IP授权服务-查申请进度.
      *
      * @param CheckIpAccountRequest $request
      *
@@ -6851,7 +6873,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-     * Summary: 数字商品-IP授权交易-申请进度查询.
+     * Summary: 数字商品服务-IP授权服务-查申请进度.
      *
      * @param CheckIpAccountRequest $request
      * @param string[]              $headers
@@ -6868,7 +6890,7 @@ class Client
 
     /**
      * Description: ip商品审批
-     * Summary: ip商品审批.
+     * Summary: 数字商品服务-IP授权服务-ip创建审批.
      *
      * @param ConfirmIpGoodsRequest $request
      *
@@ -6884,7 +6906,7 @@ class Client
 
     /**
      * Description: ip商品审批
-     * Summary: ip商品审批.
+     * Summary: 数字商品服务-IP授权服务-ip创建审批.
      *
      * @param ConfirmIpGoodsRequest $request
      * @param string[]              $headers
@@ -6902,7 +6924,7 @@ class Client
     /**
      * Description: ip信息批量查询--给运营使用
      * 查询审批信息
-     * Summary: ip审批信息批量查询--给运营使用.
+     * Summary: 数字商品服务-IP授权服务-审批信息查询.
      *
      * @param BatchqueryIpApprovalRequest $request
      *
@@ -6919,7 +6941,7 @@ class Client
     /**
      * Description: ip信息批量查询--给运营使用
      * 查询审批信息
-     * Summary: ip审批信息批量查询--给运营使用.
+     * Summary: 数字商品服务-IP授权服务-审批信息查询.
      *
      * @param BatchqueryIpApprovalRequest $request
      * @param string[]                    $headers
@@ -6935,8 +6957,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核确认
-     * Summary: 数字商品-IP授权交易-运营审核确认.
+     * Description: 数字商品服务-IP授权服务-运营审核确认
+     * Summary: 数字商品服务-IP授权服务-运营审核确认.
      *
      * @param ConfirmIpAccountRequest $request
      *
@@ -6951,8 +6973,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核确认
-     * Summary: 数字商品-IP授权交易-运营审核确认.
+     * Description: 数字商品服务-IP授权服务-运营审核确认
+     * Summary: 数字商品服务-IP授权服务-运营审核确认.
      *
      * @param ConfirmIpAccountRequest $request
      * @param string[]                $headers
@@ -6968,8 +6990,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核拒绝
-     * Summary: 数字商品-IP授权交易-运营审核拒绝.
+     * Description: 数字商品服务-IP授权服务-运营审核拒绝
+     * Summary: 数字商品服务-IP授权服务-运营审核拒绝.
      *
      * @param RefuseIpAccountRequest $request
      *
@@ -6984,8 +7006,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核拒绝
-     * Summary: 数字商品-IP授权交易-运营审核拒绝.
+     * Description: 数字商品服务-IP授权服务-运营审核拒绝
+     * Summary: 数字商品服务-IP授权服务-运营审核拒绝.
      *
      * @param RefuseIpAccountRequest $request
      * @param string[]               $headers
@@ -7002,7 +7024,7 @@ class Client
 
     /**
      * Description: 版权方进件信息的单个查询
-     * Summary: 数字商品-IP授权交易服务-申请信息查询.
+     * Summary: 数字商品服务-IP授权服务-申请信息查询.
      *
      * @param PullIpAccountRequest $request
      *
@@ -7018,7 +7040,7 @@ class Client
 
     /**
      * Description: 版权方进件信息的单个查询
-     * Summary: 数字商品-IP授权交易服务-申请信息查询.
+     * Summary: 数字商品服务-IP授权服务-申请信息查询.
      *
      * @param PullIpAccountRequest $request
      * @param string[]             $headers
@@ -7034,8 +7056,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-MCC列表查询
-     * Summary: 数字商品-IP授权交易服务-MCC查询.
+     * Description: 数字商品服务-IP授权服务-MCC列表查询
+     * Summary: 数字商品服务-IP授权服务-MCC查询.
      *
      * @param QueryIpMccRequest $request
      *
@@ -7050,8 +7072,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-MCC列表查询
-     * Summary: 数字商品-IP授权交易服务-MCC查询.
+     * Description: 数字商品服务-IP授权服务-MCC列表查询
+     * Summary: 数字商品服务-IP授权服务-MCC查询.
      *
      * @param QueryIpMccRequest $request
      * @param string[]          $headers
@@ -7068,7 +7090,7 @@ class Client
 
     /**
      * Description: 查询ip type和受众人群
-     * Summary: 查询ip type和受众人群.
+     * Summary: 数字商品服务-IP授权服务-IP标签查询.
      *
      * @param QueryIpTypeRequest $request
      *
@@ -7084,7 +7106,7 @@ class Client
 
     /**
      * Description: 查询ip type和受众人群
-     * Summary: 查询ip type和受众人群.
+     * Summary: 数字商品服务-IP授权服务-IP标签查询.
      *
      * @param QueryIpTypeRequest $request
      * @param string[]           $headers
@@ -7101,7 +7123,7 @@ class Client
 
     /**
      * Description: ip审批信息批量查询（带上渠道信息）
-     * Summary: ip审批信息批量查询（带上渠道信息）.
+     * Summary: 数字商品服务-IP授权服务-审批批量查询.
      *
      * @param BatchqueryIpApprovalandchannelRequest $request
      *
@@ -7117,7 +7139,7 @@ class Client
 
     /**
      * Description: ip审批信息批量查询（带上渠道信息）
-     * Summary: ip审批信息批量查询（带上渠道信息）.
+     * Summary: 数字商品服务-IP授权服务-审批批量查询.
      *
      * @param BatchqueryIpApprovalandchannelRequest $request
      * @param string[]                              $headers
@@ -7134,7 +7156,7 @@ class Client
 
     /**
      * Description: 版权方进件信息的批量查询
-     * Summary: 数字商品-IP授权服务-批量查询商家信息.
+     * Summary: 数字商品服务-IP授权服务-查询商家信息.
      *
      * @param BatchqueryIpAccountRequest $request
      *
@@ -7150,7 +7172,7 @@ class Client
 
     /**
      * Description: 版权方进件信息的批量查询
-     * Summary: 数字商品-IP授权服务-批量查询商家信息.
+     * Summary: 数字商品服务-IP授权服务-查询商家信息.
      *
      * @param BatchqueryIpAccountRequest $request
      * @param string[]                   $headers
@@ -7167,7 +7189,7 @@ class Client
 
     /**
      * Description: 版权方待审批的批量查询
-     * Summary: 数字商品-IP授权-版权方申请批量查询.
+     * Summary: 数字商品服务-IP授权服务-查版权方申请.
      *
      * @param BatchqueryIpSellerRequest $request
      *
@@ -7183,7 +7205,7 @@ class Client
 
     /**
      * Description: 版权方待审批的批量查询
-     * Summary: 数字商品-IP授权-版权方申请批量查询.
+     * Summary: 数字商品服务-IP授权服务-查版权方申请.
      *
      * @param BatchqueryIpSellerRequest $request
      * @param string[]                  $headers
@@ -7199,8 +7221,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码申请
-     * Summary: 数字商品服务-IP授权交易-正版码申请.
+     * Description: 数字商品服务-IP授权服务-正版码申请
+     * Summary: 数字商品服务-IP授权服务-正版码申请.
      *
      * @param ApplyIpCodeRequest $request
      *
@@ -7215,8 +7237,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码申请
-     * Summary: 数字商品服务-IP授权交易-正版码申请.
+     * Description: 数字商品服务-IP授权服务-正版码申请
+     * Summary: 数字商品服务-IP授权服务-正版码申请.
      *
      * @param ApplyIpCodeRequest $request
      * @param string[]           $headers
@@ -7232,8 +7254,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码查询.
+     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param PagequeryIpCodeRequest $request
      *
@@ -7248,8 +7270,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码查询.
+     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param PagequeryIpCodeRequest $request
      * @param string[]               $headers
@@ -7265,8 +7287,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码校验
-     * Summary: 数字商品服务-IP授权交易-正版码校验.
+     * Description: 数字商品服务-IP授权服务-正版码校验
+     * Summary: 数字商品服务-IP授权服务-正版码校验.
      *
      * @param CheckIpCodeRequest $request
      *
@@ -7281,8 +7303,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码校验
-     * Summary: 数字商品服务-IP授权交易-正版码校验.
+     * Description: 数字商品服务-IP授权服务-正版码校验
+     * Summary: 数字商品服务-IP授权服务-正版码校验.
      *
      * @param CheckIpCodeRequest $request
      * @param string[]           $headers
@@ -7299,7 +7321,7 @@ class Client
 
     /**
      * Description: 对商品的更新进行审核
-     * Summary: 数字商品-IP授权交易-商品更新审核.
+     * Summary: 数字商品服务-IP授权服务-IP更新审核.
      *
      * @param ConfirmIpUpdateapprovalRequest $request
      *
@@ -7315,7 +7337,7 @@ class Client
 
     /**
      * Description: 对商品的更新进行审核
-     * Summary: 数字商品-IP授权交易-商品更新审核.
+     * Summary: 数字商品服务-IP授权服务-IP更新审核.
      *
      * @param ConfirmIpUpdateapprovalRequest $request
      * @param string[]                       $headers
@@ -7332,7 +7354,7 @@ class Client
 
     /**
      * Description: ip商品sku信息设置
-     * Summary: 数字商品-IP授权交易-sku信息设置.
+     * Summary: 数字商品服务-IP授权服务-sku设置.
      *
      * @param SetIpSkuRequest $request
      *
@@ -7348,7 +7370,7 @@ class Client
 
     /**
      * Description: ip商品sku信息设置
-     * Summary: 数字商品-IP授权交易-sku信息设置.
+     * Summary: 数字商品服务-IP授权服务-sku设置.
      *
      * @param SetIpSkuRequest $request
      * @param string[]        $headers
@@ -7365,7 +7387,7 @@ class Client
 
     /**
      * Description: 查询商品基础信息的更新数据
-     * Summary: 数字商品-IP授权交易-查询更新数据.
+     * Summary: 数字商品服务-IP授权服务-查询更新数据.
      *
      * @param QueryIpGoodsupdateRequest $request
      *
@@ -7381,7 +7403,7 @@ class Client
 
     /**
      * Description: 查询商品基础信息的更新数据
-     * Summary: 数字商品-IP授权交易-查询更新数据.
+     * Summary: 数字商品服务-IP授权服务-查询更新数据.
      *
      * @param QueryIpGoodsupdateRequest $request
      * @param string[]                  $headers
@@ -7431,7 +7453,7 @@ class Client
 
     /**
      * Description: ip商品某个渠道默认sku查询
-     * Summary: 数字商品-IP授权交易-默认sku查询.
+     * Summary: 数字商品服务-IP授权服务-sku查询.
      *
      * @param QueryIpSkuconfigRequest $request
      *
@@ -7447,7 +7469,7 @@ class Client
 
     /**
      * Description: ip商品某个渠道默认sku查询
-     * Summary: 数字商品-IP授权交易-默认sku查询.
+     * Summary: 数字商品服务-IP授权服务-sku查询.
      *
      * @param QueryIpSkuconfigRequest $request
      * @param string[]                $headers
@@ -7464,7 +7486,7 @@ class Client
 
     /**
      * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-     * Summary: 数字商品服务-IP授权交易-版权方导入.
+     * Summary: 数字商品服务-IP授权服务-版权方导入.
      *
      * @param ImportIpAccountRequest $request
      *
@@ -7480,7 +7502,7 @@ class Client
 
     /**
      * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-     * Summary: 数字商品服务-IP授权交易-版权方导入.
+     * Summary: 数字商品服务-IP授权服务-版权方导入.
      *
      * @param ImportIpAccountRequest $request
      * @param string[]               $headers
@@ -7497,7 +7519,7 @@ class Client
 
     /**
      * Description: 商品特定渠道的sku信息清空
-     * Summary: 数字商品-IP授权交易-sku信息清空.
+     * Summary: 数字商品服务-IP授权服务-sku清空.
      *
      * @param RemoveIpSkuRequest $request
      *
@@ -7513,7 +7535,7 @@ class Client
 
     /**
      * Description: 商品特定渠道的sku信息清空
-     * Summary: 数字商品-IP授权交易-sku信息清空.
+     * Summary: 数字商品服务-IP授权服务-sku清空.
      *
      * @param RemoveIpSkuRequest $request
      * @param string[]           $headers
@@ -7530,7 +7552,7 @@ class Client
 
     /**
      * Description: 创建监修报审
-     * Summary: 数字商品-IP授权交易-创建监修报审
+     * Summary: 数字商品服务-IP授权服务-创建监修报审
      *
      * @param CreateIpSuperviseapproveRequest $request
      *
@@ -7546,7 +7568,7 @@ class Client
 
     /**
      * Description: 创建监修报审
-     * Summary: 数字商品-IP授权交易-创建监修报审
+     * Summary: 数字商品服务-IP授权服务-创建监修报审
      *
      * @param CreateIpSuperviseapproveRequest $request
      * @param string[]                        $headers
@@ -7563,7 +7585,7 @@ class Client
 
     /**
      * Description: 监修报审审批
-     * Summary: 数字商品-IP授权交易-监修报审审批.
+     * Summary: 数字商品服务-IP授权服务-监修报审审批.
      *
      * @param ConfirmIpSuperviseapproveRequest $request
      *
@@ -7579,7 +7601,7 @@ class Client
 
     /**
      * Description: 监修报审审批
-     * Summary: 数字商品-IP授权交易-监修报审审批.
+     * Summary: 数字商品服务-IP授权服务-监修报审审批.
      *
      * @param ConfirmIpSuperviseapproveRequest $request
      * @param string[]                         $headers
@@ -7596,7 +7618,7 @@ class Client
 
     /**
      * Description: 监修报审进度推进/重置
-     * Summary: 数字商品-IP授权交易-监修报审进度推进.
+     * Summary: 数字商品服务-IP授权服务-推进监修报审
      *
      * @param PushIpSuperviseapproveRequest $request
      *
@@ -7612,7 +7634,7 @@ class Client
 
     /**
      * Description: 监修报审进度推进/重置
-     * Summary: 数字商品-IP授权交易-监修报审进度推进.
+     * Summary: 数字商品服务-IP授权服务-推进监修报审
      *
      * @param PushIpSuperviseapproveRequest $request
      * @param string[]                      $headers
@@ -7629,7 +7651,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-查询监修报审详情
-     * Summary: 数字商品-IP授权交易-查询监修报审详情.
+     * Summary: 数字商品服务-IP授权服务-查询监修报审
      *
      * @param QueryIpSuperviseapproveRequest $request
      *
@@ -7645,7 +7667,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-查询监修报审详情
-     * Summary: 数字商品-IP授权交易-查询监修报审详情.
+     * Summary: 数字商品服务-IP授权服务-查询监修报审
      *
      * @param QueryIpSuperviseapproveRequest $request
      * @param string[]                       $headers
@@ -7662,7 +7684,7 @@ class Client
 
     /**
      * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权交易-正版码领取.
+     * Summary: 数字商品服务-IP授权服务-正版码领取.
      *
      * @param ReceiveIpCodeRequest $request
      *
@@ -7678,7 +7700,7 @@ class Client
 
     /**
      * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权交易-正版码领取.
+     * Summary: 数字商品服务-IP授权服务-正版码领取.
      *
      * @param ReceiveIpCodeRequest $request
      * @param string[]             $headers
@@ -7695,7 +7717,7 @@ class Client
 
     /**
      * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码列表.
+     * Summary: 数字商品服务-IP授权服务-正版码列表.
      *
      * @param PagequeryIpCodeinfoRequest $request
      *
@@ -7711,7 +7733,7 @@ class Client
 
     /**
      * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码列表.
+     * Summary: 数字商品服务-IP授权服务-正版码列表.
      *
      * @param PagequeryIpCodeinfoRequest $request
      * @param string[]                   $headers
@@ -7728,7 +7750,7 @@ class Client
 
     /**
      * Description: 创建增值服务
-     * Summary: 数字商品-IP授权交易-创建增值服务
+     * Summary: 数字商品服务-IP授权服务-创建增值服务
      *
      * @param CreateIpValueaddRequest $request
      *
@@ -7744,7 +7766,7 @@ class Client
 
     /**
      * Description: 创建增值服务
-     * Summary: 数字商品-IP授权交易-创建增值服务
+     * Summary: 数字商品服务-IP授权服务-创建增值服务
      *
      * @param CreateIpValueaddRequest $request
      * @param string[]                $headers
@@ -7760,8 +7782,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-更新增值服务
-     * Summary: 数字商品-IP授权交易-更新增值服务
+     * Description: 数字商品服务-IP授权服务-更新增值服务
+     * Summary: 数字商品服务-IP授权服务-更新增值服务
      *
      * @param UpdateIpValueaddRequest $request
      *
@@ -7776,8 +7798,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-更新增值服务
-     * Summary: 数字商品-IP授权交易-更新增值服务
+     * Description: 数字商品服务-IP授权服务-更新增值服务
+     * Summary: 数字商品服务-IP授权服务-更新增值服务
      *
      * @param UpdateIpValueaddRequest $request
      * @param string[]                $headers
@@ -7794,7 +7816,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权-设置增值服务sku
-     * Summary: 数字商品-IP授权-设置增值服务sku.
+     * Summary: 数字商品服务-IP授权服务-设置增值服务
      *
      * @param SetIpValueaddskuRequest $request
      *
@@ -7810,7 +7832,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权-设置增值服务sku
-     * Summary: 数字商品-IP授权-设置增值服务sku.
+     * Summary: 数字商品服务-IP授权服务-设置增值服务
      *
      * @param SetIpValueaddskuRequest $request
      * @param string[]                $headers
@@ -7826,8 +7848,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-增值服务上下线
-     * Summary: 数字商品-IP授权交易-增值服务上下线
+     * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+     * Summary: 数字商品服务-IP授权服务-服务上下架.
      *
      * @param OnlineIpValueaddRequest $request
      *
@@ -7842,8 +7864,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-增值服务上下线
-     * Summary: 数字商品-IP授权交易-增值服务上下线
+     * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+     * Summary: 数字商品服务-IP授权服务-服务上下架.
      *
      * @param OnlineIpValueaddRequest $request
      * @param string[]                $headers
@@ -7860,7 +7882,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-增值服务查询
-     * Summary: 数字商品-IP授权交易-增值服务查询.
+     * Summary: 数字商品服务-IP授权服务-增值服务查询.
      *
      * @param QueryIpValueaddRequest $request
      *
@@ -7876,7 +7898,7 @@ class Client
 
     /**
      * Description: 数字商品-IP授权交易-增值服务查询
-     * Summary: 数字商品-IP授权交易-增值服务查询.
+     * Summary: 数字商品服务-IP授权服务-增值服务查询.
      *
      * @param QueryIpValueaddRequest $request
      * @param string[]               $headers
@@ -7893,7 +7915,7 @@ class Client
 
     /**
      * Description: 增值服务批量查询
-     * Summary: 数字商品-IP授权交易-增值服务批量查询.
+     * Summary: 数字商品服务-IP授权服务-增值服务查询.
      *
      * @param PagequeryIpValueaddRequest $request
      *
@@ -7909,7 +7931,7 @@ class Client
 
     /**
      * Description: 增值服务批量查询
-     * Summary: 数字商品-IP授权交易-增值服务批量查询.
+     * Summary: 数字商品服务-IP授权服务-增值服务查询.
      *
      * @param PagequeryIpValueaddRequest $request
      * @param string[]                   $headers
@@ -7991,8 +8013,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-删除ip商品
-     * Summary: 数字商品-IP授权交易-删除ip商品
+     * Description: 数字商品服务-IP授权服务-删除ip商品
+     * Summary: 数字商品服务-IP授权服务-IP删除.
      *
      * @param RemoveIpGoodsRequest $request
      *
@@ -8007,8 +8029,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-删除ip商品
-     * Summary: 数字商品-IP授权交易-删除ip商品
+     * Description: 数字商品服务-IP授权服务-删除ip商品
+     * Summary: 数字商品服务-IP授权服务-IP删除.
      *
      * @param RemoveIpGoodsRequest $request
      * @param string[]             $headers
@@ -8024,8 +8046,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-ip数量统计
-     * Summary: 数字商品-IP授权交易-ip数量统计
+     * Description: 数字商品服务-IP授权服务-ip数量统计
+     * Summary: 数字商品服务-IP授权服务-ip数量统计
      *
      * @param CountIpNumRequest $request
      *
@@ -8040,8 +8062,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-ip数量统计
-     * Summary: 数字商品-IP授权交易-ip数量统计
+     * Description: 数字商品服务-IP授权服务-ip数量统计
+     * Summary: 数字商品服务-IP授权服务-ip数量统计
      *
      * @param CountIpNumRequest $request
      * @param string[]          $headers
@@ -8057,8 +8079,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-pv统计
-     * Summary: 数字商品-IP授权交易-pv统计
+     * Description: 数字商品服务-IP授权服务-pv统计
+     * Summary: 数字商品服务-IP授权服务-pv统计
      *
      * @param CountIpPvRequest $request
      *
@@ -8073,8 +8095,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品-IP授权交易-pv统计
-     * Summary: 数字商品-IP授权交易-pv统计
+     * Description: 数字商品服务-IP授权服务-pv统计
+     * Summary: 数字商品服务-IP授权服务-pv统计
      *
      * @param CountIpPvRequest $request
      * @param string[]         $headers
@@ -8091,7 +8113,7 @@ class Client
 
     /**
      * Description: 查询正版码信息
-     * Summary: 数字商品服务-IP授权交易-正版码查询.
+     * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param QueryIpCodeRequest $request
      *
@@ -8107,7 +8129,7 @@ class Client
 
     /**
      * Description: 查询正版码信息
-     * Summary: 数字商品服务-IP授权交易-正版码查询.
+     * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param QueryIpCodeRequest $request
      * @param string[]           $headers
@@ -8123,8 +8145,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易服务-账户统计
-     * Summary: 数字商品服务-IP授权交易服务-账户统计
+     * Description: 数字商品服务-IP授权服务-账户统计
+     * Summary: 数字商品服务-IP授权服务-账户统计
      *
      * @param CountIpAccountRequest $request
      *
@@ -8139,8 +8161,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易服务-账户统计
-     * Summary: 数字商品服务-IP授权交易服务-账户统计
+     * Description: 数字商品服务-IP授权服务-账户统计
+     * Summary: 数字商品服务-IP授权服务-账户统计
      *
      * @param CountIpAccountRequest $request
      * @param string[]              $headers
@@ -8186,6 +8208,369 @@ class Client
         Utils::validateModel($request);
 
         return QueryIpOrderstatisticResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.orderstatistic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权方更新IP图库
+     * Summary: 数字商品服务-IP授权服务-ip更新图库.
+     *
+     * @param UpdateIpGoodsgalleryRequest $request
+     *
+     * @return UpdateIpGoodsgalleryResponse
+     */
+    public function updateIpGoodsgallery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateIpGoodsgalleryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权方更新IP图库
+     * Summary: 数字商品服务-IP授权服务-ip更新图库.
+     *
+     * @param UpdateIpGoodsgalleryRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateIpGoodsgalleryResponse
+     */
+    public function updateIpGoodsgalleryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateIpGoodsgalleryResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.goodsgallery.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+     * Summary: 数字商品服务-IP授权服务-查询ip图库.
+     *
+     * @param QueryIpGoodsgalleryRequest $request
+     *
+     * @return QueryIpGoodsgalleryResponse
+     */
+    public function queryIpGoodsgallery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpGoodsgalleryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+     * Summary: 数字商品服务-IP授权服务-查询ip图库.
+     *
+     * @param QueryIpGoodsgalleryRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryIpGoodsgalleryResponse
+     */
+    public function queryIpGoodsgalleryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpGoodsgalleryResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.goodsgallery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 配置正版码的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-正版码配置.
+     *
+     * @param SetIpCodeinfoRequest $request
+     *
+     * @return SetIpCodeinfoResponse
+     */
+    public function setIpCodeinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setIpCodeinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 配置正版码的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-正版码配置.
+     *
+     * @param SetIpCodeinfoRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return SetIpCodeinfoResponse
+     */
+    public function setIpCodeinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetIpCodeinfoResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codeinfo.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询订单的图库下载记录
+     * Summary: 数字商品服务-IP授权服务-查询图库记录.
+     *
+     * @param PagequeryIpGalleryinstructionRequest $request
+     *
+     * @return PagequeryIpGalleryinstructionResponse
+     */
+    public function pagequeryIpGalleryinstruction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryIpGalleryinstructionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询订单的图库下载记录
+     * Summary: 数字商品服务-IP授权服务-查询图库记录.
+     *
+     * @param PagequeryIpGalleryinstructionRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return PagequeryIpGalleryinstructionResponse
+     */
+    public function pagequeryIpGalleryinstructionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryIpGalleryinstructionResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.galleryinstruction.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权方确认订单图库信息
+     * Summary: 数字商品服务-IP授权服务-订单图库确认.
+     *
+     * @param ConfirmIpOrdergalleryRequest $request
+     *
+     * @return ConfirmIpOrdergalleryResponse
+     */
+    public function confirmIpOrdergallery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmIpOrdergalleryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权方确认订单图库信息
+     * Summary: 数字商品服务-IP授权服务-订单图库确认.
+     *
+     * @param ConfirmIpOrdergalleryRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ConfirmIpOrdergalleryResponse
+     */
+    public function confirmIpOrdergalleryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmIpOrdergalleryResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.ordergallery.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审批IP定向授权交易
+     * Summary: 数字商品服务-IP授权服务-审批定向授权.
+     *
+     * @param ConfirmIpAuthtradeRequest $request
+     *
+     * @return ConfirmIpAuthtradeResponse
+     */
+    public function confirmIpAuthtrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmIpAuthtradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审批IP定向授权交易
+     * Summary: 数字商品服务-IP授权服务-审批定向授权.
+     *
+     * @param ConfirmIpAuthtradeRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ConfirmIpAuthtradeResponse
+     */
+    public function confirmIpAuthtradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmIpAuthtradeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.authtrade.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核套餐授权申请
+     * Summary: 数字商品服务-IP授权服务-审批套餐授权.
+     *
+     * @param ConfirmIpPackagetradeRequest $request
+     *
+     * @return ConfirmIpPackagetradeResponse
+     */
+    public function confirmIpPackagetrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmIpPackagetradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核套餐授权申请
+     * Summary: 数字商品服务-IP授权服务-审批套餐授权.
+     *
+     * @param ConfirmIpPackagetradeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ConfirmIpPackagetradeResponse
+     */
+    public function confirmIpPackagetradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmIpPackagetradeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.packagetrade.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家申请套餐交易
+     * Summary: 数字商品服务-IP授权服务-申请套餐交易.
+     *
+     * @param ApplyIpPackagetradeRequest $request
+     *
+     * @return ApplyIpPackagetradeResponse
+     */
+    public function applyIpPackagetrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyIpPackagetradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家申请套餐交易
+     * Summary: 数字商品服务-IP授权服务-申请套餐交易.
+     *
+     * @param ApplyIpPackagetradeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyIpPackagetradeResponse
+     */
+    public function applyIpPackagetradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyIpPackagetradeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.packagetrade.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权方申请授权交易
+     * Summary: 数字商品服务-IP授权服务-申请授权交易.
+     *
+     * @param ApplyIpAuthtradeRequest $request
+     *
+     * @return ApplyIpAuthtradeResponse
+     */
+    public function applyIpAuthtrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyIpAuthtradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权方申请授权交易
+     * Summary: 数字商品服务-IP授权服务-申请授权交易.
+     *
+     * @param ApplyIpAuthtradeRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyIpAuthtradeResponse
+     */
+    public function applyIpAuthtradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyIpAuthtradeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.authtrade.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询正版码的配置信息
+     * Summary: 数字商品服务-IP授权服务-查正版码配置.
+     *
+     * @param QueryIpCodeinfoRequest $request
+     *
+     * @return QueryIpCodeinfoResponse
+     */
+    public function queryIpCodeinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpCodeinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询正版码的配置信息
+     * Summary: 数字商品服务-IP授权服务-查正版码配置.
+     *
+     * @param QueryIpCodeinfoRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryIpCodeinfoResponse
+     */
+    public function queryIpCodeinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpCodeinfoResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codeinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+     * Summary: ip审批信息批量查询（带上更新信息）.
+     *
+     * @param BatchqueryIpApprovalwithupdateRequest $request
+     *
+     * @return BatchqueryIpApprovalwithupdateResponse
+     */
+    public function batchqueryIpApprovalwithupdate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryIpApprovalwithupdateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+     * Summary: ip审批信息批量查询（带上更新信息）.
+     *
+     * @param BatchqueryIpApprovalwithupdateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return BatchqueryIpApprovalwithupdateResponse
+     */
+    public function batchqueryIpApprovalwithupdateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryIpApprovalwithupdateResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
