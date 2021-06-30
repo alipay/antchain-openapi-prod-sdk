@@ -497,6 +497,43 @@ export class IPCardInfo extends $tea.Model {
   }
 }
 
+// 正版码配置的商品信息
+export class IPCodeGoodsInfo extends $tea.Model {
+  // 商品名称
+  goodsName?: string;
+  // 商品链接
+  goodsUrl?: string;
+  // 商品图片
+  goodsImage?: string;
+  // 商品店铺名称
+  goodsStore?: string;
+  // 店铺logo图片链接
+  goodsStoreLogo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsName: 'goods_name',
+      goodsUrl: 'goods_url',
+      goodsImage: 'goods_image',
+      goodsStore: 'goods_store',
+      goodsStoreLogo: 'goods_store_logo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsName: 'string',
+      goodsUrl: 'string',
+      goodsImage: 'string',
+      goodsStore: 'string',
+      goodsStoreLogo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 增值服务信息
 export class ValueAddedServiceInfo extends $tea.Model {
   // 增值服务归属账户id
@@ -1164,6 +1201,31 @@ export class IPContactInfo extends $tea.Model {
   }
 }
 
+// 正版码配置资源位信息
+export class IPCodeAdvertisingInfo extends $tea.Model {
+  // 资源位头图
+  adImage?: string;
+  // 资源位链接
+  adUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      adImage: 'ad_image',
+      adUrl: 'ad_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      adImage: 'string',
+      adUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 区块头
 export class BlockHeader extends $tea.Model {
   // gas总消耗
@@ -1266,6 +1328,8 @@ export class IpChannelWithSku extends $tea.Model {
   skuInfo: IpSkuInfo[];
   // 商品状态（0:待上架，1:上架，2:下架）
   status: number;
+  // 交易是否需要确认
+  tradeNeedConfirm?: boolean;
   static names(): { [key: string]: string } {
     return {
       channelName: 'channel_name',
@@ -1274,6 +1338,7 @@ export class IpChannelWithSku extends $tea.Model {
       ipLevel: 'ip_level',
       skuInfo: 'sku_info',
       status: 'status',
+      tradeNeedConfirm: 'trade_need_confirm',
     };
   }
 
@@ -1285,6 +1350,7 @@ export class IpChannelWithSku extends $tea.Model {
       ipLevel: 'number',
       skuInfo: { 'type': 'array', 'itemType': IpSkuInfo },
       status: 'number',
+      tradeNeedConfirm: 'boolean',
     };
   }
 
@@ -1799,6 +1865,55 @@ export class BaseResponseData extends $tea.Model {
   }
 }
 
+// IP图库记录
+export class IPGalleryInstruction extends $tea.Model {
+  // 下载时间
+  timestamp: number;
+  // 授权订单ID
+  ipOrderId: string;
+  // IP链上ID
+  ipId: string;
+  // 图库链接
+  ipGalleryUrl: string;
+  // 图库下载链接，默认过期时间2小时
+  ipGalleryTemporaryUrl: string;
+  // 图库版本
+  ipGalleryVersion: number;
+  // IP当前图库状态：0 生效中，1 已失效
+  ipGalleryStatus: number;
+  // 备注信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      timestamp: 'timestamp',
+      ipOrderId: 'ip_order_id',
+      ipId: 'ip_id',
+      ipGalleryUrl: 'ip_gallery_url',
+      ipGalleryTemporaryUrl: 'ip_gallery_temporary_url',
+      ipGalleryVersion: 'ip_gallery_version',
+      ipGalleryStatus: 'ip_gallery_status',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timestamp: 'number',
+      ipOrderId: 'string',
+      ipId: 'string',
+      ipGalleryUrl: 'string',
+      ipGalleryTemporaryUrl: 'string',
+      ipGalleryVersion: 'number',
+      ipGalleryStatus: 'number',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 区块
 export class Block extends $tea.Model {
   // 区块头
@@ -1833,6 +1948,31 @@ export class SkuWithLevel extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ip 基础信息带上是否更新，只在渠道查询审批中用到
+export class IpBasicInfoWithUpdate extends $tea.Model {
+  // 基础信息
+  ipBasicInfo: IpBasicInfo;
+  // 是否有更新
+  isUpdate: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      ipBasicInfo: 'ip_basic_info',
+      isUpdate: 'is_update',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ipBasicInfo: IpBasicInfo,
+      isUpdate: 'boolean',
     };
   }
 
@@ -2485,6 +2625,8 @@ export class IPOrder extends $tea.Model {
   relatedOrderId: string;
   // 是否已监修报审
   superviseApprove: boolean;
+  // 订单图库信息，未确认则为空
+  ipGalleryUrl?: string;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2524,6 +2666,7 @@ export class IPOrder extends $tea.Model {
       goodsType: 'goods_type',
       relatedOrderId: 'related_order_id',
       superviseApprove: 'supervise_approve',
+      ipGalleryUrl: 'ip_gallery_url',
     };
   }
 
@@ -2566,6 +2709,7 @@ export class IPOrder extends $tea.Model {
       goodsType: 'number',
       relatedOrderId: 'string',
       superviseApprove: 'boolean',
+      ipGalleryUrl: 'string',
     };
   }
 
@@ -2862,6 +3006,8 @@ export class IpChannelInfo extends $tea.Model {
   ipLevel: number;
   // 商品状态（0:待上架，1:上架，2:下架）
   status: number;
+  // 交易是否需要确认
+  tradeNeedConfirm?: boolean;
   static names(): { [key: string]: string } {
     return {
       channelName: 'channel_name',
@@ -2869,6 +3015,7 @@ export class IpChannelInfo extends $tea.Model {
       payMode: 'pay_mode',
       ipLevel: 'ip_level',
       status: 'status',
+      tradeNeedConfirm: 'trade_need_confirm',
     };
   }
 
@@ -2879,6 +3026,7 @@ export class IpChannelInfo extends $tea.Model {
       payMode: 'number',
       ipLevel: 'number',
       status: 'number',
+      tradeNeedConfirm: 'boolean',
     };
   }
 
@@ -2970,6 +3118,8 @@ export class IpEmphasisInfo extends $tea.Model {
   pv?: number;
   // 最近一次上下架时间
   lastStateChangeTime?: number;
+  // ip的创建渠道，按照查询参数返回
+  createrChannel?: string;
   static names(): { [key: string]: string } {
     return {
       ipId: 'ip_id',
@@ -2984,6 +3134,7 @@ export class IpEmphasisInfo extends $tea.Model {
       accountName: 'account_name',
       pv: 'pv',
       lastStateChangeTime: 'last_state_change_time',
+      createrChannel: 'creater_channel',
     };
   }
 
@@ -3001,6 +3152,7 @@ export class IpEmphasisInfo extends $tea.Model {
       accountName: 'string',
       pv: 'number',
       lastStateChangeTime: 'number',
+      createrChannel: 'string',
     };
   }
 
@@ -4217,6 +4369,8 @@ export class IPCodeScannedInfo extends $tea.Model {
   userId: string;
   // 用户的名称
   userName: string;
+  // 用户头像地址
+  avatar: string;
   // 用户的手机号
   phoneNumber?: string;
   // 用户的位置信息
@@ -4227,16 +4381,23 @@ export class IPCodeScannedInfo extends $tea.Model {
   ipId: string;
   // 订单ID
   orderId: string;
+  // 正版码商品信息配置列表
+  goodsInfoList?: IPCodeGoodsInfo[];
+  // 正版码资源位配置信息列表
+  adInfoList?: IPCodeAdvertisingInfo[];
   static names(): { [key: string]: string } {
     return {
       ipCode: 'ip_code',
       userId: 'user_id',
       userName: 'user_name',
+      avatar: 'avatar',
       phoneNumber: 'phone_number',
       gps: 'gps',
       timestamp: 'timestamp',
       ipId: 'ip_id',
       orderId: 'order_id',
+      goodsInfoList: 'goods_info_list',
+      adInfoList: 'ad_info_list',
     };
   }
 
@@ -4245,11 +4406,14 @@ export class IPCodeScannedInfo extends $tea.Model {
       ipCode: 'string',
       userId: 'string',
       userName: 'string',
+      avatar: 'string',
       phoneNumber: 'string',
       gps: 'string',
       timestamp: 'number',
       ipId: 'string',
       orderId: 'string',
+      goodsInfoList: { 'type': 'array', 'itemType': IPCodeGoodsInfo },
+      adInfoList: { 'type': 'array', 'itemType': IPCodeAdvertisingInfo },
     };
   }
 
@@ -16162,7 +16326,7 @@ export class StartIpPackagetradeRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 买方的链上账户Id
   accountId: string;
-  // IP ID
+  // IP授权交易时传入IP ID；增值服务交易时传入服务ID
   ipId: string;
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean;
@@ -16289,7 +16453,7 @@ export class CancelIpPackagetradeRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 订单ID
   ipOrderId: string;
-  // IP套餐交易买方的链上账户ID
+  // IP交易发起方的链上账户ID
   accountId: string;
   // 备注信息
   memo?: string;
@@ -16423,7 +16587,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 采购者的链上账户Id
   accountId: string;
-  // IP ID
+  // IP授权交易时传入IP ID；增值服务交易时传入服务ID
   ipId: string;
   // 收费模式：0 销售抽佣, 1 按量付费
   chargeType?: number;
@@ -16436,7 +16600,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   // 授权合作结束期限（毫秒时间戳）
   authEndTime: number;
   // 合同（文件URL）
-  contract: string;
+  contract?: string;
   // 设计稿（文件URL）
   designDraft?: string;
   // 授权产品范围
@@ -17033,6 +17197,8 @@ export class CreateIpGoodsRequest extends $tea.Model {
   copyRightBeginTime: number;
   // 资质生效的结束时间
   copyRightEndTime: number;
+  // IP图库链接
+  ipGalleryUrl?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17057,6 +17223,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       memo: 'memo',
       copyRightBeginTime: 'copy_right_begin_time',
       copyRightEndTime: 'copy_right_end_time',
+      ipGalleryUrl: 'ip_gallery_url',
     };
   }
 
@@ -17084,6 +17251,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       memo: 'string',
       copyRightBeginTime: 'number',
       copyRightEndTime: 'number',
+      ipGalleryUrl: 'string',
     };
   }
 
@@ -17140,6 +17308,8 @@ export class AddIpChannelRequest extends $tea.Model {
   payMode: number;
   // ip等级  0:经典IP/1:流量IP/3:设计IP
   ipLevel: number;
+  // 交易是否需要确认，默认不需要确认
+  tradeNeedConfirm?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17150,6 +17320,7 @@ export class AddIpChannelRequest extends $tea.Model {
       authorizationModel: 'authorization_model',
       payMode: 'pay_mode',
       ipLevel: 'ip_level',
+      tradeNeedConfirm: 'trade_need_confirm',
     };
   }
 
@@ -17163,6 +17334,7 @@ export class AddIpChannelRequest extends $tea.Model {
       authorizationModel: 'number',
       payMode: 'number',
       ipLevel: 'number',
+      tradeNeedConfirm: 'boolean',
     };
   }
 
@@ -17298,6 +17470,8 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
   isSortByPv?: number;
   // 是否需要按照最近上下架时间排序（0:不需要，1:正序，2:倒序），默认按照倒序
   isSortByStatusChange?: number;
+  // 是否需要返回创建渠道，为空默认不返回
+  queryCreaterChannel?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17316,6 +17490,7 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       isCreateTimeSortDesc: 'is_create_time_sort_desc',
       isSortByPv: 'is_sort_by_pv',
       isSortByStatusChange: 'is_sort_by_status_change',
+      queryCreaterChannel: 'query_creater_channel',
     };
   }
 
@@ -17337,6 +17512,7 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       isCreateTimeSortDesc: 'boolean',
       isSortByPv: 'number',
       isSortByStatusChange: 'number',
+      queryCreaterChannel: 'boolean',
     };
   }
 
@@ -17460,12 +17636,15 @@ export class QueryIpDetailRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // ip的链上id列表
   ipIds: string[];
+  // 查找不到的ip是否报错，默认false，会报错
+  skipNotFoundIp?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
       ipIds: 'ip_ids',
+      skipNotFoundIp: 'skip_not_found_ip',
     };
   }
 
@@ -17475,6 +17654,7 @@ export class QueryIpDetailRequest extends $tea.Model {
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
       ipIds: { 'type': 'array', 'itemType': 'string' },
+      skipNotFoundIp: 'boolean',
     };
   }
 
@@ -17674,6 +17854,8 @@ export class UpdateIpChannelRequest extends $tea.Model {
   payMode: number;
   // ip等级  0:经典IP/1:流量IP/3:设计IP
   ipLevel: number;
+  // 交易是否需要确认，为空则不更新
+  tradeNeedConfirm?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17684,6 +17866,7 @@ export class UpdateIpChannelRequest extends $tea.Model {
       authorizationModel: 'authorization_model',
       payMode: 'pay_mode',
       ipLevel: 'ip_level',
+      tradeNeedConfirm: 'trade_need_confirm',
     };
   }
 
@@ -17697,6 +17880,7 @@ export class UpdateIpChannelRequest extends $tea.Model {
       authorizationModel: 'number',
       payMode: 'number',
       ipLevel: 'number',
+      tradeNeedConfirm: 'boolean',
     };
   }
 
@@ -17871,6 +18055,10 @@ export class CreateIpAccountRequest extends $tea.Model {
   externalUserName: string;
   // 角色:  1:版权方 2: 版权采购商  
   role: number;
+  // 商户合作伙伴id，邀请商户入驻
+  inviterId?: string;
+  // 商户合作伙伴返佣政策id
+  policyId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17879,6 +18067,8 @@ export class CreateIpAccountRequest extends $tea.Model {
       externalUserId: 'external_user_id',
       externalUserName: 'external_user_name',
       role: 'role',
+      inviterId: 'inviter_id',
+      policyId: 'policy_id',
     };
   }
 
@@ -17890,6 +18080,8 @@ export class CreateIpAccountRequest extends $tea.Model {
       externalUserId: 'string',
       externalUserName: 'string',
       role: 'number',
+      inviterId: 'string',
+      policyId: 'string',
     };
   }
 
@@ -19299,6 +19491,8 @@ export class CheckIpCodeRequest extends $tea.Model {
   phoneNumber?: string;
   // 扫码用户的位置信息
   gps?: string;
+  // 用户头像地址
+  avatar: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19309,6 +19503,7 @@ export class CheckIpCodeRequest extends $tea.Model {
       userName: 'user_name',
       phoneNumber: 'phone_number',
       gps: 'gps',
+      avatar: 'avatar',
     };
   }
 
@@ -19322,6 +19517,7 @@ export class CheckIpCodeRequest extends $tea.Model {
       userName: 'string',
       phoneNumber: 'string',
       gps: 'string',
+      avatar: 'string',
     };
   }
 
@@ -20151,6 +20347,8 @@ export class ReceiveIpCodeRequest extends $tea.Model {
   phoneNumber?: string;
   // 领取用户的位置信息
   gps?: string;
+  // 用户头像地址
+  avatar: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -20161,6 +20359,7 @@ export class ReceiveIpCodeRequest extends $tea.Model {
       userName: 'user_name',
       phoneNumber: 'phone_number',
       gps: 'gps',
+      avatar: 'avatar',
     };
   }
 
@@ -20174,6 +20373,7 @@ export class ReceiveIpCodeRequest extends $tea.Model {
       userName: 'string',
       phoneNumber: 'string',
       gps: 'string',
+      avatar: 'string',
     };
   }
 
@@ -21181,6 +21381,8 @@ export class CountIpAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
   // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
   chainId?: string;
   // 场景码(入驻时申请)(长度不超过50个字符)
@@ -21189,6 +21391,7 @@ export class CountIpAccountRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
       chainId: 'chain_id',
       productCode: 'product_code',
     };
@@ -21198,6 +21401,7 @@ export class CountIpAccountRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
       chainId: 'string',
       productCode: 'string',
     };
@@ -21319,6 +21523,982 @@ export class QueryIpOrderstatisticResponse extends $tea.Model {
       totalPaymentAmount: 'string',
       totalBuyerCount: 'number',
       orderStaList: { 'type': 'array', 'itemType': ChannelCounter },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpGoodsgalleryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权方链上账户ID
+  accountId: string;
+  // ip链上id
+  ipId: string;
+  // IP图库链接，一个压缩包
+  ipGalleryUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipId: 'ip_id',
+      ipGalleryUrl: 'ip_gallery_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipId: 'string',
+      ipGalleryUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpGoodsgalleryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpGoodsgalleryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 账户链上ID
+  accountId: string;
+  // IP链上ID，只有版权方可以根据IPID查询图库信息
+  ipId?: string;
+  // IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
+  ipOrderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipId: 'ip_id',
+      ipOrderId: 'ip_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipId: 'string',
+      ipOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpGoodsgalleryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 图库链接
+  ipGalleryUrl?: string;
+  // 图库临时下载链接，过期时间2小时
+  ipGalleryTemporaryUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipGalleryUrl: 'ip_gallery_url',
+      ipGalleryTemporaryUrl: 'ip_gallery_temporary_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipGalleryUrl: 'string',
+      ipGalleryTemporaryUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpCodeinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 商家账户链上ID
+  accountId: string;
+  // 订单ID
+  orderId: string;
+  // 正版码商品信息配置列表
+  goodsInfoList?: IPCodeGoodsInfo[];
+  // 正版码资源位配置信息列表
+  adInfoList?: IPCodeAdvertisingInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      orderId: 'order_id',
+      goodsInfoList: 'goods_info_list',
+      adInfoList: 'ad_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      orderId: 'string',
+      goodsInfoList: { 'type': 'array', 'itemType': IPCodeGoodsInfo },
+      adInfoList: { 'type': 'array', 'itemType': IPCodeAdvertisingInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpCodeinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpGalleryinstructionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 账户链上ID
+  accountId: string;
+  // 授权订单ID
+  ipOrderId: string;
+  // 页码
+  pageNumber: number;
+  // 每页数据量大小
+  pageSize: number;
+  // 数据排序顺序：正序还是倒序。默认按照下载时间排序。
+  order: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipOrderId: 'ip_order_id',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      order: 'order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipOrderId: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      order: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpGalleryinstructionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码
+  pageNumber?: number;
+  // 每页数据量大小
+  pageSize?: number;
+  // 符合条件的数据总数
+  totalCount?: number;
+  // 图库系在记录信息
+  galleryInstructionList?: IPGalleryInstruction[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      galleryInstructionList: 'gallery_instruction_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      galleryInstructionList: { 'type': 'array', 'itemType': IPGalleryInstruction },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpOrdergalleryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权方账户链上ID
+  accountId: string;
+  // 授权订单ID
+  ipOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipOrderId: 'ip_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpOrdergalleryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpAuthtradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 审核账户ID
+  accountId: string;
+  // 授权订单ID
+  ipOrderId: string;
+  // 是否同意授权
+  confirmResult: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipOrderId: 'ip_order_id',
+      confirmResult: 'confirm_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipOrderId: 'string',
+      confirmResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpAuthtradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  ipOrderId?: string;
+  // 保底金支付链接
+  payUrl?: string;
+  // 保底金账单ID
+  ipBillId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipOrderId: 'ip_order_id',
+      payUrl: 'pay_url',
+      ipBillId: 'ip_bill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipOrderId: 'string',
+      payUrl: 'string',
+      ipBillId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpPackagetradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 审核账户ID
+  accountId: string;
+  // 授权订单ID
+  ipOrderId: string;
+  // 是否同意授权
+  // 
+  confirmResult: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipOrderId: 'ip_order_id',
+      confirmResult: 'confirm_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipOrderId: 'string',
+      confirmResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpPackagetradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  ipOrderId?: string;
+  // 保底金支付链接
+  payUrl?: string;
+  // 保底金账单ID
+  ipBillId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipOrderId: 'ip_order_id',
+      payUrl: 'pay_url',
+      ipBillId: 'ip_bill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipOrderId: 'string',
+      payUrl: 'string',
+      ipBillId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIpPackagetradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 买方的链上账户Id
+  accountId: string;
+  // IP授权交易时传入IP ID；增值服务交易时传入服务ID
+  ipId: string;
+  // true 只上链不走真实支付，false 上链并链下真实支付账单
+  onlyCallBlockchain: boolean;
+  // 终端商品价格区间
+  priceRange: string;
+  // 套餐中包含终端商品数量
+  amount: number;
+  // 套餐交易应付金额，单位元，保留两位小数
+  expectedTotalPrice: string;
+  // 授权合作开始期限（毫秒时间戳）
+  authBeginTime: number;
+  // 授权合作结束期限（毫秒时间戳）
+  authEndTime: number;
+  // 备注信息
+  memo: string;
+  // 授权产品范围
+  authProductScope?: string;
+  // 授权地域范围
+  authAreaScope?: string;
+  // 商品销售渠道
+  salesChannel?: string;
+  // 0 IP交易，1 增值服务交易
+  goodsType?: number;
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipId: 'ip_id',
+      onlyCallBlockchain: 'only_call_blockchain',
+      priceRange: 'price_range',
+      amount: 'amount',
+      expectedTotalPrice: 'expected_total_price',
+      authBeginTime: 'auth_begin_time',
+      authEndTime: 'auth_end_time',
+      memo: 'memo',
+      authProductScope: 'auth_product_scope',
+      authAreaScope: 'auth_area_scope',
+      salesChannel: 'sales_channel',
+      goodsType: 'goods_type',
+      relatedOrderId: 'related_order_id',
+      payReturnUrl: 'pay_return_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipId: 'string',
+      onlyCallBlockchain: 'boolean',
+      priceRange: 'string',
+      amount: 'number',
+      expectedTotalPrice: 'string',
+      authBeginTime: 'number',
+      authEndTime: 'number',
+      memo: 'string',
+      authProductScope: 'string',
+      authAreaScope: 'string',
+      salesChannel: 'string',
+      goodsType: 'number',
+      relatedOrderId: 'string',
+      payReturnUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIpPackagetradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  ipOrderId?: string;
+  // 支付信息
+  payUrl?: string;
+  // 账单ID
+  // 
+  ipBillId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipOrderId: 'ip_order_id',
+      payUrl: 'pay_url',
+      ipBillId: 'ip_bill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipOrderId: 'string',
+      payUrl: 'string',
+      ipBillId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIpAuthtradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 采购者的链上账户Id
+  accountId: string;
+  // IP授权交易时传入IP ID；增值服务交易时传入服务ID
+  ipId: string;
+  // 收费模式：0 销售抽佣, 1 按量付费
+  chargeType?: number;
+  // 授权计费比例
+  authRate?: string;
+  // 按量付费的收费单价（按量付费模式必填）
+  authPrice?: string;
+  // 授权合作开始期限（毫秒时间戳）
+  authBeginTime: number;
+  // 授权合作结束期限（毫秒时间戳）
+  authEndTime: number;
+  // 合同（文件URL）
+  contract?: string;
+  // 设计稿（文件URL）
+  designDraft?: string;
+  // 授权产品范围
+  authProductScope?: string;
+  // 授权地域范围
+  authAreaScope?: string;
+  // 商品销售渠道
+  salesChannel?: string;
+  // 备注消息(不超过256个字符)
+  memo: string;
+  // 是否有保底金
+  guaranteed: boolean;
+  // 支付的保底金金额
+  guaranteedFund?: string;
+  // 保底商品个数（按量付费），订单销售数量超过保底部分需按量付费
+  guaranteedGoodsAmount?: number;
+  // 保底商品销售金额（销售抽佣），订单销售额超过保底部分需按比例抽拥
+  guaranteedSales?: string;
+  // 0 IP交易，1 增值服务交易
+  goodsType?: number;
+  // 增值服务交易绑定的ip授权交易订单，增值服务交易必填
+  relatedOrderId?: string;
+  // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
+  payReturnUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      ipId: 'ip_id',
+      chargeType: 'charge_type',
+      authRate: 'auth_rate',
+      authPrice: 'auth_price',
+      authBeginTime: 'auth_begin_time',
+      authEndTime: 'auth_end_time',
+      contract: 'contract',
+      designDraft: 'design_draft',
+      authProductScope: 'auth_product_scope',
+      authAreaScope: 'auth_area_scope',
+      salesChannel: 'sales_channel',
+      memo: 'memo',
+      guaranteed: 'guaranteed',
+      guaranteedFund: 'guaranteed_fund',
+      guaranteedGoodsAmount: 'guaranteed_goods_amount',
+      guaranteedSales: 'guaranteed_sales',
+      goodsType: 'goods_type',
+      relatedOrderId: 'related_order_id',
+      payReturnUrl: 'pay_return_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      ipId: 'string',
+      chargeType: 'number',
+      authRate: 'string',
+      authPrice: 'string',
+      authBeginTime: 'number',
+      authEndTime: 'number',
+      contract: 'string',
+      designDraft: 'string',
+      authProductScope: 'string',
+      authAreaScope: 'string',
+      salesChannel: 'string',
+      memo: 'string',
+      guaranteed: 'boolean',
+      guaranteedFund: 'string',
+      guaranteedGoodsAmount: 'number',
+      guaranteedSales: 'string',
+      goodsType: 'number',
+      relatedOrderId: 'string',
+      payReturnUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyIpAuthtradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  ipOrderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipOrderId: 'ip_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCodeinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 账户链上ID
+  accountId: string;
+  // 订单ID
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCodeinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  orderId?: string;
+  // 正版码商品信息配置列表
+  goodsInfoList?: IPCodeGoodsInfo[];
+  // 正版码资源位配置信息列表
+  adInfoList?: IPCodeAdvertisingInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      goodsInfoList: 'goods_info_list',
+      adInfoList: 'ad_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      goodsInfoList: { 'type': 'array', 'itemType': IPCodeGoodsInfo },
+      adInfoList: { 'type': 'array', 'itemType': IPCodeAdvertisingInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryIpApprovalwithupdateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础字段
+  baseRequest: BaseRequestInfo;
+  // ip名称
+  ipName?: string;
+  // ip的id
+  ipId?: string;
+  // ip审批状态 0待审批，1 审批通过，2 审批拒绝
+  approvalStatus?: number;
+  // 分页
+  pageSize: number;
+  // 分页
+  pageIndex: number;
+  // ip类型
+  ipType?: string;
+  // 受众人群
+  audienceGroup?: string;
+  // 开始时间
+  createBeginTime: string;
+  // 结束时间
+  createEndTime: string;
+  // 商品的链上租户id	
+  accountId?: string;
+  // 是否需要按照创建时间倒序排序
+  // 
+  isCreateTimeSortDesc: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipName: 'ip_name',
+      ipId: 'ip_id',
+      approvalStatus: 'approval_status',
+      pageSize: 'page_size',
+      pageIndex: 'page_index',
+      ipType: 'ip_type',
+      audienceGroup: 'audience_group',
+      createBeginTime: 'create_begin_time',
+      createEndTime: 'create_end_time',
+      accountId: 'account_id',
+      isCreateTimeSortDesc: 'is_create_time_sort_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipName: 'string',
+      ipId: 'string',
+      approvalStatus: 'number',
+      pageSize: 'number',
+      pageIndex: 'number',
+      ipType: 'string',
+      audienceGroup: 'string',
+      createBeginTime: 'string',
+      createEndTime: 'string',
+      accountId: 'string',
+      isCreateTimeSortDesc: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryIpApprovalwithupdateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 带上更新信息
+  ipList?: IpBasicInfoWithUpdate[];
+  // 总数
+  allCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipList: 'ip_list',
+      allCount: 'all_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipList: { 'type': 'array', 'itemType': IpBasicInfoWithUpdate },
+      allCount: 'number',
     };
   }
 
@@ -23077,7 +24257,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.43",
+          sdk_version: "1.2.53",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -26256,8 +27436,8 @@ export default class Client {
   }
 
   /**
-   * Description: 买家取消套餐交易
-   * Summary: 数字商品服务-IP授权服务-取消套餐交易
+   * Description: 交易发起方取消交易，包括套餐交易和定向授权
+   * Summary: 数字商品服务-IP授权服务-取消交易
    */
   async cancelIpPackagetrade(request: CancelIpPackagetradeRequest): Promise<CancelIpPackagetradeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26266,8 +27446,8 @@ export default class Client {
   }
 
   /**
-   * Description: 买家取消套餐交易
-   * Summary: 数字商品服务-IP授权服务-取消套餐交易
+   * Description: 交易发起方取消交易，包括套餐交易和定向授权
+   * Summary: 数字商品服务-IP授权服务-取消交易
    */
   async cancelIpPackagetradeEx(request: CancelIpPackagetradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelIpPackagetradeResponse> {
     Util.validateModel(request);
@@ -26485,7 +27665,7 @@ export default class Client {
 
   /**
    * Description: ip的所有信息 包括渠道和sku
-   * Summary: 数字商品服务-IP授权服务-查询所有信息
+   * Summary: 数字商品服务-IP授权服务-IP详情查询
    */
   async queryIpDetail(request: QueryIpDetailRequest): Promise<QueryIpDetailResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26495,7 +27675,7 @@ export default class Client {
 
   /**
    * Description: ip的所有信息 包括渠道和sku
-   * Summary: 数字商品服务-IP授权服务-查询所有信息
+   * Summary: 数字商品服务-IP授权服务-IP详情查询
    */
   async queryIpDetailEx(request: QueryIpDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpDetailResponse> {
     Util.validateModel(request);
@@ -26542,7 +27722,7 @@ export default class Client {
 
   /**
    * Description: ip上线
-   * Summary: 数字商品服务-IP授权服务-ip上线
+   * Summary: 数字商品服务-IP授权服务-上架
    */
   async onlineIp(request: OnlineIpRequest): Promise<OnlineIpResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26552,7 +27732,7 @@ export default class Client {
 
   /**
    * Description: ip上线
-   * Summary: 数字商品服务-IP授权服务-ip上线
+   * Summary: 数字商品服务-IP授权服务-上架
    */
   async onlineIpEx(request: OnlineIpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OnlineIpResponse> {
     Util.validateModel(request);
@@ -26561,7 +27741,7 @@ export default class Client {
 
   /**
    * Description: ip下线
-   * Summary: 数字商品服务-IP授权服务-下线
+   * Summary: 数字商品服务-IP授权服务-下架
    */
   async offlineIp(request: OfflineIpRequest): Promise<OfflineIpResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26571,7 +27751,7 @@ export default class Client {
 
   /**
    * Description: ip下线
-   * Summary: 数字商品服务-IP授权服务-下线
+   * Summary: 数字商品服务-IP授权服务-下架
    */
   async offlineIpEx(request: OfflineIpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OfflineIpResponse> {
     Util.validateModel(request);
@@ -26580,7 +27760,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-   * Summary: 数字商品服务-IP授权交易服务-账户创建
+   * Summary: 数字商品服务-IP授权服务-账户创建
    */
   async createIpAccount(request: CreateIpAccountRequest): Promise<CreateIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26590,7 +27770,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-   * Summary: 数字商品服务-IP授权交易服务-账户创建
+   * Summary: 数字商品服务-IP授权服务-账户创建
    */
   async createIpAccountEx(request: CreateIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpAccountResponse> {
     Util.validateModel(request);
@@ -26599,7 +27779,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-   * Summary: 数字商品服务-IP授权交易服务-账户冻结
+   * Summary: 数字商品服务-IP授权服务-账户冻结
    */
   async freezeIpAccount(request: FreezeIpAccountRequest): Promise<FreezeIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26609,7 +27789,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-   * Summary: 数字商品服务-IP授权交易服务-账户冻结
+   * Summary: 数字商品服务-IP授权服务-账户冻结
    */
   async freezeIpAccountEx(request: FreezeIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FreezeIpAccountResponse> {
     Util.validateModel(request);
@@ -26618,7 +27798,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-   * Summary: 数字商品服务-IP授权交易服务-账户解冻
+   * Summary: 数字商品服务-IP授权服务-账户解冻
    */
   async unfreezeIpAccount(request: UnfreezeIpAccountRequest): Promise<UnfreezeIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26628,7 +27808,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-   * Summary: 数字商品服务-IP授权交易服务-账户解冻
+   * Summary: 数字商品服务-IP授权服务-账户解冻
    */
   async unfreezeIpAccountEx(request: UnfreezeIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnfreezeIpAccountResponse> {
     Util.validateModel(request);
@@ -26637,7 +27817,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-   * Summary: 数字商品服务-IP授权交易服务-账户查询
+   * Summary: 数字商品服务-IP授权服务-账户查询
    */
   async queryIpAccount(request: QueryIpAccountRequest): Promise<QueryIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26647,7 +27827,7 @@ export default class Client {
 
   /**
    * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-   * Summary: 数字商品服务-IP授权交易服务-账户查询
+   * Summary: 数字商品服务-IP授权服务-账户查询
    */
   async queryIpAccountEx(request: QueryIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpAccountResponse> {
     Util.validateModel(request);
@@ -26656,7 +27836,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-   * Summary: 数字商品-IP授权交易服务-版权方申请
+   * Summary: 数字商品服务-IP授权服务-版权方申请
    */
   async applyIpAccount(request: ApplyIpAccountRequest): Promise<ApplyIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26666,7 +27846,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-   * Summary: 数字商品-IP授权交易服务-版权方申请
+   * Summary: 数字商品服务-IP授权服务-版权方申请
    */
   async applyIpAccountEx(request: ApplyIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpAccountResponse> {
     Util.validateModel(request);
@@ -26675,7 +27855,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-   * Summary: 数字商品-IP授权交易-申请进度查询
+   * Summary: 数字商品服务-IP授权服务-查申请进度
    */
   async checkIpAccount(request: CheckIpAccountRequest): Promise<CheckIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26685,7 +27865,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-   * Summary: 数字商品-IP授权交易-申请进度查询
+   * Summary: 数字商品服务-IP授权服务-查申请进度
    */
   async checkIpAccountEx(request: CheckIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIpAccountResponse> {
     Util.validateModel(request);
@@ -26694,7 +27874,7 @@ export default class Client {
 
   /**
    * Description: ip商品审批
-   * Summary: ip商品审批
+   * Summary: 数字商品服务-IP授权服务-ip创建审批
    */
   async confirmIpGoods(request: ConfirmIpGoodsRequest): Promise<ConfirmIpGoodsResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26704,7 +27884,7 @@ export default class Client {
 
   /**
    * Description: ip商品审批
-   * Summary: ip商品审批
+   * Summary: 数字商品服务-IP授权服务-ip创建审批
    */
   async confirmIpGoodsEx(request: ConfirmIpGoodsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpGoodsResponse> {
     Util.validateModel(request);
@@ -26714,7 +27894,7 @@ export default class Client {
   /**
    * Description: ip信息批量查询--给运营使用
   查询审批信息
-   * Summary: ip审批信息批量查询--给运营使用
+   * Summary: 数字商品服务-IP授权服务-审批信息查询
    */
   async batchqueryIpApproval(request: BatchqueryIpApprovalRequest): Promise<BatchqueryIpApprovalResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26725,7 +27905,7 @@ export default class Client {
   /**
    * Description: ip信息批量查询--给运营使用
   查询审批信息
-   * Summary: ip审批信息批量查询--给运营使用
+   * Summary: 数字商品服务-IP授权服务-审批信息查询
    */
   async batchqueryIpApprovalEx(request: BatchqueryIpApprovalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpApprovalResponse> {
     Util.validateModel(request);
@@ -26733,8 +27913,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-运营审核确认
-   * Summary: 数字商品-IP授权交易-运营审核确认
+   * Description: 数字商品服务-IP授权服务-运营审核确认
+   * Summary: 数字商品服务-IP授权服务-运营审核确认
    */
   async confirmIpAccount(request: ConfirmIpAccountRequest): Promise<ConfirmIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26743,8 +27923,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-运营审核确认
-   * Summary: 数字商品-IP授权交易-运营审核确认
+   * Description: 数字商品服务-IP授权服务-运营审核确认
+   * Summary: 数字商品服务-IP授权服务-运营审核确认
    */
   async confirmIpAccountEx(request: ConfirmIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpAccountResponse> {
     Util.validateModel(request);
@@ -26752,8 +27932,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-运营审核拒绝
-   * Summary: 数字商品-IP授权交易-运营审核拒绝
+   * Description: 数字商品服务-IP授权服务-运营审核拒绝
+   * Summary: 数字商品服务-IP授权服务-运营审核拒绝
    */
   async refuseIpAccount(request: RefuseIpAccountRequest): Promise<RefuseIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26762,8 +27942,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-运营审核拒绝
-   * Summary: 数字商品-IP授权交易-运营审核拒绝
+   * Description: 数字商品服务-IP授权服务-运营审核拒绝
+   * Summary: 数字商品服务-IP授权服务-运营审核拒绝
    */
   async refuseIpAccountEx(request: RefuseIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseIpAccountResponse> {
     Util.validateModel(request);
@@ -26772,7 +27952,7 @@ export default class Client {
 
   /**
    * Description: 版权方进件信息的单个查询
-   * Summary: 数字商品-IP授权交易服务-申请信息查询
+   * Summary: 数字商品服务-IP授权服务-申请信息查询
    */
   async pullIpAccount(request: PullIpAccountRequest): Promise<PullIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26782,7 +27962,7 @@ export default class Client {
 
   /**
    * Description: 版权方进件信息的单个查询
-   * Summary: 数字商品-IP授权交易服务-申请信息查询
+   * Summary: 数字商品服务-IP授权服务-申请信息查询
    */
   async pullIpAccountEx(request: PullIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullIpAccountResponse> {
     Util.validateModel(request);
@@ -26790,8 +27970,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-MCC列表查询
-   * Summary: 数字商品-IP授权交易服务-MCC查询
+   * Description: 数字商品服务-IP授权服务-MCC列表查询
+   * Summary: 数字商品服务-IP授权服务-MCC查询
    */
   async queryIpMcc(request: QueryIpMccRequest): Promise<QueryIpMccResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26800,8 +27980,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易服务-MCC列表查询
-   * Summary: 数字商品-IP授权交易服务-MCC查询
+   * Description: 数字商品服务-IP授权服务-MCC列表查询
+   * Summary: 数字商品服务-IP授权服务-MCC查询
    */
   async queryIpMccEx(request: QueryIpMccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpMccResponse> {
     Util.validateModel(request);
@@ -26810,7 +27990,7 @@ export default class Client {
 
   /**
    * Description: 查询ip type和受众人群
-   * Summary: 查询ip type和受众人群
+   * Summary: 数字商品服务-IP授权服务-IP标签查询
    */
   async queryIpType(request: QueryIpTypeRequest): Promise<QueryIpTypeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26820,7 +28000,7 @@ export default class Client {
 
   /**
    * Description: 查询ip type和受众人群
-   * Summary: 查询ip type和受众人群
+   * Summary: 数字商品服务-IP授权服务-IP标签查询
    */
   async queryIpTypeEx(request: QueryIpTypeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpTypeResponse> {
     Util.validateModel(request);
@@ -26829,7 +28009,7 @@ export default class Client {
 
   /**
    * Description: ip审批信息批量查询（带上渠道信息）
-   * Summary: ip审批信息批量查询（带上渠道信息）
+   * Summary: 数字商品服务-IP授权服务-审批批量查询
    */
   async batchqueryIpApprovalandchannel(request: BatchqueryIpApprovalandchannelRequest): Promise<BatchqueryIpApprovalandchannelResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26839,7 +28019,7 @@ export default class Client {
 
   /**
    * Description: ip审批信息批量查询（带上渠道信息）
-   * Summary: ip审批信息批量查询（带上渠道信息）
+   * Summary: 数字商品服务-IP授权服务-审批批量查询
    */
   async batchqueryIpApprovalandchannelEx(request: BatchqueryIpApprovalandchannelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpApprovalandchannelResponse> {
     Util.validateModel(request);
@@ -26848,7 +28028,7 @@ export default class Client {
 
   /**
    * Description: 版权方进件信息的批量查询
-   * Summary: 数字商品-IP授权服务-批量查询商家信息
+   * Summary: 数字商品服务-IP授权服务-查询商家信息
    */
   async batchqueryIpAccount(request: BatchqueryIpAccountRequest): Promise<BatchqueryIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26858,7 +28038,7 @@ export default class Client {
 
   /**
    * Description: 版权方进件信息的批量查询
-   * Summary: 数字商品-IP授权服务-批量查询商家信息
+   * Summary: 数字商品服务-IP授权服务-查询商家信息
    */
   async batchqueryIpAccountEx(request: BatchqueryIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpAccountResponse> {
     Util.validateModel(request);
@@ -26867,7 +28047,7 @@ export default class Client {
 
   /**
    * Description: 版权方待审批的批量查询
-   * Summary: 数字商品-IP授权-版权方申请批量查询
+   * Summary: 数字商品服务-IP授权服务-查版权方申请
    */
   async batchqueryIpSeller(request: BatchqueryIpSellerRequest): Promise<BatchqueryIpSellerResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26877,7 +28057,7 @@ export default class Client {
 
   /**
    * Description: 版权方待审批的批量查询
-   * Summary: 数字商品-IP授权-版权方申请批量查询
+   * Summary: 数字商品服务-IP授权服务-查版权方申请
    */
   async batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpSellerResponse> {
     Util.validateModel(request);
@@ -26885,8 +28065,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码申请
-   * Summary: 数字商品服务-IP授权交易-正版码申请
+   * Description: 数字商品服务-IP授权服务-正版码申请
+   * Summary: 数字商品服务-IP授权服务-正版码申请
    */
   async applyIpCode(request: ApplyIpCodeRequest): Promise<ApplyIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26895,8 +28075,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码申请
-   * Summary: 数字商品服务-IP授权交易-正版码申请
+   * Description: 数字商品服务-IP授权服务-正版码申请
+   * Summary: 数字商品服务-IP授权服务-正版码申请
    */
   async applyIpCodeEx(request: ApplyIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpCodeResponse> {
     Util.validateModel(request);
@@ -26904,8 +28084,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码分页查询
-   * Summary: 数字商品服务-IP授权交易-正版码查询
+   * Description: 数字商品服务-IP授权服务-正版码分页查询
+   * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async pagequeryIpCode(request: PagequeryIpCodeRequest): Promise<PagequeryIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26914,8 +28094,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码分页查询
-   * Summary: 数字商品服务-IP授权交易-正版码查询
+   * Description: 数字商品服务-IP授权服务-正版码分页查询
+   * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeResponse> {
     Util.validateModel(request);
@@ -26923,8 +28103,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码校验
-   * Summary: 数字商品服务-IP授权交易-正版码校验
+   * Description: 数字商品服务-IP授权服务-正版码校验
+   * Summary: 数字商品服务-IP授权服务-正版码校验
    */
   async checkIpCode(request: CheckIpCodeRequest): Promise<CheckIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26933,8 +28113,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易-正版码校验
-   * Summary: 数字商品服务-IP授权交易-正版码校验
+   * Description: 数字商品服务-IP授权服务-正版码校验
+   * Summary: 数字商品服务-IP授权服务-正版码校验
    */
   async checkIpCodeEx(request: CheckIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIpCodeResponse> {
     Util.validateModel(request);
@@ -26943,7 +28123,7 @@ export default class Client {
 
   /**
    * Description: 对商品的更新进行审核
-   * Summary: 数字商品-IP授权交易-商品更新审核
+   * Summary: 数字商品服务-IP授权服务-IP更新审核
    */
   async confirmIpUpdateapproval(request: ConfirmIpUpdateapprovalRequest): Promise<ConfirmIpUpdateapprovalResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26953,7 +28133,7 @@ export default class Client {
 
   /**
    * Description: 对商品的更新进行审核
-   * Summary: 数字商品-IP授权交易-商品更新审核
+   * Summary: 数字商品服务-IP授权服务-IP更新审核
    */
   async confirmIpUpdateapprovalEx(request: ConfirmIpUpdateapprovalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpUpdateapprovalResponse> {
     Util.validateModel(request);
@@ -26962,7 +28142,7 @@ export default class Client {
 
   /**
    * Description: ip商品sku信息设置
-   * Summary: 数字商品-IP授权交易-sku信息设置
+   * Summary: 数字商品服务-IP授权服务-sku设置
    */
   async setIpSku(request: SetIpSkuRequest): Promise<SetIpSkuResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26972,7 +28152,7 @@ export default class Client {
 
   /**
    * Description: ip商品sku信息设置
-   * Summary: 数字商品-IP授权交易-sku信息设置
+   * Summary: 数字商品服务-IP授权服务-sku设置
    */
   async setIpSkuEx(request: SetIpSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpSkuResponse> {
     Util.validateModel(request);
@@ -26981,7 +28161,7 @@ export default class Client {
 
   /**
    * Description: 查询商品基础信息的更新数据
-   * Summary: 数字商品-IP授权交易-查询更新数据
+   * Summary: 数字商品服务-IP授权服务-查询更新数据
    */
   async queryIpGoodsupdate(request: QueryIpGoodsupdateRequest): Promise<QueryIpGoodsupdateResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26991,7 +28171,7 @@ export default class Client {
 
   /**
    * Description: 查询商品基础信息的更新数据
-   * Summary: 数字商品-IP授权交易-查询更新数据
+   * Summary: 数字商品服务-IP授权服务-查询更新数据
    */
   async queryIpGoodsupdateEx(request: QueryIpGoodsupdateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpGoodsupdateResponse> {
     Util.validateModel(request);
@@ -27019,7 +28199,7 @@ export default class Client {
 
   /**
    * Description: ip商品某个渠道默认sku查询
-   * Summary: 数字商品-IP授权交易-默认sku查询
+   * Summary: 数字商品服务-IP授权服务-sku查询
    */
   async queryIpSkuconfig(request: QueryIpSkuconfigRequest): Promise<QueryIpSkuconfigResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27029,7 +28209,7 @@ export default class Client {
 
   /**
    * Description: ip商品某个渠道默认sku查询
-   * Summary: 数字商品-IP授权交易-默认sku查询
+   * Summary: 数字商品服务-IP授权服务-sku查询
    */
   async queryIpSkuconfigEx(request: QueryIpSkuconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpSkuconfigResponse> {
     Util.validateModel(request);
@@ -27038,7 +28218,7 @@ export default class Client {
 
   /**
    * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-   * Summary: 数字商品服务-IP授权交易-版权方导入
+   * Summary: 数字商品服务-IP授权服务-版权方导入
    */
   async importIpAccount(request: ImportIpAccountRequest): Promise<ImportIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27048,7 +28228,7 @@ export default class Client {
 
   /**
    * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-   * Summary: 数字商品服务-IP授权交易-版权方导入
+   * Summary: 数字商品服务-IP授权服务-版权方导入
    */
   async importIpAccountEx(request: ImportIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIpAccountResponse> {
     Util.validateModel(request);
@@ -27057,7 +28237,7 @@ export default class Client {
 
   /**
    * Description: 商品特定渠道的sku信息清空
-   * Summary: 数字商品-IP授权交易-sku信息清空
+   * Summary: 数字商品服务-IP授权服务-sku清空
    */
   async removeIpSku(request: RemoveIpSkuRequest): Promise<RemoveIpSkuResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27067,7 +28247,7 @@ export default class Client {
 
   /**
    * Description: 商品特定渠道的sku信息清空
-   * Summary: 数字商品-IP授权交易-sku信息清空
+   * Summary: 数字商品服务-IP授权服务-sku清空
    */
   async removeIpSkuEx(request: RemoveIpSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveIpSkuResponse> {
     Util.validateModel(request);
@@ -27076,7 +28256,7 @@ export default class Client {
 
   /**
    * Description: 创建监修报审
-   * Summary: 数字商品-IP授权交易-创建监修报审
+   * Summary: 数字商品服务-IP授权服务-创建监修报审
    */
   async createIpSuperviseapprove(request: CreateIpSuperviseapproveRequest): Promise<CreateIpSuperviseapproveResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27086,7 +28266,7 @@ export default class Client {
 
   /**
    * Description: 创建监修报审
-   * Summary: 数字商品-IP授权交易-创建监修报审
+   * Summary: 数字商品服务-IP授权服务-创建监修报审
    */
   async createIpSuperviseapproveEx(request: CreateIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpSuperviseapproveResponse> {
     Util.validateModel(request);
@@ -27095,7 +28275,7 @@ export default class Client {
 
   /**
    * Description: 监修报审审批
-   * Summary: 数字商品-IP授权交易-监修报审审批
+   * Summary: 数字商品服务-IP授权服务-监修报审审批
    */
   async confirmIpSuperviseapprove(request: ConfirmIpSuperviseapproveRequest): Promise<ConfirmIpSuperviseapproveResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27105,7 +28285,7 @@ export default class Client {
 
   /**
    * Description: 监修报审审批
-   * Summary: 数字商品-IP授权交易-监修报审审批
+   * Summary: 数字商品服务-IP授权服务-监修报审审批
    */
   async confirmIpSuperviseapproveEx(request: ConfirmIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpSuperviseapproveResponse> {
     Util.validateModel(request);
@@ -27114,7 +28294,7 @@ export default class Client {
 
   /**
    * Description: 监修报审进度推进/重置
-   * Summary: 数字商品-IP授权交易-监修报审进度推进
+   * Summary: 数字商品服务-IP授权服务-推进监修报审
    */
   async pushIpSuperviseapprove(request: PushIpSuperviseapproveRequest): Promise<PushIpSuperviseapproveResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27124,7 +28304,7 @@ export default class Client {
 
   /**
    * Description: 监修报审进度推进/重置
-   * Summary: 数字商品-IP授权交易-监修报审进度推进
+   * Summary: 数字商品服务-IP授权服务-推进监修报审
    */
   async pushIpSuperviseapproveEx(request: PushIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIpSuperviseapproveResponse> {
     Util.validateModel(request);
@@ -27133,7 +28313,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-查询监修报审详情
-   * Summary: 数字商品-IP授权交易-查询监修报审详情
+   * Summary: 数字商品服务-IP授权服务-查询监修报审
    */
   async queryIpSuperviseapprove(request: QueryIpSuperviseapproveRequest): Promise<QueryIpSuperviseapproveResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27143,7 +28323,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-查询监修报审详情
-   * Summary: 数字商品-IP授权交易-查询监修报审详情
+   * Summary: 数字商品服务-IP授权服务-查询监修报审
    */
   async queryIpSuperviseapproveEx(request: QueryIpSuperviseapproveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpSuperviseapproveResponse> {
     Util.validateModel(request);
@@ -27152,7 +28332,7 @@ export default class Client {
 
   /**
    * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-   * Summary: 数字商品服务-IP授权交易-正版码领取
+   * Summary: 数字商品服务-IP授权服务-正版码领取
    */
   async receiveIpCode(request: ReceiveIpCodeRequest): Promise<ReceiveIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27162,7 +28342,7 @@ export default class Client {
 
   /**
    * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-   * Summary: 数字商品服务-IP授权交易-正版码领取
+   * Summary: 数字商品服务-IP授权服务-正版码领取
    */
   async receiveIpCodeEx(request: ReceiveIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveIpCodeResponse> {
     Util.validateModel(request);
@@ -27171,7 +28351,7 @@ export default class Client {
 
   /**
    * Description: 已领取或以扫描过的正版码列表，分页查询
-   * Summary: 数字商品服务-IP授权交易-正版码列表
+   * Summary: 数字商品服务-IP授权服务-正版码列表
    */
   async pagequeryIpCodeinfo(request: PagequeryIpCodeinfoRequest): Promise<PagequeryIpCodeinfoResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27181,7 +28361,7 @@ export default class Client {
 
   /**
    * Description: 已领取或以扫描过的正版码列表，分页查询
-   * Summary: 数字商品服务-IP授权交易-正版码列表
+   * Summary: 数字商品服务-IP授权服务-正版码列表
    */
   async pagequeryIpCodeinfoEx(request: PagequeryIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeinfoResponse> {
     Util.validateModel(request);
@@ -27190,7 +28370,7 @@ export default class Client {
 
   /**
    * Description: 创建增值服务
-   * Summary: 数字商品-IP授权交易-创建增值服务
+   * Summary: 数字商品服务-IP授权服务-创建增值服务
    */
   async createIpValueadd(request: CreateIpValueaddRequest): Promise<CreateIpValueaddResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27200,7 +28380,7 @@ export default class Client {
 
   /**
    * Description: 创建增值服务
-   * Summary: 数字商品-IP授权交易-创建增值服务
+   * Summary: 数字商品服务-IP授权服务-创建增值服务
    */
   async createIpValueaddEx(request: CreateIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpValueaddResponse> {
     Util.validateModel(request);
@@ -27208,8 +28388,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-更新增值服务
-   * Summary: 数字商品-IP授权交易-更新增值服务
+   * Description: 数字商品服务-IP授权服务-更新增值服务
+   * Summary: 数字商品服务-IP授权服务-更新增值服务
    */
   async updateIpValueadd(request: UpdateIpValueaddRequest): Promise<UpdateIpValueaddResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27218,8 +28398,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-更新增值服务
-   * Summary: 数字商品-IP授权交易-更新增值服务
+   * Description: 数字商品服务-IP授权服务-更新增值服务
+   * Summary: 数字商品服务-IP授权服务-更新增值服务
    */
   async updateIpValueaddEx(request: UpdateIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIpValueaddResponse> {
     Util.validateModel(request);
@@ -27228,7 +28408,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权-设置增值服务sku
-   * Summary: 数字商品-IP授权-设置增值服务sku
+   * Summary: 数字商品服务-IP授权服务-设置增值服务
    */
   async setIpValueaddsku(request: SetIpValueaddskuRequest): Promise<SetIpValueaddskuResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27238,7 +28418,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权-设置增值服务sku
-   * Summary: 数字商品-IP授权-设置增值服务sku
+   * Summary: 数字商品服务-IP授权服务-设置增值服务
    */
   async setIpValueaddskuEx(request: SetIpValueaddskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpValueaddskuResponse> {
     Util.validateModel(request);
@@ -27246,8 +28426,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-增值服务上下线
-   * Summary: 数字商品-IP授权交易-增值服务上下线
+   * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+   * Summary: 数字商品服务-IP授权服务-服务上下架
    */
   async onlineIpValueadd(request: OnlineIpValueaddRequest): Promise<OnlineIpValueaddResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27256,8 +28436,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-增值服务上下线
-   * Summary: 数字商品-IP授权交易-增值服务上下线
+   * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+   * Summary: 数字商品服务-IP授权服务-服务上下架
    */
   async onlineIpValueaddEx(request: OnlineIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OnlineIpValueaddResponse> {
     Util.validateModel(request);
@@ -27266,7 +28446,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-增值服务查询
-   * Summary: 数字商品-IP授权交易-增值服务查询
+   * Summary: 数字商品服务-IP授权服务-增值服务查询
    */
   async queryIpValueadd(request: QueryIpValueaddRequest): Promise<QueryIpValueaddResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27276,7 +28456,7 @@ export default class Client {
 
   /**
    * Description: 数字商品-IP授权交易-增值服务查询
-   * Summary: 数字商品-IP授权交易-增值服务查询
+   * Summary: 数字商品服务-IP授权服务-增值服务查询
    */
   async queryIpValueaddEx(request: QueryIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpValueaddResponse> {
     Util.validateModel(request);
@@ -27285,7 +28465,7 @@ export default class Client {
 
   /**
    * Description: 增值服务批量查询
-   * Summary: 数字商品-IP授权交易-增值服务批量查询
+   * Summary: 数字商品服务-IP授权服务-增值服务查询
    */
   async pagequeryIpValueadd(request: PagequeryIpValueaddRequest): Promise<PagequeryIpValueaddResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27295,7 +28475,7 @@ export default class Client {
 
   /**
    * Description: 增值服务批量查询
-   * Summary: 数字商品-IP授权交易-增值服务批量查询
+   * Summary: 数字商品服务-IP授权服务-增值服务查询
    */
   async pagequeryIpValueaddEx(request: PagequeryIpValueaddRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpValueaddResponse> {
     Util.validateModel(request);
@@ -27341,8 +28521,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-删除ip商品
-   * Summary: 数字商品-IP授权交易-删除ip商品
+   * Description: 数字商品服务-IP授权服务-删除ip商品
+   * Summary: 数字商品服务-IP授权服务-IP删除
    */
   async removeIpGoods(request: RemoveIpGoodsRequest): Promise<RemoveIpGoodsResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27351,8 +28531,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-删除ip商品
-   * Summary: 数字商品-IP授权交易-删除ip商品
+   * Description: 数字商品服务-IP授权服务-删除ip商品
+   * Summary: 数字商品服务-IP授权服务-IP删除
    */
   async removeIpGoodsEx(request: RemoveIpGoodsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveIpGoodsResponse> {
     Util.validateModel(request);
@@ -27360,8 +28540,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-ip数量统计
-   * Summary: 数字商品-IP授权交易-ip数量统计
+   * Description: 数字商品服务-IP授权服务-ip数量统计
+   * Summary: 数字商品服务-IP授权服务-ip数量统计
    */
   async countIpNum(request: CountIpNumRequest): Promise<CountIpNumResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27370,8 +28550,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-ip数量统计
-   * Summary: 数字商品-IP授权交易-ip数量统计
+   * Description: 数字商品服务-IP授权服务-ip数量统计
+   * Summary: 数字商品服务-IP授权服务-ip数量统计
    */
   async countIpNumEx(request: CountIpNumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpNumResponse> {
     Util.validateModel(request);
@@ -27379,8 +28559,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-pv统计
-   * Summary: 数字商品-IP授权交易-pv统计
+   * Description: 数字商品服务-IP授权服务-pv统计
+   * Summary: 数字商品服务-IP授权服务-pv统计
    */
   async countIpPv(request: CountIpPvRequest): Promise<CountIpPvResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27389,8 +28569,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品-IP授权交易-pv统计
-   * Summary: 数字商品-IP授权交易-pv统计
+   * Description: 数字商品服务-IP授权服务-pv统计
+   * Summary: 数字商品服务-IP授权服务-pv统计
    */
   async countIpPvEx(request: CountIpPvRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpPvResponse> {
     Util.validateModel(request);
@@ -27399,7 +28579,7 @@ export default class Client {
 
   /**
    * Description: 查询正版码信息
-   * Summary: 数字商品服务-IP授权交易-正版码查询
+   * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async queryIpCode(request: QueryIpCodeRequest): Promise<QueryIpCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27409,7 +28589,7 @@ export default class Client {
 
   /**
    * Description: 查询正版码信息
-   * Summary: 数字商品服务-IP授权交易-正版码查询
+   * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async queryIpCodeEx(request: QueryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeResponse> {
     Util.validateModel(request);
@@ -27417,8 +28597,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易服务-账户统计
-   * Summary: 数字商品服务-IP授权交易服务-账户统计
+   * Description: 数字商品服务-IP授权服务-账户统计
+   * Summary: 数字商品服务-IP授权服务-账户统计
    */
   async countIpAccount(request: CountIpAccountRequest): Promise<CountIpAccountResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -27427,8 +28607,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权交易服务-账户统计
-   * Summary: 数字商品服务-IP授权交易服务-账户统计
+   * Description: 数字商品服务-IP授权服务-账户统计
+   * Summary: 数字商品服务-IP授权服务-账户统计
    */
   async countIpAccountEx(request: CountIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountIpAccountResponse> {
     Util.validateModel(request);
@@ -27452,6 +28632,215 @@ export default class Client {
   async queryIpOrderstatisticEx(request: QueryIpOrderstatisticRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpOrderstatisticResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIpOrderstatisticResponse>(await this.doRequest("1.0", "baas.antdao.ip.orderstatistic.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpOrderstatisticResponse({}));
+  }
+
+  /**
+   * Description: 版权方更新IP图库
+   * Summary: 数字商品服务-IP授权服务-ip更新图库
+   */
+  async updateIpGoodsgallery(request: UpdateIpGoodsgalleryRequest): Promise<UpdateIpGoodsgalleryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateIpGoodsgalleryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 版权方更新IP图库
+   * Summary: 数字商品服务-IP授权服务-ip更新图库
+   */
+  async updateIpGoodsgalleryEx(request: UpdateIpGoodsgalleryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIpGoodsgalleryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateIpGoodsgalleryResponse>(await this.doRequest("1.0", "baas.antdao.ip.goodsgallery.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIpGoodsgalleryResponse({}));
+  }
+
+  /**
+   * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+   * Summary: 数字商品服务-IP授权服务-查询ip图库
+   */
+  async queryIpGoodsgallery(request: QueryIpGoodsgalleryRequest): Promise<QueryIpGoodsgalleryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpGoodsgalleryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+   * Summary: 数字商品服务-IP授权服务-查询ip图库
+   */
+  async queryIpGoodsgalleryEx(request: QueryIpGoodsgalleryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpGoodsgalleryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpGoodsgalleryResponse>(await this.doRequest("1.0", "baas.antdao.ip.goodsgallery.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpGoodsgalleryResponse({}));
+  }
+
+  /**
+   * Description: 配置正版码的商品信息和资源位信息
+   * Summary: 数字商品服务-IP授权服务-正版码配置
+   */
+  async setIpCodeinfo(request: SetIpCodeinfoRequest): Promise<SetIpCodeinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setIpCodeinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 配置正版码的商品信息和资源位信息
+   * Summary: 数字商品服务-IP授权服务-正版码配置
+   */
+  async setIpCodeinfoEx(request: SetIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpCodeinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetIpCodeinfoResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeinfo.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetIpCodeinfoResponse({}));
+  }
+
+  /**
+   * Description: 查询订单的图库下载记录
+   * Summary: 数字商品服务-IP授权服务-查询图库记录
+   */
+  async pagequeryIpGalleryinstruction(request: PagequeryIpGalleryinstructionRequest): Promise<PagequeryIpGalleryinstructionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpGalleryinstructionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询订单的图库下载记录
+   * Summary: 数字商品服务-IP授权服务-查询图库记录
+   */
+  async pagequeryIpGalleryinstructionEx(request: PagequeryIpGalleryinstructionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpGalleryinstructionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpGalleryinstructionResponse>(await this.doRequest("1.0", "baas.antdao.ip.galleryinstruction.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpGalleryinstructionResponse({}));
+  }
+
+  /**
+   * Description: 版权方确认订单图库信息
+   * Summary: 数字商品服务-IP授权服务-订单图库确认
+   */
+  async confirmIpOrdergallery(request: ConfirmIpOrdergalleryRequest): Promise<ConfirmIpOrdergalleryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpOrdergalleryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 版权方确认订单图库信息
+   * Summary: 数字商品服务-IP授权服务-订单图库确认
+   */
+  async confirmIpOrdergalleryEx(request: ConfirmIpOrdergalleryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpOrdergalleryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpOrdergalleryResponse>(await this.doRequest("1.0", "baas.antdao.ip.ordergallery.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpOrdergalleryResponse({}));
+  }
+
+  /**
+   * Description: 审批IP定向授权交易
+   * Summary: 数字商品服务-IP授权服务-审批定向授权
+   */
+  async confirmIpAuthtrade(request: ConfirmIpAuthtradeRequest): Promise<ConfirmIpAuthtradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpAuthtradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 审批IP定向授权交易
+   * Summary: 数字商品服务-IP授权服务-审批定向授权
+   */
+  async confirmIpAuthtradeEx(request: ConfirmIpAuthtradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpAuthtradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpAuthtradeResponse>(await this.doRequest("1.0", "baas.antdao.ip.authtrade.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpAuthtradeResponse({}));
+  }
+
+  /**
+   * Description: 审核套餐授权申请
+   * Summary: 数字商品服务-IP授权服务-审批套餐授权
+   */
+  async confirmIpPackagetrade(request: ConfirmIpPackagetradeRequest): Promise<ConfirmIpPackagetradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpPackagetradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 审核套餐授权申请
+   * Summary: 数字商品服务-IP授权服务-审批套餐授权
+   */
+  async confirmIpPackagetradeEx(request: ConfirmIpPackagetradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpPackagetradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpPackagetradeResponse>(await this.doRequest("1.0", "baas.antdao.ip.packagetrade.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpPackagetradeResponse({}));
+  }
+
+  /**
+   * Description: 商家申请套餐交易
+   * Summary: 数字商品服务-IP授权服务-申请套餐交易
+   */
+  async applyIpPackagetrade(request: ApplyIpPackagetradeRequest): Promise<ApplyIpPackagetradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyIpPackagetradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家申请套餐交易
+   * Summary: 数字商品服务-IP授权服务-申请套餐交易
+   */
+  async applyIpPackagetradeEx(request: ApplyIpPackagetradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpPackagetradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyIpPackagetradeResponse>(await this.doRequest("1.0", "baas.antdao.ip.packagetrade.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyIpPackagetradeResponse({}));
+  }
+
+  /**
+   * Description: 版权方申请授权交易
+   * Summary: 数字商品服务-IP授权服务-申请授权交易
+   */
+  async applyIpAuthtrade(request: ApplyIpAuthtradeRequest): Promise<ApplyIpAuthtradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyIpAuthtradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 版权方申请授权交易
+   * Summary: 数字商品服务-IP授权服务-申请授权交易
+   */
+  async applyIpAuthtradeEx(request: ApplyIpAuthtradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyIpAuthtradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyIpAuthtradeResponse>(await this.doRequest("1.0", "baas.antdao.ip.authtrade.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyIpAuthtradeResponse({}));
+  }
+
+  /**
+   * Description: 查询正版码的配置信息
+   * Summary: 数字商品服务-IP授权服务-查正版码配置
+   */
+  async queryIpCodeinfo(request: QueryIpCodeinfoRequest): Promise<QueryIpCodeinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpCodeinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询正版码的配置信息
+   * Summary: 数字商品服务-IP授权服务-查正版码配置
+   */
+  async queryIpCodeinfoEx(request: QueryIpCodeinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpCodeinfoResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpCodeinfoResponse({}));
+  }
+
+  /**
+   * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+   * Summary: ip审批信息批量查询（带上更新信息）
+   */
+  async batchqueryIpApprovalwithupdate(request: BatchqueryIpApprovalwithupdateRequest): Promise<BatchqueryIpApprovalwithupdateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryIpApprovalwithupdateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+   * Summary: ip审批信息批量查询（带上更新信息）
+   */
+  async batchqueryIpApprovalwithupdateEx(request: BatchqueryIpApprovalwithupdateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpApprovalwithupdateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryIpApprovalwithupdateResponse>(await this.doRequest("1.0", "baas.antdao.ip.approvalwithupdate.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryIpApprovalwithupdateResponse({}));
   }
 
   /**
