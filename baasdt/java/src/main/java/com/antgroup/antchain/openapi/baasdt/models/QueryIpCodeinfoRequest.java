@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class CancelIpPackagetradeRequest extends TeaModel {
+public class QueryIpCodeinfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,31 +11,27 @@ public class CancelIpPackagetradeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 请求参数
+    // 基础请求参数
     @NameInMap("base_request")
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 订单ID
-    @NameInMap("ip_order_id")
-    @Validation(required = true)
-    public String ipOrderId;
-
-    // IP交易发起方的链上账户ID
+    // 账户链上ID
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
 
-    // 备注信息
-    @NameInMap("memo")
-    public String memo;
+    // 订单ID
+    @NameInMap("order_id")
+    @Validation(required = true)
+    public String orderId;
 
-    public static CancelIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
-        CancelIpPackagetradeRequest self = new CancelIpPackagetradeRequest();
+    public static QueryIpCodeinfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryIpCodeinfoRequest self = new QueryIpCodeinfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public CancelIpPackagetradeRequest setAuthToken(String authToken) {
+    public QueryIpCodeinfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -43,7 +39,7 @@ public class CancelIpPackagetradeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CancelIpPackagetradeRequest setProductInstanceId(String productInstanceId) {
+    public QueryIpCodeinfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -51,7 +47,7 @@ public class CancelIpPackagetradeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CancelIpPackagetradeRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public QueryIpCodeinfoRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -59,15 +55,7 @@ public class CancelIpPackagetradeRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public CancelIpPackagetradeRequest setIpOrderId(String ipOrderId) {
-        this.ipOrderId = ipOrderId;
-        return this;
-    }
-    public String getIpOrderId() {
-        return this.ipOrderId;
-    }
-
-    public CancelIpPackagetradeRequest setAccountId(String accountId) {
+    public QueryIpCodeinfoRequest setAccountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -75,12 +63,12 @@ public class CancelIpPackagetradeRequest extends TeaModel {
         return this.accountId;
     }
 
-    public CancelIpPackagetradeRequest setMemo(String memo) {
-        this.memo = memo;
+    public QueryIpCodeinfoRequest setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
-    public String getMemo() {
-        return this.memo;
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }

@@ -190,6 +190,10 @@ public class IPOrder extends TeaModel {
     @Validation(required = true)
     public Boolean superviseApprove;
 
+    // 订单图库信息，未确认则为空
+    @NameInMap("ip_gallery_url")
+    public String ipGalleryUrl;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -489,6 +493,14 @@ public class IPOrder extends TeaModel {
     }
     public Boolean getSuperviseApprove() {
         return this.superviseApprove;
+    }
+
+    public IPOrder setIpGalleryUrl(String ipGalleryUrl) {
+        this.ipGalleryUrl = ipGalleryUrl;
+        return this;
+    }
+    public String getIpGalleryUrl() {
+        return this.ipGalleryUrl;
     }
 
 }

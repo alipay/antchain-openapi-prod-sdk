@@ -39,6 +39,11 @@ public class CheckIpCodeRequest extends TeaModel {
     @NameInMap("gps")
     public String gps;
 
+    // 用户头像地址
+    @NameInMap("avatar")
+    @Validation(required = true)
+    public String avatar;
+
     public static CheckIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckIpCodeRequest self = new CheckIpCodeRequest();
         return TeaModel.build(map, self);
@@ -106,6 +111,14 @@ public class CheckIpCodeRequest extends TeaModel {
     }
     public String getGps() {
         return this.gps;
+    }
+
+    public CheckIpCodeRequest setAvatar(String avatar) {
+        this.avatar = avatar;
+        return this;
+    }
+    public String getAvatar() {
+        return this.avatar;
     }
 
 }

@@ -74,6 +74,10 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     @NameInMap("is_sort_by_status_change")
     public Long isSortByStatusChange;
 
+    // 是否需要返回创建渠道，为空默认不返回
+    @NameInMap("query_creater_channel")
+    public Boolean queryCreaterChannel;
+
     public static BatchqueryIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpGoodsRequest self = new BatchqueryIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -205,6 +209,14 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     }
     public Long getIsSortByStatusChange() {
         return this.isSortByStatusChange;
+    }
+
+    public BatchqueryIpGoodsRequest setQueryCreaterChannel(Boolean queryCreaterChannel) {
+        this.queryCreaterChannel = queryCreaterChannel;
+        return this;
+    }
+    public Boolean getQueryCreaterChannel() {
+        return this.queryCreaterChannel;
     }
 
 }

@@ -11,6 +11,11 @@ public class CountIpAccountRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 基础参数
+    @NameInMap("base_request")
+    @Validation(required = true)
+    public BaseRequestInfo baseRequest;
+
     // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
     @NameInMap("chain_id")
     public String chainId;
@@ -38,6 +43,14 @@ public class CountIpAccountRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public CountIpAccountRequest setBaseRequest(BaseRequestInfo baseRequest) {
+        this.baseRequest = baseRequest;
+        return this;
+    }
+    public BaseRequestInfo getBaseRequest() {
+        return this.baseRequest;
     }
 
     public CountIpAccountRequest setChainId(String chainId) {

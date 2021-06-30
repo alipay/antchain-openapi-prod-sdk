@@ -21,6 +21,10 @@ public class QueryIpDetailRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> ipIds;
 
+    // 查找不到的ip是否报错，默认false，会报错
+    @NameInMap("skip_not_found_ip")
+    public Boolean skipNotFoundIp;
+
     public static QueryIpDetailRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpDetailRequest self = new QueryIpDetailRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryIpDetailRequest extends TeaModel {
     }
     public java.util.List<String> getIpIds() {
         return this.ipIds;
+    }
+
+    public QueryIpDetailRequest setSkipNotFoundIp(Boolean skipNotFoundIp) {
+        this.skipNotFoundIp = skipNotFoundIp;
+        return this;
+    }
+    public Boolean getSkipNotFoundIp() {
+        return this.skipNotFoundIp;
     }
 
 }

@@ -19,6 +19,11 @@ public class IPCodeScannedInfo extends TeaModel {
     @Validation(required = true)
     public String userName;
 
+    // 用户头像地址
+    @NameInMap("avatar")
+    @Validation(required = true)
+    public String avatar;
+
     // 用户的手机号
     @NameInMap("phone_number")
     public String phoneNumber;
@@ -41,6 +46,14 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
+
+    // 正版码商品信息配置列表
+    @NameInMap("goods_info_list")
+    public java.util.List<IPCodeGoodsInfo> goodsInfoList;
+
+    // 正版码资源位配置信息列表
+    @NameInMap("ad_info_list")
+    public java.util.List<IPCodeAdvertisingInfo> adInfoList;
 
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
@@ -69,6 +82,14 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getUserName() {
         return this.userName;
+    }
+
+    public IPCodeScannedInfo setAvatar(String avatar) {
+        this.avatar = avatar;
+        return this;
+    }
+    public String getAvatar() {
+        return this.avatar;
     }
 
     public IPCodeScannedInfo setPhoneNumber(String phoneNumber) {
@@ -109,6 +130,22 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public IPCodeScannedInfo setGoodsInfoList(java.util.List<IPCodeGoodsInfo> goodsInfoList) {
+        this.goodsInfoList = goodsInfoList;
+        return this;
+    }
+    public java.util.List<IPCodeGoodsInfo> getGoodsInfoList() {
+        return this.goodsInfoList;
+    }
+
+    public IPCodeScannedInfo setAdInfoList(java.util.List<IPCodeAdvertisingInfo> adInfoList) {
+        this.adInfoList = adInfoList;
+        return this;
+    }
+    public java.util.List<IPCodeAdvertisingInfo> getAdInfoList() {
+        return this.adInfoList;
     }
 
 }

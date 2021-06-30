@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class StartIpPackagetradeRequest extends TeaModel {
+public class ApplyIpPackagetradeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 基础请求参数
+    // 基础参数
     @NameInMap("base_request")
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
@@ -85,12 +85,12 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @NameInMap("pay_return_url")
     public String payReturnUrl;
 
-    public static StartIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
-        StartIpPackagetradeRequest self = new StartIpPackagetradeRequest();
+    public static ApplyIpPackagetradeRequest build(java.util.Map<String, ?> map) throws Exception {
+        ApplyIpPackagetradeRequest self = new ApplyIpPackagetradeRequest();
         return TeaModel.build(map, self);
     }
 
-    public StartIpPackagetradeRequest setAuthToken(String authToken) {
+    public ApplyIpPackagetradeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -98,7 +98,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public StartIpPackagetradeRequest setProductInstanceId(String productInstanceId) {
+    public ApplyIpPackagetradeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -106,7 +106,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public StartIpPackagetradeRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public ApplyIpPackagetradeRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -114,7 +114,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public StartIpPackagetradeRequest setAccountId(String accountId) {
+    public ApplyIpPackagetradeRequest setAccountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -122,7 +122,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.accountId;
     }
 
-    public StartIpPackagetradeRequest setIpId(String ipId) {
+    public ApplyIpPackagetradeRequest setIpId(String ipId) {
         this.ipId = ipId;
         return this;
     }
@@ -130,7 +130,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.ipId;
     }
 
-    public StartIpPackagetradeRequest setOnlyCallBlockchain(Boolean onlyCallBlockchain) {
+    public ApplyIpPackagetradeRequest setOnlyCallBlockchain(Boolean onlyCallBlockchain) {
         this.onlyCallBlockchain = onlyCallBlockchain;
         return this;
     }
@@ -138,7 +138,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.onlyCallBlockchain;
     }
 
-    public StartIpPackagetradeRequest setPriceRange(String priceRange) {
+    public ApplyIpPackagetradeRequest setPriceRange(String priceRange) {
         this.priceRange = priceRange;
         return this;
     }
@@ -146,7 +146,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.priceRange;
     }
 
-    public StartIpPackagetradeRequest setAmount(Long amount) {
+    public ApplyIpPackagetradeRequest setAmount(Long amount) {
         this.amount = amount;
         return this;
     }
@@ -154,7 +154,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.amount;
     }
 
-    public StartIpPackagetradeRequest setExpectedTotalPrice(String expectedTotalPrice) {
+    public ApplyIpPackagetradeRequest setExpectedTotalPrice(String expectedTotalPrice) {
         this.expectedTotalPrice = expectedTotalPrice;
         return this;
     }
@@ -162,7 +162,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.expectedTotalPrice;
     }
 
-    public StartIpPackagetradeRequest setAuthBeginTime(Long authBeginTime) {
+    public ApplyIpPackagetradeRequest setAuthBeginTime(Long authBeginTime) {
         this.authBeginTime = authBeginTime;
         return this;
     }
@@ -170,7 +170,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.authBeginTime;
     }
 
-    public StartIpPackagetradeRequest setAuthEndTime(Long authEndTime) {
+    public ApplyIpPackagetradeRequest setAuthEndTime(Long authEndTime) {
         this.authEndTime = authEndTime;
         return this;
     }
@@ -178,7 +178,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.authEndTime;
     }
 
-    public StartIpPackagetradeRequest setMemo(String memo) {
+    public ApplyIpPackagetradeRequest setMemo(String memo) {
         this.memo = memo;
         return this;
     }
@@ -186,7 +186,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.memo;
     }
 
-    public StartIpPackagetradeRequest setAuthProductScope(String authProductScope) {
+    public ApplyIpPackagetradeRequest setAuthProductScope(String authProductScope) {
         this.authProductScope = authProductScope;
         return this;
     }
@@ -194,7 +194,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.authProductScope;
     }
 
-    public StartIpPackagetradeRequest setAuthAreaScope(String authAreaScope) {
+    public ApplyIpPackagetradeRequest setAuthAreaScope(String authAreaScope) {
         this.authAreaScope = authAreaScope;
         return this;
     }
@@ -202,7 +202,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.authAreaScope;
     }
 
-    public StartIpPackagetradeRequest setSalesChannel(String salesChannel) {
+    public ApplyIpPackagetradeRequest setSalesChannel(String salesChannel) {
         this.salesChannel = salesChannel;
         return this;
     }
@@ -210,7 +210,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.salesChannel;
     }
 
-    public StartIpPackagetradeRequest setGoodsType(Long goodsType) {
+    public ApplyIpPackagetradeRequest setGoodsType(Long goodsType) {
         this.goodsType = goodsType;
         return this;
     }
@@ -218,7 +218,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.goodsType;
     }
 
-    public StartIpPackagetradeRequest setRelatedOrderId(String relatedOrderId) {
+    public ApplyIpPackagetradeRequest setRelatedOrderId(String relatedOrderId) {
         this.relatedOrderId = relatedOrderId;
         return this;
     }
@@ -226,7 +226,7 @@ public class StartIpPackagetradeRequest extends TeaModel {
         return this.relatedOrderId;
     }
 
-    public StartIpPackagetradeRequest setPayReturnUrl(String payReturnUrl) {
+    public ApplyIpPackagetradeRequest setPayReturnUrl(String payReturnUrl) {
         this.payReturnUrl = payReturnUrl;
         return this;
     }

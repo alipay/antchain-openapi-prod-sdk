@@ -41,6 +41,10 @@ public class AddIpChannelRequest extends TeaModel {
     @Validation(required = true)
     public Long ipLevel;
 
+    // 交易是否需要确认，默认不需要确认
+    @NameInMap("trade_need_confirm")
+    public Boolean tradeNeedConfirm;
+
     public static AddIpChannelRequest build(java.util.Map<String, ?> map) throws Exception {
         AddIpChannelRequest self = new AddIpChannelRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class AddIpChannelRequest extends TeaModel {
     }
     public Long getIpLevel() {
         return this.ipLevel;
+    }
+
+    public AddIpChannelRequest setTradeNeedConfirm(Boolean tradeNeedConfirm) {
+        this.tradeNeedConfirm = tradeNeedConfirm;
+        return this;
+    }
+    public Boolean getTradeNeedConfirm() {
+        return this.tradeNeedConfirm;
     }
 
 }

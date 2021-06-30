@@ -29,6 +29,10 @@ public class IpChannelInfo extends TeaModel {
     @Validation(required = true)
     public Long status;
 
+    // 交易是否需要确认
+    @NameInMap("trade_need_confirm")
+    public Boolean tradeNeedConfirm;
+
     public static IpChannelInfo build(java.util.Map<String, ?> map) throws Exception {
         IpChannelInfo self = new IpChannelInfo();
         return TeaModel.build(map, self);
@@ -72,6 +76,14 @@ public class IpChannelInfo extends TeaModel {
     }
     public Long getStatus() {
         return this.status;
+    }
+
+    public IpChannelInfo setTradeNeedConfirm(Boolean tradeNeedConfirm) {
+        this.tradeNeedConfirm = tradeNeedConfirm;
+        return this;
+    }
+    public Boolean getTradeNeedConfirm() {
+        return this.tradeNeedConfirm;
     }
 
 }

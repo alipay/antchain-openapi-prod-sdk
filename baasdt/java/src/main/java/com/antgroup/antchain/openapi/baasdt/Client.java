@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.43")
+                    new TeaPair("sdk_version", "1.2.53")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3292,8 +3292,8 @@ public class Client {
     }
 
     /**
-     * Description: 买家取消套餐交易
-     * Summary: 数字商品服务-IP授权服务-取消套餐交易
+     * Description: 交易发起方取消交易，包括套餐交易和定向授权
+     * Summary: 数字商品服务-IP授权服务-取消交易
      */
     public CancelIpPackagetradeResponse cancelIpPackagetrade(CancelIpPackagetradeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3302,8 +3302,8 @@ public class Client {
     }
 
     /**
-     * Description: 买家取消套餐交易
-     * Summary: 数字商品服务-IP授权服务-取消套餐交易
+     * Description: 交易发起方取消交易，包括套餐交易和定向授权
+     * Summary: 数字商品服务-IP授权服务-取消交易
      */
     public CancelIpPackagetradeResponse cancelIpPackagetradeEx(CancelIpPackagetradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3521,7 +3521,7 @@ public class Client {
 
     /**
      * Description: ip的所有信息 包括渠道和sku
-     * Summary: 数字商品服务-IP授权服务-查询所有信息
+     * Summary: 数字商品服务-IP授权服务-IP详情查询
      */
     public QueryIpDetailResponse queryIpDetail(QueryIpDetailRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3531,7 +3531,7 @@ public class Client {
 
     /**
      * Description: ip的所有信息 包括渠道和sku
-     * Summary: 数字商品服务-IP授权服务-查询所有信息
+     * Summary: 数字商品服务-IP授权服务-IP详情查询
      */
     public QueryIpDetailResponse queryIpDetailEx(QueryIpDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3578,7 +3578,7 @@ public class Client {
 
     /**
      * Description: ip上线
-     * Summary: 数字商品服务-IP授权服务-ip上线
+     * Summary: 数字商品服务-IP授权服务-上架
      */
     public OnlineIpResponse onlineIp(OnlineIpRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3588,7 +3588,7 @@ public class Client {
 
     /**
      * Description: ip上线
-     * Summary: 数字商品服务-IP授权服务-ip上线
+     * Summary: 数字商品服务-IP授权服务-上架
      */
     public OnlineIpResponse onlineIpEx(OnlineIpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3597,7 +3597,7 @@ public class Client {
 
     /**
      * Description: ip下线
-     * Summary: 数字商品服务-IP授权服务-下线
+     * Summary: 数字商品服务-IP授权服务-下架
      */
     public OfflineIpResponse offlineIp(OfflineIpRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3607,7 +3607,7 @@ public class Client {
 
     /**
      * Description: ip下线
-     * Summary: 数字商品服务-IP授权服务-下线
+     * Summary: 数字商品服务-IP授权服务-下架
      */
     public OfflineIpResponse offlineIpEx(OfflineIpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3616,7 +3616,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-     * Summary: 数字商品服务-IP授权交易服务-账户创建
+     * Summary: 数字商品服务-IP授权服务-账户创建
      */
     public CreateIpAccountResponse createIpAccount(CreateIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3626,7 +3626,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户注册, 采购商注册账户完成即可以参与IP授权交易服务, 版权方需要根据具体需要完成二级商户创建操作后再参与IP授权交易服务。
-     * Summary: 数字商品服务-IP授权交易服务-账户创建
+     * Summary: 数字商品服务-IP授权服务-账户创建
      */
     public CreateIpAccountResponse createIpAccountEx(CreateIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3635,7 +3635,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户冻结
+     * Summary: 数字商品服务-IP授权服务-账户冻结
      */
     public FreezeIpAccountResponse freezeIpAccount(FreezeIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3645,7 +3645,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户冻结, 账户冻结后无法参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户冻结
+     * Summary: 数字商品服务-IP授权服务-账户冻结
      */
     public FreezeIpAccountResponse freezeIpAccountEx(FreezeIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3654,7 +3654,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户解冻
+     * Summary: 数字商品服务-IP授权服务-账户解冻
      */
     public UnfreezeIpAccountResponse unfreezeIpAccount(UnfreezeIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3664,7 +3664,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户解冻, 对于已经被冻结的账户, 账户解冻后才可以参与IP授权交易活动。
-     * Summary: 数字商品服务-IP授权交易服务-账户解冻
+     * Summary: 数字商品服务-IP授权服务-账户解冻
      */
     public UnfreezeIpAccountResponse unfreezeIpAccountEx(UnfreezeIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3673,7 +3673,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-     * Summary: 数字商品服务-IP授权交易服务-账户查询
+     * Summary: 数字商品服务-IP授权服务-账户查询
      */
     public QueryIpAccountResponse queryIpAccount(QueryIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3683,7 +3683,7 @@ public class Client {
 
     /**
      * Description: IP授权交易服务: IP采购商和版权方的账户查询。
-     * Summary: 数字商品服务-IP授权交易服务-账户查询
+     * Summary: 数字商品服务-IP授权服务-账户查询
      */
     public QueryIpAccountResponse queryIpAccountEx(QueryIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3692,7 +3692,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-     * Summary: 数字商品-IP授权交易服务-版权方申请
+     * Summary: 数字商品服务-IP授权服务-版权方申请
      */
     public ApplyIpAccountResponse applyIpAccount(ApplyIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3702,7 +3702,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易服务-版权方申请: 版权方完成账户注册后需要完成版权方申请,异步流程需要查询申请结果。
-     * Summary: 数字商品-IP授权交易服务-版权方申请
+     * Summary: 数字商品服务-IP授权服务-版权方申请
      */
     public ApplyIpAccountResponse applyIpAccountEx(ApplyIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3711,7 +3711,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-     * Summary: 数字商品-IP授权交易-申请进度查询
+     * Summary: 数字商品服务-IP授权服务-查申请进度
      */
     public CheckIpAccountResponse checkIpAccount(CheckIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3721,7 +3721,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-版权方申请进度查询: 版权方申请流程需要人工审核和支付宝审核。
-     * Summary: 数字商品-IP授权交易-申请进度查询
+     * Summary: 数字商品服务-IP授权服务-查申请进度
      */
     public CheckIpAccountResponse checkIpAccountEx(CheckIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3730,7 +3730,7 @@ public class Client {
 
     /**
      * Description: ip商品审批
-     * Summary: ip商品审批
+     * Summary: 数字商品服务-IP授权服务-ip创建审批
      */
     public ConfirmIpGoodsResponse confirmIpGoods(ConfirmIpGoodsRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3740,7 +3740,7 @@ public class Client {
 
     /**
      * Description: ip商品审批
-     * Summary: ip商品审批
+     * Summary: 数字商品服务-IP授权服务-ip创建审批
      */
     public ConfirmIpGoodsResponse confirmIpGoodsEx(ConfirmIpGoodsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3750,7 +3750,7 @@ public class Client {
     /**
      * Description: ip信息批量查询--给运营使用
     查询审批信息
-     * Summary: ip审批信息批量查询--给运营使用
+     * Summary: 数字商品服务-IP授权服务-审批信息查询
      */
     public BatchqueryIpApprovalResponse batchqueryIpApproval(BatchqueryIpApprovalRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3761,7 +3761,7 @@ public class Client {
     /**
      * Description: ip信息批量查询--给运营使用
     查询审批信息
-     * Summary: ip审批信息批量查询--给运营使用
+     * Summary: 数字商品服务-IP授权服务-审批信息查询
      */
     public BatchqueryIpApprovalResponse batchqueryIpApprovalEx(BatchqueryIpApprovalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3769,8 +3769,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核确认
-     * Summary: 数字商品-IP授权交易-运营审核确认
+     * Description: 数字商品服务-IP授权服务-运营审核确认
+     * Summary: 数字商品服务-IP授权服务-运营审核确认
      */
     public ConfirmIpAccountResponse confirmIpAccount(ConfirmIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3779,8 +3779,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核确认
-     * Summary: 数字商品-IP授权交易-运营审核确认
+     * Description: 数字商品服务-IP授权服务-运营审核确认
+     * Summary: 数字商品服务-IP授权服务-运营审核确认
      */
     public ConfirmIpAccountResponse confirmIpAccountEx(ConfirmIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3788,8 +3788,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核拒绝
-     * Summary: 数字商品-IP授权交易-运营审核拒绝
+     * Description: 数字商品服务-IP授权服务-运营审核拒绝
+     * Summary: 数字商品服务-IP授权服务-运营审核拒绝
      */
     public RefuseIpAccountResponse refuseIpAccount(RefuseIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3798,8 +3798,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-运营审核拒绝
-     * Summary: 数字商品-IP授权交易-运营审核拒绝
+     * Description: 数字商品服务-IP授权服务-运营审核拒绝
+     * Summary: 数字商品服务-IP授权服务-运营审核拒绝
      */
     public RefuseIpAccountResponse refuseIpAccountEx(RefuseIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3808,7 +3808,7 @@ public class Client {
 
     /**
      * Description: 版权方进件信息的单个查询
-     * Summary: 数字商品-IP授权交易服务-申请信息查询
+     * Summary: 数字商品服务-IP授权服务-申请信息查询
      */
     public PullIpAccountResponse pullIpAccount(PullIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3818,7 +3818,7 @@ public class Client {
 
     /**
      * Description: 版权方进件信息的单个查询
-     * Summary: 数字商品-IP授权交易服务-申请信息查询
+     * Summary: 数字商品服务-IP授权服务-申请信息查询
      */
     public PullIpAccountResponse pullIpAccountEx(PullIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3826,8 +3826,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-MCC列表查询
-     * Summary: 数字商品-IP授权交易服务-MCC查询
+     * Description: 数字商品服务-IP授权服务-MCC列表查询
+     * Summary: 数字商品服务-IP授权服务-MCC查询
      */
     public QueryIpMccResponse queryIpMcc(QueryIpMccRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3836,8 +3836,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易服务-MCC列表查询
-     * Summary: 数字商品-IP授权交易服务-MCC查询
+     * Description: 数字商品服务-IP授权服务-MCC列表查询
+     * Summary: 数字商品服务-IP授权服务-MCC查询
      */
     public QueryIpMccResponse queryIpMccEx(QueryIpMccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3846,7 +3846,7 @@ public class Client {
 
     /**
      * Description: 查询ip type和受众人群
-     * Summary: 查询ip type和受众人群
+     * Summary: 数字商品服务-IP授权服务-IP标签查询
      */
     public QueryIpTypeResponse queryIpType(QueryIpTypeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3856,7 +3856,7 @@ public class Client {
 
     /**
      * Description: 查询ip type和受众人群
-     * Summary: 查询ip type和受众人群
+     * Summary: 数字商品服务-IP授权服务-IP标签查询
      */
     public QueryIpTypeResponse queryIpTypeEx(QueryIpTypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3865,7 +3865,7 @@ public class Client {
 
     /**
      * Description: ip审批信息批量查询（带上渠道信息）
-     * Summary: ip审批信息批量查询（带上渠道信息）
+     * Summary: 数字商品服务-IP授权服务-审批批量查询
      */
     public BatchqueryIpApprovalandchannelResponse batchqueryIpApprovalandchannel(BatchqueryIpApprovalandchannelRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3875,7 +3875,7 @@ public class Client {
 
     /**
      * Description: ip审批信息批量查询（带上渠道信息）
-     * Summary: ip审批信息批量查询（带上渠道信息）
+     * Summary: 数字商品服务-IP授权服务-审批批量查询
      */
     public BatchqueryIpApprovalandchannelResponse batchqueryIpApprovalandchannelEx(BatchqueryIpApprovalandchannelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3884,7 +3884,7 @@ public class Client {
 
     /**
      * Description: 版权方进件信息的批量查询
-     * Summary: 数字商品-IP授权服务-批量查询商家信息
+     * Summary: 数字商品服务-IP授权服务-查询商家信息
      */
     public BatchqueryIpAccountResponse batchqueryIpAccount(BatchqueryIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3894,7 +3894,7 @@ public class Client {
 
     /**
      * Description: 版权方进件信息的批量查询
-     * Summary: 数字商品-IP授权服务-批量查询商家信息
+     * Summary: 数字商品服务-IP授权服务-查询商家信息
      */
     public BatchqueryIpAccountResponse batchqueryIpAccountEx(BatchqueryIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3903,7 +3903,7 @@ public class Client {
 
     /**
      * Description: 版权方待审批的批量查询
-     * Summary: 数字商品-IP授权-版权方申请批量查询
+     * Summary: 数字商品服务-IP授权服务-查版权方申请
      */
     public BatchqueryIpSellerResponse batchqueryIpSeller(BatchqueryIpSellerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3913,7 +3913,7 @@ public class Client {
 
     /**
      * Description: 版权方待审批的批量查询
-     * Summary: 数字商品-IP授权-版权方申请批量查询
+     * Summary: 数字商品服务-IP授权服务-查版权方申请
      */
     public BatchqueryIpSellerResponse batchqueryIpSellerEx(BatchqueryIpSellerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3921,8 +3921,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码申请
-     * Summary: 数字商品服务-IP授权交易-正版码申请
+     * Description: 数字商品服务-IP授权服务-正版码申请
+     * Summary: 数字商品服务-IP授权服务-正版码申请
      */
     public ApplyIpCodeResponse applyIpCode(ApplyIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3931,8 +3931,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码申请
-     * Summary: 数字商品服务-IP授权交易-正版码申请
+     * Description: 数字商品服务-IP授权服务-正版码申请
+     * Summary: 数字商品服务-IP授权服务-正版码申请
      */
     public ApplyIpCodeResponse applyIpCodeEx(ApplyIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3940,8 +3940,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCode(PagequeryIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3950,8 +3950,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCodeEx(PagequeryIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3959,8 +3959,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码校验
-     * Summary: 数字商品服务-IP授权交易-正版码校验
+     * Description: 数字商品服务-IP授权服务-正版码校验
+     * Summary: 数字商品服务-IP授权服务-正版码校验
      */
     public CheckIpCodeResponse checkIpCode(CheckIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3969,8 +3969,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易-正版码校验
-     * Summary: 数字商品服务-IP授权交易-正版码校验
+     * Description: 数字商品服务-IP授权服务-正版码校验
+     * Summary: 数字商品服务-IP授权服务-正版码校验
      */
     public CheckIpCodeResponse checkIpCodeEx(CheckIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3979,7 +3979,7 @@ public class Client {
 
     /**
      * Description: 对商品的更新进行审核
-     * Summary: 数字商品-IP授权交易-商品更新审核
+     * Summary: 数字商品服务-IP授权服务-IP更新审核
      */
     public ConfirmIpUpdateapprovalResponse confirmIpUpdateapproval(ConfirmIpUpdateapprovalRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3989,7 +3989,7 @@ public class Client {
 
     /**
      * Description: 对商品的更新进行审核
-     * Summary: 数字商品-IP授权交易-商品更新审核
+     * Summary: 数字商品服务-IP授权服务-IP更新审核
      */
     public ConfirmIpUpdateapprovalResponse confirmIpUpdateapprovalEx(ConfirmIpUpdateapprovalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3998,7 +3998,7 @@ public class Client {
 
     /**
      * Description: ip商品sku信息设置
-     * Summary: 数字商品-IP授权交易-sku信息设置
+     * Summary: 数字商品服务-IP授权服务-sku设置
      */
     public SetIpSkuResponse setIpSku(SetIpSkuRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4008,7 +4008,7 @@ public class Client {
 
     /**
      * Description: ip商品sku信息设置
-     * Summary: 数字商品-IP授权交易-sku信息设置
+     * Summary: 数字商品服务-IP授权服务-sku设置
      */
     public SetIpSkuResponse setIpSkuEx(SetIpSkuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4017,7 +4017,7 @@ public class Client {
 
     /**
      * Description: 查询商品基础信息的更新数据
-     * Summary: 数字商品-IP授权交易-查询更新数据
+     * Summary: 数字商品服务-IP授权服务-查询更新数据
      */
     public QueryIpGoodsupdateResponse queryIpGoodsupdate(QueryIpGoodsupdateRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4027,7 +4027,7 @@ public class Client {
 
     /**
      * Description: 查询商品基础信息的更新数据
-     * Summary: 数字商品-IP授权交易-查询更新数据
+     * Summary: 数字商品服务-IP授权服务-查询更新数据
      */
     public QueryIpGoodsupdateResponse queryIpGoodsupdateEx(QueryIpGoodsupdateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4055,7 +4055,7 @@ public class Client {
 
     /**
      * Description: ip商品某个渠道默认sku查询
-     * Summary: 数字商品-IP授权交易-默认sku查询
+     * Summary: 数字商品服务-IP授权服务-sku查询
      */
     public QueryIpSkuconfigResponse queryIpSkuconfig(QueryIpSkuconfigRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4065,7 +4065,7 @@ public class Client {
 
     /**
      * Description: ip商品某个渠道默认sku查询
-     * Summary: 数字商品-IP授权交易-默认sku查询
+     * Summary: 数字商品服务-IP授权服务-sku查询
      */
     public QueryIpSkuconfigResponse queryIpSkuconfigEx(QueryIpSkuconfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4074,7 +4074,7 @@ public class Client {
 
     /**
      * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-     * Summary: 数字商品服务-IP授权交易-版权方导入
+     * Summary: 数字商品服务-IP授权服务-版权方导入
      */
     public ImportIpAccountResponse importIpAccount(ImportIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4084,7 +4084,7 @@ public class Client {
 
     /**
      * Description: 数字商品服务-IP授权交易-版权方导入: 一链多端版权方互通
-     * Summary: 数字商品服务-IP授权交易-版权方导入
+     * Summary: 数字商品服务-IP授权服务-版权方导入
      */
     public ImportIpAccountResponse importIpAccountEx(ImportIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4093,7 +4093,7 @@ public class Client {
 
     /**
      * Description: 商品特定渠道的sku信息清空
-     * Summary: 数字商品-IP授权交易-sku信息清空
+     * Summary: 数字商品服务-IP授权服务-sku清空
      */
     public RemoveIpSkuResponse removeIpSku(RemoveIpSkuRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4103,7 +4103,7 @@ public class Client {
 
     /**
      * Description: 商品特定渠道的sku信息清空
-     * Summary: 数字商品-IP授权交易-sku信息清空
+     * Summary: 数字商品服务-IP授权服务-sku清空
      */
     public RemoveIpSkuResponse removeIpSkuEx(RemoveIpSkuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4112,7 +4112,7 @@ public class Client {
 
     /**
      * Description: 创建监修报审
-     * Summary: 数字商品-IP授权交易-创建监修报审
+     * Summary: 数字商品服务-IP授权服务-创建监修报审
      */
     public CreateIpSuperviseapproveResponse createIpSuperviseapprove(CreateIpSuperviseapproveRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4122,7 +4122,7 @@ public class Client {
 
     /**
      * Description: 创建监修报审
-     * Summary: 数字商品-IP授权交易-创建监修报审
+     * Summary: 数字商品服务-IP授权服务-创建监修报审
      */
     public CreateIpSuperviseapproveResponse createIpSuperviseapproveEx(CreateIpSuperviseapproveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4131,7 +4131,7 @@ public class Client {
 
     /**
      * Description: 监修报审审批
-     * Summary: 数字商品-IP授权交易-监修报审审批
+     * Summary: 数字商品服务-IP授权服务-监修报审审批
      */
     public ConfirmIpSuperviseapproveResponse confirmIpSuperviseapprove(ConfirmIpSuperviseapproveRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4141,7 +4141,7 @@ public class Client {
 
     /**
      * Description: 监修报审审批
-     * Summary: 数字商品-IP授权交易-监修报审审批
+     * Summary: 数字商品服务-IP授权服务-监修报审审批
      */
     public ConfirmIpSuperviseapproveResponse confirmIpSuperviseapproveEx(ConfirmIpSuperviseapproveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4150,7 +4150,7 @@ public class Client {
 
     /**
      * Description: 监修报审进度推进/重置
-     * Summary: 数字商品-IP授权交易-监修报审进度推进
+     * Summary: 数字商品服务-IP授权服务-推进监修报审
      */
     public PushIpSuperviseapproveResponse pushIpSuperviseapprove(PushIpSuperviseapproveRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4160,7 +4160,7 @@ public class Client {
 
     /**
      * Description: 监修报审进度推进/重置
-     * Summary: 数字商品-IP授权交易-监修报审进度推进
+     * Summary: 数字商品服务-IP授权服务-推进监修报审
      */
     public PushIpSuperviseapproveResponse pushIpSuperviseapproveEx(PushIpSuperviseapproveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4169,7 +4169,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-查询监修报审详情
-     * Summary: 数字商品-IP授权交易-查询监修报审详情
+     * Summary: 数字商品服务-IP授权服务-查询监修报审
      */
     public QueryIpSuperviseapproveResponse queryIpSuperviseapprove(QueryIpSuperviseapproveRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4179,7 +4179,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-查询监修报审详情
-     * Summary: 数字商品-IP授权交易-查询监修报审详情
+     * Summary: 数字商品服务-IP授权服务-查询监修报审
      */
     public QueryIpSuperviseapproveResponse queryIpSuperviseapproveEx(QueryIpSuperviseapproveRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4188,7 +4188,7 @@ public class Client {
 
     /**
      * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权交易-正版码领取
+     * Summary: 数字商品服务-IP授权服务-正版码领取
      */
     public ReceiveIpCodeResponse receiveIpCode(ReceiveIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4198,7 +4198,7 @@ public class Client {
 
     /**
      * Description: 领取正版码，如已被领取则返回被领取人昵称信息
-     * Summary: 数字商品服务-IP授权交易-正版码领取
+     * Summary: 数字商品服务-IP授权服务-正版码领取
      */
     public ReceiveIpCodeResponse receiveIpCodeEx(ReceiveIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4207,7 +4207,7 @@ public class Client {
 
     /**
      * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码列表
+     * Summary: 数字商品服务-IP授权服务-正版码列表
      */
     public PagequeryIpCodeinfoResponse pagequeryIpCodeinfo(PagequeryIpCodeinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4217,7 +4217,7 @@ public class Client {
 
     /**
      * Description: 已领取或以扫描过的正版码列表，分页查询
-     * Summary: 数字商品服务-IP授权交易-正版码列表
+     * Summary: 数字商品服务-IP授权服务-正版码列表
      */
     public PagequeryIpCodeinfoResponse pagequeryIpCodeinfoEx(PagequeryIpCodeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4226,7 +4226,7 @@ public class Client {
 
     /**
      * Description: 创建增值服务
-     * Summary: 数字商品-IP授权交易-创建增值服务
+     * Summary: 数字商品服务-IP授权服务-创建增值服务
      */
     public CreateIpValueaddResponse createIpValueadd(CreateIpValueaddRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4236,7 +4236,7 @@ public class Client {
 
     /**
      * Description: 创建增值服务
-     * Summary: 数字商品-IP授权交易-创建增值服务
+     * Summary: 数字商品服务-IP授权服务-创建增值服务
      */
     public CreateIpValueaddResponse createIpValueaddEx(CreateIpValueaddRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4244,8 +4244,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-更新增值服务
-     * Summary: 数字商品-IP授权交易-更新增值服务
+     * Description: 数字商品服务-IP授权服务-更新增值服务
+     * Summary: 数字商品服务-IP授权服务-更新增值服务
      */
     public UpdateIpValueaddResponse updateIpValueadd(UpdateIpValueaddRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4254,8 +4254,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-更新增值服务
-     * Summary: 数字商品-IP授权交易-更新增值服务
+     * Description: 数字商品服务-IP授权服务-更新增值服务
+     * Summary: 数字商品服务-IP授权服务-更新增值服务
      */
     public UpdateIpValueaddResponse updateIpValueaddEx(UpdateIpValueaddRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4264,7 +4264,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权-设置增值服务sku
-     * Summary: 数字商品-IP授权-设置增值服务sku
+     * Summary: 数字商品服务-IP授权服务-设置增值服务
      */
     public SetIpValueaddskuResponse setIpValueaddsku(SetIpValueaddskuRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4274,7 +4274,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权-设置增值服务sku
-     * Summary: 数字商品-IP授权-设置增值服务sku
+     * Summary: 数字商品服务-IP授权服务-设置增值服务
      */
     public SetIpValueaddskuResponse setIpValueaddskuEx(SetIpValueaddskuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4282,8 +4282,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-增值服务上下线
-     * Summary: 数字商品-IP授权交易-增值服务上下线
+     * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+     * Summary: 数字商品服务-IP授权服务-服务上下架
      */
     public OnlineIpValueaddResponse onlineIpValueadd(OnlineIpValueaddRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4292,8 +4292,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-增值服务上下线
-     * Summary: 数字商品-IP授权交易-增值服务上下线
+     * Description: 数字商品服务-IP授权服务-增值服务上下架操作
+     * Summary: 数字商品服务-IP授权服务-服务上下架
      */
     public OnlineIpValueaddResponse onlineIpValueaddEx(OnlineIpValueaddRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4302,7 +4302,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-增值服务查询
-     * Summary: 数字商品-IP授权交易-增值服务查询
+     * Summary: 数字商品服务-IP授权服务-增值服务查询
      */
     public QueryIpValueaddResponse queryIpValueadd(QueryIpValueaddRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4312,7 +4312,7 @@ public class Client {
 
     /**
      * Description: 数字商品-IP授权交易-增值服务查询
-     * Summary: 数字商品-IP授权交易-增值服务查询
+     * Summary: 数字商品服务-IP授权服务-增值服务查询
      */
     public QueryIpValueaddResponse queryIpValueaddEx(QueryIpValueaddRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4321,7 +4321,7 @@ public class Client {
 
     /**
      * Description: 增值服务批量查询
-     * Summary: 数字商品-IP授权交易-增值服务批量查询
+     * Summary: 数字商品服务-IP授权服务-增值服务查询
      */
     public PagequeryIpValueaddResponse pagequeryIpValueadd(PagequeryIpValueaddRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4331,7 +4331,7 @@ public class Client {
 
     /**
      * Description: 增值服务批量查询
-     * Summary: 数字商品-IP授权交易-增值服务批量查询
+     * Summary: 数字商品服务-IP授权服务-增值服务查询
      */
     public PagequeryIpValueaddResponse pagequeryIpValueaddEx(PagequeryIpValueaddRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4377,8 +4377,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-删除ip商品
-     * Summary: 数字商品-IP授权交易-删除ip商品
+     * Description: 数字商品服务-IP授权服务-删除ip商品
+     * Summary: 数字商品服务-IP授权服务-IP删除
      */
     public RemoveIpGoodsResponse removeIpGoods(RemoveIpGoodsRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4387,8 +4387,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-删除ip商品
-     * Summary: 数字商品-IP授权交易-删除ip商品
+     * Description: 数字商品服务-IP授权服务-删除ip商品
+     * Summary: 数字商品服务-IP授权服务-IP删除
      */
     public RemoveIpGoodsResponse removeIpGoodsEx(RemoveIpGoodsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4396,8 +4396,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-ip数量统计
-     * Summary: 数字商品-IP授权交易-ip数量统计
+     * Description: 数字商品服务-IP授权服务-ip数量统计
+     * Summary: 数字商品服务-IP授权服务-ip数量统计
      */
     public CountIpNumResponse countIpNum(CountIpNumRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4406,8 +4406,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-ip数量统计
-     * Summary: 数字商品-IP授权交易-ip数量统计
+     * Description: 数字商品服务-IP授权服务-ip数量统计
+     * Summary: 数字商品服务-IP授权服务-ip数量统计
      */
     public CountIpNumResponse countIpNumEx(CountIpNumRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4415,8 +4415,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-pv统计
-     * Summary: 数字商品-IP授权交易-pv统计
+     * Description: 数字商品服务-IP授权服务-pv统计
+     * Summary: 数字商品服务-IP授权服务-pv统计
      */
     public CountIpPvResponse countIpPv(CountIpPvRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4425,8 +4425,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品-IP授权交易-pv统计
-     * Summary: 数字商品-IP授权交易-pv统计
+     * Description: 数字商品服务-IP授权服务-pv统计
+     * Summary: 数字商品服务-IP授权服务-pv统计
      */
     public CountIpPvResponse countIpPvEx(CountIpPvRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4435,7 +4435,7 @@ public class Client {
 
     /**
      * Description: 查询正版码信息
-     * Summary: 数字商品服务-IP授权交易-正版码查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public QueryIpCodeResponse queryIpCode(QueryIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4445,7 +4445,7 @@ public class Client {
 
     /**
      * Description: 查询正版码信息
-     * Summary: 数字商品服务-IP授权交易-正版码查询
+     * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public QueryIpCodeResponse queryIpCodeEx(QueryIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4453,8 +4453,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易服务-账户统计
-     * Summary: 数字商品服务-IP授权交易服务-账户统计
+     * Description: 数字商品服务-IP授权服务-账户统计
+     * Summary: 数字商品服务-IP授权服务-账户统计
      */
     public CountIpAccountResponse countIpAccount(CountIpAccountRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4463,8 +4463,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权交易服务-账户统计
-     * Summary: 数字商品服务-IP授权交易服务-账户统计
+     * Description: 数字商品服务-IP授权服务-账户统计
+     * Summary: 数字商品服务-IP授权服务-账户统计
      */
     public CountIpAccountResponse countIpAccountEx(CountIpAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4488,6 +4488,215 @@ public class Client {
     public QueryIpOrderstatisticResponse queryIpOrderstatisticEx(QueryIpOrderstatisticRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.orderstatistic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpOrderstatisticResponse());
+    }
+
+    /**
+     * Description: 版权方更新IP图库
+     * Summary: 数字商品服务-IP授权服务-ip更新图库
+     */
+    public UpdateIpGoodsgalleryResponse updateIpGoodsgallery(UpdateIpGoodsgalleryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateIpGoodsgalleryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版权方更新IP图库
+     * Summary: 数字商品服务-IP授权服务-ip更新图库
+     */
+    public UpdateIpGoodsgalleryResponse updateIpGoodsgalleryEx(UpdateIpGoodsgalleryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.goodsgallery.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateIpGoodsgalleryResponse());
+    }
+
+    /**
+     * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+     * Summary: 数字商品服务-IP授权服务-查询ip图库
+     */
+    public QueryIpGoodsgalleryResponse queryIpGoodsgallery(QueryIpGoodsgalleryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpGoodsgalleryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版权方根据IPID查询图库，商家根据订单ID查询图库
+     * Summary: 数字商品服务-IP授权服务-查询ip图库
+     */
+    public QueryIpGoodsgalleryResponse queryIpGoodsgalleryEx(QueryIpGoodsgalleryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.goodsgallery.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpGoodsgalleryResponse());
+    }
+
+    /**
+     * Description: 配置正版码的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-正版码配置
+     */
+    public SetIpCodeinfoResponse setIpCodeinfo(SetIpCodeinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setIpCodeinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 配置正版码的商品信息和资源位信息
+     * Summary: 数字商品服务-IP授权服务-正版码配置
+     */
+    public SetIpCodeinfoResponse setIpCodeinfoEx(SetIpCodeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeinfo.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetIpCodeinfoResponse());
+    }
+
+    /**
+     * Description: 查询订单的图库下载记录
+     * Summary: 数字商品服务-IP授权服务-查询图库记录
+     */
+    public PagequeryIpGalleryinstructionResponse pagequeryIpGalleryinstruction(PagequeryIpGalleryinstructionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryIpGalleryinstructionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询订单的图库下载记录
+     * Summary: 数字商品服务-IP授权服务-查询图库记录
+     */
+    public PagequeryIpGalleryinstructionResponse pagequeryIpGalleryinstructionEx(PagequeryIpGalleryinstructionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.galleryinstruction.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIpGalleryinstructionResponse());
+    }
+
+    /**
+     * Description: 版权方确认订单图库信息
+     * Summary: 数字商品服务-IP授权服务-订单图库确认
+     */
+    public ConfirmIpOrdergalleryResponse confirmIpOrdergallery(ConfirmIpOrdergalleryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIpOrdergalleryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版权方确认订单图库信息
+     * Summary: 数字商品服务-IP授权服务-订单图库确认
+     */
+    public ConfirmIpOrdergalleryResponse confirmIpOrdergalleryEx(ConfirmIpOrdergalleryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.ordergallery.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIpOrdergalleryResponse());
+    }
+
+    /**
+     * Description: 审批IP定向授权交易
+     * Summary: 数字商品服务-IP授权服务-审批定向授权
+     */
+    public ConfirmIpAuthtradeResponse confirmIpAuthtrade(ConfirmIpAuthtradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIpAuthtradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 审批IP定向授权交易
+     * Summary: 数字商品服务-IP授权服务-审批定向授权
+     */
+    public ConfirmIpAuthtradeResponse confirmIpAuthtradeEx(ConfirmIpAuthtradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.authtrade.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIpAuthtradeResponse());
+    }
+
+    /**
+     * Description: 审核套餐授权申请
+     * Summary: 数字商品服务-IP授权服务-审批套餐授权
+     */
+    public ConfirmIpPackagetradeResponse confirmIpPackagetrade(ConfirmIpPackagetradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIpPackagetradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 审核套餐授权申请
+     * Summary: 数字商品服务-IP授权服务-审批套餐授权
+     */
+    public ConfirmIpPackagetradeResponse confirmIpPackagetradeEx(ConfirmIpPackagetradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.packagetrade.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIpPackagetradeResponse());
+    }
+
+    /**
+     * Description: 商家申请套餐交易
+     * Summary: 数字商品服务-IP授权服务-申请套餐交易
+     */
+    public ApplyIpPackagetradeResponse applyIpPackagetrade(ApplyIpPackagetradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyIpPackagetradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商家申请套餐交易
+     * Summary: 数字商品服务-IP授权服务-申请套餐交易
+     */
+    public ApplyIpPackagetradeResponse applyIpPackagetradeEx(ApplyIpPackagetradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.packagetrade.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyIpPackagetradeResponse());
+    }
+
+    /**
+     * Description: 版权方申请授权交易
+     * Summary: 数字商品服务-IP授权服务-申请授权交易
+     */
+    public ApplyIpAuthtradeResponse applyIpAuthtrade(ApplyIpAuthtradeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyIpAuthtradeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版权方申请授权交易
+     * Summary: 数字商品服务-IP授权服务-申请授权交易
+     */
+    public ApplyIpAuthtradeResponse applyIpAuthtradeEx(ApplyIpAuthtradeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.authtrade.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyIpAuthtradeResponse());
+    }
+
+    /**
+     * Description: 查询正版码的配置信息
+     * Summary: 数字商品服务-IP授权服务-查正版码配置
+     */
+    public QueryIpCodeinfoResponse queryIpCodeinfo(QueryIpCodeinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpCodeinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询正版码的配置信息
+     * Summary: 数字商品服务-IP授权服务-查正版码配置
+     */
+    public QueryIpCodeinfoResponse queryIpCodeinfoEx(QueryIpCodeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpCodeinfoResponse());
+    }
+
+    /**
+     * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+     * Summary: ip审批信息批量查询（带上更新信息）
+     */
+    public BatchqueryIpApprovalwithupdateResponse batchqueryIpApprovalwithupdate(BatchqueryIpApprovalwithupdateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryIpApprovalwithupdateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ip审批信息批量查询（带上更新信息，供天猫测使用）
+     * Summary: ip审批信息批量查询（带上更新信息）
+     */
+    public BatchqueryIpApprovalwithupdateResponse batchqueryIpApprovalwithupdateEx(BatchqueryIpApprovalwithupdateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.approvalwithupdate.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryIpApprovalwithupdateResponse());
     }
 
     /**

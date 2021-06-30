@@ -111,6 +111,10 @@ public class CreateIpGoodsRequest extends TeaModel {
     @Validation(required = true)
     public Long copyRightEndTime;
 
+    // IP图库链接
+    @NameInMap("ip_gallery_url")
+    public String ipGalleryUrl;
+
     public static CreateIpGoodsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIpGoodsRequest self = new CreateIpGoodsRequest();
         return TeaModel.build(map, self);
@@ -290,6 +294,14 @@ public class CreateIpGoodsRequest extends TeaModel {
     }
     public Long getCopyRightEndTime() {
         return this.copyRightEndTime;
+    }
+
+    public CreateIpGoodsRequest setIpGalleryUrl(String ipGalleryUrl) {
+        this.ipGalleryUrl = ipGalleryUrl;
+        return this;
+    }
+    public String getIpGalleryUrl() {
+        return this.ipGalleryUrl;
     }
 
 }

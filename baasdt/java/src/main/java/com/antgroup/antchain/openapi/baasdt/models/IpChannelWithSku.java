@@ -36,6 +36,10 @@ public class IpChannelWithSku extends TeaModel {
     @Validation(required = true)
     public Long status;
 
+    // 交易是否需要确认
+    @NameInMap("trade_need_confirm")
+    public Boolean tradeNeedConfirm;
+
     public static IpChannelWithSku build(java.util.Map<String, ?> map) throws Exception {
         IpChannelWithSku self = new IpChannelWithSku();
         return TeaModel.build(map, self);
@@ -87,6 +91,14 @@ public class IpChannelWithSku extends TeaModel {
     }
     public Long getStatus() {
         return this.status;
+    }
+
+    public IpChannelWithSku setTradeNeedConfirm(Boolean tradeNeedConfirm) {
+        this.tradeNeedConfirm = tradeNeedConfirm;
+        return this;
+    }
+    public Boolean getTradeNeedConfirm() {
+        return this.tradeNeedConfirm;
     }
 
 }

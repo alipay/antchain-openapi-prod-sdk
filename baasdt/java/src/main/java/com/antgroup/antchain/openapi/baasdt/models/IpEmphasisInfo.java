@@ -61,6 +61,10 @@ public class IpEmphasisInfo extends TeaModel {
     @NameInMap("last_state_change_time")
     public Long lastStateChangeTime;
 
+    // ip的创建渠道，按照查询参数返回
+    @NameInMap("creater_channel")
+    public String createrChannel;
+
     public static IpEmphasisInfo build(java.util.Map<String, ?> map) throws Exception {
         IpEmphasisInfo self = new IpEmphasisInfo();
         return TeaModel.build(map, self);
@@ -160,6 +164,14 @@ public class IpEmphasisInfo extends TeaModel {
     }
     public Long getLastStateChangeTime() {
         return this.lastStateChangeTime;
+    }
+
+    public IpEmphasisInfo setCreaterChannel(String createrChannel) {
+        this.createrChannel = createrChannel;
+        return this;
+    }
+    public String getCreaterChannel() {
+        return this.createrChannel;
     }
 
 }

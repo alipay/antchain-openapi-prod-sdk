@@ -31,6 +31,14 @@ public class CreateIpAccountRequest extends TeaModel {
     @Validation(required = true)
     public Long role;
 
+    // 商户合作伙伴id，邀请商户入驻
+    @NameInMap("inviter_id")
+    public String inviterId;
+
+    // 商户合作伙伴返佣政策id
+    @NameInMap("policy_id")
+    public String policyId;
+
     public static CreateIpAccountRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIpAccountRequest self = new CreateIpAccountRequest();
         return TeaModel.build(map, self);
@@ -82,6 +90,22 @@ public class CreateIpAccountRequest extends TeaModel {
     }
     public Long getRole() {
         return this.role;
+    }
+
+    public CreateIpAccountRequest setInviterId(String inviterId) {
+        this.inviterId = inviterId;
+        return this;
+    }
+    public String getInviterId() {
+        return this.inviterId;
+    }
+
+    public CreateIpAccountRequest setPolicyId(String policyId) {
+        this.policyId = policyId;
+        return this;
+    }
+    public String getPolicyId() {
+        return this.policyId;
     }
 
 }
