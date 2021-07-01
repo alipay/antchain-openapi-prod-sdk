@@ -2627,6 +2627,10 @@ export class IPOrder extends $tea.Model {
   superviseApprove: boolean;
   // 订单图库信息，未确认则为空
   ipGalleryUrl?: string;
+  // 图库版本
+  ipGalleryVersion?: number;
+  // 商家是否已下载过本订单的图库
+  downloadIpGallery?: boolean;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2667,6 +2671,8 @@ export class IPOrder extends $tea.Model {
       relatedOrderId: 'related_order_id',
       superviseApprove: 'supervise_approve',
       ipGalleryUrl: 'ip_gallery_url',
+      ipGalleryVersion: 'ip_gallery_version',
+      downloadIpGallery: 'download_ip_gallery',
     };
   }
 
@@ -2710,6 +2716,8 @@ export class IPOrder extends $tea.Model {
       relatedOrderId: 'string',
       superviseApprove: 'boolean',
       ipGalleryUrl: 'string',
+      ipGalleryVersion: 'number',
+      downloadIpGallery: 'boolean',
     };
   }
 
@@ -24257,7 +24265,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.53",
+          sdk_version: "1.2.54",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
