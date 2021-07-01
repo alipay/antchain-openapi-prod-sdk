@@ -194,6 +194,14 @@ public class IPOrder extends TeaModel {
     @NameInMap("ip_gallery_url")
     public String ipGalleryUrl;
 
+    // 图库版本
+    @NameInMap("ip_gallery_version")
+    public Long ipGalleryVersion;
+
+    // 商家是否已下载过本订单的图库
+    @NameInMap("download_ip_gallery")
+    public Boolean downloadIpGallery;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -501,6 +509,22 @@ public class IPOrder extends TeaModel {
     }
     public String getIpGalleryUrl() {
         return this.ipGalleryUrl;
+    }
+
+    public IPOrder setIpGalleryVersion(Long ipGalleryVersion) {
+        this.ipGalleryVersion = ipGalleryVersion;
+        return this;
+    }
+    public Long getIpGalleryVersion() {
+        return this.ipGalleryVersion;
+    }
+
+    public IPOrder setDownloadIpGallery(Boolean downloadIpGallery) {
+        this.downloadIpGallery = downloadIpGallery;
+        return this;
+    }
+    public Boolean getDownloadIpGallery() {
+        return this.downloadIpGallery;
     }
 
 }
