@@ -312,6 +312,22 @@ class IPOrder extends Model
      * @var string
      */
     public $ipGalleryUrl;
+
+    // 图库版本
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $ipGalleryVersion;
+
+    // 商家是否已下载过本订单的图库
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $downloadIpGallery;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -351,6 +367,8 @@ class IPOrder extends Model
         'relatedOrderId'            => 'related_order_id',
         'superviseApprove'          => 'supervise_approve',
         'ipGalleryUrl'              => 'ip_gallery_url',
+        'ipGalleryVersion'          => 'ip_gallery_version',
+        'downloadIpGallery'         => 'download_ip_gallery',
     ];
 
     public function validate()
@@ -511,6 +529,12 @@ class IPOrder extends Model
         if (null !== $this->ipGalleryUrl) {
             $res['ip_gallery_url'] = $this->ipGalleryUrl;
         }
+        if (null !== $this->ipGalleryVersion) {
+            $res['ip_gallery_version'] = $this->ipGalleryVersion;
+        }
+        if (null !== $this->downloadIpGallery) {
+            $res['download_ip_gallery'] = $this->downloadIpGallery;
+        }
 
         return $res;
     }
@@ -636,6 +660,12 @@ class IPOrder extends Model
         }
         if (isset($map['ip_gallery_url'])) {
             $model->ipGalleryUrl = $map['ip_gallery_url'];
+        }
+        if (isset($map['ip_gallery_version'])) {
+            $model->ipGalleryVersion = $map['ip_gallery_version'];
+        }
+        if (isset($map['download_ip_gallery'])) {
+            $model->downloadIpGallery = $map['download_ip_gallery'];
         }
 
         return $model;
