@@ -4206,6 +4206,8 @@ class IPOrder(TeaModel):
         related_order_id: str = None,
         supervise_approve: bool = None,
         ip_gallery_url: str = None,
+        ip_gallery_version: int = None,
+        download_ip_gallery: bool = None,
     ):
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -4284,6 +4286,10 @@ class IPOrder(TeaModel):
         self.supervise_approve = supervise_approve
         # 订单图库信息，未确认则为空
         self.ip_gallery_url = ip_gallery_url
+        # 图库版本
+        self.ip_gallery_version = ip_gallery_version
+        # 商家是否已下载过本订单的图库
+        self.download_ip_gallery = download_ip_gallery
 
     def validate(self):
         self.validate_required(self.ip_order_id, 'ip_order_id')
@@ -4402,6 +4408,10 @@ class IPOrder(TeaModel):
             result['supervise_approve'] = self.supervise_approve
         if self.ip_gallery_url is not None:
             result['ip_gallery_url'] = self.ip_gallery_url
+        if self.ip_gallery_version is not None:
+            result['ip_gallery_version'] = self.ip_gallery_version
+        if self.download_ip_gallery is not None:
+            result['download_ip_gallery'] = self.download_ip_gallery
         return result
 
     def from_map(self, m: dict = None):
@@ -4482,6 +4492,10 @@ class IPOrder(TeaModel):
             self.supervise_approve = m.get('supervise_approve')
         if m.get('ip_gallery_url') is not None:
             self.ip_gallery_url = m.get('ip_gallery_url')
+        if m.get('ip_gallery_version') is not None:
+            self.ip_gallery_version = m.get('ip_gallery_version')
+        if m.get('download_ip_gallery') is not None:
+            self.download_ip_gallery = m.get('download_ip_gallery')
         return self
 
 
