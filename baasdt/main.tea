@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.53',
+    sdk_version = '1.2.54',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1225,6 +1225,10 @@ model IPOrder {
   superviseApprove: boolean(name='supervise_approve', example='true, false'),
   // 订单图库信息，未确认则为空
   ipGalleryUrl?: string(name='ip_gallery_url', example='oss://myexchange/1259371fc8f77d37...5dfb6d130facf32dd6d4257fa0.zip'),
+  // 图库版本
+  ipGalleryVersion?: long(name='ip_gallery_version', example='1'),
+  // 商家是否已下载过本订单的图库
+  downloadIpGallery?: boolean(name='download_ip_gallery', example='true, false'),
 }
 
 // 商品授权信息（一客一价信息）
