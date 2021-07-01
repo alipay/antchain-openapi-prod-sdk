@@ -201,6 +201,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpGalleryUrl { get; set; }
 
+        // 图库版本
+        [NameInMap("ip_gallery_version")]
+        [Validation(Required=false)]
+        public long? IpGalleryVersion { get; set; }
+
+        // 商家是否已下载过本订单的图库
+        [NameInMap("download_ip_gallery")]
+        [Validation(Required=false)]
+        public bool? DownloadIpGallery { get; set; }
+
     }
 
 }
