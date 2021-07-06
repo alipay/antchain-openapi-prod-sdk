@@ -1,0 +1,3895 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.1.2',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 区块信息
+model BlockInfo {
+  // 区块链唯一性标识
+  bizId: string(name='biz_id', example='83c6e3ed'),
+  // 区块哈希
+  blockHash: string(name='block_hash', example='e01fe4f5ad4c7cdeec11c95036d8505600c941a2a10cf432438a2873342b4693'),
+  // 上一个区块的hash
+  parentHash: string(name='parent_hash', example='e01fe4f5ad4c7cdeec11c95036d8505600c941a2a10cf432438a2873342b4693'),
+  // 块高
+  height: long(name='height', example='100'),
+  // 出块时间
+  timestamp: long(name='timestamp', example=''),
+  // 业务数据
+  bizData: string(name='biz_data', example=' '),
+  // 包含交易数
+  transactionSize: long(name='transaction_size', example='5'),
+  // 版本
+  version: string(name='version', example='1'),
+  // size
+  size: long(name='size', example=''),
+}
+
+// 机构（可以为银行或地区）
+model Institution {
+  // 人行联行号/行政地区编码
+  code: string(name='code', example='308584000013'),
+  // 银行全称/行政地区名称
+  name: string(name='name', example='招商银行'),
+}
+
+// 侵权结果
+model AntiPiracyResultObject {
+  // 侵权主体
+  infrHost?: string(name='infr_host', example='infr_host'),
+  // 侵权内容上传时间，number of milliseconds since the epoch of 1970-01-01T00:00:00Z
+  infrTime?: long(name='infr_time', example='1567740257000'),
+  // 侵权标题
+  infrTitle?: string(name='infr_title', example='title'),
+  // 侵权网址
+  infrUrl?: string(name='infr_url', example='www.baidu.com'),
+  // 默认值：VIDEO
+  productionType?: string(name='production_type', example='VIDEO'),
+  // 相似度
+  similarity?: string(name='similarity', example='66.66'),
+}
+
+// 命中结果详情
+model HitDetectItems {
+  // RULEORMODEL("RULEORMODEL", "规则或模型"), KEYWORDS("KEYWORDS", "关键字检测 "), REPEAT_MODEL("REPEAT_MODEL", "防重复模型"), REGEX("regex", "正则表达式"), URL("url", "URL检测"), SEXY_PIC("sexyPic", "黄图检测"), SAMPLE_PIC("samplePic", "样图检测"), OCR("ocr", "图文识别"), PICTURE_FACE("picture_face","图片人脸检测"), QRCODE("QRCode", "二维码检测"), MDP_MODEL("mdpModel", "mdp检测"), ANTI_SPAM_MODEL("anti_spam_model", "反垃圾模型");
+  detectTypeCode?: string(name='detect_type_code', example='RULEORMODEL'),
+  // 命中的检测项的资源： 如命中关键字，则存关键字，如命中正则表达式，则保存正则表达式
+  hitDetectResource?: string(name='hit_detect_resource', example='百度'),
+  // 保存被命中的内容： 如正则表达式，则保存被正则表达式命中的内容
+  hitContent?: string(name='hit_content', example='百度，腾讯'),
+  // 级别
+  detectResourceLevel?: string(name='detect_resource_level', example='1'),
+}
+
+// 用于内部业务统计的信息，外部商户请忽略
+model BizInfo {
+  // BPWZPFCN
+  clientTenent?: string(name='client_tenent', example='用户的金融科技租户id'),
+  // 业务代码
+  code?: string(name='code', example='BAAS_ANTFIN|BAAS_ALICLOUD|MORSE|RECEIVABLE|TRACE|GLOBAL_PAYMENT|JUDICIAL|INVOICE'),
+  // 内部产品码
+  productCode?: string(name='product_code', example='BAI'),
+}
+
+// 携带自己定义的服务类型
+model DidDocServicesInfo {
+  // 服务的扩展字段
+  extension?: string(name='extension', example='json string'),
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务： DidAuthService， 有且只能有一个，并且id必须为didauth-1； VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string(name='id', example='service-id1'),
+  // 服务的可访问地址
+  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string(name='type', example='KYBServiceType'),
+}
+
+model UpdateBmpbrowserPrivilegeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // bizid
+  bizid: string(name='bizid'),
+  // 取消查看权限的支付宝电话号码集合
+  phoneNumbers: string(name='phone_numbers'),
+}
+
+model UpdateBmpbrowserPrivilegeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量更新权限成功与否
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 链上交易移动端权限修改
+ * Summary: 链上交易移动端权限修改
+ */
+async function updateBmpbrowserPrivilege(request: UpdateBmpbrowserPrivilegeRequest): UpdateBmpbrowserPrivilegeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBmpbrowserPrivilegeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上交易移动端权限修改
+ * Summary: 链上交易移动端权限修改
+ */
+async function updateBmpbrowserPrivilegeEx(request: UpdateBmpbrowserPrivilegeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBmpbrowserPrivilegeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.bmpbrowser.privilege.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidInternalmaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 被核验人身份证号码后四位
+  certNo: string(name='cert_no'),
+  // 被核验人手机号码
+  mobile: string(name='mobile'),
+  // 被核验人姓名的一部分
+  name: string(name='name'),
+}
+
+model QueryIndividualidInternalmaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否通过
+  accepted?: boolean(name='accepted'),
+  //  
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 提供个人脱敏信息身份核验服务（1.姓名的一部分 2.手机号 3.身份证号码后四位）
+ * Summary: 个人脱敏信息身份核验（数据来自蚁盾）
+ */
+async function queryIndividualidInternalmask(request: QueryIndividualidInternalmaskRequest): QueryIndividualidInternalmaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidInternalmaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供个人脱敏信息身份核验服务（1.姓名的一部分 2.手机号 3.身份证号码后四位）
+ * Summary: 个人脱敏信息身份核验（数据来自蚁盾）
+ */
+async function queryIndividualidInternalmaskEx(request: QueryIndividualidInternalmaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidInternalmaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.internalmask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEnterpriseidInternalfourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码））
+  epCertType: string(name='ep_cert_type'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号码
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+}
+
+model QueryEnterpriseidInternalfourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternalfourmeta(request: QueryEnterpriseidInternalfourmetaRequest): QueryEnterpriseidInternalfourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseidInternalfourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternalfourmetaEx(request: QueryEnterpriseidInternalfourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseidInternalfourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.internalfourmeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEnterpriseidInternalthreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo?: BizInfo(name='biz_info'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 证件类型
+  epCertType: string(name='ep_cert_type'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+}
+
+model QueryEnterpriseidInternalthreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternalthreemeta(request: QueryEnterpriseidInternalthreemetaRequest): QueryEnterpriseidInternalthreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseidInternalthreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternalthreemetaEx(request: QueryEnterpriseidInternalthreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseidInternalthreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.internalthreemeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEnterpriseidInternaltwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码
+  epCertType: string(name='ep_cert_type'),
+}
+
+model QueryEnterpriseidInternaltwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternaltwometa(request: QueryEnterpriseidInternaltwometaRequest): QueryEnterpriseidInternaltwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseidInternaltwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素（数据来自数据枢纽）
+ */
+async function queryEnterpriseidInternaltwometaEx(request: QueryEnterpriseidInternaltwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseidInternaltwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.internaltwometa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitEnterpriseidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码））
+  epCertType: string(name='ep_cert_type'),
+  // 企业法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号（目前只支持身份证号）
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+}
+
+model InitEnterpriseidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次认证的业务唯一性标示
+  bizNo?: string(name='biz_no'),
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证初始化
+ * Summary: 企业认证四要素-法人实人认证初始化
+ */
+async function initEnterpriseidFaceauth(request: InitEnterpriseidFaceauthRequest): InitEnterpriseidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initEnterpriseidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证初始化
+ * Summary: 企业认证四要素-法人实人认证初始化
+ */
+async function initEnterpriseidFaceauthEx(request: InitEnterpriseidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitEnterpriseidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauth.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEnterpriseidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证的唯一性标示
+  bizNo: string(name='biz_no'),
+}
+
+model QueryEnterpriseidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性标示
+  bizNo?: string(name='biz_no'),
+  // 认证失败错误码
+  failedCode?: string(name='failed_code'),
+  // 认证失败原因信息
+  failedMessage?: string(name='failed_message'),
+  // 是否认证通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 查询企业认证四要素—法人实人认证结果
+ * Summary: 查询企业认证四要素—法人实人认证结果
+ */
+async function queryEnterpriseidFaceauth(request: QueryEnterpriseidFaceauthRequest): QueryEnterpriseidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业认证四要素—法人实人认证结果
+ * Summary: 查询企业认证四要素—法人实人认证结果
+ */
+async function queryEnterpriseidFaceauthEx(request: QueryEnterpriseidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidInternalfourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被核验人银行卡号
+  bankCardNo: string(name='bank_card_no'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 被核验人身份证号码
+  certNo: string(name='cert_no'),
+  // 被核验人手机号码
+  mobile: string(name='mobile'),
+  // 被核验人姓名
+  name: string(name='name'),
+}
+
+model QueryIndividualidInternalfourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否通过
+  accepted?: boolean(name='accepted'),
+  //  
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 个人实名认证四要素
+ * Summary: 个人实名认证四要素（数据来自蚁盾）
+ */
+async function queryIndividualidInternalfourmeta(request: QueryIndividualidInternalfourmetaRequest): QueryIndividualidInternalfourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidInternalfourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实名认证四要素
+ * Summary: 个人实名认证四要素（数据来自蚁盾）
+ */
+async function queryIndividualidInternalfourmetaEx(request: QueryIndividualidInternalfourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidInternalfourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.internalfourmeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidInternalthreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 被核验人身份证号码
+  certNo: string(name='cert_no'),
+  // 被核验人手机号码
+  mobile: string(name='mobile'),
+  // 被核验人姓名
+  name: string(name='name'),
+}
+
+model QueryIndividualidInternalthreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否通过
+  accepted?: boolean(name='accepted'),
+  //  
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 个人实名认证三要素
+ * Summary: 个人实名认证三要素（数据来自蚁盾）
+ */
+async function queryIndividualidInternalthreemeta(request: QueryIndividualidInternalthreemetaRequest): QueryIndividualidInternalthreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidInternalthreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实名认证三要素
+ * Summary: 个人实名认证三要素（数据来自蚁盾）
+ */
+async function queryIndividualidInternalthreemetaEx(request: QueryIndividualidInternalthreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidInternalthreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.internalthreemeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidInternaltwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于内部统计的参数，外部用户请忽略
+  bizInfo: BizInfo(name='biz_info'),
+  // 被核验人身份证号码
+  certNo: string(name='cert_no'),
+  // 被核验人姓名
+  name: string(name='name'),
+}
+
+model QueryIndividualidInternaltwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否通过
+  accepted?: boolean(name='accepted'),
+  //  
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 个人实名认证二要素
+ * Summary: 个人实名认证二要素
+ */
+async function queryIndividualidInternaltwometa(request: QueryIndividualidInternaltwometaRequest): QueryIndividualidInternaltwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidInternaltwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实名认证二要素
+ * Summary: 个人实名认证二要素
+ */
+async function queryIndividualidInternaltwometaEx(request: QueryIndividualidInternaltwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidInternaltwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.internaltwometa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaicorpInternalevaluationasyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景ID
+  bizId: string(name='biz_id'),
+  // 内部的业务代码
+  bizInfo: BizInfo(name='biz_info'),
+  // 回调地址。由于存在异步调用，部分结果通过回调返回数据。例如图片和视频。
+  callback?: string(name='callback'),
+  // 回调参数
+  callbackParam?: string(name='callback_param'),
+  // 业务自定义id，便于识别返回数据对应关系
+  customId: string(name='custom_id'),
+  // 待检测内容RAW数据，目前仅用于text类型，entity_url和entity_data不可同时存在
+  entityData?: string(name='entity_data'),
+  // 待评估内容类型
+  entityType: string(name='entity_type'),
+  // 检测内容url，支持HTTPS, entity_url和entity_data不可同时存在
+  entityUrl?: string(name='entity_url'),
+}
+
+model CreateBaicorpInternalevaluationasyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内容质量分
+  contentScore?: string(name='content_score'),
+  // 质量分描述
+  contentScoreDesc?: string(name='content_score_desc'),
+  // 业务自定义id
+  customId?: string(name='custom_id'),
+  // 导致重复的原因
+  repeatReason?: string(name='repeat_reason'),
+  // 是否重复
+  repeatResult?: boolean(name='repeat_result'),
+  // 风险识别结果
+  riskResult?: string(name='risk_result'),
+  // 风险识别结果描述
+  riskResultDesc?: string(name='risk_result_desc'),
+  // 监测任务ID
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 发起内容评估（BAI），仅内部调用
+ * Summary: 发起内容评估
+ */
+async function createBaicorpInternalevaluationasync(request: CreateBaicorpInternalevaluationasyncRequest): CreateBaicorpInternalevaluationasyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaicorpInternalevaluationasyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起内容评估（BAI），仅内部调用
+ * Summary: 发起内容评估
+ */
+async function createBaicorpInternalevaluationasyncEx(request: CreateBaicorpInternalevaluationasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaicorpInternalevaluationasyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalevaluationasync.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaicorpInternalmonitorasyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景id
+  bizId?: string(name='biz_id'),
+  // 用于内部业务统计的信息
+  bizInfo: BizInfo(name='biz_info'),
+  // 监测传播时间，单位暂定天
+  broadcastTime?: long(name='broadcast_time'),
+  // 基于安全考虑，填充NonceId
+  customId?: string(name='custom_id'),
+  // 待检测内容RAW数据
+  entityData?: string(name='entity_data'),
+  // 待监测内容类型
+  entityType: string(name='entity_type'),
+  // 待检测内容url，支持HTTP和OSS，OSS从默认源拉取,input_url和input_data不可同时存在
+  entityUrl?: string(name='entity_url'),
+  // 监测输入的多个关键词
+  keyWords: [ string ](name='key_words'),
+  // 匹配时长，单位秒
+  matchedDuration?: long(name='matched_duration'),
+  // 监测时长，单位为天
+  monitorDuration?: long(name='monitor_duration'),
+  // 监测频次，单位暂定天
+  monitorFrequency: long(name='monitor_frequency'),
+  // 监测范围
+  monitorScope?: [ string ](name='monitor_scope'),
+  // 监测事件发送时的回调通知URL，若为空则不发送通知，24小时内最少发送成功一次
+  notifyUrl?: string(name='notify_url'),
+  // provider id
+  providerId?: string(name='provider_id'),
+  // 监测启动日期，若为空，则立刻开始，从1970开始的毫秒数。
+  startDate?: long(name='start_date'),
+  // 业务方任务id，业务方保证唯一
+  taskId?: string(name='task_id'),
+}
+
+model CreateBaicorpInternalmonitorasyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 检测时长，单位为天
+  monitorDuration?: long(name='monitor_duration'),
+  // 监测启动日期，若为空，则立刻开始，从1970开始的毫秒数。
+  startDate?: long(name='start_date'),
+  // 业务方任务id，业务方保证唯一
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 提交内容监测任务
+ * Summary: 提交内容监测任务接口
+ */
+async function createBaicorpInternalmonitorasync(request: CreateBaicorpInternalmonitorasyncRequest): CreateBaicorpInternalmonitorasyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaicorpInternalmonitorasyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交内容监测任务
+ * Summary: 提交内容监测任务接口
+ */
+async function createBaicorpInternalmonitorasyncEx(request: CreateBaicorpInternalmonitorasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaicorpInternalmonitorasyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalmonitorasync.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaicorpInternalevaluationasyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品ID
+  bizId: string(name='biz_id'),
+  // bizinfo
+  bizInfo: BizInfo(name='biz_info'),
+  // 基于安全考虑，填充NonceId
+  customId: string(name='custom_id'),
+  // 监测任务Id
+  taskId: string(name='task_id'),
+}
+
+model QueryBaicorpInternalevaluationasyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务自定义id
+  customId?: string(name='custom_id'),
+  // 风险识别结果
+  riskResult?: string(name='risk_result'),
+  // 风险识别结果描述
+  riskResultDesc?: string(name='risk_result_desc'),
+  // 监测任务ID
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 查询内容评估结果
+ * Summary: 查询内容评估结果
+ */
+async function queryBaicorpInternalevaluationasync(request: QueryBaicorpInternalevaluationasyncRequest): QueryBaicorpInternalevaluationasyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaicorpInternalevaluationasyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询内容评估结果
+ * Summary: 查询内容评估结果
+ */
+async function queryBaicorpInternalevaluationasyncEx(request: QueryBaicorpInternalevaluationasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaicorpInternalevaluationasyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalevaluationasync.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaicorpInternalmonitorasyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务方产品ID
+  bizId: string(name='biz_id'),
+  // 业务方任务id，业务方保证唯一
+  taskId: string(name='task_id'),
+}
+
+model QueryBaicorpInternalmonitorasyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据
+  data?: [ AntiPiracyResultObject ](name='data'),
+  // 如果字段status == "failed"，该字段保存相关错误信息
+  errMsg?: string(name='err_msg'),
+  // success 数据入库成功，后续处于被检测状态；
+  // continue 数据处于被检测状态，data 字段包含监测结果
+  // failed 任务失败
+  status?: string(name='status'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 查询内容监测任务结果
+ * Summary: 查询内容监测任务结果
+ */
+async function queryBaicorpInternalmonitorasync(request: QueryBaicorpInternalmonitorasyncRequest): QueryBaicorpInternalmonitorasyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaicorpInternalmonitorasyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询内容监测任务结果
+ * Summary: 查询内容监测任务结果
+ */
+async function queryBaicorpInternalmonitorasyncEx(request: QueryBaicorpInternalmonitorasyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaicorpInternalmonitorasyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalmonitorasync.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyEnterpriseidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证的唯一性标示
+  bizNo: string(name='biz_no'),
+  // 回调通知地址
+  callbackUrl?: string(name='callback_url'),
+  // 认证完成后回跳地址
+  // 
+  redirectUrl?: string(name='redirect_url'),
+}
+
+model CertifyEnterpriseidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性标示
+  // 
+  bizNo?: string(name='biz_no'),
+  // 认证url
+  // 
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证开始
+ * Summary: 企业认证四要素-法人实人认证开始
+ */
+async function certifyEnterpriseidFaceauth(request: CertifyEnterpriseidFaceauthRequest): CertifyEnterpriseidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyEnterpriseidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证开始
+ * Summary: 企业认证四要素-法人实人认证开始
+ */
+async function certifyEnterpriseidFaceauthEx(request: CertifyEnterpriseidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyEnterpriseidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauth.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitIndividualidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 认证方式,FACE表示在支付宝内进行认证,FACE_SDK表示在客户的应用中进行认证
+  // 默认为FACE
+  bizCode?: string(name='biz_code'),
+}
+
+model InitIndividualidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: 个人实人刷脸认证——认证初始化
+ * Summary: 个人实人刷脸认证-认证初始化
+ */
+async function initIndividualidFaceauth(request: InitIndividualidFaceauthRequest): InitIndividualidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIndividualidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证——认证初始化
+ * Summary: 个人实人刷脸认证-认证初始化
+ */
+async function initIndividualidFaceauthEx(request: InitIndividualidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIndividualidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauth.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyIndividualidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回调通知地址
+  callbackUrl?: string(name='callback_url'),
+  // 认证的唯一性id
+  certifyId: string(name='certify_id'),
+  // 认证完成后回跳地址
+  // 
+  redirectUrl?: string(name='redirect_url'),
+}
+
+model CertifyIndividualidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+  // 认证url
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 个人实人刷脸认证——认证开始
+ * Summary: 个人实人刷脸认证-认证开始
+ */
+async function certifyIndividualidFaceauth(request: CertifyIndividualidFaceauthRequest): CertifyIndividualidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyIndividualidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证——认证开始
+ * Summary: 个人实人刷脸认证-认证开始
+ */
+async function certifyIndividualidFaceauthEx(request: CertifyIndividualidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyIndividualidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauth.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证的唯一性id
+  certifyId: string(name='certify_id'),
+}
+
+model QueryIndividualidFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  // 
+  certifyId?: string(name='certify_id'),
+  // 是否认证通过
+  passed?: boolean(name='passed'),
+  // 用户是否完成刷脸
+  finished?: boolean(name='finished'),
+}
+
+/**
+ * Description: 个人实人刷脸认证——查询认证结果
+ * Summary: 个人实人刷脸认证-查询认证结果
+ */
+async function queryIndividualidFaceauth(request: QueryIndividualidFaceauthRequest): QueryIndividualidFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证——查询认证结果
+ * Summary: 个人实人刷脸认证-查询认证结果
+ */
+async function queryIndividualidFaceauthEx(request: QueryIndividualidFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDataserviceBlockchainheightRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链的唯一性标示
+  bizid: string(name='bizid'),
+}
+
+model GetDataserviceBlockchainheightResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链块高
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 获取区块链当前块高
+ * Summary: 区块链数据服务-获取区块链当前块高
+ */
+async function getDataserviceBlockchainheight(request: GetDataserviceBlockchainheightRequest): GetDataserviceBlockchainheightResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDataserviceBlockchainheightEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取区块链当前块高
+ * Summary: 区块链数据服务-获取区块链当前块高
+ */
+async function getDataserviceBlockchainheightEx(request: GetDataserviceBlockchainheightRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDataserviceBlockchainheightResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.blockchainheight.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDataserviceTransactioncountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标示
+  bizid: string(name='bizid'),
+}
+
+model GetDataserviceTransactioncountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易总数
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 获取链交易总数
+ * Summary: 区块链数据服务-获取链交易总数
+ */
+async function getDataserviceTransactioncount(request: GetDataserviceTransactioncountRequest): GetDataserviceTransactioncountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDataserviceTransactioncountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链交易总数
+ * Summary: 区块链数据服务-获取链交易总数
+ */
+async function getDataserviceTransactioncountEx(request: GetDataserviceTransactioncountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDataserviceTransactioncountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.transactioncount.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDataserviceTransactioninfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标识
+  bizid: string(name='bizid'),
+  // 交易hash
+  hash: string(name='hash'),
+}
+
+model GetDataserviceTransactioninfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链唯一性标识
+  bizid?: string(name='bizid'),
+  // category
+  category?: long(name='category'),
+  // 交易发起时间
+  createTime?: long(name='create_time'),
+  // 交易发起方哈希
+  fromHash?: string(name='from_hash'),
+  // 交易哈希
+  hash?: string(name='hash'),
+  // 块高
+  height?: long(name='height'),
+  // 交易接收方哈希
+  toHash?: string(name='to_hash'),
+  // 交易类型
+  type?: long(name='type'),
+}
+
+/**
+ * Description: 根据交易hash获取交易详情
+ * Summary: 区块链数据服务-获取交易详情
+ */
+async function getDataserviceTransactioninfo(request: GetDataserviceTransactioninfoRequest): GetDataserviceTransactioninfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDataserviceTransactioninfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据交易hash获取交易详情
+ * Summary: 区块链数据服务-获取交易详情
+ */
+async function getDataserviceTransactioninfoEx(request: GetDataserviceTransactioninfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDataserviceTransactioninfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.transactioninfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDataserviceLastblocksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标识
+  bizid: string(name='bizid'),
+  // 区块个数
+  size: long(name='size'),
+}
+
+model ListDataserviceLastblocksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块信息
+  lastBlockList?: [ BlockInfo ](name='last_block_list'),
+}
+
+/**
+ * Description: 获取链最近n条块信息
+ * Summary: 区块链数据服务-获取链最近n条块信息
+ */
+async function listDataserviceLastblocks(request: ListDataserviceLastblocksRequest): ListDataserviceLastblocksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDataserviceLastblocksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链最近n条块信息
+ * Summary: 区块链数据服务-获取链最近n条块信息
+ */
+async function listDataserviceLastblocksEx(request: ListDataserviceLastblocksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDataserviceLastblocksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.lastblocks.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTasAttestationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 摘要算法默认，（sha256或者sm3 默认sm3）
+  algorithm?: string(name='algorithm'),
+  // tsr中是否保存证书，true表示保存，false表示不保存（默认为false）
+  certReq?: boolean(name='cert_req'),
+  // 返回tsr是否压缩精简，true表示要压缩精简，false表示不压缩精简 （默认为true）
+  compress?: boolean(name='compress'),
+  // 事物hash(支持sha256或sm3摘要算法),长度64个字符。
+  rid: string(name='rid'),
+}
+
+model GetTasAttestationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 精简后的时间戳完整编码（在校验时需要提交）
+  ctsr?: string(name='ctsr'),
+  // serialNumber，凭证编号 （在校验的时需要先填写凭证编号）
+  sn?: string(name='sn'),
+  // 时间信息，从1970年1月1日起至当前时间的毫秒数(13位数字)
+  ts?: string(name='ts'),
+}
+
+/**
+ * Description: 可信时间服务——获取时间凭证
+ * Summary: 可信时间凭证服务-获取时间凭证
+ */
+async function getTasAttestation(request: GetTasAttestationRequest): GetTasAttestationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTasAttestationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信时间服务——获取时间凭证
+ * Summary: 可信时间凭证服务-获取时间凭证
+ */
+async function getTasAttestationEx(request: GetTasAttestationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTasAttestationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.tas.attestation.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyTasCtsrRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求时间凭证接口返回的ctsr参数
+  ctsr: string(name='ctsr'),
+}
+
+model VerifyTasCtsrResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用名
+  appName?: string(name='app_name'),
+  // 公司名
+  companyName?: string(name='company_name'),
+  // 事务步骤的描述
+  desc?: string(name='desc'),
+  // 请求时间凭证时传入的事物hash
+  hashValue?: string(name='hash_value'),
+  // serialNumber，凭证编号 （在校验的时需要先填写凭证编号）
+  sn?: string(name='sn'),
+  // 时间信息，从1970年1月1日起至当前时间的毫秒数(13位数字)
+  ts?: string(name='ts'),
+}
+
+/**
+ * Description: 可信时间 ——校验时间凭证接口
+ * Summary: 可信时间凭证服务-校验时间凭证接口
+ */
+async function verifyTasCtsr(request: VerifyTasCtsrRequest): VerifyTasCtsrResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyTasCtsrEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信时间 ——校验时间凭证接口
+ * Summary: 可信时间凭证服务-校验时间凭证接口
+ */
+async function verifyTasCtsrEx(request: VerifyTasCtsrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyTasCtsrResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.tas.ctsr.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTasCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // serialNumber，凭证编号 （在校验的时需要先填写凭证编号）
+  sn: string(name='sn'),
+}
+
+model GetTasCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 下载pdf格式证书的临时url
+  url?: string(name='url'),
+}
+
+/**
+ * Description: 通过sn下载时间凭证证书（pdf格式）
+ * Summary: 可信时间凭证服务-下载时间凭证证书
+ */
+async function getTasCertificate(request: GetTasCertificateRequest): GetTasCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTasCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过sn下载时间凭证证书（pdf格式）
+ * Summary: 可信时间凭证服务-下载时间凭证证书
+ */
+async function getTasCertificateEx(request: GetTasCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTasCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.tas.certificate.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetTasTransactionattestationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 事物hash(支持sha256或sm3摘要算法)
+  // 长度64个字符。
+  rid: string(name='rid'),
+  // 摘要算法默认，（sha256或者sm3 默认sm3）
+  algorithm?: string(name='algorithm'),
+  // 返回tsr是否压缩精简，true表示要压缩精简，false表示不压缩精简 （默认为true）
+  compress?: boolean(name='compress'),
+  // tsr中是否保存证书，true表示保存，false表示不保存（默认为false）
+  certReq?: boolean(name='cert_req'),
+  // 事务id，允许大小写数字且小于十位的字符串
+  transId: string(name='trans_id'),
+  // 对事务的描述，长度小于20位
+  desc: string(name='desc'),
+}
+
+model GetTasTransactionattestationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // serialNumber，凭证编号 （在校验的时需要先填写凭证编号）
+  sn?: string(name='sn'),
+  // 精简后的时间戳完整编码（在校验时需要提交）
+  ctsr?: string(name='ctsr'),
+  // 时间信息，从1970年1月1日起至当前时间的毫秒数(13位数字)
+  ts?: string(name='ts'),
+}
+
+/**
+ * Description: 可信时间——获取带事务的时间凭证
+ * Summary: 可信时间——获取带事务的时间凭证
+ */
+async function getTasTransactionattestation(request: GetTasTransactionattestationRequest): GetTasTransactionattestationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getTasTransactionattestationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可信时间——获取带事务的时间凭证
+ * Summary: 可信时间——获取带事务的时间凭证
+ */
+async function getTasTransactionattestationEx(request: GetTasTransactionattestationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTasTransactionattestationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.tas.transactionattestation.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyFourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 某某有限公司	
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号码
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+}
+
+model QueryEverifyFourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:核验成功
+  // 1:企业信息有误
+  // 2:企业非正常营业
+  code?: string(name='code'),
+  // 企业经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素
+ */
+async function queryEverifyFourmeta(request: QueryEverifyFourmetaRequest): QueryEverifyFourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyFourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素
+ */
+async function queryEverifyFourmetaEx(request: QueryEverifyFourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyFourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.fourmeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyThreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+}
+
+model QueryEverifyThreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:核验成功
+  // 1:企业信息有误
+  // 2:企业非正常营业
+  code?: string(name='code'),
+  // 经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素
+ */
+async function queryEverifyThreemeta(request: QueryEverifyThreemetaRequest): QueryEverifyThreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyThreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素
+ */
+async function queryEverifyThreemetaEx(request: QueryEverifyThreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyThreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.threemeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+}
+
+model QueryEverifyTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 经营状态
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+  // 0:核验成功
+  // 1:企业信息有误
+  // 2:企业非正常营业
+  code?: string(name='code'),
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素
+ */
+async function queryEverifyTwometa(request: QueryEverifyTwometaRequest): QueryEverifyTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素
+ */
+async function queryEverifyTwometaEx(request: QueryEverifyTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.twometa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaicorpInternalsearchlibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账户ID，账户粒度ID。
+  accountId: string(name='account_id'),
+  // 产品ID
+  bizId: string(name='biz_id'),
+  // 商户ID，即平台用户ID。
+  companyId: string(name='company_id'),
+  //  内容ID
+  contentId: string(name='content_id'),
+  // 基于安全考虑，填充NonceId
+  customId: string(name='custom_id'),
+  // 待检测内容的raw data，这期暂不使用
+  entityData?: string(name='entity_data'),
+  // 待检测字段的描述信息，包括标题、描述或关键词，json格式字符串
+  entityDesc?: string(name='entity_desc'),
+  // 待检测内容类型，[TEXT, PICTURE, VIDEO, HTML]
+  entityType: string(name='entity_type'),
+  // 1、待检测内容oss url（后续可以扩展为非oss的文件url）
+  // 2、假如使用AK访问，此处填写fileid。
+  entityUrl: string(name='entity_url'),
+  // 时间戳
+  timestamp: string(name='timestamp'),
+}
+
+model QueryBaicorpInternalsearchlibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NoucelId
+  customId?: string(name='custom_id'),
+  // 采用的模型以及版本说明
+  modelInfo?: string(name='model_info'),
+  // 重复列表，json list格式
+  repeatInfo?: string(name='repeat_info'),
+  // 相似度信息列表，json list格式
+  similarityInfo?: string(name='similarity_info'),
+}
+
+/**
+ * Description: 内容搜索查询接口
+ * Summary: 内容搜索查询接口
+ */
+async function queryBaicorpInternalsearchlibrary(request: QueryBaicorpInternalsearchlibraryRequest): QueryBaicorpInternalsearchlibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaicorpInternalsearchlibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内容搜索查询接口
+ * Summary: 内容搜索查询接口
+ */
+async function queryBaicorpInternalsearchlibraryEx(request: QueryBaicorpInternalsearchlibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaicorpInternalsearchlibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalsearchlibrary.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaicorpInternalsearchlibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账户ID，账户粒度ID。
+  accountId: string(name='account_id'),
+  // 产品ID，[BANQUAN, PAIPAI]
+  bizId: string(name='biz_id'),
+  // 商户ID，即平台用户ID。
+  companyId: string(name='company_id'),
+  // 内容ID
+  contentId: string(name='content_id'),
+  // 	
+  // 基于安全考虑，填充NonceId。
+  customId: string(name='custom_id'),
+  // 待检测内容的raw data，这期暂不使用
+  entityData: string(name='entity_data'),
+  // 待检测字段的描述信息，包括标题、描述或关键词，json格式字符串。
+  entityDesc: string(name='entity_desc'),
+  // 待检测内容类型，[TEXT, PICTURE, VIDEO, HTML]
+  entityType: string(name='entity_type'),
+  // 1.待检测内容oss url（后续可以扩展为非oss的文件url）。
+  // 2.假如使用AK访问，此处填写fileid。
+  entityUrl: string(name='entity_url'),
+}
+
+model UpdateBaicorpInternalsearchlibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // NounceId
+  customId?: string(name='custom_id'),
+  // 更新是否成功
+  updateResult?: string(name='update_result'),
+  // 更新描述、更新失败原因
+  updateDesc?: string(name='update_desc'),
+}
+
+/**
+ * Description: 更新检索
+ * Summary: 更新检索
+ */
+async function updateBaicorpInternalsearchlibrary(request: UpdateBaicorpInternalsearchlibraryRequest): UpdateBaicorpInternalsearchlibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaicorpInternalsearchlibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新检索
+ * Summary: 更新检索
+ */
+async function updateBaicorpInternalsearchlibraryEx(request: UpdateBaicorpInternalsearchlibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaicorpInternalsearchlibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.baicorp.internalsearchlibrary.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEpayauthRootbankRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支持全称，或部分名称 如果不传名称，系统默认将返回热门银行，如果用户期望的银行不是热门银行，可以建议用户输入银行名称进行查询。
+  bankName: string(name='bank_name'),
+}
+
+model QueryEpayauthRootbankResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 银行列表
+  bankDetails?: [ Institution ](name='bank_details'),
+}
+
+/**
+ * Description: 对公打款-总行查询
+ * Summary: 对公打款-总行查询
+ */
+async function queryEpayauthRootbank(request: QueryEpayauthRootbankRequest): QueryEpayauthRootbankResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEpayauthRootbankEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对公打款-总行查询
+ * Summary: 对公打款-总行查询
+ */
+async function queryEpayauthRootbankEx(request: QueryEpayauthRootbankRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEpayauthRootbankResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.epayauth.rootbank.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdapplyprotEcapplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户证件号码
+  certNo: string(name='cert_no'),
+  // 用户手机号码
+  mobile: string(name='mobile'),
+  // 用户姓名
+  userName: string(name='user_name'),
+}
+
+model QueryYdapplyprotEcapplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验是否通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 利用信贷违约数据、多头数据、涉黑数据，刻画基于身份证、手机号、设备等多维度风险特征池、使用机器学习模型自动学习用户背后的风险信息和模式，获得信贷欺诈评分。
+ * Summary: 业务申请保护
+ */
+async function queryYdapplyprotEcapply(request: QueryYdapplyprotEcapplyRequest): QueryYdapplyprotEcapplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdapplyprotEcapplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 利用信贷违约数据、多头数据、涉黑数据，刻画基于身份证、手机号、设备等多维度风险特征池、使用机器学习模型自动学习用户背后的风险信息和模式，获得信贷欺诈评分。
+ * Summary: 业务申请保护
+ */
+async function queryYdapplyprotEcapplyEx(request: QueryYdapplyprotEcapplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdapplyprotEcapplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydapplyprot.ecapply.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdpacprotEcpacRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户手机号
+  mobile: string(name='mobile'),
+}
+
+model QueryYdpacprotEcpacResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+  // 模型分数
+  score?: string(name='score'),
+  // 命中策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 基于用户行为日志分析，有效识别逃单、恶意退款、无法履约等风险用户，在先享后付、消费金融、网约车先享后付场景有较好的识别效果
+ * Summary: 先享后付保护
+ */
+async function queryYdpacprotEcpac(request: QueryYdpacprotEcpacRequest): QueryYdpacprotEcpacResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdpacprotEcpacEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于用户行为日志分析，有效识别逃单、恶意退款、无法履约等风险用户，在先享后付、消费金融、网约车先享后付场景有较好的识别效果
+ * Summary: 先享后付保护
+ */
+async function queryYdpacprotEcpacEx(request: QueryYdpacprotEcpacRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdpacprotEcpacResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydpacprot.ecpac.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdauthprotTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被核验用户的身份证号
+  certNo: string(name='cert_no'),
+  // 被核验用户的姓名
+  userName: string(name='user_name'),
+}
+
+model QueryYdauthprotTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验是否通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 支持二要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotTwometa(request: QueryYdauthprotTwometaRequest): QueryYdauthprotTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdauthprotTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持二要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotTwometaEx(request: QueryYdauthprotTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdauthprotTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydauthprot.twometa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdauthprotThreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被核验用户的身份证号
+  certNo: string(name='cert_no'),
+  // 被核验用户的手机号
+  mobile: string(name='mobile'),
+  // 被核验用户姓名
+  userName: string(name='user_name'),
+}
+
+model QueryYdauthprotThreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验是否通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 支持三要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotThreemeta(request: QueryYdauthprotThreemetaRequest): QueryYdauthprotThreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdauthprotThreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持三要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotThreemetaEx(request: QueryYdauthprotThreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdauthprotThreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydauthprot.threemeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdauthprotFourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被核验用户的银行卡号
+  cardNo: string(name='card_no'),
+  // 被核验用户的身份证号
+  certNo: string(name='cert_no'),
+  // 被核验用户的手机号
+  mobile: string(name='mobile'),
+  // 被核验用户的姓名
+  userName: string(name='user_name'),
+}
+
+model QueryYdauthprotFourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验是否通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 支持四要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotFourmeta(request: QueryYdauthprotFourmetaRequest): QueryYdauthprotFourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdauthprotFourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持四要素验证，，覆盖账户实名、银行卡绑定、海淘报关等场景，为电商、银行、互金行业提供真实身份验证。
+ * Summary: 身份认证保护
+ */
+async function queryYdauthprotFourmetaEx(request: QueryYdauthprotFourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdauthprotFourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydauthprot.fourmeta.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdmktprotEcmarketcampaignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户手机号
+  mobile: string(name='mobile'),
+}
+
+model QueryYdmktprotEcmarketcampaignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核验是否通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 营销保护
+ * Summary: 营销保护
+ */
+async function queryYdmktprotEcmarketcampaign(request: QueryYdmktprotEcmarketcampaignRequest): QueryYdmktprotEcmarketcampaignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdmktprotEcmarketcampaignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销保护
+ * Summary: 营销保护
+ */
+async function queryYdmktprotEcmarketcampaignEx(request: QueryYdmktprotEcmarketcampaignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdmktprotEcmarketcampaignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydmktprot.ecmarketcampaign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYdregprotEcregisterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户手机号
+  mobile: string(name='mobile'),
+}
+
+model QueryYdregprotEcregisterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否核验通过
+  passed?: boolean(name='passed'),
+  // 风险分
+  score?: string(name='score'),
+  // 命中的策略列表
+  strategies?: [ string ](name='strategies'),
+  // 风险决策结果
+  decision?: string(name='decision'),
+}
+
+/**
+ * Description: 注册保护
+ * Summary: 注册保护
+ */
+async function queryYdregprotEcregister(request: QueryYdregprotEcregisterRequest): QueryYdregprotEcregisterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYdregprotEcregisterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册保护
+ * Summary: 注册保护
+ */
+async function queryYdregprotEcregisterEx(request: QueryYdregprotEcregisterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYdregprotEcregisterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ydregprot.ecregister.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEpayauthBranchbankRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行名称，支持全称，或部分名称
+  // bank_name和district_code至少有一个不为空
+  bankName?: string(name='bank_name'),
+  // 行政地区编码
+  // bank_name和district_code至少有一个不为空
+  districtCode?: string(name='district_code'),
+  // 总行联行号
+  rootBankCode: string(name='root_bank_code'),
+}
+
+model QueryEpayauthBranchbankResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Institution列表
+  bankDetails?: [ Institution ](name='bank_details'),
+}
+
+/**
+ * Description: 用户需要选择支行时，业务平台调用此接口查询列表，供用户选择。
+ * Summary: 支行查询
+ */
+async function queryEpayauthBranchbank(request: QueryEpayauthBranchbankRequest): QueryEpayauthBranchbankResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEpayauthBranchbankEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户需要选择支行时，业务平台调用此接口查询列表，供用户选择。
+ * Summary: 支行查询
+ */
+async function queryEpayauthBranchbankEx(request: QueryEpayauthBranchbankRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEpayauthBranchbankResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.epayauth.branchbank.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEpayauthDistrictRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 父级行政地区编码。 不填则默认查询省级行政地区编码，支持省市县三级查询。
+  parentCode: string(name='parent_code'),
+}
+
+model QueryEpayauthDistrictResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // District列表
+  districtDetails?: [ Institution ](name='district_details'),
+}
+
+/**
+ * Description: 用户需要选择省市时，业务平台调用此接口查询列表，供用户选择。
+ * Summary: 行政地区编码查询
+ */
+async function queryEpayauthDistrict(request: QueryEpayauthDistrictRequest): QueryEpayauthDistrictResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEpayauthDistrictEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户需要选择省市时，业务平台调用此接口查询列表，供用户选择。
+ * Summary: 行政地区编码查询
+ */
+async function queryEpayauthDistrictEx(request: QueryEpayauthDistrictRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEpayauthDistrictResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.epayauth.district.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitEpayauthVerifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待认证银行卡号
+  // 
+  bankCardNo: string(name='bank_card_no'),
+  // 人行联行号
+  bankCode: string(name='bank_code'),
+  // 回调通知地址
+  callbackUrl: string(name='callback_url'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号码
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 手机号码 用于接收打款验证通知短信
+  mobile?: string(name='mobile'),
+}
+
+model InitEpayauthVerifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 2017070610120520200000000051240001626725
+  verifyId?: string(name='verify_id'),
+}
+
+/**
+ * Description: 用户输入银行卡相关信息后，业务平台调用此接口申请打款验证，网商端收到请求后依预设规则向指定银行卡打款，金额随机。
+ * Summary: 发起打款验证申请
+ */
+async function initEpayauthVerify(request: InitEpayauthVerifyRequest): InitEpayauthVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initEpayauthVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户输入银行卡相关信息后，业务平台调用此接口申请打款验证，网商端收到请求后依预设规则向指定银行卡打款，金额随机。
+ * Summary: 发起打款验证申请
+ */
+async function initEpayauthVerifyEx(request: InitEpayauthVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitEpayauthVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.epayauth.verify.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEpayauthVerifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 打款金额，只支持两位小数点的正数，单位：元
+  amount: string(name='amount'),
+  // 支付币种
+  currency: string(name='currency'),
+  // 打款验证ID 打款验证受理后生成的一个唯一标识
+  verifyId: string(name='verify_id'),
+}
+
+model QueryEpayauthVerifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验证是否成功
+  valid?: boolean(name='valid'),
+}
+
+/**
+ * Description: 用户输入收到的打款金额后，业务平台调用此接口进行金额校验。
+ * Summary: 打款验证金额校验
+ */
+async function queryEpayauthVerify(request: QueryEpayauthVerifyRequest): QueryEpayauthVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEpayauthVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户输入收到的打款金额后，业务平台调用此接口进行金额校验。
+ * Summary: 打款验证金额校验
+ */
+async function queryEpayauthVerifyEx(request: QueryEpayauthVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEpayauthVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.epayauth.verify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBmpbrowserTransactionqrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁区块链的唯一链id
+  bizid: string(name='bizid'),
+  // 链上合约id
+  contractId?: string(name='contract_id'),
+  // 蚂蚁区块链的链上交易hash值
+  hash: string(name='hash'),
+}
+
+model QueryBmpbrowserTransactionqrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易二维码二进制内容的Base64编码
+  qrCodeDownloadUrl?: string(name='qr_code_download_url'),
+}
+
+/**
+ * Description: 依据入参，生成链上交易二维码，可通过支付宝端扫码查看交易详情
+ * Summary: 链上交易二维码生成
+ */
+async function queryBmpbrowserTransactionqrcode(request: QueryBmpbrowserTransactionqrcodeRequest): QueryBmpbrowserTransactionqrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBmpbrowserTransactionqrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 依据入参，生成链上交易二维码，可通过支付宝端扫码查看交易详情
+ * Summary: 链上交易二维码生成
+ */
+async function queryBmpbrowserTransactionqrcodeEx(request: QueryBmpbrowserTransactionqrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBmpbrowserTransactionqrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.bmpbrowser.transactionqrcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddBmpbrowserPrivilegeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁区块链的唯一链id
+  bizid: string(name='bizid'),
+  // 授权查看权限的支付宝电话号码集合
+  phoneNumbers: string(name='phone_numbers'),
+}
+
+model AddBmpbrowserPrivilegeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量添加权限成功与否
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 依据入参手机号，开通对应支付宝账号查看链上交易的权限
+ * Summary: 批量开通 链上交易移动端查看权限
+ */
+async function addBmpbrowserPrivilege(request: AddBmpbrowserPrivilegeRequest): AddBmpbrowserPrivilegeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addBmpbrowserPrivilegeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 依据入参手机号，开通对应支付宝账号查看链上交易的权限
+ * Summary: 批量开通 链上交易移动端查看权限
+ */
+async function addBmpbrowserPrivilegeEx(request: AddBmpbrowserPrivilegeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddBmpbrowserPrivilegeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.bmpbrowser.privilege.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIdcocrIdcardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证图片base64编码内容
+  imageContent: string(name='image_content'),
+  // face: 身份证正面
+  // back: 身份证反面
+  side: string(name='side'),
+}
+
+model QueryIdcocrIdcardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址
+  address?: string(name='address'),
+  // 出生年月日
+  birth?: string(name='birth'),
+  // 信息抽取失败后详细错误原因
+  errorContent?: string(name='error_content'),
+  // 身份证号码
+  num?: string(name='num'),
+  // 性别：男/女
+  sex?: string(name='sex'),
+  // 解析成功
+  success?: boolean(name='success'),
+  // 有效期截止时间
+  endDate?: string(name='end_date'),
+  // 公安局分案
+  issue?: string(name='issue'),
+  // 有效期开始时间
+  startDate?: string(name='start_date'),
+  // 民族
+  nationality?: string(name='nationality'),
+}
+
+/**
+ * Description: 身份证信息识别
+ * Summary: 身份证信息识别
+ */
+async function queryIdcocrIdcard(request: QueryIdcocrIdcardRequest): QueryIdcocrIdcardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIdcocrIdcardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 身份证信息识别
+ * Summary: 身份证信息识别
+ */
+async function queryIdcocrIdcardEx(request: QueryIdcocrIdcardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIdcocrIdcardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.idcocr.idcard.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitCaCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务唯一性uuid，用于后续的证书查询
+  bizUuid: string(name='biz_uuid'),
+  // 证书请求(CSR)
+  command: string(name='command'),
+  // 8B75D2EEDF1658CC9C1B7C05AA600856  区块链-baasplus平台对外持牌证书服务场景
+  // 2D25EFFD786590991542CAE2D14CB18E   区块链-baasplus平台对外非持牌证书服务场景
+  configId: string(name='config_id'),
+}
+
+model InitCaCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书序列号
+  certSn?: string(name='cert_sn'),
+  // 证书内容
+  p10?: string(name='p10'),
+}
+
+/**
+ * Description: 申请证书
+ * Summary: 申请证书
+ */
+async function initCaCertificate(request: InitCaCertificateRequest): InitCaCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initCaCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请证书
+ * Summary: 申请证书
+ */
+async function initCaCertificateEx(request: InitCaCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCaCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.ca.certificate.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitContentriskInternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 进行识别的音频地址
+  audioUrls?: string(name='audio_urls'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+  // 待校验连接
+  linkUrls?: string(name='link_urls'),
+  // 图片连接
+  pictureUrls?: string(name='picture_urls'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 待校验文本
+  text?: string(name='text'),
+  // 进行识别的视频地址
+  videoUrls?: string(name='video_urls'),
+  // 用户id
+  accountId?: string(name='account_id'),
+}
+
+model InitContentriskInternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内容ID，用于查询异步识别结果时作为查询ID
+  appSceneDataId?: string(name='app_scene_data_id'),
+  // 内容安全同步检测返回的事件id，用于异步获取检测结果
+  eventId?: string(name='event_id'),
+  // 命中结果详情
+  hitDetectItems?: [ HitDetectItems ](name='hit_detect_items'),
+  // 是否需要进行异步查询的标志位 need: 需要等待60秒之后进行异步查询 no_need: 不需要，已经同步返回结果
+  needQuery?: string(name='need_query'),
+  // PASSED("数据识别通过，可以在网站上正常显示")
+  // 
+  // REJECTED("被拒绝的数据，比如内容出现违禁词；不能出现在我们网站上")
+  // 
+  // CC("CC表示用户发表数据后，提示成功，自己能看到这条消息，但其它人接收不到本条消息或看不见这条消息。")
+  // 
+  // DELETE("删除数据, 为了不扩大化数据的传播，删除历史已经发出去的数据。")
+  // 
+  // REPLACE("替换部分词为 ***")
+  // 
+  // WARNING("提示数据，表示内容存在可疑，提示用户操作")
+  // 
+  // RECOVER("恢复数据，将误判断的内容，恢复回来")
+  resultAction?: string(name='result_action'),
+}
+
+/**
+ * Description: 内容风险识别接口服务可提供针对垃圾广告、（钓鱼、广告）链接、暴恐政、黄赌毒等内容的风险识别服务。
+ * Summary: 内容风险识别接口服务
+ */
+async function initContentriskInternal(request: InitContentriskInternalRequest): InitContentriskInternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initContentriskInternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内容风险识别接口服务可提供针对垃圾广告、（钓鱼、广告）链接、暴恐政、黄赌毒等内容的风险识别服务。
+ * Summary: 内容风险识别接口服务
+ */
+async function initContentriskInternalEx(request: InitContentriskInternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitContentriskInternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.contentrisk.internal.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContentriskInternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 内容业务ID，用于进行异步识别结果的索引查询
+  appSceneDataId: string(name='app_scene_data_id'),
+  // 内部参数
+  bizInfo: BizInfo(name='biz_info'),
+  // 内容检测事件id，根据此id查询异步检测结果
+  eventId?: string(name='event_id'),
+}
+
+model QueryContentriskInternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 命中结果详情
+  hitDetectItems?: [ HitDetectItems ](name='hit_detect_items'),
+  // PASSED("数据识别通过，可以在网站上正常显示") REJECTED("被拒绝的数据，比如内容出现违禁词；不能出现在我们网站上")
+  resultAction?: string(name='result_action'),
+}
+
+/**
+ * Description: 配合内容风险识别接口服务，进行图片、视频等针对暴恐政、黄赌毒等内容的异步识别结果查询接口。
+ * Summary: 内容风险识别结果查询接口服务
+ */
+async function queryContentriskInternal(request: QueryContentriskInternalRequest): QueryContentriskInternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContentriskInternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 配合内容风险识别接口服务，进行图片、视频等针对暴恐政、黄赌毒等内容的异步识别结果查询接口。
+ * Summary: 内容风险识别结果查询接口服务
+ */
+async function queryContentriskInternalEx(request: QueryContentriskInternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentriskInternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.contentrisk.internal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitIndividualidImageauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // Base64编码的人脸正面照片
+  encodedFacialPictureFront: string(name='encoded_facial_picture_front'),
+}
+
+model InitIndividualidImageauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+  // 认证是否成功
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 个人实人认证服务端比对-认证开始
+ * Summary: 个人实人认证服务端比对-认证开始
+ */
+async function initIndividualidImageauth(request: InitIndividualidImageauthRequest): InitIndividualidImageauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIndividualidImageauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人认证服务端比对-认证开始
+ * Summary: 个人实人认证服务端比对-认证开始
+ */
+async function initIndividualidImageauthEx(request: InitIndividualidImageauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIndividualidImageauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.imageauth.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddIotcseAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 序列化的json string
+  bizContent: string(name='biz_content'),
+}
+
+model AddIotcseAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 访问账户生成
+ * Summary: 访问账户生成
+ */
+async function addIotcseAccount(request: AddIotcseAccountRequest): AddIotcseAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addIotcseAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 访问账户生成
+ * Summary: 访问账户生成
+ */
+async function addIotcseAccountEx(request: AddIotcseAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddIotcseAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.account.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveIotcseEvidenceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 序列化的json string
+  bizContent: string(name='biz_content'),
+}
+
+model SaveIotcseEvidenceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 存证上链
+ * Summary: 存证上链
+ */
+async function saveIotcseEvidence(request: SaveIotcseEvidenceRequest): SaveIotcseEvidenceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveIotcseEvidenceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证上链
+ * Summary: 存证上链
+ */
+async function saveIotcseEvidenceEx(request: SaveIotcseEvidenceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveIotcseEvidenceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.evidence.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseEvidenceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 序列化的json string
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseEvidenceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 存证上链查询
+ * Summary: 存证上链查询
+ */
+async function queryIotcseEvidence(request: QueryIotcseEvidenceRequest): QueryIotcseEvidenceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseEvidenceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证上链查询
+ * Summary: 存证上链查询
+ */
+async function queryIotcseEvidenceEx(request: QueryIotcseEvidenceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseEvidenceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.evidence.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDidCorporatedidagentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展字段
+  // { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+  extensionInfo: string(name='extension_info'),
+  // 所有需要关联的外键，外键必须已did auth key controller的did作为前缀+“sidekey:”+外键
+  indexs?: [ string ](name='indexs'),
+  // 企业名称
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号bid的hash值，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 携带自己定义的服务类型
+  services?: [ DidDocServicesInfo ](name='services'),
+}
+
+model CreateDidCorporatedidagentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 代理创建企业did
+ * Summary: 代理创建企业did
+ */
+async function createDidCorporatedidagent(request: CreateDidCorporatedidagentRequest): CreateDidCorporatedidagentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDidCorporatedidagentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代理创建企业did
+ * Summary: 代理创建企业did
+ */
+async function createDidCorporatedidagentEx(request: CreateDidCorporatedidagentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDidCorporatedidagentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.did.corporatedidagent.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitIndividualidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证方式,FACE表示在支付宝内进行认证,FACE_SDK表示在客户的应用中进行认证 默认为FACE
+  bizCode?: string(name='biz_code'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model InitIndividualidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: 个人实人刷脸认证-认证初始化
+ * Summary: 个人实人刷脸认证-认证初始化
+ */
+async function initIndividualidFaceauthinternal(request: InitIndividualidFaceauthinternalRequest): InitIndividualidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initIndividualidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证-认证初始化
+ * Summary: 个人实人刷脸认证-认证初始化
+ */
+async function initIndividualidFaceauthinternalEx(request: InitIndividualidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitIndividualidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauthinternal.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyIndividualidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回调通知地址
+  callbackUrl?: string(name='callback_url'),
+  // 认证的唯一性id
+  // 
+  certifyId: string(name='certify_id'),
+  // 认证完成后回跳地址
+  redirectUrl?: string(name='redirect_url'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model CertifyIndividualidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+  // 认证url
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 个人实人刷脸认证-认证开始
+ * Summary: 个人实人刷脸认证-认证开始
+ */
+async function certifyIndividualidFaceauthinternal(request: CertifyIndividualidFaceauthinternalRequest): CertifyIndividualidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyIndividualidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证-认证开始
+ * Summary: 个人实人刷脸认证-认证开始
+ */
+async function certifyIndividualidFaceauthinternalEx(request: CertifyIndividualidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyIndividualidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauthinternal.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndividualidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+  // 认证的唯一性id
+  certifyId: string(name='certify_id'),
+}
+
+model QueryIndividualidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性id
+  certifyId?: string(name='certify_id'),
+  // 是否认证通过
+  passed?: boolean(name='passed'),
+  // 用户是否完成刷脸
+  finished?: boolean(name='finished'),
+}
+
+/**
+ * Description: 个人实人刷脸认证-查询认证结果
+ * Summary: 个人实人刷脸认证-查询认证结果
+ */
+async function queryIndividualidFaceauthinternal(request: QueryIndividualidFaceauthinternalRequest): QueryIndividualidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndividualidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人实人刷脸认证-查询认证结果
+ * Summary: 个人实人刷脸认证-查询认证结果
+ */
+async function queryIndividualidFaceauthinternalEx(request: QueryIndividualidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndividualidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.individualid.faceauthinternal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitEnterpriseidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码））
+  epCertType: string(name='ep_cert_type'),
+  // 企业法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号（目前只支持身份证号）
+  // 
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model InitEnterpriseidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次认证的业务唯一性标示
+  // 
+  bizNo?: string(name='biz_no'),
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证初始化
+ * Summary: 企业认证四要素-法人实人认证初始化
+ */
+async function initEnterpriseidFaceauthinternal(request: InitEnterpriseidFaceauthinternalRequest): InitEnterpriseidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initEnterpriseidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证初始化
+ * Summary: 企业认证四要素-法人实人认证初始化
+ */
+async function initEnterpriseidFaceauthinternalEx(request: InitEnterpriseidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitEnterpriseidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauthinternal.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyEnterpriseidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+  // 认证的唯一性标示
+  bizNo: string(name='biz_no'),
+  // 回调通知地址
+  // 
+  callbackUrl?: string(name='callback_url'),
+  // https://www.example.com/redircet	
+  redirectUrl?: string(name='redirect_url'),
+}
+
+model CertifyEnterpriseidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证的唯一性标示
+  bizNo?: string(name='biz_no'),
+  // 认证url
+  verifyUrl?: string(name='verify_url'),
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证开始
+ * Summary: 企业认证四要素-法人实人认证开始
+ */
+async function certifyEnterpriseidFaceauthinternal(request: CertifyEnterpriseidFaceauthinternalRequest): CertifyEnterpriseidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyEnterpriseidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素-法人实人认证开始
+ * Summary: 企业认证四要素-法人实人认证开始
+ */
+async function certifyEnterpriseidFaceauthinternalEx(request: CertifyEnterpriseidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyEnterpriseidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauthinternal.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyTwometainternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  // 
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  // 
+  epCertNo: string(name='ep_cert_no'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model QueryEverifyTwometainternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:核验成功 1:企业信息有误 2:企业非正常营业
+  code?: string(name='code'),
+  // 经营状态
+  // 
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  // 
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素
+ */
+async function queryEverifyTwometainternal(request: QueryEverifyTwometainternalRequest): QueryEverifyTwometainternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyTwometainternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证二要素
+ * Summary: 企业认证二要素
+ */
+async function queryEverifyTwometainternalEx(request: QueryEverifyTwometainternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyTwometainternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.twometainternal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyThreemetainternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  // 
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  // 
+  epCertNo: string(name='ep_cert_no'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model QueryEverifyThreemetainternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:核验成功 1:企业信息有误 2:企业非正常营业
+  code?: string(name='code'),
+  // 经营状态
+  // 
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  // 
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  // 
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素
+ */
+async function queryEverifyThreemetainternal(request: QueryEverifyThreemetainternalRequest): QueryEverifyThreemetainternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyThreemetainternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证三要素
+ * Summary: 企业认证三要素
+ */
+async function queryEverifyThreemetainternalEx(request: QueryEverifyThreemetainternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyThreemetainternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.threemetainternal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEverifyFourmetainternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  // 
+  epCertNo: string(name='ep_cert_no'),
+  // 法人姓名
+  // 
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 企业法人身份证号码
+  // 
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model QueryEverifyFourmetainternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:核验成功 1:企业信息有误 2:企业非正常营业
+  // 
+  code?: string(name='code'),
+  // 企业经营状态
+  // 
+  enterpriseStatus?: string(name='enterprise_status'),
+  // 营业期限
+  // 
+  openTime?: string(name='open_time'),
+  // 认证是否通过
+  // 
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素
+ */
+async function queryEverifyFourmetainternal(request: QueryEverifyFourmetainternalRequest): QueryEverifyFourmetainternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEverifyFourmetainternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证四要素
+ * Summary: 企业认证四要素
+ */
+async function queryEverifyFourmetainternalEx(request: QueryEverifyFourmetainternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEverifyFourmetainternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.everify.fourmetainternal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEnterpriseidFaceauthinternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证的唯一性标示
+  bizNo: string(name='biz_no'),
+  // 内部字段
+  bizInfo: BizInfo(name='biz_info'),
+}
+
+model QueryEnterpriseidFaceauthinternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 认证的唯一性标示
+  bizNo?: string(name='biz_no'),
+  // 认证失败错误码
+  // 
+  failedCode?: string(name='failed_code'),
+  // 认证失败原因信息
+  // 
+  failedMessage?: string(name='failed_message'),
+  // 是否认证通过
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 查询企业认证四要素—法人实人认证结果
+ * Summary: 查询企业认证四要素—法人实人认证结果
+ */
+async function queryEnterpriseidFaceauthinternal(request: QueryEnterpriseidFaceauthinternalRequest): QueryEnterpriseidFaceauthinternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseidFaceauthinternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业认证四要素—法人实人认证结果
+ * Summary: 查询企业认证四要素—法人实人认证结果
+ */
+async function queryEnterpriseidFaceauthinternalEx(request: QueryEnterpriseidFaceauthinternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseidFaceauthinternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.enterpriseid.faceauthinternal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddIotcseThingsdidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 序列化的json string
+  bizContent: string(name='biz_content'),
+}
+
+model AddIotcseThingsdidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份注册
+ * Summary: 物联网区块链身份注册
+ */
+async function addIotcseThingsdid(request: AddIotcseThingsdidRequest): AddIotcseThingsdidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addIotcseThingsdidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份注册
+ * Summary: 物联网区块链身份注册
+ */
+async function addIotcseThingsdidEx(request: AddIotcseThingsdidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddIotcseThingsdidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.thingsdid.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIotcseThingsdidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model UpdateIotcseThingsdidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份更新
+ * Summary: 物联网区块链身份更新
+ */
+async function updateIotcseThingsdid(request: UpdateIotcseThingsdidRequest): UpdateIotcseThingsdidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIotcseThingsdidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份更新
+ * Summary: 物联网区块链身份更新
+ */
+async function updateIotcseThingsdidEx(request: UpdateIotcseThingsdidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotcseThingsdidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.thingsdid.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseThingsdidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseThingsdidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份查询
+ * Summary: 物联网区块链身份查询
+ */
+async function queryIotcseThingsdid(request: QueryIotcseThingsdidRequest): QueryIotcseThingsdidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseThingsdidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份查询
+ * Summary: 物联网区块链身份查询
+ */
+async function queryIotcseThingsdidEx(request: QueryIotcseThingsdidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseThingsdidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.thingsdid.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseAsyncprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // {"key":"value"}
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseAsyncprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 异步轮询请求
+智能合约执行完后异步轮询
+ * Summary: 异步轮询请求
+ */
+async function queryIotcseAsyncprocess(request: QueryIotcseAsyncprocessRequest): QueryIotcseAsyncprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseAsyncprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 异步轮询请求
+智能合约执行完后异步轮询
+ * Summary: 异步轮询请求
+ */
+async function queryIotcseAsyncprocessEx(request: QueryIotcseAsyncprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseAsyncprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.asyncprocess.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecIotcseGroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model ExecIotcseGroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份分组
+ * Summary: 物联网区块链身份分组
+ */
+async function execIotcseGroup(request: ExecIotcseGroupRequest): ExecIotcseGroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execIotcseGroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份分组
+ * Summary: 物联网区块链身份分组
+ */
+async function execIotcseGroupEx(request: ExecIotcseGroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecIotcseGroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.group.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseGroupdeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseGroupdeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链分组设备查询
+ * Summary: 物联网区块链分组设备查询
+ */
+async function queryIotcseGroupdevice(request: QueryIotcseGroupdeviceRequest): QueryIotcseGroupdeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseGroupdeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链分组设备查询
+ * Summary: 物联网区块链分组设备查询
+ */
+async function queryIotcseGroupdeviceEx(request: QueryIotcseGroupdeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseGroupdeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.groupdevice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseDevicegroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseDevicegroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份设备分组查询
+ * Summary: 物联网区块链身份设备分组查询
+ */
+async function queryIotcseDevicegroup(request: QueryIotcseDevicegroupRequest): QueryIotcseDevicegroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseDevicegroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份设备分组查询
+ * Summary: 物联网区块链身份设备分组查询
+ */
+async function queryIotcseDevicegroupEx(request: QueryIotcseDevicegroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseDevicegroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.devicegroup.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseTenantdeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseTenantdeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份租户设备查询
+ * Summary: 物联网区块链身份租户设备查询
+ */
+async function queryIotcseTenantdevice(request: QueryIotcseTenantdeviceRequest): QueryIotcseTenantdeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseTenantdeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份租户设备查询
+ * Summary: 物联网区块链身份租户设备查询
+ */
+async function queryIotcseTenantdeviceEx(request: QueryIotcseTenantdeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseTenantdeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.tenantdevice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIotcseDevicestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model UpdateIotcseDevicestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份设备状态更新
+ * Summary: 物联网区块链身份设备状态更新
+ */
+async function updateIotcseDevicestatus(request: UpdateIotcseDevicestatusRequest): UpdateIotcseDevicestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIotcseDevicestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份设备状态更新
+ * Summary: 物联网区块链身份设备状态更新
+ */
+async function updateIotcseDevicestatusEx(request: UpdateIotcseDevicestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotcseDevicestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.devicestatus.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseDevicemodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseDevicemodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份设备物模型查询
+ * Summary: 物联网区块链身份设备物模型查询
+ */
+async function queryIotcseDevicemodel(request: QueryIotcseDevicemodelRequest): QueryIotcseDevicemodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseDevicemodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份设备物模型查询
+ * Summary: 物联网区块链身份设备物模型查询
+ */
+async function queryIotcseDevicemodelEx(request: QueryIotcseDevicemodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseDevicemodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.devicemodel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIotcseDevicespaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model UpdateIotcseDevicespaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份设备空间关联
+ * Summary: 物联网区块链身份设备空间关联
+ */
+async function updateIotcseDevicespace(request: UpdateIotcseDevicespaceRequest): UpdateIotcseDevicespaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIotcseDevicespaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份设备空间关联
+ * Summary: 物联网区块链身份设备空间关联
+ */
+async function updateIotcseDevicespaceEx(request: UpdateIotcseDevicespaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotcseDevicespaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.devicespace.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIotcseEvidencebatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 暂无
+  bizContent: string(name='biz_content'),
+}
+
+model QueryIotcseEvidencebatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂无
+  rawResponse?: string(name='raw_response'),
+}
+
+/**
+ * Description: 物联网区块链身份批量存证数据读取
+ * Summary: 物联网区块链身份批量存证数据读取
+ */
+async function queryIotcseEvidencebatch(request: QueryIotcseEvidencebatchRequest): QueryIotcseEvidencebatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIotcseEvidencebatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物联网区块链身份批量存证数据读取
+ * Summary: 物联网区块链身份批量存证数据读取
+ */
+async function queryIotcseEvidencebatchEx(request: QueryIotcseEvidencebatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotcseEvidencebatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.iotcse.evidencebatch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlocrBusinesslicenseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件二进制内容 + base64
+  imageRaw?: string(name='image_raw'),
+  // 图片下载url
+  imageUrl?: string(name='image_url'),
+  // 服务调用来源(需要咨询服务提供方)
+  source: string(name='source'),
+  // 单次调用唯一标示，用于异常问题排查，调用方需要负责生成并且记录在调用日志里
+  traceId: string(name='trace_id'),
+}
+
+model QueryBlocrBusinesslicenseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 算法错误信息
+  algoMsg?: string(name='algo_msg'),
+  // 算法异常错误码
+  algoRet?: long(name='algo_ret'),
+  // 框架错误信息
+  message?: string(name='message'),
+  // 算法结果,JSON String
+  result?: string(name='result'),
+  // 框架inference服务错误码，0为正常
+  ret?: long(name='ret'),
+}
+
+/**
+ * Description: AI认知服务营业执照ocr服务
+ * Summary: AI认知服务营业执照ocr服务
+ */
+async function queryBlocrBusinesslicense(request: QueryBlocrBusinesslicenseRequest): QueryBlocrBusinesslicenseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlocrBusinesslicenseEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI认知服务营业执照ocr服务
+ * Summary: AI认知服务营业执照ocr服务
+ */
+async function queryBlocrBusinesslicenseEx(request: QueryBlocrBusinesslicenseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlocrBusinesslicenseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.blocr.businesslicense.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInvoicesocrVatinvoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件二进制内容 + base64
+  imageRaw?: string(name='image_raw'),
+  // 图片下载url
+  imageUrl?: string(name='image_url'),
+  // 服务调用来源(需要咨询服务提供方)
+  source?: string(name='source'),
+  // 单次调用唯一标示，用于异常问题排查，调用方需要负责生成并且记录在调用日志里
+  traceId: string(name='trace_id'),
+  // 目前只支持pdf、jpg两种file_type的识别能力，根据具体传入的发票的格式传入正确的值
+  fileType: string(name='file_type'),
+}
+
+model QueryInvoicesocrVatinvoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 算法错误信息
+  algoMsg?: string(name='algo_msg'),
+  // 算法异常错误码
+  // 
+  algoRet?: string(name='algo_ret'),
+  // 框架错误信息
+  // 
+  message?: string(name='message'),
+  // 算法结果,JSON String
+  result?: string(name='result'),
+  // 框架inference服务错误码，0为正常
+  ret?: string(name='ret'),
+}
+
+/**
+ * Description: AI认知服务增值税发票ocr识别
+ * Summary: AI认知服务增值税发票ocr识别
+ */
+async function queryInvoicesocrVatinvoice(request: QueryInvoicesocrVatinvoiceRequest): QueryInvoicesocrVatinvoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInvoicesocrVatinvoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI认知服务增值税发票ocr识别
+ * Summary: AI认知服务增值税发票ocr识别
+ */
+async function queryInvoicesocrVatinvoiceEx(request: QueryInvoicesocrVatinvoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInvoicesocrVatinvoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.invoicesocr.vatinvoice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBmpbrowserPrivilegeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁区块链的唯一链id
+  // 
+  bizid: string(name='bizid'),
+  // 查看权限的支付宝电话号码
+  // 
+  phoneNumber: string(name='phone_number'),
+}
+
+model QueryBmpbrowserPrivilegeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 权限成功与否
+  // 
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 查询用户链上交易移动端查看权限
+ * Summary: 查询用户链上交易移动端查看权限
+ */
+async function queryBmpbrowserPrivilege(request: QueryBmpbrowserPrivilegeRequest): QueryBmpbrowserPrivilegeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBmpbrowserPrivilegeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户链上交易移动端查看权限
+ * Summary: 查询用户链上交易移动端查看权限
+ */
+async function queryBmpbrowserPrivilegeEx(request: QueryBmpbrowserPrivilegeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBmpbrowserPrivilegeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.bmpbrowser.privilege.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelBmpbrowserPrivilegeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 蚂蚁区块链的唯一链id
+  // 
+  bizid: string(name='bizid'),
+  // 取消查看权限的支付宝电话号码集合
+  // 
+  phoneNumbers: string(name='phone_numbers'),
+}
+
+model CancelBmpbrowserPrivilegeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量取消权限成功与否
+  status?: long(name='status'),
+}
+
+/**
+ * Description: 批量取消 链上交易移动端查看权限
+ * Summary: 批量取消 链上交易移动端查看权限
+ */
+async function cancelBmpbrowserPrivilege(request: CancelBmpbrowserPrivilegeRequest): CancelBmpbrowserPrivilegeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelBmpbrowserPrivilegeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量取消 链上交易移动端查看权限
+ * Summary: 批量取消 链上交易移动端查看权限
+ */
+async function cancelBmpbrowserPrivilegeEx(request: CancelBmpbrowserPrivilegeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelBmpbrowserPrivilegeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.bmpbrowser.privilege.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
