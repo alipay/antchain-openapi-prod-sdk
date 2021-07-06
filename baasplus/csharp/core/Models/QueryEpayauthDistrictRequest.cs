@@ -1,0 +1,28 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.BAASPLUS.Models
+{
+    public class QueryEpayauthDistrictRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 父级行政地区编码。 不填则默认查询省级行政地区编码，支持省市县三级查询。
+        [NameInMap("parent_code")]
+        [Validation(Required=true)]
+        public string ParentCode { get; set; }
+
+    }
+
+}
