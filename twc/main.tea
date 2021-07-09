@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.11',
+    sdk_version = '1.5.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -577,6 +577,22 @@ model ProposerObject {
   signatureManagerPhone?: string(name='signature_manager_phone', example='13812123232'),
 }
 
+// 平台方经办人信息
+model ContractPlatformAccountApplication {
+  // 邮箱地址
+  email?: string(name='email', example='xx@alipay.com'),
+  // 证件号
+  idNumber?: string(name='id_number', example='311111111111111111'),
+  // 证件类型
+  idType?: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名
+  name?: string(name='name', example='张三'),
+  // 用户唯一标识，可传入第三方平台的个人用户id等
+  userId: string(name='user_id', example='A001'),
+}
+
 // 融资租赁里的产品详细信息
 model ProductInfo {
   // 是否需要创建did
@@ -665,6 +681,20 @@ model ContractAccountApplication {
   name: string(name='name', example='张三'),
   // 用户唯一标识，可传入第三方平台的个人用户id等
   userId: string(name='user_id', example='A001'),
+}
+
+// 平台方企业信息
+model ContractPlatformOrganizationApplication {
+  // 证件号
+  idNumber?: string(name='id_number', example='12330100470104939U '),
+  // 证件类型
+  idType?: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法人名称
+  orgLegalName?: string(name='org_legal_name', example='测试法人'),
+  // 企业法人证件号
+  orgLegalIdNumber?: string(name='org_legal_id_number', example='311111111111111111'),
+  // 机构名称
+  name?: string(name='name', example='测试企业'),
 }
 
 // 融资租赁中IOT设备详情
@@ -802,6 +832,22 @@ model RepaymentOrderRequest {
   payMoney: long(name='pay_money', example='1000'),
   // 是否用户签署成功后立即触发第一期代扣
   triggerImmediately?: long(name='trigger_immediately', example='1'),
+}
+
+// 个人信息
+model ContractUserAccountApplication {
+  // 邮箱地址，默认不变
+  email?: string(name='email', example='xx@alipay.com'),
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number', example='311111111111111111'),
+  // 证件类型，默认为身份证
+  idType?: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码，默认不变
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名，默认不变
+  name?: string(name='name', example='张三'),
+  // 用户/经办人账号id
+  userId: string(name='user_id', example='ORGJC1CN1591674666666'),
 }
 
 // 可信时间信息结构
@@ -1021,6 +1067,22 @@ model WitnessApprovalData {
   sealIds?: [ string ](name='seal_ids', example=''),
 }
 
+// 机构信息
+model ContractUserOrganizationApplication {
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number', example='12330100470104939U'),
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法定代表人名称
+  legalPerson?: string(name='legal_person', example='测试法人'),
+  // 企业法定代表人证件号
+  legalPersonId?: string(name='legal_person_id', example='311111111111111111'),
+  // 机构名称
+  name?: string(name='name', example='测试企业'),
+  // 机构账号id
+  organizationId: string(name='organization_id', example='ORGJC1CN1591666666666'),
+}
+
 // 证据清单
 model EvidentialCheckList {
   // 证据名称英文 
@@ -1115,6 +1177,22 @@ model ContractSignFlowConfig {
   redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
   // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
   freeSignature?: boolean(name='free_signature', example='true, false'),
+}
+
+// 更新后平台方企业信息
+model ContractPlatformApplication {
+  // 证件号
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 证件类型
+  idType: string(name='id_type', example='CRED_ORG_USCC'),
+  // 企业法人名称
+  orgLegalName?: string(name='org_legal_name', example='张三'),
+  // 企业法人证件号
+  orgLegalIdNumber?: string(name='org_legal_id_number', example='311111111111111111'),
+  // 机构名称
+  name: string(name='name', example='测试企业'),
+  // 平台方账号id
+  platformId: string(name='platform_id', example='5c66842caf754a6dada4124b66666666'),
 }
 
 // 存证证明的证书信息
@@ -1223,6 +1301,22 @@ model ContractTemplateStructComponent {
   x?: string(name='x', example='11.11'),
   // y轴坐标，左下角为原点
   y?: string(name='y', example='11.11'),
+}
+
+// 更新后平台方经办人信息
+model ContractCreatorApplication {
+  // 邮箱地址
+  email?: string(name='email', example='wutest@tsign.com'),
+  // 证件号
+  idNumber: string(name='id_number', example='311111111111111111'),
+  // 证件类型
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  // 手机号码
+  mobile?: string(name='mobile', example='15811111111'),
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 创建人ID
+  creatorId: string(name='creator_id', example='0178c086a740475caf516f37901352b3'),
 }
 
 // 签署区列表数据
@@ -4677,6 +4771,172 @@ async function notifyContractSigner(request: NotifyContractSignerRequest): Notif
 async function notifyContractSignerEx(request: NotifyContractSignerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyContractSignerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.signer.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateContractPlatformRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台方企业信息
+  platform?: ContractPlatformOrganizationApplication(name='platform'),
+  // 平台方经办人信息
+  creator?: ContractPlatformAccountApplication(name='creator'),
+}
+
+model UpdateContractPlatformResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  code?: string(name='code'),
+  // 状态信息
+  message?: string(name='message'),
+  // 更新后平台方企业信息
+  platform?: ContractPlatformApplication(name='platform'),
+  // 更新后平台方经办人信息
+  creator?: ContractCreatorApplication(name='creator'),
+}
+
+/**
+ * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+ * Summary: 修改平台方注册信息
+ */
+async function updateContractPlatform(request: UpdateContractPlatformRequest): UpdateContractPlatformResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateContractPlatformEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+ * Summary: 修改平台方注册信息
+ */
+async function updateContractPlatformEx(request: UpdateContractPlatformRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractPlatformResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.platform.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateContractPersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 邮箱地址，默认不变
+  email?: string(name='email'),
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number'),
+  // 证件类型，默认为身份证
+  idType?: string(name='id_type'),
+  // 手机号码，默认不变
+  mobile?: string(name='mobile'),
+  // 姓名，默认不变
+  name?: string(name='name'),
+  // 用户账号id，注册用户返回的个人账号id
+  userId: string(name='user_id'),
+}
+
+model UpdateContractPersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  code?: string(name='code'),
+  // 状态信息
+  message?: string(name='message'),
+  // 邮箱地址
+  email?: string(name='email'),
+  // 证件号
+  idNumber?: string(name='id_number'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 手机号码
+  mobile?: string(name='mobile'),
+  // 姓名
+  name?: string(name='name'),
+  // 用户账号id
+  userId?: string(name='user_id'),
+}
+
+/**
+ * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+ * Summary: 修改用户注册信息
+ */
+async function updateContractPerson(request: UpdateContractPersonRequest): UpdateContractPersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateContractPersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+ * Summary: 修改用户注册信息
+ */
+async function updateContractPersonEx(request: UpdateContractPersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractPersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.person.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateContractOrganizationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string(name='id_number'),
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string(name='id_type'),
+  // 企业法定代表人名称
+  legalPerson?: string(name='legal_person'),
+  // 企业法定代表人证件号
+  legalPersonId?: string(name='legal_person_id'),
+  // 机构名称
+  name?: string(name='name'),
+  // 机构账号id，注册机构账户时返回的机构账号id
+  organizationId: string(name='organization_id'),
+}
+
+model UpdateContractOrganizationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证件号
+  idNumber?: string(name='id_number'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 企业法人名称
+  legalPerson?: string(name='legal_person'),
+  // 企业法人证件号
+  legalPersonId?: string(name='legal_person_id'),
+  // 机构名称
+  name?: string(name='name'),
+  // 机构账号id
+  organizationId?: string(name='organization_id'),
+}
+
+/**
+ * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+ * Summary: 修改机构用户注册信息
+ */
+async function updateContractOrganization(request: UpdateContractOrganizationRequest): UpdateContractOrganizationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateContractOrganizationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+ * Summary: 修改机构用户注册信息
+ */
+async function updateContractOrganizationEx(request: UpdateContractOrganizationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractOrganizationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.organization.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
@@ -9206,6 +9466,8 @@ model CreateInternalTextRequest = {
   authCode?: string(name='auth_code'),
   // 授权码对应产品码
   product?: string(name='product'),
+  // 版权文本存证支持hash存证
+  bizCategory?: string(name='biz_category'),
 }
 
 model CreateInternalTextResponse = {
