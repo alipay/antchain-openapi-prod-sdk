@@ -73,6 +73,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string Product { get; set; }
 
+        // 版权文本存证支持hash存证
+        [NameInMap("biz_category")]
+        [Validation(Required=false)]
+        public string BizCategory { get; set; }
+
     }
 
 }

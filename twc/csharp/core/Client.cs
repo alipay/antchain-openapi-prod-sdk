@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.11"},
+                        {"sdk_version", "1.5.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.11"},
+                        {"sdk_version", "1.5.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3179,6 +3179,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyContractSignerResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signer.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+         * Summary: 修改平台方注册信息
+         */
+        public UpdateContractPlatformResponse UpdateContractPlatform(UpdateContractPlatformRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateContractPlatformEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+         * Summary: 修改平台方注册信息
+         */
+        public async Task<UpdateContractPlatformResponse> UpdateContractPlatformAsync(UpdateContractPlatformRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateContractPlatformExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+         * Summary: 修改平台方注册信息
+         */
+        public UpdateContractPlatformResponse UpdateContractPlatformEx(UpdateContractPlatformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractPlatformResponse>(DoRequest("1.0", "twc.notary.contract.platform.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+         * Summary: 修改平台方注册信息
+         */
+        public async Task<UpdateContractPlatformResponse> UpdateContractPlatformExAsync(UpdateContractPlatformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractPlatformResponse>(await DoRequestAsync("1.0", "twc.notary.contract.platform.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+         * Summary: 修改用户注册信息
+         */
+        public UpdateContractPersonResponse UpdateContractPerson(UpdateContractPersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateContractPersonEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+         * Summary: 修改用户注册信息
+         */
+        public async Task<UpdateContractPersonResponse> UpdateContractPersonAsync(UpdateContractPersonRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateContractPersonExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+         * Summary: 修改用户注册信息
+         */
+        public UpdateContractPersonResponse UpdateContractPersonEx(UpdateContractPersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractPersonResponse>(DoRequest("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+         * Summary: 修改用户注册信息
+         */
+        public async Task<UpdateContractPersonResponse> UpdateContractPersonExAsync(UpdateContractPersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractPersonResponse>(await DoRequestAsync("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+         * Summary: 修改机构用户注册信息
+         */
+        public UpdateContractOrganizationResponse UpdateContractOrganization(UpdateContractOrganizationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateContractOrganizationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+         * Summary: 修改机构用户注册信息
+         */
+        public async Task<UpdateContractOrganizationResponse> UpdateContractOrganizationAsync(UpdateContractOrganizationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateContractOrganizationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+         * Summary: 修改机构用户注册信息
+         */
+        public UpdateContractOrganizationResponse UpdateContractOrganizationEx(UpdateContractOrganizationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractOrganizationResponse>(DoRequest("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+         * Summary: 修改机构用户注册信息
+         */
+        public async Task<UpdateContractOrganizationResponse> UpdateContractOrganizationExAsync(UpdateContractOrganizationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContractOrganizationResponse>(await DoRequestAsync("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
