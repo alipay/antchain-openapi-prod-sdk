@@ -58,6 +58,10 @@ public class CreateInternalTextRequest extends TeaModel {
     @NameInMap("product")
     public String product;
 
+    // 版权文本存证支持hash存证
+    @NameInMap("biz_category")
+    public String bizCategory;
+
     public static CreateInternalTextRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInternalTextRequest self = new CreateInternalTextRequest();
         return TeaModel.build(map, self);
@@ -165,6 +169,14 @@ public class CreateInternalTextRequest extends TeaModel {
     }
     public String getProduct() {
         return this.product;
+    }
+
+    public CreateInternalTextRequest setBizCategory(String bizCategory) {
+        this.bizCategory = bizCategory;
+        return this;
+    }
+    public String getBizCategory() {
+        return this.bizCategory;
     }
 
 }
