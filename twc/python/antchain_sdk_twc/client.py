@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.11'
+                    'sdk_version': '1.5.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.11'
+                    'sdk_version': '1.5.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3949,6 +3949,168 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.NotifyContractSignerResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_contract_platform(
+        self,
+        request: twc_models.UpdateContractPlatformRequest,
+    ) -> twc_models.UpdateContractPlatformResponse:
+        """
+        Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+        Summary: 修改平台方注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_contract_platform_ex(request, headers, runtime)
+
+    async def update_contract_platform_async(
+        self,
+        request: twc_models.UpdateContractPlatformRequest,
+    ) -> twc_models.UpdateContractPlatformResponse:
+        """
+        Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+        Summary: 修改平台方注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_contract_platform_ex_async(request, headers, runtime)
+
+    def update_contract_platform_ex(
+        self,
+        request: twc_models.UpdateContractPlatformRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractPlatformResponse:
+        """
+        Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+        Summary: 修改平台方注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractPlatformResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_contract_platform_ex_async(
+        self,
+        request: twc_models.UpdateContractPlatformRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractPlatformResponse:
+        """
+        Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+        Summary: 修改平台方注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractPlatformResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_contract_person(
+        self,
+        request: twc_models.UpdateContractPersonRequest,
+    ) -> twc_models.UpdateContractPersonResponse:
+        """
+        Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+        Summary: 修改用户注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_contract_person_ex(request, headers, runtime)
+
+    async def update_contract_person_async(
+        self,
+        request: twc_models.UpdateContractPersonRequest,
+    ) -> twc_models.UpdateContractPersonResponse:
+        """
+        Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+        Summary: 修改用户注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_contract_person_ex_async(request, headers, runtime)
+
+    def update_contract_person_ex(
+        self,
+        request: twc_models.UpdateContractPersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractPersonResponse:
+        """
+        Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+        Summary: 修改用户注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractPersonResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_contract_person_ex_async(
+        self,
+        request: twc_models.UpdateContractPersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractPersonResponse:
+        """
+        Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+        Summary: 修改用户注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractPersonResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_contract_organization(
+        self,
+        request: twc_models.UpdateContractOrganizationRequest,
+    ) -> twc_models.UpdateContractOrganizationResponse:
+        """
+        Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+        Summary: 修改机构用户注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_contract_organization_ex(request, headers, runtime)
+
+    async def update_contract_organization_async(
+        self,
+        request: twc_models.UpdateContractOrganizationRequest,
+    ) -> twc_models.UpdateContractOrganizationResponse:
+        """
+        Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+        Summary: 修改机构用户注册信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_contract_organization_ex_async(request, headers, runtime)
+
+    def update_contract_organization_ex(
+        self,
+        request: twc_models.UpdateContractOrganizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractOrganizationResponse:
+        """
+        Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+        Summary: 修改机构用户注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractOrganizationResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_contract_organization_ex_async(
+        self,
+        request: twc_models.UpdateContractOrganizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.UpdateContractOrganizationResponse:
+        """
+        Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+        Summary: 修改机构用户注册信息
+        """
+        UtilClient.validate_model(request)
+        return twc_models.UpdateContractOrganizationResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
