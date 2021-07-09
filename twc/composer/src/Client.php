@@ -339,6 +339,12 @@ use AntChain\TWC\Models\StartContractFlowRequest;
 use AntChain\TWC\Models\StartContractFlowResponse;
 use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
+use AntChain\TWC\Models\UpdateContractOrganizationRequest;
+use AntChain\TWC\Models\UpdateContractOrganizationResponse;
+use AntChain\TWC\Models\UpdateContractPersonRequest;
+use AntChain\TWC\Models\UpdateContractPersonResponse;
+use AntChain\TWC\Models\UpdateContractPlatformRequest;
+use AntChain\TWC\Models\UpdateContractPlatformResponse;
 use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
@@ -496,7 +502,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.11',
+                    'sdk_version'      => '1.5.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2788,6 +2794,105 @@ class Client
         Utils::validateModel($request);
 
         return NotifyContractSignerResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+     * Summary: 修改平台方注册信息.
+     *
+     * @param UpdateContractPlatformRequest $request
+     *
+     * @return UpdateContractPlatformResponse
+     */
+    public function updateContractPlatform($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContractPlatformEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+     * Summary: 修改平台方注册信息.
+     *
+     * @param UpdateContractPlatformRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UpdateContractPlatformResponse
+     */
+    public function updateContractPlatformEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContractPlatformResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+     * Summary: 修改用户注册信息.
+     *
+     * @param UpdateContractPersonRequest $request
+     *
+     * @return UpdateContractPersonResponse
+     */
+    public function updateContractPerson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContractPersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+     * Summary: 修改用户注册信息.
+     *
+     * @param UpdateContractPersonRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateContractPersonResponse
+     */
+    public function updateContractPersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContractPersonResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+     * Summary: 修改机构用户注册信息.
+     *
+     * @param UpdateContractOrganizationRequest $request
+     *
+     * @return UpdateContractOrganizationResponse
+     */
+    public function updateContractOrganization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContractOrganizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+     * Summary: 修改机构用户注册信息.
+     *
+     * @param UpdateContractOrganizationRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateContractOrganizationResponse
+     */
+    public function updateContractOrganizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContractOrganizationResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -84,6 +84,12 @@ class CreateInternalTextRequest extends Model
      * @var string
      */
     public $product;
+
+    // 版权文本存证支持hash存证
+    /**
+     * @var string
+     */
+    public $bizCategory;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -98,6 +104,7 @@ class CreateInternalTextRequest extends Model
         'realTenant'        => 'real_tenant',
         'authCode'          => 'auth_code',
         'product'           => 'product',
+        'bizCategory'       => 'biz_category',
     ];
 
     public function validate()
@@ -149,6 +156,9 @@ class CreateInternalTextRequest extends Model
         if (null !== $this->product) {
             $res['product'] = $this->product;
         }
+        if (null !== $this->bizCategory) {
+            $res['biz_category'] = $this->bizCategory;
+        }
 
         return $res;
     }
@@ -199,6 +209,9 @@ class CreateInternalTextRequest extends Model
         }
         if (isset($map['product'])) {
             $model->product = $map['product'];
+        }
+        if (isset($map['biz_category'])) {
+            $model->bizCategory = $map['biz_category'];
         }
 
         return $model;
