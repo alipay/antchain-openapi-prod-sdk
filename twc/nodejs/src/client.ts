@@ -1121,6 +1121,47 @@ export class ProposerObject extends $tea.Model {
   }
 }
 
+// 平台方经办人信息
+export class ContractPlatformAccountApplication extends $tea.Model {
+  // 邮箱地址
+  email?: string;
+  // 证件号
+  idNumber?: string;
+  // 证件类型
+  idType?: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  name?: string;
+  // 用户唯一标识，可传入第三方平台的个人用户id等
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 融资租赁里的产品详细信息
 export class ProductInfo extends $tea.Model {
   // 是否需要创建did
@@ -1320,6 +1361,43 @@ export class ContractAccountApplication extends $tea.Model {
       mobile: 'string',
       name: 'string',
       userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 平台方企业信息
+export class ContractPlatformOrganizationApplication extends $tea.Model {
+  // 证件号
+  idNumber?: string;
+  // 证件类型
+  idType?: string;
+  // 企业法人名称
+  orgLegalName?: string;
+  // 企业法人证件号
+  orgLegalIdNumber?: string;
+  // 机构名称
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      idNumber: 'id_number',
+      idType: 'id_type',
+      orgLegalName: 'org_legal_name',
+      orgLegalIdNumber: 'org_legal_id_number',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idNumber: 'string',
+      idType: 'string',
+      orgLegalName: 'string',
+      orgLegalIdNumber: 'string',
+      name: 'string',
     };
   }
 
@@ -1674,6 +1752,47 @@ export class RepaymentOrderRequest extends $tea.Model {
       payDate: 'number',
       payMoney: 'number',
       triggerImmediately: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 个人信息
+export class ContractUserAccountApplication extends $tea.Model {
+  // 邮箱地址，默认不变
+  email?: string;
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型，默认为身份证
+  idType?: string;
+  // 手机号码，默认不变
+  mobile?: string;
+  // 姓名，默认不变
+  name?: string;
+  // 用户/经办人账号id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
     };
   }
 
@@ -2232,6 +2351,47 @@ export class WitnessApprovalData extends $tea.Model {
   }
 }
 
+// 机构信息
+export class ContractUserOrganizationApplication extends $tea.Model {
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string;
+  // 企业法定代表人名称
+  legalPerson?: string;
+  // 企业法定代表人证件号
+  legalPersonId?: string;
+  // 机构名称
+  name?: string;
+  // 机构账号id
+  organizationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      idNumber: 'id_number',
+      idType: 'id_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      name: 'name',
+      organizationId: 'organization_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idNumber: 'string',
+      idType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      name: 'string',
+      organizationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 证据清单
 export class EvidentialCheckList extends $tea.Model {
   // 证据名称英文 
@@ -2464,6 +2624,47 @@ export class ContractSignFlowConfig extends $tea.Model {
       signPlatform: 'string',
       redirectUrlOnFailure: 'string',
       freeSignature: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新后平台方企业信息
+export class ContractPlatformApplication extends $tea.Model {
+  // 证件号
+  idNumber: string;
+  // 证件类型
+  idType: string;
+  // 企业法人名称
+  orgLegalName?: string;
+  // 企业法人证件号
+  orgLegalIdNumber?: string;
+  // 机构名称
+  name: string;
+  // 平台方账号id
+  platformId: string;
+  static names(): { [key: string]: string } {
+    return {
+      idNumber: 'id_number',
+      idType: 'id_type',
+      orgLegalName: 'org_legal_name',
+      orgLegalIdNumber: 'org_legal_id_number',
+      name: 'name',
+      platformId: 'platform_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idNumber: 'string',
+      idType: 'string',
+      orgLegalName: 'string',
+      orgLegalIdNumber: 'string',
+      name: 'string',
+      platformId: 'string',
     };
   }
 
@@ -2725,6 +2926,47 @@ export class ContractTemplateStructComponent extends $tea.Model {
       width: 'string',
       x: 'string',
       y: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新后平台方经办人信息
+export class ContractCreatorApplication extends $tea.Model {
+  // 邮箱地址
+  email?: string;
+  // 证件号
+  idNumber: string;
+  // 证件类型
+  idType: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  name: string;
+  // 创建人ID
+  creatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      creatorId: 'creator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      creatorId: 'string',
     };
   }
 
@@ -8460,6 +8702,287 @@ export class NotifyContractSignerResponse extends $tea.Model {
       code: 'number',
       message: 'string',
       accountList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractPlatformRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台方企业信息
+  platform?: ContractPlatformOrganizationApplication;
+  // 平台方经办人信息
+  creator?: ContractPlatformAccountApplication;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platform: 'platform',
+      creator: 'creator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platform: ContractPlatformOrganizationApplication,
+      creator: ContractPlatformAccountApplication,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractPlatformResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  code?: string;
+  // 状态信息
+  message?: string;
+  // 更新后平台方企业信息
+  platform?: ContractPlatformApplication;
+  // 更新后平台方经办人信息
+  creator?: ContractCreatorApplication;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      platform: 'platform',
+      creator: 'creator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      message: 'string',
+      platform: ContractPlatformApplication,
+      creator: ContractCreatorApplication,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractPersonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 邮箱地址，默认不变
+  email?: string;
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型，默认为身份证
+  idType?: string;
+  // 手机号码，默认不变
+  mobile?: string;
+  // 姓名，默认不变
+  name?: string;
+  // 用户账号id，注册用户返回的个人账号id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractPersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  code?: string;
+  // 状态信息
+  message?: string;
+  // 邮箱地址
+  email?: string;
+  // 证件号
+  idNumber?: string;
+  // 证件类型
+  idType?: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  name?: string;
+  // 用户账号id
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      message: 'string',
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractOrganizationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string;
+  // 企业法定代表人名称
+  legalPerson?: string;
+  // 企业法定代表人证件号
+  legalPersonId?: string;
+  // 机构名称
+  name?: string;
+  // 机构账号id，注册机构账户时返回的机构账号id
+  organizationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      name: 'name',
+      organizationId: 'organization_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      name: 'string',
+      organizationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContractOrganizationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 证件号
+  idNumber?: string;
+  // 证件类型
+  idType?: string;
+  // 企业法人名称
+  legalPerson?: string;
+  // 企业法人证件号
+  legalPersonId?: string;
+  // 机构名称
+  name?: string;
+  // 机构账号id
+  organizationId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      name: 'name',
+      organizationId: 'organization_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      name: 'string',
+      organizationId: 'string',
     };
   }
 
@@ -16021,6 +16544,8 @@ export class CreateInternalTextRequest extends $tea.Model {
   authCode?: string;
   // 授权码对应产品码
   product?: string;
+  // 版权文本存证支持hash存证
+  bizCategory?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16036,6 +16561,7 @@ export class CreateInternalTextRequest extends $tea.Model {
       realTenant: 'real_tenant',
       authCode: 'auth_code',
       product: 'product',
+      bizCategory: 'biz_category',
     };
   }
 
@@ -16054,6 +16580,7 @@ export class CreateInternalTextRequest extends $tea.Model {
       realTenant: 'string',
       authCode: 'string',
       product: 'string',
+      bizCategory: 'string',
     };
   }
 
@@ -17807,7 +18334,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.11",
+          sdk_version: "1.5.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -19147,6 +19674,63 @@ export default class Client {
   async notifyContractSignerEx(request: NotifyContractSignerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyContractSignerResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyContractSignerResponse>(await this.doRequest("1.0", "twc.notary.contract.signer.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyContractSignerResponse({}));
+  }
+
+  /**
+   * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+   * Summary: 修改平台方注册信息
+   */
+  async updateContractPlatform(request: UpdateContractPlatformRequest): Promise<UpdateContractPlatformResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateContractPlatformEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+   * Summary: 修改平台方注册信息
+   */
+  async updateContractPlatformEx(request: UpdateContractPlatformRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractPlatformResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateContractPlatformResponse>(await this.doRequest("1.0", "twc.notary.contract.platform.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractPlatformResponse({}));
+  }
+
+  /**
+   * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+   * Summary: 修改用户注册信息
+   */
+  async updateContractPerson(request: UpdateContractPersonRequest): Promise<UpdateContractPersonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateContractPersonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+   * Summary: 修改用户注册信息
+   */
+  async updateContractPersonEx(request: UpdateContractPersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractPersonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateContractPersonResponse>(await this.doRequest("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractPersonResponse({}));
+  }
+
+  /**
+   * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+   * Summary: 修改机构用户注册信息
+   */
+  async updateContractOrganization(request: UpdateContractOrganizationRequest): Promise<UpdateContractOrganizationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateContractOrganizationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
+   * Summary: 修改机构用户注册信息
+   */
+  async updateContractOrganizationEx(request: UpdateContractOrganizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractOrganizationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateContractOrganizationResponse>(await this.doRequest("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractOrganizationResponse({}));
   }
 
   /**
