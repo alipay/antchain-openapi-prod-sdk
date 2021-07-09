@@ -1543,6 +1543,60 @@ func (s *ProposerObject) SetSignatureManagerPhone(v string) *ProposerObject {
 	return s
 }
 
+// 平台方经办人信息
+type ContractPlatformAccountApplication struct {
+	// 邮箱地址
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 用户唯一标识，可传入第三方平台的个人用户id等
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s ContractPlatformAccountApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractPlatformAccountApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractPlatformAccountApplication) SetEmail(v string) *ContractPlatformAccountApplication {
+	s.Email = &v
+	return s
+}
+
+func (s *ContractPlatformAccountApplication) SetIdNumber(v string) *ContractPlatformAccountApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractPlatformAccountApplication) SetIdType(v string) *ContractPlatformAccountApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractPlatformAccountApplication) SetMobile(v string) *ContractPlatformAccountApplication {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContractPlatformAccountApplication) SetName(v string) *ContractPlatformAccountApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractPlatformAccountApplication) SetUserId(v string) *ContractPlatformAccountApplication {
+	s.UserId = &v
+	return s
+}
+
 // 融资租赁里的产品详细信息
 type ProductInfo struct {
 	// 是否需要创建did
@@ -1849,6 +1903,53 @@ func (s *ContractAccountApplication) SetName(v string) *ContractAccountApplicati
 
 func (s *ContractAccountApplication) SetUserId(v string) *ContractAccountApplication {
 	s.UserId = &v
+	return s
+}
+
+// 平台方企业信息
+type ContractPlatformOrganizationApplication struct {
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 企业法人名称
+	OrgLegalName *string `json:"org_legal_name,omitempty" xml:"org_legal_name,omitempty"`
+	// 企业法人证件号
+	OrgLegalIdNumber *string `json:"org_legal_id_number,omitempty" xml:"org_legal_id_number,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s ContractPlatformOrganizationApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractPlatformOrganizationApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractPlatformOrganizationApplication) SetIdNumber(v string) *ContractPlatformOrganizationApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractPlatformOrganizationApplication) SetIdType(v string) *ContractPlatformOrganizationApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractPlatformOrganizationApplication) SetOrgLegalName(v string) *ContractPlatformOrganizationApplication {
+	s.OrgLegalName = &v
+	return s
+}
+
+func (s *ContractPlatformOrganizationApplication) SetOrgLegalIdNumber(v string) *ContractPlatformOrganizationApplication {
+	s.OrgLegalIdNumber = &v
+	return s
+}
+
+func (s *ContractPlatformOrganizationApplication) SetName(v string) *ContractPlatformOrganizationApplication {
+	s.Name = &v
 	return s
 }
 
@@ -2308,6 +2409,60 @@ func (s *RepaymentOrderRequest) SetPayMoney(v int64) *RepaymentOrderRequest {
 
 func (s *RepaymentOrderRequest) SetTriggerImmediately(v int64) *RepaymentOrderRequest {
 	s.TriggerImmediately = &v
+	return s
+}
+
+// 个人信息
+type ContractUserAccountApplication struct {
+	// 邮箱地址，默认不变
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 证件号，该字段只有为空才允许修改
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型，默认为身份证
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 手机号码，默认不变
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名，默认不变
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 用户/经办人账号id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s ContractUserAccountApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractUserAccountApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractUserAccountApplication) SetEmail(v string) *ContractUserAccountApplication {
+	s.Email = &v
+	return s
+}
+
+func (s *ContractUserAccountApplication) SetIdNumber(v string) *ContractUserAccountApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractUserAccountApplication) SetIdType(v string) *ContractUserAccountApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractUserAccountApplication) SetMobile(v string) *ContractUserAccountApplication {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContractUserAccountApplication) SetName(v string) *ContractUserAccountApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractUserAccountApplication) SetUserId(v string) *ContractUserAccountApplication {
+	s.UserId = &v
 	return s
 }
 
@@ -3042,6 +3197,60 @@ func (s *WitnessApprovalData) SetSealIds(v []*string) *WitnessApprovalData {
 	return s
 }
 
+// 机构信息
+type ContractUserOrganizationApplication struct {
+	// 证件号，该字段只有为空才允许修改
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型 ，默认CRED_ORG_USCC
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 企业法定代表人名称
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 企业法定代表人证件号
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 机构账号id
+	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty" require:"true"`
+}
+
+func (s ContractUserOrganizationApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractUserOrganizationApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractUserOrganizationApplication) SetIdNumber(v string) *ContractUserOrganizationApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractUserOrganizationApplication) SetIdType(v string) *ContractUserOrganizationApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractUserOrganizationApplication) SetLegalPerson(v string) *ContractUserOrganizationApplication {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *ContractUserOrganizationApplication) SetLegalPersonId(v string) *ContractUserOrganizationApplication {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *ContractUserOrganizationApplication) SetName(v string) *ContractUserOrganizationApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractUserOrganizationApplication) SetOrganizationId(v string) *ContractUserOrganizationApplication {
+	s.OrganizationId = &v
+	return s
+}
+
 // 证据清单
 type EvidentialCheckList struct {
 	// 证据名称英文
@@ -3348,6 +3557,60 @@ func (s *ContractSignFlowConfig) SetRedirectUrlOnFailure(v string) *ContractSign
 
 func (s *ContractSignFlowConfig) SetFreeSignature(v bool) *ContractSignFlowConfig {
 	s.FreeSignature = &v
+	return s
+}
+
+// 更新后平台方企业信息
+type ContractPlatformApplication struct {
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 企业法人名称
+	OrgLegalName *string `json:"org_legal_name,omitempty" xml:"org_legal_name,omitempty"`
+	// 企业法人证件号
+	OrgLegalIdNumber *string `json:"org_legal_id_number,omitempty" xml:"org_legal_id_number,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 平台方账号id
+	PlatformId *string `json:"platform_id,omitempty" xml:"platform_id,omitempty" require:"true"`
+}
+
+func (s ContractPlatformApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractPlatformApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractPlatformApplication) SetIdNumber(v string) *ContractPlatformApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractPlatformApplication) SetIdType(v string) *ContractPlatformApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractPlatformApplication) SetOrgLegalName(v string) *ContractPlatformApplication {
+	s.OrgLegalName = &v
+	return s
+}
+
+func (s *ContractPlatformApplication) SetOrgLegalIdNumber(v string) *ContractPlatformApplication {
+	s.OrgLegalIdNumber = &v
+	return s
+}
+
+func (s *ContractPlatformApplication) SetName(v string) *ContractPlatformApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractPlatformApplication) SetPlatformId(v string) *ContractPlatformApplication {
+	s.PlatformId = &v
 	return s
 }
 
@@ -3716,6 +3979,60 @@ func (s *ContractTemplateStructComponent) SetX(v string) *ContractTemplateStruct
 
 func (s *ContractTemplateStructComponent) SetY(v string) *ContractTemplateStructComponent {
 	s.Y = &v
+	return s
+}
+
+// 更新后平台方经办人信息
+type ContractCreatorApplication struct {
+	// 邮箱地址
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 创建人ID
+	CreatorId *string `json:"creator_id,omitempty" xml:"creator_id,omitempty" require:"true"`
+}
+
+func (s ContractCreatorApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractCreatorApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractCreatorApplication) SetEmail(v string) *ContractCreatorApplication {
+	s.Email = &v
+	return s
+}
+
+func (s *ContractCreatorApplication) SetIdNumber(v string) *ContractCreatorApplication {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *ContractCreatorApplication) SetIdType(v string) *ContractCreatorApplication {
+	s.IdType = &v
+	return s
+}
+
+func (s *ContractCreatorApplication) SetMobile(v string) *ContractCreatorApplication {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContractCreatorApplication) SetName(v string) *ContractCreatorApplication {
+	s.Name = &v
+	return s
+}
+
+func (s *ContractCreatorApplication) SetCreatorId(v string) *ContractCreatorApplication {
+	s.CreatorId = &v
 	return s
 }
 
@@ -11460,6 +11777,398 @@ func (s *NotifyContractSignerResponse) SetMessage(v string) *NotifyContractSigne
 
 func (s *NotifyContractSignerResponse) SetAccountList(v []*string) *NotifyContractSignerResponse {
 	s.AccountList = v
+	return s
+}
+
+type UpdateContractPlatformRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 平台方企业信息
+	Platform *ContractPlatformOrganizationApplication `json:"platform,omitempty" xml:"platform,omitempty"`
+	// 平台方经办人信息
+	Creator *ContractPlatformAccountApplication `json:"creator,omitempty" xml:"creator,omitempty"`
+}
+
+func (s UpdateContractPlatformRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractPlatformRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractPlatformRequest) SetAuthToken(v string) *UpdateContractPlatformRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateContractPlatformRequest) SetProductInstanceId(v string) *UpdateContractPlatformRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateContractPlatformRequest) SetPlatform(v *ContractPlatformOrganizationApplication) *UpdateContractPlatformRequest {
+	s.Platform = v
+	return s
+}
+
+func (s *UpdateContractPlatformRequest) SetCreator(v *ContractPlatformAccountApplication) *UpdateContractPlatformRequest {
+	s.Creator = v
+	return s
+}
+
+type UpdateContractPlatformResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 更新后平台方企业信息
+	Platform *ContractPlatformApplication `json:"platform,omitempty" xml:"platform,omitempty"`
+	// 更新后平台方经办人信息
+	Creator *ContractCreatorApplication `json:"creator,omitempty" xml:"creator,omitempty"`
+}
+
+func (s UpdateContractPlatformResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractPlatformResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractPlatformResponse) SetReqMsgId(v string) *UpdateContractPlatformResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetResultCode(v string) *UpdateContractPlatformResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetResultMsg(v string) *UpdateContractPlatformResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetCode(v string) *UpdateContractPlatformResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetMessage(v string) *UpdateContractPlatformResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetPlatform(v *ContractPlatformApplication) *UpdateContractPlatformResponse {
+	s.Platform = v
+	return s
+}
+
+func (s *UpdateContractPlatformResponse) SetCreator(v *ContractCreatorApplication) *UpdateContractPlatformResponse {
+	s.Creator = v
+	return s
+}
+
+type UpdateContractPersonRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 邮箱地址，默认不变
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 证件号，该字段只有为空才允许修改
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型，默认为身份证
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 手机号码，默认不变
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名，默认不变
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 用户账号id，注册用户返回的个人账号id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s UpdateContractPersonRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractPersonRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractPersonRequest) SetAuthToken(v string) *UpdateContractPersonRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetProductInstanceId(v string) *UpdateContractPersonRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetEmail(v string) *UpdateContractPersonRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetIdNumber(v string) *UpdateContractPersonRequest {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetIdType(v string) *UpdateContractPersonRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetMobile(v string) *UpdateContractPersonRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetName(v string) *UpdateContractPersonRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateContractPersonRequest) SetUserId(v string) *UpdateContractPersonRequest {
+	s.UserId = &v
+	return s
+}
+
+type UpdateContractPersonResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 邮箱地址
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 用户账号id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s UpdateContractPersonResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractPersonResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractPersonResponse) SetReqMsgId(v string) *UpdateContractPersonResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetResultCode(v string) *UpdateContractPersonResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetResultMsg(v string) *UpdateContractPersonResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetCode(v string) *UpdateContractPersonResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetMessage(v string) *UpdateContractPersonResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetEmail(v string) *UpdateContractPersonResponse {
+	s.Email = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetIdNumber(v string) *UpdateContractPersonResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetIdType(v string) *UpdateContractPersonResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetMobile(v string) *UpdateContractPersonResponse {
+	s.Mobile = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetName(v string) *UpdateContractPersonResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateContractPersonResponse) SetUserId(v string) *UpdateContractPersonResponse {
+	s.UserId = &v
+	return s
+}
+
+type UpdateContractOrganizationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 证件号，该字段只有为空才允许修改
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型 ，默认CRED_ORG_USCC
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 企业法定代表人名称
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 企业法定代表人证件号
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 机构账号id，注册机构账户时返回的机构账号id
+	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty" require:"true"`
+}
+
+func (s UpdateContractOrganizationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractOrganizationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractOrganizationRequest) SetAuthToken(v string) *UpdateContractOrganizationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetProductInstanceId(v string) *UpdateContractOrganizationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetIdNumber(v string) *UpdateContractOrganizationRequest {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetIdType(v string) *UpdateContractOrganizationRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetLegalPerson(v string) *UpdateContractOrganizationRequest {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetLegalPersonId(v string) *UpdateContractOrganizationRequest {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetName(v string) *UpdateContractOrganizationRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationRequest) SetOrganizationId(v string) *UpdateContractOrganizationRequest {
+	s.OrganizationId = &v
+	return s
+}
+
+type UpdateContractOrganizationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 企业法人名称
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 企业法人证件号
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 机构账号id
+	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
+}
+
+func (s UpdateContractOrganizationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateContractOrganizationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateContractOrganizationResponse) SetReqMsgId(v string) *UpdateContractOrganizationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetResultCode(v string) *UpdateContractOrganizationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetResultMsg(v string) *UpdateContractOrganizationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetIdNumber(v string) *UpdateContractOrganizationResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetIdType(v string) *UpdateContractOrganizationResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetLegalPerson(v string) *UpdateContractOrganizationResponse {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetLegalPersonId(v string) *UpdateContractOrganizationResponse {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetName(v string) *UpdateContractOrganizationResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *UpdateContractOrganizationResponse) SetOrganizationId(v string) *UpdateContractOrganizationResponse {
+	s.OrganizationId = &v
 	return s
 }
 
@@ -21915,6 +22624,8 @@ type CreateInternalTextRequest struct {
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
 	// 授权码对应产品码
 	Product *string `json:"product,omitempty" xml:"product,omitempty"`
+	// 版权文本存证支持hash存证
+	BizCategory *string `json:"biz_category,omitempty" xml:"biz_category,omitempty"`
 }
 
 func (s CreateInternalTextRequest) String() string {
@@ -21987,6 +22698,11 @@ func (s *CreateInternalTextRequest) SetAuthCode(v string) *CreateInternalTextReq
 
 func (s *CreateInternalTextRequest) SetProduct(v string) *CreateInternalTextRequest {
 	s.Product = &v
+	return s
+}
+
+func (s *CreateInternalTextRequest) SetBizCategory(v string) *CreateInternalTextRequest {
+	s.BizCategory = &v
 	return s
 }
 
@@ -24286,7 +25002,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.11"),
+				"sdk_version":      tea.String("1.5.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -26643,6 +27359,108 @@ func (client *Client) NotifyContractSignerEx(request *NotifyContractSignerReques
 	}
 	_result = &NotifyContractSignerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.signer.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+ * Summary: 修改平台方注册信息
+ */
+func (client *Client) UpdateContractPlatform(request *UpdateContractPlatformRequest) (_result *UpdateContractPlatformResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateContractPlatformResponse{}
+	_body, _err := client.UpdateContractPlatformEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
+ * Summary: 修改平台方注册信息
+ */
+func (client *Client) UpdateContractPlatformEx(request *UpdateContractPlatformRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateContractPlatformResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateContractPlatformResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.platform.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+ * Summary: 修改用户注册信息
+ */
+func (client *Client) UpdateContractPerson(request *UpdateContractPersonRequest) (_result *UpdateContractPersonResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateContractPersonResponse{}
+	_body, _err := client.UpdateContractPersonEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
+ * Summary: 修改用户注册信息
+ */
+func (client *Client) UpdateContractPersonEx(request *UpdateContractPersonRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateContractPersonResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateContractPersonResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.person.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+ * Summary: 修改机构用户注册信息
+ */
+func (client *Client) UpdateContractOrganization(request *UpdateContractOrganizationRequest) (_result *UpdateContractOrganizationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateContractOrganizationResponse{}
+	_body, _err := client.UpdateContractOrganizationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改
+ * Summary: 修改机构用户注册信息
+ */
+func (client *Client) UpdateContractOrganizationEx(request *UpdateContractOrganizationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateContractOrganizationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateContractOrganizationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.organization.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
