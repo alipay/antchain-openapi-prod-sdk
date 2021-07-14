@@ -1729,6 +1729,13 @@ export class ImportDeviceRequest extends $tea.Model {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode: number;
   // 设备单价 单位：分
   initialPrice: number;
@@ -2045,6 +2052,13 @@ export class UpdateDeviceInfoRequest extends $tea.Model {
   // 垃圾分类回收:4001
   // 
   // 洗车机 :5000
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode?: number;
   // 设备单价 单位：分
   initialPrice?: number;
@@ -3622,6 +3636,14 @@ export class CreateDistributedeviceBydeviceRequest extends $tea.Model {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode?: number;
   // 设备单价 单位：分
   initialPrice?: number;
@@ -4018,6 +4040,8 @@ export class SendCollectorDevicebizdataRequest extends $tea.Model {
   nonce: string;
   // 上传数据
   content: BizContentGroup[];
+  // 场景码
+  scene: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4025,6 +4049,7 @@ export class SendCollectorDevicebizdataRequest extends $tea.Model {
       dataModelId: 'data_model_id',
       nonce: 'nonce',
       content: 'content',
+      scene: 'scene',
     };
   }
 
@@ -4035,6 +4060,7 @@ export class SendCollectorDevicebizdataRequest extends $tea.Model {
       dataModelId: 'string',
       nonce: 'string',
       content: { 'type': 'array', 'itemType': BizContentGroup },
+      scene: 'string',
     };
   }
 
@@ -4120,6 +4146,14 @@ export class UpdateDeviceInfobydeviceRequest extends $tea.Model {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode: number;
   // 设备单价 单位：分
   initialPrice: number;
@@ -4878,6 +4912,70 @@ export class QueryDataBytxhashResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecUnprocessedTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  // 任务名称枚举
+  // confirm_device_state : 确认设备状态变更
+  action: string;
+  // 任务参数
+  params: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      action: 'action',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      action: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecUnprocessedTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -6030,7 +6128,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.10",
+          sdk_version: "1.5.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -6967,6 +7065,25 @@ export default class Client {
   async queryDataBytxhashEx(request: QueryDataBytxhashRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDataBytxhashResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDataBytxhashResponse>(await this.doRequest("1.0", "blockchain.bot.data.bytxhash.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDataBytxhashResponse({}));
+  }
+
+  /**
+   * Description: 根据taskId 执行未处理的任务
+   * Summary: 执行未处理的任务
+   */
+  async execUnprocessedTask(request: ExecUnprocessedTaskRequest): Promise<ExecUnprocessedTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execUnprocessedTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据taskId 执行未处理的任务
+   * Summary: 执行未处理的任务
+   */
+  async execUnprocessedTaskEx(request: ExecUnprocessedTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecUnprocessedTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecUnprocessedTaskResponse>(await this.doRequest("1.0", "blockchain.bot.unprocessed.task.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecUnprocessedTaskResponse({}));
   }
 
   /**
