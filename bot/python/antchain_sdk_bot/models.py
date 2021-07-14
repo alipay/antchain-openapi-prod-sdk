@@ -2231,6 +2231,7 @@ class ImportIotplatformMeshidRequest(TeaModel):
         company_name: str = None,
         mesh_id: str = None,
         device_sn: str = None,
+        type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2243,6 +2244,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
         self.mesh_id = mesh_id
         # 客户自定义的业务上使用的设备标识，需要与租赁业务上使用的ID进行对应
         self.device_sn = device_sn
+        # 设备类型字段
+        self.type = type
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -2264,6 +2267,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
             result['mesh_id'] = self.mesh_id
         if self.device_sn is not None:
             result['device_sn'] = self.device_sn
+        if self.type is not None:
+            result['type'] = self.type
         return result
 
     def from_map(self, m: dict = None):
@@ -2280,6 +2285,8 @@ class ImportIotplatformMeshidRequest(TeaModel):
             self.mesh_id = m.get('mesh_id')
         if m.get('device_sn') is not None:
             self.device_sn = m.get('device_sn')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
