@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.12',
+    sdk_version = '1.5.13',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -832,6 +832,8 @@ model ImportIotplatformMeshidRequest = {
   meshId: string(name='mesh_id'),
   // 客户自定义的业务上使用的设备标识，需要与租赁业务上使用的ID进行对应
   deviceSn: string(name='device_sn'),
+  // 设备类型字段
+  type?: string(name='type'),
 }
 
 model ImportIotplatformMeshidResponse = {
