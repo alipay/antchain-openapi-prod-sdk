@@ -42,6 +42,12 @@ class ImportIotplatformMeshidRequest extends Model
      * @var string
      */
     public $deviceSn;
+
+    // 设备类型字段
+    /**
+     * @var string
+     */
+    public $type;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class ImportIotplatformMeshidRequest extends Model
         'companyName'       => 'company_name',
         'meshId'            => 'mesh_id',
         'deviceSn'          => 'device_sn',
+        'type'              => 'type',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class ImportIotplatformMeshidRequest extends Model
         if (null !== $this->deviceSn) {
             $res['device_sn'] = $this->deviceSn;
         }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class ImportIotplatformMeshidRequest extends Model
         }
         if (isset($map['device_sn'])) {
             $model->deviceSn = $map['device_sn'];
+        }
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;
