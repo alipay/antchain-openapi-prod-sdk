@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class SendCollectorDevicebizdataRequest : TeaModel {
+    public class ExecUnprocessedTaskRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,29 +18,21 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据模型Id
-        // 
-        // 
-        [NameInMap("data_model_id")]
+        // 任务ID
+        [NameInMap("task_id")]
         [Validation(Required=true)]
-        public string DataModelId { get; set; }
+        public string TaskId { get; set; }
 
-        // 业务号，防重放
-        // 
-        // 
-        [NameInMap("nonce")]
+        // 任务名称枚举
+        // confirm_device_state : 确认设备状态变更
+        [NameInMap("action")]
         [Validation(Required=true)]
-        public string Nonce { get; set; }
+        public string Action { get; set; }
 
-        // 上传数据
-        [NameInMap("content")]
+        // 任务参数
+        [NameInMap("params")]
         [Validation(Required=true)]
-        public List<BizContentGroup> Content { get; set; }
-
-        // 场景码
-        [NameInMap("scene")]
-        [Validation(Required=true)]
-        public string Scene { get; set; }
+        public string Params { get; set; }
 
     }
 
