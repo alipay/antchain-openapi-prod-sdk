@@ -37,6 +37,8 @@ use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
+use AntChain\BOT\Models\ExecUnprocessedTaskRequest;
+use AntChain\BOT\Models\ExecUnprocessedTaskResponse;
 use AntChain\BOT\Models\GetDeviceBychainidRequest;
 use AntChain\BOT\Models\GetDeviceBychainidResponse;
 use AntChain\BOT\Models\GetDeviceBydeviceidRequest;
@@ -280,7 +282,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.10',
+                    'sdk_version'      => '1.5.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1875,6 +1877,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDataBytxhashResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据taskId 执行未处理的任务
+     * Summary: 执行未处理的任务
+     *
+     * @param ExecUnprocessedTaskRequest $request
+     *
+     * @return ExecUnprocessedTaskResponse
+     */
+    public function execUnprocessedTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execUnprocessedTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据taskId 执行未处理的任务
+     * Summary: 执行未处理的任务
+     *
+     * @param ExecUnprocessedTaskRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecUnprocessedTaskResponse
+     */
+    public function execUnprocessedTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecUnprocessedTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

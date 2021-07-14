@@ -40,12 +40,19 @@ class SendCollectorDevicebizdataRequest extends Model
      * @var BizContentGroup[]
      */
     public $content;
+
+    // 场景码
+    /**
+     * @var string
+     */
+    public $scene;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'dataModelId'       => 'data_model_id',
         'nonce'             => 'nonce',
         'content'           => 'content',
+        'scene'             => 'scene',
     ];
 
     public function validate()
@@ -53,6 +60,7 @@ class SendCollectorDevicebizdataRequest extends Model
         Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('nonce', $this->nonce, true);
         Model::validateRequired('content', $this->content, true);
+        Model::validateRequired('scene', $this->scene, true);
     }
 
     public function toMap()
@@ -78,6 +86,9 @@ class SendCollectorDevicebizdataRequest extends Model
                     $res['content'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
         }
 
         return $res;
@@ -111,6 +122,9 @@ class SendCollectorDevicebizdataRequest extends Model
                     $model->content[$n++] = null !== $item ? BizContentGroup::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
 
         return $model;
