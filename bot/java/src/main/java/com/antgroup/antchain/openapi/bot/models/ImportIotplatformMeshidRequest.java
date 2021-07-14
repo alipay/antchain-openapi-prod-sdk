@@ -31,6 +31,10 @@ public class ImportIotplatformMeshidRequest extends TeaModel {
     @Validation(required = true)
     public String deviceSn;
 
+    // 设备类型字段
+    @NameInMap("type")
+    public String type;
+
     public static ImportIotplatformMeshidRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportIotplatformMeshidRequest self = new ImportIotplatformMeshidRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class ImportIotplatformMeshidRequest extends TeaModel {
     }
     public String getDeviceSn() {
         return this.deviceSn;
+    }
+
+    public ImportIotplatformMeshidRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
     }
 
 }
