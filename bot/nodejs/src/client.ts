@@ -1505,6 +1505,8 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
   meshId: string;
   // 客户自定义的业务上使用的设备标识，需要与租赁业务上使用的ID进行对应
   deviceSn: string;
+  // 设备类型字段
+  type?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1513,6 +1515,7 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
       companyName: 'company_name',
       meshId: 'mesh_id',
       deviceSn: 'device_sn',
+      type: 'type',
     };
   }
 
@@ -1524,6 +1527,7 @@ export class ImportIotplatformMeshidRequest extends $tea.Model {
       companyName: 'string',
       meshId: 'string',
       deviceSn: 'string',
+      type: 'string',
     };
   }
 
@@ -6128,7 +6132,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.12",
+          sdk_version: "1.5.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
