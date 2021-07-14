@@ -30,6 +30,11 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<BizContentGroup> content;
 
+    // 场景码
+    @NameInMap("scene")
+    @Validation(required = true)
+    public String scene;
+
     public static SendCollectorDevicebizdataRequest build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorDevicebizdataRequest self = new SendCollectorDevicebizdataRequest();
         return TeaModel.build(map, self);
@@ -73,6 +78,14 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
     }
     public java.util.List<BizContentGroup> getContent() {
         return this.content;
+    }
+
+    public SendCollectorDevicebizdataRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
     }
 
 }

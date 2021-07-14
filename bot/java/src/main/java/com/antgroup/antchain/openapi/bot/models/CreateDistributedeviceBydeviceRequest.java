@@ -77,6 +77,14 @@ public class CreateDistributedeviceBydeviceRequest extends TeaModel {
     // 垃圾分类回收 4001 
     // 
     // 洗车机 5000
+    // 
+    // 通用计算设备	                6000
+    // 	移动设备		        6001
+    // 		智能手机	        6002
+    // 		工业掌机	        6003
+    // 		平板电脑	        6004
+    // 	云设备		        6011
+    // 		云计算服务器	6012
     @NameInMap("device_type_code")
     public Long deviceTypeCode;
 

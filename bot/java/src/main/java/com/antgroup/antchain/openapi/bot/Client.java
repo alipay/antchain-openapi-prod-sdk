@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.10")
+                    new TeaPair("sdk_version", "1.5.12")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1050,6 +1050,25 @@ public class Client {
     public QueryDataBytxhashResponse queryDataBytxhashEx(QueryDataBytxhashRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.data.bytxhash.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDataBytxhashResponse());
+    }
+
+    /**
+     * Description: 根据taskId 执行未处理的任务
+     * Summary: 执行未处理的任务
+     */
+    public ExecUnprocessedTaskResponse execUnprocessedTask(ExecUnprocessedTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execUnprocessedTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据taskId 执行未处理的任务
+     * Summary: 执行未处理的任务
+     */
+    public ExecUnprocessedTaskResponse execUnprocessedTaskEx(ExecUnprocessedTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.unprocessed.task.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecUnprocessedTaskResponse());
     }
 
     /**
