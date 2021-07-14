@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.10',
+    sdk_version = '1.5.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -985,6 +985,13 @@ model ImportDeviceRequest = {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode: long(name='device_type_code'),
   // 设备单价 单位：分
   initialPrice: long(name='initial_price'),
@@ -1187,6 +1194,13 @@ model UpdateDeviceInfoRequest = {
   // 垃圾分类回收:4001
   // 
   // 洗车机 :5000
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode?: long(name='device_type_code'),
   // 设备单价 单位：分
   initialPrice?: long(name='initial_price'),
@@ -2202,6 +2216,14 @@ model CreateDistributedeviceBydeviceRequest = {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode?: long(name='device_type_code'),
   // 设备单价 单位：分
   initialPrice?: long(name='initial_price'),
@@ -2455,6 +2477,8 @@ model SendCollectorDevicebizdataRequest = {
   nonce: string(name='nonce'),
   // 上传数据
   content: [ BizContentGroup ](name='content'),
+  // 场景码
+  scene: string(name='scene'),
 }
 
 model SendCollectorDevicebizdataResponse = {
@@ -2534,6 +2558,14 @@ model UpdateDeviceInfobydeviceRequest = {
   // 垃圾分类回收 4001 
   // 
   // 洗车机 5000
+  // 
+  // 通用计算设备	                6000
+  // 	移动设备		        6001
+  // 		智能手机	        6002
+  // 		工业掌机	        6003
+  // 		平板电脑	        6004
+  // 	云设备		        6011
+  // 		云计算服务器	6012
   deviceTypeCode: long(name='device_type_code'),
   // 设备单价 单位：分
   initialPrice: long(name='initial_price'),
@@ -3007,6 +3039,47 @@ async function queryDataBytxhash(request: QueryDataBytxhashRequest): QueryDataBy
 async function queryDataBytxhashEx(request: QueryDataBytxhashRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataBytxhashResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecUnprocessedTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 任务名称枚举
+  // confirm_device_state : 确认设备状态变更
+  action: string(name='action'),
+  // 任务参数
+  params: string(name='params'),
+}
+
+model ExecUnprocessedTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 根据taskId 执行未处理的任务
+ * Summary: 执行未处理的任务
+ */
+async function execUnprocessedTask(request: ExecUnprocessedTaskRequest): ExecUnprocessedTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execUnprocessedTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据taskId 执行未处理的任务
+ * Summary: 执行未处理的任务
+ */
+async function execUnprocessedTaskEx(request: ExecUnprocessedTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecUnprocessedTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
