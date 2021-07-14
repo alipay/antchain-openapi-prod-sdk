@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.10'
+                    'sdk_version': '1.5.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.10'
+                    'sdk_version': '1.5.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2807,6 +2807,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.QueryDataBytxhashResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_unprocessed_task(
+        self,
+        request: bot_models.ExecUnprocessedTaskRequest,
+    ) -> bot_models.ExecUnprocessedTaskResponse:
+        """
+        Description: 根据taskId 执行未处理的任务
+        Summary: 执行未处理的任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_unprocessed_task_ex(request, headers, runtime)
+
+    async def exec_unprocessed_task_async(
+        self,
+        request: bot_models.ExecUnprocessedTaskRequest,
+    ) -> bot_models.ExecUnprocessedTaskResponse:
+        """
+        Description: 根据taskId 执行未处理的任务
+        Summary: 执行未处理的任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_unprocessed_task_ex_async(request, headers, runtime)
+
+    def exec_unprocessed_task_ex(
+        self,
+        request: bot_models.ExecUnprocessedTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecUnprocessedTaskResponse:
+        """
+        Description: 根据taskId 执行未处理的任务
+        Summary: 执行未处理的任务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ExecUnprocessedTaskResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_unprocessed_task_ex_async(
+        self,
+        request: bot_models.ExecUnprocessedTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecUnprocessedTaskResponse:
+        """
+        Description: 根据taskId 执行未处理的任务
+        Summary: 执行未处理的任务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.ExecUnprocessedTaskResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
