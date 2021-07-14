@@ -38,6 +38,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string DeviceSn { get; set; }
 
+        // 设备类型字段
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
     }
 
 }
