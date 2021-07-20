@@ -57,6 +57,9 @@ class ContractPlatformOrganizationApplication extends Model
 
     public function validate()
     {
+        Model::validateRequired('idNumber', $this->idNumber, true);
+        Model::validateRequired('idType', $this->idType, true);
+        Model::validateRequired('name', $this->name, true);
     }
 
     public function toMap()

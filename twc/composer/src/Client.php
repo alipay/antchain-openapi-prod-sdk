@@ -21,6 +21,8 @@ use AntChain\TWC\Models\AddContractSignfieldRequest;
 use AntChain\TWC\Models\AddContractSignfieldResponse;
 use AntChain\TWC\Models\ApplyContractCallbackkeyRequest;
 use AntChain\TWC\Models\ApplyContractCallbackkeyResponse;
+use AntChain\TWC\Models\ApplyContractMerchantRequest;
+use AntChain\TWC\Models\ApplyContractMerchantResponse;
 use AntChain\TWC\Models\ApplyContractReportRequest;
 use AntChain\TWC\Models\ApplyContractReportResponse;
 use AntChain\TWC\Models\ApplyJusticeMediationRequest;
@@ -265,6 +267,8 @@ use AntChain\TWC\Models\QueryContractFlowsignerRequest;
 use AntChain\TWC\Models\QueryContractFlowsignerResponse;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftResponse;
+use AntChain\TWC\Models\QueryContractMerchantRequest;
+use AntChain\TWC\Models\QueryContractMerchantResponse;
 use AntChain\TWC\Models\QueryContractMerchantzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantzftResponse;
 use AntChain\TWC\Models\QueryContractNotaryRequest;
@@ -341,10 +345,10 @@ use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
 use AntChain\TWC\Models\UpdateContractOrganizationResponse;
-use AntChain\TWC\Models\UpdateContractPersonRequest;
-use AntChain\TWC\Models\UpdateContractPersonResponse;
 use AntChain\TWC\Models\UpdateContractPlatformRequest;
 use AntChain\TWC\Models\UpdateContractPlatformResponse;
+use AntChain\TWC\Models\UpdateContractUserRequest;
+use AntChain\TWC\Models\UpdateContractUserResponse;
 use AntChain\TWC\Models\UpdateLeaseContractRequest;
 use AntChain\TWC\Models\UpdateLeaseContractResponse;
 use AntChain\TWC\Models\UpdateNotarizationOrderRequest;
@@ -502,7 +506,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.13',
+                    'sdk_version'      => '1.5.17',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2833,33 +2837,33 @@ class Client
      * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
      * Summary: 修改用户注册信息.
      *
-     * @param UpdateContractPersonRequest $request
+     * @param UpdateContractUserRequest $request
      *
-     * @return UpdateContractPersonResponse
+     * @return UpdateContractUserResponse
      */
-    public function updateContractPerson($request)
+    public function updateContractUser($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->updateContractPersonEx($request, $headers, $runtime);
+        return $this->updateContractUserEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
      * Summary: 修改用户注册信息.
      *
-     * @param UpdateContractPersonRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
+     * @param UpdateContractUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
      *
-     * @return UpdateContractPersonResponse
+     * @return UpdateContractUserResponse
      */
-    public function updateContractPersonEx($request, $headers, $runtime)
+    public function updateContractUserEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return UpdateContractPersonResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UpdateContractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.user.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2893,6 +2897,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdateContractOrganizationResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻直付通新接口
+     * Summary: 商户入驻直付通新接口.
+     *
+     * @param ApplyContractMerchantRequest $request
+     *
+     * @return ApplyContractMerchantResponse
+     */
+    public function applyContractMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyContractMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻直付通新接口
+     * Summary: 商户入驻直付通新接口.
+     *
+     * @param ApplyContractMerchantRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ApplyContractMerchantResponse
+     */
+    public function applyContractMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直付通商户入驻信息查询（成功则确认入驻）
+     * Summary: 直付通商户入驻信息查询新接口.
+     *
+     * @param QueryContractMerchantRequest $request
+     *
+     * @return QueryContractMerchantResponse
+     */
+    public function queryContractMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直付通商户入驻信息查询（成功则确认入驻）
+     * Summary: 直付通商户入驻信息查询新接口.
+     *
+     * @param QueryContractMerchantRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryContractMerchantResponse
+     */
+    public function queryContractMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
