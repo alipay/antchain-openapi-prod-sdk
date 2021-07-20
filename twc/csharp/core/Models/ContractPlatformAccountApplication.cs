@@ -17,12 +17,12 @@ namespace AntChain.SDK.TWC.Models
 
         // 证件号
         [NameInMap("id_number")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string IdNumber { get; set; }
 
         // 证件类型
         [NameInMap("id_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string IdType { get; set; }
 
         // 手机号码
@@ -32,7 +32,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 姓名
         [NameInMap("name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Name { get; set; }
 
         // 用户唯一标识，可传入第三方平台的个人用户id等

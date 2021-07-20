@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.13"},
+                        {"sdk_version", "1.5.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.13"},
+                        {"sdk_version", "1.5.17"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -3227,42 +3227,42 @@ namespace AntChain.SDK.TWC
          * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
          * Summary: 修改用户注册信息
          */
-        public UpdateContractPersonResponse UpdateContractPerson(UpdateContractPersonRequest request)
+        public UpdateContractUserResponse UpdateContractUser(UpdateContractUserRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return UpdateContractPersonEx(request, headers, runtime);
+            return UpdateContractUserEx(request, headers, runtime);
         }
 
         /**
          * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
          * Summary: 修改用户注册信息
          */
-        public async Task<UpdateContractPersonResponse> UpdateContractPersonAsync(UpdateContractPersonRequest request)
+        public async Task<UpdateContractUserResponse> UpdateContractUserAsync(UpdateContractUserRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await UpdateContractPersonExAsync(request, headers, runtime);
+            return await UpdateContractUserExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
          * Summary: 修改用户注册信息
          */
-        public UpdateContractPersonResponse UpdateContractPersonEx(UpdateContractPersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public UpdateContractUserResponse UpdateContractUserEx(UpdateContractUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateContractPersonResponse>(DoRequest("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<UpdateContractUserResponse>(DoRequest("1.0", "twc.notary.contract.user.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
          * Summary: 修改用户注册信息
          */
-        public async Task<UpdateContractPersonResponse> UpdateContractPersonExAsync(UpdateContractPersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<UpdateContractUserResponse> UpdateContractUserExAsync(UpdateContractUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateContractPersonResponse>(await DoRequestAsync("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<UpdateContractUserResponse>(await DoRequestAsync("1.0", "twc.notary.contract.user.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3305,6 +3305,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateContractOrganizationResponse>(await DoRequestAsync("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻直付通新接口
+         * Summary: 商户入驻直付通新接口
+         */
+        public ApplyContractMerchantResponse ApplyContractMerchant(ApplyContractMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyContractMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻直付通新接口
+         * Summary: 商户入驻直付通新接口
+         */
+        public async Task<ApplyContractMerchantResponse> ApplyContractMerchantAsync(ApplyContractMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyContractMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻直付通新接口
+         * Summary: 商户入驻直付通新接口
+         */
+        public ApplyContractMerchantResponse ApplyContractMerchantEx(ApplyContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyContractMerchantResponse>(DoRequest("1.0", "twc.notary.contract.merchant.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻直付通新接口
+         * Summary: 商户入驻直付通新接口
+         */
+        public async Task<ApplyContractMerchantResponse> ApplyContractMerchantExAsync(ApplyContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyContractMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchant.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 直付通商户入驻信息查询（成功则确认入驻）
+         * Summary: 直付通商户入驻信息查询新接口
+         */
+        public QueryContractMerchantResponse QueryContractMerchant(QueryContractMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 直付通商户入驻信息查询（成功则确认入驻）
+         * Summary: 直付通商户入驻信息查询新接口
+         */
+        public async Task<QueryContractMerchantResponse> QueryContractMerchantAsync(QueryContractMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 直付通商户入驻信息查询（成功则确认入驻）
+         * Summary: 直付通商户入驻信息查询新接口
+         */
+        public QueryContractMerchantResponse QueryContractMerchantEx(QueryContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractMerchantResponse>(DoRequest("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 直付通商户入驻信息查询（成功则确认入驻）
+         * Summary: 直付通商户入驻信息查询新接口
+         */
+        public async Task<QueryContractMerchantResponse> QueryContractMerchantExAsync(QueryContractMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractMerchantResponse>(await DoRequestAsync("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

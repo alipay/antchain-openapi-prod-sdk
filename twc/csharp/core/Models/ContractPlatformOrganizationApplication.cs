@@ -12,12 +12,12 @@ namespace AntChain.SDK.TWC.Models
     public class ContractPlatformOrganizationApplication : TeaModel {
         // 证件号
         [NameInMap("id_number")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string IdNumber { get; set; }
 
         // 证件类型
         [NameInMap("id_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string IdType { get; set; }
 
         // 企业法人名称
@@ -32,7 +32,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 机构名称
         [NameInMap("name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Name { get; set; }
 
     }
