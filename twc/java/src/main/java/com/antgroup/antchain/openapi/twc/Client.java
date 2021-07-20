@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.13")
+                    new TeaPair("sdk_version", "1.5.17")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1478,19 +1478,19 @@ public class Client {
      * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
      * Summary: 修改用户注册信息
      */
-    public UpdateContractPersonResponse updateContractPerson(UpdateContractPersonRequest request) throws Exception {
+    public UpdateContractUserResponse updateContractUser(UpdateContractUserRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.updateContractPersonEx(request, headers, runtime);
+        return this.updateContractUserEx(request, headers, runtime);
     }
 
     /**
      * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
      * Summary: 修改用户注册信息
      */
-    public UpdateContractPersonResponse updateContractPersonEx(UpdateContractPersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateContractUserResponse updateContractUserEx(UpdateContractUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateContractPersonResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.user.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateContractUserResponse());
     }
 
     /**
@@ -1510,6 +1510,44 @@ public class Client {
     public UpdateContractOrganizationResponse updateContractOrganizationEx(UpdateContractOrganizationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateContractOrganizationResponse());
+    }
+
+    /**
+     * Description: 商户入驻直付通新接口
+     * Summary: 商户入驻直付通新接口
+     */
+    public ApplyContractMerchantResponse applyContractMerchant(ApplyContractMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyContractMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户入驻直付通新接口
+     * Summary: 商户入驻直付通新接口
+     */
+    public ApplyContractMerchantResponse applyContractMerchantEx(ApplyContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchant.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyContractMerchantResponse());
+    }
+
+    /**
+     * Description: 直付通商户入驻信息查询（成功则确认入驻）
+     * Summary: 直付通商户入驻信息查询新接口
+     */
+    public QueryContractMerchantResponse queryContractMerchant(QueryContractMerchantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 直付通商户入驻信息查询（成功则确认入驻）
+     * Summary: 直付通商户入驻信息查询新接口
+     */
+    public QueryContractMerchantResponse queryContractMerchantEx(QueryContractMerchantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractMerchantResponse());
     }
 
     /**

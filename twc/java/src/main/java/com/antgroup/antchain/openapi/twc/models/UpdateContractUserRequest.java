@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateContractPersonRequest extends TeaModel {
+public class UpdateContractUserRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -36,12 +36,12 @@ public class UpdateContractPersonRequest extends TeaModel {
     @Validation(required = true)
     public String userId;
 
-    public static UpdateContractPersonRequest build(java.util.Map<String, ?> map) throws Exception {
-        UpdateContractPersonRequest self = new UpdateContractPersonRequest();
+    public static UpdateContractUserRequest build(java.util.Map<String, ?> map) throws Exception {
+        UpdateContractUserRequest self = new UpdateContractUserRequest();
         return TeaModel.build(map, self);
     }
 
-    public UpdateContractPersonRequest setAuthToken(String authToken) {
+    public UpdateContractUserRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -49,7 +49,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UpdateContractPersonRequest setProductInstanceId(String productInstanceId) {
+    public UpdateContractUserRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -57,7 +57,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UpdateContractPersonRequest setEmail(String email) {
+    public UpdateContractUserRequest setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -65,7 +65,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.email;
     }
 
-    public UpdateContractPersonRequest setIdNumber(String idNumber) {
+    public UpdateContractUserRequest setIdNumber(String idNumber) {
         this.idNumber = idNumber;
         return this;
     }
@@ -73,7 +73,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.idNumber;
     }
 
-    public UpdateContractPersonRequest setIdType(String idType) {
+    public UpdateContractUserRequest setIdType(String idType) {
         this.idType = idType;
         return this;
     }
@@ -81,7 +81,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.idType;
     }
 
-    public UpdateContractPersonRequest setMobile(String mobile) {
+    public UpdateContractUserRequest setMobile(String mobile) {
         this.mobile = mobile;
         return this;
     }
@@ -89,7 +89,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.mobile;
     }
 
-    public UpdateContractPersonRequest setName(String name) {
+    public UpdateContractUserRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -97,7 +97,7 @@ public class UpdateContractPersonRequest extends TeaModel {
         return this.name;
     }
 
-    public UpdateContractPersonRequest setUserId(String userId) {
+    public UpdateContractUserRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateContractPersonResponse extends TeaModel {
+public class UpdateContractUserResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -48,12 +48,12 @@ public class UpdateContractPersonResponse extends TeaModel {
     @NameInMap("user_id")
     public String userId;
 
-    public static UpdateContractPersonResponse build(java.util.Map<String, ?> map) throws Exception {
-        UpdateContractPersonResponse self = new UpdateContractPersonResponse();
+    public static UpdateContractUserResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateContractUserResponse self = new UpdateContractUserResponse();
         return TeaModel.build(map, self);
     }
 
-    public UpdateContractPersonResponse setReqMsgId(String reqMsgId) {
+    public UpdateContractUserResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -61,7 +61,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UpdateContractPersonResponse setResultCode(String resultCode) {
+    public UpdateContractUserResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -69,7 +69,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UpdateContractPersonResponse setResultMsg(String resultMsg) {
+    public UpdateContractUserResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -77,7 +77,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UpdateContractPersonResponse setCode(String code) {
+    public UpdateContractUserResponse setCode(String code) {
         this.code = code;
         return this;
     }
@@ -85,7 +85,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.code;
     }
 
-    public UpdateContractPersonResponse setMessage(String message) {
+    public UpdateContractUserResponse setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -93,7 +93,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.message;
     }
 
-    public UpdateContractPersonResponse setEmail(String email) {
+    public UpdateContractUserResponse setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -101,7 +101,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.email;
     }
 
-    public UpdateContractPersonResponse setIdNumber(String idNumber) {
+    public UpdateContractUserResponse setIdNumber(String idNumber) {
         this.idNumber = idNumber;
         return this;
     }
@@ -109,7 +109,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.idNumber;
     }
 
-    public UpdateContractPersonResponse setIdType(String idType) {
+    public UpdateContractUserResponse setIdType(String idType) {
         this.idType = idType;
         return this;
     }
@@ -117,7 +117,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.idType;
     }
 
-    public UpdateContractPersonResponse setMobile(String mobile) {
+    public UpdateContractUserResponse setMobile(String mobile) {
         this.mobile = mobile;
         return this;
     }
@@ -125,7 +125,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.mobile;
     }
 
-    public UpdateContractPersonResponse setName(String name) {
+    public UpdateContractUserResponse setName(String name) {
         this.name = name;
         return this;
     }
@@ -133,7 +133,7 @@ public class UpdateContractPersonResponse extends TeaModel {
         return this.name;
     }
 
-    public UpdateContractPersonResponse setUserId(String userId) {
+    public UpdateContractUserResponse setUserId(String userId) {
         this.userId = userId;
         return this;
     }

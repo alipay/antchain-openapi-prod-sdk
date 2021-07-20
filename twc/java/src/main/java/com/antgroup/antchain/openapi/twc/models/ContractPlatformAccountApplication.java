@@ -10,10 +10,12 @@ public class ContractPlatformAccountApplication extends TeaModel {
 
     // 证件号
     @NameInMap("id_number")
+    @Validation(required = true)
     public String idNumber;
 
     // 证件类型
     @NameInMap("id_type")
+    @Validation(required = true)
     public String idType;
 
     // 手机号码
@@ -22,6 +24,7 @@ public class ContractPlatformAccountApplication extends TeaModel {
 
     // 姓名
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     // 用户唯一标识，可传入第三方平台的个人用户id等

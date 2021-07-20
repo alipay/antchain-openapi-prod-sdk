@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class ContractPlatformOrganizationApplication extends TeaModel {
     // 证件号
     @NameInMap("id_number")
+    @Validation(required = true)
     public String idNumber;
 
     // 证件类型
     @NameInMap("id_type")
+    @Validation(required = true)
     public String idType;
 
     // 企业法人名称
@@ -22,6 +24,7 @@ public class ContractPlatformOrganizationApplication extends TeaModel {
 
     // 机构名称
     @NameInMap("name")
+    @Validation(required = true)
     public String name;
 
     public static ContractPlatformOrganizationApplication build(java.util.Map<String, ?> map) throws Exception {
