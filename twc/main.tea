@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.13',
+    sdk_version = '1.5.17',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -582,13 +582,13 @@ model ContractPlatformAccountApplication {
   // 邮箱地址
   email?: string(name='email', example='xx@alipay.com'),
   // 证件号
-  idNumber?: string(name='id_number', example='311111111111111111'),
+  idNumber: string(name='id_number', example='311111111111111111'),
   // 证件类型
-  idType?: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
+  idType: string(name='id_type', example='CRED_PSN_CH_IDCARD'),
   // 手机号码
   mobile?: string(name='mobile', example='15811111111'),
   // 姓名
-  name?: string(name='name', example='张三'),
+  name: string(name='name', example='张三'),
   // 用户唯一标识，可传入第三方平台的个人用户id等
   userId: string(name='user_id', example='A001'),
 }
@@ -686,15 +686,15 @@ model ContractAccountApplication {
 // 平台方企业信息
 model ContractPlatformOrganizationApplication {
   // 证件号
-  idNumber?: string(name='id_number', example='12330100470104939U '),
+  idNumber: string(name='id_number', example='12330100470104939U '),
   // 证件类型
-  idType?: string(name='id_type', example='CRED_ORG_USCC'),
+  idType: string(name='id_type', example='CRED_ORG_USCC'),
   // 企业法人名称
   orgLegalName?: string(name='org_legal_name', example='测试法人'),
   // 企业法人证件号
   orgLegalIdNumber?: string(name='org_legal_id_number', example='311111111111111111'),
   // 机构名称
-  name?: string(name='name', example='测试企业'),
+  name: string(name='name', example='测试企业'),
 }
 
 // 融资租赁中IOT设备详情
@@ -4819,7 +4819,7 @@ async function updateContractPlatformEx(request: UpdateContractPlatformRequest, 
   return doRequest('1.0' ,'twc.notary.contract.platform.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UpdateContractPersonRequest = {
+model UpdateContractUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -4837,7 +4837,7 @@ model UpdateContractPersonRequest = {
   userId: string(name='user_id'),
 }
 
-model UpdateContractPersonResponse = {
+model UpdateContractUserResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -4866,19 +4866,19 @@ model UpdateContractPersonResponse = {
  * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
  * Summary: 修改用户注册信息
  */
-async function updateContractPerson(request: UpdateContractPersonRequest): UpdateContractPersonResponse {
+async function updateContractUser(request: UpdateContractUserRequest): UpdateContractUserResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return updateContractPersonEx(request, headers, runtime);
+  return updateContractUserEx(request, headers, runtime);
 }
 
 /**
  * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
  * Summary: 修改用户注册信息
  */
-async function updateContractPersonEx(request: UpdateContractPersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractPersonResponse {
+async function updateContractUserEx(request: UpdateContractUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractUserResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.contract.person.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'twc.notary.contract.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UpdateContractOrganizationRequest = {
@@ -4937,6 +4937,92 @@ async function updateContractOrganization(request: UpdateContractOrganizationReq
 async function updateContractOrganizationEx(request: UpdateContractOrganizationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContractOrganizationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.organization.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyContractMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入驻材料
+  bizContent: string(name='biz_content'),
+}
+
+model ApplyContractMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单ID
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 商户入驻直付通新接口
+ * Summary: 商户入驻直付通新接口
+ */
+async function applyContractMerchant(request: ApplyContractMerchantRequest): ApplyContractMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyContractMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻直付通新接口
+ * Summary: 商户入驻直付通新接口
+ */
+async function applyContractMerchantEx(request: ApplyContractMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyContractMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户入驻查询订单id
+  orderId: string(name='order_id'),
+  // 代理商户账户ID，此参数不填默认平台机构账户入驻
+  agentAccountId?: string(name='agent_account_id'),
+}
+
+model QueryContractMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 额外信息，包含smid
+  extInfo?: string(name='ext_info'),
+  // 支付宝的ipRoleId
+  ipRoleId?: [ string ](name='ip_role_id'),
+  // 申请时间
+  applyId?: string(name='apply_id'),
+  // 商户名称
+  merchantName?: string(name='merchant_name'),
+  // 直付通商户进件的状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 直付通商户入驻信息查询（成功则确认入驻）
+ * Summary: 直付通商户入驻信息查询新接口
+ */
+async function queryContractMerchant(request: QueryContractMerchantRequest): QueryContractMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 直付通商户入驻信息查询（成功则确认入驻）
+ * Summary: 直付通商户入驻信息查询新接口
+ */
+async function queryContractMerchantEx(request: QueryContractMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
