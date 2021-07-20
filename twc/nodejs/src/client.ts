@@ -1126,13 +1126,13 @@ export class ContractPlatformAccountApplication extends $tea.Model {
   // 邮箱地址
   email?: string;
   // 证件号
-  idNumber?: string;
+  idNumber: string;
   // 证件类型
-  idType?: string;
+  idType: string;
   // 手机号码
   mobile?: string;
   // 姓名
-  name?: string;
+  name: string;
   // 用户唯一标识，可传入第三方平台的个人用户id等
   userId: string;
   static names(): { [key: string]: string } {
@@ -1372,15 +1372,15 @@ export class ContractAccountApplication extends $tea.Model {
 // 平台方企业信息
 export class ContractPlatformOrganizationApplication extends $tea.Model {
   // 证件号
-  idNumber?: string;
+  idNumber: string;
   // 证件类型
-  idType?: string;
+  idType: string;
   // 企业法人名称
   orgLegalName?: string;
   // 企业法人证件号
   orgLegalIdNumber?: string;
   // 机构名称
-  name?: string;
+  name: string;
   static names(): { [key: string]: string } {
     return {
       idNumber: 'id_number',
@@ -8785,7 +8785,7 @@ export class UpdateContractPlatformResponse extends $tea.Model {
   }
 }
 
-export class UpdateContractPersonRequest extends $tea.Model {
+export class UpdateContractUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -8832,7 +8832,7 @@ export class UpdateContractPersonRequest extends $tea.Model {
   }
 }
 
-export class UpdateContractPersonResponse extends $tea.Model {
+export class UpdateContractUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -8983,6 +8983,144 @@ export class UpdateContractOrganizationResponse extends $tea.Model {
       legalPersonId: 'string',
       name: 'string',
       organizationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyContractMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 入驻材料
+  bizContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyContractMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户入驻查询订单id
+  orderId: string;
+  // 代理商户账户ID，此参数不填默认平台机构账户入驻
+  agentAccountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      agentAccountId: 'agent_account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      agentAccountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 额外信息，包含smid
+  extInfo?: string;
+  // 支付宝的ipRoleId
+  ipRoleId?: string[];
+  // 申请时间
+  applyId?: string;
+  // 商户名称
+  merchantName?: string;
+  // 直付通商户进件的状态
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      extInfo: 'ext_info',
+      ipRoleId: 'ip_role_id',
+      applyId: 'apply_id',
+      merchantName: 'merchant_name',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      extInfo: 'string',
+      ipRoleId: { 'type': 'array', 'itemType': 'string' },
+      applyId: 'string',
+      merchantName: 'string',
+      status: 'string',
     };
   }
 
@@ -18334,7 +18472,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.13",
+          sdk_version: "1.5.17",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -19699,19 +19837,19 @@ export default class Client {
    * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
    * Summary: 修改用户注册信息
    */
-  async updateContractPerson(request: UpdateContractPersonRequest): Promise<UpdateContractPersonResponse> {
+  async updateContractUser(request: UpdateContractUserRequest): Promise<UpdateContractUserResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.updateContractPersonEx(request, headers, runtime);
+    return await this.updateContractUserEx(request, headers, runtime);
   }
 
   /**
    * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
    * Summary: 修改用户注册信息
    */
-  async updateContractPersonEx(request: UpdateContractPersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractPersonResponse> {
+  async updateContractUserEx(request: UpdateContractUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractUserResponse> {
     Util.validateModel(request);
-    return $tea.cast<UpdateContractPersonResponse>(await this.doRequest("1.0", "twc.notary.contract.person.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractPersonResponse({}));
+    return $tea.cast<UpdateContractUserResponse>(await this.doRequest("1.0", "twc.notary.contract.user.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractUserResponse({}));
   }
 
   /**
@@ -19731,6 +19869,44 @@ export default class Client {
   async updateContractOrganizationEx(request: UpdateContractOrganizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContractOrganizationResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateContractOrganizationResponse>(await this.doRequest("1.0", "twc.notary.contract.organization.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContractOrganizationResponse({}));
+  }
+
+  /**
+   * Description: 商户入驻直付通新接口
+   * Summary: 商户入驻直付通新接口
+   */
+  async applyContractMerchant(request: ApplyContractMerchantRequest): Promise<ApplyContractMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyContractMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商户入驻直付通新接口
+   * Summary: 商户入驻直付通新接口
+   */
+  async applyContractMerchantEx(request: ApplyContractMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyContractMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyContractMerchantResponse>(await this.doRequest("1.0", "twc.notary.contract.merchant.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyContractMerchantResponse({}));
+  }
+
+  /**
+   * Description: 直付通商户入驻信息查询（成功则确认入驻）
+   * Summary: 直付通商户入驻信息查询新接口
+   */
+  async queryContractMerchant(request: QueryContractMerchantRequest): Promise<QueryContractMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 直付通商户入驻信息查询（成功则确认入驻）
+   * Summary: 直付通商户入驻信息查询新接口
+   */
+  async queryContractMerchantEx(request: QueryContractMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractMerchantResponse>(await this.doRequest("1.0", "twc.notary.contract.merchant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractMerchantResponse({}));
   }
 
   /**
