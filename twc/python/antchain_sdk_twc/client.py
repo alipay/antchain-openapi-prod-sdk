@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.13'
+                    'sdk_version': '1.5.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.13'
+                    'sdk_version': '1.5.17'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -4005,58 +4005,58 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def update_contract_person(
+    def update_contract_user(
         self,
-        request: twc_models.UpdateContractPersonRequest,
-    ) -> twc_models.UpdateContractPersonResponse:
+        request: twc_models.UpdateContractUserRequest,
+    ) -> twc_models.UpdateContractUserResponse:
         """
         Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
         Summary: 修改用户注册信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_contract_person_ex(request, headers, runtime)
+        return self.update_contract_user_ex(request, headers, runtime)
 
-    async def update_contract_person_async(
+    async def update_contract_user_async(
         self,
-        request: twc_models.UpdateContractPersonRequest,
-    ) -> twc_models.UpdateContractPersonResponse:
+        request: twc_models.UpdateContractUserRequest,
+    ) -> twc_models.UpdateContractUserResponse:
         """
         Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
         Summary: 修改用户注册信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.update_contract_person_ex_async(request, headers, runtime)
+        return await self.update_contract_user_ex_async(request, headers, runtime)
 
-    def update_contract_person_ex(
+    def update_contract_user_ex(
         self,
-        request: twc_models.UpdateContractPersonRequest,
+        request: twc_models.UpdateContractUserRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdateContractPersonResponse:
+    ) -> twc_models.UpdateContractUserResponse:
         """
         Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
         Summary: 修改用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractPersonResponse().from_map(
-            self.do_request('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.UpdateContractUserResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def update_contract_person_ex_async(
+    async def update_contract_user_ex_async(
         self,
-        request: twc_models.UpdateContractPersonRequest,
+        request: twc_models.UpdateContractUserRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> twc_models.UpdateContractPersonResponse:
+    ) -> twc_models.UpdateContractUserResponse:
         """
         Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
         Summary: 修改用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractPersonResponse().from_map(
-            await self.do_request_async('1.0', 'twc.notary.contract.person.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return twc_models.UpdateContractUserResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def update_contract_organization(
@@ -4111,6 +4111,114 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.UpdateContractOrganizationResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_contract_merchant(
+        self,
+        request: twc_models.ApplyContractMerchantRequest,
+    ) -> twc_models.ApplyContractMerchantResponse:
+        """
+        Description: 商户入驻直付通新接口
+        Summary: 商户入驻直付通新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_contract_merchant_ex(request, headers, runtime)
+
+    async def apply_contract_merchant_async(
+        self,
+        request: twc_models.ApplyContractMerchantRequest,
+    ) -> twc_models.ApplyContractMerchantResponse:
+        """
+        Description: 商户入驻直付通新接口
+        Summary: 商户入驻直付通新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_contract_merchant_ex_async(request, headers, runtime)
+
+    def apply_contract_merchant_ex(
+        self,
+        request: twc_models.ApplyContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyContractMerchantResponse:
+        """
+        Description: 商户入驻直付通新接口
+        Summary: 商户入驻直付通新接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyContractMerchantResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_contract_merchant_ex_async(
+        self,
+        request: twc_models.ApplyContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyContractMerchantResponse:
+        """
+        Description: 商户入驻直付通新接口
+        Summary: 商户入驻直付通新接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ApplyContractMerchantResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_merchant(
+        self,
+        request: twc_models.QueryContractMerchantRequest,
+    ) -> twc_models.QueryContractMerchantResponse:
+        """
+        Description: 直付通商户入驻信息查询（成功则确认入驻）
+        Summary: 直付通商户入驻信息查询新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_merchant_ex(request, headers, runtime)
+
+    async def query_contract_merchant_async(
+        self,
+        request: twc_models.QueryContractMerchantRequest,
+    ) -> twc_models.QueryContractMerchantResponse:
+        """
+        Description: 直付通商户入驻信息查询（成功则确认入驻）
+        Summary: 直付通商户入驻信息查询新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_merchant_ex_async(request, headers, runtime)
+
+    def query_contract_merchant_ex(
+        self,
+        request: twc_models.QueryContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractMerchantResponse:
+        """
+        Description: 直付通商户入驻信息查询（成功则确认入驻）
+        Summary: 直付通商户入驻信息查询新接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractMerchantResponse().from_map(
+            self.do_request('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_merchant_ex_async(
+        self,
+        request: twc_models.QueryContractMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractMerchantResponse:
+        """
+        Description: 直付通商户入驻信息查询（成功则确认入驻）
+        Summary: 直付通商户入驻信息查询新接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryContractMerchantResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
