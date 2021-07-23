@@ -771,6 +771,54 @@ class LogisticsInfo(TeaModel):
         return self
 
 
+class LeasePerformanceInfo(TeaModel):
+    def __init__(
+        self,
+        rent_pay_total: str = None,
+        buyout_amount: str = None,
+        rental_installment_performance: List[RentalInstallmentPerformance] = None,
+    ):
+        # 支付租金总额
+        self.rent_pay_total = rent_pay_total
+        # 买断金额
+        self.buyout_amount = buyout_amount
+        # 租赁分期履约信息
+        self.rental_installment_performance = rental_installment_performance
+
+    def validate(self):
+        self.validate_required(self.rent_pay_total, 'rent_pay_total')
+        self.validate_required(self.rental_installment_performance, 'rental_installment_performance')
+        if self.rental_installment_performance:
+            for k in self.rental_installment_performance:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.rent_pay_total is not None:
+            result['rent_pay_total'] = self.rent_pay_total
+        if self.buyout_amount is not None:
+            result['buyout_amount'] = self.buyout_amount
+        result['rental_installment_performance'] = []
+        if self.rental_installment_performance is not None:
+            for k in self.rental_installment_performance:
+                result['rental_installment_performance'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('rent_pay_total') is not None:
+            self.rent_pay_total = m.get('rent_pay_total')
+        if m.get('buyout_amount') is not None:
+            self.buyout_amount = m.get('buyout_amount')
+        self.rental_installment_performance = []
+        if m.get('rental_installment_performance') is not None:
+            for k in m.get('rental_installment_performance'):
+                temp_model = RentalInstallmentPerformance()
+                self.rental_installment_performance.append(temp_model.from_map(k))
+        return self
+
+
 class LeaseOrderInfo(TeaModel):
     def __init__(
         self,
@@ -817,20 +865,12 @@ class LeaseOrderInfo(TeaModel):
 
     def validate(self):
         self.validate_required(self.order_number, 'order_number')
-        self.validate_required(self.contract_no, 'contract_no')
         self.validate_required(self.order_items, 'order_items')
         if self.order_items:
             for k in self.order_items:
                 if k:
                     k.validate()
         self.validate_required(self.total_device_price, 'total_device_price')
-        self.validate_required(self.deposit_amount, 'deposit_amount')
-        self.validate_required(self.free_deposit, 'free_deposit')
-        self.validate_required(self.sign_time, 'sign_time')
-        self.validate_required(self.lease_start_time, 'lease_start_time')
-        self.validate_required(self.lease_end_time, 'lease_end_time')
-        self.validate_required(self.buyout_amount_formula_calc, 'buyout_amount_formula_calc')
-        self.validate_required(self.pay_in_advance, 'pay_in_advance')
 
     def to_map(self):
         result = dict()
@@ -3927,7 +3967,7 @@ class LeaseEvidentialElement(TeaModel):
         lease_order_info: LeaseOrderInfo = None,
         commitment_info: CommitmentInfo = None,
         logistics_info: LogisticsInfo = None,
-        performance_info: PerformanceInfo = None,
+        performance_info: LeasePerformanceInfo = None,
     ):
         # 订单信息
         self.lease_order_info = lease_order_info
@@ -3976,7 +4016,7 @@ class LeaseEvidentialElement(TeaModel):
             temp_model = LogisticsInfo()
             self.logistics_info = temp_model.from_map(m['logistics_info'])
         if m.get('performance_info') is not None:
-            temp_model = PerformanceInfo()
+            temp_model = LeasePerformanceInfo()
             self.performance_info = temp_model.from_map(m['performance_info'])
         return self
 
@@ -13573,6 +13613,7 @@ class UpdateContractPlatformRequest(TeaModel):
         self.creator = creator
 
     def validate(self):
+        self.validate_required(self.platform, 'platform')
         if self.platform:
             self.platform.validate()
         if self.creator:
