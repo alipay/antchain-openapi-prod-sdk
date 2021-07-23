@@ -13,6 +13,7 @@ public class UpdateContractPlatformRequest extends TeaModel {
 
     // 平台方企业信息
     @NameInMap("platform")
+    @Validation(required = true)
     public ContractPlatformOrganizationApplication platform;
 
     // 平台方经办人信息

@@ -15,7 +15,6 @@ public class LeaseOrderInfo extends TeaModel {
 
     // 合同编号
     @NameInMap("contract_no")
-    @Validation(required = true)
     public String contractNo;
 
     // 合同名称
@@ -34,37 +33,30 @@ public class LeaseOrderInfo extends TeaModel {
 
     // 押金金额（单位元）
     @NameInMap("deposit_amount")
-    @Validation(required = true)
     public String depositAmount;
 
     // 免押金额
     @NameInMap("free_deposit")
-    @Validation(required = true)
     public String freeDeposit;
 
     // 签约时间
     @NameInMap("sign_time")
-    @Validation(required = true)
     public String signTime;
 
     // 租期起始时间
     @NameInMap("lease_start_time")
-    @Validation(required = true)
     public String leaseStartTime;
 
     // 租期结束时间
     @NameInMap("lease_end_time")
-    @Validation(required = true)
     public String leaseEndTime;
 
     // 买断金额计算公式
     @NameInMap("buyout_amount_formula_calc")
-    @Validation(required = true)
     public String buyoutAmountFormulaCalc;
 
     // 首付款（单位元）
     @NameInMap("pay_in_advance")
-    @Validation(required = true)
     public String payInAdvance;
 
     public static LeaseOrderInfo build(java.util.Map<String, ?> map) throws Exception {

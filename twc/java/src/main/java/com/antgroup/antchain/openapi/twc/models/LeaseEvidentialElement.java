@@ -22,7 +22,7 @@ public class LeaseEvidentialElement extends TeaModel {
     // 履约信息
     @NameInMap("performance_info")
     @Validation(required = true)
-    public PerformanceInfo performanceInfo;
+    public LeasePerformanceInfo performanceInfo;
 
     public static LeaseEvidentialElement build(java.util.Map<String, ?> map) throws Exception {
         LeaseEvidentialElement self = new LeaseEvidentialElement();
@@ -53,11 +53,11 @@ public class LeaseEvidentialElement extends TeaModel {
         return this.logisticsInfo;
     }
 
-    public LeaseEvidentialElement setPerformanceInfo(PerformanceInfo performanceInfo) {
+    public LeaseEvidentialElement setPerformanceInfo(LeasePerformanceInfo performanceInfo) {
         this.performanceInfo = performanceInfo;
         return this;
     }
-    public PerformanceInfo getPerformanceInfo() {
+    public LeasePerformanceInfo getPerformanceInfo() {
         return this.performanceInfo;
     }
 
