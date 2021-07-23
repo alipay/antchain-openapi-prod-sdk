@@ -22,7 +22,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 合同编号
         [NameInMap("contract_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ContractNo { get; set; }
 
         // 合同名称
@@ -42,37 +42,37 @@ namespace AntChain.SDK.TWC.Models
 
         // 押金金额（单位元）
         [NameInMap("deposit_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DepositAmount { get; set; }
 
         // 免押金额
         [NameInMap("free_deposit")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FreeDeposit { get; set; }
 
         // 签约时间
         [NameInMap("sign_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SignTime { get; set; }
 
         // 租期起始时间
         [NameInMap("lease_start_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string LeaseStartTime { get; set; }
 
         // 租期结束时间
         [NameInMap("lease_end_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string LeaseEndTime { get; set; }
 
         // 买断金额计算公式
         [NameInMap("buyout_amount_formula_calc")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BuyoutAmountFormulaCalc { get; set; }
 
         // 首付款（单位元）
         [NameInMap("pay_in_advance")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PayInAdvance { get; set; }
 
     }

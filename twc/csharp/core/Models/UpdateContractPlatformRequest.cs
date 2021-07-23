@@ -20,7 +20,7 @@ namespace AntChain.SDK.TWC.Models
 
         // 平台方企业信息
         [NameInMap("platform")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public ContractPlatformOrganizationApplication Platform { get; set; }
 
         // 平台方经办人信息

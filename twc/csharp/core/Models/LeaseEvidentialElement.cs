@@ -28,7 +28,7 @@ namespace AntChain.SDK.TWC.Models
         // 履约信息
         [NameInMap("performance_info")]
         [Validation(Required=true)]
-        public PerformanceInfo PerformanceInfo { get; set; }
+        public LeasePerformanceInfo PerformanceInfo { get; set; }
 
     }
 
