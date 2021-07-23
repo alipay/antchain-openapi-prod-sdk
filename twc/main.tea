@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.17',
+    sdk_version = '1.5.19',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -307,6 +307,16 @@ model LogisticsInfo {
   signTime: string(name='sign_time', example='2021-06-01'),
 }
 
+// 自动进件履约信息
+model LeasePerformanceInfo {
+  // 支付租金总额
+  rentPayTotal: string(name='rent_pay_total', example='123.00'),
+  // 买断金额
+  buyoutAmount?: string(name='buyout_amount', example='123.00'),
+  // 租赁分期履约信息
+  rentalInstallmentPerformance: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
+}
+
 // 自动进件订单信息
 model LeaseOrderInfo {
   // 出租方平台名称
@@ -314,7 +324,7 @@ model LeaseOrderInfo {
   // 订单号
   orderNumber: string(name='order_number', example='232278957595482'),
   // 合同编号
-  contractNo: string(name='contract_no', example='232278957595482'),
+  contractNo?: string(name='contract_no', example='232278957595482'),
   // 合同名称
   contractName?: string(name='contract_name', example='租赁合同'),
   // 订单商品信息列表
@@ -322,19 +332,19 @@ model LeaseOrderInfo {
   // 设备及配件总价（单位元）
   totalDevicePrice: string(name='total_device_price', example='123.00'),
   // 押金金额（单位元）
-  depositAmount: string(name='deposit_amount', example='123.00'),
+  depositAmount?: string(name='deposit_amount', example='123.00'),
   // 免押金额
-  freeDeposit: string(name='free_deposit', example='123.00'),
+  freeDeposit?: string(name='free_deposit', example='123.00'),
   // 签约时间
-  signTime: string(name='sign_time', example='2021-05-31'),
+  signTime?: string(name='sign_time', example='2021-05-31'),
   // 租期起始时间
-  leaseStartTime: string(name='lease_start_time', example='2021-06-01'),
+  leaseStartTime?: string(name='lease_start_time', example='2021-06-01'),
   // 租期结束时间
-  leaseEndTime: string(name='lease_end_time', example='2022-06-01'),
+  leaseEndTime?: string(name='lease_end_time', example='2022-06-01'),
   // 买断金额计算公式
-  buyoutAmountFormulaCalc: string(name='buyout_amount_formula_calc', example='商品官方价-已还租金-实付押金-首付款'),
+  buyoutAmountFormulaCalc?: string(name='buyout_amount_formula_calc', example='商品官方价-已还租金-实付押金-首付款'),
   // 首付款（单位元）
-  payInAdvance: string(name='pay_in_advance', example='1123.00'),
+  payInAdvance?: string(name='pay_in_advance', example='1123.00'),
 }
 
 // 签字人
@@ -1140,7 +1150,7 @@ model LeaseEvidentialElement {
   // 物流信息
   logisticsInfo: LogisticsInfo(name='logistics_info', example=''),
   // 履约信息
-  performanceInfo: PerformanceInfo(name='performance_info', example=''),
+  performanceInfo: LeasePerformanceInfo(name='performance_info', example=''),
 }
 
 // 租赁业务存证信息记录
@@ -4778,7 +4788,7 @@ model UpdateContractPlatformRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 平台方企业信息
-  platform?: ContractPlatformOrganizationApplication(name='platform'),
+  platform: ContractPlatformOrganizationApplication(name='platform'),
   // 平台方经办人信息
   creator?: ContractPlatformAccountApplication(name='creator'),
 }
