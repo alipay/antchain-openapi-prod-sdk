@@ -461,6 +461,35 @@ export class LogisticsInfo extends $tea.Model {
   }
 }
 
+// 自动进件履约信息
+export class LeasePerformanceInfo extends $tea.Model {
+  // 支付租金总额
+  rentPayTotal: string;
+  // 买断金额
+  buyoutAmount?: string;
+  // 租赁分期履约信息
+  rentalInstallmentPerformance: RentalInstallmentPerformance[];
+  static names(): { [key: string]: string } {
+    return {
+      rentPayTotal: 'rent_pay_total',
+      buyoutAmount: 'buyout_amount',
+      rentalInstallmentPerformance: 'rental_installment_performance',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rentPayTotal: 'string',
+      buyoutAmount: 'string',
+      rentalInstallmentPerformance: { 'type': 'array', 'itemType': RentalInstallmentPerformance },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 自动进件订单信息
 export class LeaseOrderInfo extends $tea.Model {
   // 出租方平台名称
@@ -468,7 +497,7 @@ export class LeaseOrderInfo extends $tea.Model {
   // 订单号
   orderNumber: string;
   // 合同编号
-  contractNo: string;
+  contractNo?: string;
   // 合同名称
   contractName?: string;
   // 订单商品信息列表
@@ -476,19 +505,19 @@ export class LeaseOrderInfo extends $tea.Model {
   // 设备及配件总价（单位元）
   totalDevicePrice: string;
   // 押金金额（单位元）
-  depositAmount: string;
+  depositAmount?: string;
   // 免押金额
-  freeDeposit: string;
+  freeDeposit?: string;
   // 签约时间
-  signTime: string;
+  signTime?: string;
   // 租期起始时间
-  leaseStartTime: string;
+  leaseStartTime?: string;
   // 租期结束时间
-  leaseEndTime: string;
+  leaseEndTime?: string;
   // 买断金额计算公式
-  buyoutAmountFormulaCalc: string;
+  buyoutAmountFormulaCalc?: string;
   // 首付款（单位元）
-  payInAdvance: string;
+  payInAdvance?: string;
   static names(): { [key: string]: string } {
     return {
       lessorPlatformName: 'lessor_platform_name',
@@ -2509,7 +2538,7 @@ export class LeaseEvidentialElement extends $tea.Model {
   // 物流信息
   logisticsInfo: LogisticsInfo;
   // 履约信息
-  performanceInfo: PerformanceInfo;
+  performanceInfo: LeasePerformanceInfo;
   static names(): { [key: string]: string } {
     return {
       leaseOrderInfo: 'lease_order_info',
@@ -2524,7 +2553,7 @@ export class LeaseEvidentialElement extends $tea.Model {
       leaseOrderInfo: LeaseOrderInfo,
       commitmentInfo: CommitmentInfo,
       logisticsInfo: LogisticsInfo,
-      performanceInfo: PerformanceInfo,
+      performanceInfo: LeasePerformanceInfo,
     };
   }
 
@@ -8715,7 +8744,7 @@ export class UpdateContractPlatformRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 平台方企业信息
-  platform?: ContractPlatformOrganizationApplication;
+  platform: ContractPlatformOrganizationApplication;
   // 平台方经办人信息
   creator?: ContractPlatformAccountApplication;
   static names(): { [key: string]: string } {
@@ -18472,7 +18501,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.17",
+          sdk_version: "1.5.19",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
