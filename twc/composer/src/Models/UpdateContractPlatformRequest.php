@@ -39,6 +39,7 @@ class UpdateContractPlatformRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('platform', $this->platform, true);
     }
 
     public function toMap()

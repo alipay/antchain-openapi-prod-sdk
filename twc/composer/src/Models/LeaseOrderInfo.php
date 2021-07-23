@@ -130,16 +130,8 @@ class LeaseOrderInfo extends Model
     public function validate()
     {
         Model::validateRequired('orderNumber', $this->orderNumber, true);
-        Model::validateRequired('contractNo', $this->contractNo, true);
         Model::validateRequired('orderItems', $this->orderItems, true);
         Model::validateRequired('totalDevicePrice', $this->totalDevicePrice, true);
-        Model::validateRequired('depositAmount', $this->depositAmount, true);
-        Model::validateRequired('freeDeposit', $this->freeDeposit, true);
-        Model::validateRequired('signTime', $this->signTime, true);
-        Model::validateRequired('leaseStartTime', $this->leaseStartTime, true);
-        Model::validateRequired('leaseEndTime', $this->leaseEndTime, true);
-        Model::validateRequired('buyoutAmountFormulaCalc', $this->buyoutAmountFormulaCalc, true);
-        Model::validateRequired('payInAdvance', $this->payInAdvance, true);
     }
 
     public function toMap()

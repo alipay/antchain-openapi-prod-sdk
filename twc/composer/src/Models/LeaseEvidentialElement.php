@@ -36,7 +36,7 @@ class LeaseEvidentialElement extends Model
     /**
      * @example
      *
-     * @var PerformanceInfo
+     * @var LeasePerformanceInfo
      */
     public $performanceInfo;
     protected $_name = [
@@ -91,7 +91,7 @@ class LeaseEvidentialElement extends Model
             $model->logisticsInfo = LogisticsInfo::fromMap($map['logistics_info']);
         }
         if (isset($map['performance_info'])) {
-            $model->performanceInfo = PerformanceInfo::fromMap($map['performance_info']);
+            $model->performanceInfo = LeasePerformanceInfo::fromMap($map['performance_info']);
         }
 
         return $model;
