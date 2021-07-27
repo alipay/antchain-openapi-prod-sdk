@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.13',
+    sdk_version = '1.5.15',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -506,7 +506,7 @@ model BizContentGroup {
   // 设备链上Id
   // 
   // 
-  chainDeviceId: string(name='chain_device_id', example='txhash123'),
+  chainDeviceId?: string(name='chain_device_id', example='txhash123'),
   // 业务Id
   // 
   // 
@@ -3082,6 +3082,50 @@ async function execUnprocessedTask(request: ExecUnprocessedTaskRequest): ExecUnp
 async function execUnprocessedTaskEx(request: ExecUnprocessedTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecUnprocessedTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendCollectorSummarydataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 汇总所属的场景码
+  scene: string(name='scene'),
+  // 汇总的业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
+  bizType: string(name='biz_type'),
+  // 汇总所属的日期
+  summaryDate: string(name='summary_date'),
+  // 汇总数据的数据模型ID
+  dataModelId: string(name='data_model_id'),
+  // 汇总数据的内容，格式遵循data_model_id制定的格式
+  content: string(name='content'),
+}
+
+model SendCollectorSummarydataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上传汇总数据
+ * Summary: 上传汇总数据
+ */
+async function sendCollectorSummarydata(request: SendCollectorSummarydataRequest): SendCollectorSummarydataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendCollectorSummarydataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传汇总数据
+ * Summary: 上传汇总数据
+ */
+async function sendCollectorSummarydataEx(request: SendCollectorSummarydataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendCollectorSummarydataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
