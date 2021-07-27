@@ -827,7 +827,7 @@ export class BizContentGroup extends $tea.Model {
   // 设备链上Id
   // 
   // 
-  chainDeviceId: string;
+  chainDeviceId?: string;
   // 业务Id
   // 
   // 
@@ -4988,6 +4988,77 @@ export class ExecUnprocessedTaskResponse extends $tea.Model {
   }
 }
 
+export class SendCollectorSummarydataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 汇总所属的场景码
+  scene: string;
+  // 汇总的业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
+  bizType: string;
+  // 汇总所属的日期
+  summaryDate: string;
+  // 汇总数据的数据模型ID
+  dataModelId: string;
+  // 汇总数据的内容，格式遵循data_model_id制定的格式
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      bizType: 'biz_type',
+      summaryDate: 'summary_date',
+      dataModelId: 'data_model_id',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      bizType: 'string',
+      summaryDate: 'string',
+      dataModelId: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendCollectorSummarydataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6132,7 +6203,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.13",
+          sdk_version: "1.5.15",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -7088,6 +7159,25 @@ export default class Client {
   async execUnprocessedTaskEx(request: ExecUnprocessedTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecUnprocessedTaskResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecUnprocessedTaskResponse>(await this.doRequest("1.0", "blockchain.bot.unprocessed.task.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecUnprocessedTaskResponse({}));
+  }
+
+  /**
+   * Description: 上传汇总数据
+   * Summary: 上传汇总数据
+   */
+  async sendCollectorSummarydata(request: SendCollectorSummarydataRequest): Promise<SendCollectorSummarydataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendCollectorSummarydataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上传汇总数据
+   * Summary: 上传汇总数据
+   */
+  async sendCollectorSummarydataEx(request: SendCollectorSummarydataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendCollectorSummarydataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendCollectorSummarydataResponse>(await this.doRequest("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendCollectorSummarydataResponse({}));
   }
 
   /**
