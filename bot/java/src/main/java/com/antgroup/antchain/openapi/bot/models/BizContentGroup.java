@@ -8,7 +8,6 @@ public class BizContentGroup extends TeaModel {
     // 
     // 
     @NameInMap("chain_device_id")
-    @Validation(required = true)
     public String chainDeviceId;
 
     // 业务Id
