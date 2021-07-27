@@ -56,7 +56,6 @@ class BizContentGroup extends Model
 
     public function validate()
     {
-        Model::validateRequired('chainDeviceId', $this->chainDeviceId, true);
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('content', $this->content, true);

@@ -109,6 +109,8 @@ use AntChain\BOT\Models\SendCollectorBychainidRequest;
 use AntChain\BOT\Models\SendCollectorBychainidResponse;
 use AntChain\BOT\Models\SendCollectorDevicebizdataRequest;
 use AntChain\BOT\Models\SendCollectorDevicebizdataResponse;
+use AntChain\BOT\Models\SendCollectorSummarydataRequest;
+use AntChain\BOT\Models\SendCollectorSummarydataResponse;
 use AntChain\BOT\Models\SetConsumerSubscribeRequest;
 use AntChain\BOT\Models\SetConsumerSubscribeResponse;
 use AntChain\BOT\Models\SetConsumerUnsubscribeRequest;
@@ -282,7 +284,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.13',
+                    'sdk_version'      => '1.5.15',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1910,6 +1912,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecUnprocessedTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传汇总数据
+     * Summary: 上传汇总数据.
+     *
+     * @param SendCollectorSummarydataRequest $request
+     *
+     * @return SendCollectorSummarydataResponse
+     */
+    public function sendCollectorSummarydata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendCollectorSummarydataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传汇总数据
+     * Summary: 上传汇总数据.
+     *
+     * @param SendCollectorSummarydataRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return SendCollectorSummarydataResponse
+     */
+    public function sendCollectorSummarydataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendCollectorSummarydataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
