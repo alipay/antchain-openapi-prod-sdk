@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.13"},
+                        {"sdk_version", "1.5.15"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.13"},
+                        {"sdk_version", "1.5.15"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -2331,6 +2331,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecUnprocessedTaskResponse>(await DoRequestAsync("1.0", "blockchain.bot.unprocessed.task.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传汇总数据
+         * Summary: 上传汇总数据
+         */
+        public SendCollectorSummarydataResponse SendCollectorSummarydata(SendCollectorSummarydataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendCollectorSummarydataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传汇总数据
+         * Summary: 上传汇总数据
+         */
+        public async Task<SendCollectorSummarydataResponse> SendCollectorSummarydataAsync(SendCollectorSummarydataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendCollectorSummarydataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传汇总数据
+         * Summary: 上传汇总数据
+         */
+        public SendCollectorSummarydataResponse SendCollectorSummarydataEx(SendCollectorSummarydataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendCollectorSummarydataResponse>(DoRequest("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传汇总数据
+         * Summary: 上传汇总数据
+         */
+        public async Task<SendCollectorSummarydataResponse> SendCollectorSummarydataExAsync(SendCollectorSummarydataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendCollectorSummarydataResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

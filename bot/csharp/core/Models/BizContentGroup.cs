@@ -14,7 +14,7 @@ namespace AntChain.SDK.BOT.Models
         // 
         // 
         [NameInMap("chain_device_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ChainDeviceId { get; set; }
 
         // 业务Id
