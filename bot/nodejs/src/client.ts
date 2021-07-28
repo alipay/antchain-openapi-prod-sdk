@@ -4996,8 +4996,8 @@ export class SendCollectorSummarydataRequest extends $tea.Model {
   scene: string;
   // 汇总的业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
   bizType: string;
-  // 汇总所属的日期
-  summaryDate: string;
+  // 提交日期（汇总所属的日期）
+  submitDate: string;
   // 汇总数据的数据模型ID
   dataModelId: string;
   // 汇总数据的内容，格式遵循data_model_id制定的格式
@@ -5008,7 +5008,7 @@ export class SendCollectorSummarydataRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       scene: 'scene',
       bizType: 'biz_type',
-      summaryDate: 'summary_date',
+      submitDate: 'submit_date',
       dataModelId: 'data_model_id',
       content: 'content',
     };
@@ -5020,7 +5020,7 @@ export class SendCollectorSummarydataRequest extends $tea.Model {
       productInstanceId: 'string',
       scene: 'string',
       bizType: 'string',
-      summaryDate: 'string',
+      submitDate: 'string',
       dataModelId: 'string',
       content: 'string',
     };
@@ -6203,7 +6203,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.15",
+          sdk_version: "1.5.16",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
