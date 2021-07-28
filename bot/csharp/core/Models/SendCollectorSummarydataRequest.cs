@@ -28,10 +28,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string BizType { get; set; }
 
-        // 汇总所属的日期
-        [NameInMap("summary_date")]
+        // 提交日期（汇总所属的日期）
+        [NameInMap("submit_date")]
         [Validation(Required=true)]
-        public string SummaryDate { get; set; }
+        public string SubmitDate { get; set; }
 
         // 汇总数据的数据模型ID
         [NameInMap("data_model_id")]
