@@ -7408,7 +7408,7 @@ class SendCollectorSummarydataRequest(TeaModel):
         product_instance_id: str = None,
         scene: str = None,
         biz_type: str = None,
-        summary_date: str = None,
+        submit_date: str = None,
         data_model_id: str = None,
         content: str = None,
     ):
@@ -7419,8 +7419,8 @@ class SendCollectorSummarydataRequest(TeaModel):
         self.scene = scene
         # 汇总的业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
         self.biz_type = biz_type
-        # 汇总所属的日期
-        self.summary_date = summary_date
+        # 提交日期（汇总所属的日期）
+        self.submit_date = submit_date
         # 汇总数据的数据模型ID
         self.data_model_id = data_model_id
         # 汇总数据的内容，格式遵循data_model_id制定的格式
@@ -7429,7 +7429,7 @@ class SendCollectorSummarydataRequest(TeaModel):
     def validate(self):
         self.validate_required(self.scene, 'scene')
         self.validate_required(self.biz_type, 'biz_type')
-        self.validate_required(self.summary_date, 'summary_date')
+        self.validate_required(self.submit_date, 'submit_date')
         self.validate_required(self.data_model_id, 'data_model_id')
         self.validate_required(self.content, 'content')
 
@@ -7443,8 +7443,8 @@ class SendCollectorSummarydataRequest(TeaModel):
             result['scene'] = self.scene
         if self.biz_type is not None:
             result['biz_type'] = self.biz_type
-        if self.summary_date is not None:
-            result['summary_date'] = self.summary_date
+        if self.submit_date is not None:
+            result['submit_date'] = self.submit_date
         if self.data_model_id is not None:
             result['data_model_id'] = self.data_model_id
         if self.content is not None:
@@ -7461,8 +7461,8 @@ class SendCollectorSummarydataRequest(TeaModel):
             self.scene = m.get('scene')
         if m.get('biz_type') is not None:
             self.biz_type = m.get('biz_type')
-        if m.get('summary_date') is not None:
-            self.summary_date = m.get('summary_date')
+        if m.get('submit_date') is not None:
+            self.submit_date = m.get('submit_date')
         if m.get('data_model_id') is not None:
             self.data_model_id = m.get('data_model_id')
         if m.get('content') is not None:
