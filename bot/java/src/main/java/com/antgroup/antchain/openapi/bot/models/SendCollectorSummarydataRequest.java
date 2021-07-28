@@ -21,10 +21,10 @@ public class SendCollectorSummarydataRequest extends TeaModel {
     @Validation(required = true)
     public String bizType;
 
-    // 汇总所属的日期
-    @NameInMap("summary_date")
+    // 提交日期（汇总所属的日期）
+    @NameInMap("submit_date")
     @Validation(required = true)
-    public String summaryDate;
+    public String submitDate;
 
     // 汇总数据的数据模型ID
     @NameInMap("data_model_id")
@@ -73,12 +73,12 @@ public class SendCollectorSummarydataRequest extends TeaModel {
         return this.bizType;
     }
 
-    public SendCollectorSummarydataRequest setSummaryDate(String summaryDate) {
-        this.summaryDate = summaryDate;
+    public SendCollectorSummarydataRequest setSubmitDate(String submitDate) {
+        this.submitDate = submitDate;
         return this;
     }
-    public String getSummaryDate() {
-        return this.summaryDate;
+    public String getSubmitDate() {
+        return this.submitDate;
     }
 
     public SendCollectorSummarydataRequest setDataModelId(String dataModelId) {
