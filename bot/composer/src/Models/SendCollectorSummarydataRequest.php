@@ -31,11 +31,11 @@ class SendCollectorSummarydataRequest extends Model
      */
     public $bizType;
 
-    // 汇总所属的日期
+    // 提交日期（汇总所属的日期）
     /**
      * @var string
      */
-    public $summaryDate;
+    public $submitDate;
 
     // 汇总数据的数据模型ID
     /**
@@ -53,7 +53,7 @@ class SendCollectorSummarydataRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'scene'             => 'scene',
         'bizType'           => 'biz_type',
-        'summaryDate'       => 'summary_date',
+        'submitDate'        => 'submit_date',
         'dataModelId'       => 'data_model_id',
         'content'           => 'content',
     ];
@@ -62,7 +62,7 @@ class SendCollectorSummarydataRequest extends Model
     {
         Model::validateRequired('scene', $this->scene, true);
         Model::validateRequired('bizType', $this->bizType, true);
-        Model::validateRequired('summaryDate', $this->summaryDate, true);
+        Model::validateRequired('submitDate', $this->submitDate, true);
         Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('content', $this->content, true);
     }
@@ -82,8 +82,8 @@ class SendCollectorSummarydataRequest extends Model
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
         }
-        if (null !== $this->summaryDate) {
-            $res['summary_date'] = $this->summaryDate;
+        if (null !== $this->submitDate) {
+            $res['submit_date'] = $this->submitDate;
         }
         if (null !== $this->dataModelId) {
             $res['data_model_id'] = $this->dataModelId;
@@ -115,8 +115,8 @@ class SendCollectorSummarydataRequest extends Model
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
         }
-        if (isset($map['summary_date'])) {
-            $model->summaryDate = $map['summary_date'];
+        if (isset($map['submit_date'])) {
+            $model->submitDate = $map['submit_date'];
         }
         if (isset($map['data_model_id'])) {
             $model->dataModelId = $map['data_model_id'];
