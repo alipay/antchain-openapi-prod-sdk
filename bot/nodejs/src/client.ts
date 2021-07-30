@@ -155,54 +155,6 @@ export class CollectContent extends $tea.Model {
   }
 }
 
-// 信物链存证请求结构体
-export class EvidenceStorageReq extends $tea.Model {
-  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
-  bizData?: string;
-  // 不同上链方式
-  // 空/"": 默认
-  // "TTTS": 溯源
-  // "IOTPAY": 支付
-  // "CZ": 存证
-  // "RAW":文本
-  category: string;
-  // 上链实体id(设备/空间)
-  // 不可和project_uid同时为空
-  iotDid?: string;
-  // 需要上链的证据的哈希值
-  hash?: string;
-  // 上链的附属信息
-  metaJson?: string;
-  // 上链的项目id,
-  // 不可和iot_did同时为空
-  projectUid?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizData: 'biz_data',
-      category: 'category',
-      iotDid: 'iot_did',
-      hash: 'hash',
-      metaJson: 'meta_json',
-      projectUid: 'project_uid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizData: 'string',
-      category: 'string',
-      iotDid: 'string',
-      hash: 'string',
-      metaJson: 'string',
-      projectUid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 发行设备
 export class DistributeDevice extends $tea.Model {
   // 链上设备Id  （deviceType=DEVICE 时有值)
@@ -236,51 +188,6 @@ export class DistributeDevice extends $tea.Model {
       scene: 'string',
       deviceType: 'string',
       chainPeripheralId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 信物链查询实体身份请求结构体
-export class DidBaseQueryReq extends $tea.Model {
-  // * "thingId"       原始ID
-  // * "certText"      证书文本
-  // * "certPublicKey"证书公钥
-  // * "didPublicKey" DID公钥
-  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
-  // * "didUsername"   DID用户名
-  // * "ownerDid"      所有者DID
-  // * "userDid"       使用者DID
-  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
-  // * "thingStatus"   实体状态
-  // * "thingModelId" 实体物模型类型
-  // * "thingAttribute"实体属性
-  // * "thingVersion"  实体版本
-  // * "spacesAttached"关联空间列表
-  // * "thingsAttached"关联实体列表（例：库位关联设备）
-  // * "authLevel"     授权等级
-  // * "thingServiceEndpoint" 服务列表
-  dataFilter: string[];
-  // 是否从链上查询，从链上查询将返回txHash值
-  onChain: boolean;
-  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
-  thingsDidList: string[];
-  static names(): { [key: string]: string } {
-    return {
-      dataFilter: 'data_filter',
-      onChain: 'on_chain',
-      thingsDidList: 'things_did_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataFilter: { 'type': 'array', 'itemType': 'string' },
-      onChain: 'boolean',
-      thingsDidList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -469,6 +376,35 @@ export class TsmCommonCmd extends $tea.Model {
   }
 }
 
+// 发行数据包
+export class DistributeDataPackage extends $tea.Model {
+  // 原始数据
+  dataList: RawData[];
+  // 发行设备Id
+  distributeDeviceId: string;
+  // 打包时间
+  packageTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      dataList: 'data_list',
+      distributeDeviceId: 'distribute_device_id',
+      packageTime: 'package_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataList: { 'type': 'array', 'itemType': RawData },
+      distributeDeviceId: 'string',
+      packageTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 更新设备和空间关联请求结构体
 export class UpdateDeviceSpaceReq extends $tea.Model {
   // API要更新的设备DID
@@ -493,6 +429,202 @@ export class UpdateDeviceSpaceReq extends $tea.Model {
       deviceDid: 'string',
       updateMode: 'number',
       deviceSpace: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 标签流转历史
+export class LabelTrace extends $tea.Model {
+  // 操作内容
+  content?: string;
+  // 链上哈希
+  txHash: string;
+  // 上链时间
+  txTime?: string;
+  // 上链失败的错误码
+  errorCode?: string;
+  // 上链失败的错误信息
+  errorMsg?: string;
+  // 是否上链成功
+  isSuccess?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      txHash: 'tx_hash',
+      txTime: 'tx_time',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      isSuccess: 'is_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      txHash: 'string',
+      txTime: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
+      isSuccess: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据模型
+export class DataModel extends $tea.Model {
+  //  数据模型Id
+  dataModelId: string;
+  // 数据模型名称
+  dataModelName?: string;
+  // 数据模型
+  dataModel: string;
+  static names(): { [key: string]: string } {
+    return {
+      dataModelId: 'data_model_id',
+      dataModelName: 'data_model_name',
+      dataModel: 'data_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataModelId: 'string',
+      dataModelName: 'string',
+      dataModel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租户项目创建请求结构体模型
+export class TenantProjectCreateReq extends $tea.Model {
+  // 业务类型，默认空
+  bizType?: string;
+  // 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
+  blockchainType?: number;
+  // 可选的，项目关联的区块链uid
+  blockchainUid?: string;
+  // 租户下唯一项目名称，用以标识项目聚合的存证等信息
+  projectName: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizType: 'biz_type',
+      blockchainType: 'blockchain_type',
+      blockchainUid: 'blockchain_uid',
+      projectName: 'project_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizType: 'string',
+      blockchainType: 'number',
+      blockchainUid: 'string',
+      projectName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 信物链存证请求结构体
+export class EvidenceStorageReq extends $tea.Model {
+  // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
+  bizData?: string;
+  // 不同上链方式
+  // 空/"": 默认
+  // "TTTS": 溯源
+  // "IOTPAY": 支付
+  // "CZ": 存证
+  // "RAW":文本
+  category: string;
+  // 上链实体id(设备/空间)
+  // 不可和project_uid同时为空
+  iotDid?: string;
+  // 需要上链的证据的哈希值
+  hash?: string;
+  // 上链的附属信息
+  metaJson?: string;
+  // 上链的项目id,
+  // 不可和iot_did同时为空
+  projectUid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizData: 'biz_data',
+      category: 'category',
+      iotDid: 'iot_did',
+      hash: 'hash',
+      metaJson: 'meta_json',
+      projectUid: 'project_uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizData: 'string',
+      category: 'string',
+      iotDid: 'string',
+      hash: 'string',
+      metaJson: 'string',
+      projectUid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 信物链查询实体身份请求结构体
+export class DidBaseQueryReq extends $tea.Model {
+  // * "thingId"       原始ID
+  // * "certText"      证书文本
+  // * "certPublicKey"证书公钥
+  // * "didPublicKey" DID公钥
+  // * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
+  // * "didUsername"   DID用户名
+  // * "ownerDid"      所有者DID
+  // * "userDid"       使用者DID
+  // * "thingType"     实体类型，设备/企业组织/仓库/空间等
+  // * "thingStatus"   实体状态
+  // * "thingModelId" 实体物模型类型
+  // * "thingAttribute"实体属性
+  // * "thingVersion"  实体版本
+  // * "spacesAttached"关联空间列表
+  // * "thingsAttached"关联实体列表（例：库位关联设备）
+  // * "authLevel"     授权等级
+  // * "thingServiceEndpoint" 服务列表
+  dataFilter: string[];
+  // 是否从链上查询，从链上查询将返回txHash值
+  onChain: boolean;
+  // 需要查询的实体Did列表，同一次查询的Did须为相同类型
+  thingsDidList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      dataFilter: 'data_filter',
+      onChain: 'on_chain',
+      thingsDidList: 'things_did_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataFilter: { 'type': 'array', 'itemType': 'string' },
+      onChain: 'boolean',
+      thingsDidList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -560,68 +692,92 @@ export class ThingsDidBaseRegisterRequest extends $tea.Model {
   }
 }
 
-// 发行数据包
-export class DistributeDataPackage extends $tea.Model {
-  // 原始数据
-  dataList: RawData[];
-  // 发行设备Id
-  distributeDeviceId: string;
-  // 打包时间
-  packageTime: number;
-  static names(): { [key: string]: string } {
-    return {
-      dataList: 'data_list',
-      distributeDeviceId: 'distribute_device_id',
-      packageTime: 'package_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataList: { 'type': 'array', 'itemType': RawData },
-      distributeDeviceId: 'string',
-      packageTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 标签流转历史
-export class LabelTrace extends $tea.Model {
-  // 操作内容
-  content?: string;
+// 外围设备信息
+export class Peripheral extends $tea.Model {
+  // 外围设备Id
+  peripheralId: string;
+  // 数据模型id
+  // 
+  peripheralDataModelId: string;
+  // 场景码
+  // 
+  scene: string;
+  // 外围设备名称
+  // 
+  peripheralName?: string;
+  // 厂商名称
+  // 
+  corpName?: string;
+  // 链上外围设备Id
+  // 
+  chainPeripheralId: string;
   // 链上哈希
   txHash: string;
   // 上链时间
-  txTime?: string;
-  // 上链失败的错误码
-  errorCode?: string;
-  // 上链失败的错误信息
-  errorMsg?: string;
-  // 是否上链成功
-  isSuccess?: boolean;
+  txTime: number;
+  // 设备类型编码，必填，对应资管平台中的设备类型 
+  // 
+  // 枚举值：
+  // 
+  // 车辆 1000 
+  // 车辆 四轮车 1001 
+  // 车辆 四轮车 纯电四轮车 1002 
+  // 车辆 四轮车 混动四轮车 1003 
+  // 车辆 四轮车 燃油四轮车 1004 
+  // 车辆 两轮车 1011 
+  // 车辆 两轮车 两轮单车 1012 
+  // 车辆 两轮车 两轮助力车 1013 
+  // 
+  // 换电柜 2000 
+  // 换电柜 二轮车换电柜 2001 
+  // 
+  // 电池 3000 
+  // 电池 磷酸铁电池 3001 
+  // 电池 三元锂电池 3002 
+  // 
+  // 回收设备 4000 
+  // 
+  // 垃圾分类回收 4001 
+  // 
+  // 洗车机 5000
+  deviceTypeCode: number;
+  // 单价，单位分
+  initialPrice: number;
+  // 出厂时间
+  factoryTime: string;
+  // 投放时间
+  releaseTime: string;
   static names(): { [key: string]: string } {
     return {
-      content: 'content',
+      peripheralId: 'peripheral_id',
+      peripheralDataModelId: 'peripheral_data_model_id',
+      scene: 'scene',
+      peripheralName: 'peripheral_name',
+      corpName: 'corp_name',
+      chainPeripheralId: 'chain_peripheral_id',
       txHash: 'tx_hash',
       txTime: 'tx_time',
-      errorCode: 'error_code',
-      errorMsg: 'error_msg',
-      isSuccess: 'is_success',
+      deviceTypeCode: 'device_type_code',
+      initialPrice: 'initial_price',
+      factoryTime: 'factory_time',
+      releaseTime: 'release_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      content: 'string',
+      peripheralId: 'string',
+      peripheralDataModelId: 'string',
+      scene: 'string',
+      peripheralName: 'string',
+      corpName: 'string',
+      chainPeripheralId: 'string',
       txHash: 'string',
-      txTime: 'string',
-      errorCode: 'string',
-      errorMsg: 'string',
-      isSuccess: 'boolean',
+      txTime: 'number',
+      deviceTypeCode: 'number',
+      initialPrice: 'number',
+      factoryTime: 'string',
+      releaseTime: 'string',
     };
   }
 
@@ -728,100 +884,6 @@ export class DidBaseQueryResp extends $tea.Model {
   }
 }
 
-// 外围设备信息
-export class Peripheral extends $tea.Model {
-  // 外围设备Id
-  peripheralId: string;
-  // 数据模型id
-  // 
-  peripheralDataModelId: string;
-  // 场景码
-  // 
-  scene: string;
-  // 外围设备名称
-  // 
-  peripheralName?: string;
-  // 厂商名称
-  // 
-  corpName?: string;
-  // 链上外围设备Id
-  // 
-  chainPeripheralId: string;
-  // 链上哈希
-  txHash: string;
-  // 上链时间
-  txTime: number;
-  // 设备类型编码，必填，对应资管平台中的设备类型 
-  // 
-  // 枚举值：
-  // 
-  // 车辆 1000 
-  // 车辆 四轮车 1001 
-  // 车辆 四轮车 纯电四轮车 1002 
-  // 车辆 四轮车 混动四轮车 1003 
-  // 车辆 四轮车 燃油四轮车 1004 
-  // 车辆 两轮车 1011 
-  // 车辆 两轮车 两轮单车 1012 
-  // 车辆 两轮车 两轮助力车 1013 
-  // 
-  // 换电柜 2000 
-  // 换电柜 二轮车换电柜 2001 
-  // 
-  // 电池 3000 
-  // 电池 磷酸铁电池 3001 
-  // 电池 三元锂电池 3002 
-  // 
-  // 回收设备 4000 
-  // 
-  // 垃圾分类回收 4001 
-  // 
-  // 洗车机 5000
-  deviceTypeCode: number;
-  // 单价，单位分
-  initialPrice: number;
-  // 出厂时间
-  factoryTime: string;
-  // 投放时间
-  releaseTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      peripheralId: 'peripheral_id',
-      peripheralDataModelId: 'peripheral_data_model_id',
-      scene: 'scene',
-      peripheralName: 'peripheral_name',
-      corpName: 'corp_name',
-      chainPeripheralId: 'chain_peripheral_id',
-      txHash: 'tx_hash',
-      txTime: 'tx_time',
-      deviceTypeCode: 'device_type_code',
-      initialPrice: 'initial_price',
-      factoryTime: 'factory_time',
-      releaseTime: 'release_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      peripheralId: 'string',
-      peripheralDataModelId: 'string',
-      scene: 'string',
-      peripheralName: 'string',
-      corpName: 'string',
-      chainPeripheralId: 'string',
-      txHash: 'string',
-      txTime: 'number',
-      deviceTypeCode: 'number',
-      initialPrice: 'number',
-      factoryTime: 'string',
-      releaseTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 设备业务数据
 export class BizContentGroup extends $tea.Model {
   // 设备链上Id
@@ -855,6 +917,43 @@ export class BizContentGroup extends $tea.Model {
       bizId: 'string',
       bizType: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 具备实体权限访问者更新请求
+export class DidUpdateTenantReq extends $tea.Model {
+  // 待更新实体身份did
+  thingDid: string;
+  // 待更新访问者列表
+  tenantList: string[];
+  // 权限角色
+  // TENANT_ROLE_OWNER
+  // TENANT_ROLE_USER
+  // TENANT_ROLE_OBSERVER
+  tenantRole: string;
+  // 增加权限：THINGS_OP_MODE_ADD
+  // 删除权限：THINGS_OP_MODE_REMOVE
+  opMode: string;
+  static names(): { [key: string]: string } {
+    return {
+      thingDid: 'thing_did',
+      tenantList: 'tenant_list',
+      tenantRole: 'tenant_role',
+      opMode: 'op_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      thingDid: 'string',
+      tenantList: { 'type': 'array', 'itemType': 'string' },
+      tenantRole: 'string',
+      opMode: 'string',
     };
   }
 
@@ -898,35 +997,35 @@ export class ThingsDidUpdateReq extends $tea.Model {
   }
 }
 
-// 具备实体权限访问者更新请求
-export class DidUpdateTenantReq extends $tea.Model {
-  // 待更新实体身份did
-  thingDid: string;
-  // 待更新访问者列表
-  tenantList: string[];
-  // 权限角色
-  // TENANT_ROLE_OWNER
-  // TENANT_ROLE_USER
-  // TENANT_ROLE_OBSERVER
-  tenantRole: string;
-  // 增加权限：THINGS_OP_MODE_ADD
-  // 删除权限：THINGS_OP_MODE_REMOVE
-  opMode: string;
+// 信物链存证查询请求结构体
+export class EvidenceQueryInfoReq extends $tea.Model {
+  // 暂时保留
+  deviceSignature?: string;
+  // 暂时保留
+  deviceUid?: string;
+  // 不同上链方式
+  // "CZ": 普通存证
+  // "IOTPAY": 支付存证
+  // "RAW": 文本上链
+  // "TTTS": 溯源存证
+  queryType: string;
+  // 查询的链上交易txHash
+  txHash: string;
   static names(): { [key: string]: string } {
     return {
-      thingDid: 'thing_did',
-      tenantList: 'tenant_list',
-      tenantRole: 'tenant_role',
-      opMode: 'op_mode',
+      deviceSignature: 'device_signature',
+      deviceUid: 'device_uid',
+      queryType: 'query_type',
+      txHash: 'tx_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      thingDid: 'string',
-      tenantList: { 'type': 'array', 'itemType': 'string' },
-      tenantRole: 'string',
-      opMode: 'string',
+      deviceSignature: 'string',
+      deviceUid: 'string',
+      queryType: 'string',
+      txHash: 'string',
     };
   }
 
@@ -984,43 +1083,6 @@ export class WarehouseReqModel extends $tea.Model {
       otherInfo: 'string',
       status: 'string',
       type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 信物链存证查询请求结构体
-export class EvidenceQueryInfoReq extends $tea.Model {
-  // 暂时保留
-  deviceSignature?: string;
-  // 暂时保留
-  deviceUid?: string;
-  // 不同上链方式
-  // "CZ": 普通存证
-  // "IOTPAY": 支付存证
-  // "RAW": 文本上链
-  // "TTTS": 溯源存证
-  queryType: string;
-  // 查询的链上交易txHash
-  txHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      deviceSignature: 'device_signature',
-      deviceUid: 'device_uid',
-      queryType: 'query_type',
-      txHash: 'tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      deviceSignature: 'string',
-      deviceUid: 'string',
-      queryType: 'string',
-      txHash: 'string',
     };
   }
 
@@ -1117,6 +1179,56 @@ export class CorporateReqModel extends $tea.Model {
   }
 }
 
+// 收集数据返回的上链结果
+export class SendCollectorResult extends $tea.Model {
+  // 数据内容content的上链交易哈希
+  txHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 信物链证据基本组成结构体
+export class EvidenceBaseModel extends $tea.Model {
+  // 业务数据
+  bizData?: string;
+  // 证据哈希值
+  hash?: string;
+  // 证据附属信息字段
+  metaJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizData: 'biz_data',
+      hash: 'hash',
+      metaJson: 'meta_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizData: 'string',
+      hash: 'string',
+      metaJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 实体身份注册请求结构体
 export class ThingsDidRegisterReq extends $tea.Model {
   // 业务编码，暂时保留，不需传入
@@ -1172,97 +1284,6 @@ export class ThingsDidRegisterReq extends $tea.Model {
       thingType: 'number',
       thingVersion: 'string',
       userDid: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 信物链证据基本组成结构体
-export class EvidenceBaseModel extends $tea.Model {
-  // 业务数据
-  bizData?: string;
-  // 证据哈希值
-  hash?: string;
-  // 证据附属信息字段
-  metaJson?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizData: 'biz_data',
-      hash: 'hash',
-      metaJson: 'meta_json',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizData: 'string',
-      hash: 'string',
-      metaJson: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据模型
-export class DataModel extends $tea.Model {
-  //  数据模型Id
-  dataModelId: string;
-  // 数据模型名称
-  dataModelName?: string;
-  // 数据模型
-  dataModel: string;
-  static names(): { [key: string]: string } {
-    return {
-      dataModelId: 'data_model_id',
-      dataModelName: 'data_model_name',
-      dataModel: 'data_model',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataModelId: 'string',
-      dataModelName: 'string',
-      dataModel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 租户项目创建请求结构体模型
-export class TenantProjectCreateReq extends $tea.Model {
-  // 业务类型，默认空
-  bizType?: string;
-  // 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
-  blockchainType?: number;
-  // 可选的，项目关联的区块链uid
-  blockchainUid?: string;
-  // 租户下唯一项目名称，用以标识项目聚合的存证等信息
-  projectName: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizType: 'biz_type',
-      blockchainType: 'blockchain_type',
-      blockchainUid: 'blockchain_uid',
-      projectName: 'project_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizType: 'string',
-      blockchainType: 'number',
-      blockchainUid: 'string',
-      projectName: 'string',
     };
   }
 
@@ -2404,11 +2425,14 @@ export class SendCollectorBychainidResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 收集数据返回的上链结果
+  resultList?: SendCollectorResult[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      resultList: 'result_list',
     };
   }
 
@@ -2417,6 +2441,7 @@ export class SendCollectorBychainidResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      resultList: { 'type': 'array', 'itemType': SendCollectorResult },
     };
   }
 
@@ -6203,7 +6228,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.16",
+          sdk_version: "1.5.18",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
