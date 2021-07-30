@@ -24,6 +24,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 收集数据返回的上链结果
+        [NameInMap("result_list")]
+        [Validation(Required=false)]
+        public List<SendCollectorResult> ResultList { get; set; }
+
     }
 
 }
