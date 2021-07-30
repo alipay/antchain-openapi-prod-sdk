@@ -16,6 +16,10 @@ public class SendCollectorBychainidResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 收集数据返回的上链结果
+    @NameInMap("result_list")
+    public java.util.List<SendCollectorResult> resultList;
+
     public static SendCollectorBychainidResponse build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorBychainidResponse self = new SendCollectorBychainidResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SendCollectorBychainidResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SendCollectorBychainidResponse setResultList(java.util.List<SendCollectorResult> resultList) {
+        this.resultList = resultList;
+        return this;
+    }
+    public java.util.List<SendCollectorResult> getResultList() {
+        return this.resultList;
     }
 
 }
