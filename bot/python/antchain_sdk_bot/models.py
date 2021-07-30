@@ -265,72 +265,6 @@ class CollectContent(TeaModel):
         return self
 
 
-class EvidenceStorageReq(TeaModel):
-    def __init__(
-        self,
-        biz_data: str = None,
-        category: str = None,
-        iot_did: str = None,
-        hash: str = None,
-        meta_json: str = None,
-        project_uid: str = None,
-    ):
-        # 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
-        self.biz_data = biz_data
-        # 不同上链方式
-        # 空/"": 默认
-        # "TTTS": 溯源
-        # "IOTPAY": 支付
-        # "CZ": 存证
-        # "RAW":文本
-        self.category = category
-        # 上链实体id(设备/空间)
-        # 不可和project_uid同时为空
-        self.iot_did = iot_did
-        # 需要上链的证据的哈希值
-        self.hash = hash
-        # 上链的附属信息
-        self.meta_json = meta_json
-        # 上链的项目id,
-        # 不可和iot_did同时为空
-        self.project_uid = project_uid
-
-    def validate(self):
-        self.validate_required(self.category, 'category')
-
-    def to_map(self):
-        result = dict()
-        if self.biz_data is not None:
-            result['biz_data'] = self.biz_data
-        if self.category is not None:
-            result['category'] = self.category
-        if self.iot_did is not None:
-            result['iot_did'] = self.iot_did
-        if self.hash is not None:
-            result['hash'] = self.hash
-        if self.meta_json is not None:
-            result['meta_json'] = self.meta_json
-        if self.project_uid is not None:
-            result['project_uid'] = self.project_uid
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('biz_data') is not None:
-            self.biz_data = m.get('biz_data')
-        if m.get('category') is not None:
-            self.category = m.get('category')
-        if m.get('iot_did') is not None:
-            self.iot_did = m.get('iot_did')
-        if m.get('hash') is not None:
-            self.hash = m.get('hash')
-        if m.get('meta_json') is not None:
-            self.meta_json = m.get('meta_json')
-        if m.get('project_uid') is not None:
-            self.project_uid = m.get('project_uid')
-        return self
-
-
 class DistributeDevice(TeaModel):
     def __init__(
         self,
@@ -390,62 +324,6 @@ class DistributeDevice(TeaModel):
             self.device_type = m.get('device_type')
         if m.get('chain_peripheral_id') is not None:
             self.chain_peripheral_id = m.get('chain_peripheral_id')
-        return self
-
-
-class DidBaseQueryReq(TeaModel):
-    def __init__(
-        self,
-        data_filter: List[str] = None,
-        on_chain: bool = None,
-        things_did_list: List[str] = None,
-    ):
-        # * "thingId"       原始ID
-        # * "certText"      证书文本
-        # * "certPublicKey"证书公钥
-        # * "didPublicKey" DID公钥
-        # * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
-        # * "didUsername"   DID用户名
-        # * "ownerDid"      所有者DID
-        # * "userDid"       使用者DID
-        # * "thingType"     实体类型，设备/企业组织/仓库/空间等
-        # * "thingStatus"   实体状态
-        # * "thingModelId" 实体物模型类型
-        # * "thingAttribute"实体属性
-        # * "thingVersion"  实体版本
-        # * "spacesAttached"关联空间列表
-        # * "thingsAttached"关联实体列表（例：库位关联设备）
-        # * "authLevel"     授权等级
-        # * "thingServiceEndpoint" 服务列表
-        self.data_filter = data_filter
-        # 是否从链上查询，从链上查询将返回txHash值
-        self.on_chain = on_chain
-        # 需要查询的实体Did列表，同一次查询的Did须为相同类型
-        self.things_did_list = things_did_list
-
-    def validate(self):
-        self.validate_required(self.data_filter, 'data_filter')
-        self.validate_required(self.on_chain, 'on_chain')
-        self.validate_required(self.things_did_list, 'things_did_list')
-
-    def to_map(self):
-        result = dict()
-        if self.data_filter is not None:
-            result['data_filter'] = self.data_filter
-        if self.on_chain is not None:
-            result['on_chain'] = self.on_chain
-        if self.things_did_list is not None:
-            result['things_did_list'] = self.things_did_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('data_filter') is not None:
-            self.data_filter = m.get('data_filter')
-        if m.get('on_chain') is not None:
-            self.on_chain = m.get('on_chain')
-        if m.get('things_did_list') is not None:
-            self.things_did_list = m.get('things_did_list')
         return self
 
 
@@ -721,6 +599,55 @@ class TsmCommonCmd(TeaModel):
         return self
 
 
+class DistributeDataPackage(TeaModel):
+    def __init__(
+        self,
+        data_list: List[RawData] = None,
+        distribute_device_id: str = None,
+        package_time: int = None,
+    ):
+        # 原始数据
+        self.data_list = data_list
+        # 发行设备Id
+        self.distribute_device_id = distribute_device_id
+        # 打包时间
+        self.package_time = package_time
+
+    def validate(self):
+        self.validate_required(self.data_list, 'data_list')
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.distribute_device_id, 'distribute_device_id')
+        self.validate_required(self.package_time, 'package_time')
+
+    def to_map(self):
+        result = dict()
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        if self.distribute_device_id is not None:
+            result['distribute_device_id'] = self.distribute_device_id
+        if self.package_time is not None:
+            result['package_time'] = self.package_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = RawData()
+                self.data_list.append(temp_model.from_map(k))
+        if m.get('distribute_device_id') is not None:
+            self.distribute_device_id = m.get('distribute_device_id')
+        if m.get('package_time') is not None:
+            self.package_time = m.get('package_time')
+        return self
+
+
 class UpdateDeviceSpaceReq(TeaModel):
     def __init__(
         self,
@@ -761,6 +688,273 @@ class UpdateDeviceSpaceReq(TeaModel):
             self.update_mode = m.get('update_mode')
         if m.get('device_space') is not None:
             self.device_space = m.get('device_space')
+        return self
+
+
+class LabelTrace(TeaModel):
+    def __init__(
+        self,
+        content: str = None,
+        tx_hash: str = None,
+        tx_time: str = None,
+        error_code: str = None,
+        error_msg: str = None,
+        is_success: bool = None,
+    ):
+        # 操作内容
+        self.content = content
+        # 链上哈希
+        self.tx_hash = tx_hash
+        # 上链时间
+        self.tx_time = tx_time
+        # 上链失败的错误码
+        self.error_code = error_code
+        # 上链失败的错误信息
+        self.error_msg = error_msg
+        # 是否上链成功
+        self.is_success = is_success
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+        if self.tx_time is not None:
+            self.validate_pattern(self.tx_time, 'tx_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.tx_time is not None:
+            result['tx_time'] = self.tx_time
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        if self.is_success is not None:
+            result['is_success'] = self.is_success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('tx_time') is not None:
+            self.tx_time = m.get('tx_time')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        if m.get('is_success') is not None:
+            self.is_success = m.get('is_success')
+        return self
+
+
+class DataModel(TeaModel):
+    def __init__(
+        self,
+        data_model_id: str = None,
+        data_model_name: str = None,
+        data_model: str = None,
+    ):
+        # 数据模型Id
+        self.data_model_id = data_model_id
+        # 数据模型名称
+        self.data_model_name = data_model_name
+        # 数据模型
+        self.data_model = data_model
+
+    def validate(self):
+        self.validate_required(self.data_model_id, 'data_model_id')
+        self.validate_required(self.data_model, 'data_model')
+
+    def to_map(self):
+        result = dict()
+        if self.data_model_id is not None:
+            result['data_model_id'] = self.data_model_id
+        if self.data_model_name is not None:
+            result['data_model_name'] = self.data_model_name
+        if self.data_model is not None:
+            result['data_model'] = self.data_model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data_model_id') is not None:
+            self.data_model_id = m.get('data_model_id')
+        if m.get('data_model_name') is not None:
+            self.data_model_name = m.get('data_model_name')
+        if m.get('data_model') is not None:
+            self.data_model = m.get('data_model')
+        return self
+
+
+class TenantProjectCreateReq(TeaModel):
+    def __init__(
+        self,
+        biz_type: str = None,
+        blockchain_type: int = None,
+        blockchain_uid: str = None,
+        project_name: str = None,
+    ):
+        # 业务类型，默认空
+        self.biz_type = biz_type
+        # 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
+        self.blockchain_type = blockchain_type
+        # 可选的，项目关联的区块链uid
+        self.blockchain_uid = blockchain_uid
+        # 租户下唯一项目名称，用以标识项目聚合的存证等信息
+        self.project_name = project_name
+
+    def validate(self):
+        self.validate_required(self.project_name, 'project_name')
+
+    def to_map(self):
+        result = dict()
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.blockchain_type is not None:
+            result['blockchain_type'] = self.blockchain_type
+        if self.blockchain_uid is not None:
+            result['blockchain_uid'] = self.blockchain_uid
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('blockchain_type') is not None:
+            self.blockchain_type = m.get('blockchain_type')
+        if m.get('blockchain_uid') is not None:
+            self.blockchain_uid = m.get('blockchain_uid')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        return self
+
+
+class EvidenceStorageReq(TeaModel):
+    def __init__(
+        self,
+        biz_data: str = None,
+        category: str = None,
+        iot_did: str = None,
+        hash: str = None,
+        meta_json: str = None,
+        project_uid: str = None,
+    ):
+        # 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
+        self.biz_data = biz_data
+        # 不同上链方式
+        # 空/"": 默认
+        # "TTTS": 溯源
+        # "IOTPAY": 支付
+        # "CZ": 存证
+        # "RAW":文本
+        self.category = category
+        # 上链实体id(设备/空间)
+        # 不可和project_uid同时为空
+        self.iot_did = iot_did
+        # 需要上链的证据的哈希值
+        self.hash = hash
+        # 上链的附属信息
+        self.meta_json = meta_json
+        # 上链的项目id,
+        # 不可和iot_did同时为空
+        self.project_uid = project_uid
+
+    def validate(self):
+        self.validate_required(self.category, 'category')
+
+    def to_map(self):
+        result = dict()
+        if self.biz_data is not None:
+            result['biz_data'] = self.biz_data
+        if self.category is not None:
+            result['category'] = self.category
+        if self.iot_did is not None:
+            result['iot_did'] = self.iot_did
+        if self.hash is not None:
+            result['hash'] = self.hash
+        if self.meta_json is not None:
+            result['meta_json'] = self.meta_json
+        if self.project_uid is not None:
+            result['project_uid'] = self.project_uid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_data') is not None:
+            self.biz_data = m.get('biz_data')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('iot_did') is not None:
+            self.iot_did = m.get('iot_did')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        if m.get('meta_json') is not None:
+            self.meta_json = m.get('meta_json')
+        if m.get('project_uid') is not None:
+            self.project_uid = m.get('project_uid')
+        return self
+
+
+class DidBaseQueryReq(TeaModel):
+    def __init__(
+        self,
+        data_filter: List[str] = None,
+        on_chain: bool = None,
+        things_did_list: List[str] = None,
+    ):
+        # * "thingId"       原始ID
+        # * "certText"      证书文本
+        # * "certPublicKey"证书公钥
+        # * "didPublicKey" DID公钥
+        # * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
+        # * "didUsername"   DID用户名
+        # * "ownerDid"      所有者DID
+        # * "userDid"       使用者DID
+        # * "thingType"     实体类型，设备/企业组织/仓库/空间等
+        # * "thingStatus"   实体状态
+        # * "thingModelId" 实体物模型类型
+        # * "thingAttribute"实体属性
+        # * "thingVersion"  实体版本
+        # * "spacesAttached"关联空间列表
+        # * "thingsAttached"关联实体列表（例：库位关联设备）
+        # * "authLevel"     授权等级
+        # * "thingServiceEndpoint" 服务列表
+        self.data_filter = data_filter
+        # 是否从链上查询，从链上查询将返回txHash值
+        self.on_chain = on_chain
+        # 需要查询的实体Did列表，同一次查询的Did须为相同类型
+        self.things_did_list = things_did_list
+
+    def validate(self):
+        self.validate_required(self.data_filter, 'data_filter')
+        self.validate_required(self.on_chain, 'on_chain')
+        self.validate_required(self.things_did_list, 'things_did_list')
+
+    def to_map(self):
+        result = dict()
+        if self.data_filter is not None:
+            result['data_filter'] = self.data_filter
+        if self.on_chain is not None:
+            result['on_chain'] = self.on_chain
+        if self.things_did_list is not None:
+            result['things_did_list'] = self.things_did_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data_filter') is not None:
+            self.data_filter = m.get('data_filter')
+        if m.get('on_chain') is not None:
+            self.on_chain = m.get('on_chain')
+        if m.get('things_did_list') is not None:
+            self.things_did_list = m.get('things_did_list')
         return self
 
 
@@ -850,113 +1044,146 @@ class ThingsDidBaseRegisterRequest(TeaModel):
         return self
 
 
-class DistributeDataPackage(TeaModel):
+class Peripheral(TeaModel):
     def __init__(
         self,
-        data_list: List[RawData] = None,
-        distribute_device_id: str = None,
-        package_time: int = None,
-    ):
-        # 原始数据
-        self.data_list = data_list
-        # 发行设备Id
-        self.distribute_device_id = distribute_device_id
-        # 打包时间
-        self.package_time = package_time
-
-    def validate(self):
-        self.validate_required(self.data_list, 'data_list')
-        if self.data_list:
-            for k in self.data_list:
-                if k:
-                    k.validate()
-        self.validate_required(self.distribute_device_id, 'distribute_device_id')
-        self.validate_required(self.package_time, 'package_time')
-
-    def to_map(self):
-        result = dict()
-        result['data_list'] = []
-        if self.data_list is not None:
-            for k in self.data_list:
-                result['data_list'].append(k.to_map() if k else None)
-        if self.distribute_device_id is not None:
-            result['distribute_device_id'] = self.distribute_device_id
-        if self.package_time is not None:
-            result['package_time'] = self.package_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        self.data_list = []
-        if m.get('data_list') is not None:
-            for k in m.get('data_list'):
-                temp_model = RawData()
-                self.data_list.append(temp_model.from_map(k))
-        if m.get('distribute_device_id') is not None:
-            self.distribute_device_id = m.get('distribute_device_id')
-        if m.get('package_time') is not None:
-            self.package_time = m.get('package_time')
-        return self
-
-
-class LabelTrace(TeaModel):
-    def __init__(
-        self,
-        content: str = None,
+        peripheral_id: str = None,
+        peripheral_data_model_id: str = None,
+        scene: str = None,
+        peripheral_name: str = None,
+        corp_name: str = None,
+        chain_peripheral_id: str = None,
         tx_hash: str = None,
-        tx_time: str = None,
-        error_code: str = None,
-        error_msg: str = None,
-        is_success: bool = None,
+        tx_time: int = None,
+        device_type_code: int = None,
+        initial_price: int = None,
+        factory_time: str = None,
+        release_time: str = None,
     ):
-        # 操作内容
-        self.content = content
+        # 外围设备Id
+        self.peripheral_id = peripheral_id
+        # 数据模型id
+        # 
+        self.peripheral_data_model_id = peripheral_data_model_id
+        # 场景码
+        # 
+        self.scene = scene
+        # 外围设备名称
+        # 
+        self.peripheral_name = peripheral_name
+        # 厂商名称
+        # 
+        self.corp_name = corp_name
+        # 链上外围设备Id
+        # 
+        self.chain_peripheral_id = chain_peripheral_id
         # 链上哈希
         self.tx_hash = tx_hash
         # 上链时间
         self.tx_time = tx_time
-        # 上链失败的错误码
-        self.error_code = error_code
-        # 上链失败的错误信息
-        self.error_msg = error_msg
-        # 是否上链成功
-        self.is_success = is_success
+        # 设备类型编码，必填，对应资管平台中的设备类型
+        # 
+        # 枚举值：
+        # 
+        # 车辆 1000
+        # 车辆 四轮车 1001
+        # 车辆 四轮车 纯电四轮车 1002
+        # 车辆 四轮车 混动四轮车 1003
+        # 车辆 四轮车 燃油四轮车 1004
+        # 车辆 两轮车 1011
+        # 车辆 两轮车 两轮单车 1012
+        # 车辆 两轮车 两轮助力车 1013
+        # 
+        # 换电柜 2000
+        # 换电柜 二轮车换电柜 2001
+        # 
+        # 电池 3000
+        # 电池 磷酸铁电池 3001
+        # 电池 三元锂电池 3002
+        # 
+        # 回收设备 4000
+        # 
+        # 垃圾分类回收 4001
+        # 
+        # 洗车机 5000
+        self.device_type_code = device_type_code
+        # 单价，单位分
+        self.initial_price = initial_price
+        # 出厂时间
+        self.factory_time = factory_time
+        # 投放时间
+        self.release_time = release_time
 
     def validate(self):
+        self.validate_required(self.peripheral_id, 'peripheral_id')
+        self.validate_required(self.peripheral_data_model_id, 'peripheral_data_model_id')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.chain_peripheral_id, 'chain_peripheral_id')
         self.validate_required(self.tx_hash, 'tx_hash')
-        if self.tx_time is not None:
-            self.validate_pattern(self.tx_time, 'tx_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.tx_time, 'tx_time')
+        self.validate_required(self.device_type_code, 'device_type_code')
+        self.validate_required(self.initial_price, 'initial_price')
+        self.validate_required(self.factory_time, 'factory_time')
+        if self.factory_time is not None:
+            self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.release_time, 'release_time')
+        if self.release_time is not None:
+            self.validate_pattern(self.release_time, 'release_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         result = dict()
-        if self.content is not None:
-            result['content'] = self.content
+        if self.peripheral_id is not None:
+            result['peripheral_id'] = self.peripheral_id
+        if self.peripheral_data_model_id is not None:
+            result['peripheral_data_model_id'] = self.peripheral_data_model_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.peripheral_name is not None:
+            result['peripheral_name'] = self.peripheral_name
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        if self.chain_peripheral_id is not None:
+            result['chain_peripheral_id'] = self.chain_peripheral_id
         if self.tx_hash is not None:
             result['tx_hash'] = self.tx_hash
         if self.tx_time is not None:
             result['tx_time'] = self.tx_time
-        if self.error_code is not None:
-            result['error_code'] = self.error_code
-        if self.error_msg is not None:
-            result['error_msg'] = self.error_msg
-        if self.is_success is not None:
-            result['is_success'] = self.is_success
+        if self.device_type_code is not None:
+            result['device_type_code'] = self.device_type_code
+        if self.initial_price is not None:
+            result['initial_price'] = self.initial_price
+        if self.factory_time is not None:
+            result['factory_time'] = self.factory_time
+        if self.release_time is not None:
+            result['release_time'] = self.release_time
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('content') is not None:
-            self.content = m.get('content')
+        if m.get('peripheral_id') is not None:
+            self.peripheral_id = m.get('peripheral_id')
+        if m.get('peripheral_data_model_id') is not None:
+            self.peripheral_data_model_id = m.get('peripheral_data_model_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('peripheral_name') is not None:
+            self.peripheral_name = m.get('peripheral_name')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        if m.get('chain_peripheral_id') is not None:
+            self.chain_peripheral_id = m.get('chain_peripheral_id')
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
         if m.get('tx_time') is not None:
             self.tx_time = m.get('tx_time')
-        if m.get('error_code') is not None:
-            self.error_code = m.get('error_code')
-        if m.get('error_msg') is not None:
-            self.error_msg = m.get('error_msg')
-        if m.get('is_success') is not None:
-            self.is_success = m.get('is_success')
+        if m.get('device_type_code') is not None:
+            self.device_type_code = m.get('device_type_code')
+        if m.get('initial_price') is not None:
+            self.initial_price = m.get('initial_price')
+        if m.get('factory_time') is not None:
+            self.factory_time = m.get('factory_time')
+        if m.get('release_time') is not None:
+            self.release_time = m.get('release_time')
         return self
 
 
@@ -1112,149 +1339,6 @@ class DidBaseQueryResp(TeaModel):
         return self
 
 
-class Peripheral(TeaModel):
-    def __init__(
-        self,
-        peripheral_id: str = None,
-        peripheral_data_model_id: str = None,
-        scene: str = None,
-        peripheral_name: str = None,
-        corp_name: str = None,
-        chain_peripheral_id: str = None,
-        tx_hash: str = None,
-        tx_time: int = None,
-        device_type_code: int = None,
-        initial_price: int = None,
-        factory_time: str = None,
-        release_time: str = None,
-    ):
-        # 外围设备Id
-        self.peripheral_id = peripheral_id
-        # 数据模型id
-        # 
-        self.peripheral_data_model_id = peripheral_data_model_id
-        # 场景码
-        # 
-        self.scene = scene
-        # 外围设备名称
-        # 
-        self.peripheral_name = peripheral_name
-        # 厂商名称
-        # 
-        self.corp_name = corp_name
-        # 链上外围设备Id
-        # 
-        self.chain_peripheral_id = chain_peripheral_id
-        # 链上哈希
-        self.tx_hash = tx_hash
-        # 上链时间
-        self.tx_time = tx_time
-        # 设备类型编码，必填，对应资管平台中的设备类型
-        # 
-        # 枚举值：
-        # 
-        # 车辆 1000
-        # 车辆 四轮车 1001
-        # 车辆 四轮车 纯电四轮车 1002
-        # 车辆 四轮车 混动四轮车 1003
-        # 车辆 四轮车 燃油四轮车 1004
-        # 车辆 两轮车 1011
-        # 车辆 两轮车 两轮单车 1012
-        # 车辆 两轮车 两轮助力车 1013
-        # 
-        # 换电柜 2000
-        # 换电柜 二轮车换电柜 2001
-        # 
-        # 电池 3000
-        # 电池 磷酸铁电池 3001
-        # 电池 三元锂电池 3002
-        # 
-        # 回收设备 4000
-        # 
-        # 垃圾分类回收 4001
-        # 
-        # 洗车机 5000
-        self.device_type_code = device_type_code
-        # 单价，单位分
-        self.initial_price = initial_price
-        # 出厂时间
-        self.factory_time = factory_time
-        # 投放时间
-        self.release_time = release_time
-
-    def validate(self):
-        self.validate_required(self.peripheral_id, 'peripheral_id')
-        self.validate_required(self.peripheral_data_model_id, 'peripheral_data_model_id')
-        self.validate_required(self.scene, 'scene')
-        self.validate_required(self.chain_peripheral_id, 'chain_peripheral_id')
-        self.validate_required(self.tx_hash, 'tx_hash')
-        self.validate_required(self.tx_time, 'tx_time')
-        self.validate_required(self.device_type_code, 'device_type_code')
-        self.validate_required(self.initial_price, 'initial_price')
-        self.validate_required(self.factory_time, 'factory_time')
-        if self.factory_time is not None:
-            self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.release_time, 'release_time')
-        if self.release_time is not None:
-            self.validate_pattern(self.release_time, 'release_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-
-    def to_map(self):
-        result = dict()
-        if self.peripheral_id is not None:
-            result['peripheral_id'] = self.peripheral_id
-        if self.peripheral_data_model_id is not None:
-            result['peripheral_data_model_id'] = self.peripheral_data_model_id
-        if self.scene is not None:
-            result['scene'] = self.scene
-        if self.peripheral_name is not None:
-            result['peripheral_name'] = self.peripheral_name
-        if self.corp_name is not None:
-            result['corp_name'] = self.corp_name
-        if self.chain_peripheral_id is not None:
-            result['chain_peripheral_id'] = self.chain_peripheral_id
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
-        if self.tx_time is not None:
-            result['tx_time'] = self.tx_time
-        if self.device_type_code is not None:
-            result['device_type_code'] = self.device_type_code
-        if self.initial_price is not None:
-            result['initial_price'] = self.initial_price
-        if self.factory_time is not None:
-            result['factory_time'] = self.factory_time
-        if self.release_time is not None:
-            result['release_time'] = self.release_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('peripheral_id') is not None:
-            self.peripheral_id = m.get('peripheral_id')
-        if m.get('peripheral_data_model_id') is not None:
-            self.peripheral_data_model_id = m.get('peripheral_data_model_id')
-        if m.get('scene') is not None:
-            self.scene = m.get('scene')
-        if m.get('peripheral_name') is not None:
-            self.peripheral_name = m.get('peripheral_name')
-        if m.get('corp_name') is not None:
-            self.corp_name = m.get('corp_name')
-        if m.get('chain_peripheral_id') is not None:
-            self.chain_peripheral_id = m.get('chain_peripheral_id')
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
-        if m.get('tx_time') is not None:
-            self.tx_time = m.get('tx_time')
-        if m.get('device_type_code') is not None:
-            self.device_type_code = m.get('device_type_code')
-        if m.get('initial_price') is not None:
-            self.initial_price = m.get('initial_price')
-        if m.get('factory_time') is not None:
-            self.factory_time = m.get('factory_time')
-        if m.get('release_time') is not None:
-            self.release_time = m.get('release_time')
-        return self
-
-
 class BizContentGroup(TeaModel):
     def __init__(
         self,
@@ -1310,54 +1394,6 @@ class BizContentGroup(TeaModel):
         return self
 
 
-class ThingsDidUpdateReq(TeaModel):
-    def __init__(
-        self,
-        biz_type: str = None,
-        thing_did: str = None,
-        thing_extra_params: str = None,
-        thing_version: str = None,
-    ):
-        # 业务类型，默认空
-        self.biz_type = biz_type
-        # 待更新的实体did
-        self.thing_did = thing_did
-        # 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
-        # 信物链实体附加信息 不同实体身份，有不同的json组织格式，
-        # 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
-        self.thing_extra_params = thing_extra_params
-        # 更新后的实体版本
-        self.thing_version = thing_version
-
-    def validate(self):
-        self.validate_required(self.thing_did, 'thing_did')
-        self.validate_required(self.thing_version, 'thing_version')
-
-    def to_map(self):
-        result = dict()
-        if self.biz_type is not None:
-            result['biz_type'] = self.biz_type
-        if self.thing_did is not None:
-            result['thing_did'] = self.thing_did
-        if self.thing_extra_params is not None:
-            result['thing_extra_params'] = self.thing_extra_params
-        if self.thing_version is not None:
-            result['thing_version'] = self.thing_version
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('biz_type') is not None:
-            self.biz_type = m.get('biz_type')
-        if m.get('thing_did') is not None:
-            self.thing_did = m.get('thing_did')
-        if m.get('thing_extra_params') is not None:
-            self.thing_extra_params = m.get('thing_extra_params')
-        if m.get('thing_version') is not None:
-            self.thing_version = m.get('thing_version')
-        return self
-
-
 class DidUpdateTenantReq(TeaModel):
     def __init__(
         self,
@@ -1407,6 +1443,104 @@ class DidUpdateTenantReq(TeaModel):
             self.tenant_role = m.get('tenant_role')
         if m.get('op_mode') is not None:
             self.op_mode = m.get('op_mode')
+        return self
+
+
+class ThingsDidUpdateReq(TeaModel):
+    def __init__(
+        self,
+        biz_type: str = None,
+        thing_did: str = None,
+        thing_extra_params: str = None,
+        thing_version: str = None,
+    ):
+        # 业务类型，默认空
+        self.biz_type = biz_type
+        # 待更新的实体did
+        self.thing_did = thing_did
+        # 更新内容，参考更新请求不同实体类型结构体，对应不同实体类型不一样
+        # 信物链实体附加信息 不同实体身份，有不同的json组织格式，
+        # 参考 DeviceRegisterReqModel， SpaceRegisterReqModel， CorporateReqModel， WarehouseReqModel，
+        self.thing_extra_params = thing_extra_params
+        # 更新后的实体版本
+        self.thing_version = thing_version
+
+    def validate(self):
+        self.validate_required(self.thing_did, 'thing_did')
+        self.validate_required(self.thing_version, 'thing_version')
+
+    def to_map(self):
+        result = dict()
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.thing_did is not None:
+            result['thing_did'] = self.thing_did
+        if self.thing_extra_params is not None:
+            result['thing_extra_params'] = self.thing_extra_params
+        if self.thing_version is not None:
+            result['thing_version'] = self.thing_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('thing_did') is not None:
+            self.thing_did = m.get('thing_did')
+        if m.get('thing_extra_params') is not None:
+            self.thing_extra_params = m.get('thing_extra_params')
+        if m.get('thing_version') is not None:
+            self.thing_version = m.get('thing_version')
+        return self
+
+
+class EvidenceQueryInfoReq(TeaModel):
+    def __init__(
+        self,
+        device_signature: str = None,
+        device_uid: str = None,
+        query_type: str = None,
+        tx_hash: str = None,
+    ):
+        # 暂时保留
+        self.device_signature = device_signature
+        # 暂时保留
+        self.device_uid = device_uid
+        # 不同上链方式
+        # "CZ": 普通存证
+        # "IOTPAY": 支付存证
+        # "RAW": 文本上链
+        # "TTTS": 溯源存证
+        self.query_type = query_type
+        # 查询的链上交易txHash
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        self.validate_required(self.query_type, 'query_type')
+        self.validate_required(self.tx_hash, 'tx_hash')
+
+    def to_map(self):
+        result = dict()
+        if self.device_signature is not None:
+            result['device_signature'] = self.device_signature
+        if self.device_uid is not None:
+            result['device_uid'] = self.device_uid
+        if self.query_type is not None:
+            result['query_type'] = self.query_type
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_signature') is not None:
+            self.device_signature = m.get('device_signature')
+        if m.get('device_uid') is not None:
+            self.device_uid = m.get('device_uid')
+        if m.get('query_type') is not None:
+            self.query_type = m.get('query_type')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
         return self
 
 
@@ -1494,56 +1628,6 @@ class WarehouseReqModel(TeaModel):
             self.status = m.get('status')
         if m.get('type') is not None:
             self.type = m.get('type')
-        return self
-
-
-class EvidenceQueryInfoReq(TeaModel):
-    def __init__(
-        self,
-        device_signature: str = None,
-        device_uid: str = None,
-        query_type: str = None,
-        tx_hash: str = None,
-    ):
-        # 暂时保留
-        self.device_signature = device_signature
-        # 暂时保留
-        self.device_uid = device_uid
-        # 不同上链方式
-        # "CZ": 普通存证
-        # "IOTPAY": 支付存证
-        # "RAW": 文本上链
-        # "TTTS": 溯源存证
-        self.query_type = query_type
-        # 查询的链上交易txHash
-        self.tx_hash = tx_hash
-
-    def validate(self):
-        self.validate_required(self.query_type, 'query_type')
-        self.validate_required(self.tx_hash, 'tx_hash')
-
-    def to_map(self):
-        result = dict()
-        if self.device_signature is not None:
-            result['device_signature'] = self.device_signature
-        if self.device_uid is not None:
-            result['device_uid'] = self.device_uid
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('device_signature') is not None:
-            self.device_signature = m.get('device_signature')
-        if m.get('device_uid') is not None:
-            self.device_uid = m.get('device_uid')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
         return self
 
 
@@ -1674,6 +1758,68 @@ class CorporateReqModel(TeaModel):
         return self
 
 
+class SendCollectorResult(TeaModel):
+    def __init__(
+        self,
+        tx_hash: str = None,
+    ):
+        # 数据内容content的上链交易哈希
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+
+    def to_map(self):
+        result = dict()
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class EvidenceBaseModel(TeaModel):
+    def __init__(
+        self,
+        biz_data: str = None,
+        hash: str = None,
+        meta_json: str = None,
+    ):
+        # 业务数据
+        self.biz_data = biz_data
+        # 证据哈希值
+        self.hash = hash
+        # 证据附属信息字段
+        self.meta_json = meta_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.biz_data is not None:
+            result['biz_data'] = self.biz_data
+        if self.hash is not None:
+            result['hash'] = self.hash
+        if self.meta_json is not None:
+            result['meta_json'] = self.meta_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_data') is not None:
+            self.biz_data = m.get('biz_data')
+        if m.get('hash') is not None:
+            self.hash = m.get('hash')
+        if m.get('meta_json') is not None:
+            self.meta_json = m.get('meta_json')
+        return self
+
+
 class ThingsDidRegisterReq(TeaModel):
     def __init__(
         self,
@@ -1761,128 +1907,6 @@ class ThingsDidRegisterReq(TeaModel):
             self.thing_version = m.get('thing_version')
         if m.get('user_did') is not None:
             self.user_did = m.get('user_did')
-        return self
-
-
-class EvidenceBaseModel(TeaModel):
-    def __init__(
-        self,
-        biz_data: str = None,
-        hash: str = None,
-        meta_json: str = None,
-    ):
-        # 业务数据
-        self.biz_data = biz_data
-        # 证据哈希值
-        self.hash = hash
-        # 证据附属信息字段
-        self.meta_json = meta_json
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.biz_data is not None:
-            result['biz_data'] = self.biz_data
-        if self.hash is not None:
-            result['hash'] = self.hash
-        if self.meta_json is not None:
-            result['meta_json'] = self.meta_json
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('biz_data') is not None:
-            self.biz_data = m.get('biz_data')
-        if m.get('hash') is not None:
-            self.hash = m.get('hash')
-        if m.get('meta_json') is not None:
-            self.meta_json = m.get('meta_json')
-        return self
-
-
-class DataModel(TeaModel):
-    def __init__(
-        self,
-        data_model_id: str = None,
-        data_model_name: str = None,
-        data_model: str = None,
-    ):
-        # 数据模型Id
-        self.data_model_id = data_model_id
-        # 数据模型名称
-        self.data_model_name = data_model_name
-        # 数据模型
-        self.data_model = data_model
-
-    def validate(self):
-        self.validate_required(self.data_model_id, 'data_model_id')
-        self.validate_required(self.data_model, 'data_model')
-
-    def to_map(self):
-        result = dict()
-        if self.data_model_id is not None:
-            result['data_model_id'] = self.data_model_id
-        if self.data_model_name is not None:
-            result['data_model_name'] = self.data_model_name
-        if self.data_model is not None:
-            result['data_model'] = self.data_model
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('data_model_id') is not None:
-            self.data_model_id = m.get('data_model_id')
-        if m.get('data_model_name') is not None:
-            self.data_model_name = m.get('data_model_name')
-        if m.get('data_model') is not None:
-            self.data_model = m.get('data_model')
-        return self
-
-
-class TenantProjectCreateReq(TeaModel):
-    def __init__(
-        self,
-        biz_type: str = None,
-        blockchain_type: int = None,
-        blockchain_uid: str = None,
-        project_name: str = None,
-    ):
-        # 业务类型，默认空
-        self.biz_type = biz_type
-        # 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
-        self.blockchain_type = blockchain_type
-        # 可选的，项目关联的区块链uid
-        self.blockchain_uid = blockchain_uid
-        # 租户下唯一项目名称，用以标识项目聚合的存证等信息
-        self.project_name = project_name
-
-    def validate(self):
-        self.validate_required(self.project_name, 'project_name')
-
-    def to_map(self):
-        result = dict()
-        if self.biz_type is not None:
-            result['biz_type'] = self.biz_type
-        if self.blockchain_type is not None:
-            result['blockchain_type'] = self.blockchain_type
-        if self.blockchain_uid is not None:
-            result['blockchain_uid'] = self.blockchain_uid
-        if self.project_name is not None:
-            result['project_name'] = self.project_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('biz_type') is not None:
-            self.biz_type = m.get('biz_type')
-        if m.get('blockchain_type') is not None:
-            self.blockchain_type = m.get('blockchain_type')
-        if m.get('blockchain_uid') is not None:
-            self.blockchain_uid = m.get('blockchain_uid')
-        if m.get('project_name') is not None:
-            self.project_name = m.get('project_name')
         return self
 
 
@@ -3576,6 +3600,7 @@ class SendCollectorBychainidResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        result_list: List[SendCollectorResult] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3583,9 +3608,14 @@ class SendCollectorBychainidResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 收集数据返回的上链结果
+        self.result_list = result_list
 
     def validate(self):
-        pass
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -3595,6 +3625,10 @@ class SendCollectorBychainidResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -3605,6 +3639,11 @@ class SendCollectorBychainidResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = SendCollectorResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
