@@ -50,8 +50,8 @@ namespace AntChain.SDK.TDM.Models
 
         // 扩展字段
         [NameInMap("content")]
-        [Validation(Required=false)]
-        public string Content { get; set; }
+        [Validation(Required=true)]
+        public AuthProperty Content { get; set; }
 
     }
 

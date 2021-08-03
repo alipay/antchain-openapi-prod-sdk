@@ -137,7 +137,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1029,6 +1029,48 @@ namespace AntChain.SDK.TDM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckCpfAuthResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.auth.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商业机构公积金中心列表查询
+         * Summary: 商业机构公积金中心列表查询
+         */
+        public ListCpfSourceResponse ListCpfSource(ListCpfSourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListCpfSourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商业机构公积金中心列表查询
+         * Summary: 商业机构公积金中心列表查询
+         */
+        public async Task<ListCpfSourceResponse> ListCpfSourceAsync(ListCpfSourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListCpfSourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商业机构公积金中心列表查询
+         * Summary: 商业机构公积金中心列表查询
+         */
+        public ListCpfSourceResponse ListCpfSourceEx(ListCpfSourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListCpfSourceResponse>(DoRequest("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商业机构公积金中心列表查询
+         * Summary: 商业机构公积金中心列表查询
+         */
+        public async Task<ListCpfSourceResponse> ListCpfSourceExAsync(ListCpfSourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListCpfSourceResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -73,6 +73,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ExtendParams { get; set; }
 
+        // 用数请求签名信息
+        [NameInMap("req_sign")]
+        [Validation(Required=false)]
+        public CpfDataUseReqSign ReqSign { get; set; }
+
     }
 
 }
