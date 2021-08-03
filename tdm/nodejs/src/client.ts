@@ -77,6 +77,60 @@ export class Config extends $tea.Model {
   }
 }
 
+// 公积金中心编码名称
+export class TdmCpfEncodeNameVO extends $tea.Model {
+  // 公积金中心编码
+  code: string;
+  // 公积金中心名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公积金中心城市编码列表
+export class TdmCpfCitysVO extends $tea.Model {
+  // 城市编码
+  code: string;
+  // 城市名称
+  name: string;
+  // 公积金中心城市列表
+  cpfs: TdmCpfEncodeNameVO[];
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      name: 'name',
+      cpfs: 'cpfs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      name: 'string',
+      cpfs: { 'type': 'array', 'itemType': TdmCpfEncodeNameVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 链的信息
 export class ChainInfo extends $tea.Model {
   // 块高
@@ -701,6 +755,64 @@ export class IssueCertParams extends $tea.Model {
       gjjdkzx: 'string',
       dkje: 'string',
       dkqx: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公积金中心省市列表
+export class TdmCpfProvinceVO extends $tea.Model {
+  // 省编码
+  code: string;
+  // 省名称
+  name: string;
+  // 公积金中心列表
+  areas: TdmCpfCitysVO[];
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      name: 'name',
+      areas: 'areas',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      name: 'string',
+      areas: { 'type': 'array', 'itemType': TdmCpfCitysVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 公积金月数接口签名信息
+export class CpfDataUseReqSign extends $tea.Model {
+  // 机构签名ID
+  mSyAppId: string;
+  // 签名service, 需要颁发
+  mSyService: string;
+  // 签名信息
+  mSySign: string;
+  static names(): { [key: string]: string } {
+    return {
+      mSyAppId: 'm_sy_app_id',
+      mSyService: 'm_sy_service',
+      mSySign: 'm_sy_sign',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mSyAppId: 'string',
+      mSyService: 'string',
+      mSySign: 'string',
     };
   }
 
@@ -1440,6 +1552,8 @@ export class GetCpfDataRequest extends $tea.Model {
   targetCode: string;
   // 扩展字段。
   extendParams?: string;
+  // 用数请求签名信息
+  reqSign?: CpfDataUseReqSign;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1455,6 +1569,7 @@ export class GetCpfDataRequest extends $tea.Model {
       dataCode: 'data_code',
       targetCode: 'target_code',
       extendParams: 'extend_params',
+      reqSign: 'req_sign',
     };
   }
 
@@ -1473,6 +1588,7 @@ export class GetCpfDataRequest extends $tea.Model {
       dataCode: 'string',
       targetCode: 'string',
       extendParams: 'string',
+      reqSign: CpfDataUseReqSign,
     };
   }
 
@@ -2226,7 +2342,7 @@ export class CheckCpfAuthRequest extends $tea.Model {
   // 授权协议
   authAgreement?: AuthAgreement;
   // 扩展字段
-  content?: string;
+  content: AuthProperty;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2251,7 +2367,7 @@ export class CheckCpfAuthRequest extends $tea.Model {
       authorizedPlatformIdentity: 'string',
       targetCode: 'string',
       authAgreement: AuthAgreement,
-      content: 'string',
+      content: AuthProperty,
     };
   }
 
@@ -2284,6 +2400,61 @@ export class CheckCpfAuthResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       ifAuth: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListCpfSourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListCpfSourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商业机构公积金中心列表查询结果
+  cpfList?: TdmCpfProvinceVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cpfList: 'cpf_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cpfList: { 'type': 'array', 'itemType': TdmCpfProvinceVO },
     };
   }
 
@@ -3000,7 +3171,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3367,6 +3538,25 @@ export default class Client {
   async checkCpfAuthEx(request: CheckCpfAuthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckCpfAuthResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckCpfAuthResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.auth.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckCpfAuthResponse({}));
+  }
+
+  /**
+   * Description: 商业机构公积金中心列表查询
+   * Summary: 商业机构公积金中心列表查询
+   */
+  async listCpfSource(request: ListCpfSourceRequest): Promise<ListCpfSourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listCpfSourceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商业机构公积金中心列表查询
+   * Summary: 商业机构公积金中心列表查询
+   */
+  async listCpfSourceEx(request: ListCpfSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListCpfSourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListCpfSourceResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListCpfSourceResponse({}));
   }
 
   /**
