@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.4',
+    sdk_version = '1.1.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,24 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 公积金中心编码名称
+model TdmCpfEncodeNameVO {
+  // 公积金中心编码
+  code: string(name='code', example='140101'),
+  // 公积金中心名称
+  name: string(name='name', example='省直公积金中心'),
+}
+
+// 公积金中心城市编码列表
+model TdmCpfCitysVO {
+  // 城市编码
+  code: string(name='code', example='0101'),
+  // 城市名称
+  name: string(name='name', example='杭州市'),
+  // 公积金中心城市列表
+  cpfs: [ TdmCpfEncodeNameVO ](name='cpfs', example='{}'),
 }
 
 // 链的信息
@@ -417,6 +435,26 @@ model IssueCertParams {
   dkje?: string(name='dkje', example='"10"'),
   // 贷款期限，单位 年
   dkqx?: string(name='dkqx', example='"2"'),
+}
+
+// 公积金中心省市列表
+model TdmCpfProvinceVO {
+  // 省编码
+  code: string(name='code', example='14'),
+  // 省名称
+  name: string(name='name', example='浙江省'),
+  // 公积金中心列表
+  areas: [ TdmCpfCitysVO ](name='areas', example=''),
+}
+
+// 公积金月数接口签名信息
+model CpfDataUseReqSign {
+  // 机构签名ID
+  mSyAppId: string(name='m_sy_app_id', example='370101199601022014'),
+  // 签名service, 需要颁发
+  mSyService: string(name='m_sy_service', example='TUFHUZ'),
+  // 签名信息
+  mSySign: string(name='m_sy_sign', example='20201125010000RD831500012865'),
 }
 
 // 核身初始化请求信息
@@ -839,6 +877,8 @@ model GetCpfDataRequest = {
   targetCode: string(name='target_code'),
   // 扩展字段。
   extendParams?: string(name='extend_params'),
+  // 用数请求签名信息
+  reqSign?: CpfDataUseReqSign(name='req_sign'),
 }
 
 model GetCpfDataResponse = {
@@ -1304,7 +1344,7 @@ model CheckCpfAuthRequest = {
   // 授权协议
   authAgreement?: AuthAgreement(name='auth_agreement'),
   // 扩展字段
-  content?: string(name='content'),
+  content: AuthProperty(name='content'),
 }
 
 model CheckCpfAuthResponse = {
@@ -1335,6 +1375,42 @@ async function checkCpfAuth(request: CheckCpfAuthRequest): CheckCpfAuthResponse 
 async function checkCpfAuthEx(request: CheckCpfAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckCpfAuthResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.tdm.cpf.auth.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListCpfSourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListCpfSourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商业机构公积金中心列表查询结果
+  cpfList?: [ TdmCpfProvinceVO ](name='cpf_list'),
+}
+
+/**
+ * Description: 商业机构公积金中心列表查询
+ * Summary: 商业机构公积金中心列表查询
+ */
+async function listCpfSource(request: ListCpfSourceRequest): ListCpfSourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listCpfSourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商业机构公积金中心列表查询
+ * Summary: 商业机构公积金中心列表查询
+ */
+async function listCpfSourceEx(request: ListCpfSourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfSourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecAuthRequest = {
