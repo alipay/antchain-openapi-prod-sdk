@@ -57,7 +57,7 @@ class CheckCpfAuthRequest extends Model
 
     // 扩展字段
     /**
-     * @var string
+     * @var AuthProperty
      */
     public $content;
     protected $_name = [
@@ -79,6 +79,7 @@ class CheckCpfAuthRequest extends Model
         Model::validateRequired('authorizedIdentity', $this->authorizedIdentity, true);
         Model::validateRequired('authorizedPlatformIdentity', $this->authorizedPlatformIdentity, true);
         Model::validateRequired('targetCode', $this->targetCode, true);
+        Model::validateRequired('content', $this->content, true);
     }
 
     public function toMap()
@@ -109,7 +110,7 @@ class CheckCpfAuthRequest extends Model
             $res['auth_agreement'] = null !== $this->authAgreement ? $this->authAgreement->toMap() : null;
         }
         if (null !== $this->content) {
-            $res['content'] = $this->content;
+            $res['content'] = null !== $this->content ? $this->content->toMap() : null;
         }
 
         return $res;
@@ -148,7 +149,7 @@ class CheckCpfAuthRequest extends Model
             $model->authAgreement = AuthAgreement::fromMap($map['auth_agreement']);
         }
         if (isset($map['content'])) {
-            $model->content = $map['content'];
+            $model->content = AuthProperty::fromMap($map['content']);
         }
 
         return $model;

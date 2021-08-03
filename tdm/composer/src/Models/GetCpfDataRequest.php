@@ -84,6 +84,12 @@ class GetCpfDataRequest extends Model
      * @var string
      */
     public $extendParams;
+
+    // 用数请求签名信息
+    /**
+     * @var CpfDataUseReqSign
+     */
+    public $reqSign;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -98,6 +104,7 @@ class GetCpfDataRequest extends Model
         'dataCode'              => 'data_code',
         'targetCode'            => 'target_code',
         'extendParams'          => 'extend_params',
+        'reqSign'               => 'req_sign',
     ];
 
     public function validate()
@@ -155,6 +162,9 @@ class GetCpfDataRequest extends Model
         if (null !== $this->extendParams) {
             $res['extend_params'] = $this->extendParams;
         }
+        if (null !== $this->reqSign) {
+            $res['req_sign'] = null !== $this->reqSign ? $this->reqSign->toMap() : null;
+        }
 
         return $res;
     }
@@ -205,6 +215,9 @@ class GetCpfDataRequest extends Model
         }
         if (isset($map['extend_params'])) {
             $model->extendParams = $map['extend_params'];
+        }
+        if (isset($map['req_sign'])) {
+            $model->reqSign = CpfDataUseReqSign::fromMap($map['req_sign']);
         }
 
         return $model;

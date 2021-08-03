@@ -41,6 +41,8 @@ use AntChain\TDM\Models\ListCpfCertuseRequest;
 use AntChain\TDM\Models\ListCpfCertuseResponse;
 use AntChain\TDM\Models\ListCpfDatauseRequest;
 use AntChain\TDM\Models\ListCpfDatauseResponse;
+use AntChain\TDM\Models\ListCpfSourceRequest;
+use AntChain\TDM\Models\ListCpfSourceResponse;
 use AntChain\TDM\Models\OpenCpfCertRequest;
 use AntChain\TDM\Models\OpenCpfCertResponse;
 use AntChain\TDM\Models\QueryAuthOwnerRequest;
@@ -178,7 +180,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 链的信息
+            // 公积金中心编码名称
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -206,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.4',
+                    'sdk_version'      => '1.1.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -811,6 +813,39 @@ class Client
         Utils::validateModel($request);
 
         return CheckCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商业机构公积金中心列表查询
+     * Summary: 商业机构公积金中心列表查询.
+     *
+     * @param ListCpfSourceRequest $request
+     *
+     * @return ListCpfSourceResponse
+     */
+    public function listCpfSource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listCpfSourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商业机构公积金中心列表查询
+     * Summary: 商业机构公积金中心列表查询.
+     *
+     * @param ListCpfSourceRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ListCpfSourceResponse
+     */
+    public function listCpfSourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListCpfSourceResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
