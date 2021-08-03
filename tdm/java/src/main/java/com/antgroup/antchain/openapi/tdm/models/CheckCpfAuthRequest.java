@@ -42,7 +42,8 @@ public class CheckCpfAuthRequest extends TeaModel {
 
     // 扩展字段
     @NameInMap("content")
-    public String content;
+    @Validation(required = true)
+    public AuthProperty content;
 
     public static CheckCpfAuthRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckCpfAuthRequest self = new CheckCpfAuthRequest();
@@ -113,11 +114,11 @@ public class CheckCpfAuthRequest extends TeaModel {
         return this.authAgreement;
     }
 
-    public CheckCpfAuthRequest setContent(String content) {
+    public CheckCpfAuthRequest setContent(AuthProperty content) {
         this.content = content;
         return this;
     }
-    public String getContent() {
+    public AuthProperty getContent() {
         return this.content;
     }
 

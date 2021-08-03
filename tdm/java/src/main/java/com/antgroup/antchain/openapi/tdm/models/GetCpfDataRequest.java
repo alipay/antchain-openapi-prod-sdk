@@ -64,6 +64,10 @@ public class GetCpfDataRequest extends TeaModel {
     @NameInMap("extend_params")
     public String extendParams;
 
+    // 用数请求签名信息
+    @NameInMap("req_sign")
+    public CpfDataUseReqSign reqSign;
+
     public static GetCpfDataRequest build(java.util.Map<String, ?> map) throws Exception {
         GetCpfDataRequest self = new GetCpfDataRequest();
         return TeaModel.build(map, self);
@@ -171,6 +175,14 @@ public class GetCpfDataRequest extends TeaModel {
     }
     public String getExtendParams() {
         return this.extendParams;
+    }
+
+    public GetCpfDataRequest setReqSign(CpfDataUseReqSign reqSign) {
+        this.reqSign = reqSign;
+        return this;
+    }
+    public CpfDataUseReqSign getReqSign() {
+        return this.reqSign;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.4")
+                    new TeaPair("sdk_version", "1.1.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -480,6 +480,25 @@ public class Client {
     public CheckCpfAuthResponse checkCpfAuthEx(CheckCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCpfAuthResponse());
+    }
+
+    /**
+     * Description: 商业机构公积金中心列表查询
+     * Summary: 商业机构公积金中心列表查询
+     */
+    public ListCpfSourceResponse listCpfSource(ListCpfSourceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listCpfSourceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商业机构公积金中心列表查询
+     * Summary: 商业机构公积金中心列表查询
+     */
+    public ListCpfSourceResponse listCpfSourceEx(ListCpfSourceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCpfSourceResponse());
     }
 
     /**
