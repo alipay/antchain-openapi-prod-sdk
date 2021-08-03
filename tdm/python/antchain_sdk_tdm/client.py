@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 链的信息
+            # 公积金中心编码名称
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4'
+                    'sdk_version': '1.1.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 链的信息
+            # 公积金中心编码名称
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4'
+                    'sdk_version': '1.1.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1187,6 +1187,60 @@ class Client:
         UtilClient.validate_model(request)
         return tdm_models.CheckCpfAuthResponse().from_map(
             await self.do_request_async('1.0', 'antchain.tdm.cpf.auth.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_cpf_source(
+        self,
+        request: tdm_models.ListCpfSourceRequest,
+    ) -> tdm_models.ListCpfSourceResponse:
+        """
+        Description: 商业机构公积金中心列表查询
+        Summary: 商业机构公积金中心列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_cpf_source_ex(request, headers, runtime)
+
+    async def list_cpf_source_async(
+        self,
+        request: tdm_models.ListCpfSourceRequest,
+    ) -> tdm_models.ListCpfSourceResponse:
+        """
+        Description: 商业机构公积金中心列表查询
+        Summary: 商业机构公积金中心列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_cpf_source_ex_async(request, headers, runtime)
+
+    def list_cpf_source_ex(
+        self,
+        request: tdm_models.ListCpfSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.ListCpfSourceResponse:
+        """
+        Description: 商业机构公积金中心列表查询
+        Summary: 商业机构公积金中心列表查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.ListCpfSourceResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_cpf_source_ex_async(
+        self,
+        request: tdm_models.ListCpfSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.ListCpfSourceResponse:
+        """
+        Description: 商业机构公积金中心列表查询
+        Summary: 商业机构公积金中心列表查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.ListCpfSourceResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_auth(

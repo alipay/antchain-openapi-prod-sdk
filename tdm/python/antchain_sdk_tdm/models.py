@@ -150,6 +150,87 @@ class Config(TeaModel):
         return self
 
 
+class TdmCpfEncodeNameVO(TeaModel):
+    def __init__(
+        self,
+        code: str = None,
+        name: str = None,
+    ):
+        # 公积金中心编码
+        self.code = code
+        # 公积金中心名称
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class TdmCpfCitysVO(TeaModel):
+    def __init__(
+        self,
+        code: str = None,
+        name: str = None,
+        cpfs: List[TdmCpfEncodeNameVO] = None,
+    ):
+        # 城市编码
+        self.code = code
+        # 城市名称
+        self.name = name
+        # 公积金中心城市列表
+        self.cpfs = cpfs
+
+    def validate(self):
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.cpfs, 'cpfs')
+        if self.cpfs:
+            for k in self.cpfs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.name is not None:
+            result['name'] = self.name
+        result['cpfs'] = []
+        if self.cpfs is not None:
+            for k in self.cpfs:
+                result['cpfs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.cpfs = []
+        if m.get('cpfs') is not None:
+            for k in m.get('cpfs'):
+                temp_model = TdmCpfEncodeNameVO()
+                self.cpfs.append(temp_model.from_map(k))
+        return self
+
+
 class ChainInfo(TeaModel):
     def __init__(
         self,
@@ -1078,6 +1159,95 @@ class IssueCertParams(TeaModel):
             self.dkje = m.get('dkje')
         if m.get('dkqx') is not None:
             self.dkqx = m.get('dkqx')
+        return self
+
+
+class TdmCpfProvinceVO(TeaModel):
+    def __init__(
+        self,
+        code: str = None,
+        name: str = None,
+        areas: List[TdmCpfCitysVO] = None,
+    ):
+        # 省编码
+        self.code = code
+        # 省名称
+        self.name = name
+        # 公积金中心列表
+        self.areas = areas
+
+    def validate(self):
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.areas, 'areas')
+        if self.areas:
+            for k in self.areas:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.name is not None:
+            result['name'] = self.name
+        result['areas'] = []
+        if self.areas is not None:
+            for k in self.areas:
+                result['areas'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.areas = []
+        if m.get('areas') is not None:
+            for k in m.get('areas'):
+                temp_model = TdmCpfCitysVO()
+                self.areas.append(temp_model.from_map(k))
+        return self
+
+
+class CpfDataUseReqSign(TeaModel):
+    def __init__(
+        self,
+        m_sy_app_id: str = None,
+        m_sy_service: str = None,
+        m_sy_sign: str = None,
+    ):
+        # 机构签名ID
+        self.m_sy_app_id = m_sy_app_id
+        # 签名service, 需要颁发
+        self.m_sy_service = m_sy_service
+        # 签名信息
+        self.m_sy_sign = m_sy_sign
+
+    def validate(self):
+        self.validate_required(self.m_sy_app_id, 'm_sy_app_id')
+        self.validate_required(self.m_sy_service, 'm_sy_service')
+        self.validate_required(self.m_sy_sign, 'm_sy_sign')
+
+    def to_map(self):
+        result = dict()
+        if self.m_sy_app_id is not None:
+            result['m_sy_app_id'] = self.m_sy_app_id
+        if self.m_sy_service is not None:
+            result['m_sy_service'] = self.m_sy_service
+        if self.m_sy_sign is not None:
+            result['m_sy_sign'] = self.m_sy_sign
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('m_sy_app_id') is not None:
+            self.m_sy_app_id = m.get('m_sy_app_id')
+        if m.get('m_sy_service') is not None:
+            self.m_sy_service = m.get('m_sy_service')
+        if m.get('m_sy_sign') is not None:
+            self.m_sy_sign = m.get('m_sy_sign')
         return self
 
 
@@ -2187,6 +2357,7 @@ class GetCpfDataRequest(TeaModel):
         data_code: str = None,
         target_code: str = None,
         extend_params: str = None,
+        req_sign: CpfDataUseReqSign = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2213,6 +2384,8 @@ class GetCpfDataRequest(TeaModel):
         self.target_code = target_code
         # 扩展字段。
         self.extend_params = extend_params
+        # 用数请求签名信息
+        self.req_sign = req_sign
 
     def validate(self):
         self.validate_required(self.terminal_identity, 'terminal_identity')
@@ -2224,6 +2397,8 @@ class GetCpfDataRequest(TeaModel):
         self.validate_required(self.provider_id, 'provider_id')
         self.validate_required(self.data_code, 'data_code')
         self.validate_required(self.target_code, 'target_code')
+        if self.req_sign:
+            self.req_sign.validate()
 
     def to_map(self):
         result = dict()
@@ -2253,6 +2428,8 @@ class GetCpfDataRequest(TeaModel):
             result['target_code'] = self.target_code
         if self.extend_params is not None:
             result['extend_params'] = self.extend_params
+        if self.req_sign is not None:
+            result['req_sign'] = self.req_sign.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2283,6 +2460,9 @@ class GetCpfDataRequest(TeaModel):
             self.target_code = m.get('target_code')
         if m.get('extend_params') is not None:
             self.extend_params = m.get('extend_params')
+        if m.get('req_sign') is not None:
+            temp_model = CpfDataUseReqSign()
+            self.req_sign = temp_model.from_map(m['req_sign'])
         return self
 
 
@@ -3468,7 +3648,7 @@ class CheckCpfAuthRequest(TeaModel):
         authorized_platform_identity: str = None,
         target_code: str = None,
         auth_agreement: AuthAgreement = None,
-        content: str = None,
+        content: AuthProperty = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3496,6 +3676,9 @@ class CheckCpfAuthRequest(TeaModel):
         self.validate_required(self.target_code, 'target_code')
         if self.auth_agreement:
             self.auth_agreement.validate()
+        self.validate_required(self.content, 'content')
+        if self.content:
+            self.content.validate()
 
     def to_map(self):
         result = dict()
@@ -3516,7 +3699,7 @@ class CheckCpfAuthRequest(TeaModel):
         if self.auth_agreement is not None:
             result['auth_agreement'] = self.auth_agreement.to_map()
         if self.content is not None:
-            result['content'] = self.content
+            result['content'] = self.content.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -3539,7 +3722,8 @@ class CheckCpfAuthRequest(TeaModel):
             temp_model = AuthAgreement()
             self.auth_agreement = temp_model.from_map(m['auth_agreement'])
         if m.get('content') is not None:
-            self.content = m.get('content')
+            temp_model = AuthProperty()
+            self.content = temp_model.from_map(m['content'])
         return self
 
 
@@ -3585,6 +3769,89 @@ class CheckCpfAuthResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('if_auth') is not None:
             self.if_auth = m.get('if_auth')
+        return self
+
+
+class ListCpfSourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class ListCpfSourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        cpf_list: List[TdmCpfProvinceVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商业机构公积金中心列表查询结果
+        self.cpf_list = cpf_list
+
+    def validate(self):
+        if self.cpf_list:
+            for k in self.cpf_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['cpf_list'] = []
+        if self.cpf_list is not None:
+            for k in self.cpf_list:
+                result['cpf_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.cpf_list = []
+        if m.get('cpf_list') is not None:
+            for k in m.get('cpf_list'):
+                temp_model = TdmCpfProvinceVO()
+                self.cpf_list.append(temp_model.from_map(k))
         return self
 
 
