@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.5',
+    sdk_version = '1.1.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1411,6 +1411,86 @@ async function listCpfSource(request: ListCpfSourceRequest): ListCpfSourceRespon
 async function listCpfSourceEx(request: ListCpfSourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListCpfSourceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCpfVerifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份证ID(目前只支持身份证ID)
+  userId: string(name='user_id'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 环境参数，需要通过客户端 SDK 获取
+  metaInfo: string(name='meta_info'),
+}
+
+model CreateCpfVerifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信实人认证唯一标识
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: 商业核身平台核身认证创建
+ * Summary: 商业核身平台核身认证创建
+ */
+async function createCpfVerify(request: CreateCpfVerifyRequest): CreateCpfVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCpfVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商业核身平台核身认证创建
+ * Summary: 商业核身平台核身认证创建
+ */
+async function createCpfVerifyEx(request: CreateCpfVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCpfVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.verify.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCpfVerifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 可信实人认证唯一标识
+  certifyId: string(name='certify_id'),
+}
+
+model QueryCpfVerifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 核身状态 1:核身创建成功 2:核身验证通过 3:核身验证失败
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 核身记录查询
+ * Summary: 商业核身平台核身记录查询
+ */
+async function queryCpfVerify(request: QueryCpfVerifyRequest): QueryCpfVerifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCpfVerifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核身记录查询
+ * Summary: 商业核身平台核身记录查询
+ */
+async function queryCpfVerifyEx(request: QueryCpfVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCpfVerifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecAuthRequest = {
