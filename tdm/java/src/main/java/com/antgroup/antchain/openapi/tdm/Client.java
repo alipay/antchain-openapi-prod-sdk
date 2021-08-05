@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.5")
+                    new TeaPair("sdk_version", "1.1.6")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -499,6 +499,44 @@ public class Client {
     public ListCpfSourceResponse listCpfSourceEx(ListCpfSourceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCpfSourceResponse());
+    }
+
+    /**
+     * Description: 商业核身平台核身认证创建
+     * Summary: 商业核身平台核身认证创建
+     */
+    public CreateCpfVerifyResponse createCpfVerify(CreateCpfVerifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCpfVerifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商业核身平台核身认证创建
+     * Summary: 商业核身平台核身认证创建
+     */
+    public CreateCpfVerifyResponse createCpfVerifyEx(CreateCpfVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.verify.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCpfVerifyResponse());
+    }
+
+    /**
+     * Description: 核身记录查询
+     * Summary: 商业核身平台核身记录查询
+     */
+    public QueryCpfVerifyResponse queryCpfVerify(QueryCpfVerifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCpfVerifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 核身记录查询
+     * Summary: 商业核身平台核身记录查询
+     */
+    public QueryCpfVerifyResponse queryCpfVerifyEx(QueryCpfVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCpfVerifyResponse());
     }
 
     /**
