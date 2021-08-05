@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.1.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5'
+                    'sdk_version': '1.1.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1241,6 +1241,114 @@ class Client:
         UtilClient.validate_model(request)
         return tdm_models.ListCpfSourceResponse().from_map(
             await self.do_request_async('1.0', 'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_cpf_verify(
+        self,
+        request: tdm_models.CreateCpfVerifyRequest,
+    ) -> tdm_models.CreateCpfVerifyResponse:
+        """
+        Description: 商业核身平台核身认证创建
+        Summary: 商业核身平台核身认证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_cpf_verify_ex(request, headers, runtime)
+
+    async def create_cpf_verify_async(
+        self,
+        request: tdm_models.CreateCpfVerifyRequest,
+    ) -> tdm_models.CreateCpfVerifyResponse:
+        """
+        Description: 商业核身平台核身认证创建
+        Summary: 商业核身平台核身认证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_cpf_verify_ex_async(request, headers, runtime)
+
+    def create_cpf_verify_ex(
+        self,
+        request: tdm_models.CreateCpfVerifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.CreateCpfVerifyResponse:
+        """
+        Description: 商业核身平台核身认证创建
+        Summary: 商业核身平台核身认证创建
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.CreateCpfVerifyResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.verify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_cpf_verify_ex_async(
+        self,
+        request: tdm_models.CreateCpfVerifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.CreateCpfVerifyResponse:
+        """
+        Description: 商业核身平台核身认证创建
+        Summary: 商业核身平台核身认证创建
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.CreateCpfVerifyResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.verify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cpf_verify(
+        self,
+        request: tdm_models.QueryCpfVerifyRequest,
+    ) -> tdm_models.QueryCpfVerifyResponse:
+        """
+        Description: 核身记录查询
+        Summary: 商业核身平台核身记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cpf_verify_ex(request, headers, runtime)
+
+    async def query_cpf_verify_async(
+        self,
+        request: tdm_models.QueryCpfVerifyRequest,
+    ) -> tdm_models.QueryCpfVerifyResponse:
+        """
+        Description: 核身记录查询
+        Summary: 商业核身平台核身记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cpf_verify_ex_async(request, headers, runtime)
+
+    def query_cpf_verify_ex(
+        self,
+        request: tdm_models.QueryCpfVerifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfVerifyResponse:
+        """
+        Description: 核身记录查询
+        Summary: 商业核身平台核身记录查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfVerifyResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cpf_verify_ex_async(
+        self,
+        request: tdm_models.QueryCpfVerifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.QueryCpfVerifyResponse:
+        """
+        Description: 核身记录查询
+        Summary: 商业核身平台核身记录查询
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.QueryCpfVerifyResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_auth(
