@@ -2463,6 +2463,132 @@ export class ListCpfSourceResponse extends $tea.Model {
   }
 }
 
+export class CreateCpfVerifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户身份证ID(目前只支持身份证ID)
+  userId: string;
+  // 用户姓名
+  userName: string;
+  // 环境参数，需要通过客户端 SDK 获取
+  metaInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      userName: 'user_name',
+      metaInfo: 'meta_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      userName: 'string',
+      metaInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCpfVerifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 可信实人认证唯一标识
+  certifyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCpfVerifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 可信实人认证唯一标识
+  certifyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCpfVerifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 核身状态 1:核身创建成功 2:核身验证通过 3:核身验证失败
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecAuthRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3171,7 +3297,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.1.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3557,6 +3683,44 @@ export default class Client {
   async listCpfSourceEx(request: ListCpfSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListCpfSourceResponse> {
     Util.validateModel(request);
     return $tea.cast<ListCpfSourceResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListCpfSourceResponse({}));
+  }
+
+  /**
+   * Description: 商业核身平台核身认证创建
+   * Summary: 商业核身平台核身认证创建
+   */
+  async createCpfVerify(request: CreateCpfVerifyRequest): Promise<CreateCpfVerifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createCpfVerifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商业核身平台核身认证创建
+   * Summary: 商业核身平台核身认证创建
+   */
+  async createCpfVerifyEx(request: CreateCpfVerifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateCpfVerifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateCpfVerifyResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.verify.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateCpfVerifyResponse({}));
+  }
+
+  /**
+   * Description: 核身记录查询
+   * Summary: 商业核身平台核身记录查询
+   */
+  async queryCpfVerify(request: QueryCpfVerifyRequest): Promise<QueryCpfVerifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCpfVerifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 核身记录查询
+   * Summary: 商业核身平台核身记录查询
+   */
+  async queryCpfVerifyEx(request: QueryCpfVerifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCpfVerifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCpfVerifyResponse>(await this.doRequest("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCpfVerifyResponse({}));
   }
 
   /**
