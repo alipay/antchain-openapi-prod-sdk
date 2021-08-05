@@ -137,7 +137,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1071,6 +1071,90 @@ namespace AntChain.SDK.TDM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListCpfSourceResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.source.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商业核身平台核身认证创建
+         * Summary: 商业核身平台核身认证创建
+         */
+        public CreateCpfVerifyResponse CreateCpfVerify(CreateCpfVerifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCpfVerifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商业核身平台核身认证创建
+         * Summary: 商业核身平台核身认证创建
+         */
+        public async Task<CreateCpfVerifyResponse> CreateCpfVerifyAsync(CreateCpfVerifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCpfVerifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商业核身平台核身认证创建
+         * Summary: 商业核身平台核身认证创建
+         */
+        public CreateCpfVerifyResponse CreateCpfVerifyEx(CreateCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCpfVerifyResponse>(DoRequest("1.0", "antchain.tdm.cpf.verify.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商业核身平台核身认证创建
+         * Summary: 商业核身平台核身认证创建
+         */
+        public async Task<CreateCpfVerifyResponse> CreateCpfVerifyExAsync(CreateCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCpfVerifyResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.verify.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核身记录查询
+         * Summary: 商业核身平台核身记录查询
+         */
+        public QueryCpfVerifyResponse QueryCpfVerify(QueryCpfVerifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCpfVerifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核身记录查询
+         * Summary: 商业核身平台核身记录查询
+         */
+        public async Task<QueryCpfVerifyResponse> QueryCpfVerifyAsync(QueryCpfVerifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCpfVerifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 核身记录查询
+         * Summary: 商业核身平台核身记录查询
+         */
+        public QueryCpfVerifyResponse QueryCpfVerifyEx(QueryCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfVerifyResponse>(DoRequest("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 核身记录查询
+         * Summary: 商业核身平台核身记录查询
+         */
+        public async Task<QueryCpfVerifyResponse> QueryCpfVerifyExAsync(QueryCpfVerifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCpfVerifyResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
