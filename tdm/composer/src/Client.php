@@ -21,6 +21,8 @@ use AntChain\TDM\Models\CheckCpfCertRequest;
 use AntChain\TDM\Models\CheckCpfCertResponse;
 use AntChain\TDM\Models\ConfirmCpfDatauseRequest;
 use AntChain\TDM\Models\ConfirmCpfDatauseResponse;
+use AntChain\TDM\Models\CreateCpfVerifyRequest;
+use AntChain\TDM\Models\CreateCpfVerifyResponse;
 use AntChain\TDM\Models\ExecAuthRequest;
 use AntChain\TDM\Models\ExecAuthResponse;
 use AntChain\TDM\Models\ExecAuthuseRequest;
@@ -55,6 +57,8 @@ use AntChain\TDM\Models\QueryCpfAuthRequest;
 use AntChain\TDM\Models\QueryCpfAuthResponse;
 use AntChain\TDM\Models\QueryCpfUserRequest;
 use AntChain\TDM\Models\QueryCpfUserResponse;
+use AntChain\TDM\Models\QueryCpfVerifyRequest;
+use AntChain\TDM\Models\QueryCpfVerifyResponse;
 use AntChain\TDM\Models\SaveCpfCertuseRequest;
 use AntChain\TDM\Models\SaveCpfCertuseResponse;
 use AntChain\TDM\Models\SaveCpfDatauseRequest;
@@ -208,7 +212,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.1.6',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -846,6 +850,72 @@ class Client
         Utils::validateModel($request);
 
         return ListCpfSourceResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.source.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商业核身平台核身认证创建
+     * Summary: 商业核身平台核身认证创建.
+     *
+     * @param CreateCpfVerifyRequest $request
+     *
+     * @return CreateCpfVerifyResponse
+     */
+    public function createCpfVerify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCpfVerifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商业核身平台核身认证创建
+     * Summary: 商业核身平台核身认证创建.
+     *
+     * @param CreateCpfVerifyRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateCpfVerifyResponse
+     */
+    public function createCpfVerifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCpfVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.verify.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 核身记录查询
+     * Summary: 商业核身平台核身记录查询.
+     *
+     * @param QueryCpfVerifyRequest $request
+     *
+     * @return QueryCpfVerifyResponse
+     */
+    public function queryCpfVerify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCpfVerifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 核身记录查询
+     * Summary: 商业核身平台核身记录查询.
+     *
+     * @param QueryCpfVerifyRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryCpfVerifyResponse
+     */
+    public function queryCpfVerifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCpfVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
