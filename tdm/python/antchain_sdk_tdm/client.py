@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.1.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.1.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1349,6 +1349,60 @@ class Client:
         UtilClient.validate_model(request)
         return tdm_models.QueryCpfVerifyResponse().from_map(
             await self.do_request_async('1.0', 'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_cpf_auth(
+        self,
+        request: tdm_models.RecognizeCpfAuthRequest,
+    ) -> tdm_models.RecognizeCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+        Summary: 公积金业务授权接口（必须带核身vid）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_cpf_auth_ex(request, headers, runtime)
+
+    async def recognize_cpf_auth_async(
+        self,
+        request: tdm_models.RecognizeCpfAuthRequest,
+    ) -> tdm_models.RecognizeCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+        Summary: 公积金业务授权接口（必须带核身vid）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_cpf_auth_ex_async(request, headers, runtime)
+
+    def recognize_cpf_auth_ex(
+        self,
+        request: tdm_models.RecognizeCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.RecognizeCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+        Summary: 公积金业务授权接口（必须带核身vid）
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.RecognizeCpfAuthResponse().from_map(
+            self.do_request('1.0', 'antchain.tdm.cpf.auth.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_cpf_auth_ex_async(
+        self,
+        request: tdm_models.RecognizeCpfAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tdm_models.RecognizeCpfAuthResponse:
+        """
+        Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+        Summary: 公积金业务授权接口（必须带核身vid）
+        """
+        UtilClient.validate_model(request)
+        return tdm_models.RecognizeCpfAuthResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.tdm.cpf.auth.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_auth(
