@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TDM.Models
 {
-    public class QueryCpfVerifyResponse : TeaModel {
+    public class RecognizeCpfAuthResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 核身结果
-        [NameInMap("verify_vo")]
+        // 授权码
+        [NameInMap("auth_code")]
         [Validation(Required=false)]
-        public TdmVerifyLogVO VerifyVo { get; set; }
+        public string AuthCode { get; set; }
 
     }
 

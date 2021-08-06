@@ -137,7 +137,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.1.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TDM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.1.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1155,6 +1155,48 @@ namespace AntChain.SDK.TDM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCpfVerifyResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+         * Summary: 公积金业务授权接口（必须带核身vid）
+         */
+        public RecognizeCpfAuthResponse RecognizeCpfAuth(RecognizeCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RecognizeCpfAuthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+         * Summary: 公积金业务授权接口（必须带核身vid）
+         */
+        public async Task<RecognizeCpfAuthResponse> RecognizeCpfAuthAsync(RecognizeCpfAuthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RecognizeCpfAuthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+         * Summary: 公积金业务授权接口（必须带核身vid）
+         */
+        public RecognizeCpfAuthResponse RecognizeCpfAuthEx(RecognizeCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeCpfAuthResponse>(DoRequest("1.0", "antchain.tdm.cpf.auth.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+         * Summary: 公积金业务授权接口（必须带核身vid）
+         */
+        public async Task<RecognizeCpfAuthResponse> RecognizeCpfAuthExAsync(RecognizeCpfAuthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeCpfAuthResponse>(await DoRequestAsync("1.0", "antchain.tdm.cpf.auth.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

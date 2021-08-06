@@ -15,6 +15,11 @@ namespace AntChain.SDK.TDM.Models
         [Validation(Required=false)]
         public bool? CertificationFlag { get; set; }
 
+        // 实人认证唯一标识
+        [NameInMap("certify_id")]
+        [Validation(Required=false)]
+        public string CertifyId { get; set; }
+
     }
 
 }
