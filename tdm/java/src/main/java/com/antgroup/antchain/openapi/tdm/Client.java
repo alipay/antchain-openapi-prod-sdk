@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6")
+                    new TeaPair("sdk_version", "1.1.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -537,6 +537,25 @@ public class Client {
     public QueryCpfVerifyResponse queryCpfVerifyEx(QueryCpfVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.verify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCpfVerifyResponse());
+    }
+
+    /**
+     * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+     * Summary: 公积金业务授权接口（必须带核身vid）
+     */
+    public RecognizeCpfAuthResponse recognizeCpfAuth(RecognizeCpfAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.recognizeCpfAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+     * Summary: 公积金业务授权接口（必须带核身vid）
+     */
+    public RecognizeCpfAuthResponse recognizeCpfAuthEx(RecognizeCpfAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.tdm.cpf.auth.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeCpfAuthResponse());
     }
 
     /**

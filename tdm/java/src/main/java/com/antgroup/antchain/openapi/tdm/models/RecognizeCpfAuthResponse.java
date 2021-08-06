@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.tdm.models;
 
 import com.aliyun.tea.*;
 
-public class QueryCpfVerifyResponse extends TeaModel {
+public class RecognizeCpfAuthResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryCpfVerifyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 核身结果
-    @NameInMap("verify_vo")
-    public TdmVerifyLogVO verifyVo;
+    // 授权码
+    @NameInMap("auth_code")
+    public String authCode;
 
-    public static QueryCpfVerifyResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryCpfVerifyResponse self = new QueryCpfVerifyResponse();
+    public static RecognizeCpfAuthResponse build(java.util.Map<String, ?> map) throws Exception {
+        RecognizeCpfAuthResponse self = new RecognizeCpfAuthResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryCpfVerifyResponse setReqMsgId(String reqMsgId) {
+    public RecognizeCpfAuthResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryCpfVerifyResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryCpfVerifyResponse setResultCode(String resultCode) {
+    public RecognizeCpfAuthResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryCpfVerifyResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryCpfVerifyResponse setResultMsg(String resultMsg) {
+    public RecognizeCpfAuthResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryCpfVerifyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryCpfVerifyResponse setVerifyVo(TdmVerifyLogVO verifyVo) {
-        this.verifyVo = verifyVo;
+    public RecognizeCpfAuthResponse setAuthCode(String authCode) {
+        this.authCode = authCode;
         return this;
     }
-    public TdmVerifyLogVO getVerifyVo() {
-        return this.verifyVo;
+    public String getAuthCode() {
+        return this.authCode;
     }
 
 }
