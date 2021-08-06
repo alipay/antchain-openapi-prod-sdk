@@ -15,8 +15,17 @@ class CertificationInfo extends Model
      * @var bool
      */
     public $certificationFlag;
+
+    // 实人认证唯一标识
+    /**
+     * @example 11410000005184603J
+     *
+     * @var string
+     */
+    public $certifyId;
     protected $_name = [
         'certificationFlag' => 'certification_flag',
+        'certifyId'         => 'certify_id',
     ];
 
     public function validate()
@@ -28,6 +37,9 @@ class CertificationInfo extends Model
         $res = [];
         if (null !== $this->certificationFlag) {
             $res['certification_flag'] = $this->certificationFlag;
+        }
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
         }
 
         return $res;
@@ -43,6 +55,9 @@ class CertificationInfo extends Model
         $model = new self();
         if (isset($map['certification_flag'])) {
             $model->certificationFlag = $map['certification_flag'];
+        }
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
         }
 
         return $model;

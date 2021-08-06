@@ -6,7 +6,7 @@ namespace AntChain\TDM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCpfVerifyResponse extends Model
+class RecognizeCpfAuthResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryCpfVerifyResponse extends Model
      */
     public $resultMsg;
 
-    // 核身结果
+    // 授权码
     /**
-     * @var TdmVerifyLogVO
+     * @var string
      */
-    public $verifyVo;
+    public $authCode;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'verifyVo'   => 'verify_vo',
+        'authCode'   => 'auth_code',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryCpfVerifyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->verifyVo) {
-            $res['verify_vo'] = null !== $this->verifyVo ? $this->verifyVo->toMap() : null;
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class QueryCpfVerifyResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryCpfVerifyResponse
+     * @return RecognizeCpfAuthResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class QueryCpfVerifyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['verify_vo'])) {
-            $model->verifyVo = TdmVerifyLogVO::fromMap($map['verify_vo']);
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
         }
 
         return $model;

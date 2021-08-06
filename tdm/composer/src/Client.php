@@ -59,6 +59,8 @@ use AntChain\TDM\Models\QueryCpfUserRequest;
 use AntChain\TDM\Models\QueryCpfUserResponse;
 use AntChain\TDM\Models\QueryCpfVerifyRequest;
 use AntChain\TDM\Models\QueryCpfVerifyResponse;
+use AntChain\TDM\Models\RecognizeCpfAuthRequest;
+use AntChain\TDM\Models\RecognizeCpfAuthResponse;
 use AntChain\TDM\Models\SaveCpfCertuseRequest;
 use AntChain\TDM\Models\SaveCpfCertuseResponse;
 use AntChain\TDM\Models\SaveCpfDatauseRequest;
@@ -212,7 +214,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.6',
+                    'sdk_version'      => '1.1.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -916,6 +918,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCpfVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.verify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+     * Summary: 公积金业务授权接口（必须带核身vid）.
+     *
+     * @param RecognizeCpfAuthRequest $request
+     *
+     * @return RecognizeCpfAuthResponse
+     */
+    public function recognizeCpfAuth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeCpfAuthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公积金业务授权接口（必须带核身vid），商业机构专用
+     * Summary: 公积金业务授权接口（必须带核身vid）.
+     *
+     * @param RecognizeCpfAuthRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return RecognizeCpfAuthResponse
+     */
+    public function recognizeCpfAuthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeCpfAuthResponse::fromMap($this->doRequest('1.0', 'antchain.tdm.cpf.auth.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
