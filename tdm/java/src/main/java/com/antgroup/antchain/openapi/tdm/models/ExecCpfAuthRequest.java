@@ -36,7 +36,6 @@ public class ExecCpfAuthRequest extends TeaModel {
 
     // 端ID
     @NameInMap("authorized_platform_identity")
-    @Validation(required = true)
     public String authorizedPlatformIdentity;
 
     // 授权标的

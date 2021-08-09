@@ -28,7 +28,6 @@ public class CheckCpfAuthRequest extends TeaModel {
 
     // 授权端ID
     @NameInMap("authorized_platform_identity")
-    @Validation(required = true)
     public String authorizedPlatformIdentity;
 
     // 授权业务码

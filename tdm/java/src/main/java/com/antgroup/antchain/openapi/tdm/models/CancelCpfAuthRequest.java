@@ -23,7 +23,6 @@ public class CancelCpfAuthRequest extends TeaModel {
 
     // 端ID
     @NameInMap("authorized_platform_identity")
-    @Validation(required = true)
     public String authorizedPlatformIdentity;
 
     // 授权接口返回的授权码

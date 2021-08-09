@@ -13,7 +13,6 @@ public class ListCpfDatauseRequest extends TeaModel {
 
     // 端ID
     @NameInMap("terminal_identity")
-    @Validation(required = true)
     public String terminalIdentity;
 
     // 使用方ID

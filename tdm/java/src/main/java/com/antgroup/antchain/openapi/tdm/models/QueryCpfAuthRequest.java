@@ -22,7 +22,6 @@ public class QueryCpfAuthRequest extends TeaModel {
 
     // 端ID
     @NameInMap("authorized_platform_identity")
-    @Validation(required = true)
     public String authorizedPlatformIdentity;
 
     // 标的产品码
