@@ -1560,7 +1560,7 @@ export class GetCpfDataRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 端ID
-  terminalIdentity: string;
+  terminalIdentity?: string;
   // 业务流水号
   bizId?: string;
   // 使用方ID
@@ -1667,7 +1667,7 @@ export class ListCpfDatauseRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 端ID
-  terminalIdentity: string;
+  terminalIdentity?: string;
   // 使用方ID
   dataUserIdentity: string;
   // 用户身份证ID
@@ -1835,7 +1835,7 @@ export class ExecCpfAuthRequest extends $tea.Model {
   // 被授权机构名称
   authorizedName?: string;
   // 端ID
-  authorizedPlatformIdentity: string;
+  authorizedPlatformIdentity?: string;
   // 授权标的
   targetCode: string;
   // 授权协议
@@ -1924,7 +1924,7 @@ export class CancelCpfAuthRequest extends $tea.Model {
   // 身份证ID
   dataOwnerIdentity: string;
   // 端ID
-  authorizedPlatformIdentity: string;
+  authorizedPlatformIdentity?: string;
   // 授权接口返回的授权码
   authCode: string;
   // 核身信息
@@ -1995,7 +1995,7 @@ export class QueryCpfAuthRequest extends $tea.Model {
   // 被授权机构ID
   authorizedIdentity?: string;
   // 端ID
-  authorizedPlatformIdentity: string;
+  authorizedPlatformIdentity?: string;
   // 标的产品码
   targetCode?: string;
   // 扩展字段
@@ -2076,7 +2076,7 @@ export class VerifyCpfAuthRequest extends $tea.Model {
   // 授权机构ID
   authorizedIdentity: string;
   // 授权端ID
-  authorizedPlatformIdentity: string;
+  authorizedPlatformIdentity?: string;
   // 授权业务码
   targetCode: string;
   // 授权协议
@@ -2365,7 +2365,7 @@ export class CheckCpfAuthRequest extends $tea.Model {
   // 授权机构ID
   authorizedIdentity: string;
   // 授权端ID
-  authorizedPlatformIdentity: string;
+  authorizedPlatformIdentity?: string;
   // 授权业务码
   targetCode: string;
   // 授权协议
@@ -3417,7 +3417,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.7",
+          sdk_version: "1.1.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
