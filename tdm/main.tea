@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.7',
+    sdk_version = '1.1.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -866,7 +866,7 @@ model GetCpfDataRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 端ID
-  terminalIdentity: string(name='terminal_identity'),
+  terminalIdentity?: string(name='terminal_identity'),
   // 业务流水号
   bizId?: string(name='biz_id'),
   // 使用方ID
@@ -928,7 +928,7 @@ model ListCpfDatauseRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 端ID
-  terminalIdentity: string(name='terminal_identity'),
+  terminalIdentity?: string(name='terminal_identity'),
   // 使用方ID
   dataUserIdentity: string(name='data_user_identity'),
   // 用户身份证ID
@@ -1034,7 +1034,7 @@ model ExecCpfAuthRequest = {
   // 被授权机构名称
   authorizedName?: string(name='authorized_name'),
   // 端ID
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  authorizedPlatformIdentity?: string(name='authorized_platform_identity'),
   // 授权标的
   targetCode: string(name='target_code'),
   // 授权协议
@@ -1084,7 +1084,7 @@ model CancelCpfAuthRequest = {
   // 身份证ID
   dataOwnerIdentity: string(name='data_owner_identity'),
   // 端ID
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  authorizedPlatformIdentity?: string(name='authorized_platform_identity'),
   // 授权接口返回的授权码
   authCode: string(name='auth_code'),
   // 核身信息
@@ -1128,7 +1128,7 @@ model QueryCpfAuthRequest = {
   // 被授权机构ID
   authorizedIdentity?: string(name='authorized_identity'),
   // 端ID
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  authorizedPlatformIdentity?: string(name='authorized_platform_identity'),
   // 标的产品码
   targetCode?: string(name='target_code'),
   // 扩展字段
@@ -1178,7 +1178,7 @@ model VerifyCpfAuthRequest = {
   // 授权机构ID
   authorizedIdentity: string(name='authorized_identity'),
   // 授权端ID
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  authorizedPlatformIdentity?: string(name='authorized_platform_identity'),
   // 授权业务码
   targetCode: string(name='target_code'),
   // 授权协议
@@ -1348,7 +1348,7 @@ model CheckCpfAuthRequest = {
   // 授权机构ID
   authorizedIdentity: string(name='authorized_identity'),
   // 授权端ID
-  authorizedPlatformIdentity: string(name='authorized_platform_identity'),
+  authorizedPlatformIdentity?: string(name='authorized_platform_identity'),
   // 授权业务码
   targetCode: string(name='target_code'),
   // 授权协议

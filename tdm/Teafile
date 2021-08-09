@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TDM",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-tdm:1.1.7",
+    "java": "com.antgroup.antchain.openapi:openapi-tdm:1.1.8",
     "go": "github.com/antchain-openapi-sdk-go/tdm/client:v1.1.4",
     "csharp": "AntChain.SDK.TDM:1.1.4",
-    "ts": "@antchain/tdm:1.1.7",
-    "php": "antchain/tdm:1.1.7",
-    "python": "antchain_sdk_tdm:1.1.7"
+    "ts": "@antchain/tdm:1.1.8",
+    "php": "antchain/tdm:1.1.8",
+    "python": "antchain_sdk_tdm:1.1.8"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
