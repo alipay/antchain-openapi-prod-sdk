@@ -67,7 +67,6 @@ class ListCpfDatauseRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
     }
 

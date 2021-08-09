@@ -68,7 +68,6 @@ class QueryCpfAuthRequest extends Model
     public function validate()
     {
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
-        Model::validateRequired('authorizedPlatformIdentity', $this->authorizedPlatformIdentity, true);
         Model::validateRequired('authState', $this->authState, true);
     }
 

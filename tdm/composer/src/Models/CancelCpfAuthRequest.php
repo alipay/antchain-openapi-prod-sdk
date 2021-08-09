@@ -62,7 +62,6 @@ class CancelCpfAuthRequest extends Model
     {
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
-        Model::validateRequired('authorizedPlatformIdentity', $this->authorizedPlatformIdentity, true);
         Model::validateRequired('authCode', $this->authCode, true);
     }
 

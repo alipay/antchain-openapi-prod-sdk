@@ -77,7 +77,6 @@ class CheckCpfAuthRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('dataOwnerIdentity', $this->dataOwnerIdentity, true);
         Model::validateRequired('authorizedIdentity', $this->authorizedIdentity, true);
-        Model::validateRequired('authorizedPlatformIdentity', $this->authorizedPlatformIdentity, true);
         Model::validateRequired('targetCode', $this->targetCode, true);
         Model::validateRequired('content', $this->content, true);
     }

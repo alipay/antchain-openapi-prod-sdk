@@ -109,7 +109,6 @@ class GetCpfDataRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('terminalIdentity', $this->terminalIdentity, true);
         Model::validateRequired('dataUserIdentity', $this->dataUserIdentity, true);
         Model::validateRequired('dataUserName', $this->dataUserName, true);
         Model::validateRequired('dataOwnerIdentityType', $this->dataOwnerIdentityType, true);
