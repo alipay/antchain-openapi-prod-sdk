@@ -20,7 +20,7 @@ namespace AntChain.SDK.TDM.Models
 
         // 端ID
         [NameInMap("terminal_identity")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TerminalIdentity { get; set; }
 
         // 业务流水号

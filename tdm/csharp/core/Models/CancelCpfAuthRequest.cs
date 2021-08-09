@@ -30,7 +30,7 @@ namespace AntChain.SDK.TDM.Models
 
         // 端ID
         [NameInMap("authorized_platform_identity")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthorizedPlatformIdentity { get; set; }
 
         // 授权接口返回的授权码
