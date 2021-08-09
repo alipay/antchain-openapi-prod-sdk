@@ -2427,7 +2427,6 @@ class GetCpfDataRequest(TeaModel):
         self.req_sign = req_sign
 
     def validate(self):
-        self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.data_user_identity, 'data_user_identity')
         self.validate_required(self.data_user_name, 'data_user_name')
         self.validate_required(self.data_owner_identity_type, 'data_owner_identity_type')
@@ -2586,7 +2585,6 @@ class ListCpfDatauseRequest(TeaModel):
         self.data_code = data_code
 
     def validate(self):
-        self.validate_required(self.terminal_identity, 'terminal_identity')
         self.validate_required(self.data_user_identity, 'data_user_identity')
 
     def to_map(self):
@@ -2865,7 +2863,6 @@ class ExecCpfAuthRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.authorized_identity, 'authorized_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
         self.validate_required(self.target_code, 'target_code')
         self.validate_required(self.auth_agreement, 'auth_agreement')
         if self.auth_agreement:
@@ -3005,7 +3002,6 @@ class CancelCpfAuthRequest(TeaModel):
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
         self.validate_required(self.auth_code, 'auth_code')
 
     def to_map(self):
@@ -3113,7 +3109,6 @@ class QueryCpfAuthRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
         self.validate_required(self.auth_state, 'auth_state')
 
     def to_map(self):
@@ -3245,7 +3240,6 @@ class VerifyCpfAuthRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.authorized_identity, 'authorized_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
         self.validate_required(self.target_code, 'target_code')
         self.validate_required(self.auth_agreement, 'auth_agreement')
         if self.auth_agreement:
@@ -3711,7 +3705,6 @@ class CheckCpfAuthRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.data_owner_identity, 'data_owner_identity')
         self.validate_required(self.authorized_identity, 'authorized_identity')
-        self.validate_required(self.authorized_platform_identity, 'authorized_platform_identity')
         self.validate_required(self.target_code, 'target_code')
         if self.auth_agreement:
             self.auth_agreement.validate()

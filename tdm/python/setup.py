@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_tdm.
 
-Created on 06/08/2021
+Created on 09/08/2021
 
 @author: Ant Chain SDK
 """
@@ -39,7 +39,7 @@ VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "antchain_alipay_util>=1.0.1, <2.0.0",
     "alibabacloud_tea_util>=0.3.5, <1.0.0",
-    "alibabacloud_rpc_util>=0.0.3, <1.0.0"
+    "alibabacloud_rpc_util>=0.0.4, <1.0.0"
 ]
 
 LONG_DESCRIPTION = ''
