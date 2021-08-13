@@ -1073,8 +1073,10 @@ export class IpBasicInfo extends $tea.Model {
   // "position":"aaa"// 联系人职务,必填
   // }]
   dockingPeopleInfo: DockingPeopleInfo[];
+  // 资质证书类型，0为自己上传的资质证书，1为区块链版权证书
+  copyRightType: string;
   // 资质信息
-  copyRight: string;
+  copyRight?: string;
   // 合作案例，图片存放oss链接，多张用,隔开
   cooperationCase?: string;
   // 合作事项
@@ -1115,6 +1117,7 @@ export class IpBasicInfo extends $tea.Model {
       imageDetail: 'image_detail',
       description: 'description',
       dockingPeopleInfo: 'docking_people_info',
+      copyRightType: 'copy_right_type',
       copyRight: 'copy_right',
       cooperationCase: 'cooperation_case',
       cooperationNote: 'cooperation_note',
@@ -1144,6 +1147,7 @@ export class IpBasicInfo extends $tea.Model {
       imageDetail: 'string',
       description: 'string',
       dockingPeopleInfo: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRightType: 'string',
       copyRight: 'string',
       cooperationCase: 'string',
       cooperationNote: 'string',
@@ -1178,12 +1182,15 @@ export class IPContactInfo extends $tea.Model {
   phone?: string;
   // 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
   type: number;
+  // 联系人身份证号
+  certno?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
       mobile: 'mobile',
       phone: 'phone',
       type: 'type',
+      certno: 'certno',
     };
   }
 
@@ -1193,6 +1200,7 @@ export class IPContactInfo extends $tea.Model {
       mobile: 'string',
       phone: 'string',
       type: 'number',
+      certno: 'string',
     };
   }
 
@@ -1535,6 +1543,35 @@ export class IPMCC extends $tea.Model {
       categoryLevel1: 'string',
       categoryLevel2: 'string',
       categoryLevel3: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户入驻的渠道表
+export class AccountInChannels extends $tea.Model {
+  // 天猫渠道
+  channelName: string;
+  // 是否入驻
+  isSettled: boolean;
+  // WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
+  settledStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      channelName: 'channel_name',
+      isSettled: 'is_settled',
+      settledStatus: 'settled_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channelName: 'string',
+      isSettled: 'boolean',
+      settledStatus: 'string',
     };
   }
 
@@ -2002,6 +2039,51 @@ export class BaseRequestInfo extends $tea.Model {
       bizId: 'string',
       chainId: 'string',
       productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 渠道对应的账户信息
+export class AccountSettlementInfo extends $tea.Model {
+  // 账户id
+  accountId: string;
+  // 版权方名字
+  accountName: string;
+  // WAIT_CHECK:渠道已申请开通但未审核，SUCCESS，审核成功
+  settledStatus: string;
+  // 版权方联系人名字
+  contactName?: string;
+  // 版权方联系人手机
+  contactMobile?: string;
+  // 版权方联系人手机号
+  contactPhone: string;
+  // 申请入驻时间
+  applyTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      accountId: 'account_id',
+      accountName: 'account_name',
+      settledStatus: 'settled_status',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+      contactPhone: 'contact_phone',
+      applyTime: 'apply_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountId: 'string',
+      accountName: 'string',
+      settledStatus: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+      contactPhone: 'string',
+      applyTime: 'number',
     };
   }
 
@@ -2631,6 +2713,12 @@ export class IPOrder extends $tea.Model {
   ipGalleryVersion?: number;
   // 商家是否已下载过本订单的图库
   downloadIpGallery?: boolean;
+  // 备注信息
+  memo: string;
+  // 附加条款
+  additionalClause?: string;
+  // 合同文件列表
+  contractFiles?: string[];
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2673,6 +2761,9 @@ export class IPOrder extends $tea.Model {
       ipGalleryUrl: 'ip_gallery_url',
       ipGalleryVersion: 'ip_gallery_version',
       downloadIpGallery: 'download_ip_gallery',
+      memo: 'memo',
+      additionalClause: 'additional_clause',
+      contractFiles: 'contract_files',
     };
   }
 
@@ -2718,6 +2809,9 @@ export class IPOrder extends $tea.Model {
       ipGalleryUrl: 'string',
       ipGalleryVersion: 'number',
       downloadIpGallery: 'boolean',
+      memo: 'string',
+      additionalClause: 'string',
+      contractFiles: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2926,6 +3020,14 @@ export class IPSalesInfo extends $tea.Model {
   operateTime: number;
   // 商品信息
   goodsInfo?: string;
+  // 商品ID
+  goodsId?: string;
+  // 退款的销售金额，有退款时填写，默认0
+  refundSales?: string;
+  // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+  salesExtInfo?: string;
+  // 用户信息json string: 姓名/手机号/地址等结构化数据
+  salesUserInfo?: string;
   static names(): { [key: string]: string } {
     return {
       goodsName: 'goods_name',
@@ -2942,6 +3044,10 @@ export class IPSalesInfo extends $tea.Model {
       operator: 'operator',
       operateTime: 'operate_time',
       goodsInfo: 'goods_info',
+      goodsId: 'goods_id',
+      refundSales: 'refund_sales',
+      salesExtInfo: 'sales_ext_info',
+      salesUserInfo: 'sales_user_info',
     };
   }
 
@@ -2961,6 +3067,10 @@ export class IPSalesInfo extends $tea.Model {
       operator: 'string',
       operateTime: 'number',
       goodsInfo: 'string',
+      goodsId: 'string',
+      refundSales: 'string',
+      salesExtInfo: 'string',
+      salesUserInfo: 'string',
     };
   }
 
@@ -4300,6 +4410,71 @@ export class WalletInfo extends $tea.Model {
       creditWallet: CreditWallet,
       debitWallet: DebitWallet,
       statisticalInfo: StatisticalInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// T+1日销售数据汇总
+export class SalesByDay extends $tea.Model {
+  // 订单ID
+  ipOrderId: string;
+  // 版权方ID
+  sellerId: string;
+  // 商家ID
+  buyerId: string;
+  // 版权方名称
+  sellerName: string;
+  // 商家名称
+  buyerName: string;
+  // 日期
+  date: string;
+  // 统计周期-开始时间
+  statisticBeginPeriod: number;
+  // 统计周期-结束时间
+  statisticEndPeriod: number;
+  // 商品销售数量
+  amount: number;
+  // 商品总销售额
+  sales: string;
+  // 总回退销售额
+  refundSales: string;
+  // 需支付给版权方的总费用
+  payment: string;
+  static names(): { [key: string]: string } {
+    return {
+      ipOrderId: 'ip_order_id',
+      sellerId: 'seller_id',
+      buyerId: 'buyer_id',
+      sellerName: 'seller_name',
+      buyerName: 'buyer_name',
+      date: 'date',
+      statisticBeginPeriod: 'statistic_begin_period',
+      statisticEndPeriod: 'statistic_end_period',
+      amount: 'amount',
+      sales: 'sales',
+      refundSales: 'refund_sales',
+      payment: 'payment',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ipOrderId: 'string',
+      sellerId: 'string',
+      buyerId: 'string',
+      sellerName: 'string',
+      buyerName: 'string',
+      date: 'string',
+      statisticBeginPeriod: 'number',
+      statisticEndPeriod: 'number',
+      amount: 'number',
+      sales: 'string',
+      refundSales: 'string',
+      payment: 'string',
     };
   }
 
@@ -16350,6 +16525,8 @@ export class StartIpPackagetradeRequest extends $tea.Model {
   authEndTime: number;
   // 备注信息
   memo: string;
+  // 附加条款
+  additionalClause?: string;
   // 授权产品范围
   authProductScope?: string;
   // 授权地域范围
@@ -16376,6 +16553,7 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'auth_begin_time',
       authEndTime: 'auth_end_time',
       memo: 'memo',
+      additionalClause: 'additional_clause',
       authProductScope: 'auth_product_scope',
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
@@ -16399,6 +16577,7 @@ export class StartIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'number',
       authEndTime: 'number',
       memo: 'string',
+      additionalClause: 'string',
       authProductScope: 'string',
       authAreaScope: 'string',
       salesChannel: 'string',
@@ -16619,6 +16798,8 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   salesChannel?: string;
   // 备注消息(不超过256个字符)
   memo: string;
+  // 附加条款
+  additionalClause?: string;
   // 是否有保底金
   guaranteed: boolean;
   // 支付的保底金金额
@@ -16651,6 +16832,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
       memo: 'memo',
+      additionalClause: 'additional_clause',
       guaranteed: 'guaranteed',
       guaranteedFund: 'guaranteed_fund',
       guaranteedGoodsAmount: 'guaranteed_goods_amount',
@@ -16679,6 +16861,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       authAreaScope: 'string',
       salesChannel: 'string',
       memo: 'string',
+      additionalClause: 'string',
       guaranteed: 'boolean',
       guaranteedFund: 'string',
       guaranteedGoodsAmount: 'number',
@@ -16778,6 +16961,16 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
   operator: string;
   // 备注信息
   memo?: string;
+  // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+  billingType?: number;
+  // 商品ID
+  goodsId?: string;
+  // 退款的销售金额，有退款时填写，默认0
+  refundSales?: string;
+  // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+  salesExtInfo?: string;
+  // 用户信息json string: 姓名/手机号/地址等结构化数据
+  salesUserInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16802,6 +16995,11 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       goodsInfo: 'goods_info',
       operator: 'operator',
       memo: 'memo',
+      billingType: 'billing_type',
+      goodsId: 'goods_id',
+      refundSales: 'refund_sales',
+      salesExtInfo: 'sales_ext_info',
+      salesUserInfo: 'sales_user_info',
     };
   }
 
@@ -16829,6 +17027,11 @@ export class UploadIpAuthtradesalesRequest extends $tea.Model {
       goodsInfo: 'string',
       operator: 'string',
       memo: 'string',
+      billingType: 'number',
+      goodsId: 'string',
+      refundSales: 'string',
+      salesExtInfo: 'string',
+      salesUserInfo: 'string',
     };
   }
 
@@ -17044,6 +17247,8 @@ export class QueryIpOrderlistRequest extends $tea.Model {
   pageNumber: number;
   // 每页数据量大小
   pageSize: number;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17065,6 +17270,7 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       order: 'order',
       pageNumber: 'page_number',
       pageSize: 'page_size',
+      channelName: 'channel_name',
     };
   }
 
@@ -17089,6 +17295,7 @@ export class QueryIpOrderlistRequest extends $tea.Model {
       order: 'string',
       pageNumber: 'number',
       pageSize: 'number',
+      channelName: 'string',
     };
   }
 
@@ -17183,8 +17390,10 @@ export class CreateIpGoodsRequest extends $tea.Model {
   // "position":"aaa"// 联系人职务,必填
   // }]
   dockingPeopleInfo: DockingPeopleInfo[];
-  // 资质
-  copyRight: string;
+  // 资质证书类型，0为用户上传，1申请
+  copyRightType?: string;
+  // 资质，copy_right_type为0的时候，copy_right不能为空，copy_right_type为1的时候，copy_right可以为空
+  copyRight?: string;
   // 合作事项
   cooperationNote?: string;
   // 传入的渠道信息
@@ -17220,6 +17429,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       imageDetail: 'image_detail',
       description: 'description',
       dockingPeopleInfo: 'docking_people_info',
+      copyRightType: 'copy_right_type',
       copyRight: 'copy_right',
       cooperationNote: 'cooperation_note',
       channelName: 'channel_name',
@@ -17248,6 +17458,7 @@ export class CreateIpGoodsRequest extends $tea.Model {
       imageDetail: 'string',
       description: 'string',
       dockingPeopleInfo: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRightType: 'string',
       copyRight: 'string',
       cooperationNote: 'string',
       channelName: 'string',
@@ -17452,6 +17663,8 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础信息
   baseRequest: BaseRequestInfo;
+  // 商品id
+  ipId?: string;
   // ip名称，支持模糊匹配
   ipName?: string;
   // 商品状态（0:待上架，1:上架，2:下架）
@@ -17485,6 +17698,7 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
+      ipId: 'ip_id',
       ipName: 'ip_name',
       status: 'status',
       channelName: 'channel_name',
@@ -17507,6 +17721,7 @@ export class BatchqueryIpGoodsRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
+      ipId: 'string',
       ipName: 'string',
       status: 'number',
       channelName: 'string',
@@ -17733,8 +17948,10 @@ export class UpdateIpGoodsRequest extends $tea.Model {
   // "position":"aaa"// 联系人职务,必填
   // }]
   dockingPeopleInfo: DockingPeopleInfo[];
+  // 资质证书类型，0为用户上传，1申请
+  copyRightType?: string;
   // 资质
-  copyRight: string;
+  copyRight?: string;
   // 合作事项
   cooperationNote?: string;
   // 传入的渠道信息，不是更新项
@@ -17770,6 +17987,7 @@ export class UpdateIpGoodsRequest extends $tea.Model {
       imageDetail: 'image_detail',
       description: 'description',
       dockingPeopleInfo: 'docking_people_info',
+      copyRightType: 'copy_right_type',
       copyRight: 'copy_right',
       cooperationNote: 'cooperation_note',
       channelName: 'channel_name',
@@ -17798,6 +18016,7 @@ export class UpdateIpGoodsRequest extends $tea.Model {
       imageDetail: 'string',
       description: 'string',
       dockingPeopleInfo: { 'type': 'array', 'itemType': DockingPeopleInfo },
+      copyRightType: 'string',
       copyRight: 'string',
       cooperationNote: 'string',
       channelName: 'string',
@@ -18611,6 +18830,8 @@ export class BatchqueryIpApprovalRequest extends $tea.Model {
   accountId?: string;
   // 是否需要按照创建时间倒序排序
   isCreateTimeSortDesc: boolean;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18627,6 +18848,7 @@ export class BatchqueryIpApprovalRequest extends $tea.Model {
       createEndTime: 'create_end_time',
       accountId: 'account_id',
       isCreateTimeSortDesc: 'is_create_time_sort_desc',
+      channelName: 'channel_name',
     };
   }
 
@@ -18646,6 +18868,7 @@ export class BatchqueryIpApprovalRequest extends $tea.Model {
       createEndTime: 'string',
       accountId: 'string',
       isCreateTimeSortDesc: 'boolean',
+      channelName: 'string',
     };
   }
 
@@ -18878,6 +19101,8 @@ export class PullIpAccountResponse extends $tea.Model {
   contactInfo?: IPContactInfo;
   // 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
   cardInfo?: IPCardInfo;
+  // 创建账户时间
+  createTime?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -18897,6 +19122,7 @@ export class PullIpAccountResponse extends $tea.Model {
       settleRule: 'settle_rule',
       contactInfo: 'contact_info',
       cardInfo: 'card_info',
+      createTime: 'create_time',
     };
   }
 
@@ -18919,6 +19145,7 @@ export class PullIpAccountResponse extends $tea.Model {
       settleRule: IPSettleRule,
       contactInfo: IPContactInfo,
       cardInfo: IPCardInfo,
+      createTime: 'number',
     };
   }
 
@@ -19086,6 +19313,8 @@ export class BatchqueryIpApprovalandchannelRequest extends $tea.Model {
   createBeginTime: string;
   // 结束时间
   createEndTime: string;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19102,6 +19331,7 @@ export class BatchqueryIpApprovalandchannelRequest extends $tea.Model {
       pageIndex: 'page_index',
       createBeginTime: 'create_begin_time',
       createEndTime: 'create_end_time',
+      channelName: 'channel_name',
     };
   }
 
@@ -19121,6 +19351,7 @@ export class BatchqueryIpApprovalandchannelRequest extends $tea.Model {
       pageIndex: 'number',
       createBeginTime: 'string',
       createEndTime: 'string',
+      channelName: 'string',
     };
   }
 
@@ -19174,12 +19405,15 @@ export class BatchqueryIpAccountRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 账户Id列表(单次不能超过50个)
   accountIds: string[];
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
       accountIds: 'account_ids',
+      channelName: 'channel_name',
     };
   }
 
@@ -19189,6 +19423,7 @@ export class BatchqueryIpAccountRequest extends $tea.Model {
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
       accountIds: { 'type': 'array', 'itemType': 'string' },
+      channelName: 'string',
     };
   }
 
@@ -20975,6 +21210,8 @@ export class UploadIpTradesalesRequest extends $tea.Model {
   ipOrderId: string;
   // true 只上链不走真实支付，false 上链并链下真实支付账单
   onlyCallBlockchain: boolean;
+  // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+  billingType?: number;
   // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
   payReturnUrl?: string;
   // 授权佣金比例
@@ -20985,6 +21222,8 @@ export class UploadIpTradesalesRequest extends $tea.Model {
   totalAmount: number;
   // 销售金额
   totalSales: string;
+  // 总的退款金额。不填默认为0
+  totalRefundSales?: string;
   // 实付金额（授权交易）
   totalPayment: string;
   // 销售数据列表
@@ -20997,11 +21236,13 @@ export class UploadIpTradesalesRequest extends $tea.Model {
       accountId: 'account_id',
       ipOrderId: 'ip_order_id',
       onlyCallBlockchain: 'only_call_blockchain',
+      billingType: 'billing_type',
       payReturnUrl: 'pay_return_url',
       authRate: 'auth_rate',
       authPrice: 'auth_price',
       totalAmount: 'total_amount',
       totalSales: 'total_sales',
+      totalRefundSales: 'total_refund_sales',
       totalPayment: 'total_payment',
       ipSalesInfoList: 'ip_sales_info_list',
     };
@@ -21015,11 +21256,13 @@ export class UploadIpTradesalesRequest extends $tea.Model {
       accountId: 'string',
       ipOrderId: 'string',
       onlyCallBlockchain: 'boolean',
+      billingType: 'number',
       payReturnUrl: 'string',
       authRate: 'string',
       authPrice: 'string',
       totalAmount: 'number',
       totalSales: 'string',
+      totalRefundSales: 'string',
       totalPayment: 'string',
       ipSalesInfoList: { 'type': 'array', 'itemType': IPSalesInfo },
     };
@@ -21196,12 +21439,15 @@ export class CountIpNumRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 账户id，为空则查全局
   accountId?: string;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
       accountId: 'account_id',
+      channelName: 'channel_name',
     };
   }
 
@@ -21211,6 +21457,7 @@ export class CountIpNumRequest extends $tea.Model {
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
       accountId: 'string',
+      channelName: 'string',
     };
   }
 
@@ -21263,12 +21510,15 @@ export class CountIpPvRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 账户id，为空则统计全局
   accountId?: string;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
       accountId: 'account_id',
+      channelName: 'channel_name',
     };
   }
 
@@ -21278,6 +21528,7 @@ export class CountIpPvRequest extends $tea.Model {
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
       accountId: 'string',
+      channelName: 'string',
     };
   }
 
@@ -21395,6 +21646,8 @@ export class CountIpAccountRequest extends $tea.Model {
   chainId?: string;
   // 场景码(入驻时申请)(长度不超过50个字符)
   productCode?: string;
+  // null返回所有数据，非空返回对应渠道的数据
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21402,6 +21655,7 @@ export class CountIpAccountRequest extends $tea.Model {
       baseRequest: 'base_request',
       chainId: 'chain_id',
       productCode: 'product_code',
+      channelName: 'channel_name',
     };
   }
 
@@ -21412,6 +21666,7 @@ export class CountIpAccountRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       chainId: 'string',
       productCode: 'string',
+      channelName: 'string',
     };
   }
 
@@ -21470,6 +21725,8 @@ export class QueryIpOrderstatisticRequest extends $tea.Model {
   sellerId?: string;
   // IP id
   ipId?: string;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21477,6 +21734,7 @@ export class QueryIpOrderstatisticRequest extends $tea.Model {
       baseRequest: 'base_request',
       sellerId: 'seller_id',
       ipId: 'ip_id',
+      channelName: 'channel_name',
     };
   }
 
@@ -21487,6 +21745,7 @@ export class QueryIpOrderstatisticRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       sellerId: 'string',
       ipId: 'string',
+      channelName: 'string',
     };
   }
 
@@ -22089,6 +22348,8 @@ export class ApplyIpPackagetradeRequest extends $tea.Model {
   authEndTime: number;
   // 备注信息
   memo: string;
+  // 附加条款
+  additionalClause?: string;
   // 授权产品范围
   authProductScope?: string;
   // 授权地域范围
@@ -22115,6 +22376,7 @@ export class ApplyIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'auth_begin_time',
       authEndTime: 'auth_end_time',
       memo: 'memo',
+      additionalClause: 'additional_clause',
       authProductScope: 'auth_product_scope',
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
@@ -22138,6 +22400,7 @@ export class ApplyIpPackagetradeRequest extends $tea.Model {
       authBeginTime: 'number',
       authEndTime: 'number',
       memo: 'string',
+      additionalClause: 'string',
       authProductScope: 'string',
       authAreaScope: 'string',
       salesChannel: 'string',
@@ -22225,6 +22488,8 @@ export class ApplyIpAuthtradeRequest extends $tea.Model {
   salesChannel?: string;
   // 备注消息(不超过256个字符)
   memo: string;
+  // 附加条款
+  additionalClause?: string;
   // 是否有保底金
   guaranteed: boolean;
   // 支付的保底金金额
@@ -22257,6 +22522,7 @@ export class ApplyIpAuthtradeRequest extends $tea.Model {
       authAreaScope: 'auth_area_scope',
       salesChannel: 'sales_channel',
       memo: 'memo',
+      additionalClause: 'additional_clause',
       guaranteed: 'guaranteed',
       guaranteedFund: 'guaranteed_fund',
       guaranteedGoodsAmount: 'guaranteed_goods_amount',
@@ -22285,6 +22551,7 @@ export class ApplyIpAuthtradeRequest extends $tea.Model {
       authAreaScope: 'string',
       salesChannel: 'string',
       memo: 'string',
+      additionalClause: 'string',
       guaranteed: 'boolean',
       guaranteedFund: 'string',
       guaranteedGoodsAmount: 'number',
@@ -22436,6 +22703,8 @@ export class BatchqueryIpApprovalwithupdateRequest extends $tea.Model {
   // 是否需要按照创建时间倒序排序
   // 
   isCreateTimeSortDesc: boolean;
+  // 渠道名称
+  channelName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -22452,6 +22721,7 @@ export class BatchqueryIpApprovalwithupdateRequest extends $tea.Model {
       createEndTime: 'create_end_time',
       accountId: 'account_id',
       isCreateTimeSortDesc: 'is_create_time_sort_desc',
+      channelName: 'channel_name',
     };
   }
 
@@ -22471,6 +22741,7 @@ export class BatchqueryIpApprovalwithupdateRequest extends $tea.Model {
       createEndTime: 'string',
       accountId: 'string',
       isCreateTimeSortDesc: 'boolean',
+      channelName: 'string',
     };
   }
 
@@ -22506,6 +22777,970 @@ export class BatchqueryIpApprovalwithupdateResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       ipList: { 'type': 'array', 'itemType': IpBasicInfoWithUpdate },
+      allCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 链上账户id
+  accountId: string;
+  // 商户账户名称
+  merchantAliasName: string;
+  // 商户类型(本期仅支持: 1:企业, 6:个人商户)
+  merchantType: number;
+  // 商户证件类型，201--统一社会信用证--营业执照号；
+  merchantCertType: number;
+  // 本期支持统一社会信用证代码
+  merchantCertNumber?: string;
+  // 联系人信息
+  contactInfo?: IPContactInfo;
+  // 商户经营地址
+  contactAddress?: IPAddressInfo;
+  // 备注信息
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      merchantAliasName: 'merchant_alias_name',
+      merchantType: 'merchant_type',
+      merchantCertType: 'merchant_cert_type',
+      merchantCertNumber: 'merchant_cert_number',
+      contactInfo: 'contact_info',
+      contactAddress: 'contact_address',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      merchantAliasName: 'string',
+      merchantType: 'number',
+      merchantCertType: 'number',
+      merchantCertNumber: 'string',
+      contactInfo: IPContactInfo,
+      contactAddress: IPAddressInfo,
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIpAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpAccountsettlementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权方的链上id
+  accountId: string;
+  // 为空，返回所有数据，true，返回入驻数据，false，返回未入驻数据
+  isFiltered?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      isFiltered: 'is_filtered',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      isFiltered: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpAccountsettlementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账号id
+  accountId?: string;
+  // 入驻的渠道列表
+  channelList?: AccountInChannels[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountId: 'account_id',
+      channelList: 'channel_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountId: 'string',
+      channelList: { 'type': 'array', 'itemType': AccountInChannels },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddIpAccountsettlementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权方id
+  accountId: string;
+  // 要开通的渠道
+  channelName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      channelName: 'channel_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      channelName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddIpAccountsettlementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignIpOrdercontractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单ID
+  ipOrderId: string;
+  // 订单合同文件OSS文件key
+  contractFileUrl: string;
+  // 备注信息
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipOrderId: 'ip_order_id',
+      contractFileUrl: 'contract_file_url',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipOrderId: 'string',
+      contractFileUrl: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignIpOrdercontractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署完成的文件OSS key。只有在签署流程全部完成后才会返回该数据。
+  signedContractFile?: string;
+  // 签署完成的文件下载链接。只有在签署流程全部完成后才会返回该数据。
+  signedContractFileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signedContractFile: 'signed_contract_file',
+      signedContractFileUrl: 'signed_contract_file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signedContractFile: 'string',
+      signedContractFileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpOrdergoodsidsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单ID
+  ipOrderId: string;
+  // 商品ID列表
+  goodsIdList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipOrderId: 'ip_order_id',
+      goodsIdList: 'goods_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipOrderId: 'string',
+      goodsIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpOrdergoodsidsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpSalesbydayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 页码
+  pageNumber: number;
+  // 每页数据量大小
+  pageSize: number;
+  // 订单ID筛选条件
+  ipOrderId?: string;
+  // 日期
+  date?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      ipOrderId: 'ip_order_id',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      pageNumber: 'number',
+      pageSize: 'number',
+      ipOrderId: 'string',
+      date: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpSalesbydayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页码
+  pageNumber?: number;
+  // 页面数据量大小
+  pageSize?: number;
+  // 数据总数
+  totalCount?: number;
+  // T+1日的销售数据统计数据列表
+  salesBDayList?: SalesByDay[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      salesBDayList: 'sales_b_day_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      salesBDayList: { 'type': 'array', 'itemType': SalesByDay },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpCopyrightRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 【暂不支持中文】文件名称
+  fileName: string;
+  // 文件oss地址
+  fileUrl: string;
+  // 文件类型，IMAGE：图片文件；TEXT：文本文件；VIDEO：视屏；AUDIO：音频；ZIP：压缩包；FILE：其他文件
+  fileType: string;
+  // 【需要真实的】版权方法人证件名称
+  certName: string;
+  // 证件类型
+  certType: string;
+  // 【需要真实的】版权方法人证件号码
+  certNo: string;
+  // 是否创建证书，此时默认选true
+  createCertificate: boolean;
+  // 证书类型，公证处证书，值为NotaryOffice
+  certificateType?: string;
+  // 是否创建证据包，默认选否，如果没有创建公证书，不支持证据包
+  certificatePackage?: boolean;
+  // 公证处ID，默认为LUJIANG，鹭江公证处
+  orgId?: string;
+  // 电话号码，生成公证处证书需要，格式范例，(86-573)2651630或(86)13738258505
+  phoneNum?: string;
+  // 备注，最长不超过512字符
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      fileName: 'file_name',
+      fileUrl: 'file_url',
+      fileType: 'file_type',
+      certName: 'cert_name',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      createCertificate: 'create_certificate',
+      certificateType: 'certificate_type',
+      certificatePackage: 'certificate_package',
+      orgId: 'org_id',
+      phoneNum: 'phone_num',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      fileName: 'string',
+      fileUrl: 'string',
+      fileType: 'string',
+      certName: 'string',
+      certType: 'string',
+      certNo: 'string',
+      createCertificate: 'boolean',
+      certificateType: 'string',
+      certificatePackage: 'boolean',
+      orgId: 'string',
+      phoneNum: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIpCopyrightResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 版权登记id
+  copyrightRegisterId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      copyrightRegisterId: 'copyright_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      copyrightRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCopyrightRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权登记id
+  copyrightRegisterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      copyrightRegisterId: 'copyright_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      copyrightRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpCopyrightResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证状态，PROCESSING：存证中；SUCCESS：存证成功；FAIL：存证失败
+  status?: string;
+  // 文件hash
+  hash?: string;
+  // 存证交易hash
+  txHash?: string;
+  // 存证块高
+  blockHeight?: number;
+  // 存证时间
+  timestamp?: number;
+  // 证书oss地址
+  certificateOss?: string;
+  // 证书下载链接
+  certificateDownurl?: string;
+  // 公证处证书编号
+  certificateNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      hash: 'hash',
+      txHash: 'tx_hash',
+      blockHeight: 'block_height',
+      timestamp: 'timestamp',
+      certificateOss: 'certificate_oss',
+      certificateDownurl: 'certificate_downurl',
+      certificateNo: 'certificate_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      hash: 'string',
+      txHash: 'string',
+      blockHeight: 'number',
+      timestamp: 'number',
+      certificateOss: 'string',
+      certificateDownurl: 'string',
+      certificateNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpOrdermemoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单ID
+  ipOrderId: string;
+  // 备注信息
+  memo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipOrderId: 'ip_order_id',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipOrderId: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetIpOrdermemoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpAccountsettlementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 版权方的链上id
+  accountId: string;
+  // 开通的渠道名称
+  channelName: string;
+  // 审批意见，refuse,不同意开通，agree，同意开通，默认为agree，本期暂不支持不同意开通
+  approveComment: string;
+  // 备注信息
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      accountId: 'account_id',
+      channelName: 'channel_name',
+      approveComment: 'approve_comment',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      accountId: 'string',
+      channelName: 'string',
+      approveComment: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIpAccountsettlementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpSalesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础请求参数
+  baseRequest: BaseRequestInfo;
+  // 订单ID。和账单ID 两个字段只能选填一个
+  ipOrderId?: string;
+  // 账单ID。和订单ID 两个字段只能选填一个
+  ipBillId?: string;
+  // 排序字段
+  orderBy: string;
+  // 排序顺序：正序还是倒序
+  order: string;
+  // 页码
+  pageNumber: number;
+  // 每页数据量大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      ipOrderId: 'ip_order_id',
+      ipBillId: 'ip_bill_id',
+      orderBy: 'order_by',
+      order: 'order',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      ipOrderId: 'string',
+      ipBillId: 'string',
+      orderBy: 'string',
+      order: 'string',
+      pageNumber: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryIpSalesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  ipOrderId?: string;
+  // 账单ID
+  ipBillId?: string;
+  // IP授权销售数据
+  ipSalesInfoList?: IPSalesInfo[];
+  // 页码
+  pageNumber?: number;
+  // 页面大小
+  pageSize?: number;
+  // 销售数据总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ipOrderId: 'ip_order_id',
+      ipBillId: 'ip_bill_id',
+      ipSalesInfoList: 'ip_sales_info_list',
+      pageNumber: 'page_number',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ipOrderId: 'string',
+      ipBillId: 'string',
+      ipSalesInfoList: { 'type': 'array', 'itemType': IPSalesInfo },
+      pageNumber: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryIpAccountsettlementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 渠道名称
+  channelName: string;
+  // 申请状态，0为全部，1为待审核，2为已审核
+  applyStatus: string;
+  // 分页大小
+  pageSize: number;
+  // 分页索引
+  pageIndex: number;
+  // 备注信息
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      channelName: 'channel_name',
+      applyStatus: 'apply_status',
+      pageSize: 'page_size',
+      pageIndex: 'page_index',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      channelName: 'string',
+      applyStatus: 'string',
+      pageSize: 'number',
+      pageIndex: 'number',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryIpAccountsettlementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 渠道对应的版权方信息
+  accountInfo?: AccountSettlementInfo[];
+  // 结果总数，不是列表值，用于分页
+  allCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountInfo: 'account_info',
+      allCount: 'all_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountInfo: { 'type': 'array', 'itemType': AccountSettlementInfo },
       allCount: 'number',
     };
   }
@@ -24265,7 +25500,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.54",
+          sdk_version: "1.2.80",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -28849,6 +30084,234 @@ export default class Client {
   async batchqueryIpApprovalwithupdateEx(request: BatchqueryIpApprovalwithupdateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpApprovalwithupdateResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryIpApprovalwithupdateResponse>(await this.doRequest("1.0", "baas.antdao.ip.approvalwithupdate.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryIpApprovalwithupdateResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+   * Summary: 数字商品服务-IP授权服务-账户信息补充
+   */
+  async updateIpAccount(request: UpdateIpAccountRequest): Promise<UpdateIpAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateIpAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+   * Summary: 数字商品服务-IP授权服务-账户信息补充
+   */
+  async updateIpAccountEx(request: UpdateIpAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIpAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateIpAccountResponse>(await this.doRequest("1.0", "baas.antdao.ip.account.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIpAccountResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+   * Summary: 数字商品服务-IP-查询账户渠道列表
+   */
+  async queryIpAccountsettlement(request: QueryIpAccountsettlementRequest): Promise<QueryIpAccountsettlementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpAccountsettlementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+   * Summary: 数字商品服务-IP-查询账户渠道列表
+   */
+  async queryIpAccountsettlementEx(request: QueryIpAccountsettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpAccountsettlementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpAccountsettlementResponse>(await this.doRequest("1.0", "baas.antdao.ip.accountsettlement.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpAccountsettlementResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+   * Summary: 数字商品-IP授权服务-申请开通新渠道
+   */
+  async addIpAccountsettlement(request: AddIpAccountsettlementRequest): Promise<AddIpAccountsettlementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addIpAccountsettlementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+   * Summary: 数字商品-IP授权服务-申请开通新渠道
+   */
+  async addIpAccountsettlementEx(request: AddIpAccountsettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddIpAccountsettlementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddIpAccountsettlementResponse>(await this.doRequest("1.0", "baas.antdao.ip.accountsettlement.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddIpAccountsettlementResponse({}));
+  }
+
+  /**
+   * Description: 签署交易订单的区块链合同
+   * Summary: 数字商品服务-IP授权服务-签署订单合同
+   */
+  async signIpOrdercontract(request: SignIpOrdercontractRequest): Promise<SignIpOrdercontractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signIpOrdercontractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 签署交易订单的区块链合同
+   * Summary: 数字商品服务-IP授权服务-签署订单合同
+   */
+  async signIpOrdercontractEx(request: SignIpOrdercontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignIpOrdercontractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignIpOrdercontractResponse>(await this.doRequest("1.0", "baas.antdao.ip.ordercontract.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignIpOrdercontractResponse({}));
+  }
+
+  /**
+   * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+   * Summary: 数字商品服务-IP授权服务-绑定商品ID
+   */
+  async setIpOrdergoodsids(request: SetIpOrdergoodsidsRequest): Promise<SetIpOrdergoodsidsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setIpOrdergoodsidsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+   * Summary: 数字商品服务-IP授权服务-绑定商品ID
+   */
+  async setIpOrdergoodsidsEx(request: SetIpOrdergoodsidsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpOrdergoodsidsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetIpOrdergoodsidsResponse>(await this.doRequest("1.0", "baas.antdao.ip.ordergoodsids.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetIpOrdergoodsidsResponse({}));
+  }
+
+  /**
+   * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+   * Summary: 数字商品服务-IP授权服务-查日销售数据
+   */
+  async pagequeryIpSalesbyday(request: PagequeryIpSalesbydayRequest): Promise<PagequeryIpSalesbydayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpSalesbydayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+   * Summary: 数字商品服务-IP授权服务-查日销售数据
+   */
+  async pagequeryIpSalesbydayEx(request: PagequeryIpSalesbydayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpSalesbydayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpSalesbydayResponse>(await this.doRequest("1.0", "baas.antdao.ip.salesbyday.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpSalesbydayResponse({}));
+  }
+
+  /**
+   * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+   * Summary: 数字商品服务-IP授权服务-文件版权保护
+   */
+  async createIpCopyright(request: CreateIpCopyrightRequest): Promise<CreateIpCopyrightResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createIpCopyrightEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+   * Summary: 数字商品服务-IP授权服务-文件版权保护
+   */
+  async createIpCopyrightEx(request: CreateIpCopyrightRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIpCopyrightResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateIpCopyrightResponse>(await this.doRequest("1.0", "baas.antdao.ip.copyright.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIpCopyrightResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-文件版权状态查询
+   * Summary: 数字商品-IP授权服务-文件版权状态查询
+   */
+  async queryIpCopyright(request: QueryIpCopyrightRequest): Promise<QueryIpCopyrightResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpCopyrightEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-文件版权状态查询
+   * Summary: 数字商品-IP授权服务-文件版权状态查询
+   */
+  async queryIpCopyrightEx(request: QueryIpCopyrightRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCopyrightResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpCopyrightResponse>(await this.doRequest("1.0", "baas.antdao.ip.copyright.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpCopyrightResponse({}));
+  }
+
+  /**
+   * Description: 编辑订单备注
+   * Summary: 数字商品服务-IP授权服务-编辑订单备注
+   */
+  async setIpOrdermemo(request: SetIpOrdermemoRequest): Promise<SetIpOrdermemoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setIpOrdermemoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 编辑订单备注
+   * Summary: 数字商品服务-IP授权服务-编辑订单备注
+   */
+  async setIpOrdermemoEx(request: SetIpOrdermemoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetIpOrdermemoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetIpOrdermemoResponse>(await this.doRequest("1.0", "baas.antdao.ip.ordermemo.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetIpOrdermemoResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP-确认开通版权方渠道
+   * Summary: 数字商品服务-IP-开通版权方渠道
+   */
+  async confirmIpAccountsettlement(request: ConfirmIpAccountsettlementRequest): Promise<ConfirmIpAccountsettlementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIpAccountsettlementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP-确认开通版权方渠道
+   * Summary: 数字商品服务-IP-开通版权方渠道
+   */
+  async confirmIpAccountsettlementEx(request: ConfirmIpAccountsettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIpAccountsettlementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIpAccountsettlementResponse>(await this.doRequest("1.0", "baas.antdao.ip.accountsettlement.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIpAccountsettlementResponse({}));
+  }
+
+  /**
+   * Description: 分页查询订单/账单的销售数据列表
+   * Summary: 数字商品服务-IP授权服务-查询销售数据
+   */
+  async pagequeryIpSales(request: PagequeryIpSalesRequest): Promise<PagequeryIpSalesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryIpSalesEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询订单/账单的销售数据列表
+   * Summary: 数字商品服务-IP授权服务-查询销售数据
+   */
+  async pagequeryIpSalesEx(request: PagequeryIpSalesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpSalesResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryIpSalesResponse>(await this.doRequest("1.0", "baas.antdao.ip.sales.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIpSalesResponse({}));
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+   * Summary: 数字商品-IP授权服务-查询版权方列表
+   */
+  async batchqueryIpAccountsettlement(request: BatchqueryIpAccountsettlementRequest): Promise<BatchqueryIpAccountsettlementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryIpAccountsettlementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+   * Summary: 数字商品-IP授权服务-查询版权方列表
+   */
+  async batchqueryIpAccountsettlementEx(request: BatchqueryIpAccountsettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpAccountsettlementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryIpAccountsettlementResponse>(await this.doRequest("1.0", "baas.antdao.ip.accountsettlement.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryIpAccountsettlementResponse({}));
   }
 
   /**
