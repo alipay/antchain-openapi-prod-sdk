@@ -79,17 +79,20 @@ export class Config extends $tea.Model {
 
 // Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
 export class ProductBaseInfo extends $tea.Model {
-  // 产品码
+  // 产品码，系统内部识别
   code: string;
   // 产品名称
   name: string;
   // 产品英文名称
   nameEn?: string;
+  // 产品短码，管理维度识别
+  shortCode: string;
   static names(): { [key: string]: string } {
     return {
       code: 'code',
       name: 'name',
       nameEn: 'name_en',
+      shortCode: 'short_code',
     };
   }
 
@@ -98,6 +101,7 @@ export class ProductBaseInfo extends $tea.Model {
       code: 'string',
       name: 'string',
       nameEn: 'string',
+      shortCode: 'string',
     };
   }
 
@@ -275,7 +279,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
