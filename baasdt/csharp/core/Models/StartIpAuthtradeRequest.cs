@@ -88,6 +88,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string Memo { get; set; }
 
+        // 附加条款
+        [NameInMap("additional_clause")]
+        [Validation(Required=false)]
+        public string AdditionalClause { get; set; }
+
         // 是否有保底金
         [NameInMap("guaranteed")]
         [Validation(Required=true)]

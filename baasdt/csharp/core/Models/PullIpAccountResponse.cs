@@ -94,6 +94,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public IPCardInfo CardInfo { get; set; }
 
+        // 创建账户时间
+        [NameInMap("create_time")]
+        [Validation(Required=false)]
+        public long? CreateTime { get; set; }
+
     }
 
 }

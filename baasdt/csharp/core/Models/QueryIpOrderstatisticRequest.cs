@@ -33,6 +33,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpId { get; set; }
 
+        // 渠道名称
+        [NameInMap("channel_name")]
+        [Validation(Required=false)]
+        public string ChannelName { get; set; }
+
     }
 
 }

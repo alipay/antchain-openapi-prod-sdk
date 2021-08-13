@@ -71,9 +71,14 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public List<DockingPeopleInfo> DockingPeopleInfo { get; set; }
 
+        // 资质证书类型，0为用户上传，1申请
+        [NameInMap("copy_right_type")]
+        [Validation(Required=false)]
+        public string CopyRightType { get; set; }
+
         // 资质
         [NameInMap("copy_right")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CopyRight { get; set; }
 
         // 合作事项

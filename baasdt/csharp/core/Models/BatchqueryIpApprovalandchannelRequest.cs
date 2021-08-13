@@ -79,6 +79,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CreateEndTime { get; set; }
 
+        // 渠道名称
+        [NameInMap("channel_name")]
+        [Validation(Required=false)]
+        public string ChannelName { get; set; }
+
     }
 
 }

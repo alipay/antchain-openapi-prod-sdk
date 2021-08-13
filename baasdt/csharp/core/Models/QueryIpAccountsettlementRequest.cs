@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class BatchqueryIpAccountRequest : TeaModel {
+    public class QueryIpAccountsettlementRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -19,20 +19,19 @@ namespace AntChain.SDK.BAASDT.Models
         public string ProductInstanceId { get; set; }
 
         // 基础参数
-        // 
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 账户Id列表(单次不能超过50个)
-        [NameInMap("account_ids")]
+        // 版权方的链上id
+        [NameInMap("account_id")]
         [Validation(Required=true)]
-        public List<string> AccountIds { get; set; }
+        public string AccountId { get; set; }
 
-        // 渠道名称
-        [NameInMap("channel_name")]
+        // 为空，返回所有数据，true，返回入驻数据，false，返回未入驻数据
+        [NameInMap("is_filtered")]
         [Validation(Required=false)]
-        public string ChannelName { get; set; }
+        public bool? IsFiltered { get; set; }
 
     }
 

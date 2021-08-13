@@ -58,9 +58,14 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public List<DockingPeopleInfo> DockingPeopleInfo { get; set; }
 
+        // 资质证书类型，0为自己上传的资质证书，1为区块链版权证书
+        [NameInMap("copy_right_type")]
+        [Validation(Required=true)]
+        public string CopyRightType { get; set; }
+
         // 资质信息
         [NameInMap("copy_right")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CopyRight { get; set; }
 
         // 合作案例，图片存放oss链接，多张用,隔开

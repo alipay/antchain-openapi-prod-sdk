@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.BAASDT</AssemblyName>
-    <Version>1.2.54</Version>
+    <Version>1.2.80</Version>
     <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">

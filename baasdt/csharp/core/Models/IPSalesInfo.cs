@@ -80,6 +80,26 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string GoodsInfo { get; set; }
 
+        // 商品ID
+        [NameInMap("goods_id")]
+        [Validation(Required=false)]
+        public string GoodsId { get; set; }
+
+        // 退款的销售金额，有退款时填写，默认0
+        [NameInMap("refund_sales")]
+        [Validation(Required=false)]
+        public string RefundSales { get; set; }
+
+        // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+        [NameInMap("sales_ext_info")]
+        [Validation(Required=false)]
+        public string SalesExtInfo { get; set; }
+
+        // 用户信息json string: 姓名/手机号/地址等结构化数据
+        [NameInMap("sales_user_info")]
+        [Validation(Required=false)]
+        public string SalesUserInfo { get; set; }
+
     }
 
 }

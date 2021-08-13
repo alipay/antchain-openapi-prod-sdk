@@ -23,6 +23,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
+        // 商品id
+        [NameInMap("ip_id")]
+        [Validation(Required=false)]
+        public string IpId { get; set; }
+
         // ip名称，支持模糊匹配
         [NameInMap("ip_name")]
         [Validation(Required=false)]

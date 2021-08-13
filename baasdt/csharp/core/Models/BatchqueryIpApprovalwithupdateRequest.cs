@@ -79,6 +79,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public bool? IsCreateTimeSortDesc { get; set; }
 
+        // 渠道名称
+        [NameInMap("channel_name")]
+        [Validation(Required=false)]
+        public string ChannelName { get; set; }
+
     }
 
 }

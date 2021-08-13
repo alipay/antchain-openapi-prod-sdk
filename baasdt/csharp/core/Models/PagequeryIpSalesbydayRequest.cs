@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class BatchqueryIpAccountRequest : TeaModel {
+    public class PagequeryIpSalesbydayRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,21 +18,30 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础参数
-        // 
+        // 基础请求参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 账户Id列表(单次不能超过50个)
-        [NameInMap("account_ids")]
+        // 页码
+        [NameInMap("page_number")]
         [Validation(Required=true)]
-        public List<string> AccountIds { get; set; }
+        public long? PageNumber { get; set; }
 
-        // 渠道名称
-        [NameInMap("channel_name")]
+        // 每页数据量大小
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
+
+        // 订单ID筛选条件
+        [NameInMap("ip_order_id")]
         [Validation(Required=false)]
-        public string ChannelName { get; set; }
+        public string IpOrderId { get; set; }
+
+        // 日期
+        [NameInMap("date")]
+        [Validation(Required=false)]
+        public string Date { get; set; }
 
     }
 

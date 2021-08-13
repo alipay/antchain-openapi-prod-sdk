@@ -33,6 +33,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductCode { get; set; }
 
+        // null返回所有数据，非空返回对应渠道的数据
+        [NameInMap("channel_name")]
+        [Validation(Required=false)]
+        public string ChannelName { get; set; }
+
     }
 
 }

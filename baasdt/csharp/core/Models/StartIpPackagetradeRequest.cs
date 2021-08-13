@@ -68,6 +68,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string Memo { get; set; }
 
+        // 附加条款
+        [NameInMap("additional_clause")]
+        [Validation(Required=false)]
+        public string AdditionalClause { get; set; }
+
         // 授权产品范围
         [NameInMap("auth_product_scope")]
         [Validation(Required=false)]

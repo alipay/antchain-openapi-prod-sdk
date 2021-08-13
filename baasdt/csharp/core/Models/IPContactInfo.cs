@@ -30,6 +30,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? Type { get; set; }
 
+        // 联系人身份证号
+        [NameInMap("certno")]
+        [Validation(Required=false)]
+        public string Certno { get; set; }
+
     }
 
 }

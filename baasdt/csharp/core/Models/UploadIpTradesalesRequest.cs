@@ -38,6 +38,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public bool? OnlyCallBlockchain { get; set; }
 
+        // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+        [NameInMap("billing_type")]
+        [Validation(Required=false)]
+        public long? BillingType { get; set; }
+
         // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
         [NameInMap("pay_return_url")]
         [Validation(Required=false)]
@@ -62,6 +67,11 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("total_sales")]
         [Validation(Required=true)]
         public string TotalSales { get; set; }
+
+        // 总的退款金额。不填默认为0
+        [NameInMap("total_refund_sales")]
+        [Validation(Required=false)]
+        public string TotalRefundSales { get; set; }
 
         // 实付金额（授权交易）
         [NameInMap("total_payment")]

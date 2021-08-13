@@ -211,6 +211,21 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? DownloadIpGallery { get; set; }
 
+        // 备注信息
+        [NameInMap("memo")]
+        [Validation(Required=true)]
+        public string Memo { get; set; }
+
+        // 附加条款
+        [NameInMap("additional_clause")]
+        [Validation(Required=false)]
+        public string AdditionalClause { get; set; }
+
+        // 合同文件列表
+        [NameInMap("contract_files")]
+        [Validation(Required=false)]
+        public List<string> ContractFiles { get; set; }
+
     }
 
 }
