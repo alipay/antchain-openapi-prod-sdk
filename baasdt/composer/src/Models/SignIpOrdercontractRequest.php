@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountIpAccountRequest extends Model
+class SignIpOrdercontractRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,41 +19,43 @@ class CountIpAccountRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础参数
+    // 基础请求参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+    // 订单ID
     /**
      * @var string
      */
-    public $chainId;
+    public $ipOrderId;
 
-    // 场景码(入驻时申请)(长度不超过50个字符)
+    // 订单合同文件OSS文件key
     /**
      * @var string
      */
-    public $productCode;
+    public $contractFileUrl;
 
-    // null返回所有数据，非空返回对应渠道的数据
+    // 备注信息
     /**
      * @var string
      */
-    public $channelName;
+    public $memo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'chainId'           => 'chain_id',
-        'productCode'       => 'product_code',
-        'channelName'       => 'channel_name',
+        'ipOrderId'         => 'ip_order_id',
+        'contractFileUrl'   => 'contract_file_url',
+        'memo'              => 'memo',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
+        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
+        Model::validateRequired('contractFileUrl', $this->contractFileUrl, true);
     }
 
     public function toMap()
@@ -68,14 +70,14 @@ class CountIpAccountRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->chainId) {
-            $res['chain_id'] = $this->chainId;
+        if (null !== $this->ipOrderId) {
+            $res['ip_order_id'] = $this->ipOrderId;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->contractFileUrl) {
+            $res['contract_file_url'] = $this->contractFileUrl;
         }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
         }
 
         return $res;
@@ -84,7 +86,7 @@ class CountIpAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CountIpAccountRequest
+     * @return SignIpOrdercontractRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +100,14 @@ class CountIpAccountRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['chain_id'])) {
-            $model->chainId = $map['chain_id'];
+        if (isset($map['ip_order_id'])) {
+            $model->ipOrderId = $map['ip_order_id'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['contract_file_url'])) {
+            $model->contractFileUrl = $map['contract_file_url'];
         }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
         }
 
         return $model;

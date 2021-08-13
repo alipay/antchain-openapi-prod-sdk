@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountIpAccountRequest extends Model
+class QueryIpCopyrightRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,35 +25,22 @@ class CountIpAccountRequest extends Model
      */
     public $baseRequest;
 
-    // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+    // 版权登记id
     /**
      * @var string
      */
-    public $chainId;
-
-    // 场景码(入驻时申请)(长度不超过50个字符)
-    /**
-     * @var string
-     */
-    public $productCode;
-
-    // null返回所有数据，非空返回对应渠道的数据
-    /**
-     * @var string
-     */
-    public $channelName;
+    public $copyrightRegisterId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'baseRequest'       => 'base_request',
-        'chainId'           => 'chain_id',
-        'productCode'       => 'product_code',
-        'channelName'       => 'channel_name',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'baseRequest'         => 'base_request',
+        'copyrightRegisterId' => 'copyright_register_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
+        Model::validateRequired('copyrightRegisterId', $this->copyrightRegisterId, true);
     }
 
     public function toMap()
@@ -68,14 +55,8 @@ class CountIpAccountRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->chainId) {
-            $res['chain_id'] = $this->chainId;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
+        if (null !== $this->copyrightRegisterId) {
+            $res['copyright_register_id'] = $this->copyrightRegisterId;
         }
 
         return $res;
@@ -84,7 +65,7 @@ class CountIpAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CountIpAccountRequest
+     * @return QueryIpCopyrightRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +79,8 @@ class CountIpAccountRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['chain_id'])) {
-            $model->chainId = $map['chain_id'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
+        if (isset($map['copyright_register_id'])) {
+            $model->copyrightRegisterId = $map['copyright_register_id'];
         }
 
         return $model;

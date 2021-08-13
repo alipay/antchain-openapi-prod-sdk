@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountIpAccountRequest extends Model
+class ConfirmIpAccountsettlementRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,35 +25,45 @@ class CountIpAccountRequest extends Model
      */
     public $baseRequest;
 
-    // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+    // 版权方的链上id
     /**
      * @var string
      */
-    public $chainId;
+    public $accountId;
 
-    // 场景码(入驻时申请)(长度不超过50个字符)
-    /**
-     * @var string
-     */
-    public $productCode;
-
-    // null返回所有数据，非空返回对应渠道的数据
+    // 开通的渠道名称
     /**
      * @var string
      */
     public $channelName;
+
+    // 审批意见，refuse,不同意开通，agree，同意开通，默认为agree，本期暂不支持不同意开通
+    /**
+     * @var string
+     */
+    public $approveComment;
+
+    // 备注信息
+    /**
+     * @var string
+     */
+    public $memo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'chainId'           => 'chain_id',
-        'productCode'       => 'product_code',
+        'accountId'         => 'account_id',
         'channelName'       => 'channel_name',
+        'approveComment'    => 'approve_comment',
+        'memo'              => 'memo',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('channelName', $this->channelName, true);
+        Model::validateRequired('approveComment', $this->approveComment, true);
     }
 
     public function toMap()
@@ -68,14 +78,17 @@ class CountIpAccountRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->chainId) {
-            $res['chain_id'] = $this->chainId;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
         if (null !== $this->channelName) {
             $res['channel_name'] = $this->channelName;
+        }
+        if (null !== $this->approveComment) {
+            $res['approve_comment'] = $this->approveComment;
+        }
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
         }
 
         return $res;
@@ -84,7 +97,7 @@ class CountIpAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CountIpAccountRequest
+     * @return ConfirmIpAccountsettlementRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +111,17 @@ class CountIpAccountRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['chain_id'])) {
-            $model->chainId = $map['chain_id'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
         if (isset($map['channel_name'])) {
             $model->channelName = $map['channel_name'];
+        }
+        if (isset($map['approve_comment'])) {
+            $model->approveComment = $map['approve_comment'];
+        }
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
         }
 
         return $model;

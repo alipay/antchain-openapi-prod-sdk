@@ -90,6 +90,12 @@ class BatchqueryIpApprovalRequest extends Model
      * @var bool
      */
     public $isCreateTimeSortDesc;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -105,6 +111,7 @@ class BatchqueryIpApprovalRequest extends Model
         'createEndTime'        => 'create_end_time',
         'accountId'            => 'account_id',
         'isCreateTimeSortDesc' => 'is_create_time_sort_desc',
+        'channelName'          => 'channel_name',
     ];
 
     public function validate()
@@ -164,6 +171,9 @@ class BatchqueryIpApprovalRequest extends Model
         if (null !== $this->isCreateTimeSortDesc) {
             $res['is_create_time_sort_desc'] = $this->isCreateTimeSortDesc;
         }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
+        }
 
         return $res;
     }
@@ -217,6 +227,9 @@ class BatchqueryIpApprovalRequest extends Model
         }
         if (isset($map['is_create_time_sort_desc'])) {
             $model->isCreateTimeSortDesc = $map['is_create_time_sort_desc'];
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

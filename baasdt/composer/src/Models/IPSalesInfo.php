@@ -119,6 +119,38 @@ class IPSalesInfo extends Model
      * @var string
      */
     public $goodsInfo;
+
+    // 商品ID
+    /**
+     * @example goods_id
+     *
+     * @var string
+     */
+    public $goodsId;
+
+    // 退款的销售金额，有退款时填写，默认0
+    /**
+     * @example 10.00
+     *
+     * @var string
+     */
+    public $refundSales;
+
+    // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+    /**
+     * @example {订单信息}
+     *
+     * @var string
+     */
+    public $salesExtInfo;
+
+    // 用户信息json string: 姓名/手机号/地址等结构化数据
+    /**
+     * @example {用户信息}
+     *
+     * @var string
+     */
+    public $salesUserInfo;
     protected $_name = [
         'goodsName'           => 'goods_name',
         'goodsImage'          => 'goods_image',
@@ -134,6 +166,10 @@ class IPSalesInfo extends Model
         'operator'            => 'operator',
         'operateTime'         => 'operate_time',
         'goodsInfo'           => 'goods_info',
+        'goodsId'             => 'goods_id',
+        'refundSales'         => 'refund_sales',
+        'salesExtInfo'        => 'sales_ext_info',
+        'salesUserInfo'       => 'sales_user_info',
     ];
 
     public function validate()
@@ -198,6 +234,18 @@ class IPSalesInfo extends Model
         if (null !== $this->goodsInfo) {
             $res['goods_info'] = $this->goodsInfo;
         }
+        if (null !== $this->goodsId) {
+            $res['goods_id'] = $this->goodsId;
+        }
+        if (null !== $this->refundSales) {
+            $res['refund_sales'] = $this->refundSales;
+        }
+        if (null !== $this->salesExtInfo) {
+            $res['sales_ext_info'] = $this->salesExtInfo;
+        }
+        if (null !== $this->salesUserInfo) {
+            $res['sales_user_info'] = $this->salesUserInfo;
+        }
 
         return $res;
     }
@@ -251,6 +299,18 @@ class IPSalesInfo extends Model
         }
         if (isset($map['goods_info'])) {
             $model->goodsInfo = $map['goods_info'];
+        }
+        if (isset($map['goods_id'])) {
+            $model->goodsId = $map['goods_id'];
+        }
+        if (isset($map['refund_sales'])) {
+            $model->refundSales = $map['refund_sales'];
+        }
+        if (isset($map['sales_ext_info'])) {
+            $model->salesExtInfo = $map['sales_ext_info'];
+        }
+        if (isset($map['sales_user_info'])) {
+            $model->salesUserInfo = $map['sales_user_info'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountIpAccountRequest extends Model
+class PagequeryIpSalesbydayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,41 +19,50 @@ class CountIpAccountRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础参数
+    // 基础请求参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+    // 页码
     /**
-     * @var string
+     * @var int
      */
-    public $chainId;
+    public $pageNumber;
 
-    // 场景码(入驻时申请)(长度不超过50个字符)
+    // 每页数据量大小
     /**
-     * @var string
+     * @var int
      */
-    public $productCode;
+    public $pageSize;
 
-    // null返回所有数据，非空返回对应渠道的数据
+    // 订单ID筛选条件
     /**
      * @var string
      */
-    public $channelName;
+    public $ipOrderId;
+
+    // 日期
+    /**
+     * @var string
+     */
+    public $date;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'chainId'           => 'chain_id',
-        'productCode'       => 'product_code',
-        'channelName'       => 'channel_name',
+        'pageNumber'        => 'page_number',
+        'pageSize'          => 'page_size',
+        'ipOrderId'         => 'ip_order_id',
+        'date'              => 'date',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
+        Model::validateRequired('pageNumber', $this->pageNumber, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
     }
 
     public function toMap()
@@ -68,14 +77,17 @@ class CountIpAccountRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->chainId) {
-            $res['chain_id'] = $this->chainId;
+        if (null !== $this->pageNumber) {
+            $res['page_number'] = $this->pageNumber;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
-        if (null !== $this->channelName) {
-            $res['channel_name'] = $this->channelName;
+        if (null !== $this->ipOrderId) {
+            $res['ip_order_id'] = $this->ipOrderId;
+        }
+        if (null !== $this->date) {
+            $res['date'] = $this->date;
         }
 
         return $res;
@@ -84,7 +96,7 @@ class CountIpAccountRequest extends Model
     /**
      * @param array $map
      *
-     * @return CountIpAccountRequest
+     * @return PagequeryIpSalesbydayRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +110,17 @@ class CountIpAccountRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['chain_id'])) {
-            $model->chainId = $map['chain_id'];
+        if (isset($map['page_number'])) {
+            $model->pageNumber = $map['page_number'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
-        if (isset($map['channel_name'])) {
-            $model->channelName = $map['channel_name'];
+        if (isset($map['ip_order_id'])) {
+            $model->ipOrderId = $map['ip_order_id'];
+        }
+        if (isset($map['date'])) {
+            $model->date = $map['date'];
         }
 
         return $model;

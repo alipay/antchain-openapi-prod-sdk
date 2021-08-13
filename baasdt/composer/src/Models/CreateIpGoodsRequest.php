@@ -81,7 +81,13 @@ class CreateIpGoodsRequest extends Model
      */
     public $dockingPeopleInfo;
 
-    // 资质
+    // 资质证书类型，0为用户上传，1申请
+    /**
+     * @var string
+     */
+    public $copyRightType;
+
+    // 资质，copy_right_type为0的时候，copy_right不能为空，copy_right_type为1的时候，copy_right可以为空
     /**
      * @var string
      */
@@ -164,6 +170,7 @@ class CreateIpGoodsRequest extends Model
         'imageDetail'        => 'image_detail',
         'description'        => 'description',
         'dockingPeopleInfo'  => 'docking_people_info',
+        'copyRightType'      => 'copy_right_type',
         'copyRight'          => 'copy_right',
         'cooperationNote'    => 'cooperation_note',
         'channelName'        => 'channel_name',
@@ -188,7 +195,6 @@ class CreateIpGoodsRequest extends Model
         Model::validateRequired('image', $this->image, true);
         Model::validateRequired('imageDetail', $this->imageDetail, true);
         Model::validateRequired('dockingPeopleInfo', $this->dockingPeopleInfo, true);
-        Model::validateRequired('copyRight', $this->copyRight, true);
         Model::validateRequired('channelName', $this->channelName, true);
         Model::validateRequired('copyRightBeginTime', $this->copyRightBeginTime, true);
         Model::validateRequired('copyRightEndTime', $this->copyRightEndTime, true);
@@ -235,6 +241,9 @@ class CreateIpGoodsRequest extends Model
                     $res['docking_people_info'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->copyRightType) {
+            $res['copy_right_type'] = $this->copyRightType;
         }
         if (null !== $this->copyRight) {
             $res['copy_right'] = $this->copyRight;
@@ -322,6 +331,9 @@ class CreateIpGoodsRequest extends Model
                     $model->dockingPeopleInfo[$n++] = null !== $item ? DockingPeopleInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['copy_right_type'])) {
+            $model->copyRightType = $map['copy_right_type'];
         }
         if (isset($map['copy_right'])) {
             $model->copyRight = $map['copy_right'];

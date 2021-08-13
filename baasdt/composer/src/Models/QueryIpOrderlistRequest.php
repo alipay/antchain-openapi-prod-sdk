@@ -120,6 +120,12 @@ class QueryIpOrderlistRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -140,6 +146,7 @@ class QueryIpOrderlistRequest extends Model
         'order'             => 'order',
         'pageNumber'        => 'page_number',
         'pageSize'          => 'page_size',
+        'channelName'       => 'channel_name',
     ];
 
     public function validate()
@@ -211,6 +218,9 @@ class QueryIpOrderlistRequest extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
+        }
 
         return $res;
     }
@@ -279,6 +289,9 @@ class QueryIpOrderlistRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

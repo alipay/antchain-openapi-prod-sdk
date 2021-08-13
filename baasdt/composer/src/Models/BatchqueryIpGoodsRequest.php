@@ -25,6 +25,12 @@ class BatchqueryIpGoodsRequest extends Model
      */
     public $baseRequest;
 
+    // 商品id
+    /**
+     * @var string
+     */
+    public $ipId;
+
     // ip名称，支持模糊匹配
     /**
      * @var string
@@ -112,6 +118,7 @@ class BatchqueryIpGoodsRequest extends Model
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
         'baseRequest'          => 'base_request',
+        'ipId'                 => 'ip_id',
         'ipName'               => 'ip_name',
         'status'               => 'status',
         'channelName'          => 'channel_name',
@@ -152,6 +159,9 @@ class BatchqueryIpGoodsRequest extends Model
         }
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
+        }
+        if (null !== $this->ipId) {
+            $res['ip_id'] = $this->ipId;
         }
         if (null !== $this->ipName) {
             $res['ip_name'] = $this->ipName;
@@ -215,6 +225,9 @@ class BatchqueryIpGoodsRequest extends Model
         }
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
+        }
+        if (isset($map['ip_id'])) {
+            $model->ipId = $map['ip_id'];
         }
         if (isset($map['ip_name'])) {
             $model->ipName = $map['ip_name'];

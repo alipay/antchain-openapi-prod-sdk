@@ -43,6 +43,12 @@ class UploadIpTradesalesRequest extends Model
      */
     public $onlyCallBlockchain;
 
+    // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+    /**
+     * @var int
+     */
+    public $billingType;
+
     // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
     /**
      * @var string
@@ -73,6 +79,12 @@ class UploadIpTradesalesRequest extends Model
      */
     public $totalSales;
 
+    // 总的退款金额。不填默认为0
+    /**
+     * @var string
+     */
+    public $totalRefundSales;
+
     // 实付金额（授权交易）
     /**
      * @var string
@@ -91,11 +103,13 @@ class UploadIpTradesalesRequest extends Model
         'accountId'          => 'account_id',
         'ipOrderId'          => 'ip_order_id',
         'onlyCallBlockchain' => 'only_call_blockchain',
+        'billingType'        => 'billing_type',
         'payReturnUrl'       => 'pay_return_url',
         'authRate'           => 'auth_rate',
         'authPrice'          => 'auth_price',
         'totalAmount'        => 'total_amount',
         'totalSales'         => 'total_sales',
+        'totalRefundSales'   => 'total_refund_sales',
         'totalPayment'       => 'total_payment',
         'ipSalesInfoList'    => 'ip_sales_info_list',
     ];
@@ -133,6 +147,9 @@ class UploadIpTradesalesRequest extends Model
         if (null !== $this->onlyCallBlockchain) {
             $res['only_call_blockchain'] = $this->onlyCallBlockchain;
         }
+        if (null !== $this->billingType) {
+            $res['billing_type'] = $this->billingType;
+        }
         if (null !== $this->payReturnUrl) {
             $res['pay_return_url'] = $this->payReturnUrl;
         }
@@ -147,6 +164,9 @@ class UploadIpTradesalesRequest extends Model
         }
         if (null !== $this->totalSales) {
             $res['total_sales'] = $this->totalSales;
+        }
+        if (null !== $this->totalRefundSales) {
+            $res['total_refund_sales'] = $this->totalRefundSales;
         }
         if (null !== $this->totalPayment) {
             $res['total_payment'] = $this->totalPayment;
@@ -190,6 +210,9 @@ class UploadIpTradesalesRequest extends Model
         if (isset($map['only_call_blockchain'])) {
             $model->onlyCallBlockchain = $map['only_call_blockchain'];
         }
+        if (isset($map['billing_type'])) {
+            $model->billingType = $map['billing_type'];
+        }
         if (isset($map['pay_return_url'])) {
             $model->payReturnUrl = $map['pay_return_url'];
         }
@@ -204,6 +227,9 @@ class UploadIpTradesalesRequest extends Model
         }
         if (isset($map['total_sales'])) {
             $model->totalSales = $map['total_sales'];
+        }
+        if (isset($map['total_refund_sales'])) {
+            $model->totalRefundSales = $map['total_refund_sales'];
         }
         if (isset($map['total_payment'])) {
             $model->totalPayment = $map['total_payment'];

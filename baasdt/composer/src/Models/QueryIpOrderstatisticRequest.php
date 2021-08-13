@@ -36,12 +36,19 @@ class QueryIpOrderstatisticRequest extends Model
      * @var string
      */
     public $ipId;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'sellerId'          => 'seller_id',
         'ipId'              => 'ip_id',
+        'channelName'       => 'channel_name',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryIpOrderstatisticRequest extends Model
         }
         if (null !== $this->ipId) {
             $res['ip_id'] = $this->ipId;
+        }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryIpOrderstatisticRequest extends Model
         }
         if (isset($map['ip_id'])) {
             $model->ipId = $map['ip_id'];
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

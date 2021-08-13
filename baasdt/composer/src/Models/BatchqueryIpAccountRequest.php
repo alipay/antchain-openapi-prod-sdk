@@ -31,11 +31,18 @@ class BatchqueryIpAccountRequest extends Model
      * @var string[]
      */
     public $accountIds;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'accountIds'        => 'account_ids',
+        'channelName'       => 'channel_name',
     ];
 
     public function validate()
@@ -58,6 +65,9 @@ class BatchqueryIpAccountRequest extends Model
         }
         if (null !== $this->accountIds) {
             $res['account_ids'] = $this->accountIds;
+        }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
         }
 
         return $res;
@@ -84,6 +94,9 @@ class BatchqueryIpAccountRequest extends Model
             if (!empty($map['account_ids'])) {
                 $model->accountIds = $map['account_ids'];
             }
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

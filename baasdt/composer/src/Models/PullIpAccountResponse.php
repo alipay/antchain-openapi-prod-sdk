@@ -109,6 +109,12 @@ class PullIpAccountResponse extends Model
      * @var IPCardInfo
      */
     public $cardInfo;
+
+    // 创建账户时间
+    /**
+     * @var int
+     */
+    public $createTime;
     protected $_name = [
         'reqMsgId'           => 'req_msg_id',
         'resultCode'         => 'result_code',
@@ -127,6 +133,7 @@ class PullIpAccountResponse extends Model
         'settleRule'         => 'settle_rule',
         'contactInfo'        => 'contact_info',
         'cardInfo'           => 'card_info',
+        'createTime'         => 'create_time',
     ];
 
     public function validate()
@@ -186,6 +193,9 @@ class PullIpAccountResponse extends Model
         }
         if (null !== $this->cardInfo) {
             $res['card_info'] = null !== $this->cardInfo ? $this->cardInfo->toMap() : null;
+        }
+        if (null !== $this->createTime) {
+            $res['create_time'] = $this->createTime;
         }
 
         return $res;
@@ -249,6 +259,9 @@ class PullIpAccountResponse extends Model
         }
         if (isset($map['card_info'])) {
             $model->cardInfo = IPCardInfo::fromMap($map['card_info']);
+        }
+        if (isset($map['create_time'])) {
+            $model->createTime = $map['create_time'];
         }
 
         return $model;

@@ -79,6 +79,12 @@ class ApplyIpPackagetradeRequest extends Model
      */
     public $memo;
 
+    // 附加条款
+    /**
+     * @var string
+     */
+    public $additionalClause;
+
     // 授权产品范围
     /**
      * @var string
@@ -127,6 +133,7 @@ class ApplyIpPackagetradeRequest extends Model
         'authBeginTime'      => 'auth_begin_time',
         'authEndTime'        => 'auth_end_time',
         'memo'               => 'memo',
+        'additionalClause'   => 'additional_clause',
         'authProductScope'   => 'auth_product_scope',
         'authAreaScope'      => 'auth_area_scope',
         'salesChannel'       => 'sales_channel',
@@ -187,6 +194,9 @@ class ApplyIpPackagetradeRequest extends Model
         }
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
+        }
+        if (null !== $this->additionalClause) {
+            $res['additional_clause'] = $this->additionalClause;
         }
         if (null !== $this->authProductScope) {
             $res['auth_product_scope'] = $this->authProductScope;
@@ -253,6 +263,9 @@ class ApplyIpPackagetradeRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['additional_clause'])) {
+            $model->additionalClause = $map['additional_clause'];
         }
         if (isset($map['auth_product_scope'])) {
             $model->authProductScope = $map['auth_product_scope'];

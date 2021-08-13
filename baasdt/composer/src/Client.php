@@ -17,6 +17,8 @@ use AntChain\BAASDT\Models\AddConsumecardCommissionperiodRequest;
 use AntChain\BAASDT\Models\AddConsumecardCommissionperiodResponse;
 use AntChain\BAASDT\Models\AddEquityCountRequest;
 use AntChain\BAASDT\Models\AddEquityCountResponse;
+use AntChain\BAASDT\Models\AddIpAccountsettlementRequest;
+use AntChain\BAASDT\Models\AddIpAccountsettlementResponse;
 use AntChain\BAASDT\Models\AddIpChannelRequest;
 use AntChain\BAASDT\Models\AddIpChannelResponse;
 use AntChain\BAASDT\Models\ApplyConsumecardBillrefundRequest;
@@ -43,6 +45,8 @@ use AntChain\BAASDT\Models\BatchcreateCouponRequest;
 use AntChain\BAASDT\Models\BatchcreateCouponResponse;
 use AntChain\BAASDT\Models\BatchqueryIpAccountRequest;
 use AntChain\BAASDT\Models\BatchqueryIpAccountResponse;
+use AntChain\BAASDT\Models\BatchqueryIpAccountsettlementRequest;
+use AntChain\BAASDT\Models\BatchqueryIpAccountsettlementResponse;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalandchannelRequest;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalandchannelResponse;
 use AntChain\BAASDT\Models\BatchqueryIpApprovalRequest;
@@ -81,6 +85,8 @@ use AntChain\BAASDT\Models\ConfirmExchangeRequest;
 use AntChain\BAASDT\Models\ConfirmExchangeResponse;
 use AntChain\BAASDT\Models\ConfirmIpAccountRequest;
 use AntChain\BAASDT\Models\ConfirmIpAccountResponse;
+use AntChain\BAASDT\Models\ConfirmIpAccountsettlementRequest;
+use AntChain\BAASDT\Models\ConfirmIpAccountsettlementResponse;
 use AntChain\BAASDT\Models\ConfirmIpAuthtradeRequest;
 use AntChain\BAASDT\Models\ConfirmIpAuthtradeResponse;
 use AntChain\BAASDT\Models\ConfirmIpGoodsRequest;
@@ -125,6 +131,8 @@ use AntChain\BAASDT\Models\CreateEquityRequest;
 use AntChain\BAASDT\Models\CreateEquityResponse;
 use AntChain\BAASDT\Models\CreateIpAccountRequest;
 use AntChain\BAASDT\Models\CreateIpAccountResponse;
+use AntChain\BAASDT\Models\CreateIpCopyrightRequest;
+use AntChain\BAASDT\Models\CreateIpCopyrightResponse;
 use AntChain\BAASDT\Models\CreateIpGoodsRequest;
 use AntChain\BAASDT\Models\CreateIpGoodsResponse;
 use AntChain\BAASDT\Models\CreateIpSuperviseapproveRequest;
@@ -263,6 +271,10 @@ use AntChain\BAASDT\Models\PagequeryIpCodeRequest;
 use AntChain\BAASDT\Models\PagequeryIpCodeResponse;
 use AntChain\BAASDT\Models\PagequeryIpGalleryinstructionRequest;
 use AntChain\BAASDT\Models\PagequeryIpGalleryinstructionResponse;
+use AntChain\BAASDT\Models\PagequeryIpSalesbydayRequest;
+use AntChain\BAASDT\Models\PagequeryIpSalesbydayResponse;
+use AntChain\BAASDT\Models\PagequeryIpSalesRequest;
+use AntChain\BAASDT\Models\PagequeryIpSalesResponse;
 use AntChain\BAASDT\Models\PagequeryIpValueaddRequest;
 use AntChain\BAASDT\Models\PagequeryIpValueaddResponse;
 use AntChain\BAASDT\Models\PullIpAccountRequest;
@@ -353,12 +365,16 @@ use AntChain\BAASDT\Models\QueryImageRequest;
 use AntChain\BAASDT\Models\QueryImageResponse;
 use AntChain\BAASDT\Models\QueryIpAccountRequest;
 use AntChain\BAASDT\Models\QueryIpAccountResponse;
+use AntChain\BAASDT\Models\QueryIpAccountsettlementRequest;
+use AntChain\BAASDT\Models\QueryIpAccountsettlementResponse;
 use AntChain\BAASDT\Models\QueryIpBillstatusRequest;
 use AntChain\BAASDT\Models\QueryIpBillstatusResponse;
 use AntChain\BAASDT\Models\QueryIpCodeinfoRequest;
 use AntChain\BAASDT\Models\QueryIpCodeinfoResponse;
 use AntChain\BAASDT\Models\QueryIpCodeRequest;
 use AntChain\BAASDT\Models\QueryIpCodeResponse;
+use AntChain\BAASDT\Models\QueryIpCopyrightRequest;
+use AntChain\BAASDT\Models\QueryIpCopyrightResponse;
 use AntChain\BAASDT\Models\QueryIpDetailRequest;
 use AntChain\BAASDT\Models\QueryIpDetailResponse;
 use AntChain\BAASDT\Models\QueryIpGoodsdetailwithchannelRequest;
@@ -457,6 +473,10 @@ use AntChain\BAASDT\Models\SetConsumecardPurchasereplaceRequest;
 use AntChain\BAASDT\Models\SetConsumecardPurchasereplaceResponse;
 use AntChain\BAASDT\Models\SetIpCodeinfoRequest;
 use AntChain\BAASDT\Models\SetIpCodeinfoResponse;
+use AntChain\BAASDT\Models\SetIpOrdergoodsidsRequest;
+use AntChain\BAASDT\Models\SetIpOrdergoodsidsResponse;
+use AntChain\BAASDT\Models\SetIpOrdermemoRequest;
+use AntChain\BAASDT\Models\SetIpOrdermemoResponse;
 use AntChain\BAASDT\Models\SetIpSkuRequest;
 use AntChain\BAASDT\Models\SetIpSkuResponse;
 use AntChain\BAASDT\Models\SetIpValueaddskuRequest;
@@ -465,6 +485,8 @@ use AntChain\BAASDT\Models\SetMerchantFundmanagerRequest;
 use AntChain\BAASDT\Models\SetMerchantFundmanagerResponse;
 use AntChain\BAASDT\Models\SetMerchantProvisionRequest;
 use AntChain\BAASDT\Models\SetMerchantProvisionResponse;
+use AntChain\BAASDT\Models\SignIpOrdercontractRequest;
+use AntChain\BAASDT\Models\SignIpOrdercontractResponse;
 use AntChain\BAASDT\Models\StartConsumecardPurchaseRequest;
 use AntChain\BAASDT\Models\StartConsumecardPurchaseResponse;
 use AntChain\BAASDT\Models\StartIpAuthtradeRequest;
@@ -501,6 +523,8 @@ use AntChain\BAASDT\Models\UpdateEquityTenantpriceRequest;
 use AntChain\BAASDT\Models\UpdateEquityTenantpriceResponse;
 use AntChain\BAASDT\Models\UpdateEquityValidtimeRequest;
 use AntChain\BAASDT\Models\UpdateEquityValidtimeResponse;
+use AntChain\BAASDT\Models\UpdateIpAccountRequest;
+use AntChain\BAASDT\Models\UpdateIpAccountResponse;
 use AntChain\BAASDT\Models\UpdateIpChannelRequest;
 use AntChain\BAASDT\Models\UpdateIpChannelResponse;
 use AntChain\BAASDT\Models\UpdateIpGoodsgalleryRequest;
@@ -672,7 +696,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.54',
+                    'sdk_version'      => '1.2.80',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -8571,6 +8595,402 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryIpApprovalwithupdateResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+     * Summary: 数字商品服务-IP授权服务-账户信息补充.
+     *
+     * @param UpdateIpAccountRequest $request
+     *
+     * @return UpdateIpAccountResponse
+     */
+    public function updateIpAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateIpAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品-IP授权交易服务-账户信息补充（商家）
+     * Summary: 数字商品服务-IP授权服务-账户信息补充.
+     *
+     * @param UpdateIpAccountRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return UpdateIpAccountResponse
+     */
+    public function updateIpAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateIpAccountResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.account.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+     * Summary: 数字商品服务-IP-查询账户渠道列表.
+     *
+     * @param QueryIpAccountsettlementRequest $request
+     *
+     * @return QueryIpAccountsettlementResponse
+     */
+    public function queryIpAccountsettlement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpAccountsettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP-查询账户已经入驻的渠道列表
+     * Summary: 数字商品服务-IP-查询账户渠道列表.
+     *
+     * @param QueryIpAccountsettlementRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryIpAccountsettlementResponse
+     */
+    public function queryIpAccountsettlementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpAccountsettlementResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.accountsettlement.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+     * Summary: 数字商品-IP授权服务-申请开通新渠道.
+     *
+     * @param AddIpAccountsettlementRequest $request
+     *
+     * @return AddIpAccountsettlementResponse
+     */
+    public function addIpAccountsettlement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addIpAccountsettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-版权方用户申请开通新渠道
+     * Summary: 数字商品-IP授权服务-申请开通新渠道.
+     *
+     * @param AddIpAccountsettlementRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return AddIpAccountsettlementResponse
+     */
+    public function addIpAccountsettlementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddIpAccountsettlementResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.accountsettlement.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签署交易订单的区块链合同
+     * Summary: 数字商品服务-IP授权服务-签署订单合同.
+     *
+     * @param SignIpOrdercontractRequest $request
+     *
+     * @return SignIpOrdercontractResponse
+     */
+    public function signIpOrdercontract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signIpOrdercontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签署交易订单的区块链合同
+     * Summary: 数字商品服务-IP授权服务-签署订单合同.
+     *
+     * @param SignIpOrdercontractRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SignIpOrdercontractResponse
+     */
+    public function signIpOrdercontractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignIpOrdercontractResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.ordercontract.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+     * Summary: 数字商品服务-IP授权服务-绑定商品ID.
+     *
+     * @param SetIpOrdergoodsidsRequest $request
+     *
+     * @return SetIpOrdergoodsidsResponse
+     */
+    public function setIpOrdergoodsids($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setIpOrdergoodsidsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权订单绑定商品ID，后续上传的销售数据需满足已绑定的商品ID
+     * Summary: 数字商品服务-IP授权服务-绑定商品ID.
+     *
+     * @param SetIpOrdergoodsidsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SetIpOrdergoodsidsResponse
+     */
+    public function setIpOrdergoodsidsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetIpOrdergoodsidsResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.ordergoodsids.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+     * Summary: 数字商品服务-IP授权服务-查日销售数据.
+     *
+     * @param PagequeryIpSalesbydayRequest $request
+     *
+     * @return PagequeryIpSalesbydayResponse
+     */
+    public function pagequeryIpSalesbyday($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryIpSalesbydayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询商户和订单的T+1日销售数据汇总数据
+     * Summary: 数字商品服务-IP授权服务-查日销售数据.
+     *
+     * @param PagequeryIpSalesbydayRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PagequeryIpSalesbydayResponse
+     */
+    public function pagequeryIpSalesbydayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryIpSalesbydayResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.salesbyday.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+     * Summary: 数字商品服务-IP授权服务-文件版权保护.
+     *
+     * @param CreateIpCopyrightRequest $request
+     *
+     * @return CreateIpCopyrightResponse
+     */
+    public function createIpCopyright($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createIpCopyrightEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 联动雀凿，为文件生成区块链证书，实现文件的版权保护
+     * Summary: 数字商品服务-IP授权服务-文件版权保护.
+     *
+     * @param CreateIpCopyrightRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateIpCopyrightResponse
+     */
+    public function createIpCopyrightEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateIpCopyrightResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.copyright.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-文件版权状态查询
+     * Summary: 数字商品-IP授权服务-文件版权状态查询.
+     *
+     * @param QueryIpCopyrightRequest $request
+     *
+     * @return QueryIpCopyrightResponse
+     */
+    public function queryIpCopyright($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpCopyrightEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-文件版权状态查询
+     * Summary: 数字商品-IP授权服务-文件版权状态查询.
+     *
+     * @param QueryIpCopyrightRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryIpCopyrightResponse
+     */
+    public function queryIpCopyrightEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpCopyrightResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.copyright.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 编辑订单备注
+     * Summary: 数字商品服务-IP授权服务-编辑订单备注.
+     *
+     * @param SetIpOrdermemoRequest $request
+     *
+     * @return SetIpOrdermemoResponse
+     */
+    public function setIpOrdermemo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setIpOrdermemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 编辑订单备注
+     * Summary: 数字商品服务-IP授权服务-编辑订单备注.
+     *
+     * @param SetIpOrdermemoRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SetIpOrdermemoResponse
+     */
+    public function setIpOrdermemoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetIpOrdermemoResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.ordermemo.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品服务-IP-确认开通版权方渠道
+     * Summary: 数字商品服务-IP-开通版权方渠道.
+     *
+     * @param ConfirmIpAccountsettlementRequest $request
+     *
+     * @return ConfirmIpAccountsettlementResponse
+     */
+    public function confirmIpAccountsettlement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmIpAccountsettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP-确认开通版权方渠道
+     * Summary: 数字商品服务-IP-开通版权方渠道.
+     *
+     * @param ConfirmIpAccountsettlementRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ConfirmIpAccountsettlementResponse
+     */
+    public function confirmIpAccountsettlementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmIpAccountsettlementResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.accountsettlement.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询订单/账单的销售数据列表
+     * Summary: 数字商品服务-IP授权服务-查询销售数据.
+     *
+     * @param PagequeryIpSalesRequest $request
+     *
+     * @return PagequeryIpSalesResponse
+     */
+    public function pagequeryIpSales($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryIpSalesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询订单/账单的销售数据列表
+     * Summary: 数字商品服务-IP授权服务-查询销售数据.
+     *
+     * @param PagequeryIpSalesRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return PagequeryIpSalesResponse
+     */
+    public function pagequeryIpSalesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryIpSalesResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.sales.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+     * Summary: 数字商品-IP授权服务-查询版权方列表.
+     *
+     * @param BatchqueryIpAccountsettlementRequest $request
+     *
+     * @return BatchqueryIpAccountsettlementResponse
+     */
+    public function batchqueryIpAccountsettlement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryIpAccountsettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品-IP授权服务-查询申请入驻该渠道的所有版权方列表
+     * Summary: 数字商品-IP授权服务-查询版权方列表.
+     *
+     * @param BatchqueryIpAccountsettlementRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryIpAccountsettlementResponse
+     */
+    public function batchqueryIpAccountsettlementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryIpAccountsettlementResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

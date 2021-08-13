@@ -103,6 +103,12 @@ class StartIpAuthtradeRequest extends Model
      */
     public $memo;
 
+    // 附加条款
+    /**
+     * @var string
+     */
+    public $additionalClause;
+
     // 是否有保底金
     /**
      * @var bool
@@ -161,6 +167,7 @@ class StartIpAuthtradeRequest extends Model
         'authAreaScope'         => 'auth_area_scope',
         'salesChannel'          => 'sales_channel',
         'memo'                  => 'memo',
+        'additionalClause'      => 'additional_clause',
         'guaranteed'            => 'guaranteed',
         'guaranteedFund'        => 'guaranteed_fund',
         'guaranteedGoodsAmount' => 'guaranteed_goods_amount',
@@ -231,6 +238,9 @@ class StartIpAuthtradeRequest extends Model
         }
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
+        }
+        if (null !== $this->additionalClause) {
+            $res['additional_clause'] = $this->additionalClause;
         }
         if (null !== $this->guaranteed) {
             $res['guaranteed'] = $this->guaranteed;
@@ -312,6 +322,9 @@ class StartIpAuthtradeRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['additional_clause'])) {
+            $model->additionalClause = $map['additional_clause'];
         }
         if (isset($map['guaranteed'])) {
             $model->guaranteed = $map['guaranteed'];

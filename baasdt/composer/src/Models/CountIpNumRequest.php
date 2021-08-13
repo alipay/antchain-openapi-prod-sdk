@@ -30,11 +30,18 @@ class CountIpNumRequest extends Model
      * @var string
      */
     public $accountId;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'accountId'         => 'account_id',
+        'channelName'       => 'channel_name',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CountIpNumRequest extends Model
         }
         if (null !== $this->accountId) {
             $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CountIpNumRequest extends Model
         }
         if (isset($map['account_id'])) {
             $model->accountId = $map['account_id'];
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

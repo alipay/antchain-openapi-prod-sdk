@@ -138,6 +138,36 @@ class UploadIpAuthtradesalesRequest extends Model
      * @var string
      */
     public $memo;
+
+    // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+    /**
+     * @var int
+     */
+    public $billingType;
+
+    // 商品ID
+    /**
+     * @var string
+     */
+    public $goodsId;
+
+    // 退款的销售金额，有退款时填写，默认0
+    /**
+     * @var string
+     */
+    public $refundSales;
+
+    // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+    /**
+     * @var string
+     */
+    public $salesExtInfo;
+
+    // 用户信息json string: 姓名/手机号/地址等结构化数据
+    /**
+     * @var string
+     */
+    public $salesUserInfo;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -161,6 +191,11 @@ class UploadIpAuthtradesalesRequest extends Model
         'goodsInfo'           => 'goods_info',
         'operator'            => 'operator',
         'memo'                => 'memo',
+        'billingType'         => 'billing_type',
+        'goodsId'             => 'goods_id',
+        'refundSales'         => 'refund_sales',
+        'salesExtInfo'        => 'sales_ext_info',
+        'salesUserInfo'       => 'sales_user_info',
     ];
 
     public function validate()
@@ -249,6 +284,21 @@ class UploadIpAuthtradesalesRequest extends Model
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
         }
+        if (null !== $this->billingType) {
+            $res['billing_type'] = $this->billingType;
+        }
+        if (null !== $this->goodsId) {
+            $res['goods_id'] = $this->goodsId;
+        }
+        if (null !== $this->refundSales) {
+            $res['refund_sales'] = $this->refundSales;
+        }
+        if (null !== $this->salesExtInfo) {
+            $res['sales_ext_info'] = $this->salesExtInfo;
+        }
+        if (null !== $this->salesUserInfo) {
+            $res['sales_user_info'] = $this->salesUserInfo;
+        }
 
         return $res;
     }
@@ -326,6 +376,21 @@ class UploadIpAuthtradesalesRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['billing_type'])) {
+            $model->billingType = $map['billing_type'];
+        }
+        if (isset($map['goods_id'])) {
+            $model->goodsId = $map['goods_id'];
+        }
+        if (isset($map['refund_sales'])) {
+            $model->refundSales = $map['refund_sales'];
+        }
+        if (isset($map['sales_ext_info'])) {
+            $model->salesExtInfo = $map['sales_ext_info'];
+        }
+        if (isset($map['sales_user_info'])) {
+            $model->salesUserInfo = $map['sales_user_info'];
         }
 
         return $model;

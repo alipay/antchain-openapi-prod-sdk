@@ -39,11 +39,20 @@ class IPContactInfo extends Model
      * @var int
      */
     public $type;
+
+    // 联系人身份证号
+    /**
+     * @example 320000000000000000
+     *
+     * @var string
+     */
+    public $certno;
     protected $_name = [
         'name'   => 'name',
         'mobile' => 'mobile',
         'phone'  => 'phone',
         'type'   => 'type',
+        'certno' => 'certno',
     ];
 
     public function validate()
@@ -66,6 +75,9 @@ class IPContactInfo extends Model
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
+        }
+        if (null !== $this->certno) {
+            $res['certno'] = $this->certno;
         }
 
         return $res;
@@ -90,6 +102,9 @@ class IPContactInfo extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
+        }
+        if (isset($map['certno'])) {
+            $model->certno = $map['certno'];
         }
 
         return $model;

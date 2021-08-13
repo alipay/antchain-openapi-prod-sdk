@@ -91,6 +91,12 @@ class BatchqueryIpApprovalandchannelRequest extends Model
      * @var string
      */
     public $createEndTime;
+
+    // 渠道名称
+    /**
+     * @var string
+     */
+    public $channelName;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
@@ -106,6 +112,7 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         'pageIndex'            => 'page_index',
         'createBeginTime'      => 'create_begin_time',
         'createEndTime'        => 'create_end_time',
+        'channelName'          => 'channel_name',
     ];
 
     public function validate()
@@ -165,6 +172,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         if (null !== $this->createEndTime) {
             $res['create_end_time'] = $this->createEndTime;
         }
+        if (null !== $this->channelName) {
+            $res['channel_name'] = $this->channelName;
+        }
 
         return $res;
     }
@@ -218,6 +228,9 @@ class BatchqueryIpApprovalandchannelRequest extends Model
         }
         if (isset($map['create_end_time'])) {
             $model->createEndTime = $map['create_end_time'];
+        }
+        if (isset($map['channel_name'])) {
+            $model->channelName = $map['channel_name'];
         }
 
         return $model;

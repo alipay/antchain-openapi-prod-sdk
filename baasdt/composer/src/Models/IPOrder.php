@@ -328,6 +328,30 @@ class IPOrder extends Model
      * @var bool
      */
     public $downloadIpGallery;
+
+    // 备注信息
+    /**
+     * @example 备注信息
+     *
+     * @var string
+     */
+    public $memo;
+
+    // 附加条款
+    /**
+     * @example 附加条款
+     *
+     * @var string
+     */
+    public $additionalClause;
+
+    // 合同文件列表
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $contractFiles;
     protected $_name = [
         'ipOrderId'                 => 'ip_order_id',
         'sellerId'                  => 'seller_id',
@@ -369,6 +393,9 @@ class IPOrder extends Model
         'ipGalleryUrl'              => 'ip_gallery_url',
         'ipGalleryVersion'          => 'ip_gallery_version',
         'downloadIpGallery'         => 'download_ip_gallery',
+        'memo'                      => 'memo',
+        'additionalClause'          => 'additional_clause',
+        'contractFiles'             => 'contract_files',
     ];
 
     public function validate()
@@ -410,6 +437,7 @@ class IPOrder extends Model
         Model::validateRequired('goodsType', $this->goodsType, true);
         Model::validateRequired('relatedOrderId', $this->relatedOrderId, true);
         Model::validateRequired('superviseApprove', $this->superviseApprove, true);
+        Model::validateRequired('memo', $this->memo, true);
     }
 
     public function toMap()
@@ -534,6 +562,15 @@ class IPOrder extends Model
         }
         if (null !== $this->downloadIpGallery) {
             $res['download_ip_gallery'] = $this->downloadIpGallery;
+        }
+        if (null !== $this->memo) {
+            $res['memo'] = $this->memo;
+        }
+        if (null !== $this->additionalClause) {
+            $res['additional_clause'] = $this->additionalClause;
+        }
+        if (null !== $this->contractFiles) {
+            $res['contract_files'] = $this->contractFiles;
         }
 
         return $res;
@@ -666,6 +703,17 @@ class IPOrder extends Model
         }
         if (isset($map['download_ip_gallery'])) {
             $model->downloadIpGallery = $map['download_ip_gallery'];
+        }
+        if (isset($map['memo'])) {
+            $model->memo = $map['memo'];
+        }
+        if (isset($map['additional_clause'])) {
+            $model->additionalClause = $map['additional_clause'];
+        }
+        if (isset($map['contract_files'])) {
+            if (!empty($map['contract_files'])) {
+                $model->contractFiles = $map['contract_files'];
+            }
         }
 
         return $model;
