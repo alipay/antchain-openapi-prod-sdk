@@ -22,6 +22,10 @@ public class BatchqueryIpAccountRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> accountIds;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static BatchqueryIpAccountRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpAccountRequest self = new BatchqueryIpAccountRequest();
         return TeaModel.build(map, self);
@@ -57,6 +61,14 @@ public class BatchqueryIpAccountRequest extends TeaModel {
     }
     public java.util.List<String> getAccountIds() {
         return this.accountIds;
+    }
+
+    public BatchqueryIpAccountRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

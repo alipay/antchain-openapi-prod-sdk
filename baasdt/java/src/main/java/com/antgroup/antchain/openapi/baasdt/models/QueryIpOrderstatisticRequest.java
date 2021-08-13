@@ -24,6 +24,10 @@ public class QueryIpOrderstatisticRequest extends TeaModel {
     @NameInMap("ip_id")
     public String ipId;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static QueryIpOrderstatisticRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpOrderstatisticRequest self = new QueryIpOrderstatisticRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryIpOrderstatisticRequest extends TeaModel {
     }
     public String getIpId() {
         return this.ipId;
+    }
+
+    public QueryIpOrderstatisticRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

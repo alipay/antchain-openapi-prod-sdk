@@ -63,9 +63,12 @@ public class CreateIpGoodsRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<DockingPeopleInfo> dockingPeopleInfo;
 
-    // 资质
+    // 资质证书类型，0为用户上传，1申请
+    @NameInMap("copy_right_type")
+    public String copyRightType;
+
+    // 资质，copy_right_type为0的时候，copy_right不能为空，copy_right_type为1的时候，copy_right可以为空
     @NameInMap("copy_right")
-    @Validation(required = true)
     public String copyRight;
 
     // 合作事项
@@ -206,6 +209,14 @@ public class CreateIpGoodsRequest extends TeaModel {
     }
     public java.util.List<DockingPeopleInfo> getDockingPeopleInfo() {
         return this.dockingPeopleInfo;
+    }
+
+    public CreateIpGoodsRequest setCopyRightType(String copyRightType) {
+        this.copyRightType = copyRightType;
+        return this;
+    }
+    public String getCopyRightType() {
+        return this.copyRightType;
     }
 
     public CreateIpGoodsRequest setCopyRight(String copyRight) {

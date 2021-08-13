@@ -84,6 +84,10 @@ public class QueryIpOrderlistRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static QueryIpOrderlistRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIpOrderlistRequest self = new QueryIpOrderlistRequest();
         return TeaModel.build(map, self);
@@ -239,6 +243,14 @@ public class QueryIpOrderlistRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryIpOrderlistRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

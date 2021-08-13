@@ -31,6 +31,10 @@ public class UploadIpTradesalesRequest extends TeaModel {
     @Validation(required = true)
     public Boolean onlyCallBlockchain;
 
+    // 账单结算类型：即时计费0、按周计费1、按月计费2、按季度计费3。默认0
+    @NameInMap("billing_type")
+    public Long billingType;
+
     // 支付完成后的回调地址。如果为空，默认跳转到https://ipforce.cloud.alipay.com/
     @NameInMap("pay_return_url")
     public String payReturnUrl;
@@ -52,6 +56,10 @@ public class UploadIpTradesalesRequest extends TeaModel {
     @NameInMap("total_sales")
     @Validation(required = true)
     public String totalSales;
+
+    // 总的退款金额。不填默认为0
+    @NameInMap("total_refund_sales")
+    public String totalRefundSales;
 
     // 实付金额（授权交易）
     @NameInMap("total_payment")
@@ -116,6 +124,14 @@ public class UploadIpTradesalesRequest extends TeaModel {
         return this.onlyCallBlockchain;
     }
 
+    public UploadIpTradesalesRequest setBillingType(Long billingType) {
+        this.billingType = billingType;
+        return this;
+    }
+    public Long getBillingType() {
+        return this.billingType;
+    }
+
     public UploadIpTradesalesRequest setPayReturnUrl(String payReturnUrl) {
         this.payReturnUrl = payReturnUrl;
         return this;
@@ -154,6 +170,14 @@ public class UploadIpTradesalesRequest extends TeaModel {
     }
     public String getTotalSales() {
         return this.totalSales;
+    }
+
+    public UploadIpTradesalesRequest setTotalRefundSales(String totalRefundSales) {
+        this.totalRefundSales = totalRefundSales;
+        return this;
+    }
+    public String getTotalRefundSales() {
+        return this.totalRefundSales;
     }
 
     public UploadIpTradesalesRequest setTotalPayment(String totalPayment) {

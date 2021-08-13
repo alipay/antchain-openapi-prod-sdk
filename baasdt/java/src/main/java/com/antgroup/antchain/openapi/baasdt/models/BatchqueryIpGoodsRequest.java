@@ -16,6 +16,10 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
+    // 商品id
+    @NameInMap("ip_id")
+    public String ipId;
+
     // ip名称，支持模糊匹配
     @NameInMap("ip_name")
     public String ipName;
@@ -105,6 +109,14 @@ public class BatchqueryIpGoodsRequest extends TeaModel {
     }
     public BaseRequestInfo getBaseRequest() {
         return this.baseRequest;
+    }
+
+    public BatchqueryIpGoodsRequest setIpId(String ipId) {
+        this.ipId = ipId;
+        return this;
+    }
+    public String getIpId() {
+        return this.ipId;
     }
 
     public BatchqueryIpGoodsRequest setIpName(String ipName) {

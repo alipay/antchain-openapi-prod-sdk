@@ -66,6 +66,10 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createEndTime;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static BatchqueryIpApprovalandchannelRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpApprovalandchannelRequest self = new BatchqueryIpApprovalandchannelRequest();
         return TeaModel.build(map, self);
@@ -181,6 +185,14 @@ public class BatchqueryIpApprovalandchannelRequest extends TeaModel {
     }
     public String getCreateEndTime() {
         return this.createEndTime;
+    }
+
+    public BatchqueryIpApprovalandchannelRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

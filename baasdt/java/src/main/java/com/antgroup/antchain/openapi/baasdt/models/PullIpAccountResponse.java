@@ -72,6 +72,10 @@ public class PullIpAccountResponse extends TeaModel {
     @NameInMap("card_info")
     public IPCardInfo cardInfo;
 
+    // 创建账户时间
+    @NameInMap("create_time")
+    public Long createTime;
+
     public static PullIpAccountResponse build(java.util.Map<String, ?> map) throws Exception {
         PullIpAccountResponse self = new PullIpAccountResponse();
         return TeaModel.build(map, self);
@@ -211,6 +215,14 @@ public class PullIpAccountResponse extends TeaModel {
     }
     public IPCardInfo getCardInfo() {
         return this.cardInfo;
+    }
+
+    public PullIpAccountResponse setCreateTime(Long createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+    public Long getCreateTime() {
+        return this.createTime;
     }
 
 }

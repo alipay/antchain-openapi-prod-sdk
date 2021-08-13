@@ -22,6 +22,10 @@ public class IPContactInfo extends TeaModel {
     @Validation(required = true)
     public Long type;
 
+    // 联系人身份证号
+    @NameInMap("certno")
+    public String certno;
+
     public static IPContactInfo build(java.util.Map<String, ?> map) throws Exception {
         IPContactInfo self = new IPContactInfo();
         return TeaModel.build(map, self);
@@ -57,6 +61,14 @@ public class IPContactInfo extends TeaModel {
     }
     public Long getType() {
         return this.type;
+    }
+
+    public IPContactInfo setCertno(String certno) {
+        this.certno = certno;
+        return this;
+    }
+    public String getCertno() {
+        return this.certno;
     }
 
 }

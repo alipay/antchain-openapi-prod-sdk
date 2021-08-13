@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class CountIpNumRequest extends TeaModel {
+public class QueryIpAccountsettlementRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,25 +11,26 @@ public class CountIpNumRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 基础字段
+    // 基础参数
     @NameInMap("base_request")
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 账户id，为空则查全局
+    // 版权方的链上id
     @NameInMap("account_id")
+    @Validation(required = true)
     public String accountId;
 
-    // 渠道名称
-    @NameInMap("channel_name")
-    public String channelName;
+    // 为空，返回所有数据，true，返回入驻数据，false，返回未入驻数据
+    @NameInMap("is_filtered")
+    public Boolean isFiltered;
 
-    public static CountIpNumRequest build(java.util.Map<String, ?> map) throws Exception {
-        CountIpNumRequest self = new CountIpNumRequest();
+    public static QueryIpAccountsettlementRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryIpAccountsettlementRequest self = new QueryIpAccountsettlementRequest();
         return TeaModel.build(map, self);
     }
 
-    public CountIpNumRequest setAuthToken(String authToken) {
+    public QueryIpAccountsettlementRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -37,7 +38,7 @@ public class CountIpNumRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CountIpNumRequest setProductInstanceId(String productInstanceId) {
+    public QueryIpAccountsettlementRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -45,7 +46,7 @@ public class CountIpNumRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CountIpNumRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public QueryIpAccountsettlementRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -53,7 +54,7 @@ public class CountIpNumRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public CountIpNumRequest setAccountId(String accountId) {
+    public QueryIpAccountsettlementRequest setAccountId(String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -61,12 +62,12 @@ public class CountIpNumRequest extends TeaModel {
         return this.accountId;
     }
 
-    public CountIpNumRequest setChannelName(String channelName) {
-        this.channelName = channelName;
+    public QueryIpAccountsettlementRequest setIsFiltered(Boolean isFiltered) {
+        this.isFiltered = isFiltered;
         return this;
     }
-    public String getChannelName() {
-        return this.channelName;
+    public Boolean getIsFiltered() {
+        return this.isFiltered;
     }
 
 }

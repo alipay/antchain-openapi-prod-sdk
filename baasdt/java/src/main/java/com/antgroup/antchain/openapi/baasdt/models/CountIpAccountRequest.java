@@ -24,6 +24,10 @@ public class CountIpAccountRequest extends TeaModel {
     @NameInMap("product_code")
     public String productCode;
 
+    // null返回所有数据，非空返回对应渠道的数据
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static CountIpAccountRequest build(java.util.Map<String, ?> map) throws Exception {
         CountIpAccountRequest self = new CountIpAccountRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class CountIpAccountRequest extends TeaModel {
     }
     public String getProductCode() {
         return this.productCode;
+    }
+
+    public CountIpAccountRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

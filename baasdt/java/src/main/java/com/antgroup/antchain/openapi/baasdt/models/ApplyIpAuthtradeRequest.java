@@ -73,6 +73,10 @@ public class ApplyIpAuthtradeRequest extends TeaModel {
     @Validation(required = true)
     public String memo;
 
+    // 附加条款
+    @NameInMap("additional_clause")
+    public String additionalClause;
+
     // 是否有保底金
     @NameInMap("guaranteed")
     @Validation(required = true)
@@ -233,6 +237,14 @@ public class ApplyIpAuthtradeRequest extends TeaModel {
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public ApplyIpAuthtradeRequest setAdditionalClause(String additionalClause) {
+        this.additionalClause = additionalClause;
+        return this;
+    }
+    public String getAdditionalClause() {
+        return this.additionalClause;
     }
 
     public ApplyIpAuthtradeRequest setGuaranteed(Boolean guaranteed) {

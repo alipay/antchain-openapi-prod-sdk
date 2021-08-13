@@ -202,6 +202,19 @@ public class IPOrder extends TeaModel {
     @NameInMap("download_ip_gallery")
     public Boolean downloadIpGallery;
 
+    // 备注信息
+    @NameInMap("memo")
+    @Validation(required = true)
+    public String memo;
+
+    // 附加条款
+    @NameInMap("additional_clause")
+    public String additionalClause;
+
+    // 合同文件列表
+    @NameInMap("contract_files")
+    public java.util.List<String> contractFiles;
+
     public static IPOrder build(java.util.Map<String, ?> map) throws Exception {
         IPOrder self = new IPOrder();
         return TeaModel.build(map, self);
@@ -525,6 +538,30 @@ public class IPOrder extends TeaModel {
     }
     public Boolean getDownloadIpGallery() {
         return this.downloadIpGallery;
+    }
+
+    public IPOrder setMemo(String memo) {
+        this.memo = memo;
+        return this;
+    }
+    public String getMemo() {
+        return this.memo;
+    }
+
+    public IPOrder setAdditionalClause(String additionalClause) {
+        this.additionalClause = additionalClause;
+        return this;
+    }
+    public String getAdditionalClause() {
+        return this.additionalClause;
+    }
+
+    public IPOrder setContractFiles(java.util.List<String> contractFiles) {
+        this.contractFiles = contractFiles;
+        return this;
+    }
+    public java.util.List<String> getContractFiles() {
+        return this.contractFiles;
     }
 
 }

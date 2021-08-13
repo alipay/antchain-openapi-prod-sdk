@@ -20,6 +20,10 @@ public class CountIpPvRequest extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static CountIpPvRequest build(java.util.Map<String, ?> map) throws Exception {
         CountIpPvRequest self = new CountIpPvRequest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CountIpPvRequest extends TeaModel {
     }
     public String getAccountId() {
         return this.accountId;
+    }
+
+    public CountIpPvRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

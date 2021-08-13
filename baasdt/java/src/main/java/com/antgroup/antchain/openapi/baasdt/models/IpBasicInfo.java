@@ -52,9 +52,13 @@ public class IpBasicInfo extends TeaModel {
     @Validation(required = true)
     public java.util.List<DockingPeopleInfo> dockingPeopleInfo;
 
+    // 资质证书类型，0为自己上传的资质证书，1为区块链版权证书
+    @NameInMap("copy_right_type")
+    @Validation(required = true)
+    public String copyRightType;
+
     // 资质信息
     @NameInMap("copy_right")
-    @Validation(required = true)
     public String copyRight;
 
     // 合作案例，图片存放oss链接，多张用,隔开
@@ -191,6 +195,14 @@ public class IpBasicInfo extends TeaModel {
     }
     public java.util.List<DockingPeopleInfo> getDockingPeopleInfo() {
         return this.dockingPeopleInfo;
+    }
+
+    public IpBasicInfo setCopyRightType(String copyRightType) {
+        this.copyRightType = copyRightType;
+        return this;
+    }
+    public String getCopyRightType() {
+        return this.copyRightType;
     }
 
     public IpBasicInfo setCopyRight(String copyRight) {

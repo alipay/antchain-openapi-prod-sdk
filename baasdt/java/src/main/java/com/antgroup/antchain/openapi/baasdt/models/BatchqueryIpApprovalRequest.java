@@ -65,6 +65,10 @@ public class BatchqueryIpApprovalRequest extends TeaModel {
     @Validation(required = true)
     public Boolean isCreateTimeSortDesc;
 
+    // 渠道名称
+    @NameInMap("channel_name")
+    public String channelName;
+
     public static BatchqueryIpApprovalRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpApprovalRequest self = new BatchqueryIpApprovalRequest();
         return TeaModel.build(map, self);
@@ -180,6 +184,14 @@ public class BatchqueryIpApprovalRequest extends TeaModel {
     }
     public Boolean getIsCreateTimeSortDesc() {
         return this.isCreateTimeSortDesc;
+    }
+
+    public BatchqueryIpApprovalRequest setChannelName(String channelName) {
+        this.channelName = channelName;
+        return this;
+    }
+    public String getChannelName() {
+        return this.channelName;
     }
 
 }

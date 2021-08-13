@@ -61,6 +61,10 @@ public class StartIpPackagetradeRequest extends TeaModel {
     @Validation(required = true)
     public String memo;
 
+    // 附加条款
+    @NameInMap("additional_clause")
+    public String additionalClause;
+
     // 授权产品范围
     @NameInMap("auth_product_scope")
     public String authProductScope;
@@ -184,6 +188,14 @@ public class StartIpPackagetradeRequest extends TeaModel {
     }
     public String getMemo() {
         return this.memo;
+    }
+
+    public StartIpPackagetradeRequest setAdditionalClause(String additionalClause) {
+        this.additionalClause = additionalClause;
+        return this;
+    }
+    public String getAdditionalClause() {
+        return this.additionalClause;
     }
 
     public StartIpPackagetradeRequest setAuthProductScope(String authProductScope) {

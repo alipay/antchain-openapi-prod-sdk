@@ -73,6 +73,22 @@ public class IPSalesInfo extends TeaModel {
     @NameInMap("goods_info")
     public String goodsInfo;
 
+    // 商品ID
+    @NameInMap("goods_id")
+    public String goodsId;
+
+    // 退款的销售金额，有退款时填写，默认0
+    @NameInMap("refund_sales")
+    public String refundSales;
+
+    // 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+    @NameInMap("sales_ext_info")
+    public String salesExtInfo;
+
+    // 用户信息json string: 姓名/手机号/地址等结构化数据
+    @NameInMap("sales_user_info")
+    public String salesUserInfo;
+
     public static IPSalesInfo build(java.util.Map<String, ?> map) throws Exception {
         IPSalesInfo self = new IPSalesInfo();
         return TeaModel.build(map, self);
@@ -188,6 +204,38 @@ public class IPSalesInfo extends TeaModel {
     }
     public String getGoodsInfo() {
         return this.goodsInfo;
+    }
+
+    public IPSalesInfo setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+        return this;
+    }
+    public String getGoodsId() {
+        return this.goodsId;
+    }
+
+    public IPSalesInfo setRefundSales(String refundSales) {
+        this.refundSales = refundSales;
+        return this;
+    }
+    public String getRefundSales() {
+        return this.refundSales;
+    }
+
+    public IPSalesInfo setSalesExtInfo(String salesExtInfo) {
+        this.salesExtInfo = salesExtInfo;
+        return this;
+    }
+    public String getSalesExtInfo() {
+        return this.salesExtInfo;
+    }
+
+    public IPSalesInfo setSalesUserInfo(String salesUserInfo) {
+        this.salesUserInfo = salesUserInfo;
+        return this;
+    }
+    public String getSalesUserInfo() {
+        return this.salesUserInfo;
     }
 
 }

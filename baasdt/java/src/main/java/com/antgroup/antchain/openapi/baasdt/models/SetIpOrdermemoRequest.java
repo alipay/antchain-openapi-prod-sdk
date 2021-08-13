@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class CountIpNumRequest extends TeaModel {
+public class SetIpOrdermemoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,25 +11,27 @@ public class CountIpNumRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 基础字段
+    // 基础请求参数
     @NameInMap("base_request")
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 账户id，为空则查全局
-    @NameInMap("account_id")
-    public String accountId;
+    // 订单ID
+    @NameInMap("ip_order_id")
+    @Validation(required = true)
+    public String ipOrderId;
 
-    // 渠道名称
-    @NameInMap("channel_name")
-    public String channelName;
+    // 备注信息
+    @NameInMap("memo")
+    @Validation(required = true)
+    public String memo;
 
-    public static CountIpNumRequest build(java.util.Map<String, ?> map) throws Exception {
-        CountIpNumRequest self = new CountIpNumRequest();
+    public static SetIpOrdermemoRequest build(java.util.Map<String, ?> map) throws Exception {
+        SetIpOrdermemoRequest self = new SetIpOrdermemoRequest();
         return TeaModel.build(map, self);
     }
 
-    public CountIpNumRequest setAuthToken(String authToken) {
+    public SetIpOrdermemoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -37,7 +39,7 @@ public class CountIpNumRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CountIpNumRequest setProductInstanceId(String productInstanceId) {
+    public SetIpOrdermemoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -45,7 +47,7 @@ public class CountIpNumRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CountIpNumRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public SetIpOrdermemoRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -53,20 +55,20 @@ public class CountIpNumRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public CountIpNumRequest setAccountId(String accountId) {
-        this.accountId = accountId;
+    public SetIpOrdermemoRequest setIpOrderId(String ipOrderId) {
+        this.ipOrderId = ipOrderId;
         return this;
     }
-    public String getAccountId() {
-        return this.accountId;
+    public String getIpOrderId() {
+        return this.ipOrderId;
     }
 
-    public CountIpNumRequest setChannelName(String channelName) {
-        this.channelName = channelName;
+    public SetIpOrdermemoRequest setMemo(String memo) {
+        this.memo = memo;
         return this;
     }
-    public String getChannelName() {
-        return this.channelName;
+    public String getMemo() {
+        return this.memo;
     }
 
 }
