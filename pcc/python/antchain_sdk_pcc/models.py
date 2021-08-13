@@ -156,17 +156,21 @@ class ProductBaseInfo(TeaModel):
         code: str = None,
         name: str = None,
         name_en: str = None,
+        short_code: str = None,
     ):
-        # 产品码
+        # 产品码，系统内部识别
         self.code = code
         # 产品名称
         self.name = name
         # 产品英文名称
         self.name_en = name_en
+        # 产品短码，管理维度识别
+        self.short_code = short_code
 
     def validate(self):
         self.validate_required(self.code, 'code')
         self.validate_required(self.name, 'name')
+        self.validate_required(self.short_code, 'short_code')
 
     def to_map(self):
         result = dict()
@@ -176,6 +180,8 @@ class ProductBaseInfo(TeaModel):
             result['name'] = self.name
         if self.name_en is not None:
             result['name_en'] = self.name_en
+        if self.short_code is not None:
+            result['short_code'] = self.short_code
         return result
 
     def from_map(self, m: dict = None):
@@ -186,6 +192,8 @@ class ProductBaseInfo(TeaModel):
             self.name = m.get('name')
         if m.get('name_en') is not None:
             self.name_en = m.get('name_en')
+        if m.get('short_code') is not None:
+            self.short_code = m.get('short_code')
         return self
 
 
