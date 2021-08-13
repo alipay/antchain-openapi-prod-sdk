@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ProductBaseInfo extends Model
 {
-    // 产品码
+    // 产品码，系统内部识别
     /**
      * @example IIFS
      *
@@ -31,16 +31,26 @@ class ProductBaseInfo extends Model
      * @var string
      */
     public $nameEn;
+
+    // 产品短码，管理维度识别
+    /**
+     * @example IIFS
+     *
+     * @var string
+     */
+    public $shortCode;
     protected $_name = [
-        'code'   => 'code',
-        'name'   => 'name',
-        'nameEn' => 'name_en',
+        'code'      => 'code',
+        'name'      => 'name',
+        'nameEn'    => 'name_en',
+        'shortCode' => 'short_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('code', $this->code, true);
         Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('shortCode', $this->shortCode, true);
     }
 
     public function toMap()
@@ -54,6 +64,9 @@ class ProductBaseInfo extends Model
         }
         if (null !== $this->nameEn) {
             $res['name_en'] = $this->nameEn;
+        }
+        if (null !== $this->shortCode) {
+            $res['short_code'] = $this->shortCode;
         }
 
         return $res;
@@ -75,6 +88,9 @@ class ProductBaseInfo extends Model
         }
         if (isset($map['name_en'])) {
             $model->nameEn = $map['name_en'];
+        }
+        if (isset($map['short_code'])) {
+            $model->shortCode = $map['short_code'];
         }
 
         return $model;
