@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -161,12 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 
 // Product基础信息，包含 code(产品码) ,name(产品名称),name_en(产品英文名)
 model ProductBaseInfo {
-  // 产品码
+  // 产品码，系统内部识别
   code: string(name='code', example='IIFS'),
   // 产品名称
   name: string(name='name', example='票聚链-普惠金融服务'),
   // 产品英文名称
   nameEn?: string(name='name_en', example='invoichain-finance'),
+  // 产品短码，管理维度识别
+  shortCode: string(name='short_code', example='IIFS'),
 }
 
 model QueryProductRequest = {
