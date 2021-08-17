@@ -21,7 +21,7 @@ public class QueryIpGoodsgalleryRequest extends TeaModel {
     @Validation(required = true)
     public String accountId;
 
-    // IP链上ID，只有版权方可以根据IPID查询图库信息
+    // IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
     @NameInMap("ip_id")
     public String ipId;
 

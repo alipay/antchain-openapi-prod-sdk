@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.80")
+                    new TeaPair("sdk_version", "1.2.82")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3902,8 +3902,8 @@ public class Client {
     }
 
     /**
-     * Description: 版权方待审批的批量查询
-     * Summary: 数字商品服务-IP授权服务-查版权方申请
+     * Description: 账户列表查询
+     * Summary: 数字商品服务-IP授权服务-查账户列表
      */
     public BatchqueryIpSellerResponse batchqueryIpSeller(BatchqueryIpSellerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3912,8 +3912,8 @@ public class Client {
     }
 
     /**
-     * Description: 版权方待审批的批量查询
-     * Summary: 数字商品服务-IP授权服务-查版权方申请
+     * Description: 账户列表查询
+     * Summary: 数字商品服务-IP授权服务-查账户列表
      */
     public BatchqueryIpSellerResponse batchqueryIpSellerEx(BatchqueryIpSellerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

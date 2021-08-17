@@ -31,6 +31,38 @@ public class BatchqueryIpSellerRequest extends TeaModel {
     @Validation(required = true)
     public Long pageIndex;
 
+    // 账户链上ID
+    @NameInMap("account_id")
+    public String accountId;
+
+    // 1 版权方，2 商户
+    @NameInMap("role")
+    public Long role;
+
+    // 联系人名称
+    @NameInMap("contact_name")
+    public String contactName;
+
+    // 联系人电话
+    @NameInMap("contact_mobile")
+    public String contactMobile;
+
+    // 账户状态列表
+    @NameInMap("status_list")
+    public java.util.List<Long> statusList;
+
+    // 排序
+    @NameInMap("sort_order")
+    public String sortOrder;
+
+    // 筛选更新时间范围，开始区间
+    @NameInMap("create_start_time")
+    public Long createStartTime;
+
+    // 筛选更新时间范围，结束区间
+    @NameInMap("create_end_time")
+    public Long createEndTime;
+
     public static BatchqueryIpSellerRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryIpSellerRequest self = new BatchqueryIpSellerRequest();
         return TeaModel.build(map, self);
@@ -82,6 +114,70 @@ public class BatchqueryIpSellerRequest extends TeaModel {
     }
     public Long getPageIndex() {
         return this.pageIndex;
+    }
+
+    public BatchqueryIpSellerRequest setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    public BatchqueryIpSellerRequest setRole(Long role) {
+        this.role = role;
+        return this;
+    }
+    public Long getRole() {
+        return this.role;
+    }
+
+    public BatchqueryIpSellerRequest setContactName(String contactName) {
+        this.contactName = contactName;
+        return this;
+    }
+    public String getContactName() {
+        return this.contactName;
+    }
+
+    public BatchqueryIpSellerRequest setContactMobile(String contactMobile) {
+        this.contactMobile = contactMobile;
+        return this;
+    }
+    public String getContactMobile() {
+        return this.contactMobile;
+    }
+
+    public BatchqueryIpSellerRequest setStatusList(java.util.List<Long> statusList) {
+        this.statusList = statusList;
+        return this;
+    }
+    public java.util.List<Long> getStatusList() {
+        return this.statusList;
+    }
+
+    public BatchqueryIpSellerRequest setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+        return this;
+    }
+    public String getSortOrder() {
+        return this.sortOrder;
+    }
+
+    public BatchqueryIpSellerRequest setCreateStartTime(Long createStartTime) {
+        this.createStartTime = createStartTime;
+        return this;
+    }
+    public Long getCreateStartTime() {
+        return this.createStartTime;
+    }
+
+    public BatchqueryIpSellerRequest setCreateEndTime(Long createEndTime) {
+        this.createEndTime = createEndTime;
+        return this;
+    }
+    public Long getCreateEndTime() {
+        return this.createEndTime;
     }
 
 }
