@@ -38,6 +38,46 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? PageIndex { get; set; }
 
+        // 账户链上ID
+        [NameInMap("account_id")]
+        [Validation(Required=false)]
+        public string AccountId { get; set; }
+
+        // 1 版权方，2 商户
+        [NameInMap("role")]
+        [Validation(Required=false)]
+        public long? Role { get; set; }
+
+        // 联系人名称
+        [NameInMap("contact_name")]
+        [Validation(Required=false)]
+        public string ContactName { get; set; }
+
+        // 联系人电话
+        [NameInMap("contact_mobile")]
+        [Validation(Required=false)]
+        public string ContactMobile { get; set; }
+
+        // 账户状态列表
+        [NameInMap("status_list")]
+        [Validation(Required=false)]
+        public List<long?> StatusList { get; set; }
+
+        // 排序
+        [NameInMap("sort_order")]
+        [Validation(Required=false)]
+        public string SortOrder { get; set; }
+
+        // 筛选更新时间范围，开始区间
+        [NameInMap("create_start_time")]
+        [Validation(Required=false)]
+        public long? CreateStartTime { get; set; }
+
+        // 筛选更新时间范围，结束区间
+        [NameInMap("create_end_time")]
+        [Validation(Required=false)]
+        public long? CreateEndTime { get; set; }
+
     }
 
 }

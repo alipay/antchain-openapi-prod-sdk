@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.80"},
+                        {"sdk_version", "1.2.82"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.80"},
+                        {"sdk_version", "1.2.82"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -8586,8 +8586,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 版权方待审批的批量查询
-         * Summary: 数字商品服务-IP授权服务-查版权方申请
+         * Description: 账户列表查询
+         * Summary: 数字商品服务-IP授权服务-查账户列表
          */
         public BatchqueryIpSellerResponse BatchqueryIpSeller(BatchqueryIpSellerRequest request)
         {
@@ -8597,8 +8597,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 版权方待审批的批量查询
-         * Summary: 数字商品服务-IP授权服务-查版权方申请
+         * Description: 账户列表查询
+         * Summary: 数字商品服务-IP授权服务-查账户列表
          */
         public async Task<BatchqueryIpSellerResponse> BatchqueryIpSellerAsync(BatchqueryIpSellerRequest request)
         {
@@ -8608,8 +8608,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 版权方待审批的批量查询
-         * Summary: 数字商品服务-IP授权服务-查版权方申请
+         * Description: 账户列表查询
+         * Summary: 数字商品服务-IP授权服务-查账户列表
          */
         public BatchqueryIpSellerResponse BatchqueryIpSellerEx(BatchqueryIpSellerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8618,8 +8618,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 版权方待审批的批量查询
-         * Summary: 数字商品服务-IP授权服务-查版权方申请
+         * Description: 账户列表查询
+         * Summary: 数字商品服务-IP授权服务-查账户列表
          */
         public async Task<BatchqueryIpSellerResponse> BatchqueryIpSellerExAsync(BatchqueryIpSellerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

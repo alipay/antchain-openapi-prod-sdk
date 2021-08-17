@@ -23,7 +23,7 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 版权方账户链上ID
+        // 必须传入：IP 版权方账户链上ID
         [NameInMap("account_id")]
         [Validation(Required=true)]
         public string AccountId { get; set; }
