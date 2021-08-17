@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.80',
+    sdk_version = '1.2.82',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -11210,6 +11210,22 @@ model BatchqueryIpSellerRequest = {
   pageSize: long(name='page_size'),
   // 分页索引
   pageIndex: long(name='page_index'),
+  // 账户链上ID
+  accountId?: string(name='account_id'),
+  // 1 版权方，2 商户
+  role?: long(name='role'),
+  // 联系人名称
+  contactName?: string(name='contact_name'),
+  // 联系人电话
+  contactMobile?: string(name='contact_mobile'),
+  // 账户状态列表
+  statusList?: [ long ](name='status_list'),
+  // 排序
+  sortOrder?: string(name='sort_order'),
+  // 筛选更新时间范围，开始区间
+  createStartTime?: long(name='create_start_time'),
+  // 筛选更新时间范围，结束区间
+  createEndTime?: long(name='create_end_time'),
 }
 
 model BatchqueryIpSellerResponse = {
@@ -11227,8 +11243,8 @@ model BatchqueryIpSellerResponse = {
 }
 
 /**
- * Description: 版权方待审批的批量查询
- * Summary: 数字商品服务-IP授权服务-查版权方申请
+ * Description: 账户列表查询
+ * Summary: 数字商品服务-IP授权服务-查账户列表
  */
 async function batchqueryIpSeller(request: BatchqueryIpSellerRequest): BatchqueryIpSellerResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -11237,8 +11253,8 @@ async function batchqueryIpSeller(request: BatchqueryIpSellerRequest): Batchquer
 }
 
 /**
- * Description: 版权方待审批的批量查询
- * Summary: 数字商品服务-IP授权服务-查版权方申请
+ * Description: 账户列表查询
+ * Summary: 数字商品服务-IP授权服务-查账户列表
  */
 async function batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryIpSellerResponse {
   Util.validateModel(request);
@@ -12679,7 +12695,7 @@ model QueryIpGoodsgalleryRequest = {
   baseRequest: BaseRequestInfo(name='base_request'),
   // 账户链上ID
   accountId: string(name='account_id'),
-  // IP链上ID，只有版权方可以根据IPID查询图库信息
+  // IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
   ipId?: string(name='ip_id'),
   // IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
   ipOrderId?: string(name='ip_order_id'),
@@ -12821,7 +12837,7 @@ model ConfirmIpOrdergalleryRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 版权方账户链上ID
+  // 必须传入：IP 版权方账户链上ID
   accountId: string(name='account_id'),
   // 授权订单ID
   ipOrderId: string(name='ip_order_id'),

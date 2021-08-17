@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BAASDT",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-baasdt:1.2.80",
+    "java": "com.antgroup.antchain.openapi:openapi-baasdt:1.2.82",
     "go": "github.com/antchain-openapi-sdk-go/baasdt/client:v1.2.20",
-    "csharp": "AntChain.SDK.BAASDT:1.2.54",
-    "ts": "@antchain/baasdt:1.2.80",
-    "php": "antchain/baasdt:1.2.80",
-    "python": "antchain_sdk_baasdt:1.2.80"
+    "csharp": "AntChain.SDK.BAASDT:1.2.82",
+    "ts": "@antchain/baasdt:1.2.82",
+    "php": "antchain/baasdt:1.2.82",
+    "python": "antchain_sdk_baasdt:1.2.82"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
