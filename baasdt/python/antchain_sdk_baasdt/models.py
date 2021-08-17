@@ -30744,6 +30744,14 @@ class BatchqueryIpSellerRequest(TeaModel):
         channel_name: str = None,
         page_size: int = None,
         page_index: int = None,
+        account_id: str = None,
+        role: int = None,
+        contact_name: str = None,
+        contact_mobile: str = None,
+        status_list: List[int] = None,
+        sort_order: str = None,
+        create_start_time: int = None,
+        create_end_time: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -30756,6 +30764,22 @@ class BatchqueryIpSellerRequest(TeaModel):
         self.page_size = page_size
         # 分页索引
         self.page_index = page_index
+        # 账户链上ID
+        self.account_id = account_id
+        # 1 版权方，2 商户
+        self.role = role
+        # 联系人名称
+        self.contact_name = contact_name
+        # 联系人电话
+        self.contact_mobile = contact_mobile
+        # 账户状态列表
+        self.status_list = status_list
+        # 排序
+        self.sort_order = sort_order
+        # 筛选更新时间范围，开始区间
+        self.create_start_time = create_start_time
+        # 筛选更新时间范围，结束区间
+        self.create_end_time = create_end_time
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -30779,6 +30803,22 @@ class BatchqueryIpSellerRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.page_index is not None:
             result['page_index'] = self.page_index
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.role is not None:
+            result['role'] = self.role
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_mobile is not None:
+            result['contact_mobile'] = self.contact_mobile
+        if self.status_list is not None:
+            result['status_list'] = self.status_list
+        if self.sort_order is not None:
+            result['sort_order'] = self.sort_order
+        if self.create_start_time is not None:
+            result['create_start_time'] = self.create_start_time
+        if self.create_end_time is not None:
+            result['create_end_time'] = self.create_end_time
         return result
 
     def from_map(self, m: dict = None):
@@ -30796,6 +30836,22 @@ class BatchqueryIpSellerRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('page_index') is not None:
             self.page_index = m.get('page_index')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('role') is not None:
+            self.role = m.get('role')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_mobile') is not None:
+            self.contact_mobile = m.get('contact_mobile')
+        if m.get('status_list') is not None:
+            self.status_list = m.get('status_list')
+        if m.get('sort_order') is not None:
+            self.sort_order = m.get('sort_order')
+        if m.get('create_start_time') is not None:
+            self.create_start_time = m.get('create_start_time')
+        if m.get('create_end_time') is not None:
+            self.create_end_time = m.get('create_end_time')
         return self
 
 
@@ -34584,7 +34640,7 @@ class QueryIpGoodsgalleryRequest(TeaModel):
         self.base_request = base_request
         # 账户链上ID
         self.account_id = account_id
-        # IP链上ID，只有版权方可以根据IPID查询图库信息
+        # IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
         self.ip_id = ip_id
         # IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
         self.ip_order_id = ip_order_id
@@ -34975,7 +35031,7 @@ class ConfirmIpOrdergalleryRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 版权方账户链上ID
+        # 必须传入：IP 版权方账户链上ID
         self.account_id = account_id
         # 授权订单ID
         self.ip_order_id = ip_order_id

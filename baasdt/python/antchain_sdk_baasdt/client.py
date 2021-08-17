@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.80'
+                    'sdk_version': '1.2.82'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.80'
+                    'sdk_version': '1.2.82'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -10872,8 +10872,8 @@ class Client:
         request: baasdt_models.BatchqueryIpSellerRequest,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 版权方待审批的批量查询
-        Summary: 数字商品服务-IP授权服务-查版权方申请
+        Description: 账户列表查询
+        Summary: 数字商品服务-IP授权服务-查账户列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10884,8 +10884,8 @@ class Client:
         request: baasdt_models.BatchqueryIpSellerRequest,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 版权方待审批的批量查询
-        Summary: 数字商品服务-IP授权服务-查版权方申请
+        Description: 账户列表查询
+        Summary: 数字商品服务-IP授权服务-查账户列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10898,8 +10898,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 版权方待审批的批量查询
-        Summary: 数字商品服务-IP授权服务-查版权方申请
+        Description: 账户列表查询
+        Summary: 数字商品服务-IP授权服务-查账户列表
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpSellerResponse().from_map(
@@ -10913,8 +10913,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.BatchqueryIpSellerResponse:
         """
-        Description: 版权方待审批的批量查询
-        Summary: 数字商品服务-IP授权服务-查版权方申请
+        Description: 账户列表查询
+        Summary: 数字商品服务-IP授权服务-查账户列表
         """
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpSellerResponse().from_map(
