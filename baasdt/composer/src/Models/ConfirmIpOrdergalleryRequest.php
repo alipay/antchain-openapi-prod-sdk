@@ -25,7 +25,7 @@ class ConfirmIpOrdergalleryRequest extends Model
      */
     public $baseRequest;
 
-    // 版权方账户链上ID
+    // 必须传入：IP 版权方账户链上ID
     /**
      * @var string
      */

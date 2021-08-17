@@ -696,7 +696,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.80',
+                    'sdk_version'      => '1.2.82',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7212,8 +7212,8 @@ class Client
     }
 
     /**
-     * Description: 版权方待审批的批量查询
-     * Summary: 数字商品服务-IP授权服务-查版权方申请.
+     * Description: 账户列表查询
+     * Summary: 数字商品服务-IP授权服务-查账户列表.
      *
      * @param BatchqueryIpSellerRequest $request
      *
@@ -7228,8 +7228,8 @@ class Client
     }
 
     /**
-     * Description: 版权方待审批的批量查询
-     * Summary: 数字商品服务-IP授权服务-查版权方申请.
+     * Description: 账户列表查询
+     * Summary: 数字商品服务-IP授权服务-查账户列表.
      *
      * @param BatchqueryIpSellerRequest $request
      * @param string[]                  $headers

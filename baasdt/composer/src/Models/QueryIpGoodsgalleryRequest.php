@@ -31,7 +31,7 @@ class QueryIpGoodsgalleryRequest extends Model
      */
     public $accountId;
 
-    // IP链上ID，只有版权方可以根据IPID查询图库信息
+    // IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
     /**
      * @var string
      */
