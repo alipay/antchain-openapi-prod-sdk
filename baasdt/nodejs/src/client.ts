@@ -19476,6 +19476,22 @@ export class BatchqueryIpSellerRequest extends $tea.Model {
   pageSize: number;
   // 分页索引
   pageIndex: number;
+  // 账户链上ID
+  accountId?: string;
+  // 1 版权方，2 商户
+  role?: number;
+  // 联系人名称
+  contactName?: string;
+  // 联系人电话
+  contactMobile?: string;
+  // 账户状态列表
+  statusList?: number[];
+  // 排序
+  sortOrder?: string;
+  // 筛选更新时间范围，开始区间
+  createStartTime?: number;
+  // 筛选更新时间范围，结束区间
+  createEndTime?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19484,6 +19500,14 @@ export class BatchqueryIpSellerRequest extends $tea.Model {
       channelName: 'channel_name',
       pageSize: 'page_size',
       pageIndex: 'page_index',
+      accountId: 'account_id',
+      role: 'role',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+      statusList: 'status_list',
+      sortOrder: 'sort_order',
+      createStartTime: 'create_start_time',
+      createEndTime: 'create_end_time',
     };
   }
 
@@ -19495,6 +19519,14 @@ export class BatchqueryIpSellerRequest extends $tea.Model {
       channelName: 'string',
       pageSize: 'number',
       pageIndex: 'number',
+      accountId: 'string',
+      role: 'number',
+      contactName: 'string',
+      contactMobile: 'string',
+      statusList: { 'type': 'array', 'itemType': 'number' },
+      sortOrder: 'string',
+      createStartTime: 'number',
+      createEndTime: 'number',
     };
   }
 
@@ -21873,7 +21905,7 @@ export class QueryIpGoodsgalleryRequest extends $tea.Model {
   baseRequest: BaseRequestInfo;
   // 账户链上ID
   accountId: string;
-  // IP链上ID，只有版权方可以根据IPID查询图库信息
+  // IP链上ID，只有版权方可以根据IPID查询图库信息。如果传入IPID，优先根据IPID查询图库信息。
   ipId?: string;
   // IP授权订单ID，版权方和商家均可根据订单ID查询图库信息
   ipOrderId?: string;
@@ -22108,7 +22140,7 @@ export class ConfirmIpOrdergalleryRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 版权方账户链上ID
+  // 必须传入：IP 版权方账户链上ID
   accountId: string;
   // 授权订单ID
   ipOrderId: string;
@@ -25500,7 +25532,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.80",
+          sdk_version: "1.2.82",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -29289,8 +29321,8 @@ export default class Client {
   }
 
   /**
-   * Description: 版权方待审批的批量查询
-   * Summary: 数字商品服务-IP授权服务-查版权方申请
+   * Description: 账户列表查询
+   * Summary: 数字商品服务-IP授权服务-查账户列表
    */
   async batchqueryIpSeller(request: BatchqueryIpSellerRequest): Promise<BatchqueryIpSellerResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -29299,8 +29331,8 @@ export default class Client {
   }
 
   /**
-   * Description: 版权方待审批的批量查询
-   * Summary: 数字商品服务-IP授权服务-查版权方申请
+   * Description: 账户列表查询
+   * Summary: 数字商品服务-IP授权服务-查账户列表
    */
   async batchqueryIpSellerEx(request: BatchqueryIpSellerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpSellerResponse> {
     Util.validateModel(request);
