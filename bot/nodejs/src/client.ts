@@ -5216,11 +5216,23 @@ export class AddCertificateResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 原始数据
+  rawData?: string;
+  // 对raw_data的签名
+  platformSignature?: string;
+  // 执行结果成功与否
+  success?: boolean;
+  // 错误码
+  errorCode?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      rawData: 'raw_data',
+      platformSignature: 'platform_signature',
+      success: 'success',
+      errorCode: 'error_code',
     };
   }
 
@@ -5229,6 +5241,10 @@ export class AddCertificateResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      rawData: 'string',
+      platformSignature: 'string',
+      success: 'boolean',
+      errorCode: 'number',
     };
   }
 
@@ -6381,7 +6397,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.22",
+          sdk_version: "1.5.25",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
