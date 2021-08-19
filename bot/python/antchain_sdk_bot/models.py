@@ -2126,6 +2126,126 @@ class CollectLabelContent(TeaModel):
         return self
 
 
+class QueryBaiOcrRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_key: str = None,
+        ocr_type: str = None,
+        source_type: str = None,
+        source_base_64: str = None,
+        source_config_side: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用业务方身份标识，指明调用来源
+        self.app_key = app_key
+        # OCR服务的业务类型，目前支持：
+        # businessLicense，营业执照识别
+        # idCard，身份证识别
+        # bankCard，银行卡识别
+        # VATInvoice，增值税发票识别
+        self.ocr_type = ocr_type
+        # 请求的资源类型，目前支持：
+        # image，图片
+        # pdf，PDF复印件
+        self.source_type = source_type
+        # 图片或PDF等内容的base64内容字符串
+        self.source_base_64 = source_base_64
+        # 资源的附加属性
+        # 如针对身份证识别，需要指定face(人像面)或back(国徽面)
+        self.source_config_side = source_config_side
+
+    def validate(self):
+        self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.ocr_type, 'ocr_type')
+        self.validate_required(self.source_type, 'source_type')
+        self.validate_required(self.source_base_64, 'source_base_64')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.ocr_type is not None:
+            result['ocr_type'] = self.ocr_type
+        if self.source_type is not None:
+            result['source_type'] = self.source_type
+        if self.source_base_64 is not None:
+            result['source_base64'] = self.source_base_64
+        if self.source_config_side is not None:
+            result['source_config_side'] = self.source_config_side
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('ocr_type') is not None:
+            self.ocr_type = m.get('ocr_type')
+        if m.get('source_type') is not None:
+            self.source_type = m.get('source_type')
+        if m.get('source_base64') is not None:
+            self.source_base_64 = m.get('source_base64')
+        if m.get('source_config_side') is not None:
+            self.source_config_side = m.get('source_config_side')
+        return self
+
+
+class QueryBaiOcrResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回值，JSON字符串
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
@@ -7510,6 +7630,112 @@ class SendCollectorSummarydataRequest(TeaModel):
 
 
 class SendCollectorSummarydataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class AddCertificateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        organization_id: str = None,
+        certificate: str = None,
+        device_id: str = None,
+        host_device_id: str = None,
+        project_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 机构Id
+        self.organization_id = organization_id
+        # 证书内容
+        self.certificate = certificate
+        # 设备ID
+        self.device_id = device_id
+        # 主机设备ID
+        self.host_device_id = host_device_id
+        # 场景码
+        self.project_id = project_id
+
+    def validate(self):
+        self.validate_required(self.certificate, 'certificate')
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.host_device_id, 'host_device_id')
+        self.validate_required(self.project_id, 'project_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.organization_id is not None:
+            result['organization_id'] = self.organization_id
+        if self.certificate is not None:
+            result['certificate'] = self.certificate
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.host_device_id is not None:
+            result['host_device_id'] = self.host_device_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('organization_id') is not None:
+            self.organization_id = m.get('organization_id')
+        if m.get('certificate') is not None:
+            self.certificate = m.get('certificate')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('host_device_id') is not None:
+            self.host_device_id = m.get('host_device_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        return self
+
+
+class AddCertificateResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

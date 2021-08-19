@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.18'
+                    'sdk_version': '1.5.21'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.18'
+                    'sdk_version': '1.5.21'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,60 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_bai_ocr(
+        self,
+        request: bot_models.QueryBaiOcrRequest,
+    ) -> bot_models.QueryBaiOcrResponse:
+        """
+        Description: BAI提供的OCR服务接口
+        Summary: BAI提供的OCR服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bai_ocr_ex(request, headers, runtime)
+
+    async def query_bai_ocr_async(
+        self,
+        request: bot_models.QueryBaiOcrRequest,
+    ) -> bot_models.QueryBaiOcrResponse:
+        """
+        Description: BAI提供的OCR服务接口
+        Summary: BAI提供的OCR服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bai_ocr_ex_async(request, headers, runtime)
+
+    def query_bai_ocr_ex(
+        self,
+        request: bot_models.QueryBaiOcrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryBaiOcrResponse:
+        """
+        Description: BAI提供的OCR服务接口
+        Summary: BAI提供的OCR服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryBaiOcrResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bai_ocr_ex_async(
+        self,
+        request: bot_models.QueryBaiOcrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryBaiOcrResponse:
+        """
+        Description: BAI提供的OCR服务接口
+        Summary: BAI提供的OCR服务
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryBaiOcrResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_iotplatform_purchaseorder(
         self,
@@ -2915,6 +2969,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.SendCollectorSummarydataResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_certificate(
+        self,
+        request: bot_models.AddCertificateRequest,
+    ) -> bot_models.AddCertificateResponse:
+        """
+        Description: 根据请求体内容保存密钥
+        Summary: 保存公钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_certificate_ex(request, headers, runtime)
+
+    async def add_certificate_async(
+        self,
+        request: bot_models.AddCertificateRequest,
+    ) -> bot_models.AddCertificateResponse:
+        """
+        Description: 根据请求体内容保存密钥
+        Summary: 保存公钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_certificate_ex_async(request, headers, runtime)
+
+    def add_certificate_ex(
+        self,
+        request: bot_models.AddCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddCertificateResponse:
+        """
+        Description: 根据请求体内容保存密钥
+        Summary: 保存公钥
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddCertificateResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_certificate_ex_async(
+        self,
+        request: bot_models.AddCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.AddCertificateResponse:
+        """
+        Description: 根据请求体内容保存密钥
+        Summary: 保存公钥
+        """
+        UtilClient.validate_model(request)
+        return bot_models.AddCertificateResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
