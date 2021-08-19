@@ -1435,6 +1435,88 @@ export class CollectLabelContent extends $tea.Model {
   }
 }
 
+export class QueryBaiOcrRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用业务方身份标识，指明调用来源
+  appKey: string;
+  // OCR服务的业务类型，目前支持：
+  // businessLicense，营业执照识别
+  // idCard，身份证识别
+  // bankCard，银行卡识别
+  // VATInvoice，增值税发票识别
+  ocrType: string;
+  // 请求的资源类型，目前支持：
+  // image，图片
+  // pdf，PDF复印件
+  sourceType: string;
+  // 图片或PDF等内容的base64内容字符串
+  sourceBase64: string;
+  // 资源的附加属性
+  // 如针对身份证识别，需要指定face(人像面)或back(国徽面)
+  sourceConfigSide?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appKey: 'app_key',
+      ocrType: 'ocr_type',
+      sourceType: 'source_type',
+      sourceBase64: 'source_base64',
+      sourceConfigSide: 'source_config_side',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appKey: 'string',
+      ocrType: 'string',
+      sourceType: 'string',
+      sourceBase64: 'string',
+      sourceConfigSide: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBaiOcrResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回值，JSON字符串
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5084,6 +5166,77 @@ export class SendCollectorSummarydataResponse extends $tea.Model {
   }
 }
 
+export class AddCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 机构Id
+  organizationId?: string;
+  // 证书内容
+  certificate: string;
+  // 设备ID
+  deviceId: string;
+  // 主机设备ID
+  hostDeviceId: string;
+  // 场景码
+  projectId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      organizationId: 'organization_id',
+      certificate: 'certificate',
+      deviceId: 'device_id',
+      hostDeviceId: 'host_device_id',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      organizationId: 'string',
+      certificate: 'string',
+      deviceId: 'string',
+      hostDeviceId: 'string',
+      projectId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6228,7 +6381,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.18",
+          sdk_version: "1.5.21",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -6272,6 +6425,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: BAI提供的OCR服务接口
+   * Summary: BAI提供的OCR服务
+   */
+  async queryBaiOcr(request: QueryBaiOcrRequest): Promise<QueryBaiOcrResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBaiOcrEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: BAI提供的OCR服务接口
+   * Summary: BAI提供的OCR服务
+   */
+  async queryBaiOcrEx(request: QueryBaiOcrRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBaiOcrResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBaiOcrResponse>(await this.doRequest("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBaiOcrResponse({}));
   }
 
   /**
@@ -7203,6 +7375,25 @@ export default class Client {
   async sendCollectorSummarydataEx(request: SendCollectorSummarydataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendCollectorSummarydataResponse> {
     Util.validateModel(request);
     return $tea.cast<SendCollectorSummarydataResponse>(await this.doRequest("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendCollectorSummarydataResponse({}));
+  }
+
+  /**
+   * Description: 根据请求体内容保存密钥
+   * Summary: 保存公钥
+   */
+  async addCertificate(request: AddCertificateRequest): Promise<AddCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据请求体内容保存密钥
+   * Summary: 保存公钥
+   */
+  async addCertificateEx(request: AddCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddCertificateResponse>(await this.doRequest("1.0", "blockchain.bot.certificate.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddCertificateResponse({}));
   }
 
   /**
