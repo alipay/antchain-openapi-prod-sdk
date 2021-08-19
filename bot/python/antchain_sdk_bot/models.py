@@ -7741,6 +7741,10 @@ class AddCertificateResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        raw_data: str = None,
+        platform_signature: str = None,
+        success: bool = None,
+        error_code: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7748,6 +7752,14 @@ class AddCertificateResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 原始数据
+        self.raw_data = raw_data
+        # 对raw_data的签名
+        self.platform_signature = platform_signature
+        # 执行结果成功与否
+        self.success = success
+        # 错误码
+        self.error_code = error_code
 
     def validate(self):
         pass
@@ -7760,6 +7772,14 @@ class AddCertificateResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.raw_data is not None:
+            result['raw_data'] = self.raw_data
+        if self.platform_signature is not None:
+            result['platform_signature'] = self.platform_signature
+        if self.success is not None:
+            result['success'] = self.success
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
         return result
 
     def from_map(self, m: dict = None):
@@ -7770,6 +7790,14 @@ class AddCertificateResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('raw_data') is not None:
+            self.raw_data = m.get('raw_data')
+        if m.get('platform_signature') is not None:
+            self.platform_signature = m.get('platform_signature')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
         return self
 
 
