@@ -7672,7 +7672,7 @@ class AddCertificateRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        organization_id: str = None,
+        organization_id: int = None,
         certificate: str = None,
         device_id: str = None,
         host_device_id: str = None,
