@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.5.18")
+                    new TeaPair("sdk_version", "1.5.21")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -157,6 +157,25 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: BAI提供的OCR服务接口
+     * Summary: BAI提供的OCR服务
+     */
+    public QueryBaiOcrResponse queryBaiOcr(QueryBaiOcrRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBaiOcrEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: BAI提供的OCR服务接口
+     * Summary: BAI提供的OCR服务
+     */
+    public QueryBaiOcrResponse queryBaiOcrEx(QueryBaiOcrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBaiOcrResponse());
     }
 
     /**
@@ -1088,6 +1107,25 @@ public class Client {
     public SendCollectorSummarydataResponse sendCollectorSummarydataEx(SendCollectorSummarydataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendCollectorSummarydataResponse());
+    }
+
+    /**
+     * Description: 根据请求体内容保存密钥
+     * Summary: 保存公钥
+     */
+    public AddCertificateResponse addCertificate(AddCertificateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addCertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据请求体内容保存密钥
+     * Summary: 保存公钥
+     */
+    public AddCertificateResponse addCertificateEx(AddCertificateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.certificate.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddCertificateResponse());
     }
 
     /**
