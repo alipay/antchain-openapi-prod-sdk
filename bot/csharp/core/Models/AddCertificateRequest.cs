@@ -21,7 +21,7 @@ namespace AntChain.SDK.BOT.Models
         // 机构Id
         [NameInMap("organization_id")]
         [Validation(Required=false)]
-        public string OrganizationId { get; set; }
+        public long? OrganizationId { get; set; }
 
         // 证书内容
         [NameInMap("certificate")]
