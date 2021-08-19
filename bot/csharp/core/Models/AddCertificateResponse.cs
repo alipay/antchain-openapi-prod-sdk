@@ -24,6 +24,26 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 原始数据
+        [NameInMap("raw_data")]
+        [Validation(Required=false)]
+        public string RawData { get; set; }
+
+        // 对raw_data的签名
+        [NameInMap("platform_signature")]
+        [Validation(Required=false)]
+        public string PlatformSignature { get; set; }
+
+        // 执行结果成功与否
+        [NameInMap("success")]
+        [Validation(Required=false)]
+        public bool? Success { get; set; }
+
+        // 错误码
+        [NameInMap("error_code")]
+        [Validation(Required=false)]
+        public long? ErrorCode { get; set; }
+
     }
 
 }
