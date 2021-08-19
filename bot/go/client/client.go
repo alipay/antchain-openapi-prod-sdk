@@ -6656,6 +6656,14 @@ type AddCertificateResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 原始数据
+	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty"`
+	// 对raw_data的签名
+	PlatformSignature *string `json:"platform_signature,omitempty" xml:"platform_signature,omitempty"`
+	// 执行结果成功与否
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 错误码
+	ErrorCode *int64 `json:"error_code,omitempty" xml:"error_code,omitempty"`
 }
 
 func (s AddCertificateResponse) String() string {
@@ -6678,6 +6686,26 @@ func (s *AddCertificateResponse) SetResultCode(v string) *AddCertificateResponse
 
 func (s *AddCertificateResponse) SetResultMsg(v string) *AddCertificateResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddCertificateResponse) SetRawData(v string) *AddCertificateResponse {
+	s.RawData = &v
+	return s
+}
+
+func (s *AddCertificateResponse) SetPlatformSignature(v string) *AddCertificateResponse {
+	s.PlatformSignature = &v
+	return s
+}
+
+func (s *AddCertificateResponse) SetSuccess(v bool) *AddCertificateResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *AddCertificateResponse) SetErrorCode(v int64) *AddCertificateResponse {
+	s.ErrorCode = &v
 	return s
 }
 
@@ -8135,7 +8163,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.22"),
+				"sdk_version":      tea.String("1.5.25"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
