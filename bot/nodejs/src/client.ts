@@ -5171,7 +5171,7 @@ export class AddCertificateRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 机构Id
-  organizationId?: string;
+  organizationId?: number;
   // 证书内容
   certificate: string;
   // 设备ID
@@ -5196,7 +5196,7 @@ export class AddCertificateRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      organizationId: 'string',
+      organizationId: 'number',
       certificate: 'string',
       deviceId: 'string',
       hostDeviceId: 'string',
@@ -6381,7 +6381,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.21",
+          sdk_version: "1.5.22",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
