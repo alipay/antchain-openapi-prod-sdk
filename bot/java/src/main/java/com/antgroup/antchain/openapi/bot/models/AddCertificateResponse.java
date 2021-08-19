@@ -16,6 +16,22 @@ public class AddCertificateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 原始数据
+    @NameInMap("raw_data")
+    public String rawData;
+
+    // 对raw_data的签名
+    @NameInMap("platform_signature")
+    public String platformSignature;
+
+    // 执行结果成功与否
+    @NameInMap("success")
+    public Boolean success;
+
+    // 错误码
+    @NameInMap("error_code")
+    public Long errorCode;
+
     public static AddCertificateResponse build(java.util.Map<String, ?> map) throws Exception {
         AddCertificateResponse self = new AddCertificateResponse();
         return TeaModel.build(map, self);
@@ -43,6 +59,38 @@ public class AddCertificateResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public AddCertificateResponse setRawData(String rawData) {
+        this.rawData = rawData;
+        return this;
+    }
+    public String getRawData() {
+        return this.rawData;
+    }
+
+    public AddCertificateResponse setPlatformSignature(String platformSignature) {
+        this.platformSignature = platformSignature;
+        return this;
+    }
+    public String getPlatformSignature() {
+        return this.platformSignature;
+    }
+
+    public AddCertificateResponse setSuccess(Boolean success) {
+        this.success = success;
+        return this;
+    }
+    public Boolean getSuccess() {
+        return this.success;
+    }
+
+    public AddCertificateResponse setErrorCode(Long errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public Long getErrorCode() {
+        return this.errorCode;
     }
 
 }
