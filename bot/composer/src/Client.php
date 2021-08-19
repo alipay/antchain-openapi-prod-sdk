@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\BOT\Models\AddAbnormalRequest;
 use AntChain\BOT\Models\AddAbnormalResponse;
+use AntChain\BOT\Models\AddCertificateRequest;
+use AntChain\BOT\Models\AddCertificateResponse;
 use AntChain\BOT\Models\AddLabelAssetRequest;
 use AntChain\BOT\Models\AddLabelAssetResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
@@ -85,6 +87,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
+use AntChain\BOT\Models\QueryBaiOcrRequest;
+use AntChain\BOT\Models\QueryBaiOcrResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
@@ -284,7 +288,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.18',
+                    'sdk_version'      => '1.5.21',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -328,6 +332,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: BAI提供的OCR服务接口
+     * Summary: BAI提供的OCR服务
+     *
+     * @param QueryBaiOcrRequest $request
+     *
+     * @return QueryBaiOcrResponse
+     */
+    public function queryBaiOcr($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBaiOcrEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: BAI提供的OCR服务接口
+     * Summary: BAI提供的OCR服务
+     *
+     * @param QueryBaiOcrRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryBaiOcrResponse
+     */
+    public function queryBaiOcrEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBaiOcrResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1945,6 +1982,39 @@ class Client
         Utils::validateModel($request);
 
         return SendCollectorSummarydataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据请求体内容保存密钥
+     * Summary: 保存公钥.
+     *
+     * @param AddCertificateRequest $request
+     *
+     * @return AddCertificateResponse
+     */
+    public function addCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据请求体内容保存密钥
+     * Summary: 保存公钥.
+     *
+     * @param AddCertificateRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return AddCertificateResponse
+     */
+    public function addCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddCertificateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
