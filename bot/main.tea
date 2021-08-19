@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.21',
+    sdk_version = '1.5.22',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -3194,7 +3194,7 @@ model AddCertificateRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 机构Id
-  organizationId?: string(name='organization_id'),
+  organizationId?: long(name='organization_id'),
   // 证书内容
   certificate: string(name='certificate'),
   // 设备ID
