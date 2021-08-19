@@ -6595,7 +6595,7 @@ type AddCertificateRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 机构Id
-	OrganizationId *string `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
+	OrganizationId *int64 `json:"organization_id,omitempty" xml:"organization_id,omitempty"`
 	// 证书内容
 	Certificate *string `json:"certificate,omitempty" xml:"certificate,omitempty" require:"true"`
 	// 设备ID
@@ -6624,7 +6624,7 @@ func (s *AddCertificateRequest) SetProductInstanceId(v string) *AddCertificateRe
 	return s
 }
 
-func (s *AddCertificateRequest) SetOrganizationId(v string) *AddCertificateRequest {
+func (s *AddCertificateRequest) SetOrganizationId(v int64) *AddCertificateRequest {
 	s.OrganizationId = &v
 	return s
 }
@@ -8135,7 +8135,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.21"),
+				"sdk_version":      tea.String("1.5.22"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
