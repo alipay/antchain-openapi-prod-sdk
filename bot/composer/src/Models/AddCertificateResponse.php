@@ -25,10 +25,38 @@ class AddCertificateResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 原始数据
+    /**
+     * @var string
+     */
+    public $rawData;
+
+    // 对raw_data的签名
+    /**
+     * @var string
+     */
+    public $platformSignature;
+
+    // 执行结果成功与否
+    /**
+     * @var bool
+     */
+    public $success;
+
+    // 错误码
+    /**
+     * @var int
+     */
+    public $errorCode;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'rawData'           => 'raw_data',
+        'platformSignature' => 'platform_signature',
+        'success'           => 'success',
+        'errorCode'         => 'error_code',
     ];
 
     public function validate()
@@ -46,6 +74,18 @@ class AddCertificateResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->rawData) {
+            $res['raw_data'] = $this->rawData;
+        }
+        if (null !== $this->platformSignature) {
+            $res['platform_signature'] = $this->platformSignature;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->errorCode) {
+            $res['error_code'] = $this->errorCode;
         }
 
         return $res;
@@ -67,6 +107,18 @@ class AddCertificateResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['raw_data'])) {
+            $model->rawData = $map['raw_data'];
+        }
+        if (isset($map['platform_signature'])) {
+            $model->platformSignature = $map['platform_signature'];
+        }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['error_code'])) {
+            $model->errorCode = $map['error_code'];
         }
 
         return $model;
