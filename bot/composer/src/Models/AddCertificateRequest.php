@@ -21,7 +21,7 @@ class AddCertificateRequest extends Model
 
     // 机构Id
     /**
-     * @var string
+     * @var int
      */
     public $organizationId;
 
