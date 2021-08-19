@@ -13,7 +13,7 @@ public class AddCertificateRequest extends TeaModel {
 
     // 机构Id
     @NameInMap("organization_id")
-    public String organizationId;
+    public Long organizationId;
 
     // 证书内容
     @NameInMap("certificate")
@@ -56,11 +56,11 @@ public class AddCertificateRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AddCertificateRequest setOrganizationId(String organizationId) {
+    public AddCertificateRequest setOrganizationId(Long organizationId) {
         this.organizationId = organizationId;
         return this;
     }
-    public String getOrganizationId() {
+    public Long getOrganizationId() {
         return this.organizationId;
     }
 
