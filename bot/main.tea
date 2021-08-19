@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.22',
+    sdk_version = '1.5.25',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -3212,6 +3212,14 @@ model AddCertificateResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 原始数据
+  rawData?: string(name='raw_data'),
+  // 对raw_data的签名
+  platformSignature?: string(name='platform_signature'),
+  // 执行结果成功与否
+  success?: boolean(name='success'),
+  // 错误码
+  errorCode?: long(name='error_code'),
 }
 
 /**
