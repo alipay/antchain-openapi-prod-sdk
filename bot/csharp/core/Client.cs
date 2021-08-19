@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.18"},
+                        {"sdk_version", "1.5.21"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.18"},
+                        {"sdk_version", "1.5.21"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,48 @@ namespace AntChain.SDK.BOT
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: BAI提供的OCR服务接口
+         * Summary: BAI提供的OCR服务
+         */
+        public QueryBaiOcrResponse QueryBaiOcr(QueryBaiOcrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBaiOcrEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: BAI提供的OCR服务接口
+         * Summary: BAI提供的OCR服务
+         */
+        public async Task<QueryBaiOcrResponse> QueryBaiOcrAsync(QueryBaiOcrRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBaiOcrExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: BAI提供的OCR服务接口
+         * Summary: BAI提供的OCR服务
+         */
+        public QueryBaiOcrResponse QueryBaiOcrEx(QueryBaiOcrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaiOcrResponse>(DoRequest("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: BAI提供的OCR服务接口
+         * Summary: BAI提供的OCR服务
+         */
+        public async Task<QueryBaiOcrResponse> QueryBaiOcrExAsync(QueryBaiOcrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaiOcrResponse>(await DoRequestAsync("1.0", "blockchain.bot.bai.ocr.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2373,6 +2415,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendCollectorSummarydataResponse>(await DoRequestAsync("1.0", "blockchain.bot.collector.summarydata.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据请求体内容保存密钥
+         * Summary: 保存公钥
+         */
+        public AddCertificateResponse AddCertificate(AddCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddCertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据请求体内容保存密钥
+         * Summary: 保存公钥
+         */
+        public async Task<AddCertificateResponse> AddCertificateAsync(AddCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddCertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据请求体内容保存密钥
+         * Summary: 保存公钥
+         */
+        public AddCertificateResponse AddCertificateEx(AddCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCertificateResponse>(DoRequest("1.0", "blockchain.bot.certificate.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据请求体内容保存密钥
+         * Summary: 保存公钥
+         */
+        public async Task<AddCertificateResponse> AddCertificateExAsync(AddCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddCertificateResponse>(await DoRequestAsync("1.0", "blockchain.bot.certificate.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
