@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.3.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.3.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -609,6 +609,262 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckIndividualidFourmetaResponse>(await DoRequestAsync("1.0", "di.realperson.individualid.fourmeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人三要素认证（场景路由）
+         * Summary: 个人三要素认证（场景路由）
+         */
+        public CheckRouteThreemetaResponse CheckRouteThreemeta(CheckRouteThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckRouteThreemetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人三要素认证（场景路由）
+         * Summary: 个人三要素认证（场景路由）
+         */
+        public async Task<CheckRouteThreemetaResponse> CheckRouteThreemetaAsync(CheckRouteThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckRouteThreemetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人三要素认证（场景路由）
+         * Summary: 个人三要素认证（场景路由）
+         */
+        public CheckRouteThreemetaResponse CheckRouteThreemetaEx(CheckRouteThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckRouteThreemetaResponse>(DoRequest("1.0", "di.realperson.route.threemeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人三要素认证（场景路由）
+         * Summary: 个人三要素认证（场景路由）
+         */
+        public async Task<CheckRouteThreemetaResponse> CheckRouteThreemetaExAsync(CheckRouteThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckRouteThreemetaResponse>(await DoRequestAsync("1.0", "di.realperson.route.threemeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端声纹注册
+         * Summary: 纯服务端声纹注册
+         */
+        public CreateVoiceprintServermodeResponse CreateVoiceprintServermode(CreateVoiceprintServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateVoiceprintServermodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端声纹注册
+         * Summary: 纯服务端声纹注册
+         */
+        public async Task<CreateVoiceprintServermodeResponse> CreateVoiceprintServermodeAsync(CreateVoiceprintServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateVoiceprintServermodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端声纹注册
+         * Summary: 纯服务端声纹注册
+         */
+        public CreateVoiceprintServermodeResponse CreateVoiceprintServermodeEx(CreateVoiceprintServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.voiceprint.servermode.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateVoiceprintServermodeResponse createVoiceprintServermodeResponse = new CreateVoiceprintServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createVoiceprintServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateVoiceprintServermodeResponse>(DoRequest("1.0", "di.realperson.voiceprint.servermode.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端声纹注册
+         * Summary: 纯服务端声纹注册
+         */
+        public async Task<CreateVoiceprintServermodeResponse> CreateVoiceprintServermodeExAsync(CreateVoiceprintServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.voiceprint.servermode.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateVoiceprintServermodeResponse createVoiceprintServermodeResponse = new CreateVoiceprintServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createVoiceprintServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateVoiceprintServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.voiceprint.servermode.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端声纹比对
+         * Summary: 纯服务端声纹比对
+         */
+        public VerifyVoiceprintServermodeResponse VerifyVoiceprintServermode(VerifyVoiceprintServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyVoiceprintServermodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端声纹比对
+         * Summary: 纯服务端声纹比对
+         */
+        public async Task<VerifyVoiceprintServermodeResponse> VerifyVoiceprintServermodeAsync(VerifyVoiceprintServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyVoiceprintServermodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端声纹比对
+         * Summary: 纯服务端声纹比对
+         */
+        public VerifyVoiceprintServermodeResponse VerifyVoiceprintServermodeEx(VerifyVoiceprintServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyVoiceprintServermodeResponse>(DoRequest("1.0", "di.realperson.voiceprint.servermode.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端声纹比对
+         * Summary: 纯服务端声纹比对
+         */
+        public async Task<VerifyVoiceprintServermodeResponse> VerifyVoiceprintServermodeExAsync(VerifyVoiceprintServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyVoiceprintServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.voiceprint.servermode.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人二要素认证（场景路由）
+         * Summary: 个人二要素认证（场景路由）
+         */
+        public CheckRouteTwometaResponse CheckRouteTwometa(CheckRouteTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckRouteTwometaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人二要素认证（场景路由）
+         * Summary: 个人二要素认证（场景路由）
+         */
+        public async Task<CheckRouteTwometaResponse> CheckRouteTwometaAsync(CheckRouteTwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckRouteTwometaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人二要素认证（场景路由）
+         * Summary: 个人二要素认证（场景路由）
+         */
+        public CheckRouteTwometaResponse CheckRouteTwometaEx(CheckRouteTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckRouteTwometaResponse>(DoRequest("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人二要素认证（场景路由）
+         * Summary: 个人二要素认证（场景路由）
+         */
+        public async Task<CheckRouteTwometaResponse> CheckRouteTwometaExAsync(CheckRouteTwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckRouteTwometaResponse>(await DoRequestAsync("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

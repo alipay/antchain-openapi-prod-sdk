@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class CheckIndividualidTwometaRequest : TeaModel {
+    public class CheckRouteTwometaRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,20 +28,21 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string CertName { get; set; }
 
-        // 身份证号码
+        // 身份证号
         [NameInMap("cert_no")]
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
+        // 使用场景
+        [NameInMap("scene")]
+        [Validation(Required=true)]
+        public string Scene { get; set; }
+
         // map结果的json数据格式，预留字段
+        // 
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
-
-        // 认证子类型
-        [NameInMap("scene")]
-        [Validation(Required=false)]
-        public string Scene { get; set; }
 
     }
 

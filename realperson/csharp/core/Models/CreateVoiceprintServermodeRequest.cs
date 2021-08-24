@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class CheckIndividualidTwometaRequest : TeaModel {
+    public class CreateVoiceprintServermodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,25 +23,44 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string OuterOrderNo { get; set; }
 
-        // 姓名
-        [NameInMap("cert_name")]
+        // 商户自定义的用户ID
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public string CertName { get; set; }
+        public string UserId { get; set; }
 
-        // 身份证号码
-        [NameInMap("cert_no")]
+        // 音频文件流
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=false)]
+        public string FileId { get; set; }
+
+        // 音频元数据
+        [NameInMap("audio_meta")]
         [Validation(Required=true)]
-        public string CertNo { get; set; }
+        public AudioMeta AudioMeta { get; set; }
 
-        // map结果的json数据格式，预留字段
+        // 音频文件集合
+        [NameInMap("audios")]
+        [Validation(Required=true)]
+        public List<Audio> Audios { get; set; }
+
+        // 预留扩展参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
-
-        // 认证子类型
-        [NameInMap("scene")]
-        [Validation(Required=false)]
-        public string Scene { get; set; }
 
     }
 
