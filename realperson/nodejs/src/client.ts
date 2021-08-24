@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -69,6 +70,93 @@ export class Config extends $tea.Model {
       keepAliveDurationMillis: 'number',
       maxRequests: 'number',
       maxRequestsPerHost: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 音频元数据
+export class AudioMeta extends $tea.Model {
+  // 采样率
+  sampleFreq?: number;
+  // 音频道数
+  channelsNum?: number;
+  // 音频数据采样点所占位数
+  bits?: number;
+  // 语音信道分离标识
+  channel?: number;
+  static names(): { [key: string]: string } {
+    return {
+      sampleFreq: 'sample_freq',
+      channelsNum: 'channels_num',
+      bits: 'bits',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sampleFreq: 'number',
+      channelsNum: 'number',
+      bits: 'number',
+      channel: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 音频文件
+export class Audio extends $tea.Model {
+  // 音频文件名称（单次请求保持唯一）
+  token?: string;
+  // 待认证的音频文件，base64编码格式
+  rawData?: string;
+  // 音频文件OSS地址
+  audioUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      token: 'token',
+      rawData: 'raw_data',
+      audioUrl: 'audio_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      token: 'string',
+      rawData: 'string',
+      audioUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -491,6 +579,8 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
   certNo: string;
   // map结果的json数据格式，预留字段
   externParam?: string;
+  // 认证子类型
+  scene?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -499,6 +589,7 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
       certName: 'cert_name',
       certNo: 'cert_no',
       externParam: 'extern_param',
+      scene: 'scene',
     };
   }
 
@@ -510,6 +601,7 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
       certName: 'string',
       certNo: 'string',
       externParam: 'string',
+      scene: 'string',
     };
   }
 
@@ -722,6 +814,444 @@ export class CheckIndividualidFourmetaResponse extends $tea.Model {
   }
 }
 
+export class CheckRouteThreemetaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 姓名
+  certName: string;
+  // 身份证号
+  certNo: string;
+  // 手机号
+  mobile: string;
+  // 使用场景
+  scene: string;
+  // map结果的json数据格式，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+      scene: 'scene',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      mobile: 'string',
+      scene: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckRouteThreemetaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true:匹配成功 false：匹配失败
+  match?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      match: 'match',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      match: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateVoiceprintServermodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 商户自定义的用户ID
+  userId: string;
+  // 音频文件流
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  // 音频元数据
+  audioMeta: AudioMeta;
+  // 音频文件集合
+  audios: Audio[];
+  // 预留扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      userId: 'user_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      audioMeta: 'audio_meta',
+      audios: 'audios',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      userId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      audioMeta: AudioMeta,
+      audios: { 'type': 'array', 'itemType': Audio },
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateVoiceprintServermodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyVoiceprintServermodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 商户自定义的用户ID
+  userId: string;
+  // 音频文件，base64编码格式
+  // 
+  audioAuth?: string;
+  // 音频文件OSS地址
+  audioUrl?: string;
+  // 音频元数据
+  audioMeta: AudioMeta;
+  // 预留扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      userId: 'user_id',
+      audioAuth: 'audio_auth',
+      audioUrl: 'audio_url',
+      audioMeta: 'audio_meta',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      userId: 'string',
+      audioAuth: 'string',
+      audioUrl: 'string',
+      audioMeta: AudioMeta,
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyVoiceprintServermodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 声纹认证唯一ID
+  certifyId?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckRouteTwometaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 姓名
+  certName: string;
+  // 身份证号
+  certNo: string;
+  // 使用场景
+  scene: string;
+  // map结果的json数据格式，预留字段
+  // 
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      scene: 'scene',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      scene: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckRouteTwometaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true:匹配成功 false：匹配失败
+  // 
+  match?: string;
+  // 扩展信息，预留字段
+  // 
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      match: 'match',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      match: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -835,7 +1365,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.8",
+          sdk_version: "1.3.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1012,6 +1542,122 @@ export default class Client {
   async checkIndividualidFourmetaEx(request: CheckIndividualidFourmetaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIndividualidFourmetaResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckIndividualidFourmetaResponse>(await this.doRequest("1.0", "di.realperson.individualid.fourmeta.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckIndividualidFourmetaResponse({}));
+  }
+
+  /**
+   * Description: 个人三要素认证（场景路由）
+   * Summary: 个人三要素认证（场景路由）
+   */
+  async checkRouteThreemeta(request: CheckRouteThreemetaRequest): Promise<CheckRouteThreemetaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkRouteThreemetaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人三要素认证（场景路由）
+   * Summary: 个人三要素认证（场景路由）
+   */
+  async checkRouteThreemetaEx(request: CheckRouteThreemetaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckRouteThreemetaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckRouteThreemetaResponse>(await this.doRequest("1.0", "di.realperson.route.threemeta.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckRouteThreemetaResponse({}));
+  }
+
+  /**
+   * Description: 纯服务端声纹注册
+   * Summary: 纯服务端声纹注册
+   */
+  async createVoiceprintServermode(request: CreateVoiceprintServermodeRequest): Promise<CreateVoiceprintServermodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createVoiceprintServermodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 纯服务端声纹注册
+   * Summary: 纯服务端声纹注册
+   */
+  async createVoiceprintServermodeEx(request: CreateVoiceprintServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateVoiceprintServermodeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.voiceprint.servermode.create",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let createVoiceprintServermodeResponse = new CreateVoiceprintServermodeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return createVoiceprintServermodeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<CreateVoiceprintServermodeResponse>(await this.doRequest("1.0", "di.realperson.voiceprint.servermode.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateVoiceprintServermodeResponse({}));
+  }
+
+  /**
+   * Description: 纯服务端声纹比对
+   * Summary: 纯服务端声纹比对
+   */
+  async verifyVoiceprintServermode(request: VerifyVoiceprintServermodeRequest): Promise<VerifyVoiceprintServermodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyVoiceprintServermodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 纯服务端声纹比对
+   * Summary: 纯服务端声纹比对
+   */
+  async verifyVoiceprintServermodeEx(request: VerifyVoiceprintServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyVoiceprintServermodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyVoiceprintServermodeResponse>(await this.doRequest("1.0", "di.realperson.voiceprint.servermode.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyVoiceprintServermodeResponse({}));
+  }
+
+  /**
+   * Description: 个人二要素认证（场景路由）
+   * Summary: 个人二要素认证（场景路由）
+   */
+  async checkRouteTwometa(request: CheckRouteTwometaRequest): Promise<CheckRouteTwometaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkRouteTwometaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人二要素认证（场景路由）
+   * Summary: 个人二要素认证（场景路由）
+   */
+  async checkRouteTwometaEx(request: CheckRouteTwometaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckRouteTwometaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckRouteTwometaResponse>(await this.doRequest("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckRouteTwometaResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
