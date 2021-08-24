@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.realperson.models;
 
 import com.aliyun.tea.*;
 
-public class CheckIndividualidTwometaRequest extends TeaModel {
+public class CheckRouteTwometaRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,25 +21,27 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
     @Validation(required = true)
     public String certName;
 
-    // 身份证号码
+    // 身份证号
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
+    // 使用场景
+    @NameInMap("scene")
+    @Validation(required = true)
+    public String scene;
+
     // map结果的json数据格式，预留字段
+    // 
     @NameInMap("extern_param")
     public String externParam;
 
-    // 认证子类型
-    @NameInMap("scene")
-    public String scene;
-
-    public static CheckIndividualidTwometaRequest build(java.util.Map<String, ?> map) throws Exception {
-        CheckIndividualidTwometaRequest self = new CheckIndividualidTwometaRequest();
+    public static CheckRouteTwometaRequest build(java.util.Map<String, ?> map) throws Exception {
+        CheckRouteTwometaRequest self = new CheckRouteTwometaRequest();
         return TeaModel.build(map, self);
     }
 
-    public CheckIndividualidTwometaRequest setAuthToken(String authToken) {
+    public CheckRouteTwometaRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -47,7 +49,7 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CheckIndividualidTwometaRequest setProductInstanceId(String productInstanceId) {
+    public CheckRouteTwometaRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -55,7 +57,7 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CheckIndividualidTwometaRequest setOuterOrderNo(String outerOrderNo) {
+    public CheckRouteTwometaRequest setOuterOrderNo(String outerOrderNo) {
         this.outerOrderNo = outerOrderNo;
         return this;
     }
@@ -63,7 +65,7 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
         return this.outerOrderNo;
     }
 
-    public CheckIndividualidTwometaRequest setCertName(String certName) {
+    public CheckRouteTwometaRequest setCertName(String certName) {
         this.certName = certName;
         return this;
     }
@@ -71,7 +73,7 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
         return this.certName;
     }
 
-    public CheckIndividualidTwometaRequest setCertNo(String certNo) {
+    public CheckRouteTwometaRequest setCertNo(String certNo) {
         this.certNo = certNo;
         return this;
     }
@@ -79,20 +81,20 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
         return this.certNo;
     }
 
-    public CheckIndividualidTwometaRequest setExternParam(String externParam) {
-        this.externParam = externParam;
-        return this;
-    }
-    public String getExternParam() {
-        return this.externParam;
-    }
-
-    public CheckIndividualidTwometaRequest setScene(String scene) {
+    public CheckRouteTwometaRequest setScene(String scene) {
         this.scene = scene;
         return this;
     }
     public String getScene() {
         return this.scene;
+    }
+
+    public CheckRouteTwometaRequest setExternParam(String externParam) {
+        this.externParam = externParam;
+        return this;
+    }
+    public String getExternParam() {
+        return this.externParam;
     }
 
 }
