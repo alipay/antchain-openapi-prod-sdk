@@ -2126,6 +2126,30 @@ class CollectLabelContent(TeaModel):
         return self
 
 
+class BaiOcrResponse(TeaModel):
+    def __init__(
+        self,
+        data: str = None,
+    ):
+        # 返回的结果体
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.data, 'data')
+
+    def to_map(self):
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class QueryBaiOcrRequest(TeaModel):
     def __init__(
         self,
@@ -2207,7 +2231,7 @@ class QueryBaiOcrResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2215,8 +2239,8 @@ class QueryBaiOcrResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回值，JSON字符串
-        self.result = result
+        # 返回结果体，JSON字符串
+        self.data = data
 
     def validate(self):
         pass
@@ -2229,8 +2253,8 @@ class QueryBaiOcrResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.result is not None:
-            result['result'] = self.result
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -2241,8 +2265,8 @@ class QueryBaiOcrResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('result') is not None:
-            self.result = m.get('result')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
