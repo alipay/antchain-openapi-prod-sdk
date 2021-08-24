@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 音频元数据
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8'
+                    'sdk_version': '1.3.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -210,7 +211,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 音频元数据
         }
         _last_request = None
         _last_exception = None
@@ -235,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8'
+                    'sdk_version': '1.3.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -645,4 +647,308 @@ class Client:
         UtilClient.validate_model(request)
         return realperson_models.CheckIndividualidFourmetaResponse().from_map(
             await self.do_request_async('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_route_threemeta(
+        self,
+        request: realperson_models.CheckRouteThreemetaRequest,
+    ) -> realperson_models.CheckRouteThreemetaResponse:
+        """
+        Description: 个人三要素认证（场景路由）
+        Summary: 个人三要素认证（场景路由）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_route_threemeta_ex(request, headers, runtime)
+
+    async def check_route_threemeta_async(
+        self,
+        request: realperson_models.CheckRouteThreemetaRequest,
+    ) -> realperson_models.CheckRouteThreemetaResponse:
+        """
+        Description: 个人三要素认证（场景路由）
+        Summary: 个人三要素认证（场景路由）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_route_threemeta_ex_async(request, headers, runtime)
+
+    def check_route_threemeta_ex(
+        self,
+        request: realperson_models.CheckRouteThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckRouteThreemetaResponse:
+        """
+        Description: 个人三要素认证（场景路由）
+        Summary: 个人三要素认证（场景路由）
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckRouteThreemetaResponse().from_map(
+            self.do_request('1.0', 'di.realperson.route.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_route_threemeta_ex_async(
+        self,
+        request: realperson_models.CheckRouteThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckRouteThreemetaResponse:
+        """
+        Description: 个人三要素认证（场景路由）
+        Summary: 个人三要素认证（场景路由）
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckRouteThreemetaResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.route.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_voiceprint_servermode(
+        self,
+        request: realperson_models.CreateVoiceprintServermodeRequest,
+    ) -> realperson_models.CreateVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹注册
+        Summary: 纯服务端声纹注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_voiceprint_servermode_ex(request, headers, runtime)
+
+    async def create_voiceprint_servermode_async(
+        self,
+        request: realperson_models.CreateVoiceprintServermodeRequest,
+    ) -> realperson_models.CreateVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹注册
+        Summary: 纯服务端声纹注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_voiceprint_servermode_ex_async(request, headers, runtime)
+
+    def create_voiceprint_servermode_ex(
+        self,
+        request: realperson_models.CreateVoiceprintServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹注册
+        Summary: 纯服务端声纹注册
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.voiceprint.servermode.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_voiceprint_servermode_response = realperson_models.CreateVoiceprintServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_voiceprint_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return realperson_models.CreateVoiceprintServermodeResponse().from_map(
+            self.do_request('1.0', 'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_voiceprint_servermode_ex_async(
+        self,
+        request: realperson_models.CreateVoiceprintServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹注册
+        Summary: 纯服务端声纹注册
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.voiceprint.servermode.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_voiceprint_servermode_response = realperson_models.CreateVoiceprintServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_voiceprint_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return realperson_models.CreateVoiceprintServermodeResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_voiceprint_servermode(
+        self,
+        request: realperson_models.VerifyVoiceprintServermodeRequest,
+    ) -> realperson_models.VerifyVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹比对
+        Summary: 纯服务端声纹比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_voiceprint_servermode_ex(request, headers, runtime)
+
+    async def verify_voiceprint_servermode_async(
+        self,
+        request: realperson_models.VerifyVoiceprintServermodeRequest,
+    ) -> realperson_models.VerifyVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹比对
+        Summary: 纯服务端声纹比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_voiceprint_servermode_ex_async(request, headers, runtime)
+
+    def verify_voiceprint_servermode_ex(
+        self,
+        request: realperson_models.VerifyVoiceprintServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.VerifyVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹比对
+        Summary: 纯服务端声纹比对
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.VerifyVoiceprintServermodeResponse().from_map(
+            self.do_request('1.0', 'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_voiceprint_servermode_ex_async(
+        self,
+        request: realperson_models.VerifyVoiceprintServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.VerifyVoiceprintServermodeResponse:
+        """
+        Description: 纯服务端声纹比对
+        Summary: 纯服务端声纹比对
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.VerifyVoiceprintServermodeResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_route_twometa(
+        self,
+        request: realperson_models.CheckRouteTwometaRequest,
+    ) -> realperson_models.CheckRouteTwometaResponse:
+        """
+        Description: 个人二要素认证（场景路由）
+        Summary: 个人二要素认证（场景路由）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_route_twometa_ex(request, headers, runtime)
+
+    async def check_route_twometa_async(
+        self,
+        request: realperson_models.CheckRouteTwometaRequest,
+    ) -> realperson_models.CheckRouteTwometaResponse:
+        """
+        Description: 个人二要素认证（场景路由）
+        Summary: 个人二要素认证（场景路由）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_route_twometa_ex_async(request, headers, runtime)
+
+    def check_route_twometa_ex(
+        self,
+        request: realperson_models.CheckRouteTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckRouteTwometaResponse:
+        """
+        Description: 个人二要素认证（场景路由）
+        Summary: 个人二要素认证（场景路由）
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckRouteTwometaResponse().from_map(
+            self.do_request('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_route_twometa_ex_async(
+        self,
+        request: realperson_models.CheckRouteTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckRouteTwometaResponse:
+        """
+        Description: 个人二要素认证（场景路由）
+        Summary: 个人二要素认证（场景路由）
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CheckRouteTwometaResponse().from_map(
+            await self.do_request_async('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: realperson_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> realperson_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: realperson_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> realperson_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: realperson_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: realperson_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return realperson_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
