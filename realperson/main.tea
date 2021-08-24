@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.8',
+    sdk_version = '1.3.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +157,36 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 音频元数据
+model AudioMeta {
+  // 采样率
+  sampleFreq?: long(name='sample_freq', example='16000'),
+  // 音频道数
+  channelsNum?: long(name='channels_num', example='1'),
+  // 音频数据采样点所占位数
+  bits?: long(name='bits', example='16'),
+  // 语音信道分离标识
+  channel?: long(name='channel', example='0'),
+}
+
+// 音频文件
+model Audio {
+  // 音频文件名称（单次请求保持唯一）
+  token?: string(name='token', example='81995a7fa2bfc132eb69cdc2028f0619.wav'),
+  // 待认证的音频文件，base64编码格式
+  rawData?: string(name='raw_data', example='/9j/238sn382l23f4 '),
+  // 音频文件OSS地址
+  audioUrl?: string(name='audio_url', example='https://xxxxxx.oss-cn-shanghai.aliyuncs.com/12345.wav'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model QueryFacevrfServerRequest = {
@@ -407,6 +437,8 @@ model CheckIndividualidTwometaRequest = {
   certNo: string(name='cert_no'),
   // map结果的json数据格式，预留字段
   externParam?: string(name='extern_param'),
+  // 认证子类型
+  scene?: string(name='scene'),
 }
 
 model CheckIndividualidTwometaResponse = {
@@ -543,5 +575,287 @@ async function checkIndividualidFourmeta(request: CheckIndividualidFourmetaReque
 async function checkIndividualidFourmetaEx(request: CheckIndividualidFourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckIndividualidFourmetaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckRouteThreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string(name='outer_order_no'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 使用场景
+  scene: string(name='scene'),
+  // map结果的json数据格式，预留字段
+  externParam?: string(name='extern_param'),
+}
+
+model CheckRouteThreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true:匹配成功 false：匹配失败
+  match?: string(name='match'),
+  // 扩展信息，预留字段
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人三要素认证（场景路由）
+ * Summary: 个人三要素认证（场景路由）
+ */
+async function checkRouteThreemeta(request: CheckRouteThreemetaRequest): CheckRouteThreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkRouteThreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人三要素认证（场景路由）
+ * Summary: 个人三要素认证（场景路由）
+ */
+async function checkRouteThreemetaEx(request: CheckRouteThreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckRouteThreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.route.threemeta.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateVoiceprintServermodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string(name='outer_order_no'),
+  // 商户自定义的用户ID
+  userId: string(name='user_id'),
+  // 音频文件流
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+  // 音频元数据
+  audioMeta: AudioMeta(name='audio_meta'),
+  // 音频文件集合
+  audios: [ Audio ](name='audios'),
+  // 预留扩展参数
+  externParam?: string(name='extern_param'),
+}
+
+model CreateVoiceprintServermodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扩展信息，预留字段
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 纯服务端声纹注册
+ * Summary: 纯服务端声纹注册
+ */
+async function createVoiceprintServermode(request: CreateVoiceprintServermodeRequest): CreateVoiceprintServermodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createVoiceprintServermodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 纯服务端声纹注册
+ * Summary: 纯服务端声纹注册
+ */
+async function createVoiceprintServermodeEx(request: CreateVoiceprintServermodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateVoiceprintServermodeResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'di.realperson.voiceprint.servermode.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createVoiceprintServermodeResponse = new CreateVoiceprintServermodeResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createVoiceprintServermodeResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyVoiceprintServermodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string(name='outer_order_no'),
+  // 商户自定义的用户ID
+  userId: string(name='user_id'),
+  // 音频文件，base64编码格式
+  // 
+  audioAuth?: string(name='audio_auth'),
+  // 音频文件OSS地址
+  audioUrl?: string(name='audio_url'),
+  // 音频元数据
+  audioMeta: AudioMeta(name='audio_meta'),
+  // 预留扩展参数
+  externParam?: string(name='extern_param'),
+}
+
+model VerifyVoiceprintServermodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 声纹认证唯一ID
+  certifyId?: string(name='certify_id'),
+  // 扩展信息，预留字段
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 纯服务端声纹比对
+ * Summary: 纯服务端声纹比对
+ */
+async function verifyVoiceprintServermode(request: VerifyVoiceprintServermodeRequest): VerifyVoiceprintServermodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyVoiceprintServermodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 纯服务端声纹比对
+ * Summary: 纯服务端声纹比对
+ */
+async function verifyVoiceprintServermodeEx(request: VerifyVoiceprintServermodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyVoiceprintServermodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckRouteTwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string(name='outer_order_no'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 使用场景
+  scene: string(name='scene'),
+  // map结果的json数据格式，预留字段
+  // 
+  externParam?: string(name='extern_param'),
+}
+
+model CheckRouteTwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true:匹配成功 false：匹配失败
+  // 
+  match?: string(name='match'),
+  // 扩展信息，预留字段
+  // 
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 个人二要素认证（场景路由）
+ * Summary: 个人二要素认证（场景路由）
+ */
+async function checkRouteTwometa(request: CheckRouteTwometaRequest): CheckRouteTwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkRouteTwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人二要素认证（场景路由）
+ * Summary: 个人二要素认证（场景路由）
+ */
+async function checkRouteTwometaEx(request: CheckRouteTwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckRouteTwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.route.twometa.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
