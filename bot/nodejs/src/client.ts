@@ -1435,6 +1435,27 @@ export class CollectLabelContent extends $tea.Model {
   }
 }
 
+// BAI提供的OCR接口返回值
+export class BaiOcrResponse extends $tea.Model {
+  // 返回的结果体
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBaiOcrRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1492,14 +1513,14 @@ export class QueryBaiOcrResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回值，JSON字符串
-  result?: string;
+  // 返回结果体，JSON字符串
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      result: 'result',
+      data: 'data',
     };
   }
 
@@ -1508,7 +1529,7 @@ export class QueryBaiOcrResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      result: 'string',
+      data: 'string',
     };
   }
 
@@ -6397,7 +6418,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.25",
+          sdk_version: "1.5.26",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
