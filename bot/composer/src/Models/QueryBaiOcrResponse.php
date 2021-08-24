@@ -26,16 +26,16 @@ class QueryBaiOcrResponse extends Model
      */
     public $resultMsg;
 
-    // 返回值，JSON字符串
+    // 返回结果体，JSON字符串
     /**
      * @var string
      */
-    public $result;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'result'     => 'result',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryBaiOcrResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->result) {
-            $res['result'] = $this->result;
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class QueryBaiOcrResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result'])) {
-            $model->result = $map['result'];
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;
