@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckIndividualidTwometaRequest extends Model
+class CheckRouteTwometaRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -31,31 +31,32 @@ class CheckIndividualidTwometaRequest extends Model
      */
     public $certName;
 
-    // 身份证号码
+    // 身份证号
     /**
      * @var string
      */
     public $certNo;
 
-    // map结果的json数据格式，预留字段
-    /**
-     * @var string
-     */
-    public $externParam;
-
-    // 认证子类型
+    // 使用场景
     /**
      * @var string
      */
     public $scene;
+
+    // map结果的json数据格式，预留字段
+    //
+    /**
+     * @var string
+     */
+    public $externParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
         'certName'          => 'cert_name',
         'certNo'            => 'cert_no',
-        'externParam'       => 'extern_param',
         'scene'             => 'scene',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
@@ -63,6 +64,7 @@ class CheckIndividualidTwometaRequest extends Model
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
         Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('scene', $this->scene, true);
     }
 
     public function toMap()
@@ -83,11 +85,11 @@ class CheckIndividualidTwometaRequest extends Model
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->externParam) {
-            $res['extern_param'] = $this->externParam;
-        }
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
+        }
+        if (null !== $this->externParam) {
+            $res['extern_param'] = $this->externParam;
         }
 
         return $res;
@@ -96,7 +98,7 @@ class CheckIndividualidTwometaRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckIndividualidTwometaRequest
+     * @return CheckRouteTwometaRequest
      */
     public static function fromMap($map = [])
     {
@@ -116,11 +118,11 @@ class CheckIndividualidTwometaRequest extends Model
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
         }
-        if (isset($map['extern_param'])) {
-            $model->externParam = $map['extern_param'];
-        }
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];
+        }
+        if (isset($map['extern_param'])) {
+            $model->externParam = $map['extern_param'];
         }
 
         return $model;

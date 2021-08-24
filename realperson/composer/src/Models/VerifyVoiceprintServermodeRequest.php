@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckIndividualidTwometaRequest extends Model
+class VerifyVoiceprintServermodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,44 +25,52 @@ class CheckIndividualidTwometaRequest extends Model
      */
     public $outerOrderNo;
 
-    // 姓名
+    // 商户自定义的用户ID
     /**
      * @var string
      */
-    public $certName;
+    public $userId;
 
-    // 身份证号码
+    // 音频文件，base64编码格式
+    //
     /**
      * @var string
      */
-    public $certNo;
+    public $audioAuth;
 
-    // map结果的json数据格式，预留字段
+    // 音频文件OSS地址
+    /**
+     * @var string
+     */
+    public $audioUrl;
+
+    // 音频元数据
+    /**
+     * @var AudioMeta
+     */
+    public $audioMeta;
+
+    // 预留扩展参数
     /**
      * @var string
      */
     public $externParam;
-
-    // 认证子类型
-    /**
-     * @var string
-     */
-    public $scene;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
+        'userId'            => 'user_id',
+        'audioAuth'         => 'audio_auth',
+        'audioUrl'          => 'audio_url',
+        'audioMeta'         => 'audio_meta',
         'externParam'       => 'extern_param',
-        'scene'             => 'scene',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('audioMeta', $this->audioMeta, true);
     }
 
     public function toMap()
@@ -77,17 +85,20 @@ class CheckIndividualidTwometaRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->certName) {
-            $res['cert_name'] = $this->certName;
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
+        if (null !== $this->audioAuth) {
+            $res['audio_auth'] = $this->audioAuth;
+        }
+        if (null !== $this->audioUrl) {
+            $res['audio_url'] = $this->audioUrl;
+        }
+        if (null !== $this->audioMeta) {
+            $res['audio_meta'] = null !== $this->audioMeta ? $this->audioMeta->toMap() : null;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
-        }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
         }
 
         return $res;
@@ -96,7 +107,7 @@ class CheckIndividualidTwometaRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckIndividualidTwometaRequest
+     * @return VerifyVoiceprintServermodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -110,17 +121,20 @@ class CheckIndividualidTwometaRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['cert_name'])) {
-            $model->certName = $map['cert_name'];
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
+        if (isset($map['audio_auth'])) {
+            $model->audioAuth = $map['audio_auth'];
+        }
+        if (isset($map['audio_url'])) {
+            $model->audioUrl = $map['audio_url'];
+        }
+        if (isset($map['audio_meta'])) {
+            $model->audioMeta = AudioMeta::fromMap($map['audio_meta']);
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
-        }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
         }
 
         return $model;

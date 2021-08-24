@@ -17,14 +17,24 @@ use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidThreemetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidTwometaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidTwometaResponse;
+use AntChain\REALPERSON\Models\CheckRouteThreemetaRequest;
+use AntChain\REALPERSON\Models\CheckRouteThreemetaResponse;
+use AntChain\REALPERSON\Models\CheckRouteTwometaRequest;
+use AntChain\REALPERSON\Models\CheckRouteTwometaResponse;
+use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
 use AntChain\REALPERSON\Models\CreateFacevrfServerResponse;
+use AntChain\REALPERSON\Models\CreateVoiceprintServermodeRequest;
+use AntChain\REALPERSON\Models\CreateVoiceprintServermodeResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServerResponse;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
+use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
+use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -144,6 +154,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 音频元数据
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -171,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.8',
+                    'sdk_version'      => '1.3.6',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -446,5 +457,188 @@ class Client
         Utils::validateModel($request);
 
         return CheckIndividualidFourmetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人三要素认证（场景路由）
+     * Summary: 个人三要素认证（场景路由）.
+     *
+     * @param CheckRouteThreemetaRequest $request
+     *
+     * @return CheckRouteThreemetaResponse
+     */
+    public function checkRouteThreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkRouteThreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人三要素认证（场景路由）
+     * Summary: 个人三要素认证（场景路由）.
+     *
+     * @param CheckRouteThreemetaRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CheckRouteThreemetaResponse
+     */
+    public function checkRouteThreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckRouteThreemetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.route.threemeta.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 纯服务端声纹注册
+     * Summary: 纯服务端声纹注册.
+     *
+     * @param CreateVoiceprintServermodeRequest $request
+     *
+     * @return CreateVoiceprintServermodeResponse
+     */
+    public function createVoiceprintServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createVoiceprintServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 纯服务端声纹注册
+     * Summary: 纯服务端声纹注册.
+     *
+     * @param CreateVoiceprintServermodeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateVoiceprintServermodeResponse
+     */
+    public function createVoiceprintServermodeEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.voiceprint.servermode.create',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CreateVoiceprintServermodeResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return CreateVoiceprintServermodeResponse::fromMap($this->doRequest('1.0', 'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 纯服务端声纹比对
+     * Summary: 纯服务端声纹比对.
+     *
+     * @param VerifyVoiceprintServermodeRequest $request
+     *
+     * @return VerifyVoiceprintServermodeResponse
+     */
+    public function verifyVoiceprintServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyVoiceprintServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 纯服务端声纹比对
+     * Summary: 纯服务端声纹比对.
+     *
+     * @param VerifyVoiceprintServermodeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return VerifyVoiceprintServermodeResponse
+     */
+    public function verifyVoiceprintServermodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyVoiceprintServermodeResponse::fromMap($this->doRequest('1.0', 'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人二要素认证（场景路由）
+     * Summary: 个人二要素认证（场景路由）.
+     *
+     * @param CheckRouteTwometaRequest $request
+     *
+     * @return CheckRouteTwometaResponse
+     */
+    public function checkRouteTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkRouteTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人二要素认证（场景路由）
+     * Summary: 个人二要素认证（场景路由）.
+     *
+     * @param CheckRouteTwometaRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CheckRouteTwometaResponse
+     */
+    public function checkRouteTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckRouteTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
