@@ -1904,6 +1904,25 @@ func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
 	return s
 }
 
+// BAI提供的OCR接口返回值
+type BaiOcrResponse struct {
+	// 返回的结果体
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s BaiOcrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiOcrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryBaiOcrRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1977,8 +1996,8 @@ type QueryBaiOcrResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回值，JSON字符串
-	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 返回结果体，JSON字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryBaiOcrResponse) String() string {
@@ -2004,8 +2023,8 @@ func (s *QueryBaiOcrResponse) SetResultMsg(v string) *QueryBaiOcrResponse {
 	return s
 }
 
-func (s *QueryBaiOcrResponse) SetResult(v string) *QueryBaiOcrResponse {
-	s.Result = &v
+func (s *QueryBaiOcrResponse) SetData(v string) *QueryBaiOcrResponse {
+	s.Data = &v
 	return s
 }
 
@@ -8163,7 +8182,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.25"),
+				"sdk_version":      tea.String("1.5.26"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
