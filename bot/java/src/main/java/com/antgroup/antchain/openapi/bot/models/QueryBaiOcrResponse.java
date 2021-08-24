@@ -16,9 +16,9 @@ public class QueryBaiOcrResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回值，JSON字符串
-    @NameInMap("result")
-    public String result;
+    // 返回结果体，JSON字符串
+    @NameInMap("data")
+    public String data;
 
     public static QueryBaiOcrResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryBaiOcrResponse self = new QueryBaiOcrResponse();
@@ -49,12 +49,12 @@ public class QueryBaiOcrResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryBaiOcrResponse setResult(String result) {
-        this.result = result;
+    public QueryBaiOcrResponse setData(String data) {
+        this.data = data;
         return this;
     }
-    public String getResult() {
-        return this.result;
+    public String getData() {
+        return this.data;
     }
 
 }
