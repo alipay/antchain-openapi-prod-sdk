@@ -24,10 +24,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回值，JSON字符串
-        [NameInMap("result")]
+        // 返回结果体，JSON字符串
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string Result { get; set; }
+        public string Data { get; set; }
 
     }
 
