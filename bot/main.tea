@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.5.25',
+    sdk_version = '1.5.26',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -778,6 +778,12 @@ model CollectLabelContent {
   extraData?: string(name='extra_data', example='XXXXX'),
 }
 
+// BAI提供的OCR接口返回值
+model BaiOcrResponse {
+  // 返回的结果体
+  data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
+}
+
 model QueryBaiOcrRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -808,8 +814,8 @@ model QueryBaiOcrResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回值，JSON字符串
-  result?: string(name='result'),
+  // 返回结果体，JSON字符串
+  data?: string(name='data'),
 }
 
 /**
