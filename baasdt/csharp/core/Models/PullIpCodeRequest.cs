@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class SignIpOrdercontractRequest : TeaModel {
+    public class PullIpCodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 基础请求参数
+        // 基础参数
         [NameInMap("base_request")]
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 订单ID
-        [NameInMap("ip_order_id")]
+        // 正版码批次编码
+        [NameInMap("code_batch_id")]
         [Validation(Required=true)]
-        public string IpOrderId { get; set; }
+        public string CodeBatchId { get; set; }
 
-        // 订单合同文件OSS文件key
-        [NameInMap("contract_file_url")]
-        [Validation(Required=false)]
-        public string ContractFileUrl { get; set; }
+        // 分页参数:页码
+        [NameInMap("page_index")]
+        [Validation(Required=true)]
+        public long? PageIndex { get; set; }
 
-        // 备注信息
-        [NameInMap("memo")]
-        [Validation(Required=false)]
-        public string Memo { get; set; }
+        // 分页参数:每页条目数(请小于2000)
+        [NameInMap("page_size")]
+        [Validation(Required=true)]
+        public long? PageSize { get; set; }
 
     }
 

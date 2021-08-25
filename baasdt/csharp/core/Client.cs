@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.82"},
+                        {"sdk_version", "1.2.84"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.82"},
+                        {"sdk_version", "1.2.84"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -8670,7 +8670,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询
+         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
          * Summary: 数字商品服务-IP授权服务-正版码查询
          */
         public PagequeryIpCodeResponse PagequeryIpCode(PagequeryIpCodeRequest request)
@@ -8681,7 +8682,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询
+         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
          * Summary: 数字商品服务-IP授权服务-正版码查询
          */
         public async Task<PagequeryIpCodeResponse> PagequeryIpCodeAsync(PagequeryIpCodeRequest request)
@@ -8692,7 +8694,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询
+         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
          * Summary: 数字商品服务-IP授权服务-正版码查询
          */
         public PagequeryIpCodeResponse PagequeryIpCodeEx(PagequeryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -8702,7 +8705,8 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 数字商品服务-IP授权服务-正版码分页查询
+         * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
          * Summary: 数字商品服务-IP授权服务-正版码查询
          */
         public async Task<PagequeryIpCodeResponse> PagequeryIpCodeExAsync(PagequeryIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -10851,6 +10855,48 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryIpAccountsettlementResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.accountsettlement.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+         * Summary: 数字商品服务-IP授权服务-可跳转码查询
+         */
+        public PullIpCodeResponse PullIpCode(PullIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PullIpCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+         * Summary: 数字商品服务-IP授权服务-可跳转码查询
+         */
+        public async Task<PullIpCodeResponse> PullIpCodeAsync(PullIpCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PullIpCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+         * Summary: 数字商品服务-IP授权服务-可跳转码查询
+         */
+        public PullIpCodeResponse PullIpCodeEx(PullIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PullIpCodeResponse>(DoRequest("1.0", "baas.antdao.ip.code.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+         * Summary: 数字商品服务-IP授权服务-可跳转码查询
+         */
+        public async Task<PullIpCodeResponse> PullIpCodeExAsync(PullIpCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PullIpCodeResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.code.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
