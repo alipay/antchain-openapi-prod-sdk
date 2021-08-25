@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.82',
+    sdk_version = '1.2.84',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -11315,7 +11315,7 @@ model PagequeryIpCodeRequest = {
   codeBatchId: string(name='code_batch_id'),
   // 分页参数:页码
   pageIndex: long(name='page_index'),
-  // 分页参数:每页条目数
+  // 分页参数:每页条目数(请小于2000)
   pageSize: long(name='page_size'),
 }
 
@@ -11326,7 +11326,8 @@ model PagequeryIpCodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 正版码列表
+  // 正版码列表(小程序扫描不可跳转的码)
+  // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
   codeList?: [ string ](name='code_list'),
   // 交易订单ID
   orderId?: string(name='order_id'),
@@ -11349,7 +11350,8 @@ model PagequeryIpCodeResponse = {
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询
+ * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
  * Summary: 数字商品服务-IP授权服务-正版码查询
  */
 async function pagequeryIpCode(request: PagequeryIpCodeRequest): PagequeryIpCodeResponse {
@@ -11359,7 +11361,8 @@ async function pagequeryIpCode(request: PagequeryIpCodeRequest): PagequeryIpCode
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-正版码分页查询
+ * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
  * Summary: 数字商品服务-IP授权服务-正版码查询
  */
 async function pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIpCodeResponse {
@@ -12739,7 +12742,7 @@ model SetIpCodeinfoRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 商家账户链上ID
+  // 正版码对应的订单上版权方的账户链上ID
   accountId: string(name='account_id'),
   // 订单ID
   orderId: string(name='order_id'),
@@ -13379,7 +13382,7 @@ model SignIpOrdercontractRequest = {
   // 订单ID
   ipOrderId: string(name='ip_order_id'),
   // 订单合同文件OSS文件key
-  contractFileUrl: string(name='contract_file_url'),
+  contractFileUrl?: string(name='contract_file_url'),
   // 备注信息
   memo?: string(name='memo'),
 }
@@ -13816,6 +13819,68 @@ async function batchqueryIpAccountsettlement(request: BatchqueryIpAccountsettlem
 async function batchqueryIpAccountsettlementEx(request: BatchqueryIpAccountsettlementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryIpAccountsettlementResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PullIpCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基础参数
+  baseRequest: BaseRequestInfo(name='base_request'),
+  // 正版码批次编码
+  codeBatchId: string(name='code_batch_id'),
+  // 分页参数:页码
+  pageIndex: long(name='page_index'),
+  // 分页参数:每页条目数(请小于2000)
+  pageSize: long(name='page_size'),
+}
+
+model PullIpCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 正版码列表(小程序扫描可跳转)
+  codeList?: [ string ](name='code_list'),
+  // 交易订单ID
+  orderId?: string(name='order_id'),
+  // IP商家的链上账户ID
+  buyerAccountId?: string(name='buyer_account_id'),
+  // IP版权方的链上账户ID
+  sellerAccountId?: string(name='seller_account_id'),
+  // IPID
+  ipId?: string(name='ip_id'),
+  // IP名称
+  ipName?: string(name='ip_name'),
+  // IP主图的OSS地址
+  ipImage?: string(name='ip_image'),
+  // IP描述
+  ipDesc?: string(name='ip_desc'),
+  // 该批次正版码的过期时间戳(毫秒)
+  expiredDate?: long(name='expired_date'),
+  // 总数量
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+ * Summary: 数字商品服务-IP授权服务-可跳转码查询
+ */
+async function pullIpCode(request: PullIpCodeRequest): PullIpCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pullIpCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+ * Summary: 数字商品服务-IP授权服务-可跳转码查询
+ */
+async function pullIpCodeEx(request: PullIpCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullIpCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.antdao.ip.code.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
