@@ -37,7 +37,7 @@ class PagequeryIpCodeRequest extends Model
      */
     public $pageIndex;
 
-    // 分页参数:每页条目数
+    // 分页参数:每页条目数(请小于2000)
     /**
      * @var int
      */

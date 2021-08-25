@@ -25,7 +25,7 @@ class SetIpCodeinfoRequest extends Model
      */
     public $baseRequest;
 
-    // 商家账户链上ID
+    // 正版码对应的订单上版权方的账户链上ID
     /**
      * @var string
      */

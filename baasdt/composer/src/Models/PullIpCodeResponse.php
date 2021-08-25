@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIpCodeResponse extends Model
+class PullIpCodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,8 +26,7 @@ class PagequeryIpCodeResponse extends Model
      */
     public $resultMsg;
 
-    // 正版码列表(小程序扫描不可跳转的码)
-    // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
+    // 正版码列表(小程序扫描可跳转)
     /**
      * @var string[]
      */
@@ -155,7 +154,7 @@ class PagequeryIpCodeResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIpCodeResponse
+     * @return PullIpCodeResponse
      */
     public static function fromMap($map = [])
     {

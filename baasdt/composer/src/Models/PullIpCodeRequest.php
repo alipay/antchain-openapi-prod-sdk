@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SignIpOrdercontractRequest extends Model
+class PullIpCodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,42 +19,44 @@ class SignIpOrdercontractRequest extends Model
      */
     public $productInstanceId;
 
-    // 基础请求参数
+    // 基础参数
     /**
      * @var BaseRequestInfo
      */
     public $baseRequest;
 
-    // 订单ID
+    // 正版码批次编码
     /**
      * @var string
      */
-    public $ipOrderId;
+    public $codeBatchId;
 
-    // 订单合同文件OSS文件key
+    // 分页参数:页码
     /**
-     * @var string
+     * @var int
      */
-    public $contractFileUrl;
+    public $pageIndex;
 
-    // 备注信息
+    // 分页参数:每页条目数(请小于2000)
     /**
-     * @var string
+     * @var int
      */
-    public $memo;
+    public $pageSize;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
-        'ipOrderId'         => 'ip_order_id',
-        'contractFileUrl'   => 'contract_file_url',
-        'memo'              => 'memo',
+        'codeBatchId'       => 'code_batch_id',
+        'pageIndex'         => 'page_index',
+        'pageSize'          => 'page_size',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
-        Model::validateRequired('ipOrderId', $this->ipOrderId, true);
+        Model::validateRequired('codeBatchId', $this->codeBatchId, true);
+        Model::validateRequired('pageIndex', $this->pageIndex, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
     }
 
     public function toMap()
@@ -69,14 +71,14 @@ class SignIpOrdercontractRequest extends Model
         if (null !== $this->baseRequest) {
             $res['base_request'] = null !== $this->baseRequest ? $this->baseRequest->toMap() : null;
         }
-        if (null !== $this->ipOrderId) {
-            $res['ip_order_id'] = $this->ipOrderId;
+        if (null !== $this->codeBatchId) {
+            $res['code_batch_id'] = $this->codeBatchId;
         }
-        if (null !== $this->contractFileUrl) {
-            $res['contract_file_url'] = $this->contractFileUrl;
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
         }
-        if (null !== $this->memo) {
-            $res['memo'] = $this->memo;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
 
         return $res;
@@ -85,7 +87,7 @@ class SignIpOrdercontractRequest extends Model
     /**
      * @param array $map
      *
-     * @return SignIpOrdercontractRequest
+     * @return PullIpCodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -99,14 +101,14 @@ class SignIpOrdercontractRequest extends Model
         if (isset($map['base_request'])) {
             $model->baseRequest = BaseRequestInfo::fromMap($map['base_request']);
         }
-        if (isset($map['ip_order_id'])) {
-            $model->ipOrderId = $map['ip_order_id'];
+        if (isset($map['code_batch_id'])) {
+            $model->codeBatchId = $map['code_batch_id'];
         }
-        if (isset($map['contract_file_url'])) {
-            $model->contractFileUrl = $map['contract_file_url'];
+        if (isset($map['page_index'])) {
+            $model->pageIndex = $map['page_index'];
         }
-        if (isset($map['memo'])) {
-            $model->memo = $map['memo'];
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
 
         return $model;

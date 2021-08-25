@@ -279,6 +279,8 @@ use AntChain\BAASDT\Models\PagequeryIpValueaddRequest;
 use AntChain\BAASDT\Models\PagequeryIpValueaddResponse;
 use AntChain\BAASDT\Models\PullIpAccountRequest;
 use AntChain\BAASDT\Models\PullIpAccountResponse;
+use AntChain\BAASDT\Models\PullIpCodeRequest;
+use AntChain\BAASDT\Models\PullIpCodeResponse;
 use AntChain\BAASDT\Models\PushIpSuperviseapproveRequest;
 use AntChain\BAASDT\Models\PushIpSuperviseapproveResponse;
 use AntChain\BAASDT\Models\QueryAssetInstructionRequest;
@@ -696,7 +698,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.82',
+                    'sdk_version'      => '1.2.84',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7278,7 +7280,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+     * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
      * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param PagequeryIpCodeRequest $request
@@ -7294,7 +7297,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+     * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
      * Summary: 数字商品服务-IP授权服务-正版码查询.
      *
      * @param PagequeryIpCodeRequest $request
@@ -8991,6 +8995,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryIpAccountsettlementResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+     * Summary: 数字商品服务-IP授权服务-可跳转码查询.
+     *
+     * @param PullIpCodeRequest $request
+     *
+     * @return PullIpCodeResponse
+     */
+    public function pullIpCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullIpCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+     * Summary: 数字商品服务-IP授权服务-可跳转码查询.
+     *
+     * @param PullIpCodeRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return PullIpCodeResponse
+     */
+    public function pullIpCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullIpCodeResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
