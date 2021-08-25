@@ -23,7 +23,6 @@ public class SignIpOrdercontractRequest extends TeaModel {
 
     // 订单合同文件OSS文件key
     @NameInMap("contract_file_url")
-    @Validation(required = true)
     public String contractFileUrl;
 
     // 备注信息

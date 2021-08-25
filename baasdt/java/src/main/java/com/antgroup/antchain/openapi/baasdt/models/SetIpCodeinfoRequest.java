@@ -16,7 +16,7 @@ public class SetIpCodeinfoRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 商家账户链上ID
+    // 正版码对应的订单上版权方的账户链上ID
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;

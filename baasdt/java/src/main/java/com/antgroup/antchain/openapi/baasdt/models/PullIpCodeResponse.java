@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIpCodeResponse extends TeaModel {
+public class PullIpCodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,8 +16,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 正版码列表(小程序扫描不可跳转的码)
-    // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
+    // 正版码列表(小程序扫描可跳转)
     @NameInMap("code_list")
     public java.util.List<String> codeList;
 
@@ -57,12 +56,12 @@ public class PagequeryIpCodeResponse extends TeaModel {
     @NameInMap("total_count")
     public Long totalCount;
 
-    public static PagequeryIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIpCodeResponse self = new PagequeryIpCodeResponse();
+    public static PullIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        PullIpCodeResponse self = new PullIpCodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIpCodeResponse setReqMsgId(String reqMsgId) {
+    public PullIpCodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -70,7 +69,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryIpCodeResponse setResultCode(String resultCode) {
+    public PullIpCodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -78,7 +77,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryIpCodeResponse setResultMsg(String resultMsg) {
+    public PullIpCodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -86,7 +85,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryIpCodeResponse setCodeList(java.util.List<String> codeList) {
+    public PullIpCodeResponse setCodeList(java.util.List<String> codeList) {
         this.codeList = codeList;
         return this;
     }
@@ -94,7 +93,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.codeList;
     }
 
-    public PagequeryIpCodeResponse setOrderId(String orderId) {
+    public PullIpCodeResponse setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -102,7 +101,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.orderId;
     }
 
-    public PagequeryIpCodeResponse setBuyerAccountId(String buyerAccountId) {
+    public PullIpCodeResponse setBuyerAccountId(String buyerAccountId) {
         this.buyerAccountId = buyerAccountId;
         return this;
     }
@@ -110,7 +109,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.buyerAccountId;
     }
 
-    public PagequeryIpCodeResponse setSellerAccountId(String sellerAccountId) {
+    public PullIpCodeResponse setSellerAccountId(String sellerAccountId) {
         this.sellerAccountId = sellerAccountId;
         return this;
     }
@@ -118,7 +117,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.sellerAccountId;
     }
 
-    public PagequeryIpCodeResponse setIpId(String ipId) {
+    public PullIpCodeResponse setIpId(String ipId) {
         this.ipId = ipId;
         return this;
     }
@@ -126,7 +125,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.ipId;
     }
 
-    public PagequeryIpCodeResponse setIpName(String ipName) {
+    public PullIpCodeResponse setIpName(String ipName) {
         this.ipName = ipName;
         return this;
     }
@@ -134,7 +133,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.ipName;
     }
 
-    public PagequeryIpCodeResponse setIpImage(String ipImage) {
+    public PullIpCodeResponse setIpImage(String ipImage) {
         this.ipImage = ipImage;
         return this;
     }
@@ -142,7 +141,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.ipImage;
     }
 
-    public PagequeryIpCodeResponse setIpDesc(String ipDesc) {
+    public PullIpCodeResponse setIpDesc(String ipDesc) {
         this.ipDesc = ipDesc;
         return this;
     }
@@ -150,7 +149,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.ipDesc;
     }
 
-    public PagequeryIpCodeResponse setExpiredDate(Long expiredDate) {
+    public PullIpCodeResponse setExpiredDate(Long expiredDate) {
         this.expiredDate = expiredDate;
         return this;
     }
@@ -158,7 +157,7 @@ public class PagequeryIpCodeResponse extends TeaModel {
         return this.expiredDate;
     }
 
-    public PagequeryIpCodeResponse setTotalCount(Long totalCount) {
+    public PullIpCodeResponse setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
         return this;
     }

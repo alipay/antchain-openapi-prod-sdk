@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.82")
+                    new TeaPair("sdk_version", "1.2.84")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3940,7 +3940,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+    注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
      * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCode(PagequeryIpCodeRequest request) throws Exception {
@@ -3950,7 +3951,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-正版码分页查询
+     * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+    注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
      * Summary: 数字商品服务-IP授权服务-正版码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCodeEx(PagequeryIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -4925,6 +4927,25 @@ public class Client {
     public BatchqueryIpAccountsettlementResponse batchqueryIpAccountsettlementEx(BatchqueryIpAccountsettlementRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.accountsettlement.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryIpAccountsettlementResponse());
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+     * Summary: 数字商品服务-IP授权服务-可跳转码查询
+     */
+    public PullIpCodeResponse pullIpCode(PullIpCodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pullIpCodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+     * Summary: 数字商品服务-IP授权服务-可跳转码查询
+     */
+    public PullIpCodeResponse pullIpCodeEx(PullIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.code.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullIpCodeResponse());
     }
 
     /**

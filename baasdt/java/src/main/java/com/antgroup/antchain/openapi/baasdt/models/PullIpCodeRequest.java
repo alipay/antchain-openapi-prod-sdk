@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIpCodeRequest extends TeaModel {
+public class PullIpCodeRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -31,12 +31,12 @@ public class PagequeryIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
-    public static PagequeryIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIpCodeRequest self = new PagequeryIpCodeRequest();
+    public static PullIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
+        PullIpCodeRequest self = new PullIpCodeRequest();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIpCodeRequest setAuthToken(String authToken) {
+    public PullIpCodeRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +44,7 @@ public class PagequeryIpCodeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PagequeryIpCodeRequest setProductInstanceId(String productInstanceId) {
+    public PullIpCodeRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +52,7 @@ public class PagequeryIpCodeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PagequeryIpCodeRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public PullIpCodeRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -60,7 +60,7 @@ public class PagequeryIpCodeRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public PagequeryIpCodeRequest setCodeBatchId(String codeBatchId) {
+    public PullIpCodeRequest setCodeBatchId(String codeBatchId) {
         this.codeBatchId = codeBatchId;
         return this;
     }
@@ -68,7 +68,7 @@ public class PagequeryIpCodeRequest extends TeaModel {
         return this.codeBatchId;
     }
 
-    public PagequeryIpCodeRequest setPageIndex(Long pageIndex) {
+    public PullIpCodeRequest setPageIndex(Long pageIndex) {
         this.pageIndex = pageIndex;
         return this;
     }
@@ -76,7 +76,7 @@ public class PagequeryIpCodeRequest extends TeaModel {
         return this.pageIndex;
     }
 
-    public PagequeryIpCodeRequest setPageSize(Long pageSize) {
+    public PullIpCodeRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
