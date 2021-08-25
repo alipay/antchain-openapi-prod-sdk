@@ -31044,7 +31044,7 @@ class PagequeryIpCodeRequest(TeaModel):
         self.code_batch_id = code_batch_id
         # 分页参数:页码
         self.page_index = page_index
-        # 分页参数:每页条目数
+        # 分页参数:每页条目数(请小于2000)
         self.page_size = page_size
 
     def validate(self):
@@ -31112,7 +31112,8 @@ class PagequeryIpCodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 正版码列表
+        # 正版码列表(小程序扫描不可跳转的码)
+        # 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
         self.code_list = code_list
         # 交易订单ID
         self.order_id = order_id
@@ -34753,7 +34754,7 @@ class SetIpCodeinfoRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 商家账户链上ID
+        # 正版码对应的订单上版权方的账户链上ID
         self.account_id = account_id
         # 订单ID
         self.order_id = order_id
@@ -36523,7 +36524,6 @@ class SignIpOrdercontractRequest(TeaModel):
         if self.base_request:
             self.base_request.validate()
         self.validate_required(self.ip_order_id, 'ip_order_id')
-        self.validate_required(self.contract_file_url, 'contract_file_url')
 
     def to_map(self):
         result = dict()
@@ -37680,6 +37680,178 @@ class BatchqueryIpAccountsettlementResponse(TeaModel):
                 self.account_info.append(temp_model.from_map(k))
         if m.get('all_count') is not None:
             self.all_count = m.get('all_count')
+        return self
+
+
+class PullIpCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        base_request: BaseRequestInfo = None,
+        code_batch_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基础参数
+        self.base_request = base_request
+        # 正版码批次编码
+        self.code_batch_id = code_batch_id
+        # 分页参数:页码
+        self.page_index = page_index
+        # 分页参数:每页条目数(请小于2000)
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.base_request, 'base_request')
+        if self.base_request:
+            self.base_request.validate()
+        self.validate_required(self.code_batch_id, 'code_batch_id')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.base_request is not None:
+            result['base_request'] = self.base_request.to_map()
+        if self.code_batch_id is not None:
+            result['code_batch_id'] = self.code_batch_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('base_request') is not None:
+            temp_model = BaseRequestInfo()
+            self.base_request = temp_model.from_map(m['base_request'])
+        if m.get('code_batch_id') is not None:
+            self.code_batch_id = m.get('code_batch_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PullIpCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code_list: List[str] = None,
+        order_id: str = None,
+        buyer_account_id: str = None,
+        seller_account_id: str = None,
+        ip_id: str = None,
+        ip_name: str = None,
+        ip_image: str = None,
+        ip_desc: str = None,
+        expired_date: int = None,
+        total_count: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 正版码列表(小程序扫描可跳转)
+        self.code_list = code_list
+        # 交易订单ID
+        self.order_id = order_id
+        # IP商家的链上账户ID
+        self.buyer_account_id = buyer_account_id
+        # IP版权方的链上账户ID
+        self.seller_account_id = seller_account_id
+        # IPID
+        self.ip_id = ip_id
+        # IP名称
+        self.ip_name = ip_name
+        # IP主图的OSS地址
+        self.ip_image = ip_image
+        # IP描述
+        self.ip_desc = ip_desc
+        # 该批次正版码的过期时间戳(毫秒)
+        self.expired_date = expired_date
+        # 总数量
+        self.total_count = total_count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code_list is not None:
+            result['code_list'] = self.code_list
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.buyer_account_id is not None:
+            result['buyer_account_id'] = self.buyer_account_id
+        if self.seller_account_id is not None:
+            result['seller_account_id'] = self.seller_account_id
+        if self.ip_id is not None:
+            result['ip_id'] = self.ip_id
+        if self.ip_name is not None:
+            result['ip_name'] = self.ip_name
+        if self.ip_image is not None:
+            result['ip_image'] = self.ip_image
+        if self.ip_desc is not None:
+            result['ip_desc'] = self.ip_desc
+        if self.expired_date is not None:
+            result['expired_date'] = self.expired_date
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code_list') is not None:
+            self.code_list = m.get('code_list')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('buyer_account_id') is not None:
+            self.buyer_account_id = m.get('buyer_account_id')
+        if m.get('seller_account_id') is not None:
+            self.seller_account_id = m.get('seller_account_id')
+        if m.get('ip_id') is not None:
+            self.ip_id = m.get('ip_id')
+        if m.get('ip_name') is not None:
+            self.ip_name = m.get('ip_name')
+        if m.get('ip_image') is not None:
+            self.ip_image = m.get('ip_image')
+        if m.get('ip_desc') is not None:
+            self.ip_desc = m.get('ip_desc')
+        if m.get('expired_date') is not None:
+            self.expired_date = m.get('expired_date')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
         return self
 
 

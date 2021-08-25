@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.82'
+                    'sdk_version': '1.2.84'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.82'
+                    'sdk_version': '1.2.84'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -10980,7 +10980,8 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
         Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
@@ -10992,7 +10993,8 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
         Summary: 数字商品服务-IP授权服务-正版码查询
         """
         runtime = util_models.RuntimeOptions()
@@ -11006,7 +11008,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
         Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
@@ -11021,7 +11024,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-正版码分页查询
+        Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+        注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
         Summary: 数字商品服务-IP授权服务-正版码查询
         """
         UtilClient.validate_model(request)
@@ -13781,6 +13785,60 @@ class Client:
         UtilClient.validate_model(request)
         return baasdt_models.BatchqueryIpAccountsettlementResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_ip_code(
+        self,
+        request: baasdt_models.PullIpCodeRequest,
+    ) -> baasdt_models.PullIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_ip_code_ex(request, headers, runtime)
+
+    async def pull_ip_code_async(
+        self,
+        request: baasdt_models.PullIpCodeRequest,
+    ) -> baasdt_models.PullIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_ip_code_ex_async(request, headers, runtime)
+
+    def pull_ip_code_ex(
+        self,
+        request: baasdt_models.PullIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PullIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PullIpCodeResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_ip_code_ex_async(
+        self,
+        request: baasdt_models.PullIpCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.PullIpCodeResponse:
+        """
+        Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+        Summary: 数字商品服务-IP授权服务-可跳转码查询
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.PullIpCodeResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
