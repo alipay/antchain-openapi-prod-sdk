@@ -19653,7 +19653,7 @@ export class PagequeryIpCodeRequest extends $tea.Model {
   codeBatchId: string;
   // 分页参数:页码
   pageIndex: number;
-  // 分页参数:每页条目数
+  // 分页参数:每页条目数(请小于2000)
   pageSize: number;
   static names(): { [key: string]: string } {
     return {
@@ -19689,7 +19689,8 @@ export class PagequeryIpCodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 正版码列表
+  // 正版码列表(小程序扫描不可跳转的码)
+  // 注意: 这个接口查到的码为原始编码, 小程序扫描无法跳转, IPMart不适用!!!
   codeList?: string[];
   // 交易订单ID
   orderId?: string;
@@ -21978,7 +21979,7 @@ export class SetIpCodeinfoRequest extends $tea.Model {
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 商家账户链上ID
+  // 正版码对应的订单上版权方的账户链上ID
   accountId: string;
   // 订单ID
   orderId: string;
@@ -23048,7 +23049,7 @@ export class SignIpOrdercontractRequest extends $tea.Model {
   // 订单ID
   ipOrderId: string;
   // 订单合同文件OSS文件key
-  contractFileUrl: string;
+  contractFileUrl?: string;
   // 备注信息
   memo?: string;
   static names(): { [key: string]: string } {
@@ -23774,6 +23775,113 @@ export class BatchqueryIpAccountsettlementResponse extends $tea.Model {
       resultMsg: 'string',
       accountInfo: { 'type': 'array', 'itemType': AccountSettlementInfo },
       allCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullIpCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 正版码批次编码
+  codeBatchId: string;
+  // 分页参数:页码
+  pageIndex: number;
+  // 分页参数:每页条目数(请小于2000)
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      codeBatchId: 'code_batch_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      codeBatchId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullIpCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 正版码列表(小程序扫描可跳转)
+  codeList?: string[];
+  // 交易订单ID
+  orderId?: string;
+  // IP商家的链上账户ID
+  buyerAccountId?: string;
+  // IP版权方的链上账户ID
+  sellerAccountId?: string;
+  // IPID
+  ipId?: string;
+  // IP名称
+  ipName?: string;
+  // IP主图的OSS地址
+  ipImage?: string;
+  // IP描述
+  ipDesc?: string;
+  // 该批次正版码的过期时间戳(毫秒)
+  expiredDate?: number;
+  // 总数量
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      codeList: 'code_list',
+      orderId: 'order_id',
+      buyerAccountId: 'buyer_account_id',
+      sellerAccountId: 'seller_account_id',
+      ipId: 'ip_id',
+      ipName: 'ip_name',
+      ipImage: 'ip_image',
+      ipDesc: 'ip_desc',
+      expiredDate: 'expired_date',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      codeList: { 'type': 'array', 'itemType': 'string' },
+      orderId: 'string',
+      buyerAccountId: 'string',
+      sellerAccountId: 'string',
+      ipId: 'string',
+      ipName: 'string',
+      ipImage: 'string',
+      ipDesc: 'string',
+      expiredDate: 'number',
+      totalCount: 'number',
     };
   }
 
@@ -25532,7 +25640,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.82",
+          sdk_version: "1.2.84",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -29359,7 +29467,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码分页查询
+   * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+  注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
    * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async pagequeryIpCode(request: PagequeryIpCodeRequest): Promise<PagequeryIpCodeResponse> {
@@ -29369,7 +29478,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字商品服务-IP授权服务-正版码分页查询
+   * Description: 数字商品服务-IP授权服务-正版码分页查询: 小程序不可扫描的正版码分页查询。
+  注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
    * Summary: 数字商品服务-IP授权服务-正版码查询
    */
   async pagequeryIpCodeEx(request: PagequeryIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIpCodeResponse> {
@@ -30344,6 +30454,25 @@ export default class Client {
   async batchqueryIpAccountsettlementEx(request: BatchqueryIpAccountsettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryIpAccountsettlementResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryIpAccountsettlementResponse>(await this.doRequest("1.0", "baas.antdao.ip.accountsettlement.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryIpAccountsettlementResponse({}));
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+   * Summary: 数字商品服务-IP授权服务-可跳转码查询
+   */
+  async pullIpCode(request: PullIpCodeRequest): Promise<PullIpCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pullIpCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字商品服务-IP授权服务-可跳转正版码分页查询: 小程序可扫描的正版码分页查询。
+   * Summary: 数字商品服务-IP授权服务-可跳转码查询
+   */
+  async pullIpCodeEx(request: PullIpCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullIpCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PullIpCodeResponse>(await this.doRequest("1.0", "baas.antdao.ip.code.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullIpCodeResponse({}));
   }
 
   /**
