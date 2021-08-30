@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.1.2',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -572,7 +572,7 @@ model CreateDasDatasourceRequest = {
   // 枚举值：ENTERPRISE、INDIVIDUAL
   dataOwnerType: string(name='data_owner_type'),
   // 数据源接口定义
-  interface: DataSourceInterface(name='interface'),
+  dataSourceInterface: DataSourceInterface(name='data_source_interface'),
 }
 
 model CreateDasDatasourceResponse = {
@@ -618,7 +618,7 @@ model UpdateDasDatasourceRequest = {
   // 枚举值：ENTERPRISE、INDIVIDUAL
   dataOwnerType: string(name='data_owner_type'),
   // 数据源接口定义
-  interface: DataSourceInterface(name='interface'),
+  dataSourceInterface: DataSourceInterface(name='data_source_interface'),
 }
 
 model UpdateDasDatasourceResponse = {
