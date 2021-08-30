@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,40 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 数据源接口入参定义
+model InterfaceInput {
+  // 接口入参名称
+  name?: string(maxLength=50, name='name', example='name'),
+  // 接口入参类型
+  type?: string(maxLength=50, name='type', example='String'),
+  // 接口入参描述
+  description?: string(maxLength=100, name='description', example='描述'),
+  // 接口入参是否必填
+  required?: boolean(name='required', example='true, false'),
+}
+
+// 数据源接口出参定义
+model InterfaceOutput {
+  // 接口出参名称
+  name?: string(maxLength=50, name='name', example='success'),
+  // 接口出参类型
+  type?: string(maxLength=50, name='type', example='String'),
+  // 接口出参描述
+  description?: string(maxLength=100, name='description', example='描述'),
+}
+
+// 数据源接口定义
+model DataSourceInterface {
+  // 数据源接口访问地址
+  address: string(maxLength=100, name='address', example='https://******'),
+  // 数据源接口请求方法类型
+  interfaceRequestMethod: string(maxLength=50, name='interface_request_method', example='POST'),
+  // 数据源接口入参列表
+  interfaceInput?: [ InterfaceInput ](name='interface_input', example=''),
+  // 数据源接口出参列表
+  interfaceOutput?: [ InterfaceOutput ](name='interface_output', example=''),
+}
+
 // 授权人个人信息
 model AuthPersonIndividualInfo {
   // 姓名
@@ -167,6 +201,20 @@ model AuthPersonIndividualInfo {
   individualId: string(name='individual_id', example='110*****'),
   // 电话号码
   individualPhoneNum: long(name='individual_phone_num', example='138********'),
+}
+
+// 数据源详细信息
+model DataSourceInfo {
+  // 数据源ID
+  id: string(name='id', example='1'),
+  // 数据源名称
+  name: string(maxLength=20, name='name', example='**数据'),
+  // 数据提供方
+  provider: string(maxLength=30, name='provider', example='***有限公司'),
+  // 枚举值：ENTERPRISE、INDIVIDUAL
+  dataOwnerType: string(name='data_owner_type', example='ENTERPRISE'),
+  // 数据源接口信息
+  dataSourceInterfaceInfo: DataSourceInterface(name='data_source_interface_info', example=''),
 }
 
 // 授权人企业信息
@@ -503,5 +551,315 @@ async function verifyDasIndividual(request: VerifyDasIndividualRequest): VerifyD
 async function verifyDasIndividualEx(request: VerifyDasIndividualRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyDasIndividualResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.das.individual.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDasDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源名称
+  name: string(maxLength=20, name='name'),
+  // 数据源提供方
+  provider: string(maxLength=30, name='provider'),
+  // 枚举值：ENTERPRISE、INDIVIDUAL
+  dataOwnerType: string(name='data_owner_type'),
+  // 数据源接口定义
+  interface: DataSourceInterface(name='interface'),
+}
+
+model CreateDasDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据源ID
+  id?: string(name='id'),
+}
+
+/**
+ * Description: 创建数据源
+ * Summary: 创建数据源
+ */
+async function createDasDatasource(request: CreateDasDatasourceRequest): CreateDasDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDasDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建数据源
+ * Summary: 创建数据源
+ */
+async function createDasDatasourceEx(request: CreateDasDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDasDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.datasource.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDasDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 要修改的数据源ID
+  id: string(name='id'),
+  // 数据源名称
+  name: string(maxLength=20, name='name'),
+  // 数据源提供方
+  provider: string(maxLength=30, name='provider'),
+  // 枚举值：ENTERPRISE、INDIVIDUAL
+  dataOwnerType: string(name='data_owner_type'),
+  // 数据源接口定义
+  interface: DataSourceInterface(name='interface'),
+}
+
+model UpdateDasDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新数据源
+ * Summary: 更新数据源
+ */
+async function updateDasDatasource(request: UpdateDasDatasourceRequest): UpdateDasDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDasDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新数据源
+ * Summary: 更新数据源
+ */
+async function updateDasDatasourceEx(request: UpdateDasDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDasDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.datasource.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDasDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 要删除的数据源ID
+  id: string(name='id'),
+}
+
+model DeleteDasDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除数据源
+ * Summary: 删除数据源
+ */
+async function deleteDasDatasource(request: DeleteDasDatasourceRequest): DeleteDasDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDasDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除数据源
+ * Summary: 删除数据源
+ */
+async function deleteDasDatasourceEx(request: DeleteDasDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDasDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.datasource.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDasDatasourceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源名称
+  name: string(maxLength=20, name='name'),
+  // 数据源提供方
+  provider?: string(maxLength=30, name='provider'),
+  // 枚举值：ENTERPRISE、INDIVIDUAL
+  dataOwnerType?: string(name='data_owner_type'),
+  // 数据源接口访问地址
+  address?: string(maxLength=100, name='address'),
+}
+
+model QueryDasDatasourceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据源信息列表
+  dataSources?: [ DataSourceInfo ](name='data_sources'),
+}
+
+/**
+ * Description: 查询数据源信息
+ * Summary: 查询数据源信息
+ */
+async function queryDasDatasource(request: QueryDasDatasourceRequest): QueryDasDatasourceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDasDatasourceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据源信息
+ * Summary: 查询数据源信息
+ */
+async function queryDasDatasourceEx(request: QueryDasDatasourceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDasDatasourceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.datasource.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyDasAuthresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源ID列表
+  dataSourceInfo: [ string ](name='data_source_info'),
+  // 被授权企业接入应用名称
+  beAuthedPersonAppName: string(name='be_authed_person_app_name'),
+  // 授权企业信息
+  authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
+  // 授权人信息
+  authPersonIndividualInfo?: AuthPersonIndividualInfo(name='auth_person_individual_info'),
+}
+
+model VerifyDasAuthresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权状态: 已授权,已过期
+  authStatus?: string(name='auth_status'),
+}
+
+/**
+ * Description: 校验授权结果
+ * Summary: 校验授权结果
+ */
+async function verifyDasAuthresult(request: VerifyDasAuthresultRequest): VerifyDasAuthresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyDasAuthresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验授权结果
+ * Summary: 校验授权结果
+ */
+async function verifyDasAuthresultEx(request: VerifyDasAuthresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyDasAuthresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.authresult.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthDasAuthresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据源ID列表
+  dataSourceIds: [ string ](name='data_source_ids'),
+  // 被授权企业信息
+  beAuthedPersonInfo: BeAuthedPersonInfo(name='be_authed_person_info'),
+  // 被授权企业接入应用名称
+  beAuthedPersonAppName: string(name='be_authed_person_app_name'),
+  // 授权企业信息
+  authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
+  // 授权人信息
+  authPersonIndividualInfo?: AuthPersonIndividualInfo(name='auth_person_individual_info'),
+  // oss_path 列表
+  protocols: [ string ](name='protocols'),
+}
+
+model AuthDasAuthresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 被授权企业ID
+  beAuthedPersonId?: string(name='be_authed_person_id'),
+  // 被授权企业接入应用ID
+  beAuthedPersonAppId?: string(name='be_authed_person_app_id'),
+  // 授权实例ID
+  authInstanceId?: string(name='auth_instance_id'),
+  // 授权详情ID
+  authResultId?: string(name='auth_result_id'),
+  // VC 完整信息
+  vc?: string(name='vc'),
+}
+
+/**
+ * Description: 根据授权三方信息做授权
+ * Summary: 根据授权三方信息做授权
+ */
+async function authDasAuthresult(request: AuthDasAuthresultRequest): AuthDasAuthresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authDasAuthresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据授权三方信息做授权
+ * Summary: 根据授权三方信息做授权
+ */
+async function authDasAuthresultEx(request: AuthDasAuthresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthDasAuthresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.das.authresult.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAuthinstanceFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 协议名称
+  fileName: string(maxLength=50, name='file_name'),
+  // 要上传的文件
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAuthinstanceFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // oss_path 
+  ossPath?: string(name='oss_path'),
+}
+
+/**
+ * Description: 授权协议上传
+ * Summary: 授权协议上传
+ */
+async function uploadAuthinstanceFile(request: UploadAuthinstanceFileRequest): UploadAuthinstanceFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAuthinstanceFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权协议上传
+ * Summary: 授权协议上传
+ */
+async function uploadAuthinstanceFileEx(request: UploadAuthinstanceFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthinstanceFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
