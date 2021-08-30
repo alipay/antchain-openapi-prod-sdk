@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.0.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.5"},
+                        {"sdk_version", "1.0.6"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -609,6 +609,300 @@ namespace AntChain.SDK.DAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyDasIndividualResponse>(await DoRequestAsync("1.0", "antchain.das.das.individual.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建数据源
+         * Summary: 创建数据源
+         */
+        public CreateDasDatasourceResponse CreateDasDatasource(CreateDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDasDatasourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建数据源
+         * Summary: 创建数据源
+         */
+        public async Task<CreateDasDatasourceResponse> CreateDasDatasourceAsync(CreateDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDasDatasourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建数据源
+         * Summary: 创建数据源
+         */
+        public CreateDasDatasourceResponse CreateDasDatasourceEx(CreateDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDasDatasourceResponse>(DoRequest("1.0", "antchain.das.das.datasource.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建数据源
+         * Summary: 创建数据源
+         */
+        public async Task<CreateDasDatasourceResponse> CreateDasDatasourceExAsync(CreateDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDasDatasourceResponse>(await DoRequestAsync("1.0", "antchain.das.das.datasource.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新数据源
+         * Summary: 更新数据源
+         */
+        public UpdateDasDatasourceResponse UpdateDasDatasource(UpdateDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateDasDatasourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新数据源
+         * Summary: 更新数据源
+         */
+        public async Task<UpdateDasDatasourceResponse> UpdateDasDatasourceAsync(UpdateDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateDasDatasourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新数据源
+         * Summary: 更新数据源
+         */
+        public UpdateDasDatasourceResponse UpdateDasDatasourceEx(UpdateDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDasDatasourceResponse>(DoRequest("1.0", "antchain.das.das.datasource.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新数据源
+         * Summary: 更新数据源
+         */
+        public async Task<UpdateDasDatasourceResponse> UpdateDasDatasourceExAsync(UpdateDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDasDatasourceResponse>(await DoRequestAsync("1.0", "antchain.das.das.datasource.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数据源
+         * Summary: 删除数据源
+         */
+        public DeleteDasDatasourceResponse DeleteDasDatasource(DeleteDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteDasDatasourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数据源
+         * Summary: 删除数据源
+         */
+        public async Task<DeleteDasDatasourceResponse> DeleteDasDatasourceAsync(DeleteDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteDasDatasourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数据源
+         * Summary: 删除数据源
+         */
+        public DeleteDasDatasourceResponse DeleteDasDatasourceEx(DeleteDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDasDatasourceResponse>(DoRequest("1.0", "antchain.das.das.datasource.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数据源
+         * Summary: 删除数据源
+         */
+        public async Task<DeleteDasDatasourceResponse> DeleteDasDatasourceExAsync(DeleteDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDasDatasourceResponse>(await DoRequestAsync("1.0", "antchain.das.das.datasource.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数据源信息
+         * Summary: 查询数据源信息
+         */
+        public QueryDasDatasourceResponse QueryDasDatasource(QueryDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDasDatasourceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数据源信息
+         * Summary: 查询数据源信息
+         */
+        public async Task<QueryDasDatasourceResponse> QueryDasDatasourceAsync(QueryDasDatasourceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDasDatasourceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数据源信息
+         * Summary: 查询数据源信息
+         */
+        public QueryDasDatasourceResponse QueryDasDatasourceEx(QueryDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDasDatasourceResponse>(DoRequest("1.0", "antchain.das.das.datasource.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数据源信息
+         * Summary: 查询数据源信息
+         */
+        public async Task<QueryDasDatasourceResponse> QueryDasDatasourceExAsync(QueryDasDatasourceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDasDatasourceResponse>(await DoRequestAsync("1.0", "antchain.das.das.datasource.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验授权结果
+         * Summary: 校验授权结果
+         */
+        public VerifyDasAuthresultResponse VerifyDasAuthresult(VerifyDasAuthresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyDasAuthresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验授权结果
+         * Summary: 校验授权结果
+         */
+        public async Task<VerifyDasAuthresultResponse> VerifyDasAuthresultAsync(VerifyDasAuthresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyDasAuthresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验授权结果
+         * Summary: 校验授权结果
+         */
+        public VerifyDasAuthresultResponse VerifyDasAuthresultEx(VerifyDasAuthresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyDasAuthresultResponse>(DoRequest("1.0", "antchain.das.das.authresult.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验授权结果
+         * Summary: 校验授权结果
+         */
+        public async Task<VerifyDasAuthresultResponse> VerifyDasAuthresultExAsync(VerifyDasAuthresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyDasAuthresultResponse>(await DoRequestAsync("1.0", "antchain.das.das.authresult.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据授权三方信息做授权
+         * Summary: 根据授权三方信息做授权
+         */
+        public AuthDasAuthresultResponse AuthDasAuthresult(AuthDasAuthresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthDasAuthresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据授权三方信息做授权
+         * Summary: 根据授权三方信息做授权
+         */
+        public async Task<AuthDasAuthresultResponse> AuthDasAuthresultAsync(AuthDasAuthresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthDasAuthresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据授权三方信息做授权
+         * Summary: 根据授权三方信息做授权
+         */
+        public AuthDasAuthresultResponse AuthDasAuthresultEx(AuthDasAuthresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthDasAuthresultResponse>(DoRequest("1.0", "antchain.das.das.authresult.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据授权三方信息做授权
+         * Summary: 根据授权三方信息做授权
+         */
+        public async Task<AuthDasAuthresultResponse> AuthDasAuthresultExAsync(AuthDasAuthresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthDasAuthresultResponse>(await DoRequestAsync("1.0", "antchain.das.das.authresult.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权协议上传
+         * Summary: 授权协议上传
+         */
+        public UploadAuthinstanceFileResponse UploadAuthinstanceFile(UploadAuthinstanceFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAuthinstanceFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权协议上传
+         * Summary: 授权协议上传
+         */
+        public async Task<UploadAuthinstanceFileResponse> UploadAuthinstanceFileAsync(UploadAuthinstanceFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAuthinstanceFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权协议上传
+         * Summary: 授权协议上传
+         */
+        public UploadAuthinstanceFileResponse UploadAuthinstanceFileEx(UploadAuthinstanceFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAuthinstanceFileResponse>(DoRequest("1.0", "antchain.das.authinstance.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权协议上传
+         * Summary: 授权协议上传
+         */
+        public async Task<UploadAuthinstanceFileResponse> UploadAuthinstanceFileExAsync(UploadAuthinstanceFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAuthinstanceFileResponse>(await DoRequestAsync("1.0", "antchain.das.authinstance.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
