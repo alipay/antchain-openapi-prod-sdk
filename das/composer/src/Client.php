@@ -11,16 +11,30 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DAS\Models\AuthDasAuthresultRequest;
+use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
 use AntChain\DAS\Models\AuthDasSmsResponse;
+use AntChain\DAS\Models\CreateDasDatasourceRequest;
+use AntChain\DAS\Models\CreateDasDatasourceResponse;
+use AntChain\DAS\Models\DeleteDasDatasourceRequest;
+use AntChain\DAS\Models\DeleteDasDatasourceResponse;
 use AntChain\DAS\Models\GetDasEnterprisevcRequest;
 use AntChain\DAS\Models\GetDasEnterprisevcResponse;
 use AntChain\DAS\Models\GetDasIndividualvcRequest;
 use AntChain\DAS\Models\GetDasIndividualvcResponse;
 use AntChain\DAS\Models\GetDasLinkRequest;
 use AntChain\DAS\Models\GetDasLinkResponse;
+use AntChain\DAS\Models\QueryDasDatasourceRequest;
+use AntChain\DAS\Models\QueryDasDatasourceResponse;
 use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
+use AntChain\DAS\Models\UpdateDasDatasourceRequest;
+use AntChain\DAS\Models\UpdateDasDatasourceResponse;
+use AntChain\DAS\Models\UploadAuthinstanceFileRequest;
+use AntChain\DAS\Models\UploadAuthinstanceFileResponse;
+use AntChain\DAS\Models\VerifyDasAuthresultRequest;
+use AntChain\DAS\Models\VerifyDasAuthresultResponse;
 use AntChain\DAS\Models\VerifyDasEnterpriseRequest;
 use AntChain\DAS\Models\VerifyDasEnterpriseResponse;
 use AntChain\DAS\Models\VerifyDasIndividualRequest;
@@ -144,7 +158,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 授权人个人信息
+            // 数据源接口入参定义
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -172,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.6',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -447,5 +461,236 @@ class Client
         Utils::validateModel($request);
 
         return VerifyDasIndividualResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.individual.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建数据源
+     * Summary: 创建数据源.
+     *
+     * @param CreateDasDatasourceRequest $request
+     *
+     * @return CreateDasDatasourceResponse
+     */
+    public function createDasDatasource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDasDatasourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建数据源
+     * Summary: 创建数据源.
+     *
+     * @param CreateDasDatasourceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateDasDatasourceResponse
+     */
+    public function createDasDatasourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDasDatasourceResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.datasource.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新数据源
+     * Summary: 更新数据源.
+     *
+     * @param UpdateDasDatasourceRequest $request
+     *
+     * @return UpdateDasDatasourceResponse
+     */
+    public function updateDasDatasource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDasDatasourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新数据源
+     * Summary: 更新数据源.
+     *
+     * @param UpdateDasDatasourceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateDasDatasourceResponse
+     */
+    public function updateDasDatasourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDasDatasourceResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.datasource.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除数据源
+     * Summary: 删除数据源.
+     *
+     * @param DeleteDasDatasourceRequest $request
+     *
+     * @return DeleteDasDatasourceResponse
+     */
+    public function deleteDasDatasource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDasDatasourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除数据源
+     * Summary: 删除数据源.
+     *
+     * @param DeleteDasDatasourceRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return DeleteDasDatasourceResponse
+     */
+    public function deleteDasDatasourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDasDatasourceResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.datasource.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数据源信息
+     * Summary: 查询数据源信息.
+     *
+     * @param QueryDasDatasourceRequest $request
+     *
+     * @return QueryDasDatasourceResponse
+     */
+    public function queryDasDatasource($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDasDatasourceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数据源信息
+     * Summary: 查询数据源信息.
+     *
+     * @param QueryDasDatasourceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDasDatasourceResponse
+     */
+    public function queryDasDatasourceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDasDatasourceResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.datasource.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验授权结果
+     * Summary: 校验授权结果.
+     *
+     * @param VerifyDasAuthresultRequest $request
+     *
+     * @return VerifyDasAuthresultResponse
+     */
+    public function verifyDasAuthresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyDasAuthresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验授权结果
+     * Summary: 校验授权结果.
+     *
+     * @param VerifyDasAuthresultRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return VerifyDasAuthresultResponse
+     */
+    public function verifyDasAuthresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyDasAuthresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.authresult.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据授权三方信息做授权
+     * Summary: 根据授权三方信息做授权.
+     *
+     * @param AuthDasAuthresultRequest $request
+     *
+     * @return AuthDasAuthresultResponse
+     */
+    public function authDasAuthresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authDasAuthresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据授权三方信息做授权
+     * Summary: 根据授权三方信息做授权.
+     *
+     * @param AuthDasAuthresultRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return AuthDasAuthresultResponse
+     */
+    public function authDasAuthresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthDasAuthresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.authresult.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权协议上传
+     * Summary: 授权协议上传.
+     *
+     * @param UploadAuthinstanceFileRequest $request
+     *
+     * @return UploadAuthinstanceFileResponse
+     */
+    public function uploadAuthinstanceFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAuthinstanceFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权协议上传
+     * Summary: 授权协议上传.
+     *
+     * @param UploadAuthinstanceFileRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UploadAuthinstanceFileResponse
+     */
+    public function uploadAuthinstanceFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAuthinstanceFileResponse::fromMap($this->doRequest('1.0', 'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
