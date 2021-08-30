@@ -1345,7 +1345,7 @@ class CreateDasDatasourceRequest(TeaModel):
         name: str = None,
         provider: str = None,
         data_owner_type: str = None,
-        interface: DataSourceInterface = None,
+        data_source_interface: DataSourceInterface = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1357,7 +1357,7 @@ class CreateDasDatasourceRequest(TeaModel):
         # 枚举值：ENTERPRISE、INDIVIDUAL
         self.data_owner_type = data_owner_type
         # 数据源接口定义
-        self.interface = interface
+        self.data_source_interface = data_source_interface
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -1367,9 +1367,9 @@ class CreateDasDatasourceRequest(TeaModel):
         if self.provider is not None:
             self.validate_max_length(self.provider, 'provider', 30)
         self.validate_required(self.data_owner_type, 'data_owner_type')
-        self.validate_required(self.interface, 'interface')
-        if self.interface:
-            self.interface.validate()
+        self.validate_required(self.data_source_interface, 'data_source_interface')
+        if self.data_source_interface:
+            self.data_source_interface.validate()
 
     def to_map(self):
         result = dict()
@@ -1383,8 +1383,8 @@ class CreateDasDatasourceRequest(TeaModel):
             result['provider'] = self.provider
         if self.data_owner_type is not None:
             result['data_owner_type'] = self.data_owner_type
-        if self.interface is not None:
-            result['interface'] = self.interface.to_map()
+        if self.data_source_interface is not None:
+            result['data_source_interface'] = self.data_source_interface.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1399,9 +1399,9 @@ class CreateDasDatasourceRequest(TeaModel):
             self.provider = m.get('provider')
         if m.get('data_owner_type') is not None:
             self.data_owner_type = m.get('data_owner_type')
-        if m.get('interface') is not None:
+        if m.get('data_source_interface') is not None:
             temp_model = DataSourceInterface()
-            self.interface = temp_model.from_map(m['interface'])
+            self.data_source_interface = temp_model.from_map(m['data_source_interface'])
         return self
 
 
@@ -1459,7 +1459,7 @@ class UpdateDasDatasourceRequest(TeaModel):
         name: str = None,
         provider: str = None,
         data_owner_type: str = None,
-        interface: DataSourceInterface = None,
+        data_source_interface: DataSourceInterface = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1473,7 +1473,7 @@ class UpdateDasDatasourceRequest(TeaModel):
         # 枚举值：ENTERPRISE、INDIVIDUAL
         self.data_owner_type = data_owner_type
         # 数据源接口定义
-        self.interface = interface
+        self.data_source_interface = data_source_interface
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -1484,9 +1484,9 @@ class UpdateDasDatasourceRequest(TeaModel):
         if self.provider is not None:
             self.validate_max_length(self.provider, 'provider', 30)
         self.validate_required(self.data_owner_type, 'data_owner_type')
-        self.validate_required(self.interface, 'interface')
-        if self.interface:
-            self.interface.validate()
+        self.validate_required(self.data_source_interface, 'data_source_interface')
+        if self.data_source_interface:
+            self.data_source_interface.validate()
 
     def to_map(self):
         result = dict()
@@ -1502,8 +1502,8 @@ class UpdateDasDatasourceRequest(TeaModel):
             result['provider'] = self.provider
         if self.data_owner_type is not None:
             result['data_owner_type'] = self.data_owner_type
-        if self.interface is not None:
-            result['interface'] = self.interface.to_map()
+        if self.data_source_interface is not None:
+            result['data_source_interface'] = self.data_source_interface.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1520,9 +1520,9 @@ class UpdateDasDatasourceRequest(TeaModel):
             self.provider = m.get('provider')
         if m.get('data_owner_type') is not None:
             self.data_owner_type = m.get('data_owner_type')
-        if m.get('interface') is not None:
+        if m.get('data_source_interface') is not None:
             temp_model = DataSourceInterface()
-            self.interface = temp_model.from_map(m['interface'])
+            self.data_source_interface = temp_model.from_map(m['data_source_interface'])
         return self
 
 
