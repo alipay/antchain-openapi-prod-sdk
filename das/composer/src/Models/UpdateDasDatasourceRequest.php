@@ -47,15 +47,15 @@ class UpdateDasDatasourceRequest extends Model
     /**
      * @var DataSourceInterface
      */
-    public $interface;
+    public $dataSourceInterface;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'id'                => 'id',
-        'name'              => 'name',
-        'provider'          => 'provider',
-        'dataOwnerType'     => 'data_owner_type',
-        'interface'         => 'interface',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'id'                  => 'id',
+        'name'                => 'name',
+        'provider'            => 'provider',
+        'dataOwnerType'       => 'data_owner_type',
+        'dataSourceInterface' => 'data_source_interface',
     ];
 
     public function validate()
@@ -64,7 +64,7 @@ class UpdateDasDatasourceRequest extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('provider', $this->provider, true);
         Model::validateRequired('dataOwnerType', $this->dataOwnerType, true);
-        Model::validateRequired('interface', $this->interface, true);
+        Model::validateRequired('dataSourceInterface', $this->dataSourceInterface, true);
         Model::validateMaxLength('name', $this->name, 20);
         Model::validateMaxLength('provider', $this->provider, 30);
     }
@@ -90,8 +90,8 @@ class UpdateDasDatasourceRequest extends Model
         if (null !== $this->dataOwnerType) {
             $res['data_owner_type'] = $this->dataOwnerType;
         }
-        if (null !== $this->interface) {
-            $res['interface'] = null !== $this->interface ? $this->interface->toMap() : null;
+        if (null !== $this->dataSourceInterface) {
+            $res['data_source_interface'] = null !== $this->dataSourceInterface ? $this->dataSourceInterface->toMap() : null;
         }
 
         return $res;
@@ -123,8 +123,8 @@ class UpdateDasDatasourceRequest extends Model
         if (isset($map['data_owner_type'])) {
             $model->dataOwnerType = $map['data_owner_type'];
         }
-        if (isset($map['interface'])) {
-            $model->interface = DataSourceInterface::fromMap($map['interface']);
+        if (isset($map['data_source_interface'])) {
+            $model->dataSourceInterface = DataSourceInterface::fromMap($map['data_source_interface']);
         }
 
         return $model;
