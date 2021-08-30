@@ -39,9 +39,9 @@ namespace AntChain.SDK.DAS.Models
         public string DataOwnerType { get; set; }
 
         // 数据源接口定义
-        [NameInMap("interface")]
+        [NameInMap("data_source_interface")]
         [Validation(Required=true)]
-        public DataSourceInterface Interface { get; set; }
+        public DataSourceInterface DataSourceInterface { get; set; }
 
     }
 
