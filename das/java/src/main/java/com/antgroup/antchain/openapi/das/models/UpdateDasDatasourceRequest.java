@@ -32,9 +32,9 @@ public class UpdateDasDatasourceRequest extends TeaModel {
     public String dataOwnerType;
 
     // 数据源接口定义
-    @NameInMap("interface")
+    @NameInMap("data_source_interface")
     @Validation(required = true)
-    public DataSourceInterface _interface;
+    public DataSourceInterface dataSourceInterface;
 
     public static UpdateDasDatasourceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDasDatasourceRequest self = new UpdateDasDatasourceRequest();
@@ -89,12 +89,12 @@ public class UpdateDasDatasourceRequest extends TeaModel {
         return this.dataOwnerType;
     }
 
-    public UpdateDasDatasourceRequest set_interface(DataSourceInterface _interface) {
-        this._interface = _interface;
+    public UpdateDasDatasourceRequest setDataSourceInterface(DataSourceInterface dataSourceInterface) {
+        this.dataSourceInterface = dataSourceInterface;
         return this;
     }
-    public DataSourceInterface get_interface() {
-        return this._interface;
+    public DataSourceInterface getDataSourceInterface() {
+        return this.dataSourceInterface;
     }
 
 }
