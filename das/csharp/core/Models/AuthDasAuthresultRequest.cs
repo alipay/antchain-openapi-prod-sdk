@@ -23,11 +23,6 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public List<string> DataSourceIds { get; set; }
 
-        // 被授权企业信息
-        [NameInMap("be_authed_person_info")]
-        [Validation(Required=true)]
-        public BeAuthedPersonInfo BeAuthedPersonInfo { get; set; }
-
         // 被授权企业接入应用名称
         [NameInMap("be_authed_person_app_name")]
         [Validation(Required=true)]

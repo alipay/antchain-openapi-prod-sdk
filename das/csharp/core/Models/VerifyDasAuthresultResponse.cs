@@ -24,7 +24,7 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 授权状态: 已授权,已过期
+        // 授权状态: 未授权，已授权
         [NameInMap("auth_status")]
         [Validation(Required=false)]
         public string AuthStatus { get; set; }
