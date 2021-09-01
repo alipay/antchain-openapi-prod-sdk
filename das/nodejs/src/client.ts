@@ -1158,7 +1158,7 @@ export class VerifyDasAuthresultResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 授权状态: 已授权,已过期
+  // 授权状态: 未授权，已授权
   authStatus?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1189,8 +1189,6 @@ export class AuthDasAuthresultRequest extends $tea.Model {
   productInstanceId?: string;
   // 数据源ID列表
   dataSourceIds: string[];
-  // 被授权企业信息
-  beAuthedPersonInfo: BeAuthedPersonInfo;
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string;
   // 授权企业信息
@@ -1204,7 +1202,6 @@ export class AuthDasAuthresultRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       dataSourceIds: 'data_source_ids',
-      beAuthedPersonInfo: 'be_authed_person_info',
       beAuthedPersonAppName: 'be_authed_person_app_name',
       authPersonEnterpriseInfo: 'auth_person_enterprise_info',
       authPersonIndividualInfo: 'auth_person_individual_info',
@@ -1217,7 +1214,6 @@ export class AuthDasAuthresultRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       dataSourceIds: { 'type': 'array', 'itemType': 'string' },
-      beAuthedPersonInfo: BeAuthedPersonInfo,
       beAuthedPersonAppName: 'string',
       authPersonEnterpriseInfo: AuthPersonEnterpriseInfo,
       authPersonIndividualInfo: AuthPersonIndividualInfo,
@@ -1548,7 +1544,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
