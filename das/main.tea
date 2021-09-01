@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.2',
+    sdk_version = '1.1.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -750,7 +750,7 @@ model VerifyDasAuthresultResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 授权状态: 已授权,已过期
+  // 授权状态: 未授权，已授权
   authStatus?: string(name='auth_status'),
 }
 
@@ -779,8 +779,6 @@ model AuthDasAuthresultRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 数据源ID列表
   dataSourceIds: [ string ](name='data_source_ids'),
-  // 被授权企业信息
-  beAuthedPersonInfo: BeAuthedPersonInfo(name='be_authed_person_info'),
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string(name='be_authed_person_app_name'),
   // 授权企业信息
