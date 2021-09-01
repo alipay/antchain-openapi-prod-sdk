@@ -1835,7 +1835,7 @@ class VerifyDasAuthresultResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 授权状态: 已授权,已过期
+        # 授权状态: 未授权，已授权
         self.auth_status = auth_status
 
     def validate(self):
@@ -1872,7 +1872,6 @@ class AuthDasAuthresultRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         data_source_ids: List[str] = None,
-        be_authed_person_info: BeAuthedPersonInfo = None,
         be_authed_person_app_name: str = None,
         auth_person_enterprise_info: AuthPersonEnterpriseInfo = None,
         auth_person_individual_info: AuthPersonIndividualInfo = None,
@@ -1883,8 +1882,6 @@ class AuthDasAuthresultRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 数据源ID列表
         self.data_source_ids = data_source_ids
-        # 被授权企业信息
-        self.be_authed_person_info = be_authed_person_info
         # 被授权企业接入应用名称
         self.be_authed_person_app_name = be_authed_person_app_name
         # 授权企业信息
@@ -1896,9 +1893,6 @@ class AuthDasAuthresultRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.data_source_ids, 'data_source_ids')
-        self.validate_required(self.be_authed_person_info, 'be_authed_person_info')
-        if self.be_authed_person_info:
-            self.be_authed_person_info.validate()
         self.validate_required(self.be_authed_person_app_name, 'be_authed_person_app_name')
         if self.auth_person_enterprise_info:
             self.auth_person_enterprise_info.validate()
@@ -1914,8 +1908,6 @@ class AuthDasAuthresultRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.data_source_ids is not None:
             result['data_source_ids'] = self.data_source_ids
-        if self.be_authed_person_info is not None:
-            result['be_authed_person_info'] = self.be_authed_person_info.to_map()
         if self.be_authed_person_app_name is not None:
             result['be_authed_person_app_name'] = self.be_authed_person_app_name
         if self.auth_person_enterprise_info is not None:
@@ -1934,9 +1926,6 @@ class AuthDasAuthresultRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('data_source_ids') is not None:
             self.data_source_ids = m.get('data_source_ids')
-        if m.get('be_authed_person_info') is not None:
-            temp_model = BeAuthedPersonInfo()
-            self.be_authed_person_info = temp_model.from_map(m['be_authed_person_info'])
         if m.get('be_authed_person_app_name') is not None:
             self.be_authed_person_app_name = m.get('be_authed_person_app_name')
         if m.get('auth_person_enterprise_info') is not None:
