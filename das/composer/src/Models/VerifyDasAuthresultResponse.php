@@ -26,7 +26,7 @@ class VerifyDasAuthresultResponse extends Model
      */
     public $resultMsg;
 
-    // 授权状态: 已授权,已过期
+    // 授权状态: 未授权，已授权
     /**
      * @var string
      */

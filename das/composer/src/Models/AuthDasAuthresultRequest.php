@@ -25,12 +25,6 @@ class AuthDasAuthresultRequest extends Model
      */
     public $dataSourceIds;
 
-    // 被授权企业信息
-    /**
-     * @var BeAuthedPersonInfo
-     */
-    public $beAuthedPersonInfo;
-
     // 被授权企业接入应用名称
     /**
      * @var string
@@ -58,7 +52,6 @@ class AuthDasAuthresultRequest extends Model
         'authToken'                => 'auth_token',
         'productInstanceId'        => 'product_instance_id',
         'dataSourceIds'            => 'data_source_ids',
-        'beAuthedPersonInfo'       => 'be_authed_person_info',
         'beAuthedPersonAppName'    => 'be_authed_person_app_name',
         'authPersonEnterpriseInfo' => 'auth_person_enterprise_info',
         'authPersonIndividualInfo' => 'auth_person_individual_info',
@@ -68,7 +61,6 @@ class AuthDasAuthresultRequest extends Model
     public function validate()
     {
         Model::validateRequired('dataSourceIds', $this->dataSourceIds, true);
-        Model::validateRequired('beAuthedPersonInfo', $this->beAuthedPersonInfo, true);
         Model::validateRequired('beAuthedPersonAppName', $this->beAuthedPersonAppName, true);
         Model::validateRequired('protocols', $this->protocols, true);
     }
@@ -84,9 +76,6 @@ class AuthDasAuthresultRequest extends Model
         }
         if (null !== $this->dataSourceIds) {
             $res['data_source_ids'] = $this->dataSourceIds;
-        }
-        if (null !== $this->beAuthedPersonInfo) {
-            $res['be_authed_person_info'] = null !== $this->beAuthedPersonInfo ? $this->beAuthedPersonInfo->toMap() : null;
         }
         if (null !== $this->beAuthedPersonAppName) {
             $res['be_authed_person_app_name'] = $this->beAuthedPersonAppName;
@@ -122,9 +111,6 @@ class AuthDasAuthresultRequest extends Model
             if (!empty($map['data_source_ids'])) {
                 $model->dataSourceIds = $map['data_source_ids'];
             }
-        }
-        if (isset($map['be_authed_person_info'])) {
-            $model->beAuthedPersonInfo = BeAuthedPersonInfo::fromMap($map['be_authed_person_info']);
         }
         if (isset($map['be_authed_person_app_name'])) {
             $model->beAuthedPersonAppName = $map['be_authed_person_app_name'];
