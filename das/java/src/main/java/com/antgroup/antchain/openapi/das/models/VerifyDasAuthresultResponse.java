@@ -16,7 +16,7 @@ public class VerifyDasAuthresultResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 授权状态: 已授权,已过期
+    // 授权状态: 未授权，已授权
     @NameInMap("auth_status")
     public String authStatus;
 
