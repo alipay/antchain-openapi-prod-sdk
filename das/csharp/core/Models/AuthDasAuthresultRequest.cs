@@ -38,11 +38,6 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=false)]
         public AuthPersonIndividualInfo AuthPersonIndividualInfo { get; set; }
 
-        // oss_path 列表
-        [NameInMap("protocols")]
-        [Validation(Required=true)]
-        public List<string> Protocols { get; set; }
-
     }
 
 }

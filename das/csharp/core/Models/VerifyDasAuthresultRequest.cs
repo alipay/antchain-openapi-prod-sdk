@@ -19,24 +19,19 @@ namespace AntChain.SDK.DAS.Models
         public string ProductInstanceId { get; set; }
 
         // 数据源ID列表
-        [NameInMap("data_source_info")]
+        [NameInMap("data_source_ids")]
         [Validation(Required=true)]
-        public List<string> DataSourceInfo { get; set; }
+        public List<string> DataSourceIds { get; set; }
 
         // 被授权企业接入应用名称
         [NameInMap("be_authed_person_app_name")]
         [Validation(Required=true)]
         public string BeAuthedPersonAppName { get; set; }
 
-        // 授权企业信息
-        [NameInMap("auth_person_enterprise_info")]
-        [Validation(Required=false)]
-        public AuthPersonEnterpriseInfo AuthPersonEnterpriseInfo { get; set; }
-
-        // 授权人信息
-        [NameInMap("auth_person_individual_info")]
-        [Validation(Required=false)]
-        public AuthPersonIndividualInfo AuthPersonIndividualInfo { get; set; }
+        // 授权企业统一社会信用码
+        [NameInMap("auth_person_enterprise_credit_num")]
+        [Validation(Required=true)]
+        public string AuthPersonEnterpriseCreditNum { get; set; }
 
     }
 
