@@ -15,8 +15,6 @@ use AntChain\DAS\Models\AuthDasAuthresultRequest;
 use AntChain\DAS\Models\AuthDasAuthresultResponse;
 use AntChain\DAS\Models\AuthDasSmsRequest;
 use AntChain\DAS\Models\AuthDasSmsResponse;
-use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadRequest;
-use AntChain\DAS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DAS\Models\CreateDasDatasourceRequest;
 use AntChain\DAS\Models\CreateDasDatasourceResponse;
 use AntChain\DAS\Models\DeleteDasDatasourceRequest;
@@ -33,8 +31,6 @@ use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
 use AntChain\DAS\Models\UpdateDasDatasourceRequest;
 use AntChain\DAS\Models\UpdateDasDatasourceResponse;
-use AntChain\DAS\Models\UploadAuthinstanceFileRequest;
-use AntChain\DAS\Models\UploadAuthinstanceFileResponse;
 use AntChain\DAS\Models\VerifyDasAuthresultRequest;
 use AntChain\DAS\Models\VerifyDasAuthresultResponse;
 use AntChain\DAS\Models\VerifyDasEnterpriseRequest;
@@ -188,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.3',
+                    'sdk_version'      => '1.1.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -661,89 +657,5 @@ class Client
         Utils::validateModel($request);
 
         return AuthDasAuthresultResponse::fromMap($this->doRequest('1.0', 'antchain.das.das.authresult.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 授权协议上传
-     * Summary: 授权协议上传.
-     *
-     * @param UploadAuthinstanceFileRequest $request
-     *
-     * @return UploadAuthinstanceFileResponse
-     */
-    public function uploadAuthinstanceFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->uploadAuthinstanceFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 授权协议上传
-     * Summary: 授权协议上传.
-     *
-     * @param UploadAuthinstanceFileRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return UploadAuthinstanceFileResponse
-     */
-    public function uploadAuthinstanceFileEx($request, $headers, $runtime)
-    {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'antchain.das.authinstance.file.upload',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new UploadAuthinstanceFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
-        }
-        Utils::validateModel($request);
-
-        return UploadAuthinstanceFileResponse::fromMap($this->doRequest('1.0', 'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建.
-     *
-     * @param CreateAntcloudGatewayxFileUploadRequest $request
-     *
-     * @return CreateAntcloudGatewayxFileUploadResponse
-     */
-    public function createAntcloudGatewayxFileUpload($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建.
-     *
-     * @param CreateAntcloudGatewayxFileUploadRequest $request
-     * @param string[]                                $headers
-     * @param RuntimeOptions                          $runtime
-     *
-     * @return CreateAntcloudGatewayxFileUploadResponse
-     */
-    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -42,12 +42,6 @@ class AuthDasAuthresultRequest extends Model
      * @var AuthPersonIndividualInfo
      */
     public $authPersonIndividualInfo;
-
-    // oss_path 列表
-    /**
-     * @var string[]
-     */
-    public $protocols;
     protected $_name = [
         'authToken'                => 'auth_token',
         'productInstanceId'        => 'product_instance_id',
@@ -55,14 +49,12 @@ class AuthDasAuthresultRequest extends Model
         'beAuthedPersonAppName'    => 'be_authed_person_app_name',
         'authPersonEnterpriseInfo' => 'auth_person_enterprise_info',
         'authPersonIndividualInfo' => 'auth_person_individual_info',
-        'protocols'                => 'protocols',
     ];
 
     public function validate()
     {
         Model::validateRequired('dataSourceIds', $this->dataSourceIds, true);
         Model::validateRequired('beAuthedPersonAppName', $this->beAuthedPersonAppName, true);
-        Model::validateRequired('protocols', $this->protocols, true);
     }
 
     public function toMap()
@@ -85,9 +77,6 @@ class AuthDasAuthresultRequest extends Model
         }
         if (null !== $this->authPersonIndividualInfo) {
             $res['auth_person_individual_info'] = null !== $this->authPersonIndividualInfo ? $this->authPersonIndividualInfo->toMap() : null;
-        }
-        if (null !== $this->protocols) {
-            $res['protocols'] = $this->protocols;
         }
 
         return $res;
@@ -120,11 +109,6 @@ class AuthDasAuthresultRequest extends Model
         }
         if (isset($map['auth_person_individual_info'])) {
             $model->authPersonIndividualInfo = AuthPersonIndividualInfo::fromMap($map['auth_person_individual_info']);
-        }
-        if (isset($map['protocols'])) {
-            if (!empty($map['protocols'])) {
-                $model->protocols = $map['protocols'];
-            }
         }
 
         return $model;
