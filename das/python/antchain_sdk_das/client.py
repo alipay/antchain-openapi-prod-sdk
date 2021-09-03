@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3'
+                    'sdk_version': '1.1.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3'
+                    'sdk_version': '1.1.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -971,146 +971,4 @@ class Client:
         UtilClient.validate_model(request)
         return das_models.AuthDasAuthresultResponse().from_map(
             await self.do_request_async('1.0', 'antchain.das.das.authresult.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def upload_authinstance_file(
-        self,
-        request: das_models.UploadAuthinstanceFileRequest,
-    ) -> das_models.UploadAuthinstanceFileResponse:
-        """
-        Description: 授权协议上传
-        Summary: 授权协议上传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.upload_authinstance_file_ex(request, headers, runtime)
-
-    async def upload_authinstance_file_async(
-        self,
-        request: das_models.UploadAuthinstanceFileRequest,
-    ) -> das_models.UploadAuthinstanceFileResponse:
-        """
-        Description: 授权协议上传
-        Summary: 授权协议上传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.upload_authinstance_file_ex_async(request, headers, runtime)
-
-    def upload_authinstance_file_ex(
-        self,
-        request: das_models.UploadAuthinstanceFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> das_models.UploadAuthinstanceFileResponse:
-        """
-        Description: 授权协议上传
-        Summary: 授权协议上传
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='antchain.das.authinstance.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_authinstance_file_response = das_models.UploadAuthinstanceFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_authinstance_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-        UtilClient.validate_model(request)
-        return das_models.UploadAuthinstanceFileResponse().from_map(
-            self.do_request('1.0', 'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def upload_authinstance_file_ex_async(
-        self,
-        request: das_models.UploadAuthinstanceFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> das_models.UploadAuthinstanceFileResponse:
-        """
-        Description: 授权协议上传
-        Summary: 授权协议上传
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = das_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='antchain.das.authinstance.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_authinstance_file_response = das_models.UploadAuthinstanceFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_authinstance_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-        UtilClient.validate_model(request)
-        return das_models.UploadAuthinstanceFileResponse().from_map(
-            await self.do_request_async('1.0', 'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_antcloud_gatewayx_file_upload(
-        self,
-        request: das_models.CreateAntcloudGatewayxFileUploadRequest,
-    ) -> das_models.CreateAntcloudGatewayxFileUploadResponse:
-        """
-        Description: 创建HTTP PUT提交的文件上传
-        Summary: 文件上传创建
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
-
-    async def create_antcloud_gatewayx_file_upload_async(
-        self,
-        request: das_models.CreateAntcloudGatewayxFileUploadRequest,
-    ) -> das_models.CreateAntcloudGatewayxFileUploadResponse:
-        """
-        Description: 创建HTTP PUT提交的文件上传
-        Summary: 文件上传创建
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
-
-    def create_antcloud_gatewayx_file_upload_ex(
-        self,
-        request: das_models.CreateAntcloudGatewayxFileUploadRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> das_models.CreateAntcloudGatewayxFileUploadResponse:
-        """
-        Description: 创建HTTP PUT提交的文件上传
-        Summary: 文件上传创建
-        """
-        UtilClient.validate_model(request)
-        return das_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
-            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_antcloud_gatewayx_file_upload_ex_async(
-        self,
-        request: das_models.CreateAntcloudGatewayxFileUploadRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> das_models.CreateAntcloudGatewayxFileUploadResponse:
-        """
-        Description: 创建HTTP PUT提交的文件上传
-        Summary: 文件上传创建
-        """
-        UtilClient.validate_model(request)
-        return das_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
-            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
