@@ -6,7 +6,6 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
-	"io"
 )
 
 /**
@@ -1082,7 +1081,7 @@ type CreateDasDatasourceRequest struct {
 	// 枚举值：ENTERPRISE、INDIVIDUAL
 	DataOwnerType *string `json:"data_owner_type,omitempty" xml:"data_owner_type,omitempty" require:"true"`
 	// 数据源接口定义
-	Interface *DataSourceInterface `json:"interface,omitempty" xml:"interface,omitempty" require:"true"`
+	DataSourceInterface *DataSourceInterface `json:"data_source_interface,omitempty" xml:"data_source_interface,omitempty" require:"true"`
 }
 
 func (s CreateDasDatasourceRequest) String() string {
@@ -1118,8 +1117,8 @@ func (s *CreateDasDatasourceRequest) SetDataOwnerType(v string) *CreateDasDataso
 	return s
 }
 
-func (s *CreateDasDatasourceRequest) SetInterface(v *DataSourceInterface) *CreateDasDatasourceRequest {
-	s.Interface = v
+func (s *CreateDasDatasourceRequest) SetDataSourceInterface(v *DataSourceInterface) *CreateDasDatasourceRequest {
+	s.DataSourceInterface = v
 	return s
 }
 
@@ -1175,7 +1174,7 @@ type UpdateDasDatasourceRequest struct {
 	// 枚举值：ENTERPRISE、INDIVIDUAL
 	DataOwnerType *string `json:"data_owner_type,omitempty" xml:"data_owner_type,omitempty" require:"true"`
 	// 数据源接口定义
-	Interface *DataSourceInterface `json:"interface,omitempty" xml:"interface,omitempty" require:"true"`
+	DataSourceInterface *DataSourceInterface `json:"data_source_interface,omitempty" xml:"data_source_interface,omitempty" require:"true"`
 }
 
 func (s UpdateDasDatasourceRequest) String() string {
@@ -1216,8 +1215,8 @@ func (s *UpdateDasDatasourceRequest) SetDataOwnerType(v string) *UpdateDasDataso
 	return s
 }
 
-func (s *UpdateDasDatasourceRequest) SetInterface(v *DataSourceInterface) *UpdateDasDatasourceRequest {
-	s.Interface = v
+func (s *UpdateDasDatasourceRequest) SetDataSourceInterface(v *DataSourceInterface) *UpdateDasDatasourceRequest {
+	s.DataSourceInterface = v
 	return s
 }
 
@@ -1412,13 +1411,11 @@ type VerifyDasAuthresultRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据源ID列表
-	DataSourceInfo []*string `json:"data_source_info,omitempty" xml:"data_source_info,omitempty" require:"true" type:"Repeated"`
+	DataSourceIds []*string `json:"data_source_ids,omitempty" xml:"data_source_ids,omitempty" require:"true" type:"Repeated"`
 	// 被授权企业接入应用名称
 	BeAuthedPersonAppName *string `json:"be_authed_person_app_name,omitempty" xml:"be_authed_person_app_name,omitempty" require:"true"`
-	// 授权企业信息
-	AuthPersonEnterpriseInfo *AuthPersonEnterpriseInfo `json:"auth_person_enterprise_info,omitempty" xml:"auth_person_enterprise_info,omitempty"`
-	// 授权人信息
-	AuthPersonIndividualInfo *AuthPersonIndividualInfo `json:"auth_person_individual_info,omitempty" xml:"auth_person_individual_info,omitempty"`
+	// 授权企业统一社会信用码
+	AuthPersonEnterpriseCreditNum *string `json:"auth_person_enterprise_credit_num,omitempty" xml:"auth_person_enterprise_credit_num,omitempty" require:"true"`
 }
 
 func (s VerifyDasAuthresultRequest) String() string {
@@ -1439,8 +1436,8 @@ func (s *VerifyDasAuthresultRequest) SetProductInstanceId(v string) *VerifyDasAu
 	return s
 }
 
-func (s *VerifyDasAuthresultRequest) SetDataSourceInfo(v []*string) *VerifyDasAuthresultRequest {
-	s.DataSourceInfo = v
+func (s *VerifyDasAuthresultRequest) SetDataSourceIds(v []*string) *VerifyDasAuthresultRequest {
+	s.DataSourceIds = v
 	return s
 }
 
@@ -1449,13 +1446,8 @@ func (s *VerifyDasAuthresultRequest) SetBeAuthedPersonAppName(v string) *VerifyD
 	return s
 }
 
-func (s *VerifyDasAuthresultRequest) SetAuthPersonEnterpriseInfo(v *AuthPersonEnterpriseInfo) *VerifyDasAuthresultRequest {
-	s.AuthPersonEnterpriseInfo = v
-	return s
-}
-
-func (s *VerifyDasAuthresultRequest) SetAuthPersonIndividualInfo(v *AuthPersonIndividualInfo) *VerifyDasAuthresultRequest {
-	s.AuthPersonIndividualInfo = v
+func (s *VerifyDasAuthresultRequest) SetAuthPersonEnterpriseCreditNum(v string) *VerifyDasAuthresultRequest {
+	s.AuthPersonEnterpriseCreditNum = &v
 	return s
 }
 
@@ -1466,7 +1458,7 @@ type VerifyDasAuthresultResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 授权状态: 已授权,已过期
+	// 授权状态: 未授权，已授权
 	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
 }
 
@@ -1504,16 +1496,12 @@ type AuthDasAuthresultRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据源ID列表
 	DataSourceIds []*string `json:"data_source_ids,omitempty" xml:"data_source_ids,omitempty" require:"true" type:"Repeated"`
-	// 被授权企业信息
-	BeAuthedPersonInfo *BeAuthedPersonInfo `json:"be_authed_person_info,omitempty" xml:"be_authed_person_info,omitempty" require:"true"`
 	// 被授权企业接入应用名称
 	BeAuthedPersonAppName *string `json:"be_authed_person_app_name,omitempty" xml:"be_authed_person_app_name,omitempty" require:"true"`
 	// 授权企业信息
 	AuthPersonEnterpriseInfo *AuthPersonEnterpriseInfo `json:"auth_person_enterprise_info,omitempty" xml:"auth_person_enterprise_info,omitempty"`
 	// 授权人信息
 	AuthPersonIndividualInfo *AuthPersonIndividualInfo `json:"auth_person_individual_info,omitempty" xml:"auth_person_individual_info,omitempty"`
-	// oss_path 列表
-	Protocols []*string `json:"protocols,omitempty" xml:"protocols,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AuthDasAuthresultRequest) String() string {
@@ -1539,11 +1527,6 @@ func (s *AuthDasAuthresultRequest) SetDataSourceIds(v []*string) *AuthDasAuthres
 	return s
 }
 
-func (s *AuthDasAuthresultRequest) SetBeAuthedPersonInfo(v *BeAuthedPersonInfo) *AuthDasAuthresultRequest {
-	s.BeAuthedPersonInfo = v
-	return s
-}
-
 func (s *AuthDasAuthresultRequest) SetBeAuthedPersonAppName(v string) *AuthDasAuthresultRequest {
 	s.BeAuthedPersonAppName = &v
 	return s
@@ -1556,11 +1539,6 @@ func (s *AuthDasAuthresultRequest) SetAuthPersonEnterpriseInfo(v *AuthPersonEnte
 
 func (s *AuthDasAuthresultRequest) SetAuthPersonIndividualInfo(v *AuthPersonIndividualInfo) *AuthDasAuthresultRequest {
 	s.AuthPersonIndividualInfo = v
-	return s
-}
-
-func (s *AuthDasAuthresultRequest) SetProtocols(v []*string) *AuthDasAuthresultRequest {
-	s.Protocols = v
 	return s
 }
 
@@ -1628,97 +1606,6 @@ func (s *AuthDasAuthresultResponse) SetAuthResultId(v string) *AuthDasAuthresult
 
 func (s *AuthDasAuthresultResponse) SetVc(v string) *AuthDasAuthresultResponse {
 	s.Vc = &v
-	return s
-}
-
-type UploadAuthinstanceFileRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 协议名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true" maxLength:"50"`
-	// 要上传的文件
-	// 待上传文件
-	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
-	// 待上传文件名
-	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-}
-
-func (s UploadAuthinstanceFileRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UploadAuthinstanceFileRequest) GoString() string {
-	return s.String()
-}
-
-func (s *UploadAuthinstanceFileRequest) SetAuthToken(v string) *UploadAuthinstanceFileRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileRequest) SetProductInstanceId(v string) *UploadAuthinstanceFileRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileRequest) SetFileName(v string) *UploadAuthinstanceFileRequest {
-	s.FileName = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileRequest) SetFileObject(v io.Reader) *UploadAuthinstanceFileRequest {
-	s.FileObject = v
-	return s
-}
-
-func (s *UploadAuthinstanceFileRequest) SetFileObjectName(v string) *UploadAuthinstanceFileRequest {
-	s.FileObjectName = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileRequest) SetFileId(v string) *UploadAuthinstanceFileRequest {
-	s.FileId = &v
-	return s
-}
-
-type UploadAuthinstanceFileResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// oss_path
-	OssPath *string `json:"oss_path,omitempty" xml:"oss_path,omitempty"`
-}
-
-func (s UploadAuthinstanceFileResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UploadAuthinstanceFileResponse) GoString() string {
-	return s.String()
-}
-
-func (s *UploadAuthinstanceFileResponse) SetReqMsgId(v string) *UploadAuthinstanceFileResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileResponse) SetResultCode(v string) *UploadAuthinstanceFileResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileResponse) SetResultMsg(v string) *UploadAuthinstanceFileResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *UploadAuthinstanceFileResponse) SetOssPath(v string) *UploadAuthinstanceFileResponse {
-	s.OssPath = &v
 	return s
 }
 
@@ -1844,7 +1731,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2327,40 +2214,6 @@ func (client *Client) AuthDasAuthresultEx(request *AuthDasAuthresultRequest, hea
 	}
 	_result = &AuthDasAuthresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.das.authresult.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 授权协议上传
- * Summary: 授权协议上传
- */
-func (client *Client) UploadAuthinstanceFile(request *UploadAuthinstanceFileRequest) (_result *UploadAuthinstanceFileResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &UploadAuthinstanceFileResponse{}
-	_body, _err := client.UploadAuthinstanceFileEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 授权协议上传
- * Summary: 授权协议上传
- */
-func (client *Client) UploadAuthinstanceFileEx(request *UploadAuthinstanceFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAuthinstanceFileResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &UploadAuthinstanceFileResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.authinstance.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
