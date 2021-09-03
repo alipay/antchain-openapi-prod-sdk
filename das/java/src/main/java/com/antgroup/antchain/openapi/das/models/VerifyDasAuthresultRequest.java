@@ -12,22 +12,19 @@ public class VerifyDasAuthresultRequest extends TeaModel {
     public String productInstanceId;
 
     // 数据源ID列表
-    @NameInMap("data_source_info")
+    @NameInMap("data_source_ids")
     @Validation(required = true)
-    public java.util.List<String> dataSourceInfo;
+    public java.util.List<String> dataSourceIds;
 
     // 被授权企业接入应用名称
     @NameInMap("be_authed_person_app_name")
     @Validation(required = true)
     public String beAuthedPersonAppName;
 
-    // 授权企业信息
-    @NameInMap("auth_person_enterprise_info")
-    public AuthPersonEnterpriseInfo authPersonEnterpriseInfo;
-
-    // 授权人信息
-    @NameInMap("auth_person_individual_info")
-    public AuthPersonIndividualInfo authPersonIndividualInfo;
+    // 授权企业统一社会信用码
+    @NameInMap("auth_person_enterprise_credit_num")
+    @Validation(required = true)
+    public String authPersonEnterpriseCreditNum;
 
     public static VerifyDasAuthresultRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyDasAuthresultRequest self = new VerifyDasAuthresultRequest();
@@ -50,12 +47,12 @@ public class VerifyDasAuthresultRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public VerifyDasAuthresultRequest setDataSourceInfo(java.util.List<String> dataSourceInfo) {
-        this.dataSourceInfo = dataSourceInfo;
+    public VerifyDasAuthresultRequest setDataSourceIds(java.util.List<String> dataSourceIds) {
+        this.dataSourceIds = dataSourceIds;
         return this;
     }
-    public java.util.List<String> getDataSourceInfo() {
-        return this.dataSourceInfo;
+    public java.util.List<String> getDataSourceIds() {
+        return this.dataSourceIds;
     }
 
     public VerifyDasAuthresultRequest setBeAuthedPersonAppName(String beAuthedPersonAppName) {
@@ -66,20 +63,12 @@ public class VerifyDasAuthresultRequest extends TeaModel {
         return this.beAuthedPersonAppName;
     }
 
-    public VerifyDasAuthresultRequest setAuthPersonEnterpriseInfo(AuthPersonEnterpriseInfo authPersonEnterpriseInfo) {
-        this.authPersonEnterpriseInfo = authPersonEnterpriseInfo;
+    public VerifyDasAuthresultRequest setAuthPersonEnterpriseCreditNum(String authPersonEnterpriseCreditNum) {
+        this.authPersonEnterpriseCreditNum = authPersonEnterpriseCreditNum;
         return this;
     }
-    public AuthPersonEnterpriseInfo getAuthPersonEnterpriseInfo() {
-        return this.authPersonEnterpriseInfo;
-    }
-
-    public VerifyDasAuthresultRequest setAuthPersonIndividualInfo(AuthPersonIndividualInfo authPersonIndividualInfo) {
-        this.authPersonIndividualInfo = authPersonIndividualInfo;
-        return this;
-    }
-    public AuthPersonIndividualInfo getAuthPersonIndividualInfo() {
-        return this.authPersonIndividualInfo;
+    public String getAuthPersonEnterpriseCreditNum() {
+        return this.authPersonEnterpriseCreditNum;
     }
 
 }

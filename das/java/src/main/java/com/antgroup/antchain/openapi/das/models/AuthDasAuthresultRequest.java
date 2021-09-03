@@ -29,11 +29,6 @@ public class AuthDasAuthresultRequest extends TeaModel {
     @NameInMap("auth_person_individual_info")
     public AuthPersonIndividualInfo authPersonIndividualInfo;
 
-    // oss_path 列表
-    @NameInMap("protocols")
-    @Validation(required = true)
-    public java.util.List<String> protocols;
-
     public static AuthDasAuthresultRequest build(java.util.Map<String, ?> map) throws Exception {
         AuthDasAuthresultRequest self = new AuthDasAuthresultRequest();
         return TeaModel.build(map, self);
@@ -85,14 +80,6 @@ public class AuthDasAuthresultRequest extends TeaModel {
     }
     public AuthPersonIndividualInfo getAuthPersonIndividualInfo() {
         return this.authPersonIndividualInfo;
-    }
-
-    public AuthDasAuthresultRequest setProtocols(java.util.List<String> protocols) {
-        this.protocols = protocols;
-        return this;
-    }
-    public java.util.List<String> getProtocols() {
-        return this.protocols;
     }
 
 }
