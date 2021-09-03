@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DAS",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.3",
-    "go": "github.com/antchain-openapi-sdk-go/das/client:v1.1.0",
-    "csharp": "AntChain.SDK.DAS:1.1.3",
-    "ts": "@antchain/das:1.1.3",
-    "php": "antchain/das:1.1.3",
-    "python": "antchain_sdk_das:1.1.3"
+    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.4",
+    "go": "github.com/antchain-openapi-sdk-go/das/client:v1.1.4",
+    "csharp": "AntChain.SDK.DAS:1.1.4",
+    "ts": "@antchain/das:1.1.4",
+    "php": "antchain/das:1.1.4",
+    "python": "antchain_sdk_das:1.1.4"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.3',
+    sdk_version = '1.1.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -249,14 +249,6 @@ model DataSource {
   id: string(name='id', example='1'),
   // 数据源接口地址
   address: string(name='address', example='https://******'),
-}
-
-// 键值对
-model XNameValuePair {
-  // 键名
-  name: string(name='name', example='key'),
-  // 键值
-  value: string(name='value', example='value'),
 }
 
 model GetDasLinkRequest = {
@@ -734,13 +726,11 @@ model VerifyDasAuthresultRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 数据源ID列表
-  dataSourceInfo: [ string ](name='data_source_info'),
+  dataSourceIds: [ string ](name='data_source_ids'),
   // 被授权企业接入应用名称
   beAuthedPersonAppName: string(name='be_authed_person_app_name'),
-  // 授权企业信息
-  authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
-  // 授权人信息
-  authPersonIndividualInfo?: AuthPersonIndividualInfo(name='auth_person_individual_info'),
+  // 授权企业统一社会信用码
+  authPersonEnterpriseCreditNum: string(name='auth_person_enterprise_credit_num'),
 }
 
 model VerifyDasAuthresultResponse = {
@@ -785,8 +775,6 @@ model AuthDasAuthresultRequest = {
   authPersonEnterpriseInfo?: AuthPersonEnterpriseInfo(name='auth_person_enterprise_info'),
   // 授权人信息
   authPersonIndividualInfo?: AuthPersonIndividualInfo(name='auth_person_individual_info'),
-  // oss_path 列表
-  protocols: [ string ](name='protocols'),
 }
 
 model AuthDasAuthresultResponse = {
@@ -825,119 +813,5 @@ async function authDasAuthresult(request: AuthDasAuthresultRequest): AuthDasAuth
 async function authDasAuthresultEx(request: AuthDasAuthresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthDasAuthresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.das.authresult.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model UploadAuthinstanceFileRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 协议名称
-  fileName: string(maxLength=50, name='file_name'),
-  // 要上传的文件
-  fileObject?: readable(description='待上传文件', ignore='true'),
-  fileObjectName?: string(description='待上传文件名', ignore='true'),
-  fileId: string(name='file_id'),
-}
-
-model UploadAuthinstanceFileResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // oss_path 
-  ossPath?: string(name='oss_path'),
-}
-
-/**
- * Description: 授权协议上传
- * Summary: 授权协议上传
- */
-async function uploadAuthinstanceFile(request: UploadAuthinstanceFileRequest): UploadAuthinstanceFileResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return uploadAuthinstanceFileEx(request, headers, runtime);
-}
-
-/**
- * Description: 授权协议上传
- * Summary: 授权协议上传
- */
-async function uploadAuthinstanceFileEx(request: UploadAuthinstanceFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthinstanceFileResponse {
-  if (!Util.isUnset(request.fileObject)) {
-    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
-      authToken = request.authToken,
-      apiCode = 'antchain.das.authinstance.file.upload',
-      fileName = request.fileObjectName,
-    };
-    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-      var uploadAuthinstanceFileResponse = new UploadAuthinstanceFileResponse{
-        reqMsgId = uploadResp.reqMsgId,
-        resultCode = uploadResp.resultCode,
-        resultMsg = uploadResp.resultMsg,
-      };
-      return uploadAuthinstanceFileResponse;
-    }
-    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
-    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-    request.fileId = uploadResp.fileId;
-  }
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.das.authinstance.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model CreateAntcloudGatewayxFileUploadRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  // 上传文件作用的openapi method
-  apiCode: string(name='api_code'),
-  // 文件标签，多个标签;分割
-  fileLabel?: string(maxLength=100, name='file_label'),
-  // 自定义的文件元数据
-  fileMetadata?: string(maxLength=1000, name='file_metadata'),
-  // 文件名，不传则随机生成文件名
-  fileName?: string(maxLength=100, name='file_name'),
-  // 文件的多媒体类型
-  mimeType?: string(name='mime_type'),
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string(name='api_cluster'),
-}
-
-model CreateAntcloudGatewayxFileUploadResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 上传有效期
-  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
-  // 32位文件唯一id
-  fileId?: string(name='file_id'),
-  // 放入http请求头里
-  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
-  // 文件上传地址
-  uploadUrl?: string(name='upload_url'),
-}
-
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
-async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
-}
-
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
-async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
