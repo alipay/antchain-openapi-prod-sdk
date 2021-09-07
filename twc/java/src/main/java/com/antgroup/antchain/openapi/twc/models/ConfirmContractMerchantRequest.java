@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class QueryContractMerchantRequest extends TeaModel {
+public class ConfirmContractMerchantRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -20,12 +20,12 @@ public class QueryContractMerchantRequest extends TeaModel {
     @NameInMap("agent_account_id")
     public String agentAccountId;
 
-    public static QueryContractMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryContractMerchantRequest self = new QueryContractMerchantRequest();
+    public static ConfirmContractMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
+        ConfirmContractMerchantRequest self = new ConfirmContractMerchantRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryContractMerchantRequest setAuthToken(String authToken) {
+    public ConfirmContractMerchantRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryContractMerchantRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryContractMerchantRequest setProductInstanceId(String productInstanceId) {
+    public ConfirmContractMerchantRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryContractMerchantRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryContractMerchantRequest setOrderId(String orderId) {
+    public ConfirmContractMerchantRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryContractMerchantRequest extends TeaModel {
         return this.orderId;
     }
 
-    public QueryContractMerchantRequest setAgentAccountId(String agentAccountId) {
+    public ConfirmContractMerchantRequest setAgentAccountId(String agentAccountId) {
         this.agentAccountId = agentAccountId;
         return this;
     }

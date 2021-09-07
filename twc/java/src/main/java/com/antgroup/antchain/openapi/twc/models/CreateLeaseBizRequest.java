@@ -21,6 +21,10 @@ public class CreateLeaseBizRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
+    // 租赁订单操作类型
+    @NameInMap("operation_type")
+    public String operationType;
+
     public static CreateLeaseBizRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateLeaseBizRequest self = new CreateLeaseBizRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class CreateLeaseBizRequest extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public CreateLeaseBizRequest setOperationType(String operationType) {
+        this.operationType = operationType;
+        return this;
+    }
+    public String getOperationType() {
+        return this.operationType;
     }
 
 }

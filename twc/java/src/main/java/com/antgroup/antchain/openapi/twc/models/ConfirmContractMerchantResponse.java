@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.twc.models;
 
 import com.aliyun.tea.*;
 
-public class QueryContractMerchantResponse extends TeaModel {
+public class ConfirmContractMerchantResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -36,12 +36,12 @@ public class QueryContractMerchantResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
-    public static QueryContractMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryContractMerchantResponse self = new QueryContractMerchantResponse();
+    public static ConfirmContractMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
+        ConfirmContractMerchantResponse self = new ConfirmContractMerchantResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryContractMerchantResponse setReqMsgId(String reqMsgId) {
+    public ConfirmContractMerchantResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryContractMerchantResponse setResultCode(String resultCode) {
+    public ConfirmContractMerchantResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +57,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryContractMerchantResponse setResultMsg(String resultMsg) {
+    public ConfirmContractMerchantResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,7 +65,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryContractMerchantResponse setExtInfo(String extInfo) {
+    public ConfirmContractMerchantResponse setExtInfo(String extInfo) {
         this.extInfo = extInfo;
         return this;
     }
@@ -73,7 +73,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.extInfo;
     }
 
-    public QueryContractMerchantResponse setIpRoleId(java.util.List<String> ipRoleId) {
+    public ConfirmContractMerchantResponse setIpRoleId(java.util.List<String> ipRoleId) {
         this.ipRoleId = ipRoleId;
         return this;
     }
@@ -81,7 +81,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.ipRoleId;
     }
 
-    public QueryContractMerchantResponse setApplyId(String applyId) {
+    public ConfirmContractMerchantResponse setApplyId(String applyId) {
         this.applyId = applyId;
         return this;
     }
@@ -89,7 +89,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.applyId;
     }
 
-    public QueryContractMerchantResponse setMerchantName(String merchantName) {
+    public ConfirmContractMerchantResponse setMerchantName(String merchantName) {
         this.merchantName = merchantName;
         return this;
     }
@@ -97,7 +97,7 @@ public class QueryContractMerchantResponse extends TeaModel {
         return this.merchantName;
     }
 
-    public QueryContractMerchantResponse setStatus(String status) {
+    public ConfirmContractMerchantResponse setStatus(String status) {
         this.status = status;
         return this;
     }
