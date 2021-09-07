@@ -57,6 +57,8 @@ use AntChain\TWC\Models\CheckStatusRequest;
 use AntChain\TWC\Models\CheckStatusResponse;
 use AntChain\TWC\Models\CheckWitnessSignaccessRequest;
 use AntChain\TWC\Models\CheckWitnessSignaccessResponse;
+use AntChain\TWC\Models\ConfirmContractMerchantRequest;
+use AntChain\TWC\Models\ConfirmContractMerchantResponse;
 use AntChain\TWC\Models\ConfirmWitnessFlowRequest;
 use AntChain\TWC\Models\ConfirmWitnessFlowResponse;
 use AntChain\TWC\Models\CreateContractAccountRequest;
@@ -267,8 +269,6 @@ use AntChain\TWC\Models\QueryContractFlowsignerRequest;
 use AntChain\TWC\Models\QueryContractFlowsignerResponse;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantindirectzftResponse;
-use AntChain\TWC\Models\QueryContractMerchantRequest;
-use AntChain\TWC\Models\QueryContractMerchantResponse;
 use AntChain\TWC\Models\QueryContractMerchantzftRequest;
 use AntChain\TWC\Models\QueryContractMerchantzftResponse;
 use AntChain\TWC\Models\QueryContractNotaryRequest;
@@ -343,6 +343,16 @@ use AntChain\TWC\Models\StartContractFlowRequest;
 use AntChain\TWC\Models\StartContractFlowResponse;
 use AntChain\TWC\Models\StartContractHandsignRequest;
 use AntChain\TWC\Models\StartContractHandsignResponse;
+use AntChain\TWC\Models\SyncInnerNotaryRequest;
+use AntChain\TWC\Models\SyncInnerNotaryResponse;
+use AntChain\TWC\Models\SyncInnerProvisionRequest;
+use AntChain\TWC\Models\SyncInnerProvisionResponse;
+use AntChain\TWC\Models\SyncInnerTransRequest;
+use AntChain\TWC\Models\SyncInnerTransResponse;
+use AntChain\TWC\Models\SyncInnerTsrRequest;
+use AntChain\TWC\Models\SyncInnerTsrResponse;
+use AntChain\TWC\Models\SyncInnerTwcopenRequest;
+use AntChain\TWC\Models\SyncInnerTwcopenResponse;
 use AntChain\TWC\Models\UpdateContractOrganizationRequest;
 use AntChain\TWC\Models\UpdateContractOrganizationResponse;
 use AntChain\TWC\Models\UpdateContractPlatformRequest;
@@ -506,7 +516,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.19',
+                    'sdk_version'      => '1.5.26',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2933,36 +2943,201 @@ class Client
     }
 
     /**
-     * Description: 直付通商户入驻信息查询（成功则确认入驻）
-     * Summary: 直付通商户入驻信息查询新接口.
+     * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+     * Summary: 直付通商户入驻确认.
      *
-     * @param QueryContractMerchantRequest $request
+     * @param ConfirmContractMerchantRequest $request
      *
-     * @return QueryContractMerchantResponse
+     * @return ConfirmContractMerchantResponse
      */
-    public function queryContractMerchant($request)
+    public function confirmContractMerchant($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryContractMerchantEx($request, $headers, $runtime);
+        return $this->confirmContractMerchantEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 直付通商户入驻信息查询（成功则确认入驻）
-     * Summary: 直付通商户入驻信息查询新接口.
+     * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
+     * Summary: 直付通商户入驻确认.
      *
-     * @param QueryContractMerchantRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
+     * @param ConfirmContractMerchantRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
      *
-     * @return QueryContractMerchantResponse
+     * @return ConfirmContractMerchantResponse
      */
-    public function queryContractMerchantEx($request, $headers, $runtime)
+    public function confirmContractMerchantEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ConfirmContractMerchantResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+     * Summary: 向notarycore同步事务数据.
+     *
+     * @param SyncInnerTransRequest $request
+     *
+     * @return SyncInnerTransResponse
+     */
+    public function syncInnerTrans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
+     * Summary: 向notarycore同步事务数据.
+     *
+     * @param SyncInnerTransRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SyncInnerTransResponse
+     */
+    public function syncInnerTransEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerTransResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.trans.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步存证数据
+     * Summary: 向notarycore同步存证数据.
+     *
+     * @param SyncInnerNotaryRequest $request
+     *
+     * @return SyncInnerNotaryResponse
+     */
+    public function syncInnerNotary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerNotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步存证数据
+     * Summary: 向notarycore同步存证数据.
+     *
+     * @param SyncInnerNotaryRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SyncInnerNotaryResponse
+     */
+    public function syncInnerNotaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerNotaryResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.notary.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步自租户信息
+     * Summary: 向notarycore同步子租户数据.
+     *
+     * @param SyncInnerTwcopenRequest $request
+     *
+     * @return SyncInnerTwcopenResponse
+     */
+    public function syncInnerTwcopen($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerTwcopenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步自租户信息
+     * Summary: 向notarycore同步子租户数据.
+     *
+     * @param SyncInnerTwcopenRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SyncInnerTwcopenResponse
+     */
+    public function syncInnerTwcopenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerTwcopenResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步租户权限数据
+     * Summary: 向notarycore同步租户数据.
+     *
+     * @param SyncInnerProvisionRequest $request
+     *
+     * @return SyncInnerProvisionResponse
+     */
+    public function syncInnerProvision($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerProvisionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步租户权限数据
+     * Summary: 向notarycore同步租户数据.
+     *
+     * @param SyncInnerProvisionRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SyncInnerProvisionResponse
+     */
+    public function syncInnerProvisionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerProvisionResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.provision.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步tsr数据
+     * Summary: 向notarycore同步tsr数据.
+     *
+     * @param SyncInnerTsrRequest $request
+     *
+     * @return SyncInnerTsrResponse
+     */
+    public function syncInnerTsr($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerTsrEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 从baas-notary向notarycore同步tsr数据
+     * Summary: 向notarycore同步tsr数据.
+     *
+     * @param SyncInnerTsrRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return SyncInnerTsrResponse
+     */
+    public function syncInnerTsrEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerTsrResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3788,6 +3963,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateJusticeCasewritebackResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 升级融资租赁合约
+     * Summary: 升级融资租赁合约.
+     *
+     * @param UpdateLeaseContractRequest $request
+     *
+     * @return UpdateLeaseContractResponse
+     */
+    public function updateLeaseContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateLeaseContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 升级融资租赁合约
+     * Summary: 升级融资租赁合约.
+     *
+     * @param UpdateLeaseContractRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateLeaseContractResponse
+     */
+    public function updateLeaseContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateLeaseContractResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4811,39 +5019,6 @@ class Client
         Utils::validateModel($request);
 
         return CheckIndustryNotaryResponse::fromMap($this->doRequest('1.0', 'twc.notary.industry.notary.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 升级融资租赁合约
-     * Summary: 升级融资租赁合约.
-     *
-     * @param UpdateLeaseContractRequest $request
-     *
-     * @return UpdateLeaseContractResponse
-     */
-    public function updateLeaseContract($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->updateLeaseContractEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 升级融资租赁合约
-     * Summary: 升级融资租赁合约.
-     *
-     * @param UpdateLeaseContractRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return UpdateLeaseContractResponse
-     */
-    public function updateLeaseContractEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return UpdateLeaseContractResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

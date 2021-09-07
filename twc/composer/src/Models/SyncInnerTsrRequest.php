@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContractMerchantRequest extends Model
+class SyncInnerTsrRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,20 @@ class QueryContractMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 商户入驻查询订单id
+    // tsr的token信息
     /**
      * @var string
      */
-    public $orderId;
-
-    // 代理商户账户ID，此参数不填默认平台机构账户入驻
-    /**
-     * @var string
-     */
-    public $agentAccountId;
+    public $token;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'agentAccountId'    => 'agent_account_id',
+        'token'             => 'token',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('token', $this->token, true);
     }
 
     public function toMap()
@@ -51,11 +44,8 @@ class QueryContractMerchantRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
+        if (null !== $this->token) {
+            $res['token'] = $this->token;
         }
 
         return $res;
@@ -64,7 +54,7 @@ class QueryContractMerchantRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryContractMerchantRequest
+     * @return SyncInnerTsrRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +65,8 @@ class QueryContractMerchantRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
+        if (isset($map['token'])) {
+            $model->token = $map['token'];
         }
 
         return $model;

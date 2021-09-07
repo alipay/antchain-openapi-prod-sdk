@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContractMerchantResponse extends Model
+class ConfirmContractMerchantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -104,7 +104,7 @@ class QueryContractMerchantResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryContractMerchantResponse
+     * @return ConfirmContractMerchantResponse
      */
     public static function fromMap($map = [])
     {

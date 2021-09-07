@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseBizRequest extends Model
+class ConfirmContractMerchantRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,27 @@ class CreateLeaseBizRequest extends Model
      */
     public $productInstanceId;
 
-    // 租赁订单相关内容，以json形式发送
+    // 商户入驻查询订单id
     /**
      * @var string
      */
-    public $bizContent;
+    public $orderId;
 
-    // 租赁订单所属阶段
+    // 代理商户账户ID，此参数不填默认平台机构账户入驻
     /**
      * @var string
      */
-    public $type;
-
-    // 租赁订单操作类型
-    /**
-     * @var string
-     */
-    public $operationType;
+    public $agentAccountId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizContent'        => 'biz_content',
-        'type'              => 'type',
-        'operationType'     => 'operation_type',
+        'orderId'           => 'order_id',
+        'agentAccountId'    => 'agent_account_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizContent', $this->bizContent, true);
-        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -59,14 +51,11 @@ class CreateLeaseBizRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-        if (null !== $this->operationType) {
-            $res['operation_type'] = $this->operationType;
+        if (null !== $this->agentAccountId) {
+            $res['agent_account_id'] = $this->agentAccountId;
         }
 
         return $res;
@@ -75,7 +64,7 @@ class CreateLeaseBizRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateLeaseBizRequest
+     * @return ConfirmContractMerchantRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +75,11 @@ class CreateLeaseBizRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-        if (isset($map['operation_type'])) {
-            $model->operationType = $map['operation_type'];
+        if (isset($map['agent_account_id'])) {
+            $model->agentAccountId = $map['agent_account_id'];
         }
 
         return $model;
