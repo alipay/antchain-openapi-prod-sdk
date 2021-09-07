@@ -1,0 +1,951 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.3',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 区块链信息
+model BlockchainInfoDTO {
+  // 交易hash
+  txHash: string(name='tx_hash', example='WER09877EEE'),
+  // 交易时间戳
+  txTime: long(name='tx_time', example='1230987766'),
+}
+
+// 商品信息
+model GoodsDTO {
+  // 商品id
+  goodsId: string(name='goods_id', example='123098'),
+  // 商品模板id
+  templateId: string(name='template_id', example='123098'),
+  // 商品内容
+  content: string(name='content', example='{"品牌":"泡泡玛特","货号":"YUIU781","潮玩价格":"¥1286","限量":"95/100","尺寸":"80*69*200 mm","材质":"PVC","专属潮玩码":"TUEYENQKYIU2378H4"}'),
+  // 二维码地址
+  qrCode: string(name='qr_code', example='alipays://platformapi/startapp?xxx'),
+  // 区块链信息
+  blockchainInfo: BlockchainInfoDTO(name='blockchain_info', example=''),
+}
+
+// 溯源信息
+model TraceInfoDTO {
+  // 操作描述
+  operateTypeDesc: string(name='operate_type_desc', example='销毁'),
+  // 操作时间，时间戳
+  operateTime: long(name='operate_time', example='123098733'),
+  // 操作人id
+  operatorId: string(name='operator_id', example='123098'),
+  // 操作人名称
+  operatorName: string(name='operator_name', example='张三'),
+  // 操作内容
+  content: string(name='content', example='销毁xxx酒'),
+}
+
+// 商品模板
+model GoodsTemplateDTO {
+  // 模板id
+  templateId: string(name='template_id', example='123098'),
+  // 商品名称
+  name: string(name='name', example='酒证'),
+  // 商品模板描述
+  content: string(name='content', example='[{"type":"TXT","name":"公司名称"},{"type":"TXT","name":"所属地址"},{"type":"TXT","name":"法人"}] '),
+}
+
+model CreateLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 酒证:WINE_ASSET,茶证:TEA_ASSET,艺术物证:ARTISTIC_ASSET
+  sceneType: string(name='scene_type'),
+  // 联盟名称
+  leagueName: string(name='league_name'),
+  // 黄酒集市
+  sceneDesc?: string(name='scene_desc'),
+}
+
+model CreateLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟id
+  leagueId?: string(name='league_id'),
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createLeague(request: CreateLeagueRequest): CreateLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createLeagueEx(request: CreateLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.league.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelLeagueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+}
+
+model CancelLeagueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 注销联盟
+ * Summary: 注销联盟
+ */
+async function cancelLeague(request: CancelLeagueRequest): CancelLeagueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelLeagueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注销联盟
+ * Summary: 注销联盟
+ */
+async function cancelLeagueEx(request: CancelLeagueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelLeagueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.league.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户昵称
+  userName: string(name='user_name'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+  // 真实姓名
+  certName?: string(name='cert_name'),
+  // 身份证号
+  certNo?: string(name='cert_no'),
+  // 手机号
+  phone?: string(name='phone'),
+  // 邮箱
+  email?: string(name='email'),
+}
+
+model CreateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户id
+  userId?: string(name='user_id'),
+}
+
+/**
+ * Description: 创建用户
+ * Summary: 创建用户
+ */
+async function createUser(request: CreateUserRequest): CreateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建用户
+ * Summary: 创建用户
+ */
+async function createUserEx(request: CreateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 用户昵称
+  userName?: string(name='user_name'),
+  // 真实姓名
+  certName?: string(name='cert_name'),
+  // 身份证号
+  certNo?: string(name='cert_no'),
+  // 手机号
+  phone?: string(name='phone'),
+  // 邮箱
+  email?: string(name='email'),
+}
+
+model UpdateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新用户
+ * Summary: 更新用户
+ */
+async function updateUser(request: UpdateUserRequest): UpdateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新用户
+ * Summary: 更新用户
+ */
+async function updateUserEx(request: UpdateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 支付宝：ALIPAY
+  platform: string(name='platform'),
+  // 开放平台用户id
+  openId: string(name='open_id'),
+}
+
+model BindUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 渠道用户绑定
+ * Summary: 渠道用户绑定
+ */
+async function bindUser(request: BindUserRequest): BindUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道用户绑定
+ * Summary: 渠道用户绑定
+ */
+async function bindUserEx(request: BindUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.user.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 支付宝：ALIPAY
+  platform: string(name='platform'),
+}
+
+model UnbindUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 渠道用户解绑
+ * Summary: 渠道用户解绑
+ */
+async function unbindUser(request: UnbindUserRequest): UnbindUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道用户解绑
+ * Summary: 渠道用户解绑
+ */
+async function unbindUserEx(request: UnbindUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.user.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateGoodstemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品名称
+  name: string(name='name'),
+  // 商品定义描述，格式如示例
+  content: string(name='content'),
+  // 联盟id
+  leagueId: string(name='league_id'),
+}
+
+model CreateGoodstemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板id
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 链上商品模版定义
+ * Summary: 链上商品模版定义
+ */
+async function createGoodstemplate(request: CreateGoodstemplateRequest): CreateGoodstemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createGoodstemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品模版定义
+ * Summary: 链上商品模版定义
+ */
+async function createGoodstemplateEx(request: CreateGoodstemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateGoodstemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goodstemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateGoodstemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板id
+  templateId: string(name='template_id'),
+  // 商品定义描述，格式如示例
+  content: string(name='content'),
+}
+
+model UpdateGoodstemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 链上商品模版更新
+ * Summary: 链上商品模版更新
+ */
+async function updateGoodstemplate(request: UpdateGoodstemplateRequest): UpdateGoodstemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateGoodstemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品模版更新
+ * Summary: 链上商品模版更新
+ */
+async function updateGoodstemplateEx(request: UpdateGoodstemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateGoodstemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goodstemplate.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelGoodstemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板id
+  templateId: string(name='template_id'),
+}
+
+model CancelGoodstemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 链上商品模版注销
+ * Summary: 链上商品模版注销
+ */
+async function cancelGoodstemplate(request: CancelGoodstemplateRequest): CancelGoodstemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelGoodstemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品模版注销
+ * Summary: 链上商品模版注销
+ */
+async function cancelGoodstemplateEx(request: CancelGoodstemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelGoodstemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goodstemplate.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGoodstemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品模板id，如果传入这个字段，返回的列表只有一条数据
+  templateId?: string(name='template_id'),
+  // 当前页数
+  currentPage?: long(name='current_page'),
+  // 每页大小，最大为20
+  pageSize?: long(maximum=20, minimum=1, name='page_size'),
+}
+
+model QueryGoodstemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品模板列表
+  goodstemplateList?: [ GoodsTemplateDTO ](name='goodstemplate_list'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 当前页数
+  currentPage?: long(name='current_page'),
+}
+
+/**
+ * Description: 链上商品模版查询
+ * Summary: 链上商品模版查询
+ */
+async function queryGoodstemplate(request: QueryGoodstemplateRequest): QueryGoodstemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGoodstemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品模版查询
+ * Summary: 链上商品模版查询
+ */
+async function queryGoodstemplateEx(request: QueryGoodstemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGoodstemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goodstemplate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品模板id
+  templateId: string(name='template_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 商品信息
+  content: string(name='content'),
+}
+
+model CreateGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品id
+  goodsId?: string(name='goods_id'),
+}
+
+/**
+ * Description: 链上商品发行
+ * Summary: 链上商品发行
+ */
+async function createGoods(request: CreateGoodsRequest): CreateGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品发行
+ * Summary: 链上商品发行
+ */
+async function createGoodsEx(request: CreateGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  goodsId: string(name='goods_id'),
+  // 商品详情
+  content: string(name='content'),
+}
+
+model UpdateGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链交易信息
+  blockchainInfo?: BlockchainInfoDTO(name='blockchain_info'),
+}
+
+/**
+ * Description: 链上商品更新
+ * Summary: 链上商品更新
+ */
+async function updateGoods(request: UpdateGoodsRequest): UpdateGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品更新
+ * Summary: 链上商品更新
+ */
+async function updateGoodsEx(request: UpdateGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  goodsId: string(name='goods_id'),
+  // 接收人用户id
+  transfereeId: string(name='transferee_id'),
+  // 转让金额，单位分
+  amount?: long(name='amount'),
+}
+
+model SendGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链交易信息
+  blockchainInfo?: BlockchainInfoDTO(name='blockchain_info'),
+}
+
+/**
+ * Description: 链上商品转增
+ * Summary: 链上商品转增
+ */
+async function sendGoods(request: SendGoodsRequest): SendGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品转增
+ * Summary: 链上商品转增
+ */
+async function sendGoodsEx(request: SendGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  goodsId: string(name='goods_id'),
+  // 溯源信息枚举：ASSET_ONLY，只返回物权信息；LIST_ROAM_TRACE，转让溯源信息；LIST_TRACE，所有溯源信息；ASSET_ALL，返回以上所有信息（默认）
+  traceType?: string(name='trace_type'),
+  // 当前页（默认为1）
+  currentPage?: long(name='current_page'),
+  // 页大小（默认为10）
+  pageSize?: long(name='page_size'),
+}
+
+model QueryGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品信息
+  goods?: GoodsDTO(name='goods'),
+  // 溯源信息列表
+  traceInfoList?: [ TraceInfoDTO ](name='trace_info_list'),
+  // 流转信息列表
+  roamTraceList?: [ TraceInfoDTO ](name='roam_trace_list'),
+}
+
+/**
+ * Description: 链上商品详情查询
+ * Summary: 链上商品详情查询
+ */
+async function queryGoods(request: QueryGoodsRequest): QueryGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品详情查询
+ * Summary: 链上商品详情查询
+ */
+async function queryGoodsEx(request: QueryGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 当前页
+  currentPage: long(name='current_page'),
+  // 每页大小，最大20
+  pageSize: long(maximum=20, minimum=1, name='page_size'),
+  // 数据范围类型：ALL_ASSET，所有物证；EFFECTIVE_ASSET，已生效物证；INVALID_ASSET，已失效物证。
+  type: string(name='type'),
+}
+
+model PagequeryGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 商品列表
+  goodsList?: [ GoodsDTO ](name='goods_list'),
+}
+
+/**
+ * Description: 链上商品列表查询
+ * Summary: 链上商品列表查询
+ */
+async function pagequeryGoods(request: PagequeryGoodsRequest): PagequeryGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上商品列表查询
+ * Summary: 链上商品列表查询
+ */
+async function pagequeryGoodsEx(request: PagequeryGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateGoodsOperateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  goodsId: string(name='goods_id'),
+  // 操作内容
+  content: string(name='content'),
+}
+
+model CreateGoodsOperateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 自定义链上商品操作节点
+ * Summary: 自定义链上商品操作节点
+ */
+async function createGoodsOperate(request: CreateGoodsOperateRequest): CreateGoodsOperateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createGoodsOperateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自定义链上商品操作节点
+ * Summary: 自定义链上商品操作节点
+ */
+async function createGoodsOperateEx(request: CreateGoodsOperateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateGoodsOperateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.operate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品核销
+  goodsId: string(name='goods_id'),
+}
+
+model CancelGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商品交收核销
+ * Summary: 商品交收核销
+ */
+async function cancelGoods(request: CancelGoodsRequest): CancelGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品交收核销
+ * Summary: 商品交收核销
+ */
+async function cancelGoodsEx(request: CancelGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DisableGoodsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商品id
+  goodsId: string(name='goods_id'),
+  // 异常状态描述
+  statusDesc: string(name='status_desc'),
+}
+
+model DisableGoodsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商品异常处置
+ * Summary: 商品异常处置
+ */
+async function disableGoods(request: DisableGoodsRequest): DisableGoodsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return disableGoodsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品异常处置
+ * Summary: 商品异常处置
+ */
+async function disableGoodsEx(request: DisableGoodsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DisableGoodsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.goodschain.goods.disable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
